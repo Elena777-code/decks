@@ -9,12 +9,12 @@
     --bg:#faf7f2; --card:#ffffff; --ink:#2d2a26; --sub:#7a746c;
     --kb:#d9483b; --kb-bg:#fdeeec; --ww:#0f7d78; --ww-bg:#e8f5f4;
     --gg:#3e8e2f; --gg-bg:#edf6ea; --pv:#6d5bb8; --pv-bg:#f1eefa;
-    --bank:#b07a1f; --bank-bg:#fbf3e2; --line:#eae4da;
+    --bank:#b07a1f; --bank-bg:#fbf3e2; --gram:#ad3a68; --gram-bg:#faecf2; --line:#eae4da;
   }
   @media (prefers-color-scheme: dark){
     :root{ --bg:#211f1c; --card:#2b2825; --ink:#f0ece5; --sub:#a49c91;
       --kb-bg:#3a2622; --ww-bg:#1d3231; --gg-bg:#243320; --pv-bg:#2c2840;
-      --bank-bg:#362c17; --line:#3a3630; }
+      --bank-bg:#362c17; --gram-bg:#3a2030; --line:#3a3630; }
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
   body{margin:0; background:var(--bg); color:var(--ink);
@@ -40,6 +40,7 @@
   .gg .code{color:var(--gg)} .gg{background:var(--gg-bg); border-color:transparent}
   .pv .code{color:var(--pv)} .pv{background:var(--pv-bg); border-color:transparent}
   .bank .code{color:var(--bank)} .bank{background:var(--bank-bg); border-color:transparent}
+  .gram .code{color:var(--gram)} .gram{background:var(--gram-bg); border-color:transparent}
   .pupil{background:var(--card); border:1.5px solid var(--line); border-radius:18px;
     padding:16px 18px; margin-bottom:14px}
   .pupil h3{margin:0 0 10px; font-size:18px}
@@ -130,11 +131,16 @@
 
 </div>
 
-<h2><span class="dot" style="background:var(--bank)"></span>Bank</h2>
-<p class="sect-sub">shared pages any lesson can use</p>
+<h2><span class="dot" style="background:var(--bank)"></span>Games</h2>
+<p class="sect-sub">ready games any lesson can use</p>
 <div class="chips">
   <a class="chip bank" href="lib/silly-game.html"><span class="code">The silly game</span><span class="what">three ready games · re-click = fresh order</span></a>
-  <a class="chip bank" href="lib/verb-s-spelling.html"><span class="code">Verb + s</span><span class="what">spelling rules · памятка</span></a>
+</div>
+
+<h2><span class="dot" style="background:var(--gram)"></span>Grammar</h2>
+<p class="sect-sub">памятки and reminders</p>
+<div class="chips">
+  <a class="chip gram" href="lib/verb-s-spelling.html"><span class="code">Verb + s</span><span class="what">spelling rules · памятка</span></a>
 </div>
 
 <footer>updated 2026-09-10 · new decks appear here the day they are built</footer>
