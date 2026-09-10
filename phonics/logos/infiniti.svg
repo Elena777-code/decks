@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="96" viewBox="0 0 160 96" role="img" aria-label="Infinity emblem">
+  <ellipse cx="80" cy="48" rx="70" ry="38" fill="#F4F6F8" stroke="#5A6068" stroke-width="6"/>
+  <path d="M34 74 L74 48" stroke="#5A6068" stroke-width="6" stroke-linecap="round"/>
+  <path d="M126 74 L86 48" stroke="#5A6068" stroke-width="6" stroke-linecap="round"/>
+  <path d="M52 48 H108" stroke="#5A6068" stroke-width="6" stroke-linecap="round"/>
+</svg>

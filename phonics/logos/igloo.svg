@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="96" viewBox="0 0 128 96" role="img" aria-label="Igloo">
+  <path d="M14 78 A50 50 0 0 1 114 78 Z" fill="#EAF6FF" stroke="#221B30" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M20 56 A45.5 45.5 0 0 1 108 56" fill="none" stroke="#8FC7E8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M27 40 A40 40 0 0 1 101 40" fill="none" stroke="#8FC7E8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M38 27 A32 32 0 0 1 90 27" fill="none" stroke="#8FC7E8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M32 78 V62" stroke="#8FC7E8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M96 78 V62" stroke="#8FC7E8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M44 56 V42" stroke="#8FC7E8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M64 56 V40" stroke="#8FC7E8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M84 56 V42" stroke="#8FC7E8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M54 40 V29" stroke="#8FC7E8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M74 40 V29" stroke="#8FC7E8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M50 78 V64 a14 14 0 0 1 28 0 V78" fill="#7FB7D9" stroke="#221B30" stroke-width="4" stroke-linejoin="round"/>
+</svg>

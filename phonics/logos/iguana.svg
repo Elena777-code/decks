@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="360" viewBox="0 0 520 360">
+  <!-- tail: tapering, ringed, tip curling down-right -->
+  <path d="M330,152 C390,148 445,175 468,220 C474,232 480,242 492,248 C498,251 500,258 494,262 C470,268 440,262 415,235 C395,215 365,205 332,210 Z"
+        fill="#5BAE4A" stroke="#221B30" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M366,150 q8,30 -2,60" stroke="#3F8A34" stroke-width="13" fill="none" stroke-linecap="round"/>
+  <path d="M398,158 q12,28 4,56" stroke="#3F8A34" stroke-width="13" fill="none" stroke-linecap="round"/>
+  <path d="M428,178 q14,26 10,50" stroke="#3F8A34" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M454,206 q12,22 12,42" stroke="#3F8A34" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <!-- legs (behind body) -->
+  <path d="M168,232 C156,258 152,278 156,296 L188,298 C178,278 180,256 192,238 Z"
+        fill="#4E9B44" stroke="#221B30" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M298,236 C288,262 286,284 292,302 L330,302 C320,282 320,258 330,240 Z"
+        fill="#4E9B44" stroke="#221B30" stroke-width="6" stroke-linejoin="round"/>
+  <circle cx="160" cy="298" r="8" fill="#5BAE4A" stroke="#221B30" stroke-width="5"/>
+  <circle cx="176" cy="302" r="8" fill="#5BAE4A" stroke="#221B30" stroke-width="5"/>
+  <circle cx="296" cy="304" r="8" fill="#5BAE4A" stroke="#221B30" stroke-width="5"/>
+  <circle cx="314" cy="306" r="8" fill="#5BAE4A" stroke="#221B30" stroke-width="5"/>
+  <!-- dorsal crest (the iguana signature) -->
+  <path d="M180,92 L192,62 L208,88 Z" fill="#3F8A34" stroke="#221B30" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M210,86 L224,54 L242,82 Z" fill="#3F8A34" stroke="#221B30" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M244,82 L258,52 L276,80 Z" fill="#3F8A34" stroke="#221B30" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M278,80 L292,56 L308,84 Z" fill="#3F8A34" stroke="#221B30" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M310,86 L322,64 L336,96 Z" fill="#3F8A34" stroke="#221B30" stroke-width="5" stroke-linejoin="round"/>
+  <!-- body + head, facing left -->
+  <path d="M58,168 C58,148 78,132 104,128 C112,104 140,92 170,96 C200,70 260,62 305,84 C340,100 352,130 348,160 C346,196 330,228 300,242 C260,258 210,252 180,240 C150,228 120,210 100,196 C80,186 58,182 58,168 Z"
+        fill="#5BAE4A" stroke="#221B30" stroke-width="6" stroke-linejoin="round"/>
+  <!-- belly -->
+  <path d="M112,198 C152,226 222,246 292,238 C312,232 324,222 330,206 C300,240 220,252 162,234 C138,226 120,212 112,198 Z"
+        fill="#C8E6A0" opacity=".95"/>
+  <!-- flank stripes -->
+  <path d="M240,102 C250,142 250,182 238,216" stroke="#4E9B44" stroke-width="12" fill="none" stroke-linecap="round" opacity=".9"/>
+  <path d="M272,96 C284,138 284,180 272,218" stroke="#4E9B44" stroke-width="12" fill="none" stroke-linecap="round" opacity=".9"/>
+  <path d="M302,102 C314,142 314,182 304,214" stroke="#4E9B44" stroke-width="11" fill="none" stroke-linecap="round" opacity=".9"/>
+  <!-- dewlap under the jaw -->
+  <path d="M96,196 C90,224 100,248 122,252 C118,260 96,258 84,242 C76,226 78,208 86,196 Z"
+        fill="#4E9B44" stroke="#221B30" stroke-width="5" stroke-linejoin="round"/>
+  <!-- face -->
+  <path d="M60,174 C90,188 120,192 142,188" stroke="#221B30" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <circle cx="74" cy="154" r="3.5" fill="#221B30"/>
+  <circle cx="128" cy="140" r="14" fill="#fff" stroke="#221B30" stroke-width="5"/>
+  <circle cx="132" cy="142" r="6.5" fill="#221B30"/>
+  <circle cx="127" cy="136" r="2.6" fill="#fff"/>
+</svg>

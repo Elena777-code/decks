@@ -10,11 +10,13 @@
     --kb:#d9483b; --kb-bg:#fdeeec; --ww:#0f7d78; --ww-bg:#e8f5f4;
     --gg:#3e8e2f; --gg-bg:#edf6ea; --pv:#6d5bb8; --pv-bg:#f1eefa;
     --bank:#b07a1f; --bank-bg:#fbf3e2; --gram:#ad3a68; --gram-bg:#faecf2; --line:#eae4da;
+    --ex:#c2571f; --ex-bg:#fbeee4; --ph:#1f7fb8; --ph-bg:#e7f2fa;
   }
   @media (prefers-color-scheme: dark){
     :root{ --bg:#211f1c; --card:#2b2825; --ink:#f0ece5; --sub:#a49c91;
       --kb-bg:#3a2622; --ww-bg:#1d3231; --gg-bg:#243320; --pv-bg:#2c2840;
-      --bank-bg:#362c17; --gram-bg:#3a2030; --line:#3a3630; }
+      --bank-bg:#362c17; --gram-bg:#3a2030; --line:#3a3630;
+      --ex-bg:#3a2a1d; --ph-bg:#1c2f3d; }
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
   body{margin:0; background:var(--bg); color:var(--ink);
@@ -50,6 +52,8 @@
   .pv .code{color:var(--pv)} .pv{background:var(--pv-bg); border-color:transparent}
   .bank .code{color:var(--bank)} .bank{background:var(--bank-bg); border-color:transparent}
   .gram .code{color:var(--gram)} .gram{background:var(--gram-bg); border-color:transparent}
+  .ex .code{color:var(--ex)} .ex{background:var(--ex-bg); border-color:transparent}
+  .ph .code{color:var(--ph)} .ph{background:var(--ph-bg); border-color:transparent}
   .pupil{background:var(--card); border:1.5px solid var(--line); border-radius:18px;
     padding:14px 18px; margin-bottom:14px}
   .pupil summary{list-style:none; display:flex; align-items:center; gap:10px;
@@ -171,6 +175,22 @@
   <p class="sect-sub">памятки and reminders</p>
   <div class="chips">
     <a class="chip gram" href="lib/verb-s-spelling.html"><span class="code">Verb + s</span><span class="what">spelling rules · памятка</span></a>
+  </div>
+</details>
+
+<details class="sect">
+  <summary><span class="dot" style="background:var(--ex)"></span><span>Extra activities</span><span class="meta">1 deck</span><span class="arrow">▸</span></summary>
+  <p class="sect-sub">for the rest of the class while Elena reads with one child</p>
+  <div class="chips">
+    <a class="chip ex" href="extra-activities/draw-bus.html"><span class="code">Draw &amp; stick</span><span class="what">bus · ball · doll · puzzle · box — draw, colour, stick the word</span></a>
+  </div>
+</details>
+
+<details class="sect">
+  <summary><span class="dot" style="background:var(--ph)"></span><span>Phonics</span><span class="meta">the letter n</span><span class="arrow">▸</span></summary>
+  <p class="sect-sub">brand phonics — letters through logos the children know</p>
+  <div class="chips">
+    <a class="chip ph" href="phonics/brand-phonics-n.html"><span class="code">n</span><span class="what">the letter n · Nesquik, Nike, Nutella…</span></a>
   </div>
 </details>
 

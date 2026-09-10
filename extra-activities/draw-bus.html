@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>draw &amp; stick — bus, ball, doll, puzzle &amp; box (the smartboard deck for children)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;500;600;800&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   DRAW & STICK — five KB1 words (Elena's reading station,
+   2026-09-10): bus · ball · doll · puzzle · box. While Elena
+   reads with one child at a time, the smartboard shows the rest
+   the simplest way to draw each word they learnt — then they cut
+   the printed word and stick it NEXT TO their drawing (Elena's
+   change, 2026-09-10 — it used to be "under"). The last slide is
+   the model of the finished notebook page: all five pictures one
+   under another, the words on the right. Pencil strokes draw
+   themselves on every step; colour comes at the end, like a real
+   pencil drawing. GRAFFITI design, the family engine (nav
+   bottom-right, chime, #n). Silent by design.
+   ============================================================ */
+:root{
+  --cyan:#2BD9E8; --pink:#F03CB0; --orange:#FF7A29; --yellow:#FFC93C; --lime:#A8E82A;
+  --ink-dark:#221B30; --ink-dark-soft:rgba(34,27,48,.68); --marker-ink:#B45309;
+  --radius:18px;
+  --grad:linear-gradient(90deg,var(--cyan),var(--pink) 45%,var(--orange) 75%,var(--yellow));
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:#fff;overflow:hidden;background:#1a1420}
+body::before{content:'';position:fixed;inset:0;z-index:-2;
+  background:url("../media/Graffiti.jpeg") center/cover no-repeat;filter:saturate(1.12)}
+body::after{content:'';position:fixed;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(18,12,26,.46),rgba(18,12,26,.30) 42%,rgba(18,12,26,.55))}
+#progress{position:fixed;top:0;left:0;width:100%;height:5px;background:rgba(255,255,255,.18);z-index:100}
+#progress-fill{height:100%;width:0;background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(20,14,28,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.22);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:rgba(255,255,255,.85)}
+#nav button{border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;
+  width:2.3em;height:2.3em;border-radius:50%;font-size:1.05em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease,border-color .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.1);border-color:var(--cyan)}
+#nav button:disabled{opacity:.3;cursor:default}
+.slide{position:absolute;inset:0;padding:5.5vh 5vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.8vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Permanent Marker',cursive;color:var(--yellow);
+  font-size:clamp(1.05rem,1.7vw,1.35rem);transform:rotate(-1.2deg);
+  text-shadow:0 2px 12px rgba(10,6,20,.6);align-self:flex-start}
+/* step slides: label left, drawing right — content spreads horizontally */
+.step-row{display:flex;align-items:center;gap:clamp(16px,2.5vw,48px);flex:1;min-height:0}
+.step-info{flex:none;display:flex;flex-direction:column;gap:2.2vh;align-items:flex-start;max-width:26vw}
+.stepchip{font-family:'Permanent Marker',cursive;font-size:clamp(2.6rem,6vw,5rem);line-height:1;
+  color:var(--ink-dark);background:var(--yellow);border-radius:24px;
+  padding:.18em .45em;transform:rotate(-2deg);box-shadow:0 10px 26px rgba(10,6,20,.35)}
+.lbl{font-family:'Permanent Marker',cursive;font-size:clamp(1.3rem,2.4vw,2rem);line-height:1.25;
+  color:var(--ink-dark);background:var(--yellow);border-radius:var(--radius);
+  padding:.35em .6em;transform:rotate(-1.2deg);box-shadow:0 8px 22px rgba(10,6,20,.3)}
+.buscard{flex:1;min-width:0;align-self:stretch;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,250,242,.92);border:3px solid rgba(255,255,255,.95);border-radius:28px;
+  box-shadow:0 18px 44px rgba(10,6,20,.4);padding:1.5vh 1.5vw}
+.buscard svg{width:100%;height:100%;max-height:calc(100vh - 20vh)}
+/* word-intro slides: the word + the finished picture */
+.duo{display:flex;align-items:stretch;gap:clamp(16px,2.5vw,48px);flex:1;min-height:0}
+.duo.center{justify-content:center}
+.wordcard{flex:none;display:flex;align-items:center;justify-content:center;
+  background:rgba(255,250,242,.92);border:3px solid rgba(255,255,255,.95);border-radius:28px;
+  box-shadow:0 18px 44px rgba(10,6,20,.4);padding:2vh 3vw}
+.bigword{font-family:'Fredoka','Chalkboard SE',system-ui,sans-serif;font-weight:700;
+  font-size:clamp(4rem,11vw,10rem);color:var(--ink-dark);line-height:1;transform:rotate(-1.5deg)}
+/* cut & stick slides */
+.pagecard{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2vh;
+  background:#fdfcf8;border:3px solid rgba(255,255,255,.95);border-radius:22px;
+  box-shadow:0 18px 44px rgba(10,6,20,.4);padding:2vh 2vw;max-width:44vw}
+.pagecard svg{width:min(72%,340px);height:auto}
+.wordchip{position:relative;font-family:'Fredoka',system-ui,sans-serif;font-weight:700;
+  font-size:clamp(2rem,4.5vw,3.6rem);color:var(--ink-dark);line-height:1;
+  border:3px dashed rgba(34,27,48,.45);border-radius:14px;padding:.28em .6em;
+  background:#fff;transform:rotate(-1deg)}
+.wordchip .sc{position:absolute;top:-.75em;right:-.5em;font-size:.72em;transform:rotate(-14deg)}
+.steps-col{flex:1;display:flex;flex-direction:column;gap:2.4vh;align-items:flex-start;justify-content:center}
+.arr{font-family:'Permanent Marker',cursive;font-size:clamp(1.6rem,3vw,2.6rem);color:var(--yellow);
+  margin-left:1.2em;text-shadow:0 2px 12px rgba(10,6,20,.6)}
+/* final page: the model notebook page — five pictures one under
+   another, the words on the right (Elena, 2026-09-10) */
+.modelfull{flex:none;width:min(46vw,640px);display:flex;flex-direction:column;gap:.8vh;
+  background:#fdfcf8;border:3px solid rgba(255,255,255,.95);border-radius:22px;
+  box-shadow:0 18px 44px rgba(10,6,20,.4);padding:1.8vh 2vw}
+.mrow{flex:1;min-height:0;display:flex;align-items:center;gap:2vw}
+.mpic{flex:none;width:11vw;height:100%;display:flex;align-items:center;justify-content:center}
+.mpic svg{height:100%;width:auto;max-width:100%}
+.mword{font-family:'Fredoka',system-ui,sans-serif;font-weight:700;color:var(--ink-dark);
+  font-size:clamp(1.8rem,3.6vw,3rem);line-height:1;transform:rotate(-1.2deg)}
+/* the drawing itself — fills live in --f (CSS wins over attributes,
+   so the fill colour must BE css) */
+.bus-svg .shp{stroke:#221B30;stroke-width:9;stroke-linecap:round;stroke-linejoin:round;
+  fill:var(--f,none);fill-opacity:0}
+.bus-svg .shp.flat{stroke-width:7}
+.bus-svg .shp.nostroke{stroke:none}
+.bus-svg .shp.roadline{stroke:#8B8578;stroke-width:8}
+.bus-svg .fresh{stroke-dasharray:1;stroke-dashoffset:1}
+.bus-svg.go .fresh{stroke-dashoffset:0;
+  transition:stroke-dashoffset 1s cubic-bezier(.45,.05,.55,.95);transition-delay:var(--d,0s)}
+.bus-svg.colored .shp{fill-opacity:1;transition:fill-opacity .8s ease 1s}
+.bus-svg.colored.instant .shp{transition:none}
+</style>
+</head>
+<body>
+
+<div id="progress"><div id="progress-fill"></div></div>
+
+<!-- ═══════════ BUS (the sample word) ═══════════ -->
+
+<!-- 1 · bus! the word + the finished bus -->
+<section class="slide">
+  <div class="eyebrow reveal">draw &amp; stick!</div>
+  <div class="duo reveal">
+    <div class="wordcard"><span class="bigword">bus</span></div>
+    <div class="buscard" data-draw="bus" data-full></div>
+  </div>
+</section>
+
+<!-- 2 · step 1 — the body -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">1</span>
+      <span class="lbl">a big rectangle</span>
+    </div>
+    <div class="buscard" data-draw="bus" data-step="0"></div>
+  </div>
+</section>
+
+<!-- 3 · step 2 — the wheels -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">2</span>
+      <span class="lbl">two circles</span>
+    </div>
+    <div class="buscard" data-draw="bus" data-step="1"></div>
+  </div>
+</section>
+
+<!-- 4 · step 3 — the windows -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">3</span>
+      <span class="lbl">three windows</span>
+    </div>
+    <div class="buscard" data-draw="bus" data-step="2"></div>
+  </div>
+</section>
+
+<!-- 5 · step 4 — the door + the light -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">4</span>
+      <span class="lbl">the door + the light</span>
+    </div>
+    <div class="buscard" data-draw="bus" data-step="3"></div>
+  </div>
+</section>
+
+<!-- 6 · colour it! -->
+<section class="slide">
+  <div class="eyebrow reveal">and now…</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">5</span>
+      <span class="lbl">colour it! 🚌</span>
+    </div>
+    <div class="buscard" data-draw="bus" data-color></div>
+  </div>
+</section>
+
+<!-- 7 · cut & stick -->
+<section class="slide">
+  <div class="eyebrow reveal">now — cut &amp; stick!</div>
+  <div class="duo reveal">
+    <div class="pagecard">
+      <div data-draw="bus" data-full></div>
+      <div class="wordchip">bus<span class="sc">✂️</span></div>
+    </div>
+    <div class="steps-col">
+      <span class="lbl">✂️ cut the word</span>
+      <span class="arr">↓</span>
+      <span class="lbl">📖 stick it next to your bus</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ BALL ═══════════ -->
+
+<!-- 8 · ball! the word + the finished ball -->
+<section class="slide">
+  <div class="eyebrow reveal">draw &amp; stick!</div>
+  <div class="duo reveal">
+    <div class="wordcard"><span class="bigword">ball</span></div>
+    <div class="buscard" data-draw="ball" data-full></div>
+  </div>
+</section>
+
+<!-- 9 · step 1 — the circle -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">1</span>
+      <span class="lbl">a big circle</span>
+    </div>
+    <div class="buscard" data-draw="ball" data-step="0"></div>
+  </div>
+</section>
+
+<!-- 10 · step 2 — the stripes -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">2</span>
+      <span class="lbl">two stripes</span>
+    </div>
+    <div class="buscard" data-draw="ball" data-step="1"></div>
+  </div>
+</section>
+
+<!-- 11 · step 3 — the ground -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">3</span>
+      <span class="lbl">the ground</span>
+    </div>
+    <div class="buscard" data-draw="ball" data-step="2"></div>
+  </div>
+</section>
+
+<!-- 12 · colour it! -->
+<section class="slide">
+  <div class="eyebrow reveal">and now…</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">4</span>
+      <span class="lbl">colour it! ⚽</span>
+    </div>
+    <div class="buscard" data-draw="ball" data-color></div>
+  </div>
+</section>
+
+<!-- 13 · cut & stick -->
+<section class="slide">
+  <div class="eyebrow reveal">now — cut &amp; stick!</div>
+  <div class="duo reveal">
+    <div class="pagecard">
+      <div data-draw="ball" data-full></div>
+      <div class="wordchip">ball<span class="sc">✂️</span></div>
+    </div>
+    <div class="steps-col">
+      <span class="lbl">✂️ cut the word</span>
+      <span class="arr">↓</span>
+      <span class="lbl">📖 stick it next to your ball</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ DOLL ═══════════ -->
+
+<!-- 14 · doll! the word + the finished doll -->
+<section class="slide">
+  <div class="eyebrow reveal">draw &amp; stick!</div>
+  <div class="duo reveal">
+    <div class="wordcard"><span class="bigword">doll</span></div>
+    <div class="buscard" data-draw="doll" data-full></div>
+  </div>
+</section>
+
+<!-- 15 · step 1 — the head -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">1</span>
+      <span class="lbl">a circle</span>
+    </div>
+    <div class="buscard" data-draw="doll" data-step="0"></div>
+  </div>
+</section>
+
+<!-- 16 · step 2 — the dress -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">2</span>
+      <span class="lbl">a triangle</span>
+    </div>
+    <div class="buscard" data-draw="doll" data-step="1"></div>
+  </div>
+</section>
+
+<!-- 17 · step 3 — the arms + the legs -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">3</span>
+      <span class="lbl">arms + legs</span>
+    </div>
+    <div class="buscard" data-draw="doll" data-step="2"></div>
+  </div>
+</section>
+
+<!-- 18 · step 4 — the face + the pigtails -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">4</span>
+      <span class="lbl">the face + the pigtails</span>
+    </div>
+    <div class="buscard" data-draw="doll" data-step="3"></div>
+  </div>
+</section>
+
+<!-- 19 · colour it! -->
+<section class="slide">
+  <div class="eyebrow reveal">and now…</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">5</span>
+      <span class="lbl">colour it! 🪆</span>
+    </div>
+    <div class="buscard" data-draw="doll" data-color></div>
+  </div>
+</section>
+
+<!-- 20 · cut & stick -->
+<section class="slide">
+  <div class="eyebrow reveal">now — cut &amp; stick!</div>
+  <div class="duo reveal">
+    <div class="pagecard">
+      <div data-draw="doll" data-full></div>
+      <div class="wordchip">doll<span class="sc">✂️</span></div>
+    </div>
+    <div class="steps-col">
+      <span class="lbl">✂️ cut the word</span>
+      <span class="arr">↓</span>
+      <span class="lbl">📖 stick it next to your doll</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PUZZLE ═══════════ -->
+
+<!-- 21 · puzzle! the word + the finished piece -->
+<section class="slide">
+  <div class="eyebrow reveal">draw &amp; stick!</div>
+  <div class="duo reveal">
+    <div class="wordcard"><span class="bigword">puzzle</span></div>
+    <div class="buscard" data-draw="puzzle" data-full></div>
+  </div>
+</section>
+
+<!-- 22 · step 1 — the square -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">1</span>
+      <span class="lbl">a square</span>
+    </div>
+    <div class="buscard" data-draw="puzzle" data-step="0"></div>
+  </div>
+</section>
+
+<!-- 23 · step 2 — the knob on top -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">2</span>
+      <span class="lbl">a circle on top</span>
+    </div>
+    <div class="buscard" data-draw="puzzle" data-step="1"></div>
+  </div>
+</section>
+
+<!-- 24 · step 3 — the knob on the side -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">3</span>
+      <span class="lbl">a circle on the side</span>
+    </div>
+    <div class="buscard" data-draw="puzzle" data-step="2"></div>
+  </div>
+</section>
+
+<!-- 25 · colour it! -->
+<section class="slide">
+  <div class="eyebrow reveal">and now…</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">4</span>
+      <span class="lbl">colour it! 🧩</span>
+    </div>
+    <div class="buscard" data-draw="puzzle" data-color></div>
+  </div>
+</section>
+
+<!-- 26 · cut & stick -->
+<section class="slide">
+  <div class="eyebrow reveal">now — cut &amp; stick!</div>
+  <div class="duo reveal">
+    <div class="pagecard">
+      <div data-draw="puzzle" data-full></div>
+      <div class="wordchip">puzzle<span class="sc">✂️</span></div>
+    </div>
+    <div class="steps-col">
+      <span class="lbl">✂️ cut the word</span>
+      <span class="arr">↓</span>
+      <span class="lbl">📖 stick it next to your puzzle</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ BOX ═══════════ -->
+
+<!-- 27 · box! the word + the finished box -->
+<section class="slide">
+  <div class="eyebrow reveal">draw &amp; stick!</div>
+  <div class="duo reveal">
+    <div class="wordcard"><span class="bigword">box</span></div>
+    <div class="buscard" data-draw="box" data-full></div>
+  </div>
+</section>
+
+<!-- 28 · step 1 — the front -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">1</span>
+      <span class="lbl">a square</span>
+    </div>
+    <div class="buscard" data-draw="box" data-step="0"></div>
+  </div>
+</section>
+
+<!-- 29 · step 2 — the top -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">2</span>
+      <span class="lbl">the top</span>
+    </div>
+    <div class="buscard" data-draw="box" data-step="1"></div>
+  </div>
+</section>
+
+<!-- 30 · step 3 — the side -->
+<section class="slide">
+  <div class="eyebrow reveal">let's draw!</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">3</span>
+      <span class="lbl">the side</span>
+    </div>
+    <div class="buscard" data-draw="box" data-step="2"></div>
+  </div>
+</section>
+
+<!-- 31 · colour it! -->
+<section class="slide">
+  <div class="eyebrow reveal">and now…</div>
+  <div class="step-row reveal">
+    <div class="step-info">
+      <span class="stepchip">4</span>
+      <span class="lbl">colour it! 📦</span>
+    </div>
+    <div class="buscard" data-draw="box" data-color></div>
+  </div>
+</section>
+
+<!-- 32 · cut & stick -->
+<section class="slide">
+  <div class="eyebrow reveal">now — cut &amp; stick!</div>
+  <div class="duo reveal">
+    <div class="pagecard">
+      <div data-draw="box" data-full></div>
+      <div class="wordchip">box<span class="sc">✂️</span></div>
+    </div>
+    <div class="steps-col">
+      <span class="lbl">✂️ cut the word</span>
+      <span class="arr">↓</span>
+      <span class="lbl">📖 stick it next to your box</span>
+    </div>
+  </div>
+</section>
+
+<!-- 33 · your page! — the model: five pictures, words on the right -->
+<section class="slide">
+  <div class="eyebrow reveal">your page!</div>
+  <div class="duo center reveal">
+    <div class="modelfull">
+      <div class="mrow"><div class="mpic" data-draw="bus" data-full></div><span class="mword">bus</span></div>
+      <div class="mrow"><div class="mpic" data-draw="ball" data-full></div><span class="mword">ball</span></div>
+      <div class="mrow"><div class="mpic" data-draw="doll" data-full></div><span class="mword">doll</span></div>
+      <div class="mrow"><div class="mpic" data-draw="puzzle" data-full></div><span class="mword">puzzle</span></div>
+      <div class="mrow"><div class="mpic" data-draw="box" data-full></div><span class="mword">box</span></div>
+    </div>
+  </div>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 33</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<script>
+/* ---------- the five objects, one path per shape (pencil order).
+   Each object: viewBox · shapes (d + optional flat/nostroke/road
+   classes) · fill colours · steps (the order the pencil draws in)
+   · hubs (dots that only appear with the colour) · under (shapes
+   painted right after another one, to hide under later strokes). */
+const OBJECTS={
+bus:{
+ viewBox:'0 0 720 460',
+ shapes:{
+  body:{d:'M146 110H574A36 36 0 0 1 610 146V274A36 36 0 0 1 574 310H146A36 36 0 0 1 110 274V146A36 36 0 0 1 146 110Z'},
+  bumper:{d:'M106 300H614A8 8 0 0 1 622 308A8 8 0 0 1 614 316H106A8 8 0 0 1 98 308A8 8 0 0 1 106 300Z'},
+  w1:{d:'M297 325A52 52 0 1 1 193 325A52 52 0 1 1 297 325Z'},
+  w2:{d:'M527 325A52 52 0 1 1 423 325A52 52 0 1 1 527 325Z'},
+  win1:{d:'M160 140H220A10 10 0 0 1 230 150V194A10 10 0 0 1 220 204H160A10 10 0 0 1 150 194V150A10 10 0 0 1 160 140Z'},
+  win2:{d:'M265 140H325A10 10 0 0 1 335 150V194A10 10 0 0 1 325 204H265A10 10 0 0 1 255 194V150A10 10 0 0 1 265 140Z'},
+  win3:{d:'M370 140H430A10 10 0 0 1 440 150V194A10 10 0 0 1 430 204H370A10 10 0 0 1 360 194V150A10 10 0 0 1 370 140Z'},
+  door:{d:'M470 140H530A10 10 0 0 1 540 150V265A10 10 0 0 1 530 275H470A10 10 0 0 1 460 265V150A10 10 0 0 1 470 140Z'},
+  light:{d:'M608 245A13 13 0 1 1 582 245A13 13 0 1 1 608 245Z',flat:true},
+  hub1:{d:'M260 325A15 15 0 1 1 230 325A15 15 0 1 1 260 325Z',flat:true,nostroke:true},
+  hub2:{d:'M490 325A15 15 0 1 1 460 325A15 15 0 1 1 490 325Z',flat:true,nostroke:true},
+  road:{d:'M60 396H660',road:true}
+ },
+ fill:{body:'#FFC93C',bumper:'#8B8578',w1:'#221B30',w2:'#221B30',win1:'#9FE7F2',win2:'#9FE7F2',
+  win3:'#9FE7F2',door:'#9FE7F2',light:'#FFC93C',hub1:'#cfcabf',hub2:'#cfcabf'},
+ steps:[['body'],['w1','w2'],['win1','win2','win3'],['door','light','bumper'],['road']],
+ hubs:['hub1','hub2'],
+ under:{bumper:'body'}
+},
+ball:{
+ viewBox:'150 80 420 340',
+ shapes:{
+  c:{d:'M500 250A140 140 0 1 1 220 250A140 140 0 1 1 500 250Z'},
+  sl:{d:'M360 110Q255 250 360 390'},
+  sr:{d:'M360 110Q465 250 360 390'},
+  ground:{d:'M180 392H540',road:true}
+ },
+ fill:{c:'#F03CB0'},
+ steps:[['c'],['sl','sr'],['ground']]
+},
+doll:{
+ viewBox:'210 60 300 390',
+ shapes:{
+  head:{d:'M422 150A62 62 0 1 1 298 150A62 62 0 1 1 422 150Z'},
+  dress:{d:'M325 208H395L445 375H275Z'},
+  armL:{d:'M325 225Q270 260 258 305'},
+  armR:{d:'M395 225Q450 260 462 305'},
+  legL:{d:'M330 375V420'},
+  legR:{d:'M390 375V420'},
+  eyeL:{d:'M344 140A9 9 0 1 1 326 140A9 9 0 1 1 344 140Z',flat:true,nostroke:true},
+  eyeR:{d:'M394 140A9 9 0 1 1 376 140A9 9 0 1 1 394 140Z',flat:true,nostroke:true},
+  smile:{d:'M335 168Q360 188 385 168'},
+  pigL:{d:'M308 120A28 28 0 1 1 252 120A28 28 0 1 1 308 120Z'},
+  pigR:{d:'M468 120A28 28 0 1 1 412 120A28 28 0 1 1 468 120Z'}
+ },
+ fill:{head:'#FFD9B3',dress:'#F03CB0',eyeL:'#221B30',eyeR:'#221B30',pigL:'#FF7A29',pigR:'#FF7A29'},
+ steps:[['head'],['dress'],['armL','armR','legL','legR'],['eyeL','eyeR','smile','pigL','pigR']]
+},
+puzzle:{
+ viewBox:'210 80 340 320',
+ shapes:{
+  sq:{d:'M250 170H450V370H250Z'},
+  kt:{d:'M386 150A36 36 0 1 1 314 150A36 36 0 1 1 386 150Z'},
+  kr:{d:'M506 270A36 36 0 1 1 434 270A36 36 0 1 1 506 270Z'}
+ },
+ fill:{sq:'#FFC93C',kt:'#FFC93C',kr:'#FFC93C'},
+ steps:[['sq'],['kt'],['kr']]
+},
+box:{
+ viewBox:'240 90 340 320',
+ shapes:{
+  front:{d:'M280 180H480V380H280Z'},
+  top:{d:'M280 180L340 120H540L480 180Z'},
+  side:{d:'M480 180L540 120V320L480 380Z'}
+ },
+ fill:{front:'#FF7A29',top:'#FFC93C',side:'#E06500'},
+ steps:[['front'],['top'],['side']]
+}
+};
+function drawSVG(key,step,colored,animate){
+  const o=OBJECTS[key],done=[],fresh=[];
+  o.steps.forEach((g,s)=>{
+    if(s<step||(s===step&&!animate))done.push(...g);
+    else if(s===step)fresh.push(...g);
+  });
+  if(o.hubs&&colored)done.push(...o.hubs);
+  const list=[...done,...fresh],freshSet=new Set(fresh);
+  if(o.under)for(const k in o.under){
+    const i=list.indexOf(k);
+    if(i>-1){list.splice(i,1);list.splice(list.indexOf(o.under[k])+1,0,k)}
+  }
+  const inner=list.map(k=>{
+    const s=o.shapes[k];
+    const flat=s.flat?' flat':'',no=s.nostroke?' nostroke':'',road=s.road?' roadline':'';
+    return `<path class="shp${flat}${no}${road} ${freshSet.has(k)?'fresh':'done'}" d="${s.d}" pathLength="1"
+      style="--f:${o.fill[k]||'none'};${freshSet.has(k)?`--d:${fresh.indexOf(k)*.3}s`:''}"></path>`;
+  }).join('');
+  return `<svg class="bus-svg${colored?' colored':''}${(colored&&!animate)?' instant':''}"
+    viewBox="${o.viewBox}" aria-label="${key}">${inner}</svg>`;
+}
+document.querySelectorAll('[data-draw]').forEach(box=>{
+  const key=box.dataset.draw,o=OBJECTS[key];
+  const full='full'in box.dataset;
+  const colored=full||'color'in box.dataset;
+  const step=(full||colored)?o.steps.length-1:parseInt(box.dataset.step||'0');
+  box.innerHTML=drawSVG(key,step,colored,!full);
+});
+
+/* ---------- the engine (same as the phonics decks) ---------- */
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const fill=document.getElementById('progress-fill'),
+      counter=document.getElementById('counter'),
+      prevB=document.getElementById('prev'),
+      nextB=document.getElementById('next');
+function show(i){
+  i=Math.max(0,Math.min(slides.length-1,i));
+  if(location.hash!=='#'+(i+1)) history.replaceState(null,'','#'+(i+1));
+  slides.forEach((s,n)=>{
+    s.classList.toggle('active',n===i);
+    s.classList.toggle('prev',n<i);
+  });
+  cur=i;
+  fill.style.width=((cur+1)/slides.length*100)+'%';
+  counter.textContent=(cur+1)+' / '+slides.length;
+  prevB.disabled=cur===0;
+  nextB.disabled=cur===slides.length-1;
+  /* restart the stroke-drawing on the active slide */
+  const svg=slides[cur].querySelector('.bus-svg.fresh, .bus-svg');
+  const hasFresh=svg&&svg.querySelector('.fresh');
+  if(svg){
+    svg.classList.remove('go');void svg.getBoundingClientRect();
+    if(hasFresh)svg.classList.add('go');
+  }
+}
+prevB.onclick=()=>show(cur-1);
+nextB.onclick=()=>show(cur+1);
+document.getElementById('fs').onclick=()=>{
+  if(document.fullscreenElement) document.exitFullscreen();
+  else document.documentElement.requestFullscreen();
+};
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ')show(cur+1);
+  else if(e.key==='ArrowLeft'||e.key==='ArrowUp')show(cur-1);
+  else if(e.key==='Home')show(0);
+  else if(e.key==='End')show(slides.length-1);
+  else if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+let wheelT=0;
+document.addEventListener('wheel',e=>{
+  const now=Date.now();
+  if(now-wheelT<650||Math.abs(e.deltaY)<25)return;
+  wheelT=now;show(cur+(e.deltaY>0?1:-1));
+},{passive:true});
+let tX=0,tY=0;
+document.addEventListener('touchstart',e=>{tX=e.touches[0].clientX;tY=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tX,dy=e.changedTouches[0].clientY-tY;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))show(cur+(dx<0?1:-1));
+},{passive:true});
+const h=parseInt(location.hash.slice(1));
+show(isNaN(h)?0:h-1);
+window.addEventListener('hashchange',()=>{
+  const nh=parseInt(location.hash.slice(1));
+  if(!isNaN(nh)&&nh-1!==cur)show(nh-1);
+});
+/* READY-CHIME (standing rule, 2026-09-04): a save chimes the open window
+   and reloads it; #n keeps the slide. http:// only, silent on file://. */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>

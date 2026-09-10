@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 170" width="150" height="128">
+  <!-- the open box: dark inside slot -->
+  <rect x="42" y="88" width="116" height="16" fill="#5C4326"/>
+  <!-- tail -->
+  <path d="M76 95 Q46 92 50 66" stroke="#221B30" stroke-width="15" fill="none" stroke-linecap="round"/>
+  <path d="M76 95 Q46 92 50 66" stroke="#E8963E" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <!-- chest/body, bottom hidden by the box wall -->
+  <path d="M76 108 L76 74 Q76 52 100 52 Q124 52 124 74 L124 108 Z" fill="#E8963E" stroke="#221B30" stroke-width="4"/>
+  <!-- ears -->
+  <path d="M80 40 L70 14 L97 29 Z" fill="#E8963E" stroke="#221B30" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M120 40 L130 14 L103 29 Z" fill="#E8963E" stroke="#221B30" stroke-width="4" stroke-linejoin="round"/>
+  <!-- head -->
+  <circle cx="100" cy="52" r="29" fill="#E8963E" stroke="#221B30" stroke-width="4"/>
+  <!-- face -->
+  <circle cx="89" cy="50" r="3.4" fill="#221B30"/>
+  <circle cx="111" cy="50" r="3.4" fill="#221B30"/>
+  <path d="M97 58 L103 58 L100 62 Z" fill="#221B30"/>
+  <path d="M95 65 Q100 69 105 65" stroke="#221B30" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M74 52 L56 49 M75 58 L58 60 M126 52 L144 49 M125 58 L142 60" stroke="#221B30" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- box front wall -->
+  <rect x="38" y="100" width="124" height="54" rx="6" fill="#C89B6B" stroke="#221B30" stroke-width="4"/>
+  <rect x="93" y="102" width="14" height="50" fill="#B07F4E"/>
+  <!-- open flaps -->
+  <path d="M38 102 L10 88 L38 72 Z" fill="#B07F4E" stroke="#221B30" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M162 102 L190 88 L162 72 Z" fill="#B07F4E" stroke="#221B30" stroke-width="4" stroke-linejoin="round"/>
+  <!-- paws over the edge -->
+  <rect x="77" y="93" width="17" height="13" rx="6" fill="#E8963E" stroke="#221B30" stroke-width="3.5"/>
+  <rect x="106" y="93" width="17" height="13" rx="6" fill="#E8963E" stroke="#221B30" stroke-width="3.5"/>
+</svg>

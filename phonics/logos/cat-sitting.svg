@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 190" width="136" height="152">
+  <!-- tail curls around the front -->
+  <path d="M116 168 Q152 162 148 124" stroke="#221B30" stroke-width="14" fill="none" stroke-linecap="round"/>
+  <path d="M116 168 Q152 162 148 124" stroke="#E8963E" stroke-width="8" fill="none" stroke-linecap="round"/>
+  <!-- sitting body -->
+  <path d="M53 176 Q51 80 85 80 Q119 80 117 176 Z" fill="#E8963E" stroke="#221B30" stroke-width="4"/>
+  <!-- front paws -->
+  <rect x="60" y="164" width="20" height="14" rx="7" fill="#E8963E" stroke="#221B30" stroke-width="3.5"/>
+  <rect x="90" y="164" width="20" height="14" rx="7" fill="#E8963E" stroke="#221B30" stroke-width="3.5"/>
+  <!-- ears -->
+  <path d="M60 42 L50 14 L78 30 Z" fill="#E8963E" stroke="#221B30" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M110 42 L120 14 L92 30 Z" fill="#E8963E" stroke="#221B30" stroke-width="4" stroke-linejoin="round"/>
+  <!-- head -->
+  <circle cx="85" cy="54" r="30" fill="#E8963E" stroke="#221B30" stroke-width="4"/>
+  <!-- face -->
+  <circle cx="74" cy="52" r="3.4" fill="#221B30"/>
+  <circle cx="96" cy="52" r="3.4" fill="#221B30"/>
+  <path d="M82 60 L88 60 L85 64 Z" fill="#221B30"/>
+  <path d="M80 67 Q85 71 90 67" stroke="#221B30" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M57 54 L40 51 M58 60 L42 62 M113 54 L130 51 M112 60 L128 62" stroke="#221B30" stroke-width="2.2" stroke-linecap="round"/>
+</svg>
