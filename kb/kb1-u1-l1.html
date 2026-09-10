@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kid's Box 1 · Unit 1 · Lesson 1 — KB1.2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   KB1.2 — Kid's Box 1, Unit 1, Lesson 1 (group class, Thu 14:30).
+   Teacher-script deck, built STRICTLY from Farida's конспект
+   (Library/Books/Kids Box/Kids Box 1/МАТЕРИАЛЫ/Unit 1/Unit 1.pdf,
+   "LESSON 1 (UNIT 1)" block) — nothing omitted, TB/конспект order.
+   KB1.2 is the non-accelerated group (goes straight by the
+   конспекты, no extra reading station).
+   Engine: nav bottom-right + lane, progress bar, keyboard/wheel/
+   swipe, ready-chime + #n hash. Reference:
+   pupils/masha-roshchupkina/lessons/002/mashar-deck-002.html §14.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A;
+  --radius:18px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:4.2vh 5vw 11vh;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.6vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.85rem,1.4vw,1.05rem);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.4rem,2.8vw,2.3rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.8rem,1.3vw,1rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.18em .75em;
+  background:#fff;margin-bottom:.2em}
+.task{font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.55;font-weight:500}
+.task strong{color:var(--accent)}
+.ask{font-size:clamp(1.05rem,1.8vw,1.35rem);line-height:1.5;color:#4a463d}
+.ans{font-size:clamp(.95rem,1.5vw,1.2rem);color:var(--ink-soft);line-height:1.5}
+.note{font-size:clamp(.92rem,1.4vw,1.1rem);color:var(--ink-soft);font-style:italic;line-height:1.5}
+.flag{font-size:clamp(.9rem,1.35vw,1.05rem);color:#9a6a2f;font-style:italic;
+  line-height:1.55;background:#FBF3E4;border:1.5px dashed #E3C48A;
+  border-radius:12px;padding:.7em 1em}
+audio{width:min(520px,92%);height:44px;display:block;margin:.2em 0}
+video{width:min(420px,88%);border-radius:12px;display:block;margin:.2em 0;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+img.card-img{max-width:min(360px,80%);border-radius:12px;display:block;
+  box-shadow:0 6px 18px rgba(0,0,0,.15);margin:.2em 0}
+ul.materials{list-style:none}
+ul.materials li{padding:.28em 0;border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.5}
+ul.materials li:last-child{border-bottom:none}
+a.hw-link{display:inline-block;margin-top:.3em;font-weight:700;color:#fff;
+  background:var(--accent);border-radius:99px;padding:.5em 1.1em;
+  text-decoration:none;font-size:clamp(1rem,1.6vw,1.25rem)}
+a.hw-link:hover{opacity:.9}
+
+@media (max-width:900px){
+  .slide{padding:3.5vh 5vw 11vh}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER -->
+<section class="slide active">
+  <div class="eyebrow reveal">Kid's Box 1 (New Generation) · Unit 1 · Lesson 1 · KB1.2 — Thu 14:30</div>
+  <h1 class="reveal">Hello, Star family! — meeting &amp; introducing</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Aim:</strong> by the end, the ss have introduced themselves, named and listed the members of Star family; exposed to L2, follow instructions.</p>
+  <p class="ask reveal"><strong>Language:</strong> How old are you?; My name is..; bus; star &nbsp;·&nbsp; <strong>Instructions:</strong> circle; tick; cross</p>
+  <p class="tag reveal">MATERIALS</p>
+  <ul class="materials reveal">
+    <li>a yellow bus flashcard</li>
+    <li>plates / circles to draw faces (+ something to draw with)</li>
+    <li>gumstick (to stick the plates on the board)</li>
+    <li>Kid's Box characters flashcards (Star family)</li>
+    <li>masks / puppets</li>
+  </ul>
+  <p class="flag reveal">⚠ The конспект's MATERIALS line also lists "a cake with candles" — but Lesson 1's procedure never calls for it. Checked against Unit 1.pdf: the cake, the candles, the "How old are you?" song and the "How old are you?" worksheet all belong to <strong>Lesson 3</strong>, not this one — looks like they got copied into Lesson 1's materials line and the Lesson 1 folder by mistake. Not used below. Also sitting in the Lesson 1 folder: a 67-minute <code>videoplayback.mp4</code> — far too long to be this lesson's content and nothing in the конспект points to it, so it's left out too. Flagging both rather than guessing wrong.</p>
+</section>
+
+<!-- 2 · WARM UP A -->
+<section class="slide">
+  <div class="eyebrow reveal">Warm up · 13 min — part 1</div>
+  <h1 class="reveal">Meet &amp; greet — draw your face</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Sit down and greet the ss. Shake hands and introduce yourself: <em>"Hello my friends! My name is ___."</em> Ask: <em>"What's your name?"</em> Elicit the names. Say: <em>"Nice to meet you, [name]!"</em></p>
+  <p class="tag reveal">🎬 SONG — "What's your name?" (Super Simple Songs)</p>
+  <video class="reveal" controls preload="none" src="../media/kb1-u1-whats-your-name.mp4"></video>
+  <p class="note reveal">Конспект links the rutube copy; this is the same song, the local file already in the Lesson 1 folder.</p>
+  <p class="task reveal">Hand out pre-cut circles / paper plates, write ss' names on them. Guide them to draw faces: <em>"Let's draw our faces. Draw 2 eyes, one nose, one mouth."</em> <em>"Look at my plate. Draw 2 eyes. Great job!"</em></p>
+  <p class="note reveal">Help the ss, don't teach the words — just give instructions. Goal: exposure to L2 + following instructions.</p>
+</section>
+
+<!-- 3 · WARM UP B -->
+<section class="slide">
+  <div class="eyebrow reveal">Warm up · 13 min — part 2</div>
+  <h1 class="reveal">The bus ride</h1>
+  <div class="rule reveal"></div>
+  <p class="tag reveal">🚌 FLASHCARD — the yellow bus</p>
+  <img class="card-img reveal" src="../media/kb1-u1-img-7790.png" alt="Yellow bus flashcard">
+  <p class="task reveal">Stick the bus flashcard on the board. Ask: <em>"What do you see?"</em> (point to your eyes). Say: <em>"It's a bus."</em> Repeat: <em>"A bus, a yellow bus. Let's go on a bus ride."</em></p>
+  <p class="task reveal">Encourage the ss to stick their plates on the board around the bus. Ask: <em>"Who's going on a bus ride?"</em> TPR — ride the bus.</p>
+  <p class="task reveal">Point to each plate — the ss shout out the names.</p>
+</section>
+
+<!-- 4 · PRESENTATION -->
+<section class="slide">
+  <div class="eyebrow reveal">Presentation · 5 min</div>
+  <h1 class="reveal">Star family — face down</h1>
+  <div class="rule reveal"></div>
+  <p class="tag reveal">Kid's Box characters flashcards</p>
+  <p class="task reveal">Stick the Star family flashcards on the board face down. Turn each one, point and say the name.</p>
+  <p class="ask reveal">Elicit the name from the ss, so they repeat.</p>
+</section>
+
+<!-- 5 · PRACTICE: WHAT'S MISSING -->
+<section class="slide">
+  <div class="eyebrow reveal">Practice · 7 min</div>
+  <h1 class="reveal">Game — "What's missing?"</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Repeat all the characters again. Ask: <em>"Close your eyes and turn around"</em> (demonstrate). Hide one card. <em>"Open your eyes and turn around."</em> Ask: <em>"What's missing?"</em></p>
+  <p class="ask reveal">The ss guess and shout out the name. Play again — repeat for every member of Star family.</p>
+  <p class="note reveal">You can hand the teacher role to a confident volunteer: they hide a card and you teach them "Close your eyes. Open your eyes." for the rest to follow.</p>
+</section>
+
+<!-- 6 · PRACTICE: PB p.4 listen & point -->
+<section class="slide">
+  <div class="eyebrow reveal">Practice · 10 min total (this block) — 1/4</div>
+  <h1 class="reveal">PB p.4 — "Listen and point"</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><em>"What do you see?"</em> Point to your eyes, say "see." Elicit the Star family names — point and say each one. <em>"This is Star family"</em> — teach <strong>Star</strong>, find a star in the picture.</p>
+  <p class="task reveal">Teach <strong>"Listen and point"</strong> (TPR both). Hold your book, point to the pictures on p.4. ICQs: <em>"Do you point to me? Do you point to Stella? Do you point to Simon?"</em></p>
+  <p class="task reveal">Play the recording, monitor as ss listen and point. Play the first line, pause, demonstrate. Then ask one by one: <em>"Point to Simon"</em>, <em>"Point to Suzy"</em>, etc. — slowly, so they feel confident.</p>
+  <p class="note reveal">The конспект says "play the recording" without a track number — pull it from the PB1 class audio for Unit 1 on your iPad.</p>
+</section>
+
+<!-- 7 · PRACTICE: pairs pointing -->
+<section class="slide">
+  <div class="eyebrow reveal">Practice · 10 min total (this block) — 2/4</div>
+  <h1 class="reveal">Pairs — "Point to…"</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Stick the flashcards around the class. Ss stand up in pairs. Student A: <em>"Point to Suzy."</em> Student B points. Swap roles.</p>
+  <p class="task reveal">Demonstrate first in an open pair — invite one student, say <em>"Point to Stella,"</em> and get them to ask a partner in turn.</p>
+</section>
+
+<!-- 8 · PRACTICE: AB p.4 ex.1 match -->
+<section class="slide">
+  <div class="eyebrow reveal">Practice · 10 min total (this block) — 3/4</div>
+  <h1 class="reveal">AB p.4 ex.1 — "Match"</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Elicit the names again. Point to each character: <em>"What's his/her name? Is she Suzy? Is she Stella?"</em> Ss work in pairs.</p>
+  <p class="task reveal">Teach the instruction <strong>match</strong> by drawing a correct line on the board. Repeat "match" several times with the ss.</p>
+</section>
+
+<!-- 9 · PRACTICE: AB p.4 ex.2 tick/cross -->
+<section class="slide">
+  <div class="eyebrow reveal">Practice · 10 min total (this block) — 4/4</div>
+  <h1 class="reveal">AB p.4 ex.2 — "Circle tick or cross"</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Draw a tick and a cross on the board. Say <em>"My name is Suzy."</em> Elicit yes/no — thumbs up/down. Circle the correct answer (cross).</p>
+  <p class="task reveal">Say <em>"My name is ___."</em> Elicit "yes," circle tick. Elicit tick = yes, cross = no.</p>
+  <p class="task reveal">Teach the instruction <strong>circle</strong> — a volunteer circles tick or cross. <em>"Circle tick."</em> Full instruction: <em>"Look, listen and circle tick or cross."</em> ICQ: <em>"Do you circle tick if yes?"</em></p>
+  <p class="task reveal">Play the CD with pauses. Ss check answers in pairs: <em>"Compare the answers."</em> Translate "compare" into L1 if necessary.</p>
+  <p class="note reveal">Track not numbered in the конспект — same AB p.4 audio.</p>
+</section>
+
+<!-- 10 · PRODUCTION: puppets -->
+<section class="slide">
+  <div class="eyebrow reveal">Production · 10 min total (this block) — 1/3</div>
+  <h1 class="reveal">Puppets &amp; masks — "Hello! My name's…"</h1>
+  <div class="rule reveal"></div>
+  <p class="tag reveal">masks / puppets</p>
+  <p class="task reveal">Ss stand up (puppets/masks ready beforehand). Invite them to introduce their characters: <em>"Hello! My name's Suzy!"</em> Drill the rhythm together — try different voices to keep it fun.</p>
+</section>
+
+<!-- 11 · PRODUCTION: plates -->
+<section class="slide">
+  <div class="eyebrow reveal">Production · 10 min total (this block) — 2/3</div>
+  <h1 class="reveal">Introduce your own plate</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Invite the ss to introduce the plates they made at the start of the lesson. Give the example: <em>"Hello! My name's Jane!"</em> Elicit the name from them.</p>
+</section>
+
+<!-- 12 · PRODUCTION: ball circle game -->
+<section class="slide">
+  <div class="eyebrow reveal">Production · 10 min total (this block) — 3/3</div>
+  <h1 class="reveal">Circle game — pass the ball</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Make a circle and start the game: <em>"Hello! My name is Jane. What's your name?"</em> Throw the ball to a kid. That kid says their name and asks another one.</p>
+</section>
+
+<!-- 13 · FEEDBACK -->
+<section class="slide">
+  <div class="eyebrow reveal">Feedback · 5 min</div>
+  <h1 class="reveal">How did you like the lesson?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Ask the ss to draw a smile — how much they liked the lesson (one smile, two smiles, etc.).</p>
+</section>
+
+<!-- 14 · HOMEWORK -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">Wordwall — spin &amp; name the characters</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Game on Word Wall: the ss spin the wheel and name / remember the characters.</p>
+  <a class="hw-link reveal" href="https://wordwall.net/resource/75555558" target="_blank" rel="noopener">Open the Wordwall game →</a>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 14</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+let wt=0;document.addEventListener('wheel',e=>{const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+/* deep link: open the deck on slide #n */
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+/* READY-CHIME (standing rule, 2026-09-04): the open window chimes and
+   reloads when a new version is saved; #n keeps the slide. http:// only. */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alika · L8 · y: /j/ · /aɪ/ · /i/</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A; --lavender:#C8B6FF;
+  --lavender-deep:#9a7fff; --cream:#FFF8F0; --ink:#2D3436; --ink-soft:#636e72;
+  --pink:#FF8FAB; --white:#ffffff;
+  --shadow:0 10px 30px rgba(45,52,54,.12); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased}
+#progress-track{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(200,182,255,.25)}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--lavender),var(--pink));transition:width .45s cubic-bezier(.22,1,.36,1)}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:4.2vh 5vw 11vh;opacity:0;transform:translateX(60px) scale(.985);transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);pointer-events:none;overflow:auto}
+.slide.active{opacity:1;transform:none;pointer-events:auto;z-index:2}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.1vw,.95rem);color:var(--lavender-deep);margin-bottom:.4em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.05;margin-bottom:.5em}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--lavender));margin-bottom:1.1em}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.25rem,2.3vw,1.9rem)}
+p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,2vw,1.8rem)}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.card.pink{background:#ffe9f0}
+.pattern-box{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,3.2vw,2.6rem);background:linear-gradient(135deg,#eafbf6,#f1ecff);border-radius:18px;padding:.4em .9em;display:inline-block;box-shadow:var(--shadow)}
+.pattern-box .slot{display:inline-block;min-width:1.2em;border-bottom:5px solid var(--pink);margin:0 .1em;color:var(--pink)}
+.pattern-box .q{color:var(--lavender-deep)}
+.model-line{font-size:clamp(1.25rem,2.2vw,1.85rem);padding:.55em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.6em}
+.model-line .key{color:var(--lavender-deep);font-weight:800}
+.model-line .hlp{color:#d6336c;font-weight:800}
+.read-text{font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.85}
+.read-text .hl{font-weight:800;color:var(--lavender-deep)}
+.read-text .hlp{font-weight:800;color:#d6336c}
+.read-text .nw{font-weight:800;color:#5ecbb8}
+.yn{display:flex;align-items:center;gap:.6em;cursor:pointer;padding:.55em .9em;border-radius:12px;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.06);font-size:clamp(1.2rem,2vw,1.65rem)}
+.yn .badge{flex-shrink:0;width:1.7em;height:1.7em;border-radius:50%;display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.85em;background:#eee;color:transparent;transition:all .2s}
+.yn.shown-yes .badge{background:var(--mint);color:var(--ink)}
+.yn.shown-no .badge{background:var(--pink);color:#fff}
+.sent{font-size:clamp(1.2rem,2vw,1.65rem);line-height:1.55;padding:.5em .2em;border-bottom:2px dotted rgba(200,182,255,.5)}
+.gap{display:inline-block;min-width:3.6em;border-bottom:4px solid var(--mint-deep);text-align:center;font-family:'Fredoka';font-weight:600;color:transparent;cursor:pointer;transition:all .2s ease;padding:0 .15em;border-radius:4px 4px 0 0}
+.gap:hover{background:#eafbf6}
+.gap.filled{color:var(--lavender-deep);border-color:var(--lavender);background:#f1ecff}
+.wordbank{display:flex;flex-wrap:wrap;gap:.5em;justify-content:center;background:#fff8db;border-radius:var(--radius);padding:.9em}
+.wordbank .wb{font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.4vw,1.15rem);padding:.3em .7em;border-radius:99px;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.08)}
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.7em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--lavender));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:var(--ink)}
+.hw-step .ru{font-size:clamp(1rem,1.6vw,1.35rem);line-height:1.45}
+.hw-step .en{font-family:'Fredoka';color:var(--lavender-deep);font-weight:600}
+#nav{position:fixed;bottom:2.4vh;left:50%;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);padding:.5em 1em;border-radius:99px;box-shadow:0 20px 50px rgba(45,52,54,.18)}
+.nav-btn{width:3em;height:3em;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--mint),var(--lavender));display:grid;place-items:center;color:var(--ink);font-size:1.2rem;box-shadow:0 6px 16px rgba(90,123,191,.25);transition:transform .15s ease;font-family:'Fredoka'}
+.nav-btn:hover{transform:scale(1.08)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#counter{font-family:'Fredoka';font-weight:600;font-size:1.1rem;min-width:3.5em;text-align:center}
+#counter .now{color:var(--lavender-deep)}
+#fs-btn{width:2.6em;height:2.6em;border-radius:50%;border:none;cursor:pointer;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.1);font-size:1rem;transition:transform .15s ease}
+#fs-btn:hover{transform:scale(1.08)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:1em}
+.center{text-align:center}
+.mt{margin-top:1em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka';font-weight:500;color:var(--ink);background:#fff8db;border-radius:14px;padding:.6em 1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.35rem)}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.9rem,1.3vw,1.1rem);color:var(--ink-soft);font-style:italic}
+/* --- bright hero slide --- */
+.slide.bright{background:linear-gradient(135deg,var(--mint) 0%,var(--peach) 32%,var(--lavender) 66%,var(--pink) 100%)}
+.slide.bright .eyebrow{color:#fff;text-shadow:0 2px 10px rgba(45,52,54,.3)}
+.slide.bright .accent-line{background:rgba(255,255,255,.9)}
+.sticker{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.1;color:#fff;text-shadow:-3px -3px 0 var(--ink),3px -3px 0 var(--ink),-3px 3px 0 var(--ink),3px 3px 0 var(--ink),-3px 0 0 var(--ink),3px 0 0 var(--ink),0 -3px 0 var(--ink),0 3px 0 var(--ink),0 16px 34px rgba(45,52,54,.3)}
+.sticker.peachy{color:var(--peach)}
+.hero-y{font-size:clamp(5rem,16vw,13rem)}
+.thumb{font-size:clamp(3.6rem,9vw,7.5rem);line-height:1;animation:bob 2.4s ease-in-out infinite alternate;filter:drop-shadow(0 14px 20px rgba(45,52,54,.25))}
+@keyframes bob{from{transform:translateY(0) rotate(-6deg)}to{transform:translateY(-16px) rotate(6deg)}}
+.glass{background:rgba(255,255,255,.93)}
+.link-pill{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);color:var(--ink);background:linear-gradient(135deg,var(--mint),var(--lavender));border-radius:99px;padding:.4em 1.1em;text-decoration:none;box-shadow:0 6px 16px rgba(45,52,54,.15);margin-top:.55em}
+.link-pill:hover{transform:translateY(-2px)}
+/* --- y-gallery + mixed race + exception --- */
+.ygrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8em;width:100%}
+.ygrid .yitem{background:var(--white);border-radius:16px;box-shadow:0 6px 16px rgba(45,52,54,.08);padding:.7em .4em;text-align:center}
+.ygrid .yitem .ico{font-size:clamp(1.8rem,3.4vw,2.8rem);line-height:1.15}
+.ygrid .yitem .nm{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);margin-top:.2em}
+.ygrid .yitem .nm b{color:var(--mint-deep)}
+.hi-line{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2.1vw,1.7rem);background:var(--white);border-radius:14px;padding:.5em 1em;display:inline-block;box-shadow:0 6px 16px rgba(45,52,54,.08)}
+.hi-line b{color:var(--lavender-deep)}
+.pill-ex{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.6vw,1.25rem);background:var(--white);border:2px dashed var(--pink);border-radius:99px;padding:.35em .95em}
+.chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.7em;width:100%}
+.zchip{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem);background:var(--white);border:3px solid transparent;border-radius:16px;box-shadow:0 6px 16px rgba(45,52,54,.08);padding:.45em .3em;text-align:center;cursor:pointer;transition:all .15s ease;line-height:1.15}
+.zchip:hover{transform:translateY(-3px)}
+.zchip small{display:none;font-size:.62em;color:var(--ink-soft)}
+.zchip.s-j{border-color:var(--mint-deep);background:#eafbf6}
+.zchip.s-ai{border-color:var(--lavender-deep);background:#f1ecff}
+.zchip.s-i{border-color:var(--pink);background:#ffe9f0}
+.zchip.s-j small,.zchip.s-ai small,.zchip.s-i small{display:block}
+.zchip.s-j small{color:var(--mint-deep)}
+.zchip.s-ai small{color:var(--lavender-deep)}
+.zchip.s-i small{color:#d6336c}
+.legend{display:flex;gap:.8em;flex-wrap:wrap;justify-content:center}
+.legend span{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.9rem,1.5vw,1.2rem);padding:.3em .8em;border-radius:99px;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.08)}
+.lg-j{border-bottom:4px solid var(--mint-deep)}.lg-ai{border-bottom:4px solid var(--lavender-deep)}.lg-i{border-bottom:4px solid var(--pink)}
+/* --- standing mime slide --- */
+.mime-grid{display:grid;grid-template-columns:1fr 1fr;gap:.45em 1em;width:100%}
+.mime-grid .model-line{margin:0;font-size:clamp(.95rem,1.65vw,1.35rem);padding:.4em .7em;line-height:1.4}
+#dice-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);border:none;border-radius:99px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.12);padding:.45em 1.1em;cursor:pointer;transition:transform .15s ease}
+#dice-btn:hover{transform:scale(1.06)}
+@media(max-width:900px){ .row{flex-direction:column} .mime-grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · CHECK HOMEWORK -->
+  <section class="slide" id="s1">
+    <div class="eyebrow reveal">Homework · your stars</div>
+    <h1 class="title reveal">Let's check your homework ⭐</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:stretch;gap:1.4em">
+      <div class="card mint" style="flex:1">
+        <h2>⭐ Your stars!</h2>
+        <p class="mt">🎮 Verb + s game — how many stars?</p>
+        <p class="mt">🎧 May's listening — stars?</p>
+        <p class="mt">📖 Mia's Rainy Day — yes/no — done?</p>
+        <p class="mt">📹 And your <b>“My new thing”</b> video?</p>
+      </div>
+      <div class="card peach" style="flex:1">
+        <h2>🕵️ Spot the mistake!</h2>
+        <p class="mt" style="font-family:'Fredoka'">1. “My sister watch TV.”</p>
+        <p class="mt" style="font-family:'Fredoka'">2. “Tom studys English.”</p>
+        <p class="mt" style="font-family:'Fredoka'">3. “The kite flys high.”</p>
+        <p class="hintline mt">Fresh from last lesson: +s · +es · y→ies!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 · STANDING: HOW DO YOU…? MIME GAME (10 random from the bank) -->
+  <section class="slide" id="s2m">
+    <div class="eyebrow reveal">Every lesson · the mime game</div>
+    <h1 class="title reveal">How do you…? 🎭</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="mime-grid reveal" id="mime-grid" style="flex:1;align-content:center"></div>
+
+    <div class="row reveal" style="justify-content:center;gap:1em">
+      <p class="task">🎭 Watch Elena — say the sentence! Then YOU mime — Elena says!</p>
+      <button id="dice-btn">🎲 Ten more!</button>
+    </div>
+  </section>
+
+  <!-- SLIDE 3 · NEW HERO: y — ONE LETTER, THREE VOICES (bright) -->
+  <section class="slide bright" id="s2">
+    <div class="eyebrow reveal">NEW · the letter y</div>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="justify-content:center;align-items:center;gap:clamp(.8rem,3vw,2em);flex:1">
+      <span class="sticker hero-y">y</span>
+      <span class="thumb">🎤</span>
+      <span class="sticker" style="font-size:clamp(2rem,5vw,4rem)">3 voices!</span>
+    </div>
+
+    <div class="row glass reveal" style="max-width:980px;margin:0 auto 1em;width:100%;justify-content:center;gap:1em;padding:.7em;border-radius:20px">
+      <span class="model-line" style="margin:0"><b class="key" style="color:var(--mint-deep)">yes</b> · /j/</span>
+      <span class="model-line" style="margin:0"><b class="key">sky</b> · /aɪ/</span>
+      <span class="model-line" style="margin:0"><b class="hlp">baby</b> · /i/</span>
+    </div>
+    <p class="task reveal" style="display:block;text-align:center">Listen and echo: yes — sky — baby! 🎵</p>
+  </section>
+
+  <!-- SLIDE 3 · y AT THE BEGINNING = /j/ -->
+  <section class="slide" id="s3">
+    <div class="eyebrow reveal">Voice 1 · y at the beginning</div>
+    <h1 class="title reveal"><span style="color:var(--mint-deep)">y</span> says /j/ 🙌</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="ygrid reveal">
+      <div class="yitem"><div class="ico">🙌</div><div class="nm"><b>y</b>es</div></div>
+      <div class="yitem"><div class="ico">👉</div><div class="nm"><b>y</b>ou</div></div>
+      <div class="yitem"><div class="ico">🎒</div><div class="nm"><b>y</b>our</div></div>
+      <div class="yitem"><div class="ico">💛</div><div class="nm"><b>y</b>ellow</div></div>
+      <div class="yitem"><div class="ico">🪀</div><div class="nm"><b>y</b>o-<b>y</b>o</div></div>
+      <div class="yitem"><div class="ico">🧘</div><div class="nm"><b>y</b>oga</div></div>
+      <div class="yitem"><div class="ico">🥛</div><div class="nm"><b>y</b>oghurt</div></div>
+      <div class="yitem"><div class="ico">⛵</div><div class="nm"><b>y</b>acht</div></div>
+    </div>
+    <p class="task reveal mt">You know one already — YES! Read the family. 🎯</p>
+  </section>
+
+  <!-- SLIDE 4 · y AT THE END OF A LITTLE WORD = /aɪ/ -->
+  <section class="slide" id="s4">
+    <div class="eyebrow reveal">Voice 2 · y at the end of a LITTLE word</div>
+    <h1 class="title reveal"><span style="color:var(--lavender-deep)">y</span> says /aɪ/ 🪁</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="justify-content:center">
+      <div class="hi-line">They all rhyme with <b>HI!</b> &nbsp;·&nbsp; my = <b>hi</b> + m 😉</div>
+    </div>
+
+    <div class="wordbank reveal mt" style="width:100%">
+      <span class="wb">m<b style="color:var(--lavender-deep)">y</b></span>
+      <span class="wb">b<b style="color:var(--lavender-deep)">y</b></span>
+      <span class="wb">wh<b style="color:var(--lavender-deep)">y</b></span>
+      <span class="wb">tr<b style="color:var(--lavender-deep)">y</b></span>
+      <span class="wb">cr<b style="color:var(--lavender-deep)">y</b></span>
+      <span class="wb">dr<b style="color:var(--lavender-deep)">y</b></span>
+      <span class="wb">fl<b style="color:var(--lavender-deep)">y</b> 🪁</span>
+      <span class="wb">sk<b style="color:var(--lavender-deep)">y</b></span>
+      <span class="wb">sh<b style="color:var(--lavender-deep)">y</b></span>
+    </div>
+
+    <div class="row reveal mt" style="justify-content:center;gap:1em">
+      <span class="pattern-box">Why cry? <span class="q">Try, try, try!</span> 🤸‍♀️</span>
+      <span class="pill-ex">⭐ July — a long word, but: Ju-<b style="color:var(--lavender-deep)">ly</b>!</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 5 · y AT THE END OF A LONG WORD = /i/ -->
+  <section class="slide" id="s5">
+    <div class="eyebrow reveal">Voice 3 · y at the end of a LONG word</div>
+    <h1 class="title reveal"><span style="color:#d6336c">y</span> says /i/ 😊</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:stretch;gap:1.2em">
+      <div class="card pink" style="flex:1">
+        <h2>☀️ Your old friends!</h2>
+        <p class="hintline">You SAY them every lesson — now you can READ them:</p>
+        <p class="mt" style="font-family:'Fredoka';font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.8">
+          sunn<b style="color:#d6336c">y</b> · wind<b style="color:#d6336c">y</b> ·
+          cloud<b style="color:#d6336c">y</b> · rain<b style="color:#d6336c">y</b> ·
+          fogg<b style="color:#d6336c">y</b> · snow<b style="color:#d6336c">y</b></p>
+      </div>
+      <div class="card lavender" style="flex:1.15">
+        <h2>👨‍👩‍👧 More long words</h2>
+        <p class="mt" style="font-family:'Fredoka';font-size:clamp(1.05rem,1.9vw,1.5rem);line-height:1.8">
+          happ<b style="color:var(--lavender-deep)">y</b> · famil<b style="color:var(--lavender-deep)">y</b> ·
+          bab<b style="color:var(--lavender-deep)">y</b> · part<b style="color:var(--lavender-deep)">y</b> ·
+          stor<b style="color:var(--lavender-deep)">y</b> · pupp<b style="color:var(--lavender-deep)">y</b> ·
+          kitt<b style="color:var(--lavender-deep)">y</b> · tedd<b style="color:var(--lavender-deep)">y</b> ·
+          strawberr<b style="color:var(--lavender-deep)">y</b> · cand<b style="color:var(--lavender-deep)">y</b></p>
+      </div>
+    </div>
+    <p class="task reveal mt">Little word → /aɪ/ · long word → /i/. Sky or baby? 🎯</p>
+  </section>
+
+  <!-- SLIDE 6 · MIXED READING RACE -->
+  <section class="slide" id="s6">
+    <div class="eyebrow reveal">Mixed race · all three voices</div>
+    <h1 class="title reveal">Read it — which voice? 🏁</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="legend reveal" style="margin-bottom:.8em">
+      <span class="lg-j">/j/ — beginning</span>
+      <span class="lg-ai">/aɪ/ — little word</span>
+      <span class="lg-i">/i/ — long word</span>
+    </div>
+
+    <div class="chips reveal" style="flex:1;align-content:center">
+      <button class="zchip" data-s="ai">my<small>/aɪ/</small></button>
+      <button class="zchip" data-s="j">yellow<small>/j/</small></button>
+      <button class="zchip" data-s="i">happy<small>/i/</small></button>
+      <button class="zchip" data-s="ai">sky<small>/aɪ/</small></button>
+      <button class="zchip" data-s="j">yes<small>/j/</small></button>
+      <button class="zchip" data-s="i">family<small>/i/</small></button>
+      <button class="zchip" data-s="ai">try<small>/aɪ/</small></button>
+      <button class="zchip" data-s="i">sunny<small>/i/</small></button>
+      <button class="zchip" data-s="j">you<small>/j/</small></button>
+      <button class="zchip" data-s="ai">why<small>/aɪ/</small></button>
+      <button class="zchip" data-s="i">baby<small>/i/</small></button>
+      <button class="zchip" data-s="j">yoga<small>/j/</small></button>
+    </div>
+    <p class="hintline reveal" style="text-align:center">Say the word + the voice FIRST. Click only to check 👆</p>
+  </section>
+
+  <!-- SLIDE 7 · TEXT: LILY'S YELLOW KITE -->
+  <section class="slide" id="s7">
+    <div class="eyebrow reveal">Reading · y-words + new ×3</div>
+    <h1 class="title reveal">Lily's Yellow Kite 🪁</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:flex-start;gap:1.4em">
+      <div class="card peach" style="flex:1">
+        <div class="read-text" style="font-size:clamp(1.15rem,1.95vw,1.7rem);line-height:1.75">
+          <span class="hl">Lily</span> is nine. She has got a <span class="nw">new</span> kite. 🪁<br>
+          The kite is <span class="hl">yellow</span>. Lily loves it!<br>
+          “<span class="hlp">Why</span> do you like it?” — “It can <span class="hl">fly</span>!”<br>
+          In the park Lily runs. The kite <span class="hl">flies</span> in the <span class="hl">sky</span>!<br>
+          <span class="hl">Baby</span> Tom sees it and <span class="hl">cries</span>. 😢<br>
+          Mum gives him a <span class="nw">new</span> ice cream. 🍦<br>
+          “<span class="hlp">How old</span> is the kite?” — “It's <span class="nw">new</span>! It's one!”<br>
+          Now the <span class="hl">family</span> is <span class="hl">happy</span>. 😊
+        </div>
+      </div>
+      <div class="card" style="flex:1.15">
+        <h2 style="margin-bottom:.5em">Yes / No?</h2>
+        <div class="col" style="gap:.45em">
+          <div class="yn" data-a="no"><span class="badge">Y</span>Is Lily ten?</div>
+          <div class="yn" data-a="yes"><span class="badge">Y</span>Is the kite yellow?</div>
+          <div class="yn" data-a="no"><span class="badge">Y</span>Is Tom happy at first?</div>
+        </div>
+        <h2 class="mt" style="margin-bottom:.4em">Ask! 🎤</h2>
+        <div class="sent"><span class="hlp">What colour</span> is the kite? — <span class="gap" data-w="Yellow!">Yellow!</span></div>
+        <div class="sent"><span class="hlp">Why</span> does Lily like it? — <span class="gap" data-w="It can fly!">It can fly!</span></div>
+        <div class="sent"><span class="hlp">How old</span> is the kite? — <span class="gap" data-w="One!">One!</span></div>
+        <div class="sent">What does Mum give Tom? — <span class="gap" data-w="An ice cream!">An ice cream!</span></div>
+        <div class="sent"><span class="hlp">How</span> is Tom now? — <span class="gap" data-w="He is happy!">He is happy!</span></div>
+        <div class="sent"><span class="hlp">What's the matter with</span> Tom? — <span class="gap" data-w="He cries!">He cries!</span> 😢</div>
+        <p class="muted mt" style="font-size:.9em">Answer FIRST. Click only to check. 👆 · fly → flies! y→ies 😉</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 9 · NEW TASK TYPE: OPEN THE BRACKETS (presented before homework) -->
+  <section class="slide" id="s8b">
+    <div class="eyebrow reveal">NEW · a new task</div>
+    <h1 class="title reveal">Open the brackets! ✍️</h1>
+    <div class="accent-line reveal"></div>
+    <p class="hintline reveal" style="margin:-.4em 0 .8em">🎵 «it, he, she — глагол с s-кой напиши!»</p>
+
+    <div class="model-line reveal" style="background:#fff8db;max-width:980px;margin:0 auto .6em;width:100%">Example: She <span style="display:inline-block;width:4.5em;border-bottom:4px solid var(--mint-deep)"></span> <b>(like)</b> pizza. — <b style="color:var(--mint-deep)">likes</b>! &nbsp;·&nbsp; I <span style="display:inline-block;width:4.5em;border-bottom:4px solid var(--mint-deep)"></span> <b>(like)</b> pizza. — <b style="color:var(--mint-deep)">like</b>!</div>
+
+    <div class="mime-grid reveal" style="flex:1;align-content:center;max-width:980px;margin:0 auto">
+      <div class="model-line">1. Tom <span class="gap">plays</span> <b>(play)</b> tennis. ⚽</div>
+      <div class="model-line">2. I <span class="gap">like</span> <b>(like)</b> gymnastics. 🤸‍♀️</div>
+      <div class="model-line">3. Baby Tom <span class="gap">cries</span> <b>(cry)</b>. 😢</div>
+      <div class="model-line">4. We <span class="gap">go</span> <b>(go)</b> to school. 🏫</div>
+      <div class="model-line">5. The kite <span class="gap">flies</span> <b>(fly)</b> in the sky. 🪁</div>
+      <div class="model-line">6. My legs <span class="gap">hurt</span> <b>(hurt)</b>. 🦵</div>
+      <div class="model-line">7. She <span class="gap">watches</span> <b>(watch)</b> TV. 📺</div>
+      <div class="model-line">8. They <span class="gap">swim</span> <b>(swim)</b> fast. 🏊</div>
+    </div>
+
+    <div class="row reveal" style="justify-content:center;gap:1em;flex-wrap:wrap">
+      <span class="hi-line"><b>+ s</b> · <b>+ es</b> · <b>y → ies</b></span>
+      <span class="hi-line">I · we · they → <b>no s!</b></span>
+      <span class="hi-line">⭐ have → <b>has</b></span>
+    </div>
+    <p class="task reveal" style="display:block;text-align:center">In your homework: the verb in brackets — write the RIGHT form! 🎯</p>
+  </section>
+
+  <!-- SLIDE 10 · NEW HOMEWORK -->
+  <section class="slide" id="s8">
+    <div class="eyebrow reveal">Homework</div>
+    <h1 class="title reveal">📝 Домашнее задание</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="col reveal" style="max-width:940px;margin:0 auto;gap:.7em">
+      <div class="hw-step"><span class="n">1</span><div class="ru">🎮 <b>Сортировка y</b> — три корзинки: /aɪ/ · /i/ · /j/ — играем в файле!</div></div>
+      <div class="hw-step"><span class="n">2</span><div class="ru">🎧 <b>Cambridge: Starters 3, Test 1, Part 2</b> — слушаем <b>Дорожку 3</b>, пишем ответы, звёзды ⭐</div></div>
+      <div class="hw-step"><span class="n">3</span><div class="ru">📖 <b>Tommy's New Yo-yo</b> — читаем 2 раза вслух + да/нет</div></div>
+      <div class="hw-step"><span class="n">4</span><div class="ru">📹 <b>Видео «About me and my hobby»</b> — <b>одно</b> видео! 🎬</div></div>
+      <div class="hw-step"><span class="n">5</span><div class="ru">✍️ <b>Раскрой скобки</b> — 6 глаголов: plays · cries · flies…</div></div>
+    </div>
+    <p class="task reveal mt" style="display:block;text-align:center">📥 Всё — в файле «September the 1st». Звёзды только растут! ⭐</p>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
+  <div id="counter"><span class="now">1</span> / 10</div>
+  <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
+  <button id="fs-btn" title="Fullscreen (F)">⛶</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+  const fill = document.getElementById('progress-fill');
+  const counter = document.getElementById('counter').querySelector('.now');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const fsBtn = document.getElementById('fs-btn');
+  function render(){
+    slides.forEach((s,i)=>{ s.classList.toggle('active', i===current); s.classList.toggle('prev', i<current); });
+    counter.textContent = current+1;
+    fill.style.width = ((current+1)/total*100) + '%';
+    prevBtn.disabled = current===0;
+    nextBtn.disabled = current===total-1;
+  }
+  function go(n){ current = Math.max(0, Math.min(total-1, n)); render(); }
+  const next = ()=>go(current+1);
+  const prev = ()=>go(current-1);
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  document.addEventListener('keydown', e=>{
+    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
+    switch(e.key){
+      case 'ArrowRight': case 'ArrowDown': e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'ArrowUp': e.preventDefault(); prev(); break;
+      case ' ': e.preventDefault(); next(); break;
+      case 'Home': e.preventDefault(); go(0); break;
+      case 'End': e.preventDefault(); go(total-1); break;
+      case 'f': case 'F': toggleFs(); break;
+    }
+  });
+  let wheelLock = false;
+  document.getElementById('deck').addEventListener('wheel', e=>{
+    if(wheelLock) return;
+    if(Math.abs(e.deltaY) < 25) return;
+    wheelLock = true;
+    (e.deltaY>0 ? next() : prev());
+    setTimeout(()=>wheelLock=false, 650);
+  }, {passive:true});
+  let touchX=null;
+  document.addEventListener('touchstart', e=>{touchX=e.changedTouches[0].clientX},{passive:true});
+  document.addEventListener('touchend', e=>{
+    if(touchX===null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx)>60){ dx<0 ? next() : prev(); }
+    touchX=null;
+  },{passive:true});
+  function toggleFs(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+    else { document.exitFullscreen?.(); }
+  }
+  fsBtn.addEventListener('click', toggleFs);
+  document.addEventListener('click', e=>{
+    const g = e.target.closest('.gap');
+    if(g) g.classList.toggle('filled');
+  });
+  /* --- standing mime slide: 10 random questions from the bank
+         (pupils/alika/question-words.md — bank + rule 2026-08-28) --- */
+  const BANK=[
+    ['🫙','open the jar?','twist the lid! 🤌'],
+    ['📦','open the box?','pull the flaps!'],
+    ['🧼','wash your hands?','rub, rub, rub!'],
+    ['🍎','eat an apple?','big bite! 😋'],
+    ['💧','drink your water?','careful sips!'],
+    ['🚲','ride a bike?','pedal, pedal! 🦵'],
+    ['🪁','fly a kite?','pull the string, run!'],
+    ['🐈','draw a cat?','draw in the air!'],
+    ['📺','watch TV?','popcorn + stare! 🍿'],
+    ['🍵','make tea?','pour and stir!'],
+    ['🤸‍♀️','swing on the bar?','swing your arms! 💪'],
+    ['🪟','open the window?','push! 💪'],
+    ['🏐','catch the ball?','hands up!'],
+    ['📖','read this word?','point and decode!'],
+    ['😢','cry?','rub your eyes — boo-hoo!']
+  ];
+  const mimeGrid=document.getElementById('mime-grid');
+  function renderMimes(){
+    const pool=BANK.slice();
+    for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
+    mimeGrid.innerHTML=pool.slice(0,10).map(([ico,q,m])=>
+      '<div class="model-line">'+ico+' <span class="hlp">How do you</span> '+q+' — <span class="gap">'+m+'</span></div>'
+    ).join('');
+  }
+  document.getElementById('dice-btn').addEventListener('click', renderMimes);
+  renderMimes();
+  document.querySelectorAll('.yn').forEach(yn=>{
+    yn.addEventListener('click', ()=>{
+      const a = yn.dataset.a;
+      yn.classList.remove('shown-yes','shown-no');
+      yn.classList.add(a==='yes' ? 'shown-yes' : 'shown-no');
+      yn.querySelector('.badge').textContent = a==='yes' ? '✓' : '✗';
+    });
+  });
+  document.querySelectorAll('.zchip').forEach(ch=>{
+    ch.addEventListener('click', ()=> ch.classList.toggle('s-'+ch.dataset.s));
+  });
+  render();
+})();
+</script>
+</body>
+</html>

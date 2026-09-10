@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alika · L7 · How? WOW! · How old? · Go Getter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A; --lavender:#C8B6FF;
+  --lavender-deep:#9a7fff; --cream:#FFF8F0; --ink:#2D3436; --ink-soft:#636e72;
+  --pink:#FF8FAB; --white:#ffffff;
+  --shadow:0 10px 30px rgba(45,52,54,.12); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased}
+#progress-track{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(200,182,255,.25)}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--lavender),var(--pink));transition:width .45s cubic-bezier(.22,1,.36,1)}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:4.2vh 5vw 11vh;opacity:0;transform:translateX(60px) scale(.985);transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);pointer-events:none;overflow:auto}
+.slide.active{opacity:1;transform:none;pointer-events:auto;z-index:2}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.1vw,.95rem);color:var(--lavender-deep);margin-bottom:.4em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.05;margin-bottom:.5em}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--lavender));margin-bottom:1.1em}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.25rem,2.3vw,1.9rem)}
+p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,2vw,1.8rem)}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.pattern-box{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,3.2vw,2.6rem);background:linear-gradient(135deg,#eafbf6,#f1ecff);border-radius:18px;padding:.4em .9em;display:inline-block;box-shadow:var(--shadow)}
+.pattern-box .slot{display:inline-block;min-width:1.2em;border-bottom:5px solid var(--pink);margin:0 .1em;color:var(--pink)}
+.pattern-box .q{color:var(--lavender-deep)}
+.model-line{font-size:clamp(1.25rem,2.2vw,1.85rem);padding:.55em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.6em}
+.model-line .key{color:var(--lavender-deep);font-weight:800}
+.model-line .hlp{color:#d6336c;font-weight:800}
+.read-text{font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.85}
+.read-text .hl{font-weight:800;color:var(--lavender-deep)}
+.read-text .hlp{font-weight:800;color:#d6336c}
+.read-text .nw{font-weight:800;color:#5ecbb8}
+.yn{display:flex;align-items:center;gap:.6em;cursor:pointer;padding:.55em .9em;border-radius:12px;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.06);font-size:clamp(1.2rem,2vw,1.65rem)}
+.yn .badge{flex-shrink:0;width:1.7em;height:1.7em;border-radius:50%;display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.85em;background:#eee;color:transparent;transition:all .2s}
+.yn.shown-yes .badge{background:var(--mint);color:var(--ink)}
+.yn.shown-no .badge{background:var(--pink);color:#fff}
+.sent{font-size:clamp(1.2rem,2vw,1.65rem);line-height:1.55;padding:.5em .2em;border-bottom:2px dotted rgba(200,182,255,.5)}
+.gap{display:inline-block;min-width:3.6em;border-bottom:4px solid var(--mint-deep);text-align:center;font-family:'Fredoka';font-weight:600;color:transparent;cursor:pointer;transition:all .2s ease;padding:0 .15em;border-radius:4px 4px 0 0}
+.gap:hover{background:#eafbf6}
+.gap.filled{color:var(--lavender-deep);border-color:var(--lavender);background:#f1ecff}
+.wordbank{display:flex;flex-wrap:wrap;gap:.5em;justify-content:center;background:#fff8db;border-radius:var(--radius);padding:.9em}
+.wordbank .wb{font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.4vw,1.15rem);padding:.3em .7em;border-radius:99px;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.08)}
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.7em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--lavender));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:var(--ink)}
+.hw-step .ru{font-size:clamp(1rem,1.6vw,1.35rem);line-height:1.45}
+.hw-step .en{font-family:'Fredoka';color:var(--lavender-deep);font-weight:600}
+#nav{position:fixed;bottom:2.4vh;left:50%;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);padding:.5em 1em;border-radius:99px;box-shadow:0 20px 50px rgba(45,52,54,.18)}
+.nav-btn{width:3em;height:3em;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--mint),var(--lavender));display:grid;place-items:center;color:var(--ink);font-size:1.2rem;box-shadow:0 6px 16px rgba(90,123,191,.25);transition:transform .15s ease;font-family:'Fredoka'}
+.nav-btn:hover{transform:scale(1.08)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#counter{font-family:'Fredoka';font-weight:600;font-size:1.1rem;min-width:3.5em;text-align:center}
+#counter .now{color:var(--lavender-deep)}
+#fs-btn{width:2.6em;height:2.6em;border-radius:50%;border:none;cursor:pointer;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.1);font-size:1rem;transition:transform .15s ease}
+#fs-btn:hover{transform:scale(1.08)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:1em}
+.center{text-align:center}
+.mt{margin-top:1em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka';font-weight:500;color:var(--ink);background:#fff8db;border-radius:14px;padding:.6em 1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.35rem)}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.9rem,1.3vw,1.1rem);color:var(--ink-soft);font-style:italic}
+/* --- bright hero slide (How? — WOW!) --- */
+.slide.bright{background:linear-gradient(135deg,var(--mint) 0%,var(--peach) 32%,var(--lavender) 66%,var(--pink) 100%)}
+.slide.bright .eyebrow{color:#fff;text-shadow:0 2px 10px rgba(45,52,54,.3)}
+.slide.bright .accent-line{background:rgba(255,255,255,.9)}
+.sticker{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.1;color:#fff;text-shadow:-3px -3px 0 var(--ink),3px -3px 0 var(--ink),-3px 3px 0 var(--ink),3px 3px 0 var(--ink),-3px 0 0 var(--ink),3px 0 0 var(--ink),0 -3px 0 var(--ink),0 3px 0 var(--ink),0 16px 34px rgba(45,52,54,.3)}
+.sticker.peachy{color:var(--peach)}
+.hero-how{font-size:clamp(2.6rem,7vw,5.5rem)}
+.hero-wow{font-size:clamp(3.6rem,10vw,8.5rem)}
+.thumb{font-size:clamp(3.6rem,9vw,7.5rem);line-height:1;animation:bob 2.4s ease-in-out infinite alternate;filter:drop-shadow(0 14px 20px rgba(45,52,54,.25))}
+@keyframes bob{from{transform:translateY(0) rotate(-6deg)}to{transform:translateY(-16px) rotate(6deg)}}
+.glass{background:rgba(255,255,255,.93)}
+.link-pill{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);color:var(--ink);background:linear-gradient(135deg,var(--mint),var(--lavender));border-radius:99px;padding:.4em 1.1em;text-decoration:none;box-shadow:0 6px 16px rgba(45,52,54,.15);margin-top:.55em}
+.link-pill:hover{transform:translateY(-2px)}
+/* --- verb + s rule slide (from Library/Grammar/verb-s-spelling) --- */
+.card.pink{background:#ffe9f0}
+.ex{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(1.05rem,1.9vw,1.5rem);padding:.12em .1em;display:flex;align-items:baseline;gap:.4em;white-space:nowrap}
+.ex .arrow{color:var(--mint-deep);font-weight:600}
+.add-m{color:var(--mint-deep);font-weight:700}
+.add-e{color:#d6336c;font-weight:700}
+.add-i{color:var(--lavender-deep);font-weight:700}
+.tail-e{color:var(--lavender-deep);font-weight:700}
+.tail-y{color:var(--lavender-deep);font-weight:700}
+.cy{color:var(--mint-deep);font-weight:700}
+.vy{color:var(--lavender-deep);font-weight:700}
+.rhyme-grid{display:flex;align-items:center;gap:clamp(.35rem,.9vw,.7rem);flex:1;padding:.2em 0}
+.letters{display:flex;flex-direction:column;justify-content:space-between;gap:.2em}
+.L{display:flex;align-items:center;justify-content:center;height:clamp(1.7rem,3.3vw,2.6rem);min-width:2.1em;padding:0 .4em;border-radius:12px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2.3vw,1.9rem);line-height:1;color:var(--lavender-deep)}
+.brace{align-self:stretch;height:auto;width:clamp(.6rem,1.2vw,1rem);flex-shrink:0}
+.plus-es{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,2.9vw,2.4rem);color:#d6336c;white-space:nowrap}
+.r-examples{display:flex;flex-direction:column;justify-content:space-between;flex:1;gap:.2em}
+.rhyme-grid .ex{height:clamp(1.7rem,3.3vw,2.6rem);align-items:center;font-size:clamp(.95rem,1.7vw,1.3rem)}
+.chant{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.8vw,1.4rem);background:#fff8db;border-radius:14px;padding:.55em 1.1em;display:inline-block}
+@media(max-width:900px){ .row{flex-direction:column} }
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · CHECK HOMEWORK -->
+  <section class="slide" id="s1">
+    <div class="eyebrow reveal">Homework · your stars</div>
+    <h1 class="title reveal">Let's check your homework ⭐</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:stretch;gap:1.4em">
+      <div class="card mint" style="flex:1">
+        <h2>⭐ Your stars!</h2>
+        <p class="mt">Show me: <b>hurt / hurts</b> — how many stars?</p>
+        <p class="mt">🎧 Nick's dog — how many stars?</p>
+        <p class="mt">🤸‍♀️ And… the bar video?</p>
+      </div>
+      <div class="card peach" style="flex:1">
+        <h2>🕵️ Spot the mistake!</h2>
+        <p class="mt" style="font-family:'Fredoka'">1. “My eyes hurts.”</p>
+        <p class="mt" style="font-family:'Fredoka'">2. “My tummy hurt.”</p>
+        <p class="mt" style="font-family:'Fredoka'">3. “My toes hurts.”</p>
+        <p class="hintline mt">Alika fixes them — one S or no S!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 · NEW: HOW? — WOW! (bright hero) -->
+  <section class="slide bright" id="s2">
+    <div class="eyebrow reveal">NEW · the question word HOW</div>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="justify-content:center;align-items:center;gap:clamp(.8rem,3vw,2em);flex:1">
+      <span class="sticker hero-how">How?</span>
+      <span class="thumb">👍</span>
+      <span class="sticker hero-wow peachy">WOW!</span>
+    </div>
+
+    <div class="model-line glass reveal" style="max-width:860px;margin:0 auto 1em;width:100%;text-align:center;font-size:clamp(1.4rem,2.8vw,2.2rem)">
+      <span class="hlp">How are you?</span> — I'm <span class="key">great</span>! — WOW! ✨
+    </div>
+    <p class="task reveal" style="display:block;text-align:center">Say it with me: How are you? — I'm great — WOW! 🎉</p>
+  </section>
+
+  <!-- SLIDE 3 · NEW: HOW DO YOU…? (the mime bank — question-words.md) -->
+  <section class="slide" id="s3">
+    <div class="eyebrow reveal">NEW · How do you…?</div>
+    <h1 class="title reveal">How do you…? 🤔</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="col reveal" style="max-width:920px;margin:0 auto;gap:.55em;flex:1;justify-content:center">
+      <div class="model-line" style="font-size:clamp(1.25rem,2.2vw,1.8rem)">🫙 <span class="hlp">How do you</span> open the jar? — <span class="gap" data-w="twist the lid! 🤌">twist the lid! 🤌</span></div>
+      <div class="model-line" style="font-size:clamp(1.25rem,2.2vw,1.8rem)">🧼 <span class="hlp">How do you</span> wash your hands? — <span class="gap" data-w="rub, rub, rub! 🫧">rub, rub, rub! 🫧</span></div>
+      <div class="model-line" style="font-size:clamp(1.25rem,2.2vw,1.8rem)">🍎 <span class="hlp">How do you</span> eat an apple? — <span class="gap" data-w="big bite! 😋">big bite! 😋</span></div>
+      <div class="model-line" style="font-size:clamp(1.25rem,2.2vw,1.8rem)">🚲 <span class="hlp">How do you</span> ride a bike? — <span class="gap" data-w="pedal, pedal! 🦵">pedal, pedal! 🦵</span></div>
+      <div class="model-line" style="font-size:clamp(1.25rem,2.2vw,1.8rem)">📺 <span class="hlp">How do you</span> watch TV? — <span class="gap" data-w="popcorn + stare! 🍿">popcorn + stare! 🍿</span></div>
+      <div class="model-line" style="font-size:clamp(1.25rem,2.2vw,1.8rem)">🤸‍♀️ <span class="hlp">How do you</span> swing on the bar? — <span class="gap" data-w="swing your arms! 💪">swing your arms! 💪</span></div>
+    </div>
+    <p class="task reveal" style="display:block;text-align:center">🎭 Elena mimes — Alika says it! Then SWAP. 🤸‍♀️</p>
+    <p class="hintline reveal" style="text-align:center">Full bank of 14: question-words.md · answers FIRST, click checks 👆</p>
+  </section>
+
+  <!-- SLIDE 4 · HOW OLD -->
+  <section class="slide" id="s4">
+    <div class="eyebrow reveal">NEW · question words</div>
+    <h1 class="title reveal">How old…? 🎂</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="justify-content:center;gap:1em">
+      <div class="pattern-box"><span class="q">How old</span> <span class="slot">&nbsp;</span> you ?</div>
+    </div>
+
+    <div class="col reveal mt" style="max-width:720px;margin:1.2em auto 0;gap:.6em">
+      <div class="model-line"><span class="hlp">How old</span> are you? — I'm <span class="key">ten</span>.</div>
+      <div class="model-line"><span class="hlp">How old</span> is your sister? — She's <span class="key">twelve</span>.</div>
+      <div class="model-line"><span class="hlp">How old</span> is Elena? — That's a <span class="key">secret</span>! 🤫</div>
+    </div>
+    <p class="task reveal mt">Ask me THREE “How old…?” questions. Go!</p>
+  </section>
+
+  <!-- SLIDE 5 · TEXT: VERA'S NEW BIKE -->
+  <section class="slide" id="s5">
+    <div class="eyebrow reveal">Reading · wa-words + how old + NEW</div>
+    <h1 class="title reveal">Vera's New Bike 🚲</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:flex-start;gap:1.4em">
+      <div class="card peach" style="flex:1">
+        <div class="read-text">
+          Vera has got a <span class="nw">new</span> bike.<br>
+          Vera is ten. Her sister is twelve.<br>
+          “<span class="hl">What's</span> the matter?” — “I <span class="hl">want</span>
+          <span class="hl">water</span>!”<br>
+          Vera <span class="hl">washes</span> her hands and drinks. 💧<br>
+          Then she <span class="hl">watches</span> her <span class="nw">new</span> bike. 🚲<br>
+          “<span class="hlp">How old</span> is the bike?” — “It's <span class="nw">new</span>!
+          It's one!”<br>
+          Vera and her sister are happy.
+        </div>
+      </div>
+      <div class="card" style="flex:1.15">
+        <h2 style="margin-bottom:.5em">Yes / No?</h2>
+        <div class="col" style="gap:.45em">
+          <div class="yn" data-a="yes"><span class="badge">Y</span>Is Vera ten?</div>
+          <div class="yn" data-a="no"><span class="badge">Y</span>Has she got an old bike?</div>
+          <div class="yn" data-a="no"><span class="badge">Y</span>Is her sister nine?</div>
+        </div>
+        <h2 class="mt" style="margin-bottom:.4em">What…? How old…?</h2>
+        <div class="sent">What does Vera want? — <span class="gap" data-w="Water!">Water!</span></div>
+        <div class="sent">How old is the sister? — <span class="gap" data-w="Twelve!">Twelve!</span></div>
+        <div class="sent">How old is the bike? — <span class="gap" data-w="One! It's new!">One! It's new!</span></div>
+        <p class="muted mt" style="font-size:.9em">Answer FIRST. Click only to check. 👆</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6 · NEW: VERB + S — SPELLING RULES (Library/Grammar/verb-s-spelling) -->
+  <section class="slide" id="s6v">
+    <div class="eyebrow reveal">NEW · spelling rules</div>
+    <h1 class="title reveal">it · he · she → verb + S ✨</h1>
+    <div class="accent-line reveal"></div>
+    <p class="hintline reveal" style="margin:-.4em 0 .8em">🎵 «it, he, she — глагол с s-кой напиши!»</p>
+
+    <div class="row reveal" style="align-items:stretch;gap:1em;flex:1">
+      <div class="card mint" style="flex:1">
+        <div style="font-family:'Fredoka';font-weight:700;font-size:clamp(1.4rem,2.6vw,2.1rem);color:var(--mint-deep)">+ s</div>
+        <div class="ex"><span class="w">work</span><span class="arrow">→</span><span class="w">work<b class="add-m">s</b></span></div>
+        <div class="ex"><span class="w">read</span><span class="arrow">→</span><span class="w">read<b class="add-m">s</b></span></div>
+        <div class="ex"><span class="w">eat</span><span class="arrow">→</span><span class="w">eat<b class="add-m">s</b></span></div>
+        <div class="ex"><span class="w">swim</span><span class="arrow">→</span><span class="w">swim<b class="add-m">s</b></span></div>
+        <div style="font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.6vw,1.25rem);margin-top:.6em">⭐ have → has · be → is</div>
+      </div>
+
+      <div class="card pink" style="flex:1.6">
+        <div class="rhyme-grid">
+          <div class="letters">
+            <span class="L">sh</span><span class="L">ch</span><span class="L">x</span><span class="L">o</span><span class="L">s</span>
+          </div>
+          <svg class="brace" viewBox="0 0 36 100" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M3 2 C20 8 24 18 24 32 L24 40 C24 45 30 50 34 50 C30 50 24 55 24 60 L24 68 C24 82 20 92 3 98" fill="none" stroke="#d6336c" stroke-width="3.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <div class="plus-es">+ es</div>
+          <div class="r-examples">
+            <div class="ex"><span class="w">wa<span class="tail-e">sh</span></span><span class="arrow">→</span><span class="w">wa<span class="tail-e">sh</span><b class="add-e">es</b></span></div>
+            <div class="ex"><span class="w">wat<span class="tail-e">ch</span></span><span class="arrow">→</span><span class="w">wat<span class="tail-e">ch</span><b class="add-e">es</b></span></div>
+            <div class="ex"><span class="w">fi<span class="tail-e">x</span></span><span class="arrow">→</span><span class="w">fi<span class="tail-e">x</span><b class="add-e">es</b></span></div>
+            <div class="ex"><span class="w">g<span class="tail-e">o</span></span><span class="arrow">→</span><span class="w">g<span class="tail-e">o</span><b class="add-e">es</b></span></div>
+            <div class="ex"><span class="w">kis<span class="tail-e">s</span></span><span class="arrow">→</span><span class="w">kis<span class="tail-e">s</span><b class="add-e">es</b></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card lavender" style="flex:1">
+        <div style="font-family:'Fredoka';font-weight:700;font-size:clamp(1.4rem,2.6vw,2.1rem);color:var(--lavender-deep)">y → ies</div>
+        <div style="font-family:'Fredoka';font-weight:600;font-size:clamp(.9rem,1.5vw,1.15rem);color:var(--mint-deep)">consonant + y:</div>
+        <div class="ex"><span class="w">stu<b class="cy">d</b><span class="tail-y">y</span></span><span class="arrow">→</span><span class="w">stud<b class="add-i">ies</b></span></div>
+        <div class="ex"><span class="w">ca<b class="cy">rr</b><span class="tail-y">y</span></span><span class="arrow">→</span><span class="w">carr<b class="add-i">ies</b></span></div>
+        <div style="font-family:'Fredoka';font-weight:600;font-size:clamp(.9rem,1.5vw,1.15rem);color:var(--lavender-deep);margin-top:.3em">vowel + y:</div>
+        <div class="ex"><span class="w">pl<b class="vy">a</b><span class="tail-y">y</span></span><span class="arrow">→</span><span class="w">play<b class="add-m">s</b></span></div>
+        <div class="ex"><span class="w">b<b class="vy">u</b><span class="tail-y">y</span></span><span class="arrow">→</span><span class="w">buy<b class="add-m">s</b></span></div>
+      </div>
+    </div>
+
+    <div class="row reveal" style="justify-content:center;gap:1em;margin-top:1em;flex-wrap:wrap">
+      <span class="chant">🎵 sh · ch · x · o · s — add <b style="color:#d6336c">ES</b>!</span>
+      <a class="link-pill" href="https://wordwall.net/resource/60952241/simple-present-3rd-person-singular-spelling-rules" target="_blank" rel="noopener">🎮 Wordwall — играем вместе ▶</a>
+    </div>
+  </section>
+
+  <!-- SLIDE 7 · NEW HOMEWORK -->
+  <section class="slide" id="s7">
+    <div class="eyebrow reveal">Homework</div>
+    <h1 class="title reveal">📝 Домашнее задание</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:stretch;gap:1.2em">
+      <div class="card lavender" style="flex:1.5">
+        <h2>📖 Mia's Rainy Day 🌧️</h2>
+        <div class="read-text" style="font-size:clamp(1.2rem,1.9vw,1.6rem);line-height:1.7">
+          It is raining. Mia is at home. ☔<br>
+          “Mum! <span class="hl">What's</span> the weather like?” — “It's raining!”<br>
+          Mia wants <span class="hl">water</span>. She <span class="hl">washes</span> her hands and drinks. 💧<br>
+          Then she <span class="hl">watches</span> TV. 📺 Her hobby is <span class="hlp">making cupcakes</span>.<br>
+          Today she makes cupcakes with her mum.<br>
+          The cupcakes are hot! “Yum!”
+        </div>
+        <p class="mt" style="font-size:clamp(1rem,1.6vw,1.3rem);font-weight:700">Прочитай вслух 2 раза 👅 и ответь — да или нет:</p>
+        <div class="col mt" style="gap:.45em">
+          <div class="yn" data-a="no"><span class="badge">Y</span>Is it sunny?</div>
+          <div class="yn" data-a="yes"><span class="badge">Y</span>Does Mia want water?</div>
+          <div class="yn" data-a="no"><span class="badge">Y</span>Are the cupcakes cold?</div>
+        </div>
+      </div>
+      <div class="col" style="flex:1;gap:1.2em">
+        <div class="card mint" style="flex:1">
+          <h2>🎮 Wordwall</h2>
+          <p class="mt">Сортировка глаголов: <b>+s · +es · +ies</b></p>
+          <a class="link-pill" href="https://wordwall.net/resource/10493344/present-simple-3rd-person-singular-spelling-rules" target="_blank" rel="noopener">▶ играть</a>
+          <p class="mt" style="font-size:.85em">Правила-помощник — <a href="../lib/verb-s-spelling.html" style="color:var(--lavender-deep);font-weight:700">памятка 📖</a></p>
+        </div>
+        <div class="card" style="flex:1">
+          <h2>🎧 Cambridge — Test 3</h2>
+          <p class="mt">May's listening — в файле <b>«August the 28th»</b>: слушай, пиши, проверяй ⭐</p>
+        </div>
+        <div class="card peach" style="flex:1">
+          <h2>📹 Видео «My new thing»</h2>
+          <p class="mt" style="font-family:'Fredoka';font-size:clamp(1.05rem,1.7vw,1.35rem)">“This is my <b>new</b> ___ . I like it! <span class="hlp">How old</span> is it? — It's <b>new</b>!”</p>
+        </div>
+      </div>
+    </div>
+    <p class="task reveal mt">📥 Звёзды только растут! ⭐</p>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
+  <div id="counter"><span class="now">1</span> / 7</div>
+  <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
+  <button id="fs-btn" title="Fullscreen (F)">⛶</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+  const fill = document.getElementById('progress-fill');
+  const counter = document.getElementById('counter').querySelector('.now');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const fsBtn = document.getElementById('fs-btn');
+  function render(){
+    slides.forEach((s,i)=>{ s.classList.toggle('active', i===current); s.classList.toggle('prev', i<current); });
+    counter.textContent = current+1;
+    fill.style.width = ((current+1)/total*100) + '%';
+    prevBtn.disabled = current===0;
+    nextBtn.disabled = current===total-1;
+  }
+  function go(n){ current = Math.max(0, Math.min(total-1, n)); render(); }
+  const next = ()=>go(current+1);
+  const prev = ()=>go(current-1);
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  document.addEventListener('keydown', e=>{
+    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
+    switch(e.key){
+      case 'ArrowRight': case 'ArrowDown': e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'ArrowUp': e.preventDefault(); prev(); break;
+      case ' ': e.preventDefault(); next(); break;
+      case 'Home': e.preventDefault(); go(0); break;
+      case 'End': e.preventDefault(); go(total-1); break;
+      case 'f': case 'F': toggleFs(); break;
+    }
+  });
+  let wheelLock = false;
+  document.getElementById('deck').addEventListener('wheel', e=>{
+    if(wheelLock) return;
+    if(Math.abs(e.deltaY) < 25) return;
+    wheelLock = true;
+    (e.deltaY>0 ? next() : prev());
+    setTimeout(()=>wheelLock=false, 650);
+  }, {passive:true});
+  let touchX=null;
+  document.addEventListener('touchstart', e=>{touchX=e.changedTouches[0].clientX},{passive:true});
+  document.addEventListener('touchend', e=>{
+    if(touchX===null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx)>60){ dx<0 ? next() : prev(); }
+    touchX=null;
+  },{passive:true});
+  function toggleFs(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+    else { document.exitFullscreen?.(); }
+  }
+  fsBtn.addEventListener('click', toggleFs);
+  document.querySelectorAll('.gap').forEach(g=>{
+    g.addEventListener('click', ()=> g.classList.toggle('filled'));
+  });
+  document.querySelectorAll('.yn').forEach(yn=>{
+    yn.addEventListener('click', ()=>{
+      const a = yn.dataset.a;
+      yn.classList.remove('shown-yes','shown-no');
+      yn.classList.add(a==='yes' ? 'shown-yes' : 'shown-no');
+      yn.querySelector('.badge').textContent = a==='yes' ? '✓' : '✗';
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

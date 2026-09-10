@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sergey · The Rats' Space Mission 🐀🐀🚀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+body.dark-strip{background:#0E1C33}
+#progress-track{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));transition:width .45s cubic-bezier(.22,1,.36,1)}
+#stars{position:fixed;top:14px;right:18px;z-index:100;font-family:'Fredoka';font-weight:700;font-size:clamp(1.1rem,2vw,1.5rem);color:var(--navy);background:var(--white);border-radius:99px;box-shadow:var(--shadow);padding:.3em .8em}
+#stars .n{color:var(--stamp)}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.screen{position:absolute;top:0;left:0;right:0;bottom:calc(74px + 2.4vh);display:flex;flex-direction:column;align-items:center;padding:3.6vh 5vw 2vh;opacity:0;transform:translateX(60px) scale(.985);transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);pointer-events:none;overflow:auto}
+.screen.active{opacity:1;transform:none;pointer-events:auto;z-index:2}
+.screen.prev{transform:translateX(-60px) scale(.985)}
+.screen.active .reveal{animation:rise .6s both}
+.screen.active .reveal:nth-child(2){animation-delay:.08s}
+.screen.active .reveal:nth-child(3){animation-delay:.16s}
+.screen.active .reveal:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.1vw,.95rem);color:var(--navy);margin-bottom:.4em;text-align:center}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,3.8vw,3.2rem);line-height:1.1;margin-bottom:.4em;text-align:center}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1em}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,2vw,1.8rem)}
+.card.sky{background:#E8F1FA}
+.card.cheese{background:var(--cheese-soft)}
+.card.stampc{background:var(--stamp-soft)}
+.task{font-family:'Fredoka';font-weight:500;color:var(--ink);background:var(--cheese-soft);border-radius:14px;padding:.6em 1em;display:inline-block;font-size:clamp(1.05rem,1.7vw,1.4rem)}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.85rem,1.25vw,1.05rem);color:var(--ink-soft);font-style:italic;text-align:center}
+.stamp-box{font-family:'Fredoka',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;border:3px dashed var(--stamp);border-radius:16px;padding:.5em 1em;color:var(--stamp);background:var(--white);box-shadow:var(--shadow);display:inline-block}
+.fb{min-height:1.6em;font-family:'Fredoka';font-weight:600;font-size:clamp(1.1rem,2vw,1.6rem);margin-top:.5em}
+.fb.ok{color:#2E8B6D}
+.fb.no{color:var(--stamp)}
+/* chips */
+.chips{display:flex;gap:.7em;flex-wrap:wrap;justify-content:center;margin-top:.6em}
+.chip{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2.1vw,1.7rem);padding:.5em 1.2em;border-radius:99px;border:3px solid transparent;background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.1);cursor:pointer;transition:transform .15s ease,border-color .2s ease;user-select:none}
+.chip:hover{transform:translateY(-3px)}
+.chip.okc{border-color:var(--mint);background:#EAF7F2;color:#2E8B6D}
+.chip.noc{border-color:var(--stamp);color:var(--stamp);opacity:.55}
+.chip.shake{animation:shake .4s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}60%{transform:translateX(7px)}}
+/* set controls (flight tasks) */
+.setbtns{display:flex;gap:.55em;margin-top:.7em;flex-wrap:wrap;justify-content:center}
+.sbtn{font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1em;border:none;border-radius:99px;cursor:pointer;background:linear-gradient(135deg,var(--navy),var(--sky));color:#fff;box-shadow:0 6px 14px rgba(44,78,128,.25);transition:transform .15s ease}
+.sbtn:hover{transform:scale(1.06)}
+.sbtn.min{background:var(--white);color:var(--navy);box-shadow:0 4px 12px rgba(34,48,63,.14)}
+.gift-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2.1vw,1.6rem);padding:.6em 1.6em;border:none;border-radius:99px;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--stamp),var(--cheese));box-shadow:var(--shadow-lg);transition:transform .15s ease;margin-top:.7em}
+.gift-btn:hover{transform:scale(1.05)}
+.gift-btn:disabled{opacity:.6;cursor:default;transform:none}
+.next-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.9vw,1.45rem);padding:.5em 1.4em;border:none;border-radius:99px;cursor:pointer;color:#fff;background:linear-gradient(135deg,#2E8B6D,var(--mint));box-shadow:0 8px 18px rgba(46,139,109,.3);margin-top:.6em;display:none}
+.next-btn.show{display:inline-block}
+.pulse{animation:pulse 1s ease infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+/* world strip (flight tasks) */
+.strip{display:flex;align-items:center;justify-content:center;gap:clamp(.6rem,2vw,1.6rem);width:100%;margin-top:.8em}
+.citycard{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:.8em .9em;display:flex;flex-direction:column;align-items:center;gap:.35em;border:3px solid transparent;min-width:clamp(150px,18vw,220px)}
+.citycard.home{border-color:var(--cheese)}
+.citycard.done{border-color:var(--mint)}
+.citycard .cname{font-family:'Fredoka';font-weight:700;font-size:clamp(1rem,1.8vw,1.45rem);color:var(--navy)}
+.citycard .csub{font-size:clamp(.8rem,1.25vw,1rem);color:var(--ink-soft)}
+.citycard .clockface{width:clamp(110px,15vh,170px);height:clamp(110px,15vh,170px)}
+.citycard .dig{font-size:clamp(1rem,1.8vw,1.4rem)}
+.link{display:flex;flex-direction:column;align-items:center;gap:.2em;font-family:'Fredoka';font-weight:600;font-size:clamp(.85rem,1.4vw,1.15rem);color:var(--navy);text-align:center}
+.link .ar{font-size:clamp(1.3rem,2.4vw,2rem);line-height:1.1}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap;justify-content:center}
+.col{display:flex;flex-direction:column;gap:.7em;align-items:center}
+.mt{margin-top:.9em}
+.center{text-align:center}
+.muted{color:var(--ink-soft)}
+#nav{position:fixed;bottom:2.4vh;right:max(10px,1.6vw);z-index:90;display:flex;align-items:center;gap:1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);padding:.5em 1em;border-radius:99px;box-shadow:var(--shadow-lg)}
+.nav-btn{width:3em;height:3em;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--navy),var(--sky));display:grid;place-items:center;color:#fff;font-size:1.2rem;box-shadow:0 6px 16px rgba(44,78,128,.3);transition:transform .15s ease;font-family:'Fredoka'}
+.nav-btn:hover{transform:scale(1.08)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#counter{font-family:'Fredoka';font-weight:600;font-size:1.1rem;min-width:3.5em;text-align:center}
+#counter .now{color:var(--navy)}
+#fs-btn{width:2.6em;height:2.6em;border-radius:50%;border:none;cursor:pointer;background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.1);font-size:1rem;transition:transform .15s ease}
+#fs-btn:hover{transform:scale(1.08)}
+@media(max-width:900px){ .strip{flex-direction:column} .link .ar{transform:rotate(90deg)} }
+/* clocks */
+.wclock{display:flex;flex-direction:column;align-items:center;gap:.5em}
+.clockface{width:clamp(190px,26vh,300px);height:clamp(190px,26vh,300px)}
+.clockface.wiggle{animation:wiggle .6s ease}
+@keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-5deg)}60%{transform:rotate(5deg)}}
+.dig{font-family:'Fredoka';font-weight:700;font-size:clamp(1.3rem,2.4vw,2rem);color:var(--navy)}
+.dig .skyic{font-size:.85em}
+/* space slides (the machines) */
+.space-slide{background:#0E1C33}
+.space-slide .eyebrow{color:#A9CCEF}
+.space-slide h1.title{color:#F6F8FB;font-size:clamp(1.4rem,2.9vw,2.4rem);margin-bottom:.25em}
+.space-slide .accent-line{margin-bottom:.7em}
+.space-slide .hintline{color:#8FA3BD}
+.machine-stage{position:relative;width:100%;flex:1;min-height:300px;display:flex;flex-direction:column}
+.stars-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.tw{position:absolute;border-radius:50%;background:#fff}
+.machine-wrap{flex:1;display:grid;place-items:center;position:relative;min-height:0}
+.cockpit{display:flex;align-items:stretch;justify-content:center;gap:clamp(.4rem,1.6vw,1.4rem);width:100%;min-height:0}
+.clock-col{display:flex;flex-direction:column;justify-content:space-between;align-items:center;flex:0 0 auto;padding:5% 0}
+.clock-col.horiz{flex-direction:row;justify-content:center;align-items:center;gap:.5em;padding:0}
+.clock-col.right{margin-left:clamp(6px,1.2vw,18px)}
+.machine-box{position:relative;height:min(52vh,440px);max-height:100%;aspect-ratio:1;width:auto;flex:0 1 auto;min-width:0;z-index:2}
+#sun-svg,#moon-svg{width:100%;height:100%;display:block;cursor:grab;touch-action:none}
+.machine-wrap{flex:1;display:grid;place-items:center;position:relative;min-height:0;padding:1.5vh 0 0}
+#sun-svg.dragging,#moon-svg.dragging{cursor:grabbing}
+.orbit-ring{fill:none;stroke:rgba(255,255,255,.16);stroke-width:2;stroke-dasharray:5 8}
+.station-dot{fill:rgba(255,255,255,.28)}
+.station-dot.hot{fill:var(--cheese)}
+.earth-ring{stroke:#A9CCEF;stroke-width:3}
+#sun{fill:#FFD666;stroke:#FFF3D6;stroke-width:3}
+#sun-glow{fill:rgba(255,214,102,.20);pointer-events:none}
+.city-dot{fill:#C9A94F;stroke:#0E1C33;stroke-width:2;opacity:.8;transition:fill .4s,opacity .4s}
+.city-dot.lit{fill:#FFE28A;opacity:1}
+.city-name{font-family:'Fredoka',sans-serif;font-weight:600;font-size:11px;fill:#F6F8FB;text-anchor:middle;paint-order:stroke;stroke:rgba(14,28,51,.78);stroke-width:3px}
+.corner-clock{width:clamp(84px,10.5vw,124px);display:flex;flex-direction:column;align-items:center;gap:.05em;z-index:3}
+.corner-clock .clockface{width:100%;height:auto;aspect-ratio:1}
+.cc-name{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.68rem,1.9vw,1.15rem);color:#F6F8FB;text-shadow:0 2px 10px rgba(0,0,0,.65);white-space:nowrap}
+.corner-clock .dig{color:#FFD666;font-size:clamp(.6rem,1.6vw,1rem);font-weight:700;white-space:nowrap}
+#moon-dot{fill:#D9E4F2;stroke:#F6F8FB;stroke-width:2;filter:drop-shadow(0 0 8px rgba(214,228,255,.75));pointer-events:none}
+.city-house{font-size:14px;text-anchor:middle;pointer-events:none}
+.city-rats{font-size:9px;text-anchor:middle;pointer-events:none}
+.mini-label{font-family:'Fredoka',sans-serif;font-weight:600;font-size:12px;fill:#A9CCEF;text-anchor:middle}
+.rats-bubble{position:absolute;left:58%;top:12%;background:#FFF8E6;color:#22303F;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.6vw,1.25rem);padding:.45em .95em;border-radius:16px;box-shadow:0 8px 26px rgba(0,0,0,.4);opacity:0;transform:translateY(10px) scale(.88);transition:all .45s cubic-bezier(.34,1.56,.64,1);pointer-events:none;z-index:6;white-space:nowrap}
+.rats-bubble.show{opacity:1;transform:none}
+.shooting-star{position:absolute;width:110px;height:2px;background:linear-gradient(90deg,rgba(255,255,255,0),#fff);border-radius:99px;pointer-events:none;animation:shoot 1.15s ease-out forwards;z-index:1}
+@keyframes shoot{
+  0%{opacity:0;transform:translate(0,0) rotate(28deg)}
+  12%{opacity:1}
+  100%{opacity:0;transform:translate(-280px,160px) rotate(28deg)}
+}
+/* mission panel */
+.mission-card{position:relative;z-index:5;background:rgba(255,255,255,.97);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:.9em 1.2em;max-width:760px;width:min(96%,760px);margin-top:.5em;text-align:center}
+.m-tag{display:inline-block;font-family:'Fredoka';font-weight:700;font-size:clamp(.8rem,1.3vw,1.05rem);letter-spacing:.08em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,var(--stamp),var(--cheese));border-radius:99px;padding:.25em 1em;margin-bottom:.45em}
+.m-tag.done{background:linear-gradient(135deg,#2E8B6D,var(--mint));animation:pulse 1s ease infinite}
+.m-task{font-family:'Fredoka';font-weight:600;font-size:clamp(1.15rem,2.1vw,1.7rem);line-height:1.25}
+.m-hint{font-size:clamp(.85rem,1.25vw,1.05rem);color:var(--ink-soft);font-style:italic;margin-top:.25em}
+.m-fb{min-height:1.5em;font-family:'Fredoka';font-weight:600;font-size:clamp(1.05rem,1.9vw,1.5rem);margin-top:.35em}
+.m-fb.ok{color:#2E8B6D}
+.m-fb.no{color:var(--stamp)}
+.mission-card .chips{margin-top:.55em}
+/* moon machine extras */
+#phase-pill{position:absolute;top:-1.4em;left:50%;transform:translateX(-50%);z-index:5;background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.25);backdrop-filter:blur(6px);border-radius:99px;padding:.3em 1em;font-family:'Fredoka';font-weight:600;font-size:clamp(1.05rem,1.9vw,1.5rem);color:#F6F8FB;white-space:nowrap}
+#phase-pill .ru{font-size:.72em;color:#A9CCEF;font-weight:500}
+#tracker{display:flex;gap:clamp(.25em,.8vw,.7em);justify-content:center;align-items:center;margin-top:.45em;position:relative;z-index:4}
+#tracker .tr{display:flex;flex-direction:column;align-items:center;gap:.15em}
+#tracker svg{width:clamp(30px,4.6vh,44px);height:clamp(30px,4.6vh,44px)}
+#tracker .tr.now svg{filter:drop-shadow(0 0 7px rgba(255,214,102,.8))}
+.tr-label{font-family:'Fredoka';font-weight:600;font-size:clamp(.6rem,1vw,.8rem);color:#8FA3BD;text-align:center;line-height:1.1}
+@media(max-height:820px){
+  .screen{padding:2.6vh 5vw 2vh}
+  h1.title{font-size:clamp(1.5rem,3.2vw,2.6rem);margin-bottom:.3em}
+  .accent-line{margin-bottom:.6em}
+  .machine-box{height:min(46vh,390px)}
+  .citycard .clockface{width:clamp(96px,13vh,140px);height:clamp(96px,13vh,140px)}
+  .chip{font-size:clamp(1.05rem,1.9vw,1.5rem);padding:.4em 1em}
+  .fb{margin-top:.3em;min-height:1.2em}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+<div id="stars">⭐ <span class="n">0</span></div>
+
+<main id="deck">
+
+  <!-- 1 · INTRO -->
+  <section class="screen" id="sc1">
+    <div class="eyebrow reveal">A new game · the rats fly again!</div>
+    <h1 class="title reveal">The Rats' Space Mission 🐀🐀🚀</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card sky reveal center" style="max-width:780px">
+      <p>Pelmenik and Varenik have a new dream: <b>to fly to the Moon!</b> 🌙</p>
+      <p class="mt">But space is big and dark. The rats need a CAPTAIN.</p>
+      <p class="mt" style="font-family:'Fredoka';font-weight:600;color:var(--navy)">Sergey — you are the CAPTAIN! The rats ask — YOU decide!</p>
+    </div>
+    <div class="card cheese reveal center mt" style="max-width:780px">
+      <p><b>Your missions:</b> ☀️ 3 tasks on the Sun Machine · ✈️ 2 flight tasks · 🌙 3 Moon missions.</p>
+      <p class="mt" style="font-family:'Fredoka';font-weight:600;color:var(--navy)">8 ⭐ are waiting. Good luck, Captain!</p>
+    </div>
+    <p class="task reveal mt">Press the arrow › and let's fly! 🚀</p>
+    <p class="hintline reveal mt">Use the arrows below — or your mouse. One mission = one star! ⭐</p>
+  </section>
+
+  <!-- 2 · WHY DAY? WHY NIGHT? -->
+  <section class="screen" id="sc2">
+    <div class="eyebrow reveal">Mission briefing · first things first</div>
+    <h1 class="title reveal">Why day? Why night? 🌍</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card sky reveal center" style="max-width:800px">
+      <p>The Earth goes <b>ROUND and ROUND</b> — like a merry-go-round! 🎠</p>
+      <p class="mt">The Sun lights <b>ONE HALF</b> of the Earth.</p>
+      <p class="mt" style="font-family:'Fredoka';font-weight:600"><span style="color:#2E8B6D">Sun side = DAY ☀️</span> · <span style="color:var(--navy-deep)">Dark side = NIGHT 🌙</span></p>
+    </div>
+    <svg class="reveal mt" viewBox="0 0 460 240" style="width:min(92%,560px)">
+      <circle cx="46" cy="120" r="52" fill="rgba(255,214,102,.18)"/>
+      <circle cx="46" cy="120" r="30" fill="#FFD666" stroke="#FFF3D6" stroke-width="3"/>
+      <text x="46" y="196" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="14" fill="#2C4E80">the Sun ☀️</text>
+      <line x1="80" y1="120" x2="236" y2="120" stroke="#FFC53D" stroke-width="3" stroke-dasharray="6 7"/>
+      <defs>
+        <linearGradient id="day-grad" x1="240" y1="120" x2="410" y2="120" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#A9CCEF"/><stop offset=".45" stop-color="#5E8FC7"/><stop offset="1" stop-color="#16304F"/>
+        </linearGradient>
+        <clipPath id="day-clip"><circle cx="300" cy="120" r="56"/></clipPath>
+      </defs>
+      <circle cx="300" cy="120" r="58" fill="url(#day-grad)" stroke="#A9CCEF" stroke-width="3"/>
+      <g clip-path="url(#day-clip)">
+        <g>
+          <animateTransform attributeName="transform" type="rotate" from="0 300 120" to="360 300 120" dur="24s" repeatCount="indefinite"/>
+          <ellipse cx="282" cy="98" rx="21" ry="13" fill="#67B26F" opacity=".95"/>
+          <ellipse cx="316" cy="138" rx="17" ry="11" fill="#67B26F" opacity=".85"/>
+          <ellipse cx="292" cy="152" rx="10" ry="7" fill="#67B26F" opacity=".7"/>
+        </g>
+      </g>
+      <text x="268" y="52" font-family="Fredoka" font-weight="700" font-size="17" fill="#2E8B6D">DAY! ☀️</text>
+      <text x="330" y="52" font-family="Fredoka" font-weight="700" font-size="17" fill="#1E3A66">NIGHT! 🌙</text>
+      <text x="272" y="152" text-anchor="middle" font-size="16">🐀🐀</text>
+      <text x="272" y="170" text-anchor="middle" font-size="10" fill="#2E8B6D" font-family="Fredoka">playing!</text>
+      <text x="336" y="152" text-anchor="middle" font-size="15">😴</text>
+      <text x="336" y="170" text-anchor="middle" font-size="10" fill="#1E3A66" font-family="Fredoka">sleeping</text>
+      <path d="M300 44 A76 76 0 0 1 376 120" fill="none" stroke="#9A7FFF" stroke-width="3" stroke-dasharray="4 6"/>
+      <polygon points="376,120 368,106 380,108" fill="#9A7FFF"/>
+      <text x="300" y="216" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="13" fill="#5D6B7A">the Earth SPINS by itself — one spin = one day! 🎠</text>
+    </svg>
+    <p class="hintline reveal mt">Just watch: the land goes round and round. Day, night, day, night… 🎠</p>
+  </section>
+
+  <!-- 3 · THE SUN MACHINE (missions 1–3) -->
+  <section class="screen space-slide" id="sc3">
+    <div class="eyebrow reveal">Mission Control · the Sun Machine ☀️</div>
+    <h1 class="title reveal">The Sun Machine! Drag the sun! 🖐️🌍</h1>
+    <div class="accent-line reveal"></div>
+    <div class="machine-stage">
+      <div class="stars-bg" id="sun-stars"></div>
+      <div class="machine-wrap">
+        <div class="cockpit">
+          <div class="clock-col horiz">
+            <div class="corner-clock">
+              <svg class="clockface" viewBox="0 0 200 200" data-h="5" data-m="0" data-digital="1" data-sky="1"></svg>
+              <div class="cc-name">🇺🇸 New York</div>
+            </div>
+            <div class="corner-clock">
+              <svg class="clockface" viewBox="0 0 200 200" data-h="9" data-m="0" data-digital="1" data-sky="1"></svg>
+              <div class="cc-name">🇬🇧 London</div>
+            </div>
+          </div>
+          <div class="machine-box">
+            <svg id="sun-svg" viewBox="0 -34 400 434">
+              <defs>
+                <linearGradient id="sun-earth-grad" gradientUnits="userSpaceOnUse" x1="90" y1="370" x2="90" y2="30">
+                  <stop offset="0"    stop-color="#050A13"/>
+                  <stop offset="0.10" stop-color="#12102E"/>
+                  <stop offset="0.20" stop-color="#2A1B4E"/>
+                  <stop offset="0.30" stop-color="#55378A"/>
+                  <stop offset="0.38" stop-color="#7E4B9E"/>
+                  <stop offset="0.45" stop-color="#A44E88"/>
+                  <stop offset="0.50" stop-color="#D95F73"/>
+                  <stop offset="0.56" stop-color="#F28D6B"/>
+                  <stop offset="0.63" stop-color="#FFC98A"/>
+                  <stop offset="0.71" stop-color="#FFE9B8"/>
+                  <stop offset="0.82" stop-color="#FFF7E4"/>
+                  <stop offset="1"    stop-color="#FFFDF4"/>
+                </linearGradient>
+              </defs>
+              <circle class="orbit-ring" cx="200" cy="200" r="170"/>
+              <circle class="earth-ring" cx="200" cy="200" r="110" fill="url(#sun-earth-grad)"/>
+              <g id="sun-cities"></g>
+              <circle id="sun-glow" cx="200" cy="30" r="34"/>
+              <circle id="sun" cx="200" cy="30" r="20"/>
+            </svg>
+            <div class="rats-bubble" id="sun-bubble">☀️ Good morning, rats! 🐀🐀</div>
+          </div>
+          <div class="clock-col right horiz">
+            <div class="corner-clock">
+              <svg class="clockface" viewBox="0 0 200 200" data-h="12" data-m="0" data-digital="1" data-sky="1"></svg>
+              <div class="cc-name">🇷🇺 Moscow</div>
+            </div>
+            <div class="corner-clock">
+              <svg class="clockface" viewBox="0 0 200 200" data-h="17" data-m="0" data-digital="1" data-sky="1"></svg>
+              <div class="cc-name">🇨🇳 Beijing</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mission-card" id="sun-missions">
+        <div class="m-tag"></div>
+        <div class="m-task"></div>
+        <div class="m-hint"></div>
+        <div class="m-ctl"></div>
+        <div class="m-fb"></div>
+        <button class="next-btn">Next mission ➜</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · FLIGHT TASK: SET BEIJING -->
+  <section class="screen" id="sc4" data-th="14">
+    <div class="eyebrow reveal">Flight task 1 · Moscow → Beijing ✈️</div>
+    <h1 class="title reveal">Set Beijing! 🐼🕐</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">It's <b>nine o'clock</b> in the morning in Moscow. Beijing is <b>5 hours AHEAD</b>. Set Beijing!</p>
+    <div class="strip reveal">
+      <div class="citycard home"><div class="cname">🏠 Moscow</div><div class="wclock"><svg class="clockface" viewBox="0 0 200 200" data-h="9" data-m="0" data-sky="1"></svg></div></div>
+      <div class="link"><span>+5<br>east</span><span class="ar">➡️</span></div>
+      <div class="citycard"><div class="cname">🇨🇳 Beijing</div><div class="wclock"><svg class="clockface setme" viewBox="0 0 200 200" data-h="9" data-m="0" data-sky="1" data-digital="1"></svg></div>
+        <div class="setbtns">
+          <button class="sbtn min" data-act="h-">−1h</button>
+          <button class="sbtn" data-act="h+">+1h</button>
+        </div>
+      </div>
+    </div>
+    <button class="gift-btn check reveal">✅ Check!</button>
+    <div class="fb"></div>
+    <p class="hintline reveal">The buttons move the hands. Count: +5 is five presses of +1h! Then press Check.</p>
+  </section>
+
+  <!-- 5 · FLIGHT TASK: SET LONDON -->
+  <section class="screen" id="sc5" data-th="12">
+    <div class="eyebrow reveal">Flight task 2 · Moscow → London ✈️</div>
+    <h1 class="title reveal">Now set London! 🇬🇧🕐</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">It's <b>three o'clock</b> in the afternoon in Moscow. London is <b>3 hours BEHIND</b> (to the west). Set London!</p>
+    <div class="strip reveal">
+      <div class="citycard"><div class="cname">🇬🇧 London</div><div class="wclock"><svg class="clockface setme" viewBox="0 0 200 200" data-h="15" data-m="0" data-sky="1" data-digital="1"></svg></div>
+        <div class="setbtns">
+          <button class="sbtn min" data-act="h-">−1h</button>
+          <button class="sbtn" data-act="h+">+1h</button>
+        </div>
+      </div>
+      <div class="link"><span>3 behind<br>west</span><span class="ar">⬅️</span></div>
+      <div class="citycard home"><div class="cname">🏠 Moscow</div><div class="wclock"><svg class="clockface" viewBox="0 0 200 200" data-h="15" data-m="0" data-sky="1"></svg></div></div>
+    </div>
+    <button class="gift-btn check reveal">✅ Check!</button>
+    <div class="fb"></div>
+    <p class="hintline reveal">London is to the WEST — its clock is BEHIND. Three presses of −1h!</p>
+  </section>
+
+  <!-- 6 · THE MOON — BRIEFING -->
+  <section class="screen" id="sc6">
+    <div class="eyebrow reveal">Mission briefing · the Moon 🌙</div>
+    <h1 class="title reveal">The Moon — the rats' next stop! 🌙🐀</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card cheese reveal center" style="max-width:800px">
+      <p>The Moon goes <b>AROUND the Earth</b>. One trip = about <b>29 days</b> — one MONTH! 🗓️</p>
+      <p class="mt">The Moon has <b>NO light</b> of its own. <b>The Sun lights it</b> — like a mirror! ✨</p>
+      <p class="mt">That is why the Moon <b>changes its face</b>: new moon → half moon → full moon!</p>
+    </div>
+    <div class="row reveal mt">
+      <div class="card sky center" style="padding:.8em 1.2em"><p style="font-size:clamp(1.4rem,2.6vw,2rem)">🌑 → 🌒 → 🌓 → 🌔 → 🌕</p><p class="hintline" style="font-style:normal">new moon → half moon → full moon</p></div>
+    </div>
+    <p class="task reveal mt">Now: the Moon Machine! 🌙🛠️</p>
+    <p class="hintline reveal mt">The Moon has no light of its own — the Sun lights it! One trip around the Earth = one month.</p>
+  </section>
+
+  <!-- 7 · THE MOON MACHINE (missions 4–6) -->
+  <section class="screen space-slide" id="sc7">
+    <div class="eyebrow reveal">Mission Control · the Moon Machine 🌙</div>
+    <h1 class="title reveal">Drag the Moon around the Earth! 🖐️🌙</h1>
+    <div class="accent-line reveal"></div>
+    <div class="machine-stage">
+      <div class="stars-bg" id="moon-stars"></div>
+      <div class="machine-wrap">
+        <div class="machine-box">
+          <div id="phase-pill">🌙 …</div>
+          <svg id="moon-svg" viewBox="0 0 400 400">
+          <defs>
+            <linearGradient id="m-earth-grad" x1="150" y1="200" x2="250" y2="200" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#9AD6F5"/><stop offset=".5" stop-color="#3C74A8"/><stop offset="1" stop-color="#0B1B33"/>
+            </linearGradient>
+            <clipPath id="m-earth-clip"><circle cx="200" cy="200" r="50"/></clipPath>
+          </defs>
+          <circle cx="-24" cy="200" r="110" fill="rgba(255,214,102,.16)"/>
+          <circle cx="-24" cy="200" r="60" fill="#FFD666" stroke="#FFF3D6" stroke-width="3"/>
+          <text x="52" y="150" class="mini-label">the Sun ☀️</text>
+          <circle class="orbit-ring" cx="200" cy="200" r="150"/>
+          <g id="moon-stations"></g>
+          <circle cx="200" cy="200" r="50" fill="url(#m-earth-grad)" stroke="#A9CCEF" stroke-width="3"/>
+          <g clip-path="url(#m-earth-clip)">
+            <ellipse cx="185" cy="185" rx="26" ry="17" fill="#67B26F" opacity=".9"/>
+            <ellipse cx="212" cy="222" rx="20" ry="13" fill="#67B26F" opacity=".75"/>
+            <path d="M200,150 A50,50 0 0 1 200,250 A18,50 0 0 0 200,150 Z" fill="rgba(5,12,26,.72)"/>
+          </g>
+          <text x="200" y="268" class="mini-label">the Earth 🌍</text>
+          <text class="city-house" x="214" y="172">🏠</text>
+          <text class="city-rats" x="214" y="184">🐀🐀</text>
+          <g id="moon-g">
+            <circle class="moon-base" r="26" fill="#43536E" stroke="rgba(246,248,251,.4)" stroke-width="2"/>
+            <path id="moon-lit" fill="#FFE9B8"/>
+          </g>
+        </svg>
+          <div class="rats-bubble" id="moon-bubble" style="left:auto;right:0;top:18%">🧀 Picnic on the Moon! 🐀🐀</div>
+        </div>
+      </div>
+      <div id="tracker"></div>
+      <div class="mission-card" id="moon-missions">
+        <div class="m-tag"></div>
+        <div class="m-task"></div>
+        <div class="m-hint"></div>
+        <div class="m-ctl"></div>
+        <div class="m-fb"></div>
+        <button class="next-btn">Next mission ➜</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · TROPHY -->
+  <section class="screen" id="sc8">
+    <div class="eyebrow reveal">The Space Mission</div>
+    <h1 class="title reveal">🏆 SERGEY — THE SPACE CAPTAIN! 🚀</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal center" style="gap:1em">
+      <div style="font-size:clamp(3.4rem,9vw,7rem);line-height:1">🐀🐀☀️🌍🌙⭐</div>
+      <div class="card cheese center" style="max-width:660px">
+        <p id="trophy-line1"><b>All 8 missions — DONE!</b> The rats flew around the Sun and landed on the Moon.</p>
+        <p class="mt">You know why we have <b>day and night</b> ☀️🌙 — and why the Moon <b>changes its face</b>!</p>
+        <p class="mt" style="font-family:'Fredoka';font-weight:600;color:var(--navy)">⭐ <span class="star-final">0</span> / 8 — <span id="trophy-verdict">Captain Sergey, take a bow!</span></p>
+        <p class="mt" id="trophy-progress" style="font-family:'Fredoka';font-weight:500;color:var(--ink-soft)"></p>
+      </div>
+      <div class="stamp-box">Space Mission · Mastered · 2026</div>
+    </div>
+    <p class="task reveal mt">Where do the rats fly NEXT, Captain? 🚀</p>
+    <p class="hintline reveal mt">Tell Elena where the rats should fly next! 🐀🐀 The stars don't save: every new open of the game is a new journey, starting at 0 ⭐.</p>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
+  <div id="counter"><span class="now">1</span> / 8</div>
+  <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
+  <button id="fs-btn" title="Fullscreen (F)">⛶</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const NS = "http://www.w3.org/2000/svg";
+  function skyIcon(h){ return (h>=7 && h<17) ? "☀️" : (h>=17 && h<22) ? "🌆" : "🌙"; }
+  function h12(h){ return ((h+11)%12)+1; }
+  function onorm(a){ return ((a%360)+540)%360-180; }
+  function shuffle(arr){ for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [arr[i],arr[j]]=[arr[j],arr[i]]; } return arr; }
+
+  /* ── clock faces ── */
+  document.querySelectorAll("svg.clockface").forEach(svg=>{
+    for(let i=0;i<12;i++){
+      const a = i*30*Math.PI/180;
+      const x1 = 100+82*Math.sin(a), y1 = 100-82*Math.cos(a);
+      const x2 = 100+90*Math.sin(a), y2 = 100-90*Math.cos(a);
+      const tick = document.createElementNS(NS,"line");
+      tick.setAttribute("x1",x1); tick.setAttribute("y1",y1);
+      tick.setAttribute("x2",x2); tick.setAttribute("y2",y2);
+      tick.setAttribute("stroke", i%3===0 ? "#2C4E80" : "#A9CCEF");
+      tick.setAttribute("stroke-width", i%3===0 ? 5 : 3);
+      tick.setAttribute("stroke-linecap","round");
+      svg.appendChild(tick);
+      const tx = 100+66*Math.sin(a), ty = 100-66*Math.cos(a);
+      const t = document.createElementNS(NS,"text");
+      t.setAttribute("x",tx); t.setAttribute("y",ty);
+      t.setAttribute("text-anchor","middle");
+      t.setAttribute("dominant-baseline","central");
+      t.setAttribute("font-family","Fredoka, sans-serif");
+      t.setAttribute("font-weight","600");
+      t.setAttribute("font-size","17");
+      t.setAttribute("fill","#2C4E80");
+      t.textContent = i===0 ? 12 : i;
+      svg.appendChild(t);
+    }
+    const hh = document.createElementNS(NS,"line");
+    hh.setAttribute("x1",100); hh.setAttribute("y1",100); hh.setAttribute("x2",100); hh.setAttribute("y2",58);
+    hh.setAttribute("stroke","#1E3A66"); hh.setAttribute("stroke-width",9); hh.setAttribute("stroke-linecap","round");
+    hh.style.transformOrigin = "100px 100px";
+    svg.appendChild(hh);
+    const mh = document.createElementNS(NS,"line");
+    mh.setAttribute("x1",100); mh.setAttribute("y1",100); mh.setAttribute("x2",100); mh.setAttribute("y2",34);
+    mh.setAttribute("stroke","#E4572E"); mh.setAttribute("stroke-width",6); mh.setAttribute("stroke-linecap","round");
+    mh.style.transformOrigin = "100px 100px";
+    svg.appendChild(mh);
+    const hub = document.createElementNS(NS,"circle");
+    hub.setAttribute("cx",100); hub.setAttribute("cy",100); hub.setAttribute("r",7); hub.setAttribute("fill","#1E3A66");
+    svg.appendChild(hub);
+    const st = { h: parseInt(svg.dataset.h)||12, m: parseInt(svg.dataset.m)||0 };
+    svg._clock = { st, hh, mh,
+      render(){
+        hh.style.transform = "rotate("+((st.h%12)*30 + st.m*0.5)+"deg)";
+        mh.style.transform = "rotate("+(st.m*6)+"deg)";
+        let dig = svg.parentElement.querySelector(".dig");
+        if(svg.dataset.digital && !dig){
+          dig = document.createElement("div");
+          dig.className = "dig";
+          svg.parentElement.appendChild(dig);
+        }
+        if(dig){
+          dig.innerHTML = h12(st.h) + ":" + String(st.m).padStart(2,"0") + (svg.dataset.sky ? ' <span class="skyic">'+skyIcon(st.h)+"</span>" : "");
+        }
+        const card = svg.closest(".citycard");
+        if(card && svg.dataset.sky){
+          const sub = card.querySelector(".csub");
+          if(sub && !sub.dataset.base) sub.dataset.base = sub.textContent;
+          if(sub && sub.dataset.base) sub.innerHTML = sub.dataset.base + " · " + skyIcon(st.h);
+        }
+      },
+      wiggle(){ const f = svg.classList; f.remove("wiggle"); void svg.offsetWidth; f.add("wiggle"); }
+    };
+    svg._clock.render();
+  });
+
+  /* ── screens + nav ── */
+  const screens = Array.from(document.querySelectorAll(".screen"));
+  const total = screens.length;
+  let current = 0;
+  const fill = document.getElementById("progress-fill");
+  const counter = document.getElementById("counter").querySelector(".now");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const fsBtn = document.getElementById("fs-btn");
+  function render(){
+    screens.forEach((s,i)=>{ s.classList.toggle("active", i===current); s.classList.toggle("prev", i<current); });
+    counter.textContent = current+1;
+    fill.style.width = ((current+1)/total*100) + "%";
+    prevBtn.disabled = current===0;
+    nextBtn.disabled = current===total-1;
+    nextBtn.classList.remove("pulse");
+    document.body.classList.toggle("dark-strip", screens[current].classList.contains("space-slide"));
+  }
+  function go(n){ current = Math.max(0, Math.min(total-1, n)); render(); }
+  nextBtn.addEventListener("click", ()=>go(current+1));
+  prevBtn.addEventListener("click", ()=>go(current-1));
+  document.addEventListener("keydown", e=>{
+    if(e.target && (e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA")) return;
+    const el = screens[current];
+    const canScroll = el.scrollHeight > el.clientHeight + 2;
+    switch(e.key){
+      case "ArrowRight": e.preventDefault(); go(current+1); break;
+      case "ArrowDown":
+        e.preventDefault();
+        if(canScroll && el.scrollTop + el.clientHeight < el.scrollHeight - 2){ el.scrollBy({top:120}); break; }
+        go(current+1); break;
+      case "ArrowLeft": e.preventDefault(); go(current-1); break;
+      case "ArrowUp":
+        e.preventDefault();
+        if(canScroll && el.scrollTop > 2){ el.scrollBy({top:-120}); break; }
+        go(current-1); break;
+      case " ": e.preventDefault(); go(current+1); break;
+      case "Home": e.preventDefault(); go(0); break;
+      case "End": e.preventDefault(); go(total-1); break;
+      case "f": case "F": toggleFs(); break;
+    }
+  });
+  let wheelLock = false;
+  document.getElementById("deck").addEventListener("wheel", e=>{
+    if(wheelLock) return;
+    const el = screens[current];
+    if(el.scrollHeight > el.clientHeight + 2) return;
+    if(Math.abs(e.deltaY) < 25) return;
+    wheelLock = true;
+    (e.deltaY>0 ? go(current+1) : go(current-1));
+    setTimeout(()=>wheelLock=false, 650);
+  }, {passive:true});
+  let touchX=null, touchOnMachine=false;
+  document.addEventListener("touchstart", e=>{
+    touchX=e.changedTouches[0].clientX;
+    // a touch that starts on a machine belongs to the machine — never flip
+    touchOnMachine = !!(e.target && e.target.closest && e.target.closest("#sun-svg,#moon-svg"));
+  },{passive:true});
+  document.addEventListener("touchend", e=>{
+    if(touchX===null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(!touchOnMachine && Math.abs(dx)>60){ dx<0 ? go(current+1) : go(current-1); }
+    touchX=null;
+  },{passive:true});
+  function toggleFs(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+    else { document.exitFullscreen?.(); }
+  }
+  fsBtn.addEventListener("click", toggleFs);
+
+  /* ── stars ── */
+  let stars = 0;
+  const MISSION_STATE = {}; // cardId/sectionId → completed missions
+  const starN = document.querySelector("#stars .n");
+  const starFinal = document.querySelector(".star-final");
+  const trophyLine = document.getElementById("trophy-line1");
+  const trophyVerdict = document.getElementById("trophy-verdict");
+  const trophyProgress = document.getElementById("trophy-progress");
+  function renderTrophy(){
+    if(stars>=8){
+      trophyLine.innerHTML = "<b>All 8 missions — DONE!</b> The rats flew around the Sun and landed on the Moon.";
+      trophyVerdict.textContent = "Captain Sergey, take a bow!";
+    } else {
+      trophyLine.innerHTML = "<b>"+stars+" mission"+(stars===1?"":"s")+" done.</b> The journey is not over — fly back and finish it, Captain! 🐀🐀";
+      trophyVerdict.textContent = "keep flying!";
+    }
+    if(trophyProgress){
+      trophyProgress.textContent = "☀️ Sun Machine "+(MISSION_STATE["sun-missions"]||0)+"/3 · ✈️ Flights "+
+        ((MISSION_STATE["sc4"]||0)+(MISSION_STATE["sc5"]||0))+"/2 · 🌙 Moon "+(MISSION_STATE["moon-missions"]||0)+"/3";
+    }
+  }
+  function addStar(){
+    stars++;
+    starN.textContent = stars;
+    if(starFinal) starFinal.textContent = stars;
+    renderTrophy();
+    document.getElementById("stars").animate(
+      [{transform:"scale(1)"},{transform:"scale(1.35)"},{transform:"scale(1)"}],
+      {duration:400, easing:"ease"});
+  }
+  renderTrophy();
+
+  /* ── space backgrounds ── */
+  function makeStars(id){
+    const box = document.getElementById(id);
+    for(let i=0;i<110;i++){
+      const s=document.createElement("div");
+      s.className="tw";
+      const sz=(1+Math.random()*2.2).toFixed(1);
+      s.style.width=sz+"px"; s.style.height=sz+"px";
+      s.style.left=(Math.random()*100).toFixed(2)+"%";
+      s.style.top=(Math.random()*100).toFixed(2)+"%";
+      s.style.opacity=(0.15+Math.random()*0.65).toFixed(2);
+      box.appendChild(s);
+    }
+    return box;
+  }
+  makeStars("sun-stars"); makeStars("moon-stars");
+
+  /* ── the SUN machine ── */
+  const SUN_CITIES = [
+    { name:"🇺🇸 New York", phi:-60, corner:0 },
+    { name:"🇬🇧 London",   phi:0,   corner:1 },
+    { name:"🇷🇺 Moscow",   phi:45,  corner:2 },
+    { name:"🇨🇳 Beijing",  phi:120, corner:3 }
+  ];
+  const ORP = (phi,r)=>({ x:200+r*Math.sin(phi*Math.PI/180), y:200-r*Math.cos(phi*Math.PI/180) });
+  const sunApi = (function(){
+    const osvg = document.getElementById("sun-svg");
+    const citiesG = document.getElementById("sun-cities");
+    SUN_CITIES.forEach(c=>{
+      const dot=document.createElementNS(NS,"circle");
+      const dp=ORP(c.phi,97);
+      dot.setAttribute("class","city-dot"); dot.setAttribute("cx",dp.x); dot.setAttribute("cy",dp.y); dot.setAttribute("r",4);
+      citiesG.appendChild(dot);
+      c.dotEl=dot;
+      if(c.phi===45){ // the rats' home stands next to Moscow
+        const house=document.createElementNS(NS,"text");
+        const hp=ORP(52,116);
+        house.setAttribute("class","city-house"); house.setAttribute("x",hp.x); house.setAttribute("y",hp.y);
+        house.textContent="🏠";
+        citiesG.appendChild(house);
+        const rats=document.createElementNS(NS,"text");
+        rats.setAttribute("class","city-rats"); rats.setAttribute("x",hp.x); rats.setAttribute("y",hp.y+13);
+        rats.textContent="🐀🐀";
+        citiesG.appendChild(rats);
+      }
+      const nm=document.createElementNS(NS,"text");
+      const np=ORP(c.phi,72);
+      nm.setAttribute("class","city-name"); nm.setAttribute("x",np.x); nm.setAttribute("y",np.y);
+      nm.textContent=c.name.replace(/^\S+\s/,"");
+      citiesG.appendChild(nm);
+    });
+    const cornerBinds = SUN_CITIES.map(c=>({
+      phi:c.phi,
+      clock: document.querySelectorAll("#sc3 .corner-clock .clockface")[c.corner]?._clock
+    })).filter(b=>b.clock);
+    const sunEl=document.getElementById("sun"), glowEl=document.getElementById("sun-glow"), gradEl=document.getElementById("sun-earth-grad");
+    // the moon rides the same orbit, always opposite the sun
+    const moonGlow=document.createElementNS(NS,"circle");
+    moonGlow.setAttribute("r",24); moonGlow.setAttribute("fill","rgba(214,228,255,.14)");
+    moonGlow.setAttribute("pointer-events","none");
+    const moonEl=document.createElementNS(NS,"circle");
+    moonEl.setAttribute("id","moon-dot"); moonEl.setAttribute("r",12);
+    osvg.insertBefore(moonGlow, glowEl);
+    osvg.insertBefore(moonEl, glowEl);
+    const bubble=document.getElementById("sun-bubble");
+    let bubbleTimer=null, wasMorning=false;
+    function showBubble(text){
+      if(text) bubble.textContent=text;
+      bubble.classList.add("show");
+      clearTimeout(bubbleTimer);
+      bubbleTimer=setTimeout(()=>bubble.classList.remove("show"), 2600);
+    }
+    // shooting star: every second put-down of the sun
+    let dragCount=0;
+    function spawnStar(){
+      const box=document.getElementById("sun-stars");
+      if(box.querySelector(".shooting-star")) return;
+      const s=document.createElement("div");
+      s.className="shooting-star";
+      s.style.left=(8+Math.random()*55)+"%";
+      s.style.top=(6+Math.random()*30)+"%";
+      box.appendChild(s);
+      setTimeout(()=>s.remove(), 1300);
+    }
+    let phis=45; // noon over Moscow to start
+    function cityHour(phi){ return ((12+Math.round(onorm(phi-phis)/15))%24+24)%24; }
+    function updateSun(){
+      const sp=ORP(phis,170);
+      sunEl.setAttribute("cx",sp.x); sunEl.setAttribute("cy",sp.y);
+      glowEl.setAttribute("cx",sp.x); glowEl.setAttribute("cy",sp.y);
+      const mp=ORP(phis+180,170);
+      moonEl.setAttribute("cx",mp.x); moonEl.setAttribute("cy",mp.y);
+      moonGlow.setAttribute("cx",mp.x); moonGlow.setAttribute("cy",mp.y);
+      // the Earth's gradient always aims at the sun: night edge → noon edge
+      const nearP=ORP(phis,110), farP=ORP(phis+180,110);
+      gradEl.setAttribute("x1",farP.x.toFixed(1)); gradEl.setAttribute("y1",farP.y.toFixed(1));
+      gradEl.setAttribute("x2",nearP.x.toFixed(1)); gradEl.setAttribute("y2",nearP.y.toFixed(1));
+      // city lights come on in the dark + the rats greet the sunrise
+      SUN_CITIES.forEach(c=>{
+        const h=cityHour(c.phi);
+        c.dotEl.setAttribute("class","city-dot"+((h<7||h>=21)?" lit":""));
+        if(c.phi===45){
+          const morning=(h>=6&&h<9);
+          if(morning&&!wasMorning) showBubble("☀️ Good morning, rats! 🐀🐀");
+          wasMorning=morning;
+        }
+      });
+      cornerBinds.forEach(b=>{
+        b.clock.st.h=cityHour(b.phi); b.clock.st.m=0;
+        b.clock.render();
+      });
+    }
+    updateSun();
+    function toPhi(e){
+      const pt=osvg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY;
+      const m=osvg.getScreenCTM();
+      if(!m) return phis;
+      const p=pt.matrixTransform(m.inverse());
+      return Math.atan2(p.x-200, 200-p.y)*180/Math.PI;
+    }
+    let dragging=false;
+    osvg.addEventListener("pointerdown",e=>{
+      dragging=true; osvg.classList.add("dragging");
+      try{ osvg.setPointerCapture(e.pointerId); }catch(err){}
+      phis=Math.round((((toPhi(e)%360)+360)%360)/15)*15; updateSun();
+    });
+    osvg.addEventListener("pointermove",e=>{
+      if(!dragging) return;
+      phis=Math.round((((toPhi(e)%360)+360)%360)/15)*15; updateSun(); // snap to whole hours
+    });
+    ["pointercancel","lostpointercapture"].forEach(ev=>
+      osvg.addEventListener(ev,()=>{ dragging=false; osvg.classList.remove("dragging"); }));
+    osvg.addEventListener("pointerup",()=>{
+      dragging=false; osvg.classList.remove("dragging");
+      dragCount++;
+      if(dragCount%2===0) spawnStar();
+    });
+    return { cityHour, showBubble };
+  })();
+
+  /* ── the MOON machine ── */
+  const moonApi = (function(){
+    const osvg=document.getElementById("moon-svg");
+    const moonG=document.getElementById("moon-g");
+    const litEl=document.getElementById("moon-lit");
+    const pill=document.getElementById("phase-pill");
+    const bubble=document.getElementById("moon-bubble");
+    const R=150, ER=26;
+    // phase t: 0 = new moon (the moon between the sun and the earth), 180 = full moon
+    const posOf=t=>{
+      const phi=(180-t)*Math.PI/180;
+      return { x:200+R*Math.cos(phi), y:200-R*Math.sin(phi) };
+    };
+    const PHASES=[
+      {en:"New Moon",      ic:"🌑"},
+      {en:"Crescent Moon", ic:"🌒"},
+      {en:"Half Moon",     ic:"🌓"},
+      {en:"Gibbous Moon",  ic:"🌔"},
+      {en:"Full Moon",     ic:"🌕"},
+      {en:"Gibbous Moon",  ic:"🌖"},
+      {en:"Half Moon",     ic:"🌗"},
+      {en:"Crescent Moon", ic:"🌘"}
+    ];
+    // lit part of the disk as seen from the earth; the sun rises on the LEFT of the sky
+    function litPath(t,r){
+      if(t<=1 || t>=359) return "";
+      if(Math.abs(t-180)<1) return "M0,"+(-r)+" A"+r+","+r+" 0 0 1 0,"+r+" A"+r+","+r+" 0 0 1 0,"+(-r)+" Z";
+      const c=Math.cos(t*Math.PI/180), rx=(Math.abs(c)*r).toFixed(2);
+      if(t<180){ // waxing: lit on the right
+        return "M0,"+(-r)+" A"+r+","+r+" 0 0 1 0,"+r+" A"+rx+","+r+" 0 0 "+(c>0?0:1)+" 0,"+(-r)+" Z";
+      }
+      // waning: lit on the left
+      return "M0,"+(-r)+" A"+r+","+r+" 0 0 0 0,"+r+" A"+rx+","+r+" 0 0 "+(c>0?0:1)+" 0,"+(-r)+" Z";
+    }
+    // the 8 landing pads
+    const stationsG=document.getElementById("moon-stations");
+    const stationEls=[];
+    for(let i=0;i<8;i++){
+      const p=posOf(i*45);
+      const d=document.createElementNS(NS,"circle");
+      d.setAttribute("class","station-dot");
+      d.setAttribute("cx",p.x.toFixed(1)); d.setAttribute("cy",p.y.toFixed(1)); d.setAttribute("r",4);
+      stationsG.appendChild(d);
+      stationEls.push(d);
+    }
+    // the phase tracker (the view from the earth)
+    const tracker=document.getElementById("tracker");
+    const trackerEls=[];
+    PHASES.forEach((ph,i)=>{
+      const cell=document.createElement("div");
+      cell.className="tr";
+      const sv=document.createElementNS(NS,"svg");
+      sv.setAttribute("viewBox","-30 -30 60 60");
+      const base=document.createElementNS(NS,"circle");
+      base.setAttribute("r",24); base.setAttribute("fill","#43536E"); base.setAttribute("stroke","rgba(246,248,251,.4)"); base.setAttribute("stroke-width","2");
+      sv.appendChild(base);
+      const lit=document.createElementNS(NS,"path");
+      lit.setAttribute("d",litPath(i*45,24)); lit.setAttribute("fill","#FFE9B8");
+      sv.appendChild(lit);
+      const lab=document.createElement("div");
+      lab.className="tr-label"; lab.textContent=ph.ic+" "+ph.en.replace(" Moon","");
+      cell.appendChild(sv); cell.appendChild(lab);
+      tracker.appendChild(cell);
+      trackerEls.push(cell);
+    });
+    let t=0; // start at the new moon
+    function update(){
+      const p=posOf(t);
+      moonG.setAttribute("transform","translate("+p.x.toFixed(1)+","+p.y.toFixed(1)+")");
+      litEl.setAttribute("d",litPath(t,ER));
+      const band=Math.round(t/45)%8;
+      const ph=PHASES[band];
+      pill.innerHTML=ph.ic+" <b>"+ph.en+"</b>";
+      trackerEls.forEach((c,i)=>c.classList.toggle("now", i===band));
+      stationEls.forEach((d,i)=>d.setAttribute("class","station-dot"+(i===band?" hot":"")));
+    }
+    function toT(e){
+      const pt=osvg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY;
+      const m=osvg.getScreenCTM();
+      if(!m) return t;
+      const p=pt.matrixTransform(m.inverse());
+      const phi=Math.atan2(200-p.y, p.x-200)*180/Math.PI;
+      return (((180-phi)%360)+360)%360;
+    }
+    let dragging=false;
+    let bubbleShown=false;
+    osvg.addEventListener("pointerdown",e=>{
+      dragging=true; osvg.classList.add("dragging");
+      try{ osvg.setPointerCapture(e.pointerId); }catch(err){}
+      t=toT(e); update();
+    });
+    osvg.addEventListener("pointermove",e=>{
+      if(!dragging) return;
+      t=toT(e); update();
+    });
+    ["pointercancel","lostpointercapture"].forEach(ev=>
+      osvg.addEventListener(ev,()=>{ dragging=false; osvg.classList.remove("dragging"); }));
+    osvg.addEventListener("pointerup",()=>{
+      dragging=false; osvg.classList.remove("dragging");
+      t=Math.round(t/45)*45; t=((t%360)+360)%360; // snap to a landing pad
+      update();
+      if(!bubbleShown){ bubbleShown=true; bubble.classList.add("show"); setTimeout(()=>bubble.classList.remove("show"),2600); }
+    });
+    update();
+    return { get t(){return t;}, get station(){ return Math.round(t/45)%8; } };
+  })();
+
+  /* ── the mission engine ── */
+  function runMissions(cardId, defs, bubble){
+    const card=document.getElementById(cardId);
+    const tagEl=card.querySelector(".m-tag"), taskEl=card.querySelector(".m-task"),
+          hintEl=card.querySelector(".m-hint"), ctlEl=card.querySelector(".m-ctl"),
+          fbEl=card.querySelector(".m-fb"), nextEl=card.querySelector(".next-btn");
+    let idx=0;
+    function showBubble(text){
+      if(!bubble) return;
+      bubble.textContent=text;
+      bubble.classList.add("show");
+      setTimeout(()=>bubble.classList.remove("show"),2600);
+    }
+    function success(def){
+      addStar();
+      MISSION_STATE[cardId]=(MISSION_STATE[cardId]||0)+1;
+      tagEl.classList.add("done");
+      fbEl.className="m-fb ok"; fbEl.textContent=def.ok;
+      showBubble("✓ Great, Captain! 🐀🐀");
+      nextEl.classList.add("show");
+      nextEl.classList.add("pulse");
+    }
+    function mount(){
+      const def=defs[idx];
+      card.dataset.done="";
+      tagEl.classList.remove("done");
+      tagEl.textContent="Mission "+(idx+1)+" · of "+defs.length;
+      taskEl.innerHTML=def.task;
+      hintEl.textContent=def.hint||"";
+      fbEl.className="m-fb"; fbEl.textContent="";
+      nextEl.classList.remove("show","pulse");
+      ctlEl.innerHTML="";
+      if(def.kind==="chips"){
+        const box=document.createElement("div");
+        box.className="chips";
+        shuffle(def.chips.slice()).forEach(c=>{
+          const chip=document.createElement("div");
+          chip.className="chip"; chip.textContent=c.label; chip._c=c;
+          chip.addEventListener("click",()=>{
+            if(card.dataset.done) return;
+            const res=def.onChip(c);
+            if(res.ok){ chip.classList.add("okc"); success(def); card.dataset.done="1"; }
+            else{
+              chip.classList.add("noc","shake");
+              setTimeout(()=>chip.classList.remove("shake"),450);
+              fbEl.className="m-fb no"; fbEl.textContent=res.msg;
+            }
+          });
+          box.appendChild(chip);
+        });
+        ctlEl.appendChild(box);
+      } else {
+        const btn=document.createElement("button");
+        btn.className="gift-btn"; btn.textContent="✅ Check!";
+        btn.addEventListener("click",()=>{
+          if(card.dataset.done) return;
+          const res=def.onCheck();
+          if(res.ok){ success(def); card.dataset.done="1"; btn.textContent="✅ Done!"; btn.disabled=true; }
+          else{ fbEl.className="m-fb no"; fbEl.textContent=res.msg; }
+        });
+        ctlEl.appendChild(btn);
+      }
+    }
+    nextEl.addEventListener("click",()=>{
+      if(idx<defs.length-1){ idx++; mount(); }
+      else{
+        fbEl.className="m-fb ok";
+        fbEl.textContent="🏆 ALL "+defs.length+" MISSIONS DONE! Fly on ➜";
+        nextEl.classList.remove("show");
+        nextBtn.classList.add("pulse");
+      }
+    });
+    mount();
+  }
+
+  /* sun machine missions */
+  runMissions("sun-missions", [
+    {
+      kind:"check",
+      task:"Make NIGHT in Moscow! The rats want to sleep 😴",
+      hint:"Drag the sun around the Earth until Moscow shows NIGHT — then press Check!",
+      onCheck(){
+        const h=sunApi.cityHour(45);
+        if(h>=21||h<7) return {ok:true};
+        return {msg:"🤔 Not yet! Moscow still shows "+h12(h)+" o'clock. Move the sun to the OTHER side!"};
+      },
+      ok:"✓ Night! The rats are sleeping. Shhh… 🐀💤"
+    },
+    {
+      kind:"check",
+      task:"Make NOON in New York! Twelve o'clock — lunch time! 🥪☀️",
+      hint:"Noon = twelve o'clock in the day. Watch the New York clock in the corner!",
+      onCheck(){
+        const h=sunApi.cityHour(-60);
+        if(h===12) return {ok:true};
+        return {msg:"🤔 New York shows "+h12(h)+" o'clock. You need TWELVE o'clock!"};
+      },
+      ok:"✓ Noon! The rats eat cheese sandwiches 🧀🥪"
+    },
+    {
+      kind:"chips",
+      task:"Make MIDNIGHT in Beijing! 🌙🐼 Then look at MOSCOW — what time is it?",
+      hint:"First make MIDNIGHT in Beijing (12 o'clock, 🌙). Then look at Moscow's clock and choose the words!",
+      chips:[
+        {label:"seven o'clock", h:7},
+        {label:"five o'clock", h:5},
+        {label:"nine o'clock", h:9}
+      ],
+      onChip(c){
+        const bj=sunApi.cityHour(120), ms=sunApi.cityHour(45);
+        if(bj!==0) return {ok:false, msg:"🌙 First make it MIDNIGHT in Beijing — 12 o'clock, night time! The lights must be ON!"};
+        if(c.h===h12(ms)) return {ok:true};
+        return {ok:false, msg:"🤔 Beijing is right! Now look at the MOSCOW clock — count the hours!"};
+      },
+      ok:"✓ Midnight in Beijing — and seven o'clock in the evening in Moscow. Brilliant, Captain! 🐼🌟"
+    }
+  ], document.getElementById("sun-bubble"));
+
+  /* moon machine missions */
+  runMissions("moon-missions", [
+    {
+      kind:"check",
+      task:"Find the FULL MOON! The rats' moon picnic 🐀🐀🧀",
+      hint:"Drag the Moon to the OTHER side of the Earth from the Sun — then press Check!",
+      onCheck(){
+        if(moonApi.station===4) return {ok:true};
+        return {ok:false, msg:"🤔 The tracker below shows your moon. Find 🌕 FULL MOON!"};
+      },
+      ok:"✓ FULL MOON! The picnic begins! 🧀🎉"
+    },
+    {
+      kind:"check",
+      task:"Now make the NEW MOON — the moon disappears! 👻",
+      hint:"Now hide the Moon: put it BETWEEN the Earth and the Sun.",
+      onCheck(){
+        if(moonApi.station===0) return {ok:true};
+        return {ok:false, msg:"🤔 The new moon hides BETWEEN the sun and the earth. Put it close to the sun!"};
+      },
+      ok:"✓ NEW MOON! Where did it go?! 👻🐀"
+    },
+    {
+      kind:"chips",
+      task:"Think, Captain: WHY does the Moon change its face? 🤔",
+      hint:"Choose the right answer. One answer is very, very silly! 😄",
+      chips:[
+        {label:"The Sun lights it from a different side", good:true},
+        {label:"A space dragon bites it 🐉🧀"},
+        {label:"It turns off like a lamp 💡"}
+      ],
+      onChip(c){
+        if(c.good) return {ok:true};
+        return {ok:false, msg:"😄 A silly answer! Remember: the Moon has NO light — the SUN lights it!"};
+      },
+      ok:"✓ YES! The Sun lights the Moon — and we see different halves. Real science! 🔬⭐"
+    }
+  ], document.getElementById("moon-bubble"));
+
+  /* ── flight tasks: set the clock (o'clock only) ── */
+  document.querySelectorAll(".screen").forEach(scr=>{
+    const setme = scr.querySelector(".setme");
+    if(!setme) return;
+    const clock = setme._clock;
+    scr.querySelectorAll(".setbtns .sbtn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        if(btn.dataset.act==="h-") clock.st.h = (clock.st.h + 23) % 24;
+        else if(btn.dataset.act==="h+") clock.st.h = (clock.st.h + 1) % 24;
+        clock.render();
+      });
+    });
+    const check = scr.querySelector(".check");
+    check.addEventListener("click", ()=>{
+      const fb = scr.querySelector(".fb");
+      const th = parseInt(scr.dataset.th);
+      const faceRight = (clock.st.h % 12) === (th % 12);
+      if(faceRight && clock.st.h === th){
+        if(!scr.dataset.done){
+          scr.dataset.done = "1"; addStar(); nextBtn.classList.add("pulse");
+          MISSION_STATE[scr.id]=(MISSION_STATE[scr.id]||0)+1;
+        }
+        clock.wiggle();
+        setme.closest(".citycard")?.classList.add("done");
+        fb.className = "fb ok";
+        fb.textContent = scr.id==="sc4"
+          ? "✓ Two o'clock in Beijing! The pandas are having lunch 🐼🎋"
+          : "✓ Twelve o'clock in London! Lunch time in England! 🥪🎓";
+        check.textContent = "✅ Done!";
+        check.disabled = true;
+      } else if(faceRight){
+        clock.wiggle();
+        fb.className = "fb no";
+        fb.textContent = "⏰ The face is right — but look at the SUN icon! Is it day or evening?";
+      } else {
+        clock.wiggle();
+        fb.className = "fb no";
+        fb.textContent = "🤔 Not yet — count the hours and press +1h or −1h again!";
+      }
+    });
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

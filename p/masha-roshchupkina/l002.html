@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masha · English · Lesson 2 — WW3 U8 + revision</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Masha R. — lesson 002 (rebuilt on Elena's brief, 2026-09-07):
+   Part 1 — Masha's line, GRAFFITI (demonstration slides: video
+   check, riddle, word games with click-reveals, bilingual primer).
+   Part 2+3 — WW3 Unit 8 Lessons 1 & 2, SIMPLE teacher-script
+   sheets (one step = one slide, audio embedded, nothing omitted
+   from the TB; SB is on Elena's iPad — no SB content here).
+   Engine: nav bottom-right + lane, progress bar, keyboard/wheel/
+   swipe, ready-chime + #n hash.
+   Audio: WW3 CD3 tracks 3_01–3_07 (TB refs 3.01–3.07).
+   ============================================================ */
+:root{
+  --cyan:#2BD9E8; --pink:#F03CB0; --orange:#FF7A29; --yellow:#FFC93C;
+  --lime:#A8E82A; --lavender:#9a7fff;
+  --frost:rgba(255,251,244,.88);
+  --ink-dark:#221B30; --ink-dark-soft:rgba(34,27,48,.68);
+  --trap:#C2410C;
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A;
+  --radius:18px;
+  --grad:linear-gradient(90deg,var(--cyan),var(--pink) 45%,var(--orange) 75%,var(--yellow));
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;height:5px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(25,22,30,.82);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:rgba(255,255,255,.9)}
+#nav button{border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cyan)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:6vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:2vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ---------- SIMPLE teacher-script sheets ---------- */
+.slide.tut{background:var(--paper)}
+.tut .eyebrow{font-size:clamp(.85rem,1.4vw,1.05rem);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.tut h1{font-weight:800;font-size:clamp(1.5rem,3vw,2.5rem);line-height:1.15;
+  letter-spacing:-.01em;color:var(--ink)}
+.tut .rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.8rem,1.3vw,1rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.18em .75em;
+  background:#fff}
+.tut .task{font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.55;font-weight:500}
+.tut .task strong{color:var(--accent)}
+.tut .ask{font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.5;color:#4a463d}
+.tut .ask em{color:var(--accent);font-style:normal;font-weight:700}
+.tut .ans{font-size:clamp(.95rem,1.5vw,1.2rem);color:var(--ink-soft);line-height:1.5}
+.tut .ans b{color:#5a554a}
+.tut .note{font-size:clamp(.95rem,1.5vw,1.2rem);color:var(--ink-soft);font-style:italic}
+audio{width:min(520px,92%);height:44px}
+.tut .pair{display:grid;grid-template-columns:1fr 1fr;gap:2vw;
+  font-size:clamp(1.05rem,1.8vw,1.4rem);line-height:1.5}
+.tut .pair b{color:var(--accent)}
+.tut ul{list-style:none}
+.tut ul li{padding:.32em 0;border-bottom:1px dashed var(--line);
+  font-size:clamp(1.05rem,1.8vw,1.4rem);line-height:1.5}
+.tut ul li:last-child{border-bottom:none}
+
+/* ---------- GRAFFITI demonstration slides ---------- */
+.slide.graf{color:#fff;
+  background:#1a1420 url("../../../../requirements/design/graffiti/Graffiti.jpeg") center/cover no-repeat}
+.slide.graf::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(18,12,26,.46),rgba(18,12,26,.30) 42%,rgba(18,12,26,.55))}
+.slide.graf>*{position:relative;z-index:1}
+.graf .eyebrow{font-family:'Permanent Marker',cursive;color:var(--yellow);
+  font-size:clamp(1rem,1.6vw,1.3rem);transform:rotate(-1.2deg);
+  text-shadow:0 2px 12px rgba(10,6,20,.6)}
+.graf h1{font-weight:800;font-size:clamp(2rem,4.2vw,3.5rem);line-height:1.1;
+  letter-spacing:-.02em;text-shadow:0 2px 20px rgba(10,6,20,.55)}
+.graf h1 .spray{position:relative;display:inline-block;padding:.02em .28em;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;
+  color:transparent;font-style:italic}
+.graf h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
+  background:rgba(24,17,38,.88);border-radius:.24em;
+  box-shadow:0 6px 18px rgba(10,6,20,.45);transform:rotate(-.8deg)}
+.graf .rule{width:110px;height:5px;border-radius:99px;background:var(--grad)}
+.graf .hint{font-size:clamp(.95rem,1.5vw,1.15rem);font-style:italic;
+  text-shadow:0 1px 10px rgba(10,6,20,.6)}
+.card{border-radius:var(--radius);padding:clamp(.9rem,1.7vw,1.4rem);
+  color:var(--ink-dark);border:3px solid rgba(255,255,255,.95);
+  box-shadow:0 12px 32px rgba(10,6,20,.38)}
+.card.f-cyan{background:var(--cyan)} .card.f-pink{background:var(--pink)}
+.card.f-orange{background:var(--orange)} .card.f-yellow{background:var(--yellow)}
+.card.f-lavender{background:var(--lavender);color:#fff}
+.card.f-frost{background:var(--frost);backdrop-filter:blur(8px)}
+.card.f-white{background:#fff}
+.card.f-lavender .tail{color:rgba(255,255,255,.78)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.9rem,1.8vw,1.4rem)}
+.pattern{font-size:clamp(1.2rem,2.1vw,1.65rem);line-height:1.45;font-weight:500}
+.pattern .tail{color:var(--ink-dark-soft);font-size:.62em;font-style:italic;font-weight:400}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.5em 0;
+  border-bottom:2px dashed rgba(34,27,48,.22);
+  font-size:clamp(1.2rem,2vw,1.6rem);line-height:1.45;font-weight:500}
+.item:last-child{border-bottom:none}
+.no{font-family:'Permanent Marker',cursive;flex:none;
+  width:1.55em;height:1.55em;display:inline-flex;align-items:center;justify-content:center;
+  background:#fff;color:var(--ink-dark);border-radius:50%;
+  box-shadow:0 3px 8px rgba(10,6,20,.2);transform:rotate(-3deg);
+  font-size:.9em;align-self:center}
+.item .ico{font-size:1.25em;line-height:1;align-self:center;flex:none}
+.op{cursor:pointer;transition:background .2s ease;border-radius:10px}
+.op:hover{background:rgba(255,255,255,.35)}
+.op .agree{color:#fff;background:rgba(34,27,48,.82);border-radius:8px;
+  padding:.05em .3em;font-weight:700;font-style:normal;
+  opacity:0;transition:opacity .2s}
+.op.shown .agree{opacity:1}
+.chips{display:flex;flex-wrap:wrap;gap:.5em .55em}
+.chip{cursor:pointer;font-weight:700;font-size:clamp(1.05rem,1.9vw,1.5rem);
+  padding:.1em .6em;border-radius:99px;background:rgba(255,255,255,.94);
+  color:var(--ink-dark);border:3px solid #fff;
+  box-shadow:0 4px 12px rgba(10,6,20,.28);transition:transform .15s ease;user-select:none}
+.chip:hover{transform:translateY(-3px) scale(1.03)}
+
+@media (max-width:900px){
+  .grid2,.tut .pair{grid-template-columns:1fr}
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- ============ PART 1 · MASHA'S LINE (graffiti) ============ -->
+
+<!-- 1 · HOMEWORK CHECK — the Chinese video -->
+<section class="slide graf active">
+  <div class="eyebrow reveal">Homework check · the Chinese video</div>
+  <h1 class="reveal">Teach me, <span class="spray">teacher</span>!</h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card f-yellow"><p class="pattern">🧑‍🏫 Your 30 seconds: teach me your favourite character. I know NOTHING!</p></div>
+    <div class="card f-cyan"><p class="pattern">🔢 The number: how many characters did you understand WITHOUT subtitles?</p></div>
+    <div class="card f-pink"><p class="pattern">🎯 Spot-check: show me 山 — now 月. Did the video draw them the same way?</p></div>
+    <div class="card f-lavender"><p class="pattern">⭐ One NEW character from the video nobody showed you today. What does it mean?</p></div>
+  </div>
+  <p class="hint reveal">Slow down — I'm a beginner.</p>
+</section>
+
+<!-- 2 · RIDDLE -->
+<section class="slide graf">
+  <div class="eyebrow reveal">Brain-break · the riddle</div>
+  <h1 class="reveal">What question can you <span class="spray">never</span> answer "yes" to?</h1>
+  <div class="rule reveal"></div>
+  <div class="card f-yellow op reveal" onclick="this.classList.toggle('shown')" style="max-width:30ch">
+    <p class="pattern">Guess — then click me. <span class="agree">"Are you asleep yet?" 😴</span></p>
+  </div>
+  <p class="hint reveal">Hint: try answering YES — and see what happens.</p>
+</section>
+
+<!-- 3 · GUESS THE WORD BY MEANING -->
+<section class="slide graf">
+  <div class="eyebrow reveal">Word games · round one</div>
+  <h1 class="reveal">Guess the word by <span class="spray">meaning</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card f-frost reveal">
+    <div class="item op" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>A person who follows tornadoes and photographs them. <span class="agree">a storm chaser</span></span></div>
+    <div class="item op" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>The mother of your husband or wife. <span class="agree">a mother-in-law</span></span></div>
+    <div class="item op" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>The daughter of your son or daughter. <span class="agree">a granddaughter</span></span></div>
+    <div class="item op" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>A doctor who does operations in a hospital. <span class="agree">a surgeon</span></span></div>
+    <div class="item op" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Easy to see or understand. <span class="agree">obvious</span></span></div>
+  </div>
+  <p class="hint reveal">Say the whole word — article and all.</p>
+</section>
+
+<!-- 4 · UNSCRAMBLE -->
+<section class="slide graf">
+  <div class="eyebrow reveal">Word games · round two</div>
+  <h1 class="reveal">Unscramble the <span class="spray">words</span></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card f-cyan op" onclick="this.classList.toggle('shown')"><p class="pattern">REGFIHTEFR <span class="tail">→ click</span> <span class="agree">firefighter</span></p></div>
+    <div class="card f-pink op" onclick="this.classList.toggle('shown')"><p class="pattern">DGJEU <span class="tail">→ click</span> <span class="agree">judge</span></p></div>
+    <div class="card f-yellow op" onclick="this.classList.toggle('shown')"><p class="pattern">NRDAB <span class="tail">→ click</span> <span class="agree">brand</span></p></div>
+    <div class="card f-orange op" onclick="this.classList.toggle('shown')"><p class="pattern">THIRGB <span class="tail">→ click</span> <span class="agree">bright</span></p></div>
+    <div class="card f-lavender op" onclick="this.classList.toggle('shown')"><p class="pattern">WODASH <span class="tail">→ click</span> <span class="agree">shadow</span></p></div>
+  </div>
+  <p class="hint reveal">Letters first, meaning second — say what it means.</p>
+</section>
+
+<!-- 5 · TRANSLATE FROM RUSSIAN -->
+<section class="slide graf">
+  <div class="eyebrow reveal">Word games · round three</div>
+  <h1 class="reveal">Translate — from <span class="spray">easy</span> to tricky</h1>
+  <div class="rule reveal"></div>
+  <div class="card f-frost reveal">
+    <div class="item op" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Её внучка живёт в Саратове. <span class="agree">Her granddaughter lives in Saratov.</span></span></div>
+    <div class="item op" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Моя тётя — судья. <span class="agree">My aunt is a judge.</span></span></div>
+    <div class="item op" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Слушай учителя внимательно! <span class="agree">Pay attention to the teacher!</span></span></div>
+    <div class="item op" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Пожалуйста, сдай задание вовремя. <span class="agree">Please hand in the task on time.</span></span></div>
+    <div class="item op" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Вор украл яркий браслет из магазина. <span class="agree">The thief stole a bright bracelet from the shop.</span></span></div>
+  </div>
+  <p class="hint reveal">Full sentence, perfect form — number 5 opens today's unit…</p>
+</section>
+
+<!-- 6 · THE BILINGUAL BRAIN — prime questions -->
+<section class="slide graf">
+  <div class="eyebrow reveal">Tonight's video · before you watch</div>
+  <h1 class="reveal">The <span class="spray">bilingual</span> brain</h1>
+  <div class="rule reveal"></div>
+  <div class="card f-frost reveal">
+    <div class="item"><span class="no">1</span><span>Russian + English + a bit of Chinese — are you a bilingual <em>already</em>, or still <em>becoming</em> one?</span></div>
+    <div class="item"><span class="no">2</span><span>A bilingual brain: TWO boxes for two languages — or one shared room? Vote!</span></div>
+    <div class="item"><span class="no">3</span><span>Is it easier to learn a language at 4 — or at 13? <span class="tail">risky question…</span></span></div>
+    <div class="item"><span class="no">4</span><span>Can a second language make you <strong>smarter</strong> — or just <strong>different</strong>?</span></div>
+  </div>
+  <p class="hint reveal">Keep your answers — the video checks every one. It even names THREE types of bilinguals.</p>
+</section>
+
+<!-- 7 · WW3 U8 L1 LEAD-IN — backwards words (demo) -->
+<section class="slide graf">
+  <div class="eyebrow reveal">WW3 · Unit 8 · Lesson 1 · warm-up</div>
+  <h1 class="reveal">Words <span class="spray">backwards</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card f-frost reveal">
+    <p class="pattern">I say a word from the last unit <strong>backwards</strong> — guess it! A point for the word, another for the meaning.</p>
+  </div>
+  <div class="chips reveal">
+    <span class="chip op" onclick="this.classList.toggle('shown')">regnarts <span class="agree">stranger</span></span>
+    <span class="chip op" onclick="this.classList.toggle('shown')">detpoda <span class="agree">adopted</span></span>
+    <span class="chip op" onclick="this.classList.toggle('shown')">edirb <span class="agree">bride</span></span>
+    <span class="chip op" onclick="this.classList.toggle('shown')">puorg <span class="agree">group</span></span>
+    <span class="chip op" onclick="this.classList.toggle('shown')">setam <span class="agree">mates</span></span>
+    <span class="chip op" onclick="this.classList.toggle('shown')">detaler <span class="agree">related</span></span>
+    <span class="chip op" onclick="this.classList.toggle('shown')">evitaler <span class="agree">relative</span></span>
+    <span class="chip op" onclick="this.classList.toggle('shown')">desserts <span class="agree">stressed</span></span>
+  </div>
+  <p class="hint reveal">Say each word several times while she guesses. Then SWAP — she makes backwards words for you.</p>
+</section>
+
+<!-- ============ PART 2 · WW3 U8 LESSON 1 (simple script) ============ -->
+
+<!-- 8 · L1 TITLE -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Wider World 3 · Unit 8 · No time for crime</div>
+  <h1 class="reveal">Lesson 1 — Vocabulary: <em style="color:var(--accent)">criminals · the law · action verbs</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Student's Book pp. 94–95 (on your iPad) · Teacher's Book flow, nothing omitted.</p>
+  <p class="ask reveal">Goal: she can name crimes, criminals and crime actions — and use them.</p>
+</section>
+
+<!-- 9 · L1 EX1 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Exercise 1</div>
+  <h1 class="reveal">The six criminals</h1>
+  <div class="rule reveal"></div>
+  <p><span class="tag">🎧 AUDIO 3.01</span> <audio controls preload="none" src="../../media/ww3-cd3-3_01.mp3"></audio></p>
+  <p class="task reveal">Before the Vocabulary box: <strong>find the six criminals in the picture</strong> and describe what each one is doing <em>right now</em>.</p>
+  <p class="ask reveal">Ask: <em>What is this one doing? — He is climbing out of a window above the bank.</em> (running with a sack · stealing from a woman's pocket · kicking a litter bin · running away with a handbag · stealing jewellery in a shop)</p>
+  <p class="task reveal">Then the differences — <strong>meaning map</strong>:</p>
+  <div class="pair reveal">
+    <span><b>a thief</b> — openly steals from people</span>
+    <span><b>a burglar</b> — steals from houses</span>
+    <span><b>a robber</b> — steals from banks, trains…</span>
+    <span><b>a shoplifter</b> — steals from shops, pretending to be a customer</span>
+  </div>
+  <p class="ask reveal"><b>a pickpocket</b> — steals from pockets while people aren't looking.</p>
+  <p class="ans reveal">Answers Ex 1: 2 shoplifter · 3 vandals · 4 burglar · 5 robber · 6 pickpocket</p>
+</section>
+
+<!-- 10 · L1 EX2 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Exercise 2</div>
+  <h1 class="reveal">Crime verbs</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Vocabulary box: <strong>break into · rob · steal · damage</strong>. Complete the sentences.</p>
+  <p class="ask reveal">Clarify: <em>break into</em> = the act of illegally entering (a bank, a home); <em>rob</em> + the <em>place</em> (rob a bank, rob a post office); <em>steal</em> + the <em>thing</em> (steal money, steal jewels). Bonus: <em>break out of</em> — where does a criminal break out of? (prison — to escape).</p>
+  <p class="ans reveal">Answers: 2 steals · 3 robs · 4 breaks into · 5 damages</p>
+</section>
+
+<!-- 11 · L1 EX3 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Exercise 3</div>
+  <h1 class="reveal">The crime table</h1>
+  <div class="rule reveal"></div>
+  <p><span class="tag">🎧 AUDIO 3.02</span> <audio controls preload="none" src="../../media/ww3-cd3-3_02.mp3"></audio></p>
+  <p class="task reveal">Complete the table: <strong>criminal — crime — verb</strong>. Elicit each verb after.</p>
+  <div class="pair reveal">
+    <span>robber · robbery · <b>to rob</b></span>
+    <span>burglar · burglary · <b>to burgle</b></span>
+    <span>pickpocket · pickpocketing · <b>to pick sb's pocket</b></span>
+    <span>shoplifter · shoplifting · <b>to shoplift</b></span>
+    <span>thief · theft · <b>to steal</b> (to thieve = rare)</span>
+    <span>vandal · vandalism · <b>to vandalise</b></span>
+  </div>
+  <p class="ask reveal">She makes a <em>written record in her notebook</em>.</p>
+  <p class="ans reveal">Answers: 2 burglary · 3 pickpocketing · 4 shoplifting · 5 theft · 6 vandalism</p>
+</section>
+
+<!-- 12 · L1 EX4 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Exercise 4</div>
+  <h1 class="reveal">Crime on the news</h1>
+  <div class="rule reveal"></div>
+  <p><span class="tag">🎧 AUDIO 3.03</span> <audio controls preload="none" src="../../media/ww3-cd3-3_03.mp3"></audio></p>
+  <p class="task reveal">Listen: which crimes or criminals does the speaker mention?</p>
+  <p class="ask reveal">Detail questions: <em>Where did the robbery take place? (the city bank) What do the vandals damage? (seats and bins in the park) What did the shoplifter steal? (jewellery)</em></p>
+  <p class="ans reveal">Answers: robbery · robbers · vandals · shoplifter</p>
+</section>
+
+<!-- 13 · L1 EX5 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Exercise 5</div>
+  <h1 class="reveal">Crimes around you</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Talk: crimes you have <strong>heard or read about</strong> where you live.</p>
+  <p class="ask reveal">Then: <em>Is vandalism a big problem in your town? Are there areas you wouldn't go to at night?</em></p>
+</section>
+
+<!-- 14 · L1 EX6 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Exercise 6</div>
+  <h1 class="reveal">The law</h1>
+  <div class="rule reveal"></div>
+  <p><span class="tag">🎧 AUDIO 3.04</span> <audio controls preload="none" src="../../media/ww3-cd3-3_04.mp3"></audio></p>
+  <p class="task reveal">Vocabulary B: <strong>court · fine · judge · law · lawyer · prison/jail · punishment · reward</strong>. Choose the correct option.</p>
+  <p class="ask reveal">Ask for the meaning of each word after checking.</p>
+  <p class="ans reveal">Answers: 2 prison · 3 Judge · 4 fine · 5 lawyer</p>
+</section>
+
+<!-- 15 · L1 EX7 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Exercise 7</div>
+  <h1 class="reveal">Action verbs</h1>
+  <div class="rule reveal"></div>
+  <p><span class="tag">🎧 AUDIO 3.05</span> <audio controls preload="none" src="../../media/ww3-cd3-3_05.mp3"></audio></p>
+  <p class="task reveal">Vocabulary C: <strong>chase · climb · push · escape · pull · jump · fall · trip</strong>. Match the pictures.</p>
+  <p class="ask reveal">Use them in quick crime lines: <em>The police chased the burglar. The burglar jumped out of the window…</em></p>
+  <p class="ans reveal">Answers: 1 chase · 2 escape · 3 pull · 4 trip · 5 climb · 6 jump · 7 fall · 8 push</p>
+</section>
+
+<!-- 16 · L1 EX8+9 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Exercises 8 + 9</div>
+  <h1 class="reveal">More verbs, own sentences</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Ex 8:</strong> add MORE action verbs criminals might do (run · hit · grab…). Beat the clock together — then she writes them in the notebook.</p>
+  <p class="task reveal"><strong>Ex 9:</strong> make sentences with the Vocabulary C words — but NOT about crimes, like the example: <em>It's easy to trip when you can't see where you are walking.</em></p>
+</section>
+
+<!-- 17 · L1 EX10 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Exercise 10</div>
+  <h1 class="reveal">The dark-house story</h1>
+  <div class="rule reveal"></div>
+  <p><span class="tag">🎧 AUDIO 3.06</span> <audio controls preload="none" src="../../media/ww3-cd3-3_06.mp3"></audio></p>
+  <p class="task reveal">Listen to the story. Tick the action verbs you hear — <strong>one word is NOT in the story</strong>. Which one?</p>
+  <p class="ask reveal">First play only up to "…chasing me" and elicit <em>chase</em> as the example.</p>
+  <p class="ans reveal">Answer: <b>fall</b> is not in the story.</p>
+</section>
+
+<!-- 18 · L1 EX11 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Exercise 11</div>
+  <h1 class="reveal">Retell it — and finish it</h1>
+  <div class="rule reveal"></div>
+  <p><span class="tag">🎧 AUDIO 3.06 — again</span> <audio controls preload="none" src="../../media/ww3-cd3-3_06.mp3"></audio></p>
+  <p class="task reveal">Before listening again: what can you <strong>remember</strong>? Then listen and note key words (night · dark · huge house · chasing…).</p>
+  <p class="ask reveal">Retell the story together, then <em>invent what happens next</em> — her slot, let her talk.</p>
+</section>
+
+<!-- 19 · L1 EX12 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Exercise 12</div>
+  <h1 class="reveal">Crazy crimes</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Complete the three mini-stories (SB): the thief without a belt · the hungry thief · the good phone connection. Words: <strong>jumped · were chasing · tripped · to escape · pulled · pushed</strong>.</p>
+  <p class="ask reveal">Ask: <em>Have you heard about other funny crimes?</em> (a burglar who fell asleep in the house; a robber who wrote the demand on his own envelope with his address on it)</p>
+  <p class="ans reveal">Answers: 2 were chasing · 3 tripped · 4 jumped · 5 pushed · 6 to escape · 7 pulled</p>
+</section>
+
+<!-- 20 · L1 EX13 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Exercise 13</div>
+  <h1 class="reveal">Your funny crime story</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Choose <strong>three action verbs</strong> and write a funny crime story — true or imagined. Time limit, then tell it.</p>
+  <p class="ask reveal">Hook: the detective can be <em>Chani the lizard</em> — a crime in the terrarium!</p>
+</section>
+
+<!-- 21 · L1 HOMEWORK -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 1 · Out of class</div>
+  <h1 class="reveal">Homework</h1>
+  <div class="rule reveal"></div>
+  <ul class="reveal">
+    <li>Workbook pages <strong>90–91</strong></li>
+    <li>Finish your <strong>funny crime story</strong> (three action verbs, true or imagined)</li>
+    <li>Further practice (optional): Resource Pack 92 — Vocabulary: mime, define, draw</li>
+  </ul>
+</section>
+
+<!-- ============ PART 3 · WW3 U8 LESSON 2 (simple script) ============ -->
+
+<!-- 22 · L2 TITLE -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Wider World 3 · Unit 8</div>
+  <h1 class="reveal">Lesson 2 — Grammar: <em style="color:var(--accent)">Present &amp; Past Simple Passive</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Student's Book p. 96 (on your iPad).</p>
+  <p class="ask reveal">Objective: <em>she can use verbs in the Passive.</em></p>
+</section>
+
+<!-- 23 · L2 LEAD-IN -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 2 · Lead-in</div>
+  <h1 class="reveal">Crime in films</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Each of us thinks of a <strong>crime film</strong> and gives a short summary — without the title, without the characters' names. The other guesses the film.</p>
+  <p class="ask reveal">Model: <em>"A group of criminals rob a casino in Las Vegas… eleven of them."</em></p>
+</section>
+
+<!-- 24 · L2 EX1 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 2 · Exercise 1</div>
+  <h1 class="reveal">Sherlock Holmes — 60 seconds</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Books closed. Everything connected to <strong>Sherlock Holmes</strong> — names, places, titles, words (mystery, murder…). One minute, as many as possible.</p>
+  <p class="ask reveal">Any far-fetched word? She must <em>explain the connection</em> — that's the rule of the game.</p>
+</section>
+
+<!-- 25 · L2 EX2 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 2 · Exercise 2</div>
+  <h1 class="reveal">The Sherlock Holmes quiz</h1>
+  <div class="rule reveal"></div>
+  <p><span class="tag">🎧 AUDIO 3.07</span> <audio controls preload="none" src="../../media/ww3-cd3-3_07.mp3"></audio></p>
+  <p class="task reveal">Ask and answer the quiz questions (SB p. 96), then listen and check. Count the correct ones.</p>
+  <p class="ans reveal">Answers: 1a · 2b · 3b · 4b · 5a</p>
+</section>
+
+<!-- 26 · L2 EX3 — the transformation (demo, graffiti) -->
+<section class="slide graf">
+  <div class="eyebrow reveal">Lesson 2 · Exercise 3 · the mechanics</div>
+  <h1 class="reveal">From active to <span class="spray">passive</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card f-frost reveal">
+    <div class="item op" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Somebody stole my watch. <span class="agree">→ My watch was stolen.</span></span></div>
+    <div class="item op" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>The BBC often shows episodes of Sherlock. <span class="agree">→ Episodes of Sherlock are often shown by the BBC.</span></span></div>
+  </div>
+  <div class="card f-white reveal">
+    <p class="pattern">The formula: <strong>be + past participle (V3)</strong> · the object of the active sentence becomes the subject · <strong>by</strong> = who did it, only when it matters.</p>
+    <p class="pattern"><em>He doesn't use these words.</em> → <em>These words <strong>are not used</strong>.</em></p>
+  </div>
+  <p class="hint reveal">Then: find the passives in the quiz → notebook, two headings (Present SP · Past SP).</p>
+</section>
+
+<!-- 27 · L2 EX4 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 2 · Exercise 4</div>
+  <h1 class="reveal">Three forms of the verb</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Write the Past Simple and past participle: <strong>make · see · use · watch · ask · hide · chase</strong>. (Table on p. 127 helps.)</p>
+  <p class="ask reveal">Point out: regular verbs keep the same form; some are identical in both (caught, had). <em>Hidden</em> is the only real surprise here.</p>
+  <p class="ans reveal">Answers: make–made–made · see–saw–seen · use–used–used · watch–watched–watched · ask–asked–asked · hide–hid–<b>hidden</b> · chase–chased–chased</p>
+</section>
+
+<!-- 28 · L2 EX5 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 2 · Exercise 5</div>
+  <h1 class="reveal">Passive practice</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Complete with the past participle: CCTV cameras <strong>are used</strong> to find clues… (SB p. 96, sentences 1–6).</p>
+  <p class="ans reveal">Answers: 2 caught · 3 chased · 4 watched · 5 asked · 6 hidden</p>
+</section>
+
+<!-- 29 · L2 EX6 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 2 · Exercise 6</div>
+  <h1 class="reveal">Nancy Drew</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Complete the text with the passive form + <strong>by</strong> where necessary (SB p. 96).</p>
+  <p class="ask reveal">Culture moment: Nancy Drew — a fictional teen detective, sixteen, from River Heights; first versions 1930s. Ask: <em>is it fair to keep one author's name on books written by many?</em></p>
+  <p class="ans reveal">Answers: 1 were published · 2 were created for teenagers · 3 were written by several different authors · 4 was used by all the authors · 5 was changed · 6 is read by thousands of young people · 7 are sold</p>
+</section>
+
+<!-- 30 · L2 EX7 -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Lesson 2 · Exercise 7</div>
+  <h1 class="reveal">A detective you know</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Tell me about <strong>a detective story or film</strong> you know — notes first (who, what case, your opinion), then speak.</p>
+  <p class="ask reveal">Groups of four in the TB → here it's her talk, you ask the questions.</p>
+</section>
+
+<!-- 31 · HOMEWORK (all) -->
+<section class="slide tut">
+  <div class="eyebrow reveal">Homework · everything</div>
+  <h1 class="reveal">Out of class</h1>
+  <div class="rule reveal"></div>
+  <ul class="reveal">
+    <li>🎬 The <strong>bilingual-brain video</strong> (I'll send it on Telegram) → catch the <strong>THREE types of bilinguals</strong>, which one are YOU? + one surprising fact in one sentence</li>
+    <li>WW3: Workbook <strong>p. 92</strong> + write <strong>3 passive sentences</strong> from your own week</li>
+    <li>Grammar Time p. 125 (extra, if you want)</li>
+    <li>From Lesson 1 (if not finished): Workbook <strong>90–91</strong> + the funny crime story</li>
+  </ul>
+  <p class="note reveal">Teacher's reserve: ready-made quiz after Lesson 2 — Tests/GLC_8_2A or 2B (Grammar Lesson Check).</p>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 31</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio').forEach(a=>{try{a.pause()}catch(e){}});
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+let wt=0;document.addEventListener('wheel',e=>{const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+/* reveals use their inline onclick — no extra wiring needed */
+/* deep link: open the deck on slide #n */
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+/* READY-CHIME (standing rule, 2026-09-04): the open window chimes and
+   reloads when ZCode saves a new version; #n keeps the slide. http:// only. */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{        /* ding — dong */
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Irina · L1 · Places, Islands & Peaches</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sea:#2A9D8F; --sea-deep:#1F7A70; --coral:#E76F51; --sand:#FDF6EC;
+  --sun:#F4C95D; --teal-soft:#E3F2EF; --sand-soft:#FBEFDD; --coral-soft:#FCE8E2;
+  --ink:#21403C; --ink-soft:#5F7A75; --white:#ffffff;
+  --shadow:0 10px 30px rgba(33,64,60,.12); --shadow-lg:0 20px 50px rgba(33,64,60,.18);
+  --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--sand);-webkit-font-smoothing:antialiased}
+#progress-track{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(42,157,143,.22)}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--sea),var(--sun),var(--coral));transition:width .45s cubic-bezier(.22,1,.36,1)}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:4.2vh 5vw 11vh;opacity:0;transform:translateX(60px) scale(.985);transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);pointer-events:none;overflow:auto}
+.slide.active{opacity:1;transform:none;pointer-events:auto;z-index:2}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.1vw,.95rem);color:var(--sea-deep);margin-bottom:.4em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.05;margin-bottom:.5em}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--sea),var(--coral));margin-bottom:1.1em}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.25rem,2.3vw,1.9rem)}
+p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,2vw,1.8rem)}
+.card.teal{background:var(--teal-soft)}
+.card.sandc{background:var(--sand-soft)}
+.card.coralc{background:var(--coral-soft)}
+.pill{display:inline-flex;align-items:center;gap:.35em;font-family:'Fredoka',sans-serif;font-weight:600;padding:.4em .9em;border-radius:99px;font-size:clamp(.95rem,1.5vw,1.2rem);background:var(--white);box-shadow:0 4px 14px rgba(33,64,60,.08)}
+.zone{display:grid;grid-template-columns:1fr 1fr;gap:1.3em}
+.zone .zh{font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.4vw,2rem);margin-bottom:.4em}
+.model-line{font-size:clamp(1.2rem,2.1vw,1.75rem);padding:.55em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(33,64,60,.08);margin-bottom:.6em}
+.model-line .is{color:var(--sea-deep);font-weight:800}
+.model-line .hg{color:var(--coral);font-weight:800}
+.model-line .fix{background:var(--teal-soft);border-radius:8px;padding:0 .2em}
+.read-text{font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.85}
+.read-text .hl{font-weight:800;color:var(--sea-deep)}
+.read-text .hlp{font-weight:800;color:var(--coral)}
+.sent{font-size:clamp(1.3rem,2.2vw,1.9rem);line-height:1.6;padding:.55em .2em;border-bottom:2px dotted rgba(42,157,143,.5)}
+.gap{display:inline-block;min-width:3.2em;border-bottom:4px solid var(--coral);text-align:center;font-family:'Fredoka';font-weight:600;color:transparent;cursor:pointer;transition:all .2s ease;padding:0 .15em;border-radius:4px 4px 0 0}
+.gap:hover{background:var(--coral-soft)}
+.gap.filled{color:var(--sea-deep);border-color:var(--sea);background:var(--teal-soft)}
+.yn{display:flex;align-items:center;gap:.6em;cursor:pointer;padding:.55em .9em;border-radius:12px;background:var(--white);box-shadow:0 4px 10px rgba(33,64,60,.06);font-size:clamp(1.2rem,2vw,1.65rem)}
+.yn .badge{flex-shrink:0;width:1.7em;height:1.7em;border-radius:50%;display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.85em;background:#eee;color:transparent;transition:all .2s}
+.yn.shown-yes .badge{background:var(--sea);color:#fff}
+.yn.shown-no .badge{background:var(--coral);color:#fff}
+.hero-pattern{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2.6rem,7vw,5.4rem);line-height:1;display:flex;align-items:center;gap:.25em;flex-wrap:wrap}
+.hero-pattern .ipa{font-size:.4em;background:var(--sun);padding:.2em .5em;border-radius:12px;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:.7em}
+.chip{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.25rem,2.3vw,1.9rem);padding:.3em .7em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(33,64,60,.1)}
+.chip b{color:var(--sea-deep)}
+.twister{font-family:'Fredoka';font-weight:600;font-size:clamp(1.35rem,2.6vw,2.2rem);line-height:1.5;border:3px dashed var(--coral);border-radius:var(--radius);padding:1em 1.2em;color:var(--ink);background:var(--white)}
+.twister b{color:var(--coral)}
+.wordbank{display:flex;flex-wrap:wrap;gap:.5em;justify-content:center;background:var(--sand-soft);border-radius:var(--radius);padding:.9em}
+.wordbank .wb{font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.4vw,1.15rem);padding:.3em .7em;border-radius:99px;background:var(--white);box-shadow:0 4px 10px rgba(33,64,60,.08)}
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(33,64,60,.08);margin-bottom:.7em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;background:linear-gradient(135deg,var(--sea),var(--sun));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:var(--ink)}
+.hw-step .ru{font-size:clamp(1rem,1.6vw,1.35rem);line-height:1.45}
+.hw-step .en{font-family:'Fredoka';color:var(--sea-deep);font-weight:600}
+#nav{position:fixed;bottom:2.4vh;left:50%;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);padding:.5em 1em;border-radius:99px;box-shadow:var(--shadow-lg)}
+.nav-btn{width:3em;height:3em;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--sea),var(--sun));display:grid;place-items:center;color:var(--ink);font-size:1.2rem;box-shadow:0 6px 16px rgba(42,157,143,.3);transition:transform .15s ease;font-family:'Fredoka'}
+.nav-btn:hover{transform:scale(1.08)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#counter{font-family:'Fredoka';font-weight:600;font-size:1.1rem;min-width:3.5em;text-align:center}
+#counter .now{color:var(--sea-deep)}
+#fs-btn{width:2.6em;height:2.6em;border-radius:50%;border:none;cursor:pointer;background:var(--white);box-shadow:0 6px 16px rgba(33,64,60,.1);font-size:1rem;transition:transform .15s ease}
+#fs-btn:hover{transform:scale(1.08)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:1em}
+.center{text-align:center}
+.mt{margin-top:1em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka';font-weight:500;color:var(--ink);background:var(--sand-soft);border-radius:14px;padding:.6em 1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.35rem)}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.9rem,1.3vw,1.1rem);color:var(--ink-soft);font-style:italic}
+@media(max-width:900px){ .zone{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · TITLE -->
+  <section class="slide" id="s1">
+    <div class="eyebrow reveal">Irina · Lesson 1 · Starlight 6 · Module 1</div>
+    <h1 class="title reveal">Places, Islands &amp; Peaches 🏝</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:center;gap:2em">
+      <div style="font-size:clamp(4rem,10vw,7.5rem)">🏝🍑</div>
+      <div class="card teal" style="flex:1">
+        <p style="font-family:'Fredoka';font-weight:600;font-size:clamp(1.2rem,2.4vw,1.8rem)">Today: your Anapa, two little verbs, one island, and a very hard sentence to say fast.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 · HOMEWORK CHECK: HER TEXT -->
+  <section class="slide" id="s2">
+    <div class="eyebrow reveal">Homework · your Anapa text</div>
+    <h1 class="title reveal">First — you were GOOD 🌟</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:flex-start;gap:1.4em">
+      <div class="card sandc" style="flex:1.2">
+        <p style="font-family:'Fredoka';font-weight:600;margin-bottom:.4em">Your text:</p>
+        <div class="read-text" style="font-size:clamp(1.05rem,1.9vw,1.55rem)">
+          “Anapa is in Russian. I think Anapa is a clean beaches. It has got
+          expensive hotels and Historic museums and beautiful buildings.
+          As well save nightlife and quiet music.”
+        </div>
+      </div>
+      <div class="card teal" style="flex:1">
+        <h2 style="margin-bottom:.5em">Three things I loved:</h2>
+        <p>✅ <b>“It has got expensive hotels and … buildings”</b> — a list of three! You showed off.</p>
+        <p class="mt">✅ <b>“as well as…”</b> — a connector ABOVE your level. Brave.</p>
+        <p class="mt">✅ You had <b>a lot</b> to say. That's the hard part — and you did it.</p>
+      </div>
+    </div>
+    <p class="task reveal mt">Now let's fix the small machinery — the verbs.</p>
+  </section>
+
+  <!-- SLIDE 3 · THE RULE: IS vs HAS GOT -->
+  <section class="slide" id="s3">
+    <div class="eyebrow reveal">The rule · two little verbs</div>
+    <h1 class="title reveal">IS or HAS GOT?</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="zone reveal">
+      <div class="card teal">
+        <div class="zh" style="color:var(--sea-deep)">IS = what it IS 🪪</div>
+        <div class="model-line">Anapa <span class="is">is</span> a town.</div>
+        <div class="model-line">It <span class="is">is</span> in Russia.</div>
+        <div class="model-line">It <span class="is">is</span> famous and hot.</div>
+      </div>
+      <div class="card coralc">
+        <div class="zh" style="color:var(--coral)">HAS GOT = what it HAS 🎒</div>
+        <div class="model-line">It <span class="hg">has got</span> clean <span class="hg">beaches</span>.</div>
+        <div class="model-line">It <span class="hg">has got</span> hotels and museums.</div>
+        <div class="model-line">Anapa <span class="hg">has got</span> a big beach.</div>
+      </div>
+    </div>
+
+    <div class="sent-list reveal mt" style="max-width:860px;margin:1em auto 0">
+      <div class="sent">Anapa <span class="gap" data-w="is">is</span> a Russian town.</div>
+      <div class="sent">Anapa <span class="gap" data-w="has got">has got</span> nineteen beaches!</div>
+      <div class="sent">The town <span class="gap" data-w="is">is</span> on the sea.</div>
+      <div class="sent">The sea <span class="gap" data-w="has got">has got</span> clean water.</div>
+    </div>
+    <p class="task reveal mt">Say it first — click only to check!</p>
+  </section>
+
+  <!-- SLIDE 4 · RUSSIA / RUSSIAN -->
+  <section class="slide" id="s4">
+    <div class="eyebrow reveal">One word, three faces</div>
+    <h1 class="title reveal">Russia · Russian · a Russian 🇷🇺</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="justify-content:center;gap:1em">
+      <div class="card teal center" style="flex:1"><div style="font-size:2.4rem">🗺️</div><h2>Russia</h2><p class="muted">the country</p><p class="mt" style="font-family:'Fredoka'">in <b>Russia</b></p></div>
+      <div class="card sandc center" style="flex:1"><div style="font-size:2.4rem">🧑</div><h2>a Russian</h2><p class="muted">a person</p><p class="mt" style="font-family:'Fredoka'">I'm <b>a Russian</b>.</p></div>
+      <div class="card coralc center" style="flex:1"><div style="font-size:2.4rem">🏷️</div><h2>Russian</h2><p class="muted">the word before a noun</p><p class="mt" style="font-family:'Fredoka'">a <b>Russian</b> town</p></div>
+    </div>
+
+    <div class="sent-list reveal mt" style="max-width:860px;margin:1em auto 0">
+      <div class="sent">Anapa is in <span class="gap" data-w="Russia">Russia</span>.</div>
+      <div class="sent">It is a <span class="gap" data-w="Russian">Russian</span> town.</div>
+      <div class="sent">Elena is <span class="gap" data-w="a Russian">a Russian</span>.</div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5 · HER TEXT CORRECTED -->
+  <section class="slide" id="s5">
+    <div class="eyebrow reveal">Your text · version 2.0</div>
+    <h1 class="title reveal">Anapa 2.0 🌅</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="card teal reveal" style="max-width:980px;margin:0 auto">
+      <div class="read-text">
+        Anapa <span class="hl">is</span> in <span class="fix">Russia</span>.<br>
+        I think Anapa <span class="fix">has got clean beaches</span>.<br>
+        It has got expensive hotels, <span class="fix">historic</span> museums and
+        beautiful buildings, <span class="fix">as well as safe</span> nightlife
+        and quiet music.
+      </div>
+    </div>
+    <div class="row reveal mt" style="justify-content:center;gap:.6em">
+      <span class="pill">in Russian → in <b>Russia</b></span>
+      <span class="pill">is a clean beaches → <b>has got clean beaches</b></span>
+      <span class="pill">Historic → <b>historic</b></span>
+      <span class="pill">as well save → <b>as well as safe</b></span>
+    </div>
+    <p class="task reveal mt">Read YOUR text — the famous version. It's yours; only stronger.</p>
+  </section>
+
+  <!-- SLIDE 6 · EA PHONICS + TWISTER -->
+  <section class="slide" id="s6">
+    <div class="eyebrow reveal">Phonics · two vowels go walking</div>
+    <h1 class="title reveal">ea — the first one talks 🗣</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:flex-start;gap:1.6em">
+      <div class="card teal" style="flex:1">
+        <div class="hero-pattern">
+          <b style="color:var(--coral)">e</b><b style="color:var(--sea-deep)">a</b>
+          <span style="color:var(--ink-soft);font-size:.5em;margin:0 .2em">→</span>
+          <b style="color:var(--sea-deep)">E</b> <span class="ipa">/iː/</span>
+        </div>
+        <p class="mt">When two vowels go walking, <b>the first does the talking</b> — it says its own name.</p>
+        <div class="chips mt">
+          <span class="chip">cl<b>ea</b>n</span>
+          <span class="chip">b<b>ea</b>ch</span>
+          <span class="chip">s<b>ea</b></span>
+          <span class="chip">t<b>ea</b></span>
+          <span class="chip"><b>ea</b>t</span>
+          <span class="chip">r<b>ea</b>d</span>
+          <span class="chip">t<b>ea</b>cher</span>
+          <span class="chip">p<b>ea</b>ch</span>
+        </div>
+      </div>
+      <div class="col" style="flex:1">
+        <div class="twister">“<b>Ea</b>ch t<b>ea</b>cher on the cl<b>ea</b>n b<b>ea</b>ch
+        <b>ea</b>ts a p<b>ea</b>ch and drinks t<b>ea</b> by the s<b>ea</b>!”</div>
+        <p class="hintline">Say it 3 times — faster each time. Teachers love clean beaches.</p>
+      </div>
+    </div>
+    <p class="task reveal mt">Read the words. Then — the twister. Slow → fast → VERY fast!</p>
+  </section>
+
+  <!-- SLIDE 7 · ISLA'S ISLAND (TEXT + QUESTIONS) -->
+  <section class="slide" id="s7">
+    <div class="eyebrow reveal">Reading · one island, many “is”</div>
+    <h1 class="title reveal">Isla's Island 🏝</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:flex-start;gap:1.4em">
+      <div class="card sandc" style="flex:1">
+        <div class="read-text">
+          <span class="hl">Isla's</span> <span class="hl">island</span> is small. It is hot.<br>
+          The <span class="hl">island</span> <span class="hlp">has got</span> two palms,
+          one cat and one boat. 🐈⛵<br>
+          The cat is black. Its name is Spot.<br>
+          <span class="hl">Isla</span> says: “My <span class="hl">island</span> is the best
+          <span class="hl">island</span>!”<br>
+          The <span class="hl">sea</span> is <span class="hl">clean</span>. The
+          <span class="hl">beach</span> is <span class="hl">clean</span>.<br>
+          <span class="hl">Isla</span> <span class="hl">eats</span> a peach and drinks tea. 🍑
+        </div>
+      </div>
+      <div class="card" style="flex:1.1">
+        <h2 style="margin-bottom:.6em">Yes / No?</h2>
+        <div class="col" style="gap:.5em">
+          <div class="yn" data-a="no"><span class="badge">Y</span>Is the island big?</div>
+          <div class="yn" data-a="yes"><span class="badge">Y</span>Has the island got two palms?</div>
+          <div class="yn" data-a="yes"><span class="badge">Y</span>Is the sea clean?</div>
+          <div class="yn" data-a="no"><span class="badge">Y</span>Is the cat white?</div>
+        </div>
+        <h2 class="mt" style="margin-bottom:.5em">What…?</h2>
+        <div class="sent">What's the cat's name? — <span class="gap" data-w="Spot!">Spot!</span></div>
+        <div class="sent">How many palms? — <span class="gap" data-w="Two!">Two!</span></div>
+        <p class="muted mt" style="font-size:.9em">Answer FIRST. Click only to check. 👆</p>
+      </div>
+    </div>
+    <p class="task reveal mt">Bonus: why is “island” funny? The S sleeps! 👀 (say: EYE-land)</p>
+  </section>
+
+  <!-- SLIDE 8 · HOMEWORK -->
+  <section class="slide" id="s8">
+    <div class="eyebrow reveal">Homework · Anapa, the video</div>
+    <h1 class="title reveal">📝 Anapa on camera 📹</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="card teal reveal" style="max-width:860px;margin:0 auto">
+      <div class="hw-step">
+        <div class="n">1</div>
+        <div class="ru">📹 Запиши видео про Анапу — 5–6 предложений, 40–60 секунд. Используй ВСЕ три конструкции:</div>
+      </div>
+      <div class="hw-step">
+        <div class="n">2</div>
+        <div class="ru"><span class="en">“Anapa is… (a town / famous / hot)”</span> — про то, КАКАЯ она (×2)</div>
+      </div>
+      <div class="hw-step">
+        <div class="n">3</div>
+        <div class="ru"><span class="en">“It has got… (×2)”</span> — и один раз со связкой <span class="en">“as well as…”</span></div>
+      </div>
+    </div>
+    <div class="reveal mt">
+      <div class="wordbank" style="max-width:760px;margin:0 auto">
+        <span class="wb">is</span><span class="wb">has got</span><span class="wb">as well as</span>
+        <span class="wb">clean beaches</span><span class="wb">historic museums</span><span class="wb">safe nightlife</span>
+        <span class="wb">beautiful buildings</span><span class="wb">the sea</span><span class="wb">in Russia</span>
+      </div>
+    </div>
+    <p class="task reveal mt">📥 Это твой текст 2.0 — теперь с голосом и картинкой!</p>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
+  <div id="counter"><span class="now">1</span> / 8</div>
+  <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
+  <button id="fs-btn" title="Fullscreen (F)">⛶</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+  const fill = document.getElementById('progress-fill');
+  const counter = document.getElementById('counter').querySelector('.now');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const fsBtn = document.getElementById('fs-btn');
+  function render(){
+    slides.forEach((s,i)=>{ s.classList.toggle('active', i===current); s.classList.toggle('prev', i<current); });
+    counter.textContent = current+1;
+    fill.style.width = ((current+1)/total*100) + '%';
+    prevBtn.disabled = current===0;
+    nextBtn.disabled = current===total-1;
+  }
+  function go(n){ current = Math.max(0, Math.min(total-1, n)); render(); }
+  const next = ()=>go(current+1);
+  const prev = ()=>go(current-1);
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  document.addEventListener('keydown', e=>{
+    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
+    switch(e.key){
+      case 'ArrowRight': case 'ArrowDown': e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'ArrowUp': e.preventDefault(); prev(); break;
+      case ' ': e.preventDefault(); next(); break;
+      case 'Home': e.preventDefault(); go(0); break;
+      case 'End': e.preventDefault(); go(total-1); break;
+      case 'f': case 'F': toggleFs(); break;
+    }
+  });
+  let wheelLock = false;
+  document.getElementById('deck').addEventListener('wheel', e=>{
+    if(wheelLock) return;
+    if(Math.abs(e.deltaY) < 25) return;
+    wheelLock = true;
+    (e.deltaY>0 ? next() : prev());
+    setTimeout(()=>wheelLock=false, 650);
+  }, {passive:true});
+  let touchX=null;
+  document.addEventListener('touchstart', e=>{touchX=e.changedTouches[0].clientX},{passive:true});
+  document.addEventListener('touchend', e=>{
+    if(touchX===null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx)>60){ dx<0 ? next() : prev(); }
+    touchX=null;
+  },{passive:true});
+  function toggleFs(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+    else { document.exitFullscreen?.(); }
+  }
+  fsBtn.addEventListener('click', toggleFs);
+  document.querySelectorAll('.gap').forEach(g=>{
+    g.addEventListener('click', ()=> g.classList.toggle('filled'));
+  });
+  document.querySelectorAll('.yn').forEach(yn=>{
+    yn.addEventListener('click', ()=>{
+      const a = yn.dataset.a;
+      yn.classList.remove('shown-yes','shown-no');
+      yn.classList.add(a==='yes' ? 'shown-yes' : 'shown-no');
+      yn.querySelector('.badge').textContent = a==='yes' ? '✓' : '✗';
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>

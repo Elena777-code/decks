@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masha · Negative adjectives — Wider World 3 · 8.7 English in Use</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* GRAFFITI POP (spec §2b) — engine per spec §4–7 */
+:root{
+  --wall:#17181D; --card:rgba(255,255,255,.055); --ink:#F5F3EE; --ink-soft:#A9ACB8;
+  --cyan:#2BD9E8; --magenta:#F03CB0; --orange:#FF7A29; --yellow:#FFC93C; --lime:#A8E82A;
+  --line:rgba(255,255,255,.14); --radius:14px;
+  --grad:linear-gradient(90deg,var(--cyan),var(--magenta) 45%,var(--orange) 75%,var(--yellow));
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);overflow:hidden;
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 2px,transparent 2px 34px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0 2px,transparent 2px 90px),
+    var(--wall);}
+#bar{position:fixed;top:0;left:0;height:5px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;background:rgba(23,24,29,.8);
+  backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:99px;
+  padding:8px 14px;font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink-soft)}
+#nav button{border:1px solid var(--line);background:transparent;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;transition:transform .15s}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cyan)}
+#nav button:disabled{opacity:.3;cursor:default}
+.slide{position:absolute;inset:0;padding:6vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:center;gap:2.4vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Permanent Marker',cursive;color:var(--yellow);
+  font-size:clamp(1rem,1.6vw,1.3rem);transform:rotate(-1.2deg)}
+h1{font-weight:800;font-size:clamp(1.9rem,4.4vw,3.7rem);line-height:1.1;letter-spacing:-.02em}
+.spray{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.rule{width:110px;height:5px;border-radius:99px;background:var(--grad)}
+p.lead{font-size:clamp(1.12rem,1.9vw,1.45rem);color:var(--ink-soft);line-height:1.55;max-width:60ch}
+p.lead strong{color:var(--cyan)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.9rem,1.8vw,1.5rem);border-top-width:3px}
+.card.c-cyan{border-top-color:var(--cyan)}.card.c-magenta{border-top-color:var(--magenta)}
+.card.c-orange{border-top-color:var(--orange)}.card.c-lime{border-top-color:var(--lime)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,1.8vw,1.4rem)}
+.k{font-weight:800;font-size:clamp(1.15rem,2.1vw,1.7rem)}
+.k.k-cyan{color:var(--cyan)}.k.k-magenta{color:var(--magenta)}.k.k-lime{color:var(--lime)}
+.note{font-size:clamp(.98rem,1.6vw,1.22rem);color:var(--ink-soft);line-height:1.55}
+.note b{color:var(--ink)}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.5em 0;border-bottom:1px solid var(--line);
+  font-size:clamp(1.05rem,1.9vw,1.45rem);line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .no{font-family:'Permanent Marker',cursive;color:var(--lime);min-width:1.3em}
+.flip{cursor:pointer;border-radius:8px;transition:background .2s}
+.flip:hover{background:rgba(255,255,255,.04)}
+.flip .back{color:var(--lime);opacity:0;transition:opacity .2s;font-size:.85em;font-weight:600}
+.flip.shown .back{opacity:1}
+.chips{display:flex;flex-wrap:wrap;gap:.5em}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:.3em .85em;
+  font-size:clamp(.95rem,1.6vw,1.25rem);font-weight:600;cursor:pointer;transition:all .15s;user-select:none}
+.chip:hover{border-color:var(--magenta);transform:translateY(-2px)}
+.chip.used{opacity:.35;text-decoration:line-through;pointer-events:none}
+.chip .neg{display:none;color:var(--magenta)}
+.chip.flipped{border-color:var(--magenta)}
+.chip.flipped .neg{display:inline}
+.btn{align-self:flex-start;border:2px solid var(--magenta);background:transparent;color:var(--magenta);
+  font-family:'Inter';font-weight:800;font-size:clamp(1rem,1.6vw,1.2rem);padding:.5em 1.4em;
+  border-radius:99px;cursor:pointer;transition:all .18s}
+.btn:hover{background:var(--magenta);color:#2a0a1f}
+.hint{font-size:clamp(.88rem,1.4vw,1.08rem);color:var(--ink-soft);font-style:italic}
+.frame{cursor:pointer}
+.frame .seen{display:none;color:var(--yellow);font-size:.8em;font-weight:600}
+.frame.shown .seen{display:inline}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<!-- 1 · HOMEWORK CHECK -->
+<section class="slide active">
+  <div class="eyebrow reveal">Homework check</div>
+  <h1 class="reveal">Your bilingual <span class="spray">brain</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card c-cyan reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Name the three types of bilinguals. <span class="back">— infant · child · late (from the video)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Which type are you — and one fact that proves it? <span class="back">— your answer, defended!</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>One benefit bilingual brains get. <span class="back">— e.g. better focus; dementia may come later</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>One word from the story of Dasha that was hard for you. <span class="back">— show the results report you sent!</span></span></div>
+  </div>
+</section>
+
+<!-- 2 · LEAD-IN: ADJECTIVE DIALOGUES -->
+<section class="slide">
+  <div class="eyebrow reveal">Warm-up game</div>
+  <h1 class="reveal">Two lines — <span class="spray">guess the adjective</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card c-magenta reveal">
+    <p class="note" style="margin-bottom:.5em"><b>Example:</b> A: <em>I've got tickets for the concert tonight.</em> · B: <em>Oh, wow! Brilliant! I can't wait!</em> → <b style="color:var(--cyan)">excited</b></p>
+    <p class="note">We take turns: one of us gets an adjective and acts out a two-line dialogue — the other guesses!</p>
+    <div class="chips" id="adjchips" style="margin-top:.6em"></div>
+    <button class="btn" id="dealBtn" style="margin-top:.7em">🎲 deal me an adjective</button>
+    <p class="k k-lime" id="dealt" style="min-height:1.4em;margin-top:.4em"></p>
+  </div>
+</section>
+
+<!-- 3 · THE COMIC -->
+<section class="slide">
+  <div class="eyebrow reveal">The story in four frames</div>
+  <h1 class="reveal">Two detectives, <span class="spray">one criminal</span></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card c-cyan frame" onclick="this.classList.toggle('shown')"><div class="k k-cyan">🕵️‍♂️ Frame 1</div><p class="note">Footprints, a magnifying glass, complaints…</p><p class="note" style="margin-top:.4em"><span class="seen">What's happening? → The detectives are following footprints; one complains about his magnifying glass and his job.</span></p></div>
+    <div class="card c-magenta frame" onclick="this.classList.toggle('shown')"><div class="k k-magenta">🥫 Frame 2</div><p class="note">The detective finds something near the wall.</p><p class="note" style="margin-top:.4em"><span class="seen">→ A clue: a can of spray paint!</span></p></div>
+    <div class="card c-orange frame" onclick="this.classList.toggle('shown')"><div class="k k-orange">🎨 Frame 3</div><p class="note">The other detective is not impressed. Someone is standing very still by the wall…</p><p class="note" style="margin-top:.4em"><span class="seen">→ "It's not a clue, it's rubbish." The criminal pretends to be part of the graffiti!</span></p></div>
+    <div class="card c-lime frame" onclick="this.classList.toggle('shown')"><div class="k k-lime">🚶 Frame 4</div><p class="note">The detectives walk away.</p><p class="note" style="margin-top:.4em"><span class="seen">→ They give up: the crime stays unsolved. The detectives are useless and complain a lot; the criminal is clever.</span></p></div>
+  </div>
+  <p class="lead reveal">Click a frame, say what's happening — then check.</p>
+</section>
+
+<!-- 4 · EX 2: PREFIX TABLE -->
+<section class="slide">
+  <div class="eyebrow reveal">English in use</div>
+  <h1 class="reveal">Negative prefixes: <span class="spray">flip the meaning</span></h1>
+  <div class="rule reveal"></div>
+  <p class="lead reveal">Click an adjective — its negative form appears. Say it aloud first!</p>
+  <div class="chips reveal" id="prefchips" style="margin-bottom:.5em"></div>
+  <div class="card c-magenta reveal">
+    <p class="note">🎯 Your task: choose <b>three</b> adjectives with <b>three different prefixes</b> and make a sentence with each. <em>The chairs in this classroom are really uncomfortable.</em></p>
+  </div>
+</section>
+
+<!-- 5 · EX 3: RULES + EXCEPTIONS -->
+<section class="slide">
+  <div class="eyebrow reveal">The patterns (with traps)</div>
+  <h1 class="reveal">un- · im- · in- · il- · ir- — <span class="spray">and exceptions</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card c-cyan reveal">
+    <p class="note"><b class="k-cyan k">im-</b> before /p/ → <em>impossible, impolite</em> · <b class="k-cyan k">ir-</b> before /r/ → <em>irregular, irresponsible</em> · <b class="k-cyan k">il-</b> before /l/ → <em>illogical, illegal</em> · <b class="k-cyan k">un-</b> — the big one: <em>unhappy, unusual, unfriendly</em></p>
+    <p class="note" style="margin-top:.4em">⚠ But listen to the SOUND, not the rule: <span class="trap" style="color:var(--orange);font-weight:700">unpopular, unreliable, unlucky</span> — /ʌ/ sound, not im-/ir-!</p>
+  </div>
+  <div class="card c-lime reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Sam never says hello. He's ___. <span class="back">— un- · unfriendly</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>A waiter who shouts is ___. <span class="back">— im- · impolite</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Homework about dinosaurs in an English lesson? ___. <span class="back">— ir- · irrelevant</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>The doctor's handwriting is ___. <span class="back">— il- · illegible</span></span></div>
+  </div>
+</section>
+
+<!-- 6 · EX 4: INVISIBLE -->
+<section class="slide">
+  <div class="eyebrow reveal">Imagine</div>
+  <h1 class="reveal">If I was <span class="spray">invisible</span>…</h1>
+  <div class="rule reveal"></div>
+  <div class="card c-orange reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>If I was invisible, I would… <span class="back">— e.g. watch films at the cinema without buying a ticket 🎬</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>If my town was illegal for cars for one day, … <span class="back">— what would people do?</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>If homework was impossible to check, … <span class="back">— careful what you wish for 😏</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Make YOUR own: one adjective from today + "If I was…" <span class="back">— your turn, no model!</span></span></div>
+  </div>
+</section>
+
+<!-- 7 · FURTHER PRACTICE: DOMINOES (Resource Pack 100) -->
+<section class="slide">
+  <div class="eyebrow reveal">Dominoes · Resource Pack 100</div>
+  <h1 class="reveal">Build the <span class="spray">negative snake</span></h1>
+  <div class="rule reveal"></div>
+  <p class="lead reveal">Real dominoes, digital. Look at the <strong>yellow prefix</strong> at the end of the snake — say <em>il&nbsp;+&nbsp;logical&nbsp;=&nbsp;illogical</em> — then <strong>click that adjective</strong> below. The word locks into the snake and a new prefix appears. One wrong click counts!</p>
+  <div class="card c-lime reveal">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:.6em">
+      <span id="dsnake" style="display:contents"></span>
+      <span id="dnext" class="dnext"></span>
+    </div>
+    <div class="chips" id="dpool" style="margin-top:.4em"></div>
+    <div class="qrow" style="margin-top:.8em">Moves: <b id="dmoves" style="color:var(--lime);font-size:1.2em">0</b> · Tiles placed: <b id="ddone" style="color:var(--lime);font-size:1.2em">0</b>/19</div>
+  </div>
+  <style>
+    .dlock{border:1.5px solid var(--cyan);color:var(--cyan);border-radius:8px;padding:.25em .8em;font-weight:700;font-size:clamp(.95rem,1.6vw,1.2rem)}
+    .dpair{display:inline-flex;border:1.5px solid var(--lime);border-radius:8px;overflow:hidden;font-weight:700;font-size:clamp(.95rem,1.6vw,1.2rem)}
+    .dpair .dp{background:rgba(168,232,42,.12);color:var(--lime);padding:.25em .55em}
+    .dpair .da{color:var(--lime);padding:.25em .55em}
+    .chip.bad{border-color:var(--orange);color:var(--orange);background:rgba(255,122,41,.1)}
+    .dnext{border:2px dashed var(--yellow);color:var(--yellow);border-radius:8px;
+      padding:.25em .8em;font-weight:800;font-size:clamp(1rem,1.8vw,1.3rem);
+      box-shadow:0 0 18px rgba(255,201,60,.2)}
+  </style>
+</section>
+
+<!-- 8 · VOX POPS 8.4 -->
+<section class="slide">
+  <div class="eyebrow reveal">Real people · Vox Pops 8.4</div>
+  <h1 class="reveal">Watch — then <span class="spray">defend your choice</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card c-magenta reveal">
+    <p class="note">While you watch: choose the answer <b>you like best</b> for each question. There is no "right" one.</p>
+    <p class="note" style="margin-top:.4em">After: tell me your choice — and <b>why</b>. "I chose … because …"</p>
+  </div>
+  <p class="hint reveal">Elena starts the video when you're ready.</p>
+</section>
+
+<!-- 9 · PREFIX WORKSHOP (Elena's tasks) -->
+<section class="slide">
+  <div class="eyebrow reveal">Prefix workshop</div>
+  <h1 class="reveal">Adverbs &amp; nouns <span class="spray">join the game</span></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card c-cyan">
+      <div class="k k-cyan">1 · Adjectives → adverbs</div>
+      <p class="note" style="margin:.3em 0">Make the ADVERB negative:</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">a</span><span>She waited patient → patiently → <b>?</b> <span class="back">— impatiently</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">b</span><span>He answered polite → politely → <b>?</b> <span class="back">— impolitely</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">c</span><span>Drive legally → <b>?</b> <span class="back">— illegally</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">d</span><span>Think logically → <b>?</b> <span class="back">— illogically</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">e</span><span>Smile happily → <b>?</b> <span class="back">— unhappily</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">f</span><span>Act honestly → <b>?</b> <span class="back">— dishonestly</span></span></div>
+    </div>
+    <div class="card c-magenta">
+      <div class="k k-magenta">2 · Nouns → negative adjectives</div>
+      <p class="note" style="margin:.3em 0">The noun is given — build the adjective:</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">a</span><span>comfort → <b>?</b> <span class="back">— uncomfortable</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">b</span><span>patience → <b>?</b> <span class="back">— impatient</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">c</span><span>honesty → <b>?</b> <span class="back">— dishonest</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">d</span><span>logic → <b>?</b> <span class="back">— illogical</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">e</span><span>literacy → <b>?</b> <span class="back">— illiterate</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">f</span><span>experience → <b>?</b> <span class="back">— inexperienced</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">g</span><span>maturity → <b>?</b> <span class="back">— immature</span></span></div>
+    </div>
+  </div>
+  <p class="hint reveal">Say the full chain aloud: patient → patiently → impatient → impatiently.</p>
+</section>
+
+<!-- 10 · REAL LIFE: POLICE IN AMERICA (ELLLO #576) -->
+<section class="slide">
+  <div class="eyebrow reveal">Real life · ELLLO #576</div>
+  <h1 class="reveal">Police in <span class="spray">America</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card c-cyan reveal">
+    <p class="note"><b>Before you listen:</b> What do you think — is being a police officer a dangerous job? Are the police in films different from real police?</p>
+  </div>
+  <div class="card c-magenta reveal">
+    <p class="note"><b>Listen (twice):</b> 1st — gist: what surprises Nitya about the police in the US? 2nd — note <b>two facts</b>.</p>
+  </div>
+  <div class="card c-lime reveal">
+    <p class="note"><b>After — today's grammar speaks:</b> describe the police (in the US / in your city) with <b>three adjectives — one must be negative</b>. <em>“In the films they are brave, but sometimes impatient.”</em></p>
+  </div>
+  <p class="hint reveal">elllo.org/english/0551/576-Nitya-Police.html</p>
+</section>
+
+<!-- 11 · EXTRA: NEGATIVE DIALOGUES -->
+<section class="slide">
+  <div class="eyebrow reveal">Back to the game — darker</div>
+  <h1 class="reveal">Now the <span class="spray">negative</span> version</h1>
+  <div class="rule reveal"></div>
+  <div class="card c-cyan reveal">
+    <p class="note"><b>unexcited:</b> A: <em>I've got tickets for the concert tonight.</em> · B: <em>Oh. OK, I guess I'll come with you. They aren't my favourite band, but I haven't got anything else to do.</em></p>
+    <p class="note" style="margin-top:.5em">Your turn: take YOUR adjective from the warm-up and act out its <b>negative</b> two-line dialogue. I guess the adjective!</p>
+  </div>
+</section>
+
+<!-- 12 · HOMEWORK -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">A new story <span class="spray">is waiting</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card c-lime">
+    <div class="item"><span class="no">1</span><span>📖 Read the text on <b>page 104</b> — look up any new words.</span></div>
+    <div class="item"><span class="no">2</span><span>✍️ Write one example sentence for each: <b>attitude · busker · income · petty crime · vary</b>.</span></div>
+    <div class="item"><span class="no">3</span><span>📘 Workbook <b>page 97</b>.</span></div>
+  </div>
+  <p class="lead reveal">Next time: your sentences — and a story about a street musician. 🎻</p>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 12</span>
+  <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+let wt=0;document.addEventListener('wheel',e=>{const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* lead-in adjective dealer */
+const ADJS=['happy','honest','patient','correct','logical','legal','responsible','comfortable','important','possible','interesting','friendly','polite'];
+let deck=shuffle([...ADJS]);
+const dealt=document.getElementById('dealt');
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+document.getElementById('dealBtn').addEventListener('click',()=>{
+  if(!deck.length)deck=shuffle([...ADJS]);
+  dealt.textContent='→ '+deck.pop();
+});
+
+/* ex2 prefix chips */
+const PREF=[['fair','unfair'],['interesting','uninteresting'],['important','unimportant'],
+ ['comfortable','uncomfortable'],['usual','unusual'],['possible','impossible'],
+ ['visible','invisible'],['legal','illegal'],['regular','irregular'],
+ ['responsible','irresponsible'],['logical','illogical'],['polite','impolite'],
+ ['patient','impatient'],['friendly','unfriendly']];
+const pc=document.getElementById('prefchips');
+shuffle([...PREF]).forEach(([base,neg])=>{
+  const c=document.createElement('span');c.className='chip';
+  c.innerHTML=base+' <span class="neg">→ '+neg+'</span>';
+  c.addEventListener('click',()=>c.classList.toggle('flipped'));
+  pc.appendChild(c);
+});
+go(0);
+/* ---------- dominoes — accepts EVERY correct answer ---------- */
+const DADJ={correct:"il…",logical:"il…",legal:"il…",legible:"il…",literate:"il…",
+ possible:"im…",polite:"im…",patient:"im…",mature:"im…",
+ visible:"in…",experienced:"in…",
+ responsible:"ir…",regular:"ir…",relevant:"ir…",
+ happy:"un…",important:"un…",comfortable:"un…",usual:"un…",friendly:"un…",
+ pleased:"dis…",honest:"dis…"};
+const dsnake=document.getElementById('dsnake'), dpool=document.getElementById('dpool'),
+ dnext=document.getElementById('dnext');
+function dShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let dPool=dShuffle(Object.keys(DADJ).slice(1));   // 'correct' is the pre-placed start
+let dPref=DADJ.correct, dMoves=0, dDone=0;
+const TOTAL=Object.keys(DADJ).length-1;           // 19 tiles to place
+function dAddPair(pref,adj){
+  const sp=document.createElement('span');sp.className='dpair';
+  sp.innerHTML='<span class="dp">'+pref+'</span><span class="da">'+adj+'</span>';
+  dsnake.appendChild(sp);
+}
+function dPickNextPrefix(){
+  if(!dPool.length)return null;
+  return DADJ[dPool[Math.floor(Math.random()*dPool.length)]]; // always solvable
+}
+function dShow(){
+  if(dPref===null){dnext.textContent='the end! 🏁';}
+  else{dnext.textContent=dPref+' ?';}
+}
+function dScore(){
+  document.getElementById('dmoves').textContent=(dDone===TOTAL?dMoves+' 🏆':dMoves);
+  document.getElementById('ddone').textContent=dDone;
+}
+dAddPair('start →','correct');
+dShow();
+dPool.forEach(a=>{
+  const c=document.createElement('span');c.className='chip';c.textContent=a;
+  c.addEventListener('click',()=>{
+    if(dPref===null||c.classList.contains('used'))return;
+    dMoves++;
+    if(DADJ[a]===dPref){
+      dAddPair(dPref,a);
+      c.classList.add('used');
+      dPool=dPool.filter(x=>x!==a);
+      dDone++;
+      dPref=dPickNextPrefix();
+    }else{
+      c.classList.add('bad');const cc=c;setTimeout(()=>cc.classList.remove('bad'),600);
+    }
+    dShow();dScore();
+  });
+  dpool.appendChild(c);
+});
+</script>
+</body>
+</html>

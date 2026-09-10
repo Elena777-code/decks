@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sergey · The Rats' World Clock 🌍🕐</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+#progress-track{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));transition:width .45s cubic-bezier(.22,1,.36,1)}
+#stars{position:fixed;top:14px;right:18px;z-index:100;font-family:'Fredoka';font-weight:700;font-size:clamp(1.1rem,2vw,1.5rem);color:var(--navy);background:var(--white);border-radius:99px;box-shadow:var(--shadow);padding:.3em .8em}
+#stars .n{color:var(--stamp)}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;padding:4.2vh 5vw 12vh;opacity:0;transform:translateX(60px) scale(.985);transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);pointer-events:none;overflow:auto}
+.screen.active{opacity:1;transform:none;pointer-events:auto;z-index:2}
+.screen.prev{transform:translateX(-60px) scale(.985)}
+.screen.active .reveal{animation:rise .6s both}
+.screen.active .reveal:nth-child(2){animation-delay:.08s}
+.screen.active .reveal:nth-child(3){animation-delay:.16s}
+.screen.active .reveal:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.1vw,.95rem);color:var(--navy);margin-bottom:.4em;text-align:center}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,3.8vw,3.2rem);line-height:1.1;margin-bottom:.4em;text-align:center}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1em}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,2vw,1.8rem)}
+.card.sky{background:#E8F1FA}
+.card.cheese{background:var(--cheese-soft)}
+.card.stampc{background:var(--stamp-soft)}
+.task{font-family:'Fredoka';font-weight:500;color:var(--ink);background:var(--cheese-soft);border-radius:14px;padding:.6em 1em;display:inline-block;font-size:clamp(1.05rem,1.7vw,1.4rem)}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.85rem,1.25vw,1.05rem);color:var(--ink-soft);font-style:italic}
+.stamp-box{font-family:'Fredoka',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;border:3px dashed var(--stamp);border-radius:16px;padding:.5em 1em;color:var(--stamp);background:var(--white);box-shadow:var(--shadow);display:inline-block}
+.fb{min-height:1.6em;font-family:'Fredoka';font-weight:600;font-size:clamp(1.1rem,2vw,1.6rem);margin-top:.6em}
+.fb.ok{color:#2E8B6D}
+.fb.no{color:var(--stamp)}
+/* clock */
+.wclock{display:flex;flex-direction:column;align-items:center;gap:.5em}
+.clockface{width:clamp(190px,26vh,300px);height:clamp(190px,26vh,300px)}
+.clockface.wiggle{animation:wiggle .6s ease}
+@keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-5deg)}60%{transform:rotate(5deg)}}
+.dig{font-family:'Fredoka';font-weight:700;font-size:clamp(1.3rem,2.4vw,2rem);color:var(--navy)}
+.dig .skyic{font-size:.85em}
+/* chips */
+.chips{display:flex;gap:.7em;flex-wrap:wrap;justify-content:center;margin-top:.9em}
+.chip{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2.1vw,1.7rem);padding:.5em 1.2em;border-radius:99px;border:3px solid transparent;background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.1);cursor:pointer;transition:transform .15s ease,border-color .2s ease;user-select:none}
+.chip:hover{transform:translateY(-3px)}
+.chip.okc{border-color:var(--mint);background:#EAF7F2;color:#2E8B6D}
+.chip.noc{border-color:var(--stamp);color:var(--stamp);opacity:.55}
+.chip.shake{animation:shake .4s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}60%{transform:translateX(7px)}}
+/* set controls */
+.setbtns{display:flex;gap:.55em;margin-top:.7em;flex-wrap:wrap;justify-content:center}
+.sbtn{font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1em;border:none;border-radius:99px;cursor:pointer;background:linear-gradient(135deg,var(--navy),var(--sky));color:#fff;box-shadow:0 6px 14px rgba(44,78,128,.25);transition:transform .15s ease}
+.sbtn:hover{transform:scale(1.06)}
+.sbtn.min{background:var(--white);color:var(--navy);box-shadow:0 4px 12px rgba(34,48,63,.14)}
+.gift-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2.1vw,1.6rem);padding:.6em 1.6em;border:none;border-radius:99px;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--stamp),var(--cheese));box-shadow:var(--shadow-lg);transition:transform .15s ease;margin-top:.9em}
+.gift-btn:hover{transform:scale(1.05)}
+.gift-btn:disabled{opacity:.6;cursor:default;transform:none}
+.pulse{animation:pulse 1s ease infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+/* world strip */
+.strip{display:flex;align-items:center;justify-content:center;gap:clamp(.6rem,2vw,1.6rem);width:100%;margin-top:.8em}
+.citycard{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:.8em .9em;display:flex;flex-direction:column;align-items:center;gap:.35em;border:3px solid transparent;min-width:clamp(150px,18vw,220px)}
+.citycard.home{border-color:var(--cheese)}
+.citycard.done{border-color:var(--mint)}
+.citycard .cname{font-family:'Fredoka';font-weight:700;font-size:clamp(1rem,1.8vw,1.45rem);color:var(--navy)}
+.citycard .csub{font-size:clamp(.8rem,1.25vw,1rem);color:var(--ink-soft)}
+.citycard .wclock .clockface{width:clamp(110px,15vh,170px);height:clamp(110px,15vh,170px)}
+.citycard .dig{font-size:clamp(1rem,1.8vw,1.4rem)}
+.link{display:flex;flex-direction:column;align-items:center;gap:.2em;font-family:'Fredoka';font-weight:600;font-size:clamp(.85rem,1.4vw,1.15rem);color:var(--navy);text-align:center}
+.link .ar{font-size:clamp(1.3rem,2.4vw,2rem);line-height:1.1}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap;justify-content:center}
+.col{display:flex;flex-direction:column;gap:.7em;align-items:center}
+.mt{margin-top:.9em}
+.center{text-align:center}
+.muted{color:var(--ink-soft)}
+#nav{position:fixed;bottom:2.4vh;left:50%;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);padding:.5em 1em;border-radius:99px;box-shadow:var(--shadow-lg)}
+.nav-btn{width:3em;height:3em;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--navy),var(--sky));display:grid;place-items:center;color:#fff;font-size:1.2rem;box-shadow:0 6px 16px rgba(44,78,128,.3);transition:transform .15s ease;font-family:'Fredoka'}
+.nav-btn:hover{transform:scale(1.08)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#counter{font-family:'Fredoka';font-weight:600;font-size:1.1rem;min-width:3.5em;text-align:center}
+#counter .now{color:var(--navy)}
+#fs-btn{width:2.6em;height:2.6em;border-radius:50%;border:none;cursor:pointer;background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.1);font-size:1rem;transition:transform .15s ease}
+#fs-btn:hover{transform:scale(1.08)}
+@media(max-width:900px){ .strip{flex-direction:column} .link .ar{transform:rotate(90deg)} }
+/* the sun machine — full-space slide */
+.space-slide{background:#0E1C33}
+.space-slide .eyebrow{color:#A9CCEF}
+.space-slide h1.title{color:#F6F8FB}
+.space-slide .hintline{color:#8FA3BD}
+.sun-stage{position:relative;width:100%;flex:1;min-height:320px}
+.stars-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.tw{position:absolute;border-radius:50%;background:#fff}
+#orbit-svg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(56vh,52%,460px);aspect-ratio:1;cursor:grab;touch-action:none;z-index:2}
+#orbit-svg.dragging{cursor:grabbing}
+.orbit-ring{fill:none;stroke:rgba(255,255,255,.16);stroke-width:2;stroke-dasharray:5 8}
+.earth{stroke:#A9CCEF;stroke-width:3}
+#sun{fill:#FFD666;stroke:#FFF3D6;stroke-width:3}
+#sun-glow{fill:rgba(255,214,102,.20);pointer-events:none}
+.city-dot{fill:#C9A94F;stroke:#0E1C33;stroke-width:2;opacity:.8;transition:fill .4s,opacity .4s}
+.city-dot.lit{fill:#FFE28A;opacity:1}
+.city-name{font-family:'Fredoka',sans-serif;font-weight:600;font-size:11px;fill:#F6F8FB;text-anchor:middle;paint-order:stroke;stroke:rgba(14,28,51,.78);stroke-width:3px}
+.corner-clock{position:absolute;display:flex;flex-direction:column;align-items:center;gap:.1em;z-index:3}
+.corner-clock .clockface{width:clamp(100px,15.5vh,155px);height:clamp(100px,15.5vh,155px)}
+.cc-name{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.05rem,1.8vw,1.4rem);color:#F6F8FB;text-shadow:0 2px 10px rgba(0,0,0,.65)}
+.corner-clock .dig{color:#FFD666;font-size:clamp(1.05rem,1.8vw,1.35rem);font-weight:700}
+#moon{fill:#D9E4F2;stroke:#F6F8FB;stroke-width:2;filter:drop-shadow(0 0 8px rgba(214,228,255,.75));pointer-events:none}
+.city-house{font-size:14px;text-anchor:middle;pointer-events:none}
+.city-rats{font-size:9px;text-anchor:middle;pointer-events:none}
+.rats-bubble{position:absolute;left:60%;top:15%;background:#FFF8E6;color:#22303F;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.6vw,1.25rem);padding:.45em .95em;border-radius:16px;box-shadow:0 8px 26px rgba(0,0,0,.4);opacity:0;transform:translateY(10px) scale(.88);transition:all .45s cubic-bezier(.34,1.56,.64,1);pointer-events:none;z-index:5;white-space:nowrap}
+.rats-bubble.show{opacity:1;transform:none}
+.shooting-star{position:absolute;width:110px;height:2px;background:linear-gradient(90deg,rgba(255,255,255,0),#fff);border-radius:99px;pointer-events:none;animation:shoot 1.15s ease-out forwards}
+@keyframes shoot{
+  0%{opacity:0;transform:translate(0,0) rotate(28deg)}
+  12%{opacity:1}
+  100%{opacity:0;transform:translate(-280px,160px) rotate(28deg)}
+}
+@media(max-height:820px){
+  .screen{padding:3vh 5vw 11vh}
+  h1.title{font-size:clamp(1.5rem,3.2vw,2.6rem);margin-bottom:.3em}
+  .accent-line{margin-bottom:.7em}
+  .clockface{width:clamp(150px,24vh,250px);height:clamp(150px,24vh,250px)}
+  .citycard .wclock .clockface{width:clamp(100px,15vh,150px);height:clamp(100px,15vh,150px)}
+  .chip{font-size:clamp(1.05rem,1.9vw,1.5rem);padding:.4em 1em}
+  .gift-btn{margin-top:.5em}
+  .fb{margin-top:.4em;min-height:1.3em}
+  .corner-clock .clockface{width:clamp(84px,13vh,120px);height:clamp(84px,13vh,120px)}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+<div id="stars">⭐ <span class="n">0</span></div>
+
+<main id="deck">
+
+  <!-- 1 · INTRO -->
+  <section class="screen" id="sc1">
+    <div class="eyebrow reveal">A new game · born in Beijing, 2026-08-27</div>
+    <h1 class="title reveal">The Rats' World Clock 🌍🕐</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card sky reveal center" style="max-width:760px">
+      <p>Pelmenik and Varenik fly across the world. 🐀🐀✈️</p>
+      <p class="mt">But wait — <b>what time is it?!</b> The sun can't be everywhere at once!</p>
+      <p class="mt" style="font-family:'Fredoka';font-weight:600;color:var(--navy)">Sergey — you are the TIME KEEPER. The rats ask — YOU answer!</p>
+    </div>
+    <div class="reveal mt"><div class="stamp-box">Moscow · Beijing · London</div></div>
+    <p class="task reveal mt">First: learn to read a clock like a captain! 🧭</p>
+  </section>
+
+  <!-- 2 · R1 READ: 3:00 -->
+  <section class="screen" id="sc2" data-round="Round 1 · Read the clock">
+    <div class="eyebrow reveal">Round 1 · Read the clock</div>
+    <h1 class="title reveal">What time is it? 🕐</h1>
+    <div class="accent-line reveal"></div>
+    <div class="wclock reveal"><svg class="clockface" viewBox="0 0 200 200" data-h="3" data-m="0"></svg></div>
+    <div class="chips reveal">
+      <div class="chip" data-ok="0">nine o'clock</div>
+      <div class="chip" data-ok="1">three o'clock</div>
+      <div class="chip" data-ok="0">half past three</div>
+    </div>
+    <div class="fb"></div>
+  </section>
+
+  <!-- 3 · R1 READ: 7:30 -->
+  <section class="screen" id="sc3" data-round="Round 1 · Read the clock">
+    <div class="eyebrow reveal">Round 1 · Read the clock</div>
+    <h1 class="title reveal">What time is it? 🕐</h1>
+    <div class="accent-line reveal"></div>
+    <div class="wclock reveal"><svg class="clockface" viewBox="0 0 200 200" data-h="7" data-m="30"></svg></div>
+    <div class="chips reveal">
+      <div class="chip" data-ok="0">half past six</div>
+      <div class="chip" data-ok="0">seven o'clock</div>
+      <div class="chip" data-ok="1">half past seven</div>
+    </div>
+    <div class="fb"></div>
+  </section>
+
+  <!-- 4 · R1 READ: 1:15 (Elena's true moment!) -->
+  <section class="screen" id="sc4" data-round="Round 1 · Read the clock">
+    <div class="eyebrow reveal">Round 1 · Read the clock · just like Elena's clock today!</div>
+    <h1 class="title reveal">What time is it? 🕐</h1>
+    <div class="accent-line reveal"></div>
+    <div class="wclock reveal"><svg class="clockface" viewBox="0 0 200 200" data-h="1" data-m="15"></svg></div>
+    <div class="chips reveal">
+      <div class="chip" data-ok="0">half past one</div>
+      <div class="chip" data-ok="1">quarter past one</div>
+      <div class="chip" data-ok="0">quarter to one</div>
+    </div>
+    <div class="fb"></div>
+  </section>
+
+  <!-- 5 · R1 READ stretch: 5:45 -->
+  <section class="screen" id="sc5" data-round="Round 1 · Read the clock">
+    <div class="eyebrow reveal">Round 1 · the captain's challenge 🧭</div>
+    <h1 class="title reveal">A tricky one! 🕐</h1>
+    <div class="accent-line reveal"></div>
+    <div class="wclock reveal"><svg class="clockface" viewBox="0 0 200 200" data-h="5" data-m="45"></svg></div>
+    <div class="chips reveal">
+      <div class="chip" data-ok="0">quarter past five</div>
+      <div class="chip" data-ok="0">half past five</div>
+      <div class="chip" data-ok="1">quarter to six</div>
+    </div>
+    <div class="fb"></div>
+  </section>
+
+  <!-- 6 · R2 SET: nine o'clock -->
+  <section class="screen" id="sc6" data-round="Round 2 · Set the clock">
+    <div class="eyebrow reveal">Round 2 · Set the clock — hands ON!</div>
+    <h1 class="title reveal">Set the clock: <span style="color:var(--stamp)">nine o'clock</span> 🛠️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="wclock reveal"><svg class="clockface setme" viewBox="0 0 200 200" data-h="12" data-m="0" data-digital="1"></svg></div>
+    <div class="setbtns reveal">
+      <button class="sbtn min" data-act="h-">−1 hour</button>
+      <button class="sbtn" data-act="h+">+1 hour</button>
+      <button class="sbtn min" data-act="m-">−15 min</button>
+      <button class="sbtn" data-act="m+">+15 min</button>
+    </div>
+    <button class="gift-btn check reveal">✅ Check!</button>
+    <div class="fb"></div>
+    <p class="hintline reveal">Buttons move the hands · check when it matches the words</p>
+  </section>
+
+  <!-- 7 · R2 SET: half past four -->
+  <section class="screen" id="sc7" data-round="Round 2 · Set the clock">
+    <div class="eyebrow reveal">Round 2 · Set the clock</div>
+    <h1 class="title reveal">Set the clock: <span style="color:var(--stamp)">half past four</span> 🛠️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="wclock reveal"><svg class="clockface setme" viewBox="0 0 200 200" data-h="12" data-m="0" data-digital="1"></svg></div>
+    <div class="setbtns reveal">
+      <button class="sbtn min" data-act="h-">−1 hour</button>
+      <button class="sbtn" data-act="h+">+1 hour</button>
+      <button class="sbtn min" data-act="m-">−15 min</button>
+      <button class="sbtn" data-act="m+">+15 min</button>
+    </div>
+    <button class="gift-btn check reveal">✅ Check!</button>
+    <div class="fb"></div>
+  </section>
+
+  <!-- 8 · R2 SET: quarter past eleven -->
+  <section class="screen" id="sc8" data-round="Round 2 · Set the clock">
+    <div class="eyebrow reveal">Round 2 · Set the clock</div>
+    <h1 class="title reveal">Set the clock: <span style="color:var(--stamp)">quarter past eleven</span> 🛠️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="wclock reveal"><svg class="clockface setme" viewBox="0 0 200 200" data-h="12" data-m="0" data-digital="1"></svg></div>
+    <div class="setbtns reveal">
+      <button class="sbtn min" data-act="h-">−1 hour</button>
+      <button class="sbtn" data-act="h+">+1 hour</button>
+      <button class="sbtn min" data-act="m-">−15 min</button>
+      <button class="sbtn" data-act="m+">+15 min</button>
+    </div>
+    <button class="gift-btn check reveal">✅ Check!</button>
+    <div class="fb"></div>
+  </section>
+
+  <!-- 9 · R3 THE WORLD STRIP (teaching card) -->
+  <section class="screen" id="sc9">
+    <div class="eyebrow reveal">Round 3 · The world clock 🌍</div>
+    <h1 class="title reveal">One sun — many times! ☀️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card cheese reveal center" style="max-width:820px">
+      <p>The sun rises in the <b>EAST</b> first. 🌏</p>
+      <p class="mt"><b>Beijing is east of Moscow</b> — its clock is <b style="color:#2E8B6D">5 hours AHEAD</b>.</p>
+      <p class="mt"><b>London is WEST of Moscow</b> — its clock is <b style="color:var(--stamp)">3 hours BEHIND</b>. England is a western country — not eastern like China!</p>
+    </div>
+    <div class="strip reveal">
+      <div class="citycard"><div class="cname">🇬🇧 London</div><div class="csub">WEST · behind</div><div class="wclock"><svg class="clockface" viewBox="0 0 200 200" data-h="14" data-m="0" data-sky="1"></svg></div></div>
+      <div class="link"><span>3 hours<br>behind</span><span class="ar">⬅️</span></div>
+      <div class="citycard home"><div class="cname">🏠 Moscow</div><div class="csub">HOME · the rats' nest</div><div class="wclock"><svg class="clockface" viewBox="0 0 200 200" data-h="17" data-m="0" data-sky="1"></svg></div></div>
+      <div class="link"><span>5 hours<br>ahead</span><span class="ar">➡️</span></div>
+      <div class="citycard"><div class="cname">🇨🇳 Beijing</div><div class="csub">EAST · ahead</div><div class="wclock"><svg class="clockface" viewBox="0 0 200 200" data-h="22" data-m="0" data-sky="1"></svg></div></div>
+    </div>
+    <p class="hintline reveal mt">Look: afternoon in London, evening in Moscow — and NIGHT in Beijing. One moment, three times!</p>
+  </section>
+
+  <!-- 9b · MOVE THE SUN (Elena's sun machine) — full-space slide -->
+  <section class="screen space-slide" id="sc9b">
+    <div class="eyebrow reveal">Round 3 · The sun machine ☀️</div>
+    <h1 class="title reveal">Move the Sun! 🌍</h1>
+    <div class="accent-line reveal"></div>
+    <div class="sun-stage">
+      <div class="stars-bg" id="stars-bg"></div>
+      <svg id="orbit-svg" viewBox="0 0 400 400">
+        <defs>
+          <linearGradient id="earth-grad" gradientUnits="userSpaceOnUse" x1="90" y1="370" x2="90" y2="30">
+            <stop offset="0"    stop-color="#050A13"/>
+            <stop offset="0.10" stop-color="#12102E"/>
+            <stop offset="0.20" stop-color="#2A1B4E"/>
+            <stop offset="0.30" stop-color="#55378A"/>
+            <stop offset="0.38" stop-color="#7E4B9E"/>
+            <stop offset="0.45" stop-color="#A44E88"/>
+            <stop offset="0.50" stop-color="#D95F73"/>
+            <stop offset="0.56" stop-color="#F28D6B"/>
+            <stop offset="0.63" stop-color="#FFC98A"/>
+            <stop offset="0.71" stop-color="#FFE9B8"/>
+            <stop offset="0.82" stop-color="#FFF7E4"/>
+            <stop offset="1"    stop-color="#FFFDF4"/>
+          </linearGradient>
+        </defs>
+        <circle class="orbit-ring" cx="200" cy="200" r="170"/>
+        <circle class="earth" cx="200" cy="200" r="110" fill="url(#earth-grad)"/>
+        <g id="cities-g"></g>
+        <circle id="sun-glow" cx="200" cy="30" r="34"/>
+        <circle id="sun" cx="200" cy="30" r="20"/>
+      </svg>
+      <div class="corner-clock" style="top:0;left:0">
+        <svg class="clockface" viewBox="0 0 200 200" data-h="5" data-m="0" data-digital="1" data-sky="1"></svg>
+        <div class="cc-name">🇺🇸 New York</div>
+      </div>
+      <div class="corner-clock" style="top:0;right:0">
+        <svg class="clockface" viewBox="0 0 200 200" data-h="12" data-m="0" data-digital="1" data-sky="1"></svg>
+        <div class="cc-name">🇷🇺 Moscow</div>
+      </div>
+      <div class="corner-clock" style="bottom:0;left:0">
+        <svg class="clockface" viewBox="0 0 200 200" data-h="9" data-m="0" data-digital="1" data-sky="1"></svg>
+        <div class="cc-name">🇬🇧 London</div>
+      </div>
+      <div class="corner-clock" style="bottom:0;right:0">
+        <svg class="clockface" viewBox="0 0 200 200" data-h="17" data-m="0" data-digital="1" data-sky="1"></svg>
+        <div class="cc-name">🇨🇳 Beijing</div>
+      </div>
+    </div>
+    <p class="task reveal mt" style="margin:0.6em auto 0">Drag the sun around the Earth — watch the cities wake up! 🌙 → ☀️</p>
+    <p class="hintline reveal">Try: make NIGHT in New York 🌙. Then find NOON in Moscow — what time is it in Beijing?</p>
+  </section>
+
+  <!-- 10 · R3 SET BEIJING: Moscow 2:00 → 7:00 -->
+  <section class="screen" id="sc10" data-round="Round 3 · The world clock">
+    <div class="eyebrow reveal">Round 3 · The world clock</div>
+    <h1 class="title reveal">Set Beijing! 🐼🕐</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">It's <b>two o'clock</b> in Moscow. Beijing is <b>5 hours AHEAD</b>. Set Beijing!</p>
+    <div class="strip reveal">
+      <div class="citycard home"><div class="cname">🏠 Moscow</div><div class="wclock"><svg class="clockface" viewBox="0 0 200 200" data-h="14" data-m="0" data-sky="1"></svg></div></div>
+      <div class="link"><span>+5<br>east</span><span class="ar">➡️</span></div>
+      <div class="citycard"><div class="cname">🇨🇳 Beijing</div><div class="wclock"><svg class="clockface setme" viewBox="0 0 200 200" data-h="14" data-m="0" data-sky="1" data-digital="1"></svg></div>
+        <div class="setbtns">
+          <button class="sbtn min" data-act="h-">−1h</button>
+          <button class="sbtn" data-act="h+">+1h</button>
+        </div>
+      </div>
+    </div>
+    <button class="gift-btn check reveal">✅ Check!</button>
+    <div class="fb"></div>
+    <p class="hintline reveal">Watch the sky icon — evening comes FIRST in the east! 🌆</p>
+  </section>
+
+  <!-- 11 · R3 SET BONN: Moscow 9:00 → 8:00 -->
+  <section class="screen" id="sc11" data-round="Round 3 · The world clock">
+    <div class="eyebrow reveal">Round 3 · The world clock</div>
+    <h1 class="title reveal">Now set London! 🇬🇧🕐</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">It's <b>nine o'clock</b> in the morning in Moscow. London is <b>3 hours BEHIND</b>. Set London!</p>
+    <div class="strip reveal">
+      <div class="citycard"><div class="cname">🇬🇧 London</div><div class="wclock"><svg class="clockface setme" viewBox="0 0 200 200" data-h="9" data-m="0" data-sky="1" data-digital="1"></svg></div>
+        <div class="setbtns">
+          <button class="sbtn min" data-act="h-">−1h</button>
+          <button class="sbtn" data-act="h+">+1h</button>
+        </div>
+      </div>
+      <div class="link"><span>3 behind<br>west</span><span class="ar">⬅️</span></div>
+      <div class="citycard home"><div class="cname">🏠 Moscow</div><div class="wclock"><svg class="clockface" viewBox="0 0 200 200" data-h="9" data-m="0" data-sky="1"></svg></div></div>
+    </div>
+    <button class="gift-btn check reveal">✅ Check!</button>
+    <div class="fb"></div>
+  </section>
+
+  <!-- 12 · R4 TRUE MOMENT: Moscow 1:15 pm → Beijing 18:15 -->
+  <section class="screen" id="sc12" data-round="Round 4 · The true story">
+    <div class="eyebrow reveal">Round 4 · The true story — TODAY!</div>
+    <h1 class="title reveal">Elena checks the clock… 🕐</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card cheese reveal center" style="max-width:760px">
+      <p>We were in Beijing with the rats. Elena looked at the clock: <b>quarter past one</b> (Moscow time).</p>
+      <p class="mt">“Sergey! Beijing is <b>5 hours AHEAD</b> of Moscow. <b>What time is it in Beijing?</b>”</p>
+    </div>
+    <div class="strip reveal">
+      <div class="citycard home"><div class="cname">🏠 Moscow</div><div class="wclock"><svg class="clockface" viewBox="0 0 200 200" data-h="13" data-m="15" data-sky="1"></svg></div></div>
+      <div class="link"><span>+5<br>east</span><span class="ar">➡️</span></div>
+      <div class="citycard"><div class="cname">🇨🇳 Beijing</div><div class="wclock"><svg class="clockface setme" viewBox="0 0 200 200" data-h="13" data-m="15" data-sky="1" data-digital="1"></svg></div>
+        <div class="setbtns">
+          <button class="sbtn min" data-act="h-">−1h</button>
+          <button class="sbtn" data-act="h+">+1h</button>
+          <button class="sbtn min" data-act="m-">−15m</button>
+          <button class="sbtn" data-act="m+">+15m</button>
+        </div>
+      </div>
+    </div>
+    <button class="gift-btn check reveal">✅ Check!</button>
+    <div class="fb"></div>
+    <p class="hintline reveal">Set the SAME minutes — only the hours move! (Answer: quarter past SIX in the evening 🌆)</p>
+  </section>
+
+  <!-- 13 · R4 THE EXAM: Moscow 18:15 → London 15:15 -->
+  <section class="screen" id="sc13" data-round="Round 4 · The true story">
+    <div class="eyebrow reveal">Round 4 · The true story — ding! 📱</div>
+    <h1 class="title reveal">A message from England! 📱</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card stampc reveal center" style="max-width:760px">
+      <p>Ding! Elena's daughter writes from <b>London</b>, England. Tomorrow she <b>takes an exam!</b> 🎓</p>
+      <p class="mt">England is a <b>WESTERN</b> country — its clock is <b>3 hours BEHIND</b> Moscow.</p>
+      <p class="mt">It's <b>quarter past six</b> in the evening in Moscow. <b>Set London!</b></p>
+    </div>
+    <div class="strip reveal">
+      <div class="citycard"><div class="cname">🇬🇧 London</div><div class="wclock"><svg class="clockface setme" viewBox="0 0 200 200" data-h="18" data-m="15" data-sky="1" data-digital="1"></svg></div>
+        <div class="setbtns">
+          <button class="sbtn min" data-act="h-">−1h</button>
+          <button class="sbtn" data-act="h+">+1h</button>
+          <button class="sbtn min" data-act="m-">−15m</button>
+          <button class="sbtn" data-act="m+">+15m</button>
+        </div>
+      </div>
+      <div class="link"><span>3 behind<br>west</span><span class="ar">⬅️</span></div>
+      <div class="citycard home"><div class="cname">🏠 Moscow</div><div class="wclock"><svg class="clockface" viewBox="0 0 200 200" data-h="18" data-m="15" data-sky="1"></svg></div></div>
+    </div>
+    <button class="gift-btn check reveal">✅ Check!</button>
+    <div class="fb"></div>
+    <p class="hintline reveal">Teacher's note: in British summer time London is only 2 hours behind — the clocks change, the game keeps 3.</p>
+  </section>
+
+  <!-- 14 · R4 THINKING: the exam check -->
+  <section class="screen" id="sc14" data-round="Round 4 · Think!">
+    <div class="eyebrow reveal">Round 4 · The captain's thinking task 🧭</div>
+    <h1 class="title reveal">Is the daughter OK? 🎓</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card sky reveal center" style="max-width:760px">
+      <p>The exam starts at <b>ten o'clock</b> — London time.</p>
+      <p class="mt">Right now it is <b>eight o'clock</b> in the morning in Moscow.</p>
+      <p class="mt" style="font-family:'Fredoka';font-weight:600;color:var(--navy)">Will the daughter make it to her exam?</p>
+    </div>
+    <div class="chips reveal" data-hint="🤔 Think again — London is three hours BEHIND Moscow.">
+      <div class="chip" data-ok="1">Yes! Ten o'clock London = ONE o'clock Moscow — five hours to go!</div>
+      <div class="chip" data-ok="0">No — the exam started an hour ago!</div>
+    </div>
+    <div class="fb"></div>
+    <p class="hintline reveal">London is 3 hours BEHIND: 10 o'clock London = 1 o'clock in the afternoon in Moscow. Think east, think west! 🌍</p>
+  </section>
+
+  <!-- 15 · TROPHY -->
+  <section class="screen" id="sc15">
+    <div class="eyebrow reveal">The world clock</div>
+    <h1 class="title reveal">🏆 SERGEY — THE TIME KEEPER! 🌍</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal center" style="gap:1em">
+      <div style="font-size:clamp(3.4rem,9vw,7rem);line-height:1">🐀🐀🕐🐼🎓</div>
+      <div class="card cheese center" style="max-width:640px">
+        <p>Pelmenik and Varenik can fly anywhere now — <b>you know the time in every city!</b></p>
+        <p class="mt" style="font-family:'Fredoka';font-weight:600;color:var(--navy)">Beijing +5 east · London −3 west · Moscow — home. ⭐ <span class="star-final">0</span> stars!</p>
+      </div>
+      <div class="stamp-box">World Clock · Mastered · 2026</div>
+    </div>
+    <p class="task reveal mt">Where do the rats fly next? YOU choose! 🗺️</p>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
+  <div id="counter"><span class="now">1</span> / 16</div>
+  <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
+  <button id="fs-btn" title="Fullscreen (F)">⛶</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const NS = "http://www.w3.org/2000/svg";
+  function skyIcon(h){ return (h>=7 && h<17) ? "☀️" : (h>=17 && h<22) ? "🌆" : "🌙"; }
+  function h12(h){ return ((h+11)%12)+1; }
+
+  // build each clock face
+  document.querySelectorAll("svg.clockface").forEach(svg=>{
+    for(let i=0;i<12;i++){
+      const a = i*30*Math.PI/180;
+      const x1 = 100+82*Math.sin(a), y1 = 100-82*Math.cos(a);
+      const x2 = 100+90*Math.sin(a), y2 = 100-90*Math.cos(a);
+      const tick = document.createElementNS(NS,"line");
+      tick.setAttribute("x1",x1); tick.setAttribute("y1",y1);
+      tick.setAttribute("x2",x2); tick.setAttribute("y2",y2);
+      tick.setAttribute("stroke", i%3===0 ? "#2C4E80" : "#A9CCEF");
+      tick.setAttribute("stroke-width", i%3===0 ? 5 : 3);
+      tick.setAttribute("stroke-linecap","round");
+      svg.appendChild(tick);
+      const tx = 100+66*Math.sin(a), ty = 100-66*Math.cos(a);
+      const t = document.createElementNS(NS,"text");
+      t.setAttribute("x",tx); t.setAttribute("y",ty);
+      t.setAttribute("text-anchor","middle");
+      t.setAttribute("dominant-baseline","central");
+      t.setAttribute("font-family","Fredoka, sans-serif");
+      t.setAttribute("font-weight","600");
+      t.setAttribute("font-size","17");
+      t.setAttribute("fill","#2C4E80");
+      t.textContent = i===0 ? 12 : i;
+      svg.appendChild(t);
+    }
+    const hh = document.createElementNS(NS,"line");
+    hh.setAttribute("x1",100); hh.setAttribute("y1",100); hh.setAttribute("x2",100); hh.setAttribute("y2",58);
+    hh.setAttribute("stroke","#1E3A66"); hh.setAttribute("stroke-width",9); hh.setAttribute("stroke-linecap","round");
+    hh.style.transformOrigin = "100px 100px";
+    svg.appendChild(hh);
+    const mh = document.createElementNS(NS,"line");
+    mh.setAttribute("x1",100); mh.setAttribute("y1",100); mh.setAttribute("x2",100); mh.setAttribute("y2",34);
+    mh.setAttribute("stroke","#E4572E"); mh.setAttribute("stroke-width",6); mh.setAttribute("stroke-linecap","round");
+    mh.style.transformOrigin = "100px 100px";
+    svg.appendChild(mh);
+    const hub = document.createElementNS(NS,"circle");
+    hub.setAttribute("cx",100); hub.setAttribute("cy",100); hub.setAttribute("r",7); hub.setAttribute("fill","#1E3A66");
+    svg.appendChild(hub);
+    const st = { h: parseInt(svg.dataset.h)||12, m: parseInt(svg.dataset.m)||0 };
+    svg._clock = { st, hh, mh,
+      render(){
+        hh.style.transform = "rotate("+((st.h%12)*30 + st.m*0.5)+"deg)";
+        mh.style.transform = "rotate("+(st.m*6)+"deg)";
+        const scr = svg.closest(".screen");
+        let dig = svg.parentElement.querySelector(".dig");
+        if(svg.dataset.digital && !dig){
+          dig = document.createElement("div");
+          dig.className = "dig";
+          svg.parentElement.appendChild(dig);
+        }
+        if(dig){
+          dig.innerHTML = h12(st.h) + ":" + String(st.m).padStart(2,"0") + (svg.dataset.sky ? ' <span class="skyic">'+skyIcon(st.h)+"</span>" : "");
+        }
+        const card = svg.closest(".citycard");
+        if(card && svg.dataset.sky){
+          const sub = card.querySelector(".csub");
+          if(sub && !sub.dataset.base) sub.dataset.base = sub.textContent;
+          if(sub && sub.dataset.base) sub.innerHTML = sub.dataset.base + " · " + skyIcon(st.h);
+        }
+      },
+      wiggle(){ const f = svg.classList; f.remove("wiggle"); void svg.offsetWidth; f.add("wiggle"); }
+    };
+    svg._clock.render();
+  });
+
+  // screens + nav
+  const screens = Array.from(document.querySelectorAll(".screen"));
+  const total = screens.length;
+  let current = 0;
+  const fill = document.getElementById("progress-fill");
+  const counter = document.getElementById("counter").querySelector(".now");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+  const fsBtn = document.getElementById("fs-btn");
+  function render(){
+    screens.forEach((s,i)=>{ s.classList.toggle("active", i===current); s.classList.toggle("prev", i<current); });
+    counter.textContent = current+1;
+    fill.style.width = ((current+1)/total*100) + "%";
+    prevBtn.disabled = current===0;
+    nextBtn.disabled = current===total-1;
+    nextBtn.classList.remove("pulse");
+  }
+  function go(n){ current = Math.max(0, Math.min(total-1, n)); render(); }
+  nextBtn.addEventListener("click", ()=>go(current+1));
+  prevBtn.addEventListener("click", ()=>go(current-1));
+  document.addEventListener("keydown", e=>{
+    if(e.target && (e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA")) return;
+    const el = screens[current];
+    const canScroll = el.scrollHeight > el.clientHeight + 2;
+    switch(e.key){
+      case "ArrowRight": e.preventDefault(); go(current+1); break;
+      case "ArrowDown":
+        e.preventDefault();
+        if(canScroll && el.scrollTop + el.clientHeight < el.scrollHeight - 2){ el.scrollBy({top:120}); break; }
+        go(current+1); break;
+      case "ArrowLeft": e.preventDefault(); go(current-1); break;
+      case "ArrowUp":
+        e.preventDefault();
+        if(canScroll && el.scrollTop > 2){ el.scrollBy({top:-120}); break; }
+        go(current-1); break;
+      case " ": e.preventDefault(); go(current+1); break;
+      case "Home": e.preventDefault(); go(0); break;
+      case "End": e.preventDefault(); go(total-1); break;
+      case "f": case "F": toggleFs(); break;
+    }
+  });
+  let wheelLock = false;
+  document.getElementById("deck").addEventListener("wheel", e=>{
+    if(wheelLock) return;
+    // an overflowing screen always scrolls — never flips mid-task;
+    // flipping is for the › button and the ←/→ arrows
+    const el = screens[current];
+    if(el.scrollHeight > el.clientHeight + 2) return;
+    if(Math.abs(e.deltaY) < 25) return;
+    wheelLock = true;
+    (e.deltaY>0 ? go(current+1) : go(current-1));
+    setTimeout(()=>wheelLock=false, 650);
+  }, {passive:true});
+  let touchX=null;
+  document.addEventListener("touchstart", e=>{touchX=e.changedTouches[0].clientX},{passive:true});
+  document.addEventListener("touchend", e=>{
+    if(touchX===null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx)>60){ dx<0 ? go(current+1) : go(current-1); }
+    touchX=null;
+  },{passive:true});
+  function toggleFs(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+    else { document.exitFullscreen?.(); }
+  }
+  fsBtn.addEventListener("click", toggleFs);
+
+  // stars
+  let stars = 0;
+  const starN = document.querySelector("#stars .n");
+  const starFinal = document.querySelector(".star-final");
+  function addStar(){
+    stars++;
+    starN.textContent = stars;
+    if(starFinal) starFinal.textContent = stars;
+    document.getElementById("stars").animate(
+      [{transform:"scale(1)"},{transform:"scale(1.35)"},{transform:"scale(1)"}],
+      {duration:400, easing:"ease"});
+  }
+
+  // chips (read tasks + thinking task)
+  document.querySelectorAll(".chips").forEach(box=>{
+    box.querySelectorAll(".chip").forEach(chip=>{
+      chip.addEventListener("click", ()=>{
+        const scr = box.closest(".screen");
+        if(scr.dataset.done) return;
+        if(chip.dataset.ok==="1"){
+          chip.classList.add("okc");
+          scr.dataset.done = "1";
+          const fb = scr.querySelector(".fb");
+          if(fb){ fb.className = "fb ok"; fb.textContent = "✓ Right! The rats are impressed. 🐀🐀"; }
+          const ck = scr.querySelector(".clockface");
+          if(ck && ck._clock) ck._clock.wiggle();
+          addStar();
+          nextBtn.classList.add("pulse");
+        } else {
+          chip.classList.add("noc","shake");
+          setTimeout(()=>chip.classList.remove("shake"),450);
+          const fb = scr.querySelector(".fb");
+          if(fb && !scr.dataset.done){ fb.className = "fb no"; fb.textContent = box.dataset.hint || "🤔 Look again — where is the short hand?"; }
+        }
+      });
+    });
+  });
+
+  // set tasks
+  document.querySelectorAll(".screen").forEach(scr=>{
+    const setme = scr.querySelector(".setme");
+    if(!setme) return;
+    const clock = setme._clock;
+    scr.querySelectorAll(".setbtns .sbtn").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        const act = btn.dataset.act;
+        if(act==="h-") clock.st.h = (clock.st.h + 23) % 24;
+        else if(act==="h+") clock.st.h = (clock.st.h + 1) % 24;
+        else if(act==="m-") clock.st.m = (clock.st.m + 45) % 60;
+        else if(act==="m+") clock.st.m = (clock.st.m + 15) % 60;
+        clock.render();
+      });
+    });
+    const check = scr.querySelector(".check");
+    if(!check) return;
+    check.addEventListener("click", ()=>{
+      const fb = scr.querySelector(".fb");
+      const th = parseInt(scr.dataset.th);
+      const tm = parseInt(scr.dataset.tm || 0);
+      // the child is judged by the 12-hour FACE they see;
+      // only the world rounds (with the sun icon) also ask for the right half of the day
+      const faceRight = (clock.st.h % 12) === (th % 12) && clock.st.m === tm;
+      if(faceRight && (clock.st.h === th || !setme.dataset.sky)){
+        if(!scr.dataset.done){ scr.dataset.done = "1"; addStar(); nextBtn.classList.add("pulse"); }
+        clock.wiggle();
+        if(fb){ fb.className = "fb ok"; fb.textContent = "✓ Exactly! The rats write it in their passport! 🐀"; }
+        setme.closest(".citycard")?.classList.add("done");
+        check.textContent = "✅ Done!";
+        check.disabled = true;
+      } else if(faceRight && setme.dataset.sky){
+        clock.wiggle();
+        if(fb){ fb.className = "fb no"; fb.textContent = "⏰ The face is right — but look at the SUN! Is it day or evening there?"; }
+      } else {
+        clock.wiggle();
+        if(fb){ fb.className = "fb no"; fb.textContent = "🤔 Not yet — move the hands and try again!"; }
+      }
+    });
+  });
+
+  // targets for set tasks (data-th/data-tm on sections)
+  document.getElementById("sc6").dataset.th = "9";  document.getElementById("sc6").dataset.tm = "0";
+  document.getElementById("sc7").dataset.th = "4";  document.getElementById("sc7").dataset.tm = "30";
+  document.getElementById("sc8").dataset.th = "11"; document.getElementById("sc8").dataset.tm = "15";
+  document.getElementById("sc10").dataset.th = "19"; document.getElementById("sc10").dataset.tm = "0";
+  document.getElementById("sc11").dataset.th = "6";  document.getElementById("sc11").dataset.tm = "0";
+  document.getElementById("sc12").dataset.th = "18"; document.getElementById("sc12").dataset.tm = "15";
+  document.getElementById("sc13").dataset.th = "15"; document.getElementById("sc13").dataset.tm = "15";
+
+  // ── the sun machine (drag the sun around the Earth) ──
+  const osvg = document.getElementById("orbit-svg");
+  if(osvg){
+    const SUN_CITIES = [
+      { name:"🇺🇸 New York", phi:-60, corner:0 },
+      { name:"🇷🇺 Moscow",   phi:45,  corner:1 },
+      { name:"🇬🇧 London",   phi:0,   corner:2 },
+      { name:"🇨🇳 Beijing",  phi:120, corner:3 }
+    ];
+    const ORP = (phi,r)=>({ x:200+r*Math.sin(phi*Math.PI/180), y:200-r*Math.cos(phi*Math.PI/180) });
+    // full-slide stars
+    const starsBg = document.getElementById("stars-bg");
+    for(let i=0;i<110;i++){
+      const s=document.createElement("div");
+      s.className="tw";
+      const sz=(1+Math.random()*2.2).toFixed(1);
+      s.style.width=sz+"px"; s.style.height=sz+"px";
+      s.style.left=(Math.random()*100).toFixed(2)+"%";
+      s.style.top=(Math.random()*100).toFixed(2)+"%";
+      s.style.opacity=(0.15+Math.random()*0.65).toFixed(2);
+      starsBg.appendChild(s);
+    }
+    // city dots + names on the globe
+    const citiesG=document.getElementById("cities-g");
+    SUN_CITIES.forEach(c=>{
+      const dot=document.createElementNS(NS,"circle");
+      const dp=ORP(c.phi,97);
+      dot.setAttribute("class","city-dot"); dot.setAttribute("cx",dp.x); dot.setAttribute("cy",dp.y); dot.setAttribute("r",4);
+      citiesG.appendChild(dot);
+      c.dotEl=dot;
+      if(c.phi===45){ // the rats' home stands next to Moscow
+        const house=document.createElementNS(NS,"text");
+        const hp=ORP(52,116);
+        house.setAttribute("class","city-house"); house.setAttribute("x",hp.x); house.setAttribute("y",hp.y);
+        house.textContent="🏠";
+        citiesG.appendChild(house);
+        const rats=document.createElementNS(NS,"text");
+        const rp=ORP(52,116);
+        rats.setAttribute("class","city-rats"); rats.setAttribute("x",rp.x); rats.setAttribute("y",rp.y+13);
+        rats.textContent="🐀🐀";
+        citiesG.appendChild(rats);
+      }
+      const nm=document.createElementNS(NS,"text");
+      const np=ORP(c.phi,72);
+      nm.setAttribute("class","city-name"); nm.setAttribute("x",np.x); nm.setAttribute("y",np.y);
+      nm.textContent=c.name.replace(/^\S+\s/,"");
+      citiesG.appendChild(nm);
+    });
+    // corner clocks (built earlier by the clock-face maker)
+    const cornerBinds = SUN_CITIES.map(c=>({
+      phi:c.phi,
+      clock: document.querySelectorAll("#sc9b .corner-clock .clockface")[c.corner]?._clock
+    })).filter(b=>b.clock);
+    const sunEl=document.getElementById("sun"), glowEl=document.getElementById("sun-glow"), gradEl=document.getElementById("earth-grad");
+    // the moon rides the same orbit, always opposite the sun
+    const moonGlow=document.createElementNS(NS,"circle");
+    moonGlow.setAttribute("id","moon-glow");
+    moonGlow.setAttribute("r",24); moonGlow.setAttribute("fill","rgba(214,228,255,.14)");
+    moonGlow.setAttribute("pointer-events","none");
+    const moonEl=document.createElementNS(NS,"circle");
+    moonEl.setAttribute("id","moon"); moonEl.setAttribute("r",12);
+    osvg.insertBefore(moonGlow, glowEl);
+    osvg.insertBefore(moonEl, glowEl);
+    // the rats' morning greeting
+    const stage=document.querySelector("#sc9b .sun-stage");
+    const bubble=document.createElement("div");
+    bubble.className="rats-bubble";
+    bubble.textContent="☀️ Good morning, rats! 🐀🐀";
+    stage.appendChild(bubble);
+    let bubbleTimer=null, wasMorning=false;
+    function greetRats(){
+      bubble.classList.add("show");
+      clearTimeout(bubbleTimer);
+      bubbleTimer=setTimeout(()=>bubble.classList.remove("show"), 2600);
+    }
+    // shooting star: every second put-down of the sun
+    let dragCount=0;
+    function spawnStar(){
+      if(starsBg.querySelector(".shooting-star")) return;
+      const s=document.createElement("div");
+      s.className="shooting-star";
+      s.style.left=(8+Math.random()*55)+"%";
+      s.style.top=(6+Math.random()*30)+"%";
+      starsBg.appendChild(s);
+      setTimeout(()=>s.remove(), 1300);
+    }
+    const onorm=a=>((a%360)+540)%360-180;
+    let phis=45; // noon over Moscow to start
+    function updateSun(){
+      const sp=ORP(phis,170);
+      sunEl.setAttribute("cx",sp.x); sunEl.setAttribute("cy",sp.y);
+      glowEl.setAttribute("cx",sp.x); glowEl.setAttribute("cy",sp.y);
+      const mp=ORP(phis+180,170);
+      moonEl.setAttribute("cx",mp.x); moonEl.setAttribute("cy",mp.y);
+      moonGlow.setAttribute("cx",mp.x); moonGlow.setAttribute("cy",mp.y);
+      // the Earth's gradient always aims at the sun: night edge → noon edge
+      const nearP=ORP(phis,110), farP=ORP(phis+180,110);
+      gradEl.setAttribute("x1",farP.x.toFixed(1)); gradEl.setAttribute("y1",farP.y.toFixed(1));
+      gradEl.setAttribute("x2",nearP.x.toFixed(1)); gradEl.setAttribute("y2",nearP.y.toFixed(1));
+      // city lights come on in the dark + the rats greet the sunrise
+      SUN_CITIES.forEach(c=>{
+        const local=12+onorm(c.phi-phis)/15;
+        let mins=Math.round(local*4)*15; mins=((mins%1440)+1440)%1440;
+        const h=Math.floor(mins/60);
+        c.dotEl.setAttribute("class","city-dot"+((h<7||h>=21)?" lit":""));
+        if(c.phi===45){
+          const morning=(h>=6&&h<9);
+          if(morning&&!wasMorning) greetRats();
+          wasMorning=morning;
+        }
+      });
+      cornerBinds.forEach(b=>{
+        const local=12+onorm(b.phi-phis)/15;
+        let mins=Math.round(local*4)*15; mins=((mins%1440)+1440)%1440;
+        b.clock.st.h=Math.floor(mins/60);
+        b.clock.st.m=mins%60;
+        b.clock.render();
+      });
+    }
+    updateSun();
+    function toPhi(e){
+      const pt=osvg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY;
+      const m=osvg.getScreenCTM();
+      if(!m) return phis;
+      const p=pt.matrixTransform(m.inverse());
+      return Math.atan2(p.x-200, 200-p.y)*180/Math.PI;
+    }
+    let dragging=false;
+    osvg.addEventListener("pointerdown",e=>{
+      dragging=true; osvg.classList.add("dragging");
+      try{ osvg.setPointerCapture(e.pointerId); }catch(err){}
+      phis=((toPhi(e)%360)+360)%360; updateSun();
+    });
+    osvg.addEventListener("pointermove",e=>{
+      if(!dragging) return;
+      phis=((toPhi(e)%360)+360)%360; updateSun();
+    });
+    ["pointercancel","lostpointercapture"].forEach(ev=>
+      osvg.addEventListener(ev,()=>{ dragging=false; osvg.classList.remove("dragging"); }));
+    osvg.addEventListener("pointerup",()=>{
+      dragging=false; osvg.classList.remove("dragging");
+      dragCount++;
+      if(dragCount%2===0) spawnStar();
+    });
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>

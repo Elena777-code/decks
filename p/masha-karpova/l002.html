@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masha · The art of procrastination — Lesson 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* GRAFFITI POP — Masha's deck engine (spec §2b) */
+:root{
+  --wall:#17181D;
+  --card:rgba(255,255,255,.055);
+  --ink:#F5F3EE;
+  --ink-soft:#A9ACB8;
+  --cyan:#2BD9E8;
+  --magenta:#F03CB0;
+  --orange:#FF7A29;
+  --yellow:#FFC93C;
+  --lime:#A8E82A;
+  --line:rgba(255,255,255,.14);
+  --radius:14px;
+  --grad:linear-gradient(90deg,var(--cyan),var(--magenta) 45%,var(--orange) 75%,var(--yellow));
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 2px,transparent 2px 34px),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0 2px,transparent 2px 90px),
+    var(--wall);
+  color:var(--ink);overflow:hidden;
+}
+#bar{position:fixed;top:0;left:0;height:5px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(23,24,29,.8);backdrop-filter:blur(10px);
+  border:1px solid var(--line);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink-soft)}
+#nav button{border:1px solid var(--line);background:transparent;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cyan)}
+#nav button:active:not(:disabled){transform:scale(.95)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+.slide{position:absolute;inset:0;padding:6vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:center;gap:2.4vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-family:'Permanent Marker',cursive;color:var(--yellow);
+  font-size:clamp(1rem,1.6vw,1.3rem);transform:rotate(-1.2deg);
+  text-shadow:0 0 18px rgba(255,201,60,.35)}
+h1{font-weight:800;font-size:clamp(1.9rem,4.4vw,3.7rem);line-height:1.1;letter-spacing:-.02em}
+h1 .spray,.spray{background:var(--grad);-webkit-background-clip:text;background-clip:text;
+  color:transparent;font-style:italic}
+.rule{width:110px;height:5px;border-radius:99px;background:var(--grad)}
+p.lead{font-size:clamp(1.15rem,1.9vw,1.5rem);color:var(--ink-soft);max-width:50ch;line-height:1.55}
+p.lead strong{color:var(--cyan)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(1rem,1.9vw,1.6rem);border-top-width:3px}
+.card.c-cyan{border-top-color:var(--cyan)}
+.card.c-magenta{border-top-color:var(--magenta)}
+.card.c-orange{border-top-color:var(--orange)}
+.card.c-lime{border-top-color:var(--lime)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2vw,1.6rem)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,2vw,1.5rem)}
+.k{font-weight:800;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+.k.k-cyan{color:var(--cyan)}.k.k-magenta{color:var(--magenta)}
+.k.k-orange{color:var(--orange)}.k.k-lime{color:var(--lime)}
+.k .tail{font-weight:400;color:var(--ink-soft);font-size:.62em}
+.pattern{font-size:clamp(1.2rem,2.2vw,1.8rem);line-height:1.4}
+.pattern .hi{background:var(--cyan);color:#10262a;border-radius:6px;padding:.02em .22em;font-weight:700}
+.pattern .au{background:var(--magenta);color:#2a0a1f;border-radius:6px;padding:.02em .22em;font-weight:700}
+.note{font-size:clamp(1rem,1.6vw,1.25rem);color:var(--ink-soft);line-height:1.5}
+.note .trap{color:var(--orange);font-weight:700}
+
+.item{display:flex;gap:.7em;align-items:baseline;padding:.55em 0;
+  border-bottom:1px solid var(--line);font-size:clamp(1.1rem,1.9vw,1.5rem);line-height:1.45}
+.item:last-child{border-bottom:none}
+.item .no{font-family:'Permanent Marker',cursive;color:var(--lime);min-width:1.4em}
+.flip{cursor:pointer;border-radius:8px;transition:background .2s}
+.flip:hover{background:rgba(255,255,255,.04)}
+.flip .back{color:var(--yellow);opacity:0;transition:opacity .2s;font-size:.82em}
+.flip.shown .back{opacity:1}
+
+.q{font-size:clamp(1.25rem,2.2vw,1.8rem);line-height:1.5}
+.q .hl{color:var(--cyan);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:.6em}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:.35em .9em;
+  font-size:clamp(1rem,1.7vw,1.35rem);font-weight:600;cursor:pointer;transition:all .18s}
+.chip:hover{transform:translateY(-2px)}
+.chip.f-guilt{border-color:var(--magenta);color:var(--magenta)}
+.chip.f-dread{border-color:var(--orange);color:var(--orange)}
+.chip.f-anx{border-color:var(--cyan);color:var(--cyan)}
+.chip.f-self{border-color:var(--yellow);color:var(--yellow)}
+.chip.picked{background:rgba(255,255,255,.1)}
+
+.link{color:var(--lime);font-weight:700;text-decoration:underline;
+  text-underline-offset:.2em;word-break:break-all}
+.homework .step{display:flex;gap:.7em;align-items:baseline;padding:.5em 0;
+  border-bottom:1px solid var(--line);font-size:clamp(1.1rem,1.9vw,1.5rem)}
+.homework .step:last-child{border-bottom:none}
+.hint{font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink-soft);font-style:italic}
+
+@media (max-width:900px){
+  .grid2,.grid3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · P1 · ABKHAZIA -->
+<section class="slide active">
+  <div class="eyebrow reveal">While we wait for the others</div>
+  <h1 class="reveal">Abkhazia — <span class="spray">show me!</span></h1>
+  <div class="rule reveal"></div>
+  <div class="grid3 reveal">
+    <div class="card c-cyan"><div class="k k-cyan">Where</div><p class="note">was your favourite place? Show it on the map.</p></div>
+    <div class="card c-magenta"><div class="k k-magenta">What</div><p class="note">was the most delicious thing you ate? The strangest thing you saw?</p></div>
+    <div class="card c-orange"><div class="k k-orange">How</div><p class="note">did you feel when the mountains appeared from the window?</p></div>
+  </div>
+  <p class="lead reveal">Tell the stories — <strong>the ones worth telling twice</strong>. 📸 Photos welcome!</p>
+</section>
+
+<!-- 2 · P1 · THE CAST -->
+<section class="slide">
+  <div class="eyebrow reveal">Before you watch</div>
+  <h1 class="reveal">Meet the <span class="spray">cast</span> of your brain</h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card c-cyan">
+      <div class="k k-cyan">The Instant Gratification Monkey 🐵</div>
+      <p class="note"><strong>sneaky</strong> — he takes the wheel when you're not looking.<br>
+      He wants <strong>instant gratification</strong> — fun <em>now</em>, thinking later.<br>
+      (A monkey is a <strong>mammal</strong> — remember that word, it comes back.)</p>
+    </div>
+    <div class="card c-magenta">
+      <div class="k k-magenta">The Panic Monster 😱</div>
+      <p class="note">He lies <strong>dormant</strong> — asleep, harmless — until a deadline is near.<br>
+      Then he wakes up and causes <strong>mayhem</strong> — total chaos.<br>
+      Only he scares the monkey away.</p>
+    </div>
+  </div>
+  <div class="card c-orange reveal">
+    <p class="pattern"><span class="hi">guilt</span> — the feeling after too much monkey time. Sounds exactly like <span class="au">gilt</span> — the golden surface on an old picture frame. Same sound, <em>completely different</em> things.</p>
+  </div>
+</section>
+
+<!-- 3 · P1 · YOUR MISSION -->
+<section class="slide">
+  <div class="eyebrow reveal">Your mission</div>
+  <h1 class="reveal">Catch the words <span class="spray">in the wild</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card c-lime reveal">
+    <p class="pattern" style="margin-bottom:.4em">Watch the talk alone. When you hear these — <em>write the moment down</em>:</p>
+    <div class="chips" style="margin:.5em 0">
+      <span class="chip f-anx">dormant</span><span class="chip f-guilt">mayhem</span>
+      <span class="chip f-dread">sneaky</span><span class="chip f-self">perplexed</span>
+      <span class="chip f-anx">MRI</span>
+    </div>
+    <p class="note">Which word surprised you? Which moment was the funniest?</p>
+  </div>
+  <p class="lead reveal">Then close Zoom — <strong>I'll call you back</strong> after the talk. Pause anytime; re-listen once if you like.</p>
+</section>
+
+<!-- 4 · P2 · WORD-CATCH DEBRIEF -->
+<section class="slide">
+  <div class="eyebrow reveal">Debrief</div>
+  <h1 class="reveal">What did you <span class="spray">catch</span>?</h1>
+  <div class="rule reveal"></div>
+  <div class="card c-cyan reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>dormant <span class="back">— asleep, but ready: "the Panic Monster lies dormant"</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>mayhem <span class="back">— chaos and destruction</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>sneaky <span class="back">— quiet and clever in a dishonest way</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>perplexed <span class="back">— confused, puzzled (formal)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>MRI <span class="back">— a machine that scans inside your body (the brain!)</span></span></div>
+  </div>
+  <p class="q reveal">Now three questions from <span class="hl">your notes</span> — ready?</p>
+</section>
+
+<!-- 5 · P2 · FEELINGS -->
+<section class="slide">
+  <div class="eyebrow reveal">The big question</div>
+  <h1 class="reveal">How does a procrastinator <span class="spray">feel</span>?</h1>
+  <div class="rule reveal"></div>
+  <div class="card c-magenta reveal">
+    <div class="chips">
+      <span class="chip f-guilt">guilt</span>
+      <span class="chip f-dread">dread</span>
+      <span class="chip f-anx">anxiety</span>
+      <span class="chip f-self">self-hatred</span>
+    </div>
+    <p class="note" style="margin-top:.6em">Click the ones you name — then add <strong>your own word</strong>. Was there a moment in the talk when Tim Urban felt all four at once?</p>
+  </div>
+  <div class="card c-cyan reveal">
+    <p class="pattern"><span class="hi">dread</span> is stronger than <em>fear</em>: you feel it <em>before</em> something bad. <em>I dread Mondays.</em> · <em>She dreads exams.</em></p>
+  </div>
+</section>
+
+<!-- 6 · P2 · COMFORT ZONE -->
+<section class="slide">
+  <div class="eyebrow reveal">A phrase you'll hear everywhere</div>
+  <h1 class="reveal">The <span class="spray">comfort zone</span></h1>
+  <div class="rule reveal"></div>
+  <p class="lead reveal">Your <strong>comfort zone</strong> = where everything is easy and safe. Growth lives <strong>just outside it</strong> — in the challenging experiences and the big emotions they bring.</p>
+  <div class="card c-lime reveal">
+    <p class="q">Your turn: one moment in <span class="hl">Abkhazia</span> that was OUTSIDE your comfort zone — one perfect sentence with one emotion.</p>
+    <p class="note" style="margin-top:.5em"><em>“When we climbed to the lake, I felt dread — although the view was worth it.”</em></p>
+  </div>
+  <p class="hint reveal">One sentence, one emotion, one story. Make it worth telling twice.</p>
+</section>
+
+<!-- 7 · P2 · DEBATE -->
+<section class="slide">
+  <div class="eyebrow reveal">The debate</div>
+  <h1 class="reveal">Agree or disagree — <span class="spray">with Tim Urban</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card c-magenta reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Deadlines make people do their best work. <span class="back">— model: “Although deadlines stress me out, I agree: they wake the Panic Monster.”</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Everyone is a procrastinator — some just hide it better. <span class="back">— model: “Taking into account the monkey in every brain, I agree, though some systems hide it better.”</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Procrastination is always bad. <span class="back">— model: “Despite the mayhem it causes, sometimes a deadline-off project turns out fine.”</span></span></div>
+  </div>
+  <p class="hint reveal">The rules of the game: every answer carries <strong>one contrast link</strong> (although / in spite of / though) — and try <strong>“Taking into account…”</strong></p>
+</section>
+
+<!-- 8 · P2 · HOMEWORK -->
+<section class="slide">
+  <div class="eyebrow reveal">Before we go — homework</div>
+  <h1 class="reveal">Your brain, <span class="spray">two languages</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card c-lime homework reveal">
+    <div class="step"><span class="no">🎧</span><span>Watch <strong>“The benefits of a bilingual brain”</strong> — TED-Ed, fully animated, ~5 min.<br>The video is <strong>in your Telegram</strong> 📲 — press play right there.</span></div>
+    <div class="step"><span class="no">✍️</span><span>Catch <strong>the three types of bilinguals</strong> — draw or name them.</span></div>
+    <div class="step"><span class="no">🗣️</span><span>Which one are <strong>you</strong>, learning Chinese? Be ready to defend your answer.</span></div>
+  </div>
+  <p class="lead reveal">One new fact about your own brain — <strong>you bring it next time</strong>.</p>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 8</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+let wt=0;document.addEventListener('wheel',e=>{const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+document.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('picked')));
+go(0);
+</script>
+</body>
+</html>

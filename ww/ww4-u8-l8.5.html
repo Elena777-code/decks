@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WW4 · Unit 8 · 8.5 Listening &amp; Vocabulary — A burglary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WW4 (8th-grade group, Tue 15.45 Elena / Fri 15.30 Farida) —
+   Wider World 3, Unit 8 "No time for crime", section 8.5
+   Listening & Vocabulary "A burglary" (SB p.99, TB p.186).
+   Teacher-script deck, STRAIGHT FROM THE TB/SB — nothing omitted,
+   TB order. Opens with a short 8.4 (have/get something done) recap
+   for anyone who missed last lesson, then the TB's own 8.5 lead-in
+   (which is itself a review of 8.4) flows straight in.
+   Engine + "tut" style: same as groups/kb1-2 and
+   pupils/masha-roshchupkina/lessons/002 (spec §14).
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A;
+  --radius:18px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+.slide{position:absolute;inset:0;padding:4.2vh 5vw 11vh;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.5vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.82rem,1.3vw,1rem);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.3rem,2.5vw,2.05rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.78rem,1.2vw,.95rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.16em .7em;
+  background:#fff;margin-bottom:.1em}
+.task{font-size:clamp(1.02rem,1.65vw,1.28rem);line-height:1.5;font-weight:500}
+.task strong{color:var(--accent)}
+.ask{font-size:clamp(.98rem,1.55vw,1.2rem);line-height:1.48;color:#4a463d}
+.ans{font-size:clamp(.9rem,1.4vw,1.08rem);color:var(--ink-soft);line-height:1.48}
+.ans b{color:#5a554a}
+.note{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);font-style:italic;line-height:1.48}
+.flag{font-size:clamp(.86rem,1.25vw,.98rem);color:#9a6a2f;font-style:italic;
+  line-height:1.5;background:#FBF3E4;border:1.5px dashed #E3C48A;
+  border-radius:12px;padding:.6em .9em}
+audio{width:min(480px,92%);height:42px;display:block;margin:.15em 0}
+ul.simple{list-style:none}
+ul.simple li{padding:.24em 0;border-bottom:1px dashed var(--line);
+  font-size:clamp(.98rem,1.5vw,1.18rem);line-height:1.45}
+ul.simple li:last-child{border-bottom:none}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:1.6vw;
+  font-size:clamp(.95rem,1.5vw,1.15rem);line-height:1.45}
+.pair b{color:var(--accent)}
+a.hw-link{display:inline-block;margin-top:.2em;font-weight:700;color:#fff;
+  background:var(--accent);border-radius:99px;padding:.45em 1em;
+  text-decoration:none;font-size:clamp(.95rem,1.5vw,1.15rem)}
+
+@media (max-width:900px){
+  .slide{padding:3.5vh 5vw 11vh}
+  .pair{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER -->
+<section class="slide active">
+  <div class="eyebrow reveal">Wider World 3 · Unit 8 "No time for crime" · WW4 (8th grade) — Tue 15.45 Elena / Fri 15.30 Farida</div>
+  <h1 class="reveal">8.5 Listening &amp; Vocabulary — A burglary</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Aim:</strong> ss can identify the main points of a monologue and talk about discovering a crime.</p>
+  <p class="ask reveal">Straight from the TB (pp.185–186) and SB p.99 — nothing omitted, TB order.</p>
+  <p class="tag reveal">HOMEWORK CHECK — from Farida's last lesson (8.4)</p>
+  <ul class="simple reveal">
+    <li>1) Workbook 8.4 — did everyone bring it / do it?</li>
+    <li>2) shkola.app — the 8.2 words revised?</li>
+  </ul>
+  <p class="flag reveal">⚠ Three ss missed 8.4 (have/get something done) last time — a short recap is built in as slide 2, then the TB's own 8.5 lead-in (slide 3) is itself a review of the same grammar, so it gets a second, gentler pass for everyone.</p>
+</section>
+
+<!-- 2 · 8.4 RECAP -->
+<section class="slide">
+  <div class="eyebrow reveal">Recap · 8.4 have/get something done — for anyone who missed last lesson</div>
+  <h1 class="reveal">Quick recap before we move on</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Board: <em>have some photos taken · have your hair cut · have the costumes made · have the poster printed · have your face painted</em> — elicit the pattern: <strong>have + object + past participle</strong> = someone else does it for you.</p>
+  <p class="task reveal">From 8.4 Ex 4 — complete with the correct <em>have</em> form + the verb in brackets (whole class, board or mini-whiteboards):</p>
+  <ul class="simple reveal">
+    <li>1 A burglar made a mess... we're going to <b>have it cleaned</b> (clean).</li>
+    <li>2 We need to catch the robber. Let's ___ posters ___ (print) with his photo.</li>
+    <li>3 The detective always ___ a coffee ___ (bring) to him when he arrives.</li>
+    <li>4 That girl chased the criminal, then she ___ her photo ___ (take) for the newspaper.</li>
+    <li>5 I never leave my bike without a lock. I don't want to ___ it ___ (steal).</li>
+    <li>6 He writes great crime stories. He should ___ them ___ (make) into films.</li>
+  </ul>
+  <p class="ans reveal">Answers: 2 have, printed · 3 has, brought · 4 had, taken · 5 have, stolen · 6 have, made</p>
+</section>
+
+<!-- 3 · 8.5 LEAD-IN -->
+<section class="slide">
+  <div class="eyebrow reveal">8.5 · Lead-in — review of have/get something done</div>
+  <h1 class="reveal">Problem → advice</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Tell ss to think of a problem someone needs to fix for them, e.g. <em>"I can't see the board very well."</em> <em>"My phone won't connect to the internet."</em></p>
+  <p class="task reveal">Remind them how to give advice/suggestions: <em>You should…, Why don't you…?, If I were you, I would…</em></p>
+  <p class="task reveal">Mingle — different partners take turns to say their problem and give advice using <strong>have/get something done</strong>, e.g. <em>"I can't see the board very well." — "If I were you, I would have your eyes tested."</em></p>
+</section>
+
+<!-- 4 · EX 1 -->
+<section class="slide">
+  <div class="eyebrow reveal">Ex 1 · closed books</div>
+  <h1 class="reveal">Can social media help the police?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Keep Students' Books closed. Ask the class-vote question and elicit ideas. Give one positive and one negative example:</p>
+  <p class="ask reveal">1) The police can put details of crimes on Twitter and ask if people can provide information. 2) Members of the public sometimes post wrong or misleading information online, and the police might waste time investigating it.</p>
+</section>
+
+<!-- 5 · EX 2 -->
+<section class="slide">
+  <div class="eyebrow reveal">Ex 2</div>
+  <h1 class="reveal">The two pictures</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Pairs discuss the two pictures — what do they think is happening?</p>
+  <p class="tag reveal">🎧 AUDIO 3.11</p>
+  <audio controls preload="none" src="../media/ww3-cd3-3_11.mp3"></audio>
+  <p class="task reveal">Play the audio, elicit what the story is really about. Ask ss to guess how social media helped find the criminals.</p>
+</section>
+
+<!-- 6 · EX 3 -->
+<section class="slide">
+  <div class="eyebrow reveal">Ex 3</div>
+  <h1 class="reveal">Order the events</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Before playing the audio, ss read the sentences A–G and try to order the events.</p>
+  <p class="tag reveal">🎧 AUDIO 3.12</p>
+  <audio controls preload="none" src="../media/ww3-cd3-3_12.mp3"></audio>
+  <ul class="simple reveal">
+    <li>A The police went to the burglar's house.</li>
+    <li>B Katrina discovered her laptop was missing.</li>
+    <li>C Katrina and her mum discover the burglary.</li>
+    <li>D A friend told Katrina about a picture in the park.</li>
+    <li>E Katrina showed the police...</li>
+    <li>F The police took fingerprints...</li>
+    <li>G Katrina and her friend went looking on social media.</li>
+  </ul>
+  <p class="ans reveal">Answers: A7 · B2 · C1 · D5 · E4 · F3 · G6</p>
+</section>
+
+<!-- 7 · EX 4 -->
+<section class="slide">
+  <div class="eyebrow reveal">Ex 4 · same audio (3.12) again</div>
+  <h1 class="reveal">Check in pairs, in their own words</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Listen again, check Ex 2–3. Then in pairs, answer in their own words:</p>
+  <p class="ask reveal">1) What happened while Katrina and her mother were out? 2) How did Katrina and her friend use social media to help find the criminals?</p>
+  <p class="ans reveal">Answers: 1) The family was burgled while Katrina and her mother were out. 2) They used social media to find out if anyone was selling the items that were stolen.</p>
+</section>
+
+<!-- 8 · EX 5 -->
+<section class="slide">
+  <div class="eyebrow reveal">Ex 5 · WORD FRIENDS</div>
+  <h1 class="reveal">arrest a criminal · interview a witness · look for clues · search the area · solve a crime · take fingerprints</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Choose the correct option, using a dictionary if needed:</p>
+  <ul class="simple reveal">
+    <li>1 Detectives can <b>solve a crime</b> / take fingerprints more quickly when there's a good witness.</li>
+    <li>2 Police want to interview a witness / arrest a criminal who saw somebody go into the house.</li>
+    <li>3 We believe the police are going to search the area / arrest a criminal this evening, but they won't say who it is.</li>
+    <li>4 The crime took place near the forest, and police officers are solving a crime / searching the area now.</li>
+    <li>5 The police couldn't take fingerprints / interview a witness because the burglar was wearing gloves.</li>
+    <li>6 The detective is arresting a criminal / looking for clues at the crime scene, but she hasn't found anything yet.</li>
+  </ul>
+  <p class="ans reveal">Answers: 2 interview a witness · 3 arrest a criminal · 4 searching the area · 5 take fingerprints · 6 looking for clues</p>
+  <p class="note reveal">After checking, discuss each phrase and elicit other useful word friends, e.g. find clues, leave fingerprints.</p>
+</section>
+
+<!-- 9 · EXTRA ACTIVITY -->
+<section class="slide">
+  <div class="eyebrow reveal">Extra activity</div>
+  <h1 class="reveal">Dictation → Past Simple Passive</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Dictate these sentences; ss rewrite them in the Past Simple Passive on paper, then swap to check — a point for each correct sentence.</p>
+  <div class="pair reveal">
+    <span><b>1</b> The police arrested the criminal.</span>
+    <span>→ The criminal was arrested by the police.</span>
+    <span><b>2</b> The police interviewed the witness.</span>
+    <span>→ The witness was interviewed by the police.</span>
+    <span><b>3</b> The police found some clues.</span>
+    <span>→ Some clues were found by the police.</span>
+    <span><b>4</b> The police searched the area.</span>
+    <span>→ The area was searched by the police.</span>
+  </div>
+</section>
+
+<!-- 10 · EX 6 -->
+<section class="slide">
+  <div class="eyebrow reveal">Ex 6</div>
+  <h1 class="reveal">Complete the notes</h1>
+  <div class="rule reveal"></div>
+  <p class="tag reveal">🎧 AUDIO 3.13 — the final part of the podcast</p>
+  <audio controls preload="none" src="../media/ww3-cd3-3_13.mp3"></audio>
+  <p class="task reveal">Ss complete the notes with a word or phrase: date of burglary · time (between __ and __) · items stolen · call (phone number) · reward (£).</p>
+  <p class="ans reveal">Answers: 1 2nd October · 2 3 p.m. and 5 p.m. · 3 digital camera (Nikon D61-0) and laptop (HP Omen) · 4 07836 198477 · 5 £20/twenty</p>
+</section>
+
+<!-- 11 · EX 7 + VOX POPS -->
+<section class="slide">
+  <div class="eyebrow reveal">Ex 7 · speaking</div>
+  <h1 class="reveal">What would you do?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Before ss answer, discuss which structure to use and why: <strong>the Second Conditional</strong>, because the situations are unlikely. Elicit the full question/answer for one, e.g. <em>"What would you do if you had your mobile phone stolen in town?" — "If I had my mobile phone stolen in town, I would…"</em></p>
+  <p class="ask reveal">In pairs: 1) You have your mobile phone stolen in town. 2) You see a person who is shoplifting. 3) Some people are vandalising a wall near your school.</p>
+  <p class="tag reveal">VOX POPS 8.2</p>
+  <p class="note reveal">Before watching, tell ss that for one question a speaker says they wouldn't do anything at all, and for another a speaker describes how they'd feel. Guess which questions provoke these — then check (the "feel" answer: upset).</p>
+  <p class="flag reveal">⚠ The Vox Pops 8.2 clip isn't in the local Wider World 3 folder — it's a Students' App / online-resource video, not something downloaded here. Play it from the app if available, or skip straight to the pair discussion.</p>
+</section>
+
+<!-- 12 · HOMEWORK -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">Workbook p.95</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Further practice per the TB: <strong>Workbook page 95</strong> (8.5 practice).</p>
+  <p class="note reveal">Last time's pattern (Farida, 8.4): workbook section + shkola.app vocab revision. Same shape here if you want it — shkola.app: revise the 8.5 word friends (arrest a criminal, interview a witness, look for clues, search the area, solve a crime, take fingerprints).</p>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 12</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+let wt=0;document.addEventListener('wheel',e=>{const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>

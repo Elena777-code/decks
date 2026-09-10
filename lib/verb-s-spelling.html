@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verb + S · Spelling Rules · Reminder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A; --lavender:#C8B6FF;
+  --lavender-deep:#9a7fff; --cream:#FFF8F0; --ink:#2D3436; --ink-soft:#636e72;
+  --pink:#FF8FAB; --pink-deep:#d6336c; --white:#ffffff;
+  --shadow:0 10px 30px rgba(45,52,54,.12); --shadow-sm:0 6px 16px rgba(45,52,54,.08);
+  --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--cream);min-height:100vh;padding:clamp(.8rem,2.5vh,1.8rem);display:flex;align-items:center}
+.page{max-width:1250px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:clamp(.7rem,1.8vh,1.1rem)}
+
+/* ---------- header ---------- */
+.head{display:flex;align-items:center;justify-content:space-between;gap:1.2em;flex-wrap:wrap}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.65rem,1vw,.85rem);color:var(--lavender-deep);margin-bottom:.35em}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,3.4vw,2.8rem);line-height:1.05}
+h1 .prn{color:var(--lavender-deep)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--lavender));margin:.45em 0 .35em}
+.sub{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(1.05rem,1.7vw,1.4rem);color:var(--ink)}
+.circles{display:flex;gap:.7em}
+.circle{width:clamp(3.4rem,6vw,4.8rem);height:clamp(3.4rem,6vw,4.8rem);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.05rem,1.9vw,1.5rem);line-height:1;box-shadow:var(--shadow-sm)}
+.circle small{font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(.5rem,.8vw,.66em);opacity:.8;margin-top:.28em;letter-spacing:.02em}
+.c-s{background:var(--mint)}
+.c-es{background:var(--pink);color:#fff}
+.c-ies{background:var(--lavender)}
+
+/* ---------- three zones ---------- */
+.grid{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:clamp(.7rem,1.6vw,1.2rem);align-items:stretch}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(.9rem,1.7vw,1.4rem);display:flex;flex-direction:column;gap:.45em}
+.card.mint{background:#eafbf6}
+.card.pink{background:#ffe9f0}
+.card.lavender{background:#f1ecff}
+.big-ending{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.9rem,3.6vw,3rem);line-height:1}
+.card-sub{font-size:clamp(.9rem,1.4vw,1.2rem);color:var(--ink-soft);font-weight:700;margin-bottom:.2em}
+
+/* example rows: base → base+ending, added letters colored */
+.ex{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(1.05rem,1.9vw,1.55rem);padding:.14em .1em;display:flex;align-items:baseline;gap:.4em;white-space:nowrap}
+.ex .arrow{color:var(--mint-deep);font-weight:600}
+.add-m{color:var(--mint-deep);font-weight:700}
+.add-e{color:var(--pink-deep);font-weight:700}
+.add-i{color:var(--lavender-deep);font-weight:700}
+.tail-e{color:var(--lavender-deep);font-weight:700}
+.tail-y{color:var(--lavender-deep);font-weight:700}
+.cy{color:var(--mint-deep);font-weight:700}
+.vy{color:var(--lavender-deep);font-weight:700}
+
+/* ---------- the rhyme: vertical letters + brace + es ---------- */
+.rhyme-grid{display:flex;align-items:center;gap:clamp(.35rem,.9vw,.7rem);flex:1;padding:.2em 0}
+.letters{display:flex;flex-direction:column;justify-content:space-between;gap:.25em}
+.L{display:flex;align-items:center;justify-content:center;height:clamp(2rem,3.9vw,3.1rem);min-width:2.1em;padding:0 .4em;border-radius:12px;background:var(--white);box-shadow:var(--shadow-sm);font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.35rem,2.6vw,2.1rem);line-height:1;color:var(--lavender-deep)}
+.brace{align-self:stretch;height:auto;width:clamp(.7rem,1.4vw,1.05rem);flex-shrink:0}
+.plus-es{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,3.3vw,2.7rem);color:var(--pink-deep);white-space:nowrap}
+.r-examples{display:flex;flex-direction:column;justify-content:space-between;flex:1;gap:.25em}
+.rhyme-grid .ex{height:clamp(2rem,3.9vw,3.1rem);align-items:center}
+.chant{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.9vw,1.5rem);background:#fff8db;border-radius:14px;padding:.45em .8em;text-align:center;margin-top:.35em}
+.chant b{color:var(--pink-deep)}
+
+/* ---------- y card ---------- */
+.zone-label{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.6vw,1.3rem);margin-top:.25em}
+.zone-label .cw{color:var(--mint-deep)}
+.zone-label .vw{color:var(--lavender-deep)}
+.vowels{display:inline-flex;gap:.22em;vertical-align:middle;margin-left:.25em}
+.vowels span{font-family:'Fredoka',sans-serif;font-weight:700;font-size:.82em;width:1.5em;height:1.5em;display:grid;place-items:center;background:var(--white);border-radius:50%;box-shadow:var(--shadow-sm);color:var(--ink)}
+.caries{display:flex;align-items:center;flex-wrap:wrap;gap:.45em .6em;background:var(--white);border-radius:14px;padding:.45em .7em;margin-top:.5em;box-shadow:var(--shadow-sm)}
+.caries svg{width:clamp(2rem,3.8vw,2.9rem);height:auto;flex-shrink:0}
+.caries .t1{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.9rem,1.5vw,1.2rem);line-height:1.2}
+.caries .t2{font-size:clamp(.8rem,1.3vw,1.05rem);font-weight:700;color:var(--ink-soft);line-height:1.3}
+.caries .t2 b{color:var(--lavender-deep)}
+
+/* ---------- star verbs ---------- */
+.stars{border:2.5px dashed var(--pink);border-radius:18px;padding:.55em 1em;text-align:center;font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(1.05rem,1.9vw,1.5rem);background:var(--white)}
+.stars b{color:var(--pink-deep);font-weight:700}
+.stars .lbl{color:var(--ink-soft)}
+.stars .dot{color:var(--pink);margin:0 .35em}
+.links{display:flex;justify-content:center;gap:.8em;flex-wrap:wrap}
+.links a{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.8rem,1.3vw,1.05rem);color:var(--lavender-deep);text-decoration:none;background:var(--white);border-radius:99px;padding:.35em .95em;box-shadow:var(--shadow-sm);transition:transform .15s ease}
+.links a:hover{transform:translateY(-2px)}
+
+/* ---------- responsive & print ---------- */
+@media(max-width:980px){
+  .grid{grid-template-columns:1fr}
+  .head{justify-content:flex-start}
+}
+@media(max-width:620px){
+  body{align-items:flex-start}
+  /* the brace row is one unit; let the examples wrap under it */
+  .rhyme-grid{flex-wrap:wrap;justify-content:center;row-gap:.5em}
+  .r-examples{flex-basis:100%}
+  .plus-es{font-size:clamp(1.4rem,8vw,2rem)}
+  .L{height:clamp(1.8rem,10vw,2.4rem);font-size:clamp(1.15rem,6.5vw,1.6rem)}
+  .rhyme-grid .ex{height:auto}
+  .ex{white-space:normal}
+}
+@page{size:A4 landscape;margin:8mm}
+@media print{
+  body{padding:0;background:#fff;align-items:flex-start}
+  .page{max-width:none;gap:.5rem}
+  .card,.stars,.circle{box-shadow:var(--shadow-sm)}
+  .card,.stars,.chant{break-inside:avoid}
+  .links{display:none}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER: the rule + three ways legend (three circles, like the poster) -->
+  <header class="head">
+    <div>
+      <div class="eyebrow">Grammar reminder · Present Simple</div>
+      <h1><span class="prn">it · he · she</span> → verb + S ✨</h1>
+      <div class="accent-line"></div>
+      <p class="sub">🎵 «it, he, she — глагол с s-кой напиши!»</p>
+    </div>
+    <div class="circles" aria-hidden="true">
+      <div class="circle c-s">-s<small>most verbs</small></div>
+      <div class="circle c-es">-es<small>sh&nbsp;ch&nbsp;x&nbsp;o&nbsp;s</small></div>
+      <div class="circle c-ies">-ies<small>consonant+y</small></div>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <!-- ZONE 1 · most verbs -->
+    <section class="card mint">
+      <div class="big-ending" style="color:var(--mint-deep)">+ s</div>
+      <div class="card-sub">most verbs — just add S</div>
+      <div class="ex"><span class="w">work</span><span class="arrow">→</span><span class="w">work<b class="add-m">s</b></span></div>
+      <div class="ex"><span class="w">read</span><span class="arrow">→</span><span class="w">read<b class="add-m">s</b></span></div>
+      <div class="ex"><span class="w">eat</span><span class="arrow">→</span><span class="w">eat<b class="add-m">s</b></span></div>
+      <div class="ex"><span class="w">like</span><span class="arrow">→</span><span class="w">like<b class="add-m">s</b></span></div>
+      <div class="ex"><span class="w">play</span><span class="arrow">→</span><span class="w">play<b class="add-m">s</b></span></div>
+      <div class="ex"><span class="w">swim</span><span class="arrow">→</span><span class="w">swim<b class="add-m">s</b></span></div>
+    </section>
+
+    <!-- ZONE 2 · the rhyme: sh ch x o s, vertical + brace + es -->
+    <section class="card pink">
+      <div class="big-ending" style="color:var(--pink-deep)">+ es</div>
+      <div class="card-sub">after these five endings</div>
+
+      <div class="rhyme-grid">
+        <div class="letters">
+          <span class="L">sh</span>
+          <span class="L">ch</span>
+          <span class="L">x</span>
+          <span class="L">o</span>
+          <span class="L">s</span>
+        </div>
+        <svg class="brace" viewBox="0 0 36 100" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M3 2 C20 8 24 18 24 32 L24 40 C24 45 30 50 34 50 C30 50 24 55 24 60 L24 68 C24 82 20 92 3 98"
+                fill="none" stroke="#d6336c" stroke-width="3.5" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <div class="plus-es">+ es</div>
+        <div class="r-examples">
+          <div class="ex"><span class="w">wa<span class="tail-e">sh</span></span><span class="arrow">→</span><span class="w">wa<span class="tail-e">sh</span><b class="add-e">es</b></span></div>
+          <div class="ex"><span class="w">wat<span class="tail-e">ch</span></span><span class="arrow">→</span><span class="w">wat<span class="tail-e">ch</span><b class="add-e">es</b></span></div>
+          <div class="ex"><span class="w">fi<span class="tail-e">x</span></span><span class="arrow">→</span><span class="w">fi<span class="tail-e">x</span><b class="add-e">es</b></span></div>
+          <div class="ex"><span class="w">g<span class="tail-e">o</span></span><span class="arrow">→</span><span class="w">g<span class="tail-e">o</span><b class="add-e">es</b></span></div>
+          <div class="ex"><span class="w">kis<span class="tail-e">s</span></span><span class="arrow">→</span><span class="w">kis<span class="tail-e">s</span><b class="add-e">es</b></span></div>
+        </div>
+      </div>
+
+      <div class="chant">🎵 sh · ch · x · o · s — add <b>ES</b>!</div>
+    </section>
+
+    <!-- ZONE 3 · y endings (правило кариеса!) -->
+    <section class="card lavender">
+      <div class="big-ending" style="color:var(--lavender-deep)">y → ies</div>
+      <div class="card-sub">ends in Y? look BEFORE the y</div>
+
+      <div class="zone-label"><b class="cw">consonant</b> + y → <b class="add-i">ies</b></div>
+      <div class="ex"><span class="w">ca<b class="cy">rr</b><span class="tail-y">y</span></span><span class="arrow">→</span><span class="w">carr<b class="add-i">ies</b></span></div>
+      <div class="ex"><span class="w">stu<b class="cy">d</b><span class="tail-y">y</span></span><span class="arrow">→</span><span class="w">stud<b class="add-i">ies</b></span></div>
+      <div class="ex"><span class="w">c<b class="cy">r</b><span class="tail-y">y</span></span><span class="arrow">→</span><span class="w">cr<b class="add-i">ies</b></span></div>
+
+      <div class="caries">
+        <svg viewBox="0 0 64 72" aria-hidden="true">
+          <path d="M32 4 C19 4 10 13 10 25 C10 34 15 39 17 47 C19 56 20 70 25 70 C30 70 27 55 32 55 C37 55 34 70 39 70 C44 70 45 56 47 47 C49 39 54 34 54 25 C54 13 45 4 32 4 Z"
+                fill="#ffffff" stroke="#d8cbe8" stroke-width="2.5" stroke-linejoin="round"/>
+          <circle cx="43" cy="22" r="5" fill="#6d4c41"/>
+        </svg>
+        <div>
+          <div class="t1">«правило кариеса»</div>
+          <div class="t2">carr<b>ies</b> — почти «кариес»!</div>
+        </div>
+      </div>
+
+      <div class="zone-label"><b class="vw">vowel</b> + y → + <b class="add-m">s</b>
+        <span class="vowels"><span>a</span><span>e</span><span>i</span><span>o</span><span>u</span></span>
+      </div>
+      <div class="ex"><span class="w">pl<b class="vy">a</b><span class="tail-y">y</span></span><span class="arrow">→</span><span class="w">play<b class="add-m">s</b></span></div>
+      <div class="ex"><span class="w">b<b class="vy">u</b><span class="tail-y">y</span></span><span class="arrow">→</span><span class="w">buy<b class="add-m">s</b></span></div>
+    </section>
+  </main>
+
+  <!-- STAR VERBS -->
+  <footer class="stars">
+    <span class="lbl">⭐ star verbs:</span>
+    have <span class="arrow">→</span> <b>has</b><span class="dot">·</span>
+    be <span class="arrow">→</span> <b>is</b>
+  </footer>
+
+  <!-- WORDWALL PRACTICE LINKS (hidden in print) -->
+  <div class="links">
+    <a href="https://wordwall.net/resource/60952241/simple-present-3rd-person-singular-spelling-rules" target="_blank" rel="noopener">🎮 Wordwall · practice (lesson)</a>
+    <a href="https://wordwall.net/resource/10493344/present-simple-3rd-person-singular-spelling-rules" target="_blank" rel="noopener">🏠 Wordwall · homework</a>
+    <a href="https://wordwall.net/resource/29144306/present-simple-third-person-singular" target="_blank" rel="noopener">🧠 Wordwall · match (thinking)</a>
+  </div>
+
+</div>
+</body>
+</html>

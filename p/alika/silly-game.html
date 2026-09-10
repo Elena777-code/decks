@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alika — Answers on the Screen (the silly game)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --mint:#95E1D3;
+    --mint-deep:#5ecbb8;
+    --peach:#FCE38A;
+    --lavender:#C8B6FF;
+    --lavender-deep:#9a7fff;
+    --cream:#FFF8F0;
+    --pink:#FF8FAB;
+    --ink:#2D3436;
+    --ink-soft:#636e72;
+    --white:#ffffff;
+    --radius:22px;
+    --shadow:0 10px 30px rgba(45,52,54,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Nunito',system-ui,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    min-height:100vh;
+    overflow-x:hidden;
+    overflow-y:auto;
+  }
+  .slide{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    gap:clamp(.55rem,1.4vh,1.1rem);
+    padding:3.5vh 5vw 2vh;
+  }
+  .eyebrow{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--lavender-deep);
+    font-size:clamp(.9rem,1.5vw,1.2rem);
+  }
+  h1.title{
+    font-family:'Fredoka',sans-serif;
+    font-weight:700;
+    font-size:clamp(1.8rem,3.8vw,3.2rem);
+    text-align:center;
+    line-height:1.1;
+  }
+  .accent-line{
+    width:120px;height:8px;border-radius:99px;
+    background:linear-gradient(90deg,var(--mint),var(--lavender));
+  }
+  .why{
+    background:var(--peach);
+    border-radius:99px;
+    padding:.4em 1.2em;
+    font-weight:800;
+    font-size:clamp(1.1rem,2vw,1.6rem);
+    text-align:center;
+  }
+  .controls{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;}
+  .btn{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:clamp(1.05rem,1.8vw,1.45rem);
+    border:none;border-radius:99px;
+    padding:.45em 1.2em;
+    background:linear-gradient(90deg,var(--lavender),var(--lavender-deep));
+    color:var(--white);
+    box-shadow:var(--shadow);
+    cursor:pointer;
+    transition:transform .15s ease;
+  }
+  .btn:hover{transform:scale(1.08);}
+  .btn:active{transform:scale(.95);}
+  .qlist{
+    width:min(1150px,92vw);
+    background:var(--white);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:clamp(.9rem,2.2vh,1.6rem) clamp(1.2rem,3vw,2.2rem);
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    column-gap:clamp(1.2rem,3vw,2.5rem);
+    row-gap:clamp(.4rem,1.2vh,.85rem);
+    align-content:start;
+  }
+  .qlist.placeholder{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:clamp(120px,24vh,220px);
+    font-style:italic;
+    font-weight:700;
+    color:var(--ink-soft);
+    font-size:clamp(1.05rem,1.8vw,1.45rem);
+    text-align:center;
+  }
+  .q{
+    display:flex;
+    align-items:baseline;
+    gap:.55em;
+    padding:.15em 0;
+    border-bottom:2px dotted #e8e2da;
+    font-weight:800;
+    font-size:clamp(1.25rem,2.2vw,1.8rem);
+    line-height:1.25;
+  }
+  .q .num{
+    font-family:'Fredoka',sans-serif;
+    font-weight:700;
+    flex:0 0 auto;
+    width:1.5em;height:1.5em;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--mint),var(--lavender));
+    font-size:.75em;
+    transform:translateY(.15em);
+  }
+  .reminder{
+    font-size:clamp(1rem,1.6vw,1.3rem);
+    color:var(--ink-soft);
+    text-align:center;
+  }
+  .reminder b{color:var(--pink);}
+  .copybank{
+    background:var(--peach);
+    border-radius:99px;
+    box-shadow:var(--shadow);
+    padding:.4em 1.2em;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:.35em .5em;
+    width:min(1000px,90vw);
+  }
+  .copylab{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:clamp(1rem,1.7vw,1.3rem);
+    margin-right:.2em;
+  }
+  .cchip{
+    background:var(--white);
+    border-radius:99px;
+    padding:.18em .75em;
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    font-size:clamp(1.1rem,1.9vw,1.4rem);
+    box-shadow:0 3px 8px rgba(45,52,54,.10);
+    line-height:1.2;
+  }
+  .fs{
+    position:fixed;right:18px;bottom:14px;z-index:100;
+    width:46px;height:46px;border-radius:50%;
+    border:none;cursor:pointer;
+    background:rgba(255,255,255,.85);
+    backdrop-filter:blur(10px);
+    box-shadow:var(--shadow);
+    font-size:1.25rem;color:var(--ink);
+    transition:transform .15s ease;
+  }
+  .fs:hover{transform:scale(1.1);}
+  @media (max-width:900px){
+    .qlist{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<main class="slide">
+  <div class="eyebrow">The silly game · Alika</div>
+  <h1 class="title">Answers on the Screen</h1>
+  <div class="accent-line"></div>
+  <p class="why">🎯 Listen to the question — find YOUR answer — say it!</p>
+
+  <div class="controls">
+    <button class="btn" id="deck1">🎙 Deal twelve</button>
+  </div>
+
+  <div class="qlist placeholder" id="qlist">Press the button — twelve questions appear here!</div>
+
+  <p class="reminder">Teacher: fast phrase first (<b>“My knee hurts!”</b>) — then ask:
+    <b>“Now the full sentence, please!”</b></p>
+
+  <div class="copybank">
+    <span class="copylab">📋 For the whiteboard:</span>
+    <span class="cchip">rainy</span>
+    <span class="cchip">pink</span>
+    <span class="cchip">One knee hurts!</span>
+    <span class="cchip">hungry</span>
+    <span class="cchip">6</span>
+    <span class="cchip">No!</span>
+  </div>
+</main>
+<button class="fs" id="fsBtn" title="Fullscreen">⛶</button>
+
+<script>
+  // ALIKA'S PERSONAL DECK — Recipe A (bank: pupils/alika/silly-game.md).
+  // Only her owned question words: YES/NO · WHAT (weather · colour · matter) ·
+  // HOW (How are you?) · HOW OLD. Shuffle standing rule applies.
+  // THE CORE: no choice — one answer chip fits each question, so this board
+  // carries only No! (Recipe B will carry only Yes!).
+  // Humor: absurd when possible, true is fine ("hungry"), serious is the fallback.
+  const LIST1 = [
+    "What's the weather like in Africa?",
+    "What's the weather like in Egypt?",
+    "What colour is my hair?",
+    "What colour is your cat?",
+    "What's the matter, Elena?",
+    "What's the matter with your teddy bear?",
+    "How are you?",
+    "How is your cat?",
+    "How old is your friend?",
+    "How old is your granny?",
+    "Is your cat pink?",
+    "Is your hair green?"
+  ];
+
+  const qlist = document.getElementById('qlist');
+
+  function shuffled(arr){
+    const a = arr.slice();
+    for(let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function deal(){
+    qlist.classList.remove('placeholder');
+    qlist.innerHTML = '';
+    shuffled(LIST1).forEach((q, i) => {
+      const row = document.createElement('div');
+      row.className = 'q';
+      const num = document.createElement('span');
+      num.className = 'num';
+      num.textContent = i + 1;
+      const text = document.createElement('span');
+      text.textContent = q;
+      row.appendChild(num);
+      row.appendChild(text);
+      qlist.appendChild(row);
+    });
+  }
+
+  document.getElementById('deck1').addEventListener('click', deal);
+
+  document.getElementById('fsBtn').addEventListener('click', () => {
+    if(!document.fullscreenElement){
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  });
+</script>
+</body>
+</html>

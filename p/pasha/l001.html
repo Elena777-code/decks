@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pasha · English · Lesson 1 — Hello + the Ballroom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Pasha — lesson 001 (first lesson: diagnostics + spark).
+   Design: "Sergey's" (spec §2 — paper · navy · cheese · stamp,
+   Fredoka + Nunito). Engine: nav bottom-right + structural lane,
+   progress bar, keyboard/wheel/swipe, click-reveals,
+   ready-chime + #n hash (spec §7, standing rule 2026-09-04).
+   First-ever lesson → the Type 0 homework-check slot carries the
+   greeting/diagnostic cards; homework starts at the last slide.
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.1rem);color:#fff}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cheese)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.4vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ---------- text & blocks ---------- */
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy);margin-bottom:.2em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin-bottom:.3em;
+  font-size:clamp(1.9rem,4.2vw,3.6rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp))}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(.9rem,1.6vw,1.35rem)}
+.card.sky{background:#E8F1FA}
+.card.cheese{background:var(--cheese-soft)}
+.card.stampc{background:var(--stamp-soft)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:.4em}
+.center{text-align:center}
+.mt{margin-top:.65em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink);background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem);align-self:flex-start}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.92rem,1.35vw,1.12rem);color:var(--ink-soft);font-style:italic}
+.stamp-box{font-family:'Fredoka',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  border:3px dashed var(--stamp);border-radius:16px;padding:.5em 1em;color:var(--stamp);
+  background:var(--white);box-shadow:var(--shadow);display:inline-block;font-size:clamp(1rem,1.7vw,1.4rem)}
+
+/* click-reveal cards (hello / numbers) */
+.cr-card{display:flex;align-items:center;gap:.9em;background:var(--white);border-radius:16px;
+  box-shadow:0 6px 16px rgba(34,48,63,.08);padding:.55em 1em;cursor:pointer;
+  transition:transform .15s ease,border-color .2s ease;border:3px solid transparent;user-select:none}
+.cr-card:hover{transform:translateY(-3px)}
+.cr-card .emo{flex-shrink:0;font-size:clamp(2rem,4vw,3.1rem);line-height:1.15}
+.cr-card .q{flex:1;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.2rem,2.1vw,1.7rem);line-height:1.35}
+.cr-card .a{display:none;flex:1;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink);
+  font-size:clamp(1.15rem,2vw,1.6rem);line-height:1.35}
+.cr-card .a b{color:var(--stamp)}
+.cr-card.open{border-color:var(--cheese)}
+.cr-card.open .a{display:block;animation:rise .35s both}
+
+/* word gallery */
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:clamp(.8rem,1.6vw,1.2rem)}
+.gal .w{background:var(--white);border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.1);
+  padding:1em .8em;text-align:center;transition:transform .15s ease;cursor:default}
+.gal .w:hover{transform:translateY(-4px)}
+.gal .ico{font-size:clamp(2.6rem,5.5vw,4.2rem);line-height:1.2}
+.gal .nm{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.25rem,2.3vw,1.8rem);margin-top:.2em}
+
+/* judge (yes/no + fix) */
+.yn{display:flex;align-items:center;gap:.6em;cursor:pointer;padding:.3em .8em;border-radius:12px;
+  background:var(--white);box-shadow:0 4px 10px rgba(34,48,63,.06);
+  font-size:clamp(1.1rem,1.8vw,1.48rem);flex-wrap:wrap}
+.yn .badge{flex-shrink:0;width:1.6em;height:1.6em;border-radius:50%;display:grid;place-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:.85em;background:#eee;color:transparent;
+  transition:all .2s}
+.yn.shown-yes .badge{background:var(--mint);color:#fff}
+.yn.shown-no .badge{background:var(--stamp);color:#fff}
+.yn .fix{display:none;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.78em;
+  color:var(--navy-deep);background:var(--cheese-soft);border-radius:99px;padding:.1em .6em;
+  border:2px solid var(--cheese)}
+.yn.shown-no .fix{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+
+/* guess-by-meaning + numbers items */
+.item{display:flex;gap:.7em;align-items:baseline;padding:.38em .2em;
+  border-bottom:2px dashed rgba(169,204,239,.7);cursor:pointer;border-radius:10px;
+  font-size:clamp(1.18rem,1.95vw,1.55rem);line-height:1.42;transition:background .2s ease}
+.item:last-child{border-bottom:none}
+.item:hover{background:#E8F1FA}
+.item .no{font-family:'Fredoka',sans-serif;font-weight:700;flex:none;color:var(--stamp);font-size:.85em}
+.item .agree{color:#fff;background:var(--navy);border-radius:99px;padding:.05em .55em;
+  font-weight:700;font-style:normal;opacity:0;transition:opacity .2s;white-space:nowrap}
+.item.shown .agree{opacity:1}
+.item.shown{cursor:default}
+.item.shown:hover{background:transparent}
+
+/* guess-the-country rounds */
+.rnd{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:.45em 1.1em;display:flex;align-items:center;gap:1.1em;flex-wrap:wrap}
+.rnd .clues{flex:1;min-width:250px}
+.rnd .clue{font-size:clamp(1.08rem,1.8vw,1.4rem);line-height:1.4;padding:.1em 0}
+.rnd .clue b{font-family:'Fredoka',sans-serif;color:var(--navy)}
+.r-ans{display:none;align-items:center;gap:.4em;font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.4rem,2.6vw,2.1rem);color:var(--navy);white-space:nowrap}
+.r-ans.show{display:inline-flex;animation:pop .5s cubic-bezier(.34,1.56,.64,1) both}
+.r-ans .nat{font-size:.55em;color:var(--stamp);font-weight:600;background:var(--stamp-soft);
+  border-radius:99px;padding:.2em .6em}
+.gift-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.9vw,1.5rem);
+  padding:.5em 1.4em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--stamp),var(--cheese));box-shadow:var(--shadow-lg);
+  transition:transform .15s ease}
+.gift-btn:hover{transform:scale(1.05)}
+.gift-btn:disabled{opacity:.6;cursor:default;transform:none}
+
+/* reading */
+.read-text{font-size:clamp(1.28rem,2.15vw,1.88rem);line-height:1.5}
+.read-text .hl{font-weight:800;color:var(--navy)}
+.read-text .hlp{font-weight:800;color:var(--stamp)}
+.sent{font-size:clamp(1.15rem,1.9vw,1.5rem);line-height:1.5;padding:.32em .2em;
+  border-bottom:2px dotted rgba(169,204,239,.7)}
+.gap{display:inline-block;min-width:3.2em;border-bottom:4px solid var(--sky);text-align:center;
+  font-family:'Fredoka',sans-serif;font-weight:600;color:transparent;cursor:pointer;
+  transition:all .2s ease;padding:0 .15em;border-radius:4px 4px 0 0}
+.gap:hover{background:#E8F1FA}
+.gap.filled{color:var(--navy);border-color:var(--cheese);background:var(--cheese-soft)}
+
+/* speaking frames */
+.frame{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink);
+  font-size:clamp(1.3rem,2.4vw,1.95rem);line-height:1.5;padding:.5em .9em;border-radius:16px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.frame .slot{color:var(--stamp);border-bottom:4px dotted var(--stamp);padding:0 .25em}
+.bank{display:flex;flex-wrap:wrap;gap:.4em;justify-content:center}
+.bank span{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);
+  padding:.15em .7em;border-radius:99px;background:var(--cheese-soft);color:var(--navy)}
+
+/* homework */
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08);margin-bottom:.7em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;color:#fff}
+.hw-step .ru{font-size:clamp(1.05rem,1.7vw,1.4rem);line-height:1.5}
+.hw-step .en{font-family:'Fredoka',sans-serif;color:var(--navy);font-weight:600}
+
+@media (max-width:900px){
+  .gal{grid-template-columns:repeat(2,1fr)}
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · HELLO (the Type 0 slot, first-lesson edition: he produces first) -->
+  <section class="slide active" id="s1">
+    <div class="eyebrow reveal">Lesson 1 · hello</div>
+    <h1 class="title reveal">Hello, Pasha! 👋</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:780px;margin:0 auto;width:100%">
+      <div class="cr-card"><span class="emo">🙋</span><span class="q">What's your name?</span><span class="a">My name is <b>Pasha</b>!</span></div>
+      <div class="cr-card"><span class="emo">🎂</span><span class="q">How old are you?</span><span class="a">I'm <b>ten</b> years old.</span></div>
+      <div class="cr-card"><span class="emo">📍</span><span class="q">Where are you from?</span><span class="a">I'm from <b>Russia</b>.</span></div>
+      <div class="cr-card"><span class="emo">🤝</span><span class="q">Have you got a partner? A team?</span><span class="a">Yes, I have! / No, I haven't.</span></div>
+      <div class="cr-card" style="border:3px dashed var(--stamp)"><span class="emo">⚡</span><span class="q" style="color:var(--stamp)">Teach me ONE word in English!</span><span class="a">Your word — any word! <b>I know nothing!</b> 😅</span></div>
+    </div>
+    <p class="task reveal mt">Answer FIRST — click only checks. Full sentences!</p>
+  </section>
+
+  <!-- SLIDE 2 · WARM-UP: TWO TRUTHS AND A LIE (bank: ★ Irina) -->
+  <section class="slide" id="s2">
+    <div class="eyebrow reveal">Warm-up · the game</div>
+    <h1 class="title reveal">Two truths — one lie 🤥</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:760px;margin:0 auto;width:100%">
+      <div class="frame">1 &nbsp;I can <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+      <div class="frame">2 &nbsp;I've got <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+      <div class="frame">3 &nbsp;I like <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+    </div>
+    <div class="center reveal mt"><div class="stamp-box">two TRUE · one LIE — guess!</div></div>
+    <p class="task reveal mt" style="align-self:center">Say your three sentences — I guess the lie. Then SWAP!</p>
+    <p class="hintline reveal mt center">A lie can be small: “I like… homework!” 😈</p>
+  </section>
+
+  <!-- SLIDE 3 · NEW WORDS: THE BALLROOM (Type 4 gallery) -->
+  <section class="slide" id="s3">
+    <div class="eyebrow reveal">New words · the ballroom</div>
+    <h1 class="title reveal">The Standard five 🏆</h1>
+    <div class="accent-line reveal"></div>
+    <div class="gal reveal" style="margin:0 auto;width:100%">
+      <div class="w"><div class="ico">🌀</div><div class="nm">the waltz</div></div>
+      <div class="w"><div class="ico">🔥</div><div class="nm">the tango</div></div>
+      <div class="w"><div class="ico">🎠</div><div class="nm">the Viennese waltz</div></div>
+      <div class="w"><div class="ico">🦊</div><div class="nm">the slow foxtrot</div></div>
+      <div class="w"><div class="ico">⚡</div><div class="nm">the quickstep</div></div>
+      <div class="w"><div class="ico">🤝</div><div class="nm">a partner</div></div>
+    </div>
+    <p class="task reveal mt">Listen → repeat → your favourite?</p>
+    <p class="hintline reveal mt">These five dances = YOUR program. You are the expert here — I'm the beginner!</p>
+  </section>
+
+  <!-- SLIDE 4 · MY DANCE NUMBERS (diagnostic: numbers, days, frequency) -->
+  <section class="slide" id="s4">
+    <div class="eyebrow reveal">Your turn · real numbers</div>
+    <h1 class="title reveal">My dance numbers 🔢</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:860px;margin:0 auto;width:100%">
+      <div class="item" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>How many days a week do you train? <span class="agree">I train four times a week!</span></span></div>
+      <div class="item" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>How many dances are in the Standard program? <span class="agree">Five — count the cards!</span></span></div>
+      <div class="item" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>On which days do you dance? <span class="agree">On Monday, on Wednesday, on Friday…</span></span></div>
+      <div class="item" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>What place are you in Russia? <span class="agree">My place in Russia is ____ !</span></span></div>
+    </div>
+    <p class="task reveal mt">Answer with a FULL sentence — numbers as words!</p>
+  </section>
+
+  <!-- SLIDE 5 · YOU ARE THE JUDGE (grammar diagnostic: ✓/✗ + fix) -->
+  <section class="slide" id="s5">
+    <div class="eyebrow reveal">Grammar court · judge me</div>
+    <h1 class="title reveal">You are the Judge! ⚖️</h1>
+    <div class="accent-line reveal"></div>
+    <p class="reveal" style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1.1rem,1.8vw,1.45rem);margin-bottom:-.4em">
+      Today <b>I</b> am a dancer. My English — correct ✓ or not ✗? And FIX my mistakes!</p>
+    <div class="col reveal" style="max-width:820px;margin:0 auto;width:100%">
+      <div class="yn" data-a="yes"><span class="badge">?</span>“I am a dance champion.”</div>
+      <div class="yn" data-a="no"><span class="badge">?</span>“I has got five medals.” <span class="fix">have got</span></div>
+      <div class="yn" data-a="yes"><span class="badge">?</span>“I can dance the tango.”</div>
+      <div class="yn" data-a="no"><span class="badge">?</span>“I dances four times a week.” <span class="fix">I dance…</span></div>
+      <div class="yn" data-a="no"><span class="badge">?</span>“I can to spin very fast.” <span class="fix">I can spin…</span></div>
+      <div class="yn" data-a="yes"><span class="badge">?</span>“My favourite dance is the waltz.”</div>
+      <div class="yn" data-a="yes"><span class="badge">?</span>“I am from Russia.”</div>
+      <div class="yn" data-a="no"><span class="badge">?</span>“My partner love the quickstep.” <span class="fix">loves</span></div>
+    </div>
+    <p class="task reveal mt">8 sentences · every right verdict = 1 point · 8/8 = GOLD 🥇</p>
+  </section>
+
+  <!-- SLIDE 6 · WORD GAME: GUESS THE DANCE BY MEANING (Elena's format) -->
+  <section class="slide" id="s6">
+    <div class="eyebrow reveal">Word game · round one</div>
+    <h1 class="title reveal">Guess the dance 🕺</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:860px;margin:0 auto;width:100%">
+      <div class="item" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>We count 1-2-3, 1-2-3. We turn and turn — slow and beautiful. <span class="agree">the waltz</span></span></div>
+      <div class="item" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>The fastest waltz — we spin like a carousel! <span class="agree">the Viennese waltz</span></span></div>
+      <div class="item" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Sharp and dramatic — our heads turn like in a spy film. <span class="agree">the tango</span></span></div>
+      <div class="item" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Slow, smooth walks. The name is like a wild animal. <span class="agree">the slow foxtrot</span></span></div>
+      <div class="item" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Fast, happy feet — and jazz music! <span class="agree">the quickstep</span></span></div>
+    </div>
+    <p class="task reveal mt">Say the WHOLE name — “the waltz”, article and all!</p>
+  </section>
+
+  <!-- SLIDE 7 · DANCES AROUND THE WORLD (spark + Starlight 5 M1 pre-load) -->
+  <section class="slide" id="s7">
+    <div class="eyebrow reveal">World tour · where is my dance from?</div>
+    <h1 class="title reveal">Dances around the world 🌍</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="stamp-box" style="border-color:var(--navy);color:var(--navy);font-size:clamp(.95rem,1.55vw,1.28rem)">Where are you from? — I'm from Russia!</span></div>
+    <div class="col reveal mt" style="max-width:900px;margin:0 auto;width:100%;gap:.45em">
+      <div class="rnd">
+        <div class="clues"><div class="clue"><b>The waltz</b> — palaces, mountains and Mozart's country.</div></div>
+        <button class="gift-btn rnd-btn">Dance 1 🤔</button>
+        <span class="r-ans">🇦🇹 AUSTRIA! <span class="nat">Austrian</span></span>
+      </div>
+      <div class="rnd">
+        <div class="clues"><div class="clue"><b>The tango</b> — a South American giant. Football and steak!</div></div>
+        <button class="gift-btn rnd-btn">Dance 2 🤔</button>
+        <span class="r-ans">🇦🇷 ARGENTINA! <span class="nat">Argentinian</span></span>
+      </div>
+      <div class="rnd">
+        <div class="clues"><div class="clue"><b>The quickstep</b> — tea, red buses and the Queen.</div></div>
+        <button class="gift-btn rnd-btn">Dance 3 🤔</button>
+        <span class="r-ans">🇬🇧 ENGLAND! <span class="nat">English</span></span>
+      </div>
+      <div class="rnd">
+        <div class="clues"><div class="clue"><b>The foxtrot</b> — fifty states, New York and Hollywood.</div></div>
+        <button class="gift-btn rnd-btn">Dance 4 🤔</button>
+        <span class="r-ans">🇺🇸 THE USA! <span class="nat">American</span></span>
+      </div>
+      <div class="rnd">
+        <div class="clues"><div class="clue"><b>The samba</b> — bonus from the Latin program! Carnival and the Amazon.</div></div>
+        <button class="gift-btn rnd-btn">Dance 5 🤔</button>
+        <span class="r-ans">🇧🇷 BRAZIL! <span class="nat">Brazilian</span></span>
+      </div>
+    </div>
+    <p class="task reveal mt">Guess → say the country → say the nationality!</p>
+  </section>
+
+  <!-- SLIDE 8 · READING: A YOUNG DANCER (Type 9+8 — text and questions together) -->
+  <section class="slide" id="s8">
+    <div class="eyebrow reveal">Reading · read and answer</div>
+    <h1 class="title reveal">A young dancer 🕺</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:flex-start;gap:1.4em">
+      <div class="card cheese" style="flex:1">
+        <div class="read-text">
+          Max is <span class="hl">ten</span>. He is from <span class="hl">England</span>.<br>
+          He is a dancer — a real one!<br>
+          Max dances <span class="hl">four</span> times a week.<br>
+          He <span class="hl">can</span> do the waltz and the quickstep.<br>
+          His favourite dance is the <span class="hlp">Viennese waltz</span>.<br>
+          He spins and spins — like a carousel! 🎠<br>
+          Max has got a partner, Lily. She is nine.<br>
+          Together they win gold medals! 🥇
+        </div>
+      </div>
+      <div class="card" style="flex:1.05">
+        <h2 style="margin-bottom:.35em">Yes / No?</h2>
+        <div class="col" style="gap:.35em">
+          <div class="yn" data-a="no"><span class="badge">Y</span>Is Max from the USA?</div>
+          <div class="yn" data-a="no"><span class="badge">Y</span>Can Max do the tango?</div>
+          <div class="yn" data-a="yes"><span class="badge">Y</span>Has Max got a partner?</div>
+          <div class="yn" data-a="no"><span class="badge">Y</span>Is Lily ten?</div>
+        </div>
+        <h2 style="margin-top:.35em;margin-bottom:.25em">Now tell me…</h2>
+        <div class="sent">How old is Max? — <span class="gap" data-w="He is ten!">He is ten!</span></div>
+        <div class="sent">What is his favourite dance? — <span class="gap" data-w="The Viennese waltz!">The Viennese waltz!</span></div>
+        <div class="sent">How many times a week does he dance? — <span class="gap" data-w="Four times a week!">Four!</span></div>
+        <p class="muted" style="font-size:.9em;margin-top:.35em">Answer FIRST — click only checks. 👆</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 9 · SPEAKING FRAMES: ME AND MY DANCING (Type 6, max 3 frames) -->
+  <section class="slide" id="s9">
+    <div class="eyebrow reveal">Speaking · your star moment</div>
+    <h1 class="title reveal">Me and my dancing 🌟</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:860px;margin:0 auto;width:100%;gap:.6em">
+      <div class="frame">I am <span class="slot">Pasha</span>. I am <span class="slot">ten</span> years old.</div>
+      <div class="frame">I dance <span class="slot">four</span> times a week — on <span class="slot">Monday</span>, <span class="slot">Wednesday</span>, <span class="slot">Friday</span> and <span class="slot">Saturday</span>.</div>
+      <div class="frame">My favourite dance is <span class="slot">the waltz</span>. I can <span class="slot">spin</span>!</div>
+    </div>
+    <div class="bank reveal mt">
+      <span>the waltz</span><span>the tango</span><span>the Viennese waltz</span><span>the slow foxtrot</span><span>the quickstep</span>
+      <span>on Monday</span><span>on Tuesday</span><span>on Wednesday</span><span>on Thursday</span><span>on Friday</span><span>on Saturday</span><span>on Sunday</span>
+    </div>
+    <p class="task reveal mt">Five TRUE sentences about YOU — no empty slots left!</p>
+  </section>
+
+  <!-- SLIDE 10 · RIDDLE CLOSER (bank: Classic riddles — piano) -->
+  <section class="slide" id="s10">
+    <div class="eyebrow reveal">Brain-break · the riddle</div>
+    <h1 class="title reveal">What has keys but can't open locks? 🤔</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center reveal" style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:1em">
+      <div style="font-size:clamp(3rem,7vw,5.5rem);line-height:1">🎹🔒🗝️</div>
+      <button class="gift-btn" id="riddle-btn">🎁 The answer is…</button>
+      <div class="r-ans" id="riddle-line" style="display:none">A PIANO! 🎹 The piano plays — WE dance!</div>
+      <p class="hintline">Hint: it is big, black and musical…</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 11 · NEW HOMEWORK (Type 12) -->
+  <section class="slide" id="s11">
+    <div class="eyebrow reveal">Homework · three steps</div>
+    <h1 class="title reveal">Your first homework 📝</h1>
+    <div class="accent-line reveal"></div>
+    <div style="max-width:820px;margin:0 auto;width:100%">
+      <div class="hw-step reveal"><div class="n">1</div><div class="ru">📹 Видео «Я и мои танцы» — <b>5 предложений</b> о себе (рамки со слайда «Me and my dancing»): <span class="en">I am Pasha. I am ten. I dance four times a week. My favourite dance is the waltz. I can spin!</span></div></div>
+      <div class="hw-step reveal"><div class="n">2</div><div class="ru">🎮 Выучи 5 танцев: <span class="en">the waltz · the tango · the Viennese waltz · the slow foxtrot · the quickstep</span> — на следующем уроке <b>ты учитель</b>: научи меня!</div></div>
+      <div class="hw-step reveal"><div class="n">3</div><div class="ru">⭐ Бонус: узнай, <b>из какой страны</b> твой любимый танец, и расскажи (по-русски или по-английски).</div></div>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Bring your dance words — the ballroom is ours! 🏆</p>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 11</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  let i = 0;
+  const barFill = document.querySelector('#bar i');
+  const cnt = document.getElementById('counter');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  function go(n){
+    if(n < 0 || n >= slides.length) return;
+    slides[i].classList.remove('active');
+    if(n > i) slides[i].classList.add('prev');
+    i = n;
+    slides[i].classList.remove('prev');
+    slides[i].classList.add('active');
+    barFill.style.width = ((i+1)/slides.length*100) + '%';
+    cnt.textContent = (i+1) + ' / ' + slides.length;
+    prevBtn.disabled = i === 0;
+    nextBtn.disabled = i === slides.length - 1;
+    history.replaceState(null, '', '#' + (i+1));
+  }
+  prevBtn.onclick = ()=>go(i-1);
+  nextBtn.onclick = ()=>go(i+1);
+  document.getElementById('fs').onclick = ()=>document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
+  document.addEventListener('keydown', e=>{
+    if(/INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    const scr = slides[i];
+    const canScroll = scr.scrollHeight > scr.clientHeight + 2;
+    switch(e.key){
+      case 'ArrowRight': e.preventDefault(); go(i+1); break;
+      case 'ArrowDown':
+        e.preventDefault();
+        if(canScroll && scr.scrollTop + scr.clientHeight < scr.scrollHeight - 2){ scr.scrollBy({top:120}); break; }
+        go(i+1); break;
+      case 'ArrowLeft': e.preventDefault(); go(i-1); break;
+      case 'ArrowUp':
+        e.preventDefault();
+        if(canScroll && scr.scrollTop > 2){ scr.scrollBy({top:-120}); break; }
+        go(i-1); break;
+      case ' ': e.preventDefault(); go(i+1); break;
+      case 'Home': e.preventDefault(); go(0); break;
+      case 'End': e.preventDefault(); go(slides.length-1); break;
+      case 'f': case 'F': document.getElementById('fs').click(); break;
+    }
+  });
+  let wt = 0;
+  document.addEventListener('wheel', e=>{
+    const t = Date.now();
+    if(t - wt < 650 || Math.abs(e.deltaY) < 25) return;
+    const scr = slides[i];
+    if(scr.scrollHeight > scr.clientHeight + 2) return; /* scrollable screen never flips */
+    wt = t;
+    go(i + (e.deltaY > 0 ? 1 : -1));
+  }, {passive:true});
+  let tx = 0, ty = 0;
+  document.addEventListener('touchstart', e=>{tx = e.touches[0].clientX; ty = e.touches[0].clientY;}, {passive:true});
+  document.addEventListener('touchend', e=>{
+    const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty;
+    if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) go(i + (dx < 0 ? 1 : -1));
+  }, {passive:true});
+
+  /* click-reveals: child answers FIRST — the click only checks */
+  document.querySelectorAll('.cr-card').forEach(c=>c.addEventListener('click', ()=>c.classList.toggle('open')));
+  document.querySelectorAll('.gap').forEach(g=>g.addEventListener('click', ()=>g.classList.toggle('filled')));
+  document.querySelectorAll('.yn').forEach(yn=>{
+    yn.addEventListener('click', ()=>{
+      const a = yn.dataset.a;
+      yn.classList.remove('shown-yes','shown-no');
+      yn.classList.add(a === 'yes' ? 'shown-yes' : 'shown-no');
+      yn.querySelector('.badge').textContent = a === 'yes' ? '✓' : '✗';
+    });
+  });
+  document.querySelectorAll('.rnd').forEach((r, idx)=>{
+    const btn = r.querySelector('.rnd-btn');
+    btn.addEventListener('click', ()=>{
+      r.querySelector('.r-ans').classList.add('show');
+      btn.textContent = '✅ Dance ' + (idx+1);
+      btn.disabled = true;
+      btn.style.opacity = .6;
+    });
+  });
+  const riddleBtn = document.getElementById('riddle-btn');
+  if(riddleBtn){
+    riddleBtn.addEventListener('click', ()=>{
+      const line = document.getElementById('riddle-line');
+      line.style.display = 'inline-flex';
+      line.classList.add('show');
+      riddleBtn.textContent = '✅ A piano!';
+      riddleBtn.disabled = true;
+      riddleBtn.style.opacity = .6;
+    });
+  }
+
+  /* deep link: open the deck on slide #n */
+  const h = parseInt(location.hash.slice(1));
+  go(!isNaN(h) && h >= 1 && h <= slides.length ? h-1 : 0);
+
+  /* READY-CHIME (standing rule, 2026-09-04): the open window chimes and
+     reloads when ZCode saves a new version; #n keeps the slide. http:// only. */
+  (function(){
+    if(!/^https?:$/.test(location.protocol)) return;
+    let last = null, ctx = null;
+    const unlock = ()=>{try{
+      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+      if(ctx.state === 'suspended') ctx.resume();
+    }catch(e){}};
+    addEventListener('pointerdown', unlock); addEventListener('keydown', unlock);
+    function chime(){try{unlock(); if(!ctx) return; const t = ctx.currentTime;
+      [880,1174.7].forEach((f,n)=>{        /* ding — dong */
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'sine'; o.frequency.value = f;
+        g.gain.setValueAtTime(0, t+n*.18);
+        g.gain.linearRampToValueAtTime(.4, t+n*.18+.02);
+        g.gain.exponentialRampToValueAtTime(.001, t+n*.18+.9);
+        o.connect(g); g.connect(ctx.destination);
+        o.start(t+n*.18); o.stop(t+n*.18+1);
+      });
+    }catch(e){}}
+    function poll(){
+      fetch(location.href, {method:'HEAD', cache:'no-store'}).then(r=>{
+        const m = r.headers.get('last-modified');
+        if(!m) return;
+        if(last === null){ last = m; return }
+        if(m !== last){ last = m; chime(); setTimeout(()=>location.reload(), 700) }
+      }).catch(()=>{});
+    }
+    poll(); setInterval(poll, 1500);
+  })();
+})();
+</script>
+</body>
+</html>

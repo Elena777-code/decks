@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masha · English · Lesson 1 — Welcome back</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Masha R. — lesson 001 · "graffiti" design (Elena's pick,
+   2026-09-05). Engine = the graffiti sample, unchanged:
+   nav bottom-right + structural lane, progress bar, click-reveals,
+   keyboard / wheel / swipe. Spray words on dark plates; lime is
+   numbering only, never a card fill; titles top, content spreads
+   horizontally. Ready-chime + #n hash per the standing rule.
+   ============================================================ */
+:root{
+  --cyan:#2BD9E8;
+  --pink:#F03CB0;
+  --orange:#FF7A29;
+  --yellow:#FFC93C;
+  --lime:#A8E82A;
+  --lavender:#9a7fff;
+  --frost:rgba(255,251,244,.88);
+  --ink-dark:#221B30;
+  --ink-dark-soft:rgba(34,27,48,.68);
+  --trap:#C2410C;
+  --white:#fff;
+  --radius:18px;
+  --grad:linear-gradient(90deg,var(--cyan),var(--pink) 45%,var(--orange) 75%,var(--yellow));
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  color:#fff;
+  overflow:hidden;
+  background:#1a1420;
+}
+/* the wall — Elena's graffiti photo, full bleed */
+body::before{content:'';position:fixed;inset:0;z-index:-2;
+  background:url("../../../../requirements/design/graffiti/Graffiti.jpeg") center/cover no-repeat;
+  filter:saturate(1.12);}
+/* readability veil */
+body::after{content:'';position:fixed;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(18,12,26,.46),rgba(18,12,26,.30) 42%,rgba(18,12,26,.55));}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;height:5px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(20,14,28,.72);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.22);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:rgba(255,255,255,.85)}
+#nav button{border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cyan)}
+#nav button:active:not(:disabled){transform:scale(.95)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:7vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:2.2vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* reading-heavy slide = one giant frosted box over the wall */
+.slide.soft{background:rgba(255,250,242,.86);backdrop-filter:blur(12px);
+  border-radius:28px;margin:3vh 3vw calc(74px + 3.2vh) 3vw;
+  padding:4vh 4vw;box-shadow:0 24px 60px rgba(10,6,20,.35)}
+.slide.soft h1{color:var(--ink-dark);text-shadow:none}
+.slide.soft .eyebrow{color:#B45309;text-shadow:none}
+.slide.soft p.lead,.slide.soft .note{color:var(--ink-dark)}
+.slide.soft .hint{color:var(--ink-dark-soft)}
+.slide.soft .note .trap{color:var(--trap)}
+
+/* ---------- typography over the wall ---------- */
+.eyebrow{font-family:'Permanent Marker',cursive;color:var(--yellow);
+  font-size:clamp(1rem,1.6vw,1.3rem);transform:rotate(-1.2deg);
+  text-shadow:0 2px 12px rgba(10,6,20,.6)}
+h1{font-weight:800;font-size:clamp(2rem,4.4vw,3.7rem);line-height:1.1;
+  letter-spacing:-.02em;text-shadow:0 2px 20px rgba(10,6,20,.55)}
+h1 .spray{position:relative;display:inline-block;padding:.02em .28em;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;
+  color:transparent;font-style:italic}
+h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
+  background:rgba(24,17,38,.88);border-radius:.24em;
+  box-shadow:0 6px 18px rgba(10,6,20,.45);transform:rotate(-.8deg)}
+.rule{width:110px;height:5px;border-radius:99px;background:var(--grad)}
+p.lead{font-size:clamp(1.15rem,1.9vw,1.5rem);max-width:52ch;line-height:1.55;
+  text-shadow:0 1px 12px rgba(10,6,20,.65)}
+p.lead strong{color:var(--yellow)}
+.note{font-size:clamp(1.05rem,1.7vw,1.35rem);line-height:1.5;
+  text-shadow:0 1px 10px rgba(10,6,20,.6)}
+.note .trap{color:var(--orange);font-weight:700}
+.hint{font-size:clamp(.95rem,1.5vw,1.15rem);font-style:italic;
+  text-shadow:0 1px 10px rgba(10,6,20,.6)}
+
+/* ---------- the boxes (sticker cards) ---------- */
+.card{border-radius:var(--radius);padding:clamp(1rem,1.9vw,1.6rem);
+  color:var(--ink-dark);
+  border:3px solid rgba(255,255,255,.95);
+  box-shadow:0 12px 32px rgba(10,6,20,.38)}
+.card.f-cyan{background:var(--cyan)}
+.card.f-pink{background:var(--pink)}
+.card.f-orange{background:var(--orange)}
+.card.f-yellow{background:var(--yellow)}
+.card.f-lavender{background:var(--lavender);color:#fff}
+.card.f-frost{background:var(--frost);backdrop-filter:blur(8px)}
+.card.f-white{background:#fff}
+.card.f-lavender .tail{color:rgba(255,255,255,.78)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1rem,2vw,1.6rem)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1rem,1.8vw,1.4rem)}
+.stack{display:flex;flex-direction:column;gap:clamp(.7rem,1.4vw,1.1rem)}
+
+.k{font-weight:800;font-size:clamp(1.25rem,2.2vw,1.8rem)}
+.pattern{font-size:clamp(1.2rem,2.1vw,1.65rem);line-height:1.45;font-weight:500}
+.pattern .tail,.item .tail{color:var(--ink-dark-soft);font-size:.62em;font-style:italic;font-weight:400}
+
+/* sentence rows inside boxes */
+.item{display:flex;gap:.7em;align-items:baseline;padding:.55em 0;
+  border-bottom:2px dashed rgba(34,27,48,.22);
+  font-size:clamp(1.25rem,2.2vw,1.8rem);line-height:1.5;font-weight:500}
+.item:last-child{border-bottom:none}
+.no{font-family:'Permanent Marker',cursive;flex:none;
+  width:1.55em;height:1.55em;display:inline-flex;align-items:center;justify-content:center;
+  background:#fff;color:var(--ink-dark);border-radius:50%;
+  box-shadow:0 3px 8px rgba(10,6,20,.2);transform:rotate(-3deg);
+  font-size:.9em;align-self:center}
+
+/* clickable gaps (grammar test) */
+.gap{cursor:pointer;border-bottom:3px dashed rgba(34,27,48,.6);color:transparent;
+  min-width:5.5em;display:inline-block;text-align:center;transition:all .25s ease;user-select:none}
+.gap.filled{color:var(--ink-dark);background:var(--cyan);border-radius:8px;
+  border-bottom:none;font-weight:800;box-shadow:0 4px 12px rgba(10,6,20,.22)}
+
+/* emoji "pictures" */
+.ico{font-size:1.3em;line-height:1;align-self:center;flex:none;
+  filter:drop-shadow(0 3px 6px rgba(10,6,20,.25))}
+
+/* click-to-reveal rows & cards */
+.op{cursor:pointer;transition:background .2s ease;border-radius:10px}
+.op:hover{background:rgba(255,255,255,.35)}
+.op .agree{color:#fff;background:rgba(34,27,48,.82);border-radius:8px;
+  padding:.05em .3em;font-weight:600;font-style:normal;font-size:.82em;
+  opacity:0;transition:opacity .2s}
+.op.shown .agree{opacity:1}
+
+/* Chinese character cards */
+.chc{cursor:pointer;text-align:center;padding:clamp(.8rem,1.6vw,1.4rem);
+  transition:transform .15s ease}
+.chc:hover{transform:translateY(-4px)}
+.glyph{font-size:clamp(3rem,6.5vw,5.2rem);font-weight:800;line-height:1.15;
+  display:inline-block;padding:.05em .3em;color:#fff;
+  background:rgba(24,17,38,.88);border-radius:.22em;
+  box-shadow:0 6px 18px rgba(10,6,20,.4);transform:rotate(-1deg)}
+.mean{margin-top:.45em;font-size:clamp(1.1rem,1.9vw,1.5rem);font-weight:700;
+  opacity:0;transition:opacity .25s ease;min-height:1.4em}
+.chc.open .mean{opacity:1}
+.chc .poke{font-size:clamp(.85rem,1.3vw,1.05rem);font-style:italic;color:var(--ink-dark-soft)}
+.chc.open .poke{display:none}
+
+@media (max-width:900px){
+  .grid2,.grid3{grid-template-columns:1fr}
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+  .slide.soft{margin:2vh 2.5vw calc(74px + 2.8vh) 2.5vw}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · WELCOME BACK — the summer talk (opens the year; no hw to check) -->
+<section class="slide active">
+  <div class="eyebrow reveal">English · the first lesson of the year</div>
+  <h1 class="reveal">Welcome back, <span class="spray">Masha</span>!</h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card f-yellow"><p class="pattern"><span class="ico">🌞</span> How was your summer? <span class="tail">— three sentences minimum!</span></p></div>
+    <div class="card f-cyan"><p class="pattern"><span class="ico">🏖️</span> What did you do in July? What about August?</p></div>
+    <div class="card f-pink"><p class="pattern"><span class="ico">🗣️</span> Did you speak any English? <span class="tail">— be honest!</span></p></div>
+    <div class="card f-lavender"><p class="pattern"><span class="ico">🆕</span> What is ONE new thing you tried this summer?</p></div>
+  </div>
+  <p class="hint reveal">Full sentences — "I" is not an answer.</p>
+</section>
+
+<!-- 2 · RIDDLE -->
+<section class="slide">
+  <div class="eyebrow reveal">Brain-break · the riddle</div>
+  <h1 class="reveal">The more you take, <span class="spray">the more you leave behind</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card f-frost reveal" style="max-width:30ch">
+    <p class="pattern">What am I? 🤔</p>
+  </div>
+  <div class="card f-yellow op reveal" onclick="this.classList.toggle('shown')" style="max-width:30ch">
+    <p class="pattern">Say your guesses — then click me. <span class="agree">Footprints! 👣</span></p>
+  </div>
+  <p class="hint reveal">Hint if stuck: look at the sand… or the snow.</p>
+</section>
+
+<!-- 3 · THE FASHION FLOOD — retrieval revision -->
+<section class="slide">
+  <div class="eyebrow reveal">From last year · fashion &amp; money</div>
+  <h1 class="reveal">The great <span class="spray">fashion flood</span></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card f-cyan"><p class="pattern"><span class="ico">⏱️</span> 90 seconds: name <strong>every</strong> word you remember from our fashion &amp; money slides. Any order!</p></div>
+    <div class="card f-pink"><p class="pattern"><span class="ico">🔢</span> Now count them. <span class="tail">15+ = word queen 👑 · 10–14 = strong · under 10 = we revive them today</span></p></div>
+    <div class="card f-yellow"><p class="pattern"><span class="ico">💬</span> Pick 3 and put each into a sentence <strong>about you</strong>.</p></div>
+    <div class="card f-lavender"><p class="pattern"><span class="ico">🛍️</span> Boss level: use one fashion word + one money word in the SAME sentence.</p></div>
+  </div>
+  <p class="hint reveal">No lists to peek at — it all comes from YOUR head.</p>
+</section>
+
+<!-- 4 · GRAMMAR TEST 1/2 — the story, gaps 1–5 -->
+<section class="slide soft">
+  <div class="eyebrow reveal">The test · part 1</div>
+  <h1 class="reveal">August</h1>
+  <div class="rule reveal"></div>
+  <div class="card f-white reveal">
+    <p class="pattern">Last August Polina <span class="gap" data-a="visited">______</span> <span class="tail">(visit)</span> her granny in Saratov. While the train <span class="gap" data-a="was running">______</span> <span class="tail">(run)</span> through the fields, she watched the sky. You <span class="gap" data-a="might not believe">______</span> <span class="tail">(might / not + believe)</span> it, but the trip took 14 hours! Every morning Polina <span class="gap" data-a="had to feed">______</span> <span class="tail">(have to + feed)</span> the hens. "Granny, I <span class="gap" data-a="'ve just told">______</span> <span class="tail">(just + tell)</span> you — I'm not afraid of them!"</p>
+  </div>
+  <p class="hint reveal">Say the full form aloud first — the click only confirms.</p>
+</section>
+
+<!-- 5 · GRAMMAR TEST 2/2 — the story, gaps 6–11 -->
+<section class="slide soft">
+  <div class="eyebrow reveal">The test · part 2</div>
+  <h1 class="reveal">The photo</h1>
+  <div class="rule reveal"></div>
+  <div class="card f-white reveal">
+    <p class="pattern">Back home, Polina shows the photos to her friend. "This one <span class="gap" data-a="was taken">______</span> <span class="tail">(take)</span> by my uncle. Granny asked me <span class="gap" data-a="what I wanted">______</span> <span class="tail">(what I want)</span> for my birthday. I want <span class="gap" data-a="to learn">______</span> <span class="tail">(learn)</span> to cook like her — her pies <span class="gap" data-a="smell">______</span> <span class="tail">(smell)</span> amazing! At first I <span class="gap" data-a="was terrified">______</span> <span class="tail">(be + a fear word!)</span> of her huge dog, but now he's my best friend. <span class="gap" data-a="How">______</span> <span class="tail">(?)</span> do you spend your summers — like an explorer or like a cat?"</p>
+  </div>
+  <p class="hint reveal">One gap wants a question word. One gap wants a fear-family word.</p>
+</section>
+
+<!-- 6 · CHINESE CHARACTERS — the primer game -->
+<section class="slide">
+  <div class="eyebrow reveal">A new language · no, not that one</div>
+  <h1 class="reveal">Can you <span class="spray">read</span> these?</h1>
+  <div class="rule reveal"></div>
+  <div class="grid3 reveal">
+    <div class="card f-cyan chc" onclick="this.classList.toggle('open')"><span class="glyph">人</span><div class="mean">person 🧍</div><div class="poke">click me</div></div>
+    <div class="card f-pink chc" onclick="this.classList.toggle('open')"><span class="glyph">日</span><div class="mean">sun · day ☀️</div><div class="poke">click me</div></div>
+    <div class="card f-yellow chc" onclick="this.classList.toggle('open')"><span class="glyph">月</span><div class="mean">moon · month 🌙</div><div class="poke">click me</div></div>
+    <div class="card f-orange chc" onclick="this.classList.toggle('open')"><span class="glyph">山</span><div class="mean">mountain ⛰️</div><div class="poke">click me</div></div>
+    <div class="card f-lavender chc" onclick="this.classList.toggle('open')"><span class="glyph">口</span><div class="mean">mouth 👄</div><div class="poke">click me</div></div>
+    <div class="card f-white chc" onclick="this.classList.toggle('open')"><span class="glyph">木</span><div class="mean">tree · wood 🌳</div><div class="poke">click me</div></div>
+  </div>
+  <p class="hint reveal">You are reading Chinese. Don't tell anyone it took you ten seconds.</p>
+</section>
+
+<!-- 7 · PRIME QUESTIONS — prepare for the video -->
+<section class="slide">
+  <div class="eyebrow reveal">Tonight's video · before you watch</div>
+  <h1 class="reveal">How do Chinese <span class="spray">kids</span> learn to read?</h1>
+  <div class="rule reveal"></div>
+  <div class="card f-frost reveal">
+    <div class="item"><span class="no">1</span><span>Is a Chinese character a PICTURE 🖼️ or a LETTER 🔤? Vote first!</span></div>
+    <div class="item"><span class="no">2</span><span>English has 26 letters. How many characters does a Chinese schoolkid need? <span class="tail">500? 1500? 3000?</span></span></div>
+    <div class="item"><span class="no">3</span><span>Look at 山 again — does the drawing help you? Which of today's six is the easiest to remember?</span></div>
+    <div class="item"><span class="no">4</span><span>Could YOU learn to read Chinese in five minutes? <span class="tail">— risky question…</span></span></div>
+  </div>
+  <p class="note reveal">Keep your answers in your head — the video <strong>checks every one of them</strong>.</p>
+</section>
+
+<!-- 8 · HOMEWORK — the Chinese video -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">Your mission: <span class="spray">Chinese</span>, six minutes</h1>
+  <div class="rule reveal"></div>
+  <div class="card f-frost reveal">
+    <div class="item"><span class="no">1</span><span><span class="ico">🎬</span> Watch the video I'll send you on Telegram — ShaoLan, <em>"Learn to read Chinese with ease"</em> (TED).</span></div>
+    <div class="item"><span class="no">2</span><span><span class="ico">🔢</span> Count how many characters you understood WITHOUT subtitles. Remember the number.</span></div>
+    <div class="item"><span class="no">3</span><span><span class="ico">🧑‍🏫</span> Pick your favourite character — next lesson <strong>you teach ME</strong>. Thirty seconds, no help.</span></div>
+  </div>
+  <p class="note reveal">And bring your best fashion-and-money sentence — <strong>the flood continues</strong>.</p>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 8</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));   /* the #n hash keeps the slide */
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+let wt=0;document.addEventListener('wheel',e=>{const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+document.querySelectorAll('.gap').forEach(g=>g.addEventListener('click',()=>{g.textContent=g.dataset.a;g.classList.add('filled');}));
+/* deep link: open the deck on slide #n */
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+/* READY-CHIME (standing rule, 2026-09-04): when ZCode saves a new version
+   of this deck, the OPEN window chimes and reloads itself — no manual
+   refresh; the #n hash keeps the current slide. Needs http:// (the local
+   server); on file:// it stays quiet. Any tap unlocks the audio. */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{        /* ding — dong */
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alika · L5 · What’s the weather like?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================
+   Design tokens — Minty Fresh palette
+   =========================================================== */
+:root{
+  --mint:#95E1D3;
+  --mint-deep:#5ecbb8;
+  --peach:#FCE38A;
+  --lavender:#C8B6FF;
+  --lavender-deep:#9a7fff;
+  --cream:#FFF8F0;
+  --ink:#2D3436;
+  --ink-soft:#636e72;
+  --pink:#FF8FAB;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(45,52,54,.12);
+  --shadow-lg:0 20px 50px rgba(45,52,54,.18);
+  --radius:22px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:'Nunito',system-ui,sans-serif;
+  color:var(--ink);
+  background:var(--cream);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ===========================================================
+   Progress bar
+   =========================================================== */
+#progress-track{
+  position:fixed;top:0;left:0;right:0;height:7px;z-index:100;
+  background:rgba(200,182,255,.25);
+}
+#progress-fill{
+  height:100%;width:0;
+  background:linear-gradient(90deg,var(--mint),var(--lavender),var(--pink));
+  transition:width .45s cubic-bezier(.22,1,.36,1);
+}
+
+/* ===========================================================
+   Slide deck
+   =========================================================== */
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;
+  padding:4.2vh 5vw 11vh;
+  opacity:0;
+  transform:translateX(60px) scale(.985);
+  transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);
+  pointer-events:none;
+  overflow:auto;
+}
+.slide.active{
+  opacity:1;transform:none;pointer-events:auto;z-index:2;
+}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+
+/* staggered child reveal */
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.40s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ===========================================================
+   Typography & shared blocks
+   =========================================================== */
+.eyebrow{
+  font-family:'Fredoka',sans-serif;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  font-size:clamp(.7rem,1.1vw,.95rem);color:var(--lavender-deep);
+  margin-bottom:.4em;
+}
+h1.title{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.05;
+  margin-bottom:.5em;
+}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--lavender));margin-bottom:1.1em}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
+
+.card{
+  background:var(--white);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:clamp(1rem,2vw,1.8rem);
+}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.card.pink{background:#ffe9f0}
+
+.pill{
+  display:inline-flex;align-items:center;gap:.35em;
+  font-family:'Fredoka',sans-serif;font-weight:600;
+  padding:.4em .9em;border-radius:99px;font-size:clamp(.95rem,1.5vw,1.2rem);
+  background:var(--white);box-shadow:0 4px 14px rgba(45,52,54,.08);
+}
+
+/* target word chips */
+.chips{display:flex;flex-wrap:wrap;gap:.7em}
+.chip{
+  font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.2rem,2.2vw,1.9rem);
+  padding:.35em .7em;border-radius:14px;background:var(--white);
+  box-shadow:0 6px 16px rgba(45,52,54,.1);
+}
+
+/* ===========================================================
+   Scene — Mia + sun (CSS art, no photos)
+   =========================================================== */
+.scene{
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(1rem,3vw,2.5rem);
+  min-height:clamp(200px,32vh,330px);
+}
+.sun{
+  width:clamp(110px,15vw,180px);aspect-ratio:1;border-radius:50%;flex-shrink:0;
+  background:radial-gradient(circle at 35% 35%,#fff3b0,#FCE38A 45%,#ffb84d);
+  box-shadow:0 0 50px rgba(252,227,138,.95),0 0 110px rgba(255,184,77,.45);
+}
+.scene .girl{font-size:clamp(4.2rem,8.5vw,6.8rem);line-height:1}
+.scene .fan{font-size:clamp(1.6rem,2.8vw,2.3rem)}
+.scene-cap{
+  text-align:center;font-family:'Fredoka',sans-serif;font-weight:500;
+  color:var(--ink-soft);font-size:clamp(.95rem,1.4vw,1.15rem);margin-top:.8em;
+}
+
+/* model dialogue lines */
+.model-line{
+  font-size:clamp(1.15rem,2vw,1.6rem);padding:.55em 1em;border-radius:14px;
+  background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);
+}
+.model-line .who{color:var(--ink-soft);font-weight:700}
+.model-line .its{color:var(--mint-deep);font-weight:800}
+.model-line .im{color:var(--pink);font-weight:800}
+.model-line .key{color:var(--lavender-deep);font-weight:800}
+
+.pattern-box{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.8rem,4vw,3rem);
+  background:linear-gradient(135deg,#eafbf6,#f1ecff);
+  border-radius:var(--radius);padding:.5em 1em;display:inline-block;box-shadow:var(--shadow);
+}
+.pattern-box .slot{
+  display:inline-block;min-width:1.4em;border-bottom:6px solid var(--pink);margin:0 .15em;color:var(--pink);
+}
+.pattern-box .its{color:var(--mint-deep)}
+.pattern-box .im{color:var(--pink)}
+
+/* ===========================================================
+   Weather pictograms — click to reveal the word
+   =========================================================== */
+.weather-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:clamp(.7rem,1.4vw,1.2rem)}
+.weather{
+  background:var(--white);border-radius:var(--radius);padding:1.1em .8em;text-align:center;
+  box-shadow:var(--shadow);cursor:pointer;transition:transform .15s ease;user-select:none;
+}
+.weather:hover{transform:translateY(-4px)}
+.weather .ico{font-size:clamp(2.6rem,5.5vw,3.8rem);line-height:1}
+.weather .nm{
+  font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.15rem,2vw,1.6rem);margin-top:.4em;
+  filter:blur(9px);transition:filter .35s ease;
+}
+.weather.shown .nm{filter:blur(0)}
+
+/* ===========================================================
+   Body parts (hurt / hurts)
+   =========================================================== */
+.bp-row{
+  display:flex;align-items:center;gap:.6em;
+  font-size:clamp(1.15rem,2vw,1.55rem);font-weight:700;
+  padding:.5em .8em;border-radius:14px;background:var(--white);
+  margin-bottom:.55em;box-shadow:0 4px 12px rgba(45,52,54,.06);
+}
+.bp-row .ico{font-size:1.4em;line-height:1}
+.bp-row .hurts{color:var(--pink);font-weight:800}
+.bp-row .hurt{color:var(--mint-deep);font-weight:800}
+
+/* ===========================================================
+   Gap fill
+   =========================================================== */
+.sent-list{display:grid;grid-template-columns:1fr 1fr;gap:.7em 1.4em}
+.sent{
+  font-size:clamp(1rem,1.55vw,1.3rem);line-height:1.4;padding:.5em .2em;
+  border-bottom:2px dotted rgba(200,182,255,.5);
+}
+.sent .hl{font-weight:800;color:var(--lavender-deep)}
+.sent .hl-pink{font-weight:800;color:var(--pink)}
+.gap{
+  display:inline-block;min-width:3.2em;border-bottom:4px solid var(--mint-deep);
+  text-align:center;font-family:'Fredoka';font-weight:600;color:transparent;
+  cursor:pointer;transition:all .2s ease;padding:0 .15em;border-radius:4px 4px 0 0;
+}
+.gap:hover{background:#eafbf6}
+.gap.filled{color:var(--lavender-deep);border-color:var(--lavender);background:#f1ecff}
+.wordbank{
+  display:flex;flex-wrap:wrap;gap:.5em;justify-content:center;
+  background:#fff8db;border-radius:var(--radius);padding:1em;
+}
+.wordbank .wb{
+  font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.4vw,1.15rem);
+  padding:.3em .7em;border-radius:99px;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.08);
+}
+
+/* ===========================================================
+   Reading + yes/no + open questions
+   =========================================================== */
+.read-text{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.7}
+.read-text .hl{font-weight:800;color:var(--lavender-deep)}
+.yn-list{display:grid;grid-template-columns:1fr 1fr;gap:.5em 1em}
+.yn{
+  display:flex;align-items:center;gap:.6em;cursor:pointer;
+  padding:.5em .8em;border-radius:12px;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.06);
+  font-size:clamp(1rem,1.5vw,1.25rem);
+}
+.yn .badge{
+  flex-shrink:0;width:1.7em;height:1.7em;border-radius:50%;display:grid;place-items:center;
+  font-family:'Fredoka';font-weight:700;font-size:.85em;background:#eee;color:transparent;transition:all .2s;
+}
+.yn.shown-yes .badge{background:var(--mint);color:var(--ink)}
+.yn.shown-no .badge{background:var(--pink);color:#fff}
+
+.qa{cursor:pointer}
+.qa .q{font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight:700}
+.qa .ans{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.3rem,2.6vw,2rem);color:var(--lavender-deep);
+  opacity:0;transform:scale(.6);transition:all .45s cubic-bezier(.34,1.56,.64,1);
+  margin-top:.25em;
+}
+.qa.shown .ans{opacity:1;transform:scale(1)}
+
+/* ===========================================================
+   Homework
+   =========================================================== */
+.hw-step{
+  display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;background:var(--white);
+  box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.7em;
+}
+.hw-step .n{
+  flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--lavender));
+  display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:var(--ink);
+}
+.hw-step .ru{font-size:clamp(1rem,1.6vw,1.3rem);line-height:1.4}
+.hw-step .en{font-family:'Fredoka';color:var(--lavender-deep);font-weight:600}
+
+/* ===========================================================
+   Navigation
+   =========================================================== */
+#nav{
+  position:fixed;bottom:2.4vh;left:50%;transform:translateX(-50%);z-index:90;
+  display:flex;align-items:center;gap:1em;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  padding:.5em 1em;border-radius:99px;box-shadow:var(--shadow-lg);
+}
+.nav-btn{
+  width:3em;height:3em;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--mint),var(--lavender));
+  display:grid;place-items:center;color:var(--ink);font-size:1.2rem;
+  box-shadow:0 6px 16px rgba(90,123,191,.25);transition:transform .15s ease;
+  font-family:'Fredoka';
+}
+.nav-btn:hover{transform:scale(1.08)}
+.nav-btn:active{transform:scale(.95)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#counter{font-family:'Fredoka';font-weight:600;font-size:1.1rem;min-width:3.5em;text-align:center}
+#counter .now{color:var(--lavender-deep)}
+#fs-btn{
+  width:2.6em;height:2.6em;border-radius:50%;border:none;cursor:pointer;background:var(--white);
+  box-shadow:0 6px 16px rgba(45,52,54,.1);font-size:1rem;transition:transform .15s ease;
+}
+#fs-btn:hover{transform:scale(1.08)}
+
+/* helper layout */
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:1em}
+.center{text-align:center}
+.mt{margin-top:1em}
+.muted{color:var(--ink-soft)}
+.task{
+  font-family:'Fredoka';font-weight:500;color:var(--ink);
+  background:#fff8db;border-radius:14px;padding:.6em 1em;display:inline-block;
+  font-size:clamp(1rem,1.6vw,1.3rem);
+}
+.task::before{content:"🎯 "}
+
+/* responsive tweaks */
+@media(max-width:900px){
+  .sent-list,.yn-list{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<main id="deck">
+
+  <!-- ===================== SLIDE 1 — weather hero ===================== -->
+  <section class="slide" id="s1">
+    <div class="eyebrow reveal">Lesson 5 · Weather</div>
+    <h1 class="title reveal">What’s the weather like?</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:stretch;gap:2em">
+      <div class="card mint" style="flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div class="scene">
+          <div class="sun" role="img" aria-label="bright sun"></div>
+          <div class="girl">👧</div>
+          <div class="fan">💨</div>
+        </div>
+        <div class="scene-cap">Mia is hot. She is fanning her face.</div>
+      </div>
+
+      <div class="col reveal" style="flex:1.1;justify-content:center;gap:.8em">
+        <div class="model-line"><span class="who">👧 Mia:</span> Hot!</div>
+        <div class="model-line"><span class="who">🧑‍🏫:</span> What’s the weather like?</div>
+        <div class="pattern-box"><span class="its">It’s</span> hot! 🥵</div>
+      </div>
+    </div>
+
+    <p class="task reveal mt">Listen and repeat. Then you ask me: “What’s the weather like?”</p>
+  </section>
+
+  <!-- ===================== SLIDE 2 — weather words ===================== -->
+  <section class="slide" id="s2">
+    <div class="eyebrow reveal">Weather words</div>
+    <h1 class="title reveal">Five kinds of weather 🌦️</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="center reveal" style="margin-bottom:1em">
+      <div class="pattern-box"><span class="its">It’s</span> <span class="slot">…</span>!</div>
+    </div>
+
+    <div class="weather-grid reveal">
+      <div class="weather"><div class="ico">☀️</div><div class="nm">sunny</div></div>
+      <div class="weather"><div class="ico">🌬️</div><div class="nm">windy</div></div>
+      <div class="weather"><div class="ico">☁️</div><div class="nm">cloudy</div></div>
+      <div class="weather"><div class="ico">🌧️</div><div class="nm">rainy</div></div>
+      <div class="weather"><div class="ico">🌫️</div><div class="nm">foggy</div></div>
+    </div>
+
+    <p class="task reveal mt">Point and say: “It’s sunny!” 👆 click the card to check</p>
+  </section>
+
+  <!-- ===================== SLIDE 3 — weather gap fill ===================== -->
+  <section class="slide" id="s3">
+    <div class="eyebrow reveal">Practice</div>
+    <h1 class="title reveal">What’s the weather like?</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="sent-list reveal" style="grid-template-columns:1fr;max-width:760px;margin:0 auto;gap:.5em">
+      <div class="sent">1. ☀️ The sun is bright. It’s <span class="gap" data-w="sunny">sunny</span>.</div>
+      <div class="sent">2. 🪁 I fly a kite. It’s <span class="gap" data-w="windy">windy</span>.</div>
+      <div class="sent">3. ☁️☁️ Many clouds. It’s <span class="gap" data-w="cloudy">cloudy</span>.</div>
+      <div class="sent">4. ☂️ Take an umbrella! It’s <span class="gap" data-w="rainy">rainy</span>.</div>
+      <div class="sent">5. 🌫️ I can’t see far. It’s <span class="gap" data-w="foggy">foggy</span>.</div>
+    </div>
+
+    <div class="reveal mt">
+      <div class="muted center" style="font-family:'Fredoka';font-weight:500;margin-bottom:.5em">📖 Word bank</div>
+      <div class="wordbank">
+        <span class="wb">sunny</span><span class="wb">windy</span><span class="wb">cloudy</span>
+        <span class="wb">rainy</span><span class="wb">foggy</span>
+      </div>
+    </div>
+    <p class="muted center mt reveal" style="font-size:.9em">👆 Click a gap to reveal the word.</p>
+  </section>
+
+  <!-- ===================== SLIDE 4 — what's the matter hero ===================== -->
+  <section class="slide" id="s4">
+    <div class="eyebrow reveal">Lesson 5 · Feelings</div>
+    <h1 class="title reveal">What’s the matter?</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:stretch;gap:2em">
+      <div class="card pink" style="flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div class="scene">
+          <div class="girl">🥵</div>
+          <div class="fan">💨</div>
+        </div>
+        <div class="scene-cap">Mia is fanning her face. She is uncomfortable.</div>
+      </div>
+
+      <div class="col reveal" style="flex:1.1;justify-content:center;gap:.8em">
+        <div class="model-line"><span class="who">👧 Mia:</span> Hot!</div>
+        <div class="model-line"><span class="who">🧑‍🏫:</span> What’s the matter?</div>
+        <div class="pattern-box"><span class="im">I’m</span> hot! 🥵</div>
+      </div>
+    </div>
+
+    <div class="row reveal mt" style="gap:1em;justify-content:center">
+      <div class="card mint" style="flex:1;max-width:380px">
+        <div class="model-line">🌡 What’s the weather like?<br><span class="its">It’s</span> hot.</div>
+      </div>
+      <div class="card pink" style="flex:1;max-width:380px">
+        <div class="model-line">🥵 What’s the matter?<br><span class="im">I’m</span> hot.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 5 — body parts hurt/hurts ===================== -->
+  <section class="slide" id="s5">
+    <div class="eyebrow reveal">Body parts</div>
+    <h1 class="title reveal">My knee hurts.</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:flex-start;gap:1.6em">
+      <div class="card mint" style="flex:1">
+        <h2 style="margin-bottom:.6em">1️⃣ One body part</h2>
+        <div class="bp-row"><span class="ico">🦵</span> My knee <span class="hurts">hurts</span>.</div>
+        <div class="bp-row"><span class="ico">👃</span> My nose <span class="hurts">hurts</span>.</div>
+      </div>
+      <div class="card lavender" style="flex:1">
+        <h2 style="margin-bottom:.6em">2️⃣ Two body parts</h2>
+        <div class="bp-row"><span class="ico">👀</span> My eyes <span class="hurt">hurt</span>.</div>
+        <div class="bp-row"><span class="ico">👂</span> My ears <span class="hurt">hurt</span>.</div>
+      </div>
+    </div>
+
+    <div class="row reveal mt" style="gap:1em;justify-content:center">
+      <span class="pill">1 → hurt<b style="color:var(--pink)">s</b> 🩹</span>
+      <span class="pill">2 → <b style="color:var(--mint-deep)">hurt</b> 🩹🩹</span>
+    </div>
+
+    <p class="task reveal mt">Point and say: “My knee hurts.”</p>
+  </section>
+
+  <!-- ===================== SLIDE 6 — hurt/hurts practice ===================== -->
+  <section class="slide" id="s6">
+    <div class="eyebrow reveal">Practice</div>
+    <h1 class="title reveal">hurt or hurts?</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="sent-list reveal" style="grid-template-columns:1fr;max-width:760px;margin:0 auto;gap:.5em">
+      <div class="sent">1. 🦵 My knee <span class="gap" data-w="hurts">hurts</span>.</div>
+      <div class="sent">2. 👀 My eyes <span class="gap" data-w="hurt">hurt</span>.</div>
+      <div class="sent">3. 👃 My nose <span class="gap" data-w="hurts">hurts</span>.</div>
+      <div class="sent">4. 👂 My ears <span class="gap" data-w="hurt">hurt</span>.</div>
+      <div class="sent">5. 🤸‍♀️ I do gymnastics. My legs <span class="gap" data-w="hurt">hurt</span>!</div>
+      <div class="sent">6. 🥵 What’s the <span class="gap" data-w="matter">matter</span>? — I’m hot!</div>
+    </div>
+
+    <div class="reveal mt">
+      <div class="muted center" style="font-family:'Fredoka';font-weight:500;margin-bottom:.5em">📖 Word bank</div>
+      <div class="wordbank">
+        <span class="wb">hurts</span><span class="wb">hurt</span><span class="wb">matter</span>
+      </div>
+    </div>
+    <p class="task reveal mt">Say the full sentence, then click to check.</p>
+  </section>
+
+  <!-- ===================== SLIDE 7 — reading ===================== -->
+  <section class="slide" id="s7">
+    <div class="eyebrow reveal">Reading</div>
+    <h1 class="title reveal">Mia’s Hobbies</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:flex-start;gap:1.6em">
+      <div class="card peach" style="flex:1.5">
+        <div class="read-text">
+          Mia likes <span class="hl">making cupcakes</span>. She makes a <span class="hl">cake</span>.
+          The cake has Mia’s <span class="hl">name</span> on it.<br>
+          Making cupcakes is Mia’s <span class="hl">hobby</span>. Mia also likes
+          <span class="hl">skateboarding</span>. She has a <span class="hl">new skateboard</span>.<br>
+          Mia goes skateboarding with <span class="hl">Mike</span>. Mike likes
+          <span class="hl">games</span>. They play <span class="hl">board games</span>.<br>
+          Mia has a <span class="hl">bike</span>, but she is <span class="hl">not riding</span> it today.
+          Today, she is going <span class="hl">skateboarding</span>.<br>
+          Mia goes to <span class="hl">school</span> on <span class="hl">Monday</span>.
+          Her class has a <span class="hl">whiteboard</span>.
+        </div>
+      </div>
+      <div class="card reveal" style="flex:.8">
+        <h2 style="margin-bottom:.6em">📖 Words</h2>
+        <div class="col" style="gap:.6em">
+          <span class="pill">🧁 cupcakes</span>
+          <span class="pill">🛹 skateboard</span>
+          <span class="pill">🎲 board game</span>
+          <span class="pill">🚲 bike</span>
+          <span class="pill">⬜ whiteboard</span>
+        </div>
+      </div>
+    </div>
+    <p class="task reveal mt">Read aloud, sentence by sentence.</p>
+  </section>
+
+  <!-- ===================== SLIDE 8 — yes/no questions ===================== -->
+  <section class="slide" id="s8">
+    <div class="eyebrow reveal">Reading check</div>
+    <h1 class="title reveal">Yes or No?</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="card reveal" style="max-width:980px;margin:0 auto">
+      <div class="yn-list" id="ynList">
+        <div class="yn" data-a="yes"><span class="badge">Y</span>Does Mia like making cupcakes?</div>
+        <div class="yn" data-a="no"><span class="badge">N</span>Does Mia make a game?</div>
+        <div class="yn" data-a="no"><span class="badge">N</span>Does the cake have Mike’s name on it?</div>
+        <div class="yn" data-a="no"><span class="badge">N</span>Does Mia have an old skateboard?</div>
+        <div class="yn" data-a="yes"><span class="badge">Y</span>Does Mia have a new skateboard?</div>
+        <div class="yn" data-a="no"><span class="badge">N</span>Is Mia riding her bike today?</div>
+        <div class="yn" data-a="no"><span class="badge">N</span>Does Mia go to school on Sunday?</div>
+      </div>
+      <p class="muted mt" style="font-size:.9em">Answer: “Yes, she does.” / “No, she doesn’t.” 👆 click to check</p>
+    </div>
+  </section>
+
+  <!-- ===================== SLIDE 9 — open questions ===================== -->
+  <section class="slide" id="s9">
+    <div class="eyebrow reveal">Reading check · part 2</div>
+    <h1 class="title reveal">Last questions! 🎁</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="col reveal" style="max-width:760px;margin:0 auto;gap:1em">
+      <div class="card qa">
+        <div class="q">8. What is Mia’s hobby?</div>
+        <div class="ans">Making cupcakes! 🧁</div>
+      </div>
+      <div class="card qa">
+        <div class="q">9. What is Mia doing today?</div>
+        <div class="ans">She is going skateboarding. 🛹</div>
+      </div>
+      <div class="card qa">
+        <div class="q">10. What does her class have?</div>
+        <div class="ans">A whiteboard. ⬜</div>
+      </div>
+    </div>
+    <p class="muted center mt reveal" style="font-size:.9em">Answer first, then 👆 click the card to check.</p>
+  </section>
+
+  <!-- ===================== SLIDE 10 — speaking ===================== -->
+  <section class="slide" id="s10">
+    <div class="eyebrow reveal">Speaking</div>
+    <h1 class="title reveal">Ask and answer</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="justify-content:center;gap:1.4em;align-items:flex-start">
+      <div class="center">
+        <div class="pattern-box">What’s the weather like today?</div>
+        <div class="pattern-box mt"><span class="its">It’s</span> <span class="slot">…</span>!</div>
+      </div>
+      <div class="center">
+        <div class="pattern-box">What’s the matter?</div>
+        <div class="pattern-box mt">My <span class="slot">…</span> <span style="color:var(--pink)">hurts</span>.</div>
+      </div>
+    </div>
+
+    <div class="col reveal mt" style="max-width:640px;margin:1.2em auto 0;gap:.7em">
+      <div class="model-line">🤸‍♀️ I do gymnastics. My <span class="key">legs</span> <span class="hurt" style="color:var(--mint-deep);font-weight:800">hurt</span>!</div>
+      <div class="model-line">🥵 I’m <span class="im">hot</span>! 💨</div>
+      <div class="model-line">🌧️ It’s <span class="its">rainy</span>. Let’s stay home!</div>
+    </div>
+
+    <div class="reveal mt">
+      <div class="muted center" style="font-family:'Fredoka';font-weight:500;margin-bottom:.5em">📖 Word bank</div>
+      <div class="wordbank">
+        <span class="wb">sunny</span><span class="wb">windy</span><span class="wb">cloudy</span>
+        <span class="wb">rainy</span><span class="wb">foggy</span><span class="wb">hot</span>
+        <span class="wb">cold</span><span class="wb">knee</span><span class="wb">nose</span>
+        <span class="wb">eyes</span><span class="wb">ears</span><span class="wb">legs</span>
+      </div>
+    </div>
+    <p class="task reveal mt">Ask me and answer. Then I ask you! 🗣</p>
+  </section>
+
+  <!-- ===================== SLIDE 11 — homework ===================== -->
+  <section class="slide" id="s11">
+    <div class="eyebrow reveal">Homework · speaking</div>
+    <h1 class="title reveal">📝 Домашнее задание</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="card mint reveal" style="max-width:820px;margin:0 auto">
+      <p style="font-family:'Fredoka';font-weight:500;margin-bottom:.6em">📹 Запиши 2 коротких видео (по 20–30 секунд).</p>
+      <div class="hw-step">
+        <div class="n">1</div>
+        <div class="ru">Посмотри в окно и расскажи о погоде: <span class="en">“What’s the weather like? It’s sunny. It’s warm.”</span></div>
+      </div>
+      <div class="hw-step">
+        <div class="n">2</div>
+        <div class="ru">Скажи, что у тебя болит: <span class="en">“My leg hurts. I do gymnastics!”</span> 🤸‍♀️</div>
+      </div>
+    </div>
+
+    <div class="center reveal mt">
+      <div class="wordbank" style="max-width:760px;margin:0 auto">
+        <span class="wb">sunny</span><span class="wb">windy</span><span class="wb">cloudy</span>
+        <span class="wb">rainy</span><span class="wb">foggy</span><span class="wb">hot</span>
+        <span class="wb">cold</span><span class="wb">knee</span><span class="wb">nose</span>
+        <span class="wb">eyes</span><span class="wb">ears</span><span class="wb">hurts</span><span class="wb">hurt</span>
+      </div>
+    </div>
+    <p class="task reveal mt">📥 Запиши и пришли мне видео до следующего урока.</p>
+  </section>
+
+</main>
+
+<!-- ===================== Navigation ===================== -->
+<div id="nav">
+  <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
+  <div id="counter"><span class="now">1</span> / 11</div>
+  <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
+  <button id="fs-btn" title="Fullscreen (F)">⛶</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+
+  const fill = document.getElementById('progress-fill');
+  const counter = document.getElementById('counter').querySelector('.now');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const fsBtn = document.getElementById('fs-btn');
+
+  function render(){
+    slides.forEach((s,i)=>{
+      s.classList.toggle('active', i===current);
+      s.classList.toggle('prev', i<current);
+    });
+    counter.textContent = current+1;
+    fill.style.width = ((current+1)/total*100) + '%';
+    prevBtn.disabled = current===0;
+    nextBtn.disabled = current===total-1;
+  }
+
+  function go(n){
+    current = Math.max(0, Math.min(total-1, n));
+    render();
+  }
+  const next = ()=>go(current+1);
+  const prev = ()=>go(current-1);
+
+  // buttons
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+
+  // keyboard: arrows / space / home / end / f
+  document.addEventListener('keydown', e=>{
+    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
+    switch(e.key){
+      case 'ArrowRight': case 'ArrowDown': e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'ArrowUp': e.preventDefault(); prev(); break;
+      case ' ': e.preventDefault(); next(); break;
+      case 'Home': e.preventDefault(); go(0); break;
+      case 'End': e.preventDefault(); go(total-1); break;
+      case 'f': case 'F': toggleFs(); break;
+    }
+  });
+
+  // mouse wheel (debounced)
+  let wheelLock = false;
+  document.getElementById('deck').addEventListener('wheel', e=>{
+    if(wheelLock) return;
+    if(Math.abs(e.deltaY) < 25) return;
+    wheelLock = true;
+    (e.deltaY>0 ? next() : prev());
+    setTimeout(()=>wheelLock=false, 650);
+  }, {passive:true});
+
+  // touch swipe
+  let touchX=null;
+  document.addEventListener('touchstart', e=>{touchX=e.changedTouches[0].clientX},{passive:true});
+  document.addEventListener('touchend', e=>{
+    if(touchX===null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx)>60){ dx<0 ? next() : prev(); }
+    touchX=null;
+  },{passive:true});
+
+  // fullscreen
+  function toggleFs(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+    else { document.exitFullscreen?.(); }
+  }
+  fsBtn.addEventListener('click', toggleFs);
+
+  // ---- Slide 2 weather pictograms: click to reveal the word ----
+  document.querySelectorAll('.weather').forEach(w=>{
+    w.addEventListener('click', ()=> w.classList.toggle('shown'));
+  });
+
+  // ---- Gap fill: click to reveal ----
+  document.querySelectorAll('.gap').forEach(g=>{
+    g.addEventListener('click', ()=> g.classList.toggle('filled'));
+  });
+
+  // ---- Slide 8 yes/no: click to check ----
+  document.querySelectorAll('#ynList .yn').forEach(yn=>{
+    yn.addEventListener('click', ()=>{
+      const a = yn.dataset.a;
+      yn.classList.remove('shown-yes','shown-no');
+      yn.classList.add(a==='yes' ? 'shown-yes' : 'shown-no');
+      yn.querySelector('.badge').textContent = a==='yes' ? '✓' : '✗';
+    });
+  });
+
+  // ---- Slide 9 open questions: click to reveal the answer ----
+  document.querySelectorAll('.qa').forEach(q=>{
+    q.addEventListener('click', ()=> q.classList.add('shown'));
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
