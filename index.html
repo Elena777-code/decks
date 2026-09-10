@@ -23,7 +23,16 @@
   h1{font-size:30px; margin:0 0 4px; letter-spacing:-.5px}
   .hint{color:var(--sub); font-size:15px; margin:0 0 30px}
   h2{font-size:21px; margin:34px 0 4px; display:flex; align-items:center; gap:10px}
-  h2 .dot{width:13px; height:13px; border-radius:50%; flex:none}
+  .dot{width:13px; height:13px; border-radius:50%; flex:none}
+  details.sect{margin:34px 0 0}
+  .sect summary{list-style:none; display:flex; align-items:center; gap:10px;
+    cursor:pointer; font-size:21px; font-weight:700; min-height:34px}
+  .sect summary::-webkit-details-marker{display:none}
+  .sect .meta{margin-left:auto; font-size:12.5px; font-weight:600; color:var(--sub)}
+  .sect .arrow{color:var(--sub); font-size:14px; transition:transform .18s}
+  .sect[open] .arrow{transform:rotate(90deg)}
+  .sect[open] summary{margin-bottom:10px}
+  .sect .sect-sub{margin:8px 0 14px}
   .sect-sub{color:var(--sub); font-size:14px; margin:0 0 14px}
   .chips{display:flex; flex-wrap:wrap; gap:12px}
   .chips.pupils{display:block}
@@ -59,19 +68,25 @@
 <h1>Elena's decks 🎀</h1>
 <p class="hint">One link instead of a memory stick. Tap a deck — it opens right here.</p>
 
-<h2><span class="dot" style="background:var(--kb)"></span>KB groups</h2>
-<p class="sect-sub">all KB groups keep the same pace — find your lesson code</p>
-<div class="chips">
-  <a class="chip kb" href="kb/kb1-u1-l1.html"><span class="code">KB 1 U1 L1</span><span class="what">Kid's Box 1 · Unit 1 · Lesson 1</span></a>
-</div>
+<details class="sect">
+  <summary><span class="dot" style="background:var(--kb)"></span><span>KB groups</span><span class="meta">same pace · latest KB 1 U1 L1</span><span class="arrow">▸</span></summary>
+  <p class="sect-sub">all KB groups keep the same pace — find your lesson code</p>
+  <div class="chips">
+    <a class="chip kb" href="kb/kb1-u1-l1.html"><span class="code">KB 1 U1 L1</span><span class="what">Kid's Box 1 · Unit 1 · Lesson 1</span></a>
+  </div>
+</details>
 
-<h2><span class="dot" style="background:var(--ww)"></span>WW groups</h2>
-<div class="chips">
-  <a class="chip ww" href="ww/ww4-u8-l8.5.html"><span class="code">WW 4 U8 L8.5</span><span class="what">A burglary · Listening &amp; Vocabulary</span></a>
-</div>
+<details class="sect">
+  <summary><span class="dot" style="background:var(--ww)"></span><span>WW groups</span><span class="meta">latest WW 4 U8 L8.5</span><span class="arrow">▸</span></summary>
+  <div class="chips">
+    <a class="chip ww" href="ww/ww4-u8-l8.5.html"><span class="code">WW 4 U8 L8.5</span><span class="what">A burglary · Listening &amp; Vocabulary</span></a>
+  </div>
+</details>
 
-<h2><span class="dot" style="background:var(--gg)"></span>GG groups</h2>
-<p class="soon">the first GG deck (GG 1 U7 L3) will land here</p>
+<details class="sect">
+  <summary><span class="dot" style="background:var(--gg)"></span><span>GG groups</span><span class="meta">waiting for the first deck</span><span class="arrow">▸</span></summary>
+  <p class="soon">the first GG deck (GG 1 U7 L3) will land here</p>
+</details>
 
 <h2><span class="dot" style="background:var(--pv)"></span>Private pupils</h2>
 <div class="chips pupils">
@@ -137,17 +152,21 @@
 
 </div>
 
-<h2><span class="dot" style="background:var(--bank)"></span>Games</h2>
-<p class="sect-sub">ready games any lesson can use</p>
-<div class="chips">
-  <a class="chip bank" href="lib/silly-game.html"><span class="code">The silly game</span><span class="what">three ready games · re-click = fresh order</span></a>
-</div>
+<details class="sect">
+  <summary><span class="dot" style="background:var(--bank)"></span><span>Games</span><span class="meta">1 game</span><span class="arrow">▸</span></summary>
+  <p class="sect-sub">ready games any lesson can use</p>
+  <div class="chips">
+    <a class="chip bank" href="lib/silly-game.html"><span class="code">The silly game</span><span class="what">three ready games · re-click = fresh order</span></a>
+  </div>
+</details>
 
-<h2><span class="dot" style="background:var(--gram)"></span>Grammar</h2>
-<p class="sect-sub">памятки and reminders</p>
-<div class="chips">
-  <a class="chip gram" href="lib/verb-s-spelling.html"><span class="code">Verb + s</span><span class="what">spelling rules · памятка</span></a>
-</div>
+<details class="sect">
+  <summary><span class="dot" style="background:var(--gram)"></span><span>Grammar</span><span class="meta">1 page</span><span class="arrow">▸</span></summary>
+  <p class="sect-sub">памятки and reminders</p>
+  <div class="chips">
+    <a class="chip gram" href="lib/verb-s-spelling.html"><span class="code">Verb + s</span><span class="what">spelling rules · памятка</span></a>
+  </div>
+</details>
 
 <footer>updated 2026-09-10 · new decks appear here the day they are built</footer>
 
