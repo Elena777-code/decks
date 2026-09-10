@@ -42,8 +42,14 @@
   .bank .code{color:var(--bank)} .bank{background:var(--bank-bg); border-color:transparent}
   .gram .code{color:var(--gram)} .gram{background:var(--gram-bg); border-color:transparent}
   .pupil{background:var(--card); border:1.5px solid var(--line); border-radius:18px;
-    padding:16px 18px; margin-bottom:14px}
-  .pupil h3{margin:0 0 10px; font-size:18px}
+    padding:14px 18px; margin-bottom:14px}
+  .pupil summary{list-style:none; display:flex; align-items:center; gap:10px;
+    cursor:pointer; font-weight:700; font-size:18px; min-height:36px}
+  .pupil summary::-webkit-details-marker{display:none}
+  .pupil .meta{margin-left:auto; font-size:12.5px; font-weight:600; color:var(--sub)}
+  .pupil .arrow{color:var(--sub); font-size:14px; transition:transform .18s}
+  .pupil[open] .arrow{transform:rotate(90deg)}
+  .pupil[open] summary{margin-bottom:12px}
   .soon{color:var(--sub); font-size:14px; font-style:italic; padding:6px 2px}
   footer{margin-top:44px; color:var(--sub); font-size:13px}
 </style>
@@ -70,8 +76,8 @@
 <h2><span class="dot" style="background:var(--pv)"></span>Private pupils</h2>
 <div class="chips pupils">
 
-  <div class="pupil">
-    <h3>Alika</h3>
+  <details class="pupil">
+    <summary><span>Alika</span><span class="meta">latest L8 · 8 decks</span><span class="arrow">▸</span></summary>
     <div class="chips">
       <a class="chip pv" href="p/alika/l008.html"><span class="code">L8</span><span class="what">y: /j/ · /aɪ/ · /i/</span></a>
       <a class="chip pv" href="p/alika/l008-homework.html"><span class="code">L8</span><span class="what">homework</span><span class="tag">homework</span></a>
@@ -82,10 +88,10 @@
       <a class="chip pv" href="p/alika/l005-homework.html"><span class="code">L5</span><span class="what">homework</span><span class="tag">homework</span></a>
       <a class="chip pv" href="p/alika/l005-listening.html"><span class="code">L5</span><span class="what">listening</span><span class="tag">listening</span></a>
     </div>
-  </div>
+  </details>
 
-  <div class="pupil">
-    <h3>Sergey</h3>
+  <details class="pupil">
+    <summary><span>Sergey</span><span class="meta">latest L5 · 8 decks</span><span class="arrow">▸</span></summary>
     <div class="chips">
       <a class="chip pv" href="p/sergey/l005.html"><span class="code">L5</span><span class="what">Episode 4: Mama Varenik</span></a>
       <a class="chip pv" href="p/sergey/l004.html"><span class="code">L4</span><span class="what">Episode 3: The Panda's Secret</span></a>
@@ -96,38 +102,38 @@
       <a class="chip pv" href="p/sergey/space-mission.html"><span class="code">⭐</span><span class="what">The Rats' Space Mission</span><span class="tag">extra</span></a>
       <a class="chip pv" href="p/sergey/world-clock.html"><span class="code">⭐</span><span class="what">The Rats' World Clock</span><span class="tag">extra</span></a>
     </div>
-  </div>
+  </details>
 
-  <div class="pupil">
-    <h3>Masha Karpova</h3>
+  <details class="pupil">
+    <summary><span>Masha Karpova</span><span class="meta">latest L4 · 3 decks</span><span class="arrow">▸</span></summary>
     <div class="chips">
       <a class="chip pv" href="p/masha-karpova/l004.html"><span class="code">L4</span><span class="what">Negative adjectives · WW3 8.7</span></a>
       <a class="chip pv" href="p/masha-karpova/l003-homework.html"><span class="code">L3</span><span class="what">homework</span><span class="tag">homework</span></a>
       <a class="chip pv" href="p/masha-karpova/l002.html"><span class="code">L2</span><span class="what">The art of procrastination</span></a>
     </div>
-  </div>
+  </details>
 
-  <div class="pupil">
-    <h3>Masha Roshchupkina</h3>
+  <details class="pupil">
+    <summary><span>Masha Roshchupkina</span><span class="meta">latest L2 · 2 decks</span><span class="arrow">▸</span></summary>
     <div class="chips">
       <a class="chip pv" href="p/masha-roshchupkina/l002.html"><span class="code">L2</span><span class="what">WW3 U8 + revision</span></a>
       <a class="chip pv" href="p/masha-roshchupkina/l001.html"><span class="code">L1</span><span class="what">Welcome back</span></a>
     </div>
-  </div>
+  </details>
 
-  <div class="pupil">
-    <h3>Irina</h3>
+  <details class="pupil">
+    <summary><span>Irina</span><span class="meta">latest L1</span><span class="arrow">▸</span></summary>
     <div class="chips">
       <a class="chip pv" href="p/irina/l001.html"><span class="code">L1</span><span class="what">Places, Islands &amp; Peaches</span></a>
     </div>
-  </div>
+  </details>
 
-  <div class="pupil">
-    <h3>Pasha</h3>
+  <details class="pupil">
+    <summary><span>Pasha</span><span class="meta">latest L1</span><span class="arrow">▸</span></summary>
     <div class="chips">
       <a class="chip pv" href="p/pasha/l001.html"><span class="code">L1</span><span class="what">Hello + the Ballroom</span></a>
     </div>
-  </div>
+  </details>
 
 </div>
 
