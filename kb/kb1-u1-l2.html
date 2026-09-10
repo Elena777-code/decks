@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kid's Box 1 · Unit 1 · Lesson 2 — KB1 (script)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   KB1 — Kid's Box 1, Unit 1, Lesson 2 (group class).
+   Teacher-script deck, built STRICTLY from Farida's конспект
+   (Library/Books/Kids Box/Kids Box 1/МАТЕРИАЛЫ/Unit 1/Unit 1.pdf,
+   "LESSON 2 (UNIT 1)" block) — nothing omitted, конспект order.
+   The same конспект block runs in all three KB1 groups ("the same
+   +/-"); the reading station is NOT here — Elena runs reading at
+   the end of the lesson herself (2026-09-10, station not ready).
+   Style: the KB1.2 lesson-001 simple sheets + the standing
+   PRESENTER VIEW (spec §7, 2026-09-10): T / 🖥 opens the synced
+   presenter window (current + next + teacher notes).
+   Engine: nav bottom-right + lane, progress bar, keyboard/wheel/
+   swipe, ready-chime + #n hash, click-reveals synced both ways.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A;
+  --radius:18px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease;font-family:inherit}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:4.2vh 5vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.5vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.85rem,1.4vw,1.05rem);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.4rem,2.8vw,2.3rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.8rem,1.3vw,1rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.18em .75em;
+  background:#fff;margin-bottom:.2em}
+.task{font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.55;font-weight:500}
+.task strong{color:var(--accent)}
+.ask{font-size:clamp(1.05rem,1.8vw,1.35rem);line-height:1.5;color:#4a463d}
+.note{font-size:clamp(.92rem,1.4vw,1.1rem);color:var(--ink-soft);font-style:italic;line-height:1.5}
+.flag{font-size:clamp(.9rem,1.35vw,1.05rem);color:#9a6a2f;font-style:italic;
+  line-height:1.55;background:#FBF3E4;border:1.5px dashed #E3C48A;
+  border-radius:12px;padding:.7em 1em}
+audio{width:min(520px,92%);height:44px;display:block;margin:.2em 0}
+video{width:min(420px,88%);border-radius:12px;display:block;margin:.2em 0;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+ul.materials{list-style:none}
+ul.materials li{padding:.28em 0;border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.5}
+ul.materials li:last-child{border-bottom:none}
+.checklist{display:flex;flex-direction:column;gap:1vh}
+.check-item{display:flex;gap:12px;align-items:flex-start;background:#fff;
+  border:1px solid var(--line);border-radius:12px;padding:.9vh 1vw;
+  font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.45}
+.check-item .box{flex:0 0 auto;width:1.1em;height:1.1em;border:2px solid var(--accent);border-radius:6px;margin-top:.12em}
+a.hw-link{display:inline-block;margin-top:.3em;font-weight:700;color:#fff;
+  background:var(--accent);border-radius:99px;padding:.5em 1.1em;
+  text-decoration:none;font-size:clamp(1rem,1.6vw,1.25rem)}
+a.hw-link:hover{opacity:.9}
+
+/* ---------- click-reveal (synced with the presenter window) ---------- */
+.reveal-btn{font-family:'Inter',sans-serif;font-size:clamp(.95rem,1.5vw,1.2rem);font-weight:800;
+  color:#fff;background:var(--accent);border:none;border-radius:99px;
+  padding:.5em 1.3em;cursor:pointer;transition:transform .15s ease;align-self:flex-start}
+.reveal-btn:hover{transform:scale(1.06)}
+.answer{display:none;font-size:clamp(1.05rem,1.8vw,1.4rem);font-weight:600;color:var(--accent);
+  background:#E7F1EF;border-radius:12px;padding:.5em 1em;align-self:flex-start;line-height:1.45}
+.answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* ---------- presenter + embed modes (spec §7) ---------- */
+body.embed #nav,body.embed #bar{display:none}
+body.presenter .slide,body.presenter #nav,body.presenter #bar{display:none}
+#pv{position:absolute;inset:0;padding:2vh 2vw calc(74px + 2vh);display:flex;flex-direction:column;gap:1.2vh;overflow:auto}
+.pvhead{font-size:clamp(1rem,1.6vw,1.25rem);color:var(--ink-soft)}
+.pvhead b{color:var(--accent)}
+.pvhead .pvcnt{font-weight:800;color:var(--ink)}
+.pvwarn{background:#FBF3E4;border:1px solid #E3C48A;border-radius:12px;
+  padding:.6em 1em;font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink);display:none}
+.pvlabel{font-size:clamp(.8rem,1.2vw,.95rem);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.pvframe{width:100%;aspect-ratio:16/10;position:relative;overflow:hidden;background:#fff;
+  border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.pvframe iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;transform-origin:0 0}
+.pvnotes{background:#fff;border:1px solid var(--line);border-left:6px solid var(--accent);
+  border-radius:12px;padding:clamp(10px,1.6vh,16px) clamp(14px,1.6vw,22px);
+  font-size:clamp(1rem,1.6vw,1.3rem);line-height:1.45;min-height:3.2em}
+.pvbtns{display:flex;gap:10px}
+.pvbtns button{flex:1;height:52px;border-radius:99px;border:1px solid var(--line);
+  background:#fff;color:var(--accent);font-size:1.5rem;cursor:pointer;font-family:inherit}
+.pvbtns button:hover{transform:scale(1.03)}
+
+@media (max-width:900px){
+  .slide{padding:3.5vh 5vw 11vh}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER -->
+<section class="slide active" data-notes="Aim: the ss name the new characters (Monty, Maskman, Marie) and count objects 1–10. конспект timings: 10+6+6+5+6+17+5. Prep below — the two songs are videos INSIDE this deck, the two PB p.5 recordings are embedded audio (tracks 4–5). Press T (or 🖥) for the presenter window: this slide + next + notes on the laptop, the deck on the board. Reading is NOT in this deck — Elena runs it at the end of the lesson. Same конспект block runs in KB1.1/KB1.3 with their own +/-.">
+  <div class="eyebrow reveal">Kid's Box 1 (New Generation) · Unit 1 · Lesson 2 · KB1.2 — Thu 14:30</div>
+  <h1 class="reveal">New toy friends &amp; counting 1–10</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Aim:</strong> by the end, the ss have named the new characters (Monty, Maskman, Marie) and counted objects from 1 to 10.</p>
+  <p class="ask reveal"><strong>Language:</strong> What's your name?; counting 1–10; fingers; hands; dots; join &nbsp;·&nbsp; <strong>New characters:</strong> Monty, Maskman, Marie</p>
+  <p class="tag reveal">MATERIALS</p>
+  <ul class="materials reveal">
+    <li>'How are you' flashcards — good · great · wonderful · tired · hungry · not so good (printed: <code>hello-flashcards.pdf</code>)</li>
+    <li>puppets / masks of the characters</li>
+    <li>real toys: a ball, a doll, a puzzle + a box (the toy box for the chant)</li>
+    <li>character flashcards — Star family <strong>+ Monty, Maskman, Marie</strong></li>
+    <li>number flashcards 1–10 (hung around the room for the Touch game)</li>
+    <li>papers and pencils</li>
+  </ul>
+  <div class="checklist reveal">
+    <div class="check-item"><span class="box"></span><span>Both songs are <b>videos in this deck</b> (local files; the конспект links their rutube copies)</span></div>
+    <div class="check-item"><span class="box"></span><span>PB p.5 recordings <b>embedded</b>: ex.1 = track 4 · ex.2 = track 5</span></div>
+    <div class="check-item"><span class="box"></span><span>🖥 <b>Press T</b> (or 🖥) — presenter window: current + next + notes</span></div>
+    <div class="check-item"><span class="box"></span><span><b>Reading is not in this deck</b> (the station isn't ready) — run it at the end of the lesson as usual</span></div>
+  </div>
+</section>
+
+<!-- 2 · WARM UP 1/2 -->
+<section class="slide" data-notes="Greet shaking hands. Song 'Hello!' (Super Simple Songs) — the video is here; TPR ALL the actions from the video. Then the 'How are you' flashcards one by one, repeat the phrases. Each ss picks one card and answers 'How are you today?' — help with TPR (tired = sleepy face and a yawn, hungry = tummy, etc.). The 6 cards: good · great · wonderful · tired · hungry · not so good.">
+  <div class="eyebrow reveal">Warm up · 10 min — part 1</div>
+  <h1 class="reveal">Hello! — song &amp; 'How are you?'</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Greet the ss <strong>shaking hands</strong>. Play the song 'Hello!' (Super Simple Songs) and <strong>TPR all the actions</strong> in the video.</p>
+  <p class="tag reveal">🎬 SONG — 'Hello!' (greeting + feelings, Super Simple Songs)</p>
+  <video class="reveal" controls preload="none" src="../media/kb1-u1-hello.mp4"></video>
+  <p class="note reveal">The конспект links the rutube copy; this is the same song — the local file from the Lesson 2 folder.</p>
+  <p class="task reveal">Show the 'How are you' flashcards <strong>one by one</strong>, repeat the phrases. Encourage the ss to <strong>pick one card</strong> and answer <em>"How are you today?"</em> Help them with TPR.</p>
+  <p class="note reveal">Cards: good · great · wonderful · tired · hungry · not so good. Board demo of the cards: slide 3 of the child deck (kb1-2-demo-002).</p>
+</section>
+
+<!-- 3 · WARM UP 2/2 -->
+<section class="slide" data-notes="Hand out Star-family masks/puppets AND the 'How are you' flashcards. Ask: 'Simon, how are you?' — the ss answer IN ROLE (with the voice!). 'I'm great!' 'I'm tired!' Go through as many characters as the group enjoys.">
+  <div class="eyebrow reveal">Warm up · 10 min — part 2</div>
+  <h1 class="reveal">Puppets — 'Simon, how are you?'</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Hand out the <strong>masks / puppets</strong> of the Star family and the 'How are you' flashcards.</p>
+  <p class="task reveal">Ask: <em>"Simon, how are you?"</em> — help the ss reply <strong>in role</strong>: <em>"I'm great!"</em>, <em>"I'm tired!"</em> Repeat for the other characters.</p>
+  <p class="note reveal">A silly voice per character keeps them all answering. Board support: the child deck has the feelings cards on slide 3.</p>
+</section>
+
+<!-- 4 · TPR -->
+<section class="slide" data-notes="The ss sit on chairs/floor. 'Stand up' — TPR; 'sit down' — they mime. Then hand out the Star family flashcards and CALL: 'Mrs Star, stand up!' 'Suzy, sit down!' — only the child holding that character acts. Repeat for all the characters; speed up for fun.">
+  <div class="eyebrow reveal">TPR · 6 min</div>
+  <h1 class="reveal">Stand up! Sit down!</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">The ss sit on the chairs / floor. Say <strong>"Stand up"</strong> and TPR the action. Say <strong>"Sit down"</strong> — they mime it.</p>
+  <p class="task reveal">Hand out the Star family flashcards. Call: <em>"Mrs Star, stand up!"</em> · <em>"Suzy, sit down!"</em> — the ss with that card act it out. Repeat for <strong>all the characters</strong>.</p>
+  <p class="note reveal">Speed the calls up towards the end — it becomes a listening game (who catches their name?).</p>
+</section>
+
+<!-- 5 · PRESENTATION -->
+<section class="slide" data-notes="Show a ball, a doll, a puzzle: 'Look! These are toys.' Stick the Star family on the board, elicit the names. ADD the new characters: Monty, Maskman, Marie — introduce the names. 'They are toys!' Then teach the toy-box chant routine with the box: 'Toys in the toy box' (put them in, close your eyes), 'Come alive' (open eyes, get the toys out), 'Walk and talk' (walk, bla-bla-bla), 'On the count of 5' (show 5 fingers), count 1–5 on fingers. The ss repeat and do the actions with you.">
+  <div class="eyebrow reveal">Presentation · 6 min</div>
+  <h1 class="reveal">These are toys! — Monty, Maskman, Marie</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Show a <strong>ball, a doll, a puzzle</strong>: <em>"Look! These are toys."</em> Stick the Star family on the board — elicit the names.</p>
+  <p class="task reveal">Add the <strong>new characters</strong>: introduce <strong>Monty, Maskman and Marie</strong> (masks/flashcards). Say: <em>"They are toys!"</em></p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-new')">show the names</button>
+  <div class="answer" id="r-new">Monty (the mouse) · Maskman (the superhero) · Marie (with the glasses)</div>
+  <p class="task reveal">Say and mime the <strong>toy-box chant</strong> with the box:</p>
+  <p class="ask reveal">📦 <em>"Toys in the toy box"</em> — put them in, close your eyes · ✨ <em>"Come alive"</em> — open your eyes, get the toys out · 🚶 <em>"Walk and talk"</em> — walk, TPR bla-bla-bla · 5️⃣ <em>"On the count of 5"</em> — show 5 fingers, count <strong>1–5</strong> on the fingers.</p>
+  <p class="note reveal">Repeat — the ss do the actions with you. This routine opens every lesson from now on.</p>
+</section>
+
+<!-- 6 · PRACTICE -->
+<section class="slide" data-notes="Hand out the flashcards/masks, repeat the chant once all together. PB p.5 ex.1 (track 4, embedded): 'Look! What do you see?' — elicit the names from the picture (Maskman, Marie, Monty are labelled there); point and repeat ALL the characters. Play the recording and MIME the actions; pause. 'Now look and point' — TPR 'point', the ss find the picture in the book; play the rest.">
+  <div class="eyebrow reveal">Practice · 5 min</div>
+  <h1 class="reveal">PB p.5 ex.1 — listen &amp; do the actions</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Hand out the flashcards / masks and <strong>repeat the chant</strong> together.</p>
+  <p class="task reveal">PB p.5 ex.1. Say: <em>"Look! What do you see?"</em> Elicit the names — the new characters are labelled in the picture. <strong>Point and repeat</strong> all the characters.</p>
+  <p class="tag reveal">🎧 AUDIO — PB p.5 ex.1 (track 4)</p>
+  <audio class="reveal" controls preload="none" src="../media/kb1-u1-pb5-t4.mp3"></audio>
+  <p class="task reveal">Play the recording and <strong>mime the actions</strong>. Pause. The ss open their eyes, look in the book: <em>"Now look and point"</em> (TPR 'point'). Play the rest.</p>
+  <p class="note reveal">Track numbering verified against the icons on PB p.5 (ex.1 = ④). Pause the audio before flipping the slide — audio stops on slide change.</p>
+</section>
+
+<!-- 7 · PRODUCTION -->
+<section class="slide" data-notes="Invite 2 ss to the front. Give one a flashcard; ask 'What's your name?' — the ss looks AT THE CARD and says the CHARACTER's name. Same with the second; then they make a short dialogue together. Drill 'What's your name?' if needed. ICQs: 'Do you say YOUR name — I'm Katya? Or the CHARACTER's name — I'm Suzy?'">
+  <div class="eyebrow reveal">Production (speaking) · 6 min</div>
+  <h1 class="reveal">What's your name? — in role</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Invite <strong>2 ss</strong> to the front. Give one a flashcard. Ask: <em>"What's your name?"</em> — they look at the card and say the <strong>character's</strong> name. Repeat with the second student.</p>
+  <p class="task reveal">Now they make a <strong>short dialogue</strong> in pairs. Help and assist if necessary — drill <em>"What's your name?"</em> first if needed.</p>
+  <p class="ask reveal"><strong>ICQs:</strong> <em>"Do you say YOUR name — I'm Katya/Sasha? Or the character's name — Simon/Suzy?"</em></p>
+  <p class="note reveal">Board support: slide 9 of the child deck shows the model dialogue (question → click → the character answers).</p>
+</section>
+
+<!-- 8 · MATH 1/4 -->
+<section class="slide" data-notes="'Show me your hand' — hand up. 'Look! Fingers! Let's count!' — count 1–5 on one hand. 'Show me 2 hands! Let's count fingers!' — count 1–10 together. Then the song 'How many fingers?' (video embedded): first look and listen, then as a stirrer — everyone stands up, does the actions and counts.">
+  <div class="eyebrow reveal">Math · 17 min — 1/4</div>
+  <h1 class="reveal">Let's count fingers!</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Say: <em>"Show me your hand"</em> (make sure the hand goes up). <em>"Look! Fingers! Let's count!"</em> — count <strong>1–5</strong>. Then: <em>"Show me 2 hands! Let's count fingers!"</em> — count <strong>1–10</strong> together.</p>
+  <p class="tag reveal">🎬 SONG — 'How many fingers?' (Super Simple Songs)</p>
+  <video class="reveal" controls preload="none" src="../media/kb1-u1-how-many-fingers.mp4"></video>
+  <p class="task reveal">The ss look, listen and TPR the actions. As a <strong>stirrer</strong>: everyone stands up, does the actions and counts.</p>
+</section>
+
+<!-- 9 · MATH 2/4 -->
+<section class="slide" data-notes="PB p.5 ex.2 (track 5, embedded): 'What can you see?' — elicit numbers, point and ask 'What number is it?'; volunteers count 1–10. Teach 'Listen and point' (TPR) → play the recording, ss listen and point to the numbers. Play again — they CHANT. Introduce 'Say' (TPR): first loudly, then whispering — 'Listen and say'. ICQs: 'Do you say NAMES — Simon/Stella? Or NUMBERS — one, two, three?'">
+  <div class="eyebrow reveal">Math · 17 min — 2/4</div>
+  <h1 class="reveal">PB p.5 ex.2 — the numbers chant</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">PB p.5 ex.2. <em>"What can you see?"</em> Elicit numbers; point and ask: <em>"What number is it?"</em> Invite volunteers to count <strong>1–10</strong>.</p>
+  <p class="tag reveal">🎧 AUDIO — PB p.5 ex.2 (track 5)</p>
+  <audio class="reveal" controls preload="none" src="../media/kb1-u1-pb5-t5.mp3"></audio>
+  <p class="task reveal">TPR <strong>"Listen and point"</strong> → play the recording, the ss point to the numbers. Play it <strong>again — they chant</strong>.</p>
+  <p class="task reveal">Before the second listening introduce <strong>"Say"</strong> (TPR): first <strong>loudly</strong>, then <strong>whispering</strong> — <em>"Listen and say."</em></p>
+  <p class="ask reveal"><strong>ICQs:</strong> <em>"Do you say names: Simon/Stella? Do you say numbers: one, two, three?"</em></p>
+</section>
+
+<!-- 10 · MATH 3/4 -->
+<section class="slide" data-notes="Hold up different numbers of fingers — 'How many fingers?' — elicit. Then the stirrer game 'Touch': number flashcards are hung around the classroom; call 'Touch 1!' 'Touch 4!' — the ss find the number, run and touch it with their hands. Alternative: ask each student one by one and elicit the number. The child deck (slide 12) mirrors this game on the board.">
+  <div class="eyebrow reveal">Math · 17 min — 3/4</div>
+  <h1 class="reveal">How many fingers? + the game 'Touch'</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Hold up <strong>different numbers of fingers</strong> — <em>"How many fingers?"</em> — the ss elicit the numbers.</p>
+  <p class="task reveal">Game <strong>'Touch'</strong> (stirrer): the number flashcards hang around the classroom. Call: <em>"Touch 1! Touch 4!"</em> — the ss find the number, <strong>run and touch</strong> it.</p>
+  <p class="note reveal">Calm version: ask each student one by one and elicit the number before they go.</p>
+</section>
+
+<!-- 11 · MATH 4/4 -->
+<section class="slide" data-notes="AB p.5: 1) the character rows ('Look, match and say' — the конспект calls it ex.3, on the page it is ex.1): first row elicit the names — 'Marie, Maskman, Maskman, Monty, Marie, Maskman — WHAT'S NEXT?' (Maskman!); match the line to the answer on the right. 'Row number 2! How many Suzys?' — repeat for all the rows. 2) 'Join the dots' (ex.2): 'Take a pencil' (TPR); 'join the dots' — demonstrate on the board, elicit DOTS; 'Listen and join the dots!' — play the recording, monitor. 3) Hand out papers: 'Draw 5 dots' — demonstrate; then 'draw 2 dots' etc., different numbers.">
+  <div class="eyebrow reveal">Math · 17 min — 4/4</div>
+  <h1 class="reveal">AB p.5 — what's next? · join the dots</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>AB p.5, the character rows</strong> ('Look, match and say'). Elicit the names in the first row: <em>"Marie, Maskman, Maskman, Monty, Marie, Maskman — WHAT'S NEXT?"</em></p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-next')">show</button>
+  <div class="answer" id="r-next">Maskman! — then match the row to the answer on the right.</div>
+  <p class="task reveal"><em>"Row number 2! Look! How many Suzys?"</em> — repeat for <strong>all the rows</strong>. Praise every count.</p>
+  <p class="task reveal"><strong>AB p.5, 'Join the dots'.</strong> <em>"Take a pencil"</em> (TPR). <em>"Join the dots"</em> — demonstrate on the board; elicit <strong>DOTS</strong>. ICQ: <em>"What do you join?" — "The dots!"</em> Say: <em>"Listen and join the dots!"</em> — play the recording and monitor.</p>
+  <p class="flag reveal">⚠ Two catches, checked against the books: (1) the конспект calls the rows task "AB p.5 ex 3", but on the page it is <strong>ex.1</strong> ('Look, match and say'; the dots task is ex.2) — same task, different number. (2) The local AB audio for Unit 1 has <strong>no p.5 track</strong> (only pp. 4, 6, 7) — pull the 'join the dots' recording from the classroom CD / the firm's audio. The dots join 1–10 in order and picture a toy with a smiley face in the middle.</p>
+  <p class="task reveal">Hand out the <strong>papers</strong>: <em>"Draw 5 dots"</em> — demonstrate as you draw. Then <em>"Take your pencils… draw 2 dots… draw dots!"</em> — guide the ss to draw <strong>different numbers of dots</strong>.</p>
+</section>
+
+<!-- 12 · FEEDBACK -->
+<section class="slide" data-notes="Ask each ss to name ONE new word from the lesson. Board support: child deck slide 13 reveals the word chips (Monty, Maskman, Marie, toys, one…ten, dots, join). Goodbye song or the toy-box chant as the closer, then the reading slot (not in this deck — Elena runs it at the end).">
+  <div class="eyebrow reveal">Feedback &amp; goodbye · 5 min</div>
+  <h1 class="reveal">One new word</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Ask the ss to name <strong>1 new word</strong> from this lesson. Go round everyone.</p>
+  <p class="note reveal">Board support: slide 13 of the child deck has the word chips — a tap reveals them, the ss shout theirs first.</p>
+  <p class="task reveal">Goodbye routine: the toy-box chant one more time (📦✨🚶5️⃣) — then the reading slot as usual.</p>
+</section>
+
+<!-- 13 · HOMEWORK -->
+<section class="slide" data-notes="Homework from the конспект: Wordwall — listen and repeat the names of the characters (wordwall.net/resource/85538200). Show it on the board once if there's time.">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">Wordwall — the characters</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Wordwall: the ss <strong>listen and repeat the names of the characters</strong> (audio cards: Stella, Suzy, Simon, Mrs Star, Mr Star, Monty, Maskman, Marie).</p>
+  <a class="hw-link reveal" href="https://wordwall.net/resource/85538200" target="_blank" rel="noopener">Open the Wordwall game →</a>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 13</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvbtn" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<script>
+/* ================= mode ================= */
+const params=new URLSearchParams(location.search);
+const EMBED=params.get('embed');            /* 'cur' | 'next' — live thumbnails in the presenter window */
+const PRESENTER=params.get('presenter')==='1';
+const MAIN=!EMBED&&!PRESENTER;
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const revealed=new Set();
+
+/* ================= sync channel ================= */
+let bc=null;
+try{bc=new BroadcastChannel('kb1-u1l2-deck')}catch(e){}
+function send(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+
+/* ================= chrome refs ================= */
+const bar=document.getElementById('bar'),
+      cnt=document.getElementById('counter'),
+      prevBtn=document.getElementById('prev'),
+      nextBtn=document.getElementById('next');
+
+/* ================= core nav ================= */
+function show(n){
+  if(n<0||n>=slides.length)return;
+  slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
+  cur=n;
+  bar.style.width=((n+1)/slides.length*100)+'%';
+  cnt.textContent=(n+1)+' / '+slides.length;
+  prevBtn.disabled=n===0;nextBtn.disabled=n===slides.length-1;
+  if(PRESENTER)pvUpdate();
+}
+function go(n){
+  if(n<0||n>=slides.length)return;
+  show(n);
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(MAIN)history.replaceState(null,'','#'+(n+1));
+  if(MAIN)send({t:'go',n});
+}
+prevBtn.onclick=()=>go(cur-1);nextBtn.onclick=()=>go(cur+1);
+
+/* ================= reveals ================= */
+function markShown(id){
+  const a=document.getElementById(id);
+  if(!a||a.classList.contains('show'))return;
+  a.classList.add('show');
+  const b=document.querySelector('button[onclick*="\''+id+'\'"]')||document.querySelector('button[onclick*="'+id+'"]');
+  if(b){b.textContent='✅ показано';b.style.opacity=.55;b.disabled=true;}
+}
+function reveal(btn,id){
+  markShown(id);
+  if(!revealed.has(id)){revealed.add(id);}
+  send({t:'reveal',id});
+}
+
+/* ================= messages ================= */
+if(bc)bc.onmessage=e=>{
+  const m=e.data||{};
+  if(m.t==='go'){
+    if(EMBED){show(EMBED==='cur'?m.n:Math.min(m.n+1,slides.length-1));}
+    else if(MAIN&&m.n!==cur){show(m.n);history.replaceState(null,'','#'+(m.n+1));
+      document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});}
+    else if(PRESENTER){cur=m.n;pvUpdate();}
+  }
+  if(m.t==='set'&&MAIN)go(m.n);
+  if(m.t==='reveal'){
+    if(EMBED||MAIN){markShown(m.id);revealed.add(m.id);}
+  }
+  if(m.t==='hello'){
+    if(MAIN)send({t:'state',n:cur,revealed:[...revealed]});
+  }
+  if(m.t==='state'&&EMBED){
+    show(EMBED==='cur'?m.n:Math.min(m.n+1,slides.length-1));
+    (m.revealed||[]).forEach(id=>{markShown(id);revealed.add(id);});
+  }
+  if(m.t==='state'&&PRESENTER){cur=m.n;pvUpdate();}
+};
+send({t:'hello'}); /* ask whoever is already open where we are */
+
+/* ================= presenter window ================= */
+function pvUpdate(){
+  const c=document.getElementById('pvcnt'),nt=document.getElementById('pvnotes');
+  if(c)c.textContent=(cur+1)+' / '+slides.length;
+  if(nt&&slides[cur])nt.textContent=slides[cur].dataset.notes||'';
+}
+function pvFit(){
+  document.querySelectorAll('.pvframe').forEach(f=>{
+    const ifr=f.querySelector('iframe');
+    if(ifr)ifr.style.transform='scale('+(f.clientWidth/1440)+')';
+  });
+}
+if(PRESENTER){
+  document.body.classList.add('presenter');
+  const pv=document.createElement('div');pv.id='pv';
+  pv.innerHTML=
+    '<div class="pvhead"><b>Presenter</b> · KB1 · Unit 1 · Lesson 2 · <span class="pvcnt" id="pvcnt"></span></div>'+
+    '<div class="pvwarn" id="pvwarn">⚠ No sync: this window works only over http:// — open the deck via the local server or the site link, then press T again.</div>'+
+    '<div class="pvlabel">now — what the class sees</div><div class="pvframe"><iframe src="'+location.pathname+'?embed=cur"></iframe></div>'+
+    '<div class="pvlabel">next</div><div class="pvframe"><iframe src="'+location.pathname+'?embed=next"></iframe></div>'+
+    '<div class="pvnotes" id="pvnotes"></div>'+
+    '<div class="pvbtns"><button id="pvprev">‹</button><button id="pvfw">›</button></div>';
+  document.body.appendChild(pv);
+  document.getElementById('pvprev').onclick=()=>send({t:'set',n:cur-1});
+  document.getElementById('pvfw').onclick=()=>send({t:'set',n:cur+1});
+  addEventListener('resize',pvFit);setTimeout(pvFit,300);setTimeout(pvFit,1200);
+  if(!bc)document.getElementById('pvwarn').style.display='block';
+  pvUpdate();
+}
+
+/* ================= input (main only) ================= */
+if(MAIN){
+  document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+  document.getElementById('pvbtn').onclick=openPresenter;
+  document.addEventListener('keydown',e=>{
+    if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
+    if(e.key==='Home')go(0);
+    if(e.key==='End')go(slides.length-1);
+    if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
+    if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&!e.metaKey&&!e.ctrlKey)openPresenter();
+  });
+  let wl=0;
+  document.addEventListener('wheel',e=>{
+    const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;
+    go(cur+(e.deltaY>0?1:-1));
+  },{passive:true});
+  let tx=0;
+  document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+  document.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
+  },{passive:true});
+}
+function openPresenter(){
+  send({t:'hello'}); /* refresh any already-open windows */
+  window.open(location.pathname+'?presenter=1','kb1u1l2pv','width=560,height=940');
+}
+
+/* ================= start: hash restores the slide ================= */
+const h=parseInt(location.hash.slice(1));
+show(MAIN&&(!isNaN(h))?(h-1):0);
+</script>
+
+<script>
+/* READY-CHIME (standing rule, 2026-09-04): when ZCode saves a new version of
+   this deck, the OPEN window chimes and reloads itself — no manual refresh,
+   the hash puts her back on the same slide. http:// only; silent on file://. */
+(function(){
+  if(!MAIN)return;
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{        /* ding — dong */
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.pathname,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>

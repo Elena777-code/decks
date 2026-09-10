@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kid's Box 1 · Unit 1 · Lesson 2 — new friends &amp; numbers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ "Minty Fresh" — child-facing demo deck ============
+   KB1 · Unit 1 · Lesson 2 (the board deck; Elena's script is
+   kb1-2-deck-002.html). Built from Farida's конспект, Lesson 2.
+   For 7-year-olds: huge pictures from the real Cambridge
+   flashcards, minimal words, click-driven games — nothing
+   autoplays, Elena (or a child at the board) taps. Reading is
+   NOT here — Elena runs it at the end of the lesson. */
+:root{
+  --mint:#95E1D3;         /* soft mint */
+  --mint-deep:#5ecbb8;    /* mint accent for text/icons */
+  --peach:#FCE38A;        /* warm yellow: word banks, model cards */
+  --lavender:#C8B6FF;     /* lavender */
+  --lavender-deep:#9a7fff;/* lavender accent for highlighted words */
+  --cream:#FFF8F0;        /* page background */
+  --pink:#FF8FAB;         /* pink accent */
+  --ink:#2D3436;          /* main text */
+  --ink-soft:#636e72;     /* secondary text */
+  --white:#ffffff;
+  --radius:22px;
+  --shadow:0 10px 30px rgba(45,52,54,.12);
+  --shadow-lg:0 20px 50px rgba(45,52,54,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);overflow:hidden}
+/* ============ chrome ============ */
+#progress-track{position:fixed;top:0;left:0;width:100vw;height:7px;background:rgba(200,182,255,.35);z-index:100}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--lavender),var(--pink));transition:width .4s cubic-bezier(.22,1,.36,1)}
+#nav{
+  position:fixed;bottom:14px;right:max(10px,1.6vw);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border-radius:99px;padding:8px 14px;box-shadow:var(--shadow);
+}
+#nav button{
+  width:44px;height:44px;border-radius:50%;border:none;
+  background:var(--white);color:var(--mint-deep);font-size:1.35rem;cursor:pointer;
+  box-shadow:0 2px 10px rgba(45,52,54,.10);
+  transition:transform .15s ease,opacity .15s ease;font-family:inherit;
+}
+#nav button:hover{transform:scale(1.08)}
+#nav button:disabled{opacity:.3;cursor:default;transform:none}
+#nav button.fs{width:auto;border-radius:99px;padding:0 16px;font-size:1.05rem}
+#counter{font-weight:800;color:var(--ink-soft);font-size:1rem;min-width:3.6em;text-align:center}
+/* ============ slides ============ */
+.slide{
+  position:absolute;inset:0;
+  padding:4.2vh 5vw calc(74px + 2.4vh); /* structural lane for the nav bar */
+  display:flex;flex-direction:column;gap:1.8vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),visibility .5s;
+  overflow:auto;
+}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0) scale(1)}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide .reveal-el{opacity:0;transform:translateY(22px)}
+.slide.active .reveal-el{animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
+.slide.active .reveal-el:nth-child(2){animation-delay:.08s}
+.slide.active .reveal-el:nth-child(3){animation-delay:.16s}
+.slide.active .reveal-el:nth-child(4){animation-delay:.24s}
+.slide.active .reveal-el:nth-child(5){animation-delay:.32s}
+.slide.active .reveal-el:nth-child(6){animation-delay:.4s}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
+/* ============ content components ============ */
+.eyebrow{
+  font-size:clamp(1rem,1.8vw,1.4rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lavender-deep);
+}
+h1.title{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.1;color:var(--ink);
+}
+.accent-line{width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.card{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.2vh,24px) clamp(16px,2vw,28px);
+}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.card.pink{background:#ffe9f0}
+.card p,.card li{font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.4}
+.task{
+  background:var(--peach);border-radius:99px;align-self:flex-start;
+  padding:.45em 1.2em;font-size:clamp(1.2rem,2.1vw,1.7rem);font-weight:800;color:var(--ink);
+}
+.reveal-btn{
+  font-family:'Fredoka',sans-serif;font-size:clamp(1.15rem,2vw,1.6rem);font-weight:700;
+  color:var(--ink);background:var(--mint);border:none;border-radius:99px;
+  padding:.55em 1.5em;cursor:pointer;transition:transform .15s ease;align-self:flex-start;
+  box-shadow:var(--shadow);
+}
+.reveal-btn:hover{transform:scale(1.06)}
+.answer{
+  display:none;font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.7rem,3.4vw,3rem);color:var(--ink);
+  background:var(--mint);border-radius:var(--radius);padding:.4em 1em;align-self:flex-start;
+}
+.answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+.answer b{color:var(--pink)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.bubble{
+  display:inline-block;background:var(--white);border-radius:26px;box-shadow:var(--shadow);
+  padding:.5em 1.1em;font-size:clamp(1.4rem,2.6vw,2.2rem);line-height:1.35;
+}
+.bubble .who{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--mint-deep);font-size:.72em;display:block}
+.bubble.b{background:var(--lavender)}
+.bubble.b .who{color:var(--lavender-deep)}
+/* flashcard grids */
+.fc-grid{display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,20px);align-items:stretch;justify-content:center}
+.fc{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(8px,1.2vh,14px);cursor:pointer;user-select:none;
+  display:flex;flex-direction:column;align-items:center;gap:.4vh;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease;
+  flex:0 1 auto;min-width:0;
+}
+.fc img{height:clamp(120px,22vh,220px);width:auto;border-radius:12px;display:block}
+.fc .fc-name{
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.5rem);
+  color:var(--ink);min-height:1.3em;
+}
+.fc:hover{transform:translateY(-4px) scale(1.03)}
+.fc.picked{transform:scale(1.07);box-shadow:0 0 0 6px var(--mint),var(--shadow-lg)}
+.fc.ghost img{visibility:hidden}
+.fc.ghost .fc-name{visibility:hidden} /* the name would give the answer away */
+.fc.ghost::before{
+  content:"?";font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(3.4rem,7vh,6rem);color:var(--lavender-deep);
+  height:clamp(120px,22vh,220px);aspect-ratio:.71;display:flex;align-items:center;justify-content:center;
+  background:#f1ecff;border-radius:12px;
+}
+/* chant / count lines */
+.line{
+  display:none;align-items:center;gap:.5em;
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.5rem,3vw,2.6rem);line-height:1.25;
+}
+.line.show{display:flex;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+.line .em{font-size:1.2em}
+/* number chips + grid */
+.chips{display:flex;flex-wrap:wrap;gap:clamp(8px,1.2vw,16px)}
+.chip-n{
+  display:none;width:clamp(56px,8.5vw,110px);height:clamp(56px,8.5vw,110px);
+  border-radius:50%;color:#fff;font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.7rem,3.4vw,3.2rem);
+  display:none;align-items:center;justify-content:center;box-shadow:var(--shadow);
+}
+.chip-n.show{display:flex;animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+.num-grid{display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,22px);justify-content:center}
+.num{
+  width:clamp(64px,10vw,130px);height:clamp(64px,10vw,130px);border-radius:26px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;color:#fff;
+  font-size:clamp(1.8rem,3.6vw,3.4rem);line-height:1;cursor:pointer;user-select:none;
+  box-shadow:var(--shadow);transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease;
+}
+.num small{font-size:.34em;font-weight:600;opacity:.95;margin-top:.15em;text-transform:lowercase}
+.num:hover{transform:translateY(-4px) scale(1.04)}
+.num.lit{transform:scale(1.12);box-shadow:0 0 0 6px var(--peach),var(--shadow-lg)}
+audio{width:min(560px,100%);margin-top:.4vh}
+video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--shadow-lg)}
+@media (max-width:900px){
+  .fc img{height:clamp(96px,18vh,160px)}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<!-- 1 · TITLE -->
+<section class="slide active">
+  <div class="eyebrow reveal-el">Kid's Box 1 · Unit 1 · Lesson 2</div>
+  <h1 class="title reveal-el">New friends &amp; numbers! 🧸</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">We can…</b> 🌟 meet three new toy friends<br>🌟 count to ten!</p></div>
+  <div class="card peach reveal-el"><p>Say <b>hello</b> to your friend! 👋</p></div>
+</section>
+
+<!-- 2 · HELLO SONG -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Warm up</div>
+  <h1 class="title reveal-el">🎵 Hello! Hello!</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Stand up! Sing and do the actions!</div>
+  <video class="reveal-el" controls preload="none" src="../media/kb1-u1-hello.mp4"></video>
+</section>
+
+<!-- 3 · HOW ARE YOU TODAY? -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Warm up</div>
+  <h1 class="title reveal-el">How are you today? 😊</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Come and tap your card!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc" onclick="this.classList.toggle('picked')"><img src="../media/kb1-hello-fc-1.png" alt="good"><div class="fc-name">good 👍</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><img src="../media/kb1-hello-fc-2.png" alt="great"><div class="fc-name">great 🙌</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><img src="../media/kb1-hello-fc-3.png" alt="wonderful"><div class="fc-name">wonderful 🤩</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><img src="../media/kb1-hello-fc-4.png" alt="tired"><div class="fc-name">tired 😴</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><img src="../media/kb1-hello-fc-5.png" alt="hungry"><div class="fc-name">hungry 🍎</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><img src="../media/kb1-hello-fc-6.png" alt="not so good"><div class="fc-name">not so good 😟</div></div>
+  </div>
+</section>
+
+<!-- 4 · STAND UP / SIT DOWN -->
+<section class="slide">
+  <div class="eyebrow reveal-el">TPR</div>
+  <h1 class="title reveal-el">Listen and do! 👂</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 The teacher says a name — that toy acts!</div>
+  <button class="reveal-btn reveal-el" id="tpr" onclick="tprToggle()" style="font-size:clamp(1.8rem,3.6vw,3.2rem);padding:.5em 1.4em">🧍 stand up!</button>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><img src="../media/kb1-fc-04.png" alt="Mrs Star"><div class="fc-name">Mrs Star</div></div>
+    <div class="fc"><img src="../media/kb1-fc-05.png" alt="Mr Star"><div class="fc-name">Mr Star</div></div>
+    <div class="fc"><img src="../media/kb1-fc-03.png" alt="Stella"><div class="fc-name">Stella</div></div>
+    <div class="fc"><img src="../media/kb1-fc-02.png" alt="Simon"><div class="fc-name">Simon</div></div>
+    <div class="fc"><img src="../media/kb1-fc-01.png" alt="Suzy"><div class="fc-name">Suzy</div></div>
+  </div>
+</section>
+
+<!-- 5 · NEW FRIENDS -->
+<section class="slide">
+  <div class="eyebrow reveal-el">New friends!</div>
+  <h1 class="title reveal-el">Who's this? 👀</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><img src="../media/kb1-fc-08.png" alt="Monty"><div class="fc-name"><button class="reveal-btn" style="font-size:.75em;padding:.2em .9em" onclick="reveal(this)">show</button><span class="answer" style="font-size:1em;padding:.15em .5em">Monty</span></div></div>
+    <div class="fc"><img src="../media/kb1-fc-06.png" alt="Maskman"><div class="fc-name"><button class="reveal-btn" style="font-size:.75em;padding:.2em .9em" onclick="reveal(this)">show</button><span class="answer" style="font-size:1em;padding:.15em .5em">Maskman</span></div></div>
+    <div class="fc"><img src="../media/kb1-fc-07.png" alt="Marie"><div class="fc-name"><button class="reveal-btn" style="font-size:.75em;padding:.2em .9em" onclick="reveal(this)">show</button><span class="answer" style="font-size:1em;padding:.15em .5em">Marie</span></div></div>
+  </div>
+  <div class="card lavender reveal-el"><p>They are <b style="color:var(--pink)">toys</b>! 🧸</p></div>
+</section>
+
+<!-- 6 · WHAT'S MISSING -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Game</div>
+  <h1 class="title reveal-el">What's missing? 🫥</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Close your eyes!… Tap a card to hide it — who is gone?</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc" onclick="this.classList.toggle('ghost')"><img src="../media/kb1-fc-03.png" alt="Stella"><div class="fc-name">Stella</div></div>
+    <div class="fc" onclick="this.classList.toggle('ghost')"><img src="../media/kb1-fc-01.png" alt="Suzy"><div class="fc-name">Suzy</div></div>
+    <div class="fc" onclick="this.classList.toggle('ghost')"><img src="../media/kb1-fc-02.png" alt="Simon"><div class="fc-name">Simon</div></div>
+    <div class="fc" onclick="this.classList.toggle('ghost')"><img src="../media/kb1-fc-04.png" alt="Mrs Star"><div class="fc-name">Mrs Star</div></div>
+    <div class="fc" onclick="this.classList.toggle('ghost')"><img src="../media/kb1-fc-05.png" alt="Mr Star"><div class="fc-name">Mr Star</div></div>
+    <div class="fc" onclick="this.classList.toggle('ghost')"><img src="../media/kb1-fc-08.png" alt="Monty"><div class="fc-name">Monty</div></div>
+    <div class="fc" onclick="this.classList.toggle('ghost')"><img src="../media/kb1-fc-06.png" alt="Maskman"><div class="fc-name">Maskman</div></div>
+    <div class="fc" onclick="this.classList.toggle('ghost')"><img src="../media/kb1-fc-07.png" alt="Marie"><div class="fc-name">Marie</div></div>
+  </div>
+</section>
+
+<!-- 7 · TOY BOX CHANT -->
+<section class="slide">
+  <div class="eyebrow reveal-el">The toy box chant</div>
+  <h1 class="title reveal-el">📦 Come alive! ✨</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Tap — and say it with the actions!</div>
+  <div class="card mint reveal-el" id="chant" onclick="chantNext()" style="cursor:pointer;user-select:none;display:flex;flex-direction:column;gap:1.2vh;min-height:46vh">
+    <div class="line"><span class="em">📦</span>Toys in the toy box!</div>
+    <div class="line"><span class="em">✨</span>Come alive!</div>
+    <div class="line"><span class="em">🚶</span>Walk and talk!</div>
+    <div class="line"><span class="em">🖐</span>On the count of 5!</div>
+    <div class="line"><span class="em">🎉</span>1 · 2 · 3 · 4 · 5!</div>
+  </div>
+</section>
+
+<!-- 8 · LISTEN AND POINT (PB p.5 ex.1) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Pupil's Book · p. 5 · ex. 1</div>
+  <h1 class="title reveal-el">🎧 Listen and point!</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Open your book. Point to the toys!</div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u1-pb5-t4.mp3"></audio>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><img src="../media/kb1-fc-06.png" alt="Maskman"><div class="fc-name">Maskman</div></div>
+    <div class="fc"><img src="../media/kb1-fc-07.png" alt="Marie"><div class="fc-name">Marie</div></div>
+    <div class="fc"><img src="../media/kb1-fc-08.png" alt="Monty"><div class="fc-name">Monty</div></div>
+  </div>
+</section>
+
+<!-- 9 · WHAT'S YOUR NAME (dialogue) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Speaking</div>
+  <h1 class="title reveal-el">What's your name? 💬</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="card reveal-el" style="display:flex;flex-direction:column;gap:1.4vh">
+    <span class="bubble"><span class="who">ELENA</span>What's your name?</span>
+    <span class="bubble b" style="align-self:flex-end"><span class="who">TOY</span><button class="reveal-btn" style="font-size:.6em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:1em;padding:.1em .5em">I'm Maskman!</span></span>
+  </div>
+  <div class="card lavender reveal-el"><p>You are a toy! Ask and answer in pairs 🎭</p></div>
+</section>
+
+<!-- 10 · LET'S COUNT -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Math</div>
+  <h1 class="title reveal-el">Let's count! 🖐</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Tap the card — count together!</div>
+  <div class="card mint reveal-el" id="count" onclick="countNext()" style="cursor:pointer;user-select:none;min-height:52vh;display:flex;flex-direction:column;justify-content:center">
+    <div class="chips">
+      <div class="chip-n" style="background:#E74C3C">1</div>
+      <div class="chip-n" style="background:#E67E22">2</div>
+      <div class="chip-n" style="background:#F1C40F">3</div>
+      <div class="chip-n" style="background:#7DBB42">4</div>
+      <div class="chip-n" style="background:#2E86C1">5</div>
+      <div class="chip-n" style="background:#7D3C98">6</div>
+      <div class="chip-n" style="background:#C2185B">7</div>
+      <div class="chip-n" style="background:#E91E63">8</div>
+      <div class="chip-n" style="background:#D35400">9</div>
+      <div class="chip-n" style="background:#16A085">10</div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 · HOW MANY FINGERS SONG -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Song</div>
+  <h1 class="title reveal-el">🎵 How many fingers?</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Stand up! Count and do the actions!</div>
+  <video class="reveal-el" controls preload="none" src="../media/kb1-u1-how-many-fingers.mp4"></video>
+</section>
+
+<!-- 12 · TOUCH THE NUMBER -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Game</div>
+  <h1 class="title reveal-el">Touch the number! 🏃</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 The teacher says a number — touch it!</div>
+  <div class="num-grid reveal-el">
+    <div class="num" style="background:#E74C3C" onclick="this.classList.toggle('lit')">1<small>one</small></div>
+    <div class="num" style="background:#E67E22" onclick="this.classList.toggle('lit')">2<small>two</small></div>
+    <div class="num" style="background:#F1C40F" onclick="this.classList.toggle('lit')">3<small>three</small></div>
+    <div class="num" style="background:#7DBB42" onclick="this.classList.toggle('lit')">4<small>four</small></div>
+    <div class="num" style="background:#2E86C1" onclick="this.classList.toggle('lit')">5<small>five</small></div>
+    <div class="num" style="background:#7D3C98" onclick="this.classList.toggle('lit')">6<small>six</small></div>
+    <div class="num" style="background:#C2185B" onclick="this.classList.toggle('lit')">7<small>seven</small></div>
+    <div class="num" style="background:#E91E63" onclick="this.classList.toggle('lit')">8<small>eight</small></div>
+    <div class="num" style="background:#D35400" onclick="this.classList.toggle('lit')">9<small>nine</small></div>
+    <div class="num" style="background:#16A085" onclick="this.classList.toggle('lit')">10<small>ten</small></div>
+  </div>
+</section>
+
+<!-- 13 · MY NEW WORD -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Feedback</div>
+  <h1 class="title reveal-el">My new word! ⭐</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Say one new word — then tap!</div>
+  <div class="card peach reveal-el" id="words" onclick="wordsNext()" style="cursor:pointer;user-select:none;min-height:40vh;display:flex;flex-direction:column;justify-content:center">
+    <div class="chips" style="gap:12px">
+      <span class="answer" style="font-size:clamp(1.3rem,2.4vw,2rem)">Monty</span>
+      <span class="answer" style="font-size:clamp(1.3rem,2.4vw,2rem)">Maskman</span>
+      <span class="answer" style="font-size:clamp(1.3rem,2.4vw,2rem)">Marie</span>
+      <span class="answer" style="font-size:clamp(1.3rem,2.4vw,2rem)">toys</span>
+      <span class="answer" style="font-size:clamp(1.3rem,2.4vw,2rem)">dots</span>
+      <span class="answer" style="font-size:clamp(1.3rem,2.4vw,2rem)">join</span>
+      <span class="answer" style="font-size:clamp(1.3rem,2.4vw,2rem)">one…ten 🖐</span>
+    </div>
+  </div>
+</section>
+
+<!-- 14 · HOMEWORK -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Homework</div>
+  <h1 class="title reveal-el">Play at home! 🏠</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="card peach reveal-el"><p><b style="color:var(--lavender-deep)">Wordwall</b> · listen and repeat the names 🎧</p></div>
+  <a class="reveal-btn reveal-el" style="text-decoration:none" href="https://wordwall.net/resource/85538200" target="_blank" rel="noopener">open the game →</a>
+  <div class="card mint reveal-el"><p>Great job today! ⭐ You can count to ten!</p></div>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <div id="counter">1 / 14</div>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" class="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const fill=document.getElementById('progress-fill'),
+      cnt=document.getElementById('counter'),
+      prev=document.getElementById('prev'),
+      next=document.getElementById('next');
+function show(n){
+  if(n<0||n>=slides.length)return;
+  slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
+  cur=n;
+  fill.style.width=((n+1)/slides.length*100)+'%';
+  cnt.textContent=(n+1)+' / '+slides.length;
+  prev.disabled=n===0;next.disabled=n===slides.length-1;
+}
+function go(n){
+  if(n<0||n>=slides.length)return;
+  show(n);
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  history.replaceState(null,'','#'+(n+1));
+}
+prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
+});
+let wl=0;
+document.addEventListener('wheel',e=>{
+  const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;
+  go(cur+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
+},{passive:true});
+function reveal(btn){
+  const a=btn.nextElementSibling;
+  if(a){a.classList.add('show');}
+  btn.style.display='none';
+}
+/* stand up / sit down toggle */
+let tprUp=true;
+function tprToggle(){
+  tprUp=!tprUp;
+  const b=document.getElementById('tpr');
+  b.textContent=tprUp?'🧍 stand up!':'🪑 sit down!';
+  b.blur(); /* keep Space = next slide */
+}
+/* chant lines, count chips, word chips: one tap → next item; tap after all → reset */
+function stepNext(containerId,itemSel){
+  const box=document.getElementById(containerId);
+  const items=[...box.querySelectorAll(itemSel)];
+  const nextHidden=items.find(el=>!el.classList.contains('show'));
+  if(nextHidden){nextHidden.classList.add('show');}
+  else{items.forEach(el=>el.classList.remove('show'));} /* played through → tap to start again */
+}
+function chantNext(){stepNext('chant','.line')}
+function countNext(){stepNext('count','.chip-n')}
+function wordsNext(){stepNext('words','.answer')}
+const h=parseInt(location.hash.slice(1));
+show(isNaN(h)?0:h-1);
+</script>
+
+<script>
+/* READY-CHIME (Elena, 2026-09-04): when ZCode saves a new version of this
+   deck, the OPEN window chimes and reloads itself — no manual refresh, and
+   the hash puts her back on the same slide. Needs http://; on file:// silent. */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{        /* ding — dong */
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.pathname,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
