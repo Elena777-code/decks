@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GG1 · Unit 7 · Lesson 7.1 Animals — lesson script</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* ============ "Editorial" design (teacher-facing, restrained) ============ */
+:root{
+  --paper:#FAF8F4;
+  --ink:#20242C;
+  --ink-soft:#6B6F78;
+  --emerald:#14655A;
+  --emerald-soft:#E7F1EF;
+  --ochre:#B4831B;
+  --ochre-soft:#F7EFDC;
+  --rust:#A2402F;
+  --rust-soft:#F7E8E4;
+  --hairline:#E5E1D8;
+  --white:#ffffff;
+  --radius:10px;
+  --shadow:0 6px 24px rgba(32,36,44,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  overflow:hidden;
+}
+/* ============ chrome ============ */
+#progress-track{position:fixed;top:0;left:0;width:100vw;height:7px;background:rgba(180,131,27,.15);z-index:100}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--emerald),var(--ochre));transition:width .4s cubic-bezier(.22,1,.36,1)}
+#nav{
+  position:fixed;bottom:14px;right:max(10px,1.6vw);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.88);backdrop-filter:blur(10px);
+  border:1px solid var(--hairline);border-radius:99px;padding:8px 14px;
+  box-shadow:var(--shadow);
+}
+#nav button{
+  width:44px;height:44px;border-radius:50%;border:1px solid var(--hairline);
+  background:var(--white);color:var(--emerald);font-size:1.35rem;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease;font-family:inherit;
+}
+#nav button:hover{transform:scale(1.08)}
+#nav button:disabled{opacity:.3;cursor:default;transform:none}
+#nav button.fs{width:auto;border-radius:99px;padding:0 16px;font-size:1.05rem}
+#counter{font-weight:800;color:var(--ink-soft);font-size:1rem;min-width:3.6em;text-align:center}
+/* ============ slides ============ */
+.slide{
+  position:absolute;inset:0;
+  padding:4.2vh 5vw calc(74px + 2.4vh); /* structural lane for the nav bar */
+  display:flex;flex-direction:column;gap:1.6vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),visibility .5s;
+  overflow:auto;
+}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0) scale(1)}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide .reveal-el{opacity:0;transform:translateY(22px)}
+.slide.active .reveal-el{animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
+.slide.active .reveal-el:nth-child(2){animation-delay:.08s}
+.slide.active .reveal-el:nth-child(3){animation-delay:.16s}
+.slide.active .reveal-el:nth-child(4){animation-delay:.24s}
+.slide.active .reveal-el:nth-child(5){animation-delay:.32s}
+.slide.active .reveal-el:nth-child(6){animation-delay:.4s}
+@keyframes rise{to{opacity:1;transform:translateY(0)}}
+/* ============ content components ============ */
+.eyebrow{
+  font-size:clamp(1rem,1.7vw,1.35rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ochre);
+}
+.eyebrow .time{color:var(--ink-soft);font-weight:600;letter-spacing:0;text-transform:none}
+h1.title{
+  font-family:'Fraunces',serif;font-weight:700;
+  font-size:clamp(1.9rem,4.2vw,3.4rem);line-height:1.1;color:var(--ink);
+}
+.accent-line{width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--emerald),var(--ochre))}
+.do{
+  background:var(--white);border:1px solid var(--hairline);border-left:6px solid var(--emerald);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.2vh,22px) clamp(16px,2vw,26px);
+}
+.do ul{list-style:none;display:flex;flex-direction:column;gap:1.1vh}
+.do li{
+  font-size:clamp(1.15rem,2vw,1.6rem);line-height:1.4;padding-left:1.6em;position:relative;
+}
+.do li::before{content:"→";position:absolute;left:0;color:var(--emerald);font-weight:800}
+.do li b{color:var(--emerald)}
+.say{
+  background:var(--emerald-soft);border-radius:var(--radius);
+  padding:clamp(12px,1.8vh,18px) clamp(16px,2vw,26px);
+  font-size:clamp(1.1rem,1.9vw,1.5rem);line-height:1.45;
+}
+.say .lbl{
+  display:inline-block;font-size:clamp(.85rem,1.2vw,1rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--emerald);margin-bottom:.4vh;
+}
+.say q{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:.4vh}
+.chip{
+  font-size:clamp(.95rem,1.5vw,1.25rem);font-weight:800;color:var(--ochre);
+  background:var(--ochre-soft);border:1px solid var(--hairline);
+  border-radius:99px;padding:.45em 1.1em;white-space:nowrap;
+}
+.chip.ear{color:var(--emerald);background:var(--emerald-soft)}
+.chip.warn{color:var(--rust);background:var(--rust-soft)}
+.hint{
+  font-size:clamp(1rem,1.6vw,1.3rem);color:var(--ink-soft);line-height:1.45;
+}
+.hint b{color:var(--rust);font-weight:800}
+.bank{
+  background:var(--ochre-soft);border:1px dashed var(--ochre);border-radius:var(--radius);
+  padding:clamp(10px,1.6vh,16px) clamp(14px,1.8vw,22px);
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+}
+.bank .wb{
+  background:var(--white);border:1px solid var(--hairline);border-radius:99px;
+  padding:.35em 1em;font-size:clamp(1rem,1.6vw,1.3rem);font-weight:600;white-space:nowrap;
+}
+.bank .blbl{font-size:clamp(.85rem,1.2vw,1rem);font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ochre);width:100%}
+.reveal-btn{
+  font-family:'Inter',sans-serif;font-size:clamp(1.05rem,1.8vw,1.4rem);font-weight:800;
+  color:var(--white);background:var(--emerald);border:none;border-radius:99px;
+  padding:.55em 1.4em;cursor:pointer;transition:transform .15s ease;align-self:flex-start;
+}
+.reveal-btn:hover{transform:scale(1.06)}
+.answer{
+  display:none;font-family:'Fraunces',serif;font-style:italic;
+  font-size:clamp(1.4rem,2.6vw,2.1rem);color:var(--emerald);
+  background:var(--emerald-soft);border-radius:var(--radius);padding:.5em 1em;
+}
+.answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.cols{display:grid;grid-template-columns:1.25fr 1fr;gap:2vw;align-items:start}
+.sent-list{display:flex;flex-direction:column}
+.sent{
+  display:flex;gap:12px;align-items:baseline;padding:.55em 0;
+  border-bottom:1px dotted var(--hairline);font-size:clamp(1.05rem,1.8vw,1.45rem);
+}
+.sent .n{font-weight:800;color:var(--ochre);min-width:1.5em}
+.checklist{display:flex;flex-direction:column;gap:1.2vh}
+.check-item{
+  display:flex;gap:14px;align-items:flex-start;background:var(--white);
+  border:1px solid var(--hairline);border-radius:var(--radius);padding:1.1vh 1.2vw;box-shadow:var(--shadow);
+  font-size:clamp(1.1rem,1.9vw,1.5rem);line-height:1.4;
+}
+.check-item .box{
+  flex:0 0 auto;width:1.2em;height:1.2em;border:2px solid var(--emerald);border-radius:6px;margin-top:.15em;
+}
+.next-note{
+  background:var(--rust-soft);border:1px solid var(--rust);border-radius:var(--radius);
+  padding:clamp(12px,1.8vh,18px) clamp(16px,2vw,26px);
+  font-size:clamp(1.05rem,1.8vw,1.4rem);line-height:1.45;
+}
+.next-note b{color:var(--rust)}
+@media (max-width:900px){
+  .cols{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<!-- 1 · TITLE + PREP -->
+<section class="slide active">
+  <div class="eyebrow reveal-el">GG1 · Unit 7 · Lesson 7.1 · Teacher's script · SB pp 82–83</div>
+  <h1 class="title reveal-el">Animals — wild animals</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="say reveal-el"><span class="lbl">Lesson aim (on the board)</span><br><q>I can talk about animals.</q></div>
+  <div class="checklist reveal-el">
+    <div class="check-item"><span class="box"></span><span>Vocabulary worksheet <b>7.1</b> printed (TB p. 151 · SSD: <b>Go_Getter_1_Photocopiables.ru/Unit_7</b>)</span></div>
+    <div class="check-item"><span class="box"></span><span>Audio ready: <b>3.16</b> (listen &amp; repeat) · <b>3.17</b> (animal sounds) — Class Audio на диске или интерактивная книга</span></div>
+    <div class="check-item"><span class="box"></span><span>Board + markers for the team score (пригодится и для викторины в следующий раз)</span></div>
+    <div class="check-item"><span class="box"></span><span>Homework to write on the board at the end: <b>Workbook p. 62</b></span></div>
+  </div>
+</section>
+
+<!-- 2 · WARM-UP -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Step 1 · Warm-up <span class="time">· ~5 min · books closed</span></div>
+  <h1 class="title reveal-el">Guess the day → predict the topic</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="do reveal-el"><ul>
+    <li>One student <b>secretly chooses a day</b> of the week and says what he/she does on it (<i>I have two lessons in the afternoon…</i>). The class <b>guesses the day</b>. Then in pairs.</li>
+    <li>Write <b>ANIMALS</b> on the board → pairs predict <b>what they will learn</b> today.</li>
+  </ul></div>
+  <div class="say reveal-el"><span class="lbl">Say</span><br><q>Think of one day. What do you do on that day? — Now guess: what day is it? … Today — ANIMALS. What will we learn?</q></div>
+</section>
+
+<!-- 3 · LEAD-IN -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Step 2 · Lead-in <span class="time">· ~3 min · books closed</span></div>
+  <h1 class="title reveal-el">Brainstorm wild animals</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="do reveal-el"><ul>
+    <li>The class <b>names wild animals</b> — you write them on the board.</li>
+    <li>If a word is unknown to the others — the student <b>draws it</b> on the board.</li>
+  </ul></div>
+  <div class="say reveal-el"><span class="lbl">Say</span><br><q>Wild animals — name them! I'll write them on the board. Don't know the word? Draw it!</q></div>
+  <div class="chips reveal-el"><span class="chip warn">everything stays on the board — return to it in the Finishing step</span></div>
+</section>
+
+<!-- 4 · EX 1 -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Step 3 · Exercise 1 <span class="time">· ~5 min · pairs · SB p. 82</span></div>
+  <h1 class="title reveal-el">Match photos and words</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="do reveal-el"><ul>
+    <li>Pairs <b>write the number</b> of each photo (1–7) next to the word.</li>
+    <li>Model first: point to a word + photo, say <b>"I know that!"</b> with a thumbs-up — they continue.</li>
+    <li>One photo is <b>extra</b> — not in the word list.</li>
+  </ul></div>
+  <div class="say reveal-el"><span class="lbl">Say</span><br><q>Open your books at page 82. Seven photos, seven words — write the numbers. Which photo is extra?</q></div>
+  <div class="bank reveal-el"><span class="blbl">The 7 words</span>
+    <span class="wb">elephant</span><span class="wb">monkey</span><span class="wb">tiger</span><span class="wb">giraffe</span><span class="wb">lion</span><span class="wb">crocodile</span><span class="wb">kangaroo</span>
+  </div>
+</section>
+
+<!-- 5 · EX 2 -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Step 4 · Exercise 2 <span class="time">· ~5 min · 🔊 audio 3.16</span></div>
+  <h1 class="title reveal-el">Listen and repeat</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="do reveal-el"><ul>
+    <li>Play 3.16 — <b>pause after each word</b>, the class repeats.</li>
+    <li>A student finds the <b>extra photo</b> and names the animal:</li>
+  </ul></div>
+  <button class="reveal-btn reveal-el" onclick="reveal(this,'a-whale')">Show answer</button>
+  <div class="answer reveal-el" id="a-whale">Extra photo = № 2 — a whale</div>
+  <div class="do reveal-el"><ul>
+    <li>Critical thinking: what does <b>wild</b> mean? Why?</li>
+  </ul></div>
+  <div class="say reveal-el"><span class="lbl">Say</span><br><q>Listen and repeat. … Which photo is extra? What animal is it? … Why "wild"? — not a pet, lives free.</q></div>
+  <div class="chips reveal-el"><span class="chip warn">weak class: they point at every animal on pp 82–83 while repeating</span></div>
+</section>
+
+<!-- 6 · EX 3 -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Step 5 · Exercise 3 <span class="time">· ~5 min · pairs race · SB p. 83</span></div>
+  <h1 class="title reveal-el">Complete the words</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="do reveal-el"><ul>
+    <li>Pairs <b>race</b>: finish the gapped words with the Vocabulary box.</li>
+    <li>Check: pull <b>lollipop sticks</b> (палочки с именами) — the student <b>says AND spells</b> the answer.</li>
+  </ul></div>
+  <div class="say reveal-el"><span class="lbl">Say</span><br><q>Finish the words. Work in pairs — ready, steady, go! … (имя!), spell "snake"!</q></div>
+  <div class="bank reveal-el"><span class="blbl">Vocabulary box — 15 wild animals</span>
+    <span class="wb">bird</span><span class="wb">butterfly</span><span class="wb">crocodile</span><span class="wb">elephant</span><span class="wb">fish</span><span class="wb">fly</span><span class="wb">frog</span><span class="wb">giraffe</span><span class="wb">kangaroo</span><span class="wb">lion</span><span class="wb">monkey</span><span class="wb">snake</span><span class="wb">spider</span><span class="wb">tiger</span><span class="wb">whale</span>
+  </div>
+</section>
+
+<!-- 7 · EX 4 -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Step 6 · Exercise 4 <span class="time">· ~5 min · 🔊 audio 3.17</span></div>
+  <h1 class="title reveal-el">Animal sounds</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="do reveal-el"><ul>
+    <li>Play 3.17 — students <b>listen and number the words</b> (a / b / c).</li>
+    <li>Weak class: <b>pause after each sound</b>, discuss, then answer.</li>
+    <li>Then reverse: <b>you name an animal — they make the sound!</b></li>
+  </ul></div>
+  <div class="say reveal-el"><span class="lbl">Say</span><br><q>Listen. What animal is it? Number the words a, b, c. … Now — a lion! What's the sound?</q></div>
+  <div class="bank reveal-el"><span class="blbl">The 3 words</span>
+    <span class="wb">a · bird</span><span class="wb">b · elephant</span><span class="wb">c · frog</span>
+  </div>
+</section>
+
+<!-- 8 · EX 5 -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Step 7 · Exercise 5 <span class="time">· ~5 min · individually · SB p. 83</span></div>
+  <h1 class="title reveal-el">Read and circle</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="cols reveal-el">
+    <div class="do"><ul>
+      <li>Individual work: <b>circle the correct animal</b> in each sentence.</li>
+      <li>They <b>justify answers pointing to the photos</b> of the lesson.</li>
+      <li>Weak students: revise action verbs — Vocabulary box, <b>SB p. 59</b> (Unit 5).</li>
+    </ul></div>
+    <div class="sent-list">
+      <div class="sent"><span class="n">1</span>I can fly! — spider / bird</div>
+      <div class="sent"><span class="n">2</span>I can swim! — whale / butterfly</div>
+      <div class="sent"><span class="n">3</span>I'm very tall! — frog / giraffe</div>
+      <div class="sent"><span class="n">4</span>I can't jump! — kangaroo / elephant</div>
+      <div class="sent"><span class="n">5</span>I've got big teeth! — crocodile / fly</div>
+      <div class="sent"><span class="n">6</span>I've got arms and legs. — snake / monkey</div>
+    </div>
+  </div>
+  <div class="say reveal-el"><span class="lbl">Say</span><br><q>Read and circle. … Why? Point to the photo.</q></div>
+</section>
+
+<!-- 9 · EX 6 -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Step 8 · Exercise 6 <span class="time">· ~4 min · SB p. 83</span></div>
+  <h1 class="title reveal-el">The names got mixed!</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="do reveal-el"><ul>
+    <li>Half-words are jumbled (ti · butter · kanga · croco · li · mon …) — students <b>write the correct names</b>.</li>
+    <li><b>Challenge the strong ones:</b> Vocabulary box closed!</li>
+    <li>Different students <b>write answers on the board</b>.</li>
+  </ul></div>
+  <div class="say reveal-el"><span class="lbl">Say</span><br><q>The animal names got mixed! Write the correct names. No Vocabulary box if you're brave!</q></div>
+  <button class="reveal-btn reveal-el" onclick="reveal(this,'a-ex6')">Show answers</button>
+  <div class="answer reveal-el" id="a-ex6">tiger · butterfly · kangaroo · crocodile · lion · monkey</div>
+</section>
+
+<!-- 10 · EX 7 -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Step 9 · Exercise 7 <span class="time">· ~8 min · pairs · creative</span></div>
+  <h1 class="title reveal-el">Fantasy animals</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="do reveal-el"><ul>
+    <li>Pairs <b>draw three fantasy animals</b> — partner names them (<i>a giraffe + a bird = a "giraffird"!</i>).</li>
+    <li><b>Time limit 4–5 min</b> — keeps focus.</li>
+    <li>Pairs comment on each other's animals; then each pair draws <b>one on the board</b> — the class guesses the name.</li>
+  </ul></div>
+  <div class="say reveal-el"><span class="lbl">Say</span><br><q>Draw three fantasy animals! What is it? — It's a giraffe and a bird: a "giraffird"! … Time's up in 1 minute.</q></div>
+</section>
+
+<!-- 11 · EXTRA: PICTIONARY -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Extra · if time / high energy <span class="time">· ~5 min · teams</span></div>
+  <h1 class="title reveal-el">Pictionary — a taste of team games</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="do reveal-el"><ul>
+    <li>Two teams (or groups of four). One artist per turn comes to the board.</li>
+    <li>You <b>whisper the animal</b> to the artist — they <b>draw, no words</b>.</li>
+    <li>The team that <b>guesses first wins a point</b>. In fours: the artist rotates every round.</li>
+  </ul></div>
+  <div class="say reveal-el"><span class="lbl">Say</span><br><q>Teams! One artist… Come here — your animal is… (whisper) Draw! Don't speak!</q></div>
+  <div class="next-note reveal-el"><b>Это репетиция:</b> в следующий раз — викторина-загадки по командам (<i>It's big. It's grey. It can run.</i> → elephant). Правила: <b>Library/Bank-Pool/Team Quiz/team-quiz.md</b></div>
+</section>
+
+<!-- 12 · FINISHING -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Step 10 · Finishing the lesson <span class="time">· ~4 min</span></div>
+  <h1 class="title reveal-el">Self-check</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="do reveal-el"><ul>
+    <li>Students look at their <b>warm-up predictions</b> and circle the <b>new words</b> they learnt today (in the Vocabulary box).</li>
+    <li>Ask: <b>"Can you talk about animals?"</b> — they show self-assessment cards (😊 / 😐 / ☹).</li>
+    <li>They copy the objective <b>"I can talk about animals"</b> into notebooks + draw the emoticon of their progress.</li>
+  </ul></div>
+  <div class="say reveal-el"><span class="lbl">Say</span><br><q>Circle the NEW words you learnt today. Can you talk about animals? Show me!</q></div>
+</section>
+
+<!-- 13 · HOMEWORK -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Homework <span class="time">· на доску в конце урока</span></div>
+  <h1 class="title reveal-el">Homework: Workbook p. 62</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="do reveal-el"><ul>
+    <li><b>Workbook Unit 7, p. 62</b> (на SSD: <b>GoGetter1- Wb.pdf</b> — если нужно показать родителям/в чат группы).</li>
+    <li>Есть и тест для проверки словаря: <b>Vocabulary Check 7.1</b> (Go_Getter_1_Tests.pdf) — на ваше усмотрение.</li>
+  </ul></div>
+  <div class="next-note reveal-el"><b>Следующий урок — 7.2:</b> Present Simple negative (pets) + видео-история <i>"I don't like cats"</i> (части 1–2 у вас на SSD) — видео относится к 7.2, не к сегодняшнему уроку. И — викторина-загадки по командам: <b>Library/Bank-Pool/Team Quiz/team-quiz.md</b></div>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <div id="counter">1 / 13</div>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" class="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const fill=document.getElementById('progress-fill'),
+      cnt=document.getElementById('counter'),
+      prev=document.getElementById('prev'),
+      next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length||n===cur&&slides[cur].classList.contains('active'))return;
+  slides[cur].classList.remove('active');
+  slides[cur].classList.toggle('prev',n>cur);
+  cur=n;
+  slides.forEach((s,i)=>{s.classList.toggle('active',i===cur);if(i!==cur)s.classList.remove('active');});
+  slides[cur].classList.remove('prev');
+  slides[cur].classList.add('active');
+  fill.style.width=((cur+1)/slides.length*100)+'%';
+  cnt.textContent=(cur+1)+' / '+slides.length;
+  prev.disabled=cur===0;next.disabled=cur===slides.length-1;
+}
+prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
+});
+let wl=0;
+document.addEventListener('wheel',e=>{
+  const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;
+  go(cur+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
+},{passive:true});
+function reveal(btn,id){
+  document.getElementById(id).classList.add('show');
+  btn.textContent='✅ показано';
+  btn.style.opacity=.55;btn.disabled=true;
+}
+go(0);
+</script>
+</body>
+</html>
