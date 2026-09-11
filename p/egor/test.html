@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Egor · Diagnostic · 50 minutes — the map before the ЕГЭ</title>
+<title>Egor · Diagnostic · real ЕГЭ-2027 level — 60 minutes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
 <style>
@@ -33,10 +33,13 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);overflow:hidden;
 #nav button:disabled{opacity:.3;cursor:default}
 #timer{font-weight:800;color:var(--lime);min-width:4.2em;text-align:center;
   font-variant-numeric:tabular-nums}
-.slide{position:absolute;inset:0;padding:6vh 6vw calc(74px + 2.4vh);
-  display:flex;flex-direction:column;justify-content:center;gap:2.2vh;
+.slide{position:absolute;inset:0;padding:5.5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:2vh;
   opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
   transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+/* safe centering: centered when it fits, top-reachable when it overflows */
+.slide>*:first-child{margin-top:auto}
+.slide>*:last-child{margin-bottom:auto}
 .slide.active{opacity:1;visibility:visible;transform:none}
 .slide.prev{transform:translateX(-60px) scale(.985)}
 .slide.active .reveal{animation:rise .6s both}
@@ -48,21 +51,21 @@ body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);overflow:hidden;
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 .eyebrow{font-family:'Permanent Marker',cursive;color:var(--yellow);
   font-size:clamp(1rem,1.6vw,1.3rem);transform:rotate(-1.2deg)}
-h1{font-weight:800;font-size:clamp(1.7rem,4.2vw,3.4rem);line-height:1.12;letter-spacing:-.02em}
+h1{font-weight:800;font-size:clamp(1.6rem,4vw,3.2rem);line-height:1.12;letter-spacing:-.02em}
 .spray{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
 .rule{width:110px;height:5px;border-radius:99px;background:var(--grad)}
-p.lead{font-size:clamp(1.08rem,1.8vw,1.4rem);color:var(--ink-soft);line-height:1.55;max-width:60ch}
+p.lead{font-size:clamp(1.05rem,1.7vw,1.35rem);color:var(--ink-soft);line-height:1.55;max-width:60ch}
 p.lead strong{color:var(--cyan)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-  padding:clamp(.9rem,1.8vw,1.5rem);border-top-width:3px}
+  padding:clamp(.85rem,1.6vw,1.4rem);border-top-width:3px}
 .card.c-cyan{border-top-color:var(--cyan)}.card.c-magenta{border-top-color:var(--magenta)}
 .card.c-orange{border-top-color:var(--orange)}.card.c-lime{border-top-color:var(--lime)}
-.k{font-weight:800;font-size:clamp(1.1rem,2vw,1.6rem)}
+.k{font-weight:800;font-size:clamp(1.1rem,2vw,1.55rem)}
 .k.k-cyan{color:var(--cyan)}.k.k-magenta{color:var(--magenta)}.k.k-lime{color:var(--lime)}
-.note{font-size:clamp(1rem,1.7vw,1.3rem);color:var(--ink-soft);line-height:1.6}
+.note{font-size:clamp(.98rem,1.6vw,1.25rem);color:var(--ink-soft);line-height:1.6}
 .note b{color:var(--ink)}
-.item{display:flex;gap:.7em;align-items:baseline;padding:.55em 0;border-bottom:1px solid var(--line);
-  font-size:clamp(1.02rem,1.8vw,1.4rem);line-height:1.55}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.5em 0;border-bottom:1px solid var(--line);
+  font-size:clamp(.98rem,1.65vw,1.3rem);line-height:1.55}
 .item:last-child{border-bottom:none}
 .item .no{font-family:'Permanent Marker',cursive;color:var(--lime);min-width:1.9em}
 .gap{color:var(--yellow);font-weight:800;letter-spacing:.5px}
@@ -73,170 +76,313 @@ p.lead strong{color:var(--cyan)}
   border-radius:99px;cursor:pointer;transition:all .18s}
 .btn:hover:not(:disabled){background:var(--magenta);color:#2a0a1f}
 .btn:disabled{opacity:.5;cursor:default}
-.hint{font-size:clamp(.88rem,1.4vw,1.08rem);color:var(--ink-soft);font-style:italic}
+.hint{font-size:clamp(.86rem,1.35vw,1.05rem);color:var(--ink-soft);font-style:italic}
 </style>
 </head>
 <body>
 <div id="bar"></div>
 
-<!-- 1 · START · THE HONOR RULES -->
+<!-- 1 · START · REAL LEVEL -->
 <section class="slide active">
-  <div class="eyebrow reveal">Егор · диагностика · 50 минут</div>
-  <h1 class="reveal">8 months. <span class="spray">One map.</span></h1>
+  <div class="eyebrow reveal">Егор · диагностика · 60 минут</div>
+  <h1 class="reveal">This is <span class="spray">the real thing.</span></h1>
   <div class="rule reveal"></div>
   <div class="card c-cyan reveal">
-    <p class="note">Привет! Это <b>не контроль и не оценка</b>. Это карта: что у тебя
-    уже отлично, а что мы возьмём в работу до июня. Отвечай как есть —
-    <b>точная карта лучше красивой</b>.</p>
+    <p class="note">Привет! Это не выдуманный тест. Это задания уровня <b>настоящего ЕГЭ-2027</b> —
+    из официального проекта ФИПИ, опубликованного 28 августа. Твой экзамен — через 8 месяцев.
+    Посмотрим честно, где мы стартуем.</p>
   </div>
   <div class="card c-orange reveal">
-    <p class="note"><b>Правила честные:</b> один человек · 50 минут ·
-    без словаря, интернета, ChatGPT и друзей. ИИ решает за тебя — и карта
-    врёт. Подглядывать некуда и незачем — полтеста нельзя загуглить в
-    принципе. Таймер честный, как ты 🙂</p>
-    <button class="btn" id="startBtn" style="margin-top:.7em">старт · start the 50:00</button>
+    <p class="note"><b>Правила честные:</b> один человек · 60 минут ·
+    без словаря, интернета, ChatGPT и друзей. ИИ решает за тебя — и карта врёт.
+    Что-то кажется трудным? Это нормально — это и есть экзамен. Пустой ответ = 0,
+    догадка = шанс. Таймер честный, как ты 🙂</p>
+    <button class="btn" id="startBtn" style="margin-top:.7em">старт · start the 60:00</button>
   </div>
   <p class="hint reveal">Ответы сайт никуда не отправляет. В конце — один шаг: передать их Елене.</p>
 </section>
 
-<!-- 2 · PART A · GRAMMAR IN CONTEXT -->
+<!-- 2 · TASK 11 · SENTENCE PARTS -->
 <section class="slide">
-  <div class="eyebrow reveal">Part A · Grammar in context · A1–A6</div>
-  <h1 class="reveal">Six gaps, <span class="spray">one word each</span></h1>
+  <div class="eyebrow reveal">Чтение · Задание 11 · 6 ответов</div>
+  <h1 class="reveal">Amur River <span class="spray">region</span></h1>
   <div class="rule reveal"></div>
-  <p class="lead reveal">Read the text. Change the word in <strong>CAPITALS</strong> so it fits the gap —
-  <strong>one word only</strong>. Write your answers down: <strong>A1–A6</strong>.</p>
+  <p class="lead reveal">Заполните пропуски <strong>A–F</strong> частями предложений,
+  обозначенными цифрами <strong>1–7</strong>. Одна из частей — лишняя.
+  Запишите ответ: <strong>шесть цифр</strong> (для A, B, C, D, E, F).</p>
   <div class="card c-cyan reveal">
-    <p class="note">My family is small: mum, my older brother Tim, my little brother Misha and me.
-    Tim is a firefighter. He <span class="gap">(A1)</span> <span class="caps">(WORK)</span> at the fire station
-    five days a week. Last year he <span class="gap">(A2)</span> <span class="caps">(PASS)</span> his exams
-    and entered college — he <span class="gap">(A3)</span> <span class="caps">(SEE)</span> two real fires,
-    and he is only twenty. Yesterday, while he <span class="gap">(A4)</span> <span class="caps">(TRAIN)</span>
-    at the station, I called him about my homework. Our house <span class="gap">(A5)</span> <span class="caps">(BUILD)</span>
-    of bricks — Tim says it is safer that way. Sometimes I think: if I <span class="gap">(A6)</span> <span class="caps">(BE)</span>
-    a firefighter, I would be scared. Tim says no — you are too busy helping people.</p>
+    <p class="note">The Amur River is also known as the Heilong in China. The river covers
+    parts of Russia, China, and Mongolia, <span class="gap">A ______</span> China and
+    south-east Russia. A large region of grasslands and forests, about 1.85 million sq km
+    in size, is around the river.</p>
+    <p class="note" style="margin-top:.5em">The Amur region has some of the world's most extensive temperate forests.
+    These are forests of a rather mild climate area <span class="gap">B ______</span>.
+    Although the region there experiences very cold winters, it still supports a varied wildlife.
+    The forests are home for not just rare animals, but trees like the Korean pine, and wild ginseng,
+    <span class="gap">C ______</span>.</p>
+    <p class="note" style="margin-top:.5em">The most famous residents of the region include Amur or Siberian tigers,
+    and the last remaining wild population of Amur leopards. Amur leopards are critically endangered
+    <span class="gap">D ______</span>.</p>
+    <p class="note" style="margin-top:.5em">Amur tigers and Amur leopards are top predators with no natural enemies.
+    They play a great role in keeping a healthy balance of wildlife in their environment.
+    This is very important for the local people, animals, and plants that depend on that.</p>
+    <p class="note" style="margin-top:.5em">Many of the forest areas in the Amur region remain largely unchanged,
+    <span class="gap">E ______</span> increasing development and the need for resources.
+    The forests also suffer from frequent fires, natural and man-made. Rising temperatures and changing
+    rainfall patterns affect them as well. So, people should be working globally and locally
+    <span class="gap">F ______</span> climate change.</p>
   </div>
-</section>
-
-<!-- 3 · PART B · WORD FORMATION -->
-<section class="slide">
-  <div class="eyebrow reveal">Part B · Word formation · B1–B5</div>
-  <h1 class="reveal">Build <span class="spray">the new word</span></h1>
-  <div class="rule reveal"></div>
-  <p class="lead reveal">Use the word in <strong>CAPITALS</strong> to form a new word that fits the gap.
-  Write down: <strong>B1–B5</strong>.</p>
   <div class="card c-magenta reveal">
-    <div class="item"><span class="no">B1</span><span>Firefighters are some of the <span class="gap">___</span> <span class="caps">(BRAVE)</span> people I know.</span></div>
-    <div class="item"><span class="no">B2</span><span>It is <span class="gap">___</span> <span class="caps">(POSSIBLE)</span> to put out a real fire with one glass of water.</span></div>
-    <div class="item"><span class="no">B3</span><span>The job needs strength, skill and <span class="gap">___</span> <span class="caps">(PATIENT)</span>.</span></div>
-    <div class="item"><span class="no">B4</span><span>People who leave a fire on at home behave <span class="gap">___</span> <span class="caps">(RESPONSIBLE)</span>.</span></div>
-    <div class="item"><span class="no">B5</span><span>Tim passed all his exams <span class="gap">___</span> <span class="caps">(SUCCESS)</span>.</span></div>
+    <div class="item"><span class="no">1</span><span>which is endangered and should be</span></div>
+    <div class="item"><span class="no">2</span><span>but they are coming under pressure from</span></div>
+    <div class="item"><span class="no">3</span><span>forming the border between north-east</span></div>
+    <div class="item"><span class="no">4</span><span>that receives rather heavy rainfall</span></div>
+    <div class="item"><span class="no">5</span><span>which is a traditional medicinal plant</span></div>
+    <div class="item"><span class="no">6</span><span>to deal with the causes and effects of</span></div>
+    <div class="item"><span class="no">7</span><span>as there may be about 120 left in the wild</span></div>
   </div>
 </section>
 
-<!-- 4 · PART C · WORDS IN CONTEXT -->
+<!-- 3 · TASKS 12–18 · THE TEXT -->
 <section class="slide">
-  <div class="eyebrow reveal">Part C · Words in context · C1–C5</div>
-  <h1 class="reveal">Choose <span class="spray">the right one</span></h1>
+  <div class="eyebrow reveal">Чтение · Задания 12–18 · сначала текст</div>
+  <h1 class="reveal">AI and <span class="spray">student experience</span></h1>
   <div class="rule reveal"></div>
-  <p class="lead reveal">Choose <strong>a, b</strong> or <strong>c</strong>. Write down: <strong>C1–C5</strong>.</p>
-  <div class="card c-orange reveal">
-    <div class="item"><span class="no">C1</span><span>Firefighters <span class="gap">___</span> fires and save people. <span class="opts">a) put out · b) put off · c) put up</span></span></div>
-    <div class="item"><span class="no">C2</span><span>The crew arrived five minutes after the <span class="gap">___</span>. <span class="opts">a) alarm · b) advice · c) order</span></span></div>
-    <div class="item"><span class="no">C3</span><span>Thick smoke <span class="gap">___</span> from the windows. <span class="opts">a) raised · b) rose · c) rising</span></span></div>
-    <div class="item"><span class="no">C4</span><span>Everyone got out of the building <span class="gap">___</span>. <span class="opts">a) safe and sound · b) safe and tidy · c) safe and sorry</span></span></div>
-    <div class="item"><span class="no">C5</span><span>A fire <span class="gap">___</span> out in the kitchen. <span class="opts">a) broke · b) put · c) took</span></span></div>
-  </div>
-</section>
-
-<!-- 5 · PART D · READING · THE TEXT -->
-<section class="slide">
-  <div class="eyebrow reveal">Part D · Reading · first the text</div>
-  <h1 class="reveal">The junior <span class="spray">firefighter</span></h1>
-  <div class="rule reveal"></div>
-  <p class="lead reveal">Read once, calmly. The questions are on the next page.</p>
+  <p class="lead reveal">Прочитайте текст спокойно. Вопросы — на следующей странице.
+  Да, текст — про ИИ и списывание. ФИПИ знает, что делает 🙂</p>
   <div class="card c-cyan reveal">
-    <p class="note">When Jake was sixteen, he joined the junior firefighter program in his small American
-    town. The juniors train every Saturday morning: they learn to use the equipment, carry the hoses and
-    help the senior firefighters at real emergencies. They are not allowed to enter burning buildings —
-    that is the rule — but they do everything else.</p>
-    <p class="note" style="margin-top:.6em">Last month Jake's team was called to a fire in an old barn.
-    While the seniors fought the flames, Jake and two other juniors carried equipment, brought water and
-    helped the family's cat out of a tree (yes, it really happens). Nobody was hurt.</p>
-    <p class="note" style="margin-top:.6em">"People think we just wash the trucks," Jake says. "But last
-    year the juniors of our station gave more than 2,000 hours. We are not heroes. We just love our town
-    and want to be useful."</p>
-    <p class="note" style="margin-top:.6em">Jake wants to become a professional firefighter after school,
-    like his uncle. "The first thing they teach you," he laughs, "is that a good firefighter is never in
-    a hurry. You win by staying calm."</p>
+    <p class="note">No matter what your occupation is, you have probably faced some uncertainty
+    over the last few years as a result of innovative Artificial Intelligence (AI) technology and
+    its growing popularity. Teachers and students alike feel strongly about the upcoming changes.
+    There are certain ways in which AI technology is altering education, both for teachers and
+    students. Here is what lies ahead for education and the student experience in today's AI-driven
+    world.</p>
+    <p class="note" style="margin-top:.5em">If you have tried using AI tools yourself, you know how powerful they can be.
+    With just a few clicks, these programmes can write stories, organise ideas, and even complete
+    homework assignments. Unfortunately for educators, this potent tool is also available to students
+    who may use it to cheat and plagiarise work. Over the last several months, teachers from elementary
+    schools to universities have been trying to address this growing problem.</p>
+    <p class="note" style="margin-top:.5em">Sadly, there is, as yet, no silver-bullet solution for teachers. While some
+    software has claimed to be able to detect the presence of AI-generated content, none of these have
+    fully cracked the code. Teachers are now left to guess whether students are using this software to
+    complete assignments. As a result of this change, there will likely be a shift in education that
+    puts emphasis on in-person assessments, rather than take-home assignments. In this way, educators
+    can be sure that students are not using AI software to generate their work.</p>
+    <p class="note" style="margin-top:.5em">But AI is not just causing problems – it is also creating new opportunities.
+    Teachers are also starting to introduce AI into their processes. Instead of banning the use of AI,
+    many educators and institutions are currently trying to figure out the best ways for students to
+    use this technology as a helpful tool. Some teachers believe that soon, all students will learn how
+    to use AI properly to support their learning in honest and useful ways.</p>
+    <p class="note" style="margin-top:.5em">Over the decades, a critique of the school system has been its one-size-fits-all
+    approach to education. This is a model that treats every student the same way, ignoring individual
+    needs and learning styles. Though there were some attempts to fix this issue, none have been very
+    effective. Today, however, AI is presenting itself as an antidote to this problem. The data about
+    students' abilities makes it possible for teachers to use AI to personalise learning. For example,
+    the technology can show which students need extra help, and which ones are ready for more
+    challenging work. This means teachers can tweak their lessons to fit each student's needs, helping
+    everyone do their best.</p>
+    <p class="note" style="margin-top:.5em">Getting extra help outside of school has always been important for many
+    students, but not everyone could afford private tutors. Now, AI is changing that. Free AI tutors
+    are becoming available to help students with their schoolwork anytime they need it. These digital
+    tutors can explain difficult concepts, help with homework, and give students the extra practice
+    they need to understand tough subjects.</p>
+    <p class="note" style="margin-top:.5em">Thus, AI can have a wide variety of impacts on the student experience.
+    While it is creating new problems, like cheating, it is also offering new ways to make learning
+    more personal and accessible for every student. Now, all students have more opportunities to excel
+    in subjects they once found challenging. This incredible innovation makes me hopeful that more
+    students will achieve academic success. The key will be learning how to use this technology wisely
+    – as a tool to support learning, not replace it. As teachers and students continue to adapt, one
+    thing is clear: education will never again be the same.</p>
   </div>
 </section>
 
-<!-- 6 · PART D · READING · THE QUESTIONS -->
+<!-- 4 · TASKS 12–18 · QUESTIONS -->
 <section class="slide">
-  <div class="eyebrow reveal">Part D · Reading · D1–D4</div>
+  <div class="eyebrow reveal">Чтение · Задания 12–18 · 7 ответов</div>
   <h1 class="reveal">Now <span class="spray">answer</span></h1>
   <div class="rule reveal"></div>
-  <p class="lead reveal">Choose <strong>a, b</strong> or <strong>c</strong>. You may look back at the text —
-  it is a ‹‹ swipe away. Write down: <strong>D1–D4</strong>.</p>
+  <p class="lead reveal">В каждом задании — цифра <strong>1, 2, 3</strong> или <strong>4</strong>.
+  Текст можно перелистать назад — он на страницу позади. Запишите: <strong>12–18</strong>.</p>
   <div class="card c-cyan reveal">
-    <div class="item"><span class="no">D1</span><span>What do junior firefighters <b>not</b> do? <span class="opts">a) train on Saturdays · b) help at real emergencies · c) enter burning buildings</span></span></div>
-    <div class="item"><span class="no">D2</span><span>At the barn fire, Jake <span class="opts">a) fought the flames · b) helped rescue a cat · c) drove the truck</span></span></div>
-    <div class="item"><span class="no">D3</span><span>People, Jake says, think the juniors <span class="opts">a) only wash the trucks · b) are real heroes · c) waste their time</span></span></div>
-    <div class="item"><span class="no">D4</span><span>"A good firefighter is never in a hurry" means: <span class="opts">a) work slowly · b) stay calm · c) always be late</span></span></div>
+    <div class="item"><span class="no">12</span><span>What feeling does the spread of AI in education bring up?
+      <span class="opts">1) Opposition · 2) Doubt · 3) Excitement · 4) Curiosity</span></span></div>
+    <div class="item"><span class="no">13</span><span>This growing problem in paragraph 2 refers to …
+      <span class="opts">1) AI's productivity · 2) shortage of teachers · 3) academic dishonesty · 4) students' access to AI</span></span></div>
+    <div class="item"><span class="no">14</span><span>What is the problem with the systems that spot the use of AI?
+      <span class="opts">1) They are quite unreliable · 2) rather expensive · 3) hard to work with · 4) difficult to access</span></span></div>
+    <div class="item"><span class="no">15</span><span>How can the use of AI in education be described, according to the text?
+      <span class="opts">1) Successful · 2) Controversial · 3) Unregulated · 4) Ineffective</span></span></div>
+    <div class="item"><span class="no">16</span><span>Tweak in paragraph 5 most probably means …
+      <span class="opts">1) simplify · 2) replace · 3) upgrade · 4) adjust</span></span></div>
+    <div class="item"><span class="no">17</span><span>Which fact about AI in education is NOT mentioned in the text?
+      <span class="opts">1) AI impacts how students are assessed · 2) AI makes education more accessible · 3) AI makes students dependent on it · 4) AI helps make learning individualised</span></span></div>
+    <div class="item"><span class="no">18</span><span>The author concludes by suggesting that …
+      <span class="opts">1) students will be more productive with AI · 2) a balanced use of AI will benefit education · 3) education needs to regulate the use of AI · 4) teachers need to reconsider their methods</span></span></div>
   </div>
 </section>
 
-<!-- 7 · PART E · RU → EN TRANSLATION -->
+<!-- 5 · TASKS 19–24 · GRAMMAR -->
 <section class="slide">
-  <div class="eyebrow reveal">Part E · RU → EN · E1–E5</div>
-  <h1 class="reveal">Translate — <span class="spray">no dictionary, remember?</span></h1>
+  <div class="eyebrow reveal">Грамматика · Задания 19–24 · 6 слов</div>
+  <h1 class="reveal">Transform <span class="spray">the word</span></h1>
   <div class="rule reveal"></div>
-  <p class="lead reveal">Write <strong>full English sentences</strong>. These five cannot be googled —
-  only produced. Write down: <strong>E1–E5</strong>.</p>
+  <p class="lead reveal">Преобразуйте слова в <strong>CAPS</strong> так, чтобы они грамматически
+  соответствовали тексту. Запишите: <strong>19–24, шесть слов</strong>.</p>
+  <div class="card c-cyan reveal">
+    <p class="k k-cyan">Yaroslavl</p>
+    <p class="note">Yaroslavl is one of the most beautiful and ancient cities of Russia, the capital
+    of the Russian Golden Ring. It <span class="gap">(19)</span> <span class="caps">(LOCATE)</span> on the Volga River
+    and has a lot of old churches, cathedrals and monasteries as well as museums and historical monuments.
+    Tourists also enjoy <span class="gap">(20)</span> <span class="caps">(WALK)</span> along its wonderful embankment
+    which offers its visitors picturesque views of the Volga. Millions of tourists
+    <span class="gap">(21)</span> <span class="caps">(VISIT)</span> Yaroslavl so far, and a lot of them want
+    to come to this city again.</p>
+  </div>
+  <div class="card c-orange reveal">
+    <p class="k k-orange">From the history of sweaters</p>
+    <p class="note">Probably every person in the world has at least one sweater. It is a very popular
+    item of clothing now, especially for <span class="gap">(22)</span> <span class="caps">(CHILD)</span>,
+    who don't like buttons and zips.</p>
+    <p class="note" style="margin-top:.5em">It is interesting to know why a sweater is called so. In fact,
+    a knitted woolen sweater as we know it today <span class="gap">(23)</span> <span class="caps">(CREATE)</span>
+    in Europe in the 19th century.</p>
+    <p class="note" style="margin-top:.5em">Overweight people <span class="gap">(24)</span> <span class="caps">(WEAR)</span>
+    sweaters in order to lose some weight. They sweated profusely in warm sweaters, that is why this
+    item of clothing got such a name.</p>
+  </div>
+</section>
+
+<!-- 6 · TASKS 25–29 · WORD FORMATION -->
+<section class="slide">
+  <div class="eyebrow reveal">Лексика · Задания 25–29 · 5 слов</div>
+  <h1 class="reveal">The State Hermitage <span class="spray">Museum</span></h1>
+  <div class="rule reveal"></div>
+  <p class="lead reveal">Образуйте от слов в <strong>CAPS</strong> однокоренные слова так, чтобы они
+  грамматически и лексически соответствовали тексту. Запишите: <strong>25–29, пять слов</strong>.</p>
   <div class="card c-magenta reveal">
-    <div class="item"><span class="no">E1</span><span>Мой брат уже закончил смену.</span></div>
-    <div class="item"><span class="no">E2</span><span>Вчера мы говорили об этом два часа.</span></div>
-    <div class="item"><span class="no">E3</span><span>Если будет пожар, они сразу позвонят.</span></div>
-    <div class="item"><span class="no">E4</span><span>Этот дом выше, чем наш.</span></div>
-    <div class="item"><span class="no">E5</span><span>Он привык вставать рано.</span></div>
+    <p class="note">The State Hermitage Museum is located in Saint Petersburg, Russia. It is
+    <span class="gap">(25)</span> <span class="caps">(CERTAIN)</span> one of the greatest and most visited
+    museums of the world.</p>
+    <p class="note" style="margin-top:.5em">Catherine the Great founded it in 1764, but it was opened to the public
+    in 1852 only. Now it can boast a huge <span class="gap">(26)</span> <span class="caps">(COLLECT)</span>
+    of over 3 million works of art.</p>
+    <p class="note" style="margin-top:.5em">It may be an <span class="gap">(27)</span> <span class="caps">(POSSIBLE)</span>
+    task to see all the masterpieces kept in the museum – it will take a person about eleven years
+    to look at each of the museum's exhibits for just one minute.</p>
+    <p class="note" style="margin-top:.5em">However, the Hermitage is interesting not only because of the
+    <span class="gap">(28)</span> <span class="caps">(PRICE)</span> paintings kept there.</p>
+    <p class="note" style="margin-top:.5em">The Winter Palace used to be the official
+    <span class="gap">(29)</span> <span class="caps">(RESIDE)</span> for the Romanov Tsars, so it is
+    a beautiful construction – one of the greatest symbols of imperial Russia.</p>
   </div>
 </section>
 
-<!-- 8 · PART F · ABOUT YOU -->
+<!-- 7 · TASKS 30–36 · THE TEXT -->
 <section class="slide">
-  <div class="eyebrow reveal">Part F · About you · F1–F3</div>
-  <h1 class="reveal">Three honest <span class="spray">lines</span></h1>
+  <div class="eyebrow reveal">Лексика · Задания 30–36 · сначала текст</div>
+  <h1 class="reveal"><span class="spray">Sunday</span></h1>
   <div class="rule reveal"></div>
-  <p class="lead reveal"><strong>40–60 words total</strong>, real English, your own life.
-  Write down: <strong>F1–F3</strong>.</p>
-  <div class="card c-lime reveal">
-    <div class="item"><span class="no">F1</span><span>How did you spend your holidays? One honest sentence.</span></div>
-    <div class="item"><span class="no">F2</span><span>What are your plans after the 11th grade — where, what, and what ЕГЭ score do you need?</span></div>
-    <div class="item"><span class="no">F3</span><span>Why English for YOUR future — one real reason (not "because we have it at school").</span></div>
+  <p class="lead reveal">Прочитайте текст с пропусками. Варианты — на следующей странице.</p>
+  <div class="card c-cyan reveal">
+    <p class="note">Gloria Wald sat back in her chair with a small sigh. She was trying to relax
+    listening to her favourite classical music. She had to <span class="gap">30 ______</span> that she was
+    tired today. Sundays always tired her. Sometimes she thought she did more work at home than she did
+    at the office. She always spent Sundays answering her personal correspondence, looking over the books
+    kept by the cook and the housekeeper. She made lists of what she had noticed needed to be
+    <span class="gap">31 ______</span> around the apartment and of items needed to complete her wardrobe.
+    <span class="gap">32 ______</span>, she had to plan menus for the week. It was tedious work, but she had
+    done it for years, even before she'd begun to run the business.</p>
+    <p class="note" style="margin-top:.5em">Once she'd taken over from her husband, she had still spent her Sundays
+    <span class="gap">33 ______</span> to the household. She was also <span class="gap">34 ______</span> care
+    of her grandson on the nurse's day off. Those Sundays had been precious, a few hours with her grandson
+    without anyone interfering, anyone taking him away. She <span class="gap">35 ______</span> those days.</p>
+    <p class="note" style="margin-top:.5em">A tiny bright tear crept into her lashes. How she loved that child.
+    She would have done anything for him. And she had. She <span class="gap">36 ______</span> to maintain
+    the family business empire for him, carried the legacy from one generation to the next. It was her most
+    valuable gift for him. And she had come to love the business almost as much as she loved her grandson.</p>
   </div>
 </section>
 
-<!-- 9 · SEND -->
+<!-- 8 · TASKS 30–33 · QUESTIONS -->
+<section class="slide">
+  <div class="eyebrow reveal">Лексика · Задания 30–33</div>
+  <h1 class="reveal">Choose <span class="spray">1–4</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card c-cyan reveal">
+    <div class="item"><span class="no">30</span><span>She had to ___ that she was tired today.
+      <span class="opts">1) approach · 2) allow · 3) admit · 4) approve</span></span></div>
+    <div class="item"><span class="no">31</span><span>…needed to be ___ around the apartment…
+      <span class="opts">1) received · 2) repaired · 3) remained · 4) repeated</span></span></div>
+    <div class="item"><span class="no">32</span><span>___, she had to plan menus for the week.
+      <span class="opts">1) Although · 2) However · 3) Nevertheless · 4) Moreover</span></span></div>
+    <div class="item"><span class="no">33</span><span>…she had still spent her Sundays ___ to the household.
+      <span class="opts">1) visiting · 2) concentrating · 3) attending · 4) focusing</span></span></div>
+  </div>
+  <p class="hint reveal">Задания 34–36 — на следующей странице.</p>
+</section>
+
+<!-- 9 · TASKS 34–36 · QUESTIONS -->
+<section class="slide">
+  <div class="eyebrow reveal">Лексика · Задания 34–36</div>
+  <h1 class="reveal">And the <span class="spray">last three</span></h1>
+  <div class="rule reveal"></div>
+  <div class="card c-cyan reveal">
+    <div class="item"><span class="no">34</span><span>She was also ___ care of her grandson on the nurse's day off.
+      <span class="opts">1) taking · 2) keeping · 3) holding · 4) making</span></span></div>
+    <div class="item"><span class="no">35</span><span>She ___ those days.
+      <span class="opts">1) recorded · 2) reminded · 3) recognized · 4) remembered</span></span></div>
+    <div class="item"><span class="no">36</span><span>She ___ to maintain the family business empire for him…
+      <span class="opts">1) managed · 2) accomplished · 3) succeeded · 4) achieved</span></span></div>
+  </div>
+  <p class="lead reveal">Запишите ответы <strong>30–36: семь цифр</strong>. Осталось письмо!</p>
+</section>
+
+<!-- 10 · TASK 37 · THE EMAIL -->
+<section class="slide">
+  <div class="eyebrow reveal">Письмо · Задание 37 · 100–140 слов</div>
+  <h1 class="reveal">A real <span class="spray">ЕГЭ email</span></h1>
+  <div class="rule reveal"></div>
+  <p class="lead reveal">You have received an email message from your English-speaking pen-friend Sophia:</p>
+  <div class="card c-cyan reveal">
+    <p class="note"><b>From:</b> Sophia@mail.uk<br><b>To:</b> Russian_friend@ege.ru<br><b>Subject:</b> Victory Day</p>
+    <p class="note" style="margin-top:.5em">…I'm doing a project on "Holidays in Different Countries of the World."
+    I've learnt that in Russia, Victory Day is celebrated on May 9th. <b>What event does this holiday
+    commemorate? What official events are held on this day? What do you and your family usually do on
+    this day?</b></p>
+    <p class="note" style="margin-top:.5em">…I've joined a local volunteer group…</p>
+  </div>
+  <div class="card c-lime reveal">
+    <p class="note"><b>Write an email to Sophia.</b> In your message:
+    <b>answer her questions; ask 3 questions about the volunteer group.</b><br>
+    Write <b>100–140 words</b>. Remember the rules of email writing.</p>
+  </div>
+  <p class="hint reveal">Пишите прямо в сообщении Елене или в тетрадь и пришлите фото — как удобно.</p>
+</section>
+
+<!-- 11 · SEND -->
 <section class="slide">
   <div class="eyebrow reveal">Готово?</div>
   <h1 class="reveal">Send the <span class="spray">map</span> back</h1>
   <div class="rule reveal"></div>
   <div class="card c-cyan reveal">
-    <p class="note"><b>Одно сообщение Елене в личку:</b> ответы по номерам — от A1 до F3.
-    Текстом, голосом или фото тетради — как удобно.</p>
-    <p class="note" style="margin-top:.5em">«Правильные ответы» после не показываются — их увидим вместе на уроке.</p>
+    <p class="note"><b>Одно сообщение Елене в личку:</b></p>
+    <div class="item"><span class="no">11</span><span>шесть цифр (A–F)</span></div>
+    <div class="item"><span class="no">12–18</span><span>семь цифр</span></div>
+    <div class="item"><span class="no">19–24</span><span>шесть слов</span></div>
+    <div class="item"><span class="no">25–29</span><span>пять слов</span></div>
+    <div class="item"><span class="no">30–36</span><span>семь цифр</span></div>
+    <div class="item"><span class="no">37</span><span>письмо — текстом или фото тетради</span></div>
   </div>
   <div class="card c-lime reveal">
-    <p class="note"><span class="k k-lime">Это был не контроль. Это карта. 🗺️</span><br>
-    Завтра начнём с того, что на ней видно.</p>
+    <p class="note"><span class="k k-lime">Это уровень настоящего ЕГЭ.</span><br>
+    Какой бы ни был результат — теперь у нас настоящая карта. Завтра начнём с того, что на ней видно.</p>
   </div>
   <p class="hint reveal">Таймер вышел, а ты не успел? Спокойно допиши и отправь — честность дороже секунд.</p>
 </section>
 
 <div id="nav">
-  <span id="timer">50:00</span>
-  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 9</span>
+  <span id="timer">60:00</span>
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 11</span>
   <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
 </div>
 <script>
@@ -265,7 +411,7 @@ let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX
 document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
 
 /* the honest timer */
-let left=50*60,iv=null;
+let left=60*60,iv=null;
 function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
 function tick(){
   left--;const el=document.getElementById('timer');
