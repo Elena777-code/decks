@@ -6,40 +6,62 @@
 <title>Answers on the screen! 🃏</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
+/* ============================================================
+   THE SILLY GAME — published deck (graffiti design, 2026-09-11).
+   DESIGN FROZEN by Elena: the wall photo + sticker-boxes +
+   frosted panel; 🎙 instead of numbers; questions on ONE line;
+   playing mode = questions + whiteboard strip.
+   The question BASE lives in Elena's repo:
+   Library/Ideas/answers-on-the-screen/question-base.md —
+   questions are changed THERE, then synced here.
+   Kept from the previous version: the date rotation (today's
+   game N, next lesson N+1), the ready-chime, Esc = menu,
+   re-click = fresh order.
+   ============================================================ */
 :root{
-  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
-  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
-  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
-  --white:#ffffff;
-  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
-  --radius:22px;
+  --cyan:#2BD9E8;
+  --pink:#F03CB0;
+  --orange:#FF7A29;
+  --yellow:#FFC93C;
+  --lime:#A8E82A;
+  --frost:rgba(255,251,244,.88);
+  --ink-dark:#221B30;
+  --ink-dark-soft:rgba(34,27,48,.68);
+  --plate:rgba(26,20,32,.78);
+  --white:#fff;
+  --radius:18px;
+  --grad:linear-gradient(90deg,var(--cyan),var(--pink) 45%,var(--orange) 75%,var(--yellow));
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
-body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;overflow:hidden}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink-dark);background:#1a1420;-webkit-font-smoothing:antialiased;overflow:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:-1;
+  background:url("graffiti-wall.jpeg") center/cover no-repeat}
 .wrap{height:100vh;display:flex;flex-direction:column;padding:2.6vh 4vw 2.2vh}
-.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.8rem,1.2vw,1.05rem);color:var(--navy);margin-bottom:.2em}
-h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,4.4vw,3.8rem);line-height:1.05}
-.rule{font-size:clamp(1.1rem,1.8vw,1.55rem);color:var(--ink);margin-top:.15em}
-.rule b{color:var(--stamp)}
+.eyebrow{font-family:'Permanent Marker',cursive;letter-spacing:.1em;text-transform:uppercase;font-size:clamp(.8rem,1.2vw,1.05rem);color:var(--yellow);background:var(--plate);padding:.15em .8em;border-radius:12px;margin-bottom:.35em;align-self:flex-start}
+h1{font-family:'Permanent Marker',cursive;font-weight:400;font-size:clamp(2rem,4.4vw,3.8rem);line-height:1.05;color:var(--white);background:var(--plate);padding:.05em .45em;border-radius:14px;align-self:flex-start}
+h1 .spray{color:var(--cyan)}
+.rule{font-size:clamp(1.1rem,1.8vw,1.55rem);color:var(--ink-dark);background:var(--frost);border-radius:99px;padding:.3em 1.1em;margin-top:1.1vh;align-self:flex-start}
+.rule b{color:var(--pink)}
 .bar{display:flex;gap:.8em;align-items:center;flex-wrap:wrap;margin-top:1.1vh}
-.deal-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2vw,1.7rem);padding:.55em 1.6em;border:none;border-radius:99px;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--navy),var(--sky));box-shadow:var(--shadow);transition:transform .15s ease}
+.deal-btn{font-family:'Permanent Marker',cursive;font-size:clamp(1.15rem,2vw,1.7rem);padding:.4em 1.2em;border:3px solid var(--white);border-radius:var(--radius);cursor:pointer;color:var(--ink-dark);background:var(--yellow);box-shadow:0 10px 30px rgba(26,20,32,.35);transition:transform .15s ease}
 .deal-btn:hover{transform:scale(1.05)}
-.deal-btn.on{background:linear-gradient(135deg,var(--stamp),var(--cheese));transform:scale(1.04)}
-.reminder{margin-left:auto;font-size:clamp(.95rem,1.5vw,1.3rem);color:var(--ink-soft);font-style:italic}
+.deal-btn.on{background:linear-gradient(135deg,var(--pink),var(--orange));transform:scale(1.04)}
+.reminder{margin-left:auto;font-size:clamp(.95rem,1.5vw,1.3rem);color:var(--ink-dark);background:var(--frost);border-radius:99px;padding:.3em 1em;font-style:italic}
 #list{flex:1;display:none;grid-template-columns:1fr 1fr;gap:.25em 2em;align-content:center;margin-top:1vh;overflow:auto}
 #list.dealt{display:grid}
-.q{font-size:clamp(1.8rem,3.1vw,2.9rem);line-height:1.4;padding:.14em 0;font-weight:600}
+.q{font-size:clamp(1.3rem,2.5vw,2.5rem);line-height:1.4;padding:.14em 0;font-weight:600;color:var(--ink-dark);white-space:nowrap}
+.q::before{content:"🎙 "}
+body.playing .wrap{background:var(--frost);backdrop-filter:blur(8px);border:3px solid var(--white);border-radius:0}
 body.playing .wrap>*:not(#list):not(#backchip):not(#strip){display:none}
 body.playing #list{display:grid;grid-template-columns:1fr 1fr;gap:.3em 2em;align-content:center;flex:1;margin-top:0}
-.q::before{content:"🎙 "}
-#strip{margin-top:1.4vh;background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:.55em 1em;display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
-#strip .lab{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1rem,1.6vw,1.4rem);margin-right:.3em}
-.chip{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.35rem,2.4vw,2.1rem);padding:.22em .8em;border-radius:99px;background:var(--cheese-soft);color:var(--navy-deep);box-shadow:0 4px 10px rgba(34,48,63,.08)}
-.chip.yes{background:var(--stamp-soft);color:var(--stamp)}
-#backchip{position:fixed;left:12px;bottom:12px;z-index:50;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.5vw,1.3rem);padding:.45em 1.2em;border:none;border-radius:99px;cursor:pointer;background:var(--white);color:var(--navy);box-shadow:var(--shadow);transition:transform .15s ease}
+#strip{margin-top:1.4vh;background:var(--white);border:3px solid var(--cyan);border-radius:var(--radius);box-shadow:0 10px 30px rgba(26,20,32,.35);padding:.55em 1em;display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
+#strip .lab{font-family:'Permanent Marker',cursive;color:var(--ink-dark);font-size:clamp(1rem,1.6vw,1.4rem);margin-right:.3em}
+.chip{font-weight:700;font-size:clamp(1.35rem,2.4vw,2.1rem);padding:.22em .8em;border-radius:99px;background:var(--white);border:2px solid var(--cyan);color:var(--ink-dark);box-shadow:0 4px 10px rgba(34,27,48,.08)}
+.chip.yes{background:var(--pink);border-color:var(--white);color:var(--white)}
+#backchip{position:fixed;left:12px;bottom:12px;z-index:50;font-family:'Permanent Marker',cursive;font-size:clamp(1rem,1.5vw,1.3rem);padding:.35em 1em;border:3px solid var(--white);border-radius:var(--radius);cursor:pointer;background:var(--frost);color:var(--ink-dark);box-shadow:0 10px 30px rgba(26,20,32,.35);transition:transform .15s ease}
 #backchip:hover{transform:scale(1.06)}
 body.playing #backchip{font-size:clamp(1.4rem,2vw,1.9rem);padding:.3em .8em}
 @media(max-width:900px){ #list{grid-template-columns:1fr} body.playing #list.dealt{grid-template-columns:1fr} }
@@ -48,7 +70,7 @@ body.playing #backchip{font-size:clamp(1.4rem,2vw,1.9rem);padding:.3em .8em}
 <body>
 <div class="wrap">
   <div class="eyebrow">The silly game · answers on the screen</div>
-  <h1>Answers on the screen! 🃏</h1>
+  <h1>Answers on the <span class="spray">screen</span>! 🃏</h1>
   <p class="rule">Any question — but the answer must come from the board. <b>Fast phrase first, then the full sentence!</b> 😄</p>
 
   <div class="bar">
