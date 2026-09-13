@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGOR — Lesson 2 · essay + exam grammar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#17181D;
+  --card:rgba(255,255,255,.055);
+  --ink:#F5F3EE;
+  --ink-soft:#A9ACB8;
+  --cyan:#2BD9E8;
+  --magenta:#F03CB0;
+  --orange:#FF7A29;
+  --yellow:#FFC93C;
+  --lime:#A8E82A;
+  --line:rgba(255,255,255,.14);
+  --radius:14px;
+  --grad:linear-gradient(90deg,#2BD9E8,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--wall);color:var(--ink);font-family:'Inter',system-ui,sans-serif;overflow:hidden}
+/* faint brick pattern */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;
+  background-image:linear-gradient(var(--ink) 1px,transparent 1px),linear-gradient(90deg,var(--ink) 1px,transparent 1px);
+  background-size:64px 32px,64px 32px}
+#bar{position:fixed;top:0;left:0;height:7px;width:0;background:var(--grad);z-index:100;transition:width .4s}
+#bar-track{position:fixed;top:0;left:0;right:0;height:7px;background:rgba(255,255,255,.08);z-index:99}
+.slide{position:absolute;inset:0;padding:4.2vh 5vw calc(74px + 2.4vh);display:none;flex-direction:column;overflow:auto}
+.slide.active{display:flex}
+.slide .reveal{opacity:0}
+.slide.active .reveal{animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.slide.prev{display:none}
+.eyebrow{font-family:'Permanent Marker',cursive;color:var(--yellow);letter-spacing:.12em;font-size:clamp(1rem,1.8vw,1.4rem);text-transform:uppercase}
+.title{font-weight:800;font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.08;margin:.3em 0 .2em}
+.title .spray,.spray{display:inline-block;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.accent-line{width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--cyan),var(--magenta));margin-bottom:2.6vh}
+.card{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--cyan);border-radius:var(--radius);padding:2.2vh 1.6vw;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.card.c-cyan{border-top-color:var(--cyan)}
+.card.c-magenta{border-top-color:var(--magenta)}
+.card.c-orange{border-top-color:var(--orange)}
+.card.c-yellow{border-top-color:var(--yellow)}
+.card.c-lime{border-top-color:var(--lime)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.6vw;align-items:start}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.2vw}
+.task{display:inline-block;background:rgba(255,201,60,.12);border:1px dashed var(--yellow);color:var(--ink);border-radius:99px;padding:.45em 1.1em;font-size:clamp(1.05rem,1.7vw,1.4rem);margin-top:2.2vh}
+.chips{display:flex;flex-wrap:wrap;gap:.6vw;margin-top:1.4vh}
+.chip{background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:99px;padding:.35em .9em;font-weight:600;font-size:clamp(1rem,1.8vw,1.4rem)}
+.chip.bank{background:rgba(255,201,60,.14);border-color:var(--yellow);color:var(--yellow)}
+.ru{color:var(--ink-soft)}
+/* sentences + gaps */
+.sent-list{display:flex;flex-direction:column;gap:1.8vh;margin-top:1vh}
+.sent{font-size:clamp(1.3rem,2.3vw,2rem);font-weight:600;border-bottom:1px dotted var(--line);padding-bottom:1vh;line-height:1.35}
+.sent .n{font-family:'Permanent Marker',cursive;color:var(--lime);margin-right:.5em;font-size:.85em}
+.gap{display:inline-block;min-width:0;cursor:pointer;border-bottom:3px dashed var(--yellow);color:transparent;padding:0 .5em;transition:.2s;user-select:none}
+.gap.filled{color:var(--cyan);border-bottom:3px solid var(--cyan);background:rgba(43,217,232,.1);border-radius:6px}
+.caps{color:var(--magenta);font-weight:800;letter-spacing:.06em}
+/* fix-the-error */
+.fx{cursor:pointer;border-bottom:1px dotted var(--line);padding:1.4vh 0;font-size:clamp(1.25rem,2.2vw,1.85rem);font-weight:600;line-height:1.4}
+.fx .bad{color:var(--orange);text-decoration:line-through;text-decoration-thickness:3px;text-decoration-color:rgba(255,122,41,.6)}
+.fx .fix{color:transparent;transition:.3s}
+.fx.show .fix{color:var(--cyan)}
+.fx .why{display:block;font-size:.62em;font-weight:500;color:var(--ink-soft);opacity:0;transition:.3s}
+.fx.show .why{opacity:1}
+/* trap slide */
+.arrows{font-size:clamp(2.2rem,5vw,4rem);color:var(--yellow);text-align:center}
+.wfam{font-size:clamp(1.6rem,3.2vw,2.6rem);font-weight:800;line-height:1.3}
+.wfam .hl{color:var(--magenta)}
+.wfam .ru{font-size:.55em;font-weight:500}
+/* fullscreen reading */
+.fsbtn{background:rgba(43,217,232,.12);border:1px solid var(--cyan);color:var(--cyan);border-radius:99px;padding:.4em 1em;font-size:clamp(1rem,1.7vw,1.35rem);cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;margin-top:1.6vh}
+.fsbtn:hover{background:rgba(43,217,232,.25)}
+.exam-text{font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.55;font-weight:500}
+.exam-text .gapn{font-family:'Permanent Marker',cursive;color:var(--lime);font-size:.8em;vertical-align:middle}
+#fsoverlay{position:fixed;inset:0;background:#101116;z-index:200;display:none;overflow:auto;padding:6vh 7vw 10vh;cursor:pointer}
+#fsoverlay.open{display:block}
+#fsoverlay .fst{font-size:clamp(1.3rem,2.6vw,2.1rem);line-height:1.7;font-weight:500;max-width:1200px}
+#fsoverlay .hint{position:fixed;bottom:3vh;left:0;right:0;text-align:center;color:var(--ink-soft);font-size:clamp(.95rem,1.5vw,1.2rem)}
+/* answers table */
+.ans-row{display:grid;grid-template-columns:3.2em 1fr;gap:1vw;align-items:baseline;cursor:pointer;border-bottom:1px dotted var(--line);padding:1.3vh 0;font-size:clamp(1.25rem,2.2vw,1.8rem);font-weight:600}
+.ans-row .n{font-family:'Permanent Marker',cursive;color:var(--lime)}
+.ans-row .a{color:transparent;transition:.3s}
+.ans-row.show .a{color:var(--cyan)}
+.ans-row .w{grid-column:2;font-size:.6em;font-weight:500;color:var(--ink-soft);opacity:0;transition:.3s}
+.ans-row.show .w{opacity:1}
+/* homework */
+.hw-step{display:grid;grid-template-columns:2.6em 1fr;gap:1vw;align-items:start;margin-top:2vh;font-size:clamp(1.15rem,2vw,1.6rem);line-height:1.45}
+.hw-step .num{width:1.9em;height:1.9em;border-radius:50%;background:var(--grad);color:#14151a;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85em}
+.hw-step a{color:var(--cyan);word-break:break-all}
+/* nav */
+#nav{position:fixed;bottom:max(10px,1.6vh);right:max(10px,1.6vw);z-index:120;display:flex;gap:8px;align-items:center;background:rgba(23,24,29,.75);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:99px;padding:6px 10px}
+#nav button{background:none;border:none;color:var(--ink);font-size:1.25rem;cursor:pointer;width:2.2em;height:2.2em;border-radius:50%;transition:.15s}
+#nav button:hover{background:rgba(255,255,255,.12);transform:scale(1.08)}
+#nav button:disabled{opacity:.3;cursor:default}
+#nav button:active{transform:scale(.95)}
+#counter{color:var(--ink-soft);font-size:.95rem;min-width:3.4em;text-align:center}
+/* presenter */
+#pbtn{font-size:1rem}
+@media(max-width:900px){.grid2,.grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="bar-track"></div><div id="bar"></div>
+
+<!-- S1 · PREPARE AHEAD (teacher-facing, RU) -->
+<section class="slide" data-notes="Служебный слайд — Егор его не читает. Проверь список до 15:00. Как пришлёшь фото эссе — я добавлю слайды разбора прямо в этот дек (чarness прозвенит и дек перезагрузится сам).">
+  <div class="eyebrow">teacher · prepare ahead</div>
+  <h1 class="title">До урока · <span class="spray">15:00</span></h1>
+  <div class="accent-line"></div>
+  <div class="card c-yellow">
+    <p style="font-size:clamp(1.15rem,1.9vw,1.5rem);line-height:1.7">
+    📸 <b>Фото эссе</b> — Музланова, 38.1, стр. 12: как только закончит — сфотографируй и пришли мне. Разбор добавлю в дек прямо во время урока.<br>
+    📖 <b>Музланова под рукой</b> — стр. 12 и таблица критериев письма (объём для 38.1 сверься по книге).<br>
+    🖥 <b>Этот дек на экране</b> — F = во весь экран. Зеркало/dynamics не нужны.<br>
+    🖊 <b>Ему — ручка и лист</b> для FIPI: сначала пишет сам, потом проверяем.<br>
+    ⏱ <b>Раскладка часа:</b> эссе вслух → дрилл 2×1 мин → ловушка found → FIPI 19–24 → домашка.</p>
+  </div>
+  <div class="task">🎯 if the essay photo is already here — jump to slide 3</div>
+</section>
+
+<!-- S2 · HOMEWORK CHECK — essay out loud -->
+<section class="slide" data-notes="Премьера: он читает своё эссе вслух целиком (экзаменационная привычка + сразу видно структуру). Ты на бумаге: считаешь слова, отмечаешь 3 звезды и 1 wish. Критерии К1–К5 в плане. Слайды разбора добавлю, когда придёт фото.">
+  <div class="eyebrow">homework check · the solo hour</div>
+  <h1 class="title">Your essay, <span class="spray">out loud</span></h1>
+  <div class="accent-line"></div>
+  <div class="card c-cyan">
+    <p class="exam-text">Read your essay aloud — the whole thing, exam pace.<br>
+    You wrote it alone, no devices. Now make it sound confident.<br>
+    I follow on paper: <b>word count</b> · <b>3 stars</b> · <b>1 wish</b>.</p>
+  </div>
+  <div class="chips">
+    <span class="chip">words: ______</span>
+    <span class="chip">paragraphs: ______</span>
+    <span class="chip">your verdict: ______</span>
+  </div>
+  <div class="task">🎯 read it like it is already exam day</div>
+</section>
+
+<!-- S3 · DRILL 1 — choose the word -->
+<section class="slide" data-notes="60 секунд. Он называет слово вслух ДО клика — клик только подтверждает. Все предложения — на его собственных домашних конструкциях.">
+  <div class="eyebrow">60-second drill · №1</div>
+  <h1 class="title">bother · trouble · <span class="spray">annoy</span> · worry</h1>
+  <div class="accent-line"></div>
+  <div class="sent-list">
+    <div class="sent"><span class="n">1</span>I am sorry to <span class="gap" data-rv="g1" data-w="bother">bother</span> you — is everything OK?</div>
+    <div class="sent"><span class="n">2</span>May I <span class="gap" data-rv="g2" data-w="trouble">trouble</span> you for a minute?</div>
+    <div class="sent"><span class="n">3</span>Loud music really <span class="gap" data-rv="g3" data-w="annoys">annoys</span> me.</div>
+    <div class="sent"><span class="n">4</span>Don't <span class="gap" data-rv="g4" data-w="worry">worry</span> about the test — you know this stuff.</div>
+  </div>
+  <div class="chips">
+    <span class="chip bank">bother</span><span class="chip bank">trouble</span><span class="chip bank">annoy</span><span class="chip bank">worry</span>
+  </div>
+  <div class="task">🎯 say the word first — then click the gap</div>
+</section>
+
+<!-- S4 · DRILL 2 — the examiner -->
+<section class="slide" data-notes="Судейский фрейм: он — экзаменатор, находит и чинит ошибку вслух, потом клик. Все примеры — его настоящие ошибки из тетради и письма (стр. 7, 10, 13 тетради; домашка).">
+  <div class="eyebrow">60-second drill · №2 · you are the examiner</div>
+  <h1 class="title">Find it. <span class="spray">Fix it.</span></h1>
+  <div class="accent-line"></div>
+  <div>
+    <div class="fx" data-rv="f1"><span class="n" style="font-family:'Permanent Marker',cursive;color:var(--lime);margin-right:.5em">1</span>I regret saying <span class="bad">this</span> <span class="fix">these</span> words.<span class="why">this + singular · these + plural</span></div>
+    <div class="fx" data-rv="f2"><span class="n" style="font-family:'Permanent Marker',cursive;color:var(--lime);margin-right:.5em">2</span>Classroom education <span class="bad">incorporate</span> <span class="fix">incorporates</span> support.<span class="why">3rd person singular → -s</span></div>
+    <div class="fx" data-rv="f3"><span class="n" style="font-family:'Permanent Marker',cursive;color:var(--lime);margin-right:.5em">3</span>He is a <span class="bad">succesful</span> <span class="fix">successful</span> student.<span class="why">su-CC-e-ss-fu-LL</span></div>
+    <div class="fx" data-rv="f4"><span class="n" style="font-family:'Permanent Marker',cursive;color:var(--lime);margin-right:.5em">4</span>Tom <span class="bad">prefered studing</span> <span class="fix">preferred studying</span> alone.<span class="why">double the R · keep the Y before -ing</span></div>
+    <div class="fx" data-rv="f5"><span class="n" style="font-family:'Permanent Marker',cursive;color:var(--lime);margin-right:.5em">5</span>You can study <span class="bad">in</span> <span class="fix">at</span> your own pace.<span class="why">fixed phrase: at your own pace</span></div>
+  </div>
+  <div class="task">🎯 examiner's order: say the fix out loud — then click</div>
+</section>
+
+<!-- S5 · THE TRAP -->
+<section class="slide" data-notes="Это его собственная тетрадь, стр. 11 — учитель уже записал стрелки. А теперь та же ловушка в настоящем ЕГЭ-2027 (Corinth, №21). Мостик к следующему слайду.">
+  <div class="eyebrow">your notebook knew it first</div>
+  <h1 class="title">The <span class="spray">found</span> trap</h1>
+  <div class="accent-line"></div>
+  <div class="grid2">
+    <div class="card c-magenta">
+      <div class="wfam"><span class="hl">find — found — found</span><br><span class="ru">находить</span></div>
+      <p class="ru" style="margin-top:1vh;font-size:clamp(1.05rem,1.7vw,1.4rem)">They <b>found</b> the city in ruins.</p>
+    </div>
+    <div class="card c-cyan">
+      <div class="wfam"><span class="hl">found — founded</span><br><span class="ru">основывать</span></div>
+      <p class="ru" style="margin-top:1vh;font-size:clamp(1.05rem,1.7vw,1.4rem)">They <b>founded</b> the city in 146 BC.</p>
+    </div>
+  </div>
+  <div class="arrows">↓</div>
+  <div class="card c-orange">
+    <p class="exam-text">The city <span class="gapn">21</span> ______ around the 8th century BC. (<span class="caps">FOUND</span>)</p>
+    <p class="exam-text" style="cursor:pointer" data-rv="t1" data-kind="gapline"><b style="color:transparent;transition:.3s;display:inline-block">was founded</b> <span class="ru" style="font-size:.6em">← click</span></p>
+  </div>
+</section>
+
+<!-- S6 · FIPI 19–24 — Corinth -->
+<section class="slide" data-notes="Настоящее задание ЕГЭ-2027, ДЕМО, стр. 13/38 (Ancient Corinth). Сначала — кнопка «read fullscreen», читает с большого экрана, пишет ответы ручкой на листе (19–24). Ключ на следующем слайде; ответы Corinth выведены по грамматике, официальная таблица FIPI напечатана для варианта Yaroslavl (он был в TEST-001).">
+  <div class="eyebrow">real exam · FIPI ЕГЭ-2027 demo · tasks 19–24</div>
+  <h1 class="title">Ancient <span class="spray">Corinth</span></h1>
+  <div class="accent-line"></div>
+  <div id="corinth" class="card c-cyan">
+    <p class="exam-text">Corinth was an ancient Greek city state. <span class="gapn">19</span> ______ in southern part of Greece, this vibrant city was a prosperous trade centre that had one of the best fleets of its times. <span class="caps">SITUATE</span></p>
+    <p class="exam-text">It is even considered to have fought the <span class="gapn">20</span> ______ naval battle on record. <span class="caps">ONE</span></p>
+    <p class="exam-text">The city <span class="gapn">21</span> ______ around the 8th century BC and became famous because of its high-quality pottery. <span class="caps">FOUND</span></p>
+    <p class="exam-text">The Corinthian Order quickly <span class="gapn">22</span> ______ a distinctive feature of the Greek architectural style and is still used in modern buildings. <span class="caps">BECOME</span></p>
+    <p class="exam-text">Since 1896 archeologists <span class="gapn">23</span> ______ there, finding various elements of ancient buildings each year. <span class="caps">WORK</span></p>
+    <p class="exam-text">Tourists enjoy <span class="gapn">24</span> ______ at what is left from once a beautiful ancient city state. <span class="caps">LOOK</span></p>
+  </div>
+  <button class="fsbtn" onclick="openFs()">⛶ read fullscreen</button>
+  <div class="task">🎯 write 19–24 on your sheet first — no typing yet</div>
+</section>
+
+<!-- S7 · CHECK -->
+<section class="slide" data-notes="Проверка: он называет ответ + объясняет ПОЧЕМУ, клик подтверждает. 19 Situated (причастие) · 20 first (порядковое) · 21 was founded (пассив! ловушка) · 22 became (past simple) · 23 have been working (Present Perfect Continuous, since 1896) · 24 looking (enjoy + -ing). №21 — связка с его тетрадью.">
+  <div class="eyebrow">check · say it before you click it</div>
+  <h1 class="title">19–24 · <span class="spray">the key</span></h1>
+  <div class="accent-line"></div>
+  <div>
+    <div class="ans-row" data-rv="a1"><span class="n">19</span><span class="a">Situated</span><span class="w">participle: "being situated" — describes the city</span></div>
+    <div class="ans-row" data-rv="a2"><span class="n">20</span><span class="a">first</span><span class="w">ONE → ordinal number: the first battle on record</span></div>
+    <div class="ans-row" data-rv="a3"><span class="n">21</span><span class="a">was founded</span><span class="w">passive past — the city was established (NOT "was found"!)</span></div>
+    <div class="ans-row" data-rv="a4"><span class="n">22</span><span class="a">became</span><span class="w">past simple: quickly became a feature</span></div>
+    <div class="ans-row" data-rv="a5"><span class="n">23</span><span class="a">have been working</span><span class="w">present perfect continuous: since 1896 → up to now</span></div>
+    <div class="ans-row" data-rv="a6"><span class="n">24</span><span class="a">looking</span><span class="w">enjoy + -ing: enjoy looking at</span></div>
+  </div>
+  <div class="task">🎯 exam rule: each gap = grammar decides, not vibes</div>
+</section>
+
+<!-- S8 · WRAP + HOMEWORK -->
+<section class="slide" data-notes="Домашка — 3 шага, по-русски можно. Ссылка на тестовую страницу — та же, что была у диагностики. Диктант 5 слов — проверка сета орфографии на уроке 3. После урока: я обновлю learned.md и трекер.">
+  <div class="eyebrow">wrap · what you own now</div>
+  <h1 class="title">Today you <span class="spray">leveled up</span></h1>
+  <div class="accent-line"></div>
+  <div class="card c-lime">
+    <p class="exam-text">✔ You survived your first solo essay hour.<br>✔ You fixed YOUR OWN exam errors like an examiner.<br>✔ You beat a real FIPI trap in a real exam text.</p>
+  </div>
+  <div class="hw-step"><span class="num">1</span><span>📖 <b>Соло-ЕГЭ:</b> на странице теста — задания <b>25–29</b> и <b>30–36</b>. Честно, один, без словаря: <a href="https://elena777-code.github.io/decks/p/egor/test.html" target="_blank">elena777-code.github.io/decks/p/egor/test.html</a></span></div>
+  <div class="hw-step"><span class="num">2</span><span>✍️ <b>Письмо 37</b> (90–154 слова) — с той же страницы. Ответы — мне в Telegram одним сообщением.</span></div>
+  <div class="hw-step"><span class="num">3</span><span>🎙 <b>Диктант-разминка</b> к следующему уроку — будь готов продиктовать себе под мою проверку: <b>successful · studying · preferred · flexibility · assessment</b></span></div>
+  <div class="card c-yellow" style="margin-top:2.4vh">
+    <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🎁 <b>Closer riddle:</b> I have keys but I open no locks. I have space but no room. You can enter, but you can't go outside. What am I?</p>
+  </div>
+</section>
+
+<div id="nav">
+  <button id="prev">‹</button>
+  <span id="counter">1 / 8</span>
+  <button id="next">›</button>
+  <button id="fs" title="fullscreen (F)">⛶</button>
+  <button id="pbtn" title="presenter (T)">🖥</button>
+</div>
+
+<div id="fsoverlay" onclick="closeFs()">
+  <div class="fst" id="fscontent"></div>
+  <div class="hint">click anywhere or press Esc — back</div>
+</div>
+
+<script>
+/* ---------- deck engine · neon ---------- */
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const revealed=new Set();
+const bc=('BroadcastChannel' in window)?new BroadcastChannel('egor-l2'):null;
+const qs=new URLSearchParams(location.search);
+const embed=qs.get('embed');            // 'cur' | 'next' | null
+const isPresenter=qs.get('presenter')==='1';
+const remote=embed||isPresenter;        // followers don't re-broadcast
+
+function go(n){
+  cur=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  document.getElementById('bar').style.width=((cur+1)/slides.length*100)+'%';
+  document.getElementById('counter').textContent=(cur+1)+' / '+slides.length;
+  document.getElementById('prev').disabled=cur===0;
+  document.getElementById('next').disabled=cur===slides.length-1;
+  history.replaceState(null,'','#'+(cur+1));
+}
+function broadcast(){
+  if(remote)return;
+  bc&&bc.postMessage({t:'st',n:cur,r:[...revealed]});
+}
+function applyState(n,r){
+  if(embed==='cur')go(n); else if(embed==='next')go(Math.min(n+1,slides.length-1)); else if(!embed&&!isPresenter)go(n);
+  revealed.clear(); r.forEach(x=>revealed.add(x));
+  document.querySelectorAll('[data-rv]').forEach(el=>{
+    const on=revealed.has(el.dataset.rv);
+    el.classList.toggle('show',on);
+    if(el.classList.contains('gap'))el.classList.toggle('filled',on);
+    el.querySelectorAll('.gap').forEach(g=>g.classList.toggle('filled',on));
+    if(el.dataset.kind==='gapline'){const b=el.querySelector('b');if(b)b.style.color=on?'var(--cyan)':'transparent';}
+  });
+}
+function toggleRv(el){
+  const id=el.dataset.rv;
+  const on=!revealed.has(id);
+  if(on)revealed.add(id); else revealed.delete(id);
+  el.classList.toggle('show',on);
+  if(el.classList.contains('gap'))el.classList.toggle('filled',on);
+  el.querySelectorAll('.gap').forEach(g=>g.classList.toggle('filled',on));
+  if(el.dataset.kind==='gapline'){const b=el.querySelector('b');if(b)b.style.color=on?'var(--cyan)':'transparent';}
+  broadcast();
+}
+/* wire interactives (skip in embed/presenter windows) */
+if(!remote){
+  document.querySelectorAll('.gap').forEach(g=>g.addEventListener('click',e=>{e.stopPropagation();toggleRv(g.closest('[data-rv]')||g.parentElement);}));
+  document.querySelectorAll('.fx,.ans-row').forEach(el=>el.addEventListener('click',()=>toggleRv(el)));
+  document.querySelectorAll('[data-kind="gapline"]').forEach(el=>el.addEventListener('click',()=>toggleRv(el)));
+}
+/* nav */
+document.getElementById('prev').onclick=()=>{go(cur-1);broadcast();};
+document.getElementById('next').onclick=()=>{go(cur+1);broadcast();};
+document.getElementById('fs').onclick=()=>{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();};
+document.getElementById('pbtn').onclick=openPresenter;
+function openPresenter(){window.open(location.pathname+'?presenter=1','egorL2presenter','width=620,height=820');}
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('INPUT,TEXTAREA'))return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){go(cur+1);broadcast();}
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp'){go(cur-1);broadcast();}
+  if(e.key==='Home'){go(0);broadcast();} if(e.key==='End'){go(slides.length-1);broadcast();}
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+  if(e.key==='t'||e.key==='T')openPresenter();
+  if(e.key==='Escape')closeFs();
+});
+let wl=0;
+document.addEventListener('wheel',e=>{const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;go(cur+(e.deltaY>0?1:-1));broadcast();},{passive:true});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>60){go(cur+(d<0?1:-1));broadcast();}},{passive:true});
+/* fullscreen reading */
+function openFs(){document.getElementById('fscontent').innerHTML=document.getElementById('corinth').innerHTML;document.getElementById('fsoverlay').classList.add('open');}
+function closeFs(){document.getElementById('fsoverlay').classList.remove('open');}
+/* ready-chime (http only, silent on file://) */
+let lastMod=null,audioOn=false;
+function chime(){try{const a=new (window.AudioContext||window.webkitAudioContext)();const o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=880;g.gain.setValueAtTime(.12,a.currentTime);o.start();o.frequency.setValueAtTime(1174.66,a.currentTime+.15);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.6);o.stop(a.currentTime+.65);}catch(e){}}
+document.addEventListener('pointerdown',()=>audioOn=true,{once:true});
+if(location.protocol.startsWith('http')&&!embed&&!isPresenter){
+  setInterval(async()=>{try{
+    const r=await fetch(location.href,{method:'HEAD',cache:'no-store'});
+    const m=r.headers.get('last-modified');
+    if(lastMod&&m&&m!==lastMod){audioOn&&chime();location.reload();}
+    if(m)lastMod=m;
+  }catch(e){}},1500);
+}
+/* presenter window build */
+if(isPresenter){
+  document.title='EGOR L2 · presenter';
+  document.body.innerHTML=`<div style="padding:2vh 2vw;font-family:Inter,sans-serif;color:#F5F3EE">
+    <h2 style="font-size:1.15rem">EGOR · Lesson 2 — presenter <span style="color:#A9ACB8;font-weight:400">(teacher only)</span></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+      <div><p style="color:#A9ACB8;font-size:.8rem;margin:0 0 4px">NOW — what the class sees</p><iframe id="pc" style="width:100%;aspect-ratio:16/10;border:1px solid #444;border-radius:8px" src="?embed=cur"></iframe></div>
+      <div><p style="color:#A9ACB8;font-size:.8rem;margin:0 0 4px">NEXT</p><iframe id="pn" style="width:100%;aspect-ratio:16/10;border:1px solid #444;border-radius:8px" src="?embed=next"></iframe></div>
+    </div>
+    <div style="margin-top:10px;color:#A9ACB8;font-size:.8rem">NOTES</div>
+    <div id="pnotes" style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px;font-size:1rem;line-height:1.55;min-height:22vh;white-space:pre-wrap">…</div></div>`;
+}
+if(embed){
+  document.getElementById('nav').style.display='none';
+  document.getElementById('bar-track').style.display='none';
+  document.getElementById('bar').style.display='none';
+}
+/* sync */
+if(bc){
+  bc.onmessage=(ev)=>{
+    const m=ev.data;
+    if(m.t==='hello'){broadcast();return;}
+    if(m.t==='st'){
+      applyState(m.n,m.r);
+      if(isPresenter){
+        const n=slides[m.n];
+        document.getElementById('pnotes').textContent=n.getAttribute('data-notes')||'';
+      }
+    }
+  };
+  if(remote)bc.postMessage({t:'hello'});
+}
+/* boot from hash */
+const h=parseInt(location.hash.slice(1));
+go(isNaN(h)?0:h-1);
+</script>
+</body>
+</html>
