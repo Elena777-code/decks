@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Builder — word order, every lesson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   QUESTION BUILDER — the word-order repair game.
+   Born 2026-09-20 on Pasha (L2 report: "word order in the
+   sentences — he doesn't know. We need it every lesson" — the
+   revision rule). UNIVERSAL (born on one pupil, living for
+   everyone): Bank-Pool, named by topic.
+   Every play deals 5 RANDOM items from the bank, words shuffled.
+   The child says the sentence FIRST — the click only checks.
+   Design: "Sergey's" (paper · navy · cheese · stamp).
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  min-height:100vh;-webkit-font-smoothing:antialiased;padding:5vh 6vw 12vh}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin:.15em 0 .3em;
+  font-size:clamp(1.9rem,4.2vw,3.4rem)}
+.accent{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1.2em}
+.why{font-family:'Fredoka',sans-serif;font-weight:500;background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem)}
+.why::before{content:"🎯 "}
+.item{background:var(--white);border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.1);
+  padding:.9em 1.2em;margin-top:1em;border:3px solid transparent;transition:border-color .25s}
+.item .words{display:flex;flex-wrap:wrap;gap:.45em;align-items:center;min-height:1.6em}
+.item .w{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  background:var(--cheese-soft);border:2px solid var(--sky);border-radius:12px;
+  padding:.12em .55em;font-size:clamp(1.15rem,1.9vw,1.55rem)}
+.item .say{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.1rem,1.8vw,1.45rem)}
+.item .ok{display:none;margin-top:.5em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.2rem,2vw,1.6rem);line-height:1.4;animation:rise .35s both}
+.item .ok b{color:var(--stamp)}
+.item .ok .tail{display:block;font-family:'Nunito',sans-serif;font-weight:700;font-size:.62em;
+  color:var(--ink-soft);margin-top:.15em}
+.item.open{border-color:var(--cheese)}
+.item.open .ok{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.controls{display:flex;gap:.8em;align-items:center;margin:1.4em 0 .4em;flex-wrap:wrap}
+.btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem);
+  padding:.5em 1.3em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:0 10px 30px rgba(34,48,63,.18);
+  transition:transform .15s ease}
+.btn:hover{transform:scale(1.05)}
+.score{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1rem,1.6vw,1.3rem)}
+.hint{color:var(--ink-soft);font-style:italic;font-size:clamp(.92rem,1.35vw,1.12rem);margin-top:.9em}
+</style>
+</head>
+<body>
+<div class="eyebrow">Word order · the repair game</div>
+<h1>Question Builder 🔧</h1>
+<div class="accent"></div>
+<p class="why">Say the sentence in the RIGHT order — then click to check!</p>
+<div class="controls">
+  <button class="btn" id="deal">🎲 Deal five!</button>
+  <span class="score" id="score"></span>
+</div>
+<div id="list"></div>
+<p class="hint">Every game = five new builders from the bank. Open it again — it shuffles fresh!</p>
+
+<script>
+/* THE BANK — sentence · a one-line hint (why the order works).
+   Add items HERE (and to question-builder.md) over time. */
+const BANK=[
+  {ok:"What did you do at school today?", hint:"question word first, then did + you", words:["you","at school","did","today","What","do"]},
+  {ok:"Did you have fun today?", hint:"Did starts the question", words:["today","Did","have","you","fun"]},
+  {ok:"How was school today?", hint:"How was — then the thing", words:["today","How","school","was"]},
+  {ok:"What time did you get up?", hint:"What time + did + you + verb", words:["time","you","get up","What","did"]},
+  {ok:"Why was it a bad day?", hint:"Why + was + who + the rest", words:["it","was","Why","a bad day"]},
+  {ok:"I woke up at six o'clock.", hint:"no question — just I + verb", words:["up","I","at six o'clock","woke"]},
+  {ok:"Where were you yesterday?", hint:"Where + were + you", words:["you","Where","were","yesterday"]},
+  {ok:"Did you watch TV last night?", hint:"Did + you + verb", words:["TV","Did","watch","you","last night"]},
+  {ok:"Was she at school on Monday?", hint:"Was + who + where + when", words:["she","Was","at school","on Monday"]},
+  {ok:"What did they eat?", hint:"question word + did + who + verb", words:["they","What","eat","did"]},
+  {ok:"Were you tired this morning?", hint:"Were + you + the rest", words:["you","Were","tired","this morning"]},
+  {ok:"Did he do his homework?", hint:"Did + who + verb + what", words:["he","Did","his homework","do"]},
+  {ok:"How was the film?", hint:"How + was + the thing", words:["the film","How","was"]},
+  {ok:"What did you do at the weekend?", hint:"What + did + you + do + when", words:["you","at the weekend","did","What","do"]},
+  {ok:"Did your mum make a cake?", hint:"Did + who + verb + what", words:["your mum","Did","a cake","make"]},
+  {ok:"It was the worst day ever!", hint:"no question — It + was + the rest", words:["the worst day ever","It","was"]},
+  {ok:"Who were you with?", hint:"Who + were + you", words:["you","with","Who","were"]},
+  {ok:"My baby sister cried so loudly.", hint:"no question — who + verb + how", words:["so loudly","My baby sister","cried"]}
+];
+const list=document.getElementById('list'),score=document.getElementById('score');
+function shuffled(a){const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
+let opened=0,total=0;
+function deal(){
+  list.innerHTML='';opened=0;total=0;
+  shuffled(BANK).slice(0,5).forEach(it=>{
+    total++;
+    const el=document.createElement('div');el.className='item';
+    const ws=document.createElement('div');ws.className='words';
+    shuffled(it.words).forEach(w=>{
+      const c=document.createElement('span');c.className='w';c.textContent=w;ws.appendChild(c);
+    });
+    const say=document.createElement('div');say.className='say';say.textContent='🎙 Say the sentence!';
+    const ok=document.createElement('div');ok.className='ok';
+    const strong=document.createElement('b');strong.textContent=it.ok;
+    const tail=document.createElement('span');tail.className='tail';tail.textContent='💡 '+it.hint;
+    ok.appendChild(strong);ok.appendChild(tail);
+    el.appendChild(ws);el.appendChild(say);el.appendChild(ok);
+    el.addEventListener('click',()=>{ if(!el.classList.contains('open')){el.classList.add('open');opened++;paint();} });
+    list.appendChild(el);
+  });
+  paint();
+}
+function paint(){score.textContent='checked: '+opened+' / '+total+(opened===total&&total?' — DONE! 🏆':'');}
+document.getElementById('deal').addEventListener('click',deal);
+deal();
+</script>
+</body>
+</html>
