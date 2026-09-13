@@ -87,69 +87,57 @@ body.playing #backchip{font-size:clamp(1.4rem,2vw,1.9rem);padding:.3em .8em}
 <script>
 (function(){
   "use strict";
-  const DECKS=[
-    { board:["6","under the chair","rainy","hungry","my friend","Yes!"],
-      questions:[
-        "How many cats have you got?",
-        "How many noses have you got?",
-        "How many brothers have you got?",
-        "Where is your homework?",
-        "Where is the cat?",
-        "What's the weather like in Africa?",
-        "How is your dog?",
-        "Who is in your school bag?",
-        "Do you sleep during the lesson?",
-        "Is your granny six?"
-      ]},
-    { board:["pink","It's hot!","6","under the chair","my friend","No!"],
-      questions:[
-        "What colour is your hair?",
-        "What colour is your sister's hair?",
-        "What's the weather like in winter?",
-        "What's the weather like at the North Pole?",
-        "How many heads have you got?",
-        "Where does your granny live?",
-        "Where do you live?",
-        "Who eats your homework?",
-        "Do you eat your homework?",
-        "Do you live under the chair?"
-      ]},
-    { board:["6","rainy","my friend","hungry","during the lesson","Yes!"],
-      questions:[
-        "When do you brush your teeth?",
-        "When do you get up?",
-        "When do you wash your face?",
-        "Who sings in the bathroom?",
-        "Who sleeps at school?",
-        "How many tails have you got?",
-        "How many teachers have you got?",
-        "What's the weather like in the sea?",
-        "How is your cat?",
-        "Do your cats sleep during the lesson?"
-      ]}
+  /* ONE BIG POOL — every deal draws a FRESH random round (Elena,
+     2026-09-20: questions and answers change every time it is played).
+     The core still rules: exactly ONE answer fits each question —
+     rainy and It's hot! never meet; Yes! and No! never meet. */
+  const POOL=[
+    {a:"during the lesson", q:["When do you brush your teeth?","When do you get up?","When do you sleep?","When do you wash your face?"]},
+    {a:"my friend", q:["Who is in your school bag?","Who sings in the bathroom?","Who eats your homework?","Who sleeps at school?"]},
+    {a:"eight", q:["How many heads have you got?","How many cats have you got?","How many noses have you got?","How many brothers have you got?","How many tails have you got?","How many teachers have you got?"]},
+    {a:"under the chair", q:["Where is your homework?","Where do you sleep?","Where is the cat?","Where do you live?","Where does your granny live?"]},
+    {a:"rainy", q:["What's the weather like in Africa?","What's the weather like in Egypt?","What's the weather like in the sea?","What's the weather like in winter?"]},
+    {a:"It's hot!", q:["What's the weather like in winter?","What's the weather like today?","What's the weather like at the North Pole?"]},
+    {a:"Yes!", q:["Do you sleep during the lesson?","Is your cat hungry?","Is your friend under the chair?","Is your granny six?","Do your cats sleep during the lesson?"]},
+    {a:"No!", q:["Do you eat your homework?","Do you live under the chair?"]},
+    {a:"pink", q:["What colour is my hair?","What colour is your cat?","What colour is your sister's hair?"]},
+    {a:"hungry", q:["What's the matter with your teddy bear?","How are you?","How is your cat?","How is your dog?"]},
+    {a:"One knee hurts!", q:["What's the matter, Elena?"]}
   ];
+  function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  function dealRound(){
+    const yn = Math.random() < .5 ? "Yes!" : "No!";
+    const weather = Math.random() < .5 ? "rainy" : "It's hot!";
+    const rest = shuffle(["during the lesson","my friend","eight","under the chair","pink","hungry","One knee hurts!"]).slice(0,4);
+    const groups = shuffle([yn, weather].concat(rest)).map(a => POOL.find(g => g.a === a));
+    const qs = [];
+    let pass = 0;
+    while(qs.length < 10 && pass < 3){
+      for(const g of groups){
+        if(qs.length >= 10) break;
+        const cand = g.q.filter(q => qs.indexOf(q) < 0);
+        if(cand.length) qs.push(cand[Math.floor(Math.random()*cand.length)]);
+      }
+      pass++;
+    }
+    return { questions: shuffle(qs), board: shuffle(groups.map(g => g.a)) };
+  }
+
   const list=document.getElementById('list');
   const strip=document.getElementById('strip');
   const chip=document.getElementById('backchip');
   const btns=[...document.querySelectorAll('.deal-btn')];
-  function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
-  const today=new Date().toDateString();
-  let idx=0;
-  try{
-    const st=JSON.parse(localStorage.getItem('silly-rotation')||'{"i":-1,"d":""}');
-    idx = (st.d===today) ? st.i : (st.i+1)%DECKS.length;
-  }catch(e){ idx=0; }
   function deal(){
-    const d=DECKS[idx];
+    const round=dealRound();
     list.innerHTML='';
-    shuffle(d.questions.slice()).forEach(q=>{
+    round.questions.forEach(q=>{
       const el=document.createElement('div');
       el.className='q'; el.textContent=q;
       list.appendChild(el);
     });
     list.classList.add('dealt');
     strip.querySelectorAll('.chip').forEach(c=>c.remove());
-    d.board.forEach(w=>{
+    round.board.forEach(w=>{
       const c=document.createElement('span');
       c.className='chip'+(w==='Yes!'||w==='No!'?' yes':'');
       c.textContent=w;
@@ -158,20 +146,18 @@ body.playing #backchip{font-size:clamp(1.4rem,2vw,1.9rem);padding:.3em .8em}
     showNext();
     document.body.classList.add('playing');   /* questions + whiteboard line */
     chip.textContent='←';                     /* smartboards: tap to return */
-    try{ localStorage.setItem('silly-rotation', JSON.stringify({i:idx,d:today})) }catch(e){}
   }
   function showMenu(){ document.body.classList.remove('playing'); chip.textContent='← back to the deck'; }
   document.addEventListener('keydown',e=>{ if(e.key==='Escape') showMenu(); });
   document.getElementById('today-btn').addEventListener('click',deal);
-  deal(); deal();  /* first pass paints the board, second keeps the same day's game */
+  deal();   /* open straight into a fresh random round */
   chip.addEventListener('click',()=>{
     if(document.body.classList.contains('playing')) showMenu();
     else history.back();
   });
   const nextLine=document.getElementById('next-line');
   function showNext(){
-    const nx=(idx+1)%DECKS.length;
-    nextLine.textContent='today: game '+(idx+1)+' · next lesson: game '+(nx+1)+' · Esc = menu · re-click = fresh order';
+    nextLine.textContent='every deal = a new random round · Esc = menu · re-click = another fresh round';
   }
 
   /* READY-CHIME (Elena, 2026-09-04) */
