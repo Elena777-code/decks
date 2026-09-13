@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pasha · English · Lesson 2 — Sports &amp; Hobbies (Starlight 5 · 1a)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Pasha — lesson 002 (Sunday 2026-09-20, online).
+   THE SAME LESSON Elena takes with her SM5.1 group on Tuesday
+   (check HW → SB pp. 8–9 → WB pp. 8–9 if time) — Starlight 5,
+   Module 1, lesson 1a "Sports & Hobbies" + the "Star forum".
+   No class audio anywhere (Elena, 2026-09-13) → both listenings
+   run as reading; ex. 2 p. 8 skipped in the lesson (data-notes).
+   Design: "Sergey's" (spec §2 — paper · navy · cheese · stamp,
+   Fredoka + Nunito) — Pasha's established look (deck 001).
+   Engine: nav bottom-right + structural lane, progress bar,
+   click-reveals, ready-chime + #n hash, presenter view (T / 🖥).
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.1rem);color:#fff}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cheese)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.4vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ---------- text & blocks ---------- */
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy);margin-bottom:.2em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin-bottom:.3em;
+  font-size:clamp(1.9rem,4.2vw,3.6rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp))}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(.9rem,1.6vw,1.35rem)}
+.card.sky{background:#E8F1FA}
+.card.cheese{background:var(--cheese-soft)}
+.card.stampc{background:var(--stamp-soft)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:.4em}
+.center{text-align:center}
+.mt{margin-top:.65em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink);background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem);align-self:flex-start}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.92rem,1.35vw,1.12rem);color:var(--ink-soft);font-style:italic}
+.stamp-box{font-family:'Fredoka',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  border:3px dashed var(--stamp);border-radius:16px;padding:.5em 1em;color:var(--stamp);
+  background:var(--white);box-shadow:var(--shadow);display:inline-block;font-size:clamp(1rem,1.7vw,1.4rem)}
+.gift-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.9vw,1.5rem);
+  padding:.5em 1.4em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--stamp),var(--cheese));box-shadow:var(--shadow-lg);
+  transition:transform .15s ease}
+.gift-btn:hover{transform:scale(1.05)}
+.bookchip{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy-deep);
+  background:#E8F1FA;border:2px solid var(--sky);border-radius:99px;
+  padding:.35em 1em;display:inline-block;font-size:clamp(.95rem,1.5vw,1.22rem);align-self:flex-start}
+.bookchip::before{content:"📖 "}
+
+/* teacher-facing prepare-ahead list (slide 1, RU fine) */
+.prep{display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;
+  background:var(--white);box-shadow:0 4px 12px rgba(34,48,63,.07);margin-bottom:.55em}
+.prep .ico{flex-shrink:0;font-size:clamp(1.3rem,2.2vw,1.8rem);line-height:1.3}
+.prep p{font-size:clamp(.98rem,1.55vw,1.25rem);line-height:1.45}
+.prep b{color:var(--navy)}
+
+/* click-reveal cards */
+.cr-card{display:flex;align-items:center;gap:.9em;background:var(--white);border-radius:16px;
+  box-shadow:0 6px 16px rgba(34,48,63,.08);padding:.55em 1em;cursor:pointer;
+  transition:transform .15s ease,border-color .2s ease;border:3px solid transparent;user-select:none}
+.cr-card:hover{transform:translateY(-3px)}
+.cr-card .emo{flex-shrink:0;font-size:clamp(2rem,4vw,3.1rem);line-height:1.15}
+.cr-card .q{flex:1;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.2rem,2.1vw,1.7rem);line-height:1.35}
+.cr-card .a{display:none;flex:1;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink);
+  font-size:clamp(1.15rem,2vw,1.6rem);line-height:1.35}
+.cr-card .a b{color:var(--stamp)}
+.cr-card.open{border-color:var(--cheese)}
+.cr-card.open .a{display:block;animation:rise .35s both}
+
+/* vocab flip gallery (p. 8 hobbies) */
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:clamp(.7rem,1.4vw,1.1rem)}
+.gal .w{background:var(--white);border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.1);
+  padding:.85em .6em;text-align:center;cursor:pointer;user-select:none;
+  transition:transform .15s ease,border-color .2s ease;border:3px solid transparent}
+.gal .w:hover{transform:translateY(-4px)}
+.gal .w .no{display:inline-grid;place-items:center;width:1.5em;height:1.5em;border-radius:50%;
+  background:var(--cheese-soft);color:var(--navy);font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(.8rem,1.3vw,1rem);margin-bottom:.15em}
+.gal .ico{font-size:clamp(2.5rem,5.2vw,4rem);line-height:1.2}
+.gal .nm{display:none;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.2rem,2.1vw,1.6rem);margin-top:.15em;line-height:1.25}
+.gal .w.rev{border-color:var(--cheese);background:var(--cheese-soft)}
+.gal .w.rev .nm{display:block;animation:rise .35s both}
+
+/* yes/no (warm-up stand-up + reading checks) */
+.yn{display:flex;align-items:center;gap:.6em;cursor:pointer;padding:.3em .8em;border-radius:12px;
+  background:var(--white);box-shadow:0 4px 10px rgba(34,48,63,.06);
+  font-size:clamp(1.1rem,1.8vw,1.48rem);flex-wrap:wrap;user-select:none}
+.yn .badge{flex-shrink:0;width:1.6em;height:1.6em;border-radius:50%;display:grid;place-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:.85em;background:#eee;color:transparent;
+  transition:all .2s}
+.yn.shown-yes .badge{background:var(--mint);color:#fff}
+.yn.shown-no .badge{background:var(--stamp);color:#fff}
+.yn .fix{display:none;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.78em;
+  color:var(--navy-deep);background:var(--cheese-soft);border-radius:99px;padding:.1em .6em;
+  border:2px solid var(--cheese)}
+.yn.shown-no .fix{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+
+/* numbered reveal items */
+.item{display:flex;gap:.7em;align-items:baseline;padding:.38em .2em;
+  border-bottom:2px dashed rgba(169,204,239,.7);cursor:pointer;border-radius:10px;
+  font-size:clamp(1.18rem,1.95vw,1.55rem);line-height:1.42;transition:background .2s ease;user-select:none}
+.item:last-child{border-bottom:none}
+.item:hover{background:#E8F1FA}
+.item .no{font-family:'Fredoka',sans-serif;font-weight:700;flex:none;color:var(--stamp);font-size:.85em}
+.item .agree{color:#fff;background:var(--navy);border-radius:99px;padding:.05em .55em;
+  font-weight:700;font-style:normal;opacity:0;transition:opacity .2s;white-space:nowrap}
+.item.shown .agree{opacity:1}
+.item.shown{cursor:default}
+.item.shown:hover{background:transparent}
+
+/* grammar table (to be) */
+.be{display:grid;grid-template-columns:1fr 1fr 1fr;gap:clamp(.5rem,1.2vw,.9rem);width:100%}
+.be .zone{border-radius:16px;padding:.6em .8em;background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.be .zone h3{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.15rem,2vw,1.6rem);
+  color:#fff;background:var(--navy);display:inline-block;border-radius:99px;padding:.08em .7em;margin-bottom:.25em}
+.be .zone:nth-child(2) h3{background:var(--stamp)}
+.be .zone:nth-child(3) h3{background:var(--mint)}
+.be .zone p{font-size:clamp(1.05rem,1.75vw,1.4rem);line-height:1.55;font-weight:600}
+.be .zone p b{color:var(--stamp)}
+
+/* gaps — answer hidden in data-a, never leaking its length */
+.gap{display:inline-block;min-width:3.2em;border-bottom:4px solid var(--sky);text-align:center;
+  font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);cursor:pointer;
+  transition:all .2s ease;padding:0 .35em;border-radius:4px 4px 0 0;user-select:none}
+.gap:hover{background:#E8F1FA}
+.gap::after{content:attr(data-a);display:none}
+.gap.filled{border-color:var(--cheese);background:var(--cheese-soft)}
+.gap.filled::after{display:inline;animation:rise .3s both}
+
+/* reading */
+.read-wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,1.6vw,1.3rem);width:100%}
+.forum{border-radius:18px;padding:clamp(.8rem,1.5vw,1.2rem);box-shadow:var(--shadow);
+  font-size:clamp(1.02rem,1.7vw,1.42rem);line-height:1.5}
+.forum.fan{background:var(--stamp-soft);border-top:6px solid var(--stamp)}
+.forum.club{background:var(--cheese-soft);border-top:6px solid var(--cheese)}
+.forum .who{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy-deep);
+  font-size:.85em;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:.2em}
+.read-text .hl{font-weight:800;color:var(--navy)}
+.read-text .hlp{font-weight:800;color:var(--stamp)}
+/* fullscreen reading (§8.x.5 — click-to-fullscreen, ENLARGED font) */
+#fsread{position:fixed;inset:0;z-index:200;background:var(--paper);display:none;
+  overflow:auto;padding:6vh 7vw calc(74px + 4vh);cursor:pointer}
+#fsread.on{display:block;animation:rise .3s both}
+#fsread .forum{font-size:clamp(1.3rem,2.6vw,2.1rem);line-height:1.6;max-width:1200px;margin:0 auto 1em}
+#fsread .tag{position:fixed;top:2.4vh;right:3vw;font-family:'Fredoka',sans-serif;color:var(--ink-soft);
+  font-size:clamp(.9rem,1.4vw,1.15rem)}
+
+/* speaking table (ex. 6) */
+.sp{border-collapse:separate;border-spacing:0;width:100%;
+  font-size:clamp(1rem,1.7vw,1.35rem);line-height:1.35}
+.sp th{font-family:'Fredoka',sans-serif;font-weight:600;color:#fff;background:var(--navy);
+  padding:.35em .6em;text-align:left}
+.sp th:first-child{border-radius:12px 0 0 0}
+.sp th:last-child{border-radius:0 12px 0 0}
+.sp td{padding:.32em .6em;border-bottom:2px dashed rgba(169,204,239,.7);background:var(--white)}
+.sp td.first{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy)}
+.sp tr.me td{background:var(--cheese-soft)}
+.sp .gap{min-width:4.5em;font-size:.92em}
+
+/* speaking frames */
+.frame{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink);
+  font-size:clamp(1.3rem,2.4vw,1.95rem);line-height:1.5;padding:.5em .9em;border-radius:16px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.frame .slot{color:var(--stamp);border-bottom:4px dotted var(--stamp);padding:0 .25em}
+.bank{display:flex;flex-wrap:wrap;gap:.4em;justify-content:center}
+.bank span{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);
+  padding:.15em .7em;border-radius:99px;background:var(--cheese-soft);color:var(--navy)}
+
+/* homework */
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08);margin-bottom:.7em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;color:#fff}
+.hw-step .ru{font-size:clamp(1.05rem,1.7vw,1.4rem);line-height:1.5}
+.hw-step .en{font-family:'Fredoka',sans-serif;color:var(--navy);font-weight:600}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#1E3A66;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav,body.presenter #fsread{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1rem,1.6vw,1.3rem)}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:'Fredoka',sans-serif;font-size:.9em;cursor:pointer}
+#pv .head button:hover{background:rgba(255,255,255,.15)}
+#pv .head .cnt{margin-left:auto;background:rgba(255,255,255,.12);border-radius:99px;padding:.2em .9em}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(30,58,102,.85);color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:.8rem;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F5F3EE;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--cheese)}
+body.embed #nav,body.embed #bar{display:none!important}
+
+@media (max-width:900px){
+  .gal{grid-template-columns:repeat(2,1fr)}
+  .read-wrap{grid-template-columns:1fr}
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+  #pv .panes{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · PREPARE-AHEAD (teacher-facing, RU — standing rule 2026-09-10; start the screen share from slide 2) -->
+  <section class="slide" data-notes="TEACHER-ONLY slide (Russian is fine here). Start the screen share from slide 2. Today = the SAME lesson as SM5.1's Tuesday: check homework, then SB pp. 8–9, WB pp. 8–9 if time. No class audio exists on our side — both listenings run as reading; ex. 2 p. 8 (Kate/Bob/Rosa) is skipped in the lesson.">
+    <div class="eyebrow reveal">урок 2 · воскресенье 20 сентября · Starlight 5, модуль 1, урок 1a</div>
+    <h1 class="title reveal">Подготовь до урока 🧰</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:860px">
+      <div class="prep"><span class="ico">📖</span><p><b>Его Student's Book</b> у него дома — открыть на <b>стр. 8–9</b> (1a «Sports &amp; Hobbies» + текст «Star forum»). Просить открывать книгу на каждом шаге — на экране дублируется проверка.</p></div>
+      <div class="prep"><span class="ico">📝</span><p><b>Тетрадь</b> и его слова с урока 1 (танцы, страны). На уроке 1 он записывал фразы — пригодятся для рамок.</p></div>
+      <div class="prep"><span class="ico">📹</span><p><b>Его видео «Me and my dancing»</b> — домашка урока 1. Попроси прислать/показать — премьера на слайде 2. Если видео нет — слайд работает и без него (расскажи по памяти).</p></div>
+      <div class="prep"><span class="ico">🎧</span><p><b>Аудио к учебнику — НЕ используется.</b> Аудио нет (спросила у Farida — ждём). Оба «listening» читаем. Если пришлют треки — скажи, я вставлю в деку за минуту.</p></div>
+      <div class="prep"><span class="ico">🖥</span><p><b>Открыть деку по ссылке http</b> (не файлом): <b>python3 -m http.server 8799</b> в папке репозитория. Клавиша <b>T</b> — окно преподавателя (текущий + следующий слайд + заметки). <b>F</b> — полный экран.</p></div>
+      <div class="prep"><span class="ico">📋</span><p><b>Напоминание (pending):</b> comprehension-материалы и серия «Галилео» — из списка «might be interesting». Если хочешь дать что-то из этого — скажи, подготовлю к следующему разу.</p></div>
+    </div>
+    <p class="hintline reveal mt">Этот слайд — только для тебя: шар экран начни со слайда 2.</p>
+  </section>
+
+  <!-- SLIDE 2 · HOMEWORK CHECK (Type 0 — premiere + teach-me + bonus) -->
+  <section class="slide" data-notes="Type 0 homework check — HIS lesson-1 homework (the group checks WB p. 7 / Practice pp. 4–5 / the rule box — Pasha doesn't have those; his check is his own homework). 1) The video premiere: watch, praise ONE specific thing, one gentle wish. 2) He teaches the five dances — you repeat and 'dance' (sit-fit: arms/shoulders at the desk). 3) Bonus answer on click: the quickstep was born in the USA and standardized in England in the 1920s — accept either, he says it in a sentence.">
+    <div class="eyebrow reveal">Lesson 2 · homework check</div>
+    <h1 class="title reveal">Your homework — the premiere! 🎬</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:820px;margin:0 auto;width:100%">
+      <div class="cr-card" data-k><span class="emo">📹</span><span class="q">Your video — “Me and my dancing”! Press play 🎬</span><span class="a">Watch together — <b>one star ⭐ + one wish</b> from me!</span></div>
+      <div class="cr-card" data-k><span class="emo">🎮</span><span class="q">Now — TEACH me the five dances!</span><span class="a">the waltz · the tango · the Viennese waltz · the slow foxtrot · <b>the quickstep</b> — I repeat after you!</span></div>
+      <div class="cr-card" data-k><span class="emo">⭐</span><span class="q">Bonus: where is the quickstep from?</span><span class="a">From <b>the USA</b> — and England made the rules! The <b>1920s</b>. 🇺🇸🇬🇧</span></div>
+    </div>
+    <p class="task reveal mt">From lesson 1 — show it all in English!</p>
+  </section>
+
+  <!-- SLIDE 3 · WARM-UP: TRUE/FALSE STAND-UP (bank: ★ Alika L6 keeper — new for Pasha) -->
+  <section class="slide" data-notes="Warm-up bank: True/False stand-up (the Alika L6 keeper — Pasha hasn't had it; never repeat Two Truths from L1). TRUE = stand up, FALSE = sit down — online: stand up / sit down on camera, fast rounds. The sentences recycle lesson-1 facts so the false ones are real decisions. Log the result in the bank file after the lesson.">
+    <div class="eyebrow reveal">Warm-up · stand up or sit down</div>
+    <h1 class="title reveal">True or false? 🕺</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center reveal"><div class="stamp-box">TRUE = stand up · FALSE = sit down!</div></div>
+    <div class="col reveal" style="max-width:820px;margin:0 auto;width:100%">
+      <div class="yn" data-a="yes" data-k data-on="shown-yes"><span class="badge">?</span>1 &nbsp;You train four times a week.</div>
+      <div class="yn" data-a="no" data-k data-on="shown-no"><span class="badge">?</span>2 &nbsp;Your favourite dance is the waltz. <span class="fix">the quickstep! ⚡</span></div>
+      <div class="yn" data-a="yes" data-k data-on="shown-yes"><span class="badge">?</span>3 &nbsp;You have got a partner in dancesport.</div>
+      <div class="yn" data-a="no" data-k data-on="shown-no"><span class="badge">?</span>4 &nbsp;The Viennese waltz is the slowest dance. <span class="fix">the fastest! 🎠</span></div>
+      <div class="yn" data-a="yes" data-k data-on="shown-yes"><span class="badge">?</span>5 &nbsp;Your big dream is Blackpool.</div>
+      <div class="yn" data-a="no" data-k data-on="shown-no"><span class="badge">?</span>6 &nbsp;Blackpool is in Scotland. <span class="fix">in England! 🏴󠁧󠁢󠁥󠁮󠁧󠁿</span></div>
+    </div>
+    <p class="task reveal mt">Answer FIRST — then click. Fast!</p>
+  </section>
+
+  <!-- SLIDE 4 · BRIDGE: MODULE 1 AT SCHOOL (p. 7 recap + countries→nationalities pre-teach) -->
+  <section class="slide" data-notes="Bridge: 'You started Module 1 at school this week — People around the world.' Recap p. 7 territory + pre-teach the forum's countries (Spain→Spanish, Ireland→Irish — he needs them in 10 minutes). He produces the nationality first, click checks. End with the frame about himself. If he knows it all — praise and run fast.">
+    <div class="eyebrow reveal">At school this week · module 1</div>
+    <h1 class="title reveal">People around the world 🌍</h1>
+    <div class="accent-line reveal"></div>
+    <p class="reveal" style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1.1rem,1.8vw,1.45rem)">Say the person — <b>“I'm from Russia → I'm Russian.”</b> Your turn:</p>
+    <div class="card reveal" style="max-width:860px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span>I'm from <b>Spain</b> → I'm … <span class="agree">Spanish</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>I'm from <b>Ireland</b> → I'm … <span class="agree">Irish</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>I'm from <b>the USA</b> → I'm … <span class="agree">American</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>I'm from <b>England</b> → I'm … <span class="agree">English</span></span></div>
+      <div class="item" data-k><span class="no">5</span><span>I'm from <b>Brazil</b> → I'm … <span class="agree">Brazilian</span></span></div>
+    </div>
+    <div class="frame reveal mt" style="align-self:center">I'm from <span class="slot">&nbsp;Russia&nbsp;</span> , so I'm <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+    <p class="task reveal mt" style="align-self:center">And you? Full sentence!</p>
+  </section>
+
+  <!-- SLIDE 5 · SB p. 8 ex. 1 — SPORTS & HOBBIES (Type 2, shuffled) -->
+  <section class="slide" data-notes="📖 Book first: 'Open your Student's Book — page 8, exercise 1. Look at the ten pictures.' He matches pictures to phrases IN THE BOOK, says the phrase, THEN clicks the card to check. The grid is shuffled on purpose (never book order). Pronunciation to listen for: cycling /ˈsaɪklɪŋ/, woodwork /ˈwʊdwɜːk/. Fast finisher: which hobby is NOT a sport? (photography, reading, painting, writing, woodwork, playing music).">
+    <div class="eyebrow reveal">New words · sports &amp; hobbies</div>
+    <h1 class="title reveal">Ten hobbies 🎽</h1>
+    <div class="accent-line reveal"></div>
+    <div class="bookchip reveal">Open your book — SB p. 8 · ex. 1 — match and say!</div>
+    <div class="gal reveal" style="margin:0 auto;width:100%">
+      <div class="w" data-k data-on="rev"><span class="no">1</span><div class="ico">🐴</div><div class="nm">horse-riding</div></div>
+      <div class="w" data-k data-on="rev"><span class="no">2</span><div class="ico">🎻</div><div class="nm">playing music</div></div>
+      <div class="w" data-k data-on="rev"><span class="no">3</span><div class="ico">📖</div><div class="nm">reading</div></div>
+      <div class="w" data-k data-on="rev"><span class="no">4</span><div class="ico">🎨</div><div class="nm">painting</div></div>
+      <div class="w" data-k data-on="rev"><span class="no">5</span><div class="ico">🚴</div><div class="nm">cycling</div></div>
+      <div class="w" data-k data-on="rev"><span class="no">6</span><div class="ico">🏐</div><div class="nm">volleyball</div></div>
+      <div class="w" data-k data-on="rev"><span class="no">7</span><div class="ico">🪚</div><div class="nm">woodwork</div></div>
+      <div class="w" data-k data-on="rev"><span class="no">8</span><div class="ico">📸</div><div class="nm">photography</div></div>
+      <div class="w" data-k data-on="rev"><span class="no">9</span><div class="ico">🎮</div><div class="nm">playing computer games</div></div>
+      <div class="w" data-k data-on="rev"><span class="no">10</span><div class="ico">✍️</div><div class="nm">writing</div></div>
+    </div>
+    <p class="task reveal mt">Find it in the book — say the phrase — THEN click!</p>
+  </section>
+
+  <!-- SLIDE 6 · SB p. 8 ex. 1b — SPEAKING (ex. 2 skipped: needs class audio) -->
+  <section class="slide" data-notes="Ex. 1b (write sentences as in the example, tell the class) — orally: full sentences. EX. 2 p. 8 (listen to three teenagers: Kate/Bob/Rosa) is SKIPPED — it needs the class CD, which we don't have (2026-09-13). If the audio ever arrives, I embed the track and the exercise comes back. Move briskly — the forum reading is the heart of the lesson.">
+    <div class="eyebrow reveal">Your turn · favourite hobbies</div>
+    <h1 class="title reveal">Favourite hobbies 🗣</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:840px;margin:0 auto;width:100%">
+      <div class="frame">My favourite hobby is <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+      <div class="frame">My <span class="slot">mum</span>'s favourite hobby is <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+      <div class="frame">In my free time I <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+    </div>
+    <div class="bank reveal mt">
+      <span>dancing 💃</span><span>cycling 🚴</span><span>reading 📖</span><span>playing computer games 🎮</span><span>photography 📸</span><span>swimming 🏊</span>
+    </div>
+    <p class="task reveal mt">Three TRUE sentences about real people!</p>
+  </section>
+
+  <!-- SLIDE 7 · SB p. 8 GRAMMAR — THE VERB TO BE + ex. 3 (Type 5 + Type 7) -->
+  <section class="slide" data-notes="Grammar: the verb to be (affirmative) — the SAME rule box the SM5 group copied from p. 7 into their notebooks. He states the pattern after seeing examples, never before ('What do you see? When is it am / is / are?'). Then ex. 3 p. 8: he says the whole sentence WITH the verb first, then clicks the gap to check. Sentence 1 is about HIM — he is 11.">
+    <div class="eyebrow reveal">Grammar · the verb “to be”</div>
+    <h1 class="title reveal">am · is · are 🧩</h1>
+    <div class="accent-line reveal"></div>
+    <div class="be reveal">
+      <div class="zone"><h3>am</h3><p>I <b>am</b> = I<b>'m</b></p></div>
+      <div class="zone"><h3>is</h3><p>he <b>is</b> = he<b>'s</b></p><p>she <b>is</b> = she<b>'s</b></p><p>it <b>is</b> = it<b>'s</b></p></div>
+      <div class="zone"><h3>are</h3><p>we <b>are</b> = we<b>'re</b></p><p>you <b>are</b> = you<b>'re</b></p><p>they <b>are</b> = they<b>'re</b></p></div>
+    </div>
+    <div class="card reveal mt" style="max-width:860px;margin:0 auto;width:100%">
+      <div class="item" style="cursor:default"><span class="no">1</span><span>I <span class="gap" data-k data-on="filled" data-a="am"></span> 11 years old.</span></div>
+      <div class="item" style="cursor:default"><span class="no">2</span><span>We <span class="gap" data-k data-on="filled" data-a="are"></span> teenagers.</span></div>
+      <div class="item" style="cursor:default"><span class="no">3</span><span>You <span class="gap" data-k data-on="filled" data-a="are"></span> in my class.</span></div>
+      <div class="item" style="cursor:default"><span class="no">4</span><span>My favourite sport <span class="gap" data-k data-on="filled" data-a="is"></span> football.</span></div>
+      <div class="item" style="cursor:default"><span class="no">5</span><span>They <span class="gap" data-k data-on="filled" data-a="are"></span> from Spain.</span></div>
+    </div>
+    <p class="task reveal mt">Say the WHOLE sentence first — then click the gap!</p>
+  </section>
+
+  <!-- SLIDE 8 · SB p. 9 ex. 4a — PICTURES FIRST (describe-before-read) -->
+  <section class="slide" data-notes="Describe-before-read (the pictures-first rule): NO reading yet — only the photos in his book, SB p. 9. 'Look at the big photo at the top. Who is he? What do you know about him?' (Pasha is a sports kid — let him talk.) The girl with the racket: one of the Williams sisters (the text names Venus AND Serena). The two forum kids: Marco and Orla — let him GUESS their hobbies from the photos before reading. Clicks confirm after he answers.">
+    <div class="eyebrow reveal">Before reading · pictures only!</div>
+    <h1 class="title reveal">Who are they? 👀</h1>
+    <div class="accent-line reveal"></div>
+    <div class="bookchip reveal">Open your book — SB p. 9 · look at the photos. NO reading yet!</div>
+    <div class="col reveal" style="max-width:840px;margin:0 auto;width:100%">
+      <div class="cr-card" data-k><span class="emo">⚽</span><span class="q">The big photo — who is the footballer? What do you know about him?</span><span class="a">Say it first! → <b>Cristiano Ronaldo</b> 🇵🇹</span></div>
+      <div class="cr-card" data-k><span class="emo">🎾</span><span class="q">The girl with the racket — what do you know about her?</span><span class="a">A famous tennis star → <b>Venus &amp; Serena Williams</b> 🇺🇸</span></div>
+      <div class="cr-card" data-k><span class="emo">🧒</span><span class="q">Two kids write on the forum: Marco and Orla. Their hobbies — guess!</span><span class="a">Read and check — next slide! → 🏀 🔎</span></div>
+    </div>
+    <p class="task reveal mt">Guess FIRST — clicks only check!</p>
+  </section>
+
+  <!-- SLIDE 9 · SB p. 9 ex. 4b — STAR FORUM (fullscreen reading) -->
+  <section class="slide" data-notes="THE reading of the lesson (the same text SM5.1 reads and listens to on Tuesday — we read it, no audio). First silent read, then he reads aloud one sentence each / you alternate. 'What is each teenager's dream?' — he answers, clicks check. The ⛶ button opens the ENLARGED fullscreen text (click anywhere / Esc to come back) — use it for the together-reading. Check-these-words from the book: student · favourite · dream · become · famous · basketball player · hero · good at · team · tennis club — pre-teach any that stall him BEFORE the read.">
+    <div class="eyebrow reveal">Reading · the star forum</div>
+    <h1 class="title reveal">The Star forum 💬</h1>
+    <div class="accent-line reveal"></div>
+    <div class="bookchip reveal">SB p. 9 · ex. 4b — read the forum. What is each teenager's dream?</div>
+    <div class="center reveal"><button class="gift-btn" id="fsbtn">⛶ big screen text</button></div>
+    <div class="read-wrap reveal">
+      <div class="forum fan read-text"><span class="who">⭐ the fan · Marco, 12</span>Hi! My name's Marco and I'm from <span class="hl">Spain</span>. I'm 12 years old and I'm a <span class="hl">student</span>. My favourite sport is <span class="hl">basketball</span>. My <span class="hlp">dream</span> is to become a famous basketball player like my <span class="hl">hero</span>, Pau Gasol. My brother, Pedro, is 11 and he's very good at <span class="hl">football</span>. His favourite team is Real Madrid and his favourite footballer is Cristiano Ronaldo.</div>
+      <div class="forum club read-text"><span class="who">⭐ kitten girl · Orla, 11 + Molly, 13</span>Hello! I'm Orla and this is my sister, Molly. I'm 11 and she's 13. We're from <span class="hl">Ireland</span>. Our favourite sports are <span class="hl">basketball and tennis</span>. We are very good at <span class="hl">tennis</span>. We're in the school <span class="hl">tennis club</span>. Our <span class="hlp">dream</span> is to become famous tennis players like the famous American tennis stars, Venus and Serena Williams.</div>
+    </div>
+    <div class="card reveal mt" style="max-width:860px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">🏀</span><span>Marco's dream — what is it? <span class="agree">a famous basketball player</span></span></div>
+      <div class="item" data-k><span class="no">🎾</span><span>Orla and Molly's dream? <span class="agree">famous tennis players</span></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 10 · SB p. 9 ex. 5 — COMPLETE THE SENTENCES (Type 7) -->
+  <section class="slide" data-notes="Ex. 5 p. 9: complete the sentences — use up to three words. He says the full sentence first, then clicks. Answers: 2 eleven/11 · 3 tennis · 4 (to become) a famous basketball player · 5 football · 6 the school tennis club. Sentence 2 is the trick: Orla is 11 AND Pedro is 11 — same number!">
+    <div class="eyebrow reveal">Check the text · up to three words</div>
+    <h1 class="title reveal">Finish the sentence ✏️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:900px;margin:0 auto;width:100%">
+      <div class="item" style="cursor:default"><span class="no">1</span><span>Marco and Pedro are from <b>Spain</b>.</span></div>
+      <div class="item" style="cursor:default"><span class="no">2</span><span>Orla and Pedro are <span class="gap" data-k data-on="filled" data-a="11 / eleven"></span> years old.</span></div>
+      <div class="item" style="cursor:default"><span class="no">3</span><span>Molly and Orla are good at <span class="gap" data-k data-on="filled" data-a="tennis"></span> .</span></div>
+      <div class="item" style="cursor:default"><span class="no">4</span><span>Marco's dream is to become <span class="gap" data-k data-on="filled" data-a="a famous basketball player"></span> .</span></div>
+      <div class="item" style="cursor:default"><span class="no">5</span><span>Marco's brother is good at <span class="gap" data-k data-on="filled" data-a="football"></span> .</span></div>
+      <div class="item" style="cursor:default"><span class="no">6</span><span>Orla and Molly are in the <span class="gap" data-k data-on="filled" data-a="school tennis club"></span> .</span></div>
+    </div>
+    <p class="task reveal mt">Say it — THEN click. Up to three words!</p>
+  </section>
+
+  <!-- SLIDE 11 · SB p. 9 ex. 6 — SPEAKING TABLE + HIS OWN ROW -->
+  <section class="slide" data-notes="Ex. 6: the table about each person — Marco's row is the model (filled). He completes Pedro, Orla, Molly ORALLY (click the gap to check), then tells you about each person in full sentences (the model is under the table). The star moment: HIS OWN row and HIS paragraph — favourite athlete is his to say (never printed as a fact — same rule as his competition place). Answers: Pedro — Spain, 11, student, football + Cristiano Ronaldo · Orla — Ireland, 11, student, tennis + Venus and Serena Williams · Molly — Ireland, 13, student, tennis + Venus and Serena Williams.">
+    <div class="eyebrow reveal">Speaking · the table + you</div>
+    <h1 class="title reveal">Tell me about them 📊</h1>
+    <div class="accent-line reveal"></div>
+    <div class="bookchip reveal">SB p. 9 · ex. 6 — complete the table, then tell the class!</div>
+    <table class="sp reveal">
+      <tr><th></th><th>country</th><th>age</th><th>job</th><th>favourite sport / athlete</th></tr>
+      <tr><td class="first">Marco</td><td><b>Spain</b></td><td><b>12</b></td><td><b>student</b></td><td><b>basketball, Pau Gasol</b></td></tr>
+      <tr><td class="first">Pedro</td><td><span class="gap" data-k data-on="filled" data-a="Spain"></span></td><td><span class="gap" data-k data-on="filled" data-a="11"></span></td><td><span class="gap" data-k data-on="filled" data-a="student"></span></td><td><span class="gap" data-k data-on="filled" data-a="football, Cristiano Ronaldo"></span></td></tr>
+      <tr><td class="first">Orla</td><td><span class="gap" data-k data-on="filled" data-a="Ireland"></span></td><td><span class="gap" data-k data-on="filled" data-a="11"></span></td><td><span class="gap" data-k data-on="filled" data-a="student"></span></td><td><span class="gap" data-k data-on="filled" data-a="tennis, Venus and Serena Williams"></span></td></tr>
+      <tr><td class="first">Molly</td><td><span class="gap" data-k data-on="filled" data-a="Ireland"></span></td><td><span class="gap" data-k data-on="filled" data-a="13"></span></td><td><span class="gap" data-k data-on="filled" data-a="student"></span></td><td><span class="gap" data-k data-on="filled" data-a="tennis, Venus and Serena Williams"></span></td></tr>
+      <tr class="me"><td class="first">⭐ Pasha</td><td><span class="gap" data-k data-on="filled" data-a="Russia"></span></td><td><span class="gap" data-k data-on="filled" data-a="11"></span></td><td><span class="gap" data-k data-on="filled" data-a="student"></span></td><td><span class="gap" data-k data-on="filled" data-a="dancesport — your athlete!"></span></td></tr>
+    </table>
+    <div class="frame reveal mt">Marco's from Spain. He's 12. He's a student. His favourite sport is basketball and his favourite athlete is Pau Gasol. <span class="slot">Now — you!</span></div>
+    <p class="task reveal mt">Full sentences — Marco first, then about YOU!</p>
+  </section>
+
+  <!-- SLIDE 12 · SB p. 9 ex. 7 — WRITING: YOUR BLOG ENTRY -->
+  <section class="slide" data-notes="Ex. 7: complete the blog entry about yourself — the forum kids' text is the model. He builds it ORALLY first (say it like on the forum!), then writes the sentences in his copybook. His version: dancesport / the quickstep / a famous dancer or a champion… The dream slot loves Blackpool. This text comes back in the homework — he reads it on camera.">
+    <div class="eyebrow reveal">Writing · your blog entry</div>
+    <h1 class="title reveal">Your star forum post ⭐</h1>
+    <div class="accent-line reveal"></div>
+    <div class="bookchip reveal">SB p. 9 · ex. 7 — write your blog entry about yourself!</div>
+    <div class="col reveal" style="max-width:860px;margin:0 auto;width:100%">
+      <div class="frame">My name's <span class="slot">&nbsp;Pasha&nbsp;</span> and I'm from <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+      <div class="frame">I'm <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> years old and I'm a <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+      <div class="frame">My favourite sport is <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+      <div class="frame">My dream is to become <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+    </div>
+    <div class="bank reveal mt">
+      <span>dancesport 🏆</span><span>the quickstep ⚡</span><span>a champion 🥇</span><span>a famous dancer 🕺</span><span>Blackpool 🏴</span>
+    </div>
+    <p class="task reveal mt">Say it like on the forum — then write it in your copybook!</p>
+  </section>
+
+  <!-- SLIDE 13 · BONUS: BLACKPOOL (the queued text from lesson 1 — the dream venue) -->
+  <section class="slide" data-notes="The Blackpool text — queued since lesson 1 (his dream venue; his dance teacher wants him there one day). Read together (he reads aloud), then the questions — yes/no first, the wh-question last (he knows How old). Facts verified 2026-09-06: the Blackpool Dance Festival at the Empress Ballroom, Winter Gardens; the junior festival is a separate spring event, juveniles under 12 — he is 11, in the window now.">
+    <div class="eyebrow reveal">Bonus reading · your dream place</div>
+    <h1 class="title reveal">Blackpool 🏴󠁧󠁢󠁥󠁮󠁧󠁿</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card stampc reveal read-text" style="max-width:900px;margin:0 auto;width:100%">
+      Blackpool is a town in <span class="hl">England</span>, next to the sea. Every year the best dancers in the world come to the <span class="hl">Blackpool Dance Festival</span>. It is the most famous ballroom event in the world! The ballroom's name is the <span class="hl">Empress Ballroom</span> — it is big and beautiful: hundreds of dancers, sparkling dresses and fast <span class="hlp">quicksteps</span> ⚡. There is a junior festival too — for dancers <span class="hl">under 12</span>. You are 11… Maybe one day — Blackpool! 🏆
+    </div>
+    <div class="col reveal mt" style="max-width:840px;margin:0 auto;width:100%">
+      <div class="yn" data-a="yes" data-k data-on="shown-yes"><span class="badge">?</span>1 &nbsp;Blackpool is in England.</div>
+      <div class="yn" data-a="no" data-k data-on="shown-no"><span class="badge">?</span>2 &nbsp;Only adults dance at the festival. <span class="fix">there is a junior festival — under 12!</span></div>
+      <div class="yn" data-a="yes" data-k data-on="shown-yes"><span class="badge">?</span>3 &nbsp;The Empress Ballroom is big and beautiful.</div>
+      <div class="item" data-k><span class="no">4</span><span>How old are the “junior” dancers? <span class="agree">under 12 — you are 11!</span></span></div>
+    </div>
+    <p class="task reveal mt">Read it together — then answer!</p>
+  </section>
+
+  <!-- SLIDE 14 · RIDDLE CLOSER + NEW HOMEWORK (Type 12) -->
+  <section class="slide" data-notes="Riddle protocol: read twice → wild guesses → one hint → reveal (click). Lesson 1's riddle was the piano — this one pairs with it: hands, but no clapping. Then the homework — the group's line mirrored: the new words go to a WRITTEN DICTATION next lesson (SM5.1 does dictations, so does he now); the video = reading his own blog text (the homework-formula video slot); WB pp. 8–9 only if he has the workbook. Log the riddle result in the banks after the lesson.">
+    <div class="eyebrow reveal">The riddle · then homework</div>
+    <h1 class="title reveal">One riddle first 🤔</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card cheese reveal" style="max-width:820px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">🎩</span><span style="font-size:1.1em">What has hands but can't clap? <span class="agree">a clock! 🕐</span></span></div>
+      <p class="hintline mt">Hint: it is on the wall — and it has two “hands”. Tick-tock!</p>
+    </div>
+    <h2 class="reveal mt">Homework 📌</h2>
+    <div class="col reveal" style="max-width:860px;width:100%">
+      <div class="hw-step"><span class="n">1</span><span class="ru">✍️ Выучи новые слова — <span class="en">Sports &amp; Hobbies, SB p. 8</span> (все 10!). На следующем уроке — <b>письменный диктант</b>, как у группы!</span></div>
+      <div class="hw-step"><span class="n">2</span><span class="ru">📹 Запиши видео, где ты <b>читаешь свой блог</b> — текст про тебя со слайда «Your star forum post» (4 предложения, как Марко и Орла!).</span></div>
+      <div class="hw-step"><span class="n">3</span><span class="ru">📖 Если есть рабочая тетрадь — <span class="en">WB pp. 8–9</span> (то же, что у группы).</span></div>
+    </div>
+    <div class="center reveal"><div class="stamp-box">see you next sunday! 🕺</div></div>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 14</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- fullscreen reading overlay (§8.x.5) -->
+<div id="fsread">
+  <span class="tag">click anywhere or Esc — back</span>
+  <div class="forum fan"><span class="who">⭐ the fan · Marco, 12</span>Hi! My name's Marco and I'm from Spain. I'm 12 years old and I'm a student. My favourite sport is basketball. My dream is to become a famous basketball player like my hero, Pau Gasol. My brother, Pedro, is 11 and he's very good at football. His favourite team is Real Madrid and his favourite footballer is Cristiano Ronaldo.</div>
+  <div class="forum club"><span class="who">⭐ kitten girl · Orla, 11 + Molly, 13</span>Hello! I'm Orla and this is my sister, Molly. I'm 11 and she's 13. We're from Ireland. Our favourite sports are basketball and tennis. We are very good at tennis. We're in the school tennis club. Our dream is to become famous tennis players like the famous American tennis stars, Venus and Serena Williams.</div>
+</div>
+
+<!-- presenter view shell (T / 🖥) -->
+<div id="pv">
+  <div class="head">
+    <b>Pasha · lesson 2 — presenter</b>
+    <button id="pv-close">✕ close (T)</button>
+    <span class="cnt" id="pv-cnt">1 / 14</span>
+  </div>
+  <div class="panes">
+    <div class="pane"><span class="lbl">NOW — what he sees</span><iframe id="pv-cur"></iframe></div>
+    <div class="pane"><span class="lbl">NEXT</span><iframe id="pv-next"></iframe></div>
+  </div>
+  <div class="notes" id="pv-notes">—</div>
+</div>
+
+<script>
+/* ============ core deck engine (spec §4–§7) ============ */
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.querySelector('#bar i'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+
+/* every sync element gets a stable key; class to switch = data-on */
+const syncs=[...document.querySelectorAll('[data-k]')];
+syncs.forEach((el,k)=>{el.dataset.k=k;if(!el.dataset.on)el.dataset.on='shown'});
+function setSync(k,on){const el=syncs[k];if(!el)return;
+  if(el.classList.contains('yn')){el.classList.toggle('shown-yes',on&&el.dataset.on==='shown-yes');
+    el.classList.toggle('shown-no',on&&el.dataset.on==='shown-no');}
+  else el.classList.toggle(el.dataset.on,on);}
+
+const CH='pasha-deck-002';
+const bc=('BroadcastChannel'in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get('embed')?'embed':(qs.get('presenter')?'presenter':'main');
+const open=new Set();
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==='hello'&&MODE==='main'){post({t:'state',i,open:[...open]});return}
+  if(m.t==='state'){if(MODE==='embed'){showEmbed(m.i)}applyOpen(m.open);if(MODE==='presenter')pvShow(m.i);return}
+  if(m.t==='go'){if(MODE==='embed')showEmbed(m.i);else{go(m.i,true)}applyOpen(m.open||[]);return}
+  if(m.t==='tap'){setSync(m.k,m.on);if(m.on)open.add(m.k);else open.delete(m.k);
+    if(MODE==='embed')post({t:'tap',k:m.k,on:m.on});}
+};
+function applyOpen(list){open.clear();(list||[]).forEach(k=>{open.add(k);setSync(k,true)})}
+function broadcastState(){post({t:'state',i,open:[...open]})}
+
+/* clicks on reveal elements — child answers first, click confirms */
+document.getElementById('deck').addEventListener('click',e=>{
+  const el=e.target.closest('[data-k]');if(!el)return;
+  const k=+el.dataset.k;
+  const nowOn=!el.classList.contains(el.dataset.on);
+  setSync(k,nowOn);if(nowOn)open.add(k);else open.delete(k);
+  post({t:'tap',k,on:nowOn});
+});
+
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(!silent)post({t:'go',i,open:[...open]});
+  if(MODE==='presenter')pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* fullscreen reading overlay */
+const fsr=document.getElementById('fsread');
+document.getElementById('fsbtn')&&document.getElementById('fsbtn').addEventListener('click',e=>{e.stopPropagation();fsr.classList.add('on')});
+fsr.addEventListener('click',()=>fsr.classList.remove('on'));
+
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.key==='Escape'){fsr.classList.remove('on');return}
+  if(MODE==='embed')return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+  if(e.key==='t'||e.key==='T')togglePresenter();
+});
+let wt=0;document.addEventListener('wheel',e=>{if(MODE!=='main')return;const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(MODE!=='main')return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ presenter view (spec §7, standing 2026-09-10) ============ */
+const pv=document.getElementById('pv');
+function togglePresenter(){
+  if(MODE==='embed')return;
+  if(MODE==='presenter'){window.close();return}
+  window.open(location.pathname+'?presenter=1','pasha-pv','width=1180,height=820');
+}
+document.getElementById('pvt').onclick=togglePresenter;
+document.getElementById('pv-close').onclick=()=>window.close();
+const pvCur=document.getElementById('pv-cur'),pvNext=document.getElementById('pv-next'),
+pvNotes=document.getElementById('pv-notes'),pvCnt=document.getElementById('pv-cnt');
+if(MODE==='presenter'){
+  document.body.classList.add('presenter');
+  pvCur.src=location.pathname+'?embed=cur';pvNext.src=location.pathname+'?embed=next';
+  pv.addEventListener('click',e=>{if(e.target.closest('button'))return;});
+}
+function pvShow(n){
+  if(MODE!=='presenter')return;
+  pvCnt.textContent=(n+1)+' / '+slides.length;
+  pvNotes.innerHTML='';
+  const note=slides[n].dataset.notes;
+  if(note){const p=document.createElement('p');p.textContent=note;pvNotes.appendChild(p)}
+  const nxt=slides[n+1]&&slides[n+1].dataset.notes;
+  if(nxt){const h=document.createElement('p');h.innerHTML='<b>next →</b> ';h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+/* embed panes: mirror the authoritative index, no chrome, no wheel-nav */
+let embedSlot=qs.get('embed');
+function showEmbed(n){
+  const target=embedSlot==='next'?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==='next')document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle('active',k===target);s.classList.remove('prev')});
+}
+
+/* boot: hash → slide; main announces state, others say hello and catch up.
+   Only main may broadcast state — an embed/presenter never overrides it. */
+const h=parseInt(location.hash.slice(1));
+if(MODE==='main'){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true);broadcastState()}
+else post({t:'hello'});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=='main')return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();}catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
