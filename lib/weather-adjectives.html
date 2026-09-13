@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather Words — rain → rainy (noun + y = adjective)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WEATHER WORDS — a UNIVERSAL grammar deck (Bank-Pool rule:
+   born on Pasha's request 2026-09-20, living for everyone;
+   named by topic, "Sergey's" design — spec §2).
+   THE GOAL: tell a NOUN (a thing: rain, sun…) from an
+   ADJECTIVE (a describing word: rainy, sunny…), noun + y =
+   adjective, with the doubling traps (sunny, foggy) and the
+   rebels (icy, hot).
+   Home: Library/Grammar/weather-adjectives/ · published at
+   decks/lib/weather-adjectives.html (Grammar section).
+   Engine: nav bottom-right + lane, progress bar, click-reveals,
+   ready-chime + #n hash, presenter view (T / 🖥).
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.1rem);color:#fff}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cheese)}
+#nav button:disabled{opacity:.3;cursor:default}
+.slide{position:absolute;inset:0;padding:5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.4vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin-bottom:.3em;
+  font-size:clamp(1.9rem,4.2vw,3.6rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp))}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(.9rem,1.6vw,1.35rem)}
+.col{display:flex;flex-direction:column;gap:.4em}
+.center{text-align:center}
+.mt{margin-top:.65em}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink);background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem);align-self:flex-start}
+.task::before{content:"🎯 "}
+.stamp-box{font-family:'Fredoka',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  border:3px dashed var(--stamp);border-radius:16px;padding:.5em 1em;color:var(--stamp);
+  background:var(--white);box-shadow:var(--shadow);display:inline-block;font-size:clamp(1rem,1.7vw,1.4rem)}
+.gift-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.9vw,1.5rem);
+  padding:.5em 1.4em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--stamp),var(--cheese));box-shadow:var(--shadow-lg);
+  transition:transform .15s ease}
+.gift-btn:hover{transform:scale(1.05)}
+.hintline{font-size:clamp(.92rem,1.35vw,1.12rem);color:var(--ink-soft);font-style:italic}
+
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:clamp(.7rem,1.4vw,1.1rem)}
+.gal .w{background:var(--white);border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.1);
+  padding:.85em .6em;text-align:center;transition:transform .15s ease;cursor:default}
+.gal .w:hover{transform:translateY(-4px)}
+.gal .ico{font-size:clamp(2.5rem,5.2vw,4rem);line-height:1.2}
+.gal .nm{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.2rem,2.1vw,1.6rem);margin-top:.15em}
+
+/* two-zone rule */
+.zones{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.6rem,1.4vw,1.1rem)}
+.zone{border-radius:18px;padding:.7em 1em;box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.zone.n{background:#E6F5EF}
+.zone.a{background:var(--stamp-soft)}
+.zone h3{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.15rem,2vw,1.55rem);
+  display:inline-block;border-radius:99px;padding:.1em .8em;margin-bottom:.25em;color:#fff}
+.zone.n h3{background:var(--mint)}
+.zone.a h3{background:var(--stamp)}
+.zone p{font-size:clamp(1.02rem,1.7vw,1.38rem);line-height:1.45;font-weight:600}
+.zone p b{color:var(--stamp)}
+.zone.n p b{color:var(--navy)}
+/* transformation strip */
+.trans{display:flex;flex-wrap:wrap;gap:.5em 1.1em;justify-content:center;align-items:center;
+  background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:.55em 1em}
+.tpair{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem);
+  display:flex;align-items:center;gap:.3em}
+.tpair .noun{color:var(--navy)}
+.tpair .arr{color:var(--ink-soft)}
+.tpair .adj b{color:var(--stamp)}
+.trap{border:3px dashed var(--stamp);border-radius:16px;padding:.45em 1em;color:var(--stamp);
+  background:var(--white);box-shadow:var(--shadow);display:inline-block;
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.4rem)}
+.trap b{color:var(--navy)}
+
+/* concept chips: adjective + noun */
+.chippair{display:flex;flex-wrap:wrap;gap:.5em;justify-content:center}
+.chippair .cp{background:var(--white);border-radius:99px;box-shadow:0 4px 10px rgba(34,48,63,.08);
+  padding:.25em .9em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.1rem,1.9vw,1.5rem)}
+.chippair .cp .adj{color:var(--stamp)}
+.chippair .cp .noun{color:var(--navy)}
+
+/* memory pair-match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.5rem,1.3vw,1rem);max-width:880px;
+  margin:0 auto;width:100%}
+.mcol{display:flex;flex-direction:column;gap:.5em}
+.mcell{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2vw,1.55rem);
+  background:var(--white);border:3px solid var(--sky);border-radius:14px;padding:.3em 1em;
+  cursor:pointer;user-select:none;text-align:center;transition:all .2s ease;box-shadow:0 4px 10px rgba(34,48,63,.08)}
+.mcell:hover{transform:translateY(-3px)}
+.mcell.picked{border-color:var(--cheese);background:var(--cheese-soft)}
+.mcell.locked{border-color:var(--mint);background:#E6F5EF;color:var(--navy);cursor:default;transform:none}
+.mcell.wrong{border-color:var(--stamp);background:var(--stamp-soft);animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.mlabel{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--ink-soft);
+  font-size:clamp(.85rem,1.3vw,1.05rem);text-transform:uppercase;letter-spacing:.08em;text-align:center}
+
+/* judge */
+.yn{display:flex;align-items:center;gap:.6em;cursor:pointer;padding:.3em .8em;border-radius:12px;
+  background:var(--white);box-shadow:0 4px 10px rgba(34,48,63,.06);
+  font-size:clamp(1.1rem,1.8vw,1.48rem);flex-wrap:wrap;user-select:none}
+.yn .badge{flex-shrink:0;width:1.6em;height:1.6em;border-radius:50%;display:grid;place-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:.85em;background:#eee;color:transparent;
+  transition:all .2s}
+.yn.shown-yes .badge{background:var(--mint);color:#fff}
+.yn.shown-no .badge{background:var(--stamp);color:#fff}
+.yn .fix{display:none;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.78em;
+  color:var(--navy-deep);background:var(--cheese-soft);border-radius:99px;padding:.1em .6em;
+  border:2px solid var(--cheese)}
+.yn.shown-no .fix{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1) both}
+
+/* sprint */
+.sprint{max-width:760px;margin:0 auto;width:100%}
+.sprint .big{background:var(--white);border-radius:18px;box-shadow:var(--shadow);
+  min-height:2.6em;display:grid;place-items:center;padding:.4em 1em;cursor:pointer;user-select:none}
+.sprint .word{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(1.9rem,4vw,3.2rem)}
+.sprint .verdict{display:none;font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.4rem,2.6vw,2.1rem);padding:.05em .7em;border-radius:99px;margin-left:.4em;
+  animation:pop .4s cubic-bezier(.34,1.56,.64,1) both}
+.sprint .verdict.n{background:#E6F5EF;color:var(--mint)}
+.sprint .verdict.a{background:var(--stamp-soft);color:var(--stamp)}
+.sprint .prog{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink-soft);
+  font-size:clamp(.95rem,1.5vw,1.2rem)}
+
+/* gaps */
+.gap{display:inline-block;min-width:3.2em;border-bottom:4px solid var(--sky);text-align:center;
+  font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);cursor:pointer;
+  transition:all .2s ease;padding:0 .35em;border-radius:4px 4px 0 0;user-select:none}
+.gap:hover{background:#E8F1FA}
+.gap::after{content:attr(data-a);display:none}
+.gap.filled{border-color:var(--cheese);background:var(--cheese-soft)}
+.gap.filled::after{display:inline;animation:rise .3s both}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.38em .2em;
+  border-bottom:2px dashed rgba(169,204,239,.7);border-radius:10px;
+  font-size:clamp(1.18rem,1.95vw,1.55rem);line-height:1.42}
+.item:last-child{border-bottom:none}
+.item .no{font-family:'Fredoka',sans-serif;font-weight:700;flex:none;color:var(--stamp);font-size:.85em}
+
+/* frames */
+.frame{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink);
+  font-size:clamp(1.3rem,2.4vw,1.95rem);line-height:1.5;padding:.5em .9em;border-radius:16px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.frame .slot{color:var(--stamp);border-bottom:4px dotted var(--stamp);padding:0 .25em}
+.bank{display:flex;flex-wrap:wrap;gap:.4em;justify-content:center}
+.bank span{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);
+  padding:.15em .7em;border-radius:99px;background:var(--cheese-soft);color:var(--navy)}
+
+/* worksheet */
+.ws{columns:2;column-gap:clamp(1rem,2.5vw,2rem);max-width:1000px;margin:0 auto;width:100%}
+.ws .wtask{break-inside:avoid;background:var(--white);border-radius:14px;box-shadow:var(--shadow);
+  padding:.7em 1em;margin-bottom:1em;font-size:clamp(1rem,1.6vw,1.3rem);line-height:1.55}
+.ws .wtask b{color:var(--navy)}
+.dots{letter-spacing:.35em;color:var(--ink-soft)}
+@media (max-width:900px){
+  .zones{grid-template-columns:1fr}
+  .match{grid-template-columns:1fr}
+  .ws{columns:1}
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#1E3A66;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1rem,1.6vw,1.3rem)}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:'Fredoka',sans-serif;font-size:.9em;cursor:pointer}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(30,58,102,.85);color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:.8rem;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F5F3EE;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--cheese)}
+body.embed #nav,body.embed #bar{display:none!important}
+</style>
+</head>
+<body>
+
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · PREPARE-AHEAD (teacher-facing, RU) -->
+  <section class="slide" data-notes="TEACHER slide — don't share it. The deck is UNIVERSAL (Library/Grammar/weather-adjectives/): any pupil, any lesson that needs nouns vs adjectives. Nothing to print — the worksheet slide (11) can be printed if you want paper practice. Works as a 20–30-minute block or split: slides 2–6 in one lesson, 7–11 as revision later.">
+    <div class="eyebrow reveal">universal grammar deck · Sergey's design · any pupil</div>
+    <h1 class="title reveal">Подготовь до урока 🧰</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:860px">
+      <div class="prep" style="display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;background:var(--white);box-shadow:0 4px 12px rgba(34,48,63,.07);margin-bottom:.55em"><span style="flex-shrink:0;font-size:clamp(1.3rem,2.2vw,1.8rem)">🖨</span><p style="font-size:clamp(.98rem,1.55vw,1.25rem);line-height:1.45"><b>Ничего печатать не нужно</b> — но слайд 11 это готовый worksheet, если хочешь бумажную практику (4 мини-задания).</p></div>
+      <div class="prep" style="display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;background:var(--white);box-shadow:0 4px 12px rgba(34,48,63,.07);margin-bottom:.55em"><span style="flex-shrink:0;font-size:clamp(1.3rem,2.2vw,1.8rem)">🖥</span><p style="font-size:clamp(.98rem,1.55vw,1.25rem);line-height:1.45"><b>Дели ВЕСЬ экран</b>, не окно — тогда переходы между декой и другими файлами без остановки записи экрана. Клавиша <b>T</b> — окно преподавателя, <b>F</b> — полный экран. Открывай по ссылке http.</p></div>
+      <div class="prep" style="display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;background:var(--white);box-shadow:0 4px 12px rgba(34,48,63,.07);margin-bottom:.55em"><span style="flex-shrink:0;font-size:clamp(1.3rem,2.2vw,1.8rem)">🪟</span><p style="font-size:clamp(.98rem,1.55vw,1.25rem);line-height:1.45"><b>Погода за окном — твой реквизит:</b> слайд 10 «My weather today» работает с любой реальной погодой.</p></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 · THE FIVE NOUNS -->
+  <section class="slide" data-notes="Nouns FIRST, adjectives not yet. 'A noun is a THING — you can point at it!' Point out of the window if the weather cooperates. He reads the five words, says the Russian (дождь, солнце, ветер, облако, туман) — no y-words on this slide at all.">
+    <div class="eyebrow reveal">Step 1 · the things</div>
+    <h1 class="title reveal">Five weather things 🌦</h1>
+    <div class="accent-line reveal"></div>
+    <p class="reveal" style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1.1rem,1.8vw,1.45rem)">A <b style="color:var(--mint)">noun</b> is a <b>THING</b> — you can point at it! Read:</p>
+    <div class="gal reveal" style="margin:0 auto;width:100%">
+      <div class="w"><div class="ico">🌧</div><div class="nm">rain</div></div>
+      <div class="w"><div class="ico">☀️</div><div class="nm">sun</div></div>
+      <div class="w"><div class="ico">💨</div><div class="nm">wind</div></div>
+      <div class="w"><div class="ico">☁️</div><div class="nm">cloud</div></div>
+      <div class="w"><div class="ico">🌫️</div><div class="nm">fog</div></div>
+    </div>
+    <p class="task reveal mt">Say the word — then say it in Russian. Do you see one out of the window?</p>
+  </section>
+
+  <!-- SLIDE 3 · THE DISCOVERY: noun + y = adjective -->
+  <section class="slide" data-notes="THE rule slide — he discovers it, not you: cover the right column mentally, ask 'rain → what word describes it?' He offers rainy. Then the pattern: noun + y = adjective. THE TRAP: sun and fog double their last letter (sunny, foggy) — short vowel + one consonant doubles. 'rain, wind, cloud just add y'. Spend time here — this slide is the lesson.">
+    <div class="eyebrow reveal">Step 2 · the magic y</div>
+    <h1 class="title reveal">noun + y = adjective ✨</h1>
+    <div class="accent-line reveal"></div>
+    <div class="zones reveal">
+      <div class="zone n"><h3>noun = a thing</h3><p>rain · sun · wind · cloud · fog — <b>you can point at it!</b></p></div>
+      <div class="zone a"><h3>adjective = describes</h3><p>What is it <b>like</b>? rainy · sunny · windy · cloudy · foggy</p></div>
+    </div>
+    <div class="trans reveal mt">
+      <span class="tpair"><span class="noun">rain</span><span class="arr">→</span><span class="adj">rain<b>y</b></span></span>
+      <span class="tpair"><span class="noun">wind</span><span class="arr">→</span><span class="adj">wind<b>y</b></span></span>
+      <span class="tpair"><span class="noun">cloud</span><span class="arr">→</span><span class="adj">cloud<b>y</b></span></span>
+      <span class="tpair"><span class="noun">sun</span><span class="arr">→</span><span class="adj">su<b>nn</b>y</span></span>
+      <span class="tpair"><span class="noun">fog</span><span class="arr">→</span><span class="adj">fo<b>gg</b>y</span></span>
+    </div>
+    <div class="center reveal mt"><div class="trap">⚠ double the letter: su<b style="color:var(--navy)">nn</b>y · fo<b style="color:var(--navy)">gg</b>y</div></div>
+    <p class="task reveal mt" style="align-self:center">rain → ? · sun → ? · fog → ? — say them ALL!</p>
+  </section>
+
+  <!-- SLIDE 4 · ADJECTIVE + NOUN = A PICTURE -->
+  <section class="slide" data-notes="The POINT of adjectives: they paint nouns. Read the pairs — the adjective (stamp colour) paints the noun (navy). Ask him to make one pair of his own ('a sunny… what?'). Grammar: the adjective stands BEFORE the noun.">
+    <div class="eyebrow reveal">Step 3 · why adjectives?</div>
+    <h1 class="title reveal">An adjective paints a noun 🎨</h1>
+    <div class="accent-line reveal"></div>
+    <div class="chippair reveal">
+      <span class="cp"><span class="adj">a rainy</span> <span class="noun">day</span> ☔</span>
+      <span class="cp"><span class="adj">a sunny</span> <span class="noun">sky</span> ☀️</span>
+      <span class="cp"><span class="adj">a windy</span> <span class="noun">sea</span> 🌊</span>
+      <span class="cp"><span class="adj">a foggy</span> <span class="noun">morning</span> 🌫️</span>
+      <span class="cp"><span class="adj">a cloudy</span> <span class="noun">night</span> ☁️</span>
+    </div>
+    <div class="card reveal mt" style="max-width:860px;margin:0 auto;width:100%">
+      <div class="item"><span class="no">1</span><span>The adjective stands <b>BEFORE</b> the noun: <b>a rainy day</b> — not “a day rainy”.</span></div>
+      <div class="item"><span class="no">2</span><span>One noun can “wear” different adjectives: <b>a sunny day</b> · <b>a rainy day</b> · <b>a foggy day</b>.</span></div>
+    </div>
+    <p class="task reveal mt">Your pair: “a ___ day” — what's the weather like today?</p>
+  </section>
+
+  <!-- SLIDE 5 · MEMORY PAIR-MATCH -->
+  <section class="slide" data-notes="The pair-match: click a noun, then its adjective (or the other way round). Correct pair = both lock green; wrong = shake, try again. Moves are counted — beat the number next time! Nouns are in book order on the left; the right column is shuffled.">
+    <div class="eyebrow reveal">Game · match the pairs</div>
+    <h1 class="title reveal">Match them! 🧩</h1>
+    <div class="accent-line reveal"></div>
+    <p class="reveal" style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1.1rem,1.8vw,1.45rem);align-self:center">Click a noun — then click its adjective!</p>
+    <div class="match reveal" id="matchBoard">
+      <div class="mcol"><div class="mlabel">nouns</div>
+        <div class="mcell" data-w="rain">rain</div>
+        <div class="mcell" data-w="sun">sun</div>
+        <div class="mcell" data-w="wind">wind</div>
+        <div class="mcell" data-w="cloud">cloud</div>
+        <div class="mcell" data-w="fog">fog</div>
+      </div>
+      <div class="mcol"><div class="mlabel">adjectives</div>
+        <div class="mcell" data-w="foggy">foggy</div>
+        <div class="mcell" data-w="cloudy">cloudy</div>
+        <div class="mcell" data-w="rainy">rainy</div>
+        <div class="mcell" data-w="sunny">sunny</div>
+        <div class="mcell" data-w="windy">windy</div>
+      </div>
+    </div>
+    <div class="controls reveal" style="display:flex;gap:.8em;align-items:center;margin-top:1em;align-self:center">
+      <button class="gift-btn" id="matchReset">🔄 play again</button>
+      <span id="matchScore" style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1rem,1.6vw,1.3rem)">moves: 0 · pairs: 0/5</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 6 · JUDGE THE SENTENCE -->
+  <section class="slide" data-notes="The judge frame (his favourite from lesson 1): ✓ or ✗ AND fix the ✗ ones. Every ✗ is a noun/adjective swap — exactly the skill. 5/7+ = GOLD. Items: 1 ✗ (It's rainy! — an adjective is needed) · 2 ✓ · 3 ✓ · 4 ✗ (It's foggy!) · 5 ✓ · 6 ✗ (The rain is heavy. — a noun is needed) · 7 ✓.">
+    <div class="eyebrow reveal">Judge court · ✓ or ✗?</div>
+    <h1 class="title reveal">You are the Judge! ⚖️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:880px;margin:0 auto;width:100%">
+      <div class="yn" data-a="no"><span class="badge">?</span>1 &nbsp;It's rain today. Take an umbrella! <span class="fix">It's rainy! ☔</span></div>
+      <div class="yn" data-a="yes"><span class="badge">?</span>2 &nbsp;I can see a cloud in the sky.</div>
+      <div class="yn" data-a="yes"><span class="badge">?</span>3 &nbsp;The wind is strong today.</div>
+      <div class="yn" data-a="no"><span class="badge">?</span>4 &nbsp;It's fog. I can't see the road! <span class="fix">It's foggy! 🌫️</span></div>
+      <div class="yn" data-a="yes"><span class="badge">?</span>5 &nbsp;What a sunny day!</div>
+      <div class="yn" data-a="no"><span class="badge">?</span>6 &nbsp;The rainy is heavy. <span class="fix">The rain is heavy. 🌧</span></div>
+      <div class="yn" data-a="yes"><span class="badge">?</span>7 &nbsp;It's a windy day — hold your hat!</div>
+    </div>
+    <p class="task reveal mt">Say ✓ or ✗ FIRST — then fix the wrong ones. 5/7+ = GOLD 🥇</p>
+  </section>
+
+  <!-- SLIDE 7 · NOUN OR ADJECTIVE SPRINT -->
+  <section class="slide" data-notes="The sprint: one word at a time. He shouts NOUN or ADJECTIVE, then clicks — the verdict pops; the next click shows the next word. 10 words, mixed, no pattern. Fast rounds, wrong answers cost nothing — speed is the game.">
+    <div class="eyebrow reveal">Sprint · fast rounds</div>
+    <h1 class="title reveal">Noun or adjective? ⚡</h1>
+    <div class="accent-line reveal"></div>
+    <div class="sprint reveal">
+      <div class="big" id="sprintCard"><span class="word" id="sprintWord">?</span><span class="verdict" id="sprintVerdict"></span></div>
+      <p class="prog" style="text-align:center;margin-top:.6em" id="sprintProg">word 0 / 10 · click to reveal, click again for the next word</p>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Shout NOUN or ADJECTIVE before the click!</p>
+  </section>
+
+  <!-- SLIDE 8 · GAP-FILL: CHOOSE THE FORM -->
+  <section class="slide" data-notes="Ex. 3-style: the base word is in brackets — he chooses noun or adjective form, says the WHOLE sentence, then clicks the gap. Answers: 1 rainy · 2 fog · 3 sun · 4 windy · 5 cloud · 6 foggy. Numbers 2, 3, 5 take the NOUN — the trap of the slide.">
+    <div class="eyebrow reveal">Choose the form</div>
+    <h1 class="title reveal">Noun or adjective? ✏️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:900px;margin:0 auto;width:100%">
+      <div class="item"><span class="no">1</span><span>It's <span class="gap" data-k data-on="filled" data-a="rainy"></span> today. (rain)</span></div>
+      <div class="item"><span class="no">2</span><span>Look at the <span class="gap" data-k data-on="filled" data-a="fog"></span> ! (fog)</span></div>
+      <div class="item"><span class="no">3</span><span>The <span class="gap" data-k data-on="filled" data-a="sun"></span> is bright today. (sun)</span></div>
+      <div class="item"><span class="no">4</span><span>What a <span class="gap" data-k data-on="filled" data-a="windy"></span> day! (wind)</span></div>
+      <div class="item"><span class="no">5</span><span>I can see a <span class="gap" data-k data-on="filled" data-a="cloud"></span> in the sky. (cloud)</span></div>
+      <div class="item"><span class="no">6</span><span>It's <span class="gap" data-k data-on="filled" data-a="foggy"></span> and I can't see the road. (fog)</span></div>
+    </div>
+    <p class="task reveal mt">Say the WHOLE sentence — then click the gap!</p>
+  </section>
+
+  <!-- SLIDE 9 · MORE WEATHER WORDS (challenge) -->
+  <section class="slide" data-notes="For fast finishers or a second visit: four more pairs. snow→snowy and storm→stormy follow the rule; ice→icy is the rebel (drop the e, add y); heat→hot is the DOUBLE rebel (a different word entirely — no y at all). Ask: which two follow the rule? Which are the rebels?">
+    <div class="eyebrow reveal">Challenge · more words</div>
+    <h1 class="title reveal">The rebels 😈</h1>
+    <div class="accent-line reveal"></div>
+    <div class="trans reveal">
+      <span class="tpair"><span class="noun">snow</span><span class="arr">→</span><span class="adj">snow<b>y</b></span></span>
+      <span class="tpair"><span class="noun">storm</span><span class="arr">→</span><span class="adj">storm<b>y</b></span></span>
+      <span class="tpair"><span class="noun">ice</span><span class="arr">→</span><span class="adj"><b>icy</b></span></span>
+      <span class="tpair"><span class="noun">heat</span><span class="arr">→</span><span class="adj"><b>hot</b></span></span>
+    </div>
+    <div class="col reveal mt" style="max-width:860px;margin:0 auto;width:100%">
+      <div class="item"><span class="no">🧊</span><span><b>icy</b> — the rebel: drop the <b>e</b>, add <b>y</b>.</span></div>
+      <div class="item"><span class="no">🔥</span><span><b>hot</b> — the double rebel: a different word, no <b>y</b> at all!</span></div>
+    </div>
+    <p class="task reveal mt">Which two follow the rule? Which two are the rebels?</p>
+  </section>
+
+  <!-- SLIDE 10 · MY WEATHER TODAY (production) -->
+  <section class="slide" data-notes="Production: his own TRUE sentences about today — look out of the window together. Three frames, the bank below. Push for adjective+noun in the second frame ('a foggy morning', 'a sunny day'). The third frame is the free one — any weather word.">
+    <div class="eyebrow reveal">Your turn · real weather</div>
+    <h1 class="title reveal">My weather today 🪟</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:880px;margin:0 auto;width:100%">
+      <div class="frame">— What's the weather like today? &nbsp;— It's <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+      <div class="frame">I can see <span class="slot">&nbsp;a&nbsp;</span> <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> in the sky.</div>
+      <div class="frame">My favourite weather is <span class="slot">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> .</div>
+    </div>
+    <div class="bank reveal mt">
+      <span>rainy 🌧</span><span>sunny ☀️</span><span>windy 💨</span><span>cloudy ☁️</span><span>foggy 🌫️</span><span>snowy ❄️</span><span>hot 🔥</span><span>icy 🧊</span>
+    </div>
+    <p class="task reveal mt">Three TRUE sentences — look out of the window!</p>
+  </section>
+
+  <!-- SLIDE 11 · PRINT-ME WORKSHEET -->
+  <section class="slide" data-notes="A ready worksheet — print this slide if you want paper practice (it prints as one page). Task 2: circle the adjectives (sunny, foggy, windy, rain is a noun, cloudy, icy, sun is a noun, stormy). Task 3 answers: rainy, cloud. Task 4: any true sentence with an adjective.">
+    <div class="eyebrow reveal">Print me · paper practice</div>
+    <h1 class="title reveal">Worksheet 🖨</h1>
+    <div class="accent-line reveal"></div>
+    <div class="ws reveal">
+      <div class="wtask"><b>1 · Match.</b><br>rain · sun · wind · cloud · fog<br><span class="dots">…………</span><br>cloudy · rainy · sunny · windy · foggy</div>
+      <div class="wtask"><b>2 · Circle the adjectives.</b><br>sun · sunny · rain · foggy · windy · cloud · icy · sun · cloudy · stormy</div>
+      <div class="wtask"><b>3 · Write one word.</b><br>a) It's <span class="dots">…………</span> today. (rain)<br>b) I can see a <span class="dots">…………</span> in the sky. (cloud)</div>
+      <div class="wtask"><b>4 · Your sentence.</b><br>Write ONE true sentence about the weather today.<br><span class="dots">……………………………………</span><br><span class="dots">……………………………………</span></div>
+    </div>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 11</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- presenter view shell (T / 🖥) -->
+<div id="pv">
+  <div class="head">
+    <b>Weather Words — presenter</b>
+    <button id="pv-close">✕ close (T)</button>
+    <span class="cnt" id="pv-cnt">1 / 11</span>
+  </div>
+  <div class="panes">
+    <div class="pane"><span class="lbl">NOW — what he sees</span><iframe id="pv-cur"></iframe></div>
+    <div class="pane"><span class="lbl">NEXT</span><iframe id="pv-next"></iframe></div>
+  </div>
+  <div class="notes" id="pv-notes">—</div>
+</div>
+
+<script>
+/* ============ core deck engine (spec §4–§7) ============ */
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.querySelector('#bar i'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+
+const syncs=[...document.querySelectorAll('[data-k]')];
+syncs.forEach((el,k)=>{el.dataset.k=k;if(!el.dataset.on)el.dataset.on='shown'});
+function setSync(k,on){const el=syncs[k];if(!el)return;
+  if(el.classList.contains('yn')){el.classList.toggle('shown-yes',on&&el.dataset.on==='shown-yes');
+    el.classList.toggle('shown-no',on&&el.dataset.on==='shown-no');}
+  else el.classList.toggle(el.dataset.on,on);}
+
+const CH='weather-adjectives';
+const bc=('BroadcastChannel'in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get('embed')?'embed':(qs.get('presenter')?'presenter':'main');
+const open=new Set();
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==='hello'&&MODE==='main'){post({t:'state',i,open:[...open]});return}
+  if(m.t==='state'){if(MODE==='embed'){showEmbed(m.i)}applyOpen(m.open);if(MODE==='presenter')pvShow(m.i);return}
+  if(m.t==='go'){if(MODE==='embed')showEmbed(m.i);else{go(m.i,true)}applyOpen(m.open||[]);return}
+  if(m.t==='tap'){setSync(m.k,m.on);if(m.on)open.add(m.k);else open.delete(m.k);
+    if(MODE==='embed')post({t:'tap',k:m.k,on:m.on});}
+};
+function applyOpen(list){open.clear();(list||[]).forEach(k=>{open.add(k);setSync(k,true)})}
+function broadcastState(){post({t:'state',i,open:[...open]})}
+
+document.getElementById('deck').addEventListener('click',e=>{
+  const el=e.target.closest('[data-k]');if(!el)return;
+  const k=+el.dataset.k;
+  const nowOn=!el.classList.contains(el.dataset.on);
+  setSync(k,nowOn);if(nowOn)open.add(k);else open.delete(k);
+  post({t:'tap',k,on:nowOn});
+});
+
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(!silent)post({t:'go',i,open:[...open]});
+  if(MODE==='presenter')pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(MODE==='embed')return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+  if(e.key==='t'||e.key==='T')togglePresenter();
+});
+let wt=0;document.addEventListener('wheel',e=>{if(MODE!=='main')return;const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(MODE!=='main')return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ memory pair-match ============ */
+(function(){
+  const board=document.getElementById('matchBoard');
+  if(!board)return;
+  const score=document.getElementById('matchScore');
+  let first=null,moves=0,pairs=0,lock=false;
+  function paint(){score.textContent='moves: '+moves+' · pairs: '+pairs+'/5';}
+  board.addEventListener('click',e=>{
+    const cell=e.target.closest('.mcell');
+    if(!cell||lock||cell.classList.contains('locked'))return;
+    if(first===cell){cell.classList.remove('picked');first=null;return}
+    if(!first){first=cell;cell.classList.add('picked');return}
+    moves++;
+    if(first.dataset.w===cell.dataset.w+'y'||first.dataset.w+'y'===cell.dataset.w){
+      first.classList.add('locked');cell.classList.add('locked');
+      first.classList.remove('picked');
+      pairs++;first=null;
+    }else{
+      lock=true;
+      const a=first,b=cell;
+      a.classList.add('wrong');b.classList.add('wrong');
+      setTimeout(()=>{a.classList.remove('wrong','picked');b.classList.remove('wrong');lock=false;},450);
+      first=null;
+    }
+    paint();
+    if(pairs===5){score.textContent='moves: '+moves+' · ALL 5 PAIRS! '+(moves<=7?'GOLD 🥇':moves<=9?'SILVER 🥈':'BRONZE 🥉');}
+  });
+  document.getElementById('matchReset').addEventListener('click',()=>{
+    board.querySelectorAll('.mcell').forEach(c=>c.classList.remove('locked','picked','wrong'));
+    const cols=board.querySelectorAll('.mcol');
+    const rights=[...cols[1].querySelectorAll('.mcell')];
+    const parent=cols[1];
+    shuffled(rights).forEach(c=>parent.appendChild(c));
+    first=null;moves=0;pairs=0;lock=false;paint();
+  });
+  function shuffled(a){const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
+})();
+
+/* ============ noun or adjective sprint ============ */
+(function(){
+  const WORDS=[
+    {w:"rain",t:"n"},{w:"sunny",t:"a"},{w:"cloud",t:"n"},{w:"windy",t:"a"},
+    {w:"fog",t:"n"},{w:"rainy",t:"a"},{w:"sun",t:"n"},{w:"snowy",t:"a"},
+    {w:"wind",t:"n"},{w:"stormy",t:"a"}
+  ];
+  const card=document.getElementById('sprintCard');
+  if(!card)return;
+  const wordEl=document.getElementById('sprintWord'),verdict=document.getElementById('sprintVerdict'),
+  prog=document.getElementById('sprintProg');
+  let order=[],k=0,revealed=false;
+  function load(){
+    if(k>=order.length){wordEl.textContent='DONE! 🏆';verdict.className='verdict';verdict.style.display='none';verdict.textContent='';revealed=true;prog.textContent='10 / 10 · click = deal again';return}
+    const it=order[k];
+    wordEl.textContent=it.w;
+    verdict.className='verdict'+(it.t==='n'?' n':' a');
+    verdict.textContent=it.t==='n'?'NOUN':'ADJECTIVE';
+    verdict.style.display='none';
+    revealed=false;
+    prog.textContent='word '+(k+1)+' / 10 · click to reveal, click again for the next word';
+  }
+  card.addEventListener('click',()=>{
+    if(k>=order.length){start();return}
+    if(!revealed){verdict.style.display='inline-block';revealed=true;}
+    else{k++;verdict.style.display='none';load();}
+  });
+  function start(){order=WORDS.map((it,idx)=>idx).sort(()=>Math.random()-.5).map(idx=>WORDS[idx]);k=0;verdict.style.display='none';load();}
+  start();
+})();
+
+/* ============ presenter view (spec §7) ============ */
+const pv=document.getElementById('pv');
+function togglePresenter(){
+  if(MODE==='embed')return;
+  if(MODE==='presenter'){window.close();return}
+  window.open(location.pathname+'?presenter=1','weather-pv','width=1180,height=820');
+}
+document.getElementById('pvt').onclick=togglePresenter;
+document.getElementById('pv-close').onclick=()=>window.close();
+const pvCur=document.getElementById('pv-cur'),pvNext=document.getElementById('pv-next'),
+pvNotes=document.getElementById('pv-notes'),pvCnt=document.getElementById('pv-cnt');
+if(MODE==='presenter'){
+  document.body.classList.add('presenter');
+  pvCur.src=location.pathname+'?embed=cur';pvNext.src=location.pathname+'?embed=next';
+}
+function pvShow(n){
+  if(MODE!=='presenter')return;
+  pvCnt.textContent=(n+1)+' / '+slides.length;
+  pvNotes.innerHTML='';
+  const note=slides[n].dataset.notes;
+  if(note){const p=document.createElement('p');p.textContent=note;pvNotes.appendChild(p)}
+  const nxt=slides[n+1]&&slides[n+1].dataset.notes;
+  if(nxt){const h=document.createElement('p');h.innerHTML='<b>next →</b> ';h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+let embedSlot=qs.get('embed');
+function showEmbed(n){
+  const target=embedSlot==='next'?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==='next')document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle('active',k===target);s.classList.remove('prev')});
+}
+const h=parseInt(location.hash.slice(1));
+if(MODE==='main'){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true);broadcastState()}
+else post({t:'hello'});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=='main')return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();}catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
