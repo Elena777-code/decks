@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGOR — Lesson 3 · AI in education · FIPI 12–18</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#17181D;
+  --card:rgba(255,255,255,.055);
+  --ink:#F5F3EE;
+  --ink-soft:#A9ACB8;
+  --cyan:#2BD9E8;
+  --magenta:#F03CB0;
+  --orange:#FF7A29;
+  --yellow:#FFC93C;
+  --lime:#A8E82A;
+  --line:rgba(255,255,255,.14);
+  --radius:14px;
+  --grad:linear-gradient(90deg,#2BD9E8,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--wall);color:var(--ink);font-family:'Inter',system-ui,sans-serif;overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;
+  background-image:linear-gradient(var(--ink) 1px,transparent 1px),linear-gradient(90deg,var(--ink) 1px,transparent 1px);
+  background-size:64px 32px,64px 32px}
+#bar{position:fixed;top:0;left:0;height:7px;width:0;background:var(--grad);z-index:100;transition:width .4s}
+#bar-track{position:fixed;top:0;left:0;right:0;height:7px;background:rgba(255,255,255,.08);z-index:99}
+.slide{position:absolute;inset:0;padding:4.2vh 5vw calc(74px + 2.4vh);display:none;flex-direction:column;overflow:auto}
+.slide.active{display:flex}
+.slide.active .reveal{animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
+.slide .reveal{opacity:0}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Permanent Marker',cursive;color:var(--yellow);letter-spacing:.12em;font-size:clamp(1rem,1.8vw,1.4rem);text-transform:uppercase}
+.title{font-weight:800;font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.08;margin:.3em 0 .2em}
+.title .spray,.spray{display:inline-block;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+.accent-line{width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--cyan),var(--magenta));margin-bottom:2.6vh}
+.card{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--cyan);border-radius:var(--radius);padding:2.2vh 1.6vw;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.card.c-cyan{border-top-color:var(--cyan)}.card.c-magenta{border-top-color:var(--magenta)}
+.card.c-orange{border-top-color:var(--orange)}.card.c-yellow{border-top-color:var(--yellow)}
+.card.c-lime{border-top-color:var(--lime)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.6vw;align-items:start}
+.task{display:inline-block;background:rgba(255,201,60,.12);border:1px dashed var(--yellow);color:var(--ink);border-radius:99px;padding:.45em 1.1em;font-size:clamp(1.05rem,1.7vw,1.4rem);margin-top:2.2vh}
+.chips{display:flex;flex-wrap:wrap;gap:.6vw;margin-top:1.4vh}
+.chip{background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:99px;padding:.35em .9em;font-weight:600;font-size:clamp(1rem,1.8vw,1.4rem)}
+.ru{color:var(--ink-soft)}
+.sent{font-size:clamp(1.25rem,2.2vw,1.85rem);font-weight:600;line-height:1.45}
+.sent .n{font-family:'Permanent Marker',cursive;color:var(--lime);margin-right:.5em;font-size:.85em}
+.gap{display:inline-block;min-width:0;cursor:pointer;border-bottom:3px dashed var(--yellow);color:transparent;padding:0 .5em;transition:.2s;user-select:none}
+.gap.filled{color:var(--cyan);border-bottom:3px solid var(--cyan);background:rgba(43,217,232,.1);border-radius:6px}
+.defcard{cursor:pointer;border-bottom:1px dotted var(--line);padding:1.5vh 0;font-size:clamp(1.25rem,2.2vw,1.8rem);font-weight:600;line-height:1.4}
+.defcard .ans{color:transparent;transition:.3s}
+.defcard.show .ans{color:var(--cyan)}
+.defcard .why{display:block;font-size:.62em;font-weight:500;color:var(--ink-soft);opacity:0;transition:.3s}
+.defcard.show .why{opacity:1}
+.hunt{cursor:pointer;border-bottom:1px dotted var(--line);padding:1.2vh 0;font-size:clamp(1.2rem,2vw,1.7rem);font-weight:500;line-height:1.5}
+.hunt .bad{color:var(--orange)}
+.hunt .fix{color:transparent;transition:.3s;font-weight:700}
+.hunt.show .fix{color:var(--cyan)}
+.caps{color:var(--magenta);font-weight:800;letter-spacing:.06em}
+.exam-text{font-size:clamp(1.05rem,1.75vw,1.5rem);line-height:1.55;font-weight:500}
+.read-text{font-size:clamp(.95rem,1.45vw,1.25rem);line-height:1.5;font-weight:400;color:var(--ink)}
+.read-text p{margin-bottom:.8em}
+.read-text b{color:var(--cyan);font-weight:700}
+.fsbtn{background:rgba(43,217,232,.12);border:1px solid var(--cyan);color:var(--cyan);border-radius:99px;padding:.4em 1em;font-size:clamp(1rem,1.7vw,1.35rem);cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;margin-top:1.6vh;align-self:flex-start}
+.fsbtn:hover{background:rgba(43,217,232,.25)}
+#fsoverlay{position:fixed;inset:0;background:#101116;z-index:200;display:none;overflow:auto;padding:6vh 7vw 10vh;cursor:pointer}
+#fsoverlay.open{display:block}
+#fsoverlay .fst{font-size:clamp(1.3rem,2.6vw,2.1rem);line-height:1.65;font-weight:500;max-width:1250px}
+#fsoverlay .fst p{margin-bottom:.7em}
+#fsoverlay .hint{position:fixed;bottom:3vh;left:0;right:0;text-align:center;color:var(--ink-soft);font-size:clamp(.95rem,1.5vw,1.2rem)}
+.qq{cursor:pointer;border-bottom:1px dotted var(--line);padding:1.2vh 0}
+.qq .q{font-size:clamp(1.15rem,2vw,1.65rem);font-weight:700;line-height:1.35}
+.qq .q .n{font-family:'Permanent Marker',cursive;color:var(--lime);margin-right:.5em;font-size:.85em}
+.qq .opts{display:flex;flex-wrap:wrap;gap:.5vw;margin-top:.8vh}
+.qq .opt{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:10px;padding:.3em .8em;font-size:clamp(1rem,1.7vw,1.35rem);font-weight:500;transition:.3s}
+.qq.show .opt[data-ok="1"]{background:rgba(43,217,232,.16);border-color:var(--cyan);color:var(--cyan)}
+.qq.show .opt[data-ok="0"]{opacity:.38}
+.hw-step{display:grid;grid-template-columns:2.6em 1fr;gap:1vw;align-items:start;margin-top:2vh;font-size:clamp(1.15rem,2vw,1.6rem);line-height:1.45}
+.hw-step .num{width:1.9em;height:1.9em;border-radius:50%;background:var(--grad);color:#14151a;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85em}
+.hw-step a{color:var(--cyan);word-break:break-all}
+#nav{position:fixed;bottom:max(10px,1.6vh);right:max(10px,1.6vw);z-index:120;display:flex;gap:8px;align-items:center;background:rgba(23,24,29,.75);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:99px;padding:6px 10px}
+#nav button{background:none;border:none;color:var(--ink);font-size:1.25rem;cursor:pointer;width:2.2em;height:2.2em;border-radius:50%;transition:.15s}
+#nav button:hover{background:rgba(255,255,255,.12);transform:scale(1.08)}
+#nav button:disabled{opacity:.3;cursor:default}
+#nav button:active{transform:scale(.95)}
+#counter{color:var(--ink-soft);font-size:.95rem;min-width:3.4em;text-align:center}
+#pbtn{font-size:1rem}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="bar-track"></div><div id="bar"></div>
+
+<!-- S1 · PREPARE AHEAD (teacher-facing, RU) -->
+<section class="slide" data-notes="Служебный слайд. Домашка не пришла — в деке это учтено: проверка происходит прямо на уроке (слайд 2), домашка ставится заново в конце. Если к следующему разу опять не придёт — разговор про систему уже с Людмилой (по твоему слову).">
+  <div class="eyebrow">teacher · prepare ahead</div>
+  <h1 class="title">До урока · <span class="spray">2026-09-20</span></h1>
+  <div class="accent-line"></div>
+  <div class="card c-yellow">
+    <p style="font-size:clamp(1.15rem,1.9vw,1.5rem);line-height:1.7">
+    🖥 <b>Этот дек на экране</b>, F = во весь экран (презентер — клавиша T).<br>
+    🖊 <b>Ему — ручка и лист</b>: сначала читает текст с большого экрана, потом отвечает на 12–18 письменно.<br>
+    📖 <b>Музланова под рукой</b> — если дойдём до письма.<br>
+    ⏱ <b>Раскладка часа:</b> проверка-на-месте → 2 дрилла → его цитаты про AI → текст FIPI 12–18 → вопросы → домашка заново.</p>
+  </div>
+  <div class="task">🎯 тема школы — education / online vs classroom / AI: всё сегодня из неё</div>
+</section>
+
+<!-- S2 · HOMEWORK CHECK — the on-the-spot fallback -->
+<section class="slide" data-notes="Домашка не пришла в Telegram — без упрёков: «проверка происходит здесь». Три задания формата 25–29 из ЕГО словарных семей. Он отвечает вслух/пишет, клик подтверждает. Потом на последнем слайде домашка ставится заново.">
+  <div class="eyebrow">homework check · on the spot</div>
+  <h1 class="title">Nothing came through the wire — <span class="spray">so we check here</span></h1>
+  <div class="accent-line"></div>
+  <p class="sent" style="margin-bottom:1vh"><span class="ru" style="font-size:.7em">три быстрых — из твоих собственных слов</span></p>
+  <div>
+    <div class="sent" style="padding:1vh 0;border-bottom:1px dotted var(--line);cursor:pointer" data-rv="w1" data-kind="gapline"><span class="n">1</span>He is a very <span class="gap">SUCCESS</span> footballer. <span class="ru" style="font-size:.65em">(SUCCESS)</span></div>
+    <div class="sent" style="padding:1vh 0;border-bottom:1px dotted var(--line);cursor:pointer" data-rv="w2" data-kind="gapline"><span class="n">2</span>The <span class="gap">PERFORM</span> starts at seven. <span class="ru" style="font-size:.65em">(PERFORM)</span></div>
+    <div class="sent" style="padding:1vh 0;cursor:pointer" data-rv="w3" data-kind="gapline"><span class="n">3</span>I keep <span class="gap">LOSE</span> my keys. <span class="ru" style="font-size:.65em">(LOSE)</span></div>
+  </div>
+  <div class="chips">
+    <span class="chip">SUCCESS → ?</span><span class="chip">PERFORM → ?</span><span class="chip">LOSE → ?</span>
+  </div>
+  <div class="task">🎯 say it / write it first — then click</div>
+</section>
+
+<!-- S3 · DRILL 1 — which word am I (Set 1, practice 2) -->
+<section class="slide" data-notes="Set 1, практика 2 из 5 (трекер). Формат сменён: не gap-fill, а «кто я» — по определению. Всю вслух, клик подтверждает. annoying/annoyed — оба засчитываем, разницу проговариваем.">
+  <div class="eyebrow">60-second drill · which word am I?</div>
+  <h1 class="title">bother · trouble · <span class="spray">annoy</span> · worry</h1>
+  <div class="accent-line"></div>
+  <div>
+    <div class="defcard" data-rv="d1">You feel this when your granny doesn't answer the phone and it's already late.<span class="ans">worried</span><span class="why">the feeling inside you — волноваться</span></div>
+    <div class="defcard" data-rv="d2">The formal one: "May I ___ you for a moment?"<span class="ans">trouble</span><span class="why">формальное «затруднить» — из твоей тетради</span></div>
+    <div class="defcard" data-rv="d3">Little brothers do this to you when you are trying to do homework.<span class="ans">bother</span><span class="why">дёргать того, кто занят — не хочет</span></div>
+    <div class="defcard" data-rv="d4">How you feel about loud music at 7 a.m. on a Sunday.<span class="ans">annoyed / annoying</span><span class="why">you are annoyed · the music is annoying</span></div>
+  </div>
+  <div class="task">🎯 answer in full: "You are …" — then click</div>
+</section>
+
+<!-- S4 · DRILL 2 — the error hunt -->
+<section class="slide" data-notes="Охота на ошибки: 5 ошибок в мини-тексте «от его двоюродного брата» — все пять из ЕГО реальных ошибок (in your own pace, some of questioned, succesful, wathing, this words). Он считает + чинит вслух; клик по строке показывает исправление.">
+  <div class="eyebrow">60-second drill · the error hunt</div>
+  <h1 class="title">Five errors are <span class="spray">hiding</span></h1>
+  <div class="accent-line"></div>
+  <p class="sent" style="margin-bottom:1vh"><span class="ru" style="font-size:.7em">вот что написал двоюродный брат про онлайн-уроки:</span></p>
+  <div>
+    <div class="hunt" data-rv="h1">"Online lessons let you study <span class="bad">in</span> <span class="fix">at</span> your own pace."</div>
+    <div class="hunt" data-rv="h2">"<span class="bad">Some of questioned</span> <span class="fix">Some of the teenagers asked</span> prefer them."</div>
+    <div class="hunt" data-rv="h3">"My friend is very <span class="bad">succesful</span> <span class="fix">successful</span> at them."</div>
+    <div class="hunt" data-rv="h4">"I like <span class="bad">wathing</span> <span class="fix">watching</span> films about school."</div>
+    <div class="hunt" data-rv="h5">"I never say <span class="bad">this</span> <span class="fix">these</span> words: school is boring."</div>
+  </div>
+  <div class="task">🎯 find it, fix it out loud — then click the line</div>
+</section>
+
+<!-- S5 · THE BRIDGE — his opinions vs the text -->
+<section class="slide" data-notes="Мост: его собственные цитаты из школьной тетради (фото 9 и 10). Правило вывода: в заданиях 12–18 ответ живёт в тексте, не в голове. Его мнение — для эссе 38 и устной части.">
+  <div class="eyebrow">your words · last week</div>
+  <h1 class="title">You already have an <span class="spray">opinion</span></h1>
+  <div class="accent-line"></div>
+  <div class="grid2">
+    <div class="card c-magenta"><p class="exam-text"><i>"I think in the distant future AI will replace teachers."</i></p></div>
+    <div class="card c-cyan"><p class="exam-text"><i>"I think online education will not replace classroom education because classroom education incorporates support…"</i></p></div>
+  </div>
+  <div class="card c-yellow" style="margin-top:2vh">
+    <p class="exam-text">Today the exam gives you a text about the same war. One rule:<br>
+    <b>12–18 answers live in the TEXT — not in your head.</b><br>
+    <span class="ru" style="font-size:.75em">Your opinion goes into the essay. The answer key lives in the paragraphs.</span></p>
+  </div>
+</section>
+
+<!-- S6 · FIPI 12–18 — the AI text -->
+<section class="slide" data-notes="Настоящий текст ЕГЭ-2027 (ДЕМО, печатные стр. 10–11/38), дословно. Сначала — «read fullscreen», он читает с большого экрана целиком. Потом вопросы 12–18 письменно на листе, только потом проверка.">
+  <div class="eyebrow">real exam · FIPI ЕГЭ-2027 demo · tasks 12–18</div>
+  <h1 class="title">AI and <span class="spray">student experience</span></h1>
+  <div class="accent-line"></div>
+  <div id="aitext" class="card c-cyan">
+    <div class="read-text">
+      <p>No matter what your occupation is, you have probably faced some <b>uncertainty</b> over the last few years as a result of innovative Artificial Intelligence (AI) technology and its growing popularity. Teachers and students alike feel strongly about the upcoming changes. Here is what lies ahead for education in today's AI-driven world.</p>
+      <p>If you have tried using AI tools yourself, you know how powerful they can be. With just a few clicks, these programmes can write stories, organise ideas, and even complete homework assignments. Unfortunately for educators, this potent tool is also available to students who may use it to cheat and plagiarise work. Over the last several months, teachers have been trying to address this growing problem.</p>
+      <p>Sadly, there is, as yet, no silver-bullet solution for teachers. While some software has claimed to be able to detect AI-generated content, none of these have fully cracked the code. As a result of this change, there will likely be a shift in education that puts emphasis on in-person assessments, rather than take-home assignments.</p>
+      <p>But AI is not just causing problems — it is also creating new opportunities. Instead of banning the use of AI, many educators are trying to figure out the best ways for students to use this technology as a helpful tool.</p>
+      <p>Over the decades, a critique of the school system has been its one-size-fits-all approach. Today, however, AI is presenting itself as an antidote to this problem. The data about students' abilities makes it possible for teachers to use AI to personalise learning. This means teachers can tweak their lessons to fit each student's needs, helping everyone do their best.</p>
+      <p>Getting extra help outside of school has always been important, but not everyone could afford private tutors. Now, free AI tutors are becoming available to help students with their schoolwork anytime they need it.</p>
+      <p>Thus, AI can have a wide variety of impacts on the student experience. The key will be learning how to use this technology wisely — as a tool to support learning, not replace it. As teachers and students continue to adapt, one thing is clear: education will never again be the same.</p>
+    </div>
+  </div>
+  <button class="fsbtn" onclick="openFs('aitext')">⛶ read fullscreen</button>
+  <div class="task">🎯 read it twice — the second time with a pencil</div>
+</section>
+
+<!-- S7 · QUESTIONS 12–14 -->
+<section class="slide" data-notes="Ключ FIPI: 12→2 (Doubt — неопределённость из 1-го абзаца; «makes me hopeful» условное), 13→3 (academic dishonesty — «cheat and plagiarise»), 14→1 («none have fully cracked the code» = ненадёжные). Он отвечает письменно ДО клика. Заодно: почему не 3 в 12-м — hopeful условное («ключ — научиться пользоваться мудро»).">
+  <div class="eyebrow">check · say it before you click it</div>
+  <h1 class="title">12–14 · <span class="spray">the text decides</span></h1>
+  <div class="accent-line"></div>
+  <div>
+    <div class="qq" data-rv="q12"><div class="q"><span class="n">12</span>What feeling does the spread of AI in education bring up?</div>
+      <div class="opts"><span class="opt" data-ok="0">1) Opposition</span><span class="opt" data-ok="1">2) Doubt</span><span class="opt" data-ok="0">3) Excitement</span><span class="opt" data-ok="0">4) Curiosity</span></div></div>
+    <div class="qq" data-rv="q13"><div class="q"><span class="n">13</span>This growing problem in paragraph 2 refers to …</div>
+      <div class="opts"><span class="opt" data-ok="0">1) AI's productivity</span><span class="opt" data-ok="0">2) shortage of teachers</span><span class="opt" data-ok="1">3) academic dishonesty</span><span class="opt" data-ok="0">4) students' access to AI</span></div></div>
+    <div class="qq" data-rv="q14"><div class="q"><span class="n">14</span>What is the problem with the systems that spot the use of AI?</div>
+      <div class="opts"><span class="opt" data-ok="1">1) They are quite unreliable</span><span class="opt" data-ok="0">2) They are rather expensive</span><span class="opt" data-ok="0">3) They are hard to work with</span><span class="opt" data-ok="0">4) They are difficult to access</span></div></div>
+  </div>
+  <div class="task">🎯 underlined word in the question = the paragraph to re-read</div>
+</section>
+
+<!-- S8 · QUESTIONS 15–18 -->
+<section class="slide" data-notes="Ключ FIPI: 15→2 (Controversial: и проблемы, и возможности), 16→4 (tweak = adjust, «to fit each student's needs»), 17→3 (зависимость НЕ упомянута — в тексте наоборот, «a helpful tool»), 18→2 (balanced use — «as a tool to support learning, not replace it»).">
+  <div class="eyebrow">check · 15–18</div>
+  <h1 class="title">15–18 · <span class="spray">the text decides</span></h1>
+  <div class="accent-line"></div>
+  <div>
+    <div class="qq" data-rv="q15"><div class="q"><span class="n">15</span>How can the use of AI in education be described, according to the text?</div>
+      <div class="opts"><span class="opt" data-ok="0">1) Successful</span><span class="opt" data-ok="1">2) Controversial</span><span class="opt" data-ok="0">3) Unregulated</span><span class="opt" data-ok="0">4) Ineffective</span></div></div>
+    <div class="qq" data-rv="q16"><div class="q"><span class="n">16</span>Tweak in paragraph 5 most probably means …</div>
+      <div class="opts"><span class="opt" data-ok="0">1) simplify</span><span class="opt" data-ok="0">2) replace</span><span class="opt" data-ok="0">3) upgrade</span><span class="opt" data-ok="1">4) adjust</span></div></div>
+    <div class="qq" data-rv="q17"><div class="q"><span class="n">17</span>Which fact about AI in education is NOT mentioned in the text?</div>
+      <div class="opts"><span class="opt" data-ok="0">1) AI impacts how students are assessed</span><span class="opt" data-ok="0">2) AI makes education more accessible</span><span class="opt" data-ok="1">3) AI makes students dependent on it</span><span class="opt" data-ok="0">4) AI helps make learning individualised</span></div></div>
+    <div class="qq" data-rv="q18"><div class="q"><span class="n">18</span>The author concludes by suggesting that …</div>
+      <div class="opts"><span class="opt" data-ok="0">1) students will be more productive with AI</span><span class="opt" data-ok="1">2) a balanced use of AI will benefit education</span><span class="opt" data-ok="0">3) education needs to regulate the use of AI</span><span class="opt" data-ok="0">4) teachers need to reconsider their methods</span></div></div>
+  </div>
+  <div class="task">🎯 NOT mentioned = the odd one out of four</div>
+</section>
+
+<!-- S9 · WRAP + HOMEWORK -->
+<section class="slide" data-notes="Домашка та же, второй шанс: ① FIPI 25–29 + 30–36 соло, ② письмо 37, ③ диктант тех же пяти слов. Если и на этот раз не придёт — мягкий разговор с Людмилой про систему (твой разговор, готовые слова — в word-drill.md).">
+  <div class="eyebrow">wrap · what you own now</div>
+  <h1 class="title">Today you <span class="spray">out-argued the exam</span></h1>
+  <div class="accent-line"></div>
+  <div class="card c-lime">
+    <p class="exam-text">✔ You checked words like an examiner — on YOUR OWN errors.<br>✔ You read a real FIPI text about YOUR topic — AI in education.<br>✔ You learned the reading rule: the text decides, not your beliefs.</p>
+  </div>
+  <div class="hw-step"><span class="num">1</span><span>📖 <b>Соло-ЕГЭ, второй шанс:</b> задания <b>25–29</b> и <b>30–36</b> — честно, один, без словаря: <a href="https://elena777-code.github.io/decks/p/egor/test.html" target="_blank">elena777-code.github.io/decks/p/egor/test.html</a></span></div>
+  <div class="hw-step"><span class="num">2</span><span>✍️ <b>Письмо 37</b> (90–154 слова) — с той же страницы, ответы мне в Telegram одним сообщением.</span></div>
+  <div class="hw-step"><span class="num">3</span><span>🎙 <b>Диктант</b> к следующему уроку: <b>successful · studying · preferred · flexibility · assessment</b></span></div>
+  <div class="card c-yellow" style="margin-top:2.4vh">
+    <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🎁 <b>Closer riddle:</b> I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I?</p>
+  </div>
+</section>
+
+<div id="nav">
+  <button id="prev">‹</button>
+  <span id="counter">1 / 9</span>
+  <button id="next">›</button>
+  <button id="fs" title="fullscreen (F)">⛶</button>
+  <button id="pbtn" title="presenter (T)">🖥</button>
+</div>
+
+<div id="fsoverlay" onclick="closeFs()">
+  <div class="fst" id="fscontent"></div>
+  <div class="hint">click anywhere or press Esc — back</div>
+</div>
+
+<script>
+/* ---------- deck engine · neon (v2, shared with egor-deck-002) ---------- */
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const revealed=new Set();
+const bc=('BroadcastChannel' in window)?new BroadcastChannel('egor-l3'):null;
+const qs=new URLSearchParams(location.search);
+const embed=qs.get('embed');
+const isPresenter=qs.get('presenter')==='1';
+const remote=embed||isPresenter;
+
+function go(n){
+  cur=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  document.getElementById('bar').style.width=((cur+1)/slides.length*100)+'%';
+  document.getElementById('counter').textContent=(cur+1)+' / '+slides.length;
+  document.getElementById('prev').disabled=cur===0;
+  document.getElementById('next').disabled=cur===slides.length-1;
+  history.replaceState(null,'','#'+(cur+1));
+}
+function broadcast(){
+  if(remote)return;
+  bc&&bc.postMessage({t:'st',n:cur,r:[...revealed]});
+}
+function paint(el,on){
+  el.classList.toggle('show',on);
+  if(el.classList.contains('gap'))el.classList.toggle('filled',on);
+  el.querySelectorAll('.gap').forEach(g=>g.classList.toggle('filled',on));
+  if(el.dataset.kind==='gapline')el.querySelectorAll('.gap').forEach(g=>g.classList.toggle('filled',on));
+}
+function applyState(n,r){
+  if(embed==='cur')go(n); else if(embed==='next')go(Math.min(n+1,slides.length-1));
+  revealed.clear(); r.forEach(x=>revealed.add(x));
+  document.querySelectorAll('[data-rv]').forEach(el=>paint(el,revealed.has(el.dataset.rv)));
+  if(isPresenter){
+    const n2=slides[Math.min(n,slides.length-1)];
+    const pn=document.getElementById('pnotes');
+    if(pn)pn.textContent=n2.getAttribute('data-notes')||'';
+  }
+}
+function toggleRv(el){
+  const id=el.dataset.rv;
+  const on=!revealed.has(id);
+  if(on)revealed.add(id); else revealed.delete(id);
+  paint(el,on);
+  broadcast();
+}
+if(!remote){
+  document.querySelectorAll('.gap').forEach(g=>g.addEventListener('click',e=>{e.stopPropagation();toggleRv(g.closest('[data-rv]'));}));
+  document.querySelectorAll('.defcard,.hunt,.qq').forEach(el=>el.addEventListener('click',()=>toggleRv(el)));
+  document.querySelectorAll('[data-kind="gapline"]').forEach(el=>el.addEventListener('click',()=>toggleRv(el)));
+}
+document.getElementById('prev').onclick=()=>{go(cur-1);broadcast();};
+document.getElementById('next').onclick=()=>{go(cur+1);broadcast();};
+document.getElementById('fs').onclick=()=>{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();};
+document.getElementById('pbtn').onclick=openPresenter;
+function openPresenter(){window.open(location.pathname+'?presenter=1','egorL3presenter','width=620,height=820');}
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('INPUT,TEXTAREA'))return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){go(cur+1);broadcast();}
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp'){go(cur-1);broadcast();}
+  if(e.key==='Home'){go(0);broadcast();} if(e.key==='End'){go(slides.length-1);broadcast();}
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+  if(e.key==='t'||e.key==='T')openPresenter();
+  if(e.key==='Escape')closeFs();
+});
+let wl=0;
+document.addEventListener('wheel',e=>{const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;go(cur+(e.deltaY>0?1:-1));broadcast();},{passive:true});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>60){go(cur+(d<0?1:-1));broadcast();}},{passive:true});
+function openFs(id){document.getElementById('fscontent').innerHTML=document.getElementById(id).innerHTML;document.getElementById('fsoverlay').classList.add('open');}
+function closeFs(){document.getElementById('fsoverlay').classList.remove('open');}
+let lastMod=null,audioOn=false;
+function chime(){try{const a=new (window.AudioContext||window.webkitAudioContext)();const o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=880;g.gain.setValueAtTime(.12,a.currentTime);o.start();o.frequency.setValueAtTime(1174.66,a.currentTime+.15);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.6);o.stop(a.currentTime+.65);}catch(e){}}
+document.addEventListener('pointerdown',()=>audioOn=true,{once:true});
+if(location.protocol.startsWith('http')&&!embed&&!isPresenter){
+  setInterval(async()=>{try{
+    const r=await fetch(location.href,{method:'HEAD',cache:'no-store'});
+    const m=r.headers.get('last-modified');
+    if(lastMod&&m&&m!==lastMod){audioOn&&chime();location.reload();}
+    if(m)lastMod=m;
+  }catch(e){}},1500);
+}
+if(isPresenter){
+  document.title='EGOR L3 · presenter';
+  document.body.innerHTML=`<div style="padding:2vh 2vw;font-family:Inter,sans-serif;color:#F5F3EE">
+    <h2 style="font-size:1.15rem">EGOR · Lesson 3 — presenter <span style="color:#A9ACB8;font-weight:400">(teacher only)</span></h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px">
+      <div><p style="color:#A9ACB8;font-size:.8rem;margin:0 0 4px">NOW</p><iframe id="pc" style="width:100%;aspect-ratio:16/10;border:1px solid #444;border-radius:8px" src="?embed=cur"></iframe></div>
+      <div><p style="color:#A9ACB8;font-size:.8rem;margin:0 0 4px">NEXT</p><iframe id="pn" style="width:100%;aspect-ratio:16/10;border:1px solid #444;border-radius:8px" src="?embed=next"></iframe></div>
+    </div>
+    <div style="margin-top:10px;color:#A9ACB8;font-size:.8rem">NOTES</div>
+    <div id="pnotes" style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px;font-size:1rem;line-height:1.55;min-height:22vh;white-space:pre-wrap">…</div></div>`;
+}
+if(embed){
+  document.getElementById('nav').style.display='none';
+  document.getElementById('bar-track').style.display='none';
+  document.getElementById('bar').style.display='none';
+}
+if(bc){
+  bc.onmessage=(ev)=>{
+    const m=ev.data;
+    if(m.t==='hello'){broadcast();return;}
+    if(m.t==='st')applyState(m.n,m.r);
+  };
+  if(remote)bc.postMessage({t:'hello'});
+}
+const h=parseInt(location.hash.slice(1));
+go(isNaN(h)?0:h-1);
+</script>
+</body>
+</html>
