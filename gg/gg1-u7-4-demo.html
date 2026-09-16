@@ -188,6 +188,23 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 .sa:hover{transform:translateY(-4px) scale(1.03)}
 .sa .sa-emoji{display:block;font-size:clamp(3rem,7vh,5rem);line-height:1.15}
 .sa.picked{transform:scale(1.06);box-shadow:0 0 0 6px var(--peach),var(--shadow-lg)}
+/* dictation check chips */
+.dic{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1rem,1.9vw,1.6rem);color:var(--lavender-deep);
+  background:var(--white);border:2px dashed var(--lavender);border-radius:16px;
+  padding:.4em .9em;cursor:pointer;user-select:none;min-width:2.4em;text-align:center;
+  transition:transform .15s ease;line-height:1.2;box-shadow:var(--shadow)}
+.dic:active{transform:scale(.95)}
+.dic.done{background:var(--mint);color:var(--ink);border-style:solid}
+/* don't/doesn't practice */
+.pr-line{display:flex;align-items:center;flex-wrap:wrap;gap:.5em;
+  font-size:clamp(1.15rem,2.3vw,1.9rem);font-weight:600;line-height:1.4;
+  padding:.3em 0;border-bottom:1px dashed rgba(45,52,54,.12)}
+.pr-line .gap{
+  display:inline-block;min-width:4.2em;text-align:center;cursor:pointer;
+  border-bottom:3px dashed var(--pink);color:transparent;user-select:none;
+}
+.pr-line .gap.done{color:var(--pink);font-family:'Fredoka',sans-serif;font-weight:700}
 </style>
 </head>
 <body>
@@ -202,7 +219,52 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
   <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">I can…</b> ⭐ buy a ticket in English!</p></div>
 </section>
 
-<!-- 2 · LEAD-IN GUESS -->
+<!-- 2 · DICTATION CHECK -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Dictation · the animal words</div>
+  <h1 class="title reveal-el">Check your words! ✏️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Tap a number — check your word!</div>
+  <div class="card mint reveal-el" style="align-self:stretch;display:flex;flex-wrap:wrap;gap:clamp(8px,1.2vw,14px);justify-content:center;align-content:center;min-height:44vh">
+    <span class="dic" data-w="bird" onclick="dic(this)">1</span>
+    <span class="dic" data-w="butterfly" onclick="dic(this)">2</span>
+    <span class="dic" data-w="crocodile" onclick="dic(this)">3</span>
+    <span class="dic" data-w="elephant" onclick="dic(this)">4</span>
+    <span class="dic" data-w="fish" onclick="dic(this)">5</span>
+    <span class="dic" data-w="fly" onclick="dic(this)">6</span>
+    <span class="dic" data-w="frog" onclick="dic(this)">7</span>
+    <span class="dic" data-w="giraffe" onclick="dic(this)">8</span>
+    <span class="dic" data-w="kangaroo" onclick="dic(this)">9</span>
+    <span class="dic" data-w="lion" onclick="dic(this)">10</span>
+    <span class="dic" data-w="monkey" onclick="dic(this)">11</span>
+    <span class="dic" data-w="snake" onclick="dic(this)">12</span>
+    <span class="dic" data-w="spider" onclick="dic(this)">13</span>
+    <span class="dic" data-w="tiger" onclick="dic(this)">14</span>
+    <span class="dic" data-w="whale" onclick="dic(this)">15</span>
+  </div>
+</section>
+
+<!-- 3 · DON'T / DOESN'T -->
+<section class="slide">
+  <div class="eyebrow reveal-el">don't / doesn't</div>
+  <h1 class="title reveal-el">don't or doesn't? 🤔</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Tap the gap — then check the fact! Stuck? HELP!</div>
+  <button class="reveal-btn reveal-el" onclick="reveal(this)">🆘 HELP</button>
+  <span class="answer reveal-el">they + giraffes → <b>don't</b> · it + a crocodile → <b>doesn't</b></span>
+  <div class="card reveal-el" style="align-self:stretch;display:flex;flex-direction:column;justify-content:center">
+    <div class="pr-line">1 · Giraffes <span class="gap" onclick="gapTap(this)" data-a="don't">don't</span> eat meat. 🦒</div>
+    <div class="pr-line">2 · A crocodile <span class="gap" onclick="gapTap(this)" data-a="doesn't">doesn't</span> fly. 🐊</div>
+    <div class="pr-line">3 · Elephants <span class="gap" onclick="gapTap(this)" data-a="don't">don't</span> jump. 🐘</div>
+    <div class="pr-line">4 · A spider <span class="gap" onclick="gapTap(this)" data-a="doesn't">doesn't</span> have ten legs. 🕷</div>
+    <div class="pr-line">5 · Whales <span class="gap" onclick="gapTap(this)" data-a="don't">don't</span> lay eggs. 🐳</div>
+    <div class="pr-line">6 · A penguin <span class="gap" onclick="gapTap(this)" data-a="doesn't">doesn't</span> fly. 🐧</div>
+    <div class="pr-line">7 · Snakes <span class="gap" onclick="gapTap(this)" data-a="don't">don't</span> have legs. 🐍</div>
+    <div class="pr-line">8 · A kangaroo <span class="gap" onclick="gapTap(this)" data-a="doesn't">doesn't</span> live in Russia. 🦘</div>
+  </div>
+</section>
+
+<!-- 4 · LEAD-IN GUESS -->
 <section class="slide">
   <div class="eyebrow reveal-el">Warm up</div>
   <h1 class="title reveal-el">Where are they? 🤔</h1>
@@ -336,7 +398,7 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 
 <div id="nav">
   <button id="prev" aria-label="previous">‹</button>
-  <div id="counter">1 / 10</div>
+  <div id="counter">1 / 12</div>
   <button id="next" aria-label="next">›</button>
   <button id="fs" class="fs" aria-label="fullscreen">⛶</button>
 </div>
@@ -397,6 +459,29 @@ function stepNext(containerId,itemSel){
   else{items.forEach(el=>el.classList.remove('show'));}
 }
 function phrasesNext(){stepNext('phrases','.line')}
+/* dictation chip: number <-> word */
+function dic(el){
+  if(el.dataset.w){
+    el.dataset.n=el.textContent;
+    el.textContent=el.dataset.w;
+    el.classList.add('done');
+  }else{
+    el.dataset.w=el.textContent;
+    el.textContent=el.dataset.n;
+    el.classList.remove('done');
+  }
+}
+/* don't/doesn't gap: first tap reveals, second hides */
+function gapTap(g){
+  if(!g.classList.contains('done')){
+    g.dataset.n=g.textContent;
+    g.textContent=g.dataset.a;
+    g.classList.add('done');
+  }else{
+    g.textContent=g.dataset.n;
+    g.classList.remove('done');
+  }
+}
 /* dialogue ordering: taps assign 1..6 in tap order */
 let ordNext=1;
 function ordTap(el){
