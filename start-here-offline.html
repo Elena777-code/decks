@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elena's decks — offline</title>
+<style>
+  :root{
+    --bg:#faf7f2; --card:#ffffff; --ink:#2d2a26; --sub:#7a746c;
+    --kb:#d9483b; --kb-bg:#fdeeec; --ww:#0f7d78; --ww-bg:#e8f5f4;
+    --gg:#3e8e2f; --gg-bg:#edf6ea; --pv:#6d5bb8; --pv-bg:#f1eefa;
+    --bank:#b07a1f; --bank-bg:#fbf3e2; --gram:#ad3a68; --gram-bg:#faecf2; --line:#eae4da;
+    --ex:#c2571f; --ex-bg:#fbeee4; --ph:#1f7fb8; --ph-bg:#e7f2fa;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#211f1c; --card:#2b2825; --ink:#f0ece5; --sub:#a49c91;
+      --kb-bg:#3a2622; --ww-bg:#1d3231; --gg-bg:#243320; --pv-bg:#2c2840;
+      --bank-bg:#362c17; --gram-bg:#3a2030; --line:#3a3630;
+      --ex-bg:#3a2a1d; --ph-bg:#1c2f3d; }
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    padding:28px 18px 60px; max-width:820px; margin-inline:auto;}
+  h1{font-size:30px; margin:0 0 4px; letter-spacing:-.5px}
+  .hint{color:var(--sub); font-size:15px; margin:0 0 30px}
+  h2{font-size:21px; margin:34px 0 4px; display:flex; align-items:center; gap:10px}
+  .dot{width:13px; height:13px; border-radius:50%; flex:none}
+  details.sect{margin:34px 0 0}
+  .sect summary{list-style:none; display:flex; align-items:center; gap:10px;
+    cursor:pointer; font-size:21px; font-weight:700; min-height:34px}
+  .sect summary::-webkit-details-marker{display:none}
+  .sect .meta{margin-left:auto; font-size:12.5px; font-weight:600; color:var(--sub)}
+  .sect .arrow{color:var(--sub); font-size:14px; transition:transform .18s}
+  .sect[open] .arrow{transform:rotate(90deg)}
+  .sect[open] summary{margin-bottom:10px}
+  .sect .sect-sub{margin:8px 0 14px}
+  .sect-sub{color:var(--sub); font-size:14px; margin:0 0 14px}
+  .chips{display:flex; flex-wrap:wrap; gap:12px}
+  .chips.pupils{display:block}
+  a.chip{display:inline-flex; flex-direction:column; justify-content:center; gap:2px;
+    min-height:58px; padding:9px 18px; border-radius:15px; text-decoration:none;
+    background:var(--card); border:1.5px solid var(--line); color:var(--ink);}
+  a.chip:active{transform:scale(.97)}
+  .chip .code{font-weight:800; font-size:19px; letter-spacing:.2px}
+  .chip .what{font-size:13px; color:var(--sub); max-width:270px}
+  .chip .tag{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.8px;
+    text-transform:uppercase; color:var(--sub); margin-top:2px}
+  .kb .code{color:var(--kb)} .kb{background:var(--kb-bg); border-color:transparent}
+  .ww .code{color:var(--ww)} .ww{background:var(--ww-bg); border-color:transparent}
+  .gg .code{color:var(--gg)} .gg{background:var(--gg-bg); border-color:transparent}
+  .pv .code{color:var(--pv)} .pv{background:var(--pv-bg); border-color:transparent}
+  .bank .code{color:var(--bank)} .bank{background:var(--bank-bg); border-color:transparent}
+  .gram .code{color:var(--gram)} .gram{background:var(--gram-bg); border-color:transparent}
+  .ex .code{color:var(--ex)} .ex{background:var(--ex-bg); border-color:transparent}
+  .ph .code{color:var(--ph)} .ph{background:var(--ph-bg); border-color:transparent}
+  .pupil{background:var(--card); border:1.5px solid var(--line); border-radius:18px;
+    padding:14px 18px; margin-bottom:14px}
+  .pupil summary{list-style:none; display:flex; align-items:center; gap:10px;
+    cursor:pointer; font-weight:700; font-size:18px; min-height:36px}
+  .pupil summary::-webkit-details-marker{display:none}
+  .pupil .meta{margin-left:auto; font-size:12.5px; font-weight:600; color:var(--sub)}
+  .pupil .arrow{color:var(--sub); font-size:14px; transition:transform .18s}
+  .pupil[open] .arrow{transform:rotate(90deg)}
+  .pupil[open] summary{margin-bottom:12px}
+  footer{margin-top:44px; color:var(--sub); font-size:13px}
+</style>
+</head>
+<body>
+
+<h1>Elena's decks — offline 💻</h1>
+<p class="hint">The whole collection, on this MacBook. Open this file from Finder — no Internet needed. (The online menu: elena777-code.github.io/decks)</p>
+
+<details class="sect" open>
+  <summary><span class="dot" style="background:#E0A400"></span><span>⚡ Extra time — pick a game</span><span class="meta">open one, play now</span><span class="arrow">▾</span></summary>
+  <p class="sect-sub">when the lesson finishes early — everything playable is here</p>
+  <div class="chips">
+
+<a class="chip bank" href="../AI/Library/Ideas/answers-on-the-screen/answers-on-screen-demo.html"><span class="code">The silly game</span><span class="what">listen · find your answer · every deal = new</span></a>
+<a class="chip bank" href="../AI/Library/Bank-Pool/Question%20Builder/question-builder.html"><span class="code">Question Builder</span><span class="what">word order · 5 random builders · say then check</span></a>
+<a class="chip bank" href="../AI/Library/Bank-Pool/Clock%20cipher/clock-cipher.html"><span class="code">The Clock Code</span><span class="what">quarter past &amp; half past · decode secret words</span></a>
+<a class="chip bank" href="../AI/Library/Bank-Pool/World%20clock/world-clock.html"><span class="code">The Rats' World Clock</span><span class="what">read clocks · set clocks · day and night</span></a>
+<a class="chip pv" href="../AI/Library/Primary%20Activity%20Box/2.4-join-the-dots.html"><span class="code">Join the dots</span><span class="what">listening · numbers 1–100 · the line draws itself</span></a>
+<a class="chip ex" href="../AI/Library/Ideas/kb1-reading-station/draw-bus.html"><span class="code">Draw &amp; stick</span><span class="what">bus · ball · doll · puzzle · box</span></a>
+  </div>
+</details>
+
+<details class="sect">
+  <summary><span class="dot" style="background:var(--kb)"></span><span>KB groups</span><span class="meta">same pace · latest KB 1 U1 L2</span><span class="arrow">▸</span></summary>
+  <p class="sect-sub">all KB groups keep the same pace — find your lesson code</p>
+  <div class="chips">
+
+<a class="chip kb" href="kb/kb1-u1-l2-demo.html"><span class="code">KB 1 U1 L2</span><span class="what">New friends &amp; numbers · Monty, Maskman, Marie · count to ten</span></a>
+<a class="chip kb" href="kb/kb1-u1-l2.html"><span class="code">L2 · script</span><span class="what">teacher's notes (for Elena's iPad)</span><span class="tag">teacher</span></a>
+<a class="chip kb" href="kb/kb1-u1-l1.html"><span class="code">KB 1 U1 L1</span><span class="what">Kid's Box 1 · Unit 1 · Lesson 1</span></a>
+  </div>
+</details>
+
+<details class="sect">
+  <summary><span class="dot" style="background:var(--ww)"></span><span>WW groups</span><span class="meta">latest WW 4 U8 L8.5</span><span class="arrow">▸</span></summary>
+  <div class="chips">
+
+<a class="chip ww" href="ww/ww4-u8-l8.5.html"><span class="code">WW 4 U8 L8.5</span><span class="what">A burglary · Listening &amp; Vocabulary</span></a>
+  </div>
+</details>
+
+<details class="sect">
+  <summary><span class="dot" style="background:var(--gg)"></span><span>GG groups</span><span class="meta">latest GG 1 U7 L3</span><span class="arrow">▸</span></summary>
+  <div class="chips">
+
+<a class="chip gg" href="gg/gg1-u7-3-demo.html"><span class="code">GG 1 U7 L3</span><span class="what">Do…? Does…? · Superdug's interview</span></a>
+<a class="chip gg" href="gg/gg1-u7-3.html"><span class="code">L3 · script</span><span class="what">teacher's notes (for Elena's iPad)</span><span class="tag">teacher</span></a>
+<a class="chip gg" href="gg/gg1-u7-1.html"><span class="code">GG 1 U7 L1</span><span class="what">Animals · teacher script</span></a>
+  </div>
+</details>
+
+<h2><span class="dot" style="background:var(--pv)"></span>Private pupils</h2>
+<div class="chips pupils">
+
+
+  <details class="pupil">
+    <summary><span>Sergey</span><span class="meta">latest L9 · Episode 8</span><span class="arrow">▸</span></summary>
+    <div class="chips">
+<a class="chip pv" href="../AI/pupils/sergey/lessons/009/sergey-deck-009.html"><span class="code">L9</span><span class="what">Episode 8: To Italy · grammar we/you/they · Hangman</span></a>
+<a class="chip pv" href="../AI/pupils/sergey/lessons/008/sergey-deck-008.html"><span class="code">L8</span><span class="what">Episode 7: To Russia · clock revision</span></a>
+<a class="chip pv" href="../AI/pupils/sergey/lessons/007/sergey-deck-007.html"><span class="code">L7</span><span class="what">Episode 6: To France · quarter past · History Show</span></a>
+<a class="chip pv" href="../AI/pupils/sergey/lessons/006/sergey-deck-006.html"><span class="code">L6</span><span class="what">Episode 5: The Neighbour · Napoleon &amp; Stalin</span></a>
+<a class="chip pv" href="../AI/pupils/sergey/lessons/005/sergey-deck-005.html"><span class="code">L5</span><span class="what">Episode 4: Mama Varenik</span></a>
+<a class="chip pv" href="../AI/pupils/sergey/lessons/004/sergey-deck-004.html"><span class="code">L4</span><span class="what">Episode 3: The Panda's Secret</span></a>
+<a class="chip pv" href="../AI/pupils/sergey/lessons/003/sergey-deck-003.html"><span class="code">L3</span><span class="what">Episode 2: China</span></a>
+<a class="chip pv" href="../AI/pupils/sergey/lessons/002/sergey-deck-002.html"><span class="code">L2</span><span class="what">Episode 1: Pelmenik &amp; Varenik</span></a>
+<a class="chip pv" href="../AI/pupils/sergey/lessons/001/sergey-deck-001.html"><span class="code">L1</span><span class="what">Who's That? (Starlight 3 Starter)</span></a>
+<a class="chip pv" href="../AI/Library/Bank-Pool/Space%20mission/space-mission.html"><span class="code">⭐</span><span class="what">The Rats' Space Mission</span><span class="tag">extra</span></a>
+    </div>
+  </details>
+
+
+
+  <details class="pupil">
+    <summary><span>Alika</span><span class="meta">latest L10 · L11 homework</span><span class="arrow">▸</span></summary>
+    <div class="chips">
+<a class="chip pv" href="../AI/pupils/alika/lessons/011/Alika's%20homework_September%20the%2020th.html"><span class="code">L11</span><span class="what">homework · SB 0.1 audio</span><span class="tag">homework</span></a>
+<a class="chip pv" href="../AI/pupils/alika/lessons/010/alika-deck-010.html"><span class="code">L10</span><span class="what">why? + magic e: o_e</span></a>
+<a class="chip pv" href="../AI/pupils/alika/lessons/010/Alika's%20homework_September%20the%2013th.html"><span class="code">L10</span><span class="what">homework</span><span class="tag">homework</span></a>
+<a class="chip pv" href="../AI/pupils/alika/lessons/008/alika-deck-008.html"><span class="code">L8</span><span class="what">y: /j/ · /aɪ/ · /i/</span></a>
+<a class="chip pv" href="../AI/pupils/alika/lessons/008/Alika's%20homework_September%20the%201st.html"><span class="code">L8</span><span class="what">homework</span><span class="tag">homework</span></a>
+<a class="chip pv" href="../AI/pupils/alika/lessons/007/alika-deck-007.html"><span class="code">L7</span><span class="what">How? WOW! · How old? · Go Getter</span></a>
+<a class="chip pv" href="../AI/pupils/alika/lessons/007/Alika's%20homework_August%20the%2028th.html"><span class="code">L7</span><span class="what">homework</span><span class="tag">homework</span></a>
+<a class="chip pv" href="../AI/pupils/alika/lessons/006/alika-deck-006.html"><span class="code">L6</span><span class="what">Hobbies revision</span></a>
+<a class="chip pv" href="../AI/pupils/alika/lessons/005/alika-deck-005.html"><span class="code">L5</span><span class="what">What's the weather like?</span></a>
+<a class="chip pv" href="../AI/pupils/alika/lessons/005/alika-listening-001.html"><span class="code">L5</span><span class="what">listening card</span><span class="tag">listening</span></a>
+<a class="chip pv" href="../AI/pupils/alika/lessons/005/Alika's%20homework_August%20the%2025th.html"><span class="code">L5</span><span class="what">homework</span><span class="tag">homework</span></a>
+<a class="chip pv" href="../AI/pupils/alika/alika-silly-game.html"><span class="code">⭐</span><span class="what">Alika's silly game</span><span class="tag">extra</span></a>
+    </div>
+  </details>
+
+
+
+  <details class="pupil">
+    <summary><span>Irina</span><span class="meta">latest L2</span><span class="arrow">▸</span></summary>
+    <div class="chips">
+<a class="chip pv" href="../AI/pupils/irina/lessons/002/irina-deck-002.html"><span class="code">L2</span><span class="what">the deck · lesson 2</span></a>
+<a class="chip pv" href="../AI/pupils/irina/lessons/001/irina-deck-001.html"><span class="code">L1</span><span class="what">Places, Islands &amp; Peaches</span></a>
+    </div>
+  </details>
+
+
+
+  <details class="pupil">
+    <summary><span>Masha Karpova</span><span class="meta">latest L5 · Revision + homework page</span><span class="arrow">▸</span></summary>
+    <div class="chips">
+<a class="chip pv" href="../AI/pupils/masha-karpova/lessons/005/masha-deck-005.html"><span class="code">L5</span><span class="what">WW3 U8 Revision · continues</span></a>
+<a class="chip pv" href="../AI/pupils/masha-karpova/lessons/005/Masha's%20homework_September%20the%2016th.html"><span class="code">L5</span><span class="what">homework · Unit 8 case continues</span><span class="tag">homework</span></a>
+<a class="chip pv" href="../AI/pupils/masha-karpova/lessons/004/masha-deck-004.html"><span class="code">L4</span><span class="what">Negative adjectives · WW3 8.7</span></a>
+<a class="chip pv" href="../AI/pupils/masha-karpova/lessons/003/Masha's%20homework_September%20the%202nd.html"><span class="code">L3</span><span class="what">homework</span><span class="tag">homework</span></a>
+<a class="chip pv" href="../AI/pupils/masha-karpova/lessons/002/masha-deck-002.html"><span class="code">L2</span><span class="what">The art of procrastination</span></a>
+    </div>
+  </details>
+
+
+
+  <details class="pupil">
+    <summary><span>Masha Roshchupkina</span><span class="meta">latest L4 + HSE tests</span><span class="arrow">▸</span></summary>
+    <div class="chips">
+<a class="chip pv" href="../AI/pupils/masha-roshchupkina/lessons/004/mashar-deck-004.html"><span class="code">L4</span><span class="what">the deck · lesson 4</span></a>
+<a class="chip pv" href="../AI/pupils/masha-roshchupkina/lessons/003/mashar-deck-003.html"><span class="code">L3</span><span class="what">the deck · lesson 3</span></a>
+<a class="chip pv" href="../AI/pupils/masha-roshchupkina/lessons/002/mashar-deck-002.html"><span class="code">L2</span><span class="what">WW3 U8 + revision</span></a>
+<a class="chip pv" href="../AI/pupils/masha-roshchupkina/lessons/001/mashar-deck-001.html"><span class="code">L1</span><span class="what">Welcome back</span></a>
+<a class="chip pv" href="../AI/pupils/masha-roshchupkina/hse-lyceum/variant-2-test.html"><span class="code">HSE 2</span><span class="what">test variant 2</span><span class="tag">test</span></a>
+<a class="chip pv" href="../AI/pupils/masha-roshchupkina/hse-lyceum/variant-2-book-pages.html"><span class="code">HSE 2</span><span class="what">book pages</span><span class="tag">test</span></a>
+<a class="chip pv" href="../AI/pupils/masha-roshchupkina/hse-lyceum/answer-sheet-1.html"><span class="code">HSE 1</span><span class="what">answer sheet</span><span class="tag">test</span></a>
+<a class="chip pv" href="../AI/pupils/masha-roshchupkina/hse-lyceum/variant-1-test.html"><span class="code">HSE 1</span><span class="what">test variant 1</span><span class="tag">test</span></a>
+    </div>
+  </details>
+
+
+
+  <details class="pupil">
+    <summary><span>Pasha</span><span class="meta">latest L2</span><span class="arrow">▸</span></summary>
+    <div class="chips">
+<a class="chip pv" href="../AI/pupils/pasha/lessons/002/pasha-deck-002.html"><span class="code">L2</span><span class="what">Past Simple + The Explosion (Super Minds 5)</span></a>
+<a class="chip pv" href="../AI/pupils/pasha/lessons/001/pasha-deck-001.html"><span class="code">L1</span><span class="what">Hello + the Ballroom</span></a>
+    </div>
+  </details>
+
+
+
+  <details class="pupil">
+    <summary><span>Egor</span><span class="meta">latest L2</span><span class="arrow">▸</span></summary>
+    <div class="chips">
+<a class="chip pv" href="../AI/pupils/egor/lessons/002/egor-deck-002.html"><span class="code">L2</span><span class="what">essay feedback · FIPI 19–24 · 60 min</span></a>
+<a class="chip pv" href="p/egor/test.html"><span class="code">TEST</span><span class="what">the map · diagnostic · 50 min</span><span class="tag">test</span></a>
+    </div>
+  </details>
+
+
+</div>
+
+<details class="sect">
+  <summary><span class="dot" style="background:var(--gram)"></span><span>Lesson decks — Library</span><span class="meta">grammar · songs · teens</span><span class="arrow">▸</span></summary>
+  <p class="sect-sub">reusable lesson decks and памятки any pupil can use</p>
+  <div class="chips">
+
+<a class="chip gram" href="../AI/Library/Grammar/verb-s-spelling/verb-s-spelling-reminder.html"><span class="code">Verb + s</span><span class="what">spelling rules · памятка</span></a>
+<a class="chip gram" href="../AI/Library/Grammar/other-another-the-other-others/other-another-deck.html"><span class="code">the other?</span><span class="what">other · another · the other · others — the four suspects</span></a>
+<a class="chip gram" href="../AI/Library/Grammar/weather-adjectives/weather-adjectives-deck.html"><span class="code">rain → rainy</span><span class="what">noun vs adjective · the weather set</span></a>
+<a class="chip gram" href="../AI/Library/Grammar/nationalities-endings/nationalities-endings-deck.html"><span class="code">nationalities</span><span class="what">-ish · -an · -ese · the endings deck</span></a>
+<a class="chip gram" href="../AI/Library/Grammar/reading-y/reading-y-reminder.html"><span class="code">reading-y reminder</span><span class="what">y at the end · the sounds of y</span></a>
+<a class="chip gram" href="../AI/Library/Grammar/irregular-verbs-first-12/irregular-verbs-first-12-chant.html"><span class="code">irregular verbs 1–12</span><span class="what">the first twelve · the chant page</span></a>
+<a class="chip bank" href="../AI/Library/Songs/let-it-go/let-it-go-gapfill.html"><span class="code">Let It Go</span><span class="what">the gapfill sing-along</span></a>
+<a class="chip pv" href="../AI/Library/Leonardo%20English/627-Fox%20Hunting%20(retelling%20deck).html"><span class="code">Fox Hunting</span><span class="what">Leonardo English 627 · retelling deck</span></a>
+  </div>
+</details>
+
+<details class="sect">
+  <summary><span class="dot" style="background:var(--ph)"></span><span>Phonics</span><span class="meta">brand phonics</span><span class="arrow">▸</span></summary>
+  <p class="sect-sub">letters through logos the children know</p>
+  <div class="chips">
+
+<a class="chip ph" href="../AI/Library/Phonics/phonics-by-brands/brand-phonics-n.html"><span class="code">n</span><span class="what">Nesquik, Nike, Nutella…</span></a>
+<a class="chip ph" href="../AI/Library/Phonics/phonics-by-brands/brand-phonics-s-i-t-p-a.html"><span class="code">s · i · t · p · a</span><span class="what">the first five · brand phonics</span></a>
+<a class="chip ph" href="../AI/Library/Phonics/phonics-by-brands/brand-phonics-reading.html"><span class="code">reading</span><span class="what">brand phonics · reading practice</span></a>
+  </div>
+</details>
+
+<footer>offline menu · built 2026-09-16 · lives only on this MacBook · the online menu (elena777-code.github.io/decks) is for groups and parents</footer>
+</body>
+</html>

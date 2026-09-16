@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kid's Box 1 · Unit 1 · Lesson 4 — KB1 (script)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   KB1 — Kid's Box 1, Unit 1, Lesson 4 (group class).
+   Teacher-script deck, built STRICTLY from Farida's конспект
+   (Library/Kids Box/Unit 1/Unit 1.pdf, "LESSON 4 (UNIT 1)"
+   block) — nothing omitted, конспект order; the story stage
+   cross-checked against the TB (KidsBox_TeachersBook1_Unit_1:
+   PB p.9 story text + keys).
+   On top of the конспект, Elena's Lesson-3 carry-over (Tue):
+   the HW check opens with AB p.6 ex.1 + the how-old video
+   (both sent in shkola.app) + the circle questions.
+   TEAM WORK (Elena, Tue): tables are teams with NUMBERS in
+   the centre — call teams by number all lesson.
+   THE GLUE RULE (Elena, Tue — half the printouts were lost):
+   every printout is glued into the copybook the same lesson.
+   Engine: nav bottom-right + lane, progress bar, keyboard/wheel/
+   swipe, ready-chime + #n hash, click-reveals, standing
+   PRESENTER VIEW (T / 🖥) synced both ways.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A;
+  --radius:18px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease;font-family:inherit}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:4.2vh 5vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.5vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.85rem,1.4vw,1.05rem);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.4rem,2.8vw,2.3rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.8rem,1.3vw,1rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.18em .75em;
+  background:#fff;margin-bottom:.2em}
+.task{font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.55;font-weight:500}
+.task strong{color:var(--accent)}
+.ask{font-size:clamp(1.05rem,1.8vw,1.35rem);line-height:1.5;color:#4a463d}
+.note{font-size:clamp(.92rem,1.4vw,1.1rem);color:var(--ink-soft);font-style:italic;line-height:1.5}
+.flag{font-size:clamp(.9rem,1.35vw,1.05rem);color:#9a6a2f;font-style:italic;
+  line-height:1.55;background:#FBF3E4;border:1.5px dashed #E3C48A;
+  border-radius:12px;padding:.7em 1em}
+.glue{font-size:clamp(.95rem,1.5vw,1.15rem);font-weight:800;color:#14655A;
+  background:#E7F1EF;border:1.5px solid #5ecbb8;border-radius:12px;
+  padding:.55em 1em;line-height:1.5}
+audio{width:min(520px,92%);height:44px;display:block;margin:.2em 0}
+video{width:min(430px,88%);border-radius:12px;display:block;margin:.2em 0;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+ul.materials{list-style:none}
+ul.materials li{padding:.28em 0;border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.5}
+ul.materials li:last-child{border-bottom:none}
+.checklist{display:flex;flex-direction:column;gap:1vh}
+.check-item{display:flex;gap:12px;align-items:flex-start;background:#fff;
+  border:1px solid var(--line);border-radius:12px;padding:.9vh 1vw;
+  font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.45}
+.check-item .box{flex:0 0 auto;width:1.1em;height:1.1em;border:2px solid var(--accent);border-radius:6px;margin-top:.12em}
+a.hw-link{display:inline-block;margin-top:.3em;font-weight:700;color:#fff;
+  background:var(--accent);border-radius:99px;padding:.5em 1.1em;
+  text-decoration:none;font-size:clamp(1rem,1.6vw,1.25rem)}
+a.hw-link:hover{opacity:.9}
+
+/* ---------- click-reveal (synced with the presenter window) ---------- */
+.reveal-btn{font-family:'Inter',sans-serif;font-size:clamp(.95rem,1.5vw,1.2rem);font-weight:800;
+  color:#fff;background:var(--accent);border:none;border-radius:99px;
+  padding:.5em 1.3em;cursor:pointer;transition:transform .15s ease;align-self:flex-start}
+.reveal-btn:hover{transform:scale(1.06)}
+.answer{display:none;font-size:clamp(1.05rem,1.8vw,1.4rem);font-weight:600;color:var(--accent);
+  background:#E7F1EF;border-radius:12px;padding:.5em 1em;align-self:flex-start;line-height:1.45}
+.answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* ---------- presenter + embed modes (spec §7) ---------- */
+body.embed #nav,body.embed #bar{display:none}
+body.presenter .slide,body.presenter #nav,body.presenter #bar{display:none}
+#pv{position:absolute;inset:0;padding:2vh 2vw calc(74px + 2vh);display:flex;flex-direction:column;gap:1.2vh;overflow:auto}
+.pvhead{font-size:clamp(1rem,1.6vw,1.25rem);color:var(--ink-soft)}
+.pvhead b{color:var(--accent)}
+.pvhead .pvcnt{font-weight:800;color:var(--ink)}
+.pvwarn{background:#FBF3E4;border:1px solid #E3C48A;border-radius:12px;
+  padding:.6em 1em;font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink);display:none}
+.pvlabel{font-size:clamp(.8rem,1.2vw,.95rem);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.pvframe{width:100%;aspect-ratio:16/10;position:relative;overflow:hidden;background:#fff;
+  border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.pvframe iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;transform-origin:0 0}
+.pvnotes{background:#fff;border:1px solid var(--line);border-left:6px solid var(--accent);
+  border-radius:12px;padding:clamp(10px,1.6vh,16px) clamp(14px,1.6vw,22px);
+  font-size:clamp(1rem,1.6vw,1.3rem);line-height:1.45;min-height:3.2em}
+.pvbtns{display:flex;gap:10px}
+.pvbtns button{flex:1;height:52px;border-radius:99px;border:1px solid var(--line);
+  background:#fff;color:var(--accent);font-size:1.5rem;cursor:pointer;font-family:inherit}
+.pvbtns button:hover{transform:scale(1.03)}
+
+@media (max-width:900px){
+  .slide{padding:3.5vh 5vw 11vh}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER -->
+<section class="slide active" data-notes="Aim: the ss learn phonics Aa + Bb (apple/ant/ax/alligator, bag/bat/bed/bus), read poster 1, revise the full dialogue (name / age / feelings) and act out the PB p.9 story (blue monster = Monty's blue pencil). конспект timings: 7 + 10 + 8 + 7 + 15 + 5 (+ the HW check ≈ 4 = one full slot). Press T (or 🖥) for the presenter window. Reading slot is NOT in this deck — Elena runs it at the end, as usual. The same конспект block runs in all three KB1 groups with their own +/-.">
+  <div class="eyebrow reveal">Kid's Box 1 (New Generation) · Unit 1 · Lesson 4 · KB1.2 — Thu 14:30 · KB1.1 — 17:00 · KB1.3 — 18:15</div>
+  <h1 class="reveal">Phonics Aa · Bb + the toy box story</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Aim:</strong> by the end, the ss know phonics <strong>A a</strong> and <strong>B b</strong> with their words, read poster 1, and act out the story (PB p. 9).</p>
+  <p class="ask reveal"><strong>Language:</strong> an apple · an ant · an ax · an alligator · a bag · a bat · a bed · a bus; face; draw; What's your name? How old are you? How are you? &nbsp;·&nbsp; <strong>Story:</strong> the blue "monster" (Monty's blue pencil)</p>
+  <p class="tag reveal">MATERIALS</p>
+  <ul class="materials reveal">
+    <li><strong>worksheets Aa + Bb</strong> — printed per ss (<code>Unit 1/Lesson 4/1.jpg</code>, <code>2.jpg</code>) + <strong>spares</strong>; <strong>glue sticks!</strong></li>
+    <li><strong>story cards ×6</strong> — printed &amp; CUT (<code>Unit 1/Lesson 4/Story.pdf</code>, "Listen and write the numbers")</li>
+    <li><strong>poster 1</strong> — small printouts for the copybooks (<code>Poster 1,2.pdf</code>, page 1: a-a-a / ba-ba-ba)</li>
+    <li><strong>face-shaped papers</strong> (one per ss) + pencils</li>
+    <li>realia to present the sounds: <strong>an apple, a bag</strong> (+ the optional 'Magic acorns')</li>
+    <li>character masks / flashcards — Star family + Monty, Maskman, Marie; <strong>copybooks on the tables</strong></li>
+  </ul>
+  <div class="checklist reveal">
+    <div class="check-item"><span class="box"></span><span>Audio <b>in this deck</b>: AB p.6 track 3 (HW check) · PB p.9 track 12 (story) · PB p.6 track 7 (ages). Story <b>video</b> embedded</span></div>
+    <div class="check-item"><span class="box"></span><span>shkola.app: the <b>AB p.7 coloring</b> + the <b>how-old video</b> are already there — the HW check opens with them</span></div>
+    <div class="check-item"><span class="box"></span><span>📏 <b>The glue rule:</b> every printout goes INTO THE COPYBOOK today (last time half got lost!)</span></div>
+    <div class="check-item"><span class="box"></span><span>🔢 <b>Teams = tables</b> with their numbers in the centre — call "Team 1! Team 2!" all lesson</span></div>
+    <div class="check-item"><span class="box"></span><span>🖥 <b>Press T</b> (or 🖥) — presenter window: current + next + notes</span></div>
+  </div>
+</section>
+
+<!-- 2 · HOMEWORK CHECK -->
+<section class="slide" data-notes="Type 0 — quick show + singalong. The HW (set on Tuesday): AB p.6 ex.1 (listen & write the ages) + the how-old video in shkola.app. Replay AB p.6 track 3 (embedded) — the ss hold up / show their written numbers, check all four together. Then the singalong: play the how-old video from the app (or sing it yourselves). Circle round the tables: 'How old are you?' — each TEAM asks the next team, round and round (their own Tuesday game — they love it). AB p.7 coloring lives in the app as free coloring — no need to check it in class.">
+  <div class="eyebrow reveal">Homework check · ~4 min</div>
+  <h1 class="reveal">AB p.6 ex.1 + the how-old song</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">The homework: <strong>AB p.6 ex.1</strong> (listen &amp; write) + the <strong>how-old video</strong> in shkola.app.</p>
+  <p class="tag reveal">🎧 AUDIO — AB p.6 ex.1 (track 3) — replay, they show their numbers</p>
+  <audio class="reveal" controls preload="none" src="../media/kb1-u1-ab6-t3.mp3"></audio>
+  <p class="task reveal">Singalong: the <strong>how-old video from the app</strong> — everyone sings!</p>
+  <p class="task reveal">Then the <strong>circle questions</strong>, team by team: <em>"How old are you?"</em> — each <strong>table team asks the next team</strong>, round and round. 🎂</p>
+  <p class="note reveal">Board support: the child deck, slide 2 — the three circle questions + number chips to tap.</p>
+</section>
+
+<!-- 3 · WARM UP -->
+<section class="slide" data-notes="Greet shaking hands, 'How are you?' Hand out the FACE-shaped papers. Introduce the word 'face' (point to your face) and demonstrate 'draw' on the board. ICQs: 'Do you draw a face? Do you draw MY face? Do you draw YOUR face?' The ss draw happy / sad / tired faces — walk, ask 'What's this? — A face! Is it happy?'. Finish with the chorus 'How old are you?' — they answer about themselves. конспект time: 7 min total for warm up (+ the HW check above).">
+  <div class="eyebrow reveal">Warm up · 7 min</div>
+  <h1 class="reveal">Draw a face!</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Greet the ss <strong>shaking hands</strong>. Ask: <em>"How are you?"</em></p>
+  <p class="task reveal">Hand out the <strong>face-shaped papers</strong>. Introduce <strong>'face'</strong> (point to your face) and demonstrate <strong>'draw'</strong> on the board.</p>
+  <p class="ask reveal"><strong>ICQs:</strong> <em>"Do you draw a face? Do you draw my face? Do you draw YOUR face?"</em></p>
+  <p class="task reveal">The ss <strong>draw</strong> happy / sad / tired faces. Walk and ask: <em>"Is it happy? Is it sad?"</em></p>
+  <div class="glue reveal">📏 Printouts issued today get glued into the copybooks the moment they are finished — say it BEFORE handing anything out.</div>
+</section>
+
+<!-- 4 · PHONICS A -->
+<section class="slide" data-notes="Present the phonics 'A' — the SOUND /æ/. Realia: show a real apple ('A! Apple!') or the flashcard; the ss repeat the sound several times (Magic acorns are the optional kit — realia works too). Write on the board: 'A' — capital, 'a' — lower case. Hand out worksheet Aa — FIRST they glue it into the copybook (the glue rule!). Walkthrough: 1) learn the new words (an apple, an ant — the pictures; an ax, an alligator — the word cards at the bottom of the sheet); 2) underline 'a' in 'an apple', 'an ant'; 3) color the circles — capital A RED, small a BLUE; 4) write the letters over the dotted rows. конспект: 10 min covers A + the start of B; the maze is the next slide.">
+  <div class="eyebrow reveal">Reading · phonics — 10 min · part 1</div>
+  <h1 class="reveal">Phonics A a — apple, ant, ax, alligator</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Present the <strong>sound /æ/</strong> with realia: <em>"Look! An apple! A — /æ/ — apple!"</em> The ss <strong>repeat the sound</strong> several times.</p>
+  <p class="task reveal">Write on the board: <strong>'A' — capital</strong>, <strong>'a' — lower case</strong>.</p>
+  <div class="glue reveal">📏 FIRST: glue worksheet <b>Aa</b> into the copybook! Then work on it.</div>
+  <p class="task reveal"><strong>Worksheet Aa</strong>, step by step:</p>
+  <p class="ask reveal">1️⃣ Learn the words: <strong>an apple · an ant</strong> (pictures) + <strong>an ax · an alligator</strong> (word cards) · 2️⃣ Underline <strong>'a'</strong> in <em>an apple, an ant</em> · 3️⃣ Color the circles: capital <strong>A = red</strong>, small <strong>a = blue</strong> · 4️⃣ Write the letters over the dots.</p>
+  <p class="note reveal">Board support: the child deck, slide 4 — the four word cards, click to name.</p>
+</section>
+
+<!-- 5 · PHONICS A — MAZE -->
+<section class="slide" data-notes="The maze on worksheet Aa (bottom-right): 'Follow the path and find all the a's'. Draw the ss' attention to the maze. Point to 'a' at the start arrow: 'It's a start. Is it capital/big A or small a?' (small!). Demonstrate drawing the line to the next letter. ICQs: 'Do you follow small a's? Do you follow capital A's? Point to the start. Point to the finish.' Set the time limit: 'You have 2 minutes' — set the timer. TEAM RACE: table vs table (their numbers are in the centre of the tables) — Team 1 starts, Team 2 starts, who finds the way out first? Then check together on the board (child deck slide 6).">
+  <div class="eyebrow reveal">Reading · phonics — 10 min · part 2</div>
+  <h1 class="reveal">The maze — follow the a's! 🏁</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Worksheet Aa</strong>, the maze: <em>"Follow the path and find all the a's."</em> Point to the start: <em>"Is it capital A or small a?"</em> Demonstrate the first line.</p>
+  <p class="ask reveal"><strong>ICQs:</strong> <em>"Do you follow small a's or capital A's? Point to the start! Point to the finish!"</em></p>
+  <p class="task reveal"><strong>You have 2 minutes</strong> — set the timer! 🏁 <strong>Team race:</strong> table vs table — <em>"Team 1… ready? Go!"</em></p>
+  <p class="note reveal">Board support: the child deck, slide 6 — the a-path to check together. Winner team gets the applause.</p>
+</section>
+
+<!-- 6 · PHONICS BB -->
+<section class="slide" data-notes="Introduce the phonics 'Bb' the same way: realia 'B-bag' (a real bag!), the sound /b/, the ss repeat. Write 'B' capital and 'b' lower case. Worksheet Bb — GLUE first! Same walkthrough: words (a bag, a bat — pictures; a bed, a bus — word cards), cross-match the pictures with the words, color circles capital B / small b, trace the rows. Then the game 'What's missing' with the new words (all 8: apple, ant, ax, alligator, bag, bat, bed, bus) — TEAM vs TEAM: call a table number, that team looks away, you hide a card… or on the board (child deck slide 8 — tap a card, it ghosts).">
+  <div class="eyebrow reveal">Reading · phonics — 10 min · part 3</div>
+  <h1 class="reveal">Phonics B b — bag, bat, bed, bus + What's missing</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Present <strong>/b/</strong> with realia: <em>"B — bag!"</em> (show a real bag). Write <strong>'B'</strong> capital, <strong>'b'</strong> lower case.</p>
+  <div class="glue reveal">📏 Glue worksheet <b>Bb</b> into the copybook!</div>
+  <p class="task reveal"><strong>Worksheet Bb</strong>, the same way: words (<strong>a bag · a bat</strong> + <strong>a bed · a bus</strong>) → cross-match → color the circles → trace the letters.</p>
+  <p class="task reveal">Game <strong>'What's missing'</strong> with the new words — all 8. <strong>Team vs team:</strong> call a table number, that team closes their eyes, hide a card — <em>"What's missing?"</em></p>
+  <p class="note reveal">Board support: the child deck, slide 8 — tap a card and it disappears.</p>
+</section>
+
+<!-- 7 · POSTER 1 -->
+<section class="slide" data-notes="Read poster 1 (a-a-a / ba-ba-ba — the small printouts). First: glue the small version into the copybook! Then read: the teacher first (point + model), invite volunteers to read, then the whole class, in pairs, individually — and again HAPPILY, then ANGRILY (voices!). The letters: 'a' says /æ/ (apple pic), 'ba' = /b/+/æ/ (bag + apple pics). конспект: this closes the 8-minute reading block.">
+  <div class="eyebrow reveal">Reading · 8 min — poster 1</div>
+  <h1 class="reveal">Poster 1 — a a a · ba ba ba</h1>
+  <div class="rule reveal"></div>
+  <div class="glue reveal">📏 Glue the small poster into the copybook — then read!</div>
+  <p class="task reveal">Read <strong>poster 1</strong>: model first (point: <em>"a… a… a… ba… ba… ba"</em>), then <strong>volunteers</strong> read.</p>
+  <p class="task reveal">Read it: <strong>as a whole class → in pairs → individually</strong> — and again <strong>happily 😄</strong>, then <strong>angrily 😠</strong>!</p>
+  <p class="note reveal">Board support: the child deck, slide 9 — the poster is rebuilt big on the board with mood buttons.</p>
+</section>
+
+<!-- 8 · REVISION SPEAKING -->
+<section class="slide" data-notes="PB p.6 ex.2. Open the books. 'Look at the pictures. What do you see?' Ask: 'How old is Meera?' — EIGHT (TB key). Simon and Suzy: play PB p.6 track 7 (embedded, 'Listen and repeat') and let them catch the ages. Hand out flashcards/masks. Invite a volunteer for the example dialogue with you: 'Hello! What's your name? — How old are you? — How are you?' Drill the questions as a whole class. Pairs AT THEIR TABLES make up dialogues (team numbers!), then they present. конспект: 7 min.">
+  <div class="eyebrow reveal">Revision · speaking — 7 min</div>
+  <h1 class="reveal">PB p.6 ex.2 — the full dialogue</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">📖 <strong>Open the book — PB p. 6, ex. 2.</strong> <em>"What do you see?"</em> Ask: <em>"How old is Meera?"</em></p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-meera')">show the answer</button>
+  <div class="answer" id="r-meera">Meera is eight. Simon and Suzy — replay the track and let them catch the ages.</div>
+  <p class="tag reveal">🎧 AUDIO — PB p.6 ex.2 (track 7)</p>
+  <audio class="reveal" controls preload="none" src="../media/kb1-u1-pb6-t7.mp3"></audio>
+  <p class="task reveal">Masks on → the example dialogue with a volunteer: <em>"Hello! What's your name? How old are you? How are you?"</em> Drill <strong>as a whole class</strong>.</p>
+  <p class="task reveal"><strong>Pairs at their tables</strong> make up the dialogues (Team 1, Team 2…) — then they <strong>present</strong>.</p>
+  <p class="note reveal">Board support: the child deck, slide 10 — the dialogue bubbles with click-reveals.</p>
+</section>
+
+<!-- 9 · STORY — PRE-WATCHING -->
+<section class="slide" data-notes="PB p.9. Open the books. 'What do you see?' Point to the numbers — the ss can follow the story (6 pictures). Set the pre-watching questions: 'What color is the monster? What color is the pencil?' Point to the pictures: 'What's her/his name? What's this? — A toy box!' Repeat the questions, give the instruction: 'Listen and answer.' ICQs: 'Do you listen and say a number? A color?' Then play the recording ONCE (next slide) and elicit the answers. TB option: play the video first instead — the конспект leads with the audio.">
+  <div class="eyebrow reveal">Story — 15 min · part 1</div>
+  <h1 class="reveal">PB p. 9 — the story questions</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">📖 <strong>Open the book — PB p. 9.</strong> <em>"What do you see?"</em> Point to the <strong>numbers</strong> — the ss follow the story picture by picture.</p>
+  <p class="task reveal">Pre-watching questions: <em>"What color is the monster? 👾 What color is the pencil? ✏️"</em></p>
+  <p class="task reveal">Point to the pictures: <em>"What's her/his name? What's this?"</em> — elicit <strong>a toy box</strong>. Instruction: <em>"Listen and answer."</em></p>
+  <p class="ask reveal"><strong>ICQs:</strong> <em>"Do you listen and say a number? A color?"</em></p>
+</section>
+
+<!-- 10 · STORY — LISTEN -->
+<section class="slide" data-notes="Play the story recording ONCE (embedded, PB p.9 track 12). Elicit the answers: the monster is BLUE, the pencil is BLUE — Maskman thinks Monty's blue pencil is a monster! (TB: 'Check that pupils understand that Maskman thinks Monty's pencil is a monster.') Reveal on the click. The story text (TB): toys-in-the-toy-box chant → 1 Maskman hello, Marie (close the door) → 2 Maskman's chant 1-10 → 3 'A blue monster!' → 4 'Eeeek! Goodbye, Marie!' → 5 'Close the door, please. Thank you.' → 6 Monty: 'Look — a blue pencil!'">
+  <div class="eyebrow reveal">Story — 15 min · part 2</div>
+  <h1 class="reveal">Listen! 🎧 — what color?</h1>
+  <div class="rule reveal"></div>
+  <p class="tag reveal">🎧 AUDIO — PB p. 9 story (track 12) — play ONCE</p>
+  <audio class="reveal" controls preload="none" src="../media/kb1-u1-pb9-t12.mp3"></audio>
+  <p class="task reveal">Elicit the answers: <em>"What color is the monster? What color is the pencil?"</em></p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-blue')">show the answers</button>
+  <div class="answer" id="r-blue">💙 blue! Maskman thinks Monty's blue pencil is a monster.</div>
+  <p class="note reveal">Pause the audio before flipping — audio stops on slide change.</p>
+</section>
+
+<!-- 11 · STORY — CARDS -->
+<section class="slide" data-notes="Hand out the story cards (story.pdf, printed & cut). 'Count the cards!' — elicit SIX. 'Take your pencils. Listen.' Play the video (embedded, below) and PAUSE after the first picture: 'What picture is it? What's number 1? Is it picture 1?' The ss order all the cards and write the numbers. Play the video again — they check their order. (The printed cards already carry small numbers in the corners — the ss can self-check after ordering.)">
+  <div class="eyebrow reveal">Story — 15 min · part 3</div>
+  <h1 class="reveal">The story cards — order them! 1️⃣2️⃣3️⃣</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Hand out the <strong>story cards</strong>. <em>"Count the cards!"</em> — elicit <strong>SIX</strong>. <em>"Take your pencils. Listen!"</em></p>
+  <p class="task reveal">Play the <strong>video</strong>, <strong>pause after picture 1</strong>: <em>"What picture is it? What's number 1?"</em> The ss <strong>order the cards and write the numbers</strong>.</p>
+  <p class="tag reveal">🎬 VIDEO — the Unit 1 story</p>
+  <video class="reveal" controls preload="none" src="../media/kb1-u1-story.mp4"></video>
+  <p class="task reveal">Play it <strong>again</strong> — the ss <strong>check</strong> their order.</p>
+</section>
+
+<!-- 12 · STORY — ACT OUT -->
+<section class="slide" data-notes="Hand out masks/puppets. Play the story again — the ss listen and ROLE-PLAY, take pauses so they can repeat (shadowing technique — the конспект names it). Split the class into three groups: Marie, Maskman, Monty — each group repeats its character's part as they act out. Then groups of three act out the whole story; confident groups perform for the class (less confident ss = Monty — one line!). TEAM framing: tables are the stages.">
+  <div class="eyebrow reveal">Story — 15 min · part 4</div>
+  <h1 class="reveal">Act it out! 🎭</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Masks on! Play the story again — the ss <strong>listen and role-play</strong>. <strong>Pause</strong> after each line so they can <strong>repeat</strong> (shadowing).</p>
+  <p class="task reveal">Three groups: <strong>Marie</strong> · <strong>Maskman</strong> · <strong>Monty</strong> — each group says its part and acts.</p>
+  <p class="task reveal">Groups of three <strong>act out the whole story</strong>. Confident groups <strong>perform for the class</strong> — the tables are the stages! 🎬</p>
+  <p class="note reveal">Less confident ss take Monty (one line — "Look — a blue pencil!").</p>
+</section>
+
+<!-- 13 · FEEDBACK -->
+<section class="slide" data-notes="Draw a scale on the board from 1 to 10 — the ss choose how difficult the lesson was. Use colors (green / yellow / orange / red) or emojis on the scale to help. Board support: the child deck's last slide has the tap-to-light scale. Close with the toy-box chant one more time (📦✨🚶5️⃣ — it opens the story they just acted out), then the reading slot as usual (not in this deck). конспект: 5 min.">
+  <div class="eyebrow reveal">Feedback &amp; goodbye · 5 min</div>
+  <h1 class="reveal">How difficult was it? 1–10</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Draw the <strong>scale 1–10</strong> on the board — colors (green → red) or emojis. Each ss <strong>chooses their number</strong>: how difficult was the lesson?</p>
+  <p class="note reveal">Board support: the child deck, the last slide — a tap-to-light scale.</p>
+  <p class="task reveal">Goodbye routine: the <strong>toy-box chant</strong> one more time (📦✨🚶5️⃣) — the same chant that starts their story!</p>
+  <p class="note reveal">Then the reading slot, as usual (not in this deck).</p>
+</section>
+
+<!-- 14 · HOMEWORK -->
+<section class="slide" data-notes="Homework from the конспект: 1) record a video for the parents' group — revise the phonics Aa/Bb and the new words at home (the ss 'teach' the parents: an apple, an ant, an ax, an alligator, a bag, a bat, a bed, a bus); 2) AB p.9 — say the numbers, color the stars; 3) record the video for the teacher (the конспект's line — the same phonics video works). shkola.app: upload what fits (the story video + the phonics words), as usual.">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">Teach Aa Bb + color the stars</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">📹 <strong>A video for the parents:</strong> the ss <strong>teach the phonics Aa / Bb</strong> and the new words at home — <em>an apple, an ant, an ax, an alligator, a bag, a bat, a bed, a bus</em>.</p>
+  <p class="task reveal">✏️ <strong>AB p. 9:</strong> say the numbers, color the stars.</p>
+  <p class="note reveal">shkola.app: upload the story video + the phonics words, as usual — the HW video can go there too.</p>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 14</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvbtn" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<script>
+/* ================= mode ================= */
+const params=new URLSearchParams(location.search);
+const EMBED=params.get('embed');            /* 'cur' | 'next' — live thumbnails in the presenter window */
+const PRESENTER=params.get('presenter')==='1';
+const MAIN=!EMBED&&!PRESENTER;
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const revealed=new Set();
+
+/* ================= sync channel ================= */
+let bc=null;
+try{bc=new BroadcastChannel('kb1-u1l4-deck')}catch(e){}
+function send(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+
+/* ================= chrome refs ================= */
+const bar=document.getElementById('bar'),
+      cnt=document.getElementById('counter'),
+      prevBtn=document.getElementById('prev'),
+      nextBtn=document.getElementById('next');
+
+/* ================= core nav ================= */
+function show(n){
+  if(n<0||n>=slides.length)return;
+  slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
+  cur=n;
+  bar.style.width=((n+1)/slides.length*100)+'%';
+  cnt.textContent=(n+1)+' / '+slides.length;
+  prevBtn.disabled=n===0;nextBtn.disabled=n===slides.length-1;
+  if(PRESENTER)pvUpdate();
+}
+function go(n){
+  if(n<0||n>=slides.length)return;
+  show(n);
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(MAIN)history.replaceState(null,'','#'+(n+1));
+  if(MAIN)send({t:'go',n});
+}
+prevBtn.onclick=()=>go(cur-1);nextBtn.onclick=()=>go(cur+1);
+
+/* ================= reveals ================= */
+function markShown(id){
+  const a=document.getElementById(id);
+  if(!a||a.classList.contains('show'))return;
+  a.classList.add('show');
+  const b=document.querySelector('button[onclick*="\''+id+'\'"]')||document.querySelector('button[onclick*="'+id+'"]');
+  if(b){b.textContent='✅ показано';b.style.opacity=.55;b.disabled=true;}
+}
+function reveal(btn,id){
+  markShown(id);
+  if(!revealed.has(id)){revealed.add(id);}
+  send({t:'reveal',id});
+}
+
+/* ================= messages ================= */
+if(bc)bc.onmessage=e=>{
+  const m=e.data||{};
+  if(m.t==='go'){
+    if(EMBED){show(EMBED==='cur'?m.n:Math.min(m.n+1,slides.length-1));}
+    else if(MAIN&&m.n!==cur){show(m.n);history.replaceState(null,'','#'+(m.n+1));
+      document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});}
+    else if(PRESENTER){cur=m.n;pvUpdate();}
+  }
+  if(m.t==='set'&&MAIN)go(m.n);
+  if(m.t==='reveal'){
+    if(EMBED||MAIN){markShown(m.id);revealed.add(m.id);}
+  }
+  if(m.t==='hello'){
+    if(MAIN)send({t:'state',n:cur,revealed:[...revealed]});
+  }
+  if(m.t==='state'&&EMBED){
+    show(EMBED==='cur'?m.n:Math.min(m.n+1,slides.length-1));
+    (m.revealed||[]).forEach(id=>{markShown(id);revealed.add(id);});
+  }
+  if(m.t==='state'&&PRESENTER){cur=m.n;pvUpdate();}
+};
+send({t:'hello'}); /* ask whoever is already open where we are */
+
+/* ================= presenter window ================= */
+function pvUpdate(){
+  const c=document.getElementById('pvcnt'),nt=document.getElementById('pvnotes');
+  if(c)c.textContent=(cur+1)+' / '+slides.length;
+  if(nt&&slides[cur])nt.textContent=slides[cur].dataset.notes||'';
+}
+function pvFit(){
+  document.querySelectorAll('.pvframe').forEach(f=>{
+    const ifr=f.querySelector('iframe');
+    if(ifr)ifr.style.transform='scale('+(f.clientWidth/1440)+')';
+  });
+}
+if(PRESENTER){
+  document.body.classList.add('presenter');
+  const pv=document.createElement('div');pv.id='pv';
+  pv.innerHTML=
+    '<div class="pvhead"><b>Presenter</b> · KB1 · Unit 1 · Lesson 4 · <span class="pvcnt" id="pvcnt"></span></div>'+
+    '<div class="pvwarn" id="pvwarn">⚠ No sync: this window works only over http:// — open the deck via the local server or the site link, then press T again.</div>'+
+    '<div class="pvlabel">now — what the class sees</div><div class="pvframe"><iframe src="'+location.pathname+'?embed=cur"></iframe></div>'+
+    '<div class="pvlabel">next</div><div class="pvframe"><iframe src="'+location.pathname+'?embed=next"></iframe></div>'+
+    '<div class="pvnotes" id="pvnotes"></div>'+
+    '<div class="pvbtns"><button id="pvprev">‹</button><button id="pvfw">›</button></div>';
+  document.body.appendChild(pv);
+  document.getElementById('pvprev').onclick=()=>send({t:'set',n:cur-1});
+  document.getElementById('pvfw').onclick=()=>send({t:'set',n:cur+1});
+  addEventListener('resize',pvFit);setTimeout(pvFit,300);setTimeout(pvFit,1200);
+  if(!bc)document.getElementById('pvwarn').style.display='block';
+  pvUpdate();
+}
+
+/* ================= input (main only) ================= */
+if(MAIN){
+  document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+  document.getElementById('pvbtn').onclick=openPresenter;
+  document.addEventListener('keydown',e=>{
+    if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
+    if(e.key==='Home')go(0);
+    if(e.key==='End')go(slides.length-1);
+    if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
+    if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&!e.metaKey&&!e.ctrlKey)openPresenter();
+  });
+  let wl=0;
+  document.addEventListener('wheel',e=>{
+    const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;
+    go(cur+(e.deltaY>0?1:-1));
+  },{passive:true});
+  let tx=0;
+  document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+  document.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
+  },{passive:true});
+}
+function openPresenter(){
+  send({t:'hello'}); /* refresh any already-open windows */
+  window.open(location.pathname+'?presenter=1','kb1u1l4pv','width=560,height=940');
+}
+
+/* ================= start: hash restores the slide ================= */
+const h=parseInt(location.hash.slice(1));
+show(MAIN&&(!isNaN(h))?(h-1):0);
+</script>
+
+<script>
+/* READY-CHIME (standing rule, 2026-09-04): when ZCode saves a new version of
+   this deck, the OPEN window chimes and reloads itself — no manual refresh,
+   the hash puts her back on the same slide. http:// only; silent on file://. */
+(function(){
+  if(!MAIN)return;
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{        /* ding — dong */
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.pathname,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
