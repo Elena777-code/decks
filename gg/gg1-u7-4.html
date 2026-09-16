@@ -293,26 +293,26 @@ body.presenter .slide,body.presenter #nav,body.presenter #bar{display:none}
 </section>
 
 <!-- 9 · EX 4 -->
-<section class="slide" data-notes="Ex 4: 'Write how much it is.' The four tickets (SB p. 88): 1 ZOO £18.50 = eighteen pounds fifty (done on the page as the example) · 2 CINEMA £9.30 · 3 CONCERT £21.50 · 4 MUSEUM £8.20. Different ss write the answers on the board (TB). KEY (TB): nine pounds thirty · twenty-one pounds fifty · eight pounds twenty.">
+<section class="slide" data-notes="Ex 4: 'Write how much it is.' The four tickets (SB p. 88, in the page's own numbering): 1 ZOO £18.50 = eighteen pounds fifty (the printed example) · 2 MUSEUM £8.20 · 3 CINEMA £9.30 · 4 CONCERT £21.50. Different ss write the answers on the board (TB). KEY (TB): 2 eight pounds twenty · 3 nine pounds thirty · 4 twenty-one pounds fifty.">
   <div class="eyebrow reveal">Ex 4 · SB p. 88</div>
   <h1 class="reveal">Write how much it is 💷</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">📖 <strong>SB p. 88, ex. 4.</strong> The tickets: 🎬 <strong>1 zoo £18.50</strong> (the example) · <strong>2 cinema £9.30</strong> · <strong>3 concert £21.50</strong> · <strong>4 museum £8.20</strong>.</p>
+  <p class="task reveal">📖 <strong>SB p. 88, ex. 4.</strong> The tickets (the page's numbers): 🦁 <strong>1 zoo £18.50</strong> (the example) · 🏛 <strong>2 museum £8.20</strong> · 🎬 <strong>3 cinema £9.30</strong> · 🎤 <strong>4 concert £21.50</strong>.</p>
   <p class="task reveal">Different ss <strong>write the answers on the board</strong>.</p>
   <button class="reveal-btn reveal" onclick="reveal(this,'r-ex4')">show the key</button>
-  <div class="answer" id="r-ex4">2 nine pounds thirty · 3 twenty-one pounds fifty · 4 eight pounds twenty</div>
+  <div class="answer" id="r-ex4">2 eight pounds twenty · 3 nine pounds thirty · 4 twenty-one pounds fifty</div>
   <p class="note reveal">Board support: the child deck, slide 6 — the ticket cards, tap to reveal the words.</p>
 </section>
 
 <!-- 10 · EX 5 -->
-<section class="slide" data-notes="Ex 5: in pairs, roleplay buying a ticket to the MUSEUM, using the prompts (SB p. 88): A: help / you? · B: three tickets · A: £24.60 · B: here · A: your tickets · B: thanks. KEY (TB): Can I help you? — Can I have three tickets, please? — That's £24.60. Here you are. — Here you are. — Here are your tickets. — Thanks.">
+<section class="slide" data-notes="Ex 5: in pairs, roleplay buying a ticket to the MUSEUM, using the prompts (SB p. 88): A: help / you? · B: three tickets · A: £24.60 · B: here · A: your tickets · B: thanks. MODEL (SB box): Can I help you? — Can I have three tickets, please? — That's twenty-four pounds sixty. — Here you are. — Here are your tickets. — Thanks.">
   <div class="eyebrow reveal">Ex 5 · SB p. 88</div>
   <h1 class="reveal">Roleplay — the museum 🏛</h1>
   <div class="rule reveal"></div>
   <p class="task reveal"><strong>In pairs</strong>: buy a ticket <strong>to the museum</strong>. The prompts (SB p. 88):</p>
   <p class="ask reveal">A: <strong>help / you?</strong> · B: <strong>three tickets</strong> · A: <strong>£24.60</strong> · B: <strong>here</strong> · A: <strong>your tickets</strong> · B: <strong>thanks</strong></p>
   <button class="reveal-btn reveal" onclick="reveal(this,'r-ex5')">show the model dialogue</button>
-  <div class="answer" id="r-ex5" style="align-self:stretch">A: Can I help you? — B: Can I have three tickets, please? — A: That's £24.60. Here you are. — B: Here you are. — A: Here are your tickets. — B: Thanks.</div>
+  <div class="answer" id="r-ex5" style="align-self:stretch">A: Can I help you? — B: Can I have three tickets, please? — A: That's twenty-four pounds sixty. — B: Here you are. — A: Here are your tickets. — B: Thanks.</div>
 </section>
 
 <!-- 11 · EX 6 -->
@@ -417,12 +417,11 @@ function reveal(btn,id){
 }
 
 function dic(el){
-  if(el.dataset.w){                    /* hidden -> show the word */
+  if(!el.classList.contains('done')){  /* hidden -> show the word */
     el.dataset.n=el.textContent;
     el.textContent=el.dataset.w;
     el.classList.add('done');
   }else{                               /* shown -> hide again */
-    el.dataset.w=el.textContent;
     el.textContent=el.dataset.n;
     el.classList.remove('done');
   }
