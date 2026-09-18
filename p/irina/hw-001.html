@@ -125,6 +125,10 @@ footer{max-width:640px;width:100%;text-align:center;margin-top:2em;
 (function(){
 "use strict";
 
+/* --- auto-send: results POST to Elena's Google Form (no parent action).
+       Empty action = copy-only mode. Filled + pushed by the assistant. --- */
+var HW_FORM={action:"",entryReport:""};
+
 /* the 12 (Starlight 5, book order): base · 2nd · 3rd · which form to ask */
 var VERBS=[
   {b:"be",    s:"was/were", t:"been",    ask:"t"},
@@ -317,11 +321,24 @@ function finish(){
   });
   $("end-rows").innerHTML=rows.join("");
   var txt=reportText();
+  try{
+    var q=JSON.parse(localStorage.getItem("irina-hw-queue")||"[]");
+    q.push(txt);if(q.length>10)q=q.slice(-10);
+    localStorage.setItem("irina-hw-queue",JSON.stringify(q));
+  }catch(e){}
   try{localStorage.setItem("irina-hw-001",txt);}catch(e){}
-  $("copy-btn").textContent="📋 Copy the report";
-  $("copy-hint").textContent="Now send it to Mum — she knows what to do 💌";
   var old=document.getElementById("report-box");
   if(old)old.remove();
+  $("copy-btn").textContent="📋 Copy the report";
+  if(HW_FORM.action&&HW_FORM.entryReport){
+    flushQueue();
+    $("copy-hint").textContent="Sending the result to your teacher…";
+    setTimeout(function(){
+      $("copy-hint").textContent="✅ The result went to your teacher! 🎉";
+    },2500);
+  }else{
+    $("copy-hint").textContent="Now send it to Mum — she knows what to do 💌";
+  }
   $("copy-btn").onclick=function(){
     var btn=this;
     var done=function(){btn.textContent="✅ Copied!";
@@ -340,6 +357,34 @@ function finish(){
   show("end-card");
   window.scrollTo(0,0);
 }
+
+/* --- the send machinery: hidden-iframe form POST (works cross-origin
+       without CORS), queue in localStorage, retried on next page load --- */
+function sendViaForm(txt){
+  var frame=document.createElement("iframe");
+  frame.name="hw-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=HW_FORM.action;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=HW_FORM.entryReport;inp.value=txt;
+  f.appendChild(inp);
+  var sub=document.createElement("input");
+  sub.type="hidden";sub.name="submit";sub.value="Submit";
+  f.appendChild(sub);
+  document.body.appendChild(f);
+  f.submit();
+  setTimeout(function(){f.remove();frame.remove();},15000);
+}
+function flushQueue(){
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("irina-hw-queue")||"[]");}catch(e){}
+  if(!q.length)return;
+  q.forEach(sendViaForm);
+  try{localStorage.setItem("irina-hw-queue","[]");}catch(e){}
+}
+flushQueue(); /* anything that failed to send last time goes now */
 })();
 </script>
 </body>
