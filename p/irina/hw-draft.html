@@ -102,7 +102,6 @@ footer{max-width:640px;width:100%;text-align:center;margin-top:1.6em;
     <div class="end-title">Молодец!</div>
     <div class="one-line" id="end-rows"></div>
     <div class="sent" id="sent-line"></div>
-    <div><button class="copy-btn hidden" id="copy-btn">📋 Скопировать отчёт</button></div>
     <div><button class="again-btn" id="again-btn">🔁 Новая попытка</button></div>
   </div>
 </main>
@@ -217,9 +216,9 @@ function buildRounds(){
       label:v.b+" → "+(ask3?"3rd":"2nd"),key:key};
   });
   return [
-    {meta:ROUNDS_META[0],sec:10,tasks:someAny},
+    {meta:ROUNDS_META[0],sec:5,tasks:someAny},
     {meta:ROUNDS_META[1],sec:15,tasks:machine},
-    {meta:ROUNDS_META[2],sec:20,tasks:judge},
+    {meta:ROUNDS_META[2],sec:10,tasks:judge},
     {meta:ROUNDS_META[3],sec:8,tasks:verbs}
   ];
 }
@@ -348,25 +347,9 @@ function finish(){
   $("copy-btn").classList.add("hidden");
   var txt=reportText();
   try{localStorage.setItem("irina-hw-last",txt);}catch(e){}
-  $("copy-btn").onclick=function(){
-    var btn=this;
-    var done=function(){btn.textContent="✅ Скопировано!";
-      setTimeout(function(){btn.textContent="📋 Скопировать отчёт";},1600);};
-    if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(txt).then(done,function(){fallback();});
-    }else fallback();
-    function fallback(){
-      var ta=document.createElement("textarea");
-      ta.id="report-box";
-      ta.style.cssText="width:100%;height:160px;margin-top:1em;border-radius:14px;border:2px solid #bfe3df;padding:.8em;font-family:inherit;font-size:.85rem";
-      ta.value=txt;$("end-card").appendChild(ta);ta.focus();ta.select();
-    }
-  };
   /* DRAFT MODE: no auto-send; show what the real page will say */
   setTimeout(function(){
     $("sent-line").textContent="(черновик: здесь будет «✅ Результат уже у твоего учителя!»)";
-    $("copy-hint"); /* noop */
-    $("copy-btn").classList.remove("hidden");
   },1500);
   show("end-card");
   window.scrollTo(0,0);
