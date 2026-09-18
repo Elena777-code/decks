@@ -344,7 +344,6 @@ function finish(){
   });
   $("end-rows").textContent=bits.join("  ·  ");
   $("sent-line").textContent="";
-  $("copy-btn").classList.add("hidden");
   var txt=reportText();
   try{localStorage.setItem("irina-hw-last",txt);}catch(e){}
   /* DRAFT MODE: no auto-send; show what the real page will say */
