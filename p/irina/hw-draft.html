@@ -259,11 +259,11 @@ function ask(){
   if(t.choices){
     Array.prototype.forEach.call(document.querySelectorAll(".choice"),function(b){
       b.addEventListener("click",function(){if(answered)return;answered=true;stop();
-        record(t,b.getAttribute("data-v"),false,r.meta.id);advance();});});
+        advance(record(t,b.getAttribute("data-v"),false,r.meta.id));});});
   }else{
     var box=$("type-box");
     var submit=function(){if(answered)return;answered=true;stop();
-      record(t,box.value,false,r.meta.id);advance();};
+      advance(record(t,box.value,false,r.meta.id));};
     $("ok-btn").addEventListener("click",submit);
     box.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
     setTimeout(function(){box.focus();},60);
@@ -298,11 +298,12 @@ function record(t,given,late,rid){
   log.push({rid:rid,label:t.label,
     given:late?(given?("не успела, написала: "+given):"ВРЕМЯ ВЫШЛО"):given,
     key:Array.isArray(t.key)?t.key.join(" / "):t.key,ok:ok});
+  return ok;
 }
 
-function advance(){move(false);}
-function nextLate(){move(true);}
-function move(late){
+function advance(wasOk){move(false,wasOk);}
+function nextLate(){move(true,false);}
+function move(late,wasOk){
   var r=rounds[ri];
   var lastOfRound=qi>=r.tasks.length-1;
   var go=function(){
@@ -311,6 +312,7 @@ function move(late){
     else{finish();}
   };
   if(late){show("flash");$("flash").innerHTML="⏰ Время!";setTimeout(go,950);}
+  else if(wasOk){show("flash");$("flash").innerHTML="✅";setTimeout(go,750);}
   else if(lastOfRound&&ri<rounds.length-1){show("flash");
     $("flash").innerHTML="✨";setTimeout(go,700);}
   else go();
