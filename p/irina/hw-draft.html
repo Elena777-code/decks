@@ -212,7 +212,7 @@ function buildRounds(){
     var ask3=v.fix3||Math.random()<0.5;
     var extra=ask3?(v.a3||[]):(v.a2||[]);
     var key=ask3?(v.fix3?[v.t]:[v.t].concat(extra)):[v.s].concat(extra);
-    return {q:'<span class="base">'+v.b+'</span> → '+(ask3?(v.s+' / <span class="gap">______</span>'):('<span class="gap">______</span> / '+v.t)),
+    return {q:'<span class="base">'+v.b+'</span> → '+(ask3?(v.s+' - <span class="gap">______</span>'):('<span class="gap">______</span> - '+v.t)),
       label:v.b+" → "+(ask3?"3rd":"2nd"),key:key};
   });
   return [
