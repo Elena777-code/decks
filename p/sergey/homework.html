@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sergey · homework 🐭</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E; --stamp-soft:#FDEAE3;
+  --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  min-height:100vh;padding:5vh clamp(14px,4vw,60px) 10vh;max-width:920px;margin:0 auto}
+.eyebrow{font-family:'Fredoka';font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  font-size:clamp(.75rem,1.4vw,.95rem);color:var(--navy);margin-bottom:.4em}
+h1{font-family:'Fredoka';font-weight:700;font-size:clamp(1.9rem,4.5vw,3.2rem);line-height:1.08;margin-bottom:.35em}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1em}
+.lead{font-size:clamp(1.05rem,1.8vw,1.35rem);color:var(--ink-soft);line-height:1.5;margin-bottom:1.6em}
+.lead b{color:var(--navy)}
+.card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,2.4vw,1.7rem);margin-bottom:1.3em}
+.card.now{border-top:6px solid var(--cheese)}
+.card.play{border-top:6px solid var(--sky)}
+.card.listen{border-top:6px solid var(--mint)}
+.card.old{border-top:6px solid #D8DFE8;opacity:.85}
+h2{font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.4vw,1.8rem);margin-bottom:.5em}
+.hint{color:var(--ink-soft);font-style:italic;font-size:clamp(.95rem,1.6vw,1.15rem);line-height:1.5}
+.hw{display:flex;gap:.8em;align-items:flex-start;padding:.85em 1em;border-radius:16px;
+  background:var(--paper);box-shadow:0 5px 14px rgba(34,48,63,.07);margin-top:.7em;cursor:pointer;
+  transition:transform .15s ease;border:3px solid transparent}
+.hw:hover{transform:translateY(-2px)}
+.hw .box{flex-shrink:0;width:1.9em;height:1.9em;border-radius:10px;border:3px solid var(--navy);
+  display:grid;place-items:center;font-size:1.25em;color:transparent;background:#fff;margin-top:.1em;transition:all .2s}
+.hw.done{border-color:var(--mint)}
+.hw.done .box{background:var(--mint);border-color:var(--mint);color:#fff}
+.hw.done .t{opacity:.55;text-decoration:line-through}
+.hw .t{font-size:clamp(1.05rem,1.9vw,1.4rem);line-height:1.5}
+.hw .t .en{font-family:'Fredoka';font-weight:600;color:var(--navy)}
+.hw .t .key{display:inline-block;font-family:'Fredoka';font-weight:600;background:var(--cheese-soft);
+  color:var(--navy);border-radius:99px;padding:.05em .6em;margin:.15em .12em 0 0;font-size:.92em}
+.play-row{display:flex;flex-wrap:wrap;gap:.5em;align-items:center;margin:.7em 0;
+  font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.6}
+.play-row .opts{display:flex;gap:.45em;flex-wrap:wrap}
+.opt{font-family:'Fredoka';font-weight:600;border:2.5px solid var(--sky);background:#fff;color:var(--navy);
+  border-radius:99px;padding:.25em 1em;cursor:pointer;font-size:.95em;transition:all .15s}
+.opt:hover{transform:translateY(-2px);border-color:var(--navy)}
+.opt.good{border-color:var(--mint);background:var(--mint);color:#fff}
+.opt.bad{border-color:var(--stamp);color:var(--stamp);background:var(--stamp-soft)}
+.chip{display:inline-block;font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.6vw,1.2rem);
+  padding:.3em 1em;border-radius:99px;background:var(--cheese-soft);color:var(--navy);margin:.35em .4em 0 0}
+.old-line{font-size:clamp(.98rem,1.7vw,1.25rem);padding:.35em 0;border-bottom:2px dotted #D8DFE8}
+.old-line:last-child{border-bottom:none}
+.old-line .ok{color:var(--mint);font-weight:800}
+.foot{text-align:center;color:var(--ink-soft);font-size:clamp(1rem,1.8vw,1.25rem);margin-top:2em;font-family:'Fredoka'}
+</style>
+</head>
+<body>
+
+<div class="eyebrow">Сергей · английский · домашка</div>
+<h1>Домашка крыс 🐭🧀</h1>
+<div class="accent-line"></div>
+<p class="lead">Это <b>твоя страница</b> — она всегда одна и та же. Запиши ссылку (или спроси у Елены ещё раз): <b>elena777-code.github.io/decks/p/sergey/homework.html</b><br>Тыкай на задания — и ставь галочки, когда сделал! ✅</p>
+
+<!-- NOW -->
+<div class="card now">
+  <h2>Урок 9 · Италия 🇮🇹 <span style="color:var(--stamp)">— понедельник!</span></h2>
+  <div class="hw" data-k="l9-1"><div class="box">✓</div><div class="t">✍️ Дорисуй <b>марку Италии</b> в паспорте крыс. В паспорте уже живут Франция 🇫🇷 и Россия 🇷🇺 — Италия будет третьей!</div></div>
+  <div class="hw" data-k="l9-2"><div class="box">✓</div><div class="t">🐀 <b>Спрячь ТРИ игрушки</b> (или нарисуй крыс в комнате) и напиши, ГДЕ они — по-английски, целым предложением:<br><span class="en">The cat is under the chair!</span> <span class="en">The ball is in the box!</span><br>Слова-помощники: <span class="key">in</span><span class="key">on</span><span class="key">under</span><span class="key">behind</span><span class="key">next to</span><span class="key">between</span></div></div>
+  <div class="hw" data-k="l9-3"><div class="box">✓</div><div class="t">🎓 Готовь <b>новый факт</b> для History Show — Episode 9 продолжается! Один факт — уже победа. 🏆</div></div>
+</div>
+
+<!-- PRACTICE -->
+<div class="card play">
+  <h2>Проверь себя 🎮 — where is the rat?</h2>
+  <p class="hint">Выбери слово. Зелёный — угадал! Оранжевый — попробуй ещё раз. Каждый раз перемешивается по-новому.</p>
+  <div class="play-row">📦 The rat is <span class="opts" data-a="in"><button class="opt">in</button><button class="opt">on</button><button class="opt">under</button></span> the box.</div>
+  <div class="play-row">🐈 The cat is <span class="opts" data-a="under"><button class="opt">behind</button><button class="opt">under</button><button class="opt">on</button></span> the table.</div>
+  <div class="play-row">🧀 The cheese is <span class="opts" data-a="between"><button class="opt">between</button><button class="opt">behind</button><button class="opt">in</button></span> two pizzas!</div>
+  <div class="play-row">🇫🇷 The French flag is <span class="opts" data-a="on"><button class="opt">on</button><button class="opt">in</button><button class="opt">under</button></span> the sofa!</div>
+  <div class="play-row">🏛️ Where is Rome? — In <span class="opts" data-a="Italy"><button class="opt">Spain</button><button class="opt">Italy</button><button class="opt">China</button></span>!</div>
+</div>
+
+<!-- LISTENING -->
+<div class="card listen">
+  <h2>🎧 Cambridge Listening — скоро здесь!</h2>
+  <p class="hint">Твой любимый Cambridge переезжает <b>домой</b> — ты же чемпион по task 2! 🏅 Первый трек появится тут — его выберет Елена.</p>
+  <span class="chip">task 2 — твоя супер-сила ⚡</span>
+</div>
+
+<!-- ARCHIVE -->
+<div class="card old">
+  <h2>Уже сделано 🗃️</h2>
+  <div class="old-line">Урок 8 · Россия 🇷🇺 — марка в паспорт · два часика · факт для Show <span class="ok">✓</span></div>
+  <div class="old-line">Урок 7 · Франция 🇫🇷 — марка в паспорт · видеочтение · факт <span class="ok">✓</span></div>
+</div>
+
+<p class="foot">До понедельника! Пелменик и Вареник собирают чемоданы 🐭🐭✈️🇮🇹</p>
+
+<script>
+/* checkboxes remember themselves (on this device) */
+document.querySelectorAll('.hw').forEach(hw=>{
+  const k='sergey-hw-'+hw.dataset.k;
+  try{ if(localStorage.getItem(k)==='1') hw.classList.add('done'); }catch(e){}
+  hw.addEventListener('click',()=>{
+    hw.classList.toggle('done');
+    try{ localStorage.setItem(k, hw.classList.contains('done')?'1':'0'); }catch(e){}
+  });
+});
+/* options shuffle fresh every open; green locks, orange shakes back */
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+document.querySelectorAll('.opts').forEach(box=>{
+  const good=box.dataset.a;
+  const btns=[...box.querySelectorAll('.opt')];
+  shuffle(btns).forEach(b=>box.appendChild(b));
+  btns.forEach(b=>b.addEventListener('click',()=>{
+    if(b.classList.contains('good'))return;
+    if(b.textContent.trim()===good){ b.classList.add('good'); }
+    else{ b.classList.add('bad'); setTimeout(()=>b.classList.remove('bad'),700); }
+  }));
+});
+</script>
+</body>
+</html>
