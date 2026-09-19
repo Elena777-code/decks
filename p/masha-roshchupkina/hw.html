@@ -106,11 +106,12 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
 
 <main>
   <div class="card" id="start-card">
-    <p class="rules">Four games + your sentences.<br>
+    <p class="rules">First — your <b>Workbook 9.1</b> (📓 all seven exercises, every run).<br>
+    Then four games + your sentences.<br>
     ⚡ The sprint is <b>timed</b> — everywhere else: no clock, think as long as you want.<br>
     Wrong answers come back with the fix.</p>
-    <div class="icons">🔧 ⚡ 🧠 🔬 ✍️</div>
-    <div class="meta">5 rounds · ~12 minutes</div>
+    <div class="icons">📓 🔧 ⚡ 🧠 🔬 ✍️</div>
+    <div class="meta">6 rounds · Workbook in full · ~15 minutes</div>
     <div class="best" id="best-line"></div>
     <button class="start-btn" id="begin-btn">Start the drill</button>
   </div>
@@ -146,6 +147,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <div class="no">Lesson 5 · September the 19th</div>
     <h2>Vocabulary: Education</h2>
     <ol>
+      <li><b>Workbook 9.1 · pp. 102–103</b> (Think outside the box) — all seven exercises play in the machine’s first round 📓. Your Workbook lives on this page — nothing to fetch.</li>
       <li>The three Vocabulary boxes — <b>A</b> school subjects · <b>B</b> learning &amp; assessment · <b>C</b> describing students. The <b>Word lab</b> 🔬 drills them in every run — a fast quiz at the next lesson.</li>
       <li><b>Five sentences “Me as a student”</b> — write them in ✍️ Your turn. They travel to Elena inside the report.</li>
       <li>Optional: listen to track 3.20 again and <b>retell it</b> in a one-minute voice message.</li>
@@ -171,6 +173,117 @@ var FORM_ACTION="";
 var FORM_ENTRY="entry.000000";
 
 /* ================= POOLS — they grow with the course ================= */
+
+/* R-W · Workbook 9.1 (WB pp. 102–103, all seven exercises — FIXED, plays
+   in full every run: this IS the assigned homework). Transcribed from the
+   scan 2026-09-19; the pictures of ex. 1 are described in words (scans
+   never leave the Mac). Keys: assistant's reading of the pages. */
+var POOL_WB91=[
+ /* ex 1 · pictures → subjects (described in words) */
+ {ex:"ex 1",q:'On the board: <b>246 × 23 =</b>',
+  choices:["Maths","Geography","ICT","History"],key:["maths"],label:"ex 1 · the sum",type:"choice"},
+ {ex:"ex 1",q:'A hand <b>sketching a vase</b> with a pencil.',
+  choices:["Art","Cooking","PE","Chemistry"],key:["art"],label:"ex 1 · the vase sketch",type:"choice"},
+ {ex:"ex 1",q:'A <b>saucepan</b> with steaming soup and a wooden spoon.',
+  choices:["Cooking","Chemistry","Music","History"],key:["cooking"],label:"ex 1 · the saucepan",type:"choice"},
+ {ex:"ex 1",q:'A <b>sailing ship</b> and the year <b>1492</b>.',
+  choices:["History","Geography","Philosophy","ICT"],key:["history"],label:"ex 1 · the ship, 1492",type:"choice"},
+ {ex:"ex 1",q:'A <b>sheet of music</b> full of notes.',
+  choices:["Music","Literature","Art","Spanish"],key:["music"],label:"ex 1 · the notes",type:"choice"},
+ {ex:"ex 1",q:'A <b>laptop</b> with a green screen.',
+  choices:["ICT","Biology","Health","French"],key:["ict"],label:"ex 1 · the laptop",type:"choice"},
+ /* ex 2 · definition + first letter → subject (typed) */
+ {ex:"ex 2",q:'You learn about the world and different countries in this subject. <span class="base">(G… )</span>',
+  key:["geography"],label:"ex 2 · the world, countries",type:"type"},
+ {ex:"ex 2",q:'This subject teaches you how to look after your body so you aren’t ill. <span class="base">(H… )</span>',
+  key:["health"],label:"ex 2 · your body",type:"type"},
+ {ex:"ex 2",q:'In this subject you discuss important ideas, like the meaning of life. <span class="base">(P… )</span>',
+  key:["philosophy"],label:"ex 2 · the meaning of life",type:"type"},
+ {ex:"ex 2",q:'You need to learn this if you want to visit London. <span class="base">(E… )</span>',
+  key:["english"],label:"ex 2 · a visit to London",type:"type"},
+ {ex:"ex 2",q:'You learn about different chemicals in this subject. <span class="base">(C… )</span>',
+  key:["chemistry"],label:"ex 2 · chemicals",type:"type"},
+ /* ex 3 · the comments → subject (typed) */
+ {ex:"ex 3",q:'“I really enjoy learning about <b>the law</b> in my country, and how to vote.” <span class="base">(C… )</span>',
+  key:["citizenship"],label:"ex 3 · the law, how to vote",type:"type"},
+ {ex:"ex 3",q:'“I’m working hard at this subject because I will need it when I go to <b>France</b> next summer.” <span class="base">(F… )</span>',
+  key:["french"],label:"ex 3 · France next summer",type:"type"},
+ {ex:"ex 3",q:'“I love <b>sport</b> so, of course, this is my favourite subject!” <span class="base">(P… )</span>',
+  key:["pe"],label:"ex 3 · sport",type:"type"},
+ {ex:"ex 3",q:'“This is a difficult <b>science</b> subject, but I study it because one day I want to be an <b>astronaut</b>!” <span class="base">(P… )</span>',
+  key:["physics"],label:"ex 3 · the astronaut",type:"type"},
+ {ex:"ex 3",q:'“My parents are from <b>Spain</b> so, of course, this subject is really easy for me!” <span class="base">(S… )</span>',
+  key:["spanish"],label:"ex 3 · my parents are from Spain",type:"type"},
+ /* ex 4 · choose the correct answer */
+ {ex:"ex 4",q:'I love <span class="gap">______</span> about how people live in different countries.',
+  choices:["studying","learning","revising"],key:["learning"],label:"ex 4 · love ___ about",type:"choice"},
+ {ex:"ex 4",q:'Don’t forget you need to hand in your <span class="gap">______</span> on Friday.',
+  choices:["project","performance","practical exam"],key:["practical exam"],label:"ex 4 · hand in your ___",type:"choice"},
+ {ex:"ex 4",q:'I can’t come out tonight. I need to <span class="gap">______</span> for my Geography test.',
+  choices:["learn","revise","memorise"],key:["revise"],label:"ex 4 · ___ for a test",type:"choice"},
+ {ex:"ex 4",q:'The examiner will ask you questions in the English <span class="gap">______</span> exam.',
+  choices:["practical","performance","speaking"],key:["speaking"],label:"ex 4 · the ___ exam",type:"choice"},
+ {ex:"ex 4",q:'Are you going to <span class="gap">______</span> Spanish next year or will you choose a different language?',
+  choices:["study","revise","memorise"],key:["revise"],label:"ex 4 · ___ Spanish",type:"choice"},
+ {ex:"ex 4",q:'We have to produce a drawing for our <span class="gap">______</span> in Art.',
+  choices:["performance","written exam","practical exam"],key:["performance"],label:"ex 4 · a drawing for our ___",type:"choice"},
+ /* ex 5 · complete the words (spelling, typed) */
+ {ex:"ex 5",q:'I find it difficult to <span class="gap">______</span> irregular verbs. <span class="base">(l _ _ _ n)</span>',
+  key:["learn"],label:"ex 5 · l___n irregular verbs",type:"type"},
+ {ex:"ex 5",q:'I usually <span class="gap">______</span> for about an hour every evening. <span class="base">(s _ _ _ y)</span>',
+  key:["study"],label:"ex 5 · s___y every evening",type:"type"},
+ {ex:"ex 5",q:'It’s difficult to <span class="gap">______</span> a whole poem! <span class="base">(m _ m _ _ _ _ e)</span>',
+  key:["memorise"],label:"ex 5 · m_m____e a poem",type:"type"},
+ {ex:"ex 5",q:'I need to <span class="gap">______</span> for my Maths exam. <span class="base">(r _ v _ _ e)</span>',
+  key:["revise"],label:"ex 5 · r_v__e for Maths",type:"type"},
+ {ex:"ex 5",q:'We have a <span class="gap">______</span> in Cookery — we have to cook a meal! <span class="base">(p _ _ c _ _ _ l  e _ _ m)</span>',
+  key:["practical exam"],label:"ex 5 · p__c_c_l e__m in Cookery",type:"type"},
+ {ex:"ex 5",q:'For our music exam we have to give a <span class="gap">______</span> on our instrument. <span class="base">(p _ _ f _ _ m _ _ _ e)</span>',
+  key:["performance"],label:"ex 5 · p__f__m___e on our instrument",type:"type"},
+ /* ex 6 · match the person with the phrase */
+ {ex:"ex 6",q:'Someone who is <b>intelligent</b>…',
+  choices:["is very clever and learns quickly","doesn’t work hard","works well with other people","has a good imagination","knows a lot of facts about different things"],
+  key:["is very clever and learns quickly"],label:"ex 6 · intelligent →",type:"choice"},
+ {ex:"ex 6",q:'Someone who is <b>lazy</b>…',
+  choices:["is very clever and learns quickly","doesn’t work hard","works well with other people","has a good imagination","knows a lot of facts about different things"],
+  key:["doesn’t work hard"],label:"ex 6 · lazy →",type:"choice"},
+ {ex:"ex 6",q:'Someone who is <b>creative</b>…',
+  choices:["is very clever and learns quickly","doesn’t work hard","works well with other people","has a good imagination","knows a lot of facts about different things"],
+  key:["has a good imagination"],label:"ex 6 · creative →",type:"choice"},
+ {ex:"ex 6",q:'Someone who is <b>good at teamwork</b>…',
+  choices:["is very clever and learns quickly","doesn’t work hard","works well with other people","has a good imagination","knows a lot of facts about different things"],
+  key:["works well with other people"],label:"ex 6 · teamwork →",type:"choice"},
+ {ex:"ex 6",q:'Someone who is <b>good at general knowledge</b>…',
+  choices:["is very clever and learns quickly","doesn’t work hard","works well with other people","has a good imagination","knows a lot of facts about different things"],
+  key:["knows a lot of facts about different things"],label:"ex 6 · general knowledge →",type:"choice"},
+ /* ex 7 · the Redfield School web page */
+ {ex:"ex 7",q:'Redfield School web page: “Of course, students here <span class="gap">______</span> traditional subjects such as Maths and History…”',
+  choices:["memorise","study","perform","revise"],key:["study"],label:"ex 7 · gap 1",type:"choice"},
+ {ex:"ex 7",q:'“…but they also <span class="gap">______</span> more practical skills…”',
+  choices:["learn","revise","memorise","make"],key:["learn"],label:"ex 7 · gap 2",type:"choice"},
+ {ex:"ex 7",q:'“…more practical skills, such as <span class="gap">______</span>, which we think are important for life…”',
+  choices:["Chemistry","Physics","Cookery","Philosophy"],key:["cookery"],label:"ex 7 · gap 3",type:"choice"},
+ {ex:"ex 7",q:'“…there are lots of extra classes, such as Yoga and <span class="gap">______</span> Design…”',
+  choices:["Photography","Fashion","Film","Art"],key:["fashion"],label:"ex 7 · gap 4",type:"choice"},
+ {ex:"ex 7",q:'“We only have <span class="gap">______</span> exams once a year…”',
+  choices:["writing","writer","write","written"],key:["written"],label:"ex 7 · gap 5",type:"choice"},
+ {ex:"ex 7",q:'“…we don’t expect students to spend a lot of time <span class="gap">______</span> for them…”',
+  choices:["learning","memorising","performing","revising"],key:["revising"],label:"ex 7 · gap 6",type:"choice"},
+ {ex:"ex 7",q:'“…old-fashioned methods of learning such as <span class="gap">______</span> lots of facts…”',
+  choices:["memorising","practising","memorised","getting"],key:["memorising"],label:"ex 7 · gap 7",type:"choice"},
+ {ex:"ex 7",q:'“…people don’t need general <span class="gap">______</span> in the same way that they did 50 years ago…”',
+  choices:["facts","learning","understanding","knowledge"],key:["knowledge"],label:"ex 7 · gap 8",type:"choice"},
+ {ex:"ex 7",q:'“…teach our students critical <span class="gap">______</span> skills so they can form their own opinions…”',
+  choices:["understanding","thinking","learning","knowledge"],key:["thinking"],label:"ex 7 · gap 9",type:"choice"},
+ {ex:"ex 7",q:'“We want our students to be <span class="gap">______</span> and use their imagination in everything they do.”',
+  choices:["intelligent","lazy","creative","gifted"],key:["creative"],label:"ex 7 · gap 10",type:"choice"},
+ {ex:"ex 7",q:'“…we believe that <span class="gap">______</span> is a really important skill, so we encourage our students to work with each other in groups.”',
+  choices:["performance","teamwork","study","problem solving"],key:["teamwork"],label:"ex 7 · gap 11",type:"choice"},
+ {ex:"ex 7",q:'“We are lucky to have a lot of <span class="gap">______</span> young musicians here…”',
+  choices:["lazy","practised","talented","practical"],key:["talented"],label:"ex 7 · gap 12",type:"choice"},
+ {ex:"ex 7",q:'“…all our music groups give a <span class="gap">______</span> to the whole school at the end of each term.”',
+  choices:["project","performance","teamwork","practical exam"],key:["performance"],label:"ex 7 · gap 13",type:"choice"}
+];
 
 /* R1 · Fix it — the rr items from the 19.09 lesson + the usage fixes */
 var POOL_FIX=[
@@ -299,13 +412,14 @@ var WRITE_PROMPTS=[
 ];
 
 var ROUNDS_META=[
+ {id:"W",icon:"📓",name:"Workbook 9.1",sub:"the homework itself — WB pp. 102–103, all seven exercises",helper:"from your Workbook — it lives on this page",sec:0},
  {id:"R1",icon:"🔧",name:"Fix it",sub:"repair the word or the sentence",helper:"type it or tap it",sec:0},
  {id:"R2",icon:"⚡",name:"Passive sprint",sub:"beat the clock — 10 s a question",helper:"one word in the gap",sec:10},
  {id:"R3",icon:"🧠",name:"Exam reflex",sub:"no clock — the HSE reflexes",helper:"tap the right one",sec:0},
  {id:"R4",icon:"🔬",name:"Word lab",sub:"no clock — the three boxes from the lesson",helper:"tap the word",sec:0},
  {id:"R5",icon:"✍️",name:"Your turn",sub:"five sentences about you",helper:"",sec:0}
 ];
-var DEAL=[4,7,5,6]; /* per run: R1 R2 R3 R4 */
+var DEAL=[3,5,4,4]; /* per run: R1 R2 R3 R4 — the Workbook round plays in full */
 
 /* ---------- helpers ---------- */
 function $(id){return document.getElementById(id);}
@@ -328,16 +442,18 @@ function shuffleChoices(t){
 
 /* ---------- a fresh set per run ---------- */
 function buildRounds(){
+  var wb=POOL_WB91.map(function(t){return shuffleChoices(t);});
   var r1=pick(POOL_FIX,DEAL[0]).map(function(t){return shuffleChoices(t);});
   var r2=pick(POOL_PASSIVE,DEAL[1]);
   var r3=pick(POOL_REFLEX,DEAL[2]).map(function(t){return shuffleChoices(t);});
   var r4=pick(POOL_LAB,DEAL[3]).map(function(t){return shuffleChoices(t);});
   return [
-    {meta:ROUNDS_META[0],tasks:r1},
-    {meta:ROUNDS_META[1],tasks:r2},
-    {meta:ROUNDS_META[2],tasks:r3},
-    {meta:ROUNDS_META[3],tasks:r4},
-    {meta:ROUNDS_META[4],tasks:WRITE_PROMPTS}
+    {meta:ROUNDS_META[0],tasks:wb},
+    {meta:ROUNDS_META[1],tasks:r1},
+    {meta:ROUNDS_META[2],tasks:r2},
+    {meta:ROUNDS_META[3],tasks:r3},
+    {meta:ROUNDS_META[4],tasks:r4},
+    {meta:ROUNDS_META[5],tasks:WRITE_PROMPTS}
   ];
 }
 
@@ -457,7 +573,7 @@ $("write-done").addEventListener("click",function(){
 });
 
 /* ---------- end ---------- */
-var ICONS={R1:"🔧",R2:"⚡",R3:"🧠",R4:"🔬"};
+var ICONS={W:"📓",R1:"🔧",R2:"⚡",R3:"🧠",R4:"🔬"};
 function drillScore(){
   var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
   return {total:total,ok:ok};
@@ -466,7 +582,7 @@ function reportText(){
   var s=drillScore();
   var lines=["MASHA R. · HW · "+new Date().toLocaleString(),
     "Drill: "+s.ok+" / "+s.total];
-  ["R1","R2","R3","R4"].forEach(function(rid){
+  ["W","R1","R2","R3","R4"].forEach(function(rid){
     var rows=log.filter(function(l){return l.rid===rid;});
     if(rows.length)lines.push(ICONS[rid]+" "+rid+": "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
   });
@@ -488,7 +604,7 @@ function finish(){
   var s=drillScore();
   $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(s.ok/Math.max(1,s.total)*5)));
   var bits=[];
-  ["R1","R2","R3","R4"].forEach(function(rid){
+  ["W","R1","R2","R3","R4"].forEach(function(rid){
     var r=log.filter(function(l){return l.rid===rid;});
     if(r.length)bits.push(ICONS[rid]+" "+r.filter(function(l){return l.ok;}).length+"/"+r.length);
   });
