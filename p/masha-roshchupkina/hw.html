@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masha R. · English — homework &amp; the drill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#17181D; --ink:#F5F3EE; --soft:#A9ACB8;
+  --cyan:#2BD9E8; --magenta:#F03CB0; --yellow:#FFC93C; --lime:#A8E82A;
+  --card:#ffffff; --card-ink:#1d2025; --card-soft:#6b7280;
+  --line:rgba(255,255,255,.14);
+  --grad:linear-gradient(90deg,var(--cyan),var(--magenta) 45%,var(--yellow) 75%,var(--lime));
+  --shadow:0 10px 30px rgba(0,0,0,.45); --radius:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);min-height:100vh;
+  padding:5vh clamp(14px,5vw,72px) 8vh;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 2px,transparent 2px 34px),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0 2px,transparent 2px 90px),var(--wall);
+  -webkit-font-smoothing:antialiased}
+.eyebrow{font-family:'Permanent Marker',cursive;color:var(--yellow);transform:rotate(-1.2deg);
+  font-size:1.05rem;display:inline-block}
+h1{font-weight:800;font-size:clamp(1.7rem,5.5vw,2.7rem);margin:.15em 0 .1em}
+h1 .spray{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.tagline{color:var(--soft);font-weight:700;font-size:clamp(.95rem,3.4vw,1.05rem);line-height:1.55;max-width:620px}
+.rule{width:110px;height:5px;border-radius:99px;background:var(--grad);margin:.9em 0 3.2vh}
+main{max-width:640px}
+.card{background:var(--card);color:var(--card-ink);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(1.2rem,4.5vw,2rem);margin-bottom:1.4rem;animation:pop .22s ease;text-align:center}
+@keyframes pop{from{transform:scale(.98);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none!important}
+button{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;border:none;cursor:pointer;
+  border-radius:99px;transition:transform .12s ease,box-shadow .12s ease}
+button:active{transform:scale(.96)}
+.start-btn{background:linear-gradient(90deg,var(--cyan),var(--magenta));color:#fff;
+  font-size:clamp(1.15rem,4.4vw,1.4rem);padding:.65em 2.6em;margin-top:1.2em;
+  box-shadow:0 6px 0 rgba(0,0,0,.35)}
+.start-btn:active{box-shadow:0 2px 0 rgba(0,0,0,.35);transform:translateY(4px)}
+.rules{color:var(--card-soft);font-weight:700;font-size:clamp(.98rem,3.6vw,1.1rem);line-height:1.7}
+.icons{font-size:1.5rem;letter-spacing:.28em;margin-top:.8em}
+.meta{margin-top:.5em;color:var(--card-soft);font-weight:800;font-size:.85rem;letter-spacing:.04em}
+.best{margin-top:.4em;color:var(--card-soft);font-weight:700;font-size:.85rem}
+.qcount{font-size:.8rem;font-weight:800;color:var(--magenta);letter-spacing:.08em;text-transform:uppercase}
+.timer-wrap{height:10px;background:#ece9f1;border-radius:99px;overflow:hidden;margin:1em 0 .2em}
+.timer-wrap.off{visibility:hidden}
+.timer-bar{height:100%;width:100%;background:var(--grad);border-radius:99px}
+.timer-num{font-weight:800;color:var(--card-soft);font-size:.85rem;min-height:1.1em}
+.timer-num.low{color:#e5484d}
+.prompt{font-size:clamp(1.15rem,5vw,1.5rem);font-weight:800;line-height:1.4;margin-top:.5em}
+.prompt .gap{color:var(--magenta);letter-spacing:.05em}
+.prompt .base{color:#0d7c8a;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.8em}
+.helper{margin-top:.7em;font-size:.88rem;font-weight:700;color:var(--card-soft)}
+.answer-row{display:flex;gap:.55em;justify-content:center;flex-wrap:wrap;margin-top:1.1em}
+.choice{background:#f4f2f7;color:var(--card-ink);font-size:clamp(.98rem,3.9vw,1.2rem);
+  padding:.55em 1.3em;box-shadow:0 4px 0 #dcd8e4;line-height:1.2}
+.choice:active{box-shadow:0 1px 0 #dcd8e4;transform:translateY(3px)}
+input.type-box{font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1.1rem,4.6vw,1.45rem);
+  color:var(--card-ink);text-align:center;border:3px solid #dcd8e4;border-radius:14px;
+  padding:.45em .6em;width:min(320px,78vw);outline:none;background:#fbfbfd}
+input.type-box:focus{border-color:var(--magenta)}
+.ok-btn{background:#1d2025;color:#fff;font-size:clamp(.95rem,3.8vw,1.15rem);
+  padding:.6em 1.7em;box-shadow:0 4px 0 rgba(0,0,0,.3);align-self:center}
+.flash{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,6.5vw,2.2rem);
+  text-align:center;padding:2.2em 0;animation:pop .2s ease}
+.flash .sub{display:block;font-size:.55em;color:var(--soft);margin-top:.6em}
+.flash.fix{color:var(--yellow)}
+.flash.fix .sub{color:var(--ink)}
+.write-box textarea{font-family:'Nunito',sans-serif;font-weight:700;font-size:1rem;color:var(--card-ink);
+  width:100%;min-height:3.2em;border:2px solid #dcd8e4;border-radius:12px;padding:.6em .7em;
+  resize:vertical;outline:none;background:#fbfbfd;margin-top:.7em}
+.write-box textarea:focus{border-color:var(--cyan)}
+.write-box .wlabel{text-align:left;font-weight:800;font-size:.9rem;color:#0d7c8a}
+.stars{font-size:clamp(2rem,9vw,2.8rem);margin:.1em 0}
+.end-title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.4rem,5.5vw,2rem)}
+.one-line{margin:1em 0 .2em;font-weight:800;font-size:clamp(1rem,3.8vw,1.2rem)}
+.remember{margin:1em auto 0;text-align:left;max-width:480px;color:var(--card-soft);font-weight:700;
+  font-size:.92rem;line-height:1.65}
+.remember b{color:#e5484d}
+.sent{margin-top:.7em;font-weight:700;color:#0d7c8a;font-size:.95rem;line-height:1.6}
+.copy-btn{background:linear-gradient(90deg,var(--cyan),var(--magenta));color:#fff;
+  font-size:clamp(.95rem,3.8vw,1.15rem);padding:.7em 1.9em;margin-top:.9em;box-shadow:0 6px 0 rgba(0,0,0,.35)}
+.again-btn{background:transparent;color:var(--card-ink);font-size:.95rem;
+  padding:.55em 1.3em;margin-top:.7em;border:2px solid #dcd8e4}
+.hwcard{text-align:left}
+.hwcard .no{font-family:'Permanent Marker',cursive;color:var(--magenta);font-size:.95rem}
+.hwcard h2{font-weight:800;font-size:clamp(1.15rem,4.4vw,1.45rem);margin:.15em 0 .4em}
+.hwcard ol{margin:.4em 0 .2em 1.3em;font-weight:700;color:var(--card-ink);font-size:clamp(.95rem,3.7vw,1.08rem);line-height:1.7}
+.hwcard .hint{color:var(--card-soft);font-weight:700;font-size:.9rem;margin-top:.5em;line-height:1.6}
+.audio-row{margin-top:.8em;text-align:center}
+.audio-row audio{width:100%;max-width:440px}
+.archive-note{color:var(--soft);font-family:'Permanent Marker',cursive;transform:rotate(-.8deg);
+  font-size:.95rem;margin:2.2vh 0 1rem}
+footer{color:var(--soft);font-size:.78rem;font-weight:600;margin-top:4vh;text-align:center}
+</style>
+</head>
+<body>
+<div class="eyebrow">Masha R. · English</div>
+<h1>Homework &amp; the <span class="spray">drill</span></h1>
+<p class="tagline">One link — save it. New homework always appears here, on top.
+The drill deals a <b>fresh set every run</b> — play it as often as you like.</p>
+<div class="rule"></div>
+
+<main>
+  <div class="card" id="start-card">
+    <p class="rules">Four games + your sentences.<br>
+    ⚡ The sprint is <b>timed</b> — everywhere else: no clock, think as long as you want.<br>
+    Wrong answers come back with the fix.</p>
+    <div class="icons">🔧 ⚡ 🧠 🔬 ✍️</div>
+    <div class="meta">5 rounds · ~12 minutes</div>
+    <div class="best" id="best-line"></div>
+    <button class="start-btn" id="begin-btn">Start the drill</button>
+  </div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div class="timer-wrap" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="card hidden write-box" id="write-card">
+    <div class="qcount">✍️ Your turn · five sentences</div>
+    <p class="rules" style="margin-top:.6em"><b>You as a student</b> — say it in English.
+    Use the word in brackets. Two of your sentences should be <b>true stories</b>, not just “I am…”.</p>
+    <div id="write-fields"></div>
+    <button class="ok-btn" id="write-done" style="margin-top:1em">Done — finish</button>
+  </div>
+
+  <div class="flash hidden" id="flash"></div>
+
+  <div class="card hidden" id="end-card">
+    <div class="stars" id="end-stars"></div>
+    <div class="end-title">Done!</div>
+    <div class="one-line" id="end-rows"></div>
+    <div class="remember hidden" id="end-remember"></div>
+    <div class="sent" id="sent-line"></div>
+    <div><button class="copy-btn" id="copy-btn">📋 Copy the report for Elena</button></div>
+    <div><button class="again-btn" id="again-btn">🔁 Fresh set</button></div>
+  </div>
+
+  <div class="card hwcard">
+    <div class="no">Lesson 5 · September the 19th</div>
+    <h2>Vocabulary: Education</h2>
+    <ol>
+      <li>The three Vocabulary boxes — <b>A</b> school subjects · <b>B</b> learning &amp; assessment · <b>C</b> describing students. The <b>Word lab</b> 🔬 drills them in every run — a fast quiz at the next lesson.</li>
+      <li><b>Five sentences “Me as a student”</b> — write them in ✍️ Your turn. They travel to Elena inside the report.</li>
+      <li>Optional: listen to track 3.20 again and <b>retell it</b> in a one-minute voice message.</li>
+    </ol>
+    <div class="audio-row">
+      <audio controls preload="none" src="../../media/ww3-cd3-3_20.mp3"></audio>
+      <div class="hint">Track 3.20 · the four students talking about their recent tests</div>
+    </div>
+  </div>
+</main>
+
+<div class="archive-note">Older homework stays below as the list grows 📌</div>
+
+<footer>Masha R. · English · one permanent link — bookmark it ⭐</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* === ELENA: when the Google Form exists, paste its formResponse link here
+   (one line, like Irina's hw) — auto-send switches on by itself. === */
+var FORM_ACTION="";
+var FORM_ENTRY="entry.000000";
+
+/* ================= POOLS — they grow with the course ================= */
+
+/* R1 · Fix it — the rr items from the 19.09 lesson + the usage fixes */
+var POOL_FIX=[
+ {q:'Last week we <span class="gap">______</span> a robot for the science fair. <span class="base">(ASSEMBLE — spelling!)</span>',
+  key:["assembled"],label:"assemble → past, spelling",type:"type"},
+ {q:'Moscow was <span class="gap">______</span> in 1147. <span class="base">(FOUND)</span>',
+  key:["founded"],label:"Moscow: was ___ in 1147",type:"type"},
+ {q:'I <span class="gap">______</span> my old notebook under the bed yesterday. <span class="base">(FIND)</span>',
+  key:["found"],label:"find → past",type:"type"},
+ {q:'A boy who shouts “Shut up!” at the dinner table is…',
+  choices:["impolite","inpolite","unpolite","dishonest"],key:["impolite"],
+  label:"polite → the negative",type:"choice"},
+ {q:'Which spelling is right?',
+  choices:["honest","honnest","honnist","onest"],key:["honest"],
+  label:"honest — the silent letter",type:"choice"},
+ {q:'The bus was late, so we waited…',
+  choices:["a lot of times","for a long time"],key:["for a long time"],
+  label:"duration ≠ frequency",type:"choice"},
+ {q:'She had lunch. <span class="gap">______</span> she walked the dog.',
+  choices:["After that","After it","After all"],key:["after that"],
+  label:"sequencing: after that",type:"choice"},
+ {q:'After he <span class="gap">______</span> home, he called me. <span class="base">(GO — yesterday)</span>',
+  key:["went","had gone"],label:"the tense after “after”",type:"type"},
+ {q:'A written exam, a project, a performance — each of them is a type of <span class="gap">______</span>.',
+  key:["assessment"],label:"the U9 word, spelling",type:"type"},
+ {q:'She is sure she can do it well — she is <span class="gap">______</span>.',
+  key:["confident"],label:"Vocab C word, spelling",type:"type"},
+ {q:'How do you get ready for a difficult exam? You <span class="gap">______</span> it for a week.',
+  choices:["prepare for","prepare","prepare to"],key:["prepare for"],
+  label:"prepare FOR",type:"choice"}
+];
+
+/* R2 · Passive sprint — timed. The U8 win stays warm; the found/founded twin lives here too */
+var POOL_PASSIVE=[
+ {q:'These cars are <span class="gap">______</span> in Japan. <span class="base">(MAKE)</span>',
+  key:["made"],label:"are ___ (MAKE)"},
+ {q:'My phone was <span class="gap">______</span> last month. <span class="base">(STEAL)</span>',
+  key:["stolen"],label:"was ___ (STEAL)"},
+ {q:'English is <span class="gap">______</span> here. <span class="base">(SPEAK)</span>',
+  key:["spoken"],label:"is ___ (SPEAK)"},
+ {q:'The school was <span class="gap">______</span> in 1990. <span class="base">(BUILD)</span>',
+  key:["built"],label:"was ___ (BUILD)"},
+ {q:'Harry Potter was <span class="gap">______</span> by J.K. Rowling. <span class="base">(WRITE)</span>',
+  key:["written"],label:"was ___ (WRITE)"},
+ {q:'Pizza is <span class="gap">______</span> all over the world. <span class="base">(EAT)</span>',
+  key:["eaten"],label:"is ___ (EAT)"},
+ {q:'I <span class="gap">______</span> my keys yesterday. <span class="base">(FIND — no passive here!)</span>',
+  key:["found"],label:"the twin: I ___ my keys"},
+ {q:'The homework is <span class="gap">______</span> every day. <span class="base">(CHECK)</span>',
+  key:["checked"],label:"is ___ (CHECK)"},
+ {q:'America was <span class="gap">______</span> in 1492. <span class="base">(DISCOVER)</span>',
+  key:["discovered"],label:"was ___ (DISCOVER)"},
+ {q:'The thief was <span class="gap">______</span> by the police. <span class="base">(CATCH)</span>',
+  key:["caught"],label:"was ___ (CATCH)"}
+];
+
+/* R3 · Exam reflex — the HSE tracker items */
+var POOL_REFLEX=[
+ {q:'I <span class="gap">______</span> hate carrots, but now I love them.',
+  choices:["used to","use to","am used to"],key:["used to"],label:"used to + inf"},
+ {q:'She is a nurse. She is used to <span class="gap">______</span> night shifts.',
+  choices:["work","working","worked"],key:["working"],label:"be used to + ing"},
+ {q:'I have known my best friend <span class="gap">______</span> 2020.',
+  choices:["since","for"],key:["since"],label:"since / for"},
+ {q:'We have lived in this flat <span class="gap">______</span> ten years.',
+  choices:["since","for"],key:["for"],label:"since / for"},
+ {q:'Two <span class="gap">______</span> were playing in the yard.',
+  choices:["childs","children","childrens"],key:["children"],label:"irregular plural"},
+ {q:'This test is <span class="gap">______</span> than the last one.',
+  choices:["biger","bigger","more big"],key:["bigger"],label:"comparative spelling"},
+ {q:'She looked at <span class="gap">______</span> in the mirror.',
+  choices:["her","hers","herself"],key:["herself"],label:"reflexive pronoun"},
+ {q:'Dinosaurs <span class="gap">______</span> 66 million years ago.',
+  choices:["disappeared","inappeared","unappeared"],key:["disappeared"],label:"negative prefix dis-"},
+ {q:'I’m not sure about Saturday — I <span class="gap">______</span> come to the party.',
+  choices:["might","must","can"],key:["might"],label:"might = maybe"}
+];
+
+/* R4 · Word lab — the three U9.1 Vocabulary boxes (the assigned homework) */
+var POOL_LAB=[
+ {q:'“You believe that you can do things successfully.”',
+  choices:["confident","creative","lazy","hard-working"],key:["confident"],label:"def → confident"},
+ {q:'“Using your imagination.”',
+  choices:["creative","intelligent","lazy","teamwork"],key:["creative"],label:"def → creative"},
+ {q:'“Think clearly and ask questions.”',
+  choices:["critical thinking","general knowledge","problem solving","performance"],key:["critical thinking"],label:"def → critical thinking"},
+ {q:'“Identify a problem and work out a solution.”',
+  choices:["problem solving","teamwork","critical thinking","project"],key:["problem solving"],label:"def → problem solving"},
+ {q:'“Work well with other people.”',
+  choices:["teamwork","general knowledge","confident","revise"],key:["teamwork"],label:"def → teamwork"},
+ {q:'“Knowing information about the world around you.”',
+  choices:["general knowledge","critical thinking","intelligent","assessment"],key:["general knowledge"],label:"def → general knowledge"},
+ {q:'“Always put in a lot of effort.”',
+  choices:["hard-working","talented","lazy","confident"],key:["hard-working"],label:"def → hard-working"},
+ {q:'“The ability to understand things.”',
+  choices:["intelligent","creative","memorise","gifted"],key:["intelligent"],label:"def → intelligent"},
+ {q:'<span class="gap">______</span> = learn by heart — a poem, a part in a play',
+  choices:["memorise","learn","revise","study"],key:["memorise"],label:"box B: memorise"},
+ {q:'<span class="gap">______</span> for a speaking exam = get ready again',
+  choices:["revise","learn","study","memorise"],key:["revise"],label:"box B: revise"},
+ {q:'<span class="gap">______</span> for the whole night',
+  choices:["study","revise","memorise","learn"],key:["study"],label:"box B: study"},
+ {q:'<span class="gap">______</span> about the ancient Romans = get to know',
+  choices:["learn","revise","study","teach"],key:["learn"],label:"box B: learn"},
+ {q:'Playing your flute on stage — what type of assessment?',
+  choices:["a performance","a project","a practical exam","a written exam"],key:["a performance"],label:"assessment: performance"},
+ {q:'A volcano model you made at home — what type of assessment?',
+  choices:["a project","a performance","a speaking exam","a practical exam"],key:["a project"],label:"assessment: project"},
+ {q:'Flasks, liquids, (careful!) explosions — the subject:',
+  choices:["Chemistry","Physics","Biology","Geography"],key:["chemistry"],label:"subject: Chemistry"},
+ {q:'Maps, mountains, capitals — the subject:',
+  choices:["Geography","History","Citizenship","Biology"],key:["geography"],label:"subject: Geography"},
+ {q:'Bread dough and a sieve — the subject:',
+  choices:["Cooking","Chemistry","Art","Health"],key:["cooking"],label:"subject: Cooking"},
+ {q:'Plants in test tubes — the subject:',
+  choices:["Biology","Chemistry","ICT","Philosophy"],key:["biology"],label:"subject: Biology"}
+];
+
+/* R5 · Your turn — the five sentences (the homework itself; no keys) */
+var WRITE_PROMPTS=[
+ {hint:"intelligent",ph:"What do you understand easily? I’m quite intelligent — …"},
+ {hint:"confident",ph:"What are you confident about? I feel confident when …"},
+ {hint:"hard-working",ph:"Where do you put in a lot of effort? I’m hard-working in …"},
+ {hint:"talented / gifted",ph:"Your talent — the flute counts! I’m talented at …"},
+ {hint:"good at …",ph:"teamwork, problem solving or general knowledge? I’m good at …"}
+];
+
+var ROUNDS_META=[
+ {id:"R1",icon:"🔧",name:"Fix it",sub:"repair the word or the sentence",helper:"type it or tap it",sec:0},
+ {id:"R2",icon:"⚡",name:"Passive sprint",sub:"beat the clock — 10 s a question",helper:"one word in the gap",sec:10},
+ {id:"R3",icon:"🧠",name:"Exam reflex",sub:"no clock — the HSE reflexes",helper:"tap the right one",sec:0},
+ {id:"R4",icon:"🔬",name:"Word lab",sub:"no clock — the three boxes from the lesson",helper:"tap the word",sec:0},
+ {id:"R5",icon:"✍️",name:"Your turn",sub:"five sentences about you",helper:"",sec:0}
+];
+var DEAL=[4,7,5,6]; /* per run: R1 R2 R3 R4 */
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function pick(arr,n){return shuffle(arr).slice(0,n);}
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function norm(s){return (s||"").toString().trim().toLowerCase().replace(/\s+/g," ").replace(/[.!?]+$/,"");}
+function isOk(t,given){given=norm(given);if(!given)return false;
+  var keys=Array.isArray(t.key)?t.key:[t.key];
+  return keys.some(function(k){return norm(k)===given;});}
+function show(id){["start-card","q-card","write-card","flash","end-card"].forEach(function(c){
+  $(c).classList.add("hidden");});
+  if(id)$(id).classList.remove("hidden");}
+function shuffleChoices(t){
+  if(!t.choices)return t;
+  var c=shuffle(t.choices);var seen={},out=[];
+  c.forEach(function(x){var k=norm(x);if(!seen[k]){seen[k]=1;out.push(x);}});
+  return Object.assign({},t,{choices:out});}
+
+/* ---------- a fresh set per run ---------- */
+function buildRounds(){
+  var r1=pick(POOL_FIX,DEAL[0]).map(function(t){return shuffleChoices(t);});
+  var r2=pick(POOL_PASSIVE,DEAL[1]);
+  var r3=pick(POOL_REFLEX,DEAL[2]).map(function(t){return shuffleChoices(t);});
+  var r4=pick(POOL_LAB,DEAL[3]).map(function(t){return shuffleChoices(t);});
+  return [
+    {meta:ROUNDS_META[0],tasks:r1},
+    {meta:ROUNDS_META[1],tasks:r2},
+    {meta:ROUNDS_META[2],tasks:r3},
+    {meta:ROUNDS_META[3],tasks:r4},
+    {meta:ROUNDS_META[4],tasks:WRITE_PROMPTS}
+  ];
+}
+
+/* ---------- state ---------- */
+var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false,sentences=[];
+
+/* ---------- flow ---------- */
+$("begin-btn").addEventListener("click",function(){ri=0;log=[];sentences=[];roundFlash();});
+$("again-btn").addEventListener("click",function(){rounds=buildRounds();ri=0;log=[];sentences=[];roundFlash();});
+
+function roundFlash(){
+  show("flash");
+  var m=rounds[ri].meta;
+  $("flash").className="flash";
+  $("flash").innerHTML=m.icon+" "+m.name+'<span class="sub">'+m.sub+"</span>";
+  setTimeout(function(){qi=0;(m.id==="R5")?askWrite():ask();},1400);
+}
+
+function ask(){
+  answered=false;
+  var r=rounds[ri],t=r.tasks[qi];
+  $("q-count").textContent=r.meta.icon+" "+r.meta.name+" · "+(qi+1)+"/"+r.tasks.length;
+  var timed=r.sec>0;
+  $("timer-wrap").className="timer-wrap"+(timed?"":" off");
+  $("timer-num").textContent=timed?"":"· no clock — think ·";
+  var body='<div class="prompt">'+t.q+"</div>";
+  body+='<div class="helper">'+r.meta.helper+"</div>";
+  if(t.type==="choice"||t.choices){
+    body+='<div class="answer-row">'+t.choices.map(function(c){
+      return '<button class="choice" data-v="'+esc(c)+'">'+esc(c)+"</button>";}).join("")+"</div>";
+  }else{
+    body+='<div class="answer-row"><input class="type-box" id="type-box" autocomplete="off" autocapitalize="off" spellcheck="false">'+
+      '<button class="ok-btn" id="ok-btn">OK</button></div>';
+  }
+  $("q-body").innerHTML=body;
+  show("q-card");
+  if(t.type==="choice"||t.choices){
+    Array.prototype.forEach.call(document.querySelectorAll(".choice"),function(b){
+      b.addEventListener("click",function(){if(answered)return;answered=true;stopTimer();
+        var ok=isOk(t,b.getAttribute("data-v"));record(t,b.getAttribute("data-v"),false,ok);
+        move(ok);});});
+  }else{
+    var box=$("type-box");
+    var submit=function(){if(answered)return;answered=true;stopTimer();
+      var ok=isOk(t,box.value);record(t,box.value,false,ok);move(ok);};
+    $("ok-btn").addEventListener("click",submit);
+    box.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
+    setTimeout(function(){box.focus();},60);
+  }
+  if(timed)startTimer(r.sec,function(){
+    if(answered)return;answered=true;
+    var typed=$("type-box")?$("type-box").value:null;
+    record(t,typed,true,false);nextLate();
+  });
+}
+
+function startTimer(sec,onOut){
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  num.textContent=sec+" s";num.className="timer-num";
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 s";
+      clearInterval(timer);timer=null;onOut();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" s";
+    num.className="timer-num"+(s<=3?" low":"");
+  },100);
+}
+function stopTimer(){if(timer){clearInterval(timer);timer=null;}}
+
+function record(t,given,late,ok){
+  log.push({rid:rounds[ri].meta.id,label:t.label,
+    given:late?(given?("too slow, wrote: "+given):"TIME UP"):given,
+    key:Array.isArray(t.key)?t.key.join(" / "):t.key,ok:ok});
+}
+
+function nextLate(){show("flash");$("flash").className="flash";
+  $("flash").innerHTML="⏰ Time!";setTimeout(advanceRound,950);}
+
+function move(ok){
+  var r=rounds[ri];
+  var lastOfRound=qi>=r.tasks.length-1;
+  if(ok){show("flash");$("flash").className="flash";
+    $("flash").innerHTML="✅";setTimeout(advanceRound,700);}
+  else{show("flash");$("flash").className="flash fix";
+    $("flash").innerHTML="✗"+(t_key()?(' <span class="sub">→ '+esc(t_key())+"</span>"):"");
+    setTimeout(advanceRound,lastOfRound?1500:1500);}
+  function advanceRound(){
+    if(!lastOfRound){qi++;ask();}
+    else if(ri<rounds.length-1){ri++;roundFlash();}
+    else{finish();}
+  }
+  function t_key(){var t=r.tasks[qi];return Array.isArray(t.key)?t.key[0]:t.key;}
+}
+
+/* ---------- write round ---------- */
+function askWrite(){
+  var wrap=$("write-fields");wrap.innerHTML="";
+  WRITE_PROMPTS.forEach(function(p,i){
+    var d=document.createElement("div");d.className="write-box";
+    d.innerHTML='<div class="wlabel">'+(i+1)+" · use: "+esc(p.hint)+"</div>"+
+      '<textarea id="w'+i+'" placeholder="'+esc(p.ph)+'"></textarea>';
+    wrap.appendChild(d);
+  });
+  show("write-card");
+  window.scrollTo(0,0);
+}
+$("write-done").addEventListener("click",function(){
+  sentences=WRITE_PROMPTS.map(function(p,i){var v=$("w"+i).value.trim();return v||null;});
+  var n=sentences.filter(Boolean).length;
+  if(n===0){$("w0").focus();return;}
+  finish();
+});
+
+/* ---------- end ---------- */
+var ICONS={R1:"🔧",R2:"⚡",R3:"🧠",R4:"🔬"};
+function drillScore(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  return {total:total,ok:ok};
+}
+function reportText(){
+  var s=drillScore();
+  var lines=["MASHA R. · HW · "+new Date().toLocaleString(),
+    "Drill: "+s.ok+" / "+s.total];
+  ["R1","R2","R3","R4"].forEach(function(rid){
+    var rows=log.filter(function(l){return l.rid===rid;});
+    if(rows.length)lines.push(ICONS[rid]+" "+rid+": "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
+  });
+  var missed=log.filter(function(l){return !l.ok;});
+  if(missed.length){
+    lines.push("","Missed ("+missed.length+"):");
+    missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+(l.given||"—")+" · key: "+l.key);});
+  }else{lines.push("","Missed: none! 🎉");}
+  var written=sentences.filter(Boolean);
+  lines.push("","Her sentences ("+written.length+" of 5):");
+  written.forEach(function(v,i){lines.push("  "+(i+1)+". "+v);});
+  var empty=sentences.length-written.length;
+  if(empty>0)lines.push("  ("+empty+" not written yet)");
+  return lines.join("\n");
+}
+
+function finish(){
+  stopTimer();
+  var s=drillScore();
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(s.ok/Math.max(1,s.total)*5)));
+  var bits=[];
+  ["R1","R2","R3","R4"].forEach(function(rid){
+    var r=log.filter(function(l){return l.rid===rid;});
+    if(r.length)bits.push(ICONS[rid]+" "+r.filter(function(l){return l.ok;}).length+"/"+r.length);
+  });
+  $("end-rows").textContent=bits.join("  ·  ");
+  var missed=log.filter(function(l){return !l.ok;}).slice(0,6);
+  var rem=$("end-remember");
+  if(missed.length){
+    rem.className="remember";
+    rem.innerHTML="<b>To remember:</b><br>"+missed.map(function(l){
+      return "· "+esc(l.label)+" → <b>"+esc(l.key)+"</b>";}).join("<br>");
+  }else{rem.className="remember hidden";}
+  var written=sentences.filter(Boolean).length;
+  $("sent-line").textContent=written?("✍️ Sentences saved: "+written+" of 5"):"";
+  var txt=reportText();
+  try{localStorage.setItem("mashar-hw-last",txt);}catch(e){}
+  try{localStorage.setItem("mashar-hw-runs",String((+localStorage.getItem("mashar-hw-runs")||0)+1));}catch(e){}
+  try{
+    var best=+localStorage.getItem("mashar-hw-best")||0;
+    var pct=Math.round(s.ok/Math.max(1,s.total)*100);
+    if(pct>best){try{localStorage.setItem("mashar-hw-best",String(pct));}catch(e){}}
+  }catch(e){}
+  try{
+    var q=JSON.parse(localStorage.getItem("mashar-hw-queue")||"[]");
+    q.push(txt);if(q.length>10)q=q.slice(-10);
+    localStorage.setItem("mashar-hw-queue",JSON.stringify(q));
+  }catch(e){}
+  flushQueue();
+  show("end-card");
+  window.scrollTo(0,0);
+}
+
+function sendViaForm(txt){
+  if(!FORM_ACTION)return;
+  var frame=document.createElement("iframe");
+  frame.name="hw-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);
+  var sub=document.createElement("input");
+  sub.type="hidden";sub.name="submit";sub.value="Submit";
+  f.appendChild(sub);
+  document.body.appendChild(f);
+  f.submit();
+  setTimeout(function(){f.remove();frame.remove();},15000);
+}
+function flushQueue(){
+  if(!FORM_ACTION)return; /* no form yet — reports wait in the queue */
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("mashar-hw-queue")||"[]");}catch(e){}
+  if(!q.length)return;
+  q.forEach(sendViaForm);
+  try{localStorage.setItem("mashar-hw-queue","[]");}catch(e){}
+}
+flushQueue();
+
+/* ---------- copy button (works without the form) ---------- */
+$("copy-btn").addEventListener("click",function(){
+  var txt;
+  try{txt=localStorage.getItem("mashar-hw-last")||reportText();}catch(e){txt=reportText();}
+  function done(){$("copy-btn").textContent="✅ Copied — now paste it to Elena";
+    setTimeout(function(){$("copy-btn").textContent="📋 Copy the report for Elena";},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done,function(){fallback();});
+  }else fallback();
+  function fallback(){
+    var ta=document.createElement("textarea");
+    ta.value=txt;document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");done();}catch(e){}
+    ta.remove();
+  }
+});
+
+/* ---------- best/runs on the start card ---------- */
+try{
+  var best=+localStorage.getItem("mashar-hw-best")||0;
+  var runs=+localStorage.getItem("mashar-hw-runs")||0;
+  if(runs)$("best-line").textContent="Runs: "+runs+(best?(" · best: "+best+"%"):"");
+}catch(e){}
+})();
+</script>
+</body>
+</html>
