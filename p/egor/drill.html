@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Egor — drill & adaptive test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   EGOR — the daily engine: DRILL + ADAPTIVE TEST in one page.
+   Born 2026-09-19 (Elena's ideas session, her GO for №16 v1).
+   DRILL: 10 timed items; a wrong answer sends the item back
+   later in the same session (repeat-on-mistake; spec §15.5).
+   ADAPTIVE: exam mode — a wrong answer calls the next task with
+   the SAME grammar tag (grammar-indexed adaptive test, v1);
+   right → a new tag. Weak tags come first (mastery kept in
+   localStorage — the session resumes where he stopped).
+   At zero seconds: silent, just next question (no sound, no red).
+   Bank seeded from the real FIPI 2027 demo (tasks 19–29).
+   Reports auto-send the Ira way: hidden-iframe POST to Elena's
+   Google Form (spec §15.5) — set DRILL_FORM.action once; until
+   then the report stays in localStorage + a copy button.
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --ink:#22303F; --ink-soft:#5D6B7A;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E; --stamp-soft:#FDEAE3;
+  --mint:#4CAF6E; --mint-soft:#E3F2E8; --white:#fff;
+  --shadow:0 8px 20px rgba(34,48,63,.1); --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  min-height:100vh;-webkit-font-smoothing:antialiased;padding:4vh 6vw 10vh;max-width:900px;margin-inline:auto}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin:.15em 0 .3em;
+  font-size:clamp(1.8rem,4vw,3.1rem)}
+.accent{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1em}
+.modes{display:flex;gap:1em;flex-wrap:wrap;margin-top:1.4em}
+.mode{flex:1 1 260px;background:var(--white);border-radius:20px;box-shadow:var(--shadow);
+  padding:1.2em 1.4em;cursor:pointer;border:3px solid transparent;transition:transform .15s,border-color .2s}
+.mode:hover{transform:translateY(-4px);border-color:var(--cheese)}
+.mode h2{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1.2rem,2.2vw,1.7rem)}
+.mode p{color:var(--ink-soft);margin-top:.35em;font-size:clamp(.95rem,1.45vw,1.15rem);line-height:1.5}
+.resume{margin-top:1.2em;background:var(--cheese-soft);border-radius:14px;padding:.7em 1em;
+  font-size:clamp(.95rem,1.45vw,1.15rem);display:none}
+.topbar{display:none;justify-content:space-between;align-items:center;gap:1em;flex-wrap:wrap}
+body.play .modes,body.play h1 .sub{display:none}
+body.play .topbar{display:flex}
+.badge{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1rem,1.6vw,1.3rem)}
+.timerline{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;font-size:clamp(1.1rem,1.9vw,1.5rem)}
+.qcard{background:var(--white);border-radius:20px;box-shadow:var(--shadow);padding:1.3em 1.5em;margin-top:1em}
+.qtag{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.8rem,1.2vw,1rem);
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.qtext{font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.55;margin-top:.4em}
+.qtext .gap{color:var(--stamp);font-weight:800;letter-spacing:.05em}
+.qbase{display:inline-block;margin-top:.5em;background:var(--cheese-soft);border-radius:10px;
+  padding:.15em .6em;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.05rem,1.8vw,1.4rem)}
+.ansrow{display:flex;gap:.7em;margin-top:1em;flex-wrap:wrap}
+.ansrow input{flex:1 1 200px;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.1rem,1.9vw,1.5rem);padding:.45em .8em;border:2.5px solid var(--navy);
+  border-radius:14px;color:var(--ink);background:var(--white)}
+.btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.3rem);
+  padding:.5em 1.4em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:0 8px 24px rgba(34,48,63,.18);
+  transition:transform .15s ease}
+.btn:hover{transform:scale(1.05)}
+.btn.ghost{color:var(--navy);background:var(--white);border:2.5px solid var(--navy);box-shadow:none}
+.feedback{display:none;margin-top:.9em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.4}
+.feedback.good{display:block;color:var(--mint)}
+.feedback.bad{display:block;color:var(--stamp)}
+.feedback .tail{display:block;font-family:'Nunito',sans-serif;font-weight:700;font-size:.65em;
+  color:var(--ink-soft);margin-top:.2em}
+.progress{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink-soft);margin-top:1em}
+.summary{background:var(--white);border-radius:20px;box-shadow:var(--shadow);padding:1.3em 1.5em;margin-top:1em;display:none}
+.summary h2{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1.2rem,2.2vw,1.7rem)}
+.summary table{border-collapse:collapse;margin-top:.8em;width:100%}
+.summary td,.summary th{border-bottom:1.5px solid var(--cheese-soft);padding:.35em .5em;
+  font-size:clamp(.95rem,1.5vw,1.2rem);text-align:left}
+.summary th{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy)}
+.summary .ok{color:var(--mint);font-weight:700}.summary .no{color:var(--stamp);font-weight:700}
+.copywrap{margin-top:1em}
+textarea{width:100%;min-height:7em;font-family:'Nunito',monospace;font-size:.85rem;
+  border:2px solid var(--cheese);border-radius:12px;padding:.6em;color:var(--ink)}
+.hint{color:var(--ink-soft);font-style:italic;font-size:clamp(.92rem,1.35vw,1.12rem);margin-top:1.2em}
+</style>
+</head>
+<body>
+<div class="eyebrow">ЕГЭ 2027 · grammar & word formation · the daily engine</div>
+<h1>Drill &amp; Adaptive test ⚙️</h1>
+<div class="accent"></div>
+
+<div class="modes">
+  <div class="mode" id="mDrill">
+    <h2>🎯 Daily drill — 10 items</h2>
+    <p>75 seconds per item. A wrong answer comes back later in the same
+    session — until you beat it. The timer never beeps: when it ends,
+    the next question just arrives.</p>
+  </div>
+  <div class="mode" id="mAdapt">
+    <h2>🧠 Adaptive test — the ladder</h2>
+    <p>Exam mode: right answer → a new grammar area. Wrong answer →
+    another task with the <b>same grammar</b>, so you don't leave until
+    the pattern gives in. Your weak areas are remembered and come first
+    next time.</p>
+  </div>
+</div>
+<div class="resume" id="resume"></div>
+
+<div class="topbar">
+  <span class="badge" id="modeBadge"></span>
+  <span class="timerline" id="qtimer">01:15</span>
+  <button class="btn ghost" id="quit">Finish</button>
+</div>
+
+<div class="qcard" id="qcard" style="display:none">
+  <div class="qtag" id="qtag"></div>
+  <div class="qtext" id="qtext"></div>
+  <div class="ansrow">
+    <input id="ans" autocomplete="off" spellcheck="false" placeholder="your answer…">
+    <button class="btn" id="check">Check ✓</button>
+  </div>
+  <div class="feedback" id="fb"></div>
+</div>
+
+<div class="summary" id="summary">
+  <h2>Today's map 📊</h2>
+  <table id="stable"></table>
+  <div class="copywrap">
+    <button class="btn" id="copybtn">📋 Copy the report</button>
+    <button class="btn ghost" id="again2">↺ One more run</button>
+  </div>
+  <textarea id="report" style="display:none"></textarea>
+  <p class="hint" id="sendnote"></p>
+</div>
+
+<p class="hint">The engine keeps every run on this device and remembers your
+weak grammar areas between sessions. Enter accepts the answer.</p>
+
+<script>
+/* ================= THE BANK (tag · q · base · keys) =================
+   Seeded with the REAL FIPI 2027 demo items (19–24 + 25–29 texts),
+   then same-tag tasks generated around them. Add items HERE.
+   tag = the grammar area; adaptive mode uses it to chain retries. */
+var BANK=[
+ {tag:"participle",q:"__________________ in the southern part of Greece, this vibrant city was a prosperous trade centre.",base:"SITUATE",keys:["situated"]},
+ {tag:"passive-past",q:"The city __________________ around the 8th century BC and became famous for its high-quality pottery.",base:"FOUND",keys:["was founded"]},
+ {tag:"past-simple",q:"The Corinthian Order quickly __________________ a distinctive feature of the Greek architectural style.",base:"BECOME",keys:["became"]},
+ {tag:"pres-perf-cont",q:"Since 1896 archaeologists __________________ there, finding various elements of ancient buildings each year.",base:"WORK",keys:["have been working","have worked"]},
+ {tag:"gerund",q:"Tourists enjoy __________________ at what is left from the once beautiful ancient city.",base:"LOOK",keys:["looking"]},
+ {tag:"passive-present",q:"It __________________ on the Volga River and has a lot of old churches and monasteries.",base:"LOCATE",keys:["is located"]},
+ {tag:"gerund",q:"Tourists also enjoy __________________ along its wonderful embankment.",base:"WALK",keys:["walking"]},
+ {tag:"pres-perf",q:"Millions of tourists __________________ Yaroslavl so far, and a lot of them want to come again.",base:"VISIT",keys:["have visited"]},
+ {tag:"plural",q:"It is a very popular item of clothing now, especially for __________________, who don't like buttons and zips.",base:"CHILD",keys:["children"]},
+ {tag:"passive-past",q:"A knitted woolen sweater as we know it today __________________ in Europe in the 19th century.",base:"CREATE",keys:["was created"]},
+ {tag:"past-cont",q:"Overweight people __________________ sweaters in order to lose some weight — that is why the item got its name.",base:"WEAR",keys:["wore","were wearing"]},
+ {tag:"wf-adv",q:"It is __________________ one of the greatest and most visited museums of the world.",base:"CERTAIN",keys:["certainly"]},
+ {tag:"wf-noun",q:"The Hermitage keeps a huge __________________ of paintings, coins and scythian gold.",base:"COLLECT",keys:["collection"]},
+ {tag:"wf-neg-adj",q:"At first it seemed __________________ that such a treasure could ever be open to the public.",base:"POSSIBLE",keys:["impossible"]},
+ {tag:"wf-adj",q:"The collection is __________________ — no money in the world could buy it.",base:"PRICE",keys:["priceless"]},
+ {tag:"wf-noun-place",q:"The Winter Palace was the winter __________________ of the Russian tsars.",base:"RESIDE",keys:["residence"]},
+ /* generated same-tag tasks */
+ {tag:"passive-past",q:"The first Olympic Games __________________ in 776 BC.",base:"HOLD",keys:["were held"]},
+ {tag:"passive-past",q:"The letter __________________ yesterday, but there is still no answer.",base:"SEND",keys:["was sent"]},
+ {tag:"passive-past",q:"This bridge __________________ in the 19th century and is still in use.",base:"BUILD",keys:["was built"]},
+ {tag:"passive-present",q:"English __________________ all over the world.",base:"SPEAK",keys:["is spoken"]},
+ {tag:"passive-present",q:"Museum tickets __________________ at the entrance every day.",base:"SELL",keys:["are sold"]},
+ {tag:"past-simple",q:"Last summer the whole family __________________ to Yaroslavl by train.",base:"GO",keys:["went"]},
+ {tag:"past-simple",q:"She __________________ the gold medal at the olympiad last year.",base:"WIN",keys:["won"]},
+ {tag:"pres-perf",q:"Look! Someone __________________ the window again.",base:"BREAK",keys:["has broken"]},
+ {tag:"pres-perf-cont",q:"He __________________ for the exam since Monday.",base:"PREPARE",keys:["has been preparing","has prepared"]},
+ {tag:"gerund",q:"He can't imagine a day without __________________ video games.",base:"PLAY",keys:["playing"]},
+ {tag:"gerund",q:"Thank you for __________________ me with the project.",base:"HELP",keys:["helping"]},
+ {tag:"plural",q:"Three __________________ came to the party, and the flat was full.",base:"MAN",keys:["men"]},
+ {tag:"plural",q:"The museum guides showed us the __________________ of the ancient ship.",base:"TOOTH",keys:["teeth"]},
+ {tag:"past-cont",q:"At 5 pm yesterday we __________________ the rooms of the Winter Palace.",base:"EXPLORE",keys:["were exploring"]},
+ {tag:"wf-adv",q:"She answered all the questions __________________ and won the quiz.",base:"CORRECT",keys:["correctly"]},
+ {tag:"wf-adv",q:"The train was __________________ late — two hours at least.",base:"EXTREME",keys:["extremely"]},
+ {tag:"wf-noun",q:"His __________________ for history started at school.",base:"ADMIRE",keys:["admiration"]},
+ {tag:"wf-noun",q:"The __________________ between the two cities is about 200 kilometres.",base:"DISTANT",keys:["distance"]},
+ {tag:"wf-neg-adj",q:"The palace is __________________ on Mondays — plan your visit for another day.",base:"ACCESS",keys:["inaccessible"]},
+ {tag:"wf-neg-adj",q:"He was __________________ to finish the marathon after the injury.",base:"ABLE",keys:["unable"]},
+ {tag:"wf-adj",q:"The guide told us __________________ stories about the palace.",base:"HISTORY",keys:["historical","historic"]},
+ {tag:"wf-noun-place",q:"Only __________________ of the town can enter the museum for free.",base:"RESIDE",keys:["residents"]}
+];
+var TAGNAME={participle:"participle I",passive:"passive","passive-past":"passive · past","passive-present":"passive · present",
+ "past-simple":"past simple","past-cont":"past continuous","pres-perf":"present perfect",
+ "pres-perf-cont":"present perfect continuous",gerund:"-ing form",plural:"plural",
+ "wf-adv":"word formation · adverb","wf-noun":"word formation · noun","wf-noun-place":"word formation · noun/place",
+ "wf-neg-adj":"word formation · negative","wf-adj":"word formation · adjective"};
+
+/* ============ reporting (the Ira way: queue + hidden-iframe POST) ============ */
+var DRILL_FORM={action:"",entryReport:""}; /* ← one-time setup: paste the form action + entry id */
+function queueReport(txt){
+  var q=[];try{q=JSON.parse(localStorage.getItem("egor-drill-queue")||"[]");}catch(e){}
+  q.push(txt);try{localStorage.setItem("egor-drill-queue",JSON.stringify(q));}catch(e){}
+  flushQueue();
+}
+function sendViaForm(txt){
+  if(!DRILL_FORM.action||!DRILL_FORM.entryReport)return false;
+  var f=document.createElement("form"),frame=document.createElement("iframe");
+  frame.name="hf"+Date.now();frame.style.display="none";document.body.appendChild(frame);
+  f.method="POST";f.action=DRILL_FORM.action;f.target=frame.name;
+  var i1=document.createElement("input");i1.type="hidden";i1.name=DRILL_FORM.entryReport;i1.value=txt;f.appendChild(i1);
+  var i2=document.createElement("input");i2.type="hidden";i2.name="submit";i2.value="Submit";f.appendChild(i2);
+  document.body.appendChild(f);f.submit();
+  setTimeout(function(){f.remove();frame.remove();},15000);
+  return true;
+}
+function flushQueue(){
+  var q=[];try{q=JSON.parse(localStorage.getItem("egor-drill-queue")||"[]");}catch(e){}
+  if(!q.length)return;
+  var left=q.filter(function(t){return !sendViaForm(t);});
+  try{localStorage.setItem("egor-drill-queue",JSON.stringify(left));}catch(e){}
+}
+flushQueue();
+
+/* ================= mastery (the memory between sessions) ================= */
+function mastery(){try{return JSON.parse(localStorage.getItem("egor-gram-mastery")||"{}");}catch(e){return {};}}
+function saveMastery(m){try{localStorage.setItem("egor-gram-mastery",JSON.stringify(m));}catch(e){}}
+function noteMastery(tag,ok){
+  var m=mastery();if(!m[tag])m[tag]={ok:0,total:0};m[tag].total++;if(ok)m[tag].ok++;
+  saveMastery(m);
+}
+function weakestTags(n){
+  var m=mastery(),arr=[];
+  for(var t in m){var rate=m[t].total?m[t].ok/m[t].total:1;arr.push([t,rate,m[t].total]);}
+  arr.sort(function(a,b){return a[1]-b[1]||b[2]-a[2];});
+  return arr.slice(0,n).map(function(x){return x[0];});
+}
+
+/* ================= the engine ================= */
+var mode=null,queue=[],done=0,log=[],perQ=75,left=perQ,tick=null,answered=true;
+var Q=1;
+function $(id){return document.getElementById(id);}
+function norm(s){return (s||"").toLowerCase().replace(/[.,!?;:]+/g,"").replace(/\s+/g," ").trim();}
+function shuffled(a){var r=a.slice();for(var i=r.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=r[i];r[i]=r[j];r[j]=t;}return r;}
+function pickTag(){
+  var weak=weakestTags(3).filter(function(t){return BANK.some(function(it){return it.tag===t;});});
+  if(weak.length&&Math.random()<0.6)return weak[Math.floor(Math.random()*weak.length)];
+  return BANK[Math.floor(Math.random()*BANK.length)].tag;
+}
+function nextItem(sameTag){
+  var pool=BANK;
+  if(sameTag)pool=BANK.filter(function(it){return it.tag===sameTag;});
+  if(!pool.length)pool=BANK;
+  /* prefer unseen this session */
+  var unseen=pool.filter(function(it){return !it.used;});
+  var src=unseen.length?unseen:pool;
+  var it=src[Math.floor(Math.random()*src.length)];
+  it.used=true;
+  return it;
+}
+function start(m){
+  mode=m;Q=1;done=0;log=[];
+  BANK.forEach(function(it){it.used=false;});
+  queue=[];
+  var n=(m==="drill")?10:12;
+  for(var i=0;i<n;i++)queue.push(nextItem(null));
+  document.body.classList.add("play");
+  $("modeBadge").textContent=(m==="drill"?"🎯 drill":"🧠 adaptive")+" · "+n+" items";
+  $("summary").style.display="none";
+  showQ();
+}
+function showQ(){
+  if(!queue.length){finish();return;}
+  answered=false;left=perQ;paintTimer();
+  var it=queue[0];
+  $("qcard").style.display="block";
+  $("qtag").textContent="Q"+Q+" · "+(TAGNAME[it.tag]||it.tag);
+  $("qtext").innerHTML=it.q.replace("__________________",'<span class="gap">______</span>')+
+    ' <span class="qbase">('+it.base+')</span>';
+  $("fb").className="feedback";$("fb").innerHTML="";
+  $("ans").value="";$("ans").disabled=false;$("check").disabled=false;
+  $("progress").textContent="";
+  clearInterval(tick);tick=setInterval(function(){
+    left--;paintTimer();
+    if(left<=0){clearInterval(tick);timeUp();}
+  },1000);
+  $("ans").focus();
+}
+function paintTimer(){
+  var s=Math.max(0,left);
+  $("qtimer").textContent=(s<10?"00:0":"00:")+s;
+}
+function timeUp(){ /* silent — just next question, counts as missed */
+  noteMastery(queue[0].tag,false);
+  log.push({tag:queue[0].tag,base:queue[0].base,ok:false,note:"time out"});
+  advance();
+}
+function check(){
+  if(answered)return;answered=true;
+  clearInterval(tick);
+  var it=queue[0],a=norm($("ans").value);
+  var ok=it.keys.map(norm).indexOf(a)>-1;
+  noteMastery(it.tag,ok);
+  log.push({tag:it.tag,base:it.base,ok:ok,note:a||"—"});
+  var fb=$("fb");
+  if(ok){
+    fb.className="feedback good";fb.innerHTML="✓ "+it.keys[0]+
+      '<span class="tail">'+(TAGNAME[it.tag]||it.tag)+" — done</span>";
+    queue.shift();Q++;done++;
+    setTimeout(showQ,900);
+  }else{
+    fb.className="feedback bad";fb.innerHTML="✗ the key: <b>"+it.keys[0]+"</b>"+
+      '<span class="tail">'+(mode==="adapt"?"same grammar comes again — beat it":"it comes back later in this session")+"</span>";
+    var same=it;
+    queue.shift();Q++;done++;
+    if(mode==="adapt"){
+      /* wrong → the next task keeps the SAME grammar tag */
+      var twin=nextItem(same.tag);
+      queue.unshift(twin);
+    }else{
+      queue.push(same); /* drill: returns later in the session */
+    }
+    setTimeout(showQ,1600);
+  }
+}
+function advance(){
+  queue.shift();Q++;done++;
+  if(mode==="adapt"){
+    /* time-out counts as wrong → same grammar again */
+    var twin=nextItem(queue[0]?queue[0].tag:null);
+    if(queue.length)queue.unshift(twin);
+  }
+  showQ();
+}
+function finish(){
+  clearInterval(tick);
+  $("qcard").style.display="none";
+  document.body.classList.remove("play");
+  var per={};
+  log.forEach(function(l){
+    if(!per[l.tag])per[l.tag]={ok:0,n:0};
+    per[l.tag].n++;if(l.ok)per[l.tag].ok++;
+  });
+  var rows="<tr><th>grammar area</th><th>result</th></tr>";
+  Object.keys(per).forEach(function(t){
+    var p=per[t];
+    rows+="<tr><td>"+(TAGNAME[t]||t)+"</td><td>"+
+      (p.ok===p.n?'<span class="ok">'+p.ok+"/"+p.n+'</span>':'<span class="no">'+p.ok+"/"+p.n+"</span>")+
+      "</td></tr>";
+  });
+  var totalOk=log.filter(function(l){return l.ok;}).length;
+  rows+='<tr><td><b>total</b></td><td><b>'+totalOk+"/"+log.length+"</b></td></tr>";
+  $("stable").innerHTML=rows;
+  var weak=weakestTags(3).map(function(t){return TAGNAME[t]||t;});
+  var txt="Egor · drill "+(mode==="adapt"?"(adaptive)":"")+" · "+
+    new Date().toLocaleDateString()+" · "+totalOk+"/"+log.length+
+    (weak.length?" · to watch: "+weak.join(", "):"");
+  $("report").value=txt;
+  var sent=sendViaForm(txt);
+  $("sendnote").textContent=DRILL_FORM.action?
+    (sent?"the report flew to your Google Form ✓":"offline — the report waits in the queue and flies on the next visit")
+    : "report kept on this device (and above). The one-time form setup switches on auto-send.";
+  $("summary").style.display="block";
+  queueReport(txt);
+}
+/* resume note */
+(function(){
+  var m=mastery(),t=0,o=0;
+  for(var k in m){t+=m[k].total;o+=m[k].ok;}
+  if(t){
+    var weak=weakestTags(3).map(function(x){return TAGNAME[x]||x;}).join(", ");
+    $("resume").style.display="block";
+    $("resume").innerHTML="📈 Welcome back: <b>"+o+"/"+t+"</b> all-time · the engine will lead with: <b>"+
+      (weak||"—")+"</b>";
+  }
+})();
+$("mDrill").addEventListener("click",function(){start("drill");});
+$("mAdapt").addEventListener("click",function(){start("adapt");});
+$("check").addEventListener("click",check);
+$("ans").addEventListener("keydown",function(e){if(e.key==="Enter")check();});
+$("quit").addEventListener("click",finish);
+$("again2").addEventListener("click",function(){$("summary").style.display="none";document.body.classList.remove("play");});
+$("copybtn").addEventListener("click",function(){
+  $("report").style.display="block";$("report").select();
+  try{document.execCommand("copy");$("copybtn").textContent="copied ✓";}catch(e){}
+});
+</script>
+</body>
+</html>

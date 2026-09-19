@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grammar sprint — the timed drill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   GRAMMAR SPRINT — the universal timed drill (spec §15.5).
+   Born 2026-09-19 (Elena's ideas session, №11–12): timed sets,
+   and a WRONG ANSWER SENDS THE ITEM BACK later in the same
+   session (repeat-on-mistake). Universal bank (A2–B1) here;
+   Egor's exam-tagged copy: p/egor/drill.html. Timer is silent:
+   at zero the next question just arrives. UNIVERSAL:
+   Bank-Pool, named by topic. Design: "Sergey's".
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --ink:#22303F; --ink-soft:#5D6B7A;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E; --stamp-soft:#FDEAE3;
+  --mint:#4CAF6E; --mint-soft:#E3F2E8; --white:#fff;
+  --shadow:0 8px 20px rgba(34,48,63,.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  min-height:100vh;-webkit-font-smoothing:antialiased;padding:5vh 6vw 10vh;max-width:860px;margin-inline:auto}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin:.15em 0 .3em;
+  font-size:clamp(1.9rem,4.2vw,3.4rem)}
+.accent{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1.2em}
+.why{font-family:'Fredoka',sans-serif;font-weight:500;background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem)}
+.why::before{content:"⚡ "}
+.topbar{display:none;justify-content:space-between;align-items:center;gap:1em;flex-wrap:wrap;margin-top:.4em}
+body.play .modes,body.play .why{display:none}
+body.play .topbar{display:flex}
+.badge{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1rem,1.6vw,1.3rem)}
+.timerline{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink-soft);
+  font-variant-numeric:tabular-nums;font-size:clamp(1.1rem,1.9vw,1.5rem)}
+.modes{display:flex;gap:1em;flex-wrap:wrap;margin-top:1.4em}
+.mode{flex:1 1 240px;background:var(--white);border-radius:20px;box-shadow:var(--shadow);
+  padding:1.1em 1.3em;cursor:pointer;border:3px solid transparent;transition:transform .15s,border-color .2s}
+.mode:hover{transform:translateY(-4px);border-color:var(--cheese)}
+.mode h2{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1.15rem,2vw,1.55rem)}
+.mode p{color:var(--ink-soft);margin-top:.3em;font-size:clamp(.95rem,1.45vw,1.12rem);line-height:1.45}
+.qcard{background:var(--white);border-radius:20px;box-shadow:var(--shadow);padding:1.3em 1.5em;margin-top:1em}
+.qnum{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.8rem,1.2vw,1rem);
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.qtext{font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.55;margin-top:.4em}
+.qtext .gap{color:var(--stamp);font-weight:800}
+.qbase{display:inline-block;margin-top:.5em;background:var(--cheese-soft);border-radius:10px;
+  padding:.15em .6em;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.05rem,1.8vw,1.4rem)}
+.ansrow{display:flex;gap:.7em;margin-top:1em;flex-wrap:wrap}
+.ansrow input{flex:1 1 200px;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.1rem,1.9vw,1.5rem);padding:.45em .8em;border:2.5px solid var(--navy);
+  border-radius:14px;color:var(--ink);background:var(--white)}
+.btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.3rem);
+  padding:.5em 1.4em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:0 8px 24px rgba(34,48,63,.18);
+  transition:transform .15s ease}
+.btn:hover{transform:scale(1.05)}
+.btn.ghost{color:var(--navy);background:var(--white);border:2.5px solid var(--navy);box-shadow:none}
+.feedback{display:none;margin-top:.9em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.1rem,1.9vw,1.45rem)}
+.feedback.good{display:block;color:var(--mint)}
+.feedback.bad{display:block;color:var(--stamp)}
+.feedback .tail{display:block;font-family:'Nunito',sans-serif;font-weight:700;font-size:.65em;
+  color:var(--ink-soft);margin-top:.2em}
+.summary{background:var(--white);border-radius:20px;box-shadow:var(--shadow);padding:1.3em 1.5em;margin-top:1em;display:none}
+.summary h2{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1.2rem,2.2vw,1.7rem)}
+.summary p{font-size:clamp(1.02rem,1.6vw,1.3rem);margin-top:.5em;line-height:1.5}
+.summary .list{color:var(--ink-soft);font-style:italic}
+.copywrap{margin-top:1em;display:flex;gap:.8em;flex-wrap:wrap}
+.hint{color:var(--ink-soft);font-style:italic;font-size:clamp(.92rem,1.35vw,1.12rem);margin-top:1.2em}
+</style>
+</head>
+<body>
+<div class="eyebrow">Grammar · the timed drill · universal</div>
+<h1>Grammar sprint ⚡</h1>
+<div class="accent"></div>
+<p class="why">Ten questions against the clock. What you miss — comes back before the end.</p>
+
+<div class="modes">
+  <div class="mode" id="mGo"><h2>▶ Start the sprint</h2><p>10 items · 60 seconds each ·
+    a wrong answer returns later in this same run — until you beat it.</p></div>
+  <div class="mode" id="mLight"><h2>🌱 Light round — 6 items</h2><p>A shorter warm-up,
+    same rule. Good for the last five minutes of a lesson.</p></div>
+</div>
+
+<div class="topbar">
+  <span class="badge" id="modeBadge"></span>
+  <span class="timerline" id="qtimer">01:00</span>
+  <button class="btn ghost" id="quit">Finish</button>
+</div>
+
+<div class="qcard" id="qcard" style="display:none">
+  <div class="qnum" id="qnum"></div>
+  <div class="qtext" id="qtext"></div>
+  <div class="ansrow">
+    <input id="ans" autocomplete="off" spellcheck="false" placeholder="your answer…">
+    <button class="btn" id="check">Check ✓</button>
+  </div>
+  <div class="feedback" id="fb"></div>
+</div>
+
+<div class="summary" id="summary">
+  <h2>Run report 📊</h2>
+  <p id="total"></p>
+  <p class="list" id="missed"></p>
+  <div class="copywrap">
+    <button class="btn" id="copybtn">📋 Copy the report</button>
+    <button class="btn ghost" id="again2">↺ Again</button>
+  </div>
+  <textarea id="report" style="display:none"></textarea>
+</div>
+
+<p class="hint">Every run deals fresh items from the bank. Enter accepts the answer.
+The timer is silent — no beeps, no red drama: when it ends, the next question arrives.</p>
+
+<script>
+/* THE BANK — universal A2–B1 grammar. Add items HERE. */
+var BANK=[
+ {q:"There ______ milk in the fridge, but not much.",base:"BE",keys:["is"]},
+ {q:"______ there any apples left?",base:"BE",keys:["are"]},
+ {q:"I ______ to school every day by bus.",base:"GO",keys:["go"]},
+ {q:"Yesterday she ______ her grandmother.",base:"VISIT",keys:["visited"]},
+ {q:"Look! The cat ______ up the tree.",base:"CLIMB",keys:["is climbing"]},
+ {q:"We ______ never ______ sushi before last summer. (eat, first word only)",base:"ATE",keys:["ate"]},
+ {q:"My brother is ______ at maths than me.",base:"GOOD",keys:["better"]},
+ {q:"This is the ______ film I have ever seen.",base:"FUNNY",keys:["funniest"]},
+ {q:"I have known him ______ 2019.",base:"SINCE/FOR",keys:["since"]},
+ {q:"She has lived here ______ ten years.",base:"SINCE/FOR",keys:["for"]},
+ {q:"There are ______ books on the table — take one.",base:"SOME/ANY",keys:["some"]},
+ {q:"Is there ______ juice in the cup?",base:"SOME/ANY",keys:["any"]},
+ {q:"I went to the shop because we had ______ bread.",base:"SOME/ANY",keys:["no"]},
+ {q:"One child → two ______.",base:"CHILD",keys:["children"]},
+ {q:"One man → three ______.",base:"MAN",keys:["men"]},
+ {q:"One tooth → a row of ______.",base:"TOOTH",keys:["teeth"]},
+ {q:"He ______ help you tomorrow, I promise.",base:"WILL/CAN",keys:["will"]},
+ {q:"You ______ run before the bus leaves!",base:"MUST",keys:["must","have to"]},
+ {q:"She ______ like coffee, but she loves tea.",base:"DO NOT",keys:["doesn't","does not"]},
+ {q:"______ they playing in the garden now?",base:"BE",keys:["are"]},
+ {q:"I ______ my homework before dinner yesterday.",base:"DO",keys:["did"]},
+ {q:"The weather is ______ than yesterday — let's swim!",base:"GOOD",keys:["better"]},
+ {q:"This bag is ______ (heavy) than that one.",base:"HEAVY",keys:["heavier"]},
+ {q:"He is the ______ runner in the class.",base:"FAST",keys:["fastest"]}
+];
+var perQ=60,Q=1,queue=[],log=[],tick=null,left=perQ,answered=true;
+function $(id){return document.getElementById(id);}
+function norm(s){return (s||"").toLowerCase().replace(/[.,!?;:]+/g,"").replace(/\s+/g," ").trim();}
+function shuffled(a){var r=a.slice();for(var i=r.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=r[i];r[i]=r[j];r[j]=t;}return r;}
+function start(n){
+  Q=1;log=[];queue=shuffled(BANK).slice(0,n);
+  document.body.classList.add("play");
+  $("modeBadge").textContent="⚡ "+n+" items";
+  $("summary").style.display="none";
+  showQ();
+}
+function showQ(){
+  if(!queue.length){finish();return;}
+  answered=false;left=perQ;paint();
+  var it=queue[0];
+  $("qcard").style.display="block";
+  $("qnum").textContent="Q"+Q;
+  $("qtext").innerHTML=it.q.replace("______",'<span class="gap">______</span>')+
+    ' <span class="qbase">('+it.base+')</span>';
+  $("fb").className="feedback";$("fb").innerHTML="";
+  $("ans").value="";$("ans").disabled=false;$("check").disabled=false;
+  clearInterval(tick);tick=setInterval(function(){left--;paint();if(left<=0){clearInterval(tick);timeUp();}},1000);
+  $("ans").focus();
+}
+function paint(){var s=Math.max(0,left);$("qtimer").textContent=(s<10?"00:0":"00:")+s;}
+function timeUp(){
+  log.push({base:queue[0].base,ok:false,note:"time out"});
+  queue.push(queue[0]);queue.shift();Q++;
+  showQ();
+}
+function check(){
+  if(answered)return;answered=true;clearInterval(tick);
+  var it=queue[0],a=norm($("ans").value);
+  var ok=it.keys.map(norm).indexOf(a)>-1;
+  log.push({base:it.base,ok:ok,note:a||"—"});
+  var fb=$("fb");
+  if(ok){
+    fb.className="feedback good";fb.innerHTML="✓ "+it.keys[0];
+    queue.shift();Q++;
+    setTimeout(showQ,700);
+  }else{
+    fb.className="feedback bad";fb.innerHTML="✗ the key: <b>"+it.keys[0]+"</b>"+
+      '<span class="tail">it comes back later in this run</span>';
+    var same=it;queue.shift();Q++;queue.push(same);
+    setTimeout(showQ,1400);
+  }
+}
+function finish(){
+  clearInterval(tick);
+  $("qcard").style.display="none";
+  document.body.classList.remove("play");
+  var okN=log.filter(function(l){return l.ok;}).length;
+  $("total").innerHTML="<b>"+okN+" / "+log.length+"</b>"+
+    (okN===log.length&&log.length?" — perfect run! 🏆":"");
+  var missed=log.filter(function(l){return !l.ok;}).map(function(l){return l.base+" → "+l.note;});
+  $("missed").textContent=missed.length?("came back / missed: "+missed.join(" · ")):
+    (log.length?"nothing slipped — clean run ✓":"");
+  var txt="Grammar sprint · "+new Date().toLocaleDateString()+" · "+okN+"/"+log.length+
+    (missed.length?" · to re-drill: "+missed.join(", "):" · clean");
+  $("report").value=txt;
+  try{
+    var h=[];h.push("sprint "+new Date().toLocaleDateString()+" "+okN+"/"+log.length);
+    localStorage.setItem("sprint-last",h.join(" "));
+  }catch(e){}
+  $("summary").style.display="block";
+}
+$("mGo").addEventListener("click",function(){start(10);});
+$("mLight").addEventListener("click",function(){start(6);});
+$("check").addEventListener("click",check);
+$("ans").addEventListener("keydown",function(e){if(e.key==="Enter")check();});
+$("quit").addEventListener("click",finish);
+$("again2").addEventListener("click",function(){$("summary").style.display="none";document.body.classList.remove("play");});
+$("copybtn").addEventListener("click",function(){
+  $("report").style.display="block";$("report").select();
+  try{document.execCommand("copy");$("copybtn").textContent="copied ✓";}catch(e){}
+});
+</script>
+</body>
+</html>
