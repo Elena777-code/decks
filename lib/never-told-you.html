@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I've never told you… — the confession game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   I'VE NEVER TOLD YOU… — the confession game (Present Perfect
+   in the wild). Born 2026-09-19 (Elena's ideas session): from
+   the viral "I never told you this" trend — her niece and a
+   friend played it in Russian and drew everything on their own
+   faces. SCHOOL VERSION: the drawing goes on the PAPER face (or
+   the screen face) — never on real skin in lessons; camp decides
+   its own rules. Two frames: about me ("I've never told you,
+   but I…") and about your friend ("I've never told you, but
+   you've got…"). For WW4; UNIVERSAL + camp-ready. Design:
+   "Sergey's" (paper · navy · cheese · stamp).
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --ink:#22303F; --ink-soft:#5D6B7A;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E; --stamp-soft:#FDEAE3;
+  --mint:#4CAF6E; --mint-soft:#E3F2E8; --white:#fff;
+  --shadow:0 8px 20px rgba(34,48,63,.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  min-height:100vh;-webkit-font-smoothing:antialiased;padding:5vh 6vw 10vh}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin:.15em 0 .3em;
+  font-size:clamp(1.9rem,4.2vw,3.4rem)}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.3rem,2.4vw,2rem);margin:1.6em 0 .4em}
+.accent{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1.2em}
+.why{font-family:'Fredoka',sans-serif;font-weight:500;background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem)}
+.why::before{content:"🤫 "}
+ol.how{margin:1em 0 0 1.2em;font-size:clamp(1.02rem,1.6vw,1.3rem);line-height:1.65}
+ol.how b{color:var(--navy)}
+.rule{font-family:'Fredoka',sans-serif;font-weight:600;background:var(--stamp-soft);
+  border-radius:14px;padding:.6em 1em;display:inline-block;margin-top:1em;
+  font-size:clamp(1rem,1.6vw,1.3rem);color:var(--stamp)}
+.frames{display:flex;gap:1em;flex-wrap:wrap;margin-top:1em}
+.frame{flex:1 1 260px;background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:1em 1.2em}
+.frame .tag{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.85rem,1.3vw,1.05rem);
+  color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
+.frame .fr{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.15rem,2vw,1.55rem);margin-top:.25em;line-height:1.35}
+.frame .ex{color:var(--ink-soft);font-style:italic;font-size:clamp(.95rem,1.45vw,1.15rem);margin-top:.4em}
+.controls{display:flex;gap:.8em;align-items:center;margin:1.4em 0 .4em;flex-wrap:wrap}
+.btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem);
+  padding:.5em 1.3em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:0 10px 30px rgba(34,48,63,.18);
+  transition:transform .15s ease}
+.btn:hover{transform:scale(1.05)}
+.cards{display:flex;gap:1em;flex-wrap:wrap;margin-top:1em}
+.card{flex:1 1 220px;max-width:330px;min-height:7em;background:var(--white);border-radius:18px;
+  box-shadow:var(--shadow);padding:.9em 1.1em;border:3px solid transparent;cursor:pointer;
+  transition:border-color .25s,transform .15s;display:flex;flex-direction:column;gap:.3em}
+.card:hover{transform:translateY(-3px)}
+.card .pile{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.8rem,1.2vw,1rem);
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.card.me .pile{color:var(--navy)}
+.card.you .pile{color:var(--stamp)}
+.card.wild{background:var(--cheese-soft);border-style:dashed;border-color:var(--cheese)}
+.card .line{display:none;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.08rem,1.8vw,1.42rem);line-height:1.35;color:var(--ink)}
+.card.open{border-color:var(--cheese)}
+.card.open .line{display:block;animation:rise .35s both}
+.card .say{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-top:auto;
+  font-size:clamp(.95rem,1.4vw,1.15rem)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.facerow{display:flex;gap:1.4em;align-items:center;flex-wrap:wrap;margin-top:1em}
+.facewrap{background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:1em}
+.facewrap svg{display:block;width:min(300px,60vw);height:auto}
+.facenote{flex:1 1 260px;color:var(--ink-soft);font-size:clamp(.98rem,1.5vw,1.2rem);line-height:1.6}
+.hint{color:var(--ink-soft);font-style:italic;font-size:clamp(.92rem,1.35vw,1.12rem);margin-top:.9em}
+</style>
+</head>
+<body>
+<div class="eyebrow">Present Perfect · the party game · WW4+</div>
+<h1>I've never told you… 🤫</h1>
+<div class="accent"></div>
+<p class="why">Say your secret line with a straight face — and draw it on the paper face. The funniest face wins!</p>
+
+<h2>How to play</h2>
+<ol class="how">
+  <li><b>Take a card</b> (or deal five) and read it aloud: <i>«I've never told you this, but…»</i></li>
+  <li>Your friend must keep a <b>straight face</b> 😐 — no laughing allowed.</li>
+  <li>Whatever happens, the line gets <b>drawn on the paper face</b> ✏️ — nose hair? draw nose hair!</li>
+  <li>Next player. At the end — <b>the funniest face wins</b> 🏆.</li>
+</ol>
+<div class="rule">✏️ The drawing goes on the PAPER face — never on real skin in lessons. (Camp can decide its own rules.)</div>
+
+<h2>The two frames</h2>
+<div class="frames">
+  <div class="frame">
+    <div class="tag">🙋 about me</div>
+    <div class="fr">I've never told you,<br>but I …</div>
+    <div class="ex">…but I still sleep with a nightlight.</div>
+  </div>
+  <div class="frame">
+    <div class="tag">👀 about you</div>
+    <div class="fr">I've never told you,<br>but you've got…</div>
+    <div class="ex">…but you've got hair growing out of your nose!</div>
+  </div>
+</div>
+
+<h2>🎫 Deal five cards</h2>
+<div class="controls"><button class="btn" id="deal">🎲 Deal!</button><span class="hint" id="score"></span></div>
+<div class="cards" id="cards"></div>
+<p class="hint">Click a card to open it, say it with your best poker face. Every deal = a fresh five!</p>
+
+<h2>🖨 The paper face — print one per player</h2>
+<div class="facerow">
+  <div class="facewrap">
+    <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="100" cy="120" rx="78" ry="95" fill="#FDEAE3" stroke="#2C4E80" stroke-width="3"/>
+      <path d="M30 70 Q 100 20 170 70 Q 160 40 100 34 Q 40 40 30 70" fill="#2C4E80"/>
+      <circle cx="70" cy="105" r="7" fill="#22303F"/><circle cx="130" cy="105" r="7" fill="#22303F"/>
+      <path d="M88 140 Q 100 150 112 140" fill="none" stroke="#22303F" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="100" cy="128" rx="6" ry="4" fill="#E4572E" opacity=".55"/>
+      <path d="M55 165 Q 100 190 145 165" fill="none" stroke="#2C4E80" stroke-width="2" stroke-dasharray="4 5" opacity=".5"/>
+      <text x="100" y="228" text-anchor="middle" font-family="Nunito" font-size="13" fill="#5D6B7A">draw here ✏️</text>
+    </svg>
+  </div>
+  <div class="facenote">
+    Print this page's face (or trace it) — one big face per player, A4.
+    Every confessed line = one doodle on your face. By the end of the round
+    the faces tell the whole story 😂
+  </div>
+</div>
+
+<script>
+/* THE BANK — me-lines: confessions about yourself.
+   you-lines: friendly roasts about your friend ("you've got…").
+   Add here over time. */
+const ME=[
+  "I still sleep with a nightlight.",
+  "I talk to my cat — in English.",
+  "I once ate ice cream for dinner. Twice.",
+  "I wear odd socks on purpose.",
+  "I sing in the shower. Loudly.",
+  "I practised my angry face in the mirror.",
+  "I'm scared of butterflies.",
+  "I pretended not to hear my name in a game.",
+  "I hiding-eat sweets before dinner.",
+  "I danced in the lift when nobody watched.",
+  "I taught my dog to respond to a silly name.",
+  "I talk to myself when I do homework."
+];
+const YOU=[
+  "…you've got hair growing out of your nose!",
+  "…you've got a secret talent: snoring.",
+  "…you laugh exactly like a kettle.",
+  "…you've got a superpower: losing one sock.",
+  "…you dance exactly like my dad.",
+  "…you've got glitter on you. Always. Everywhere.",
+  "…your bag is a black hole — nothing comes back.",
+  "…you've got the loudest whisper in class.",
+  "…you smell like pancakes today.",
+  "…you've got a face for every lesson. Show it!"
+];
+const WILD=["Your own line! ✏️ Build it: «I've never told you, but…»",
+            "Your own line! ✏️ Make your friend laugh — then draw it!"];
+const shuffled=a=>{const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;};
+const cardsEl=document.getElementById('cards'),scoreEl=document.getElementById('score');
+function deal(){
+  cardsEl.innerHTML='';
+  const me=shuffled(ME).slice(0,2),you=shuffled(YOU).slice(0,2),w=WILD[Math.floor(Math.random()*WILD.length)];
+  const cards=[
+    ...me.map(t=>({pile:'🙋 about me',cls:'me',text:"I've never told you, but "+t})),
+    ...you.map(t=>({pile:'👀 about you',cls:'you',text:"I've never told you, but "+t})),
+    {pile:'🌟 wild card',cls:'wild',text:w}
+  ];
+  shuffled(cards).forEach(c=>{
+    const el=document.createElement('div');el.className='card '+c.cls;
+    const p=document.createElement('div');p.className='pile';p.textContent=c.pile;
+    const l=document.createElement('div');l.className='line';l.textContent=c.text;
+    const s=document.createElement('div');s.className='say';s.textContent='click to open 🎭';
+    el.append(p,l,s);
+    el.addEventListener('click',()=>{
+      if(el.classList.contains('open'))return;
+      el.classList.add('open');s.textContent='😐 keep the straight face!';
+    });
+    cardsEl.appendChild(el);
+  });
+  scoreEl.textContent='five fresh cards dealt ✓';
+}
+document.getElementById('deal').addEventListener('click',deal);
+deal();
+</script>
+</body>
+</html>

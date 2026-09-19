@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fullscreen timer — the quiet circle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   FULLSCREEN TIMER — the quiet circle.
+   Born 2026-09-19 (Elena's ideas session): a full-screen timer
+   for children — a colour circle built of square tiles, tiles
+   flip as time burns, giant digits. Elena's colours:
+   green = remaining, red = gone; second style: grey = gone,
+   red = the final slice only. AT ZERO: nothing red, no sounds —
+   it just quietly ends (in drills it advances to the next
+   question). UNIVERSAL: Bank-Pool, named by topic. Spec §15.4.
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --ink:#22303F; --ink-soft:#5D6B7A;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --mint:#4CAF6E; --mint-soft:#E3F2E8; --grey-tile:#DDD8CF;
+  --white:#ffffff; --radius:22px;
+  --shadow:0 10px 30px rgba(34,48,63,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2.2vh;padding:3vh 4vw;-webkit-font-smoothing:antialiased}
+body:fullscreen{background:var(--paper)}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.65rem,1.1vw,.9rem);color:var(--navy);display:none}
+.setup h1,.setup .eyebrow{display:block}
+.setup h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.6rem,3.6vw,2.8rem);margin:.1em 0 0}
+.presets{display:flex;gap:.7em;flex-wrap:wrap;justify-content:center;margin-top:1.4vh}
+button{font-family:'Fredoka',sans-serif;font-weight:600;border:none;cursor:pointer;
+  border-radius:99px;transition:transform .15s ease}
+button:hover{transform:scale(1.06)}
+.preset{font-size:clamp(1.15rem,2vw,1.6rem);padding:.45em 1.2em;color:var(--navy);
+  background:var(--white);border:2.5px solid var(--navy);box-shadow:0 6px 18px rgba(44,78,128,.12)}
+.customrow{display:flex;gap:.5em;align-items:center;margin-top:1.1vh;justify-content:center}
+.customrow input{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem);
+  width:4.2em;text-align:center;padding:.35em .2em;border:2.5px solid var(--navy);
+  border-radius:14px;color:var(--ink);background:var(--white)}
+.customrow label{font-size:clamp(.95rem,1.5vw,1.2rem);color:var(--ink-soft)}
+.gorow{display:flex;gap:.8em;align-items:center;margin-top:1.6vh;flex-wrap:wrap;justify-content:center}
+.go{font-size:clamp(1.35rem,2.4vw,1.9rem);padding:.5em 1.7em;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:0 10px 30px rgba(34,48,63,.2)}
+.styletoggle{font-size:clamp(.9rem,1.4vw,1.1rem);padding:.4em 1em;color:var(--ink-soft);
+  background:var(--white);border:2px solid var(--grey-tile)}
+.stage{position:relative;display:none}
+body.run .setup{display:none}
+body.run .stage{display:block}
+.circle{position:relative;width:min(66vmin,620px);height:min(66vmin,620px)}
+.tile{position:absolute;border-radius:22%;background:var(--mint);transition:background .5s}
+.tile.gone{background:var(--stamp)}
+body.style-b .tile{background:var(--mint)}
+body.style-b .tile.gone{background:var(--grey-tile)}
+body.style-b.finale .tile:not(.gone){background:var(--stamp)}
+body.over .tile{background:var(--grey-tile)}
+.readout{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;pointer-events:none}
+#digits{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(3rem,11vmin,7.5rem);
+  color:var(--ink);letter-spacing:.02em;font-variant-numeric:tabular-nums}
+#done{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink-soft);
+  font-size:clamp(1.1rem,2.4vw,1.7rem);opacity:0;transition:opacity .6s}
+body.over #done{opacity:1}
+.runrow{display:flex;gap:.7em;margin-top:2vh;flex-wrap:wrap;justify-content:center}
+.pbtn{font-size:clamp(1rem,1.8vw,1.4rem);padding:.45em 1.3em;color:var(--navy);
+  background:var(--white);border:2.5px solid var(--navy);box-shadow:0 6px 18px rgba(44,78,128,.12)}
+.keys{margin-top:1.6vh;color:var(--ink-soft);font-size:clamp(.8rem,1.2vw,1rem);text-align:center}
+</style>
+</head>
+<body>
+
+<div class="setup">
+  <div class="eyebrow">Lesson tool</div>
+  <h1>Fullscreen timer ⏳</h1>
+  <div class="presets">
+    <button class="preset" data-min="5">5 min</button>
+    <button class="preset" data-min="10">10 min</button>
+    <button class="preset" data-min="15">15 min</button>
+    <button class="preset" data-min="20">20 min</button>
+  </div>
+  <div class="customrow">
+    <input id="custom" type="number" min="1" max="180" placeholder="7">
+    <label>minutes — then</label>
+    <button class="preset" id="setcustom">Set</button>
+  </div>
+  <div class="gorow">
+    <button class="go" id="go">Start ▶</button>
+    <button class="styletoggle" id="stylebtn">style: green &amp; red</button>
+  </div>
+  <p class="keys">at zero: quiet — no sound, no red drama · it just ends ✨</p>
+</div>
+
+<div class="stage">
+  <div class="circle" id="circle"></div>
+  <div class="readout"><div id="digits">00:00</div><div id="done">time is up ✨</div></div>
+  <div class="runrow">
+    <button class="pbtn" id="pause">Pause</button>
+    <button class="pbtn" id="again">Restart</button>
+    <button class="pbtn" id="back">Change time</button>
+  </div>
+  <p class="keys">space = start/pause · R = restart · F = fullscreen</p>
+</div>
+
+<script>
+/* ---- the tile circle: a grid masked into a disc, tiles ordered by
+   angle from 12 o'clock so the gone-sweeps sweeps clockwise like a clock hand */
+const N=15, circle=document.getElementById('circle'), digits=document.getElementById('digits');
+let tiles=[];
+function buildCircle(){
+  circle.innerHTML=''; tiles=[];
+  const size=circle.clientWidth, cell=size/N, r=size/2, cx=r, cy=r;
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){
+    const tx=x*cell+cell/2, ty=y*cell+cell/2;
+    const dx=tx-cx, dy=ty-cy;
+    if(Math.hypot(dx,dy)>r-cell*0.28) continue;
+    const t=document.createElement('div'); t.className='tile';
+    t.style.width=cell*0.8+'px'; t.style.height=cell*0.8+'px';
+    t.style.left=tx-cell*0.4+'px'; t.style.top=ty-cell*0.4+'px';
+    const ang=(Math.atan2(dx,-dy)+2*Math.PI)%(2*Math.PI); // 0 = 12 o'clock, clockwise
+    t._ang=ang; circle.appendChild(t); tiles.push(t);
+  }
+  tiles.sort((a,b)=>a._ang-b._ang);
+}
+let total=0, dur=5*60, left=5*60, tick=null, running=false;
+function fmt(s){s=Math.max(0,Math.ceil(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+function paint(){
+  digits.textContent=fmt(left);
+  const frac=total?left/dur:1, gone=Math.round(total*(1-frac));
+  tiles.forEach((t,i)=>t.classList.toggle('gone', i<gone));
+  document.body.classList.toggle('finale', frac>0 && frac<=0.2);
+}
+function step(){
+  if(!running) return;
+  left-=0.25;
+  if(left<=0){left=0;running=false;over();}
+  paint();
+}
+function over(){
+  clearInterval(tick); document.body.classList.add('over'); paint();
+  /* quiet, always. embedded pages may listen for the silent signal: */
+  try{ if(new URLSearchParams(location.search).get('signal')==='1')
+    window.parent.postMessage({type:'timer-done'},'*'); }catch(e){}
+}
+function start(min){
+  dur=left=min*60; total=0;
+  document.body.classList.add('run'); document.body.classList.remove('over');
+  buildCircle(); total=tiles.length; paint();
+  clearInterval(tick); running=true; tick=setInterval(step,250);
+  document.getElementById('pause').textContent='Pause';
+}
+function togglePause(){
+  if(document.body.classList.contains('over')) return;
+  running=!running; document.getElementById('pause').textContent=running?'Pause':'Go on';
+  clearInterval(tick); if(running) tick=setInterval(step,250);
+}
+document.querySelectorAll('.preset[data-min]').forEach(b=>
+  b.addEventListener('click',()=>start(+b.dataset.min)));
+document.getElementById('setcustom').addEventListener('click',()=>{
+  const v=+document.getElementById('custom').value;
+  if(v>=1&&v<=180) start(v);
+});
+document.getElementById('go').addEventListener('click',()=>{
+  const v=+document.getElementById('custom').value; start(v>=1&&v<=180?v:5);
+});
+document.getElementById('pause').addEventListener('click',togglePause);
+document.getElementById('again').addEventListener('click',()=>{
+  const m=dur/60; document.body.classList.remove('over'); start(m);
+});
+document.getElementById('back').addEventListener('click',()=>{
+  clearInterval(tick); running=false; document.body.classList.remove('run','over');
+});
+/* style toggle: a = green & red (Elena's), b = grey gone, red finale */
+let style='a';
+const stylebtn=document.getElementById('stylebtn');
+try{ style=localStorage.getItem('timer-style')||'a'; }catch(e){}
+function applyStyle(){ document.body.classList.toggle('style-b',style==='b');
+  stylebtn.textContent=style==='a'?'style: green & red':'style: grey + red finish';
+  try{ localStorage.setItem('timer-style',style);}catch(e){} }
+stylebtn.addEventListener('click',()=>{ style=style==='a'?'b':'a'; applyStyle(); });
+applyStyle();
+/* keys */
+addEventListener('keydown',e=>{
+  if(e.code==='Space'){e.preventDefault();
+    document.body.classList.contains('run')?togglePause():document.getElementById('go').click();}
+  if(e.key==='r'||e.key==='R'||e.key==='к'||e.key==='К')
+    document.getElementById('again').click();
+  if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А'){
+    document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{});}
+});
+/* ?t=5&run=1 — deep link (drills can open a pre-set timer) */
+const q=new URLSearchParams(location.search);
+if(q.get('t')) start(Math.min(180,Math.max(1,+q.get('t')||5)));
+</script>
+</body>
+</html>

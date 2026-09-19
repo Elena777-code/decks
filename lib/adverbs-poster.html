@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Always → never — the sunny poster</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ALWAYS → NEVER — the sunny poster (adverbs of frequency).
+   Born 2026-09-19 (Elena's ideas session): the whole picture is
+   sunny (Vietnam!) — "I'm always happy when it's sunny". Elena's
+   sun gradient: 🌞×7 = always → 0 suns = never. SMART: it asks
+   before it shows — «How many suns for "usually"?» — click the
+   row to fill the suns and reveal the example. Suns only, no
+   %-line (Elena's choice). Born for Irina (present simple +
+   time-words repair), UNIVERSAL for everyone. Design: "Sergey's".
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --ink:#22303F; --ink-soft:#5D6B7A;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E; --stamp-soft:#FDEAE3;
+  --mint:#4CAF6E; --mint-soft:#E3F2E8; --white:#fff;
+  --sun:#FFB100; --sun-empty:#E8E2D6;
+  --shadow:0 8px 20px rgba(34,48,63,.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  min-height:100vh;-webkit-font-smoothing:antialiased;padding:4vh 6vw 10vh;max-width:980px;margin-inline:auto}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin:.15em 0 .3em;
+  font-size:clamp(1.9rem,4.2vw,3.4rem)}
+.accent{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--cheese));margin-bottom:1em}
+.scene{background:var(--white);border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.scene svg{display:block;width:100%;height:auto}
+.caption{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.2rem,2.2vw,1.8rem);padding:.7em 1.2em;background:var(--white)}
+.quizbar{display:flex;gap:.8em;align-items:center;margin:1.4em 0 .2em;flex-wrap:wrap}
+.btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.3rem);
+  padding:.5em 1.3em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:0 10px 30px rgba(34,48,63,.18);
+  transition:transform .15s ease}
+.btn:hover{transform:scale(1.05)}
+.btn.ghost{color:var(--navy);background:var(--white);border:2.5px solid var(--navy);box-shadow:0 6px 18px rgba(44,78,128,.12)}
+.quizq{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--stamp);
+  font-size:clamp(1.1rem,2vw,1.6rem);min-height:1.4em}
+.rows{margin-top:.8em}
+.row{display:flex;align-items:center;gap:1em;background:var(--white);border-radius:16px;
+  box-shadow:var(--shadow);padding:.55em 1em;margin-top:.7em;cursor:pointer;
+  border:3px solid transparent;transition:border-color .25s;flex-wrap:wrap}
+.row:hover{transform:translateX(4px)}
+.row.target{border-color:var(--stamp);background:var(--stamp-soft)}
+.row .adv{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.2rem,2.2vw,1.8rem);min-width:6.2em}
+.row .suns{display:flex;gap:.28em;flex:1}
+.sunslot{width:clamp(1.5rem,2.6vw,2.1rem);height:clamp(1.5rem,2.6vw,2.1rem);border-radius:50%;
+  background:var(--sun-empty);display:flex;align-items:center;justify-content:center;
+  font-size:0;transition:background .3s,transform .3s,font-size .25s}
+.row.filled .sunslot.on{background:var(--sun);transform:scale(1.12);
+  font-size:clamp(.9rem,1.6vw,1.3rem)}
+.row .ex{display:none;flex-basis:100%;color:var(--ink-soft);font-style:italic;
+  font-size:clamp(.98rem,1.5vw,1.2rem);padding-left:.2em}
+.row.filled .ex{display:block;animation:rise .35s both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.tasks{background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:1em 1.3em;margin-top:1.4em}
+.tasks h2{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.2rem,2vw,1.6rem);margin:0 0 .5em}
+.tasks p{font-size:clamp(1.02rem,1.6vw,1.3rem);line-height:1.55;margin:.4em 0}
+.tasks .gap{color:var(--stamp);font-weight:800;border-bottom:3px dotted var(--stamp);cursor:pointer}
+.tasks .ans{display:none;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--mint)}
+.tasks p.done .ans{display:inline}
+.tasks .tip{color:var(--ink-soft);font-style:italic;font-size:clamp(.9rem,1.3vw,1.1rem)}
+</style>
+</head>
+<body>
+<div class="eyebrow">Grammar · adverbs of frequency · the sunny poster</div>
+<h1>Always → never 🌞</h1>
+<div class="accent"></div>
+
+<div class="scene">
+  <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A sunny sea scene in Vietnam">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#8FD3F4"/><stop offset="1" stop-color="#C9ECFA"/>
+      </linearGradient>
+      <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#3E9BC9"/><stop offset="1" stop-color="#2C7BA8"/>
+      </linearGradient>
+    </defs>
+    <rect width="900" height="190" fill="url(#sky)"/>
+    <rect y="190" width="900" height="110" fill="url(#sea)"/>
+    <circle cx="150" cy="86" r="46" fill="#FFD54D"/>
+    <g stroke="#FFD54D" stroke-width="7" stroke-linecap="round">
+      <line x1="150" y1="14" x2="150" y2="28"/><line x1="150" y1="144" x2="150" y2="158"/>
+      <line x1="78" y1="86" x2="92" y2="86"/><line x1="208" y1="86" x2="222" y2="86"/>
+      <line x1="99" y1="35" x2="109" y2="45"/><line x1="191" y1="127" x2="201" y2="137"/>
+      <line x1="99" y1="137" x2="109" y2="127"/><line x1="191" y1="45" x2="201" y2="35"/>
+    </g>
+    <path d="M0 196 Q 60 188 120 196 T 240 196 T 360 196 T 480 196 T 600 196 T 720 196 T 840 196 T 960 196 V 210 H 0 Z" fill="#BFE8F7" opacity=".85"/>
+    <g>
+      <path d="M690 292 C 700 240 696 210 690 178" stroke="#8A5A33" stroke-width="14" fill="none" stroke-linecap="round"/>
+      <g fill="#3E9B5F">
+        <path d="M690 176 C 650 150 615 152 598 168 C 630 162 660 168 690 182 Z"/>
+        <path d="M690 176 C 730 150 765 152 782 168 C 750 162 720 168 690 182 Z"/>
+        <path d="M690 174 C 668 132 674 106 692 92 C 688 124 692 148 696 174 Z"/>
+        <path d="M690 176 C 650 186 622 206 616 228 C 642 206 668 194 692 186 Z"/>
+        <path d="M690 176 C 732 184 758 202 764 224 C 738 204 712 192 690 184 Z"/>
+      </g>
+      <circle cx="694" cy="170" r="7" fill="#8A5A33"/>
+    </g>
+    <g>
+      <path d="M320 236 Q 360 228 400 236 L 392 252 Q 360 246 328 252 Z" fill="#E4572E"/>
+      <rect x="357" y="176" width="5" height="60" fill="#5D4037"/>
+      <path d="M362 176 L 362 216 L 398 208 Z" fill="#FFF6E3"/>
+    </g>
+    <g>
+      <rect x="480" y="150" width="10" height="46" fill="#8A5A33"/>
+      <rect x="440" y="128" width="90" height="34" rx="6" fill="#F7EAD3" stroke="#8A5A33" stroke-width="3"/>
+      <text x="485" y="151" text-anchor="middle" font-family="Fredoka" font-weight="600" font-size="19" fill="#8A5A33">Vietnam</text>
+    </g>
+    <ellipse cx="120" cy="286" rx="150" ry="16" fill="#F7EAD3"/>
+  </svg>
+  <div class="caption">I'm <b>always</b> happy when it's sunny ☀️</div>
+</div>
+
+<div class="quizbar">
+  <button class="btn" id="quiz">🎯 Quiz me!</button>
+  <button class="btn ghost" id="reset">↺ Start over</button>
+</div>
+<div class="quizq" id="quizq">Ask first: «How many suns for <i>usually</i>?» — then click the row!</div>
+
+<div class="rows" id="rows"></div>
+
+<div class="tasks">
+  <h2>✏️ Now you — click the dotted line to check</h2>
+  <p>1. It's sunny in Vietnam. I'm <span class="gap">________</span> happy when it's sunny. <span class="ans">always</span></p>
+  <p>2. I <span class="gap">________</span> get up at 7 o'clock — from Monday to Friday. <span class="ans">usually</span></p>
+  <p>3. We <span class="gap">________</span> see the sun here in winter — only two or three times! <span class="ans">hardly ever</span></p>
+  <p>4. I <span class="gap">________</span> drink coffee. I hate it! <span class="ans">never</span></p>
+  <p>5. My sister <span class="gap">________</span> eats soup — maybe once a month. <span class="ans">seldom</span></p>
+  <p class="tip">Word order reminder: <b>I always brush my teeth</b> · <b>She never eats snails</b> — the adverb lives BEFORE the verb, but AFTER am/is/are: <b>He is always late</b>.</p>
+</div>
+
+<script>
+/* Elena's gradient — 7 suns = always … 0 suns = never.
+   Examples + tasks: swap freely. Add rows/adverbs HERE. */
+const SCALE=[
+  {adv:"always",suns:7,ex:"I'm always happy when it's sunny. ☀️"},
+  {adv:"usually",suns:6,ex:"I usually walk to school."},
+  {adv:"often",suns:5,ex:"We often play football after lessons."},
+  {adv:"sometimes",suns:4,ex:"Sometimes I hear an owl at night."},
+  {adv:"seldom",suns:2,ex:"He seldom eats sweets — he prefers fruit."},
+  {adv:"hardly ever",suns:1,ex:"We hardly ever see snow here."},
+  {adv:"never",suns:0,ex:"The cat never shares its food. 😼"}
+];
+const rowsEl=document.getElementById('rows'),quizq=document.getElementById('quizq');
+function build(){
+  rowsEl.innerHTML='';
+  SCALE.forEach(r=>{
+    const row=document.createElement('div');row.className='row';
+    const adv=document.createElement('div');adv.className='adv';adv.textContent=r.adv;
+    const suns=document.createElement('div');suns.className='suns';
+    for(let i=0;i<7;i++){
+      const s=document.createElement('div');s.className='sunslot'+(i<r.suns?' on':'');
+      s.textContent=i<r.suns?'🌞':'';
+      suns.appendChild(s);
+    }
+    const ex=document.createElement('div');ex.className='ex';ex.textContent=r.ex;
+    row.append(adv,suns,ex);
+    row.addEventListener('click',()=>{
+      if(row.classList.contains('filled'))return;
+      row.classList.add('filled');
+      quizq.textContent='🌞 ×'+r.suns+' = '+r.adv+' — well done! Who is next?';
+      if([...rowsEl.children].every(x=>x.classList.contains('filled')))
+        quizq.textContent='All seven filled — the whole picture is sunny! 🌞🏆';
+    });
+    rowsEl.appendChild(row);
+  });
+}
+document.getElementById('quiz').addEventListener('click',()=>{
+  const rest=[...rowsEl.children].filter(x=>!x.classList.contains('filled'));
+  if(!rest.length){quizq.textContent='All filled — press «Start over» and play again!';return;}
+  [...rowsEl.children].forEach(x=>x.classList.remove('target'));
+  const pick=rest[Math.floor(Math.random()*rest.length)];
+  pick.classList.add('target');
+  pick.scrollIntoView({behavior:'smooth',block:'center'});
+  quizq.textContent='How many suns for «'+pick.querySelector('.adv').textContent+'»? 🤔';
+});
+document.getElementById('reset').addEventListener('click',()=>{
+  build();quizq.textContent='Ask first: «How many suns for usually?» — then click the row!';
+  document.querySelectorAll('.tasks p').forEach(p=>p.classList.remove('done'));
+});
+build();
+document.querySelectorAll('.tasks .gap').forEach(g=>{
+  g.addEventListener('click',()=>g.parentElement.classList.add('done'));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who is it? — the elimination game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WHO IS IT? — the elimination game (KB1-friendly, universal).
+   Born 2026-09-19 (Elena's ideas session): "She isn't Stella.
+   She isn't Suzy. She isn't Marie. Who is she? — She's Mrs
+   Star!" Practice: he/she + isn't + questions. Variant 2:
+   colours — only FOUR colours in play, announced in advance.
+   Cast checked against the KB decks (Stella, Suzy, Marie, Mrs
+   Star, Meera · Simon, Lenny, Monty, Maskman, Mr Star).
+   UNIVERSAL: Bank-Pool, named by topic. Design: "Sergey's".
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --ink:#22303F; --ink-soft:#5D6B7A;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E; --stamp-soft:#FDEAE3;
+  --mint:#4CAF6E; --mint-soft:#E3F2E8; --white:#fff;
+  --red:#E05252; --blue:#4A7FD6; --yellow:#F0B429; --green:#4CAF6E;
+  --shadow:0 8px 20px rgba(34,48,63,.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  min-height:100vh;-webkit-font-smoothing:antialiased;padding:5vh 6vw 10vh}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin:.15em 0 .3em;
+  font-size:clamp(1.9rem,4.2vw,3.4rem)}
+.accent{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1.2em}
+.why{font-family:'Fredoka',sans-serif;font-weight:500;background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem)}
+.why::before{content:"🕵️ "}
+.speech{margin-top:1.1em;min-height:8.5em}
+.line{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.5rem,3.2vw,2.6rem);margin:.12em 0;animation:rise .35s both}
+.line b{color:var(--stamp)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.cards{display:flex;gap:1em;flex-wrap:wrap;margin-top:1em;perspective:800px}
+.card{flex:1 1 160px;min-height:8em;border-radius:20px;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2em;
+  cursor:pointer;border:4px solid transparent;transition:transform .18s,border-color .25s;
+  padding:.6em}
+.card:hover{transform:translateY(-4px)}
+.card .face{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.3rem,2.6vw,2.1rem);
+  color:#fff;text-align:center;line-height:1.15;text-shadow:0 2px 0 rgba(0,0,0,.12)}
+.card .initial{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2.6rem,5.5vw,4.2rem);
+  color:#fff;opacity:.9;line-height:1}
+.card.out{transform:scale(.94);filter:saturate(.35) opacity(.75)}
+.card.out::after{content:"✗";}
+.card{position:relative}
+.card.out::after{position:absolute;top:.15em;right:.35em;font-size:clamp(2rem,4vw,3.2rem);
+  color:var(--stamp);font-family:'Fredoka',sans-serif}
+.card.hiddenface{background:var(--navy);cursor:default}
+.card.hiddenface .qmark{font-family:'Fredoka',sans-serif;font-weight:700;color:#fff;
+  font-size:clamp(3rem,7vw,5.5rem)}
+.card.revealed{border-color:var(--cheese);background:var(--cheese-soft);transform:scale(1.04)}
+.card.revealed .face{color:var(--navy);text-shadow:none}
+.card.revealed .who{display:block}
+.who{display:none;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.2rem,2.2vw,1.8rem)}
+.colour{border-radius:20px}
+.controls{display:flex;gap:.8em;align-items:center;margin-top:1.4em;flex-wrap:wrap}
+.btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem);
+  padding:.5em 1.3em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:0 10px 30px rgba(34,48,63,.18);
+  transition:transform .15s ease}
+.btn:hover{transform:scale(1.05)}
+.btn.ghost{color:var(--navy);background:var(--white);border:2.5px solid var(--navy);box-shadow:0 6px 18px rgba(44,78,128,.12)}
+.btn:disabled{opacity:.4;cursor:default;transform:none}
+.prep{display:none;font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(1rem,1.7vw,1.4rem);
+  background:var(--mint-soft);border-radius:14px;padding:.5em 1em;margin-top:1em;color:var(--ink)}
+.prep .dot2{display:inline-block;width:1em;height:1em;border-radius:30%;vertical-align:-.12em;margin:0 .25em 0 .6em}
+.hint{color:var(--ink-soft);font-style:italic;font-size:clamp(.92rem,1.35vw,1.12rem);margin-top:.9em}
+.ph{color:var(--ink-soft);opacity:.55;font-style:italic;font-size:clamp(1rem,1.6vw,1.3rem)}
+</style>
+</head>
+<body>
+<div class="eyebrow">The elimination game · KB1-friendly</div>
+<h1>Who is it? 🕵️</h1>
+<div class="accent"></div>
+<p class="why">Say the sentences. Cross the friends out. Guess — then check!</p>
+
+<div class="prep" id="prep">Only <b>4 colours</b> today:
+  <span class="dot2" style="background:var(--red)"></span>red
+  <span class="dot2" style="background:var(--blue)"></span>blue
+  <span class="dot2" style="background:var(--yellow)"></span>yellow
+  <span class="dot2" style="background:var(--green)"></span>green</div>
+
+<div class="speech" id="speech"><div class="ph" id="ph">Say your sentences — tap a card to cross it out! 👆</div></div>
+<div class="cards" id="cards"></div>
+
+<div class="controls">
+  <button class="btn" id="deal">🎲 New round!</button>
+  <button class="btn ghost" id="ask" disabled>Who is it? 🌟</button>
+</div>
+<p class="hint">Tap a card when you say its line — it crosses out. Then ask, then check!
+She-rounds and he-rounds take turns; sometimes it's a colour riddle.</p>
+
+<script>
+/* ---- the cast (Kid's Box 1) ---- */
+const SHE=[
+  {name:"Stella",c:"#E086A8"},{name:"Suzy",c:"#F0B429"},{name:"Marie",c:"#9B7FD4"},
+  {name:"Mrs Star",c:"#4A7FD6"},{name:"Meera",c:"#4CAF6E"}
+];
+const HE=[
+  {name:"Simon",c:"#E05252"},{name:"Lenny",c:"#F08A3C"},{name:"Monty",c:"#5FBFA0"},
+  {name:"Maskman",c:"#6D5BB8"},{name:"Mr Star",c:"#3E8E8A"}
+];
+const COLOURS=[{name:"red",c:"#E05252"},{name:"blue",c:"#4A7FD6"},
+               {name:"yellow",c:"#F0B429"},{name:"green",c:"#4CAF6E"}];
+let round=null;
+const speech=document.getElementById('speech'),cardsEl=document.getElementById('cards'),
+      dealBtn=document.getElementById('deal'),askBtn=document.getElementById('ask'),
+      prepEl=document.getElementById('prep');
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function shuffled(a){const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r;}
+function deal(){
+  speech.innerHTML='';cardsEl.innerHTML='';prepEl.style.display='none';
+  askBtn.disabled=true;
+  const kind=pick(['she','she','he','he','colour']);
+  let pool,answer,distractors,isShe=true,subj='She',pron="She's";
+  if(kind==='colour'){
+    isShe=false;subj='It';pron="It's";
+    answer=pick(COLOURS);
+    distractors=COLOURS.filter(c=>c!==answer);
+    prepEl.style.display='block';
+  }else{
+    pool=kind==='she'?SHE:HE;
+    isShe=kind==='she';subj=isShe?'She':'He';pron=isShe?"She's":"He's";
+    answer=pick(pool);
+    distractors=pool.filter(p=>p!==answer).sort(()=>Math.random()-.5).slice(0,3);
+  }
+  round={answer,distractors,subj,pron,steps:0,lines:[]};
+  /* three face-up cards (to cross out) + one hidden answer card, shuffled row */
+  const row=shuffled([...distractors.map(d=>({type:'out',item:d})),{type:'hidden'}]);
+  round.lineEls=[];
+  distractors.forEach((d,i)=>{
+    const line=document.createElement('div');line.className='line';line.style.display='none';
+    line.innerHTML=subj+' isn&#39;t <b></b>.';
+    line.querySelector('b').textContent=d.name;
+    speech.appendChild(line);round.lineEls.push(line);
+  });
+  const askLine=document.createElement('div');askLine.className='line';askLine.style.display='none';
+  askLine.textContent=kind==='colour'?'What colour is it? 🤔':('Who '+(isShe?'is she':'is he')+'? 🤔');
+  speech.appendChild(askLine);round.askLine=askLine;
+  row.forEach(cell=>{
+    const el=document.createElement('div');el.className='card';
+    if(cell.type==='hidden'){
+      el.classList.add('hiddenface');
+      el.innerHTML='<div class="qmark">?</div><span class="who">'+pron+' '+answer.name+'! 🌟</span>';
+      if(kind==='colour') el.style.background='var(--navy)';
+    }else{
+      el.style.background=cell.item.c;
+      el.innerHTML=(kind!=='colour'?'<div class="initial">'+cell.item.name[0]+'</div>':'')+
+        '<div class="face">'+cell.item.name+'</div>';
+      el.addEventListener('click',()=>{
+        const ph=document.getElementById('ph'); if(ph)ph.style.display='none';
+        if(el.classList.contains('out'))return;
+        el.classList.add('out');
+        const idx=[...distractors].indexOf(cell.item);
+        if(idx>-1&&round.lineEls[idx])round.lineEls[idx].style.display='block';
+        round.steps++;
+        if(round.steps===3){round.askLine.style.display='block';askBtn.disabled=false;}
+      });
+    }
+    cardsEl.appendChild(el);
+    if(cell.type==='hidden')round.hiddenEl=el;
+  });
+}
+askBtn.addEventListener('click',()=>{
+  if(!round||!round.hiddenEl)return;
+  round.hiddenEl.classList.remove('hiddenface');
+  round.hiddenEl.classList.add('revealed');
+  askBtn.disabled=true;
+});
+dealBtn.addEventListener('click',deal);
+deal();
+</script>
+</body>
+</html>

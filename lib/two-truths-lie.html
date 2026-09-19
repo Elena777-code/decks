@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Two Truths and a Lie — find the lie!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TWO TRUTHS AND A LIE — the classic, universal.
+   Born 2026-09-19 (Elena's ideas session; her demo line-up is
+   the built-in example). Pupil says 3 lines about themselves —
+   2 true, 1 lie — the class finds the lie. Speaking + listening
+   + a scrap of doubt. UNIVERSAL: Bank-Pool, named by topic.
+   Camp-ready. Design: "Sergey's" (paper · navy · cheese).
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --ink:#22303F; --ink-soft:#5D6B7A;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E; --stamp-soft:#FDEAE3;
+  --mint:#4CAF6E; --mint-soft:#E3F2E8; --white:#fff;
+  --shadow:0 8px 20px rgba(34,48,63,.1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  min-height:100vh;-webkit-font-smoothing:antialiased;padding:5vh 6vw 10vh}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin:.15em 0 .3em;
+  font-size:clamp(1.9rem,4.2vw,3.4rem)}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.3rem,2.4vw,2rem);margin:1.6em 0 .4em}
+.accent{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1.2em}
+.why{font-family:'Fredoka',sans-serif;font-weight:500;background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem)}
+.why::before{content:"🔎 "}
+.cards{display:flex;gap:1em;flex-wrap:wrap;margin-top:1em}
+.card{flex:1 1 200px;min-height:7.2em;background:var(--white);border-radius:18px;
+  box-shadow:var(--shadow);padding:.9em 1.1em;border:3px solid transparent;cursor:pointer;
+  display:flex;flex-direction:column;gap:.35em;transition:border-color .25s,transform .15s}
+.card:hover{transform:translateY(-3px)}
+.card .num{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(1.5rem,2.6vw,2.2rem)}
+.card .text{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.45rem);
+  color:var(--ink);line-height:1.3}
+.card .verdict{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.35rem);
+  opacity:0;transition:opacity .3s;margin-top:auto}
+.card.lie{border-color:var(--stamp);background:var(--stamp-soft)}
+.card.lie .verdict{opacity:1;color:var(--stamp)}
+.card.truth{border-color:var(--mint);background:var(--mint-soft)}
+.card.truth .verdict{opacity:1;color:var(--mint)}
+.card.blank{background:var(--white);border-style:dashed;border-color:var(--navy);cursor:default}
+.card.blank .text{color:var(--ink-soft)}
+.controls{display:flex;gap:.8em;align-items:center;margin-top:1.2em;flex-wrap:wrap}
+.btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem);
+  padding:.5em 1.3em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:0 10px 30px rgba(34,48,63,.18);
+  transition:transform .15s ease}
+.btn:hover{transform:scale(1.05)}
+.btn.ghost{color:var(--navy);background:var(--white);border:2.5px solid var(--navy);box-shadow:0 6px 18px rgba(44,78,128,.12)}
+.note{color:var(--ink-soft);font-style:italic;font-size:clamp(.92rem,1.35vw,1.12rem);margin-top:.7em}
+.frames{background:var(--white);border-radius:18px;box-shadow:var(--shadow);
+  padding:1em 1.2em;margin-top:1em}
+.frames b{font-family:'Fredoka',sans-serif;color:var(--navy)}
+.frames .fr{display:inline-block;background:var(--cheese-soft);border-radius:10px;
+  padding:.15em .6em;margin:.25em .3em .25em 0;font-family:'Fredoka',sans-serif;
+  font-weight:500;font-size:clamp(1rem,1.6vw,1.3rem)}
+.hint{color:var(--ink-soft);font-style:italic;font-size:clamp(.92rem,1.35vw,1.12rem);margin-top:.9em}
+</style>
+</head>
+<body>
+<div class="eyebrow">Speaking game · universal</div>
+<h1>Two Truths and a Lie 🔎</h1>
+<div class="accent"></div>
+<p class="why">Three lines about you. Two are TRUE — one is a LIE. Find the lie!</p>
+
+<h2>🎬 Elena's example — try the class on this</h2>
+<div class="cards" id="demo"></div>
+<div class="controls">
+  <button class="btn ghost" id="demoReveal">Reveal the lie!</button>
+  <span class="note">click a card to accuse it first, or just reveal</span>
+</div>
+
+<h2>🎲 Your turn — deal a round</h2>
+<p class="note">One player gets the three cards. Two cards say TRUE, one secretly says LIE —
+the player builds their three lines to match (lie LAST, keep a straight face!). The class
+votes: which line is the lie? Then reveal.</p>
+<div class="cards" id="play"></div>
+<div class="controls">
+  <button class="btn" id="deal">🎲 Deal a new round!</button>
+  <button class="btn ghost" id="reveal">Reveal!</button>
+  <span class="note" id="count"></span>
+</div>
+
+<h2>🧱 Sentence frames to build your lines</h2>
+<div class="frames">
+  <b>Start with:</b><br>
+  <span class="fr">I'm…</span><span class="fr">I've got…</span><span class="fr">I can…</span>
+  <span class="fr">I like…</span><span class="fr">I once…</span><span class="fr">My favourite … is…</span>
+  <span class="fr">I never…</span><span class="fr">I'm afraid of…</span>
+</div>
+
+<h2>💡 No ideas? Steal a set (click!)</h2>
+<div class="cards" id="bank"></div>
+<div class="controls"><button class="btn ghost" id="steal">🎭 Show me a ready set</button></div>
+<p class="hint">Every dealt round hides the lie in a new place. Open the page again — it shuffles fresh!</p>
+
+<script>
+/* ---- Elena's demo (born with the game, 2026-09-19) ---- */
+const DEMO=[
+  {text:"I'm Elena.", lie:false},
+  {text:"I'm 49.", lie:false},
+  {text:"My favourite colour is blue.", lie:true,
+   tail:"It's red! Though I love all colours, of course ❤️"}
+];
+/* ---- ready sets: [lines…], which index is the lie ---- */
+const SETS=[
+  {lines:["I've got a dog.","I can ride a bike.","I love broccoli."],lie:2},
+  {lines:["I've got a sister.","I can swim.","I sleep with the light off."],lie:1},
+  {lines:["I like pizza.","I've got a cat.","I get up at 5 o'clock."],lie:0},
+  {lines:["I can whistle.","I've been to the sea.","I love homework."],lie:0},
+  {lines:["I've got a bike.","I hate chocolate.","I watch cartoons."],lie:1},
+  {lines:["I can play football.","I like rain.","I've got five pets."],lie:2},
+  {lines:["I always brush my teeth twice.","I like spiders.","I can dance."],lie:1},
+  {lines:["I've got a computer.","I never play games.","I like ice cream."],lie:1},
+  {lines:["I can cook pancakes.","I've got a goldfish.","I love Mondays."],lie:2},
+  {lines:["I walk to school.","I've got a spider at home. A real one.","I like winter."],lie:1}
+];
+const playsEl=document.getElementById('play'),demoEl=document.getElementById('demo'),
+      bankEl=document.getElementById('bank'),countEl=document.getElementById('count');
+let playState=null,rounds=0;
+function cardEl(c,clickable){
+  const el=document.createElement('div');el.className='card'+(clickable?'':' blank');
+  const num=document.createElement('div');num.className='num';num.textContent=c.num;
+  const text=document.createElement('div');text.className='text';text.textContent=c.text;
+  const v=document.createElement('div');v.className='verdict';v.textContent=c.verdict||'';
+  el.append(num,text,v);
+  if(clickable) el.addEventListener('click',()=>accuse(el));
+  return el;
+}
+function accuse(el){
+  if(!playState||playState.done)return;
+  playState.els.forEach(x=>x.classList.remove('lie','truth'));
+  el.classList.add(playState.cards[playState.els.indexOf(el)].lie?'lie':'truth');
+}
+function deal(){
+  playsEl.innerHTML='';rounds++;countEl.textContent='rounds played: '+rounds;
+  const lieIdx=Math.floor(Math.random()*3);
+  playState={done:false,els:[],cards:[]};
+  for(let i=0;i<3;i++){
+    const isLie=i===lieIdx;
+    const el=cardEl({num:i+1,text:'say your line '+(i+1)+' 🤫',
+      verdict:isLie?'LIE!':'TRUE ✓'},true);
+    playsEl.appendChild(el);playState.els.push(el);
+    playState.cards.push({lie:isLie});
+  }
+}
+function revealPlay(){
+  if(!playState)return;playState.done=true;
+  playState.els.forEach((el,i)=>{
+    el.classList.remove('lie','truth');
+    el.classList.add(playState.cards[i].lie?'lie':'truth');
+  });
+}
+function steal(){
+  bankEl.innerHTML='';
+  const s=SETS[Math.floor(Math.random()*SETS.length)];
+  s.lines.forEach((t,i)=>{
+    const isLie=i===s.lie;
+    const c=document.createElement('div');
+    c.className='card';
+    c.innerHTML='<div class="num">'+(i+1)+'</div><div class="text"></div>'+
+      '<div class="verdict" style="opacity:1;color:var(--ink-soft)">click to check</div>';
+    c.querySelector('.text').textContent=t;
+    c.addEventListener('click',()=>{
+      c.style.borderColor=isLie?'var(--stamp)':'var(--mint)';
+      c.style.background=isLie?'var(--stamp-soft)':'var(--mint-soft)';
+      const v=c.querySelector('.verdict');v.textContent=isLie?'THE LIE!':'true ✓';
+      v.style.color=isLie?'var(--stamp)':'var(--mint)';
+    },{once:true});
+    bankEl.appendChild(c);
+  });
+}
+DEMO.forEach(d=>{
+  const el=document.createElement('div');el.className='card';
+  el.innerHTML='<div class="num">•</div><div class="text"></div><div class="verdict"></div>';
+  el.querySelector('.text').textContent=d.text;
+  demoEl.appendChild(el);
+});
+document.getElementById('demoReveal').addEventListener('click',()=>{
+  [...demoEl.children].forEach((el,i)=>{
+    const d=DEMO[i];
+    el.classList.add(d.lie?'lie':'truth');
+    el.querySelector('.verdict').textContent=d.lie?'THE LIE!':'true ✓'+(d.tail?' — '+d.tail:'');
+  });
+});
+document.getElementById('deal').addEventListener('click',deal);
+document.getElementById('reveal').addEventListener('click',revealPlay);
+document.getElementById('steal').addEventListener('click',steal);
+deal();
+</script>
+</body>
+</html>
