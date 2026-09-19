@@ -138,7 +138,25 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
 .mime-grid .model-line{margin:0;font-size:clamp(.95rem,1.65vw,1.35rem);padding:.4em .7em;line-height:1.4}
 #dice-btn,#silly-next{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);border:none;border-radius:99px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.12);padding:.45em 1.1em;cursor:pointer;transition:transform .15s ease}
 #dice-btn:hover,#silly-next:hover{transform:scale(1.06)}
-@media(max-width:900px){ .row{flex-direction:column} .mime-grid,.judges{grid-template-columns:1fr} }
+/* --- tap-your-answer recorder (the Irina way) --- */
+.board .bchip{cursor:pointer}
+@keyframes missshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.board .bchip.miss{animation:missshake .3s ease;background:#ffe9f0}
+.ans-btns{display:inline-flex;gap:.35em;margin-left:.4em;vertical-align:middle}
+.ans{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.68rem,1.1vw,.9rem);border:none;cursor:pointer;border-radius:99px;padding:.32em .85em;background:var(--cream);box-shadow:0 3px 8px rgba(45,52,54,.14);color:var(--ink-soft);transition:all .15s ease}
+.ans:hover:not(:disabled){transform:translateY(-2px);color:var(--ink)}
+.ans.picked-ok{background:var(--mint);color:var(--ink)}
+.ans.picked-no{background:var(--pink);color:#fff}
+.ans:disabled{cursor:default;opacity:.8}
+.judge .ans-btns,.yn .ans-btns{float:right}
+.yn .yn-q{flex:1}
+#rec-card{display:none;margin-top:.9em;background:rgba(255,255,255,.93);border-radius:18px;padding:.8em 1.1em;box-shadow:var(--shadow);text-align:center}
+#rec-card.show{display:block}
+#rec-stars{font-size:1.5em;letter-spacing:.08em}
+#rec-line{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.25rem);margin-top:.15em}
+#rec-sent{font-weight:800;color:var(--mint-deep);margin-top:.25em;font-size:clamp(.95rem,1.5vw,1.15rem)}
+#rec-copy{display:none;margin-top:.5em;font-family:'Fredoka',sans-serif;font-weight:600;font-size:1rem;border:none;border-radius:99px;padding:.5em 1.3em;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.14);cursor:pointer}
+@media(max-width:900px){ .row{flex-direction:column} .mime-grid,.judges{grid-template-columns:1fr} .judge .ans-btns,.yn .ans-btns{float:none;display:flex;margin:.3em 0 0} }
 </style>
 </head>
 <body>
@@ -256,14 +274,14 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     <div class="accent-line reveal"></div>
 
     <div class="judges reveal" style="flex:1;align-content:center">
-      <div class="model-line judge" data-a="ok"><span class="badge">?</span><span class="hlp">Why</span> do you eat? — <b>Because I am hungry.</b> 🍎<span class="fix"></span></div>
-      <div class="model-line judge" data-a="no"><span class="badge">?</span><span class="hlp">Why</span> do you drink water? — <b>Because it is blue.</b> 💧<span class="fix">Silly! Say: “Because I want to drink!”</span></div>
-      <div class="model-line judge" data-a="ok"><span class="badge">?</span><span class="hlp">Why</span> do you sleep? — <b>Because I am tired.</b> 😴<span class="fix"></span></div>
-      <div class="model-line judge" data-a="no"><span class="badge">?</span><span class="hlp">Why</span> do you like gymnastics? — <b>Because it is pink.</b> 🤸‍♀️<span class="fix">Silly! Say: “Because I can jump!”</span></div>
-      <div class="model-line judge" data-a="ok"><span class="badge">?</span><span class="hlp">Why</span> does the baby cry? — <b>Because he is hungry.</b> 😢<span class="fix"></span></div>
-      <div class="model-line judge" data-a="no"><span class="badge">?</span><span class="hlp">Why</span> do you go to school? — <b>Because I am ten.</b> 🏫<span class="fix">Silly! Say: “Because I like my school!”</span></div>
+      <div class="model-line judge" data-a="ok" data-q="Why do you eat? — Because I am hungry."><span class="badge">?</span><span class="hlp">Why</span> do you eat? — <b>Because I am hungry.</b> 🍎<span class="ans-btns"><button class="ans" data-v="ok">🙂 reason</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix"></span></div>
+      <div class="model-line judge" data-a="no" data-q="Why do you drink water? — Because it is blue."><span class="badge">?</span><span class="hlp">Why</span> do you drink water? — <b>Because it is blue.</b> 💧<span class="ans-btns"><button class="ans" data-v="ok">🙂 reason</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix">Silly! Say: “Because I want to drink!”</span></div>
+      <div class="model-line judge" data-a="ok" data-q="Why do you sleep? — Because I am tired."><span class="badge">?</span><span class="hlp">Why</span> do you sleep? — <b>Because I am tired.</b> 😴<span class="ans-btns"><button class="ans" data-v="ok">🙂 reason</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix"></span></div>
+      <div class="model-line judge" data-a="no" data-q="Why do you like gymnastics? — Because it is pink."><span class="badge">?</span><span class="hlp">Why</span> do you like gymnastics? — <b>Because it is pink.</b> 🤸‍♀️<span class="ans-btns"><button class="ans" data-v="ok">🙂 reason</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix">Silly! Say: “Because I can jump!”</span></div>
+      <div class="model-line judge" data-a="ok" data-q="Why does the baby cry? — Because he is hungry."><span class="badge">?</span><span class="hlp">Why</span> does the baby cry? — <b>Because he is hungry.</b> 😢<span class="ans-btns"><button class="ans" data-v="ok">🙂 reason</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix"></span></div>
+      <div class="model-line judge" data-a="no" data-q="Why do you go to school? — Because I am ten."><span class="badge">?</span><span class="hlp">Why</span> do you go to school? — <b>Because I am ten.</b> 🏫<span class="ans-btns"><button class="ans" data-v="ok">🙂 reason</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix">Silly! Say: “Because I like my school!”</span></div>
     </div>
-    <p class="task reveal" style="display:block;text-align:center">Good reason → 🙂 Nonsense → catch it and FIX it! 🕵️</p>
+    <p class="task reveal" style="display:block;text-align:center">What do YOU think? Tap 🙂 or 🤪 first — then check! 🕵️</p>
   </section>
 
   <!-- SLIDE 8 · NEW PHONICS: MAGIC E · o_e -->
@@ -314,9 +332,9 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
       <div class="card" style="flex:1.15;min-width:0">
         <h2 style="margin-bottom:.5em">Yes / No?</h2>
         <div class="col" style="gap:.45em">
-          <div class="yn" data-a="yes"><span class="badge">Y</span>Is Nina a gymnast?</div>
-          <div class="yn" data-a="no"><span class="badge">Y</span>Is the ribbon old?</div>
-          <div class="yn" data-a="yes"><span class="badge">Y</span>Is Smokey's ribbon new?</div>
+          <div class="yn" data-a="yes" data-q="Is Nina a gymnast?"><span class="badge">?</span><span class="yn-q">Is Nina a gymnast?</span><span class="ans-btns"><button class="ans" data-v="yes">Yes</button><button class="ans" data-v="no">No</button></span></div>
+          <div class="yn" data-a="no" data-q="Is the ribbon old?"><span class="badge">?</span><span class="yn-q">Is the ribbon old?</span><span class="ans-btns"><button class="ans" data-v="yes">Yes</button><button class="ans" data-v="no">No</button></span></div>
+          <div class="yn" data-a="yes" data-q="Is Smokey's ribbon new?"><span class="badge">?</span><span class="yn-q">Is Smokey's ribbon new?</span><span class="ans-btns"><button class="ans" data-v="yes">Yes</button><button class="ans" data-v="no">No</button></span></div>
         </div>
         <h2 class="mt" style="margin-bottom:.4em">Ask! 🎤</h2>
         <div class="sent"><span class="hlp">Why</span> does Nina love the gym? — <span class="gap" data-w="Because she can jump, turn and dance!">Because she can jump…!</span></div>
@@ -324,7 +342,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
         <div class="sent"><span class="hlp">What</span> is pink? — <span class="gap" data-w="The ribbon!">The ribbon!</span></div>
         <div class="sent"><span class="hlp">How old</span> is Nina? — <span class="gap" data-w="Nine!">Nine!</span></div>
         <div class="sent"><span class="hlp">What</span> is new? — <span class="gap" data-w="The ribbon and the rope!">The ribbon and the rope!</span></div>
-        <p class="muted mt" style="font-size:.9em">Answer FIRST. Click only to check. 👆</p>
+        <p class="muted mt" style="font-size:.9em">Yes / No — tap your answer! Gaps — say it, then click. 👆</p>
       </div>
     </div>
   </section>
@@ -339,7 +357,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     <div id="sq-card" class="reveal"><span id="sq-text" style="pointer-events:none">…</span></div>
 
     <div class="row reveal" style="justify-content:center;gap:1em;margin-top:.8em">
-      <p class="task">The board has ALL the answers — only ONE fits! Say it, then click! 👆</p>
+      <p class="task">The board has ALL the answers — only ONE fits! Tap your answer! 👆</p>
       <button id="silly-next">next question →</button>
     </div>
     <p class="hintline reveal" style="text-align:center">🎁 Homework bonus: make YOUR silly question for next time!</p>
@@ -358,6 +376,12 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
       <div class="hw-step"><span class="n">4</span><div class="ru">📖 <b>Kate's New Phone</b> — читаем 2 раза вслух + да/нет + вопросики</div></div>
       <div class="hw-step"><span class="n">5</span><div class="ru">📹 <b>Видео</b> — читаешь текст «Kate's New Phone» вслух. Одно видео! 🎬</div></div>
       <div class="hw-step"><span class="n">6</span><div class="ru">✍️ <b>Раскрой скобки</b> — теперь ТЕКСТ про Нину! 9 глаголов</div></div>
+    </div>
+    <div id="rec-card" class="reveal">
+      <div id="rec-stars"></div>
+      <div id="rec-line"></div>
+      <div id="rec-sent"></div>
+      <button id="rec-copy">📋 Скопировать результат</button>
     </div>
     <div class="reveal center" style="margin-top:.8em"><a class="link-pill" href="l010-homework.html">📥 Всё — в файле «September the 13th»! ⭐</a></div>
   </section>
@@ -403,6 +427,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     prevBtn.disabled = current===0;
     nextBtn.disabled = current===total-1;
     history.replaceState(null,'','#'+(current+1));
+    maybeFinish();
   }
   function go(n){ current = Math.max(0, Math.min(total-1, n)); render(); }
   const hashSlide = parseInt(location.hash.slice(1),10);
@@ -467,19 +492,29 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     c.addEventListener('click', ()=>c.classList.toggle('shown'));
   });
 
-  /* --- judge rows: reason or nonsense --- */
+  /* --- judge rows: reason or nonsense — she taps her verdict first --- */
   document.querySelectorAll('.judge').forEach(j=>{
-    j.addEventListener('click', ()=>{
-      const ok = j.dataset.a==='ok';
-      j.classList.remove('shown-ok','shown-no','wrong');
-      j.classList.add(ok ? 'shown-ok' : 'shown-no');
-      if(!ok) j.classList.add('wrong');
-      j.querySelector('.badge').textContent = ok ? '✓' : '✗';
+    j.querySelectorAll('.ans').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        e.stopPropagation();
+        if(j.dataset.done) return;
+        j.dataset.done='1';
+        const truth = j.dataset.a;                 /* the pair's real verdict */
+        const good = btn.dataset.v===truth;
+        rec('Detective', j.dataset.q, btn.dataset.v==='ok'?'good reason':'nonsense',
+            truth==='ok'?'good reason':'nonsense', good);
+        j.classList.remove('shown-ok','shown-no','wrong');
+        j.classList.add(truth==='ok' ? 'shown-ok' : 'shown-no');
+        if(truth!=='ok') j.classList.add('wrong');
+        j.querySelector('.badge').textContent = truth==='ok' ? '✓' : '✗';
+        btn.classList.add(good?'picked-ok':'picked-no');
+        j.querySelectorAll('.ans').forEach(b=>b.disabled=true);
+      });
     });
   });
 
   /* --- standing mime slide: 10 random questions from the bank
-         (Library/Grammar/question-words/question-words.md — bank + rule 2026-08-28) --- */
+         (pupils/alika/question-words.md — bank + rule 2026-08-28) --- */
   const BANK=[
     ['🫙','open the jar?','twist the lid! 🤌'],
     ['📦','open the box?','pull the flaps!'],
@@ -508,13 +543,22 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   document.getElementById('dice-btn').addEventListener('click', renderMimes);
   renderMimes();
 
-  /* --- yes/no rows --- */
+  /* --- yes/no rows — she taps Yes or No first --- */
   document.querySelectorAll('.yn').forEach(yn=>{
-    yn.addEventListener('click', ()=>{
-      const a = yn.dataset.a;
-      yn.classList.remove('shown-yes','shown-no');
-      yn.classList.add(a==='yes' ? 'shown-yes' : 'shown-no');
-      yn.querySelector('.badge').textContent = a==='yes' ? '✓' : '✗';
+    yn.querySelectorAll('.ans').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        e.stopPropagation();
+        if(yn.dataset.done) return;
+        yn.dataset.done='1';
+        const truth = yn.dataset.a;
+        const good = btn.dataset.v===truth;
+        rec('Yes-No', yn.dataset.q, btn.dataset.v, truth);
+        yn.classList.remove('shown-yes','shown-no');
+        yn.classList.add(truth==='yes' ? 'shown-yes' : 'shown-no');
+        yn.querySelector('.badge').textContent = truth==='yes' ? '✓' : '✗';
+        btn.classList.add(good?'picked-ok':'picked-no');
+        yn.querySelectorAll('.ans').forEach(b=>b.disabled=true);
+      });
     });
   });
 
@@ -539,7 +583,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   const sqCard=document.getElementById('sq-card');
   const sqText=document.getElementById('sq-text');
   boardEl.innerHTML=BOARD.map(b=>'<span class="bchip">'+b+'</span>').join('');
-  let sillyQ=[], sillyI=0;
+  let sillyQ=[], sillyI=0, sillyLocked=false;
   function dealSilly(){
     sillyQ=SILLY.slice();
     for(let i=sillyQ.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [sillyQ[i],sillyQ[j]]=[sillyQ[j],sillyQ[i]]; }
@@ -548,16 +592,33 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     showSilly();
   }
   function showSilly(){
-    boardEl.querySelectorAll('.bchip').forEach(c=>c.classList.remove('hit'));
+    boardEl.querySelectorAll('.bchip').forEach(c=>c.classList.remove('hit','miss'));
     sqCard.classList.remove('done');
+    sillyLocked=false;
     sqText.textContent='❓ '+sillyQ[sillyI][0];
   }
+  /* her answer = the chip she taps (recorded, the Irina way) */
+  boardEl.addEventListener('click', e=>{
+    const chip=e.target.closest('.bchip');
+    if(!chip||!sillyQ.length||sillyLocked) return;
+    sillyLocked=true;
+    const q=sillyQ[sillyI], hers=chip.textContent, good=hers===q[1];
+    rec('Silly game', q[0], hers, q[1], good);
+    if(good){
+      sqCard.classList.add('done');
+      sqText.textContent='✅ '+q[0]+' — '+hers+'!';
+      boardEl.querySelectorAll('.bchip').forEach(c=>{ if(c.textContent===hers) c.classList.add('hit'); });
+    }else{
+      chip.classList.add('miss');
+      sqText.textContent='🤔 Hmm… tap the card to check! 👆';
+    }
+  });
   sqCard.addEventListener('click', ()=>{
     if(!sillyQ.length) return;
-    const ans=sillyQ[sillyI][1];
+    const q=sillyQ[sillyI];
     sqCard.classList.add('done');
-    sqText.textContent='✅ '+sillyQ[sillyI][0]+' — '+ans+'!';
-    boardEl.querySelectorAll('.bchip').forEach(c=>{ if(c.textContent===ans) c.classList.add('hit'); });
+    sqText.textContent='✅ '+q[0]+' — '+q[1]+'!';
+    boardEl.querySelectorAll('.bchip').forEach(c=>{ if(c.textContent===q[1]) c.classList.add('hit'); c.classList.remove('miss'); });
   });
   document.getElementById('silly-next').addEventListener('click', ()=>{
     if(!sillyQ.length) return;
@@ -565,6 +626,85 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     showSilly();
   });
   dealSilly();
+
+  /* --- answer recorder (the Irina way, 2026-09-18: every answer is kept,
+         the report flies to Elena when she reaches the last slide) --- */
+  var ALIKA_FORM={action:"",entryReport:""}; /* ← one-time setup: paste Alika's form action + entry id */
+  var LOG=[];
+  function rec(game,q,hers,key,ok){ LOG.push({g:game,q:q,h:hers,k:key,ok:ok}); }
+  var sentRun=false;
+  function maybeFinish(){
+    if(sentRun || current<total-1 || !LOG.length) return;
+    sentRun=true;
+    finishRec();
+  }
+  function finishRec(){
+    const totalAns=LOG.length, okN=LOG.filter(l=>l.ok).length;
+    const stars=Math.max(1,Math.round(okN/totalAns*5));
+    const ico={ 'Detective':'🕵️', 'Yes-No':'🙂', 'Silly game':'🎪' };
+    const bits=Object.keys(ico).map(g=>{
+      const a=LOG.filter(l=>l.g===g);
+      return a.length ? ico[g]+' '+a.filter(l=>l.ok).length+'/'+a.length : null;
+    }).filter(Boolean);
+    document.getElementById('rec-card').classList.add('show');
+    document.getElementById('rec-stars').textContent='⭐'.repeat(stars)+'☆'.repeat(5-stars);
+    const head='✅ '+okN+'/'+totalAns+(bits.length?' · '+bits.join(' · '):'');
+    document.getElementById('rec-line').textContent=head;
+    const misses=LOG.filter(l=>!l.ok);
+    let txt='🎀 Alika · L10 deck · '+new Date().toLocaleString('ru-RU')+'\n'+head;
+    if(misses.length){
+      txt+='\nMisses:';
+      misses.forEach(l=>{ txt+='\n• ['+l.g+'] '+l.q+' — her answer: '+l.h+' · key: '+l.k; });
+    }else txt+='\nMisses: none! 🎉';
+    try{localStorage.setItem('alika-l010-last',txt);}catch(e){}
+    const sentEl=document.getElementById('rec-sent'), copyBtn=document.getElementById('rec-copy');
+    if(ALIKA_FORM.action&&ALIKA_FORM.entryReport){
+      queueReport(txt);
+      sentEl.textContent='📨 Отправляем результат…';
+      setTimeout(()=>{sentEl.textContent='✅ Результат уже у твоего учителя!';},2500);
+    }else{
+      sentEl.textContent='📁 Результат готов — попроси маму нажать кнопку 👇';
+      copyBtn.style.display='inline-block';
+    }
+  }
+  function copyText(t){
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).catch(()=>fallbackCopy(t)); }
+    else fallbackCopy(t);
+  }
+  function fallbackCopy(t){
+    const ta=document.createElement('textarea'); ta.value=t;
+    document.body.appendChild(ta); ta.select();
+    try{document.execCommand('copy');}catch(e){}
+    ta.remove();
+  }
+  document.getElementById('rec-copy').addEventListener('click', function(){
+    let t='';try{t=localStorage.getItem('alika-l010-last')||'';}catch(e){}
+    if(t){ copyText(t); this.textContent='✓ Скопировано!'; }
+  });
+  /* --- reporting (the Ira way: queue + hidden-iframe POST) --- */
+  function queueReport(txt){
+    var q=[];try{q=JSON.parse(localStorage.getItem("alika-l010-queue")||"[]");}catch(e){}
+    q.push(txt);try{localStorage.setItem("alika-l010-queue",JSON.stringify(q));}catch(e){}
+    flushQueue();
+  }
+  function sendViaForm(txt){
+    if(!ALIKA_FORM.action||!ALIKA_FORM.entryReport)return false;
+    var f=document.createElement("form"),frame=document.createElement("iframe");
+    frame.name="hf"+Date.now();frame.style.display="none";document.body.appendChild(frame);
+    f.method="POST";f.action=ALIKA_FORM.action;f.target=frame.name;
+    var i1=document.createElement("input");i1.type="hidden";i1.name=ALIKA_FORM.entryReport;i1.value=txt;f.appendChild(i1);
+    var i2=document.createElement("input");i2.type="hidden";i2.name="submit";i2.value="Submit";f.appendChild(i2);
+    document.body.appendChild(f);f.submit();
+    setTimeout(function(){f.remove();frame.remove();},15000);
+    return true;
+  }
+  function flushQueue(){
+    var q=[];try{q=JSON.parse(localStorage.getItem("alika-l010-queue")||"[]");}catch(e){}
+    if(!q.length)return;
+    var left=q.filter(function(t){return !sendViaForm(t);});
+    try{localStorage.setItem("alika-l010-queue",JSON.stringify(left));}catch(e){}
+  }
+  flushQueue(); /* anything that failed to send last time goes now */
 
   render();
 })();
