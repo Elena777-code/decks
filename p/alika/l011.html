@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alika · L11 · where? · the two-screen game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A; --lavender:#C8B6FF;
+  --lavender-deep:#9a7fff; --cream:#FFF8F0; --ink:#2D3436; --ink-soft:#636e72;
+  --pink:#FF8FAB; --white:#ffffff;
+  --shadow:0 10px 30px rgba(45,52,54,.12); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased}
+#progress-track{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(200,182,255,.25)}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--lavender),var(--pink));transition:width .45s cubic-bezier(.22,1,.36,1)}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:4.2vh 5vw calc(74px + 2.4vh);opacity:0;transform:translateX(60px) scale(.985);transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);pointer-events:none;overflow:auto}
+.slide.active{opacity:1;transform:none;pointer-events:auto;z-index:2}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.1vw,.95rem);color:var(--lavender-deep);margin-bottom:.4em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.05;margin-bottom:.5em}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--lavender));margin-bottom:1.1em}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.25rem,2.3vw,1.9rem)}
+p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,2vw,1.8rem)}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.card.pink{background:#ffe9f0}
+.model-line{font-size:clamp(1.25rem,2.2vw,1.85rem);padding:.55em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.6em}
+.model-line .key{color:var(--lavender-deep);font-weight:800}
+.model-line .hlp{color:#d6336c;font-weight:800}
+.sent{font-size:clamp(1.2rem,2vw,1.65rem);line-height:1.55;padding:.5em .2em;border-bottom:2px dotted rgba(200,182,255,.5)}
+.gap{display:inline-block;min-width:3.6em;border-bottom:4px solid var(--mint-deep);text-align:center;font-family:'Fredoka';font-weight:600;color:transparent;cursor:pointer;transition:all .2s ease;padding:0 .15em;border-radius:4px 4px 0 0}
+.gap:hover{background:#eafbf6}
+.gap.filled{color:var(--lavender-deep);border-color:var(--lavender);background:#f1ecff}
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.55em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--lavender));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:var(--ink)}
+.hw-step .ru{font-size:clamp(1rem,1.6vw,1.35rem);line-height:1.45}
+#nav{position:fixed;bottom:2.4vh;right:max(10px,1.6vw);z-index:90;display:flex;align-items:center;gap:1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);padding:.5em 1em;border-radius:99px;box-shadow:0 20px 50px rgba(45,52,54,.18)}
+.nav-btn{width:3em;height:3em;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--mint),var(--lavender));display:grid;place-items:center;color:var(--ink);font-size:1.2rem;box-shadow:0 6px 16px rgba(90,123,191,.25);transition:transform .15s ease;font-family:'Fredoka'}
+.nav-btn:hover{transform:scale(1.08)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#counter{font-family:'Fredoka';font-weight:600;font-size:1.1rem;min-width:3.5em;text-align:center}
+#counter .now{color:var(--lavender-deep)}
+#fs-btn{width:2.6em;height:2.6em;border-radius:50%;border:none;cursor:pointer;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.1);font-size:1rem;transition:transform .15s ease}
+#fs-btn:hover{transform:scale(1.08)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:1em}
+.center{text-align:center}
+.mt{margin-top:1em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka';font-weight:500;color:var(--ink);background:#fff8db;border-radius:14px;padding:.6em 1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.35rem)}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.9rem,1.3vw,1.1rem);color:var(--ink-soft);font-style:italic}
+/* --- bright hero slide --- */
+.slide.bright{background:linear-gradient(135deg,var(--mint) 0%,var(--peach) 32%,var(--lavender) 66%,var(--pink) 100%)}
+.slide.bright .eyebrow{color:#fff;text-shadow:0 2px 10px rgba(45,52,54,.3)}
+.slide.bright .accent-line{background:rgba(255,255,255,.9)}
+.sticker{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.1;color:#fff;text-shadow:-3px -3px 0 var(--ink),3px -3px 0 var(--ink),-3px 3px 0 var(--ink),3px 3px 0 var(--ink),-3px 0 0 var(--ink),3px 0 0 var(--ink),0 -3px 0 var(--ink),0 3px 0 var(--ink),0 16px 34px rgba(45,52,54,.3)}
+.hero-where{font-size:clamp(3.6rem,11vw,9rem)}
+.thumb{font-size:clamp(3.6rem,9vw,7.5rem);line-height:1;animation:bob 2.4s ease-in-out infinite alternate;filter:drop-shadow(0 14px 20px rgba(45,52,54,.25))}
+@keyframes bob{from{transform:translateY(0) rotate(-6deg)}to{transform:translateY(-16px) rotate(6deg)}}
+.glass{background:rgba(255,255,255,.93)}
+.link-pill{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);color:var(--ink);background:linear-gradient(135deg,var(--mint),var(--lavender));border-radius:99px;padding:.4em 1.1em;text-decoration:none;box-shadow:0 6px 16px rgba(45,52,54,.15);margin-top:.55em}
+.link-pill:hover{transform:translateY(-2px)}
+/* --- where production cards (the hero model row) --- */
+.hero-where .wq{color:var(--peach)}
+/* --- judge rows: the detective --- */
+.judges{display:grid;grid-template-columns:1fr 1fr;gap:.45em 1em;width:100%}
+.judges .model-line{font-size:clamp(.98rem,1.65vw,1.4rem);line-height:1.45;padding:.45em .7em;margin:0}
+.judge{cursor:pointer}
+.judge .fix{display:none;font-size:.78em;color:var(--mint-deep);font-weight:700;margin-top:.15em}
+.judge.wrong .fix{display:block}
+.judge .badge{flex-shrink:0;width:1.55em;height:1.55em;border-radius:50%;display:inline-grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.8em;background:#eee;color:transparent;transition:all .2s;vertical-align:middle;margin-right:.4em}
+.judge.shown-ok .badge{background:var(--mint);color:var(--ink)}
+.judge.shown-no .badge{background:var(--pink);color:#fff}
+.ans-btns{display:inline-flex;gap:.35em;margin-left:.4em;vertical-align:middle}
+.ans{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.68rem,1.1vw,.9rem);border:none;cursor:pointer;border-radius:99px;padding:.32em .85em;background:var(--cream);box-shadow:0 3px 8px rgba(45,52,54,.14);color:var(--ink-soft);transition:all .15s ease}
+.ans:hover:not(:disabled){transform:translateY(-2px);color:var(--ink)}
+.ans.picked-ok{background:var(--mint);color:var(--ink)}
+.ans.picked-no{background:var(--pink);color:#fff}
+.ans:disabled{cursor:default;opacity:.8}
+.judge .ans-btns{float:right}
+/* --- riddles: two reveal cards --- */
+.riddle-answer{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.8rem);color:var(--lavender-deep);opacity:0;transform:scale(.6);transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.reveal-box{cursor:pointer;transition:transform .15s ease}
+.reveal-box:hover{transform:scale(1.02)}
+.reveal-box.shown .riddle-answer{opacity:1;transform:scale(1)}
+/* --- the two-screen silly game: FIVE BIG ANSWERS --- */
+.bigboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(.6em,1.4vw,1.1em);width:100%;flex:1;align-content:center}
+.bigboard .bchip{display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,3.4vw,2.9rem);line-height:1.15;padding:.55em .5em;border-radius:24px;background:var(--white);box-shadow:0 12px 30px rgba(45,52,54,.14);cursor:pointer;transition:all .2s ease;min-height:2.6em}
+.bigboard .bchip:hover{transform:translateY(-4px)}
+@keyframes missshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.bigboard .bchip.miss{animation:missshake .35s ease;background:#ffe9f0}
+.bigboard .bchip.hit{background:linear-gradient(135deg,var(--mint),var(--lavender));transform:scale(1.06)}
+.small-tools{display:flex;gap:.6em;align-items:center;flex-wrap:wrap}
+.mini-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.78rem,1.2vw,1rem);border:none;cursor:pointer;border-radius:99px;padding:.4em 1em;background:var(--white);box-shadow:0 4px 12px rgba(45,52,54,.12);color:var(--ink-soft);transition:transform .15s ease}
+.mini-btn:hover{transform:scale(1.05);color:var(--ink)}
+/* --- teacher's notes + question pad overlays --- */
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(255,248,240,.985);display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
+.overlay.open{display:flex}
+.overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka';font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
+#tpad .pad-q{display:flex;gap:.7em;align-items:flex-start;padding:.55em .7em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.45em;cursor:pointer;transition:all .2s ease}
+#tpad .pad-q .n{flex-shrink:0;width:1.6em;height:1.6em;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--lavender));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:clamp(.85rem,1.6vw,1.15rem)}
+#tpad .pad-q .t{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,2.4vw,1.7rem);line-height:1.3}
+#tpad .pad-q .k{display:block;font-size:clamp(.78rem,1.4vw,1rem);color:var(--mint-deep);font-weight:800;margin-top:.1em}
+#tpad .pad-q.done{opacity:.42}
+#tpad .pad-q.done .t{text-decoration:line-through}
+#tnotes .note-step{display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.5em;font-size:clamp(.95rem,1.7vw,1.3rem);line-height:1.45}
+#tnotes .note-step .b{flex-shrink:0;font-family:'Fredoka';font-weight:700;color:var(--lavender-deep)}
+#tnotes b.z{color:#2D8CFF}
+/* --- recorder report --- */
+#rec-card{display:none;margin-top:.9em;background:rgba(255,255,255,.93);border-radius:18px;padding:.8em 1.1em;box-shadow:var(--shadow);text-align:center}
+#rec-card.show{display:block}
+#rec-stars{font-size:1.5em;letter-spacing:.08em}
+#rec-line{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.25rem);margin-top:.15em}
+#rec-sent{font-weight:800;color:var(--mint-deep);margin-top:.25em;font-size:clamp(.95rem,1.5vw,1.15rem)}
+#rec-copy{display:none;margin-top:.5em;font-family:'Fredoka',sans-serif;font-weight:600;font-size:1rem;border:none;border-radius:99px;padding:.5em 1.3em;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.14);cursor:pointer}
+@media(max-width:900px){ .row{flex-direction:column} .judges{grid-template-columns:1fr} .judge .ans-btns{float:none;display:flex;margin:.3em 0 0} }
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · CHECK HOMEWORK (+ online prep strip) -->
+  <section class="slide" id="s1">
+    <div class="eyebrow reveal">Homework · let's check</div>
+    <h1 class="title reveal">Let's check! ⭐</h1>
+    <div class="accent-line reveal"></div>
+    <p class="hintline reveal" style="margin:-.6em 0 .8em">Перед уроком (онлайн!): Zoom-звонок · на Mac — эта дека · на iPad — та же ссылка, слайд 7 → 🔑 · проверить звук. Ничего печатать! Если успели 🎧 Starters 3 T2 P2 — ответы: Pear · 13 · Sam · Tony · 5.</p>
+
+    <div class="row reveal" style="align-items:stretch;gap:1.4em">
+      <div class="card mint" style="flex:1">
+        <h2>🎧 Your tracks — 1.2–1.6!</h2>
+        <p class="mt">Did you listen at home? 👂</p>
+        <p class="mt">Rap with me! 🎤 <b>Alphabet Rap!</b></p>
+        <p class="mt">— How do you spell <b>your</b> name? — …!</p>
+      </div>
+      <div class="card peach" style="flex:1">
+        <h2>🕵️ Spot the mistake!</h2>
+        <p class="mt" style="font-family:'Fredoka'">1. “My cat sleep a lot.”</p>
+        <p class="mt" style="font-family:'Fredoka'">2. “Nina fly her kite.”</p>
+        <p class="mt" style="font-family:'Fredoka'">3. “We goes to the gym.”</p>
+        <p class="hintline mt">it/he/she → +s! · I/we/they → no s!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2 · OPEN THE BRACKETS (quick round) -->
+  <section class="slide" id="s2">
+    <div class="eyebrow reveal">Grammar · quick round</div>
+    <h1 class="title reveal">Open the brackets! ✍️</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:flex-start;gap:1.4em">
+      <div class="card" style="flex:1;min-width:280px">
+        <div class="sent">My cat _____ <span class="muted">(sleep)</span> a lot. 😺</div>
+        <div class="sent">I _____ <span class="muted">(like)</span> gymnastics. 🤸‍♀️</div>
+        <div class="sent">She _____ <span class="muted">(watch)</span> TV. 📺</div>
+        <div class="sent">Tom _____ <span class="muted">(fly)</span> his kite. 🪁</div>
+      </div>
+      <div class="card" style="flex:1;min-width:280px">
+        <div class="sent">We _____ <span class="muted">(go)</span> to the gym. 🏃‍♀️</div>
+        <div class="sent">My teddy _____ <span class="muted">(have)</span> a ribbon. 🧸</div>
+        <div class="sent">My legs _____ <span class="muted">(hurt)</span>. 🦵</div>
+        <div class="sent">The baby _____ <span class="muted">(cry)</span>. 👶</div>
+      </div>
+    </div>
+    <p class="task reveal" style="display:block;text-align:center">Say it FIRST — then click the gap! · it/he/she → +s (+es · y→ies) · I/we/they → no s!</p>
+  </section>
+
+  <!-- SLIDE 3 · RIDDLES: THE OLD FRIEND + A NEW ONE -->
+  <section class="slide" id="s3">
+    <div class="eyebrow reveal">Riddle time 🧠 · two riddles</div>
+    <h1 class="title reveal">The old friend &amp; a new one</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="col reveal" style="flex:1;justify-content:center;gap:.9em;max-width:980px;margin:0 auto;width:100%">
+      <div class="reveal-box card lavender" id="riddle-old" style="padding:.9em 1.4em">
+        <h2>1 · What has four legs but can't walk? 🤔</h2>
+        <p class="hintline">Wild guesses first! Then one hint: your plate stands on it. 🍽</p>
+        <div class="riddle-answer">a table! 🪑</div>
+        <div class="hintline" style="margin-top:.2em">t<b style="color:var(--lavender-deep)">a</b>ble — magic a_e ✓</div>
+      </div>
+      <div class="reveal-box card pink" id="riddle-new" style="padding:.9em 1.4em">
+        <h2>2 · What has a ring but no finger? 🔔</h2>
+        <p class="hintline">Guess, guess! Then one hint: you hear it in another room!</p>
+        <div class="riddle-answer">a telephone! 📞</div>
+        <div class="hintline" style="margin-top:.2em">ph<b style="color:var(--lavender-deep)">o</b>n<b style="color:#d6336c">e</b> — magic o_e, our NEW family member! 😉</div>
+      </div>
+    </div>
+    <p class="hintline reveal" style="text-align:center">Read twice → wild guesses → one hint → click to reveal! 👆</p>
+  </section>
+
+  <!-- SLIDE 4 · STANDING: HOW DO YOU…? MIME GAME (10 random from the bank) -->
+  <section class="slide" id="s4m">
+    <div class="eyebrow reveal">Every lesson · the mime game</div>
+    <h1 class="title reveal">How do you…? 🎭</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="col reveal" id="mime-grid" style="flex:1;justify-content:center;display:grid;grid-template-columns:1fr 1fr;gap:.45em 1em;align-content:center;width:100%"></div>
+
+    <div class="row reveal" style="justify-content:center;gap:1em">
+      <p class="task">🎭 Watch Elena — say the sentence! Then YOU mime — Elena says!</p>
+      <button id="dice-btn" class="mini-btn">🎲 Ten more!</button>
+    </div>
+  </section>
+
+  <!-- SLIDE 5 · NEW HERO: where? (bright) -->
+  <section class="slide bright" id="s5">
+    <div class="eyebrow reveal">NEW · question word №4</div>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="justify-content:center;align-items:center;gap:clamp(.8rem,3vw,2em);flex:1;flex-wrap:nowrap;min-width:0">
+      <span class="sticker hero-where"><span class="wq">where?</span></span>
+      <span class="thumb" style="font-size:clamp(3rem,7.5vw,6.2rem)">🧸</span>
+      <span class="sticker" style="font-size:clamp(1.5rem,3.8vw,2.9rem)">where → bear!</span>
+    </div>
+
+    <div class="row glass reveal" style="max-width:1000px;margin:0 auto 1em;width:100%;justify-content:center;gap:1em;padding:.7em;border-radius:20px">
+      <span class="model-line" style="margin:0"><span class="hlp">Where</span> is your teddy bear? — <b class="key">On the bed!</b> 🧸</span>
+      <span class="model-line" style="margin:0"><span class="hlp">Where</span> do you do gymnastics? — <b class="key">In the gym!</b> 🤸‍♀️</span>
+    </div>
+    <p class="task reveal" style="display:block;text-align:center">A where-question asks for a PLACE — say: in · on · under! 🎯</p>
+  </section>
+
+  <!-- SLIDE 6 · THE DETECTIVE: RIGHT PLACE OR NONSENSE? -->
+  <section class="slide" id="s6">
+    <div class="eyebrow reveal">The detective game 🕵️</div>
+    <h1 class="title reveal">The right place — or nonsense?</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="judges reveal" style="flex:1;align-content:center">
+      <div class="model-line judge" data-a="ok" data-q="Where do you sleep? — In my bed."><span class="badge">?</span><span class="hlp">Where</span> do you sleep? — <b>In my bed.</b> 🛌<span class="ans-btns"><button class="ans" data-v="ok">🙂 place</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix"></span></div>
+      <div class="model-line judge" data-a="no" data-q="Where is your phone? — In the fridge."><span class="badge">?</span><span class="hlp">Where</span> is your phone? — <b>In the fridge.</b> 📱<span class="ans-btns"><button class="ans" data-v="ok">🙂 place</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix">Silly! Say: “In my pocket!”</span></div>
+      <div class="model-line judge" data-a="ok" data-q="Where do you swim? — In the pool."><span class="badge">?</span><span class="hlp">Where</span> do you swim? — <b>In the pool.</b> 🏊<span class="ans-btns"><button class="ans" data-v="ok">🙂 place</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix"></span></div>
+      <div class="model-line judge" data-a="no" data-q="Where is your cat? — In the soup."><span class="badge">?</span><span class="hlp">Where</span> is your cat? — <b>In the soup.</b> 🐱<span class="ans-btns"><button class="ans" data-v="ok">🙂 place</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix">Silly! Say: “On the chair!”</span></div>
+      <div class="model-line judge" data-a="ok" data-q="Where do you do gymnastics? — In the gym."><span class="badge">?</span><span class="hlp">Where</span> do you do gymnastics? — <b>In the gym.</b> 🤸‍♀️<span class="ans-btns"><button class="ans" data-v="ok">🙂 place</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix"></span></div>
+      <div class="model-line judge" data-a="no" data-q="Where do you eat? — In the bathroom."><span class="badge">?</span><span class="hlp">Where</span> do you eat? — <b>In the bathroom.</b> 🛁<span class="ans-btns"><button class="ans" data-v="ok">🙂 place</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix">Silly! Say: “In the kitchen!”</span></div>
+    </div>
+    <p class="task reveal" style="display:block;text-align:center">What do YOU think? Tap 🙂 or 🤪 first — then check! 🕵️</p>
+  </section>
+
+  <!-- SLIDE 7 · THE SILLY GAME, TWO SCREENS: FIVE BIG ANSWERS (ALIKA) + T-PAD (ELENA) -->
+  <section class="slide" id="s7">
+    <div class="eyebrow reveal">The silly game 🎪 · two screens</div>
+    <h1 class="title reveal">Answers on the screen!</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="bigboard reveal" id="bigboard">
+      <div class="bchip">under the chair</div>
+      <div class="bchip">eight</div>
+      <div class="bchip">Because it's fun!</div>
+      <div class="bchip">rainy</div>
+      <div class="bchip">Yes!</div>
+    </div>
+
+    <div class="row reveal" style="justify-content:center;gap:1em;margin-top:.9em">
+      <p class="task">Listen! 👂 One answer fits — SAY it! 🗣</p>
+      <div class="small-tools">
+        <button class="mini-btn" id="tnotes-btn">🗒 Teacher's notes</button>
+        <button class="mini-btn" id="pad-btn" title="Elena's question pad (T)">🔑</button>
+      </div>
+    </div>
+    <p class="hintline reveal" style="text-align:center">🎁 Homework bonus: make YOUR silly question for next time!</p>
+  </section>
+
+  <!-- SLIDE 8 · HOMEWORK PILL + REPORT -->
+  <section class="slide" id="s8">
+    <div class="eyebrow reveal">Homework</div>
+    <h1 class="title reveal">📝 Домашнее задание</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="col reveal" style="max-width:940px;margin:0 auto;gap:.55em">
+      <div class="hw-step"><span class="n">1</span><div class="ru">📘 <b>Go Getter: WB 0.3</b> — из курса</div></div>
+      <div class="hw-step"><span class="n">2</span><div class="ru">✨ <b>Новая страница ДЗ</b> появится здесь после урока!</div></div>
+    </div>
+    <div id="rec-card" class="reveal">
+      <div id="rec-stars"></div>
+      <div id="rec-line"></div>
+      <div id="rec-sent"></div>
+      <button id="rec-copy">📋 Скопировать результат</button>
+    </div>
+    <div class="reveal center" style="margin-top:.8em"><a class="link-pill" href="l011-homework.html">📥 Аудиодоска «September the 20th» — треки 1.2–1.6 ⭐</a></div>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
+  <div id="counter"><span class="now">1</span> / 8</div>
+  <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
+  <button id="fs-btn" title="Fullscreen (F)">⛶</button>
+</div>
+
+<!-- TEACHER'S NOTES · the two-screen setup + Zoom share steps -->
+<div id="tnotes" class="overlay">
+  <span class="closer" data-close="tnotes">✕ close</span>
+  <div class="eyebrow">Teacher's notes · the two-screen game</div>
+  <h1 class="title" style="font-size:clamp(1.5rem,3vw,2.4rem)">Как показать игре два экрана 🖥📱</h1>
+  <div class="accent-line"></div>
+  <div class="col" style="max-width:900px">
+    <div class="note-step"><span class="b">1 ·</span><span><b>MacBook</b> — открой эту деку, листай до слайда 7. Алике видно будет только <b>пять больших ответов</b>.</span></div>
+    <div class="note-step"><span class="b">2 ·</span><span>В Zoom внизу — зелёная кнопка <b class="z">Share Screen</b> (или клавиши <b>⌘⇧S</b>) → выбери <b>окно</b> с декой (не «Screen» / не весь экран!) → нажми <b class="z">Share</b>.</span></div>
+    <div class="note-step"><span class="b">3 ·</span><span><b>iPad</b> — открой <b>ту же ссылку</b> в Safari → слайд 7 → маленькая кнопка <b>🔑</b> (или клавиша T на клавиатуре). Появятся <b>10 вопросов</b> — с ответами-подсказками. iPad в Zoom не показывай!</span></div>
+    <div class="note-step"><span class="b">4 ·</span><span>Читай вопрос вслух с iPad → Алика находит ответ среди пяти больших → <b>называет вслух</b> → ты нажимаешь этот ответ на доске — он <b>загорится 🎉</b> (случайно нажала не тот — нажми ещё раз, он погаснет).</span></div>
+    <div class="note-step"><span class="b">5 ·</span><span>На iPad вопрос решён — коснись строки, она <b>зачеркнётся</b>. Кнопка ↺ — новый порядок вопросов.</span></div>
+    <div class="note-step"><span class="b">6 ·</span><span>Закончить показ — красная кнопка <b class="z">Stop Share</b> наверху экрана.</span></div>
+  </div>
+  <p class="hintline" style="margin-top:1em">Ключ игры: у каждого вопроса ровно ОДИН подходящий ответ. Доска: under the chair · eight · Because it's fun! · rainy · Yes!</p>
+</div>
+
+<!-- ELENA'S QUESTION PAD (the same file, second device) -->
+<div id="tpad" class="overlay">
+  <span class="closer" data-close="tpad">✕ close</span>
+  <div class="eyebrow">🔑 Elena's pad · 10 questions</div>
+  <h1 class="title" style="font-size:clamp(1.5rem,3.2vw,2.6rem)">Read aloud — Alika sees only the 5 answers 🤫</h1>
+  <div class="accent-line"></div>
+  <div id="pad-list" style="max-width:820px"></div>
+  <div class="row" style="margin-top:.8em;gap:1em">
+    <button class="mini-btn" id="pad-shuffle">↺ Новый порядок</button>
+    <span class="hintline">Mac: делишь ОКНО деки в Zoom · iPad: эта же ссылка + 🔑 · коснись строки — зачеркнётся</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+  const fill = document.getElementById('progress-fill');
+  const counter = document.getElementById('counter').querySelector('.now');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const fsBtn = document.getElementById('fs-btn');
+  function render(){
+    slides.forEach((s,i)=>{ s.classList.toggle('active', i===current); s.classList.toggle('prev', i<current); });
+    counter.textContent = current+1;
+    fill.style.width = ((current+1)/total*100) + '%';
+    prevBtn.disabled = current===0;
+    nextBtn.disabled = current===total-1;
+    history.replaceState(null,'','#'+(current+1));
+    maybeFinish();
+  }
+  function go(n){ current = Math.max(0, Math.min(total-1, n)); render(); }
+  const hashSlide = parseInt(location.hash.slice(1),10);
+  if(hashSlide>=1 && hashSlide<=total) current = hashSlide-1;
+  const next = ()=>go(current+1);
+  const prev = ()=>go(current-1);
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  const tnotes=document.getElementById('tnotes'), tpad=document.getElementById('tpad');
+  document.addEventListener('keydown', e=>{
+    if(tnotes.classList.contains('open')||tpad.classList.contains('open')){
+      if(e.key==='Escape'){ tnotes.classList.remove('open'); tpad.classList.remove('open'); }
+      return;
+    }
+    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
+    switch(e.key){
+      case 'ArrowRight': case 'ArrowDown': e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'ArrowUp': e.preventDefault(); prev(); break;
+      case ' ': e.preventDefault(); next(); break;
+      case 'Home': e.preventDefault(); go(0); break;
+      case 'End': e.preventDefault(); go(total-1); break;
+      case 'f': case 'F': toggleFs(); break;
+      case 't': case 'T': case 'т': case 'Т': if(current===6) togglePad(); break;
+      case 'Escape': if(document.fullscreenElement) document.exitFullscreen?.(); break;
+    }
+  });
+  let wheelLock = false;
+  document.getElementById('deck').addEventListener('wheel', e=>{
+    if(wheelLock) return;
+    if(Math.abs(e.deltaY) < 25) return;
+    wheelLock = true;
+    (e.deltaY>0 ? next() : prev());
+    setTimeout(()=>wheelLock=false, 650);
+  }, {passive:true});
+  let touchX=null;
+  document.addEventListener('touchstart', e=>{touchX=e.changedTouches[0].clientX},{passive:true});
+  document.addEventListener('touchend', e=>{
+    if(touchX===null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx)>60){ dx<0 ? next() : prev(); }
+    touchX=null;
+  },{passive:true});
+  function toggleFs(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+    else { document.exitFullscreen?.(); }
+  }
+  fsBtn.addEventListener('click', toggleFs);
+  document.addEventListener('click', e=>{
+    const g = e.target.closest('.gap');
+    if(g) g.classList.toggle('filled');
+    const c = e.target.closest('.closer');
+    if(c) document.getElementById(c.dataset.close).classList.remove('open');
+  });
+
+  /* --- riddle reveals --- */
+  ['riddle-old','riddle-new'].forEach(id=>{
+    document.getElementById(id).addEventListener('click', function(){ this.classList.toggle('shown'); });
+  });
+
+  /* --- judge rows: the detective — she taps her verdict first --- */
+  document.querySelectorAll('.judge').forEach(j=>{
+    j.querySelectorAll('.ans').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        e.stopPropagation();
+        if(j.dataset.done) return;
+        j.dataset.done='1';
+        const truth = j.dataset.a;
+        const good = btn.dataset.v===truth;
+        rec('Detective', j.dataset.q, btn.dataset.v==='ok'?'right place':'nonsense',
+            truth==='ok'?'right place':'nonsense', good);
+        j.classList.remove('shown-ok','shown-no','wrong');
+        j.classList.add(truth==='ok' ? 'shown-ok' : 'shown-no');
+        if(truth!=='ok') j.classList.add('wrong');
+        j.querySelector('.badge').textContent = truth==='ok' ? '✓' : '✗';
+        btn.classList.add(good?'picked-ok':'picked-no');
+        j.querySelectorAll('.ans').forEach(b=>b.disabled=true);
+      });
+    });
+  });
+
+  /* --- standing mime slide: 10 random questions from the bank --- */
+  const BANK=[
+    ['🫙','open the jar?','twist the lid! 🤌'],
+    ['📦','open the box?','pull the flaps!'],
+    ['🧼','wash your hands?','rub, rub, rub!'],
+    ['🍎','eat an apple?','big bite! 😋'],
+    ['💧','drink your water?','careful sips!'],
+    ['🚲','ride a bike?','pedal, pedal! 🦵'],
+    ['🪁','fly a kite?','pull the string, run!'],
+    ['🐈','draw a cat?','draw in the air!'],
+    ['📺','watch TV?','popcorn + stare! 🍿'],
+    ['🍵','make tea?','pour and stir!'],
+    ['🤸‍♀️','swing on the bar?','swing your arms! 💪'],
+    ['🪟','open the window?','push! 💪'],
+    ['🏐','catch the ball?','hands up!'],
+    ['📖','read this word?','point and decode!'],
+    ['😢','cry?','rub your eyes — boo-hoo!']
+  ];
+  const mimeGrid=document.getElementById('mime-grid');
+  function renderMimes(){
+    const pool=BANK.slice();
+    for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
+    mimeGrid.innerHTML=pool.slice(0,10).map(([ico,q,m])=>
+      '<div class="model-line" style="margin:0;font-size:clamp(.95rem,1.65vw,1.35rem);padding:.4em .7em;line-height:1.4">'+ico+' <span class="hlp">How do you</span> '+q+' — <span class="gap">'+m+'</span></div>'
+    ).join('');
+  }
+  document.getElementById('dice-btn').addEventListener('click', renderMimes);
+  renderMimes();
+
+  /* --- THE TWO-SCREEN SILLY GAME -------------------------------------
+     Board (Alika's screen): FIVE big answers. Questions (Elena's pad):
+     the same file on the iPad, the 🔑 button or the T key. The deal is
+     seeded by the DATE, so the Mac and the iPad get the SAME order.
+     Questions live in Library/Ideas/answers-on-the-screen/question-base.md */
+  const DEAL=[
+    ['Where do you live?','under the chair'],
+    ['Where is the cat?','under the chair'],
+    ['Why does the baby cry?',"Because it's fun!"],
+    ['Why do you like gymnastics?',"Because it's fun!"],
+    ['How many tails have you got?','eight'],
+    ['How many teachers have you got?','eight'],
+    ["What's the weather like in the sea?",'rainy'],
+    ["What's the weather like in winter?",'rainy'],
+    ['Do your cats sleep during the lesson?','Yes!'],
+    ['Is your granny six?','Yes!']
+  ];
+  function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+  function seededDeal(){
+    const d=new Date();
+    const rnd=mulberry32(d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate());
+    const idx=DEAL.map((_,i)=>i);
+    for(let i=idx.length-1;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [idx[i],idx[j]]=[idx[j],idx[i]]; }
+    return idx.map(i=>DEAL[i]);
+  }
+  /* board taps = Elena lights the answer Alika named (a prop, no key on
+     this screen — the key lives on Elena's pad). Tap a lit chip to
+     unlight a misclick. Lit chips stay as gentle elimination for Alika. */
+  document.querySelectorAll('#bigboard .bchip').forEach(chip=>{
+    chip.addEventListener('click', ()=>chip.classList.toggle('hit'));
+  });
+  function togglePad(){
+    if(tpad.classList.contains('open')){ tpad.classList.remove('open'); return; }
+    tnotes.classList.remove('open');
+    renderPad();
+    tpad.classList.add('open');
+  }
+  document.getElementById('pad-btn').addEventListener('click', togglePad);
+  document.getElementById('tnotes-btn').addEventListener('click', ()=>{ tpad.classList.remove('open'); tnotes.classList.add('open'); });
+  let padOrder=seededDeal(), padState={};
+  const padList=document.getElementById('pad-list');
+  function renderPad(){
+    padList.innerHTML=padOrder.map((q,i)=>
+      '<div class="pad-q'+(padState[i]?' done':'')+'" data-i="'+i+'"><span class="n">'+(i+1)+'</span><span><span class="t">'+q[0]+'</span><span class="k">→ '+q[1]+'</span></span></div>'
+    ).join('');
+  }
+  padList.addEventListener('click', e=>{
+    const row=e.target.closest('.pad-q');
+    if(!row) return;
+    const i=row.dataset.i;
+    padState[i]=!padState[i];
+    row.classList.toggle('done', !!padState[i]);
+  });
+  document.getElementById('pad-shuffle').addEventListener('click', ()=>{
+    const pool=DEAL.slice();
+    for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
+    padOrder=pool; padState={}; renderPad();
+  });
+
+  /* --- answer recorder (the Irina way; this deck records the detective) --- */
+  var ALIKA_FORM={action:"",entryReport:""}; /* ← one-time setup: paste Alika's form action + entry id */
+  var LOG=[];
+  function rec(game,q,hers,key,ok){ LOG.push({g:game,q:q,h:hers,k:key,ok:ok}); }
+  var sentRun=false;
+  function maybeFinish(){
+    if(sentRun || current<total-1 || !LOG.length) return;
+    sentRun=true;
+    finishRec();
+  }
+  function finishRec(){
+    const totalAns=LOG.length, okN=LOG.filter(l=>l.ok).length;
+    const stars=Math.max(1,Math.round(okN/totalAns*5));
+    document.getElementById('rec-card').classList.add('show');
+    document.getElementById('rec-stars').textContent='⭐'.repeat(stars)+'☆'.repeat(5-stars);
+    const head='✅ 🕵️ '+okN+'/'+totalAns;
+    document.getElementById('rec-line').textContent=head;
+    const misses=LOG.filter(l=>!l.ok);
+    let txt='🎀 Alika · L11 deck · '+new Date().toLocaleString('ru-RU')+'\n'+head;
+    if(misses.length){
+      txt+='\nMisses:';
+      misses.forEach(l=>{ txt+='\n• ['+l.g+'] '+l.q+' — her answer: '+l.h+' · key: '+l.k; });
+    }else txt+='\nMisses: none! 🎉';
+    try{localStorage.setItem('alika-l011-last',txt);}catch(e){}
+    const sentEl=document.getElementById('rec-sent'), copyBtn=document.getElementById('rec-copy');
+    if(ALIKA_FORM.action&&ALIKA_FORM.entryReport){
+      queueReport(txt);
+      sentEl.textContent='📨 Отправляем результат…';
+      setTimeout(()=>{sentEl.textContent='✅ Результат уже у твоего учителя!';},2500);
+    }else{
+      sentEl.textContent='📁 Результат готов — попроси маму нажать кнопку 👇';
+      copyBtn.style.display='inline-block';
+    }
+  }
+  function copyText(t){
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t).catch(()=>fallbackCopy(t)); }
+    else fallbackCopy(t);
+  }
+  function fallbackCopy(t){
+    const ta=document.createElement('textarea'); ta.value=t;
+    document.body.appendChild(ta); ta.select();
+    try{document.execCommand('copy');}catch(e){}
+    ta.remove();
+  }
+  document.getElementById('rec-copy').addEventListener('click', function(){
+    let t='';try{t=localStorage.getItem('alika-l011-last')||'';}catch(e){}
+    if(t){ copyText(t); this.textContent='✓ Скопировано!'; }
+  });
+  /* --- reporting (the Ira way: queue + hidden-iframe POST) --- */
+  function queueReport(txt){
+    var q=[];try{q=JSON.parse(localStorage.getItem("alika-l011-queue")||"[]");}catch(e){}
+    q.push(txt);try{localStorage.setItem("alika-l011-queue",JSON.stringify(q));}catch(e){}
+    flushQueue();
+  }
+  function sendViaForm(txt){
+    if(!ALIKA_FORM.action||!ALIKA_FORM.entryReport)return false;
+    var f=document.createElement("form"),frame=document.createElement("iframe");
+    frame.name="hf"+Date.now();frame.style.display="none";document.body.appendChild(frame);
+    f.method="POST";f.action=ALIKA_FORM.action;f.target=frame.name;
+    var i1=document.createElement("input");i1.type="hidden";i1.name=ALIKA_FORM.entryReport;i1.value=txt;f.appendChild(i1);
+    var i2=document.createElement("input");i2.type="hidden";i2.name="submit";i2.value="Submit";f.appendChild(i2);
+    document.body.appendChild(f);f.submit();
+    setTimeout(function(){f.remove();frame.remove();},15000);
+    return true;
+  }
+  function flushQueue(){
+    var q=[];try{q=JSON.parse(localStorage.getItem("alika-l011-queue")||"[]");}catch(e){}
+    if(!q.length)return;
+    var left=q.filter(function(t){return !sendViaForm(t);});
+    try{localStorage.setItem("alika-l011-queue",JSON.stringify(left));}catch(e){}
+  }
+  flushQueue(); /* anything that failed to send last time goes now */
+
+  render();
+})();
+
+/* READY-CHIME — STANDING (Elena, 2026-09-04): polls this file over http;
+   when ZCode saves a new version the open window chimes once and reloads,
+   keeping the current slide in the #n hash. Silent on file://. */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{        /* ding — dong */
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>

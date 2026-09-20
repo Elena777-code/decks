@@ -102,13 +102,14 @@ body.playing #backchip{font-size:clamp(1.4rem,2vw,1.9rem);padding:.3em .8em}
     {a:"No!", q:["Do you eat your homework?","Do you live under the chair?"]},
     {a:"pink", q:["What colour is my hair?","What colour is your cat?","What colour is your sister's hair?"]},
     {a:"hungry", q:["What's the matter with your teddy bear?","How are you?","How is your cat?","How is your dog?"]},
-    {a:"One knee hurts!", q:["What's the matter, Elena?"]}
+    {a:"One knee hurts!", q:["What's the matter, Elena?"]},
+    {a:"Because it's fun!", q:["Why does the baby cry?","Why do you like gymnastics?","Why do cats sleep a lot?","Why do you like English?"]}
   ];
   function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
   function dealRound(){
     const yn = Math.random() < .5 ? "Yes!" : "No!";
     const weather = Math.random() < .5 ? "rainy" : "It's hot!";
-    const rest = shuffle(["during the lesson","my friend","eight","under the chair","pink","hungry","One knee hurts!"]).slice(0,4);
+    const rest = shuffle(["during the lesson","my friend","eight","under the chair","pink","hungry","One knee hurts!","Because it's fun!"]).slice(0,4);
     const groups = shuffle([yn, weather].concat(rest)).map(a => POOL.find(g => g.a === a));
     const qs = [];
     let pass = 0;
