@@ -363,6 +363,16 @@ function finish(){
 }
 
 function sendViaForm(txt){
+  /* primary: direct background POST (no third-party frame for Safari to block) */
+  try{
+    var body=new URLSearchParams();
+    body.append(HW_FORM.entryReport,txt);
+    body.append("submit","Submit");
+    fetch(HW_FORM.action,{method:"POST",mode:"no-cors",body:body})
+      .catch(function(){iframePost(txt);});
+  }catch(e){iframePost(txt);}
+}
+function iframePost(txt){ /* fallback for old browsers without fetch */
   var frame=document.createElement("iframe");
   frame.name="hw-post-"+Date.now();
   frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
