@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SM 5.1 · U2 L2 — Volcano blew (Super Minds 5, SB p. 12 + grammar workbook pp. 12–13)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   SM 5.1 — Unit 2 (Around Pompeii), lesson 2 · Tue 22.09.
+   THE GROUP'S LESSON (Elena's Tuesday): Farida's plan +
+   the teacher's book, STRICTLY (TB pp. 34–35 pulled from
+   Yandex 22.09 — procedure + every key inside).
+   The group HAS their books + ActiveTeach (Elena, 22.09):
+   ActiveTeach shows the book pages — THIS deck is the task/
+   question layer in between, no page reproduction.
+   Lesson: HW check (Farida's five) → the ten-word dictation
+   → SB p. 12 (the song "Volcano blew": listen & correct →
+   check → traffic lights → verse by verse → karaoke 013 →
+   punk box) → phonics final e (cut/cute · find the split
+   digraphs · Gran & Stan 014) → grammar workbook pp. 12–13
+   (as much as we manage) → the song again with actions → -ing
+   extension → HW: WB p. 12 + the grammar that remains.
+   Design: "Sergey's" (spec §2) — the Pasha deck-003 family.
+   Engine: deck-003's (nav + progress + presenter T/🖥 +
+   ready-chime + #n + audio key-guard + scroll guard) +
+   muted Teacher's notes buttons (deck-005 pattern).
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.1rem);color:#fff}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cheese)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.4vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ---------- text & blocks ---------- */
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy);margin-bottom:.2em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin-bottom:.3em;
+  font-size:clamp(1.9rem,4.2vw,3.6rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp))}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(.9rem,1.6vw,1.35rem)}
+.card.sky{background:#E8F1FA}
+.card.cheese{background:var(--cheese-soft)}
+.card.stampc{background:var(--stamp-soft)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:.4em}
+.center{text-align:center}
+.mt{margin-top:.65em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink);background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem);align-self:flex-start}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.92rem,1.35vw,1.12rem);color:var(--ink-soft);font-style:italic}
+.stamp-box{font-family:'Fredoka',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  border:3px dashed var(--stamp);border-radius:16px;padding:.5em 1em;color:var(--stamp);
+  background:var(--white);box-shadow:var(--shadow);display:inline-block;font-size:clamp(1rem,1.7vw,1.4rem)}
+.bigq{font-family:'Fredoka',sans-serif;font-weight:600;color:#fff;background:var(--navy);
+  border-radius:99px;padding:.3em 1.1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.3rem);align-self:flex-start}
+.bigq::before{content:"❓ "}
+.bookchip{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy-deep);
+  background:#E8F1FA;border:2px solid var(--sky);border-radius:99px;
+  padding:.35em 1em;display:inline-block;font-size:clamp(.95rem,1.5vw,1.22rem);align-self:flex-start}
+.bookchip::before{content:"🖥 "}
+.stamp-box.big{font-size:clamp(1.3rem,2.6vw,2.2rem);padding:.6em 1.4em}
+
+/* the Wi-Fi attention signal (Singapore method — first teach 22.09) */
+.wifi-slide{justify-content:center;align-items:center;text-align:center}
+.wifi-ico{font-size:clamp(6rem,16vw,13rem);line-height:1;filter:drop-shadow(0 12px 24px rgba(34,48,63,.18))}
+.wifi-word{font-family:'Fredoka',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  font-size:clamp(2rem,5vw,3.6rem);color:var(--navy);margin-top:.2em}
+
+/* teacher-facing prepare-ahead list (slide 1, EN — standing rules 2026-09-10 + 2026-09-14) */
+.prep{display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;
+  background:var(--white);box-shadow:0 4px 12px rgba(34,48,63,.07);margin-bottom:.55em}
+.prep .ico{flex-shrink:0;font-size:clamp(1.3rem,2.2vw,1.8rem);line-height:1.3}
+.prep p{font-size:clamp(.98rem,1.55vw,1.25rem);line-height:1.45}
+.prep b{color:var(--navy)}
+
+/* teacher's notes — muted, small, click to unfold (the deck-005 pattern) */
+button.tn{align-self:flex-start;border:1.5px solid #C9D8EA;background:var(--white);
+  color:var(--ink-soft);font-family:'Fredoka',sans-serif;font-weight:500;
+  font-size:clamp(.78rem,1.2vw,.95rem);padding:.3em 1em;border-radius:99px;
+  cursor:pointer;transition:all .18s}
+button.tn:hover{border-color:var(--ink-soft);color:var(--ink)}
+button.tn.on{background:var(--ink-soft);color:#fff;border-color:var(--ink-soft)}
+.tnotes{display:none;font-size:clamp(.86rem,1.35vw,1.06rem);color:var(--ink-soft);
+  line-height:1.5;border-left:3px solid var(--sky);padding:.15em 0 .15em 1em}
+.tnotes.open{display:block}
+.tnotes b{color:var(--navy)}
+
+/* numbered reveal items */
+.item{display:flex;gap:.7em;align-items:baseline;padding:.38em .2em;
+  border-bottom:2px dashed rgba(169,204,239,.7);cursor:pointer;border-radius:10px;
+  font-size:clamp(1.18rem,1.95vw,1.55rem);line-height:1.42;transition:background .2s ease;user-select:none}
+.item:last-child{border-bottom:none}
+.item:hover{background:#E8F1FA}
+.item .no{font-family:'Fredoka',sans-serif;font-weight:700;flex:none;color:var(--stamp);font-size:.85em}
+.item .agree{color:#fff;background:var(--navy);border-radius:99px;padding:.05em .55em;
+  font-weight:700;font-style:normal;opacity:0;transition:opacity .2s;white-space:nowrap}
+.item .agree.wrap{white-space:normal}
+.item.shown .agree{opacity:1}
+.item.shown{cursor:default}
+.item.shown:hover{background:transparent}
+.item s{color:var(--ink-soft)}
+
+/* yes/no checks */
+.yn{display:flex;align-items:center;gap:.6em;cursor:pointer;padding:.3em .8em;border-radius:12px;
+  background:var(--white);box-shadow:0 4px 10px rgba(34,48,63,.06);
+  font-size:clamp(1.1rem,1.8vw,1.48rem);flex-wrap:wrap;user-select:none}
+.yn .badge{flex-shrink:0;width:1.6em;height:1.6em;border-radius:50%;display:grid;place-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:.85em;background:#eee;color:transparent;
+  transition:all .2s}
+.yn.shown-yes .badge{background:var(--mint);color:#fff}
+.yn.shown-no .badge{background:var(--stamp);color:#fff}
+.yn .fix{display:none;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.78em;
+  color:var(--navy-deep);background:var(--cheese-soft);border-radius:99px;padding:.1em .6em;
+  border:2px solid var(--cheese)}
+.yn.shown-no .fix{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+
+/* word-chip flip gallery (dictation words, split-digraph hunt) */
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:clamp(.6rem,1.3vw,1rem)}
+.gal .w{background:var(--white);border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.1);
+  padding:.8em .5em;text-align:center;cursor:pointer;user-select:none;
+  transition:transform .15s ease,border-color .2s ease;border:3px solid transparent}
+.gal .w:hover{transform:translateY(-4px)}
+.gal .w .no{display:inline-grid;place-items:center;width:1.5em;height:1.5em;border-radius:50%;
+  background:var(--cheese-soft);color:var(--navy);font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(.8rem,1.3vw,1rem);margin-bottom:.15em}
+.gal .ico{font-size:clamp(2.3rem,4.8vw,3.7rem);line-height:1.2}
+.gal .nm{display:none;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.1rem,1.9vw,1.5rem);margin-top:.15em;line-height:1.25}
+.gal .w.rev{border-color:var(--cheese);background:var(--cheese-soft)}
+.gal .w.rev .nm{display:block;animation:rise .35s both}
+.gal .w .word{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.15rem,2vw,1.6rem);line-height:1.3}
+.gal .w .verdict{display:none;font-family:'Fredoka',sans-serif;font-weight:600;margin-top:.1em}
+.gal .w.rev .verdict{display:block;animation:rise .35s both}
+.gal .w .verdict .yes{color:var(--mint)}
+.gal .w .verdict .no{color:var(--stamp)}
+.gal .w .verdict .hmm{color:var(--cheese);text-shadow:0 0 0 var(--ink)}
+.gal .w .verdict .pat{display:inline-block;background:var(--navy);color:#fff;border-radius:99px;
+  padding:.05em .6em;font-size:.85em;margin-left:.35em}
+
+/* speaking frames */
+.frame{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink);
+  font-size:clamp(1.3rem,2.4vw,1.95rem);line-height:1.5;padding:.5em .9em;border-radius:16px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.frame .slot{color:var(--stamp)}
+.frame.small{font-size:clamp(1.1rem,1.9vw,1.55rem)}
+
+/* word bank strip */
+.bank{display:flex;flex-wrap:wrap;gap:.4em;justify-content:center}
+.bank span{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);
+  padding:.15em .7em;border-radius:99px;background:var(--cheese-soft);color:var(--navy)}
+
+/* the cut→cute pair */
+.magepair{display:flex;gap:clamp(1rem,3vw,2.4rem);justify-content:center;align-items:center}
+.magepair .mw{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.1;text-align:center;
+  background:var(--white);border-radius:20px;box-shadow:var(--shadow);
+  padding:.35em .8em;font-size:clamp(3rem,8vw,6rem)}
+.magepair .mw .e{color:var(--stamp)}
+.magepair .arrow{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6rem);color:var(--navy)}
+
+/* homework */
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08);margin-bottom:.7em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;color:#fff}
+.hw-step p{font-size:clamp(1.02rem,1.62vw,1.32rem);line-height:1.5}
+.hw-step .en{font-family:'Fredoka',sans-serif;color:var(--navy);font-weight:600}
+
+/* traffic lights */
+.lights{display:flex;gap:clamp(.8rem,2vw,1.6rem);justify-content:center}
+.light{width:clamp(5.5rem,10vw,8rem);height:clamp(5.5rem,10vw,8rem);border-radius:50%;
+  display:grid;place-items:center;font-size:clamp(2.6rem,5.5vw,4.2rem);
+  box-shadow:var(--shadow);cursor:pointer;border:5px solid var(--white);user-select:none;
+  transition:transform .15s ease}
+.light:hover{transform:scale(1.06)}
+.light.g{background:#5FBF60}.light.y{background:#FFC53D}.light.r{background:#E4572E}
+.light .cap{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.9rem,1.6vw,1.3rem);
+  color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.25)}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#1E3A66;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1rem,1.6vw,1.3rem)}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:'Fredoka',sans-serif;font-size:.9em;cursor:pointer}
+#pv .head button:hover{background:rgba(255,255,255,.15)}
+#pv .head .cnt{margin-left:auto;background:rgba(255,255,255,.12);border-radius:99px;padding:.2em .9em}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(30,58,102,.85);color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:.8rem;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F5F3EE;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--cheese)}
+body.embed #nav,body.embed #bar{display:none!important}
+
+@media (max-width:900px){
+  .gal{grid-template-columns:repeat(2,1fr)}
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+  #pv .panes{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · PREPARE-AHEAD (teacher-facing, EN — start the class from slide 2) -->
+  <section class="slide">
+    <div class="eyebrow reveal">SM 5.1 · tuesday 22 september · Super Minds 5 · SB p. 12 + grammar pp. 12–13</div>
+    <h1 class="title reveal">Prepare ahead 🧰</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:920px">
+      <div class="prep"><span class="ico">🖥</span><p><b>ActiveTeach open at SB p. 12</b> — the book pages live there; this deck is the task layer in between. <b>Test the sound</b>: tracks <b>012 · 013 · 014</b> play right on the slides.</p></div>
+      <div class="prep"><span class="ico">📶</span><p><b>The Wi-Fi signal is NEW today</b> — slide 2 teaches it slowly (say "Wi-Fi!", open hand up, everyone copies it → look and listen). Practise it 2–3 times; it becomes the class switch.</p></div>
+      <div class="prep"><span class="ico">🖊</span><p><b>Homework check first</b> (Farida's five, slide 3) — then <b>the written dictation</b>: the ten Pompeii words from p. 10 (slide 4, click to check). Notebooks ready.</p></div>
+      <div class="prep"><span class="ico">📗</span><p><b>The grammar workbooks pp. 12–13</b> — the kids use their paper copies (slide 14, "as much as we manage"). The kids' <b>PB + WB</b> are on their desks.</p></div>
+      <div class="prep"><span class="ico">⏱</span><p><b>If time runs short</b>, cut in this order: the <b>-ing challenge</b> (slide 16) → <b>one</b> karaoke round instead of two (slide 10) → skip the pair-compare on the traffic lights (slide 9). <b>Never cut:</b> the eight corrections (slide 8) and the Gran &amp; Stan dialogue (slide 13). The grammar workbook is the natural buffer — Farida's "as much as we manage".</p></div>
+      <div class="prep"><span class="ico">📱</span><p><b>shkola.app</b> — homework item 4 lives there; your account still shows <b>0 groups</b>, so ask for a show of hands instead. <b>T</b> = presenter view; the deck also works straight from the site link.</p></div>
+    </div>
+    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2.</p>
+  </section>
+
+  <!-- SLIDE 2 · WI-FI TEACH-IN (first use with this group) -->
+  <section class="slide wifi-slide">
+    <div class="eyebrow reveal" style="text-align:center">new today · our attention signal</div>
+    <div class="wifi-ico reveal">📶</div>
+    <div class="wifi-word reveal">Wi-Fi!</div>
+    <div class="col reveal" style="max-width:760px;margin:0 auto">
+      <div class="frame small center" style="text-align:center">I say <b class="slot">"Wi-Fi!"</b> and raise my open hand — you copy it and…</div>
+      <div class="frame small center" style="text-align:center">…<b>stop</b> · <b>look</b> · <b>listen</b> 🤫</div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">Teach it SLOWLY — it is this group's first time: say the word, show the open hand, wait until EVERY hand is up and every mouth closed (the Singapore method — Library/Singapore). Practise 2–3 times right now: call it, praise the fastest table, call it again mid-noise. Afterwards every 📶 slide is the switch — no extra words needed.</div>
+  </section>
+
+  <!-- SLIDE 3 · HW CHECK — FARIDA'S FIVE -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework check · Farida's five</div>
+    <h1 class="title reveal">Homework check ✅</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Click each line when it's checked — the fifth one is the show!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span>The ten words from SB p. 10 — ready for the dictation? <span class="agree">dictation now! ✍️</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>SB p. 11 ex. 3 — the rule by heart <span class="agree">two of you say it! 💬</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>WB pp. 10–11 <span class="agree">walk the desks 🚶</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>shkola.app — the words <span class="agree">show of hands ✋</span></span></div>
+      <div class="item" data-k><span class="no">5</span><span>Your FIVE sentences: Past Simple + Past Continuous in one <span class="agree">read them aloud! 🌟</span></span></div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">Item 2: ask two volunteers to SAY the Language focus box (<b>was/were + -ing</b>; when + past simple) — it is today's grammar in the song too. Item 3: a quick walk between desks, no line-by-line marking. Item 4: shkola.app can't be checked from your account (still 0 groups) — a show of hands is honest enough. Item 5 — the highlight: 2–3 kids read their own sentences; the class listens for <b>was/were + -ing</b> and claps when they hear the long action. Any true or silly content is fine — the form is the target.</div>
+  </section>
+
+  <!-- SLIDE 4 · THE DICTATION — THE TEN POMPEII WORDS (SB p. 10) -->
+  <section class="slide">
+    <div class="eyebrow reveal">The dictation · SB p. 10 words</div>
+    <h1 class="title reveal">Dictation — ten words ✍️</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">I say each word twice — you write it down. Then we check together!</p>
+    <div class="card reveal" style="max-width:920px;margin:0 auto;width:100%">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.1em 2.5em">
+        <div class="item" data-k><span class="no">1</span><span>word one <span class="agree">smoke</span></span></div>
+        <div class="item" data-k><span class="no">2</span><span>word two <span class="agree">volcano</span></span></div>
+        <div class="item" data-k><span class="no">3</span><span>word three <span class="agree">temple</span></span></div>
+        <div class="item" data-k><span class="no">4</span><span>word four <span class="agree">theatre</span></span></div>
+        <div class="item" data-k><span class="no">5</span><span>word five <span class="agree">statue</span></span></div>
+        <div class="item" data-k><span class="no">6</span><span>word six <span class="agree">columns</span></span></div>
+        <div class="item" data-k><span class="no">7</span><span>word seven <span class="agree">horse and cart</span></span></div>
+        <div class="item" data-k><span class="no">8</span><span>word eight <span class="agree">vase</span></span></div>
+        <div class="item" data-k><span class="no">9</span><span>word nine <span class="agree">servant</span></span></div>
+        <div class="item" data-k><span class="no">10</span><span>word ten <span class="agree">fountain</span></span></div>
+      </div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">Dictate each word TWICE, they write; then click each line and the class self-checks. The ten words are the p. 10 word set (Around Pompeii) — Farida's homework item 1. Listen-fors while checking: <b>VOL-ca-no</b> (stress on the first part) · <b>th-</b> in theatre (tongue between the teeth) · double letters in <b>fountain</b>? (no — but <b>vase /vɑːz/</b> surprises them). Scores kindly: 9–10 = ⭐, 7–8 = 👍, below = "we meet them again on Thursday".</div>
+  </section>
+
+  <!-- SLIDE 5 · WI-FI SWITCH -->
+  <section class="slide wifi-slide">
+    <div class="wifi-ico reveal">📶</div>
+    <div class="wifi-word reveal">Wi-Fi!</div>
+  </section>
+
+  <!-- SLIDE 6 · WARM-UP (TB: review the topic of disasters) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Warm-up · disasters</div>
+    <h1 class="title reveal">What happens when…? 🌍</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:880px;margin:0 auto;width:100%;gap:.8em">
+      <div class="cr-q" style="display:flex;gap:1em;align-items:center">
+        <div class="frame" style="flex:1">An <b class="slot">EARTHQUAKE</b> — what happens?</div>
+        <div class="frame" style="flex:1;background:var(--cheese-soft)">A <b class="slot">VOLCANO</b> — what happens?</div>
+      </div>
+      <p class="task reveal" style="align-self:center">Shout your ideas — then click to compare!</p>
+      <div class="card reveal" style="max-width:820px;margin:0 auto;width:100%">
+        <div class="item" data-k><span class="no"> quake</span><span>the ground <span class="agree">SHAKES</span></span></div>
+        <div class="item" data-k><span class="no"> quake</span><span>buildings <span class="agree">FALL DOWN</span></span></div>
+        <div class="item" data-k><span class="no"> 🌋</span><span>it <span class="agree">EXPLODES</span></span></div>
+        <div class="item" data-k><span class="no"> 🌋</span><span><span class="agree">SMOKE</span> and <span class="agree">LAVA</span>!</span></div>
+      </div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB warm-up, word for word: write <b>earthquake</b> on the board, elicit what happens — key phrases on the board (ground shakes, buildings fall down). Repeat with <b>volcano</b> (explode, smoke, lava). The reveals are the TB's own key phrases — collect the kids' ideas FIRST, click only to confirm. 2–3 minutes, then straight into the song.</div>
+  </section>
+
+  <!-- SLIDE 7 · THE SONG — LISTEN & CORRECT (SB p. 12 ex. 1 · 🎧 012) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Singing for pleasure · SB p. 12</div>
+    <h1 class="title reveal">Volcano blew 🌋🎵</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">ActiveTeach — SB p. 12 · ex. 1 — listen 🎧 012 and correct the mistakes. Then sing!</span></div>
+    <div class="center reveal" style="display:flex;justify-content:center">
+      <audio controls preload="none" src="../media/sm5-p12-t012.mp3" style="width:min(480px,90%)"></audio>
+    </div>
+    <div class="card cheese reveal" style="max-width:900px;margin:0 auto;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem);line-height:1.5">The paper is <b>WRONG 8 times!</b> 🕵️<br>Circle the wrong words and write what the song really says.</p>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Pencils ready — ears open!</p>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB procedure: play the song ONCE — they circle the mistakes in their PBs and write the correct words at the ends of the lines. Don't stop the track; hands and pencils only. Play it a SECOND time to check — now pause between verses (SPACE pauses the track, it never flips the slide). The eight keys are on the next slide. The full lyrics live on the ActiveTeach page — nothing to copy here.</div>
+  </section>
+
+  <!-- SLIDE 8 · CHECK THE EIGHT (TB key) -->
+  <section class="slide">
+    <div class="eyebrow reveal">The song · check the eight</div>
+    <h1 class="title reveal">The paper said… the song said 🎧</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Say the RIGHT word first — then click to check!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span>I was <s>sleeping</s> in the garden <span class="agree wrap">→ WORKING</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>A <s>vase</s> fell in the fountain <span class="agree wrap">→ STATUE</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>I ran inside the <s>shop</s> <span class="agree wrap">→ HOUSE</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>I was feeling pretty <s>angry</s> <span class="agree wrap">→ SCARED</span></span></div>
+      <div class="item" data-k><span class="no">5</span><span>I was walking in the <s>city</s> <span class="agree wrap">→ FOREST</span></span></div>
+      <div class="item" data-k><span class="no">6</span><span>I looked up at the <s>clouds</s> <span class="agree wrap">→ SKY</span></span></div>
+      <div class="item" data-k><span class="no">7</span><span>There was <s>rain</s> in the clouds <span class="agree wrap">→ FIRE</span></span></div>
+      <div class="item" data-k><span class="no">8</span><span>I was feeling pretty <s>happy</s> when the volcano blew <span class="agree wrap">→ SCARED</span></span></div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">The TB key, all eight (TB p. 35): 1 sleeping→<b>working</b> · 2 vase→<b>statue</b> · 3 shop→<b>house</b> · 4 angry→<b>scared</b> · 5 city→<b>forest</b> · 6 clouds→<b>sky</b> · 7 rain→<b>fire</b> · 8 happy→<b>scared</b>. Point at the grammar hiding in the lines: <b>I was walking… when the day turned grey</b> — the long action + the short one, exactly their p. 11 rule. This slide never gets cut.</div>
+  </section>
+
+  <!-- SLIDE 9 · TRAFFIC LIGHTS — YOUR OPINION (the book's own box) -->
+  <section class="slide">
+    <div class="eyebrow reveal">The song · your opinion</div>
+    <h1 class="title reveal">What do YOU think? 🚦</h1>
+    <div class="accent-line reveal"></div>
+    <div class="lights reveal">
+      <div class="light g"><span class="cap">great!</span></div>
+      <div class="light y"><span class="cap">it's OK</span></div>
+      <div class="light r"><span class="cap">not for me</span></div>
+    </div>
+    <div class="col reveal" style="max-width:860px;margin:0 auto;width:100%">
+      <div class="frame small">— I think it's <span class="slot">great / OK / too punk</span> because …</div>
+      <div class="frame small">— Really? I think … because …</div>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Show your light — tell your partner WHY. 🗣</p>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB step: students show what they think of the song using the <b>traffic lights</b> (the book's own box on p. 12) and <b>compare in pairs</b>. 60–90 seconds. Push one WHY from each pair. Any honest colour is fine — punk is supposed to divide opinions; that tension is the bridge into the punk fact box. Elastic: if short, the pair-compare goes (show of lights only).</div>
+  </section>
+
+  <!-- SLIDE 10 · SING IT — VERSE BY VERSE + KARAOKE (🎧 012 · 013) -->
+  <section class="slide">
+    <div class="eyebrow reveal">The song · sing it</div>
+    <h1 class="title reveal">Now SING it! 🎤</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:920px;margin:0 auto;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.1rem,1.9vw,1.5rem);margin-bottom:.4em">1 · Verse by verse — listen, then repeat after each verse:</p>
+      <div class="center" style="display:flex;justify-content:center">
+        <audio controls preload="none" src="../media/sm5-p12-t012.mp3" style="width:min(460px,90%)"></audio>
+      </div>
+      <p class="hintline mt" style="text-align:center">SPACE pauses the track — it never flips the slide.</p>
+    </div>
+    <div class="card sky reveal" style="max-width:920px;margin:0 auto;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.1rem,1.9vw,1.5rem);margin-bottom:.4em">2 · Karaoke — the whole class, with the backing track:</p>
+      <div class="center" style="display:flex;justify-content:center">
+        <audio controls preload="none" src="../media/sm5-p12-t013.mp3" style="width:min(460px,90%)"></audio>
+      </div>
+      <p class="hintline mt" style="text-align:center">No singer on the track — the class IS the singer! 🎶</p>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB: play the song again, pausing after each verse — the class repeats; then use the <b>karaoke version (013)</b> to practise with the whole class. 013 is the instrumental backing — confirmed by the TB ("Use the karaoke version (013)"). Split the verses between rows/halves for the karaoke round if they're shy. Punk energy is welcome: fast, short, angry — like the song itself. Elastic: one karaoke round, not two, if time is short.</div>
+  </section>
+
+  <!-- SLIDE 11 · PUNK ROCK — ALL ABOUT MUSIC (the book's fact box + checks) -->
+  <section class="slide">
+    <div class="eyebrow reveal">All about music · SB p. 12</div>
+    <h1 class="title reveal">Punk Rock 🎸</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">ActiveTeach — SB p. 12 · the "All about music" box — read together</span></div>
+    <div class="bank reveal">
+      <span>punk</span><span>fashion</span><span>scruffy</span><span>torn</span><span>hairstyle</span><span>safety pin</span><span>haircut</span><span>cute</span><span>cape</span><span>thunder</span><span>blew</span>
+    </div>
+    <div class="col reveal" style="max-width:880px;margin:0 auto;width:100%">
+      <div class="yn" data-a="yes" data-k data-on="shown-yes"><span class="badge">?</span>1 &nbsp;The first punk bands came from the USA and the UK.</div>
+      <div class="yn" data-a="no" data-k data-on="shown-no"><span class="badge">?</span>2 &nbsp;Punk songs were long and slow. <span class="fix">fast, short and often very angry! ⚡</span></div>
+      <div class="yn" data-a="yes" data-k data-on="shown-yes"><span class="badge">?</span>3 &nbsp;Punk fashion had lots of safety pins.</div>
+    </div>
+    <p class="task reveal mt" style="align-self:center">New words on the chips — point, ask, explain!</p>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB: focus on the style of the song — read the Punk Rock information on the ActiveTeach page and explain any new vocabulary. The chips carry the TB's new-language list: <b>punk · fashion · scruffy · torn (↔ tear) · hairstyle · safety pin · haircut · cute · cape · thunder · blew (↔ blow = explode)</b>. Checks: 1 <b>yes</b> (USA + UK, mid 1970s) · 2 <b>no</b> — fast, short, often very angry · 3 <b>yes</b>. A minute of "would YOU wear punk fashion?" is allowed if the room is alive — it feeds the speaking habit.</div>
+  </section>
+
+  <!-- SLIDE 12 · WI-FI SWITCH -->
+  <section class="slide wifi-slide">
+    <div class="wifi-ico reveal">📶</div>
+    <div class="wifi-word reveal">Wi-Fi!</div>
+  </section>
+
+  <!-- SLIDE 13 · PHONICS — FINAL E (cut→cute · find the split digraphs · Gran & Stan 🎧 014) -->
+  <section class="slide scroll">
+    <div class="eyebrow reveal">Phonics · SB p. 12 · final e</div>
+    <h1 class="title reveal">The magic e ✨</h1>
+    <div class="accent-line reveal"></div>
+    <div class="magepair reveal">
+      <div class="mw">cut</div>
+      <div class="arrow">→</div>
+      <div class="mw">cut<span class="e">e</span></div>
+    </div>
+    <p class="task reveal" style="align-self:center">The little <b>e</b> at the end makes the vowel say its NAME: cut → cute!</p>
+    <div class="card reveal" style="max-width:1000px;margin:0 auto;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);margin-bottom:.3em">🕵️ Hunt: which words from the SONG have the magic e? Click to check!</p>
+      <div class="gal" style="grid-template-columns:repeat(auto-fit,minmax(128px,1fr))">
+        <div class="w" data-k data-on="rev"><div class="word">shake</div><div class="verdict"><span class="yes">magic e!</span><span class="pat">a_e</span></div></div>
+        <div class="w" data-k data-on="rev"><div class="word">lake</div><div class="verdict"><span class="yes">magic e!</span><span class="pat">a_e</span></div></div>
+        <div class="w" data-k data-on="rev"><div class="word">inside</div><div class="verdict"><span class="yes">magic e!</span><span class="pat">i_e</span></div></div>
+        <div class="w" data-k data-on="rev"><div class="word">earthquake</div><div class="verdict"><span class="yes">magic e!</span><span class="pat">a_e</span></div></div>
+        <div class="w" data-k data-on="rev"><div class="word">life</div><div class="verdict"><span class="yes">magic e!</span><span class="pat">i_e</span></div></div>
+        <div class="w" data-k data-on="rev"><div class="word">care</div><div class="verdict"><span class="yes">magic e!</span><span class="pat">a_e</span></div></div>
+        <div class="w" data-k data-on="rev"><div class="word">fire</div><div class="verdict"><span class="yes">magic e!</span><span class="pat">i_e</span></div></div>
+        <div class="w" data-k data-on="rev"><div class="word">smoke</div><div class="verdict"><span class="yes">magic e!</span><span class="pat">o_e</span></div></div>
+        <div class="w" data-k data-on="rev"><div class="word">vase</div><div class="verdict"><span class="hmm">⚠ tricky!</span></div></div>
+        <div class="w" data-k data-on="rev"><div class="word">danger</div><div class="verdict"><span class="no">no magic e</span></div></div>
+        <div class="w" data-k data-on="rev"><div class="word">grey</div><div class="verdict"><span class="no">no magic e</span></div></div>
+        <div class="w" data-k data-on="rev"><div class="word">ground</div><div class="verdict"><span class="no">no magic e</span></div></div>
+        <div class="w" data-k data-on="rev"><div class="word">thunder</div><div class="verdict"><span class="no">no magic e</span></div></div>
+      </div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB: write <b>cut</b> and <b>cute</b> on the board, the final e in RED — elicit that the e changes the vowel to a longer sound; practise both. Then students find the split-digraph words IN THE SONG: the eight green chips are the TB's own list (<b>shake · lake · inside · earthquake · life · care · fire · smoke</b>). The trap chip: <b>vase</b> is NOT a split digraph in British English — but it IS with American pronunciation (the TB's own note — a nice 20-second aside). grey/danger/ground/thunder are the decoys.</div>
+  </section>
+
+  <!-- SLIDE 14 · GRAN & STAN DIALOGUE (🎧 014 · half-class drill) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Phonics · SB p. 12 · listen and say</div>
+    <h1 class="title reveal">Gran &amp; Stan 🧢🦸</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">ActiveTeach — SB p. 12 · listen 🎧 014, read and repeat</span></div>
+    <div class="center reveal" style="display:flex;justify-content:center">
+      <audio controls preload="none" src="../media/sm5-p12-t014.mp3" style="width:min(420px,90%)"></audio>
+    </div>
+    <div class="card sky reveal" style="max-width:820px;margin:0 auto;width:100%">
+      <div class="read-text" style="display:grid;grid-template-columns:1fr;gap:.2em;font-size:clamp(1.25rem,2.3vw,1.9rem);line-height:1.45">
+        <p><b>Gran:</b> Your haircut is <b style="color:var(--stamp)">cute</b>, Stan!</p>
+        <p><b>Stan:</b> I like your <b style="color:var(--stamp)">cap</b> and your <b style="color:var(--stamp)">cape</b>, Gran!</p>
+      </div>
+    </div>
+    <p class="task reveal mt" style="align-self:center">This half is Gran 👵 · this half is Stan 🧑 — twice, then swap!</p>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB: focus on the picture, teach <b>cape</b> and <b>haircut</b>; play 014 — listen, read, repeat. Then divide the class: one half Gran, the other Stan; say the dialogue TWICE, swapping roles. In the printed book Stan's line carries playful misspellings (the page's letter game) — the audio says it right; this slide shows the clean line. 25 seconds of track, two minutes of drilling. Never cut.</div>
+  </section>
+
+  <!-- SLIDE 15 · GRAMMAR WORKBOOK pp. 12–13 (Farida: as much as we manage) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Grammar workbook · pp. 12–13</div>
+    <h1 class="title reveal">Grammar time 📗</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card cheese reveal" style="max-width:820px;margin:0 auto;width:100%;text-align:center">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.35rem,2.5vw,2.1rem);line-height:1.4">Open your grammar books — pages 12 and 13.<br>We do as much as we manage! 💪</p>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Past continuous — you already own it: <b>was/were + -ing</b>!</p>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">Farida's plan: the grammar workbook pp. 12–13 — <b>as much as we manage</b>. The kids work in their paper copies; you walk the desks. This block is the lesson's natural buffer: whatever doesn't fit becomes homework ("the grammar that remains"). The workbook is the Russian-market line — its pages are not in the TB, so no printed key: check live, one exercise at a time. Their p. 11 rule (was/were + -ing, when + past simple) is everything they need.</div>
+  </section>
+
+  <!-- SLIDE 16 · THE ENDING — THE SONG WITH ACTIONS (🎧 012) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Ending the lesson · TB</div>
+    <h1 class="title reveal">One last time — with ACTIONS! 🎬</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">ActiveTeach — SB p. 12 · play 🎧 012, everyone joins in</span></div>
+    <div class="center reveal" style="display:flex;justify-content:center">
+      <audio controls preload="none" src="../media/sm5-p12-t012.mp3" style="width:min(480px,90%)"></audio>
+    </div>
+    <div class="bank reveal">
+      <span>😴 sleeping</span><span>🫨 shake!</span><span>🏺 it falls!</span><span>🏃 run inside</span><span>🚶 walking</span><span>👀 look up</span><span>☁️ smoke and thunder</span><span>🌋 VOLCANO BLEW!</span>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Sing AND act — every verse has its move!</p>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB "Ending the lesson": play the song (012) again — students join in and DO ACTIONS. The chips are verse-by-verse action cues (sleeping → shake → the vase/statue falls → run inside → walking → look up → smoke and thunder → volcano blew!). 90 seconds, big energy, a strong last beat before homework. If the room is loud — that is the point of punk.</div>
+  </section>
+
+  <!-- SLIDE 17 · IF TIME — THE -ING CHALLENGE (TB extension) -->
+  <section class="slide">
+    <div class="eyebrow reveal">If time · TB extension</div>
+    <h1 class="title reveal">The -ing challenge ⚡</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Take → taking. The magic e RUNS AWAY! Now you: say it, then click!</p>
+    <div class="card reveal" style="max-width:860px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span>take <span class="agree">taking</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>amaze <span class="agree">amazing</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>write <span class="agree">writing</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>excite <span class="agree">exciting</span></span></div>
+      <div class="item" data-k><span class="no">5</span><span>joke <span class="agree">joking</span></span></div>
+      <div class="item" data-k><span class="no">6</span><span>amuse <span class="agree">amusing</span></span></div>
+    </div>
+    <p class="hintline reveal mt" style="text-align:center">Then pairs: say both forms — the long vowel sound stays! 🔊</p>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB extension activity, verbatim list: take · amaze · write · excite · joke · amuse → students copy and write the -ing forms; elicit the spelling (the e drops) and the pronunciation (the first long vowel stays the same). Then pairs practise saying both forms. Perfect fit with today's magic-e phonics. First slide to cut when time is short.</div>
+  </section>
+
+  <!-- SLIDE 18 · HOMEWORK -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework · for Thursday (Farida)</div>
+    <h1 class="title reveal">Homework 📌</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:900px;width:100%">
+      <div class="hw-step"><span class="n">1</span><p>📓 <b>WB p. 12</b> — the whole page: <span class="en">Remember the song</span> (look and complete) + the <span class="en">final e</span> exercises. You KNOW this song by heart now!</p></div>
+      <div class="hw-step"><span class="n">2</span><p>📗 <b>The grammar workbook pp. 12–13</b> — finish whatever stays after today: <span class="en">the grammar that remains!</span></p></div>
+    </div>
+    <div class="center reveal"><div class="stamp-box big">great work today! 🌋</div></div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">Farida's homework line, exactly two items: WB p. 12 + the grammar that remains (the unfinished grammar-workbook pp. 12–13). Next-lesson CHECK KEYS from the TB (p. 35): <b>WB p. 12 "Remember the song"</b> — 2 <i>fell in the fountain</i> · 3 <i>ran inside the house</i> · 4 <i>feeling pretty scared</i> · 5 <i>was walking in the forest</i> · 6 <i>up at the sky</i> · 7 <i>fire in the clouds</i> · 8 <i>blew</i>. <b>WB p. 12 "Complete the sentences"</b> — 2 <i>time, nine</i> · 3 <i>smoke</i> · 4 <i>lake</i> · 5 <i>inside</i> · 6 <i>safe</i> · 7 <i>tube</i>. No shkola.app tonight — Farida's list doesn't have it.</div>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 18</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- presenter view shell (T / 🖥) -->
+<div id="pv">
+  <div class="head">
+    <b>SM 5.1 · U2 L2 — presenter</b>
+    <button id="pv-close">✕ close (T)</button>
+    <span class="cnt" id="pv-cnt">1 / 18</span>
+  </div>
+  <div class="panes">
+    <div class="pane"><span class="lbl">NOW — what the class sees</span><iframe id="pv-cur"></iframe></div>
+    <div class="pane"><span class="lbl">NEXT</span><iframe id="pv-next"></iframe></div>
+  </div>
+  <div class="notes" id="pv-notes">—</div>
+</div>
+
+<script>
+/* ============ core deck engine (spec §4–§7, the deck-003 engine) ============ */
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.querySelector('#bar i'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+
+/* every sync element gets a stable key; class to switch = data-on */
+const syncs=[...document.querySelectorAll('[data-k]')];
+syncs.forEach((el,k)=>{el.dataset.k=k;if(!el.dataset.on)el.dataset.on='shown'});
+function setSync(k,on){const el=syncs[k];if(!el)return;
+  if(el.classList.contains('yn')){el.classList.toggle('shown-yes',on&&el.dataset.on==='shown-yes');
+    el.classList.toggle('shown-no',on&&el.dataset.on==='shown-no');}
+  else el.classList.toggle(el.dataset.on,on);}
+
+const CH='sm5-u2-l2';
+const bc=('BroadcastChannel'in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get('embed')?'embed':(qs.get('presenter')?'presenter':'main');
+const open=new Set();
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==='hello'&&MODE==='main'){post({t:'state',i,open:[...open]});return}
+  if(m.t==='state'){if(MODE==='embed'){showEmbed(m.i)}applyOpen(m.open);if(MODE==='presenter')pvShow(m.i);return}
+  if(m.t==='go'){if(MODE==='embed')showEmbed(m.i);else{go(m.i,true)}applyOpen(m.open||[]);return}
+  if(m.t==='tap'){setSync(m.k,m.on);if(m.on)open.add(m.k);else open.delete(m.k);
+    if(MODE==='embed')post({t:'tap',k:m.k,on:m.on});}
+};
+function applyOpen(list){open.clear();(list||[]).forEach(k=>{open.add(k);setSync(k,true)})}
+function broadcastState(){post({t:'state',i,open:[...open]})}
+
+/* clicks on reveal elements — child answers first, click confirms */
+document.getElementById('deck').addEventListener('click',e=>{
+  const el=e.target.closest('[data-k]');if(!el)return;
+  const k=+el.dataset.k;
+  const nowOn=!el.classList.contains(el.dataset.on);
+  setSync(k,nowOn);if(nowOn)open.add(k);else open.delete(k);
+  post({t:'tap',k,on:nowOn});
+});
+
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(!silent)post({t:'go',i,open:[...open]});
+  if(MODE==='presenter')pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* teacher's notes toggle (muted, small — click to unfold) */
+function tn(b){const n=b.nextElementSibling;n.classList.toggle('open');b.classList.toggle('on');b.blur();}
+
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.key==='Escape')return;
+  if(MODE==='embed')return;
+  /* AUDIO key-guard: SPACE pauses a playing track instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+  if(e.key==='t'||e.key==='T')togglePresenter();
+});
+/* the wheel never flips a scrolled slide — it scrolls it */
+let wt=0;document.addEventListener('wheel',e=>{if(MODE!=='main')return;
+  const sl=e.target.closest('.slide');if(sl&&sl.classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(MODE!=='main')return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ presenter view (spec §7, standing 2026-09-10) ============ */
+const pv=document.getElementById('pv');
+function togglePresenter(){
+  if(MODE==='embed')return;
+  if(MODE==='presenter'){window.close();return}
+  window.open(location.pathname+'?presenter=1','sm5-pv','width=1180,height=820');
+}
+document.getElementById('pvt').onclick=togglePresenter;
+document.getElementById('pv-close').onclick=()=>window.close();
+const pvCur=document.getElementById('pv-cur'),pvNext=document.getElementById('pv-next'),
+pvNotes=document.getElementById('pv-notes'),pvCnt=document.getElementById('pv-cnt');
+if(MODE==='presenter'){
+  document.body.classList.add('presenter');
+  pvCur.src=location.pathname+'?embed=cur';pvNext.src=location.pathname+'?embed=next';
+}
+function pvShow(n){
+  if(MODE!=='presenter')return;
+  pvCnt.textContent=(n+1)+' / '+slides.length;
+  pvNotes.innerHTML='';
+  const tnEl=slides[n].querySelector('.tnotes');
+  const note=tnEl?tnEl.textContent:slides[n].dataset.notes;
+  if(note){const p=document.createElement('p');p.textContent=note;pvNotes.appendChild(p)}
+  const nx=slides[n+1];
+  const nxTn=nx&&nx.querySelector('.tnotes');
+  const nxt=nx?(nxTn?nxTn.textContent:nx.dataset.notes):null;
+  if(nxt){const h=document.createElement('p');h.innerHTML='<b>next →</b> ';h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+/* embed panes: mirror the authoritative index, no chrome, no wheel-nav */
+let embedSlot=qs.get('embed');
+function showEmbed(n){
+  const target=embedSlot==='next'?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==='next')document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle('active',k===target);s.classList.remove('prev')});
+}
+
+/* boot: hash → slide; main announces state, others say hello and catch up.
+   Only main may broadcast state — an embed/presenter never overrides it. */
+const h=parseInt(location.hash.slice(1));
+if(MODE==='main'){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true);broadcastState()}
+else post({t:'hello'});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=='main')return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();}catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
