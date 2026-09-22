@@ -65,14 +65,16 @@ body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var
 }
 .slide.active{opacity:1;visibility:visible;transform:translateX(0) scale(1)}
 .slide.prev{transform:translateX(-60px) scale(.985)}
-.slide .reveal-el{opacity:0;transform:translateY(22px)}
+/* entrance = decoration only: elements are VISIBLE by default, the rise
+   animation just adds the fly-in — a frozen animation clock (background
+   pane, throttled webview) can never hide lesson content. */
 .slide.active .reveal-el{animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
 .slide.active .reveal-el:nth-child(2){animation-delay:.08s}
 .slide.active .reveal-el:nth-child(3){animation-delay:.16s}
 .slide.active .reveal-el:nth-child(4){animation-delay:.24s}
 .slide.active .reveal-el:nth-child(5){animation-delay:.32s}
 .slide.active .reveal-el:nth-child(6){animation-delay:.4s}
-@keyframes rise{to{opacity:1;transform:translateY(0)}}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 /* ============ the Wi-Fi interstitial ============ */
 .slide.wifi{justify-content:center;align-items:center;background:#fff}
 .wifi-ic{width:clamp(180px,32vw,380px);height:auto;animation:wifipulse 2.2s ease-in-out infinite}
@@ -176,7 +178,9 @@ function songPending(v){
 </head>
 <body>
 
-<div id="progress-track"><!-- 1 · HELLO SONG -->
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<!-- 1 · HELLO SONG -->
 <section class="slide">
   <div class="eyebrow reveal-el">🎵 Song time</div>
   <h1 class="title reveal-el">Hello! How are you? 👋</h1>
@@ -503,6 +507,7 @@ const fill=document.getElementById('progress-fill'),
       cnt=document.getElementById('counter'),
       prev=document.getElementById('prev'),
       next=document.getElementById('next');
+let showWatch;
 function show(n){
   if(n<0||n>=slides.length)return;
   slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
@@ -510,6 +515,11 @@ function show(n){
   fill.style.width=((n+1)/slides.length*100)+'%';
   cnt.textContent=(n+1)+' / '+slides.length;
   prev.disabled=n===0;next.disabled=n===slides.length-1;
+  /* safety net: 1.5s after a slide opens, kill the entrance animation —
+     if the animation clock is frozen (background pane), everything still
+     becomes fully visible. setTimeout fires even where rAF stalls. */
+  clearTimeout(showWatch);
+  showWatch=setTimeout(()=>{const a=slides[n];if(a)a.querySelectorAll('.reveal-el').forEach(el=>{el.style.animation='none';});},1500);
 }
 function go(n){
   if(n<0||n>=slides.length)return;

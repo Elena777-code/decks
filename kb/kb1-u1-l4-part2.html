@@ -462,6 +462,7 @@ const bar=document.getElementById('bar'),
       nextBtn=document.getElementById('next');
 
 /* ================= core nav ================= */
+let showWatch;
 function show(n){
   if(n<0||n>=slides.length)return;
   slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
@@ -469,6 +470,11 @@ function show(n){
   bar.style.width=((n+1)/slides.length*100)+'%';
   cnt.textContent=(n+1)+' / '+slides.length;
   prevBtn.disabled=n===0;nextBtn.disabled=n===slides.length-1;
+  /* safety net: 1.5s after a slide opens, kill the entrance animation —
+     if the animation clock is frozen (background pane), everything still
+     becomes fully visible. setTimeout fires even where rAF stalls. */
+  clearTimeout(showWatch);
+  showWatch=setTimeout(()=>{const a=slides[n];if(a)a.querySelectorAll('.reveal').forEach(el=>{el.style.animation='none';});},1500);
   if(PRESENTER)pvUpdate();
 }
 function go(n){
