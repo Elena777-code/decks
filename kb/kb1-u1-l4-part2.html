@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kid's Box 1 · Unit 1 · Lesson 4 · part 2 — KB1 (script)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   KB1 — Kid's Box 1, Unit 1, Lesson 4 · PART 2 (group class).
+   The uncovered half of deck 003 (slides 8–14: dialogues, the
+   PB p.9 story, the scale) + the Aa-maze HW check.
+   NEW THIS LESSON (Elena's rules, 2026-09-22):
+   · THE WI-FI SIGNAL (the Singapore method): before every new
+     activity the board shows ONLY the Wi-Fi icon — the ss stop,
+     raise an open hand, look and listen. First time = teach it.
+   · THE SONGS RULE: 3+ songs every lesson, one per role —
+     routine (Hello!), active language (What's Your Name? /
+     How Old Are You? / the rainbow colours), future
+     (Head, Shoulders…), class management (Genki English).
+   Engine: nav bottom-right + lane, progress bar, keyboard/wheel/
+   swipe, ready-chime + #n hash, click-reveals, standing
+   PRESENTER VIEW (T / 🖥) synced both ways.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A;
+  --radius:18px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease;font-family:inherit}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:4.2vh 5vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.5vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.85rem,1.4vw,1.05rem);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.4rem,2.8vw,2.3rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.8rem,1.3vw,1rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.18em .75em;
+  background:#fff;margin-bottom:.2em}
+.task{font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.55;font-weight:500}
+.task strong{color:var(--accent)}
+.ask{font-size:clamp(1.05rem,1.8vw,1.35rem);line-height:1.5;color:#4a463d}
+.note{font-size:clamp(.92rem,1.4vw,1.1rem);color:var(--ink-soft);font-style:italic;line-height:1.5}
+.flag{font-size:clamp(.9rem,1.35vw,1.05rem);color:#9a6a2f;font-style:italic;
+  line-height:1.55;background:#FBF3E4;border:1.5px dashed #E3C48A;
+  border-radius:12px;padding:.7em 1em}
+.glue{font-size:clamp(.95rem,1.5vw,1.15rem);font-weight:800;color:#14655A;
+  background:#E7F1EF;border:1.5px solid #5ecbb8;border-radius:12px;
+  padding:.55em 1em;line-height:1.5}
+audio{width:min(520px,92%);height:44px;display:block;margin:.2em 0}
+video{width:min(430px,88%);border-radius:12px;display:block;margin:.2em 0;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+ul.materials{list-style:none}
+ul.materials li{padding:.28em 0;border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.5}
+ul.materials li:last-child{border-bottom:none}
+.checklist{display:flex;flex-direction:column;gap:1vh}
+.check-item{display:flex;gap:12px;align-items:flex-start;background:#fff;
+  border:1px solid var(--line);border-radius:12px;padding:.9vh 1vw;
+  font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.45}
+.check-item .box{flex:0 0 auto;width:1.1em;height:1.1em;border:2px solid var(--accent);border-radius:6px;margin-top:.12em}
+a.hw-link,a.song-link{display:inline-block;margin-top:.3em;font-weight:700;color:#fff;
+  background:var(--accent);border-radius:99px;padding:.5em 1.1em;
+  text-decoration:none;font-size:clamp(1rem,1.6vw,1.25rem)}
+a.hw-link:hover,a.song-link:hover{opacity:.9}
+
+/* ---------- the Wi-Fi interstitial ---------- */
+.slide.wifi{justify-content:center;align-items:center;background:#fff}
+.wifi-ic{width:clamp(160px,30vw,340px);height:auto;animation:wifipulse 2.2s ease-in-out infinite}
+@keyframes wifipulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.045);opacity:1}}
+
+/* ---------- click-reveal (synced with the presenter window) ---------- */
+.reveal-btn{font-family:'Inter',sans-serif;font-size:clamp(.95rem,1.5vw,1.2rem);font-weight:800;
+  color:#fff;background:var(--accent);border:none;border-radius:99px;
+  padding:.5em 1.3em;cursor:pointer;transition:transform .15s ease;align-self:flex-start}
+.reveal-btn:hover{transform:scale(1.06)}
+.answer{display:none;font-size:clamp(1.05rem,1.8vw,1.4rem);font-weight:600;color:var(--accent);
+  background:#E7F1EF;border-radius:12px;padding:.5em 1em;align-self:flex-start;line-height:1.45}
+.answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* ---------- pending-song card (shows only if the local mp4 is missing) ---------- */
+.pending{display:flex;flex-direction:column;gap:.6em;align-items:flex-start;
+  background:#FBF3E4;border:1.5px dashed #E3C48A;border-radius:12px;
+  padding:.8em 1.1em;font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.5}
+
+/* ---------- presenter + embed modes (spec §7) ---------- */
+body.embed #nav,body.embed #bar{display:none}
+body.presenter .slide,body.presenter #nav,body.presenter #bar{display:none}
+#pv{position:absolute;inset:0;padding:2vh 2vw calc(74px + 2vh);display:flex;flex-direction:column;gap:1.2vh;overflow:auto}
+.pvhead{font-size:clamp(1rem,1.6vw,1.25rem);color:var(--ink-soft)}
+.pvhead b{color:var(--accent)}
+.pvhead .pvcnt{font-weight:800;color:var(--ink)}
+.pvwarn{background:#FBF3E4;border:1px solid #E3C48A;border-radius:12px;
+  padding:.6em 1em;font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink);display:none}
+.pvlabel{font-size:clamp(.8rem,1.2vw,.95rem);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.pvframe{width:100%;aspect-ratio:16/10;position:relative;overflow:hidden;background:#fff;
+  border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.pvframe iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;transform-origin:0 0}
+.pvnotes{background:#fff;border:1px solid var(--line);border-left:6px solid var(--accent);
+  border-radius:12px;padding:clamp(10px,1.6vh,16px) clamp(14px,1.6vw,22px);
+  font-size:clamp(1rem,1.6vw,1.3rem);line-height:1.45;min-height:3.2em}
+.pvbtns{display:flex;gap:10px}
+.pvbtns button{flex:1;height:52px;border-radius:99px;border:1px solid var(--line);
+  background:#fff;color:var(--accent);font-size:1.5rem;cursor:pointer;font-family:inherit}
+.pvbtns button:hover{transform:scale(1.03)}
+
+@media (max-width:900px){
+  .slide{padding:3.5vh 5vw 11vh}
+}
+</style>
+<script>
+/* pending-song fallback — defined in <head> ON PURPOSE: a missing local mp4
+   fires its error event while the page is still parsing, long before the
+   bottom scripts run, so the handler must already exist here. */
+function songPending(v){
+  v.style.display='none';
+  const p=v.parentElement.querySelector('.pending');
+  if(p)p.hidden=false;
+}
+</script>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER / PREPARE AHEAD -->
+<section class="slide active" data-notes="PART 2 of Lesson 4 — the deck 003 slides that didn't fit on 17.09 (dialogues, the story, the scale) + the Aa-maze HW check. NEW today: (1) the Wi-Fi attention signal — the icon slide before every new activity; first time, teach it slowly. (2) the songs routine — 3+ songs every lesson, one per role. Timing: HW check 4 + Hello song 3 + dialogues 7 + songs 4 + rainbow 3 + story 15 + Genki 3 + act-out (in the 15) + Head&Shoulders 3 + feedback 5 — she cuts where the class is; the конспект must-do today = dialogues + story + scale. Press T (or 🖥) for the presenter window. Reading slot at the end as usual — the last slide opens Brand Phonics 2 (letter n) in one click. Same deck for all three KB1 groups.">
+  <div class="eyebrow reveal">Kid's Box 1 (New Generation) · Unit 1 · Lesson 4 · part 2 · KB1.2 — Tue 14:30 · KB1.3 — 18:15 · KB1.1 — Thu 17:00</div>
+  <h1 class="reveal">The story + the full dialogue · Wi-Fi + songs</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Aim:</strong> revise the <strong>full dialogue</strong> (name / age / feelings), act out the <strong>story</strong> (PB p. 9) — and start two new routines: the <strong>Wi-Fi signal</strong> 📶 and the <strong>songs rule</strong> 🎵 (3+ songs a lesson: routine · active language · future · class management).</p>
+  <p class="tag reveal">MATERIALS</p>
+  <ul class="materials reveal">
+    <li><strong>story cards ×6</strong> — printed &amp; CUT (<code>Unit 1/Lesson 4/Story.pdf</code>) + <strong>glue sticks</strong> (the cards get glued in order after checking!)</li>
+    <li><strong>masks / puppets</strong> — Maskman, Marie, Monty (+ the Star family for the dialogues)</li>
+    <li><strong>PB books on the tables</strong> (p. 6 ex. 2 + p. 9) · copybooks</li>
+    <li>🎧 <strong>test the sound first:</strong> the story video + all the song videos are in this deck</li>
+    <li>📶 the Wi-Fi icon needs nothing — just your open hand</li>
+  </ul>
+  <div class="checklist reveal">
+    <div class="check-item"><span class="box"></span><span>🆕 <b>Wi-Fi routine</b>: before every new activity the board shows ONLY 📶 — say "Wi-Fi!", raise your open hand, wait. They copy. Then speak.</span></div>
+    <div class="check-item"><span class="box"></span><span>🎵 <b>2 song files are still pending</b> (rainbow · Head, Shoulders): those slides carry an online link until you drop the mp4s into <code>media/</code> — <code>kb1-u1-rainbow.mp4</code>, <code>kb1-u1-head-shoulders.mp4</code> — then they play right here.</span></div>
+    <div class="check-item"><span class="box"></span><span>📏 <b>The glue rule</b> stands: every printout into the copybook the same lesson.</span></div>
+    <div class="check-item"><span class="box"></span><span>🔢 <b>Teams = tables</b> with their numbers — call "Team 1! Team 2!" all lesson.</span></div>
+    <div class="check-item"><span class="box"></span><span>🖥 <b>Press T</b> (or 🖥) — presenter window: current + next + notes</span></div>
+  </div>
+</section>
+
+<!-- 2 · WI-FI — TEACH THE SIGNAL -->
+<section class="slide wifi" data-notes="FIRST TIME — teach the signal (the Singapore method). 1) Say 'Wi-Fi!' and raise ONE OPEN HAND, fingers spread. 2) Wait. Model it if needed: stop — hands still — one open hand up — eyes on me — quiet voice. 3) They copy the gesture. 4) Give ONE short instruction right away (they learn: Wi-Fi = something important comes next). 5) Release cue: «Спасибо. Работаем!» Optional 5-min warm-up if the class is noisy (the 'Catch the Message' game): whisper «У зайца в кармане ложка» while they tap knees and look around — ask what was in the hare's pocket; then Wi-Fi on, whisper «У мишки в кармане вилка» — ask again. Which time was easier? Don't lecture: Wi-Fi = кнопка 'стоп и слушай'.">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 3 · HOMEWORK CHECK — THE AA MAZE -->
+<section class="slide" data-notes="The HW (set 17.09): «Доделать задание в распечатке Аа» — the maze, follow the small a's to the finish. Quick check: hold the worksheets up — walk, glance, applause. Board support: the child deck (slide 3) draws the a-path — check together, team by team: 'Team 1, point to the first a!' Then one fast circle round with the questions they invented (How are you? — team to team) — it wakes the dialogue language up. The Bb worksheet was done in class last time — no check needed.">
+  <div class="eyebrow reveal">Homework check · ~4 min</div>
+  <h1 class="reveal">The Aa maze — who found the way? 🏁</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">The homework: <strong>finish worksheet Aa</strong> — follow the small <strong>a</strong>'s through the maze to the finish!</p>
+  <p class="task reveal">Worksheets <strong>up</strong> — walk and glance. 🏆 <strong>Team check</strong> on the board: <em>"Team 1, point to the first a! Team 2 — the next one!"</em> (the child deck draws the path).</p>
+  <p class="task reveal">Then the <strong>circle questions</strong>, team to team: <em>"Hello! How are you?"</em> — round and round. 💬</p>
+  <p class="note reveal">Board support: the child deck, slide 3 — the a-path to trace together.</p>
+</section>
+
+<!-- 4 · WI-FI -->
+<section class="slide wifi" data-notes="Say 'Wi-Fi!', raise your open hand, WAIT until every hand is up and quiet — then the song slide. Keep it playful: who raises the hand first?">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 5 · SONG — HELLO! (ROUTINE) -->
+<section class="slide" data-notes="THE ROUTINE SONG — every lesson opens with it from now on. Play the video, everybody sings; TPR ALL the actions (hello wave, tired = sleepy yawn, hungry = tummy…). After the song: the feelings one more time, card-free — you mime, they say: good · great · wonderful · tired · hungry · not so good. Then round the tables: 'How are you today?' — each team asks the next (their own circle game — it feeds the dialogues later). ~3 min.">
+  <div class="eyebrow reveal">🎵 Song · routine — every lesson!</div>
+  <h1 class="reveal">Hello! — how are you? 👋</h1>
+  <div class="rule reveal"></div>
+  <p class="tag reveal">🎬 SONG — 'Hello!' (greeting + feelings, Super Simple Songs)</p>
+  <video class="reveal" controls preload="metadata" src="../media/kb1-u1-hello.mp4"></video>
+  <p class="task reveal">Sing and <strong>do all the actions</strong>! Then round the tables: <em>"How are you today?"</em> — <strong>each team asks the next team</strong>. 😊 😴 🍔</p>
+</section>
+
+<!-- 6 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi → books open. Wait for every hand.">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 7 · REVISION SPEAKING — PB p.6 ex.2 -->
+<section class="slide" data-notes="PB p.6 ex.2 — the конспект's dialogue stage (7 min). Open the books. 'Look at the pictures. What do you see?' Ask: 'How old is Meera?' — EIGHT (TB key) — reveal on the click. Simon and Suzy: play PB p.6 track 7 ('Listen and repeat') and let them catch the ages. Masks on: example dialogue with a volunteer — Hello! What's your name? — I'm… How old are you? — I'm eight. How are you? — I'm great! Drill as a whole class, then pairs AT THEIR TABLES make up dialogues (team numbers!). They present on the next slide — first the two songs to feed them the language.">
+  <div class="eyebrow reveal">Revision · speaking — 7 min</div>
+  <h1 class="reveal">PB p.6 ex.2 — the full dialogue</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">📖 <strong>Open the book — PB p. 6, ex. 2.</strong> <em>"What do you see?"</em> Ask: <em>"How old is Meera?"</em></p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-meera')">show the answer</button>
+  <div class="answer" id="r-meera">Meera is eight. Simon and Suzy — replay the track and let them catch the ages.</div>
+  <p class="tag reveal">🎧 AUDIO — PB p.6 ex.2 (track 7) — listen and repeat</p>
+  <audio class="reveal" controls preload="none" src="../media/kb1-u1-pb6-t7.mp3"></audio>
+  <p class="task reveal">Masks on → the example dialogue with a volunteer: <em>"Hello! What's your name? How old are you? How are you?"</em> Drill <strong>as a whole class</strong>.</p>
+  <p class="note reveal">Board support: the child deck, slide 8 — the dialogue bubbles with click-reveals.</p>
+</section>
+
+<!-- 8 · SONGS + PAIRS — WHAT'S YOUR NAME? / HOW OLD ARE YOU? (ACTIVE LANGUAGE) -->
+<section class="slide" data-notes="THE ACTIVE-LANGUAGE SONGS — exactly the language of the dialogue. Sing 'What's Your Name?' (Noodle &amp; Pals — the same heroes as Lesson 1), then 'How Old Are You?' (their HW video from shkola.app — they know it!). Stand up, sing with actions. Then pairs at their tables make the full dialogue (all three questions + feelings) and PRESENT — tables are the stages, team numbers, applause after each pair. The songs carry the grammar: 'I'm… / My name is…' — no explaining, just singing. ~4 min + presentations.">
+  <div class="eyebrow reveal">🎵 Songs · active language — then pairs!</div>
+  <h1 class="reveal">What's your name? · How old are you?</h1>
+  <div class="rule reveal"></div>
+  <p class="tag reveal">🎬 SONG — 'What's Your Name?' (Noodle &amp; Pals)</p>
+  <video class="reveal" controls preload="metadata" src="../media/kb1-u1-whats-your-name.mp4"></video>
+  <p class="tag reveal">🎬 SONG — 'How Old Are You?' (the shkola.app video!)</p>
+  <video class="reveal" controls preload="metadata" src="../media/kb1-u1-how-old.mp4"></video>
+  <p class="task reveal">Stand up and sing! 👉 Then <strong>pairs at your table</strong>: the full dialogue — name, age, feelings — and <strong>present</strong>! 🎭</p>
+</section>
+
+<!-- 9 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi → new song. Wait for quiet — the signal is becoming the lesson's switch.">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 10 · NEW SONG — I CAN SING A RAINBOW (ACTIVE LANGUAGE: COLOURS) -->
+<section class="slide" data-notes="NEW SONG — the colours one ('Red and yellow and pink and green, purple and orange and blue…'). THE FILE IS PENDING: the video plays here the moment you drop the mp4 into media/ as kb1-u1-rainbow.mp4 (Super Simple Songs' version); until then the slide shows the online link — needs Internet. After listening: quick colour flash around the room — 'What color is it?' pointing at things (a blue pencil! a red bag!) — then the bridge to the story: 'Today a monster appears… What COLOR is the monster? Listen!' (the story question on the next slides). ~3 min.">
+  <div class="eyebrow reveal">🎵 NEW song · active language — colours!</div>
+  <h1 class="reveal">I Can Sing a Rainbow 🌈</h1>
+  <div class="rule reveal"></div>
+  <video class="reveal" controls preload="metadata" src="../media/kb1-u1-rainbow.mp4" onerror="songPending(this)"></video>
+  <div class="pending reveal" hidden>
+    <span>🎬 <b>«I Can Sing a Rainbow»</b> — Super Simple Songs (the local file isn't here yet):</span>
+    <a class="song-link" href="https://www.youtube.com/results?search_query=I+Can+Sing+a+Rainbow+Super+Simple+Songs" target="_blank">▶ watch online (YouTube)</a>
+    <span class="note">download it → <code>media/kb1-u1-rainbow.mp4</code> — and it plays right here, no link needed.</span>
+  </div>
+  <p class="task reveal">Sing the colours: <strong>red and yellow and pink and green, purple and orange and blue</strong>! Then flash around: <em>"What color is it?"</em> 👉 it feeds the story question!</p>
+</section>
+
+<!-- 11 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi → books open, the story begins. Wait for it.">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 12 · STORY — PRE-WATCHING -->
+<section class="slide" data-notes="PB p.9 — the конспект's story stage (15 min for the whole block). Open the books. 'What do you see?' Point to the numbers — the ss follow the story picture by picture (6 pictures). Set the pre-watching questions: 'What color is the monster? What color is the pencil?' Point to the pictures: 'What's her/his name? What's this? — A toy box!' Repeat the questions, give the instruction: 'Listen and answer.' ICQs: 'Do you listen and say a number? A color?' Then play the recording ONCE (next slide). TB option: play the video first instead — the конспект leads with the audio.">
+  <div class="eyebrow reveal">Story — 15 min · part 1</div>
+  <h1 class="reveal">PB p. 9 — the story questions</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">📖 <strong>Open the book — PB p. 9.</strong> <em>"What do you see?"</em> Point to the <strong>numbers</strong> — the ss follow the story picture by picture.</p>
+  <p class="task reveal">Pre-watching questions: <em>"What color is the monster? 👾 What color is the pencil? ✏️"</em></p>
+  <p class="task reveal">Point to the pictures: <em>"What's her/his name? What's this?"</em> — elicit <strong>a toy box</strong>. Instruction: <em>"Listen and answer."</em></p>
+  <p class="ask reveal"><strong>ICQs:</strong> <em>"Do you listen and say a number? A color?"</em></p>
+</section>
+
+<!-- 13 · STORY — LISTEN -->
+<section class="slide" data-notes="Play the story recording ONCE (PB p.9 track 12). Elicit the answers: the monster is BLUE, the pencil is BLUE — Maskman thinks Monty's blue pencil is a monster! (TB: 'Check that pupils understand that Maskman thinks Monty's pencil is a monster.') Reveal on the click. The story text (TB): toys-in-the-toy-box chant → 1 Maskman hello, Marie (close the door) → 2 Maskman's chant 1-10 → 3 'A blue monster!' → 4 'Eeeek! Goodbye, Marie!' → 5 'Close the door, please. Thank you.' → 6 Monty: 'Look — a blue pencil!'">
+  <div class="eyebrow reveal">Story — 15 min · part 2</div>
+  <h1 class="reveal">Listen! 🎧 — what color?</h1>
+  <div class="rule reveal"></div>
+  <p class="tag reveal">🎧 AUDIO — PB p. 9 story (track 12) — play ONCE</p>
+  <audio class="reveal" controls preload="none" src="../media/kb1-u1-pb9-t12.mp3"></audio>
+  <p class="task reveal">Elicit the answers: <em>"What color is the monster? What color is the pencil?"</em></p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-blue')">show the answers</button>
+  <div class="answer" id="r-blue">💙 blue! Maskman thinks Monty's blue pencil is a monster.</div>
+  <p class="note reveal">Pause the audio before flipping — audio stops on slide change.</p>
+</section>
+
+<!-- 14 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi → the cards task. Wait for quiet hands.">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 15 · STORY — CARDS + VIDEO -->
+<section class="slide" data-notes="Hand out the story cards (story.pdf, printed & cut). 'Count the cards!' — elicit SIX. 'Take your pencils. Listen.' Play the video (embedded) and PAUSE after the first picture: 'What picture is it? What's number 1? Is it picture 1?' The ss order all the cards and write the numbers. Play the video again — they check their order. (The printed cards carry small numbers in the corners — self-check.) THE GLUE RULE: after checking, the 6 cards go INTO THE COPYBOOK in the story order, in a row.">
+  <div class="eyebrow reveal">Story — 15 min · part 3</div>
+  <h1 class="reveal">The story cards — order them! 1️⃣2️⃣3️⃣</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Hand out the <strong>story cards</strong>. <em>"Count the cards!"</em> — elicit <strong>SIX</strong>. <em>"Take your pencils. Listen!"</em></p>
+  <p class="task reveal">Play the <strong>video</strong>, <strong>pause after picture 1</strong>: <em>"What picture is it? What's number 1?"</em> The ss <strong>order the cards and write the numbers</strong>.</p>
+  <p class="tag reveal">🎬 VIDEO — the Unit 1 story</p>
+  <video class="reveal" controls preload="metadata" src="../media/kb1-u1-story.mp4"></video>
+  <p class="task reveal">Play it <strong>again</strong> — the ss <strong>check</strong> their order.</p>
+  <div class="glue reveal">📏 Checked? <b>Glue the 6 cards into the copybook — in the story order, in a row!</b></div>
+</section>
+
+<!-- 16 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi → the Genki game. They know rock-paper-scissors from the intro — the Wi-Fi makes the switch sharp.">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 17 · CLASS MANAGEMENT — GENKI: TPR CHANT + ROCK, PAPER, SCISSORS -->
+<section class="slide" data-notes="THE CLASS-MANAGEMENT SLOT (Genki English style). Part 1 — the commands chant, you say they do, faster and faster: 'Stand up! Sit down! Hands up! Hands down! Pencil up!' (pencil on heads — they love it). Part 2 — ROCK, PAPER, SCISSORS team battle: two teams line up, pair off, chant 'Rock… paper… scissors… look and see!' — winners sit, losers cheer; first team all seated wins. Genki rules to drill: 'I can do it!' after a win, 'Try again!' after a loss. THE PRIZE: the winning team presents the story first. If you find your Genki English tracks (activity box / CD), drop one into media/ as kb1-u1-genki.mp4 — the slide will carry it; today the chant carries itself. ~3 min.">
+  <div class="eyebrow reveal">🎵 Class management — Genki English style</div>
+  <h1 class="reveal">Stand up! Sit down! · Rock, paper, scissors! ✊✋✌️</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">The commands chant — <strong>faster and faster!</strong> <em>"Stand up! Sit down! Hands up! Hands down! Pencil up!"</em> ✏️</p>
+  <p class="task reveal"><strong>Rock, paper, scissors</strong> — team battle: pair off, chant <em>"Rock… paper… scissors… look and see!"</em> — the winner's team presents the story first! 🏆</p>
+  <p class="ask reveal">Win: <em><strong>"I can do it!"</strong></em> 💪 · Lose: <em><strong>"Try again!"</strong></em> 🔁</p>
+</section>
+
+<!-- 18 · STORY — ACT OUT -->
+<section class="slide" data-notes="Hand out masks/puppets. Play the story again — the ss listen and ROLE-PLAY, take pauses so they can repeat (shadowing technique — the конспект names it). Split the class into three groups: Marie, Maskman, Monty — each group repeats its character's part as they act out. Then groups of three act out the whole story; confident groups perform for the class (less confident ss = Monty — one line!). TEAM framing: tables are the stages; the Genki battle decided who goes first.">
+  <div class="eyebrow reveal">Story — 15 min · part 4</div>
+  <h1 class="reveal">Act it out! 🎭</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Masks on! Play the story again — the ss <strong>listen and role-play</strong>. <strong>Pause</strong> after each line so they can <strong>repeat</strong> (shadowing).</p>
+  <p class="task reveal">Three groups: <strong>Marie</strong> · <strong>Maskman</strong> · <strong>Monty</strong> — each group says its part and acts.</p>
+  <p class="task reveal">Groups of three <strong>act out the whole story</strong>. Confident groups <strong>perform for the class</strong> — the tables are the stages! 🎬</p>
+  <p class="note reveal">Less confident ss take Monty (one line — "Look — a blue pencil!"). The Genki winners present first.</p>
+</section>
+
+<!-- 19 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi → the last song. By now the signal should be fast: one word, all hands up.">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 20 · NEW SONG — HEAD, SHOULDERS, KNEES & TOES (FUTURE) -->
+<section class="slide" data-notes="THE FUTURE SONG — played just for exposure: body parts are coming in a later unit; nobody has to learn anything today. The file is PENDING: drop the mp4 into media/ as kb1-u1-head-shoulders.mp4 (the Noodle &amp; Pals version — same heroes as 'What's Your Name?') and it plays here; until then the online link works. Everybody STANDS and touches what they sing: head, shoulders, knees, toes, eyes, ears, mouth, nose. Second run — faster! (The Super Simple '(Speeding Up)' version is the same idea.) ~3 min.">
+  <div class="eyebrow reveal">🎵 NEW song · for the future — body parts!</div>
+  <h1 class="reveal">Head, Shoulders, Knees &amp; Toes 👶</h1>
+  <div class="rule reveal"></div>
+  <video class="reveal" controls preload="metadata" src="../media/kb1-u1-head-shoulders.mp4" onerror="songPending(this)"></video>
+  <div class="pending reveal" hidden>
+    <span>🎬 <b>«Head Shoulders Knees &amp; Toes»</b> — Noodle &amp; Pals (the local file isn't here yet):</span>
+    <a class="song-link" href="https://www.youtube.com/watch?v=RuqvGiZi0qg" target="_blank">▶ watch online (YouTube)</a>
+    <span class="note">download it → <code>media/kb1-u1-head-shoulders.mp4</code> — and it plays right here. (Also fun: the '(Speeding Up)' version — youtube.com/watch?v=WX8HmogNyCY.)</span>
+  </div>
+  <p class="task reveal">Everybody <strong>stands</strong> — touch what you sing: <strong>head, shoulders, knees, toes… eyes, ears, mouth, nose</strong>! Second time — <strong>faster</strong>! ⚡</p>
+</section>
+
+<!-- 21 · FEEDBACK + GOODBYE -->
+<section class="slide" data-notes="Draw a scale on the board from 1 to 10 — the ss choose how difficult the lesson was. Use colors (green / yellow / orange / red) or emojis on the scale to help. Board support: the child deck has the tap-to-light scale. Close with the toy-box chant one more time (📦✨🚶5️⃣ — it opens the story they just acted out). Then the reading slot as usual — the next slide opens it in one click. конспект: 5 min.">
+  <div class="eyebrow reveal">Feedback &amp; goodbye · 5 min</div>
+  <h1 class="reveal">How difficult was it? 1–10</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Draw the <strong>scale 1–10</strong> on the board — colors (green → red) or emojis. Each ss <strong>chooses their number</strong>: how difficult was the lesson?</p>
+  <p class="note reveal">Board support: the child deck — a tap-to-light scale.</p>
+  <p class="task reveal">Goodbye routine: the <strong>toy-box chant</strong> one more time (📦✨🚶5️⃣) — the same chant that starts their story!</p>
+</section>
+
+<!-- 22 · HOMEWORK -->
+<section class="slide" data-notes="The homework (the конспект's owed items — never given on 17.09, they moved here): AB p. 9 — the story page they just acted out: point to the pictures and say the words at home (a toy box! a monster! a blue pencil!) — colouring the blue pencil is enough writing for tonight. + the video for parents — publish it to shkola.app before the lesson; parents watch it with the ss. No worksheet HW today — the story cards came home glued in the copybook (in order!).">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">AB p. 9 + a video for Mum &amp; Dad 🏠</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">📖 <strong>AB p. 9</strong> — the story page: <strong>point and say</strong> at home — <em>a toy box! a monster! a blue pencil!</em> 💙</p>
+  <p class="task reveal">🎬 <strong>The video for parents</strong> — in <strong>shkola.app</strong>. Watch it together!</p>
+  <p class="note reveal">ДЗ: AB стр. 9 (указать и назвать) + видео для родителей в shkola.app.</p>
+  <p class="note reveal">The story cards went home glued in the copybooks — in the story order (parents can ask: "What's number 1?").</p>
+</section>
+
+<!-- 23 · PHONICS — THE READING SLOT (BRAND PHONICS 2 — n) -->
+<section class="slide" data-notes="THE READING SLOT — Elena runs it at the end, as usual; it lives here now in one click. The button opens Brand Phonics 2 — letter n (Nesquik, Nestlé + the reading strip + sight words I/the) in a new tab — it needs the site/local link to be open over http (works from the online deck and from the local server; on file:// open decks/phonics/brand-phonics-n.html by hand). Today's letters recap before you switch: A a — apple, B b — bag (poster 1: a-a-a, ba-ba-ba) — one fast choral re-read, then the n-deck.">
+  <div class="eyebrow reveal">Reading slot · phonics</div>
+  <h1 class="reveal">Letter time → Brand Phonics 2 — n 🔤</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Fast recap first: <strong>A a — apple</strong> 🍏 · <strong>B b — bag</strong> 👜 — poster 1, one choral re-read: <em>"a… a… a… ba… ba… ba!"</em></p>
+  <p class="task reveal">Then the reading slot — <strong>one click</strong>:</p>
+  <a class="hw-link reveal" href="../phonics/brand-phonics-n.html" target="_blank">🔤 open Brand Phonics 2 — n</a>
+  <p class="note reveal">Opens in a new tab (Nesquik, Nestlé + the reading strip + sight words I / the). Works from the site and the local server; from a file:// double-click open the phonics deck by hand.</p>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 23</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvbtn" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<script>
+/* ================= mode ================= */
+const params=new URLSearchParams(location.search);
+const EMBED=params.get('embed');            /* 'cur' | 'next' — live thumbnails in the presenter window */
+const PRESENTER=params.get('presenter')==='1';
+const MAIN=!EMBED&&!PRESENTER;
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const revealed=new Set();
+
+/* ================= sync channel ================= */
+let bc=null;
+try{bc=new BroadcastChannel('kb1-u1l4p2-deck')}catch(e){}
+function send(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+
+/* ================= chrome refs ================= */
+const bar=document.getElementById('bar'),
+      cnt=document.getElementById('counter'),
+      prevBtn=document.getElementById('prev'),
+      nextBtn=document.getElementById('next');
+
+/* ================= core nav ================= */
+function show(n){
+  if(n<0||n>=slides.length)return;
+  slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
+  cur=n;
+  bar.style.width=((n+1)/slides.length*100)+'%';
+  cnt.textContent=(n+1)+' / '+slides.length;
+  prevBtn.disabled=n===0;nextBtn.disabled=n===slides.length-1;
+  if(PRESENTER)pvUpdate();
+}
+function go(n){
+  if(n<0||n>=slides.length)return;
+  show(n);
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(MAIN)history.replaceState(null,'','#'+(n+1));
+  if(MAIN)send({t:'go',n});
+}
+prevBtn.onclick=()=>go(cur-1);nextBtn.onclick=()=>go(cur+1);
+
+/* ================= reveals ================= */
+function markShown(id){
+  const a=document.getElementById(id);
+  if(!a||a.classList.contains('show'))return;
+  a.classList.add('show');
+  const b=document.querySelector('button[onclick*="\''+id+'\'"]')||document.querySelector('button[onclick*="'+id+'"]');
+  if(b){b.textContent='✅ показано';b.style.opacity=.55;b.disabled=true;}
+}
+function reveal(btn,id){
+  markShown(id);
+  if(!revealed.has(id)){revealed.add(id);}
+  send({t:'reveal',id});
+}
+
+/* ================= pending songs ================= */
+function songPending(v){
+  v.style.display='none';
+  const p=v.parentElement.querySelector('.pending');
+  if(p)p.hidden=false;
+}
+/* belt & braces: if the error fired before handlers existed, catch it on load */
+addEventListener('load',()=>document.querySelectorAll('video').forEach(v=>{if(v.error)songPending(v);}));
+
+/* ================= messages ================= */
+if(bc)bc.onmessage=e=>{
+  const m=e.data||{};
+  if(m.t==='go'){
+    if(EMBED){show(EMBED==='cur'?m.n:Math.min(m.n+1,slides.length-1));}
+    else if(MAIN&&m.n!==cur){show(m.n);history.replaceState(null,'','#'+(m.n+1));
+      document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});}
+    else if(PRESENTER){cur=m.n;pvUpdate();}
+  }
+  if(m.t==='set'&&MAIN)go(m.n);
+  if(m.t==='reveal'){
+    if(EMBED||MAIN){markShown(m.id);revealed.add(m.id);}
+  }
+  if(m.t==='hello'){
+    if(MAIN)send({t:'state',n:cur,revealed:[...revealed]});
+  }
+  if(m.t==='state'&&EMBED){
+    show(EMBED==='cur'?m.n:Math.min(m.n+1,slides.length-1));
+    (m.revealed||[]).forEach(id=>{markShown(id);revealed.add(id);});
+  }
+  if(m.t==='state'&&PRESENTER){cur=m.n;pvUpdate();}
+};
+send({t:'hello'}); /* ask whoever is already open where we are */
+
+/* ================= presenter window ================= */
+function pvUpdate(){
+  const c=document.getElementById('pvcnt'),nt=document.getElementById('pvnotes');
+  if(c)c.textContent=(cur+1)+' / '+slides.length;
+  if(nt&&slides[cur])nt.textContent=slides[cur].dataset.notes||'';
+}
+function pvFit(){
+  document.querySelectorAll('.pvframe').forEach(f=>{
+    const ifr=f.querySelector('iframe');
+    if(ifr)ifr.style.transform='scale('+(f.clientWidth/1440)+')';
+  });
+}
+if(PRESENTER){
+  document.body.classList.add('presenter');
+  const pv=document.createElement('div');pv.id='pv';
+  pv.innerHTML=
+    '<div class="pvhead"><b>Presenter</b> · KB1 · Unit 1 · Lesson 4 · part 2 · <span class="pvcnt" id="pvcnt"></span></div>'+
+    '<div class="pvwarn" id="pvwarn">⚠ No sync: this window works only over http:// — open the deck via the local server or the site link, then press T again.</div>'+
+    '<div class="pvlabel">now — what the class sees</div><div class="pvframe"><iframe src="'+location.pathname+'?embed=cur"></iframe></div>'+
+    '<div class="pvlabel">next</div><div class="pvframe"><iframe src="'+location.pathname+'?embed=next"></iframe></div>'+
+    '<div class="pvnotes" id="pvnotes"></div>'+
+    '<div class="pvbtns"><button id="pvprev">‹</button><button id="pvfw">›</button></div>';
+  document.body.appendChild(pv);
+  document.getElementById('pvprev').onclick=()=>send({t:'set',n:cur-1});
+  document.getElementById('pvfw').onclick=()=>send({t:'set',n:cur+1});
+  addEventListener('resize',pvFit);setTimeout(pvFit,300);setTimeout(pvFit,1200);
+  if(!bc)document.getElementById('pvwarn').style.display='block';
+  pvUpdate();
+}
+
+/* ================= input (main only) ================= */
+if(MAIN){
+  document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+  document.getElementById('pvbtn').onclick=openPresenter;
+  document.addEventListener('keydown',e=>{
+    if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
+    if(e.key==='Home')go(0);
+    if(e.key==='End')go(slides.length-1);
+    if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
+    if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&!e.metaKey&&!e.ctrlKey)openPresenter();
+  });
+  let wl=0;
+  document.addEventListener('wheel',e=>{
+    const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;
+    go(cur+(e.deltaY>0?1:-1));
+  },{passive:true});
+  let tx=0;
+  document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+  document.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
+  },{passive:true});
+}
+function openPresenter(){
+  send({t:'hello'}); /* refresh any already-open windows */
+  window.open(location.pathname+'?presenter=1','kb1u1l4p2pv','width=560,height=940');
+}
+
+/* ================= start: hash restores the slide ================= */
+const h=parseInt(location.hash.slice(1));
+show(MAIN&&(!isNaN(h))?(h-1):0);
+</script>
+
+<script>
+/* READY-CHIME (standing rule, 2026-09-04): when ZCode saves a new version of
+   this deck, the OPEN window chimes and reloads itself — no manual refresh,
+   the hash puts her back on the same slide. http:// only; silent on file://. */
+(function(){
+  if(!MAIN)return;
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{        /* ding — dong */
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.pathname,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
