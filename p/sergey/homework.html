@@ -83,6 +83,7 @@ h2{font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.4vw,1.8rem);m
   <div class="play-row">🧀 The cheese is <span class="opts" data-a="between"><button class="opt">between</button><button class="opt">behind</button><button class="opt">in</button></span> two pizzas!</div>
   <div class="play-row">🇫🇷 The French flag is <span class="opts" data-a="on"><button class="opt">on</button><button class="opt">in</button><button class="opt">under</button></span> the sofa!</div>
   <div class="play-row">🏛️ Where is Rome? — In <span class="opts" data-a="Italy"><button class="opt">Spain</button><button class="opt">Italy</button><button class="opt">China</button></span>!</div>
+  <p class="hint" id="sent-line"></p>
 </div>
 
 <!-- LISTENING -->
@@ -113,16 +114,90 @@ document.querySelectorAll('.hw').forEach(hw=>{
 });
 /* options shuffle fresh every open; green locks, orange shakes back */
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-document.querySelectorAll('.opts').forEach(box=>{
+/* ===== auto-send (the Irina pattern): every FINISHED drill lands in Elena's
+   Google Form — nothing for parents to press. HW_FORM goes in when Elena's
+   form link arrives (one line). Until then finished runs wait in the queue
+   on this device and flush on the first load after activation. ===== */
+var HW_FORM={action:"",entryReport:""};
+var ROWS=['📦 box','🐈 cat','🧀 cheese','🇫🇷 French flag','🏛️ Rome'];
+var TRIES=[];
+function drillDone(){
+  var rows=document.querySelectorAll('.opts');
+  for(var i=0;i<rows.length;i++){ if(!rows[i].querySelector('.opt.good')) return false; }
+  return true;
+}
+document.querySelectorAll('.opts').forEach((box,ri)=>{
   const good=box.dataset.a;
+  TRIES[ri]=0;
   const btns=[...box.querySelectorAll('.opt')];
   shuffle(btns).forEach(b=>box.appendChild(b));
   btns.forEach(b=>b.addEventListener('click',()=>{
     if(b.classList.contains('good'))return;
-    if(b.textContent.trim()===good){ b.classList.add('good'); }
+    TRIES[ri]=(TRIES[ri]||0)+1;
+    if(b.textContent.trim()===good){ b.classList.add('good'); if(drillDone()) finishDrill(); }
     else{ b.classList.add('bad'); setTimeout(()=>b.classList.remove('bad'),700); }
   }));
 });
+function drillReport(){
+  const lines=['🐭 Sergey · homework drill — Lesson 9 (prepositions + countries)',
+    'Date: '+new Date().toLocaleString('ru-RU'),''];
+  let total=0;
+  document.querySelectorAll('.play-row').forEach((row,ri)=>{
+    const t=TRIES[ri]||0; total+=t;
+    lines.push('  · '+ROWS[ri]+' — '+t+(t===1?' try':' tries'));
+  });
+  lines.push('','Total tries: '+total+' (5 answers right)');
+  return lines.join('\n');
+}
+function finishDrill(){
+  const txt=drillReport();
+  try{localStorage.setItem('sergey-hw-last',txt);}catch(e){}
+  try{
+    const q=JSON.parse(localStorage.getItem('sergey-hw-queue')||'[]');
+    q.push(txt); if(q.length>10)q=q.slice(-10);
+    localStorage.setItem('sergey-hw-queue',JSON.stringify(q));
+  }catch(e){}
+  flushQueue();
+  const line=document.getElementById('sent-line');
+  line.textContent='Отправляем результат…';
+  setTimeout(()=>{
+    line.textContent=HW_FORM.action?'✅ Результат уже у Елены!':'✅ Готово! Молодец! 🎉';
+  },2500);
+}
+function sendViaForm(txt){
+  if(!HW_FORM.action)return; /* the form is not linked yet — the report waits in the queue */
+  try{
+    const body=new URLSearchParams();
+    body.append(HW_FORM.entryReport,txt);
+    body.append('submit','Submit');
+    fetch(HW_FORM.action,{method:'POST',mode:'no-cors',body:body}).catch(()=>iframePost(txt));
+  }catch(e){iframePost(txt);}
+}
+function iframePost(txt){ /* fallback for old browsers without fetch */
+  const frame=document.createElement('iframe');
+  frame.name='hw-post-'+Date.now();
+  frame.style.cssText='position:absolute;width:0;height:0;border:0;left:-999px';
+  document.body.appendChild(frame);
+  const f=document.createElement('form');
+  f.method='POST';f.action=HW_FORM.action;f.target=frame.name;
+  const inp=document.createElement('input');
+  inp.type='hidden';inp.name=HW_FORM.entryReport;inp.value=txt;
+  f.appendChild(inp);
+  const sub=document.createElement('input');
+  sub.type='hidden';sub.name='submit';sub.value='Submit';
+  f.appendChild(sub);
+  document.body.appendChild(f);
+  f.submit();
+  setTimeout(()=>{f.remove();frame.remove();},15000);
+}
+function flushQueue(){
+  let q=[];
+  try{q=JSON.parse(localStorage.getItem('sergey-hw-queue')||'[]');}catch(e){}
+  if(!q.length||!HW_FORM.action)return; /* nothing lost — the queue stays until the form is live */
+  q.forEach(sendViaForm);
+  try{localStorage.setItem('sergey-hw-queue','[]');}catch(e){}
+}
+flushQueue(); /* anything that failed to send last time goes now */
 </script>
 </body>
 </html>
