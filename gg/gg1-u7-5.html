@@ -87,6 +87,7 @@ h1{font-weight:800;font-size:clamp(1.4rem,2.8vw,2.3rem);line-height:1.18;
   color:#14655A;background:#E7F1EF;border:1.5px dashed var(--accent);border-radius:12px;
   padding:.35em .9em;cursor:pointer;user-select:none;transition:all .15s ease;min-width:2.2em;text-align:center}
 .dic.done{background:var(--accent);color:#fff;border-style:solid}
+.dic.dpic{font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.1;padding:.2em .55em}
 audio{width:min(520px,92%);height:44px;display:block;margin:.2em 0}
 ul.materials{list-style:none}
 ul.materials li{padding:.28em 0;border-bottom:1px dashed var(--line);
@@ -196,16 +197,16 @@ body.presenter .slide,body.presenter #nav,body.presenter #bar{display:none}
   <p class="note reveal">STANDING (from 7.09): control HW every lesson. A missing HW → the formal-warning count.</p>
 </section>
 
-<!-- 3 · DICTATION -->
-<section class="slide" data-notes="THE DICTATION — moved from 17.09 (only 2 ss were there at the start, one unprepared). Elena dictates the 15 U7.1 wild-animal words (SB p. 83 box) — RU meaning or English; the ss write into the copybooks. Then the check: tap a chip — the word appears; the ss check themselves (✓ / fix). Tap again — hides. Praise the clean sheets. Board support: the child deck, slide 2 — the same chips, bigger.">
+<!-- 3 · DICTATION — chips cycle: number → picture (describe it!) → word -->
+<section class="slide" data-notes="THE DICTATION — moved from 17.09 (only 2 ss were there at the start, one unprepared). Elena dictates the 15 U7.1 wild-animal words (SB p. 83 box); the ss write into the copybooks. THE CHECK — each chip cycles: tap 1 → the PICTURE — the ss DESCRIBE it the simplest way (It can… It lives… It has got…); tap 2 → the WORD — the spelling check (✓ / fix); tap 3 → hides. The words are SHUFFLED on purpose — never alphabetical (the standing dictation rule, all groups). Praise the clean sheets. Board support: the child deck, slide 2 — the same chips, bigger.">
   <div class="eyebrow reveal">Dictation · moved from 17.09</div>
   <h1 class="reveal">Dictation check — 15 words ✏️</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal"><strong>Pencils down</strong> — check together: tap a chip, say the word, ✓ or fix.</p>
+  <p class="task reveal"><strong>Pencils down</strong> — check together: tap 1 = the picture → <strong>describe it</strong>: <em>"It can… It lives… It has got…"</em> · tap 2 = the word → ✓ or fix.</p>
   <div class="ask reveal" style="align-self:stretch;display:flex;flex-wrap:wrap;gap:.5em">
-    <span class="dic" data-w="bird" onclick="dic(this)">1</span><span class="dic" data-w="butterfly" onclick="dic(this)">2</span><span class="dic" data-w="crocodile" onclick="dic(this)">3</span><span class="dic" data-w="elephant" onclick="dic(this)">4</span><span class="dic" data-w="fish" onclick="dic(this)">5</span><span class="dic" data-w="fly" onclick="dic(this)">6</span><span class="dic" data-w="frog" onclick="dic(this)">7</span><span class="dic" data-w="giraffe" onclick="dic(this)">8</span><span class="dic" data-w="kangaroo" onclick="dic(this)">9</span><span class="dic" data-w="lion" onclick="dic(this)">10</span><span class="dic" data-w="monkey" onclick="dic(this)">11</span><span class="dic" data-w="snake" onclick="dic(this)">12</span><span class="dic" data-w="spider" onclick="dic(this)">13</span><span class="dic" data-w="tiger" onclick="dic(this)">14</span><span class="dic" data-w="whale" onclick="dic(this)">15</span>
+    <span class="dic" data-w="giraffe" data-pic="🦒" onclick="dic(this)">1</span><span class="dic" data-w="crocodile" data-pic="🐊" onclick="dic(this)">2</span><span class="dic" data-w="snake" data-pic="🐍" onclick="dic(this)">3</span><span class="dic" data-w="bird" data-pic="🐦" onclick="dic(this)">4</span><span class="dic" data-w="whale" data-pic="🐋" onclick="dic(this)">5</span><span class="dic" data-w="fish" data-pic="🐟" onclick="dic(this)">6</span><span class="dic" data-w="lion" data-pic="🦁" onclick="dic(this)">7</span><span class="dic" data-w="butterfly" data-pic="🦋" onclick="dic(this)">8</span><span class="dic" data-w="spider" data-pic="🕷" onclick="dic(this)">9</span><span class="dic" data-w="frog" data-pic="🐸" onclick="dic(this)">10</span><span class="dic" data-w="tiger" data-pic="🐅" onclick="dic(this)">11</span><span class="dic" data-w="fly" data-pic="🪰" onclick="dic(this)">12</span><span class="dic" data-w="kangaroo" data-pic="🦘" onclick="dic(this)">13</span><span class="dic" data-w="elephant" data-pic="🐘" onclick="dic(this)">14</span><span class="dic" data-w="monkey" data-pic="🐵" onclick="dic(this)">15</span>
   </div>
-  <p class="note reveal">Words: the U7.1 Wild animals box (SB p. 83). Board support: the child deck, slide 2.</p>
+  <p class="note reveal">Words: the U7.1 Wild animals box (SB p. 83) — shuffled, never alphabetical (the standing rule). Board support: the child deck, slide 2.</p>
 </section>
 
 <!-- 4 · WI-FI SIGNAL (first use in this group) -->
@@ -489,14 +490,22 @@ function reveal(btn,id){
 }
 
 function dic(el){
-  if(el.dataset.w){                    /* hidden -> show the word */
+  /* dictation chip: number → picture (describe it!) → word → number */
+  const st=el.dataset.st||'0';
+  if(st==='0'){
     el.dataset.n=el.textContent;
+    el.textContent=el.dataset.pic;
+    el.classList.add('dpic');
+    el.dataset.st='1';
+  }else if(st==='1'){
     el.textContent=el.dataset.w;
+    el.classList.remove('dpic');
     el.classList.add('done');
-  }else{                               /* shown -> hide again */
-    el.dataset.w=el.textContent;
+    el.dataset.st='2';
+  }else{
     el.textContent=el.dataset.n;
     el.classList.remove('done');
+    el.dataset.st='0';
   }
 }
 

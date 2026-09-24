@@ -123,6 +123,7 @@ audio{width:min(560px,100%);margin-top:.4vh}
   transition:transform .15s ease;line-height:1.2;box-shadow:var(--shadow)}
 .dic:active{transform:scale(.95)}
 .dic.done{background:var(--mint);color:var(--ink);border-style:solid}
+.dic.dpic{font-size:clamp(1.6rem,3.2vw,2.6rem);line-height:1.1;padding:.25em .55em}
 /* don't/doesn't practice */
 .pr-line{display:flex;align-items:center;flex-wrap:wrap;gap:.5em;
   font-size:clamp(1.15rem,2.3vw,1.9rem);font-weight:600;line-height:1.4;
@@ -282,28 +283,29 @@ table.tbl td.cell.open::before{content:""}
   <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">I can…</b> ⭐ understand a text about amazing animals!</p></div>
 </section>
 
-<!-- 2 · DICTATION CHECK -->
+<!-- 2 · DICTATION CHECK — tap 1: the picture (describe it!), tap 2: the word -->
 <section class="slide">
   <div class="eyebrow reveal-el">Dictation · the animal words</div>
   <h1 class="title reveal-el">Check your words! ✏️</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Tap a number — check your word!</div>
-  <div class="card mint reveal-el" style="align-self:stretch;display:flex;flex-wrap:wrap;gap:clamp(8px,1.2vw,14px);justify-content:center;align-content:center;min-height:44vh">
-    <span class="dic" data-w="bird" onclick="dic(this)">1</span>
-    <span class="dic" data-w="butterfly" onclick="dic(this)">2</span>
-    <span class="dic" data-w="crocodile" onclick="dic(this)">3</span>
-    <span class="dic" data-w="elephant" onclick="dic(this)">4</span>
-    <span class="dic" data-w="fish" onclick="dic(this)">5</span>
-    <span class="dic" data-w="fly" onclick="dic(this)">6</span>
-    <span class="dic" data-w="frog" onclick="dic(this)">7</span>
-    <span class="dic" data-w="giraffe" onclick="dic(this)">8</span>
-    <span class="dic" data-w="kangaroo" onclick="dic(this)">9</span>
-    <span class="dic" data-w="lion" onclick="dic(this)">10</span>
-    <span class="dic" data-w="monkey" onclick="dic(this)">11</span>
-    <span class="dic" data-w="snake" onclick="dic(this)">12</span>
-    <span class="dic" data-w="spider" onclick="dic(this)">13</span>
-    <span class="dic" data-w="tiger" onclick="dic(this)">14</span>
-    <span class="dic" data-w="whale" onclick="dic(this)">15</span>
+  <div class="task reveal-el">🎯 Tap 1 — describe the picture! Tap 2 — check your word!</div>
+  <div class="card peach reveal-el" style="align-self:center"><p><b style="color:var(--lavender-deep)">It can …</b> &nbsp;·&nbsp; <b style="color:var(--lavender-deep)">It lives …</b> &nbsp;·&nbsp; <b style="color:var(--lavender-deep)">It has got …</b></p></div>
+  <div class="card mint reveal-el" style="align-self:stretch;display:flex;flex-wrap:wrap;gap:clamp(8px,1.2vw,14px);justify-content:center;align-content:center;min-height:38vh">
+    <span class="dic" data-w="giraffe" data-pic="🦒" onclick="dic(this)">1</span>
+    <span class="dic" data-w="crocodile" data-pic="🐊" onclick="dic(this)">2</span>
+    <span class="dic" data-w="snake" data-pic="🐍" onclick="dic(this)">3</span>
+    <span class="dic" data-w="bird" data-pic="🐦" onclick="dic(this)">4</span>
+    <span class="dic" data-w="whale" data-pic="🐋" onclick="dic(this)">5</span>
+    <span class="dic" data-w="fish" data-pic="🐟" onclick="dic(this)">6</span>
+    <span class="dic" data-w="lion" data-pic="🦁" onclick="dic(this)">7</span>
+    <span class="dic" data-w="butterfly" data-pic="🦋" onclick="dic(this)">8</span>
+    <span class="dic" data-w="spider" data-pic="🕷" onclick="dic(this)">9</span>
+    <span class="dic" data-w="frog" data-pic="🐸" onclick="dic(this)">10</span>
+    <span class="dic" data-w="tiger" data-pic="🐅" onclick="dic(this)">11</span>
+    <span class="dic" data-w="fly" data-pic="🪰" onclick="dic(this)">12</span>
+    <span class="dic" data-w="kangaroo" data-pic="🦘" onclick="dic(this)">13</span>
+    <span class="dic" data-w="elephant" data-pic="🐘" onclick="dic(this)">14</span>
+    <span class="dic" data-w="monkey" data-pic="🐵" onclick="dic(this)">15</span>
   </div>
 </section>
 
@@ -558,16 +560,23 @@ function reveal(btn){
   if(a){a.classList.add('show');}
   btn.style.display='none';
 }
-/* dictation chip: number <-> word */
+/* dictation chip: number → picture (describe it!) → word → number */
 function dic(el){
-  if(el.dataset.w){
+  const st=el.dataset.st||'0';
+  if(st==='0'){
     el.dataset.n=el.textContent;
+    el.textContent=el.dataset.pic;
+    el.classList.add('dpic');
+    el.dataset.st='1';
+  }else if(st==='1'){
     el.textContent=el.dataset.w;
+    el.classList.remove('dpic');
     el.classList.add('done');
+    el.dataset.st='2';
   }else{
-    el.dataset.w=el.textContent;
     el.textContent=el.dataset.n;
     el.classList.remove('done');
+    el.dataset.st='0';
   }
 }
 /* don't/doesn't gap: first tap reveals, second hides */
