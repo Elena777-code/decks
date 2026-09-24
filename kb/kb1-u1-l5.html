@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kid's Box 1 · Unit 1 · Lesson 5 — Rr + the first test (script)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   KB1 — Kid's Box 1, Unit 1, Lesson 5 (group class).
+   The конспект's Lesson 5: NEW phonics Rr (rat/red/rug/rag),
+   PB p. 8 + AB p. 8 — and the Unit 1 EVALUATION TEST (old
+   edition) as one calm protected block at the end.
+   Elena's shape call (2026-09-24): ONE visit, 60 min, she
+   manages; must-do spine marked on the slides, if-time items
+   tagged. Test = 3 parts (the optional Part 4 is dropped);
+   Part 3 needs NO audio (reading part). Keys & the recording
+   script live in the teacher notes (from the tests PDF pp. 26/28).
+   Standing routines: 📶 Wi-Fi before every new activity,
+   🎵 3+ songs (Hello! · rainbow · Genki chant).
+   Engine: nav bottom-right + lane, progress bar, keyboard/wheel/
+   swipe, ready-chime + #n hash, click-reveals, standing
+   PRESENTER VIEW (T / 🖥) synced both ways.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A;
+  --radius:18px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease;font-family:inherit}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:4.2vh 5vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.5vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.85rem,1.4vw,1.05rem);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.4rem,2.8vw,2.3rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.8rem,1.3vw,1rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.18em .75em;
+  background:#fff;margin-bottom:.2em}
+.tag.ift{color:#9a6a2f;border-color:#E3C48A;background:#FBF3E4}
+.tag.must{color:#14655A;border-color:#5ecbb8;background:#E7F1EF}
+.task{font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.55;font-weight:500}
+.task strong{color:var(--accent)}
+.ask{font-size:clamp(1.05rem,1.8vw,1.35rem);line-height:1.5;color:#4a463d}
+.note{font-size:clamp(.92rem,1.4vw,1.1rem);color:var(--ink-soft);font-style:italic;line-height:1.5}
+.flag{font-size:clamp(.9rem,1.35vw,1.05rem);color:#9a6a2f;font-style:italic;
+  line-height:1.55;background:#FBF3E4;border:1.5px dashed #E3C48A;
+  border-radius:12px;padding:.7em 1em}
+.glue{font-size:clamp(.95rem,1.5vw,1.15rem);font-weight:800;color:#14655A;
+  background:#E7F1EF;border:1.5px solid #5ecbb8;border-radius:12px;
+  padding:.55em 1em;line-height:1.5}
+audio{width:min(520px,92%);height:44px;display:block;margin:.2em 0}
+img.sheet{width:min(560px,88%);border-radius:12px;display:block;margin:.2em 0;
+  box-shadow:0 6px 18px rgba(0,0,0,.15);background:#fff}
+ul.materials{list-style:none}
+ul.materials li{padding:.28em 0;border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.5}
+ul.materials li:last-child{border-bottom:none}
+.checklist{display:flex;flex-direction:column;gap:1vh}
+.check-item{display:flex;gap:12px;align-items:flex-start;background:#fff;
+  border:1px solid var(--line);border-radius:12px;padding:.9vh 1vw;
+  font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.45}
+.check-item .box{flex:0 0 auto;width:1.1em;height:1.1em;border:2px solid var(--accent);border-radius:6px;margin-top:.12em}
+a.hw-link,a.song-link{display:inline-block;margin-top:.3em;font-weight:700;color:#fff;
+  background:var(--accent);border-radius:99px;padding:.5em 1.1em;
+  text-decoration:none;font-size:clamp(1rem,1.6vw,1.25rem)}
+a.hw-link:hover,a.song-link:hover{opacity:.9}
+
+/* ---------- the Wi-Fi interstitial ---------- */
+.slide.wifi{justify-content:center;align-items:center;background:#fff}
+.wifi-ic{width:clamp(160px,30vw,340px);height:auto;animation:wifipulse 2.2s ease-in-out infinite}
+@keyframes wifipulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.045);opacity:1}}
+
+/* ---------- click-reveal (synced with the presenter window) ---------- */
+.reveal-btn{font-family:'Inter',sans-serif;font-size:clamp(.95rem,1.5vw,1.2rem);font-weight:800;
+  color:#fff;background:var(--accent);border:none;border-radius:99px;
+  padding:.5em 1.3em;cursor:pointer;transition:transform .15s ease;align-self:flex-start}
+.reveal-btn:hover{transform:scale(1.06)}
+.answer{display:none;font-size:clamp(1.05rem,1.8vw,1.4rem);font-weight:600;color:var(--accent);
+  background:#E7F1EF;border-radius:12px;padding:.5em 1em;align-self:flex-start;line-height:1.45}
+.answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* ---------- pending-song card (shows only if the local mp4 is missing) ---------- */
+.pending{display:flex;flex-direction:column;gap:.6em;align-items:flex-start;
+  background:#FBF3E4;border:1.5px dashed #E3C48A;border-radius:12px;
+  padding:.8em 1.1em;font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.5}
+
+/* ---------- presenter + embed modes (spec §7) ---------- */
+body.embed #nav,body.embed #bar{display:none}
+body.presenter .slide,body.presenter #nav,body.presenter #bar{display:none}
+#pv{position:absolute;inset:0;padding:2vh 2vw calc(74px + 2vh);display:flex;flex-direction:column;gap:1.2vh;overflow:auto}
+.pvhead{font-size:clamp(1rem,1.6vw,1.25rem);color:var(--ink-soft)}
+.pvhead b{color:var(--accent)}
+.pvhead .pvcnt{font-weight:800;color:var(--ink)}
+.pvwarn{background:#FBF3E4;border:1px solid #E3C48A;border-radius:12px;
+  padding:.6em 1em;font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink);display:none}
+.pvlabel{font-size:clamp(.8rem,1.2vw,.95rem);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.pvframe{width:100%;aspect-ratio:16/10;position:relative;overflow:hidden;background:#fff;
+  border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.pvframe iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;transform-origin:0 0}
+.pvnotes{background:#fff;border:1px solid var(--line);border-left:6px solid var(--accent);
+  border-radius:12px;padding:clamp(10px,1.6vh,16px) clamp(14px,1.6vw,22px);
+  font-size:clamp(1rem,1.6vw,1.3rem);line-height:1.45;min-height:3.2em}
+.pvbtns{display:flex;gap:10px}
+.pvbtns button{flex:1;height:52px;border-radius:99px;border:1px solid var(--line);
+  background:#fff;color:var(--accent);font-size:1.5rem;cursor:pointer;font-family:inherit}
+.pvbtns button:hover{transform:scale(1.03)}
+
+@media (max-width:900px){
+  .slide{padding:3.5vh 5vw 11vh}
+}
+</style>
+<script>
+/* pending-song fallback — defined in <head> ON PURPOSE: a missing local mp4
+   fires its error event while the page is still parsing, long before the
+   bottom scripts run, so the handler must already exist here. */
+function songPending(v){
+  v.style.display='none';
+  const p=v.parentElement.querySelector('.pending');
+  if(p)p.hidden=false;
+}
+</script>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER / PREPARE AHEAD -->
+<section class="slide active" data-notes="LESSON 5 — the конспект's plan in ONE 60-min visit (Elena's call, 2026-09-24): new phonics Rr + PB/AB p. 8, then the Unit 1 evaluation test (old edition) as one calm protected block. TIMING SPINE (must-do ≈ 53 + your 5 RU = fits 60): Hello 3 · HW check 3 · color-the-stars 5 · rainbow 3 · Rr intro 4 · Rr worksheet 5 · PB p.8 ex.1 4 · Fly Swat 3 · TEST 15 (intro 2 + parts 1–3) · Genki 2 · scale 3 · goodbye+HW 3. IF-TIME (cut in this order): AB p.8 ex.1 → PB p.8 ex.2 → the rainbow song. The READING STATION does not fit today — the test took its slot; the last slide keeps the one-click button. MUST-DO: the Rr block + the whole test. The test: 20 marks, 5 per part — for YOUR records, not for the kids; Part 4 (optional per the конспект) is SKIPPED today — its track (KB01-E01-P04.mp3) and key (1a 2a 3b 4c 5c) live in the Library folder if you ever want it. Press T (or 🖥) for the presenter window. Same deck for all three KB1 groups.">
+  <div class="eyebrow reveal">Kid's Box 1 (New Generation) · Unit 1 · Lesson 5 · KB1.1 · KB1.2 · KB1.3 — ~60 min</div>
+  <h1 class="reveal">New letter <strong>Rr</strong> + our <strong>first test</strong> 🌟</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Aim:</strong> introduce phonics <strong>Rr</strong> (rat · red · rug · rag), work PB/AB p. 8 — and run the <strong>Unit 1 evaluation test</strong> (old edition) as one calm, protected block. Their <strong>first test ever</strong> — slow, kind, celebratory.</p>
+  <p class="tag reveal">MATERIALS — print &amp; prepare ahead</p>
+  <ul class="materials reveal">
+    <li>📄 <strong>Test copies — ONE SET PER CHILD</strong>: pages 1–2 of <code>Kid's Box 1 tests.pdf</code> (⚠ the scans are dark — heavy on ink; print gray if you can)</li>
+    <li>⭐ <strong>Color-the-stars</strong> printouts (the page holds 2 copies — cut in half) · ✂️ ready</li>
+    <li>📝 <strong>Rr worksheets</strong> — in class: circle + match + the maze; <strong>tracing = homework</strong></li>
+    <li>📁 <strong>A folder per child</strong> — the конспект's tradition: tests stored all year; the first ones go in today</li>
+    <li>🔨 <strong>Fly Swat</strong>: two hammers (or just hands) + your printed A/B/R flashcards on the mat</li>
+    <li>🎧 <strong>Test the sound first:</strong> PB p. 8 track + the TWO test tracks are in this deck — <strong>Part 3 needs NO audio</strong> (a reading part)</li>
+    <li>📶 the Wi-Fi icon needs nothing — just your open hand</li>
+  </ul>
+  <div class="checklist reveal">
+    <div class="check-item"><span class="box"></span><span>🎵 <b>2 song files are still pending</b> (rainbow · Head, Shoulders): those slides carry an online link until the mp4s land in <code>media/</code> — <code>kb1-u1-rainbow.mp4</code>, <code>kb1-u1-head-shoulders.mp4</code>. Head&amp;Shoulders is CUT today (no time) — rainbow only.</span></div>
+    <div class="check-item"><span class="box"></span><span>🌟 <b>Must-do spine</b> is on every slide (<span class="tag must" style="font-size:.75em;padding:.1em .6em">must-do</span> / <span class="tag ift" style="font-size:.75em;padding:.1em .6em">if-time</span>) — cut if-time items, never the test.</span></div>
+    <div class="check-item"><span class="box"></span><span>📁 <b>The folder ritual</b>: each child puts their test into THEIR folder today — it stays at school till the end of year.</span></div>
+    <div class="check-item"><span class="box"></span><span>🖥 <b>Press T</b> (or 🖥) — presenter window: current + next + notes</span></div>
+  </div>
+</section>
+
+<!-- 2 · SONG — HELLO! (ROUTINE) -->
+<section class="slide" data-notes="THE FIRST SLIDE — the lesson opens with this song, every time. Play the video, everybody sings; TPR ALL the actions. After the song: the feelings one more time — you mime, they say: good · great · wonderful · tired · hungry. ~3 min. MUST-DO (routine).">
+  <div class="eyebrow reveal">🎵 Song · routine — every lesson! <span class="tag must" style="margin-left:.5em">must-do</span></div>
+  <h1 class="reveal">Hello! How are you? 👋</h1>
+  <div class="rule reveal"></div>
+  <p class="tag reveal">🎬 SONG — 'Hello!' (greeting + feelings, Super Simple Songs)</p>
+  <video class="reveal" controls preload="metadata" src="../media/kb1-u1-hello.mp4"></video>
+  <p class="task reveal">Sing and <strong>do all the actions</strong>! Then round the tables: <em>"How are you today?"</em> 😊 😴 🍔</p>
+</section>
+
+<!-- 3 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi → homework check. One word, all hands up — the signal is the lesson's switch now.">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 4 · HOMEWORK CHECK — AB p. 9 -->
+<section class="slide" data-notes="The HW from L4·2: AB p. 9 (the star card — say the words: the numbers 2 · 4 · 7 · 3 · 6 · 9, and the picture-dictionary page) + the video for parents in shkola.app. Quick praise, nothing collected: books up — walk, glance, applause; one or two star cards to show the class. ~3 min. Board support: the child deck shows the six star-card numbers to point at.">
+  <div class="eyebrow reveal">Homework check · ~3 min</div>
+  <h1 class="reveal">AB p. 9 — the star card ⭐</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Books <strong>up</strong>! <em>"Point and say the numbers!"</em> — walk and glance. 👏</p>
+  <p class="task reveal">🎬 And the <strong>video with Mum &amp; Dad</strong> in shkola.app — who watched? Hands up! 🙋</p>
+  <p class="note reveal">Board support: the child deck, slide 3 — the six numbers to tap and say.</p>
+</section>
+
+<!-- 5 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi → the stars worksheet. Wait for every hand.">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 6 · REVISION — COLOR THE STARS -->
+<section class="slide" data-notes="The конспект's guided colouring (6'→5'). Hand out the half-sheets. YOU name — they colour: start with the конспект's own items — 'Color the star number three — red. Color the star number seven — green.' — then continue: one — blue, five — orange (the demo board fills the star a child taps — instant self-check; the demo key: 1 blue · 2 pink · 3 red · 5 orange · 6 purple · 7 green · 9 yellow · 10 red). THEN the bridge — tell them: 'Later today you colour stars like this in our TEST!' — this worksheet IS the test skill (listen &amp; colour), taught in the open. ~5 min. MUST-DO.">
+  <div class="eyebrow reveal">Revision · listening &amp; colours · ~5 min <span class="tag must" style="margin-left:.5em">must-do</span></div>
+  <h1 class="reveal">Color the stars! ⭐</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">📝 Worksheets out. Listen and colour: <em>"Color the star number <strong>three</strong> — <strong>red</strong>! Color the star number <strong>seven</strong> — <strong>green</strong>!"</em></p>
+  <p class="task reveal">Then: <em>"Number <strong>one</strong> — <strong>blue</strong>! Number <strong>five</strong> — <strong>orange</strong>!"</em> A child taps the star on the board — check together!</p>
+  <img class="sheet reveal" src="../media/kb1-u1-l5-stars.png" alt="the color-the-stars worksheet" style="width:min(380px,60%)">
+  <p class="glue reveal">🌟 <strong>Later today you colour stars in our TEST!</strong> — this is exactly that skill. You know it!</p>
+  <p class="note reveal">Board support: the child deck, slide 5 — you name, a child taps, the star fills.</p>
+</section>
+
+<!-- 7 · SONG — I CAN SING A RAINBOW (ACTIVE LANGUAGE: COLOURS) -->
+<section class="slide" data-notes="THE ACTIVE-LANGUAGE SONG — colours, sung SEATED and calm (a pre-testSetter, not a stirrer): 'Red and yellow and pink and green, purple and orange and blue…' THE FILE IS PENDING: the video plays here the moment the mp4 lands in media/ as kb1-u1-rainbow.mp4; until then the online link works (needs Internet). IF THE CLOCK IS TIGHT this is the third cut. It feeds the test's colour part. ~3 min.">
+  <div class="eyebrow reveal">🎵 Song · active language — colours! <span class="tag ift" style="margin-left:.5em">if-time · cut #3</span></div>
+  <h1 class="reveal">I Can Sing a Rainbow 🌈</h1>
+  <div class="rule reveal"></div>
+  <video class="reveal" controls preload="metadata" src="../media/kb1-u1-rainbow.mp4" onerror="songPending(this)"></video>
+  <div class="pending reveal" hidden>
+    <span>🎬 <b>«I Can Sing a Rainbow»</b> — Super Simple Songs (the local file isn't here yet):</span>
+    <a class="song-link" href="https://www.youtube.com/results?search_query=I+Can+Sing+a+Rainbow+Super+Simple+Songs" target="_blank">▶ watch online (YouTube)</a>
+    <span class="note">download it → <code>media/kb1-u1-rainbow.mp4</code> — and it plays right here, no link needed.</span>
+  </div>
+  <p class="task reveal">Sing the colours — <strong>seated and calm</strong>: <em>red and yellow and pink and green, purple and orange and blue…</em> 🎨</p>
+</section>
+
+<!-- 8 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi → phonics. A new letter is coming!">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 9 · PHONICS — REVISE Aa/Bb + NEW Rr -->
+<section class="slide" data-notes="Revise first (the конспект): poster 1 choral — 'a… a… a… apple! ba… ba… ba… bag!' Check the Rr HW will come later — today it's NEW. Then NEW LETTER R: the four cards on the child deck (tap → the word shows): R-rat 🐁, R-red 🔴, R-rug (the carpet!), R-rag (the cloth!). Drill with rhythm + claps: 'R-r-rat! R-r-red!' — the whole class, then rows/teams. The four words are exactly the four pictures on their worksheet — say that. ~4 min. MUST-DO.">
+  <div class="eyebrow reveal">Phonics · a new sound · ~4 min <span class="tag must" style="margin-left:.5em">must-do</span></div>
+  <h1 class="reveal">A a · B b — and now… <strong>R r!</strong></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Fast recap, all together: <em>"a… a… a… apple!"</em> 🍏 · <em>"ba… ba… ba… bag!"</em> 👜</p>
+  <p class="task reveal">NEW: <strong>R-rat!</strong> 🐁 · <strong>R-red!</strong> 🔴 · <strong>R-rug!</strong> (a carpet!) · <strong>R-rag!</strong> (an old cloth!)</p>
+  <p class="task reveal">Drill with a rhythm — <strong>clap it</strong>: <em>"R-r-rat! 👏 R-r-red! 👏 R-r-rug! 👏 R-r-rag! 👏"</em></p>
+  <p class="note reveal">Board support: the child deck, slide 9 — tap a card, the word shows.</p>
+</section>
+
+<!-- 10 · THE Rr WORKSHEET -->
+<section class="slide" data-notes="The Rr worksheet (the demo shows it big). THREE class tasks — and one NOT today: 1) the R/r circle row — YOU say 'Circle the big R!' / 'Now the small r!' — they listen and circle; 2) MATCH: the red scribble → 'red', the rat → 'a rat' (draw the lines); 3) THE MAZE: follow the R/r letters from the arrow 🡒 to the exit 🡓 — fingers first, then pencils. ⛔ DO NOT TRACE the big rows in class (the конспект is strict) — tracing big and small Rr = HOMEWORK. ~5 min. MUST-DO.">
+  <div class="eyebrow reveal">Worksheet · Rr · ~5 min <span class="tag must" style="margin-left:.5em">must-do</span></div>
+  <h1 class="reveal">The Rr worksheet ✏️</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>1.</strong> Listen and circle: <em>"Circle the big R! … Now the small r!"</em></p>
+  <p class="task reveal"><strong>2.</strong> Match: the red scribble → <strong>red</strong> · the rat → <strong>a rat</strong> · <strong>3.</strong> The maze: follow <strong>R</strong> and <strong>r</strong> from the arrow to the exit!</p>
+  <img class="sheet reveal" src="../media/kb1-u1-l5-rr.png" alt="the Rr worksheet">
+  <div class="flag reveal">⛔ <strong>Do NOT trace today!</strong> The big tracing rows = <strong>homework</strong> (the конспект is strict about it).</div>
+</section>
+
+<!-- 11 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi → books open, PB p. 8.">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 12 · PB p. 8 ex. 1 — WATCH AND SAY -->
+<section class="slide" data-notes="PB p. 8 ex. 1 (track 11 — in this deck). Open the books. 'What can you see?' Elicit: A RED ROBOT on a RAINBOW! Questions: 'How many stars can you see?' → THREE (the robot holds one!). 'What colors are in the rainbow?' → red, orange, yellow, green, blue, purple. 'What color is the robot?' → RED. Play the recording — they LISTEN AND POINT; again — LISTEN AND REPEAT. Connected speech: drill 'red robot' and 'on a rainbow' as whole phrases, robot-slow first, then normal. ~4 min. MUST-DO.">
+  <div class="eyebrow reveal">PB p. 8 · ex. 1 · ~4 min <span class="tag must" style="margin-left:.5em">must-do</span></div>
+  <h1 class="reveal">PB p. 8 — watch and say! 🤖</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">📖 Open the book — <strong>PB p. 8</strong>. <em>"What can you see?"</em></p>
+  <p class="ask reveal"><strong>ICQs→questions:</strong> <em>"How many stars? How many…?"</em></p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-stars')">show the answers</button>
+  <div class="answer" id="r-stars">A <b>red robot</b> on a <b>rainbow</b>! Stars: <b>three</b> (the robot holds one!). Robot → <b>red</b> 🤖</div>
+  <p class="tag reveal">🎧 AUDIO — PB p. 8 (track 11) — listen &amp; point, then listen &amp; repeat</p>
+  <audio class="reveal" controls preload="none" src="../media/kb1-u1-pb8-t11.mp3"></audio>
+  <p class="task reveal">Connected speech: <em>"a <strong>red robot</strong>"</em> · <em>"<strong>on a rainbow</strong>"</em> — robot-slow first, then fast!</p>
+</section>
+
+<!-- 13 · PB p. 8 ex. 2 — FIND AND COUNT (IF-TIME) -->
+<section class="slide" data-notes="PB p. 8 ex. 2 — pairwork (the конспект: open pair first, a strong student helps; then pairs, monitor). The picture = a park FULL of red things; the legend: red birds · red pencils · red stars · red robots · red balls. Example (the конспект's): 'Point to the bird and say: Red birds. Let's count… — SIX!' Pairs choose a set, count, ask each other: 'Red pencils? How many?' IF-TIME — cut #2. ~3 min.">
+  <div class="eyebrow reveal">PB p. 8 · ex. 2 · pairs <span class="tag ift" style="margin-left:.5em">if-time · cut #2</span></div>
+  <h1 class="reveal">Look, find and count! 🔍</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">The park is <strong>full of red things</strong>: birds 🐦 · pencils ✏️ · stars ⭐ · robots 🤖 · balls ⚽</p>
+  <p class="task reveal">Example: <em>"Red birds. Let's count. How many red birds?"</em></p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-birds')">show the answer</button>
+  <div class="answer" id="r-birds"><b>Six!</b> 🔴🐦 — then pairs choose their own set and ask each other.</div>
+</section>
+
+<!-- 14 · AB p. 8 ex. 1 — CIRCLE THE R WORDS (IF-TIME) -->
+<section class="slide" data-notes="AB p. 8 ex. 1 — 'Look, circle and colour': robot ✓ rainbow ✓ — NOT the ball, NOT the number 2! ICQs (the конспект's 'Do you circle red?' is a slip — the page has ROBOT, not red): 'Do you circle the ball? NO! Do you circle r words? YES!' Then they colour the r pictures. IF-TIME — cut #1; if it's cut, it just never happens (ex. 2 is the HW, ex. 1 is safe to skip). ~3 min.">
+  <div class="eyebrow reveal">AB p. 8 · ex. 1 <span class="tag ift" style="margin-left:.5em">if-time · cut #1</span></div>
+  <h1 class="reveal">AB p. 8 — circle the <strong>r</strong> words! ⭕</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">📖 AB p. 8, ex. 1: robot 🤖 · ball ⚽ · 2️⃣ · rainbow 🌈 — <strong>circle the r words, colour them!</strong></p>
+  <p class="ask reveal"><strong>ICQs:</strong> <em>"Do you circle the ball? NO! Do you circle r words? YES!"</em></p>
+</section>
+
+<!-- 15 · FLY SWAT (THE STIRRER BEFORE THE TEST) -->
+<section class="slide" data-notes="Fly Swat (the конспект's game) — the LAST stirrer before they sit for the test: burn the energy NOW. Two volunteers get the hammers (or just hands); YOU name a word — they race to swat the right flashcard on the mat/board. Cards: rat · red · rug · rag + the A/B words: apple · bag · bat · bus (the demo grid mirrors them — the winner taps the card on the board, the class checks). Winner stays on, new challenger comes. ~3 min. MUST-DO (it buys the test its calm).">
+  <div class="eyebrow reveal">Game · Fly Swat 🔨 · ~3 min <span class="tag must" style="margin-left:.5em">must-do</span></div>
+  <h1 class="reveal">Fly Swat! ✊🔨</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Two swatters! I say the word — <strong>RACE to swat it!</strong></p>
+  <p class="task reveal"><em>"R-r-rat!"</em> 🐁 · <em>"red!"</em> 🔴 · <em>"rug!"</em> · <em>"rag!"</em> · <em>"apple!"</em> 🍎 · <em>"bag!"</em> 👜 · <em>"bat!"</em> 🦇 · <em>"bus!"</em> 🚌</p>
+  <p class="note reveal">Board support: the child deck, slide 14 — the winner taps the swatted card, the class checks.</p>
+</section>
+
+<!-- 16 · WI-FI — BEFORE THE TEST -->
+<section class="slide wifi" data-notes="Wi-Fi → THE TEST. Make the switch feel special: the quietest Wi-Fi of the lesson.">
+  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+  </svg>
+</section>
+
+<!-- 17 · THE TEST — INTRO -->
+<section class="slide" data-notes="THE TEST (15 min total, protected — nothing else lands in this block). The calm talk, kind and short: 'It's our FIRST TEST! 🌟 You know EVERYTHING!' Logistics: 1) test papers OUT (one set per child — pages 1–2); 2) NAMES first: 'Write your name!' — show on the board, help the slow ones; 3) demo one item: draw a box, say 'I'm four' → write 4. THE THREE PARTS (say them): ① listen and write the age ✏️ ② listen and colour — ONE number stays white! 🎨 ③ circle the s words — no audio, you read! 🔍 Part 4: SKIPPED today. The folders are OUT — the finished tests go in (the ritual: their folder, their test, till end of year). Marks: 20 total, 5 per part — YOUR records only, the kids never see a number. ~2 min, then Part 1.">
+  <div class="eyebrow reveal">🌟 Our first test! · 15 min · protected</div>
+  <h1 class="reveal">Our first test! 🌟</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">You know <strong>everything</strong> in this test. Show it!</p>
+  <p class="task reveal"><strong>1.</strong> Write your <strong>name</strong>! 🖊 · <strong>2.</strong> Listen — three parts:</p>
+  <p class="ask reveal">① Listen &amp; <strong>write the age</strong> ✏️ &nbsp; ② Listen &amp; <strong>colour</strong> — one number stays white! 🎨 &nbsp; ③ Circle the <strong>s</strong> words 🔍</p>
+  <p class="note reveal">Pencils ready · eyes on me · demo on the board: "I'm four" → write <strong>4</strong>.</p>
+  <img class="sheet reveal" src="../media/kb1-u1-l5-test-p1.png" alt="the test page 1" style="width:min(420px,64%)">
+  <p class="note reveal">↑ the page they hold: Part 1 (a–e birthday pictures) on top, Part 2 (the six big numbers) below.</p>
+</section>
+
+<!-- 18 · TEST PART 1 — LISTEN AND WRITE THE AGES -->
+<section class="slide" data-notes="PART 1 (audio = kb1-u1-test-e1-p1.mp3, in this deck). 'Listen and write the ages.' Each item sounds TWICE in the recording. They write DIGITS in the boxes a–e (birthday pictures). Play, wait, then pencils UP and check together (the demo reveals digit by digit). KEY: a = 4 (balloons) · b = 7 (cake) · c = 5 (party hat) · d = 6 (cake) · e = 10 (trumpet). Recording script: 'I'm four / I'm seven / I'm five / I'm six / I'm ten.' ~4 min.">
+  <div class="eyebrow reveal">Test · Part 1 · listen &amp; write ✏️</div>
+  <h1 class="reveal">Part 1 — listen and write the ages 🎂</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">🎧 Listen — each question <strong>twice</strong>! Write the <strong>number</strong> in the box.</p>
+  <p class="tag reveal">🎧 AUDIO — Test · Unit 1 · Part 1</p>
+  <audio class="reveal" controls preload="none" src="../media/kb1-u1-test-e1-p1.mp3"></audio>
+  <p class="task reveal">Pencils <strong>up</strong> — check together:</p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-p1')">show the key</button>
+  <div class="answer" id="r-p1">a = <b>4</b> · b = <b>7</b> · c = <b>5</b> · d = <b>6</b> · e = <b>10</b> &nbsp;(I'm four · seven · five · six · ten)</div>
+</section>
+
+<!-- 19 · TEST PART 2 — LISTEN AND COLOUR -->
+<section class="slide" data-notes="PART 2 (audio = kb1-u1-test-e1-p2.mp3). 'Listen and colour. There is one extra number.' The page shows six big numbers: 3 · 9 · 2 · 5 · 7 · 1. They need their COLOURED PENCILS — check the tables have them BEFORE you play. KEY: 3 = green · 9 = purple · 2 = pink · 5 = orange · 1 = blue — and 7 stays WHITE (the extra number!). Recording order: 'Colour number three green… number five orange… number one blue… number two pink… number nine purple.' Check together on the demo — tap the numbers, they fill; tap the 7 → 'the extra one!' ~4 min.">
+  <div class="eyebrow reveal">Test · Part 2 · listen &amp; colour 🎨</div>
+  <h1 class="reveal">Part 2 — listen and colour 🌈</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">🖍 <strong>Coloured pencils out!</strong> 🎧 Listen — colour the numbers. <strong>One number stays white!</strong></p>
+  <p class="tag reveal">🎧 AUDIO — Test · Unit 1 · Part 2</p>
+  <audio class="reveal" controls preload="none" src="../media/kb1-u1-test-e1-p2.mp3"></audio>
+  <p class="task reveal">Pencils <strong>up</strong> — check together:</p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-p2')">show the key</button>
+  <div class="answer" id="r-p2">3 = green · 9 = purple · 2 = pink · 5 = orange · 1 = blue — and <b>7 is the extra number!</b> (stays white!)</div>
+</section>
+
+<!-- 20 · TEST PART 3 — CIRCLE THE 'S' WORDS (NO AUDIO) -->
+<section class="slide" data-notes="PART 3 — A READING PART: NO AUDIO. 'Look and circle the s words.' They read/recognize and circle: SNAKE · SIX · SEVEN · STAR · STANDING UP — five items, 5 marks; the other pictures stay empty. Say it slowly: 'Find the s words! Circle them!' Fast finishers: read them again, point and whisper. When all three parts are done → the tests go INTO THE FOLDERS (their folder, their test). NOTE — the конспект's optional Part 4 (listen &amp; tick) is SKIPPED today; if you ever want it: audio KB01-E01-P04.mp3 in the Library's tests folder; key 1a 2a 3b 4c 5c (sit down / pick up your book / close the door / listen to the CD / open the door). ~3 min.">
+  <div class="eyebrow reveal">Test · Part 3 · circle the s words 🔍 — reading, no audio!</div>
+  <h1 class="reveal">Part 3 — circle the <strong>s</strong> words! 🔍</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">👀 <strong>No audio — your eyes only!</strong> Find the words that start with <strong>s</strong>… circle them!</p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-p3')">show the key</button>
+  <div class="answer" id="r-p3">snake 🐍 · six 6️⃣ · seven 7️⃣ · star ⭐ · standing up 🧍 &nbsp;(5 items = 5 marks)</div>
+  <div class="glue reveal">📁 Done? <b>The test goes into YOUR folder!</b> Well done — the first test ever!</div>
+</section>
+
+<!-- 21 · GENKI — THE TEST IS OVER! (CLASS MANAGEMENT) -->
+<section class="slide" data-notes="THE TEST IS OVER — celebrate! The class-management slot (Genki style): the commands chant, faster and faster — 'Stand up! Sit down! Hands up! Hands down! Pencil up!' — then ONE fast round of Rock, Paper, Scissors team battle ('Rock… paper… scissors… look and see!' — winners: 'I can do it!'). Shake off the test. ~2 min.">
+  <div class="eyebrow reveal">🎵 Class management — the test is over! 🎉</div>
+  <h1 class="reveal">Stand up! Sit down! ✊✋✌️</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">The commands chant — <strong>faster and faster!</strong> <em>"Stand up! Sit down! Hands up! Hands down! Pencil up!"</em></p>
+  <p class="task reveal">One round: <strong>Rock, paper, scissors</strong> — <em>"look and see!"</em> Win: <strong>"I can do it!"</strong> 💪</p>
+</section>
+
+<!-- 22 · FEEDBACK — THE SCALE -->
+<section class="slide" data-notes="Feedback (the конспект): the ss evaluate how difficult THE TEST was — 1 to 10 (the demo has the tap-to-light scale) or choose a smile: happy 🙂 · okay 😐 · tired 😴. Comment on the most common mistakes kindly — no names, no marks out loud: the numbers (20 total, 5 per part) are YOUR records, they go home never. Then the folder ritual: each child puts their test into THEIR folder — the folders go to the shelf; they stay at school all year (the конспект's end-of-year evaluation idea). ~3 min.">
+  <div class="eyebrow reveal">Feedback &amp; the folders · ~3 min</div>
+  <h1 class="reveal">How was the test? 1–10</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Draw the <strong>scale 1–10</strong> — or the smiles: <strong>happy 🙂 · okay 😐 · tired 😴</strong>. Each ss chooses!</p>
+  <p class="note reveal">Board support: the child deck — the tap-to-light scale.</p>
+  <div class="glue reveal">📁 Tests into the <strong>folders</strong> — the folders go to the shelf. They stay at school all year!</div>
+</section>
+
+<!-- 23 · GOODBYE + HOMEWORK -->
+<section class="slide" data-notes="The goodbye routine + the конспект's HW: 1) AB p. 8 ex. 2 — 'Write and draw': write r in the gaps → red, rainbow — and draw them; 2) TRACE big and small Rr on the Rr worksheet (the rows we skipped in class — now they do them at home, slowly and beautifully). RU line for parents at the bottom (allowed: primary HW). ~3 min.">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">AB p. 8 + trace Rr 🏠</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">📖 <strong>AB p. 8, ex. 2</strong> — write <strong>r</strong>: <em><strong>r</strong>ed</em> · <em><strong>r</strong>ainbow</em> — and <strong>draw</strong> them! 🌈</p>
+  <p class="task reveal">✏️ <strong>Trace big R and small r</strong> on the Rr worksheet — the rows we skipped!</p>
+  <p class="note reveal">ДЗ: AB стр. 8, упр. 2 (вписать r: red, rainbow + нарисовать) + обвести большие и маленькие R r на распечатке.</p>
+  <p class="task reveal">Goodbye! See you next time! 👋</p>
+</section>
+
+<!-- 24 · READING SLOT (IF-TIME) — BRAND PHONICS 2 — n -->
+<section class="slide" data-notes="THE READING SLOT — does NOT fit today (the test took the slot); this slide stays for if-time or the next visit. If you DO run it: fast recap a-a apple / ba-ba-ba bag, then the button opens Brand Phonics 2 — letter n (Nesquik, Nestlé + the reading strip + sight words I/the) in a new tab — needs http (the online deck or the local server; from file:// open decks/phonics/brand-phonics-n.html by hand). The Rr reading reps ride the normal next-lesson reading station.">
+  <div class="eyebrow reveal">Reading slot · phonics <span class="tag ift" style="margin-left:.5em">if-time</span></div>
+  <h1 class="reveal">Letter time → Brand Phonics 2 — n 🔤</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Fast recap first: <strong>A a — apple</strong> 🍏 · <strong>B b — bag</strong> 👜 — one choral re-read: <em>"a… a… a… ba… ba… ba!"</em></p>
+  <p class="task reveal">Then the reading slot — <strong>one click</strong>:</p>
+  <a class="hw-link reveal" href="../phonics/brand-phonics-n.html" target="_blank">🔤 open Brand Phonics 2 — n</a>
+  <p class="note reveal">Opens in a new tab (Nesquik, Nestlé + the reading strip + sight words I / the). Works from the site and the local server; from a file:// double-click open the phonics deck by hand.</p>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 24</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvbtn" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<script>
+/* ================= mode ================= */
+const params=new URLSearchParams(location.search);
+const EMBED=params.get('embed');            /* 'cur' | 'next' — live thumbnails in the presenter window */
+const PRESENTER=params.get('presenter')==='1';
+const MAIN=!EMBED&&!PRESENTER;
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const revealed=new Set();
+
+/* ================= sync channel ================= */
+let bc=null;
+try{bc=new BroadcastChannel('kb1-u1l5-deck')}catch(e){}
+function send(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+
+/* ================= chrome refs ================= */
+const bar=document.getElementById('bar'),
+      cnt=document.getElementById('counter'),
+      prevBtn=document.getElementById('prev'),
+      nextBtn=document.getElementById('next');
+
+/* ================= core nav ================= */
+let showWatch;
+function show(n){
+  if(n<0||n>=slides.length)return;
+  slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
+  cur=n;
+  bar.style.width=((n+1)/slides.length*100)+'%';
+  cnt.textContent=(n+1)+' / '+slides.length;
+  prevBtn.disabled=n===0;nextBtn.disabled=n===slides.length-1;
+  /* safety net: 1.5s after a slide opens, kill the entrance animation —
+     if the animation clock is frozen (background pane), everything still
+     becomes fully visible. setTimeout fires even where rAF stalls. */
+  clearTimeout(showWatch);
+  showWatch=setTimeout(()=>{const a=slides[n];if(a)a.querySelectorAll('.reveal').forEach(el=>{el.style.animation='none';});},1500);
+  if(PRESENTER)pvUpdate();
+}
+function go(n){
+  if(n<0||n>=slides.length)return;
+  show(n);
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(MAIN)history.replaceState(null,'','#'+(n+1));
+  if(MAIN)send({t:'go',n});
+}
+prevBtn.onclick=()=>go(cur-1);nextBtn.onclick=()=>go(cur+1);
+
+/* ================= reveals ================= */
+function markShown(id){
+  const a=document.getElementById(id);
+  if(!a||a.classList.contains('show'))return;
+  a.classList.add('show');
+  const b=document.querySelector('button[onclick*="\''+id+'\'"]')||document.querySelector('button[onclick*="'+id+'"]');
+  if(b){b.textContent='✅ показано';b.style.opacity=.55;b.disabled=true;}
+}
+function reveal(btn,id){
+  markShown(id);
+  if(!revealed.has(id)){revealed.add(id);}
+  send({t:'reveal',id});
+}
+
+/* ================= pending songs ================= */
+function songPending(v){
+  v.style.display='none';
+  const p=v.parentElement.querySelector('.pending');
+  if(p)p.hidden=false;
+}
+/* belt & braces: if the error fired before handlers existed, catch it on load */
+addEventListener('load',()=>document.querySelectorAll('video').forEach(v=>{if(v.error)songPending(v);}));
+
+/* ================= messages ================= */
+if(bc)bc.onmessage=e=>{
+  const m=e.data||{};
+  if(m.t==='go'){
+    if(EMBED){show(EMBED==='cur'?m.n:Math.min(m.n+1,slides.length-1));}
+    else if(MAIN&&m.n!==cur){show(m.n);history.replaceState(null,'','#'+(m.n+1));
+      document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});}
+    else if(PRESENTER){cur=m.n;pvUpdate();}
+  }
+  if(m.t==='set'&&MAIN)go(m.n);
+  if(m.t==='reveal'){
+    if(EMBED||MAIN){markShown(m.id);revealed.add(m.id);}
+  }
+  if(m.t==='hello'){
+    if(MAIN)send({t:'state',n:cur,revealed:[...revealed]});
+  }
+  if(m.t==='state'&&EMBED){
+    show(EMBED==='cur'?m.n:Math.min(m.n+1,slides.length-1));
+    (m.revealed||[]).forEach(id=>{markShown(id);revealed.add(id);});
+  }
+  if(m.t==='state'&&PRESENTER){cur=m.n;pvUpdate();}
+};
+send({t:'hello'}); /* ask whoever is already open where we are */
+
+/* ================= presenter window ================= */
+function pvUpdate(){
+  const c=document.getElementById('pvcnt'),nt=document.getElementById('pvnotes');
+  if(c)c.textContent=(cur+1)+' / '+slides.length;
+  if(nt&&slides[cur])nt.textContent=slides[cur].dataset.notes||'';
+}
+function pvFit(){
+  document.querySelectorAll('.pvframe').forEach(f=>{
+    const ifr=f.querySelector('iframe');
+    if(ifr)ifr.style.transform='scale('+(f.clientWidth/1440)+')';
+  });
+}
+if(PRESENTER){
+  document.body.classList.add('presenter');
+  const pv=document.createElement('div');pv.id='pv';
+  pv.innerHTML=
+    '<div class="pvhead"><b>Presenter</b> · KB1 · Unit 1 · Lesson 5 · <span class="pvcnt" id="pvcnt"></span></div>'+
+    '<div class="pvwarn" id="pvwarn">⚠ No sync: this window works only over http:// — open the deck via the local server or the site link, then press T again.</div>'+
+    '<div class="pvlabel">now — what the class sees</div><div class="pvframe"><iframe src="'+location.pathname+'?embed=cur"></iframe></div>'+
+    '<div class="pvlabel">next</div><div class="pvframe"><iframe src="'+location.pathname+'?embed=next"></iframe></div>'+
+    '<div class="pvnotes" id="pvnotes"></div>'+
+    '<div class="pvbtns"><button id="pvprev">‹</button><button id="pvfw">›</button></div>';
+  document.body.appendChild(pv);
+  document.getElementById('pvprev').onclick=()=>send({t:'set',n:cur-1});
+  document.getElementById('pvfw').onclick=()=>send({t:'set',n:cur+1});
+  addEventListener('resize',pvFit);setTimeout(pvFit,300);setTimeout(pvFit,1200);
+  if(!bc)document.getElementById('pvwarn').style.display='block';
+  pvUpdate();
+}
+
+/* ================= input (main only) ================= */
+if(MAIN){
+  document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+  document.getElementById('pvbtn').onclick=openPresenter;
+  document.addEventListener('keydown',e=>{
+    if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
+    if(e.key==='Home')go(0);
+    if(e.key==='End')go(slides.length-1);
+    if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
+    if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&!e.metaKey&&!e.ctrlKey)openPresenter();
+  });
+  let wl=0;
+  document.addEventListener('wheel',e=>{
+    const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;
+    go(cur+(e.deltaY>0?1:-1));
+  },{passive:true});
+  let tx=0;
+  document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+  document.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
+  },{passive:true});
+}
+function openPresenter(){
+  send({t:'hello'}); /* refresh any already-open windows */
+  window.open(location.pathname+'?presenter=1','kb1u1l5pv','width=560,height=940');
+}
+
+/* ================= start: hash restores the slide ================= */
+const h=parseInt(location.hash.slice(1));
+show(MAIN&&(!isNaN(h))?(h-1):0);
+</script>
+
+<script>
+/* READY-CHIME (standing rule, 2026-09-04): when ZCode saves a new version of
+   this deck, the OPEN window chimes and reloads itself — no manual refresh,
+   the hash puts her back on the same slide. http:// only; silent on file://. */
+(function(){
+  if(!MAIN)return;
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{        /* ding — dong */
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.pathname,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
