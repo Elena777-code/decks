@@ -9,12 +9,10 @@
 <style>
 /* ============ "Minty Fresh" — child-facing demo deck ============
    KB1 · Unit 1 · Lesson 5 (the board deck; Elena's script is
-   kb1-u1-l5.html). NEW LETTER Rr + THE FIRST TEST EVER — the
-   test slides are calm and kind: audio per part, then "pencils
-   up!" and a tap-to-check key. Standing routines: 📶 Wi-Fi
-   before every new activity, 🎵 songs. For 6-7-year-olds:
-   huge visuals, minimal words, click-driven — nothing
-   autoplays, Elena (or a child at the board) taps. */
+   kb1-u1-l5.html). REBUILT 2026-09-24 to Elena's five-stage
+   plan — the same slides as the script, in the same order:
+   Warm up · Revision · Reading · Test · Goodbye. For 6-7-
+   year-olds: huge visuals, minimal words, tap-driven. */
 :root{
   --mint:#95E1D3;         /* soft mint */
   --mint-deep:#5ecbb8;    /* mint accent for text/icons */
@@ -115,10 +113,6 @@ h1.title{
 .answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
 .answer b{color:var(--pink)}
 @keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
-.bubble{
-  display:inline-block;background:var(--white);border-radius:26px;box-shadow:var(--shadow);
-  padding:.5em 1.1em;font-size:clamp(1.4rem,2.6vw,2.2rem);line-height:1.35;
-}
 /* flashcard grids */
 .fc-grid{display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,20px);align-items:stretch;justify-content:center}
 .fc{
@@ -136,16 +130,7 @@ h1.title{
 }
 .fc:hover{transform:translateY(-4px) scale(1.03)}
 .fc.picked{transform:scale(1.07);box-shadow:0 0 0 6px var(--mint),var(--shadow-lg)}
-/* step lines */
-.line{
-  display:none;align-items:center;gap:.5em;
-  font-family:'Fredoka',sans-serif;font-weight:700;
-  font-size:clamp(1.6rem,3.4vw,3rem);line-height:1.25;
-}
-.line.show{display:flex;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
-.line .em{font-size:1.1em}
-.line .lw{color:var(--pink)}
-/* numbered stars — the worksheet board (click → fills with its colour) */
+/* numbered stars — click → fills with its colour */
 .star-wrap{display:flex;flex-direction:column;gap:2.2vh;align-items:center}
 .star-row{display:flex;gap:clamp(14px,2.4vw,34px);justify-content:center;flex-wrap:wrap}
 .star{
@@ -162,29 +147,6 @@ h1.title{
   font-size:clamp(1.5rem,3.4vh,2.6rem);color:var(--ink);
 }
 .star.done .num{color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.35)}
-/* test check chips */
-.chk-grid{display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,22px);justify-content:center}
-.chk{
-  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
-  padding:.5em .9em;cursor:pointer;user-select:none;
-  font-family:'Fredoka',sans-serif;font-weight:700;
-  font-size:clamp(1.6rem,3.2vw,2.6rem);
-  transition:transform .18s cubic-bezier(.34,1.56,.64,1);
-}
-.chk:hover{transform:scale(1.05)}
-.chk small{display:block;font-size:.55em;color:var(--ink-soft);font-weight:600}
-.chk.picked{transform:scale(1.08);box-shadow:0 0 0 6px var(--peach),var(--shadow-lg)}
-/* rps cards */
-.rps{font-size:clamp(4rem,14vh,9rem);line-height:1.2}
-/* pending-song card */
-.pending{display:flex;flex-direction:column;gap:.5em;align-items:flex-start;
-  background:#fff8db;border:3px dashed var(--peach);border-radius:var(--radius);
-  padding:.7em 1.1em;font-size:clamp(1.2rem,2vw,1.7rem)}
-.song-link{font-family:'Fredoka',sans-serif;font-weight:700;color:#fff;background:var(--mint-deep);
-  border-radius:99px;padding:.4em 1.2em;text-decoration:none;font-size:clamp(1.2rem,2vw,1.7rem)}
-audio{width:min(560px,100%);margin-top:.4vh}
-video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--shadow-lg)}
-img.sheet{width:min(680px,92%);border-radius:16px;display:block;box-shadow:var(--shadow-lg);background:#fff}
 /* the scale */
 .num-grid{display:flex;flex-wrap:wrap;gap:clamp(8px,1.4vw,18px);justify-content:center}
 .num{
@@ -196,26 +158,18 @@ img.sheet{width:min(680px,92%);border-radius:16px;display:block;box-shadow:var(-
 }
 .num:hover{transform:scale(1.06)}
 .num.lit{opacity:1;transform:scale(1.08)}
-@media (max-width:900px){
-  .fc .fc-emoji{font-size:clamp(2.6rem,6vh,4rem)}
-}
+/* rps cards */
+.rps{font-size:clamp(4rem,14vh,9rem);line-height:1.2}
+audio{width:min(560px,100%);margin-top:.4vh}
+video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--shadow-lg)}
+img.sheet{width:min(640px,92%);border-radius:16px;display:block;box-shadow:var(--shadow-lg);background:#fff}
 </style>
-<script>
-/* pending-song fallback — defined in <head> ON PURPOSE: a missing local mp4
-   fires its error event while the page is still parsing, long before the
-   bottom scripts run, so the handler must already exist here. */
-function songPending(v){
-  v.style.display='none';
-  const p=v.parentElement.querySelector('.pending');
-  if(p)p.hidden=false;
-}
-</script>
 </head>
 <body>
 
 <div id="progress-track"><div id="progress-fill"></div></div>
 
-<!-- 1 · HELLO SONG -->
+<!-- 1 · WARM UP — HELLO SONG -->
 <section class="slide">
   <div class="eyebrow reveal-el">🎵 Song time</div>
   <h1 class="title reveal-el">Hello! How are you? 👋</h1>
@@ -225,7 +179,7 @@ function songPending(v){
 </section>
 
 <!-- 2 · WI-FI -->
-<section class="slide wifi" data-teacher="Wi-Fi! Books up — homework check.">
+<section class="slide wifi" data-teacher="Wi-Fi! Worksheets out — color the stars.">
   <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
     <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
       <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
@@ -237,36 +191,7 @@ function songPending(v){
   <div class="card peach reveal-el" style="margin-top:2vh"><p>📶✋ <b>Stop and listen!</b></p></div>
 </section>
 
-<!-- 3 · HW CHECK — THE STAR CARD NUMBERS -->
-<section class="slide">
-  <div class="eyebrow reveal-el">Homework check</div>
-  <h1 class="title reveal-el">Point and say! ⭐</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Tap a number — say it!</div>
-  <div class="fc-grid reveal-el">
-    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">2️⃣</span><div class="fc-name">two</div></div>
-    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">4️⃣</span><div class="fc-name">four</div></div>
-    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">7️⃣</span><div class="fc-name">seven</div></div>
-    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">3️⃣</span><div class="fc-name">three</div></div>
-    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">6️⃣</span><div class="fc-name">six</div></div>
-    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">9️⃣</span><div class="fc-name">nine</div></div>
-  </div>
-  <div class="card mint reveal-el"><p>🎬 And the video with <b style="color:var(--lavender-deep)">Mum &amp; Dad</b>! 🙋</p></div>
-</section>
-
-<!-- 4 · WI-FI -->
-<section class="slide wifi" data-teacher="Wi-Fi! Worksheets out — color the stars.">
-  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
-    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
-      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
-      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
-      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
-    </g>
-    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
-  </svg>
-</section>
-
-<!-- 5 · COLOR THE STARS (you name — a child taps, the star fills) -->
+<!-- 3 · REVISION — COLOR THE STARS -->
 <section class="slide">
   <div class="eyebrow reveal-el">Listen and colour</div>
   <h1 class="title reveal-el">Color the stars! ⭐</h1>
@@ -274,7 +199,7 @@ function songPending(v){
   <div class="task reveal-el">🎯 Listen — tap the star Elena says!</div>
   <div class="star-wrap reveal-el">
     <div class="star-row">
-      <div class="star" onclick="fillStar(this)" data-color="#E74C3C"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#E74C3C"/></svg><span class="num">1</span></div>
+      <div class="star" onclick="fillStar(this)" data-color="#3498DB"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#3498DB"/></svg><span class="num">1</span></div>
       <div class="star" onclick="fillStar(this)" data-color="#9a7fff"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#9a7fff"/></svg><span class="num">6</span></div>
       <div class="star" onclick="fillStar(this)" data-color="#E74C3C"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#E74C3C"/></svg><span class="num">3</span></div>
       <div class="star" onclick="fillStar(this)" data-color="#7DBB42"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#7DBB42"/></svg><span class="num">7</span></div>
@@ -288,8 +213,8 @@ function songPending(v){
   </div>
 </section>
 
-<!-- 6 · WI-FI -->
-<section class="slide wifi" data-teacher="Wi-Fi! A song about colours.">
+<!-- 4 · WI-FI -->
+<section class="slide wifi" data-teacher="Wi-Fi! Reading time — A a, B b and the homework.">
   <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
     <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
       <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
@@ -300,46 +225,21 @@ function songPending(v){
   </svg>
 </section>
 
-<!-- 7 · RAINBOW SONG + COLOURS -->
+<!-- 5 · READING 1 — Aa/Bb + THE Bb HOMEWORK -->
 <section class="slide">
-  <div class="eyebrow reveal-el">🎵 Song time · colours</div>
-  <h1 class="title reveal-el">I can sing a rainbow 🌈</h1>
+  <div class="eyebrow reveal-el">Reading · A a · B b</div>
+  <h1 class="title reveal-el">a… a… apple! · ba… ba… bag! 🍏👜</h1>
   <div class="accent-line reveal-el"></div>
-  <video class="reveal-el" controls preload="metadata" src="../media/kb1-u1-rainbow.mp4" onerror="songPending(this)"></video>
-  <div class="pending reveal-el" hidden>
-    <span>🎬 <b>«I Can Sing a Rainbow»</b> — Super Simple Songs</span>
-    <a class="song-link" href="https://www.youtube.com/results?search_query=I+Can+Sing+a+Rainbow+Super+Simple+Songs" target="_blank">▶ watch online</a>
-  </div>
-  <div class="task reveal-el">🎯 Sing — then tap a colour, say the word!</div>
-  <div class="fc-grid reveal-el">
-    <div class="fc"><span class="fc-dot" style="width:clamp(3.4rem,8vh,6rem);height:clamp(3.4rem,8vh,6rem);border-radius:50%;background:#E74C3C;display:block"></span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">red</span></div></div>
-    <div class="fc"><span class="fc-dot" style="width:clamp(3.4rem,8vh,6rem);height:clamp(3.4rem,8vh,6rem);border-radius:50%;background:#F1C40F;display:block"></span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">yellow</span></div></div>
-    <div class="fc"><span class="fc-dot" style="width:clamp(3.4rem,8vh,6rem);height:clamp(3.4rem,8vh,6rem);border-radius:50%;background:#FF8FAB;display:block"></span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">pink</span></div></div>
-    <div class="fc"><span class="fc-dot" style="width:clamp(3.4rem,8vh,6rem);height:clamp(3.4rem,8vh,6rem);border-radius:50%;background:#7DBB42;display:block"></span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">green</span></div></div>
-    <div class="fc"><span class="fc-dot" style="width:clamp(3.4rem,8vh,6rem);height:clamp(3.4rem,8vh,6rem);border-radius:50%;background:#9a7fff;display:block"></span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">purple</span></div></div>
-    <div class="fc"><span class="fc-dot" style="width:clamp(3.4rem,8vh,6rem);height:clamp(3.4rem,8vh,6rem);border-radius:50%;background:#E67E22;display:block"></span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">orange</span></div></div>
-    <div class="fc"><span class="fc-dot" style="width:clamp(3.4rem,8vh,6rem);height:clamp(3.4rem,8vh,6rem);border-radius:50%;background:#3498DB;display:block"></span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">blue</span></div></div>
-  </div>
+  <div class="task reveal-el">🎯 Homework — worksheets UP! ⭐</div>
+  <img class="sheet reveal-el" src="../media/kb1-u1-bb-ws.jpg" alt="the Bb worksheet" style="width:min(420px,64%)">
+  <div class="card mint reveal-el"><p>👜 <b style="color:var(--mint-deep)">bag</b> · 🦇 <b style="color:var(--pink)">bat</b> — point and say! 👏</p></div>
 </section>
 
-<!-- 8 · WI-FI -->
-<section class="slide wifi" data-teacher="Wi-Fi! A NEW letter is coming!">
-  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
-    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
-      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
-      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
-      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
-    </g>
-    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
-  </svg>
-</section>
-
-<!-- 9 · PHONICS — Rr AND ITS FOUR WORDS -->
+<!-- 6 · READING 2 — NEW LETTER Rr -->
 <section class="slide">
-  <div class="eyebrow reveal-el">Phonics · a new letter</div>
+  <div class="eyebrow reveal-el">Reading · a NEW letter!</div>
   <h1 class="title reveal-el">R r — rat, red, rug, rag! 🐁</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 First: <b style="color:var(--mint-deep)">a… a… a… apple!</b> · <b style="color:var(--pink)">ba… ba… ba… bag!</b></div>
   <div class="task reveal-el">🎯 Tap a card — read the word!</div>
   <div class="fc-grid reveal-el">
     <div class="fc"><span class="fc-emoji">🐁</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">R-rat</span></div></div>
@@ -350,49 +250,36 @@ function songPending(v){
   <div class="card peach reveal-el"><p>👏 Clap it: <b style="color:var(--lavender-deep)">R-r-rat! R-r-red! R-r-rug! R-r-rag!</b></p></div>
 </section>
 
-<!-- 10 · THE Rr WORKSHEET -->
+<!-- 7 · READING 3 — THE Rr WORKSHEET -->
 <section class="slide">
   <div class="eyebrow reveal-el">Worksheet</div>
   <h1 class="title reveal-el">The Rr worksheet ✏️</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 1 Circle R and r! · 2 Match! · 3 The maze!</div>
   <img class="sheet reveal-el" src="../media/kb1-u1-l5-rr.png" alt="the Rr worksheet">
-  <div class="card pink reveal-el"><p>⛔ The big tracing rows? <b style="color:var(--pink)">At HOME!</b> 🏠</p></div>
+  <div class="card pink reveal-el"><p>⛔ The tracing rows? <b style="color:var(--pink)">At HOME!</b> 🏠</p></div>
 </section>
 
-<!-- 11 · WI-FI -->
-<section class="slide wifi" data-teacher="Wi-Fi! Books open, page 8.">
-  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
-    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
-      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
-      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
-      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
-    </g>
-    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
-  </svg>
-</section>
-
-<!-- 12 · PB p. 8 — WATCH AND SAY -->
+<!-- 8 · READING 4 — PB p. 8 ex. 1 -->
 <section class="slide">
   <div class="eyebrow reveal-el">PB p. 8 · ex. 1</div>
-  <h1 class="title reveal-el">A red robot on a rainbow! 🤖</h1>
+  <h1 class="title reveal-el">Listen and point! 🎧</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Listen and point! Then listen and repeat!</div>
+  <div class="task reveal-el">🎯 1st: listen and POINT · 2nd: listen and REPEAT!</div>
   <div class="card lavender reveal-el" style="text-align:center">
     <p style="font-size:clamp(3rem,7vh,5rem);line-height:1.3">🤖🌈⭐</p>
   </div>
   <audio controls preload="none" class="reveal-el" src="../media/kb1-u1-pb8-t11.mp3"></audio>
   <div class="fc-grid reveal-el">
     <div class="fc"><span class="fc-emoji">⭐</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">how many stars?</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">three!</span></div></div>
-    <div class="fc"><span class="fc-emoji">🌈</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">what colors?</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">red · orange · yellow · green · blue · purple</span></div></div>
     <div class="fc"><span class="fc-emoji">🤖</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">what color?</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">red!</span></div></div>
   </div>
 </section>
 
-<!-- 13 · PB p. 8 ex. 2 — FIND AND COUNT -->
+<!-- 9 · READING 5 — PB p. 8 ex. 2 -->
 <section class="slide">
   <div class="eyebrow reveal-el">PB p. 8 · ex. 2 · pairs</div>
-  <h1 class="title reveal-el">Look, find and count! 🔍</h1>
+  <h1 class="title reveal-el">Find and count! 🔍</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Find the RED things — count them!</div>
   <div class="fc-grid reveal-el">
@@ -405,7 +292,21 @@ function songPending(v){
   <div class="card mint reveal-el"><p>Ask your friend: <b style="color:var(--mint-deep)">Red pencils? How many?</b> 💬</p></div>
 </section>
 
-<!-- 14 · FLY SWAT -->
+<!-- 10 · READING 6 — AB p. 8 ex. 1 -->
+<section class="slide">
+  <div class="eyebrow reveal-el">AB p. 8 · ex. 1</div>
+  <h1 class="title reveal-el">Circle the r words! ⭕</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Circle the r words — then colour them!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">🤖</span><div class="fc-name">robot</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">🌈</span><div class="fc-name">rainbow</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">⚽</span><div class="fc-name">ball</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">2️⃣</span><div class="fc-name">two</div></div>
+  </div>
+</section>
+
+<!-- 11 · READING 7 — FLY SWAT -->
 <section class="slide">
   <div class="eyebrow reveal-el">Game time</div>
   <h1 class="title reveal-el">Fly swat! 🔨</h1>
@@ -423,8 +324,8 @@ function songPending(v){
   </div>
 </section>
 
-<!-- 15 · WI-FI — THE TEST -->
-<section class="slide wifi" data-teacher="The QUIETEST Wi-Fi — the test is coming.">
+<!-- 12 · WI-FI — THE TEST -->
+<section class="slide wifi" data-teacher="The QUIETEST Wi-Fi — the test is next.">
   <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
     <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
       <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
@@ -435,10 +336,10 @@ function songPending(v){
   </svg>
 </section>
 
-<!-- 16 · THE TEST — INTRO -->
+<!-- 13 · THE TEST — INTRO -->
 <section class="slide">
-  <div class="eyebrow reveal-el">🌟 Our first test!</div>
-  <h1 class="title reveal-el">Our first test! 🌟</h1>
+  <div class="eyebrow reveal-el">🌟 The test!</div>
+  <h1 class="title reveal-el">Our test! 🌟</h1>
   <div class="accent-line reveal-el"></div>
   <div class="card peach reveal-el"><p>🖊 <b style="color:var(--lavender-deep)">Write your NAME!</b></p></div>
   <div class="card mint reveal-el"><p>① 🎧 Listen — <b style="color:var(--mint-deep)">write the number!</b></p></div>
@@ -447,24 +348,24 @@ function songPending(v){
   <div class="card mint reveal-el"><p>You know EVERYTHING! 💪</p></div>
 </section>
 
-<!-- 17 · TEST PART 1 — CHECK -->
+<!-- 14 · TEST PART 1 -->
 <section class="slide">
   <div class="eyebrow reveal-el">Test · part 1 🎂</div>
   <h1 class="title reveal-el">Listen and write! 🎧</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Listen — each question TWO times! Write the number!</div>
+  <div class="task reveal-el">🎯 Listen — write the number in the box!</div>
   <audio controls preload="none" class="reveal-el" src="../media/kb1-u1-test-e1-p1.mp3"></audio>
   <div class="task reveal-el">✏️✋ Pencils UP — tap and check!</div>
-  <div class="chk-grid reveal-el">
-    <div class="chk" onclick="this.classList.toggle('picked')">a → <button class="reveal-btn" style="font-size:.6em;padding:.1em .6em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.8em;padding:.05em .4em">4</span><small>balloons 🎈</small></div>
-    <div class="chk" onclick="this.classList.toggle('picked')">b → <button class="reveal-btn" style="font-size:.6em;padding:.1em .6em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.8em;padding:.05em .4em">7</span><small>cake 🎂</small></div>
-    <div class="chk" onclick="this.classList.toggle('picked')">c → <button class="reveal-btn" style="font-size:.6em;padding:.1em .6em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.8em;padding:.05em .4em">5</span><small>party hat 🥳</small></div>
-    <div class="chk" onclick="this.classList.toggle('picked')">d → <button class="reveal-btn" style="font-size:.6em;padding:.1em .6em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.8em;padding:.05em .4em">6</span><small>cake 🎂</small></div>
-    <div class="chk" onclick="this.classList.toggle('picked')">e → <button class="reveal-btn" style="font-size:.6em;padding:.1em .6em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.8em;padding:.05em .4em">10</span><small>trumpet 🎺</small></div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">🎈</span><div class="fc-name">a → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">4</span></div></div>
+    <div class="fc"><span class="fc-emoji">🎂</span><div class="fc-name">b → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">7</span></div></div>
+    <div class="fc"><span class="fc-emoji">🥳</span><div class="fc-name">c → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">5</span></div></div>
+    <div class="fc"><span class="fc-emoji">🍰</span><div class="fc-name">d → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">6</span></div></div>
+    <div class="fc"><span class="fc-emoji">🎺</span><div class="fc-name">e → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">10</span></div></div>
   </div>
 </section>
 
-<!-- 18 · TEST PART 2 — CHECK -->
+<!-- 15 · TEST PART 2 -->
 <section class="slide">
   <div class="eyebrow reveal-el">Test · part 2 🌈</div>
   <h1 class="title reveal-el">Listen and colour! 🎨</h1>
@@ -478,14 +379,13 @@ function songPending(v){
     <div class="star" onclick="fillStar(this)" data-color="#FF8FAB"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#FF8FAB"/></svg><span class="num">2</span></div>
     <div class="star" onclick="fillStar(this)" data-color="#E67E22"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#E67E22"/></svg><span class="num">5</span></div>
     <div class="star" onclick="fillStar(this)" data-color="#3498DB"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#3498DB"/></svg><span class="num">1</span></div>
-    <div class="star" onclick="fillStar(this)" data-color="#fff"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff"/></svg><span class="num">✋</span></div>
+    <div class="star" onclick="this.querySelector('.num').textContent='✋'"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/></svg><span class="num">7</span></div>
   </div>
-  <div class="card peach reveal-el"><p>7 is <b style="color:var(--lavender-deep)">the extra number</b> — it stays white! 🙌</p></div>
 </section>
 
-<!-- 19 · TEST PART 3 — CHECK -->
+<!-- 16 · TEST PART 3 -->
 <section class="slide">
-  <div class="eyebrow reveal-el">Test · part 3 👀 — no audio, your eyes!</div>
+  <div class="eyebrow reveal-el">Test · part 3 👀 — no audio!</div>
   <h1 class="title reveal-el">Circle the s words! 🔍</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Find the s words — circle them!</div>
@@ -496,25 +396,29 @@ function songPending(v){
     <div class="fc"><span class="fc-emoji">⭐</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">star</span></div></div>
     <div class="fc"><span class="fc-emoji">🧍</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">standing up</span></div></div>
   </div>
-  <div class="card peach reveal-el"><p>📁 The test goes in <b style="color:var(--lavender-deep)">YOUR folder</b>! First test — well done! 🌟</p></div>
+  <div class="card peach reveal-el"><p>📁 The test goes in <b style="color:var(--lavender-deep)">YOUR folder</b>! 🌟</p></div>
 </section>
 
-<!-- 20 · GENKI — THE TEST IS OVER -->
+<!-- 17 · TEST PART 4 — OPTIONAL -->
 <section class="slide">
-  <div class="eyebrow reveal-el">Game time — the test is over! 🎉</div>
-  <h1 class="title reveal-el">Stand up! Sit down! ✊✋✌️</h1>
+  <div class="eyebrow reveal-el">Test · part 4 · OPTIONAL</div>
+  <h1 class="title reveal-el">Listen and tick! ✅</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 The chant — faster and faster!</div>
-  <div class="card lavender reveal-el" style="text-align:center">
-    <p class="rps">✊ ✋ ✌️</p>
-    <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.6rem,3.2vw,2.6rem)">Rock… paper… scissors… <span style="color:var(--pink)">look and see!</span></p>
+  <div class="task reveal-el">🎯 Listen — tick the box!</div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u1-test-e1-p4.mp3"></audio>
+  <div class="task reveal-el">✏️✋ Pencils UP — check!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">🪑</span><div class="fc-name">1 → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">a</span></div></div>
+    <div class="fc"><span class="fc-emoji">📕</span><div class="fc-name">2 → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">a</span></div></div>
+    <div class="fc"><span class="fc-emoji">🚪</span><div class="fc-name">3 → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">b</span></div></div>
+    <div class="fc"><span class="fc-emoji">💿</span><div class="fc-name">4 → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">c</span></div></div>
+    <div class="fc"><span class="fc-emoji">🚪</span><div class="fc-name">5 → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">c</span></div></div>
   </div>
-  <div class="card mint reveal-el"><p>Win: <b style="color:var(--mint-deep)">I can do it!</b> 💪 · Lose: <b style="color:var(--pink)">Try again!</b> 🔁</p></div>
 </section>
 
-<!-- 21 · FEEDBACK — THE SCALE -->
+<!-- 18 · HOW WAS THE TEST? -->
 <section class="slide">
-  <div class="eyebrow reveal-el">Feedback</div>
+  <div class="eyebrow reveal-el">The test is done! 🎉</div>
   <h1 class="title reveal-el">How was the test? 🌈</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Tap your number!</div>
@@ -533,7 +437,7 @@ function songPending(v){
   <div class="card peach reveal-el"><p>📁 Your test → <b style="color:var(--lavender-deep)">your folder</b>! 📁</p></div>
 </section>
 
-<!-- 22 · HOMEWORK -->
+<!-- 19 · GOODBYE + HOMEWORK -->
 <section class="slide">
   <div class="eyebrow reveal-el">Homework</div>
   <h1 class="title reveal-el">At home! 🏠</h1>
@@ -547,26 +451,14 @@ function songPending(v){
     </p>
     <p>…and <b style="color:var(--lavender-deep)">draw</b> them! 🌈</p>
   </div>
-  <div class="card lavender reveal-el"><p>✏️ <b style="color:var(--mint-deep)">Trace R and r</b> on the worksheet — big and small!</p></div>
-  <div class="card pink reveal-el"><p>Great job today! ⭐ See you! 👋</p></div>
-  <div class="card mint reveal-el"><p style="font-size:clamp(1rem,1.7vw,1.4rem)">ДЗ: AB стр. 8, упр. 2 (вписать r: red, rainbow + нарисовать) + обвести R r на распечатке.</p></div>
-</section>
-
-<!-- 23 · PHONICS — IF TIME -->
-<section class="slide">
-  <div class="eyebrow reveal-el">Reading time · if we have time</div>
-  <h1 class="title reveal-el">Letter n 🔤</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Tap the button!</div>
-  <div class="card lavender reveal-el" style="text-align:center">
-    <a href="../phonics/brand-phonics-n.html" target="_blank" class="song-link" style="font-size:clamp(1.8rem,3.4vw,2.8rem);padding:.5em 1.4em">🔤 Brand Phonics — n</a>
-  </div>
-  <div class="card mint reveal-el"><p>🐮 n — <b style="color:var(--lavender-deep)">Nesquik</b>! ✒️ n — <b style="color:var(--pink)">Nestlé</b>!</p></div>
+  <div class="card lavender reveal-el"><p>✏️ <b style="color:var(--mint-deep)">Trace R and r</b> on the worksheet!</p></div>
+  <div class="card mint reveal-el"><p>Great job today! ⭐ See you! 👋</p></div>
+  <div class="card pink reveal-el"><p style="font-size:clamp(1rem,1.7vw,1.4rem)">ДЗ: AB стр. 8, упр. 2 (вписать r: red, rainbow + нарисовать) + обвести R r на распечатке.</p></div>
 </section>
 
 <div id="nav">
   <button id="prev" aria-label="previous">‹</button>
-  <div id="counter">1 / 23</div>
+  <div id="counter">1 / 19</div>
   <button id="next" aria-label="next">›</button>
   <button id="fs" class="fs" aria-label="fullscreen">⛶</button>
 </div>
@@ -624,14 +516,6 @@ function reveal(btn){
   if(a){a.classList.add('show');}
   btn.style.display='none';
 }
-/* pending songs: if the local mp4 is missing, the online-link card appears */
-function songPending(v){
-  v.style.display='none';
-  const p=v.parentElement.querySelector('.pending');
-  if(p)p.hidden=false;
-}
-/* belt & braces: if the error fired before handlers existed, catch it on load */
-addEventListener('load',()=>document.querySelectorAll('video').forEach(v=>{if(v.error)songPending(v);}));
 /* the numbered stars: one tap → fills with its colour (Elena names, a child taps) */
 function fillStar(el){
   if(el.classList.contains('done'))return;
@@ -639,14 +523,6 @@ function fillStar(el){
   const c=el.dataset.color;
   if(f&&c){f.setAttribute('fill',c);}
   el.classList.add('done');
-}
-/* step-through containers: one tap → next line; tap after all → reset */
-function stepNext(containerId,itemSel){
-  const box=document.getElementById(containerId);
-  const items=[...box.querySelectorAll(itemSel)];
-  const nextHidden=items.find(el=>!el.classList.contains('show'));
-  if(nextHidden){nextHidden.classList.add('show');}
-  else{items.forEach(el=>el.classList.remove('show'));}
 }
 const h=parseInt(location.hash.slice(1));
 show(isNaN(h)?0:h-1);

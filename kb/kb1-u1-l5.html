@@ -9,19 +9,17 @@
 <style>
 /* ============================================================
    KB1 — Kid's Box 1, Unit 1, Lesson 5 (group class).
-   The конспект's Lesson 5: NEW phonics Rr (rat/red/rug/rag),
-   PB p. 8 + AB p. 8 — and the Unit 1 EVALUATION TEST (old
-   edition) as one calm protected block at the end.
-   Elena's shape call (2026-09-24): ONE visit, 60 min, she
-   manages; must-do spine marked on the slides, if-time items
-   tagged. Test = 3 parts (the optional Part 4 is dropped);
-   Part 3 needs NO audio (reading part). Keys & the recording
-   script live in the teacher notes (from the tests PDF pp. 26/28).
-   Standing routines: 📶 Wi-Fi before every new activity,
-   🎵 3+ songs (Hello! · rainbow · Genki chant).
-   Engine: nav bottom-right + lane, progress bar, keyboard/wheel/
-   swipe, ready-chime + #n hash, click-reveals, standing
-   PRESENTER VIEW (T / 🖥) synced both ways.
+   REBUILT 2026-09-24 after Elena's feedback ("too long and too
+   complicated, I don't understand what I'm supposed to do"):
+   the deck IS her five-stage plan now, nothing added —
+   Warm up · Revision · Reading · Test · Goodbye. One action
+   per slide, plain words, the teacher notes carry the steps.
+   The HW being checked today = the Bb worksheet (Elena).
+   The test = the Unit 1 evaluation (old edition); Part 4 is
+   optional and sits on its own slide — skip it freely.
+   Engine: nav bottom-right, progress bar, keyboard/wheel/
+   swipe, ready-chime + #n hash, click-reveals, presenter
+   view (T / 🖥) synced both ways.
    ============================================================ */
 :root{
   --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
@@ -74,8 +72,6 @@ h1{font-weight:800;font-size:clamp(1.4rem,2.8vw,2.3rem);line-height:1.18;
   letter-spacing:.05em;color:var(--ink-soft);
   border:1.5px solid var(--line);border-radius:99px;padding:.18em .75em;
   background:#fff;margin-bottom:.2em}
-.tag.ift{color:#9a6a2f;border-color:#E3C48A;background:#FBF3E4}
-.tag.must{color:#14655A;border-color:#5ecbb8;background:#E7F1EF}
 .task{font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.55;font-weight:500}
 .task strong{color:var(--accent)}
 .ask{font-size:clamp(1.05rem,1.8vw,1.35rem);line-height:1.5;color:#4a463d}
@@ -87,21 +83,18 @@ h1{font-weight:800;font-size:clamp(1.4rem,2.8vw,2.3rem);line-height:1.18;
   background:#E7F1EF;border:1.5px solid #5ecbb8;border-radius:12px;
   padding:.55em 1em;line-height:1.5}
 audio{width:min(520px,92%);height:44px;display:block;margin:.2em 0}
-img.sheet{width:min(560px,88%);border-radius:12px;display:block;margin:.2em 0;
+img.sheet{width:min(480px,80%);border-radius:12px;display:block;margin:.2em 0;
   box-shadow:0 6px 18px rgba(0,0,0,.15);background:#fff}
 ul.materials{list-style:none}
 ul.materials li{padding:.28em 0;border-bottom:1px dashed var(--line);
   font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.5}
 ul.materials li:last-child{border-bottom:none}
-.checklist{display:flex;flex-direction:column;gap:1vh}
-.check-item{display:flex;gap:12px;align-items:flex-start;background:#fff;
-  border:1px solid var(--line);border-radius:12px;padding:.9vh 1vw;
-  font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.45}
-.check-item .box{flex:0 0 auto;width:1.1em;height:1.1em;border:2px solid var(--accent);border-radius:6px;margin-top:.12em}
-a.hw-link,a.song-link{display:inline-block;margin-top:.3em;font-weight:700;color:#fff;
-  background:var(--accent);border-radius:99px;padding:.5em 1.1em;
-  text-decoration:none;font-size:clamp(1rem,1.6vw,1.25rem)}
-a.hw-link:hover,a.song-link:hover{opacity:.9}
+.plan{display:flex;flex-direction:column;gap:.8vh}
+.plan-row{display:flex;gap:14px;align-items:baseline;background:#fff;
+  border:1px solid var(--line);border-radius:12px;padding:.8vh 1vw;
+  font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.4}
+.plan-row .n{flex:0 0 2.2em;font-weight:800;color:var(--accent);font-size:1.1em}
+.plan-row .t{flex:0 0 5.2em;font-weight:800;color:var(--ink-soft)}
 
 /* ---------- the Wi-Fi interstitial ---------- */
 .slide.wifi{justify-content:center;align-items:center;background:#fff}
@@ -117,11 +110,6 @@ a.hw-link:hover,a.song-link:hover{opacity:.9}
   background:#E7F1EF;border-radius:12px;padding:.5em 1em;align-self:flex-start;line-height:1.45}
 .answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
 @keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
-
-/* ---------- pending-song card (shows only if the local mp4 is missing) ---------- */
-.pending{display:flex;flex-direction:column;gap:.6em;align-items:flex-start;
-  background:#FBF3E4;border:1.5px dashed #E3C48A;border-radius:12px;
-  padding:.8em 1.1em;font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.5}
 
 /* ---------- presenter + embed modes (spec §7) ---------- */
 body.embed #nav,body.embed #bar{display:none}
@@ -149,56 +137,46 @@ body.presenter .slide,body.presenter #nav,body.presenter #bar{display:none}
 }
 </style>
 <script>
-/* pending-song fallback — defined in <head> ON PURPOSE: a missing local mp4
-   fires its error event while the page is still parsing, long before the
-   bottom scripts run, so the handler must already exist here. */
-function songPending(v){
-  v.style.display='none';
-  const p=v.parentElement.querySelector('.pending');
-  if(p)p.hidden=false;
-}
 </script>
 </head>
 <body>
 
 <div id="bar"></div>
 
-<!-- 1 · COVER / PREPARE AHEAD -->
-<section class="slide active" data-notes="LESSON 5 — the конспект's plan in ONE 60-min visit (Elena's call, 2026-09-24): new phonics Rr + PB/AB p. 8, then the Unit 1 evaluation test (old edition) as one calm protected block. TIMING SPINE (must-do ≈ 53 + your 5 RU = fits 60): Hello 3 · HW check 3 · color-the-stars 5 · rainbow 3 · Rr intro 4 · Rr worksheet 5 · PB p.8 ex.1 4 · Fly Swat 3 · TEST 15 (intro 2 + parts 1–3) · Genki 2 · scale 3 · goodbye+HW 3. IF-TIME (cut in this order): AB p.8 ex.1 → PB p.8 ex.2 → the rainbow song. The READING STATION does not fit today — the test took its slot; the last slide keeps the one-click button. MUST-DO: the Rr block + the whole test. The test: 20 marks, 5 per part — for YOUR records, not for the kids; Part 4 (optional per the конспект) is SKIPPED today — its track (KB01-E01-P04.mp3) and key (1a 2a 3b 4c 5c) live in the Library folder if you ever want it. Press T (or 🖥) for the presenter window. Same deck for all three KB1 groups.">
-  <div class="eyebrow reveal">Kid's Box 1 (New Generation) · Unit 1 · Lesson 5 · KB1.1 · KB1.2 · KB1.3 — ~60 min</div>
-  <h1 class="reveal">New letter <strong>Rr</strong> + our <strong>first test</strong> 🌟</h1>
+<!-- 1 · COVER — THE PLAN -->
+<section class="slide active" data-notes="The whole lesson is FIVE stages — the plan below, in order. You only ever do what the current slide says. Before the lesson: print the test (pages 1–2 of Kid's Box 1 tests.pdf — one set per child; dark scans, gray print helps), the color-the-stars halves, the Rr worksheets; a folder per child. Check the sound: every audio is IN this deck (the Hello song, PB p. 8 track, test tracks 1–2, and track 4 only if you decide to do the optional Part 4). Press T (or 🖥) for the presenter window — it shows these notes next to the slide. Same deck for all three KB1 groups.">
+  <div class="eyebrow reveal">Kid's Box 1 (New Generation) · Unit 1 · Lesson 5 · KB1.1 · KB1.2 · KB1.3</div>
+  <h1 class="reveal">New letter <strong>Rr</strong> + the <strong>Unit 1 test</strong></h1>
   <div class="rule reveal"></div>
-  <p class="task reveal"><strong>Aim:</strong> introduce phonics <strong>Rr</strong> (rat · red · rug · rag), work PB/AB p. 8 — and run the <strong>Unit 1 evaluation test</strong> (old edition) as one calm, protected block. Their <strong>first test ever</strong> — slow, kind, celebratory.</p>
-  <p class="tag reveal">MATERIALS — print &amp; prepare ahead</p>
-  <ul class="materials reveal">
-    <li>📄 <strong>Test copies — ONE SET PER CHILD</strong>: pages 1–2 of <code>Kid's Box 1 tests.pdf</code> (⚠ the scans are dark — heavy on ink; print gray if you can)</li>
-    <li>⭐ <strong>Color-the-stars</strong> printouts (the page holds 2 copies — cut in half) · ✂️ ready</li>
-    <li>📝 <strong>Rr worksheets</strong> — in class: circle + match + the maze; <strong>tracing = homework</strong></li>
-    <li>📁 <strong>A folder per child</strong> — the конспект's tradition: tests stored all year; the first ones go in today</li>
-    <li>🔨 <strong>Fly Swat</strong>: two hammers (or just hands) + your printed A/B/R flashcards on the mat</li>
-    <li>🎧 <strong>Test the sound first:</strong> PB p. 8 track + the TWO test tracks are in this deck — <strong>Part 3 needs NO audio</strong> (a reading part)</li>
-    <li>📶 the Wi-Fi icon needs nothing — just your open hand</li>
-  </ul>
-  <div class="checklist reveal">
-    <div class="check-item"><span class="box"></span><span>🎵 <b>2 song files are still pending</b> (rainbow · Head, Shoulders): those slides carry an online link until the mp4s land in <code>media/</code> — <code>kb1-u1-rainbow.mp4</code>, <code>kb1-u1-head-shoulders.mp4</code>. Head&amp;Shoulders is CUT today (no time) — rainbow only.</span></div>
-    <div class="check-item"><span class="box"></span><span>🌟 <b>Must-do spine</b> is on every slide (<span class="tag must" style="font-size:.75em;padding:.1em .6em">must-do</span> / <span class="tag ift" style="font-size:.75em;padding:.1em .6em">if-time</span>) — cut if-time items, never the test.</span></div>
-    <div class="check-item"><span class="box"></span><span>📁 <b>The folder ritual</b>: each child puts their test into THEIR folder today — it stays at school till the end of year.</span></div>
-    <div class="check-item"><span class="box"></span><span>🖥 <b>Press T</b> (or 🖥) — presenter window: current + next + notes</span></div>
+  <div class="plan reveal">
+    <div class="plan-row"><span class="n">1</span><span class="t">Warm up</span><span>Hello song — 5′</span></div>
+    <div class="plan-row"><span class="n">2</span><span class="t">Revision</span><span>colours + numbers — «color the stars» worksheet — 6′</span></div>
+    <div class="plan-row"><span class="n">3</span><span class="t">Reading</span><span>revise Aa/Bb + check HW (Bb worksheet) · new Rr · Rr worksheet · PB p. 8 ex. 1–2 · AB p. 8 ex. 1 · Fly Swat</span></div>
+    <div class="plan-row"><span class="n">4</span><span class="t">Test</span><span>Unit 1 evaluation (old edition) — 15′ · Part 4 optional</span></div>
+    <div class="plan-row"><span class="n">5</span><span class="t">Goodbye</span><span>song + homework</span></div>
   </div>
+  <p class="tag reveal">PREPARE AHEAD</p>
+  <ul class="materials reveal">
+    <li>📄 <strong>Test copies — one set per child</strong> (pages 1–2 of <code>Kid's Box 1 tests.pdf</code>; the scans are dark — gray print helps)</li>
+    <li>⭐ <strong>Color-the-stars</strong> halves (the page holds 2 — cut) · 📝 <strong>Rr worksheets</strong></li>
+    <li>📁 <strong>A folder per child</strong> — today's tests go in and stay at school</li>
+    <li>🔨 Two hammers (or just hands) + your printed flashcards, for Fly Swat</li>
+    <li>🎧 Sound test — every recording is in this deck, nothing to find</li>
+  </ul>
 </section>
 
-<!-- 2 · SONG — HELLO! (ROUTINE) -->
-<section class="slide" data-notes="THE FIRST SLIDE — the lesson opens with this song, every time. Play the video, everybody sings; TPR ALL the actions. After the song: the feelings one more time — you mime, they say: good · great · wonderful · tired · hungry. ~3 min. MUST-DO (routine).">
-  <div class="eyebrow reveal">🎵 Song · routine — every lesson! <span class="tag must" style="margin-left:.5em">must-do</span></div>
+<!-- 2 · STAGE 1 — WARM UP: HELLO SONG -->
+<section class="slide" data-notes="Play the video. Everybody sings and does the actions. After the song: 'How are you today?' — 2–3 children answer (good · great · tired · hungry). Then next stage.">
+  <div class="eyebrow reveal">Stage 1 · Warm up · 5 min</div>
   <h1 class="reveal">Hello! How are you? 👋</h1>
   <div class="rule reveal"></div>
-  <p class="tag reveal">🎬 SONG — 'Hello!' (greeting + feelings, Super Simple Songs)</p>
+  <p class="tag reveal">🎬 Play — everybody sings!</p>
   <video class="reveal" controls preload="metadata" src="../media/kb1-u1-hello.mp4"></video>
-  <p class="task reveal">Sing and <strong>do all the actions</strong>! Then round the tables: <em>"How are you today?"</em> 😊 😴 🍔</p>
+  <p class="task reveal">After the song: <em>"How are you today?"</em> — 2–3 children answer.</p>
 </section>
 
 <!-- 3 · WI-FI -->
-<section class="slide wifi" data-notes="Wi-Fi → homework check. One word, all hands up — the signal is the lesson's switch now.">
+<section class="slide wifi" data-notes="Wi-Fi! Open hands, wait for quiet. Then the stars worksheet.">
   <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
     <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
       <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
@@ -209,18 +187,19 @@ function songPending(v){
   </svg>
 </section>
 
-<!-- 4 · HOMEWORK CHECK — AB p. 9 -->
-<section class="slide" data-notes="The HW from L4·2: AB p. 9 (the star card — say the words: the numbers 2 · 4 · 7 · 3 · 6 · 9, and the picture-dictionary page) + the video for parents in shkola.app. Quick praise, nothing collected: books up — walk, glance, applause; one or two star cards to show the class. ~3 min. Board support: the child deck shows the six star-card numbers to point at.">
-  <div class="eyebrow reveal">Homework check · ~3 min</div>
-  <h1 class="reveal">AB p. 9 — the star card ⭐</h1>
+<!-- 4 · STAGE 2 — REVISION: COLOR THE STARS -->
+<section class="slide" data-notes="Hand out the star halves. YOU say, THEY colour — one command at a time, wait, repeat: 'Color the star number three — red.' … 'Color the star number seven — green.' … then continue: one — blue, five — orange (any colours you like). On the board: a child taps the star you named — it fills — the class checks itself.">
+  <div class="eyebrow reveal">Stage 2 · Revision · 6 min</div>
+  <h1 class="reveal">Color the stars! ⭐</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">Books <strong>up</strong>! <em>"Point and say the numbers!"</em> — walk and glance. 👏</p>
-  <p class="task reveal">🎬 And the <strong>video with Mum &amp; Dad</strong> in shkola.app — who watched? Hands up! 🙋</p>
-  <p class="note reveal">Board support: the child deck, slide 3 — the six numbers to tap and say.</p>
+  <p class="task reveal">📝 Worksheets out. <strong>You say — they colour:</strong></p>
+  <p class="ask reveal"><em>"Color the star number <strong>three</strong> — <strong>red</strong>!"</em> · <em>"Number <strong>seven</strong> — <strong>green</strong>!"</em></p>
+  <p class="task reveal">Continue: <em>"Number <strong>one</strong> — <strong>blue</strong>! Number <strong>five</strong> — <strong>orange</strong>!"</em></p>
+  <p class="note reveal">Board: a child taps the star you named — it fills — the class checks.</p>
 </section>
 
 <!-- 5 · WI-FI -->
-<section class="slide wifi" data-notes="Wi-Fi → the stars worksheet. Wait for every hand.">
+<section class="slide wifi" data-notes="Wi-Fi! Then the Reading stage begins.">
   <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
     <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
       <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
@@ -231,124 +210,87 @@ function songPending(v){
   </svg>
 </section>
 
-<!-- 6 · REVISION — COLOR THE STARS -->
-<section class="slide" data-notes="The конспект's guided colouring (6'→5'). Hand out the half-sheets. YOU name — they colour: start with the конспект's own items — 'Color the star number three — red. Color the star number seven — green.' — then continue: one — blue, five — orange (the demo board fills the star a child taps — instant self-check; the demo key: 1 blue · 2 pink · 3 red · 5 orange · 6 purple · 7 green · 9 yellow · 10 red). THEN the bridge — tell them: 'Later today you colour stars like this in our TEST!' — this worksheet IS the test skill (listen &amp; colour), taught in the open. ~5 min. MUST-DO.">
-  <div class="eyebrow reveal">Revision · listening &amp; colours · ~5 min <span class="tag must" style="margin-left:.5em">must-do</span></div>
-  <h1 class="reveal">Color the stars! ⭐</h1>
+<!-- 6 · READING 1 — REVISE Aa/Bb + CHECK HW (Bb WORKSHEET) -->
+<section class="slide" data-notes="Step 1 of the Reading stage. Revise, all together, choral: 'a… a… a… apple!' / 'ba… ba… ba… bag!'. Then the HW check — the Bb worksheet (the homework): worksheets UP, walk and glance, applause; on the board the actual worksheet is up — point: 'bag… bat… the b-maze — who finished it all?' Praise, and on to the new letter.">
+  <div class="eyebrow reveal">Stage 3 · Reading · step 1 of 7</div>
+  <h1 class="reveal">Revise A a · B b — and the homework 📖</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">📝 Worksheets out. Listen and colour: <em>"Color the star number <strong>three</strong> — <strong>red</strong>! Color the star number <strong>seven</strong> — <strong>green</strong>!"</em></p>
-  <p class="task reveal">Then: <em>"Number <strong>one</strong> — <strong>blue</strong>! Number <strong>five</strong> — <strong>orange</strong>!"</em> A child taps the star on the board — check together!</p>
-  <img class="sheet reveal" src="../media/kb1-u1-l5-stars.png" alt="the color-the-stars worksheet" style="width:min(380px,60%)">
-  <p class="glue reveal">🌟 <strong>Later today you colour stars in our TEST!</strong> — this is exactly that skill. You know it!</p>
-  <p class="note reveal">Board support: the child deck, slide 5 — you name, a child taps, the star fills.</p>
+  <p class="task reveal">All together: <em>"a… a… a… apple!"</em> 🍏 · <em>"ba… ba… ba… bag!"</em> 👜</p>
+  <p class="task reveal"><strong>Homework check — the Bb worksheet:</strong> worksheets <strong>up</strong>! 👏</p>
+  <img class="sheet reveal" src="../media/kb1-u1-bb-ws.jpg" alt="the Bb worksheet" style="width:min(340px,52%)">
+  <p class="note reveal">Point: <em>"bag… bat… the b-maze — who finished it all?"</em></p>
 </section>
 
-<!-- 7 · SONG — I CAN SING A RAINBOW (ACTIVE LANGUAGE: COLOURS) -->
-<section class="slide" data-notes="THE ACTIVE-LANGUAGE SONG — colours, sung SEATED and calm (a pre-testSetter, not a stirrer): 'Red and yellow and pink and green, purple and orange and blue…' THE FILE IS PENDING: the video plays here the moment the mp4 lands in media/ as kb1-u1-rainbow.mp4; until then the online link works (needs Internet). IF THE CLOCK IS TIGHT this is the third cut. It feeds the test's colour part. ~3 min.">
-  <div class="eyebrow reveal">🎵 Song · active language — colours! <span class="tag ift" style="margin-left:.5em">if-time · cut #3</span></div>
-  <h1 class="reveal">I Can Sing a Rainbow 🌈</h1>
+<!-- 7 · READING 2 — NEW PHONICS Rr -->
+<section class="slide" data-notes="Step 2. The NEW letter: R. Present the four words with your flashcards (or point at the board): R-rat 🐁, R-red 🔴, R-rug (a carpet), R-rag (an old cloth). Drill with a rhythm, clap it: 'R-r-rat! R-r-red! R-r-rug! R-r-rag!' Whole class, then rows. On the board: tap a card — the word shows.">
+  <div class="eyebrow reveal">Stage 3 · Reading · step 2 of 7 — NEW!</div>
+  <h1 class="reveal">A new letter: <strong>R r</strong></h1>
   <div class="rule reveal"></div>
-  <video class="reveal" controls preload="metadata" src="../media/kb1-u1-rainbow.mp4" onerror="songPending(this)"></video>
-  <div class="pending reveal" hidden>
-    <span>🎬 <b>«I Can Sing a Rainbow»</b> — Super Simple Songs (the local file isn't here yet):</span>
-    <a class="song-link" href="https://www.youtube.com/results?search_query=I+Can+Sing+a+Rainbow+Super+Simple+Songs" target="_blank">▶ watch online (YouTube)</a>
-    <span class="note">download it → <code>media/kb1-u1-rainbow.mp4</code> — and it plays right here, no link needed.</span>
-  </div>
-  <p class="task reveal">Sing the colours — <strong>seated and calm</strong>: <em>red and yellow and pink and green, purple and orange and blue…</em> 🎨</p>
+  <p class="task reveal"><strong>R-rat!</strong> 🐁 · <strong>R-red!</strong> 🔴 · <strong>R-rug!</strong> (a carpet) · <strong>R-rag!</strong> (an old cloth)</p>
+  <p class="task reveal">Clap the rhythm: <em>"R-r-rat! 👏 R-r-red! 👏 R-r-rug! 👏 R-r-rag! 👏"</em></p>
+  <p class="note reveal">Board: tap a card — the word shows.</p>
 </section>
 
-<!-- 8 · WI-FI -->
-<section class="slide wifi" data-notes="Wi-Fi → phonics. A new letter is coming!">
-  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
-    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
-      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
-      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
-      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
-    </g>
-    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
-  </svg>
-</section>
-
-<!-- 9 · PHONICS — REVISE Aa/Bb + NEW Rr -->
-<section class="slide" data-notes="Revise first (the конспект): poster 1 choral — 'a… a… a… apple! ba… ba… ba… bag!' Check the Rr HW will come later — today it's NEW. Then NEW LETTER R: the four cards on the child deck (tap → the word shows): R-rat 🐁, R-red 🔴, R-rug (the carpet!), R-rag (the cloth!). Drill with rhythm + claps: 'R-r-rat! R-r-red!' — the whole class, then rows/teams. The four words are exactly the four pictures on their worksheet — say that. ~4 min. MUST-DO.">
-  <div class="eyebrow reveal">Phonics · a new sound · ~4 min <span class="tag must" style="margin-left:.5em">must-do</span></div>
-  <h1 class="reveal">A a · B b — and now… <strong>R r!</strong></h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">Fast recap, all together: <em>"a… a… a… apple!"</em> 🍏 · <em>"ba… ba… ba… bag!"</em> 👜</p>
-  <p class="task reveal">NEW: <strong>R-rat!</strong> 🐁 · <strong>R-red!</strong> 🔴 · <strong>R-rug!</strong> (a carpet!) · <strong>R-rag!</strong> (an old cloth!)</p>
-  <p class="task reveal">Drill with a rhythm — <strong>clap it</strong>: <em>"R-r-rat! 👏 R-r-red! 👏 R-r-rug! 👏 R-r-rag! 👏"</em></p>
-  <p class="note reveal">Board support: the child deck, slide 9 — tap a card, the word shows.</p>
-</section>
-
-<!-- 10 · THE Rr WORKSHEET -->
-<section class="slide" data-notes="The Rr worksheet (the demo shows it big). THREE class tasks — and one NOT today: 1) the R/r circle row — YOU say 'Circle the big R!' / 'Now the small r!' — they listen and circle; 2) MATCH: the red scribble → 'red', the rat → 'a rat' (draw the lines); 3) THE MAZE: follow the R/r letters from the arrow 🡒 to the exit 🡓 — fingers first, then pencils. ⛔ DO NOT TRACE the big rows in class (the конспект is strict) — tracing big and small Rr = HOMEWORK. ~5 min. MUST-DO.">
-  <div class="eyebrow reveal">Worksheet · Rr · ~5 min <span class="tag must" style="margin-left:.5em">must-do</span></div>
+<!-- 8 · READING 3 — THE Rr WORKSHEET -->
+<section class="slide" data-notes="Step 3. Hand out the Rr worksheets. Three tasks, in order: 1) the letter row — YOU say 'Circle the big R!' / 'Now the small r!' — they listen and circle; 2) match: the red scribble → red, the rat → a rat; 3) the maze: follow R and r from the arrow to the exit — fingers first, then pencils. The tracing rows in the middle are NOT today — tracing is homework.">
+  <div class="eyebrow reveal">Stage 3 · Reading · step 3 of 7</div>
   <h1 class="reveal">The Rr worksheet ✏️</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal"><strong>1.</strong> Listen and circle: <em>"Circle the big R! … Now the small r!"</em></p>
-  <p class="task reveal"><strong>2.</strong> Match: the red scribble → <strong>red</strong> · the rat → <strong>a rat</strong> · <strong>3.</strong> The maze: follow <strong>R</strong> and <strong>r</strong> from the arrow to the exit!</p>
+  <p class="task reveal"><strong>1.</strong> Listen and circle: <em>"Circle the big R!… Now the small r!"</em></p>
+  <p class="task reveal"><strong>2.</strong> Match: scribble → <strong>red</strong>, rat → <strong>a rat</strong> · <strong>3.</strong> The maze: follow <strong>R r</strong>!</p>
   <img class="sheet reveal" src="../media/kb1-u1-l5-rr.png" alt="the Rr worksheet">
-  <div class="flag reveal">⛔ <strong>Do NOT trace today!</strong> The big tracing rows = <strong>homework</strong> (the конспект is strict about it).</div>
+  <div class="flag reveal">⛔ The tracing rows — <strong>NOT today</strong>. Tracing = homework.</div>
 </section>
 
-<!-- 11 · WI-FI -->
-<section class="slide wifi" data-notes="Wi-Fi → books open, PB p. 8.">
-  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
-    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
-      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
-      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
-      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
-    </g>
-    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
-  </svg>
-</section>
-
-<!-- 12 · PB p. 8 ex. 1 — WATCH AND SAY -->
-<section class="slide" data-notes="PB p. 8 ex. 1 (track 11 — in this deck). Open the books. 'What can you see?' Elicit: A RED ROBOT on a RAINBOW! Questions: 'How many stars can you see?' → THREE (the robot holds one!). 'What colors are in the rainbow?' → red, orange, yellow, green, blue, purple. 'What color is the robot?' → RED. Play the recording — they LISTEN AND POINT; again — LISTEN AND REPEAT. Connected speech: drill 'red robot' and 'on a rainbow' as whole phrases, robot-slow first, then normal. ~4 min. MUST-DO.">
-  <div class="eyebrow reveal">PB p. 8 · ex. 1 · ~4 min <span class="tag must" style="margin-left:.5em">must-do</span></div>
-  <h1 class="reveal">PB p. 8 — watch and say! 🤖</h1>
+<!-- 9 · READING 4 — PB p. 8 ex. 1 -->
+<section class="slide" data-notes="Step 4. Books open, PB p. 8 ex. 1. 'What can you see?' — a red robot on a rainbow. Play the recording (the button) — they LISTEN AND POINT. Play again — LISTEN AND REPEAT. Then ask: 'How many stars?' — three (the robot holds one). 'What color is the robot?' — red.">
+  <div class="eyebrow reveal">Stage 3 · Reading · step 4 of 7</div>
+  <h1 class="reveal">PB p. 8 — listen and point 🎧</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">📖 Open the book — <strong>PB p. 8</strong>. <em>"What can you see?"</em></p>
-  <p class="ask reveal"><strong>ICQs→questions:</strong> <em>"How many stars? How many…?"</em></p>
-  <button class="reveal-btn reveal" onclick="reveal(this,'r-stars')">show the answers</button>
-  <div class="answer" id="r-stars">A <b>red robot</b> on a <b>rainbow</b>! Stars: <b>three</b> (the robot holds one!). Robot → <b>red</b> 🤖</div>
-  <p class="tag reveal">🎧 AUDIO — PB p. 8 (track 11) — listen &amp; point, then listen &amp; repeat</p>
+  <p class="task reveal">📖 PB p. 8, ex. 1. <em>"What can you see?"</em></p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-see')">show</button>
+  <div class="answer" id="r-see">A <b>red robot</b> on a <b>rainbow</b>! 🤖🌈</div>
+  <p class="tag reveal">🎧 Play — 1st: listen and POINT · 2nd: listen and REPEAT</p>
   <audio class="reveal" controls preload="none" src="../media/kb1-u1-pb8-t11.mp3"></audio>
-  <p class="task reveal">Connected speech: <em>"a <strong>red robot</strong>"</em> · <em>"<strong>on a rainbow</strong>"</em> — robot-slow first, then fast!</p>
+  <p class="task reveal">Ask: <em>"How many stars?"</em></p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-stars')">show</button>
+  <div class="answer" id="r-stars"><b>Three!</b> (the robot holds one!) · the robot is <b>red</b></div>
 </section>
 
-<!-- 13 · PB p. 8 ex. 2 — FIND AND COUNT (IF-TIME) -->
-<section class="slide" data-notes="PB p. 8 ex. 2 — pairwork (the конспект: open pair first, a strong student helps; then pairs, monitor). The picture = a park FULL of red things; the legend: red birds · red pencils · red stars · red robots · red balls. Example (the конспект's): 'Point to the bird and say: Red birds. Let's count… — SIX!' Pairs choose a set, count, ask each other: 'Red pencils? How many?' IF-TIME — cut #2. ~3 min.">
-  <div class="eyebrow reveal">PB p. 8 · ex. 2 · pairs <span class="tag ift" style="margin-left:.5em">if-time · cut #2</span></div>
-  <h1 class="reveal">Look, find and count! 🔍</h1>
+<!-- 10 · READING 5 — PB p. 8 ex. 2 -->
+<section class="slide" data-notes="Step 5. PB p. 8 ex. 2 — the park picture full of red things. Do the example with the class first: point to a bird — 'Red birds. Let's count… — Six!'. Then pairs at the tables: one names a set (red pencils / red stars / red robots / red balls), the other counts and answers. Monitor.">
+  <div class="eyebrow reveal">Stage 3 · Reading · step 5 of 7</div>
+  <h1 class="reveal">PB p. 8 — find and count 🔍</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">The park is <strong>full of red things</strong>: birds 🐦 · pencils ✏️ · stars ⭐ · robots 🤖 · balls ⚽</p>
-  <p class="task reveal">Example: <em>"Red birds. Let's count. How many red birds?"</em></p>
-  <button class="reveal-btn reveal" onclick="reveal(this,'r-birds')">show the answer</button>
-  <div class="answer" id="r-birds"><b>Six!</b> 🔴🐦 — then pairs choose their own set and ask each other.</div>
+  <p class="task reveal">The park is full of <strong>red things</strong>: birds 🐦 · pencils ✏️ · stars ⭐ · robots 🤖 · balls ⚽</p>
+  <p class="task reveal">Example, all together: <em>"Red birds — how many?"</em></p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-birds')">show</button>
+  <div class="answer" id="r-birds"><b>Six!</b></div>
+  <p class="task reveal">Then <strong>pairs</strong>: one asks — one counts and answers. 💬</p>
 </section>
 
-<!-- 14 · AB p. 8 ex. 1 — CIRCLE THE R WORDS (IF-TIME) -->
-<section class="slide" data-notes="AB p. 8 ex. 1 — 'Look, circle and colour': robot ✓ rainbow ✓ — NOT the ball, NOT the number 2! ICQs (the конспект's 'Do you circle red?' is a slip — the page has ROBOT, not red): 'Do you circle the ball? NO! Do you circle r words? YES!' Then they colour the r pictures. IF-TIME — cut #1; if it's cut, it just never happens (ex. 2 is the HW, ex. 1 is safe to skip). ~3 min.">
-  <div class="eyebrow reveal">AB p. 8 · ex. 1 <span class="tag ift" style="margin-left:.5em">if-time · cut #1</span></div>
-  <h1 class="reveal">AB p. 8 — circle the <strong>r</strong> words! ⭕</h1>
+<!-- 11 · READING 6 — AB p. 8 ex. 1 -->
+<section class="slide" data-notes="Step 6. AB p. 8 ex. 1 — four pictures: robot, ball, 2, rainbow. 'Circle the r words!' ICQs: 'Do you circle the ball? NO! Do you circle r words? YES!' They circle robot and rainbow, then colour them.">
+  <div class="eyebrow reveal">Stage 3 · Reading · step 6 of 7</div>
+  <h1 class="reveal">AB p. 8 — circle the <strong>r</strong> words ⭕</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">📖 AB p. 8, ex. 1: robot 🤖 · ball ⚽ · 2️⃣ · rainbow 🌈 — <strong>circle the r words, colour them!</strong></p>
-  <p class="ask reveal"><strong>ICQs:</strong> <em>"Do you circle the ball? NO! Do you circle r words? YES!"</em></p>
+  <p class="task reveal">📖 AB p. 8, ex. 1: robot 🤖 · ball ⚽ · 2️⃣ · rainbow 🌈</p>
+  <p class="ask reveal"><strong>ICQs:</strong> <em>"Do you circle the ball? — NO! Do you circle r words? — YES!"</em></p>
+  <p class="task reveal">Circle the <strong>r words</strong> — then colour them! 🖍</p>
 </section>
 
-<!-- 15 · FLY SWAT (THE STIRRER BEFORE THE TEST) -->
-<section class="slide" data-notes="Fly Swat (the конспект's game) — the LAST stirrer before they sit for the test: burn the energy NOW. Two volunteers get the hammers (or just hands); YOU name a word — they race to swat the right flashcard on the mat/board. Cards: rat · red · rug · rag + the A/B words: apple · bag · bat · bus (the demo grid mirrors them — the winner taps the card on the board, the class checks). Winner stays on, new challenger comes. ~3 min. MUST-DO (it buys the test its calm).">
-  <div class="eyebrow reveal">Game · Fly Swat 🔨 · ~3 min <span class="tag must" style="margin-left:.5em">must-do</span></div>
-  <h1 class="reveal">Fly Swat! ✊🔨</h1>
+<!-- 12 · READING 7 — FLY SWAT -->
+<section class="slide" data-notes="Step 7, the last one before the test — they need to move. Two volunteers take the hammers (or their hands). YOU name a word — they race to swat the right flashcard on the mat. Words: rat, red, rug, rag + apple, bag, bat, bus. The winner stays, a new challenger comes. 2–3 minutes and done.">
+  <div class="eyebrow reveal">Stage 3 · Reading · step 7 of 7 — game!</div>
+  <h1 class="reveal">Fly Swat! 🔨</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">Two swatters! I say the word — <strong>RACE to swat it!</strong></p>
-  <p class="task reveal"><em>"R-r-rat!"</em> 🐁 · <em>"red!"</em> 🔴 · <em>"rug!"</em> · <em>"rag!"</em> · <em>"apple!"</em> 🍎 · <em>"bag!"</em> 👜 · <em>"bat!"</em> 🦇 · <em>"bus!"</em> 🚌</p>
-  <p class="note reveal">Board support: the child deck, slide 14 — the winner taps the swatted card, the class checks.</p>
+  <p class="task reveal">Two swatters! <strong>You name a word — they race to swat it!</strong></p>
+  <p class="task reveal"><em>"rat!"</em> 🐁 · <em>"red!"</em> 🔴 · <em>"rug!"</em> · <em>"rag!"</em> · <em>"apple!"</em> 🍎 · <em>"bag!"</em> 👜 · <em>"bat!"</em> 🦇 · <em>"bus!"</em> 🚌</p>
+  <p class="note reveal">Board: the winner taps the swatted card — the class checks.</p>
 </section>
 
-<!-- 16 · WI-FI — BEFORE THE TEST -->
-<section class="slide wifi" data-notes="Wi-Fi → THE TEST. Make the switch feel special: the quietest Wi-Fi of the lesson.">
+<!-- 13 · WI-FI — BEFORE THE TEST -->
+<section class="slide wifi" data-notes="The quietest Wi-Fi of the lesson — the test is next.">
   <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
     <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
       <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
@@ -359,100 +301,89 @@ function songPending(v){
   </svg>
 </section>
 
-<!-- 17 · THE TEST — INTRO -->
-<section class="slide" data-notes="THE TEST (15 min total, protected — nothing else lands in this block). The calm talk, kind and short: 'It's our FIRST TEST! 🌟 You know EVERYTHING!' Logistics: 1) test papers OUT (one set per child — pages 1–2); 2) NAMES first: 'Write your name!' — show on the board, help the slow ones; 3) demo one item: draw a box, say 'I'm four' → write 4. THE THREE PARTS (say them): ① listen and write the age ✏️ ② listen and colour — ONE number stays white! 🎨 ③ circle the s words — no audio, you read! 🔍 Part 4: SKIPPED today. The folders are OUT — the finished tests go in (the ritual: their folder, their test, till end of year). Marks: 20 total, 5 per part — YOUR records only, the kids never see a number. ~2 min, then Part 1.">
-  <div class="eyebrow reveal">🌟 Our first test! · 15 min · protected</div>
-  <h1 class="reveal">Our first test! 🌟</h1>
+<!-- 14 · STAGE 4 — THE TEST: INTRO -->
+<section class="slide" data-notes="Hand out the test papers (one set per child — pages 1–2). FIRST: 'Write your name!' — wait, help. THEN explain the three parts, short and kind: 1 — listen and write the age (a birthday picture for each); 2 — listen and colour the numbers, ONE number stays white; 3 — circle the s words (no audio, they read). Coloured pencils ready on the tables BEFORE part 2. Part 4 exists but is optional — only if the clock allows (it has its own slide). Folders are OUT — finished tests go in. 20 marks total, 5 per part — your records only, the children never see a number. This picture is the page they are holding.">
+  <div class="eyebrow reveal">Stage 4 · The test · 15 min</div>
+  <h1 class="reveal">The Unit 1 test 🌟</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">You know <strong>everything</strong> in this test. Show it!</p>
-  <p class="task reveal"><strong>1.</strong> Write your <strong>name</strong>! 🖊 · <strong>2.</strong> Listen — three parts:</p>
-  <p class="ask reveal">① Listen &amp; <strong>write the age</strong> ✏️ &nbsp; ② Listen &amp; <strong>colour</strong> — one number stays white! 🎨 &nbsp; ③ Circle the <strong>s</strong> words 🔍</p>
-  <p class="note reveal">Pencils ready · eyes on me · demo on the board: "I'm four" → write <strong>4</strong>.</p>
-  <img class="sheet reveal" src="../media/kb1-u1-l5-test-p1.png" alt="the test page 1" style="width:min(420px,64%)">
-  <p class="note reveal">↑ the page they hold: Part 1 (a–e birthday pictures) on top, Part 2 (the six big numbers) below.</p>
+  <p class="task reveal">📄 Test papers out. <strong>First — write your NAME!</strong> 🖊</p>
+  <p class="task reveal">Three parts: <strong>①</strong> listen &amp; <strong>write the age</strong> ✏️ · <strong>②</strong> listen &amp; <strong>colour</strong> (one number stays white!) 🎨 · <strong>③</strong> circle the <strong>s words</strong> 🔍</p>
+  <p class="task reveal">🖍 Coloured pencils <strong>on the tables now</strong> — you need them in Part 2.</p>
+  <img class="sheet reveal" src="../media/kb1-u1-l5-test-p1.png" alt="the test page 1" style="width:min(380px,58%)">
+  <p class="note reveal">↑ the page they hold: Part 1 on top (a–e), Part 2 below (the six big numbers). Keys are on the next slides.</p>
 </section>
 
-<!-- 18 · TEST PART 1 — LISTEN AND WRITE THE AGES -->
-<section class="slide" data-notes="PART 1 (audio = kb1-u1-test-e1-p1.mp3, in this deck). 'Listen and write the ages.' Each item sounds TWICE in the recording. They write DIGITS in the boxes a–e (birthday pictures). Play, wait, then pencils UP and check together (the demo reveals digit by digit). KEY: a = 4 (balloons) · b = 7 (cake) · c = 5 (party hat) · d = 6 (cake) · e = 10 (trumpet). Recording script: 'I'm four / I'm seven / I'm five / I'm six / I'm ten.' ~4 min.">
-  <div class="eyebrow reveal">Test · Part 1 · listen &amp; write ✏️</div>
-  <h1 class="reveal">Part 1 — listen and write the ages 🎂</h1>
+<!-- 15 · TEST PART 1 -->
+<section class="slide" data-notes="PART 1. Play the track — each item sounds TWICE in the recording ('I'm four / I'm seven / I'm five / I'm six / I'm ten'). They write the digits in the boxes a–e. Then pencils up, check together — tap 'show'. KEY: a = 4 (balloons) · b = 7 (cake) · c = 5 (party hat) · d = 6 (cake) · e = 10 (trumpet).">
+  <div class="eyebrow reveal">Stage 4 · The test · Part 1</div>
+  <h1 class="reveal">Part 1 — listen and write the age 🎂</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">🎧 Listen — each question <strong>twice</strong>! Write the <strong>number</strong> in the box.</p>
-  <p class="tag reveal">🎧 AUDIO — Test · Unit 1 · Part 1</p>
+  <p class="task reveal">🎧 Listen — each question <strong>twice</strong>. Write the <strong>number</strong> in the box.</p>
   <audio class="reveal" controls preload="none" src="../media/kb1-u1-test-e1-p1.mp3"></audio>
   <p class="task reveal">Pencils <strong>up</strong> — check together:</p>
   <button class="reveal-btn reveal" onclick="reveal(this,'r-p1')">show the key</button>
-  <div class="answer" id="r-p1">a = <b>4</b> · b = <b>7</b> · c = <b>5</b> · d = <b>6</b> · e = <b>10</b> &nbsp;(I'm four · seven · five · six · ten)</div>
+  <div class="answer" id="r-p1">a = <b>4</b> · b = <b>7</b> · c = <b>5</b> · d = <b>6</b> · e = <b>10</b></div>
 </section>
 
-<!-- 19 · TEST PART 2 — LISTEN AND COLOUR -->
-<section class="slide" data-notes="PART 2 (audio = kb1-u1-test-e1-p2.mp3). 'Listen and colour. There is one extra number.' The page shows six big numbers: 3 · 9 · 2 · 5 · 7 · 1. They need their COLOURED PENCILS — check the tables have them BEFORE you play. KEY: 3 = green · 9 = purple · 2 = pink · 5 = orange · 1 = blue — and 7 stays WHITE (the extra number!). Recording order: 'Colour number three green… number five orange… number one blue… number two pink… number nine purple.' Check together on the demo — tap the numbers, they fill; tap the 7 → 'the extra one!' ~4 min.">
-  <div class="eyebrow reveal">Test · Part 2 · listen &amp; colour 🎨</div>
+<!-- 16 · TEST PART 2 -->
+<section class="slide" data-notes="PART 2. 'Listen and colour. There is one extra number.' Play the track (each item twice). KEY: 3 = green · 9 = purple · 2 = pink · 5 = orange · 1 = blue — and 7 stays WHITE (the extra number). Check together on the board: a child taps the numbers — they fill; the 7 gets the ✋.">
+  <div class="eyebrow reveal">Stage 4 · The test · Part 2</div>
   <h1 class="reveal">Part 2 — listen and colour 🌈</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">🖍 <strong>Coloured pencils out!</strong> 🎧 Listen — colour the numbers. <strong>One number stays white!</strong></p>
-  <p class="tag reveal">🎧 AUDIO — Test · Unit 1 · Part 2</p>
+  <p class="task reveal">🎧 Listen and colour. <strong>One number stays white!</strong></p>
   <audio class="reveal" controls preload="none" src="../media/kb1-u1-test-e1-p2.mp3"></audio>
   <p class="task reveal">Pencils <strong>up</strong> — check together:</p>
   <button class="reveal-btn reveal" onclick="reveal(this,'r-p2')">show the key</button>
-  <div class="answer" id="r-p2">3 = green · 9 = purple · 2 = pink · 5 = orange · 1 = blue — and <b>7 is the extra number!</b> (stays white!)</div>
+  <div class="answer" id="r-p2">3 = green · 9 = purple · 2 = pink · 5 = orange · 1 = blue — <b>7 stays white!</b></div>
 </section>
 
-<!-- 20 · TEST PART 3 — CIRCLE THE 'S' WORDS (NO AUDIO) -->
-<section class="slide" data-notes="PART 3 — A READING PART: NO AUDIO. 'Look and circle the s words.' They read/recognize and circle: SNAKE · SIX · SEVEN · STAR · STANDING UP — five items, 5 marks; the other pictures stay empty. Say it slowly: 'Find the s words! Circle them!' Fast finishers: read them again, point and whisper. When all three parts are done → the tests go INTO THE FOLDERS (their folder, their test). NOTE — the конспект's optional Part 4 (listen &amp; tick) is SKIPPED today; if you ever want it: audio KB01-E01-P04.mp3 in the Library's tests folder; key 1a 2a 3b 4c 5c (sit down / pick up your book / close the door / listen to the CD / open the door). ~3 min.">
-  <div class="eyebrow reveal">Test · Part 3 · circle the s words 🔍 — reading, no audio!</div>
-  <h1 class="reveal">Part 3 — circle the <strong>s</strong> words! 🔍</h1>
+<!-- 17 · TEST PART 3 -->
+<section class="slide" data-notes="PART 3 — no audio, a READING part: 'Find the s words — circle them!' They circle: snake, six, seven, star, standing up (5 items). The other pictures stay empty. When the three parts are done → the tests go INTO THE FOLDERS (their folder, their test, stays at school).">
+  <div class="eyebrow reveal">Stage 4 · The test · Part 3 — reading, no audio</div>
+  <h1 class="reveal">Part 3 — circle the <strong>s</strong> words 🔍</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">👀 <strong>No audio — your eyes only!</strong> Find the words that start with <strong>s</strong>… circle them!</p>
+  <p class="task reveal">👀 No audio — <strong>your eyes only</strong>! Circle the words that start with <strong>s</strong>.</p>
   <button class="reveal-btn reveal" onclick="reveal(this,'r-p3')">show the key</button>
-  <div class="answer" id="r-p3">snake 🐍 · six 6️⃣ · seven 7️⃣ · star ⭐ · standing up 🧍 &nbsp;(5 items = 5 marks)</div>
-  <div class="glue reveal">📁 Done? <b>The test goes into YOUR folder!</b> Well done — the first test ever!</div>
+  <div class="answer" id="r-p3">snake 🐍 · six 6️⃣ · seven 7️⃣ · star ⭐ · standing up 🧍</div>
+  <div class="glue reveal">📁 Done? <strong>The test goes into YOUR folder!</strong></div>
 </section>
 
-<!-- 21 · GENKI — THE TEST IS OVER! (CLASS MANAGEMENT) -->
-<section class="slide" data-notes="THE TEST IS OVER — celebrate! The class-management slot (Genki style): the commands chant, faster and faster — 'Stand up! Sit down! Hands up! Hands down! Pencil up!' — then ONE fast round of Rock, Paper, Scissors team battle ('Rock… paper… scissors… look and see!' — winners: 'I can do it!'). Shake off the test. ~2 min.">
-  <div class="eyebrow reveal">🎵 Class management — the test is over! 🎉</div>
-  <h1 class="reveal">Stand up! Sit down! ✊✋✌️</h1>
+<!-- 18 · TEST PART 4 — OPTIONAL -->
+<section class="slide" data-notes="OPTIONAL — the конспект's Part 4, only if the clock allows; otherwise flip straight past it. 'Listen and tick the box' — five commands, each twice. KEY: 1a (sit down) · 2a (pick up your book) · 3b (close the door) · 4c (listen to the CD) · 5c (open the door).">
+  <div class="eyebrow reveal">Stage 4 · The test · Part 4 — OPTIONAL (skip if no time)</div>
+  <h1 class="reveal">Part 4 — listen and tick ✅ <span class="tag">optional</span></h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">The commands chant — <strong>faster and faster!</strong> <em>"Stand up! Sit down! Hands up! Hands down! Pencil up!"</em></p>
-  <p class="task reveal">One round: <strong>Rock, paper, scissors</strong> — <em>"look and see!"</em> Win: <strong>"I can do it!"</strong> 💪</p>
+  <p class="task reveal">🎧 Listen — <strong>tick the box</strong>. Each question <strong>twice</strong>.</p>
+  <audio class="reveal" controls preload="none" src="../media/kb1-u1-test-e1-p4.mp3"></audio>
+  <p class="task reveal">Check together:</p>
+  <button class="reveal-btn reveal" onclick="reveal(this,'r-p4')">show the key</button>
+  <div class="answer" id="r-p4">1a sit down · 2a pick up your book · 3b close the door · 4c listen to the CD · 5c open the door</div>
 </section>
 
-<!-- 22 · FEEDBACK — THE SCALE -->
-<section class="slide" data-notes="Feedback (the конспект): the ss evaluate how difficult THE TEST was — 1 to 10 (the demo has the tap-to-light scale) or choose a smile: happy 🙂 · okay 😐 · tired 😴. Comment on the most common mistakes kindly — no names, no marks out loud: the numbers (20 total, 5 per part) are YOUR records, they go home never. Then the folder ritual: each child puts their test into THEIR folder — the folders go to the shelf; they stay at school all year (the конспект's end-of-year evaluation idea). ~3 min.">
-  <div class="eyebrow reveal">Feedback &amp; the folders · ~3 min</div>
+<!-- 19 · THE TEST IS DONE — HOW WAS IT? -->
+<section class="slide" data-notes="Close the test kindly: 'How was the test?' — each child shows a number 1–10 (or a smile: happy / okay / tired) — on the board they tap it. Comment on common mistakes, no names, no marks aloud (the marks are yours only). The tests are already in the folders — the folders go to the shelf.">
+  <div class="eyebrow reveal">Stage 4 · The test is done 🎉</div>
   <h1 class="reveal">How was the test? 1–10</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">Draw the <strong>scale 1–10</strong> — or the smiles: <strong>happy 🙂 · okay 😐 · tired 😴</strong>. Each ss chooses!</p>
-  <p class="note reveal">Board support: the child deck — the tap-to-light scale.</p>
-  <div class="glue reveal">📁 Tests into the <strong>folders</strong> — the folders go to the shelf. They stay at school all year!</div>
+  <p class="task reveal">Each child shows a number — <strong>or a smile</strong>: happy 🙂 · okay 😐 · tired 😴</p>
+  <p class="note reveal">Board: they tap their number. Comment kindly — no names, no marks aloud.</p>
+  <div class="glue reveal">📁 The folders go to the shelf — the tests stay at school. <strong>The first test — well done!</strong></div>
 </section>
 
-<!-- 23 · GOODBYE + HOMEWORK -->
-<section class="slide" data-notes="The goodbye routine + the конспект's HW: 1) AB p. 8 ex. 2 — 'Write and draw': write r in the gaps → red, rainbow — and draw them; 2) TRACE big and small Rr on the Rr worksheet (the rows we skipped in class — now they do them at home, slowly and beautifully). RU line for parents at the bottom (allowed: primary HW). ~3 min.">
-  <div class="eyebrow reveal">Homework</div>
-  <h1 class="reveal">AB p. 8 + trace Rr 🏠</h1>
+<!-- 20 · STAGE 5 — GOODBYE + HOMEWORK -->
+<section class="slide" data-notes="The goodbye routine, then the homework — the конспект's two items: 1) AB p. 8 ex. 2: write r in the gaps — red, rainbow — and draw them; 2) trace big R and small r on the Rr worksheet (the rows we skipped in class). The RU line is for the parents' chat.">
+  <div class="eyebrow reveal">Stage 5 · Goodbye + homework</div>
+  <h1 class="reveal">Homework 🏠</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal">📖 <strong>AB p. 8, ex. 2</strong> — write <strong>r</strong>: <em><strong>r</strong>ed</em> · <em><strong>r</strong>ainbow</em> — and <strong>draw</strong> them! 🌈</p>
-  <p class="task reveal">✏️ <strong>Trace big R and small r</strong> on the Rr worksheet — the rows we skipped!</p>
-  <p class="note reveal">ДЗ: AB стр. 8, упр. 2 (вписать r: red, rainbow + нарисовать) + обвести большие и маленькие R r на распечатке.</p>
-  <p class="task reveal">Goodbye! See you next time! 👋</p>
-</section>
-
-<!-- 24 · READING SLOT (IF-TIME) — BRAND PHONICS 2 — n -->
-<section class="slide" data-notes="THE READING SLOT — does NOT fit today (the test took the slot); this slide stays for if-time or the next visit. If you DO run it: fast recap a-a apple / ba-ba-ba bag, then the button opens Brand Phonics 2 — letter n (Nesquik, Nestlé + the reading strip + sight words I/the) in a new tab — needs http (the online deck or the local server; from file:// open decks/phonics/brand-phonics-n.html by hand). The Rr reading reps ride the normal next-lesson reading station.">
-  <div class="eyebrow reveal">Reading slot · phonics <span class="tag ift" style="margin-left:.5em">if-time</span></div>
-  <h1 class="reveal">Letter time → Brand Phonics 2 — n 🔤</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">Fast recap first: <strong>A a — apple</strong> 🍏 · <strong>B b — bag</strong> 👜 — one choral re-read: <em>"a… a… a… ba… ba… ba!"</em></p>
-  <p class="task reveal">Then the reading slot — <strong>one click</strong>:</p>
-  <a class="hw-link reveal" href="../phonics/brand-phonics-n.html" target="_blank">🔤 open Brand Phonics 2 — n</a>
-  <p class="note reveal">Opens in a new tab (Nesquik, Nestlé + the reading strip + sight words I / the). Works from the site and the local server; from a file:// double-click open the phonics deck by hand.</p>
+  <p class="task reveal">📖 <strong>AB p. 8, ex. 2</strong> — write <strong>r</strong>: <em><strong>r</strong>ed</em> · <em><strong>r</strong>ainbow</em> — and <strong>draw</strong> them!</p>
+  <p class="task reveal">✏️ <strong>Trace R r</strong> on the worksheet — big and small, slowly and beautifully!</p>
+  <p class="note reveal">ДЗ: AB стр. 8, упр. 2 (вписать r: red, rainbow + нарисовать) + обвести R r на распечатке.</p>
+  <p class="task reveal">Goodbye song — see you next time! 👋</p>
 </section>
 
 <div id="nav">
   <button id="prev" aria-label="previous">‹</button>
-  <span id="counter">1 / 24</span>
+  <span id="counter">1 / 20</span>
   <button id="next" aria-label="next">›</button>
   <button id="fs" aria-label="fullscreen">⛶</button>
   <button id="pvbtn" aria-label="presenter view" title="presenter view (T)">🖥</button>
@@ -517,15 +448,6 @@ function reveal(btn,id){
   if(!revealed.has(id)){revealed.add(id);}
   send({t:'reveal',id});
 }
-
-/* ================= pending songs ================= */
-function songPending(v){
-  v.style.display='none';
-  const p=v.parentElement.querySelector('.pending');
-  if(p)p.hidden=false;
-}
-/* belt & braces: if the error fired before handlers existed, catch it on load */
-addEventListener('load',()=>document.querySelectorAll('video').forEach(v=>{if(v.error)songPending(v);}));
 
 /* ================= messages ================= */
 if(bc)bc.onmessage=e=>{
