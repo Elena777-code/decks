@@ -3,547 +3,592 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kid's Box 1 · Unit 1 · Lesson 5 — Rr + the first test (script)</title>
+<title>Kid's Box 1 · Unit 1 · Lesson 5 — Rr &amp; the test</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ============================================================
-   KB1 — Kid's Box 1, Unit 1, Lesson 5 (group class).
-   REBUILT 2026-09-24 after Elena's feedback ("too long and too
-   complicated, I don't understand what I'm supposed to do"):
-   the deck IS her five-stage plan now, nothing added —
-   Warm up · Revision · Reading · Test · Goodbye. One action
-   per slide, plain words, the teacher notes carry the steps.
-   The HW being checked today = the Bb worksheet (Elena).
-   The test = the Unit 1 evaluation (old edition); Part 4 is
-   optional and sits on its own slide — skip it freely.
-   Engine: nav bottom-right, progress bar, keyboard/wheel/
-   swipe, ready-chime + #n hash, click-reveals, presenter
-   view (T / 🖥) synced both ways.
-   ============================================================ */
+/* ============ "Minty Fresh" — ONE deck for the whole lesson ============
+   KB1 · Unit 1 · Lesson 5. THE ONE-DECK RULE (Elena, 2026-09-24:
+   "I can run only one deck with these groups") — this is the board
+   deck AND the teacher's script in one file: a muted 🗒 Teacher's
+   notes pill sits bottom-left on EVERY slide; tap it (or press T)
+   and the notes for THIS slide open over the board; ✕ closes.
+   The lesson = Elena's five-stage plan: Warm up · Revision ·
+   Reading (7 steps) · Test · Goodbye. For 6-7-year-olds: huge
+   visuals, minimal words, tap-driven — nothing autoplays. */
 :root{
-  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
-  --accent:#14655A;
-  --radius:18px;
-  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+  --mint:#95E1D3;         /* soft mint */
+  --mint-deep:#5ecbb8;    /* mint accent for text/icons */
+  --peach:#FCE38A;        /* warm yellow: word banks, model cards */
+  --lavender:#C8B6FF;     /* lavender */
+  --lavender-deep:#9a7fff;/* lavender accent for highlighted words */
+  --cream:#FFF8F0;        /* page background */
+  --pink:#FF8FAB;         /* pink accent */
+  --ink:#2D3436;          /* main text */
+  --ink-soft:#636e72;     /* secondary text */
+  --white:#ffffff;
+  --radius:22px;
+  --shadow:0 10px 30px rgba(45,52,54,.12);
+  --shadow-lg:0 20px 50px rgba(45,52,54,.18);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%}
-body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
-  overflow:hidden;background:#EFECE5}
-
-/* ---------- fixed chrome ---------- */
-#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
-  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
-#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);overflow:hidden}
+/* ============ chrome ============ */
+#progress-track{position:fixed;top:0;left:0;width:100vw;height:7px;background:rgba(200,182,255,.35);z-index:100}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--lavender),var(--pink));transition:width .4s cubic-bezier(.22,1,.36,1)}
+#nav{
+  position:fixed;bottom:14px;right:max(10px,1.6vw);z-index:100;
   display:flex;gap:8px;align-items:center;
   background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
-  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
-  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
-#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
-  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
-  transition:transform .15s ease, opacity .15s ease;font-family:inherit}
-#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
-#nav button:disabled{opacity:.3;cursor:default}
-
-/* ---------- slides ---------- */
-.slide{position:absolute;inset:0;padding:4.2vh 5vw calc(74px + 2.4vh);
-  display:flex;flex-direction:column;justify-content:flex-start;gap:1.5vh;
-  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
-  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
-.slide.active{opacity:1;visibility:visible;transform:none}
-.slide.prev{transform:translateX(-60px) scale(.985)}
-.slide.active .reveal{animation:rise .6s both}
-.slide.active .reveal:nth-child(2){animation-delay:.08s}
-.slide.active .reveal:nth-child(3){animation-delay:.16s}
-.slide.active .reveal:nth-child(4){animation-delay:.24s}
-.slide.active .reveal:nth-child(5){animation-delay:.32s}
-.slide.active .reveal:nth-child(6){animation-delay:.4s}
-.slide.active .reveal:nth-child(7){animation-delay:.48s}
-.slide.active .reveal:nth-child(8){animation-delay:.56s}
-@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
-
-.eyebrow{font-size:clamp(.85rem,1.4vw,1.05rem);font-weight:800;
-  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
-h1{font-weight:800;font-size:clamp(1.4rem,2.8vw,2.3rem);line-height:1.18;
-  letter-spacing:-.01em;color:var(--ink)}
-.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
-.tag{display:inline-block;font-size:clamp(.8rem,1.3vw,1rem);font-weight:800;
-  letter-spacing:.05em;color:var(--ink-soft);
-  border:1.5px solid var(--line);border-radius:99px;padding:.18em .75em;
-  background:#fff;margin-bottom:.2em}
-.task{font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.55;font-weight:500}
-.task strong{color:var(--accent)}
-.ask{font-size:clamp(1.05rem,1.8vw,1.35rem);line-height:1.5;color:#4a463d}
-.note{font-size:clamp(.92rem,1.4vw,1.1rem);color:var(--ink-soft);font-style:italic;line-height:1.5}
-.flag{font-size:clamp(.9rem,1.35vw,1.05rem);color:#9a6a2f;font-style:italic;
-  line-height:1.55;background:#FBF3E4;border:1.5px dashed #E3C48A;
-  border-radius:12px;padding:.7em 1em}
-.glue{font-size:clamp(.95rem,1.5vw,1.15rem);font-weight:800;color:#14655A;
-  background:#E7F1EF;border:1.5px solid #5ecbb8;border-radius:12px;
-  padding:.55em 1em;line-height:1.5}
-audio{width:min(520px,92%);height:44px;display:block;margin:.2em 0}
-img.sheet{width:min(480px,80%);border-radius:12px;display:block;margin:.2em 0;
-  box-shadow:0 6px 18px rgba(0,0,0,.15);background:#fff}
-ul.materials{list-style:none}
-ul.materials li{padding:.28em 0;border-bottom:1px dashed var(--line);
-  font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.5}
-ul.materials li:last-child{border-bottom:none}
-.plan{display:flex;flex-direction:column;gap:.8vh}
-.plan-row{display:flex;gap:14px;align-items:baseline;background:#fff;
-  border:1px solid var(--line);border-radius:12px;padding:.8vh 1vw;
-  font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.4}
-.plan-row .n{flex:0 0 2.2em;font-weight:800;color:var(--accent);font-size:1.1em}
-.plan-row .t{flex:0 0 5.2em;font-weight:800;color:var(--ink-soft)}
-
-/* ---------- the Wi-Fi interstitial ---------- */
-.slide.wifi{justify-content:center;align-items:center;background:#fff}
-.wifi-ic{width:clamp(160px,30vw,340px);height:auto;animation:wifipulse 2.2s ease-in-out infinite}
-@keyframes wifipulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.045);opacity:1}}
-
-/* ---------- click-reveal (synced with the presenter window) ---------- */
-.reveal-btn{font-family:'Inter',sans-serif;font-size:clamp(.95rem,1.5vw,1.2rem);font-weight:800;
-  color:#fff;background:var(--accent);border:none;border-radius:99px;
-  padding:.5em 1.3em;cursor:pointer;transition:transform .15s ease;align-self:flex-start}
-.reveal-btn:hover{transform:scale(1.06)}
-.answer{display:none;font-size:clamp(1.05rem,1.8vw,1.4rem);font-weight:600;color:var(--accent);
-  background:#E7F1EF;border-radius:12px;padding:.5em 1em;align-self:flex-start;line-height:1.45}
-.answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
-@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
-
-/* ---------- presenter + embed modes (spec §7) ---------- */
-body.embed #nav,body.embed #bar{display:none}
-body.presenter .slide,body.presenter #nav,body.presenter #bar{display:none}
-#pv{position:absolute;inset:0;padding:2vh 2vw calc(74px + 2vh);display:flex;flex-direction:column;gap:1.2vh;overflow:auto}
-.pvhead{font-size:clamp(1rem,1.6vw,1.25rem);color:var(--ink-soft)}
-.pvhead b{color:var(--accent)}
-.pvhead .pvcnt{font-weight:800;color:var(--ink)}
-.pvwarn{background:#FBF3E4;border:1px solid #E3C48A;border-radius:12px;
-  padding:.6em 1em;font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink);display:none}
-.pvlabel{font-size:clamp(.8rem,1.2vw,.95rem);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
-.pvframe{width:100%;aspect-ratio:16/10;position:relative;overflow:hidden;background:#fff;
-  border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
-.pvframe iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;transform-origin:0 0}
-.pvnotes{background:#fff;border:1px solid var(--line);border-left:6px solid var(--accent);
-  border-radius:12px;padding:clamp(10px,1.6vh,16px) clamp(14px,1.6vw,22px);
-  font-size:clamp(1rem,1.6vw,1.3rem);line-height:1.45;min-height:3.2em}
-.pvbtns{display:flex;gap:10px}
-.pvbtns button{flex:1;height:52px;border-radius:99px;border:1px solid var(--line);
-  background:#fff;color:var(--accent);font-size:1.5rem;cursor:pointer;font-family:inherit}
-.pvbtns button:hover{transform:scale(1.03)}
-
-@media (max-width:900px){
-  .slide{padding:3.5vh 5vw 11vh}
+  border-radius:99px;padding:8px 14px;box-shadow:var(--shadow);
 }
+#nav button{
+  width:44px;height:44px;border-radius:50%;border:none;
+  background:var(--white);color:var(--mint-deep);font-size:1.35rem;cursor:pointer;
+  box-shadow:0 2px 10px rgba(45,52,54,.10);
+  transition:transform .15s ease,opacity .15s ease;font-family:inherit;
+}
+#nav button:hover{transform:scale(1.08)}
+#nav button:disabled{opacity:.3;cursor:default;transform:none}
+#nav button.fs{width:auto;border-radius:99px;padding:0 16px;font-size:1.05rem}
+#counter{font-weight:800;color:var(--ink-soft);font-size:1rem;min-width:3.6em;text-align:center}
+/* ============ THE TEACHER'S NOTES (one-deck rule) ============ */
+#tnbtn{
+  position:fixed;left:max(10px,1.6vw);bottom:14px;z-index:100;
+  font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(.8rem,1.25vw,1.05rem);border:none;cursor:pointer;
+  border-radius:99px;padding:.45em 1.05em;background:rgba(255,255,255,.9);
+  box-shadow:0 4px 12px rgba(45,52,54,.12);color:var(--ink-soft);
+  transition:transform .15s ease,color .15s ease;
+}
+#tnbtn:hover{transform:scale(1.05);color:var(--ink)}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(255,248,240,.985);display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
+.overlay.open{display:flex}
+.overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
+.overlay .closer:hover{color:var(--ink)}
+#tnotes .eyebrow{margin-bottom:1vh}
+#tnbody{display:flex;flex-direction:column;gap:.6em;max-width:900px}
+#tnbody .note-step{display:flex;gap:.7em;align-items:flex-start;padding:.7em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);font-size:clamp(1rem,1.8vw,1.35rem);line-height:1.5}
+#tnbody .note-step .b{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--mint-deep);flex:0 0 auto}
+/* ============ slides ============ */
+.slide{
+  position:absolute;inset:0;
+  padding:4.2vh 5vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;gap:1.8vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),visibility .5s;
+  overflow:auto;
+}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0) scale(1)}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+/* entrance = decoration only: elements are VISIBLE by default, the rise
+   animation just adds the fly-in — a frozen animation clock (background
+   pane, throttled webview) can never hide lesson content. */
+.slide.active .reveal-el{animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
+.slide.active .reveal-el:nth-child(2){animation-delay:.08s}
+.slide.active .reveal-el:nth-child(3){animation-delay:.16s}
+.slide.active .reveal-el:nth-child(4){animation-delay:.24s}
+.slide.active .reveal-el:nth-child(5){animation-delay:.32s}
+.slide.active .reveal-el:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+/* ============ the Wi-Fi interstitial ============ */
+.slide.wifi{justify-content:center;align-items:center;background:#fff}
+.wifi-ic{width:clamp(180px,32vw,380px);height:auto;animation:wifipulse 2.2s ease-in-out infinite}
+@keyframes wifipulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.045);opacity:1}}
+/* ============ content components ============ */
+.eyebrow{
+  font-size:clamp(1rem,1.8vw,1.4rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lavender-deep);
+}
+h1.title{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.1;color:var(--ink);
+}
+.accent-line{width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.card{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.2vh,24px) clamp(16px,2vw,28px);
+}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.card.pink{background:#ffe9f0}
+.card p,.card li{font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.4}
+.task{
+  background:var(--peach);border-radius:99px;align-self:flex-start;
+  padding:.45em 1.2em;font-size:clamp(1.2rem,2.1vw,1.7rem);font-weight:800;color:var(--ink);
+}
+.reveal-btn{
+  font-family:'Fredoka',sans-serif;font-size:clamp(1.15rem,2vw,1.6rem);font-weight:700;
+  color:var(--ink);background:var(--mint);border:none;border-radius:99px;
+  padding:.55em 1.5em;cursor:pointer;transition:transform .15s ease;align-self:flex-start;
+  box-shadow:var(--shadow);
+}
+.reveal-btn:hover{transform:scale(1.06)}
+.answer{
+  display:none;font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.7rem,3.4vw,3rem);color:var(--ink);
+  background:var(--mint);border-radius:var(--radius);padding:.4em 1em;align-self:flex-start;
+}
+.answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+.answer b{color:var(--pink)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+/* flashcard grids */
+.fc-grid{display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,20px);align-items:stretch;justify-content:center}
+.fc{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(8px,1.2vh,14px);cursor:pointer;user-select:none;
+  display:flex;flex-direction:column;align-items:center;gap:.4vh;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease;
+  flex:0 1 auto;min-width:0;
+}
+.fc img{height:clamp(90px,16vh,150px);border-radius:12px}
+.fc .fc-emoji{font-size:clamp(3.2rem,8vh,5.6rem);line-height:1.15;display:block}
+.fc .fc-name{
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.5rem);
+  color:var(--ink);min-height:1.3em;
+}
+.fc:hover{transform:translateY(-4px) scale(1.03)}
+.fc.picked{transform:scale(1.07);box-shadow:0 0 0 6px var(--mint),var(--shadow-lg)}
+/* numbered stars — click → fills with its colour */
+.star-wrap{display:flex;flex-direction:column;gap:2.2vh;align-items:center}
+.star-row{display:flex;gap:clamp(14px,2.4vw,34px);justify-content:center;flex-wrap:wrap}
+.star{
+  position:relative;width:clamp(96px,15vh,170px);height:clamp(96px,15vh,170px);
+  cursor:pointer;user-select:none;transition:transform .18s cubic-bezier(.34,1.56,.64,1);
+}
+.star:hover{transform:scale(1.06)}
+.star svg{width:100%;height:100%;display:block}
+.star .fill{opacity:0;transition:opacity .5s ease}
+.star.done .fill{opacity:1}
+.star .num{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.5rem,3.4vh,2.6rem);color:var(--ink);
+}
+.star.done .num{color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.35)}
+/* the scale */
+.num-grid{display:flex;flex-wrap:wrap;gap:clamp(8px,1.4vw,18px);justify-content:center}
+.num{
+  width:clamp(64px,11vh,110px);height:clamp(64px,11vh,110px);border-radius:22px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.6rem,3.4vh,2.6rem);
+  color:#fff;cursor:pointer;user-select:none;opacity:.45;box-shadow:var(--shadow);
+  transition:transform .15s ease,opacity .15s ease;
+}
+.num:hover{transform:scale(1.06)}
+.num.lit{opacity:1;transform:scale(1.08)}
+audio{width:min(560px,100%);margin-top:.4vh}
+video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--shadow-lg)}
+img.sheet{width:min(640px,92%);border-radius:16px;display:block;box-shadow:var(--shadow-lg);background:#fff}
 </style>
-<script>
-</script>
 </head>
 <body>
 
-<div id="bar"></div>
+<div id="progress-track"><div id="progress-fill"></div></div>
 
-<!-- 1 · COVER — THE PLAN -->
-<section class="slide active" data-notes="The whole lesson is FIVE stages — the plan below, in order. You only ever do what the current slide says. Before the lesson: print the test (pages 1–2 of Kid's Box 1 tests.pdf — one set per child; dark scans, gray print helps), the color-the-stars halves, the Rr worksheets; a folder per child. Check the sound: every audio is IN this deck (the Hello song, PB p. 8 track, test tracks 1–2, and track 4 only if you decide to do the optional Part 4). Press T (or 🖥) for the presenter window — it shows these notes next to the slide. Same deck for all three KB1 groups.">
-  <div class="eyebrow reveal">Kid's Box 1 (New Generation) · Unit 1 · Lesson 5 · KB1.1 · KB1.2 · KB1.3</div>
-  <h1 class="reveal">New letter <strong>Rr</strong> + the <strong>Unit 1 test</strong></h1>
-  <div class="rule reveal"></div>
-  <div class="plan reveal">
-    <div class="plan-row"><span class="n">1</span><span class="t">Warm up</span><span>Hello song — 5′</span></div>
-    <div class="plan-row"><span class="n">2</span><span class="t">Revision</span><span>colours + numbers — «color the stars» worksheet — 6′</span></div>
-    <div class="plan-row"><span class="n">3</span><span class="t">Reading</span><span>revise Aa/Bb + check HW (Bb worksheet) · new Rr · Rr worksheet · PB p. 8 ex. 1–2 · AB p. 8 ex. 1 · Fly Swat</span></div>
-    <div class="plan-row"><span class="n">4</span><span class="t">Test</span><span>Unit 1 evaluation (old edition) — 15′ · Part 4 optional</span></div>
-    <div class="plan-row"><span class="n">5</span><span class="t">Goodbye</span><span>song + homework</span></div>
-  </div>
-  <p class="tag reveal">PREPARE AHEAD</p>
-  <ul class="materials reveal">
-    <li>📄 <strong>Test copies — one set per child</strong> (pages 1–2 of <code>Kid's Box 1 tests.pdf</code>; the scans are dark — gray print helps)</li>
-    <li>⭐ <strong>Color-the-stars</strong> halves (the page holds 2 — cut) · 📝 <strong>Rr worksheets</strong></li>
-    <li>📁 <strong>A folder per child</strong> — today's tests go in and stay at school</li>
-    <li>🔨 Two hammers (or just hands) + your printed flashcards, for Fly Swat</li>
-    <li>🎧 Sound test — every recording is in this deck, nothing to find</li>
-  </ul>
+<!-- 1 · WARM UP — HELLO SONG (the lesson opens with the song; the plan + prep live in the notes) -->
+<section class="slide" data-notes="THE WHOLE LESSON IN FIVE STAGES — you only ever do what the current slide shows; tap 🗒 any time. 1 · Warm up: this Hello song, 5 min. 2 · Revision: color the stars worksheet, 6 min. 3 · Reading, seven steps: Aa/Bb + the Bb homework · new Rr · the Rr worksheet · PB p. 8 ex. 1 · ex. 2 in pairs · AB p. 8 ex. 1 · Fly Swat. 4 · Test: the Unit 1 evaluation (old edition), 15 min — Part 4 optional, its own slide. 5 · Goodbye: homework + the song. PREPARE AHEAD: the test printed (pages 1–2 of Kid's Box 1 tests.pdf — one set per child; dark scans, gray print helps), the color-the-stars halves, the Rr worksheets, a folder per child, two hammers (or hands) + flashcards for Fly Swat, coloured pencils on the tables before the test. EVERY recording is in this deck — nothing to find. This button opens these notes on any slide.">
+  <div class="eyebrow reveal-el">🎵 Song time</div>
+  <h1 class="title reveal-el">Hello! How are you? 👋</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Sing and do the actions!</div>
+  <video class="reveal-el" controls preload="metadata" src="../media/kb1-u1-hello.mp4"></video>
 </section>
 
-<!-- 2 · STAGE 1 — WARM UP: HELLO SONG -->
-<section class="slide" data-notes="Play the video. Everybody sings and does the actions. After the song: 'How are you today?' — 2–3 children answer (good · great · tired · hungry). Then next stage.">
-  <div class="eyebrow reveal">Stage 1 · Warm up · 5 min</div>
-  <h1 class="reveal">Hello! How are you? 👋</h1>
-  <div class="rule reveal"></div>
-  <p class="tag reveal">🎬 Play — everybody sings!</p>
-  <video class="reveal" controls preload="metadata" src="../media/kb1-u1-hello.mp4"></video>
-  <p class="task reveal">After the song: <em>"How are you today?"</em> — 2–3 children answer.</p>
-</section>
-
-<!-- 3 · WI-FI -->
-<section class="slide wifi" data-notes="Wi-Fi! Open hands, wait for quiet. Then the stars worksheet.">
-  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
-    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+<!-- 2 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi! Open hand, wait for quiet — then the stars worksheet out.">
+  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
       <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
       <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
       <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
     </g>
-    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
   </svg>
+  <div class="card peach reveal-el" style="margin-top:2vh"><p>📶✋ <b>Stop and listen!</b></p></div>
 </section>
 
-<!-- 4 · STAGE 2 — REVISION: COLOR THE STARS -->
+<!-- 3 · REVISION — COLOR THE STARS -->
 <section class="slide" data-notes="Hand out the star halves. YOU say, THEY colour — one command at a time, wait, repeat: 'Color the star number three — red.' … 'Color the star number seven — green.' … then continue: one — blue, five — orange (any colours you like). On the board: a child taps the star you named — it fills — the class checks itself.">
-  <div class="eyebrow reveal">Stage 2 · Revision · 6 min</div>
-  <h1 class="reveal">Color the stars! ⭐</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">📝 Worksheets out. <strong>You say — they colour:</strong></p>
-  <p class="ask reveal"><em>"Color the star number <strong>three</strong> — <strong>red</strong>!"</em> · <em>"Number <strong>seven</strong> — <strong>green</strong>!"</em></p>
-  <p class="task reveal">Continue: <em>"Number <strong>one</strong> — <strong>blue</strong>! Number <strong>five</strong> — <strong>orange</strong>!"</em></p>
-  <p class="note reveal">Board: a child taps the star you named — it fills — the class checks.</p>
+  <div class="eyebrow reveal-el">Listen and colour</div>
+  <h1 class="title reveal-el">Color the stars! ⭐</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — tap the star Elena says!</div>
+  <div class="star-wrap reveal-el">
+    <div class="star-row">
+      <div class="star" onclick="fillStar(this)" data-color="#3498DB"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#3498DB"/></svg><span class="num">1</span></div>
+      <div class="star" onclick="fillStar(this)" data-color="#9a7fff"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#9a7fff"/></svg><span class="num">6</span></div>
+      <div class="star" onclick="fillStar(this)" data-color="#E74C3C"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#E74C3C"/></svg><span class="num">3</span></div>
+      <div class="star" onclick="fillStar(this)" data-color="#7DBB42"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#7DBB42"/></svg><span class="num">7</span></div>
+    </div>
+    <div class="star-row">
+      <div class="star" onclick="fillStar(this)" data-color="#F1C40F"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#F1C40F"/></svg><span class="num">9</span></div>
+      <div class="star" onclick="fillStar(this)" data-color="#E67E22"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#E67E22"/></svg><span class="num">10</span></div>
+      <div class="star" onclick="fillStar(this)" data-color="#FF8FAB"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#FF8FAB"/></svg><span class="num">2</span></div>
+      <div class="star" onclick="fillStar(this)" data-color="#E67E22"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#E67E22"/></svg><span class="num">5</span></div>
+    </div>
+  </div>
 </section>
 
-<!-- 5 · WI-FI -->
-<section class="slide wifi" data-notes="Wi-Fi! Then the Reading stage begins.">
-  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
-    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+<!-- 4 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi! Reading time begins — A a, B b and the homework first.">
+  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
       <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
       <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
       <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
     </g>
-    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
   </svg>
 </section>
 
-<!-- 6 · READING 1 — REVISE Aa/Bb + CHECK HW (Bb WORKSHEET) -->
-<section class="slide" data-notes="Step 1 of the Reading stage. Revise, all together, choral: 'a… a… a… apple!' / 'ba… ba… ba… bag!'. Then the HW check — the Bb worksheet (the homework): worksheets UP, walk and glance, applause; on the board the actual worksheet is up — point: 'bag… bat… the b-maze — who finished it all?' Praise, and on to the new letter.">
-  <div class="eyebrow reveal">Stage 3 · Reading · step 1 of 7</div>
-  <h1 class="reveal">Revise A a · B b — and the homework 📖</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">All together: <em>"a… a… a… apple!"</em> 🍏 · <em>"ba… ba… ba… bag!"</em> 👜</p>
-  <p class="task reveal"><strong>Homework check — the Bb worksheet:</strong> worksheets <strong>up</strong>! 👏</p>
-  <img class="sheet reveal" src="../media/kb1-u1-bb-ws.jpg" alt="the Bb worksheet" style="width:min(340px,52%)">
-  <p class="note reveal">Point: <em>"bag… bat… the b-maze — who finished it all?"</em></p>
+<!-- 5 · READING 1 — Aa/Bb + THE Bb HOMEWORK -->
+<section class="slide" data-notes="Revise, all together, choral: 'a… a… a… apple!' / 'ba… ba… ba… bag!'. Then the HW check — the Bb worksheet (the homework): worksheets UP, walk and glance, applause; the real worksheet is on the board — point: 'bag… bat… the b-maze — who finished it all?' Praise, then the new letter.">
+  <div class="eyebrow reveal-el">Reading · A a · B b</div>
+  <h1 class="title reveal-el">a… a… apple! · ba… ba… bag! 🍏👜</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Homework — worksheets UP! ⭐</div>
+  <img class="sheet reveal-el" src="../media/kb1-u1-bb-ws.jpg" alt="the Bb worksheet" style="width:min(420px,64%)">
+  <div class="card mint reveal-el"><p>👜 <b style="color:var(--mint-deep)">bag</b> · 🦇 <b style="color:var(--pink)">bat</b> — point and say! 👏</p></div>
 </section>
 
-<!-- 7 · READING 2 — NEW PHONICS Rr -->
-<section class="slide" data-notes="Step 2. The NEW letter: R. Present the four words with your flashcards (or point at the board): R-rat 🐁, R-red 🔴, R-rug (a carpet), R-rag (an old cloth). Drill with a rhythm, clap it: 'R-r-rat! R-r-red! R-r-rug! R-r-rag!' Whole class, then rows. On the board: tap a card — the word shows.">
-  <div class="eyebrow reveal">Stage 3 · Reading · step 2 of 7 — NEW!</div>
-  <h1 class="reveal">A new letter: <strong>R r</strong></h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal"><strong>R-rat!</strong> 🐁 · <strong>R-red!</strong> 🔴 · <strong>R-rug!</strong> (a carpet) · <strong>R-rag!</strong> (an old cloth)</p>
-  <p class="task reveal">Clap the rhythm: <em>"R-r-rat! 👏 R-r-red! 👏 R-r-rug! 👏 R-r-rag! 👏"</em></p>
-  <p class="note reveal">Board: tap a card — the word shows.</p>
+<!-- 6 · READING 2 — NEW LETTER Rr -->
+<section class="slide" data-notes="The NEW letter: R. Present the four words (your flashcards or the board): R-rat, R-red, R-rug (a carpet), R-rag (an old cloth). Drill with a rhythm, clap it: 'R-r-rat! R-r-red! R-r-rug! R-r-rag!' Whole class, then rows. On the board: tap a card — the word shows.">
+  <div class="eyebrow reveal-el">Reading · a NEW letter!</div>
+  <h1 class="title reveal-el">R r — rat, red, rug, rag! 🐁</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Tap a card — read the word!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">🐁</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">R-rat</span></div></div>
+    <div class="fc"><span class="fc-emoji">🔴</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">R-red</span></div></div>
+    <div class="fc"><img src="../media/kb1-u1-fc-rug.png" alt="rug"><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">R-rug</span></div></div>
+    <div class="fc"><img src="../media/kb1-u1-fc-rag.png" alt="rag"><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">R-rag</span></div></div>
+  </div>
+  <div class="card peach reveal-el"><p>👏 Clap it: <b style="color:var(--lavender-deep)">R-r-rat! R-r-red! R-r-rug! R-r-rag!</b></p></div>
 </section>
 
-<!-- 8 · READING 3 — THE Rr WORKSHEET -->
-<section class="slide" data-notes="Step 3. Hand out the Rr worksheets. Three tasks, in order: 1) the letter row — YOU say 'Circle the big R!' / 'Now the small r!' — they listen and circle; 2) match: the red scribble → red, the rat → a rat; 3) the maze: follow R and r from the arrow to the exit — fingers first, then pencils. The tracing rows in the middle are NOT today — tracing is homework.">
-  <div class="eyebrow reveal">Stage 3 · Reading · step 3 of 7</div>
-  <h1 class="reveal">The Rr worksheet ✏️</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal"><strong>1.</strong> Listen and circle: <em>"Circle the big R!… Now the small r!"</em></p>
-  <p class="task reveal"><strong>2.</strong> Match: scribble → <strong>red</strong>, rat → <strong>a rat</strong> · <strong>3.</strong> The maze: follow <strong>R r</strong>!</p>
-  <img class="sheet reveal" src="../media/kb1-u1-l5-rr.png" alt="the Rr worksheet">
-  <div class="flag reveal">⛔ The tracing rows — <strong>NOT today</strong>. Tracing = homework.</div>
+<!-- 7 · READING 3 — THE Rr WORKSHEET -->
+<section class="slide" data-notes="Hand out the Rr worksheets. Three tasks, in order: 1) the letter row — YOU say 'Circle the big R!' / 'Now the small r!' — they listen and circle; 2) match: the red scribble → red, the rat → a rat; 3) the maze: follow R and r from the arrow to the exit — fingers first, then pencils. The tracing rows in the middle are NOT today — tracing is homework.">
+  <div class="eyebrow reveal-el">Worksheet</div>
+  <h1 class="title reveal-el">The Rr worksheet ✏️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 1 Circle R and r! · 2 Match! · 3 The maze!</div>
+  <img class="sheet reveal-el" src="../media/kb1-u1-l5-rr.png" alt="the Rr worksheet">
+  <div class="card pink reveal-el"><p>⛔ The tracing rows? <b style="color:var(--pink)">At HOME!</b> 🏠</p></div>
 </section>
 
-<!-- 9 · READING 4 — PB p. 8 ex. 1 -->
-<section class="slide" data-notes="Step 4. Books open, PB p. 8 ex. 1. 'What can you see?' — a red robot on a rainbow. Play the recording (the button) — they LISTEN AND POINT. Play again — LISTEN AND REPEAT. Then ask: 'How many stars?' — three (the robot holds one). 'What color is the robot?' — red.">
-  <div class="eyebrow reveal">Stage 3 · Reading · step 4 of 7</div>
-  <h1 class="reveal">PB p. 8 — listen and point 🎧</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">📖 PB p. 8, ex. 1. <em>"What can you see?"</em></p>
-  <button class="reveal-btn reveal" onclick="reveal(this,'r-see')">show</button>
-  <div class="answer" id="r-see">A <b>red robot</b> on a <b>rainbow</b>! 🤖🌈</div>
-  <p class="tag reveal">🎧 Play — 1st: listen and POINT · 2nd: listen and REPEAT</p>
-  <audio class="reveal" controls preload="none" src="../media/kb1-u1-pb8-t11.mp3"></audio>
-  <p class="task reveal">Ask: <em>"How many stars?"</em></p>
-  <button class="reveal-btn reveal" onclick="reveal(this,'r-stars')">show</button>
-  <div class="answer" id="r-stars"><b>Three!</b> (the robot holds one!) · the robot is <b>red</b></div>
+<!-- 8 · READING 4 — PB p. 8 ex. 1 -->
+<section class="slide" data-notes="Books open, PB p. 8 ex. 1. 'What can you see?' — a red robot on a rainbow. Play the recording — they LISTEN AND POINT. Play again — LISTEN AND REPEAT. Then ask: 'How many stars?' — three (the robot holds one). 'What color is the robot?' — red.">
+  <div class="eyebrow reveal-el">PB p. 8 · ex. 1</div>
+  <h1 class="title reveal-el">Listen and point! 🎧</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 1st: listen and POINT · 2nd: listen and REPEAT!</div>
+  <div class="card lavender reveal-el" style="text-align:center">
+    <p style="font-size:clamp(3rem,7vh,5rem);line-height:1.3">🤖🌈⭐</p>
+  </div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u1-pb8-t11.mp3"></audio>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">⭐</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">how many stars?</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">three!</span></div></div>
+    <div class="fc"><span class="fc-emoji">🤖</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">what color?</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">red!</span></div></div>
+  </div>
 </section>
 
-<!-- 10 · READING 5 — PB p. 8 ex. 2 -->
-<section class="slide" data-notes="Step 5. PB p. 8 ex. 2 — the park picture full of red things. Do the example with the class first: point to a bird — 'Red birds. Let's count… — Six!'. Then pairs at the tables: one names a set (red pencils / red stars / red robots / red balls), the other counts and answers. Monitor.">
-  <div class="eyebrow reveal">Stage 3 · Reading · step 5 of 7</div>
-  <h1 class="reveal">PB p. 8 — find and count 🔍</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">The park is full of <strong>red things</strong>: birds 🐦 · pencils ✏️ · stars ⭐ · robots 🤖 · balls ⚽</p>
-  <p class="task reveal">Example, all together: <em>"Red birds — how many?"</em></p>
-  <button class="reveal-btn reveal" onclick="reveal(this,'r-birds')">show</button>
-  <div class="answer" id="r-birds"><b>Six!</b></div>
-  <p class="task reveal">Then <strong>pairs</strong>: one asks — one counts and answers. 💬</p>
+<!-- 9 · READING 5 — PB p. 8 ex. 2 -->
+<section class="slide" data-notes="PB p. 8 ex. 2 — the park picture full of red things. Example with the class first: point to a bird — 'Red birds. Let's count… — Six!'. Then pairs at the tables: one names a set (red pencils / red stars / red robots / red balls), the other counts and answers. Monitor.">
+  <div class="eyebrow reveal-el">PB p. 8 · ex. 2 · pairs</div>
+  <h1 class="title reveal-el">Find and count! 🔍</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Find the RED things — count them!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">🐦</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">red birds?</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">six!</span></div></div>
+    <div class="fc"><span class="fc-emoji">✏️</span><div class="fc-name">red pencils</div></div>
+    <div class="fc"><span class="fc-emoji">⭐</span><div class="fc-name">red stars</div></div>
+    <div class="fc"><span class="fc-emoji">🤖</span><div class="fc-name">red robots</div></div>
+    <div class="fc"><span class="fc-emoji">⚽</span><div class="fc-name">red balls</div></div>
+  </div>
+  <div class="card mint reveal-el"><p>Ask your friend: <b style="color:var(--mint-deep)">Red pencils? How many?</b> 💬</p></div>
 </section>
 
-<!-- 11 · READING 6 — AB p. 8 ex. 1 -->
-<section class="slide" data-notes="Step 6. AB p. 8 ex. 1 — four pictures: robot, ball, 2, rainbow. 'Circle the r words!' ICQs: 'Do you circle the ball? NO! Do you circle r words? YES!' They circle robot and rainbow, then colour them.">
-  <div class="eyebrow reveal">Stage 3 · Reading · step 6 of 7</div>
-  <h1 class="reveal">AB p. 8 — circle the <strong>r</strong> words ⭕</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">📖 AB p. 8, ex. 1: robot 🤖 · ball ⚽ · 2️⃣ · rainbow 🌈</p>
-  <p class="ask reveal"><strong>ICQs:</strong> <em>"Do you circle the ball? — NO! Do you circle r words? — YES!"</em></p>
-  <p class="task reveal">Circle the <strong>r words</strong> — then colour them! 🖍</p>
+<!-- 10 · READING 6 — AB p. 8 ex. 1 -->
+<section class="slide" data-notes="AB p. 8 ex. 1 — four pictures: robot, ball, 2, rainbow. 'Circle the r words!' ICQs: 'Do you circle the ball? NO! Do you circle r words? YES!' They circle robot and rainbow, then colour them.">
+  <div class="eyebrow reveal-el">AB p. 8 · ex. 1</div>
+  <h1 class="title reveal-el">Circle the r words! ⭕</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Circle the r words — then colour them!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">🤖</span><div class="fc-name">robot</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">🌈</span><div class="fc-name">rainbow</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">⚽</span><div class="fc-name">ball</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">2️⃣</span><div class="fc-name">two</div></div>
+  </div>
 </section>
 
-<!-- 12 · READING 7 — FLY SWAT -->
-<section class="slide" data-notes="Step 7, the last one before the test — they need to move. Two volunteers take the hammers (or their hands). YOU name a word — they race to swat the right flashcard on the mat. Words: rat, red, rug, rag + apple, bag, bat, bus. The winner stays, a new challenger comes. 2–3 minutes and done.">
-  <div class="eyebrow reveal">Stage 3 · Reading · step 7 of 7 — game!</div>
-  <h1 class="reveal">Fly Swat! 🔨</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">Two swatters! <strong>You name a word — they race to swat it!</strong></p>
-  <p class="task reveal"><em>"rat!"</em> 🐁 · <em>"red!"</em> 🔴 · <em>"rug!"</em> · <em>"rag!"</em> · <em>"apple!"</em> 🍎 · <em>"bag!"</em> 👜 · <em>"bat!"</em> 🦇 · <em>"bus!"</em> 🚌</p>
-  <p class="note reveal">Board: the winner taps the swatted card — the class checks.</p>
+<!-- 11 · READING 7 — FLY SWAT -->
+<section class="slide" data-notes="The last step before the test — they need to move. Two volunteers take the hammers (or their hands). YOU name a word — they race to swat the right flashcard on the mat. Words: rat, red, rug, rag + apple, bag, bat, bus. The winner stays, a new challenger comes. 2–3 minutes and done.">
+  <div class="eyebrow reveal-el">Game time</div>
+  <h1 class="title reveal-el">Fly swat! 🔨</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — RACE to swat the word!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">🐁</span><div class="fc-name">rat</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">🔴</span><div class="fc-name">red</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><img src="../media/kb1-u1-fc-rug.png" alt="rug"><div class="fc-name">rug</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><img src="../media/kb1-u1-fc-rag.png" alt="rag"><div class="fc-name">rag</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">🍎</span><div class="fc-name">apple</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">👜</span><div class="fc-name">bag</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">🦇</span><div class="fc-name">bat</div></div>
+    <div class="fc" onclick="this.classList.toggle('picked')"><span class="fc-emoji">🚌</span><div class="fc-name">bus</div></div>
+  </div>
 </section>
 
-<!-- 13 · WI-FI — BEFORE THE TEST -->
-<section class="slide wifi" data-notes="The quietest Wi-Fi of the lesson — the test is next.">
-  <svg class="wifi-ic reveal" viewBox="0 0 100 72" aria-label="Wi-Fi">
-    <g fill="none" stroke="#14655A" stroke-width="9" stroke-linecap="round">
+<!-- 12 · WI-FI — THE TEST -->
+<section class="slide wifi" data-notes="The QUIETEST Wi-Fi of the lesson — the test is next.">
+  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
       <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
       <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
       <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
     </g>
-    <circle cx="50" cy="60" r="8.5" fill="#14655A"/>
+    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
   </svg>
 </section>
 
-<!-- 14 · STAGE 4 — THE TEST: INTRO -->
-<section class="slide" data-notes="Hand out the test papers (one set per child — pages 1–2). FIRST: 'Write your name!' — wait, help. THEN explain the three parts, short and kind: 1 — listen and write the age (a birthday picture for each); 2 — listen and colour the numbers, ONE number stays white; 3 — circle the s words (no audio, they read). Coloured pencils ready on the tables BEFORE part 2. Part 4 exists but is optional — only if the clock allows (it has its own slide). Folders are OUT — finished tests go in. 20 marks total, 5 per part — your records only, the children never see a number. This picture is the page they are holding.">
-  <div class="eyebrow reveal">Stage 4 · The test · 15 min</div>
-  <h1 class="reveal">The Unit 1 test 🌟</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">📄 Test papers out. <strong>First — write your NAME!</strong> 🖊</p>
-  <p class="task reveal">Three parts: <strong>①</strong> listen &amp; <strong>write the age</strong> ✏️ · <strong>②</strong> listen &amp; <strong>colour</strong> (one number stays white!) 🎨 · <strong>③</strong> circle the <strong>s words</strong> 🔍</p>
-  <p class="task reveal">🖍 Coloured pencils <strong>on the tables now</strong> — you need them in Part 2.</p>
-  <img class="sheet reveal" src="../media/kb1-u1-l5-test-p1.png" alt="the test page 1" style="width:min(380px,58%)">
-  <p class="note reveal">↑ the page they hold: Part 1 on top (a–e), Part 2 below (the six big numbers). Keys are on the next slides.</p>
+<!-- 13 · THE TEST — INTRO -->
+<section class="slide" data-notes="Hand out the test papers (one set per child — pages 1–2). FIRST: 'Write your name!' — wait, help. THEN explain the three parts, short and kind: 1 — listen and write the age; 2 — listen and colour the numbers, ONE number stays white; 3 — circle the s words (no audio, they read). Coloured pencils on the tables BEFORE part 2. Part 4 exists but is optional — its own slide later; flip past it if the clock is tight. Folders are OUT — finished tests go in and stay at school. 20 marks total, 5 per part — your records only, the children never see a number.">
+  <div class="eyebrow reveal-el">🌟 The test!</div>
+  <h1 class="title reveal-el">Our test! 🌟</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="card peach reveal-el"><p>🖊 <b style="color:var(--lavender-deep)">Write your NAME!</b></p></div>
+  <div class="card mint reveal-el"><p>① 🎧 Listen — <b style="color:var(--mint-deep)">write the number!</b></p></div>
+  <div class="card lavender reveal-el"><p>② 🎨 Listen — <b style="color:var(--lavender-deep)">colour the numbers!</b></p></div>
+  <div class="card pink reveal-el"><p>③ 👀 <b style="color:var(--pink)">Circle the s words!</b></p></div>
+  <div class="card mint reveal-el"><p>You know EVERYTHING! 💪</p></div>
 </section>
 
-<!-- 15 · TEST PART 1 -->
-<section class="slide" data-notes="PART 1. Play the track — each item sounds TWICE in the recording ('I'm four / I'm seven / I'm five / I'm six / I'm ten'). They write the digits in the boxes a–e. Then pencils up, check together — tap 'show'. KEY: a = 4 (balloons) · b = 7 (cake) · c = 5 (party hat) · d = 6 (cake) · e = 10 (trumpet).">
-  <div class="eyebrow reveal">Stage 4 · The test · Part 1</div>
-  <h1 class="reveal">Part 1 — listen and write the age 🎂</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">🎧 Listen — each question <strong>twice</strong>. Write the <strong>number</strong> in the box.</p>
-  <audio class="reveal" controls preload="none" src="../media/kb1-u1-test-e1-p1.mp3"></audio>
-  <p class="task reveal">Pencils <strong>up</strong> — check together:</p>
-  <button class="reveal-btn reveal" onclick="reveal(this,'r-p1')">show the key</button>
-  <div class="answer" id="r-p1">a = <b>4</b> · b = <b>7</b> · c = <b>5</b> · d = <b>6</b> · e = <b>10</b></div>
+<!-- 14 · TEST PART 1 -->
+<section class="slide" data-notes="PART 1. Play the track — each item sounds TWICE in the recording ('I'm four / I'm seven / I'm five / I'm six / I'm ten'). They write the digits in the boxes a–e. Then pencils up, check together — tap the shows. KEY: a = 4 (balloons) · b = 7 (cake) · c = 5 (party hat) · d = 6 (cake) · e = 10 (trumpet).">
+  <div class="eyebrow reveal-el">Test · part 1 🎂</div>
+  <h1 class="title reveal-el">Listen and write! 🎧</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — write the number in the box!</div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u1-test-e1-p1.mp3"></audio>
+  <div class="task reveal-el">✏️✋ Pencils UP — tap and check!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">🎈</span><div class="fc-name">a → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">4</span></div></div>
+    <div class="fc"><span class="fc-emoji">🎂</span><div class="fc-name">b → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">7</span></div></div>
+    <div class="fc"><span class="fc-emoji">🥳</span><div class="fc-name">c → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">5</span></div></div>
+    <div class="fc"><span class="fc-emoji">🍰</span><div class="fc-name">d → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">6</span></div></div>
+    <div class="fc"><span class="fc-emoji">🎺</span><div class="fc-name">e → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">10</span></div></div>
+  </div>
 </section>
 
-<!-- 16 · TEST PART 2 -->
-<section class="slide" data-notes="PART 2. 'Listen and colour. There is one extra number.' Play the track (each item twice). KEY: 3 = green · 9 = purple · 2 = pink · 5 = orange · 1 = blue — and 7 stays WHITE (the extra number). Check together on the board: a child taps the numbers — they fill; the 7 gets the ✋.">
-  <div class="eyebrow reveal">Stage 4 · The test · Part 2</div>
-  <h1 class="reveal">Part 2 — listen and colour 🌈</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">🎧 Listen and colour. <strong>One number stays white!</strong></p>
-  <audio class="reveal" controls preload="none" src="../media/kb1-u1-test-e1-p2.mp3"></audio>
-  <p class="task reveal">Pencils <strong>up</strong> — check together:</p>
-  <button class="reveal-btn reveal" onclick="reveal(this,'r-p2')">show the key</button>
-  <div class="answer" id="r-p2">3 = green · 9 = purple · 2 = pink · 5 = orange · 1 = blue — <b>7 stays white!</b></div>
+<!-- 15 · TEST PART 2 -->
+<section class="slide" data-notes="PART 2. 'Listen and colour. There is one extra number.' Play the track (each item twice). KEY: 3 = green · 9 = purple · 2 = pink · 5 = orange · 1 = blue — and 7 stays WHITE (the extra number). Check together: a child taps the numbers — they fill; the 7 gets the ✋.">
+  <div class="eyebrow reveal-el">Test · part 2 🌈</div>
+  <h1 class="title reveal-el">Listen and colour! 🎨</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 One number stays WHITE! 🤫</div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u1-test-e1-p2.mp3"></audio>
+  <div class="task reveal-el">✏️✋ Pencils UP — tap and check!</div>
+  <div class="star-row reveal-el">
+    <div class="star" onclick="fillStar(this)" data-color="#7DBB42"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#7DBB42"/></svg><span class="num">3</span></div>
+    <div class="star" onclick="fillStar(this)" data-color="#9a7fff"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#9a7fff"/></svg><span class="num">9</span></div>
+    <div class="star" onclick="fillStar(this)" data-color="#FF8FAB"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#FF8FAB"/></svg><span class="num">2</span></div>
+    <div class="star" onclick="fillStar(this)" data-color="#E67E22"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#E67E22"/></svg><span class="num">5</span></div>
+    <div class="star" onclick="fillStar(this)" data-color="#3498DB"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/><path class="fill" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#3498DB"/></svg><span class="num">1</span></div>
+    <div class="star" onclick="this.querySelector('.num').textContent='✋'"><svg viewBox="0 0 100 100"><path class="base" d="M50 4 L63 37 L98 38 L70 59 L80 94 L50 73 L20 94 L30 59 L2 38 L37 37 Z" fill="#fff" stroke="#2D3436" stroke-width="4"/></svg><span class="num">7</span></div>
+  </div>
 </section>
 
-<!-- 17 · TEST PART 3 -->
+<!-- 16 · TEST PART 3 -->
 <section class="slide" data-notes="PART 3 — no audio, a READING part: 'Find the s words — circle them!' They circle: snake, six, seven, star, standing up (5 items). The other pictures stay empty. When the three parts are done → the tests go INTO THE FOLDERS (their folder, their test, stays at school).">
-  <div class="eyebrow reveal">Stage 4 · The test · Part 3 — reading, no audio</div>
-  <h1 class="reveal">Part 3 — circle the <strong>s</strong> words 🔍</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">👀 No audio — <strong>your eyes only</strong>! Circle the words that start with <strong>s</strong>.</p>
-  <button class="reveal-btn reveal" onclick="reveal(this,'r-p3')">show the key</button>
-  <div class="answer" id="r-p3">snake 🐍 · six 6️⃣ · seven 7️⃣ · star ⭐ · standing up 🧍</div>
-  <div class="glue reveal">📁 Done? <strong>The test goes into YOUR folder!</strong></div>
+  <div class="eyebrow reveal-el">Test · part 3 👀 — no audio!</div>
+  <h1 class="title reveal-el">Circle the s words! 🔍</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Find the s words — circle them!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">🐍</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">snake</span></div></div>
+    <div class="fc"><span class="fc-emoji">6️⃣</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">six</span></div></div>
+    <div class="fc"><span class="fc-emoji">7️⃣</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">seven</span></div></div>
+    <div class="fc"><span class="fc-emoji">⭐</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">star</span></div></div>
+    <div class="fc"><span class="fc-emoji">🧍</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">standing up</span></div></div>
+  </div>
+  <div class="card peach reveal-el"><p>📁 The test goes in <b style="color:var(--lavender-deep)">YOUR folder</b>! 🌟</p></div>
 </section>
 
-<!-- 18 · TEST PART 4 — OPTIONAL -->
-<section class="slide" data-notes="OPTIONAL — the конспект's Part 4, only if the clock allows; otherwise flip straight past it. 'Listen and tick the box' — five commands, each twice. KEY: 1a (sit down) · 2a (pick up your book) · 3b (close the door) · 4c (listen to the CD) · 5c (open the door).">
-  <div class="eyebrow reveal">Stage 4 · The test · Part 4 — OPTIONAL (skip if no time)</div>
-  <h1 class="reveal">Part 4 — listen and tick ✅ <span class="tag">optional</span></h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">🎧 Listen — <strong>tick the box</strong>. Each question <strong>twice</strong>.</p>
-  <audio class="reveal" controls preload="none" src="../media/kb1-u1-test-e1-p4.mp3"></audio>
-  <p class="task reveal">Check together:</p>
-  <button class="reveal-btn reveal" onclick="reveal(this,'r-p4')">show the key</button>
-  <div class="answer" id="r-p4">1a sit down · 2a pick up your book · 3b close the door · 4c listen to the CD · 5c open the door</div>
+<!-- 17 · TEST PART 4 — OPTIONAL -->
+<section class="slide" data-notes="OPTIONAL — only if the clock allows; otherwise just flip past this slide. 'Listen and tick the box' — five commands, each twice. KEY: 1a (sit down) · 2a (pick up your book) · 3b (close the door) · 4c (listen to the CD) · 5c (open the door).">
+  <div class="eyebrow reveal-el">Test · part 4 · OPTIONAL</div>
+  <h1 class="title reveal-el">Listen and tick! ✅</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — tick the box!</div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u1-test-e1-p4.mp3"></audio>
+  <div class="task reveal-el">✏️✋ Pencils UP — check!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">🪑</span><div class="fc-name">1 → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">a</span></div></div>
+    <div class="fc"><span class="fc-emoji">📕</span><div class="fc-name">2 → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">a</span></div></div>
+    <div class="fc"><span class="fc-emoji">🚪</span><div class="fc-name">3 → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">b</span></div></div>
+    <div class="fc"><span class="fc-emoji">💿</span><div class="fc-name">4 → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">c</span></div></div>
+    <div class="fc"><span class="fc-emoji">🚪</span><div class="fc-name">5 → <button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">c</span></div></div>
+  </div>
 </section>
 
-<!-- 19 · THE TEST IS DONE — HOW WAS IT? -->
-<section class="slide" data-notes="Close the test kindly: 'How was the test?' — each child shows a number 1–10 (or a smile: happy / okay / tired) — on the board they tap it. Comment on common mistakes, no names, no marks aloud (the marks are yours only). The tests are already in the folders — the folders go to the shelf.">
-  <div class="eyebrow reveal">Stage 4 · The test is done 🎉</div>
-  <h1 class="reveal">How was the test? 1–10</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">Each child shows a number — <strong>or a smile</strong>: happy 🙂 · okay 😐 · tired 😴</p>
-  <p class="note reveal">Board: they tap their number. Comment kindly — no names, no marks aloud.</p>
-  <div class="glue reveal">📁 The folders go to the shelf — the tests stay at school. <strong>The first test — well done!</strong></div>
+<!-- 18 · HOW WAS THE TEST? -->
+<section class="slide" data-notes="Close the test kindly: 'How was the test?' — each child shows a number 1–10 (or a smile: happy / okay / tired) — they tap it on the board. Comment on common mistakes, no names, no marks aloud (the marks are yours only). The tests are already in the folders — the folders go to the shelf.">
+  <div class="eyebrow reveal-el">The test is done! 🎉</div>
+  <h1 class="title reveal-el">How was the test? 🌈</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Tap your number!</div>
+  <div class="num-grid reveal-el">
+    <div class="num" style="background:#7DBB42" onclick="this.classList.toggle('lit')">1</div>
+    <div class="num" style="background:#7DBB42" onclick="this.classList.toggle('lit')">2</div>
+    <div class="num" style="background:#F1C40F" onclick="this.classList.toggle('lit')">3</div>
+    <div class="num" style="background:#F1C40F" onclick="this.classList.toggle('lit')">4</div>
+    <div class="num" style="background:#F1C40F" onclick="this.classList.toggle('lit')">5</div>
+    <div class="num" style="background:#E67E22" onclick="this.classList.toggle('lit')">6</div>
+    <div class="num" style="background:#E67E22" onclick="this.classList.toggle('lit')">7</div>
+    <div class="num" style="background:#E74C3C" onclick="this.classList.toggle('lit')">8</div>
+    <div class="num" style="background:#E74C3C" onclick="this.classList.toggle('lit')">9</div>
+    <div class="num" style="background:#E74C3C" onclick="this.classList.toggle('lit')">10</div>
+  </div>
+  <div class="card peach reveal-el"><p>📁 Your test → <b style="color:var(--lavender-deep)">your folder</b>! 📁</p></div>
 </section>
 
-<!-- 20 · STAGE 5 — GOODBYE + HOMEWORK -->
-<section class="slide" data-notes="The goodbye routine, then the homework — the конспект's two items: 1) AB p. 8 ex. 2: write r in the gaps — red, rainbow — and draw them; 2) trace big R and small r on the Rr worksheet (the rows we skipped in class). The RU line is for the parents' chat.">
-  <div class="eyebrow reveal">Stage 5 · Goodbye + homework</div>
-  <h1 class="reveal">Homework 🏠</h1>
-  <div class="rule reveal"></div>
-  <p class="task reveal">📖 <strong>AB p. 8, ex. 2</strong> — write <strong>r</strong>: <em><strong>r</strong>ed</em> · <em><strong>r</strong>ainbow</em> — and <strong>draw</strong> them!</p>
-  <p class="task reveal">✏️ <strong>Trace R r</strong> on the worksheet — big and small, slowly and beautifully!</p>
-  <p class="note reveal">ДЗ: AB стр. 8, упр. 2 (вписать r: red, rainbow + нарисовать) + обвести R r на распечатке.</p>
-  <p class="task reveal">Goodbye song — see you next time! 👋</p>
+<!-- 19 · GOODBYE + HOMEWORK -->
+<section class="slide" data-notes="The конспект's homework, then the goodbye song: 1) AB p. 8 ex. 2 — write r in the gaps: red, rainbow — and draw them; 2) trace big R and small r on the Rr worksheet (the rows skipped in class). The RU line is for the parents. Then sing the Hello song one more time as the GOODBYE — they wave and sing out.">
+  <div class="eyebrow reveal-el">Homework</div>
+  <h1 class="title reveal-el">At home! 🏠</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 AB p. 8, ex. 2 — write r! ✏️</div>
+  <div class="card peach reveal-el">
+    <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.4rem);letter-spacing:.1em">
+      <button class="reveal-btn" style="font-size:.6em;padding:.1em .6em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.05em .4em">r</span>_ed
+      &nbsp;·&nbsp;
+      <button class="reveal-btn" style="font-size:.6em;padding:.1em .6em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.05em .4em">r</span>ainbow
+    </p>
+    <p>…and <b style="color:var(--lavender-deep)">draw</b> them! 🌈</p>
+  </div>
+  <div class="card lavender reveal-el"><p>✏️ <b style="color:var(--mint-deep)">Trace R and r</b> on the worksheet!</p></div>
+  <div class="card pink reveal-el"><p style="font-size:clamp(1rem,1.7vw,1.4rem)">ДЗ: AB стр. 8, упр. 2 (вписать r: red, rainbow + нарисовать) + обвести R r на распечатке.</p></div>
+  <div class="task reveal-el">🎯 Now — the goodbye song! 👋</div>
+  <video class="reveal-el" controls preload="metadata" src="../media/kb1-u1-hello.mp4"></video>
 </section>
 
 <div id="nav">
   <button id="prev" aria-label="previous">‹</button>
-  <span id="counter">1 / 20</span>
+  <div id="counter">1 / 19</div>
   <button id="next" aria-label="next">›</button>
-  <button id="fs" aria-label="fullscreen">⛶</button>
-  <button id="pvbtn" aria-label="presenter view" title="presenter view (T)">🖥</button>
+  <button id="fs" class="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<button id="tnbtn" title="teacher's notes (T)">🗒 Teacher's notes</button>
+
+<div id="tnotes" class="overlay">
+  <span class="closer" onclick="toggleNotes(false)">✕ close</span>
+  <div class="eyebrow">🗒 Teacher's notes · slide <span id="tnstep"></span></div>
+  <div id="tnbody"></div>
 </div>
 
 <script>
-/* ================= mode ================= */
-const params=new URLSearchParams(location.search);
-const EMBED=params.get('embed');            /* 'cur' | 'next' — live thumbnails in the presenter window */
-const PRESENTER=params.get('presenter')==='1';
-const MAIN=!EMBED&&!PRESENTER;
 const slides=[...document.querySelectorAll('.slide')];
 let cur=0;
-const revealed=new Set();
-
-/* ================= sync channel ================= */
-let bc=null;
-try{bc=new BroadcastChannel('kb1-u1l5-deck')}catch(e){}
-function send(m){if(bc)try{bc.postMessage(m)}catch(e){}}
-
-/* ================= chrome refs ================= */
-const bar=document.getElementById('bar'),
+const fill=document.getElementById('progress-fill'),
       cnt=document.getElementById('counter'),
-      prevBtn=document.getElementById('prev'),
-      nextBtn=document.getElementById('next');
-
-/* ================= core nav ================= */
+      prev=document.getElementById('prev'),
+      next=document.getElementById('next');
 let showWatch;
 function show(n){
   if(n<0||n>=slides.length)return;
   slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
   cur=n;
-  bar.style.width=((n+1)/slides.length*100)+'%';
+  fill.style.width=((n+1)/slides.length*100)+'%';
   cnt.textContent=(n+1)+' / '+slides.length;
-  prevBtn.disabled=n===0;nextBtn.disabled=n===slides.length-1;
+  prev.disabled=n===0;next.disabled=n===slides.length-1;
   /* safety net: 1.5s after a slide opens, kill the entrance animation —
      if the animation clock is frozen (background pane), everything still
      becomes fully visible. setTimeout fires even where rAF stalls. */
   clearTimeout(showWatch);
-  showWatch=setTimeout(()=>{const a=slides[n];if(a)a.querySelectorAll('.reveal').forEach(el=>{el.style.animation='none';});},1500);
-  if(PRESENTER)pvUpdate();
+  showWatch=setTimeout(()=>{const a=slides[n];if(a)a.querySelectorAll('.reveal-el').forEach(el=>{el.style.animation='none';});},1500);
 }
 function go(n){
   if(n<0||n>=slides.length)return;
+  if(document.getElementById('tnotes').classList.contains('open'))return; /* the notes overlay owns the screen */
   show(n);
   document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
-  if(MAIN)history.replaceState(null,'','#'+(n+1));
-  if(MAIN)send({t:'go',n});
+  history.replaceState(null,'','#'+(n+1));
 }
-prevBtn.onclick=()=>go(cur-1);nextBtn.onclick=()=>go(cur+1);
-
-/* ================= reveals ================= */
-function markShown(id){
-  const a=document.getElementById(id);
-  if(!a||a.classList.contains('show'))return;
-  a.classList.add('show');
-  const b=document.querySelector('button[onclick*="\''+id+'\'"]')||document.querySelector('button[onclick*="'+id+'"]');
-  if(b){b.textContent='✅ показано';b.style.opacity=.55;b.disabled=true;}
-}
-function reveal(btn,id){
-  markShown(id);
-  if(!revealed.has(id)){revealed.add(id);}
-  send({t:'reveal',id});
-}
-
-/* ================= messages ================= */
-if(bc)bc.onmessage=e=>{
-  const m=e.data||{};
-  if(m.t==='go'){
-    if(EMBED){show(EMBED==='cur'?m.n:Math.min(m.n+1,slides.length-1));}
-    else if(MAIN&&m.n!==cur){show(m.n);history.replaceState(null,'','#'+(m.n+1));
-      document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});}
-    else if(PRESENTER){cur=m.n;pvUpdate();}
+prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+/* ============ THE TEACHER'S NOTES (one-deck rule) ============ */
+function toggleNotes(force){
+  const ov=document.getElementById('tnotes');
+  const open=force===undefined?!ov.classList.contains('open'):force;
+  if(open){
+    document.getElementById('tnstep').textContent=(cur+1)+' / '+slides.length;
+    const body=document.getElementById('tnbody');
+    const txt=(slides[cur].dataset.notes||'').trim();
+    body.innerHTML='';
+    if(!txt){
+      body.innerHTML='<div class="note-step"><span class="b">·</span><span>No notes for this slide — just teach it. 🙂</span></div>';
+    }else{
+      txt.split('\n\n').forEach(block=>{
+        const d=document.createElement('div');d.className='note-step';
+        const b=document.createElement('span');b.className='b';b.textContent='›';
+        const s=document.createElement('span');s.textContent=block;
+        d.appendChild(b);d.appendChild(s);body.appendChild(d);
+      });
+    }
   }
-  if(m.t==='set'&&MAIN)go(m.n);
-  if(m.t==='reveal'){
-    if(EMBED||MAIN){markShown(m.id);revealed.add(m.id);}
-  }
-  if(m.t==='hello'){
-    if(MAIN)send({t:'state',n:cur,revealed:[...revealed]});
-  }
-  if(m.t==='state'&&EMBED){
-    show(EMBED==='cur'?m.n:Math.min(m.n+1,slides.length-1));
-    (m.revealed||[]).forEach(id=>{markShown(id);revealed.add(id);});
-  }
-  if(m.t==='state'&&PRESENTER){cur=m.n;pvUpdate();}
-};
-send({t:'hello'}); /* ask whoever is already open where we are */
-
-/* ================= presenter window ================= */
-function pvUpdate(){
-  const c=document.getElementById('pvcnt'),nt=document.getElementById('pvnotes');
-  if(c)c.textContent=(cur+1)+' / '+slides.length;
-  if(nt&&slides[cur])nt.textContent=slides[cur].dataset.notes||'';
+  ov.classList.toggle('open',open);
 }
-function pvFit(){
-  document.querySelectorAll('.pvframe').forEach(f=>{
-    const ifr=f.querySelector('iframe');
-    if(ifr)ifr.style.transform='scale('+(f.clientWidth/1440)+')';
-  });
+document.getElementById('tnbtn').onclick=()=>toggleNotes();
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.key==='Escape')toggleNotes(false);
+  if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();toggleNotes();}
+  const notesOpen=document.getElementById('tnotes').classList.contains('open');
+  if(notesOpen)return; /* while reading the notes, the board stays put */
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
+});
+let wl=0;
+document.addEventListener('wheel',e=>{
+  const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;
+  go(cur+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
+},{passive:true});
+function reveal(btn){
+  const a=btn.nextElementSibling;
+  if(a){a.classList.add('show');}
+  btn.style.display='none';
 }
-if(PRESENTER){
-  document.body.classList.add('presenter');
-  const pv=document.createElement('div');pv.id='pv';
-  pv.innerHTML=
-    '<div class="pvhead"><b>Presenter</b> · KB1 · Unit 1 · Lesson 5 · <span class="pvcnt" id="pvcnt"></span></div>'+
-    '<div class="pvwarn" id="pvwarn">⚠ No sync: this window works only over http:// — open the deck via the local server or the site link, then press T again.</div>'+
-    '<div class="pvlabel">now — what the class sees</div><div class="pvframe"><iframe src="'+location.pathname+'?embed=cur"></iframe></div>'+
-    '<div class="pvlabel">next</div><div class="pvframe"><iframe src="'+location.pathname+'?embed=next"></iframe></div>'+
-    '<div class="pvnotes" id="pvnotes"></div>'+
-    '<div class="pvbtns"><button id="pvprev">‹</button><button id="pvfw">›</button></div>';
-  document.body.appendChild(pv);
-  document.getElementById('pvprev').onclick=()=>send({t:'set',n:cur-1});
-  document.getElementById('pvfw').onclick=()=>send({t:'set',n:cur+1});
-  addEventListener('resize',pvFit);setTimeout(pvFit,300);setTimeout(pvFit,1200);
-  if(!bc)document.getElementById('pvwarn').style.display='block';
-  pvUpdate();
+/* the numbered stars: one tap → fills with its colour (Elena names, a child taps) */
+function fillStar(el){
+  if(el.classList.contains('done'))return;
+  const f=el.querySelector('.fill');
+  const c=el.dataset.color;
+  if(f&&c){f.setAttribute('fill',c);}
+  el.classList.add('done');
 }
-
-/* ================= input (main only) ================= */
-if(MAIN){
-  document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
-  document.getElementById('pvbtn').onclick=openPresenter;
-  document.addEventListener('keydown',e=>{
-    if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
-    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
-    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
-    if(e.key==='Home')go(0);
-    if(e.key==='End')go(slides.length-1);
-    if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
-    if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&!e.metaKey&&!e.ctrlKey)openPresenter();
-  });
-  let wl=0;
-  document.addEventListener('wheel',e=>{
-    const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;
-    go(cur+(e.deltaY>0?1:-1));
-  },{passive:true});
-  let tx=0;
-  document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
-  document.addEventListener('touchend',e=>{
-    const dx=e.changedTouches[0].clientX-tx;
-    if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
-  },{passive:true});
-}
-function openPresenter(){
-  send({t:'hello'}); /* refresh any already-open windows */
-  window.open(location.pathname+'?presenter=1','kb1u1l5pv','width=560,height=940');
-}
-
-/* ================= start: hash restores the slide ================= */
 const h=parseInt(location.hash.slice(1));
-show(MAIN&&(!isNaN(h))?(h-1):0);
+show(isNaN(h)?0:h-1);
 </script>
 
 <script>
-/* READY-CHIME (standing rule, 2026-09-04): when ZCode saves a new version of
-   this deck, the OPEN window chimes and reloads itself — no manual refresh,
-   the hash puts her back on the same slide. http:// only; silent on file://. */
+/* READY-CHIME (Elena, 2026-09-04): when ZCode saves a new version of this
+   deck, the OPEN window chimes and reloads itself — no manual refresh, and
+   the hash puts her back on the same slide. Needs http://; on file:// silent. */
 (function(){
-  if(!MAIN)return;
   if(!/^https?:$/.test(location.protocol))return;
   let last=null,ctx=null;
   const unlock=()=>{try{
