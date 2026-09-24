@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phonics & practice — one link</title>
+<style>
+  :root{
+    --bg:#faf7f2; --card:#ffffff; --ink:#2d2a26; --sub:#7a746c;
+    --bank:#b07a1f; --bank-bg:#fbf3e2; --gram:#ad3a68; --gram-bg:#faecf2; --line:#eae4da;
+    --ph:#1f7fb8; --ph-bg:#e7f2fa;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#211f1c; --card:#2b2825; --ink:#f0ece5; --sub:#a49c91;
+      --bank-bg:#362c17; --gram-bg:#3a2030; --line:#3a3630; --ph-bg:#1c2f3d; }
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    padding:28px 18px 60px; max-width:820px; margin-inline:auto;}
+  h1{font-size:30px; margin:0 0 4px; letter-spacing:-.5px}
+  .hint{color:var(--sub); font-size:15px; margin:0 0 30px}
+  h2{font-size:21px; margin:34px 0 4px; display:flex; align-items:center; gap:10px}
+  .dot{width:13px; height:13px; border-radius:50%; flex:none}
+  .sect-sub{color:var(--sub); font-size:14px; margin:8px 0 14px}
+  .chips{display:flex; flex-wrap:wrap; gap:12px}
+  a.chip{display:inline-flex; flex-direction:column; justify-content:center; gap:2px;
+    min-height:58px; padding:9px 18px; border-radius:15px; text-decoration:none;
+    background:var(--card); border:1.5px solid var(--line); color:var(--ink);}
+  a.chip:active{transform:scale(.97)}
+  .chip .code{font-weight:800; font-size:19px; letter-spacing:.2px}
+  .chip .what{font-size:13px; color:var(--sub); max-width:270px}
+  .chip .tag{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.8px;
+    text-transform:uppercase; color:var(--sub); margin-top:2px}
+  .bank .code{color:var(--bank)} .bank{background:var(--bank-bg); border-color:transparent}
+  .gram .code{color:var(--gram)} .gram{background:var(--gram-bg); border-color:transparent}
+  .ph .code{color:var(--ph)} .ph{background:var(--ph-bg); border-color:transparent}
+  footer{margin-top:44px; color:var(--sub); font-size:13px}
+</style>
+</head>
+<body>
+
+<h1>Phonics &amp; practice 🎀</h1>
+<p class="hint">Letter sounds and training decks. Tap a card — it opens right here. New decks appear on this page — the address never changes.</p>
+
+<h2><span class="dot" style="background:var(--ph)"></span>Phonics</h2>
+<p class="sect-sub">letters through the brands the children know — newest on top</p>
+<div class="chips">
+  <a class="chip ph" href="brand-phonics-s-i-t-p-a.html"><span class="code">s i t p a</span><span class="what">first words &amp; the story «I sit» · Skittles, TikTok, Pepsi… — the words speak on tap</span><span class="tag">new</span></a>
+  <a class="chip ph" href="brand-phonics-n.html"><span class="code">n</span><span class="what">the letter n · Nesquik, Nike, Nutella…</span></a>
+</div>
+
+<h2><span class="dot" style="background:var(--bank)"></span>Practice &amp; drilling</h2>
+<p class="sect-sub">playable training decks — for home and for spare minutes</p>
+<div class="chips">
+  <a class="chip bank" href="../lib/grammar-drill.html"><span class="code">Grammar sprint</span><span class="what">the timed drill · universal · repeat on mistake</span></a>
+  <a class="chip bank" href="../lib/question-builder.html"><span class="code">Question Builder</span><span class="what">word order · 5 random builders · say then check</span></a>
+  <a class="chip gram" href="../lib/weather-adjectives.html"><span class="code">rain → rainy</span><span class="what">noun vs adjective · games inside</span></a>
+  <a class="chip gram" href="../lib/verb-s-spelling.html"><span class="code">Verb + S</span><span class="what">the spelling rules · he, she, it + S</span></a>
+</div>
+
+<footer>the address never changes · newest deck on top · updated 2026-09-24</footer>
+</body>
+</html>
