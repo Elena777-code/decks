@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kid's Box 1 · Primary Activity Box 1.6 — Hold your pencil up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ "Minty Fresh" — ONE deck, ONE song ============
+   KB1 · Primary Activity Box 1.6 "Hold your pencil up" (the
+   TPR chant, Cambridge Copy Collection). THE ONE-DECK RULE:
+   the board deck + 🗒 Teacher's notes pill bottom-left on
+   every slide (tap or T — the notes open over the board).
+   THE KIDS CAN'T READ (Elena, 2026-09-24) — everything works
+   through PICTURES and ACTIONS: the chant cards carry a big
+   picture + a small line (for Elena's eyes), they start
+   grey and light up in time with the track; the actions game
+   is pictures only. Audio: media/pab-1-6-hold-your-pencil-up.mp3
+   (copied from the Elena stick per the Songs Rule). */
+:root{
+  --mint:#95E1D3;         /* soft mint */
+  --mint-deep:#5ecbb8;    /* mint accent for text/icons */
+  --peach:#FCE38A;        /* warm yellow */
+  --lavender:#C8B6FF;     /* lavender */
+  --lavender-deep:#9a7fff;/* lavender accent */
+  --cream:#FFF8F0;        /* page background */
+  --pink:#FF8FAB;         /* pink accent */
+  --ink:#2D3436;          /* main text */
+  --ink-soft:#636e72;     /* secondary text */
+  --white:#ffffff;
+  --radius:22px;
+  --shadow:0 10px 30px rgba(45,52,54,.12);
+  --shadow-lg:0 20px 50px rgba(45,52,54,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);overflow:hidden}
+/* ============ chrome ============ */
+#progress-track{position:fixed;top:0;left:0;width:100vw;height:7px;background:rgba(200,182,255,.35);z-index:100}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--lavender),var(--pink));transition:width .4s cubic-bezier(.22,1,.36,1)}
+#nav{
+  position:fixed;bottom:14px;right:max(10px,1.6vw);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border-radius:99px;padding:8px 14px;box-shadow:var(--shadow);
+}
+#nav button{
+  width:44px;height:44px;border-radius:50%;border:none;
+  background:var(--white);color:var(--mint-deep);font-size:1.35rem;cursor:pointer;
+  box-shadow:0 2px 10px rgba(45,52,54,.10);
+  transition:transform .15s ease,opacity .15s ease;font-family:inherit;
+}
+#nav button:hover{transform:scale(1.08)}
+#nav button:disabled{opacity:.3;cursor:default;transform:none}
+#nav button.fs{width:auto;border-radius:99px;padding:0 16px;font-size:1.05rem}
+#counter{font-weight:800;color:var(--ink-soft);font-size:1rem;min-width:3.6em;text-align:center}
+/* ============ THE TEACHER'S NOTES (one-deck rule) ============ */
+#tnbtn{
+  position:fixed;left:max(10px,1.6vw);bottom:14px;z-index:100;
+  font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(.8rem,1.25vw,1.05rem);border:none;cursor:pointer;
+  border-radius:99px;padding:.45em 1.05em;background:rgba(255,255,255,.9);
+  box-shadow:0 4px 12px rgba(45,52,54,.12);color:var(--ink-soft);
+  transition:transform .15s ease,color .15s ease;
+}
+#tnbtn:hover{transform:scale(1.05);color:var(--ink)}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(255,248,240,.985);display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
+.overlay.open{display:flex}
+.overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
+.overlay .closer:hover{color:var(--ink)}
+#tnotes .eyebrow{margin-bottom:1vh}
+#tnbody{display:flex;flex-direction:column;gap:.6em;max-width:900px}
+#tnbody .note-step{display:flex;gap:.7em;align-items:flex-start;padding:.7em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);font-size:clamp(1rem,1.8vw,1.35rem);line-height:1.5}
+#tnbody .note-step .b{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--mint-deep);flex:0 0 auto}
+/* ============ slides ============ */
+.slide{
+  position:absolute;inset:0;
+  padding:4.2vh 5vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;gap:1.6vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),visibility .5s;
+  overflow:auto;
+}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0) scale(1)}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal-el{animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
+.slide.active .reveal-el:nth-child(2){animation-delay:.08s}
+.slide.active .reveal-el:nth-child(3){animation-delay:.16s}
+.slide.active .reveal-el:nth-child(4){animation-delay:.24s}
+.slide.active .reveal-el:nth-child(5){animation-delay:.32s}
+.slide.active .reveal-el:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+/* ============ the Wi-Fi interstitial ============ */
+.slide.wifi{justify-content:center;align-items:center;background:#fff}
+.wifi-ic{width:clamp(180px,32vw,380px);height:auto;animation:wifipulse 2.2s ease-in-out infinite}
+@keyframes wifipulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.045);opacity:1}}
+/* ============ content components ============ */
+.eyebrow{
+  font-size:clamp(1rem,1.8vw,1.4rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lavender-deep);
+}
+h1.title{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.1;color:var(--ink);
+}
+.accent-line{width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.card{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.2vh,24px) clamp(16px,2vw,28px);
+}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.card.pink{background:#ffe9f0}
+.card p{font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.4}
+.task{
+  background:var(--peach);border-radius:99px;align-self:flex-start;
+  padding:.45em 1.2em;font-size:clamp(1.2rem,2.1vw,1.7rem);font-weight:800;color:var(--ink);
+}
+/* the chant: 12 line-cards, grey → colour as the track goes */
+.chant{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.3vh,16px)}
+.line-card{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(8px,1.3vh,14px) clamp(10px,1.2vw,18px);
+  display:flex;align-items:center;gap:clamp(10px,1.4vw,22px);
+  cursor:pointer;user-select:none;
+  filter:grayscale(1);opacity:.32;
+  transition:filter .35s ease,opacity .35s ease,transform .2s cubic-bezier(.34,1.56,.64,1);
+}
+.line-card:hover{transform:scale(1.02)}
+.line-card.on{filter:none;opacity:1;transform:scale(1.02)}
+.line-card .pic{font-size:clamp(2rem,5.2vh,3.6rem);line-height:1.15;flex:0 0 auto}
+.line-card .txt{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.05rem,2vw,1.6rem);line-height:1.25;color:var(--ink);
+}
+.line-card .hint{display:block;font-family:'Nunito',sans-serif;font-weight:700;font-size:.68em;color:var(--mint-deep);letter-spacing:.04em}
+audio{width:min(560px,100%);margin-top:.2vh}
+/* the actions game: pictures only, tap → the class does it */
+.act-grid{display:flex;flex-wrap:wrap;gap:clamp(12px,1.8vw,24px);justify-content:center}
+.act{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(12px,1.8vh,20px);cursor:pointer;user-select:none;
+  display:flex;flex-direction:column;align-items:center;gap:.5vh;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease;
+}
+.act .pic{font-size:clamp(3.4rem,9vh,6.2rem);line-height:1.15}
+.act:hover{transform:translateY(-4px) scale(1.04)}
+.act.picked{transform:scale(1.08);box-shadow:0 0 0 7px var(--peach),var(--shadow-lg)}
+video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--shadow-lg)}
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<!-- 1 · THE CHANT — play + reveal the lines in time -->
+<section class="slide" data-notes="PREP: a PENCIL per child — the chant needs it! Play the track (the button). 1st round: the class LISTENS AND WATCHES — you click the cards in time with the chant, each lights up: grey → colour (they go left to right, top to bottom). 2nd round: play again — EVERYBODY does the actions with the chant, pencils up! 3rd round: faster — or mute the track and YOU chant, the class does. The kids can't read — they follow the PICTURES and you; the small words are for your eyes. The chant's language: hold your pencil up · put it down again · write, draw, tap · point to the blackboard / floor / window / door · clap 1 2 3 · stand up.">
+  <div class="eyebrow reveal-el">🎵 Our chant · Primary Activity Box 1.6</div>
+  <h1 class="title reveal-el">Hold your pencil up! ✏️⬆️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — tap the lines as the chant goes!</div>
+  <audio controls preload="none" class="reveal-el" src="../media/pab-1-6-hold-your-pencil-up.mp3"></audio>
+  <div class="chant reveal-el">
+    <div class="line-card" onclick="this.classList.add('on')"><span class="pic">✏️⬆️</span><span class="txt">Hold your pencil up.<span class="hint">✋ pencil HIGH!</span></span></div>
+    <div class="line-card" onclick="this.classList.add('on')"><span class="pic">✏️⬆️</span><span class="txt">Hold your pencil up.<span class="hint">✋ pencil HIGH!</span></span></div>
+    <div class="line-card" onclick="this.classList.add('on')"><span class="pic">✍️🎨👋</span><span class="txt">Write, draw, tap, tap, tap.<span class="hint">✍️ tap-tap-tap!</span></span></div>
+    <div class="line-card" onclick="this.classList.add('on')"><span class="pic">✏️⬇️</span><span class="txt">Put it down again.<span class="hint">⬇️ pencil DOWN.</span></span></div>
+    <div class="line-card" onclick="this.classList.add('on')"><span class="pic">✏️⬇️</span><span class="txt">Put it down again.<span class="hint">⬇️ pencil DOWN.</span></span></div>
+    <div class="line-card" onclick="this.classList.add('on')"><span class="pic">✍️🎨👋</span><span class="txt">Write, draw, tap, tap, tap.<span class="hint">✍️ tap-tap-tap!</span></span></div>
+    <div class="line-card" onclick="this.classList.add('on')"><span class="pic">🧑‍🏫👉</span><span class="txt">Point to the blackboard.<span class="hint">👉 point!</span></span></div>
+    <div class="line-card" onclick="this.classList.add('on')"><span class="pic">🟫👇</span><span class="txt">Point to the floor.<span class="hint">👇 point DOWN.</span></span></div>
+    <div class="line-card" onclick="this.classList.add('on')"><span class="pic">🪟👉</span><span class="txt">Point to the window.<span class="hint">👉 point!</span></span></div>
+    <div class="line-card" onclick="this.classList.add('on')"><span class="pic">🚪👉</span><span class="txt">Point to the door.<span class="hint">👉 point!</span></span></div>
+    <div class="line-card" onclick="this.classList.add('on')"><span class="pic">👏1️⃣2️⃣3️⃣</span><span class="txt">Clap your hands together 1, 2, 3.<span class="hint">👏👏👏</span></span></div>
+    <div class="line-card" onclick="this.classList.add('on')"><span class="pic">🧍🎵</span><span class="txt">Now stand up and sing with me.<span class="hint">🧍 UP and SING!</span></span></div>
+  </div>
+</section>
+
+<!-- 2 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi! Then the actions game — pictures only.">
+  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
+  </svg>
+  <div class="card peach reveal-el" style="margin-top:2vh"><p>📶✋ <b>Stop and listen!</b></p></div>
+</section>
+
+<!-- 3 · THE ACTIONS GAME — no reading, pictures only -->
+<section class="slide" data-notes="NO READING NEEDED — pictures only, the class DOES what lights up. YOU tap a card (or a child taps — they love being the caller) — the whole class does the action: hold the pencil high · put it down · point to the blackboard · the floor · the window · the door · clap 1 2 3 · stand up! Say the words as you tap — they hear the chant language again and again. Speed up round by round; wrong action = a laugh and try again. 2–3 minutes, or longer if they love it.">
+  <div class="eyebrow reveal-el">Game · do what lights up!</div>
+  <h1 class="title reveal-el">Do it! ⚡</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Tap a picture — EVERYBODY does it!</div>
+  <div class="act-grid reveal-el">
+    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic">✏️⬆️</span></div>
+    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic">✏️⬇️</span></div>
+    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic">🧑‍🏫👉</span></div>
+    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic">🟫👇</span></div>
+    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic">🪟👉</span></div>
+    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic">🚪👉</span></div>
+    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic">👏1️⃣2️⃣3️⃣</span></div>
+    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic">🧍🎵</span></div>
+  </div>
+</section>
+
+<!-- 4 · GOODBYE + HOMEWORK -->
+<section class="slide" data-notes="The homework (light, no printout, no reading): at home the child PERFORMS the chant for Mum &amp; Dad — all the actions, pencil in hand! The RU line is for the parents' chat. Then the goodbye: one last run of the chant — everybody stands and sings it out (the track or your voice), wave, see you!">
+  <div class="eyebrow reveal-el">Homework</div>
+  <h1 class="title reveal-el">At home! 🏠</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="card peach reveal-el"><p>🎤 <b style="color:var(--lavender-deep)">Teach the chant to Mum &amp; Dad</b> — show them ALL the actions! ✏️⬆️ 👉🪟 👏</p></div>
+  <div class="card pink reveal-el"><p style="font-size:clamp(1rem,1.7vw,1.4rem)">ДЗ: рассказать песенку-зарядку родителям и показать все движения (карандаш в руке!).</p></div>
+  <div class="task reveal-el">🎯 One more time — ALL together, standing! 🧍</div>
+  <div class="card mint reveal-el"><p>✏️⬆️ · ✏️⬇️ · 👉🧑‍🏫 · 👇 · 👉🪟 · 👉🚪 · 👏1 2 3 · 🧍🎵</p></div>
+  <div class="card lavender reveal-el"><p>Great job today! ⭐ See you! 👋</p></div>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <div id="counter">1 / 4</div>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" class="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<button id="tnbtn" title="teacher's notes (T)">🗒 Teacher's notes</button>
+
+<div id="tnotes" class="overlay">
+  <span class="closer" onclick="toggleNotes(false)">✕ close</span>
+  <div class="eyebrow">🗒 Teacher's notes · slide <span id="tnstep"></span></div>
+  <div id="tnbody"></div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const fill=document.getElementById('progress-fill'),
+      cnt=document.getElementById('counter'),
+      prev=document.getElementById('prev'),
+      next=document.getElementById('next');
+let showWatch;
+function show(n){
+  if(n<0||n>=slides.length)return;
+  slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
+  cur=n;
+  fill.style.width=((n+1)/slides.length*100)+'%';
+  cnt.textContent=(n+1)+' / '+slides.length;
+  prev.disabled=n===0;next.disabled=n===slides.length-1;
+  /* safety net: 1.5s after a slide opens, kill the entrance animation —
+     if the animation clock is frozen (background pane), everything still
+     becomes fully visible. setTimeout fires even where rAF stalls. */
+  clearTimeout(showWatch);
+  showWatch=setTimeout(()=>{const a=slides[n];if(a)a.querySelectorAll('.reveal-el').forEach(el=>{el.style.animation='none';});},1500);
+}
+function go(n){
+  if(n<0||n>=slides.length)return;
+  if(document.getElementById('tnotes').classList.contains('open'))return; /* the notes overlay owns the screen */
+  show(n);
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  history.replaceState(null,'','#'+(n+1));
+}
+prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+/* ============ THE TEACHER'S NOTES (one-deck rule) ============ */
+function toggleNotes(force){
+  const ov=document.getElementById('tnotes');
+  const open=force===undefined?!ov.classList.contains('open'):force;
+  if(open){
+    document.getElementById('tnstep').textContent=(cur+1)+' / '+slides.length;
+    const body=document.getElementById('tnbody');
+    const txt=(slides[cur].dataset.notes||'').trim();
+    body.innerHTML='';
+    if(!txt){
+      body.innerHTML='<div class="note-step"><span class="b">·</span><span>No notes for this slide — just teach it. 🙂</span></div>';
+    }else{
+      txt.split('\n\n').forEach(block=>{
+        const d=document.createElement('div');d.className='note-step';
+        const b=document.createElement('span');b.className='b';b.textContent='›';
+        const s=document.createElement('span');s.textContent=block;
+        d.appendChild(b);d.appendChild(s);body.appendChild(d);
+      });
+    }
+  }
+  ov.classList.toggle('open',open);
+}
+document.getElementById('tnbtn').onclick=()=>toggleNotes();
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.key==='Escape')toggleNotes(false);
+  if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();toggleNotes();}
+  const notesOpen=document.getElementById('tnotes').classList.contains('open');
+  if(notesOpen)return; /* while reading the notes, the board stays put */
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
+});
+let wl=0;
+document.addEventListener('wheel',e=>{
+  const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;
+  go(cur+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
+},{passive:true});
+const h=parseInt(location.hash.slice(1));
+show(isNaN(h)?0:h-1);
+</script>
+
+<script>
+/* READY-CHIME (Elena, 2026-09-04): when ZCode saves a new version of this
+   deck, the OPEN window chimes and reloads itself — no manual refresh, and
+   the hash puts her back on the same slide. Needs http://; on file:// silent. */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{        /* ding — dong */
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.pathname,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
