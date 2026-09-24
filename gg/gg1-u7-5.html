@@ -198,14 +198,15 @@ body.presenter .slide,body.presenter #nav,body.presenter #bar{display:none}
 </section>
 
 <!-- 3 · DICTATION — chips cycle: number → picture (describe it!) → word -->
-<section class="slide" data-notes="THE DICTATION — moved from 17.09 (only 2 ss were there at the start, one unprepared). Elena dictates the 15 U7.1 wild-animal words (SB p. 83 box); the ss write into the copybooks. THE CHECK — each chip cycles: tap 1 → the PICTURE — the ss DESCRIBE it the simplest way (It can… It lives… It has got…); tap 2 → the WORD — the spelling check (✓ / fix); tap 3 → hides. The words are SHUFFLED on purpose — never alphabetical (the standing dictation rule, all groups). Praise the clean sheets. Board support: the child deck, slide 2 — the same chips, bigger.">
+<section class="slide" data-notes="THE DICTATION — moved from 17.09 (only 2 ss were there at the start, one unprepared). Elena dictates the 15 U7.1 wild-animal words (SB p. 83 box); the ss write into the copybooks. THE CHECK — each chip cycles: tap 1 → the PICTURE — the ss DESCRIBE the animal (the board shows the six questions: where it lives · colour · what it has got · big/tall/small · what it eats · what it can do) and the model two-liner appears under the chips for you; tap 2 → the WORD — the spelling check (✓ / fix); tap 3 → hides. The words are SHUFFLED on purpose — never alphabetical (the standing dictation rule, all groups). Praise the clean sheets. Board support: the child deck, slide 2 — the same chips, bigger.">
   <div class="eyebrow reveal">Dictation · moved from 17.09</div>
   <h1 class="reveal">Dictation check — 15 words ✏️</h1>
   <div class="rule reveal"></div>
-  <p class="task reveal"><strong>Pencils down</strong> — check together: tap 1 = the picture → <strong>describe it</strong>: <em>"It can… It lives… It has got…"</em> · tap 2 = the word → ✓ or fix.</p>
+  <p class="task reveal"><strong>Pencils down</strong> — check together: tap 1 = the picture → <strong>describe the animal</strong> (the six questions are on the board) · tap 2 = the word → ✓ or fix.</p>
   <div class="ask reveal" style="align-self:stretch;display:flex;flex-wrap:wrap;gap:.5em">
     <span class="dic" data-w="giraffe" data-pic="🦒" onclick="dic(this)">1</span><span class="dic" data-w="crocodile" data-pic="🐊" onclick="dic(this)">2</span><span class="dic" data-w="snake" data-pic="🐍" onclick="dic(this)">3</span><span class="dic" data-w="bird" data-pic="🐦" onclick="dic(this)">4</span><span class="dic" data-w="whale" data-pic="🐋" onclick="dic(this)">5</span><span class="dic" data-w="fish" data-pic="🐟" onclick="dic(this)">6</span><span class="dic" data-w="lion" data-pic="🦁" onclick="dic(this)">7</span><span class="dic" data-w="butterfly" data-pic="🦋" onclick="dic(this)">8</span><span class="dic" data-w="spider" data-pic="🕷" onclick="dic(this)">9</span><span class="dic" data-w="frog" data-pic="🐸" onclick="dic(this)">10</span><span class="dic" data-w="tiger" data-pic="🐅" onclick="dic(this)">11</span><span class="dic" data-w="fly" data-pic="🪰" onclick="dic(this)">12</span><span class="dic" data-w="kangaroo" data-pic="🦘" onclick="dic(this)">13</span><span class="dic" data-w="elephant" data-pic="🐘" onclick="dic(this)">14</span><span class="dic" data-w="monkey" data-pic="🐵" onclick="dic(this)">15</span>
   </div>
+  <p class="reveal" id="dicdesc" style="display:none;align-self:stretch;background:#E7F1EF;border-left:6px solid var(--accent);border-radius:12px;padding:.55em 1em;font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.5;color:var(--ink)"></p>
   <p class="note reveal">Words: the U7.1 Wild animals box (SB p. 83) — shuffled, never alphabetical (the standing rule). Board support: the child deck, slide 2.</p>
 </section>
 
@@ -489,23 +490,45 @@ function reveal(btn,id){
   send({t:'reveal',id});
 }
 
+/* the model two-liners (Elena's set — two sentences, essential facts only) */
+const DIC_DESC={
+  bird:"🐦 It eats seeds and pips — and some birds eat flies. It can fly and it can sing.",
+  butterfly:"🦋 It has got big beautiful wings. It can fly, but it can't hear.",
+  crocodile:"🐊 It is green, and it eats fish and other animals. It can swim very well, but it can't fly.",
+  elephant:"🐘 It has got a long nose — a trunk! It eats 270 kilos of leaves and fruit every day.",
+  fish:"🐟 It lives in the sea. It can swim very fast, but it can't walk.",
+  fly:"🪰 It is very small and it loves our food. I don't like it — frogs eat it!",
+  frog:"🐸 It eats flies and other insects. It can jump and swim very well.",
+  giraffe:"🦒 It is very tall — the tallest animal in the world! It eats leaves from tall trees.",
+  kangaroo:"🦘 It eats grass and plants. It can jump nine metres, but it can't walk backwards.",
+  lion:"🦁 It eats meat — it hunts big animals. It is big and strong, and it can run very fast.",
+  monkey:"🐵 It eats fruit — bananas are its favourite. It can climb and jump from tree to tree.",
+  snake:"🐍 It eats small animals — mice and eggs. It has got no legs, so it can't walk, but it can swim.",
+  spider:"🕷 It eats insects — it catches them in its web. It has got eight long legs.",
+  tiger:"🐅 It eats meat — it hunts deer and wild pigs. It can swim very well — it loves water!",
+  whale:"🐋 It eats very small fish — hundreds of kilos every day. It is the biggest animal in the world, and it can sing!"
+};
 function dic(el){
   /* dictation chip: number → picture (describe it!) → word → number */
+  const d=document.getElementById('dicdesc');
   const st=el.dataset.st||'0';
   if(st==='0'){
     el.dataset.n=el.textContent;
     el.textContent=el.dataset.pic;
     el.classList.add('dpic');
     el.dataset.st='1';
+    if(d){d.textContent=DIC_DESC[el.dataset.w]||'';d.style.display=d.textContent?'block':'none';}
   }else if(st==='1'){
     el.textContent=el.dataset.w;
     el.classList.remove('dpic');
     el.classList.add('done');
     el.dataset.st='2';
+    if(d)d.style.display='none';
   }else{
     el.textContent=el.dataset.n;
     el.classList.remove('done');
     el.dataset.st='0';
+    if(d)d.style.display='none';
   }
 }
 
