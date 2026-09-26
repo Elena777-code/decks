@@ -402,6 +402,28 @@ var POOL_LAB=[
   choices:["Biology","Chemistry","ICT","Philosophy"],key:["biology"],label:"subject: Biology"}
 ];
 
+/* R4 booster · Word Friends MAKE/TAKE (U9.3 — the article + ex. 5; WB 9.3
+   ex. 1 works the same). MR stumbled on these in the 26.09 lesson —
+   2 of them are dealt in EVERY Word-lab round until Elena retires them. */
+var POOL_MT=[
+ {q:'<span class="gap">______</span> a look at this photo!',
+  choices:["Take","Make"],key:["take"],label:"make/take: a look"},
+ {q:'In class we <span class="gap">______</span> notes while the teacher talks.',
+  choices:["make","take"],key:["make","take"],label:"make/take: notes — BOTH fine"},
+ {q:'Every year we <span class="gap">______</span> progress with our English.',
+  choices:["make","take"],key:["make"],label:"make/take: progress"},
+ {q:'The new method <span class="gap">______</span> an improvement in the results.',
+  choices:["made","took"],key:["made"],label:"make/take: an improvement"},
+ {q:'Everyone <span class="gap">______</span> mistakes sometimes.',
+  choices:["makes","takes"],key:["makes"],label:"make/take: mistakes"},
+ {q:'Tomorrow we <span class="gap">______</span> a test in Maths.',
+  choices:["make","take"],key:["take"],label:"make/take: a test"},
+ {q:'His story didn’t <span class="gap">______</span> sense.',
+  choices:["make","take"],key:["make"],label:"make/take: sense"},
+ {q:'The writers <span class="gap">______</span> changes, and the tests became harder.',
+  choices:["made","took"],key:["made"],label:"make/take: changes (from the article)"}
+];
+
 /* R5 · Your turn — the five sentences (the homework itself; no keys) */
 var WRITE_PROMPTS=[
  {hint:"intelligent",ph:"What do you understand easily? I’m quite intelligent — …"},
@@ -416,7 +438,7 @@ var ROUNDS_META=[
  {id:"R1",icon:"🔧",name:"Fix it",sub:"repair the word or the sentence",helper:"type it or tap it",sec:0},
  {id:"R2",icon:"⚡",name:"Passive sprint",sub:"beat the clock — 10 s a question",helper:"one word in the gap",sec:10},
  {id:"R3",icon:"🧠",name:"Exam reflex",sub:"no clock — the HSE reflexes",helper:"tap the right one",sec:0},
- {id:"R4",icon:"🔬",name:"Word lab",sub:"no clock — the three boxes from the lesson",helper:"tap the word",sec:0},
+ {id:"R4",icon:"🔬",name:"Word lab",sub:"no clock — the three boxes from the lesson · make or take",helper:"tap the word",sec:0},
  {id:"R5",icon:"✍️",name:"Your turn",sub:"five sentences about you",helper:"",sec:0}
 ];
 var DEAL=[3,5,4,4]; /* per run: R1 R2 R3 R4 — the Workbook round plays in full */
@@ -446,7 +468,7 @@ function buildRounds(){
   var r1=pick(POOL_FIX,DEAL[0]).map(function(t){return shuffleChoices(t);});
   var r2=pick(POOL_PASSIVE,DEAL[1]);
   var r3=pick(POOL_REFLEX,DEAL[2]).map(function(t){return shuffleChoices(t);});
-  var r4=pick(POOL_LAB,DEAL[3]).map(function(t){return shuffleChoices(t);});
+  var r4=pick(POOL_MT,2).concat(pick(POOL_LAB,Math.max(0,DEAL[3]-2))).map(function(t){return shuffleChoices(t);});
   return [
     {meta:ROUNDS_META[0],tasks:wb},
     {meta:ROUNDS_META[1],tasks:r1},
