@@ -144,6 +144,29 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
   </div>
 
   <div class="card hwcard">
+    <div class="no">For the next lesson</div>
+    <h2>📋 Your six interview questions</h2>
+    <p class="hint"><b>Write them down this time</b> — six questions for Elena, and she answers… mostly honestly.
+    Cover the four shapes: with <b>do</b> · with <b>be / have / will</b> · a <b>subject</b> question · a <b>Wh-</b> question.</p>
+  </div>
+
+  <div class="card hwcard">
+    <div class="no">d: · copy into your dictionary</div>
+    <h2>Seven words from “Bright sparks!”</h2>
+    <p class="hint">Write each word into your notebook: the translation in Russian, the meaning in English, one example.
+    <b>Write first</b> — then click to check yourself.</p>
+    <ol>
+      <li><b>average</b><br><details><summary>check</summary><div class="hint">🇷🇺 средний; среднее значение · the typical amount or level in a group<br><i>An average score in the test is 100 points.</i> · <i>The average child watches two hours of TV a day.</i></div></details></li>
+      <li><b>influence</b><br><details><summary>check</summary><div class="hint">🇷🇺 влиять; влияние · to have an effect on someone or something (verb and noun)<br><i>Diets and health influence the brain.</i> · <i>It has a big influence on my results.</i></div></details></li>
+      <li><b>responsible</b><br><details><summary>check</summary><div class="hint">🇷🇺 ответственный · the person who must do something or who caused it — <b>responsible FOR</b><br><i>You are responsible for your own progress.</i> · <i>Who is responsible for this mess?</i></div></details></li>
+      <li><b>report</b><br><details><summary>check</summary><div class="hint">🇷🇺 доклад; отчёт · a piece of writing that gives information about something<br><i>A report from researchers in Scotland.</i> · <i>The weather report says rain.</i></div></details></li>
+      <li><b>improve</b><br><details><summary>check</summary><div class="hint">🇷🇺 улучшать(ся); становиться лучше · to become better or make something better<br><i>I want to improve my English.</i> · <i>Her results improved every year.</i></div></details></li>
+      <li><b>improvements</b><br><details><summary>check</summary><div class="hint">🇷🇺 улучшения · the noun (improve → improvement): things that get better<br><i>We have made improvements in diets and health.</i> · <i>The school made three improvements this year.</i></div></details></li>
+      <li><b>change</b><br><details><summary>check</summary><div class="hint">🇷🇺 менять(ся); изменение · to become or make different (verb and noun)<br><i>The tests changed — they became harder.</i> · <i>Test writers made changes every few years.</i></div></details></li>
+    </ol>
+  </div>
+
+  <div class="card hwcard">
     <div class="no">Your run · September the 26th</div>
     <h2>✍️ Your five sentences — repair them yourself</h2>
     <p class="hint">Say the corrected sentence aloud first — then click to check. These five open your next lesson.</p>
@@ -329,6 +352,24 @@ var POOL_FIX=[
   label:"prepare FOR",type:"choice"}
 ];
 
+/* R1 booster · Gerund after prepositions (Elena, 27.09: she knows it —
+   her case "in + -ing" — now make it stick). 1 of these is dealt in
+   EVERY Fix-it round. */
+var POOL_GR=[
+ {q:'My friend is good at ______ <span class="base">(swim)</span>.',
+  key:["swimming"],label:"good at + -ing",type:"type"},
+ {q:'She is interested in ______ <span class="base">(draw)</span>.',
+  key:["drawing"],label:"interested in + -ing",type:"type"},
+ {q:'Who believes in ______ <span class="base">(work)</span> hard?',
+  key:["working"],label:"in + -ing — your own case",type:"type"},
+ {q:'Thank you for ______ <span class="base">(help)</span> me.',
+  key:["helping"],label:"for + -ing",type:"type"},
+ {q:'She left without ______ <span class="base">(say)</span> goodbye.',
+  key:["saying"],label:"without + -ing",type:"type"},
+ {q:'Are you afraid of ______?',
+  choices:["flying","to fly","fly"],key:["flying"],label:"afraid of + -ing",type:"choice"}
+];
+
 /* R2 · Passive sprint — timed. The U8 win stays warm; the found/founded twin lives here too */
 var POOL_PASSIVE=[
  {q:'These cars are <span class="gap">______</span> in Japan. <span class="base">(MAKE)</span>',
@@ -478,7 +519,7 @@ function shuffleChoices(t){
 /* ---------- a fresh set per run ---------- */
 function buildRounds(){
   var wb=POOL_WB91.map(function(t){return shuffleChoices(t);});
-  var r1=pick(POOL_FIX,DEAL[0]).map(function(t){return shuffleChoices(t);});
+  var r1=pick(POOL_GR,1).concat(pick(POOL_FIX,Math.max(0,DEAL[0]-1))).map(function(t){return shuffleChoices(t);});
   var r2=pick(POOL_PASSIVE,DEAL[1]);
   var r3=pick(POOL_REFLEX,DEAL[2]).map(function(t){return shuffleChoices(t);});
   var r4=pick(POOL_MT,2).concat(pick(POOL_LAB,Math.max(0,DEAL[3]-2))).map(function(t){return shuffleChoices(t);});
