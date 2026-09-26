@@ -124,7 +124,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
   </div>
 
   <div class="card hidden write-box" id="write-card">
-    <div class="qcount">✍️ Your turn · five sentences</div>
+    <div class="qcount">✍️ Your turn · seven sentences — five from Unit 9 + two quick ones</div>
     <p class="rules" style="margin-top:.6em"><b>You as a student</b> — say it in English.
     Use the word in brackets. Two of your sentences should be <b>true stories</b>, not just “I am…”.</p>
     <div id="write-fields"></div>
@@ -516,7 +516,9 @@ var WRITE_PROMPTS=[
  {hint:"confident",ph:"What are you confident about? I feel confident when …"},
  {hint:"hard-working",ph:"Where do you put in a lot of effort? I’m hard-working in …"},
  {hint:"talented / gifted",ph:"Your talent — the flute counts! I’m talented at …"},
- {hint:"good at …",ph:"teamwork, problem solving or general knowledge? I’m good at …"}
+ {hint:"good at …",ph:"teamwork, problem solving or general knowledge? I’m good at …"},
+ {hint:"make or take",ph:"Your school day — make or take? I take notes in … · I make mistakes when …"},
+ {hint:"a d: word",ph:"average · influence · responsible · report · improve · change — one is about you: This year I want to improve …"}
 ];
 
 var ROUNDS_META=[
@@ -700,7 +702,7 @@ function reportText(){
     missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+(l.given||"—")+" · key: "+l.key);});
   }else{lines.push("","Missed: none! 🎉");}
   var written=sentences.filter(Boolean);
-  lines.push("","Her sentences ("+written.length+" of 5):");
+  lines.push("","Her sentences ("+written.length+" of "+WRITE_PROMPTS.length+"):");
   written.forEach(function(v,i){lines.push("  "+(i+1)+". "+v);});
   var empty=sentences.length-written.length;
   if(empty>0)lines.push("  ("+empty+" not written yet)");
@@ -725,7 +727,7 @@ function finish(){
       return "· "+esc(l.label)+" → <b>"+esc(l.key)+"</b>";}).join("<br>");
   }else{rem.className="remember hidden";}
   var written=sentences.filter(Boolean).length;
-  $("sent-line").textContent=written?("✍️ Sentences saved: "+written+" of 5"):"";
+  $("sent-line").textContent=written?("✍️ Sentences saved: "+written+" of "+WRITE_PROMPTS.length):"";
   var txt=reportText();
   try{localStorage.setItem("mashar-hw-last",txt);}catch(e){}
   try{localStorage.setItem("mashar-hw-runs",String((+localStorage.getItem("mashar-hw-runs")||0)+1));}catch(e){}
