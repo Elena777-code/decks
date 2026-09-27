@@ -300,9 +300,9 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     <div class="bigboard reveal" id="bigboard">
       <div class="bchip">under the chair</div>
       <div class="bchip">grey</div>
-      <div class="bchip">white</div>
       <div class="bchip">eight</div>
       <div class="bchip">Because it's fun!</div>
+      <div class="bchip">Yes!</div>
     </div>
 
     <div class="row reveal" style="justify-content:center;gap:1em;margin-top:.9em">
@@ -356,7 +356,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     <div class="note-step"><span class="b">5 ·</span><span>Вопрос решён — коснись строки на телефоне, она <b>зачеркнётся</b>. Кнопка ↺ — новый порядок вопросов.</span></div>
     <div class="note-step"><span class="b">6 ·</span><span>Закончить показ в Zoom — красная кнопка <b class="z">Stop Share</b> наверху.</span></div>
   </div>
-  <p class="hintline" style="margin-top:1em">Ключ игры: у каждого вопроса ровно ОДИН подходящий ответ. Доска: under the chair · grey · white · eight · Because it's fun!</p>
+  <p class="hintline" style="margin-top:1em">Ключ игры: у каждого вопроса ровно ОДИН подходящий ответ — на доске одна фишка каждой категории (одно место · один цвет · одно число · одна причина · одно да/нет). Доска: under the chair · grey · eight · Because it's fun! · Yes!</p>
 </div>
 
 <!-- ELENA'S QUESTION PAD (the same file, second device) -->
@@ -555,14 +555,14 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   const DEAL=[
     ['Where is the ball? 🏐','under the chair'],
     ['Where is the cat? 🐈','under the chair'],
+    ['What colour is snow? ❄️','grey'],
     ['What colour is an elephant? 🐘','grey'],
-    ['What colour is a mouse? 🐭','grey'],
-    ['What colour is snow? ❄️','white'],
-    ['What colour is a polar bear? 🐻‍❄️','white'],
     ['How many balls have you got? 🏐🏐','eight'],
     ['How many legs has a spider got? 🕷','eight'],
     ['Why do you like gymnastics? 🤸‍♀️',"Because it's fun!"],
-    ['Why do we play games? 🎲',"Because it's fun!"]
+    ['Why do we play games? 🎲',"Because it's fun!"],
+    ['Do your cats sleep during the lesson? 😺','Yes!'],
+    ['Is your granny six? 👵','Yes!']
   ];
   function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
   function seededDeal(){
