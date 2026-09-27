@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Not in the list! · the early-practice game (demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --lavender:#C8B6FF; --lavender-deep:#9a7fff;
+  --cream:#FFF8F0; --ink:#2D3436; --ink-soft:#636e72; --pink:#FF8FAB;
+  --shadow:0 10px 30px rgba(45,52,54,.12); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;padding:3vh 4vw 14vh}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.1vw,.95rem);color:var(--lavender-deep);margin-bottom:.4em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.9rem,4vw,3.2rem);line-height:1.05;margin-bottom:.35em}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--lavender));margin-bottom:.9em}
+.hintline{font-size:clamp(.95rem,1.5vw,1.2rem);color:var(--ink-soft);font-style:italic}
+.task{font-family:'Fredoka';font-weight:500;background:#fff8db;border-radius:14px;padding:.55em 1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.3rem)}
+.task::before{content:"🎯 "}
+.row{display:flex;gap:1em;align-items:center;flex-wrap:wrap}
+.mini-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.9rem,1.5vw,1.2rem);border:none;cursor:pointer;border-radius:99px;padding:.5em 1.2em;background:var(--white);box-shadow:0 4px 12px rgba(45,52,54,.12);color:var(--ink-soft);transition:transform .15s ease}
+.mini-btn:hover{transform:scale(1.05);color:var(--ink)}
+.mini-btn.big{font-size:clamp(1.15rem,2vw,1.5rem);color:var(--ink);background:linear-gradient(135deg,var(--mint),var(--lavender))}
+.mini-btn.set.on{background:linear-gradient(135deg,var(--lavender),var(--pink));color:var(--ink)}
+/* --- objects --- */
+#objects{display:flex;gap:clamp(.7em,1.6vw,1.3em);justify-content:center;align-items:stretch;flex-wrap:wrap;margin:1.1em 0}
+.obj{width:clamp(140px,17vw,200px);background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:1em .6em .7em;text-align:center;cursor:pointer;transition:all .18s ease;user-select:none}
+.obj:hover{transform:translateY(-4px)}
+.obj .pic{height:clamp(64px,9vw,96px);display:flex;align-items:center;justify-content:center;font-size:clamp(3rem,5.5vw,4.6rem);line-height:1}
+.obj .pic svg{width:78%;height:78%}
+.obj .swatch{width:52%;height:64%;border-radius:50%;box-shadow:inset 0 -8px 14px rgba(45,52,54,.18)}
+.obj .w{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem);margin-top:.45em}
+@keyframes missshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.obj.nope{animation:missshake .35s ease;background:#ffe9f0}
+.obj.hit{background:linear-gradient(135deg,var(--mint),var(--lavender))}
+.obj.hit .w::after{content:" ✓"}
+.obj.dim{opacity:.38}
+/* --- the list panel --- */
+#listpanel{max-width:520px;margin:0 auto;background:var(--white);border-radius:var(--radius);box-shadow:0 16px 40px rgba(45,52,54,.2);padding:1em 1.4em;border:3px solid var(--lavender)}
+#listpanel .lt{font-family:'Fredoka';font-weight:600;font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink-soft);text-transform:uppercase;letter-spacing:.1em;text-align:center}
+#listpanel ol{list-style:none;margin-top:.35em}
+#listpanel li{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.3rem,2.4vw,1.9rem);line-height:1.5;text-align:center;border-bottom:2px dotted rgba(200,182,255,.5)}
+#listpanel li:last-child{border-bottom:none}
+[hidden]{display:none !important}
+/* --- teacher's notes pill --- */
+#notesbar{position:fixed;bottom:2.4vh;right:max(10px,1.6vw);z-index:90}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(255,248,240,.985);display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
+.overlay.open{display:flex}
+.overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka';font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
+.overlay h1{font-family:'Fredoka';font-weight:700;font-size:clamp(1.5rem,3vw,2.4rem);margin-bottom:.4em}
+.note-step{display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.5em;font-size:clamp(.95rem,1.7vw,1.3rem);line-height:1.45}
+.note-step .b{flex-shrink:0;font-family:'Fredoka';font-weight:700;color:var(--lavender-deep)}
+</style>
+</head>
+<body>
+
+<div class="eyebrow">Games · the early-practice game · born 2026-09-27</div>
+<h1 class="title">Not in the list! 👀</h1>
+<div class="accent-line"></div>
+<p class="task">Look at the pictures 👀 — Elena clicks «list»… one thing is <b>NOT</b> in the list — say it! 🗣</p>
+
+<div class="row" style="margin-top:.8em;gap:.6em">
+  <button class="mini-btn big" id="list-btn">list ▾</button>
+  <button class="mini-btn" id="list1s-btn">list · 1 sec ⏱</button>
+  <button class="mini-btn" id="newround-btn">new round ↻</button>
+  <span style="flex:1"></span>
+  <button class="mini-btn set on" id="set-classroom">🏫 classroom</button>
+  <button class="mini-btn set" id="set-colours">🎨 colours</button>
+</div>
+
+<div id="objects"></div>
+
+<div id="listpanel" hidden>
+  <div class="lt">the list — 4 words</div>
+  <ol id="list-items"></ol>
+</div>
+<p class="hintline" id="listhint" style="text-align:center;margin-top:.6em">The list hides — who is missing? 🤔 Tap the thing on the screen!</p>
+
+<div id="notesbar"><button class="mini-btn" id="notes-btn">🗒 Teacher's notes</button></div>
+
+<div class="overlay" id="tnotes">
+  <span class="closer" id="notes-close">✕ close</span>
+  <div class="eyebrow">Teacher's notes</div>
+  <h1>How to play «Not in the list»</h1>
+  <div style="max-width:860px">
+    <div class="note-step"><span class="b">1 ·</span><span><b>N pictures</b> on the screen — words the class already knows. This is <b>early practice</b>, not the teaching. The cards carry <b>no words</b> — the words live only in the list.</span></div>
+    <div class="note-step"><span class="b">2 ·</span><span>Click <b>«list ▾»</b> — a list of <b>4 words</b> appears. One thing from the screen is NOT in it.</span></div>
+    <div class="note-step"><span class="b">3 ·</span><span>Click «list ▾» again — the list hides. Or <b>«list · 1 sec ⏱»</b> — it hides itself after a second. Try both — we keep the one you like.</span></div>
+    <div class="note-step"><span class="b">4 ·</span><span>The pupil <b>SAYS</b> the thing that was not in the list. Check: tap that picture — right → <b>✓ glow</b>, wrong → shake. Then <b>«new round ↻»</b>.</span></div>
+    <div class="note-step"><span class="b">5 ·</span><span>Two sets to try: <b>🏫 In the classroom</b> (a bin, a clock, a chair, a desk, a board) · <b>🎨 Colours</b>. Sets are swappable to any module's words; the list carries the articles (<i>a bin</i>).</span></div>
+    <div class="note-step"><span class="b">6 ·</span><span>Universal game — every group, every language load. Status: <b>in the Games section</b> on the site.</span></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const SVGS={
+    desk:'<svg viewBox="0 0 100 70" aria-hidden="true"><rect x="8" y="18" width="84" height="10" rx="3" fill="#b07a4c"/><rect x="14" y="28" width="7" height="36" rx="2" fill="#8a5a33"/><rect x="79" y="28" width="7" height="36" rx="2" fill="#8a5a33"/><rect x="30" y="28" width="40" height="14" rx="3" fill="#c98d5c"/></svg>',
+    board:'<svg viewBox="0 0 100 70" aria-hidden="true"><rect x="10" y="8" width="80" height="44" rx="4" fill="#2f7d5c" stroke="#8a5a33" stroke-width="5"/><path d="M22 30 h22 M52 22 v16 M60 30 h18" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/><rect x="46" y="52" width="8" height="14" fill="#8a5a33"/><rect x="30" y="66" width="40" height="4" rx="2" fill="#8a5a33"/></svg>'
+  };
+  const SETS={
+    classroom:[
+      {w:'a bin',emoji:'🗑️'},
+      {w:'a clock',emoji:'🕐'},
+      {w:'a chair',emoji:'🪑'},
+      {w:'a desk',svg:SVGS.desk},
+      {w:'a board',svg:SVGS.board}
+    ],
+    colours:[
+      {w:'red',color:'#e5533d'},
+      {w:'blue',color:'#3d7de5'},
+      {w:'green',color:'#3da65c'},
+      {w:'yellow',color:'#f2c53d'},
+      {w:'grey',color:'#9aa3ab'}
+    ]
+  };
+  let set='classroom', miss=-1, solved=false, hideTimer=null;
+  const objectsEl=document.getElementById('objects'),
+        listpanel=document.getElementById('listpanel'),
+        listItems=document.getElementById('list-items'),
+        listBtn=document.getElementById('list-btn'),
+        list1sBtn=document.getElementById('list1s-btn');
+  function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  function picHtml(it){
+    if(it.svg) return '<span class="pic">'+it.svg+'</span>';
+    if(it.color) return '<span class="pic"><span class="swatch" style="background:'+it.color+'"></span></span>';
+    return '<span class="pic">'+it.emoji+'</span>';
+  }
+  function renderObjects(){
+    objectsEl.innerHTML=SETS[set].map((it,i)=>
+      '<div class="obj" data-i="'+i+'">'+picHtml(it)+'</div>'
+    ).join('');
+  }
+  function hidePanel(){
+    if(hideTimer){ clearTimeout(hideTimer); hideTimer=null; }
+    listpanel.hidden=true; listBtn.textContent='list ▾';
+  }
+  function newRound(){
+    const n=SETS[set].length;
+    let m; do{ m=Math.floor(Math.random()*n); }while(n>1 && m===miss);
+    miss=m; solved=false;
+    hidePanel();
+    listItems.innerHTML=shuffle(SETS[set].filter((_,i)=>i!==miss).slice()).map(it=>'<li>'+it.w+'</li>').join('');
+    document.querySelectorAll('.obj').forEach(o=>o.classList.remove('hit','nope','dim'));
+  }
+  objectsEl.addEventListener('click', e=>{
+    const o=e.target.closest('.obj');
+    if(!o||solved) return;
+    if(+o.dataset.i===miss){ o.classList.add('hit'); solved=true;
+      document.querySelectorAll('.obj:not(.hit)').forEach(x=>x.classList.add('dim'));
+    } else { o.classList.add('nope'); }
+  });
+  listBtn.addEventListener('click', ()=>{
+    if(hideTimer){ clearTimeout(hideTimer); hideTimer=null; }
+    if(listpanel.hidden){ listpanel.hidden=false; listBtn.textContent='list ▴'; }
+    else hidePanel();
+  });
+  list1sBtn.addEventListener('click', ()=>{
+    if(hideTimer) clearTimeout(hideTimer);
+    listpanel.hidden=false; listBtn.textContent='list ▴';
+    hideTimer=setTimeout(hidePanel, 1000);
+  });
+  document.getElementById('newround-btn').addEventListener('click', newRound);
+  document.querySelectorAll('.mini-btn.set').forEach(b=>b.addEventListener('click', ()=>{
+    document.querySelectorAll('.mini-btn.set').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    set = b.id==='set-colours' ? 'colours' : 'classroom';
+    renderObjects(); newRound();
+  }));
+  document.getElementById('notes-btn').addEventListener('click', ()=>document.getElementById('tnotes').classList.add('open'));
+  document.getElementById('notes-close').addEventListener('click', ()=>document.getElementById('tnotes').classList.remove('open'));
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') document.getElementById('tnotes').classList.remove('open'); });
+
+  renderObjects(); newRound();
+})();
+
+/* READY-CHIME — STANDING (Elena, 2026-09-04): silent on file:// */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();if(ctx.state==='suspended')ctx.resume();}catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);o.start(t+n*.18);o.stop(t+n*.18+1);});
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
