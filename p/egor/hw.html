@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Egor's homework</title>
+<style>
+  :root{
+    --bg:#faf7f2; --card:#ffffff; --ink:#2d2a26; --sub:#7a746c;
+    --pv:#3E8E7E; --pv-bg:#eef5f2; --line:#eae4da;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#211f1c; --card:#2b2825; --ink:#f0ece5; --sub:#a49c91;
+      --pv-bg:#25332e; --line:#3a3630; }
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    padding:32px 18px 60px; max-width:680px; margin-inline:auto;}
+  h1{font-size:29px; margin:0 0 6px; letter-spacing:-.5px}
+  h1 em{color:var(--pv); font-style:normal}
+  .hint{color:var(--sub); font-size:15px; margin:0 0 8px; line-height:1.5}
+  .rule{width:64px; height:4px; border-radius:99px; background:var(--pv); margin:14px 0 26px}
+  a.hw{display:block; background:var(--card); border:1px solid var(--line);
+    border-radius:16px; padding:18px 20px; margin:0 0 14px; text-decoration:none;
+    color:var(--ink); transition:transform .15s ease}
+  a.hw:hover{transform:translateY(-2px)}
+  .when{color:var(--pv); font-size:13px; font-weight:700; letter-spacing:.05em;
+    text-transform:uppercase}
+  .what{font-size:19px; font-weight:700; margin:4px 0 4px; line-height:1.3}
+  .inside{color:var(--sub); font-size:14px; line-height:1.5}
+  .soon{border:2px dashed var(--line); border-radius:16px; color:var(--sub);
+    text-align:center; padding:16px; font-size:14px}
+  .daily{background:var(--pv-bg); border:1px solid var(--line); border-radius:16px;
+    padding:14px 20px; margin:0 0 22px; font-size:14px; line-height:1.55}
+  .daily b{color:var(--pv)}
+  .daily a{color:var(--pv); font-weight:700}
+</style>
+</head>
+<body>
+<h1>Egor's <em>homework</em></h1>
+<p class="hint">One link — every set lands here, newest on top.<br>
+This link never changes: save it once, use it always.</p>
+<div class="rule"></div>
+
+<div class="daily">🎯 <b>Every day (the ramp · week 1):</b> 10 min on the
+<a href="drill.html">drill page</a> → «Daily drill» + 5 min — one block:
+<b>Mon</b> reading · <b>Tue</b> word-drill · <b>Wed</b> listening ·
+<b>Thu</b> reading · <b>Fri</b> word-drill</div>
+
+<div class="soon">The first set will appear here after tonight's lesson ✈️</div>
+
+</body>
+</html>
