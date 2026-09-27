@@ -192,7 +192,11 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
         <div class="sent">My hands _____ <span class="muted">(hurt)</span>. 🙌</div>
       </div>
     </div>
-    <p class="task reveal" style="display:block;text-align:center">Say it FIRST — then click the gap! · it/he/she → +s (+es · y→ies) · I/we/they → no s!</p>
+    <p class="task reveal" style="display:block;text-align:center">Say it FIRST — then click the gap! 🎯</p>
+    <div class="reveal center" style="margin-top:.25em">
+      <button class="mini-btn" id="rule-btn">hint ▾</button>
+      <p class="hintline" id="rule-line" style="display:none;margin-top:.3em">it/he/she → +s (+es · y→ies) · I/we/they → no s!</p>
+    </div>
   </section>
 
   <!-- SLIDE 3 · RIDDLES: THE OLD FRIEND + A NEW ONE -->
@@ -532,6 +536,15 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   wallbox.addEventListener('click', knockOne);
   document.getElementById('wall-next').addEventListener('click', e=>{ e.stopPropagation(); nextWall(); });
   nextWall();
+
+  /* --- revision rule hint: closed by default (ANSWERS HIDE, ALWAYS —
+     it's revision, she is supposed to know the rule; Elena's call) --- */
+  document.getElementById('rule-btn').addEventListener('click', function(){
+    const l=document.getElementById('rule-line');
+    const open=l.style.display!=='none';
+    l.style.display=open?'none':'block';
+    this.textContent=open?'hint ▾':'hint ▴';
+  });
 
   /* --- THE TWO-SCREEN SILLY GAME -------------------------------------
      Board (Alika's screen): FIVE big answers. Questions (Elena's pad):
