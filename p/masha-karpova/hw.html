@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masha K. · English — homework &amp; the drill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f2ea; --card:#ffffff; --ink:#37322a; --sub:#8b8375;
+  --sage:#7f9c88; --sage-deep:#5e8169; --sage-soft:#edf2ec;
+  --coral:#c97a6d; --coral-deep:#b3564a; --coral-soft:#f8ece8;
+  --line:#e8e1d3; --paper-soft:#fbf8f1;
+  --grad:linear-gradient(90deg,var(--sage),#9db8a4);
+  --shadow:0 10px 26px rgba(55,50,42,.10); --radius:20px;
+}
+/* light only — the design Elena chose for Mashulik (28.09): warm paper,
+   white cards, sage green + a touch of dusty coral, serif headings */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);min-height:100vh;
+  padding:5vh clamp(14px,5vw,72px) 8vh;background:var(--bg);
+  -webkit-font-smoothing:antialiased}
+.eyebrow{font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--sage-deep);font-size:.85rem;display:inline-block}
+h1{font-family:'Lora',serif;font-weight:600;font-size:clamp(1.7rem,5.5vw,2.7rem);margin:.15em 0 .1em}
+h1 em{color:var(--coral-deep)}
+.tagline{color:var(--sub);font-weight:700;font-size:clamp(.95rem,3.4vw,1.05rem);line-height:1.55;max-width:620px}
+.rule{width:110px;height:4px;border-radius:99px;background:var(--grad);margin:.9em 0 3.2vh}
+main{max-width:640px}
+.card{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:clamp(1.2rem,4.5vw,2rem);margin-bottom:1.4rem;animation:pop .22s ease;text-align:center}
+@keyframes pop{from{transform:scale(.98);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none!important}
+button{font-family:'Nunito',sans-serif;font-weight:700;border:none;cursor:pointer;
+  border-radius:99px;transition:transform .12s ease,box-shadow .12s ease}
+button:active{transform:scale(.96)}
+.start-btn{background:var(--grad);color:#fff;
+  font-size:clamp(1.15rem,4.4vw,1.4rem);padding:.65em 2.6em;margin-top:1.2em;
+  box-shadow:0 6px 0 rgba(94,129,105,.35)}
+.start-btn:active{box-shadow:0 2px 0 rgba(94,129,105,.35);transform:translateY(4px)}
+.rules{color:var(--sub);font-weight:700;font-size:clamp(.98rem,3.6vw,1.1rem);line-height:1.7}
+.rules b{color:var(--ink)}
+.icons{font-size:1.5rem;letter-spacing:.28em;margin-top:.8em}
+.meta{margin-top:.5em;color:var(--sub);font-weight:800;font-size:.85rem;letter-spacing:.04em}
+.best{margin-top:.4em;color:var(--sub);font-weight:700;font-size:.85rem}
+.qcount{font-size:.8rem;font-weight:800;color:var(--sage-deep);letter-spacing:.08em;text-transform:uppercase}
+.prompt{font-size:clamp(1.15rem,5vw,1.5rem);font-weight:800;line-height:1.4;margin-top:.5em}
+.prompt .gap{color:var(--coral-deep);letter-spacing:.05em}
+.prompt .base{color:var(--sage-deep);font-family:'Lora',serif;font-style:italic;font-weight:600;font-size:.8em}
+.helper{margin-top:.7em;font-size:.88rem;font-weight:700;color:var(--sub)}
+.answer-row{display:flex;gap:.55em;justify-content:center;flex-wrap:wrap;margin-top:1.1em}
+.choice{background:var(--paper-soft);color:var(--ink);font-size:clamp(.98rem,3.9vw,1.2rem);
+  padding:.55em 1.3em;box-shadow:0 4px 0 var(--line);line-height:1.2}
+.choice:active{box-shadow:0 1px 0 var(--line);transform:translateY(3px)}
+input.type-box{font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1.1rem,4.6vw,1.45rem);
+  color:var(--ink);text-align:center;border:3px solid var(--line);border-radius:14px;
+  padding:.45em .6em;width:min(320px,78vw);outline:none;background:var(--paper-soft)}
+input.type-box:focus{border-color:var(--sage)}
+.ok-btn{background:var(--ink);color:var(--card);font-size:clamp(.95rem,3.8vw,1.15rem);
+  padding:.6em 1.7em;box-shadow:0 4px 0 rgba(0,0,0,.18);align-self:center}
+.flash{font-family:'Lora',serif;font-weight:600;font-size:clamp(1.5rem,6.5vw,2.2rem);
+  text-align:center;padding:2.2em 0;animation:pop .2s ease}
+.flash .sub{display:block;font-size:.55em;color:var(--sub);margin-top:.6em}
+.flash.fix{color:var(--coral-deep)}
+.flash.fix .sub{color:var(--ink)}
+.write-box textarea{font-family:'Nunito',sans-serif;font-weight:700;font-size:1rem;color:var(--ink);
+  width:100%;min-height:3.2em;border:2px solid var(--line);border-radius:12px;padding:.6em .7em;
+  resize:vertical;outline:none;background:var(--paper-soft);margin-top:.7em}
+.write-box textarea:focus{border-color:var(--sage)}
+.write-box .wlabel{text-align:left;font-weight:800;font-size:.9rem;color:var(--sage-deep)}
+.stars{font-size:clamp(2rem,9vw,2.8rem);margin:.1em 0}
+.end-title{font-family:'Lora',serif;font-weight:600;font-size:clamp(1.4rem,5.5vw,2rem)}
+.one-line{margin:1em 0 .2em;font-weight:800;font-size:clamp(1rem,3.8vw,1.2rem)}
+.remember{margin:1em auto 0;text-align:left;max-width:480px;color:var(--sub);font-weight:700;
+  font-size:.92rem;line-height:1.65}
+.remember b{color:var(--coral-deep)}
+.sent{margin-top:.7em;font-weight:700;color:var(--sage-deep);font-size:.95rem;line-height:1.6}
+.copy-btn{background:var(--grad);color:#fff;
+  font-size:clamp(.95rem,3.8vw,1.15rem);padding:.7em 1.9em;margin-top:.9em;box-shadow:0 6px 0 rgba(94,129,105,.35)}
+.again-btn{background:transparent;color:var(--ink);font-size:.95rem;
+  padding:.55em 1.3em;margin-top:.7em;border:2px solid var(--line)}
+.hwcard{text-align:left}
+.hwcard .no{font-weight:800;color:var(--sage-deep);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
+.hwcard h2{font-family:'Lora',serif;font-weight:600;font-size:clamp(1.15rem,4.4vw,1.45rem);margin:.15em 0 .4em}
+.hwcard ol{margin:.4em 0 .2em 1.3em;font-weight:700;color:var(--ink);font-size:clamp(.95rem,3.7vw,1.08rem);line-height:1.7}
+.hwcard .hint{color:var(--sub);font-weight:700;font-size:.9rem;margin-top:.5em;line-height:1.6}
+.hwcard details{margin-top:.45em}
+.hwcard summary{cursor:pointer;display:inline-flex;align-items:center;gap:.45em;font-weight:800;
+  font-size:.85rem;color:var(--sage-deep);background:var(--sage-soft);border:1.5px solid var(--sage);
+  border-radius:99px;padding:.3em 1.1em;list-style:none;user-select:none}
+.hwcard summary::-webkit-details-marker{display:none}
+.hwcard summary::after{content:"▾";font-size:.9em}
+.hwcard details[open] summary::after{content:"▴"}
+.hwcard details[open] summary{background:var(--sage);border-color:var(--sage);color:#fff}
+.hwcard details .hint{margin-top:.55em}
+.audio-row{margin-top:.8em;text-align:center}
+.audio-row audio{width:100%;max-width:440px}
+.slot{margin-top:.9em;border:2px dashed var(--sage);border-radius:14px;padding:.9em 1em;
+  color:var(--sage-deep);font-weight:700;font-size:.92rem;text-align:center;background:var(--sage-soft)}
+/* the plan card — checkboxes (the mechanic Masha R.'s page uses) */
+.plan .hint{margin-bottom:.4em}
+.plan-row{display:flex;gap:.7em;align-items:flex-start;padding:.7em .85em;border-radius:14px;
+  background:var(--paper-soft);border:2px solid var(--line);margin-top:.55em;transition:border-color .15s}
+.plan-row.done{border-color:var(--sage)}
+.pbox{flex-shrink:0;width:1.7em;height:1.7em;border-radius:9px;border:2.5px solid var(--sage-deep);
+  display:grid;place-items:center;font-size:1.05em;color:transparent;background:var(--card);
+  margin-top:.08em;transition:all .15s;padding:0}
+.plan-row.done .pbox{background:var(--sage);border-color:var(--sage);color:#fff}
+.plabel{font-weight:700;font-size:clamp(.98rem,3.7vw,1.08rem);line-height:1.5;cursor:pointer;text-align:left}
+.plan-row.done .plabel{opacity:.55;text-decoration:line-through}
+.plan-progress{margin-top:.7em;font-weight:800;color:var(--sage-deep);font-size:.88rem;min-height:1.2em}
+/* the harvest card */
+.proverb{font-family:'Lora',serif;font-style:italic;color:var(--sub);font-size:clamp(.95rem,3.6vw,1.05rem);
+  margin:.1em 0 .7em;line-height:1.6}
+.harvest{list-style:none;text-align:left;margin:0}
+.harvest li{padding:.5em 0 .5em 1.7em;position:relative;font-weight:700;font-size:clamp(.93rem,3.5vw,1.02rem);
+  line-height:1.6;border-bottom:1.5px dashed var(--line)}
+.harvest li:last-child{border-bottom:none}
+.harvest li::before{content:"✓";position:absolute;left:.15em;top:.5em;color:var(--sage-deep);font-weight:800}
+.harvest b{color:var(--sage-deep)}
+.archive-note{color:var(--sub);font-family:'Lora',serif;font-style:italic;
+  font-size:.95rem;margin:2.2vh 0 1rem}
+footer{color:var(--sub);font-size:.78rem;font-weight:600;margin-top:4vh;text-align:center}
+</style>
+</head>
+<body>
+<div class="eyebrow">Masha K. · English</div>
+<h1>Homework &amp; the <em>drill</em></h1>
+<p class="tagline">One link — save it. New homework always appears here, on top.
+The drill deals a <b>fresh set every run</b> — play it as often as you like.</p>
+<div class="rule"></div>
+
+<main>
+  <div class="card plan hwcard" id="plan-card">
+    <div class="no">Start here</div>
+    <h2>Tonight's plan</h2>
+    <p class="hint">Tap the box when it's done — the page remembers, on this device.</p>
+    <div class="plan-row" data-k="listen"><button class="pbox" aria-label="mark done">✓</button>
+      <div class="plabel" data-to="listen-card">🎧 Listening — twice + your one-minute retell</div></div>
+    <div class="plan-row" data-k="drill"><button class="pbox" aria-label="mark done">✓</button>
+      <div class="plabel" data-to="start-card">🔧 The drill — one fresh run</div></div>
+    <div class="plan-row" data-k="dict"><button class="pbox" aria-label="mark done">✓</button>
+      <div class="plabel" data-to="dict-card">📖 Dictionary words — write first, then check</div></div>
+    <div class="plan-row" data-k="repair"><button class="pbox" aria-label="mark done">✓</button>
+      <div class="plabel" data-to="repair-card">✍️ Repair your sentences</div></div>
+    <p class="plan-progress" id="plan-progress"></p>
+  </div>
+
+  <div class="card" id="start-card">
+    <p class="rules">Three games + your sentences.<br>
+    No clock anywhere — think as long as you want.<br>
+    Wrong answers come back with the fix.</p>
+    <div class="icons">🔧 🧠 ✍️</div>
+    <div class="meta">3 rounds · ~8 minutes</div>
+    <div class="best" id="best-line"></div>
+    <button class="start-btn" id="begin-btn">Start the drill</button>
+  </div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div class="timer-wrap" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="card hidden write-box" id="write-card">
+    <div class="qcount">✍️ Your turn · three sentences about you</div>
+    <p class="rules" style="margin-top:.6em">Say it in English. <b>Write first</b> — you know these patterns.</p>
+    <div id="write-fields"></div>
+    <button class="ok-btn" id="write-done" style="margin-top:1em">Done — finish</button>
+  </div>
+
+  <div class="flash hidden" id="flash"></div>
+
+  <div class="card hidden" id="end-card">
+    <div class="stars" id="end-stars"></div>
+    <div class="end-title">Done!</div>
+    <div class="one-line" id="end-rows"></div>
+    <div class="remember hidden" id="end-remember"></div>
+    <div class="sent" id="sent-line"></div>
+    <div><button class="copy-btn" id="copy-btn">📋 Copy the report for Elena</button></div>
+    <div><button class="again-btn" id="again-btn">🔁 Fresh set</button></div>
+  </div>
+
+  <div class="card hwcard" id="listen-card">
+    <div class="no">Every homework · listen twice</div>
+    <h2>🎧 Listening</h2>
+    <p class="hint">The first time — just follow the story.
+    The second time — catch the details. Then:</p>
+    <ol>
+      <li>Say a <b>one-minute retell</b> — record it and send the voice message to Elena.</li>
+      <li>Write down <b>two new words</b> you heard — bring them to the lesson.</li>
+    </ol>
+    <!-- ELENA / the next conversation: when a track exists, replace the slot below with
+         <div class="audio-row"><audio controls preload="none" src="../../media/FILE"></audio>
+         <div class="hint">Track · what it is</div></div> -->
+    <div class="slot">The track lands here after the next lesson 🎧</div>
+  </div>
+
+  <div class="card hwcard" id="dict-card">
+    <div class="no">For the next lesson · your dictionary</div>
+    <h2>Dictionary words</h2>
+    <p class="hint">Write each word into your notebook: the translation in Russian or the meaning in English or one example.
+    <b>Write first</b> — then click to check yourself.</p>
+    <!-- ELENA / the next conversation: the d: words land here per progress, one item like:
+         <li><b>word</b><br><details><summary>check</summary><div class="hint">🇷🇺 перевод · meaning in English<br><i>Example.</i></div></details></li> -->
+    <div class="slot">The words land here, per your progress 📖</div>
+  </div>
+
+  <div class="card hwcard" id="repair-card">
+    <div class="no">Your sentences · from the lessons</div>
+    <h2>✍️ Your sentences — repair them yourself</h2>
+    <p class="hint">Say the corrected sentence aloud first — then click to check.</p>
+    <ol>
+      <li>“Our teacher give us number.”<br><details><summary>check</summary><div class="hint">→ <b>Our teacher gives us marks.</b> — third-person <b>-s</b>; <i>marks</i>, not numbers.</div></details></li>
+      <li>“I like study Chinese grammar.”<br><details><summary>check</summary><div class="hint">→ <b>I like studying Chinese grammar.</b> — like + <b>-ing</b>.</div></details></li>
+      <li>“It can blew up.”<br><details><summary>check</summary><div class="hint">→ <b>It can blow up.</b> — <b>can</b> + the base form.</div></details></li>
+      <li>“Children wanted to learn others.”<br><details><summary>check</summary><div class="hint">→ <b>Children wanted to learn other languages.</b> — <b>other</b> + a noun; <i>others</i> stands alone.</div></details></li>
+      <li>“Idea is welcoming.”<br><details><summary>check</summary><div class="hint">→ <b>Ideas are welcome.</b> — <i>welcoming</i> is about people and places (a welcoming smile); <i>welcome</i> = wanted.</div></details></li>
+    </ol>
+  </div>
+
+  <div class="card hwcard" id="learnt-card">
+    <div class="no">Your harvest · the year so far</div>
+    <h2>🌱 What you've learnt</h2>
+    <p class="proverb">«Revision is the mother of learning» — that's why the drill deals a fresh set every run.</p>
+    <ul class="harvest">
+      <li><b>The fear family:</b> scared · afraid <b>of</b> · frightened · terrified · fearful</li>
+      <li><b>everyone</b> + a singular verb: <i>Everyone is here.</i></li>
+      <li><b>like + -ing:</b> <i>I like studying Chinese.</i></li>
+      <li><b>much / many:</b> much time · many pieces</li>
+      <li><b>Chinese characters</b> — hieroglyphs are Egyptian</li>
+      <li><b>principal</b> = the school director · <b>principle</b> = a rule in your head</li>
+      <li><b>other</b> + a noun (<i>other languages</i>); <i>others</i> stands alone</li>
+      <li><b>New from the lessons:</b> examiner · axolotls · senior high school · promotion · advertisement · look after</li>
+    </ul>
+  </div>
+</main>
+
+<div class="archive-note">Older homework stays below as the list grows 📌</div>
+
+<footer>Masha K. · English · one permanent link — bookmark it ⭐</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* === ELENA: when the Google Form exists, paste its formResponse link here
+   (one line, like the other hw machines) — auto-send switches on by itself. === */
+var FORM_ACTION="";
+var FORM_ENTRY="entry.000000";
+
+/* ================= POOLS — they grow with the course =================
+   Born 2026-09-28 with the LIVE tracker rows only (rr-in-the-game rule).
+   The dnk pair (witness · pickpocket) is NOT here — teach before ask.
+   Next conversations: new rr items enter POOL_FIX_MK / POOL_WORDS_MK;
+   bigger rounds per progress (Elena: "the tasks are according to the
+   progress — will discuss later"). */
+
+/* R1 · Fix it — the rr items from the tracker + the lesson fixes */
+var POOL_FIX_MK=[
+ {q:'Everyone in her class ______ Chinese.',
+  choices:["is","are"],key:["is"],label:"everyone + singular",type:"choice"},
+ {q:'I like ______ Chinese grammar. <span class="base">(study)</span>',
+  key:["studying"],label:"like + -ing",type:"type"},
+ {q:'It can ______ up. <span class="base">(blow)</span>',
+  key:["blow"],label:"can + base form",type:"type"},
+ {q:'Our teacher ______ us marks. <span class="base">(give)</span>',
+  key:["gives"],label:"third person -s",type:"type"},
+ {q:'How ______ time do you spend on homework?',
+  choices:["much","many"],key:["much"],label:"much/many: time",type:"choice"},
+ {q:'How ______ piano pieces have you learnt this year?',
+  choices:["much","many"],key:["many"],label:"much/many: countable",type:"choice"},
+ {q:'The Chinese writing system uses ______ .',
+  choices:["hieroglyphs","Chinese characters"],key:["chinese characters"],label:"the word for Chinese writing",type:"choice"},
+ {q:'Children wanted to learn ______ languages.',
+  choices:["other","others","another"],key:["other"],label:"other + noun",type:"choice"}
+];
+
+/* R2 · Word check — the fear family + the school words */
+var POOL_WORDS_MK=[
+ {q:'“Very frightened” — the strongest word of the family.',
+  choices:["scared","afraid","frightened","terrified"],key:["terrified"],label:"fear family: the strongest"},
+ {q:'“Full of fear” — the adjective with -ful.',
+  choices:["fearful","frightened","scared","terrified"],key:["fearful"],label:"fear family: -ful"},
+ {q:'She is afraid ______ spiders.',
+  choices:["of","to","from"],key:["of"],label:"afraid OF"},
+ {q:'Our school ______ is strict but kind.',
+  choices:["principal","principle"],key:["principal"],label:"the school word"},
+ {q:'The fear family — which one is NOT there?',
+  choices:["scared","fearful","narrow","terrified"],key:["narrow"],label:"fear family: the odd one"}
+];
+
+/* R3 · Your turn — three sentences about you (the homework itself; no keys) */
+var WRITE_PROMPTS=[
+ {hint:"like + -ing",ph:"What do you like studying? I like studying …"},
+ {hint:"everyone + is",ph:"Your class or your friends: Everyone in my class is …"},
+ {hint:"can + base form",ph:"What can an axolotl do? It can … (can + the base form!)"}
+];
+
+var ROUNDS_META=[
+ {id:"R1",icon:"🔧",name:"Fix it",sub:"repair the word or the sentence",helper:"type it or tap it",sec:0},
+ {id:"R2",icon:"🧠",name:"Word check",sub:"no clock — your words",helper:"tap the word",sec:0},
+ {id:"R3",icon:"✍️",name:"Your turn",sub:"three sentences about you",helper:"",sec:0}
+];
+var DEAL=[5,5]; /* per run: R1 R2 — Your turn always plays in full */
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function pick(arr,n){return shuffle(arr).slice(0,n);}
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function norm(s){return (s||"").toString().trim().toLowerCase().replace(/\s+/g," ").replace(/[.!?]+$/,"");}
+function isOk(t,given){given=norm(given);if(!given)return false;
+  var keys=Array.isArray(t.key)?t.key:[t.key];
+  return keys.some(function(k){return norm(k)===given;});}
+function show(id){["start-card","q-card","write-card","flash","end-card"].forEach(function(c){
+  $(c).classList.add("hidden");});
+  if(id)$(id).classList.remove("hidden");}
+function shuffleChoices(t){
+  if(!t.choices)return t;
+  var c=shuffle(t.choices);var seen={},out=[];
+  c.forEach(function(x){var k=norm(x);if(!seen[k]){seen[k]=1;out.push(x);}});
+  return Object.assign({},t,{choices:out});}
+
+/* ---------- a fresh set per run ---------- */
+function buildRounds(){
+  var r1=pick(POOL_FIX_MK,DEAL[0]).map(function(t){return shuffleChoices(t);});
+  var r2=pick(POOL_WORDS_MK,DEAL[1]).map(function(t){return shuffleChoices(t);});
+  return [
+    {meta:ROUNDS_META[0],tasks:r1},
+    {meta:ROUNDS_META[1],tasks:r2},
+    {meta:ROUNDS_META[2],tasks:WRITE_PROMPTS}
+  ];
+}
+
+/* ---------- state ---------- */
+var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false,sentences=[];
+
+/* ---------- flow ---------- */
+$("begin-btn").addEventListener("click",function(){ri=0;log=[];sentences=[];roundFlash();});
+$("again-btn").addEventListener("click",function(){rounds=buildRounds();ri=0;log=[];sentences=[];roundFlash();});
+
+function roundFlash(){
+  show("flash");
+  var m=rounds[ri].meta;
+  $("flash").className="flash";
+  $("flash").innerHTML=m.icon+" "+m.name+'<span class="sub">'+m.sub+"</span>";
+  setTimeout(function(){qi=0;(m.id==="R3")?askWrite():ask();},1400);
+}
+
+function ask(){
+  answered=false;
+  var r=rounds[ri],t=r.tasks[qi];
+  $("q-count").textContent=r.meta.icon+" "+r.meta.name+" · "+(qi+1)+"/"+r.tasks.length;
+  var timed=r.sec>0;
+  $("timer-wrap").className="timer-wrap"+(timed?"":" off");
+  $("timer-num").textContent=timed?"":"· no clock — think ·";
+  var body='<div class="prompt">'+t.q+"</div>";
+  body+='<div class="helper">'+r.meta.helper+"</div>";
+  if(t.type==="choice"||t.choices){
+    body+='<div class="answer-row">'+t.choices.map(function(c){
+      return '<button class="choice" data-v="'+esc(c)+'">'+esc(c)+"</button>";}).join("")+"</div>";
+  }else{
+    body+='<div class="answer-row"><input class="type-box" id="type-box" autocomplete="off" autocapitalize="off" spellcheck="false">'+
+      '<button class="ok-btn" id="ok-btn">OK</button></div>';
+  }
+  $("q-body").innerHTML=body;
+  show("q-card");
+  if(t.type==="choice"||t.choices){
+    Array.prototype.forEach.call(document.querySelectorAll(".choice"),function(b){
+      b.addEventListener("click",function(){if(answered)return;answered=true;stopTimer();
+        var ok=isOk(t,b.getAttribute("data-v"));record(t,b.getAttribute("data-v"),false,ok);
+        move(ok);});});
+  }else{
+    var box=$("type-box");
+    var submit=function(){if(answered)return;answered=true;stopTimer();
+      var ok=isOk(t,box.value);record(t,box.value,false,ok);move(ok);};
+    $("ok-btn").addEventListener("click",submit);
+    box.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
+    setTimeout(function(){box.focus();},60);
+  }
+  if(timed)startTimer(r.sec,function(){
+    if(answered)return;answered=true;
+    var typed=$("type-box")?$("type-box").value:null;
+    record(t,typed,true,false);nextLate();
+  });
+}
+
+function startTimer(sec,onOut){
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  num.textContent=sec+" s";num.className="timer-num";
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 s";
+      clearInterval(timer);timer=null;onOut();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" s";
+    num.className="timer-num"+(s<=3?" low":"");
+  },100);
+}
+function stopTimer(){if(timer){clearInterval(timer);timer=null;}}
+
+function record(t,given,late,ok){
+  log.push({rid:rounds[ri].meta.id,label:t.label,
+    given:late?(given?("too slow, wrote: "+given):"TIME UP"):given,
+    key:Array.isArray(t.key)?t.key.join(" / "):t.key,ok:ok});
+}
+
+function nextLate(){show("flash");$("flash").className="flash";
+  $("flash").innerHTML="⏰ Time!";setTimeout(advanceRound,950);}
+
+function move(ok){
+  var r=rounds[ri];
+  var lastOfRound=qi>=r.tasks.length-1;
+  if(ok){show("flash");$("flash").className="flash";
+    $("flash").innerHTML="✅";setTimeout(advanceRound,700);}
+  else{show("flash");$("flash").className="flash fix";
+    $("flash").innerHTML="✗"+(t_key()?(' <span class="sub">→ '+esc(t_key())+"</span>"):"");
+    setTimeout(advanceRound,lastOfRound?1500:1500);}
+  function advanceRound(){
+    if(!lastOfRound){qi++;ask();}
+    else if(ri<rounds.length-1){ri++;roundFlash();}
+    else{finish();}
+  }
+  function t_key(){var t=r.tasks[qi];return Array.isArray(t.key)?t.key[0]:t.key;}
+}
+
+/* ---------- write round ---------- */
+function askWrite(){
+  var wrap=$("write-fields");wrap.innerHTML="";
+  WRITE_PROMPTS.forEach(function(p,i){
+    var d=document.createElement("div");d.className="write-box";
+    d.innerHTML='<div class="wlabel">'+(i+1)+" · use: "+esc(p.hint)+"</div>"+
+      '<textarea id="w'+i+'" placeholder="'+esc(p.ph)+'"></textarea>';
+    wrap.appendChild(d);
+  });
+  show("write-card");
+  window.scrollTo(0,0);
+}
+$("write-done").addEventListener("click",function(){
+  sentences=WRITE_PROMPTS.map(function(p,i){var v=$("w"+i).value.trim();return v||null;});
+  var n=sentences.filter(Boolean).length;
+  if(n===0){$("w0").focus();return;}
+  finish();
+});
+
+/* ---------- end ---------- */
+var ICONS={R1:"🔧",R2:"🧠"};
+function drillScore(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  return {total:total,ok:ok};
+}
+function reportText(){
+  var s=drillScore();
+  var lines=["MASHA K. · HW · "+new Date().toLocaleString(),
+    "Drill: "+s.ok+" / "+s.total];
+  ["R1","R2"].forEach(function(rid){
+    var rows=log.filter(function(l){return l.rid===rid;});
+    if(rows.length)lines.push(ICONS[rid]+" "+rid+": "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
+  });
+  var missed=log.filter(function(l){return !l.ok;});
+  if(missed.length){
+    lines.push("","Missed ("+missed.length+"):");
+    missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+(l.given||"—")+" · key: "+l.key);});
+  }else{lines.push("","Missed: none! 🎉");}
+  var written=sentences.filter(Boolean);
+  lines.push("","Her sentences ("+written.length+" of "+WRITE_PROMPTS.length+"):");
+  written.forEach(function(v,i){lines.push("  "+(i+1)+". "+v);});
+  var empty=sentences.length-written.length;
+  if(empty>0)lines.push("  ("+empty+" not written yet)");
+  return lines.join("\n");
+}
+
+function finish(){
+  stopTimer();
+  var s=drillScore();
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(s.ok/Math.max(1,s.total)*5)));
+  var bits=[];
+  ["R1","R2"].forEach(function(rid){
+    var r=log.filter(function(l){return l.rid===rid;});
+    if(r.length)bits.push(ICONS[rid]+" "+r.filter(function(l){return l.ok;}).length+"/"+r.length);
+  });
+  $("end-rows").textContent=bits.join("  ·  ");
+  var missed=log.filter(function(l){return !l.ok;}).slice(0,6);
+  var rem=$("end-remember");
+  if(missed.length){
+    rem.className="remember";
+    rem.innerHTML="<b>To remember:</b><br>"+missed.map(function(l){
+      return "· "+esc(l.label)+" → <b>"+esc(l.key)+"</b>";}).join("<br>");
+  }else{rem.className="remember hidden";}
+  var written=sentences.filter(Boolean).length;
+  $("sent-line").textContent=written?("✍️ Sentences saved: "+written+" of "+WRITE_PROMPTS.length):"";
+  var txt=reportText();
+  try{localStorage.setItem("mashak-hw-last",txt);}catch(e){}
+  try{localStorage.setItem("mashak-hw-runs",String((+localStorage.getItem("mashak-hw-runs")||0)+1));}catch(e){}
+  try{
+    var best=+localStorage.getItem("mashak-hw-best")||0;
+    var pct=Math.round(s.ok/Math.max(1,s.total)*100);
+    if(pct>best){try{localStorage.setItem("mashak-hw-best",String(pct));}catch(e){}}
+  }catch(e){}
+  try{
+    var q=JSON.parse(localStorage.getItem("mashak-hw-queue")||"[]");
+    q.push(txt);if(q.length>10)q=q.slice(-10);
+    localStorage.setItem("mashak-hw-queue",JSON.stringify(q));
+  }catch(e){}
+  flushQueue();
+  show("end-card");
+  window.scrollTo(0,0);
+}
+
+function sendViaForm(txt){
+  if(!FORM_ACTION)return;
+  var frame=document.createElement("iframe");
+  frame.name="hw-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);
+  var sub=document.createElement("input");
+  sub.type="hidden";sub.name="submit";sub.value="Submit";
+  f.appendChild(sub);
+  document.body.appendChild(f);
+  f.submit();
+  setTimeout(function(){f.remove();frame.remove();},15000);
+}
+function flushQueue(){
+  if(!FORM_ACTION)return; /* no form yet — reports wait in the queue */
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("mashak-hw-queue")||"[]");}catch(e){}
+  if(!q.length)return;
+  q.forEach(sendViaForm);
+  try{localStorage.setItem("mashak-hw-queue","[]");}catch(e){}
+}
+flushQueue();
+
+/* ---------- copy button (works without the form) ---------- */
+$("copy-btn").addEventListener("click",function(){
+  var txt;
+  try{txt=localStorage.getItem("mashak-hw-last")||reportText();}catch(e){txt=reportText();}
+  function done(){$("copy-btn").textContent="✅ Copied — now paste it to Elena";
+    setTimeout(function(){$("copy-btn").textContent="📋 Copy the report for Elena";},2500);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done,function(){fallback();});
+  }else fallback();
+  function fallback(){
+    var ta=document.createElement("textarea");
+    ta.value=txt;document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");done();}catch(e){}
+    ta.remove();
+  }
+});
+
+/* ---------- best/runs on the start card ---------- */
+try{
+  var best=+localStorage.getItem("mashak-hw-best")||0;
+  var runs=+localStorage.getItem("mashak-hw-runs")||0;
+  if(runs)$("best-line").textContent="Runs: "+runs+(best?(" · best: "+best+"%"):"");
+}catch(e){}
+})();
+</script>
+<script>
+/* ---------- the plan card: checkboxes remember themselves ----------
+   Box click = toggle; label click = scroll. ---------- */
+(function(){
+  var rows=Array.prototype.slice.call(document.querySelectorAll(".plan-row"));
+  var progress=document.getElementById("plan-progress");
+  function refresh(){
+    var done=rows.filter(function(r){return r.classList.contains("done");}).length;
+    progress.textContent=done+" of "+rows.length+" done"+(done===rows.length?" — beautiful! 🌟":"");
+  }
+  rows.forEach(function(row){
+    var key="mashak-plan-"+row.getAttribute("data-k");
+    try{ if(localStorage.getItem(key)==="1") row.classList.add("done"); }catch(e){}
+    row.querySelector(".pbox").addEventListener("click",function(){
+      row.classList.toggle("done");
+      try{ localStorage.setItem(key,row.classList.contains("done")?"1":"0"); }catch(e){}
+      refresh();
+    });
+    var label=row.querySelector(".plabel");
+    if(label&&label.getAttribute("data-to")){
+      label.addEventListener("click",function(){
+        var t=document.getElementById(label.getAttribute("data-to"));
+        if(t)t.scrollIntoView({behavior:"smooth",block:"start"});
+      });
+    }
+  });
+  refresh();
+})();
+</script>
+</body>
+</html>
