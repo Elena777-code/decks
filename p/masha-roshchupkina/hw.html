@@ -6,153 +6,105 @@
 <title>Masha R. · English — homework &amp; the drill</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500;1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f6f2ea; --card:#ffffff; --ink:#37322a; --sub:#8b8375;
-  --sage:#7f9c88; --sage-deep:#5e8169; --sage-soft:#edf2ec;
-  --coral:#c97a6d; --coral-deep:#b3564a; --coral-soft:#f8ece8;
-  --line:#e8e1d3; --paper-soft:#fbf8f1;
-  --grad:linear-gradient(90deg,var(--sage),#9db8a4);
-  --shadow:0 10px 26px rgba(55,50,42,.10); --radius:20px;
+  --wall:#17181D; --ink:#F5F3EE; --soft:#A9ACB8;
+  --cyan:#2BD9E8; --magenta:#F03CB0; --yellow:#FFC93C; --lime:#A8E82A;
+  --card:#ffffff; --card-ink:#1d2025; --card-soft:#6b7280;
+  --line:rgba(255,255,255,.14);
+  --grad:linear-gradient(90deg,var(--cyan),var(--magenta) 45%,var(--yellow) 75%,var(--lime));
+  --shadow:0 10px 30px rgba(0,0,0,.45); --radius:20px;
 }
-/* light only — Elena, 2026-09-27: the auto night charcoal read as
-   «a black deck»; the paper look is the page, at every hour */
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);min-height:100vh;
-  padding:5vh clamp(14px,5vw,72px) 8vh;background:var(--bg);
+  padding:5vh clamp(14px,5vw,72px) 8vh;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.022) 0 2px,transparent 2px 34px),
+  repeating-linear-gradient(90deg,rgba(255,255,255,.02) 0 2px,transparent 2px 90px),var(--wall);
   -webkit-font-smoothing:antialiased}
-.eyebrow{font-weight:800;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--sage-deep);font-size:.85rem;display:inline-block}
-h1{font-family:'Lora',serif;font-weight:600;font-size:clamp(1.7rem,5.5vw,2.7rem);margin:.15em 0 .1em}
-h1 em{color:var(--coral-deep)}
-.tagline{color:var(--sub);font-weight:700;font-size:clamp(.95rem,3.4vw,1.05rem);line-height:1.55;max-width:620px}
-.rule{width:110px;height:4px;border-radius:99px;background:var(--grad);margin:.9em 0 3.2vh}
+.eyebrow{font-family:'Permanent Marker',cursive;color:var(--yellow);transform:rotate(-1.2deg);
+  font-size:1.05rem;display:inline-block}
+h1{font-weight:800;font-size:clamp(1.7rem,5.5vw,2.7rem);margin:.15em 0 .1em}
+h1 .spray{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
+.tagline{color:var(--soft);font-weight:700;font-size:clamp(.95rem,3.4vw,1.05rem);line-height:1.55;max-width:620px}
+.rule{width:110px;height:5px;border-radius:99px;background:var(--grad);margin:.9em 0 3.2vh}
 main{max-width:640px}
-.card{background:var(--card);border:1px solid var(--line);color:var(--ink);border-radius:var(--radius);
-  box-shadow:var(--shadow);padding:clamp(1.2rem,4.5vw,2rem);margin-bottom:1.4rem;animation:pop .22s ease;text-align:center}
+.card{background:var(--card);color:var(--card-ink);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(1.2rem,4.5vw,2rem);margin-bottom:1.4rem;animation:pop .22s ease;text-align:center}
 @keyframes pop{from{transform:scale(.98);opacity:0}to{transform:scale(1);opacity:1}}
 .hidden{display:none!important}
-button{font-family:'Nunito',sans-serif;font-weight:700;border:none;cursor:pointer;
+button{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;border:none;cursor:pointer;
   border-radius:99px;transition:transform .12s ease,box-shadow .12s ease}
 button:active{transform:scale(.96)}
-.start-btn{background:var(--grad);color:#fff;
+.start-btn{background:linear-gradient(90deg,var(--cyan),var(--magenta));color:#fff;
   font-size:clamp(1.15rem,4.4vw,1.4rem);padding:.65em 2.6em;margin-top:1.2em;
-  box-shadow:0 6px 0 rgba(94,129,105,.35)}
-.start-btn:active{box-shadow:0 2px 0 rgba(94,129,105,.35);transform:translateY(4px)}
-.rules{color:var(--sub);font-weight:700;font-size:clamp(.98rem,3.6vw,1.1rem);line-height:1.7}
-.rules b{color:var(--ink)}
+  box-shadow:0 6px 0 rgba(0,0,0,.35)}
+.start-btn:active{box-shadow:0 2px 0 rgba(0,0,0,.35);transform:translateY(4px)}
+.rules{color:var(--card-soft);font-weight:700;font-size:clamp(.98rem,3.6vw,1.1rem);line-height:1.7}
 .icons{font-size:1.5rem;letter-spacing:.28em;margin-top:.8em}
-.meta{margin-top:.5em;color:var(--sub);font-weight:800;font-size:.85rem;letter-spacing:.04em}
-.best{margin-top:.4em;color:var(--sub);font-weight:700;font-size:.85rem}
-.qcount{font-size:.8rem;font-weight:800;color:var(--sage-deep);letter-spacing:.08em;text-transform:uppercase}
-.timer-wrap{height:10px;background:var(--sage-soft);border-radius:99px;overflow:hidden;margin:1em 0 .2em}
+.meta{margin-top:.5em;color:var(--card-soft);font-weight:800;font-size:.85rem;letter-spacing:.04em}
+.best{margin-top:.4em;color:var(--card-soft);font-weight:700;font-size:.85rem}
+.qcount{font-size:.8rem;font-weight:800;color:var(--magenta);letter-spacing:.08em;text-transform:uppercase}
+.timer-wrap{height:10px;background:#ece9f1;border-radius:99px;overflow:hidden;margin:1em 0 .2em}
 .timer-wrap.off{visibility:hidden}
 .timer-bar{height:100%;width:100%;background:var(--grad);border-radius:99px}
-.timer-num{font-weight:800;color:var(--sub);font-size:.85rem;min-height:1.1em}
-.timer-num.low{color:var(--coral-deep)}
+.timer-num{font-weight:800;color:var(--card-soft);font-size:.85rem;min-height:1.1em}
+.timer-num.low{color:#e5484d}
 .prompt{font-size:clamp(1.15rem,5vw,1.5rem);font-weight:800;line-height:1.4;margin-top:.5em}
-.prompt .gap{color:var(--coral-deep);letter-spacing:.05em}
-.prompt .base{color:var(--sage-deep);font-family:'Lora',serif;font-style:italic;font-weight:600;font-size:.8em}
-.helper{margin-top:.7em;font-size:.88rem;font-weight:700;color:var(--sub)}
+.prompt .gap{color:var(--magenta);letter-spacing:.05em}
+.prompt .base{color:#0d7c8a;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.8em}
+.helper{margin-top:.7em;font-size:.88rem;font-weight:700;color:var(--card-soft)}
 .answer-row{display:flex;gap:.55em;justify-content:center;flex-wrap:wrap;margin-top:1.1em}
-.choice{background:var(--paper-soft);color:var(--ink);font-size:clamp(.98rem,3.9vw,1.2rem);
-  padding:.55em 1.3em;box-shadow:0 4px 0 var(--line);line-height:1.2}
-.choice:active{box-shadow:0 1px 0 var(--line);transform:translateY(3px)}
+.choice{background:#f4f2f7;color:var(--card-ink);font-size:clamp(.98rem,3.9vw,1.2rem);
+  padding:.55em 1.3em;box-shadow:0 4px 0 #dcd8e4;line-height:1.2}
+.choice:active{box-shadow:0 1px 0 #dcd8e4;transform:translateY(3px)}
 input.type-box{font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1.1rem,4.6vw,1.45rem);
-  color:var(--ink);text-align:center;border:3px solid var(--line);border-radius:14px;
-  padding:.45em .6em;width:min(320px,78vw);outline:none;background:var(--paper-soft)}
-input.type-box:focus{border-color:var(--sage)}
-.ok-btn{background:var(--ink);color:var(--card);font-size:clamp(.95rem,3.8vw,1.15rem);
-  padding:.6em 1.7em;box-shadow:0 4px 0 rgba(0,0,0,.18);align-self:center}
-.flash{font-family:'Lora',serif;font-weight:600;font-size:clamp(1.5rem,6.5vw,2.2rem);
+  color:var(--card-ink);text-align:center;border:3px solid #dcd8e4;border-radius:14px;
+  padding:.45em .6em;width:min(320px,78vw);outline:none;background:#fbfbfd}
+input.type-box:focus{border-color:var(--magenta)}
+.ok-btn{background:#1d2025;color:#fff;font-size:clamp(.95rem,3.8vw,1.15rem);
+  padding:.6em 1.7em;box-shadow:0 4px 0 rgba(0,0,0,.3);align-self:center}
+.flash{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,6.5vw,2.2rem);
   text-align:center;padding:2.2em 0;animation:pop .2s ease}
-.flash .sub{display:block;font-size:.55em;color:var(--sub);margin-top:.6em}
-.flash.fix{color:var(--coral-deep)}
+.flash .sub{display:block;font-size:.55em;color:var(--soft);margin-top:.6em}
+.flash.fix{color:var(--yellow)}
 .flash.fix .sub{color:var(--ink)}
-.write-box textarea{font-family:'Nunito',sans-serif;font-weight:700;font-size:1rem;color:var(--ink);
-  width:100%;min-height:3.2em;border:2px solid var(--line);border-radius:12px;padding:.6em .7em;
-  resize:vertical;outline:none;background:var(--paper-soft);margin-top:.7em}
-.write-box textarea:focus{border-color:var(--sage)}
-.write-box .wlabel{text-align:left;font-weight:800;font-size:.9rem;color:var(--sage-deep)}
+.write-box textarea{font-family:'Nunito',sans-serif;font-weight:700;font-size:1rem;color:var(--card-ink);
+  width:100%;min-height:3.2em;border:2px solid #dcd8e4;border-radius:12px;padding:.6em .7em;
+  resize:vertical;outline:none;background:#fbfbfd;margin-top:.7em}
+.write-box textarea:focus{border-color:var(--cyan)}
+.write-box .wlabel{text-align:left;font-weight:800;font-size:.9rem;color:#0d7c8a}
 .stars{font-size:clamp(2rem,9vw,2.8rem);margin:.1em 0}
-.end-title{font-family:'Lora',serif;font-weight:600;font-size:clamp(1.4rem,5.5vw,2rem)}
+.end-title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.4rem,5.5vw,2rem)}
 .one-line{margin:1em 0 .2em;font-weight:800;font-size:clamp(1rem,3.8vw,1.2rem)}
-.remember{margin:1em auto 0;text-align:left;max-width:480px;color:var(--sub);font-weight:700;
+.remember{margin:1em auto 0;text-align:left;max-width:480px;color:var(--card-soft);font-weight:700;
   font-size:.92rem;line-height:1.65}
-.remember b{color:var(--coral-deep)}
-.sent{margin-top:.7em;font-weight:700;color:var(--sage-deep);font-size:.95rem;line-height:1.6}
-.copy-btn{background:var(--grad);color:#fff;
-  font-size:clamp(.95rem,3.8vw,1.15rem);padding:.7em 1.9em;margin-top:.9em;box-shadow:0 6px 0 rgba(94,129,105,.35)}
-.again-btn{background:transparent;color:var(--ink);font-size:.95rem;
-  padding:.55em 1.3em;margin-top:.7em;border:2px solid var(--line)}
+.remember b{color:#e5484d}
+.sent{margin-top:.7em;font-weight:700;color:#0d7c8a;font-size:.95rem;line-height:1.6}
+.copy-btn{background:linear-gradient(90deg,var(--cyan),var(--magenta));color:#fff;
+  font-size:clamp(.95rem,3.8vw,1.15rem);padding:.7em 1.9em;margin-top:.9em;box-shadow:0 6px 0 rgba(0,0,0,.35)}
+.again-btn{background:transparent;color:var(--card-ink);font-size:.95rem;
+  padding:.55em 1.3em;margin-top:.7em;border:2px solid #dcd8e4}
 .hwcard{text-align:left}
-.hwcard .no{font-weight:800;color:var(--sage-deep);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase}
-.hwcard h2{font-family:'Lora',serif;font-weight:600;font-size:clamp(1.15rem,4.4vw,1.45rem);margin:.15em 0 .4em}
-.hwcard ol{margin:.4em 0 .2em 1.3em;font-weight:700;color:var(--ink);font-size:clamp(.95rem,3.7vw,1.08rem);line-height:1.7}
-.hwcard .hint{color:var(--sub);font-weight:700;font-size:.9rem;margin-top:.5em;line-height:1.6}
-.hwcard details{margin-top:.45em}
-.hwcard summary{cursor:pointer;display:inline-flex;align-items:center;gap:.45em;font-weight:800;
-  font-size:.85rem;color:var(--sage-deep);background:var(--sage-soft);border:1.5px solid var(--sage);
-  border-radius:99px;padding:.3em 1.1em;list-style:none;user-select:none}
-.hwcard summary::-webkit-details-marker{display:none}
-.hwcard summary::after{content:"▾";font-size:.9em}
-.hwcard details[open] summary::after{content:"▴"}
-.hwcard details[open] summary{background:var(--sage);border-color:var(--sage);color:#fff}
-.hwcard details .hint{margin-top:.55em}
+.hwcard .no{font-family:'Permanent Marker',cursive;color:var(--magenta);font-size:.95rem}
+.hwcard h2{font-weight:800;font-size:clamp(1.15rem,4.4vw,1.45rem);margin:.15em 0 .4em}
+.hwcard ol{margin:.4em 0 .2em 1.3em;font-weight:700;color:var(--card-ink);font-size:clamp(.95rem,3.7vw,1.08rem);line-height:1.7}
+.hwcard .hint{color:var(--card-soft);font-weight:700;font-size:.9rem;margin-top:.5em;line-height:1.6}
 .audio-row{margin-top:.8em;text-align:center}
 .audio-row audio{width:100%;max-width:440px}
-/* the plan card — checkboxes (Sergey's mechanic) */
-.plan .hint{margin-bottom:.4em}
-.plan-row{display:flex;gap:.7em;align-items:flex-start;padding:.7em .85em;border-radius:14px;
-  background:var(--paper-soft);border:2px solid var(--line);margin-top:.55em;transition:border-color .15s}
-.plan-row.done{border-color:var(--sage)}
-.pbox{flex-shrink:0;width:1.7em;height:1.7em;border-radius:9px;border:2.5px solid var(--sage-deep);
-  display:grid;place-items:center;font-size:1.05em;color:transparent;background:var(--card);
-  margin-top:.08em;transition:all .15s;padding:0}
-.plan-row.done .pbox{background:var(--sage);border-color:var(--sage);color:#fff}
-.plabel{font-weight:700;font-size:clamp(.98rem,3.7vw,1.08rem);line-height:1.5;cursor:pointer;text-align:left}
-.plan-row.done .plabel{opacity:.55;text-decoration:line-through}
-.plan-progress{margin-top:.7em;font-weight:800;color:var(--sage-deep);font-size:.88rem;min-height:1.2em}
-/* the harvest card */
-.proverb{font-family:'Lora',serif;font-style:italic;color:var(--sub);font-size:clamp(.95rem,3.6vw,1.05rem);
-  margin:.1em 0 .7em;line-height:1.6}
-.harvest{list-style:none;text-align:left;margin:0}
-.harvest li{padding:.5em 0 .5em 1.7em;position:relative;font-weight:700;font-size:clamp(.93rem,3.5vw,1.02rem);
-  line-height:1.6;border-bottom:1.5px dashed var(--line)}
-.harvest li:last-child{border-bottom:none}
-.harvest li::before{content:"✓";position:absolute;left:.15em;top:.5em;color:var(--sage-deep);font-weight:800}
-.harvest b{color:var(--sage-deep)}
-.archive-note{color:var(--sub);font-family:'Lora',serif;font-style:italic;
+.archive-note{color:var(--soft);font-family:'Permanent Marker',cursive;transform:rotate(-.8deg);
   font-size:.95rem;margin:2.2vh 0 1rem}
-footer{color:var(--sub);font-size:.78rem;font-weight:600;margin-top:4vh;text-align:center}
+footer{color:var(--soft);font-size:.78rem;font-weight:600;margin-top:4vh;text-align:center}
 </style>
 </head>
 <body>
 <div class="eyebrow">Masha R. · English</div>
-<h1>Homework &amp; the <em>drill</em></h1>
+<h1>Homework &amp; the <span class="spray">drill</span></h1>
 <p class="tagline">One link — save it. New homework always appears here, on top.
 The drill deals a <b>fresh set every run</b> — play it as often as you like.</p>
 <div class="rule"></div>
 
 <main>
-  <div class="card plan hwcard" id="plan-card">
-    <div class="no">Start here</div>
-    <h2>Tonight's plan</h2>
-    <p class="hint">Tap the box when it's done — the page remembers, on this device.</p>
-    <div class="plan-row" data-k="listen"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="listen-card">🎧 Listening — track 3.20, twice + your one-minute retell</div></div>
-    <div class="plan-row" data-k="drill"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="start-card">🔧 The drill — one fresh run, about 15 minutes</div></div>
-    <div class="plan-row" data-k="dict"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="dict-card">📖 Seven dictionary words — write first, then check</div></div>
-    <div class="plan-row" data-k="repair"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="repair-card">✍️ Repair your five sentences</div></div>
-    <div class="plan-row" data-k="interview"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="interview-card">📋 Write your six interview questions</div></div>
-    <p class="plan-progress" id="plan-progress"></p>
-  </div>
-
   <div class="card" id="start-card">
     <p class="rules">First — your <b>Workbook 9.3</b> (📓 ex. 1–2, every run) + a few <b>9.1 review</b> questions.<br>
     Then four games + your sentences.<br>
@@ -191,25 +143,17 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <div><button class="again-btn" id="again-btn">🔁 Fresh set</button></div>
   </div>
 
-  <div class="card hwcard" id="listen-card">
-    <div class="no">Every homework · listen twice</div>
-    <h2>🎧 Listening — track 3.20</h2>
-    <p class="hint">Four students, four recent tests. The first time — just follow the story.
-    The second time — catch the details. Then:</p>
-    <ol>
-      <li>Say a <b>one-minute retell</b> — record it and send the voice message to Elena.</li>
-      <li>Write down <b>two new words</b> you heard — bring them to the lesson.</li>
-    </ol>
-    <div class="audio-row">
-      <audio controls preload="none" src="../../media/ww3-cd3-3_20.mp3"></audio>
-      <div class="hint">Track 3.20 · the four students talking about their recent tests</div>
-    </div>
+  <div class="card hwcard">
+    <div class="no">For the next lesson</div>
+    <h2>📋 Your six interview questions</h2>
+    <p class="hint"><b>Write them down this time</b> — six questions for Elena, and she answers… mostly honestly.
+    Cover the four shapes: with <b>do</b> · with <b>be / have / will</b> · a <b>subject</b> question · a <b>Wh-</b> question.</p>
   </div>
 
-  <div class="card hwcard" id="dict-card">
-    <div class="no">For the next lesson · your dictionary</div>
+  <div class="card hwcard">
+    <div class="no">d: · copy into your dictionary</div>
     <h2>Seven words from “Bright sparks!”</h2>
-    <p class="hint">Write each word into your notebook: the translation in Russian or the meaning in English or one example.
+    <p class="hint">Write each word into your notebook: the translation in Russian, the meaning in English, one example.
     <b>Write first</b> — then click to check yourself.</p>
     <ol>
       <li><b>average</b><br><details><summary>check</summary><div class="hint">🇷🇺 средний; среднее значение · the typical amount or level in a group<br><i>An average score in the test is 100 points.</i> · <i>The average child watches two hours of TV a day.</i></div></details></li>
@@ -222,7 +166,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     </ol>
   </div>
 
-  <div class="card hwcard" id="repair-card">
+  <div class="card hwcard">
     <div class="no">Your run · September the 26th</div>
     <h2>✍️ Your five sentences — repair them yourself</h2>
     <p class="hint">Say the corrected sentence aloud first — then click to check. These five open your next lesson.</p>
@@ -235,28 +179,6 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     </ol>
   </div>
 
-  <div class="card hwcard" id="interview-card">
-    <div class="no">For the next lesson</div>
-    <h2>📋 Your six interview questions</h2>
-    <p class="hint"><b>Write them down this time</b> — six questions for Elena, and she answers… mostly honestly.
-    Cover the four shapes: with <b>do</b> · with <b>be / have / will</b> · a <b>subject</b> question · a <b>Wh-</b> question.</p>
-  </div>
-
-  <div class="card hwcard" id="learnt-card">
-    <div class="no">Your harvest · Unit 9 so far</div>
-    <h2>🌱 What you've learnt</h2>
-    <p class="proverb">«Revision is the mother of learning» — that's why the drill deals a fresh set every run.</p>
-    <ul class="harvest">
-      <li><b>Word Friends:</b> make mistakes · progress · sense · changes — take notes · an exam · a look</li>
-      <li><b>-ing after prepositions:</b> good at swimming · interested in drawing · without saying goodbye</li>
-      <li><b>The passive:</b> is spoken · was written · was discovered — and the twins: I <b>found</b> my keys / Moscow was <b>founded</b></li>
-      <li><b>used to</b> swim vs <b>am used to</b> swimming · <b>since</b> 2020 / <b>for</b> ten years</li>
-      <li><b>Homeschooling (WB 9.3):</b> 36,000 and growing · often better results · advantages &amp; disadvantages</li>
-      <li><b>Seven words:</b> average · influence · responsible · report · improve · improvements · change</li>
-      <li><b>Question shapes:</b> with do · with be / have / will · subject questions · Wh- questions</li>
-    </ul>
-  </div>
-
   <div class="card hwcard">
     <div class="no">Lesson 5 · September the 19th</div>
     <h2>Vocabulary: Education</h2>
@@ -264,8 +186,12 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
       <li><b>Workbook 9.1 · pp. 102–103</b> (Think outside the box) — all seven exercises play in the machine’s first round 📓. Your Workbook lives on this page — nothing to fetch.</li>
       <li>The three Vocabulary boxes — <b>A</b> school subjects · <b>B</b> learning &amp; assessment · <b>C</b> describing students. The <b>Word lab</b> 🔬 drills them in every run — a fast quiz at the next lesson.</li>
       <li><b>Five sentences “Me as a student”</b> — write them in ✍️ Your turn. They travel to Elena inside the report.</li>
-      <li>Listen to track 3.20 and <b>retell it</b> — it has its own listening card now, every homework.</li>
+      <li>Optional: listen to track 3.20 again and <b>retell it</b> in a one-minute voice message.</li>
     </ol>
+    <div class="audio-row">
+      <audio controls preload="none" src="../../media/ww3-cd3-3_20.mp3"></audio>
+      <div class="hint">Track 3.20 · the four students talking about their recent tests</div>
+    </div>
   </div>
 </main>
 
@@ -592,7 +518,7 @@ var WRITE_PROMPTS=[
  {hint:"talented / gifted",ph:"Your talent — the flute counts! I’m talented at …"},
  {hint:"good at …",ph:"teamwork, problem solving or general knowledge? I’m good at …"},
  {hint:"make or take",ph:"Your school day — make or take? I take notes in … · I make mistakes when …"},
- {hint:"a dictionary word",ph:"average · influence · responsible · report · improve · change — one is about you: This year I want to improve …"}
+ {hint:"a d: word",ph:"average · influence · responsible · report · improve · change — one is about you: This year I want to improve …"}
 ];
 
 var ROUNDS_META=[
@@ -871,35 +797,6 @@ try{
   var runs=+localStorage.getItem("mashar-hw-runs")||0;
   if(runs)$("best-line").textContent="Runs: "+runs+(best?(" · best: "+best+"%"):"");
 }catch(e){}
-})();
-</script>
-<script>
-/* ---------- the plan card: checkboxes remember themselves (Sergey's
-   mechanic, MR keys). Box click = toggle; label click = scroll. ---------- */
-(function(){
-  var rows=Array.prototype.slice.call(document.querySelectorAll(".plan-row"));
-  var progress=document.getElementById("plan-progress");
-  function refresh(){
-    var done=rows.filter(function(r){return r.classList.contains("done");}).length;
-    progress.textContent=done+" of "+rows.length+" done"+(done===rows.length?" — beautiful! 🌟":"");
-  }
-  rows.forEach(function(row){
-    var key="mashar-plan-"+row.getAttribute("data-k");
-    try{ if(localStorage.getItem(key)==="1") row.classList.add("done"); }catch(e){}
-    row.querySelector(".pbox").addEventListener("click",function(){
-      row.classList.toggle("done");
-      try{ localStorage.setItem(key,row.classList.contains("done")?"1":"0"); }catch(e){}
-      refresh();
-    });
-    var label=row.querySelector(".plabel");
-    if(label&&label.getAttribute("data-to")){
-      label.addEventListener("click",function(){
-        var t=document.getElementById(label.getAttribute("data-to"));
-        if(t)t.scrollIntoView({behavior:"smooth",block:"start"});
-      });
-    }
-  });
-  refresh();
 })();
 </script>
 </body>
