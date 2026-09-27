@@ -132,6 +132,12 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
 #tnotes .note-step{display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.5em;font-size:clamp(.95rem,1.7vw,1.3rem);line-height:1.45}
 #tnotes .note-step .b{flex-shrink:0;font-family:'Fredoka';font-weight:700;color:var(--lavender-deep)}
 #tnotes b.z{color:#2D8CFF}
+/* --- the Pardon? button (standing 2026-09-27, for everyone) --- */
+#pardon-bar{position:fixed;bottom:2.4vh;left:max(10px,1.6vw);z-index:90}
+.pardon-pill{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.85rem,1.3vw,1.05rem);border:none;cursor:pointer;border-radius:99px;padding:.5em 1.1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);box-shadow:0 8px 22px rgba(45,52,54,.16);color:var(--ink);transition:transform .15s ease}
+.pardon-pill:hover{transform:scale(1.05)}
+#pardon .phrase{display:flex;gap:.7em;align-items:center;padding:.6em 1em;border-radius:16px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.5em;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.6vw,1.9rem);line-height:1.3}
+#pardon .phrase .i{flex-shrink:0;font-size:1.2em}
 /* --- recorder report --- */
 #rec-card{display:none;margin-top:.9em;background:rgba(255,255,255,.93);border-radius:18px;padding:.8em 1.1em;box-shadow:var(--shadow);text-align:center}
 #rec-card.show{display:block}
@@ -334,6 +340,8 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
 
 </main>
 
+<div id="pardon-bar"><button class="pardon-pill" id="pardon-btn">🙋 Pardon?</button></div>
+
 <div id="nav">
   <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
   <div id="counter"><span class="now">1</span> / 9</div>
@@ -357,6 +365,23 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     <div class="note-step"><span class="b">6 ·</span><span>Закончить показ в Zoom — красная кнопка <b class="z">Stop Share</b> наверху.</span></div>
   </div>
   <p class="hintline" style="margin-top:1em">Ключ игры: у каждого вопроса ровно ОДИН подходящий ответ — на доске одна фишка каждой категории (одно место · один цвет · одно число · одна причина · одно да/нет). Доска: under the chair · grey · eight · Because it's fun! · Yes!</p>
+</div>
+
+<!-- THE PARDON? BUTTON · the pupil's class-management phrases (standing 2026-09-27, for everyone) -->
+<div id="pardon" class="overlay">
+  <span class="closer" data-close="pardon">✕ close</span>
+  <div class="eyebrow">Your phrases — say them in English!</div>
+  <h1 class="title" style="font-size:clamp(1.5rem,3vw,2.4rem)">What can you say? 🙋</h1>
+  <div class="accent-line"></div>
+  <div style="max-width:760px">
+    <div class="phrase"><span class="i">🙋</span>Pardon?</div>
+    <div class="phrase"><span class="i">🤩</span>What does <b>brilliant</b> mean?</div>
+    <div class="phrase"><span class="i">🤝</span>Can you help me?</div>
+    <div class="phrase"><span class="i">🔁</span>Can you repeat, please?</div>
+    <div class="phrase"><span class="i">💬</span>How do you say <b>…</b> in English?</div>
+    <div class="phrase"><span class="i">🤔</span>I don't understand.</div>
+  </div>
+  <p class="hintline" style="margin-top:.8em">Try one now! 😊</p>
 </div>
 
 <!-- ELENA'S QUESTION PAD (the same file, second device) -->
@@ -400,9 +425,10 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   nextBtn.addEventListener('click', next);
   prevBtn.addEventListener('click', prev);
   const tnotes=document.getElementById('tnotes'), tpad=document.getElementById('tpad');
+  const pardonEl=document.getElementById('pardon');
   document.addEventListener('keydown', e=>{
-    if(tnotes.classList.contains('open')||tpad.classList.contains('open')){
-      if(e.key==='Escape'){ tnotes.classList.remove('open'); tpad.classList.remove('open'); }
+    if(tnotes.classList.contains('open')||tpad.classList.contains('open')||pardonEl.classList.contains('open')){
+      if(e.key==='Escape'){ tnotes.classList.remove('open'); tpad.classList.remove('open'); pardonEl.classList.remove('open'); }
       return;
     }
     if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
@@ -586,6 +612,10 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   }
   document.getElementById('pad-btn').addEventListener('click', togglePad);
   document.getElementById('tnotes-btn').addEventListener('click', ()=>{ tpad.classList.remove('open'); tnotes.classList.add('open'); });
+  document.getElementById('pardon-btn').addEventListener('click', ()=>{
+    tnotes.classList.remove('open'); tpad.classList.remove('open');
+    pardonEl.classList.add('open');
+  });
   let padOrder=seededDeal(), padState={};
   const padList=document.getElementById('pad-list');
   function renderPad(){
