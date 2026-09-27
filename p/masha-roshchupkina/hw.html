@@ -16,15 +16,8 @@
   --grad:linear-gradient(90deg,var(--sage),#9db8a4);
   --shadow:0 10px 26px rgba(55,50,42,.10); --radius:20px;
 }
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#211f1c; --card:#2b2925; --ink:#efe9de; --sub:#a69d8d;
-    --sage:#8fae97; --sage-deep:#a7c2ae; --sage-soft:#31362f;
-    --coral:#d99a8d; --coral-deep:#e2907f; --coral-soft:#3b2f2a;
-    --line:#3c3931; --paper-soft:#262420;
-    --shadow:0 10px 26px rgba(0,0,0,.35);
-  }
-}
+/* light only — Elena, 2026-09-27: the auto night charcoal read as
+   «a black deck»; the paper look is the page, at every hour */
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);min-height:100vh;
   padding:5vh clamp(14px,5vw,72px) 8vh;background:var(--bg);
