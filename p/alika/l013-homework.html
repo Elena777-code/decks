@@ -58,6 +58,8 @@ main{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:1.6em
 .wq.shown .ans{color:var(--lavender-deep);background:#f1ecff;border-color:var(--lavender)}
 /* --- where scenes: the picture carries the answer --- */
 .wq .scene{display:inline-flex;flex-direction:column;align-items:center;font-size:2rem;line-height:1.02;flex-shrink:0;min-width:1.35em}
+.wq .scene{position:relative}
+.wq .scene .ontop{position:absolute;top:-.18em;left:50%;transform:translateX(-50%);font-size:.8em;z-index:2}
 .wq .scene .inbox{display:inline-flex;align-items:center;justify-content:center;width:1.5em;height:1.3em;background:#c98d5c;border:3px solid #8a5a33;border-radius:.15em;font-size:.72em}
 /* --- listening --- */
 .audio-wrap{background:#eafbf6;border-radius:16px;padding:.9em 1em;margin:.6em 0}
@@ -155,7 +157,7 @@ footer{max-width:1000px;margin:2em auto 0;text-align:center;color:var(--ink-soft
   <section class="part" id="p3">
     <h2>🕵️ Where is it?</h2>
     <div class="ptask">Посмотри на картинку — скажи, ГДЕ оно! Потом нажми на строку — появится ответ.</div>
-    <div class="wq"><span class="scene"><span>🏐</span><span>🧱</span></span><span class="sq"><span class="wh">Where</span>&nbsp;is the ball?</span> — <span class="ans">On the wall!</span></div>
+    <div class="wq"><span class="scene"><span class="onbase">🧱</span><span class="ontop">🏐</span></span><span class="sq"><span class="wh">Where</span>&nbsp;is the ball?</span> — <span class="ans">On the wall!</span></div>
     <div class="wq"><span class="scene"><span>🛏</span><span>🐈</span></span><span class="sq"><span class="wh">Where</span>&nbsp;is the grey cat?</span> — <span class="ans">Under the bed!</span></div>
     <div class="wq"><span class="scene"><span class="inbox">🐈</span></span><span class="sq"><span class="wh">Where</span>&nbsp;is the white cat?</span> — <span class="ans">In the box!</span></div>
   </section>
