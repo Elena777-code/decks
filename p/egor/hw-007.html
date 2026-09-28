@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGOR — Homework 7 · the survey essay, built brick by brick</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#F6F4EF; --card:#FFFFFF; --ink:#33312B; --ink-soft:#8B8678;
+  --teal:#3E8E7E; --teal-soft:rgba(62,142,126,.09);
+  --amber:#C99A3C; --amber-soft:rgba(201,154,60,.10);
+  --terra:#C4744D; --line:#E5E0D5; --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--wall);color:var(--ink);font-family:'Inter',system-ui,sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;height:6px;width:0;background:var(--teal);z-index:100;transition:width .4s}
+#bar-track{position:fixed;top:0;left:0;right:0;height:6px;background:rgba(51,49,43,.07);z-index:99}
+.slide{position:absolute;inset:0;padding:4.2vh 5vw calc(74px + 2.4vh);display:none;flex-direction:column;overflow:auto}
+.slide.active{display:flex}
+.slide.active .reveal{animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
+.slide .reveal{opacity:0}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.eyebrow{color:var(--amber);letter-spacing:.18em;font-size:clamp(.95rem,1.6vw,1.2rem);text-transform:uppercase;font-weight:600}
+.title{font-weight:800;font-size:clamp(1.8rem,3.9vw,3.3rem);line-height:1.1;margin:.3em 0 .2em}
+.title .calm{color:var(--teal)}
+.accent-line{width:110px;height:5px;border-radius:3px;background:var(--teal);margin-bottom:2.4vh}
+.card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:var(--radius);padding:2.2vh 1.6vw;box-shadow:0 6px 18px rgba(51,49,43,.06)}
+.card.c-amber{border-left-color:var(--amber)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.6vw;align-items:start}
+.task{display:inline-block;background:var(--amber-soft);border:1px dashed var(--amber);color:var(--ink);border-radius:99px;padding:.45em 1.1em;font-size:clamp(1rem,1.6vw,1.3rem);margin-top:2vh}
+.chips{display:flex;flex-wrap:wrap;gap:.6vw;margin-top:1.4vh}
+.chip{background:rgba(51,49,43,.045);border:1px solid var(--line);border-radius:99px;padding:.35em .9em;font-weight:600;font-size:clamp(.95rem,1.6vw,1.25rem)}
+.ru{color:var(--ink-soft)}
+.sent{font-size:clamp(1.2rem,2.1vw,1.75rem);font-weight:600;line-height:1.5}
+.sent .n{color:var(--teal);margin-right:.5em;font-weight:800}
+.gap{display:inline-block;min-width:0;cursor:pointer;border-bottom:3px dashed var(--amber);color:transparent;padding:0 .5em;transition:.2s;user-select:none}
+.gap.filled{color:var(--teal);border-bottom:3px solid var(--teal);background:var(--teal-soft);border-radius:6px}
+.model{cursor:pointer;border-bottom:1px dotted var(--line);padding:1.3vh 0;font-size:clamp(1.1rem,1.9vw,1.6rem);font-weight:500;line-height:1.55}
+.model .why{display:block;font-size:.72em;color:var(--ink-soft);font-weight:500}
+.model.show .gap{color:var(--teal);border-bottom:3px solid var(--teal);background:var(--teal-soft);border-radius:6px}
+.survey{width:100%;border-collapse:collapse;font-size:clamp(.95rem,1.6vw,1.25rem);margin:.6vh 0}
+.survey th,.survey td{border:1px solid var(--line);padding:.5em .7em;text-align:left}
+.survey th{background:rgba(51,49,43,.05)}
+.survey td:first-child{text-align:right;font-weight:800;color:var(--teal)}
+.dict{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:.6vh}
+.dcard{background:rgba(51,49,43,.035);border:1px solid var(--line);border-radius:12px;padding:1.4vh 10px;text-align:center;cursor:pointer}
+.dcard .ico{font-size:2rem}
+.dcard .w{display:block;margin-top:.4vh;font-weight:800;font-size:1.15rem;color:transparent;transition:.25s;border-bottom:2px dashed var(--amber)}
+.dcard.show .w{color:var(--teal);border-bottom:2px solid var(--teal)}
+.chk{display:flex;gap:1vw;align-items:flex-start;padding:1vh 0;border-bottom:1px dotted var(--line);font-size:clamp(1.05rem,1.8vw,1.45rem);font-weight:600;cursor:pointer}
+.chk .box{width:1.5em;height:1.5em;flex:0 0 auto;border:2px solid var(--amber);border-radius:6px;display:flex;align-items:center;justify-content:center;color:transparent;transition:.2s}
+.chk.show .box{background:var(--teal);border-color:var(--teal);color:#fff}
+.hw-step{display:grid;grid-template-columns:2.6em 1fr;gap:1vw;align-items:start;margin-top:2vh;font-size:clamp(1.1rem,1.9vw,1.5rem);line-height:1.45}
+.hw-step .num{width:1.9em;height:1.9em;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85em}
+.hw-step a{color:var(--teal);word-break:break-all}
+#nav{position:fixed;bottom:max(10px,1.6vh);right:max(10px,1.6vw);z-index:120;display:flex;gap:8px;align-items:center;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:99px;padding:6px 10px}
+#nav button{background:none;border:none;color:var(--ink);font-size:1.25rem;cursor:pointer;width:2.2em;height:2.2em;border-radius:50%;transition:.15s}
+#nav button:hover{background:rgba(51,49,43,.08);transform:scale(1.08)}
+#nav button:disabled{opacity:.3;cursor:default}
+#counter{color:var(--ink-soft);font-size:.95rem;min-width:3.4em;text-align:center}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="bar-track"></div><div id="bar"></div>
+
+<!-- S1 · THE MAP -->
+<section class="slide">
+  <div class="eyebrow">homework · after the Education lesson · week of 5–10 October</div>
+  <h1 class="title">The essay — <span class="calm">built brick by brick</span></h1>
+  <div class="accent-line"></div>
+  <div class="card c-amber">
+    <p style="font-size:clamp(1.05rem,1.8vw,1.45rem);line-height:1.7">
+    This deck gets you READY. You click through it once (10–15 minutes, pen in hand),
+    write your draft notes — and then write the real essay <b>on paper, in the writing
+    hour</b>. The dictation words wait at the end.</p>
+  </div>
+  <div class="hw-step"><span class="num">1</span><span>📅 <b>Every day:</b> the 30-minute card — <a href="https://elena777-code.github.io/decks/p/egor/edu-week.html">the week page</a></span></div>
+  <div class="hw-step"><span class="num">2</span><span>🧱 <b>This deck:</b> the survey essay, brick by brick — then the paper version in the writing hour (200–250 words, <b>aim 220+</b>)</span></div>
+  <div class="hw-step"><span class="num">3</span><span>🎙 <b>Saturday's dictation:</b> the eight picture-cards at the end of this deck</span></div>
+  <div class="task">🎯 arrow keys or swipe — click every line to open the model</div>
+</section>
+
+<!-- S2 · THE TASK -->
+<section class="slide">
+  <div class="eyebrow">task 38 · the survey essay</div>
+  <h1 class="title">Why do teenagers <span class="calm">study online?</span></h1>
+  <div class="accent-line"></div>
+  <table class="survey">
+    <tr><th>Reason</th><th>%</th></tr>
+    <tr><td>To have a more flexible schedule</td><td>42</td></tr>
+    <tr><td>To do more interesting tasks</td><td>24</td></tr>
+    <tr><td>To avoid peer pressure</td><td>15</td></tr>
+    <tr><td>To save time</td><td>12</td></tr>
+    <tr><td>To feel more comfortable</td><td>7</td></tr>
+  </table>
+  <div class="card c-teal">
+    <p class="sent" style="font-size:clamp(1rem,1.7vw,1.4rem);line-height:1.6"><b>The plan — all five bricks:</b><br>
+    1 · opening statement about the table<br>
+    2 · 2–3 facts from the table<br>
+    3 · 1–2 comparisons + your comment<br>
+    4 · a problem while studying online + a solution<br>
+    5 · your opinion on the role of online education</p>
+  </div>
+  <div class="task">🎯 read the plan twice — then brick one</div>
+</section>
+
+<!-- S3 · BRICK 1 · OPENING -->
+<section class="slide">
+  <div class="eyebrow">brick 1 · the opening statement</div>
+  <h1 class="title">Open like <span class="calm">you mean it</span></h1>
+  <div class="accent-line"></div>
+  <p class="ru" style="font-size:clamp(1rem,1.7vw,1.3rem);margin-bottom:1vh">Write YOUR version on paper first. Then click the model lines and compare — idea for idea, not word for word.</p>
+  <div>
+    <div class="model" data-rv="m1">The table presents data on the reasons why teenagers in Zetland choose to <span class="gap">study online</span>.
+      <span class="why">one sentence, what the table IS — nothing more</span></div>
+    <div class="model" data-rv="m2">The most popular reason is <span class="gap">the wish to have a more flexible schedule</span> (42%), while the least popular one is <span class="gap">the desire to feel more comfortable</span> (7%).
+      <span class="why">top + bottom in one line — brick 2 starts itself</span></div>
+  </div>
+  <div class="card c-amber" style="margin-top:1.4vh">
+    <p class="sent" style="font-size:clamp(1rem,1.7vw,1.35rem)">💡 The opening + this top-bottom line = about 45 words. A quarter of the essay, done.</p>
+  </div>
+  <div class="task">🎯 your opening first — then click</div>
+</section>
+
+<!-- S4 · BRICK 2-3 · FACTS + COMPARISON -->
+<section class="slide">
+  <div class="eyebrow">bricks 2–3 · the facts and the comparison</div>
+  <h1 class="title">Say the numbers <span class="calm">the exam way</span></h1>
+  <div class="accent-line"></div>
+  <p class="ru" style="font-size:clamp(1rem,1.7vw,1.3rem);margin-bottom:1vh">Never repeat «42%» twice the same way. The podcast taught you the register:</p>
+  <div>
+    <div class="model" data-rv="n1"><span class="gap">A sizable portion</span> of the teenagers (42%) study online to have a more flexible schedule.
+      <span class="why">a sizable portion = the big share</span></div>
+    <div class="model" data-rv="n2">About <span class="gap">a quarter</span> of the respondents (24%) want more interesting tasks.
+      <span class="why">24% ≈ a quarter</span></div>
+    <div class="model" data-rv="n3"><span class="gap">A tiny proportion</span> of them (7%) choose online education to feel more comfortable.
+      <span class="why">a tiny proportion — the episode's own phrase</span></div>
+    <div class="model" data-rv="n4">Almost <span class="gap">three times fewer</span> teenagers avoid peer pressure (15%) than seek a flexible timetable (42%).
+      <span class="why">the comparison line — brick 3 in one sentence</span></div>
+    <div class="model" data-rv="n5">It could be explained by the fact that teenagers <span class="gap">value freedom and comfort</span> in their studies.
+      <span class="why">your comment after the comparison — YOUR idea, one line</span></div>
+  </div>
+  <div class="task">🎯 two facts + one comparison + one comment — your words</div>
+</section>
+
+<!-- S5 · BRICK 4 · THE PROBLEM -->
+<section class="slide">
+  <div class="eyebrow">brick 4 · the problem → why → solution</div>
+  <h1 class="title">The brick you were <span class="calm">missing</span></h1>
+  <div class="accent-line"></div>
+  <div class="card c-amber" style="margin-bottom:1.2vh">
+    <p class="sent" style="font-size:clamp(1rem,1.7vw,1.4rem);line-height:1.6">Your September essay named the problem and the solution — but never said <b>WHY it is a problem</b>. Ask yourself: <i>why is it bad? what follows?</i> — and one more sentence appears.</p>
+  </div>
+  <div>
+    <div class="model" data-rv="p1">However, studying online has a drawback: many teenagers <span class="gap">lack social interaction</span>, which can make them <span class="gap">feel isolated and lose motivation</span>.
+      <span class="why">problem + the WHY — «which can…» does the work</span></div>
+    <div class="model" data-rv="p2">To solve this problem, they can <span class="gap">join online discussion forums</span> or study with friends by video call, which helps to <span class="gap">maintain social connections</span>.
+      <span class="why">solution + its result — the chain closes</span></div>
+    <div class="model" data-rv="p3">Another problem is <span class="gap">poor time management</span>: students who study online may <span class="gap">miss deadlines and fall behind</span>. Creating a structured schedule can help.
+      <span class="why">the reserve problem — different essay, same brick</span></div>
+  </div>
+  <div class="task">🎯 problem → why → solution → result: four steps, two sentences</div>
+</section>
+
+<!-- S6 · BRICK 5 · THE OPINION -->
+<section class="slide">
+  <div class="eyebrow">brick 5 · your opinion, with style</div>
+  <h1 class="title">Close like <span class="calm">the podcast</span></h1>
+  <div class="accent-line"></div>
+  <div>
+    <div class="model" data-rv="o1">In my opinion, online education will <span class="gap">play an increasingly important role</span> in the 21st century.
+      <span class="why">the safe opening of the final brick</span></div>
+    <div class="model" data-rv="o2">While online platforms <span class="gap">certainly hold promise</span>, there is a long track record suggesting that <span class="gap">technology alone isn't enough</span>.
+      <span class="why">the balanced line — straight from the episode, essay-safe</span></div>
+    <div class="model" data-rv="o3">Technology should <span class="gap">augment, not replace</span>, the teacher — and the heart of effective education will remain <span class="gap">human connection</span>.
+      <span class="why">the quotable close — one line, top-band flavour</span></div>
+  </div>
+  <div class="card c-teal" style="margin-top:1.4vh">
+    <p class="sent" style="font-size:clamp(1rem,1.7vw,1.35rem)">✍️ Pick ONE of the three closes — or build your own from their parts.</p>
+  </div>
+  <div class="task">🎯 the last brick — then count your words</div>
+</section>
+
+<!-- S7 · THE SELF-CHECK -->
+<section class="slide">
+  <div class="eyebrow">before the writing hour · the self-check</div>
+  <h1 class="title">Count — <span class="calm">then check</span></h1>
+  <div class="accent-line"></div>
+  <div class="card c-amber" style="margin-bottom:1.2vh">
+    <p class="sent" style="font-size:clamp(1rem,1.7vw,1.4rem)"><b>200–250 words.</b> Aim <b>220+</b> — the floor is dangerous. Count → then add.</p>
+  </div>
+  <div>
+    <div class="chk" data-rv="c1"><span class="box">✓</span><span>All five bricks are there — opening · facts · comparison+comment · problem+solution · opinion</span></div>
+    <div class="chk" data-rv="c2"><span class="box">✓</span><span>The WHY is inside the problem paragraph («which can…»)</span></div>
+    <div class="chk" data-rv="c3"><span class="box">✓</span><span>At least TWO survey phrases: a sizable portion · a quarter · a tiny proportion · three times fewer</span></div>
+    <div class="chk" data-rv="c4"><span class="box">✓</span><span>No «IN your own pace», no «this words», no «for teenager» — the fixed slips stay fixed</span></div>
+    <div class="chk" data-rv="c5"><span class="box">✓</span><span>Word count written at the bottom of the page</span></div>
+  </div>
+  <div class="task">🎯 five ticks on paper — then write, on paper, in the hour</div>
+</section>
+
+<!-- S8 · THE DICTATION EIGHT -->
+<section class="slide">
+  <div class="eyebrow">saturday's dictation · the picture cards</div>
+  <h1 class="title">The eight — <span class="calm">write them, then check</span></h1>
+  <div class="accent-line"></div>
+  <p class="ru" style="font-size:clamp(1rem,1.7vw,1.3rem);margin-bottom:1vh">Practise at home: write all eight from the pictures into your notebook — then click each card. The real dictation is live on Saturday.</p>
+  <div class="dict">
+    <div class="dcard"><span class="ico">🤝</span><span class="w">encouragement</span></div>
+    <div class="dcard"><span class="ico">⚖️</span><span class="w">comparison</span></div>
+    <div class="dcard"><span class="ico">📚</span><span class="w">knowledge</span></div>
+    <div class="dcard"><span class="ico">❌</span><span class="w">failure</span></div>
+    <div class="dcard"><span class="ico">🌟</span><span class="w">unforgettable</span></div>
+    <div class="dcard"><span class="ico">💰</span><span class="w">tuition</span></div>
+    <div class="dcard"><span class="ico">⏰</span><span class="w">disciplined</span></div>
+    <div class="dcard"><span class="ico">📝</span><span class="w">assessment</span></div>
+  </div>
+  <div class="card c-amber" style="margin-top:2vh">
+    <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🎁 <b>Closer riddle:</b> What has keys but opens no locks, space but no room, and lets you enter but not go in?</p>
+  </div>
+</section>
+
+<div id="nav">
+  <button id="prev">‹</button>
+  <span id="counter">1 / 8</span>
+  <button id="next">›</button>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const revealed=new Set();
+function go(n){
+  cur=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  document.getElementById('bar').style.width=((cur+1)/slides.length*100)+'%';
+  document.getElementById('counter').textContent=(cur+1)+' / '+slides.length;
+  document.getElementById('prev').disabled=cur===0;
+  document.getElementById('next').disabled=cur===slides.length-1;
+  history.replaceState(null,'','#'+(cur+1));
+}
+function paint(el,on){
+  el.classList.toggle('show',on);
+  el.querySelectorAll('.gap').forEach(g=>g.classList.toggle('filled',on));
+}
+function toggleRv(el){const id=el.dataset.rv;if(!id)return;const on=!revealed.has(id);if(on)revealed.add(id);else revealed.delete(id);paint(el,on);}
+document.querySelectorAll('.model,.chk,.dcard').forEach(el=>el.addEventListener('click',()=>toggleRv(el)));
+document.getElementById('prev').onclick=()=>go(cur-1);
+document.getElementById('next').onclick=()=>go(cur+1);
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('INPUT,TEXTAREA'))return;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();go(cur+1);}
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();go(cur-1);}
+  if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+});
+let wl=0;
+document.addEventListener('wheel',e=>{const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;go(cur+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>60)go(cur+(d<0?1:-1));},{passive:true});
+const h=parseInt(location.hash.slice(1));
+go(isNaN(h)?0:h-1);
+</script>
+</body>
+</html>
