@@ -62,6 +62,13 @@ audio{width:100%;height:2.6rem;margin-top:.4em;accent-color:var(--mint-deep)}
 .mark.ok{color:#2a9d8f}.mark.no{color:#d6336c}
 .exline{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.95rem,1.6vw,1.25rem);color:var(--ink-soft);background:#fff8db;border-radius:12px;padding:.5em .9em;margin:.5em 0}
 .exline b{color:#2a9d8f}
+/* --- where scenes: the picture carries the answer (Elena, 2026-09-28) --- */
+.wq .scene{position:relative;display:inline-flex;flex-direction:column;align-items:center;font-size:2rem;line-height:1.02;flex-shrink:0;min-width:1.35em;align-self:center}
+.wq .scene .inbox{display:inline-flex;align-items:center;justify-content:center;width:1.5em;height:1.25em;background:#c9a26b;border:3px solid #a1793f;border-radius:.15em}
+.wq .scene .ball{width:.78em;height:.78em;border-radius:50%;background:linear-gradient(135deg,#c3ccd6,#8f9aa6);box-shadow:inset 0 -3px 5px rgba(45,52,54,.28)}
+.wq .scene .bag{position:relative;display:inline-flex;align-items:flex-end;justify-content:center;width:1.5em;height:1.35em;background:linear-gradient(180deg,#7f9fd1,#5d7fb4);border:3px solid #46679c;border-radius:.45em .45em .3em .3em}
+.wq .scene .bag::before{content:"";position:absolute;top:-.3em;left:50%;transform:translateX(-50%);width:.8em;height:.5em;border:.09em solid #46679c;border-bottom:none;border-radius:.5em .5em 0 0}
+.wq .scene .bag .ball{position:absolute;top:.15em}
 /* --- pb 0.1 audio board (from the Sept-20th board) --- */
 .track{display:flex;gap:1em;align-items:flex-start;background:var(--cream);border-radius:16px;box-shadow:0 5px 12px rgba(45,52,54,.08);padding:.9em 1em;margin-top:.6em}
 .track .badge{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.05rem,2.2vw,1.5rem);color:var(--ink);background:var(--mint);border-radius:14px;padding:.45em .55em;flex-shrink:0}
@@ -172,11 +179,11 @@ footer{max-width:1000px;margin:2em auto 0;text-align:center;color:var(--ink-soft
   <!-- PART 3 · WHERE IS IT? (on · under · in) -->
   <section class="part" id="p3">
     <h2>🕵️ Where is it? — где мячик?</h2>
-    <div class="ptask">Прочитай вопрос и ответь сам! Потом нажми на строку — появится ответ.</div>
-    <div class="wq"><span class="wh">Where</span>&nbsp;is the cat? 🐈🪑 — <span class="ans">Under the chair!</span></div>
-    <div class="wq"><span class="wh">What</span>&nbsp;is in the box? 📦 — <span class="ans">A grey ball!</span></div>
-    <div class="wq"><span class="wh">Where</span>&nbsp;is the white ribbon? 🎀📦 — <span class="ans">On the box!</span></div>
-    <div class="wq"><span class="wh">Where</span>&nbsp;do you do gymnastics? 🤸‍♀️ — <span class="ans">In the gym!</span></div>
+    <div class="ptask">Посмотри на картинку — скажи! Потом нажми на строку — появится ответ.</div>
+    <div class="wq"><span class="scene"><span>🪑</span><span>🐈</span></span><span class="sq"><span class="wh">Where</span>&nbsp;is the cat?</span> — <span class="ans">Under the chair!</span></div>
+    <div class="wq"><span class="scene"><span class="inbox"><span class="ball"></span></span></span><span class="sq"><span class="wh">What</span>&nbsp;is in the box?</span> — <span class="ans">A grey ball!</span></div>
+    <div class="wq"><span class="scene"><span>🎀</span><span>📦</span></span><span class="sq"><span class="wh">Where</span>&nbsp;is the white ribbon?</span> — <span class="ans">On the box!</span></div>
+    <div class="wq"><span class="scene"><span class="bag"><span class="ball"></span></span></span><span class="sq"><span class="wh">Where</span>&nbsp;is the grey ball?</span> — <span class="ans">In the school bag!</span></div>
   </section>
 
   <!-- PART 4 · CAMBRIDGE LISTENING -->
