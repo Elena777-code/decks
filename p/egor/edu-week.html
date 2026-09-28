@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGOR · Education week · 30 minutes a day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#F6F4EF; --card:#FFFFFF; --ink:#33312B; --soft:#8B8678;
+  --teal:#3E8E7E; --teal-soft:rgba(62,142,126,.09);
+  --amber:#C99A3C; --amber-soft:rgba(201,154,60,.10);
+  --terra:#C4744D; --line:#E5E0D5; --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--wall);color:var(--ink);font-family:'Inter',system-ui,sans-serif;padding-bottom:8vh}
+header{padding:3.5vh 5vw 1.5vh}
+.eyebrow{color:var(--amber);letter-spacing:.18em;text-transform:uppercase;font-weight:600;font-size:.85rem}
+h1{font-weight:800;font-size:clamp(1.6rem,3.4vw,2.6rem);line-height:1.12;margin:.25em 0 .1em}
+h1 .calm{color:var(--teal)}
+.sub{color:var(--soft);font-size:clamp(.95rem,1.5vw,1.15rem);max-width:60ch}
+#days{position:sticky;top:0;z-index:50;background:rgba(246,244,239,.94);backdrop-filter:blur(10px);display:flex;gap:6px;overflow-x:auto;padding:10px 5vw;border-bottom:1px solid var(--line)}
+.daybtn{flex:0 0 auto;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:.5em 1.1em;font:600 .95rem 'Inter',sans-serif;color:var(--ink);cursor:pointer;transition:.2s}
+.daybtn:hover{border-color:var(--teal)}
+.daybtn.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.daybtn .d{display:block;font-size:.7rem;font-weight:500;opacity:.75}
+section.day{display:none;padding:2.5vh 5vw;max-width:1050px}
+section.day.on{display:block}
+.dayhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:1.2vh}
+.dayhead h2{font-size:clamp(1.3rem,2.6vw,2rem);font-weight:800}
+.dayhead .when{color:var(--soft);font-weight:500}
+.block{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:var(--radius);padding:2vh 1.6vw;margin-bottom:2vh;box-shadow:0 6px 18px rgba(51,49,43,.05)}
+.block.c-amber{border-left-color:var(--amber)}
+.block.c-terra{border-left-color:var(--terra)}
+.bhead{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:1vh}
+.bhead .tag{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--amber)}
+.bhead h3{font-size:clamp(1.05rem,1.9vw,1.45rem);font-weight:800}
+.timer{margin-left:auto;display:flex;align-items:center;gap:8px;background:rgba(51,49,43,.05);border-radius:99px;padding:4px 6px}
+.timer .t{font-variant-numeric:tabular-nums;font-weight:800;font-size:1.05rem;min-width:3.6em;text-align:center;color:var(--ink)}
+.timer button{border:none;background:var(--teal);color:#fff;border-radius:99px;width:2.1em;height:2.1em;font-size:.95rem;cursor:pointer}
+.timer button:hover{filter:brightness(1.1)}
+.timer.low .t{color:var(--terra)}
+.hint{color:var(--soft);font-size:.92rem;margin-bottom:1vh}
+.item{padding:1vh 0;border-bottom:1px dotted var(--line);font-size:clamp(1rem,1.7vw,1.3rem);font-weight:500;line-height:1.5;cursor:pointer}
+.item:last-of-type{border-bottom:none}
+.item .n{color:var(--teal);font-weight:800;margin-right:.45em}
+.item .rv{color:transparent;background:rgba(62,142,126,.12);border-radius:6px;padding:0 .4em;transition:.25s;user-select:none;border-bottom:2px dashed var(--teal)}
+.item.show .rv{color:var(--teal);background:var(--teal-soft);border-bottom:2px solid var(--teal);font-weight:700}
+.item .why{display:block;font-size:.78em;color:var(--soft);opacity:0;transition:.25s;font-weight:500}
+.item.show .why{opacity:1}
+.tfw{display:flex;flex-wrap:wrap;gap:8px;margin-top:.5vh}
+.tfw span{border:1px solid var(--line);border-radius:10px;padding:.2em .7em;font-size:.9em;background:rgba(51,49,43,.04)}
+.item.show .ok{background:var(--teal-soft);border-color:var(--teal);color:var(--teal);font-weight:700}
+.item.show .no{opacity:.4}
+.qq{padding:1vh 0;border-bottom:1px dotted var(--line);font-size:clamp(1rem,1.7vw,1.3rem);font-weight:500;line-height:1.5;cursor:pointer}
+.qq .q{font-weight:600}
+.qq .opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:.5vh}
+.qq .opt{border:1px solid var(--line);border-radius:10px;padding:.25em .7em;font-size:.92em;background:rgba(51,49,43,.04);transition:.25s}
+.qq.show .opt[data-ok="1"]{background:var(--teal-soft);border-color:var(--teal);color:var(--teal);font-weight:700}
+.qq.show .opt[data-ok="0"]{opacity:.4}
+.listen{background:rgba(62,142,126,.06);border-radius:12px;padding:1.4vh 1.2vw;margin-bottom:1vh}
+.listen .lbl{font-size:.8rem;font-weight:600;color:var(--teal);letter-spacing:.1em;text-transform:uppercase}
+.rate{display:flex;gap:6px;align-items:center;margin-top:.6vh}
+.rate button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:.3em .9em;font:500 .85rem 'Inter';cursor:pointer}
+.rate button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.rate .big{border:none;background:var(--teal);color:#fff;border-radius:99px;padding:.45em 1.2em;font:600 .9rem 'Inter';cursor:pointer;margin-right:6px}
+.transcript{display:none;margin-top:1vh;font-size:clamp(.95rem,1.5vw,1.15rem);line-height:1.65;color:var(--ink)}
+.transcript.open{display:block}
+details.tr{margin-top:1vh}
+details.tr summary{cursor:pointer;color:var(--soft);font-size:.9rem;font-weight:600}
+details.tr p{font-size:clamp(.95rem,1.5vw,1.15rem);line-height:1.65;margin-top:.6vh}
+.dict{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:.5vh}
+.dcard{background:rgba(51,49,43,.035);border:1px solid var(--line);border-radius:12px;padding:1.2vh 10px;text-align:center;cursor:pointer}
+.dcard .ico{font-size:2rem}
+.dcard .w{display:block;margin-top:.4vh;font-weight:800;font-size:1.15rem;color:transparent;transition:.25s;border-bottom:2px dashed var(--amber)}
+.dcard.show .w{color:var(--teal);border-bottom:2px solid var(--teal)}
+.survey{width:100%;border-collapse:collapse;font-size:clamp(.9rem,1.5vw,1.15rem);margin:.6vh 0}
+.survey th,.survey td{border:1px solid var(--line);padding:.45em .7em;text-align:left}
+.survey th{background:rgba(51,49,43,.05)}
+.note{background:var(--amber-soft);border:1px dashed var(--amber);border-radius:12px;padding:1.2vh 1.2vw;font-size:clamp(.95rem,1.55vw,1.2rem);margin-top:1vh}
+.bigbtn{display:inline-block;background:var(--teal);color:#fff;font:600 1rem 'Inter';border-radius:12px;padding:.7em 1.4em;cursor:pointer;border:none;margin-top:1vh}
+.done{background:rgba(62,142,126,.08);border-radius:12px;padding:1.2vh 1.2vw;margin-top:1vh;font-size:clamp(.95rem,1.55vw,1.2rem)}
+a{color:var(--teal)}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">EGOR · education week · topic two of seventeen</div>
+  <h1>Thirty minutes a day — <span class="calm">and Sunday will be easy</span></h1>
+  <p class="sub">Three blocks a day: grammar &amp; word formation → vocabulary → listening. Press the timer, do the block, click every line to check yourself. The lesson days (Sat 3, Sun 4) have no homework — the lesson IS the work.</p>
+</header>
+
+<nav id="days">
+  <button class="daybtn on" data-d="d1">Day 1<span class="d">Wed 1 Oct · before</span></button>
+  <button class="daybtn" data-d="d2">Day 2<span class="d">Thu 2 Oct · before</span></button>
+  <button class="daybtn" data-d="d3">Day 3<span class="d">Fri 3 Oct · before</span></button>
+  <button class="daybtn" data-d="d4">Day 4<span class="d">Mon 5 Oct · after</span></button>
+  <button class="daybtn" data-d="d5">Day 5<span class="d">Tue 6 Oct · after</span></button>
+  <button class="daybtn" data-d="d6">Day 6<span class="d">Wed 7 Oct · after</span></button>
+  <button class="daybtn" data-d="d7">Day 7<span class="d">Thu 8 Oct · after</span></button>
+  <button class="daybtn" data-d="d8">Day 8<span class="d">Fri 9 Oct · after</span></button>
+</nav>
+
+<!-- ================= DAY 1 ================= -->
+<section class="day on" id="d1">
+  <div class="dayhead"><h2>Day 1 — word families &amp; the sound of the topic</h2><span class="when">Wednesday 1 October</span></div>
+
+  <div class="block">
+    <div class="bhead"><span class="tag">① grammar · word formation</span><h3>Build the word</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Write the correct form on paper first — then click the line. The word in brackets is your base.</p>
+    <div class="item"><span class="n">1</span>Failing a test can sometimes <span class="rv">discourage</span> students from studying harder. <span class="why">(ENCOURAGE — the negative twin)</span></div>
+    <div class="item"><span class="n">2</span>Teachers often use <span class="rv">comparison</span> to explain the difference between two subjects. <span class="why">(COMPARE — the noun)</span></div>
+    <div class="item"><span class="n">3</span>Studying hard increases your <span class="rv">knowledge</span> and understanding of different topics. <span class="why">(KNOW — no -ledge missing!)</span></div>
+    <div class="item"><span class="n">4</span>Some students feel <span class="rv">pressure</span> to perform well in all their classes. <span class="why">(PRESS — the noun)</span></div>
+    <div class="item"><span class="n">5</span>The school trip was <span class="rv">unforgettable</span>, filled with exciting adventures. <span class="why">(FORGET — one t only!)</span></div>
+    <div class="item"><span class="n">6</span>Sarah felt <span class="rv">nervous</span> before her school <span class="rv">presentation</span>. <span class="why">(NERVE / PRESENT)</span></div>
+    <div class="item"><span class="n">7</span>Teachers should provide <span class="rv">encouragement</span> to students struggling with their studies. <span class="why">(ENCOURAGE — the noun)</span></div>
+    <div class="item"><span class="n">8</span>Learning from <span class="rv">failure</span> is an essential part of education. <span class="why">(FAIL — the noun)</span></div>
+    <div class="item"><span class="n">9</span>Winning that competition was a great <span class="rv">achievement</span>. <span class="why">(ACHIEVE — your own school family)</span></div>
+    <div class="item"><span class="n">10</span>The band gave an excellent <span class="rv">performance</span> last night. <span class="why">(PERFORM — your own school family)</span></div>
+  </div>
+
+  <div class="block c-amber">
+    <div class="bhead"><span class="tag">② vocabulary · prepositions I</span><h3>fed up ___ Maths</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Say the whole sentence with the preposition — then click. Every sentence is about school subjects, like yours.</p>
+    <div class="item"><span class="n">1</span>Jake is bored <span class="rv">with</span> Geography and prefers Literature.</div>
+    <div class="item"><span class="n">2</span>Sarah is terrible <span class="rv">at</span> Physics but she excels in History.</div>
+    <div class="item"><span class="n">3</span>I often struggle <span class="rv">with</span> Chemistry, but Biology is easier.</div>
+    <div class="item"><span class="n">4</span>I am fed up <span class="rv">with</span> Maths — three classes every day.</div>
+    <div class="item"><span class="n">5</span>Jack didn't cope <span class="rv">with</span> the stress of exams last year.</div>
+    <div class="item"><span class="n">6</span>Lisa worked hard and succeeded <span class="rv">in</span> passing all her exams.</div>
+    <div class="item"><span class="n">7</span>Maria is capable <span class="rv">of</span> solving complex problems easily.</div>
+    <div class="item"><span class="n">8</span>Max is crazy <span class="rv">about</span> computer science and codes for hours.</div>
+    <div class="item"><span class="n">9</span>Sarah loves to take part <span class="rv">in</span> drama club after school.</div>
+    <div class="item"><span class="n">10</span>Sam used to cheat <span class="rv">in</span> tests, but now he studies hard.</div>
+    <div class="note">📋 Now write THREE sentences about your own subjects — one with <b>fed up with</b>, one with <b>good at</b>, one with <b>struggle with</b>.</div>
+  </div>
+
+  <div class="block c-terra">
+    <div class="bhead"><span class="tag">③ listening · the future of education</span><h3>A century of wrong predictions</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Press play and listen ONCE without the text. Then decide True or False — click to check. Only after that, open the transcript.</p>
+    <div class="listen" id="cut1">
+      <span class="lbl">🎧 episode cut · part 1</span>
+      <div class="rate"><button class="big">▶ Play</button><button data-rate="0.8">0.8×</button><button data-rate="1" class="on">1×</button></div>
+      <details class="tr"><summary>show transcript (after the answers)</summary>
+        <p>Throughout much of the twentieth century, there have been bold predictions about new technologies that would "revolutionise" education. The invention of TVs was heralded as the start of a new educational revolution: anyone, anywhere, could get access to the best possible teaching, right there on their screen. In the 1960s there was talk of a teaching machine, with which students could learn at their own pace and get personalised feedback. Then there were correspondence courses; then computers and the Internet — many believed this would be the real game-changer, allowing anyone to access a modern-day library of Alexandria. And then the MOOCs, the massive open online courses: you could follow a Harvard course on philosophy, then a computer science course at Oxford. There was virtual reality, trumpeted as yet another tool that would have us all learning in the metaverse. None of these, it is fair to say, have had the revolutionary impact many thought they would. We humans are awful at predicting the future — and the future of education is clearly no exception.</p>
+      </details>
+    </div>
+    <div class="qq"><div class="q">1. TVs were predicted to give everyone access to the best teaching.</div><div class="opts"><span class="opt" data-ok="1">True</span><span class="opt" data-ok="0">False</span></div></div>
+    <div class="qq"><div class="q">2. The 1960s "teaching machine" promised personalised feedback.</div><div class="opts"><span class="opt" data-ok="1">True</span><span class="opt" data-ok="0">False</span></div></div>
+    <div class="qq"><div class="q">3. MOOCs let you follow courses from Harvard and Oxford.</div><div class="opts"><span class="opt" data-ok="1">True</span><span class="opt" data-ok="0">False</span></div></div>
+    <div class="qq"><div class="q">4. The speaker thinks every new technology has revolutionised education.</div><div class="opts"><span class="opt" data-ok="0">True</span><span class="opt" data-ok="1">False</span></div></div>
+    <div class="qq"><div class="q">5. Humans are good at predicting the future of education.</div><div class="opts"><span class="opt" data-ok="0">True</span><span class="opt" data-ok="1">False</span></div></div>
+    <div class="done">✔ Day 1 in the bag: nine word families, ten prepositions, one podcast in your ears.</div>
+  </div>
+</section>
+
+<!-- ================= DAY 2 ================= -->
+<section class="day" id="d2">
+  <div class="dayhead"><h2>Day 2 — traps, exam verbs, the teacher's future</h2><span class="when">Thursday 2 October</span></div>
+
+  <div class="block">
+    <div class="bhead"><span class="tag">① grammar · word formation II</span><h3>The trap list — your own catches</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Half of these are YOUR spelling catches from your school notebook. Fix the form or the spelling — click to check.</p>
+    <div class="item"><span class="n">1</span>It was an <span class="rv">unforgettable</span> day. <span class="why">(unforgetable ✗ — one t)</span></div>
+    <div class="item"><span class="n">2</span>He passed the exam <span class="rv">successfully</span>. <span class="why">(succesful ✗ — double s, double l)</span></div>
+    <div class="item"><span class="n">3</span>She is <span class="rv">studying</span> for her finals. <span class="why">(studing ✗ — you wrote this twice!)</span></div>
+    <div class="item"><span class="n">4</span>Online learning gives you <span class="rv">flexibility</span>. <span class="why">(flexibilty ✗)</span></div>
+    <div class="item"><span class="n">5</span>Technology can <span class="rv">enhance</span> the lesson. <span class="why">(enchance ✗)</span></div>
+    <div class="item"><span class="n">6</span>The teacher gave a fair <span class="rv">assessment</span>. <span class="why">(assesment ✗ — double s in the middle)</span></div>
+    <div class="item"><span class="n">7</span>I <span class="rv">preferred</span> the first option. <span class="why">(prefered ✗ — double r)</span></div>
+    <div class="item"><span class="n">8</span>He was <span class="rv">discouraged</span> by his low grade. <span class="why">(the negative of encourage)</span></div>
+    <div class="item"><span class="n">9</span>Her words gave me a lot of <span class="rv">encouragement</span>. <span class="why">(the noun)</span></div>
+    <div class="item"><span class="n">10</span>The orchestra gave two <span class="rv">performances</span> that evening. <span class="why">(performens ✗ -ances)</span></div>
+  </div>
+
+  <div class="block c-amber">
+    <div class="bhead"><span class="tag">② vocabulary · exam verbs</span><h3>The exam verb machine</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">These four schoolkids are talking about exams. Click each line to reveal the verb.</p>
+    <div class="item"><span class="n">1</span>Anna: "If students have to <span class="rv">study</span> for an exam, they'll work harder."</div>
+    <div class="item"><span class="n">2</span>Anna: "Exams <span class="rv">encourage</span> students to remember what they've learned."</div>
+    <div class="item"><span class="n">3</span>Anna: "Exams <span class="rv">give</span> students a chance to demonstrate their knowledge."</div>
+    <div class="item"><span class="n">4</span>Liam: "I feel nervous before exams, and this can <span class="rv">affect</span> my results."</div>
+    <div class="item"><span class="n">5</span>Liam: "I have to <span class="rv">stay up</span> really late when I prepare."</div>
+    <div class="item"><span class="n">6</span>Liam: "Exams put too much pressure on students, and this can <span class="rv">lead</span> to health problems."</div>
+    <div class="item"><span class="n">7</span>Mark: "I only <span class="rv">learn</span> the things I need to pass. After the exam, I forget everything!"</div>
+    <div class="item"><span class="n">8</span>Mark: "I <span class="rv">get</span> very stressed before exams and can't <span class="rv">cope</span> with this pressure."</div>
+    <div class="item"><span class="n">9</span>Eva: "There are better ways to <span class="rv">test</span> students' knowledge than exams."</div>
+    <div class="item"><span class="n">10</span>Eva: "Teachers could ask students to <span class="rv">do</span> projects or presentations — a chance to <span class="rv">show</span> what they can do."</div>
+    <div class="note">📋 Your turn — one sentence: <b>Do exams put too much pressure on students?</b> Use <i>cope with</i> or <i>lead to</i>.</div>
+  </div>
+
+  <div class="block c-terra">
+    <div class="bhead"><span class="tag">③ listening · part 2</span><h3>The teacher stays — but changes</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <div class="listen" id="cut2">
+      <span class="lbl">🎧 episode cut · part 2</span>
+      <div class="rate"><button class="big">▶ Play</button><button data-rate="0.8">0.8×</button><button data-rate="1" class="on">1×</button></div>
+      <details class="tr"><summary>show transcript (after the answers)</summary>
+        <p>The first key theme in today's reports is this: most predictions still have a human teacher at the centre of the learning experience. That is interesting, because many earlier predictions had the teacher disappearing completely. Instead, teachers are expected to move from being "gatekeepers of knowledge" to "choreographers of learning" — organising and guiding the learning experience rather than standing between students and information. And teachers do things technology cannot: they motivate, they inspire, they notice when a student is having a bad day. Artificial intelligence might take over the administrative tasks — the grading, the paperwork — and that would free teachers to spend more of their time actually engaging with students.</p>
+      </details>
+    </div>
+    <div class="qq"><div class="q">1. Modern reports predict that…</div><div class="opts"><span class="opt" data-ok="0">a) teachers will disappear</span><span class="opt" data-ok="1">b) a human teacher stays central</span><span class="opt" data-ok="0">c) schools will close</span></div></div>
+    <div class="qq"><div class="q">2. "Choreographers of learning" means teachers will…</div><div class="opts"><span class="opt" data-ok="0">a) teach dancing</span><span class="opt" data-ok="1">b) guide and organise learning</span><span class="opt" data-ok="0">c) guard the information</span></div></div>
+    <div class="qq"><div class="q">3. AI is expected to help teachers by…</div><div class="opts"><span class="opt" data-ok="0">a) replacing them</span><span class="opt" data-ok="1">b) doing the admin work</span><span class="opt" data-ok="0">c) writing the exams</span></div></div>
+    <div class="done">✔ Day 2: ten traps killed, ten exam verbs, one big idea — gatekeeper → choreographer.</div>
+  </div>
+</section>
+
+<!-- ================= DAY 3 ================= -->
+<section class="day" id="d3">
+  <div class="dayhead"><h2>Day 3 — articles, collocations, the pandemic lesson</h2><span class="when">Friday 3 October · lesson tomorrow: bring your "2050" notes</span></div>
+
+  <div class="block">
+    <div class="bhead"><span class="tag">① grammar · articles &amp; determiners</span><h3>a / an / the / — · every · most</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Tomorrow's grammar. Choose the article or determiner — click to check.</p>
+    <div class="item"><span class="n">1</span><span class="rv">—</span> online education has become increasingly popular. <span class="why">(general concept — no article)</span></div>
+    <div class="item"><span class="n">2</span>She wants to be <span class="rv">a</span> teacher. <span class="why">(one of many — a)</span></div>
+    <div class="item"><span class="n">3</span><span class="rv">The</span> internet has changed <span class="rv">—</span> education. <span class="why">(the internet — one, known; education — general)</span></div>
+    <div class="item"><span class="n">4</span><span class="rv">Every</span> student needs support. = <span class="rv">Each</span> student needs support. <span class="why">(both work; every = the group, each = one by one)</span></div>
+    <div class="item"><span class="n">5</span><span class="rv">Most</span> teenagers prefer online tools. <span class="why">(most + plural, no "the")</span></div>
+    <div class="item"><span class="n">6</span>He is <span class="rv">the</span> best student in <span class="rv">the</span> class. <span class="why">(superlative + one specific class)</span></div>
+    <div class="item"><span class="n">7</span>They have <span class="rv">an</span> hour of PE <span class="rv">a</span> day. <span class="why">(an hour; a day = per day)</span></div>
+    <div class="item"><span class="n">8</span>Some students work better alone; <span class="rv">others</span> need a team. <span class="why">(others — no "the", general)</span></div>
+    <div class="item"><span class="n">9</span><span class="rv">—</span> knowledge is power, but not all knowledge is free. <span class="why">(abstract noun — no article)</span></div>
+    <div class="item"><span class="n">10</span>She took <span class="rv">an</span> exam in <span class="rv">the</span> school hall. <span class="why">(an exam; the specific hall)</span></div>
+  </div>
+
+  <div class="block c-amber">
+    <div class="bhead"><span class="tag">② vocabulary · the online-vs-classroom ten</span><h3>The phrases your class argued with</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Complete from memory, click, say the whole phrase out loud.</p>
+    <div class="item"><span class="n">1</span>study <span class="rv">at your own pace</span> — учиться в своём темпе</div>
+    <div class="item"><span class="n">2</span>pay high <span class="rv">tuition fees</span> — платить за обучение</div>
+    <div class="item"><span class="n">3</span>a <span class="rv">lack of social interaction</span> — не хватает общения</div>
+    <div class="item"><span class="n">4</span>be very <span class="rv">disciplined and organised</span> — дисциплина и порядок</div>
+    <div class="item"><span class="n">5</span>meet <span class="rv">deadlines</span> / fall <span class="rv">behind</span> — соблюдать сроки / отставать</div>
+    <div class="item"><span class="n">6</span>avoid <span class="rv">peer pressure</span> — избегать давления сверстников</div>
+    <div class="item"><span class="n">7</span>develop <span class="rv">critical thinking</span> skills — критическое мышление</div>
+    <div class="item"><span class="n">8</span>attend lectures <span class="rv">in person</span> / <span class="rv">face-to-face</span> — лично</div>
+    <div class="item"><span class="n">9</span>a busy schedule → find <span class="rv">a slot for</span> your lessons — найти слот</div>
+    <div class="item"><span class="n">10</span>it <span class="rv">provides</span> learners <span class="rv">with</span> structure and support — давать структуру</div>
+    <div class="note">📋 Write two sentences: one FOR online learning, one FOR the classroom — any three of the ten phrases each. Bring them tomorrow.</div>
+  </div>
+
+  <div class="block c-terra">
+    <div class="bhead"><span class="tag">③ listening · part 3</span><h3>The pandemic experiment</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <div class="listen" id="cut3">
+      <span class="lbl">🎧 episode cut · part 3</span>
+      <div class="rate"><button class="big">▶ Play</button><button data-rate="0.8">0.8×</button><button data-rate="1" class="on">1×</button></div>
+      <details class="tr"><summary>show transcript (after the answers)</summary>
+        <p>The pandemic forced a global experiment with virtual learning: schools around the world closed, and lessons moved online. The result? Most students and teachers were desperate to get back to the classroom. Virtual learning worked, more or less, but it was a poor substitute for the real thing — the social side of school, the friends, the sports, the conversations before and after class. Being at school is about much more than absorbing information. And while AI and personalised learning pathways certainly hold promise, there is a long track record that suggests technology alone isn't enough.</p>
+      </details>
+    </div>
+    <div class="item"><span class="n">1</span>The pandemic was a <span class="rv">global</span> experiment with virtual learning.</div>
+    <div class="item"><span class="n">2</span>Most students were <span class="rv">desperate</span> to return to the classroom.</div>
+    <div class="item"><span class="n">3</span>Virtual learning was a <span class="rv">poor substitute</span> for the real thing.</div>
+    <div class="item"><span class="n">4</span>Being at school is much more than <span class="rv">absorbing information</span>.</div>
+    <div class="item"><span class="n">5</span>Technology <span class="rv">alone</span> isn't enough — there is a long <span class="rv">track record</span>.</div>
+    <div class="done">✔ Day 3 done — and your "2050" notes are written. Tomorrow: we finish Travelling (reading + the five words). Sunday: EDUCATION opens.</div>
+  </div>
+</section>
+
+<!-- ================= DAY 4 ================= -->
+<section class="day" id="d4">
+  <div class="dayhead"><h2>Day 4 — the lesson's yield, drilled</h2><span class="when">Monday 5 October · after the Education lesson</span></div>
+
+  <div class="block">
+    <div class="bhead"><span class="tag">① word formation · exam set</span><h3>Exam pace: 10 in 5 minutes</h3>
+      <div class="timer" data-total="300"><button class="tstart">▶</button><span class="t">05:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Set the timer to 5:00 — exam rhythm. Write all ten, then click.</p>
+    <div class="item"><span class="n">1</span>The government plans to invest in <span class="rv">educational</span> technology. <span class="why">(EDUCATE)</span></div>
+    <div class="item"><span class="n">2</span>Her <span class="rv">knowledge</span> of history is impressive. <span class="why">(KNOW)</span></div>
+    <div class="item"><span class="n">3</span>Thousands of students sit the exam every year, and the answers are checked by experienced <span class="rv">examiners</span>. <span class="why">(EXAM — the person)</span></div>
+    <div class="item"><span class="n">4</span>A good <span class="rv">teacher</span> explains twice without getting angry. <span class="why">(TEACH)</span></div>
+    <div class="item"><span class="n">5</span>Slow <span class="rv">learners</span> often remember longer. <span class="why">(LEARN)</span></div>
+    <div class="item"><span class="n">6</span>The <span class="rv">development</span> of critical thinking is the school's main aim. <span class="why">(DEVELOP)</span></div>
+    <div class="item"><span class="n">7</span>Read the text for general <span class="rv">understanding</span> first. <span class="why">(UNDERSTAND)</span></div>
+    <div class="item"><span class="n">8</span>The report was written by three <span class="rv">scientists</span>. <span class="why">(SCIENCE)</span></div>
+    <div class="item"><span class="n">9</span>He passed the exam <span class="rv">successfully</span>. <span class="why">(SUCCESS)</span></div>
+    <div class="item"><span class="n">10</span>Online tools make teenagers more <span class="rv">independent</span>. <span class="why">(DEPEND)</span></div>
+  </div>
+
+  <div class="block c-amber">
+    <div class="bhead"><span class="tag">② vocabulary · production</span><h3>Russian → English, straight down</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Look at the Russian, say the English phrase out loud, click to check yourself.</p>
+    <div class="item"><span class="n">1</span>готовиться к экзамену — <span class="rv">to study / prepare for an exam</span></div>
+    <div class="item"><span class="n">2</span>сдать / провалить экзамен — <span class="rv">to pass / to fail an exam</span></div>
+    <div class="item"><span class="n">3</span>хорошо выступить на экзамене — <span class="rv">to do well in an exam</span></div>
+    <div class="item"><span class="n">4</span>давить на студентов — <span class="rv">to put pressure on students</span></div>
+    <div class="item"><span class="n">5</span>приводить к проблемам со здоровьем — <span class="rv">to lead to health problems</span></div>
+    <div class="item"><span class="n">6</span>получать знания — <span class="rv">to gain / acquire knowledge</span></div>
+    <div class="item"><span class="n">7</span>соблюдать сроки — <span class="rv">to meet deadlines</span></div>
+    <div class="item"><span class="n">8</span>отставать — <span class="rv">to fall behind</span></div>
+    <div class="item"><span class="n">9</span>справляться с давлением — <span class="rv">to cope with the pressure</span></div>
+    <div class="item"><span class="n">10</span>развивать критическое мышление — <span class="rv">to develop critical thinking skills</span></div>
+  </div>
+
+  <div class="block c-terra">
+    <div class="bhead"><span class="tag">③ listening · part 4</span><h3>Self-directed learning — and the catch</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <div class="listen" id="cut4">
+      <span class="lbl">🎧 episode cut · part 4</span>
+      <div class="rate"><button class="big">▶ Play</button><button data-rate="0.8">0.8×</button><button data-rate="1" class="on">1×</button></div>
+      <details class="tr"><summary>show transcript (after the answers)</summary>
+        <p>This movement already exists in the form of self-directed learning, where the child's learning is entirely self-directed, with no formal curriculum. If knowledge becomes truly democratised and available at the click of a button, why sit in a classroom? It sounds wonderful. But there is a catch. Learning by yourself requires motivation, discipline, and support at home — and not every child has those. In fact, this future could widen educational inequalities even further. If learning becomes increasingly self-directed, will this lead to a greater gap between those who can direct themselves, and those who cannot?</p>
+      </details>
+    </div>
+    <div class="qq"><div class="q">1. In self-directed learning, the child…</div><div class="opts"><span class="opt" data-ok="0">a) follows a formal curriculum</span><span class="opt" data-ok="1">b) decides what and how to learn</span><span class="opt" data-ok="0">c) learns only with parents</span></div></div>
+    <div class="qq"><div class="q">2. "Democratised knowledge" means knowledge…</div><div class="opts"><span class="opt" data-ok="0">a) controlled by the state</span><span class="opt" data-ok="1">b) available to everyone</span><span class="opt" data-ok="0">c) taught through elections</span></div></div>
+    <div class="qq"><div class="q">3. The speaker's worry: self-directed learning could…</div><div class="opts"><span class="opt" data-ok="0">a) close schools</span><span class="opt" data-ok="1">b) widen educational inequalities</span><span class="opt" data-ok="0">c) end the internet</span></div></div>
+    <div class="done">✔ Day 4: exam pace found, twenty phrases produced, the episode's sharpest argument in your ears.</div>
+  </div>
+</section>
+
+<!-- ================= DAY 5 ================= -->
+<section class="day" id="d5">
+  <div class="dayhead"><h2>Day 5 — your own lines, under the microscope</h2><span class="when">Tuesday 6 October</span></div>
+
+  <div class="block c-terra">
+    <div class="bhead"><span class="tag">① grammar · your own errors</span><h3>Eight of YOUR lines — fix them</h3>
+      <div class="timer" data-total="480"><button class="tstart">▶</button><span class="t">08:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">All eight come from your own September texts. Say the fixed line out loud — then click.</p>
+    <div class="item"><span class="n">1</span>"I have found <b style="color:var(--terra)">the a</b> pie chart" → <span class="rv">I have found a pie chart</span> <span class="why">(one article, not two)</span></div>
+    <div class="item"><span class="n">2</span>"difficult for <b style="color:var(--terra)">teenager</b>" → <span class="rv">for a teenager / for teenagers</span> <span class="why">(countable — never alone)</span></div>
+    <div class="item"><span class="n">3</span>"Thanks for <b style="color:var(--terra)">email</b>" → <span class="rv">Thanks for your email</span> <span class="why">(whose? — the possessive)</span></div>
+    <div class="item"><span class="n">4</span>"work <b style="color:var(--terra)">in</b> your own pace" → <span class="rv">at your own pace</span> <span class="why">(your school line — now forever AT)</span></div>
+    <div class="item"><span class="n">5</span>"<b style="color:var(--terra)">fase-to-fase</b>" → <span class="rv">face-to-face</span></div>
+    <div class="item"><span class="n">6</span>"education <b style="color:var(--terra)">incorporate</b>" → <span class="rv">education incorporateS</span> <span class="why">(education = it → -s)</span></div>
+    <div class="item"><span class="n">7</span>"<b style="color:var(--terra)">this</b> words" → <span class="rv">these words</span> <span class="why">(plural)</span></div>
+    <div class="item"><span class="n">8</span>"What was <b style="color:var(--terra)">about</b> your project?" → <span class="rv">What was your project about?</span> <span class="why">(word order)</span></div>
+  </div>
+
+  <div class="block c-amber">
+    <div class="bhead"><span class="tag">② reading · exam task 10</span><h3>Seven kids, eight headings</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Real exam format. Write A–G on paper first. One heading is extra. Click each comment for the key.</p>
+    <div class="tfw" style="margin-bottom:1vh"><span>1 Thinking about the future</span><span>2 Awkward moments</span><span>3 Valueless disciplines</span><span>4 Unleashing creativity</span><span>5 Igniting intellectual growth</span><span>6 Key to thriving in the evolving society</span><span>7 Advantageous alternatives</span><span>8 Mental relief</span></div>
+    <div class="item" style="font-size:clamp(.95rem,1.5vw,1.15rem)"><b>A · Ethan</b> — I love PE because it keeps us fit, but some of my friends aren't sporty and find PE difficult. They feel embarrassed doing sport with other people and often get picked last for teams. <span class="rv">→ 2</span></div>
+    <div class="item" style="font-size:clamp(.95rem,1.5vw,1.15rem)"><b>B · Mia</b> — PE lessons are a waste of time because we could learn something more useful instead, like Physics. Also, the lessons are extremely boring — we do almost the same things every time. There are more interesting ways to stay healthy: yoga at home or dancing. <span class="rv">→ 7</span></div>
+    <div class="item" style="font-size:clamp(.95rem,1.5vw,1.15rem)"><b>C · Ruby</b> — Doing regular exercise when you're young gives you a good chance to stay in shape later in life. Sport also develops important skills like teamwork and leadership — skills for your future career, not just for sport. <span class="rv">→ 1</span></div>
+    <div class="item" style="font-size:clamp(.95rem,1.5vw,1.15rem)"><b>D · Jacob</b> — Physical activity makes you feel happier. It helps you to relax and forget about your problems. That's why I never skip my PE classes. <span class="rv">→ 8</span></div>
+    <div class="item" style="font-size:clamp(.95rem,1.5vw,1.15rem)"><b>E · Olivia</b> — Science develops critical thinking skills. It helps students to think analytically and logically — valuable skills in many areas of life. Doing experiments and analysing data improves problem-solving: students learn to identify problems and find solutions. <span class="rv">→ 5</span></div>
+    <div class="item" style="font-size:clamp(.95rem,1.5vw,1.15rem)"><b>F · Liam</b> — Science is difficult and boring: teachers give very long and complicated explanations. I doubt many people will use Physics or Chemistry in the future. It's hard to remember — I start losing my confidence and motivation. <span class="rv">→ 3</span></div>
+    <div class="item" style="font-size:clamp(.95rem,1.5vw,1.15rem)"><b>G · Molly</b> — The world is rapidly changing, and scientific knowledge is becoming increasingly important. Science education helps students adapt to new challenges and opens up a wide range of career opportunities. <span class="rv">→ 6</span></div>
+    <div class="note">The extra heading: <b>4 Unleashing creativity</b>. Trap check: the same words in a heading and a text usually mean a DISTRACTOR.</div>
+  </div>
+
+  <div class="block">
+    <div class="bhead"><span class="tag">③ writing fuel</span><h3>Steal three phrases for Saturday's essay</h3>
+      <div class="timer" data-total="420"><button class="tstart">▶</button><span class="t">07:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Read the three chunks, say each one in your own sentence, write your three sentences down.</p>
+    <div class="item">"It is often claimed that nothing beats in-person education because it allows learners to <span class="rv">interact with others</span> and learn from their experiences."</div>
+    <div class="item">"It also <span class="rv">provides</span> students <span class="rv">with</span> structure and <span class="rv">support</span>."</div>
+    <div class="item">"More and more people who have <span class="rv">a busy schedule</span> want to <span class="rv">study at their own pace</span> — and choose online education."</div>
+    <div class="done">✔ Day 5: your own errors re-fixed, one real reading task, three essay chunks stolen.</div>
+  </div>
+</section>
+
+<!-- ================= DAY 6 ================= -->
+<section class="day" id="d6">
+  <div class="dayhead"><h2>Day 6 — translation day</h2><span class="when">Wednesday 7 October</span></div>
+
+  <div class="block">
+    <div class="bhead"><span class="tag">① production · Russian → English</span><h3>Two paragraphs, the exam way</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Translate both paragraphs on paper. Click only when YOUR version is written. Then compare — not word for word: idea for idea.</p>
+    <div class="item"><b>1.</b> Многие люди предпочитают учиться онлайн, и сейчас существует много сайтов и приложений для изучения новых навыков и получения квалификаций. Одно из главных преимуществ онлайн-обучения в том, что можно учиться в своём темпе и в удобное время.
+      <span class="rv" style="display:block;margin-top:.5em">Many people prefer to study online, and there are now many websites and apps for learning new skills and gaining qualifications. One of the main advantages of online learning is that you can learn at your own pace and at a time that suits you.</span></div>
+    <div class="item"><b>2.</b> С другой стороны, один из недостатков онлайн-обучения — можно чувствовать себя одиноко, ведь нет возможности встречаться с другими студентами или преподавателями лично. Кроме того, нужно быть очень дисциплинированным и организованным: никто не проверит, делаешь ли ты свою работу.
+      <span class="rv" style="display:block;margin-top:.5em">On the other hand, one of the disadvantages of online learning is that one can feel quite lonely, since you don't have the opportunity to meet other students or teachers in person. Also, you need to be very disciplined and organised, as there will be no one to make sure you are doing your work.</span></div>
+    <div class="note">📋 Underline in YOUR text: every phrase that matches the key — those are yours now. Circle what differed — those go to your notebook.</div>
+  </div>
+
+  <div class="block c-amber">
+    <div class="bhead"><span class="tag">② vocabulary · the full table, fast</span><h3>All thirteen — in 90 seconds</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Round 1: read each line, say the preposition, click. Round 2 (the 90-second run): cover the answers, all thirteen again — use the timer at 1:30.</p>
+    <div class="item">fed up <span class="rv">with</span> · bored <span class="rv">with</span> · cope <span class="rv">with</span> · struggle <span class="rv">with</span></div>
+    <div class="item">good / terrible / talented <span class="rv">at</span> · cheat <span class="rv">in</span> an exam</div>
+    <div class="item">interested <span class="rv">in</span> · take part <span class="rv">in</span> · succeed <span class="rv">in</span> · do well <span class="rv">in</span></div>
+    <div class="item">capable <span class="rv">of</span> · crazy <span class="rv">about</span> · listen <span class="rv">to</span></div>
+    <div class="item">pressure <span class="rv">on</span> · stressed <span class="rv">before</span> · study <span class="rv">for</span> · lead <span class="rv">to</span> · provide sb <span class="rv">with</span> sth</div>
+  </div>
+
+  <div class="block c-terra">
+    <div class="bhead"><span class="tag">③ listening · part 5</span><h3>The conclusion — and your ears' graduation</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <div class="listen" id="cut5">
+      <span class="lbl">🎧 episode cut · part 5</span>
+      <div class="rate"><button class="big">▶ Play</button><button data-rate="0.8">0.8×</button><button data-rate="1" class="on">1×</button></div>
+      <details class="tr"><summary>show transcript (after the answers)</summary>
+        <p>So what will education look like in ten, twenty, fifty years? The honest answer is: nobody knows. But one thing is certain — knowledge is now more accessible than ever before. A teenager today, with an internet connection, has access to more information than any previous generation in history. That is an incredible opportunity, but it also puts more responsibility on the learner: when knowledge is democratised, motivation, discipline and curiosity become the most important school subjects of all. Education will keep changing — and the people who have learned how to learn will be just fine.</p>
+      </details>
+    </div>
+    <div class="qq"><div class="q">1. The honest answer about the future of education is…</div><div class="opts"><span class="opt" data-ok="0">a) AI will run it</span><span class="opt" data-ok="1">b) nobody knows</span><span class="opt" data-ok="0">c) schools will disappear</span></div></div>
+    <div class="qq"><div class="q">2. When knowledge is democratised, the most important "subjects" become…</div><div class="opts"><span class="opt" data-ok="1">a) motivation, discipline, curiosity</span><span class="opt" data-ok="0">b) maths and science</span><span class="opt" data-ok="0">c) coding and AI</span></div></div>
+    <div class="qq"><div class="q">3. "The people who have learned how to learn will be just fine" — the speaker is…</div><div class="opts"><span class="opt" data-ok="0">a) worried</span><span class="opt" data-ok="1">b) optimistic</span><span class="opt" data-ok="0">c) bored</span></div></div>
+    <div class="done">✔ Day 6: two paragraphs translated, the whole preposition table at speed, the episode finished. You have heard all five parts.</div>
+  </div>
+</section>
+
+<!-- ================= DAY 7 ================= -->
+<section class="day" id="d7">
+  <div class="dayhead"><h2>Day 7 — the essay's missing brick</h2><span class="when">Thursday 8 October · the writing hour is near</span></div>
+
+  <div class="block">
+    <div class="bhead"><span class="tag">① writing · the essay operation</span><h3>Your problem paragraph — rebuilt</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Your September essay named a problem and a solution — but never said WHY it is a problem. That brick is worth a criterion point. Build it here.</p>
+    <div class="item"><span class="n">1</span>The exam question you'll meet Saturday: <b>«Why do teenagers study online?»</b> — table below. Guess the top reason before you click. <span class="rv">A more flexible schedule — 42%</span></div>
+    <table class="survey">
+      <tr><th>Reason</th><th>%</th></tr>
+      <tr><td>To have a more flexible schedule</td><td>42</td></tr>
+      <tr><td>To do more interesting tasks</td><td>24</td></tr>
+      <tr><td>To avoid peer pressure</td><td>15</td></tr>
+      <tr><td>To save time</td><td>12</td></tr>
+      <tr><td>To feel more comfortable</td><td>7</td></tr>
+    </table>
+    <div class="item"><span class="n">2</span>Say the numbers like the exam wants: 42% = <span class="rv">nearly half</span> · 24% = <span class="rv">about a quarter</span> · 15% = <span class="rv">almost three times fewer</span> · 12% = <span class="rv">roughly one in ten</span> · 7% = <span class="rv">a small minority</span></div>
+    <div class="item"><span class="n">3</span>The problem brick — copy the skeleton, fill the gaps: "However, studying online has a drawback: many teenagers <span class="rv">lack social interaction</span>, which can make them <span class="rv">feel isolated and lose motivation</span>. To solve this problem, they can <span class="rv">join online discussion groups or study with friends by video call</span>."</div>
+    <div class="item"><span class="n">4</span>The WHY test for ANY problem: ask yourself <span class="rv">"why is it bad? what follows?"</span> — and one more sentence appears.</div>
+  </div>
+
+  <div class="block c-amber">
+    <div class="bhead"><span class="tag">② vocabulary · problem → solution</span><h3>Three ready pairs</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Click each row: problem → result → solution → result. Say each as a full sentence.</p>
+    <div class="item">No face-to-face contact → <span class="rv">students feel isolated, lose motivation</span> → engage in online discussion forums → <span class="rv">maintains social connections</span></div>
+    <div class="item">Hard to manage time → <span class="rv">miss deadlines, fall behind</span> → create a structured study schedule → <span class="rv">manage time effectively, meet deadlines</span></div>
+    <div class="item">Poor internet connection → <span class="rv">can't join lectures or submit work in time</span> → change provider / use mobile internet → <span class="rv">stable internet access</span></div>
+    <div class="note">📋 Pick ONE pair. Write the four-step chain as two sentences (problem+result, solution+result). That's your essay's middle, done before Saturday.</div>
+  </div>
+
+  <div class="block c-terra">
+    <div class="bhead"><span class="tag">③ listening · the replay</span><h3>Parts 1 and 3 — eyes closed</h3>
+      <div class="timer" data-total="600"><button class="tstart">▶</button><span class="t">10:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Play both cuts again (Day 1 and Day 3 tabs), no transcript, notes closed. After: write FIVE facts you heard. Then check against the transcripts.</p>
+    <div class="listen" id="replay1">
+      <span class="lbl">🎧 replay · part 1</span>
+      <div class="rate"><button class="big">▶ Play</button><button data-rate="1" class="on">1×</button><button data-rate="1.15">1.15×</button></div>
+    </div>
+    <div class="listen" id="replay3">
+      <span class="lbl">🎧 replay · part 3</span>
+      <div class="rate"><button class="big">▶ Play</button><button data-rate="1" class="on">1×</button><button data-rate="1.15">1.15×</button></div>
+    </div>
+    <div class="done">✔ Day 7: the essay's middle is pre-built, five facts written from memory.</div>
+  </div>
+</section>
+
+<!-- ================= DAY 8 ================= -->
+<section class="day" id="d8">
+  <div class="dayhead"><h2>Day 8 — sprint day</h2><span class="when">Friday 9 October · revision lesson tomorrow</span></div>
+
+  <div class="block">
+    <div class="bhead"><span class="tag">① the mixed sprint</span><h3>Twelve items, six minutes</h3>
+      <div class="timer" data-total="360"><button class="tstart">▶</button><span class="t">06:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Everything from the week, mixed. Write 1–12 fast, then click. This is Saturday's warm-up.</p>
+    <div class="item"><span class="n">1</span>fed up ___ Maths → <span class="rv">with</span></div>
+    <div class="item"><span class="n">2</span>good ___ Physics → <span class="rv">at</span></div>
+    <div class="item"><span class="n">3</span>succeed ___ passing → <span class="rv">in</span></div>
+    <div class="item"><span class="n">4</span>capable ___ solving → <span class="rv">of</span></div>
+    <div class="item"><span class="n">5</span>pressure ___ students → <span class="rv">on</span></div>
+    <div class="item"><span class="n">6</span>___ your own pace → <span class="rv">at</span></div>
+    <div class="item"><span class="n">7</span>FAIL → the noun → <span class="rv">failure</span></div>
+    <div class="item"><span class="n">8</span>ENCOURAGE → the negative verb → <span class="rv">discourage</span></div>
+    <div class="item"><span class="n">9</span>FORGET → the strong adjective → <span class="rv">unforgettable</span> <span class="why">(one t!)</span></div>
+    <div class="item"><span class="n">10</span>PRESS → the noun → <span class="rv">pressure</span></div>
+    <div class="item"><span class="n">11</span>DEPEND → the adjective (free) → <span class="rv">independent</span></div>
+    <div class="item"><span class="n">12</span>SCIENCE → the people → <span class="rv">scientists</span></div>
+  </div>
+
+  <div class="block c-amber">
+    <div class="bhead"><span class="tag">② the eight-word check</span><h3>Write from the picture — then click</h3>
+      <div class="timer" data-total="480"><button class="tstart">▶</button><span class="t">08:00</span><button class="treset">↺</button></div></div>
+    <p class="hint">Each picture carries one of this week's words. Write all eight in your notebook, then click each card.</p>
+    <div class="dict">
+      <div class="dcard"><span class="ico">🤝</span><span class="w">encouragement</span></div>
+      <div class="dcard"><span class="ico">⚖️</span><span class="w">comparison</span></div>
+      <div class="dcard"><span class="ico">📚</span><span class="w">knowledge</span></div>
+      <div class="dcard"><span class="ico">❌</span><span class="w">failure</span></div>
+      <div class="dcard"><span class="ico">🌟</span><span class="w">unforgettable</span></div>
+      <div class="dcard"><span class="ico">💰</span><span class="w">tuition</span></div>
+      <div class="dcard"><span class="ico">⏰</span><span class="w">disciplined</span></div>
+      <div class="dcard"><span class="ico">📝</span><span class="w">assessment</span></div>
+    </div>
+  </div>
+
+  <div class="block c-terra">
+    <div class="bhead"><span class="tag">③ the episode's own quiz</span><h3>Five words the podcast taught</h3>
+      <div class="timer" data-total="480"><button class="tstart">▶</button><span class="t">08:00</span><button class="treset">↺</button></div></div>
+    <div class="qq"><div class="q">1. A "choreographer" of learning…</div><div class="opts"><span class="opt" data-ok="0">a) teaches dance</span><span class="opt" data-ok="1">b) helps organise learning</span><span class="opt" data-ok="0">c) grades papers</span></div></div>
+    <div class="qq"><div class="q">2. "Democratised" knowledge is…</div><div class="opts"><span class="opt" data-ok="0">a) restricted to a few</span><span class="opt" data-ok="1">b) available to everyone</span><span class="opt" data-ok="0">c) decided by vote</span></div></div>
+    <div class="qq"><div class="q">3. "Synergy" is…</div><div class="opts"><span class="opt" data-ok="0">a) the cost of education</span><span class="opt" data-ok="1">b) elements working together for a better result</span><span class="opt" data-ok="0">c) a school subject</span></div></div>
+    <div class="qq"><div class="q">4. A "seismic" change is…</div><div class="opts"><span class="opt" data-ok="0">a) slight</span><span class="opt" data-ok="1">b) large and significant</span><span class="opt" data-ok="0">c) temporary</span></div></div>
+    <div class="qq"><div class="q">5. "Heralded" means…</div><div class="opts"><span class="opt" data-ok="1">a) announced as significant</span><span class="opt" data-ok="0">b) ignored</span><span class="opt" data-ok="0">c) criticised</span></div></div>
+    <div class="done">✔ Week complete. Tomorrow: show Elena your sprint time, your eight words, and the essay middle you pre-built. The topic is yours.</div>
+  </div>
+</section>
+
+<script>
+/* ---------- day tabs ---------- */
+const btns=[...document.querySelectorAll('.daybtn')];
+function showDay(id){
+  btns.forEach(b=>b.classList.toggle('on',b.dataset.d===id));
+  document.querySelectorAll('section.day').forEach(s=>s.classList.toggle('on',s.id===id));
+  window.scrollTo({top:0});
+  try{speechSynthesis.cancel();}catch(e){}
+}
+btns.forEach(b=>b.addEventListener('click',()=>showDay(b.dataset.d)));
+
+/* ---------- reveals (answers hide, always) ---------- */
+document.querySelectorAll('.item,.qq,.dcard').forEach(el=>el.addEventListener('click',()=>el.classList.toggle('show')));
+
+/* ---------- timers ---------- */
+document.querySelectorAll('.timer').forEach(tm=>{
+  let total=parseInt(tm.dataset.total),left=total,iv=null;
+  const disp=tm.querySelector('.t');
+  function paint(){const m=String(Math.floor(left/60)).padStart(2,'0'),s=String(left%60).padStart(2,'0');disp.textContent=m+':'+s;tm.classList.toggle('low',left<=60&&left>0);}
+  tm.querySelector('.tstart').onclick=e=>{
+    if(iv){clearInterval(iv);iv=null;e.target.textContent='▶';}
+    else{e.target.textContent='❚❚';iv=setInterval(()=>{left=Math.max(0,left-1);paint();if(left===0){clearInterval(iv);iv=null;tm.querySelector('.tstart').textContent='▶';beep();}},1000);}
+  };
+  tm.querySelector('.treset').onclick=()=>{clearInterval(iv);iv=null;tm.querySelector('.tstart').textContent='▶';left=total;paint();};
+  paint();
+});
+function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)();const o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=880;o.start();g.gain.setValueAtTime(.1,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.5);o.stop(a.currentTime+.55);}catch(e){}}
+
+/* ---------- TTS listening (device voice, offline) ---------- */
+const CUTS={};
+function cutText(id){
+  const box=document.getElementById(id);
+  if(!box)return'';
+  const d=box.querySelector('details.tr p');
+  return d?d.textContent.trim():'';
+}
+['cut1','cut2','cut3','cut4','cut5','replay1','replay3'].forEach(id=>{
+  const box=document.getElementById(id);
+  if(!box)return;
+  if(id==='replay1')CUTS[id]=cutText('cut1');
+  else if(id==='replay3')CUTS[id]=cutText('cut3');
+  else CUTS[id]=cutText(id);
+  let rate=1,speaking=false;
+  const playBtn=box.querySelector('.big');
+  box.querySelectorAll('.rate [data-rate]').forEach(rb=>rb.addEventListener('click',e=>{
+    e.stopPropagation();
+    rate=parseFloat(rb.dataset.rate);
+    box.querySelectorAll('.rate [data-rate]').forEach(x=>x.classList.remove('on'));
+    rb.classList.add('on');
+  }));
+  playBtn.addEventListener('click',()=>{
+    try{
+      if(speaking){speechSynthesis.cancel();speaking=false;playBtn.textContent='▶ Play';return;}
+      speechSynthesis.cancel();
+      const u=new SpeechSynthesisUtterance(CUTS[id]);
+      u.lang='en-GB';u.rate=rate;u.pitch=1;
+      const vs=speechSynthesis.getVoices().filter(v=>v.lang&&v.lang.startsWith('en'));
+      if(vs.length)u.voice=vs.find(v=>/en-GB/i.test(v.lang))||vs[0];
+      u.onend=()=>{speaking=false;playBtn.textContent='▶ Play';};
+      u.onerror=()=>{speaking=false;playBtn.textContent='▶ Play';};
+      speaking=true;playBtn.textContent='■ Stop';
+      speechSynthesis.speak(u);
+    }catch(err){alert('Speech is not available on this device — use the transcript below instead.');}
+  });
+});
+try{speechSynthesis.getVoices();}catch(e){}
+</script>
+</body>
+</html>
