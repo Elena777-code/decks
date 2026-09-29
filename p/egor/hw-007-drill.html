@@ -78,6 +78,9 @@ button.big{background:var(--teal);color:#fff;font-size:clamp(1.1rem,4.2vw,1.35re
     <div class="eyebrow" style="margin-bottom:.6em">ready?</div>
     <p class="prompt">52 cards · 6 rounds</p>
     <p class="helper">prepositions 10 · word formation 10 · the trap list 8 · collocations 10 · the family round 6 · the phrases 8</p>
+    <div class="answer-row" style="margin-top:1.2em">
+      <input class="type-box" id="name-box" autocomplete="off" autocapitalize="on" spellcheck="false" placeholder="your name">
+    </div>
     <button class="big" id="begin-btn">Begin</button>
   </div>
 
@@ -236,8 +239,16 @@ function buildRounds(){
 
 /* ---------- state ---------- */
 var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false;
-
-$("begin-btn").addEventListener("click",function(){ri=0;log=[];roundFlash();});
+var RUNNER="EGOR";
+try{RUNNER=localStorage.getItem("egor-hw007-name")||"EGOR";}catch(e){}
+$("name-box").value=RUNNER==="EGOR"?"":RUNNER;
+$("begin-btn").addEventListener("click",function(){
+  var v=$("name-box").value.trim();
+  if(!v){$("name-box").style.borderColor="var(--terra)";
+    $("name-box").placeholder="write your name first";return;}
+  RUNNER=v;
+  try{localStorage.setItem("egor-hw007-name",v);}catch(e){}
+  ri=0;log=[];roundFlash();});
 $("again-btn").addEventListener("click",function(){rounds=buildRounds();ri=0;log=[];hide("end-card");roundFlash();});
 
 function roundFlash(){
@@ -343,7 +354,7 @@ var LAST_REPORT="";
 function reportText(hits,total,byRound,misses){
   var d=new Date();
   var pad=function(n){return (n<10?"0":"")+n;};
-  var lines=["EGOR · hw-007 drill · "+pad(d.getDate())+"/"+pad(d.getMonth()+1)+" "+pad(d.getHours())+":"+pad(d.getMinutes()),
+  var lines=["DRILL REPORT · "+RUNNER+" · hw-007 · "+pad(d.getDate())+"/"+pad(d.getMonth()+1)+" "+pad(d.getHours())+":"+pad(d.getMinutes()),
     "Score: "+hits+"/"+total];
   for(var k in byRound){lines.push("· "+k+": "+byRound[k].ok+"/"+byRound[k].n);}
   if(rounds[1]&&rounds[1].wfMode)lines.push("· word formation: "+(rounds[1].wfMode==="ctx"?"sentences mode":"POS mode"));
