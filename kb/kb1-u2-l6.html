@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kid's Box 1 · Unit 2 · Lesson 6 — My school &amp; Tt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ "Minty Fresh" — ONE deck for the whole lesson ============
+   KB1 · Unit 2 · Lesson 6 (My school — конспект L6 + the GE Left&Right
+   slot Elena ordered, 2026-09-29). Same engine as KB 1 U1 L4/L5 (THE
+   DECK STAYS FAMILIAR): board deck + 🗒 Teacher's notes on every slide,
+   Wi-Fi interstitials, reveal cards, ready-chime. New standing chrome
+   in the same pill family: build stamp (slide 1) · ✍️ lesson-log (C) ·
+   🙋 Pardon? phrases. */
+:root{
+  --mint:#95E1D3;         /* soft mint */
+  --mint-deep:#5ecbb8;    /* mint accent */
+  --peach:#FCE38A;        /* warm yellow */
+  --lavender:#C8B6FF;     /* lavender */
+  --lavender-deep:#9a7fff;/* lavender accent */
+  --cream:#FFF8F0;        /* page background */
+  --pink:#FF8FAB;         /* pink accent */
+  --ink:#2D3436;          /* main text */
+  --ink-soft:#636e72;     /* secondary text */
+  --white:#ffffff;
+  --radius:22px;
+  --shadow:0 10px 30px rgba(45,52,54,.12);
+  --shadow-lg:0 20px 50px rgba(45,52,54,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);overflow:hidden}
+.slide>*{flex-shrink:0}   /* THE FLEX-SHRINK RULE — nothing collapses; slides scroll */
+/* ============ chrome ============ */
+#progress-track{position:fixed;top:0;left:0;width:100vw;height:7px;background:rgba(200,182,255,.35);z-index:100}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--lavender),var(--pink));transition:width .4s cubic-bezier(.22,1,.36,1)}
+#nav{
+  position:fixed;bottom:14px;right:max(10px,1.6vw);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border-radius:99px;padding:8px 14px;box-shadow:var(--shadow);
+}
+#nav button{
+  width:44px;height:44px;border-radius:50%;border:none;
+  background:var(--white);color:var(--mint-deep);font-size:1.35rem;cursor:pointer;
+  box-shadow:0 2px 10px rgba(45,52,54,.10);
+  transition:transform .15s ease,opacity .15s ease;font-family:inherit;
+}
+#nav button:hover{transform:scale(1.08)}
+#nav button:disabled{opacity:.3;cursor:default;transform:none}
+#nav button.fs{width:auto;border-radius:99px;padding:0 16px;font-size:1.05rem}
+#counter{font-weight:800;color:var(--ink-soft);font-size:1rem;min-width:3.6em;text-align:center}
+#stamp{
+  position:fixed;top:12px;right:max(10px,1.6vw);z-index:100;
+  font-size:clamp(.7rem,1vw,.9rem);font-weight:800;color:var(--ink-soft);
+  background:rgba(255,255,255,.85);border-radius:99px;padding:.3em .9em;box-shadow:var(--shadow);
+}
+/* ============ the pills (notes · log · pardon) ============ */
+.pill{
+  position:fixed;bottom:14px;z-index:100;
+  font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(.8rem,1.25vw,1.05rem);border:none;cursor:pointer;
+  border-radius:99px;padding:.45em 1.05em;background:rgba(255,255,255,.9);
+  box-shadow:0 4px 12px rgba(45,52,54,.12);color:var(--ink-soft);
+  transition:transform .15s ease,color .15s ease;
+}
+.pill:hover{transform:scale(1.05);color:var(--ink)}
+#tnbtn{left:max(10px,1.6vw)}
+#logbtn{left:calc(max(10px,1.6vw) + 150px)}
+#pardonbtn{left:calc(max(10px,1.6vw) + 205px)}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(255,248,240,.985);display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
+.overlay.open{display:flex}
+.overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
+.overlay .closer:hover{color:var(--ink)}
+#tnotes .eyebrow{margin-bottom:1vh}
+#tnbody{display:flex;flex-direction:column;gap:.6em;max-width:900px}
+#tnbody .note-step{display:flex;gap:.7em;align-items:flex-start;padding:.7em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);font-size:clamp(1rem,1.8vw,1.35rem);line-height:1.5}
+#tnbody .note-step .b{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--mint-deep);flex:0 0 auto}
+/* ============ slides ============ */
+.slide{
+  position:absolute;inset:0;
+  padding:4.2vh 5vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;gap:1.8vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),visibility .5s;
+  overflow:auto;
+}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0) scale(1)}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal-el{animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
+.slide.active .reveal-el:nth-child(2){animation-delay:.08s}
+.slide.active .reveal-el:nth-child(3){animation-delay:.16s}
+.slide.active .reveal-el:nth-child(4){animation-delay:.24s}
+.slide.active .reveal-el:nth-child(5){animation-delay:.32s}
+.slide.active .reveal-el:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+/* ============ the Wi-Fi interstitial ============ */
+.slide.wifi{justify-content:center;align-items:center;background:#fff}
+.wifi-ic{width:clamp(180px,32vw,380px);height:auto;animation:wifipulse 2.2s ease-in-out infinite}
+@keyframes wifipulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.045);opacity:1}}
+/* ============ content components ============ */
+.eyebrow{
+  font-size:clamp(1rem,1.8vw,1.4rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lavender-deep);
+}
+h1.title{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.1;color:var(--ink);
+}
+.accent-line{width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.card{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.2vh,24px) clamp(16px,2vw,28px);
+}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.card.pink{background:#ffe9f0}
+.card p,.card li{font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.4}
+.task{
+  background:var(--peach);border-radius:99px;align-self:flex-start;
+  padding:.45em 1.2em;font-size:clamp(1.2rem,2.1vw,1.7rem);font-weight:800;color:var(--ink);
+}
+.reveal-btn{
+  font-family:'Fredoka',sans-serif;font-size:clamp(1.15rem,2vw,1.6rem);font-weight:700;
+  color:var(--ink);background:var(--mint);border:none;border-radius:99px;
+  padding:.55em 1.5em;cursor:pointer;transition:transform .15s ease;align-self:flex-start;
+  box-shadow:var(--shadow);
+}
+.reveal-btn:hover{transform:scale(1.06)}
+.answer{
+  display:none;font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.7rem,3.4vw,3rem);color:var(--ink);
+  background:var(--mint);border-radius:var(--radius);padding:.4em 1em;align-self:flex-start;
+}
+.answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+.answer b{color:var(--pink)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+/* flashcard grids */
+.fc-grid{display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,20px);align-items:stretch;justify-content:center}
+.fc{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(8px,1.2vh,14px);cursor:pointer;user-select:none;
+  display:flex;flex-direction:column;align-items:center;gap:.4vh;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease;
+  flex:0 1 auto;min-width:0;
+}
+.fc img{height:clamp(90px,16vh,150px);border-radius:12px}
+.fc .fc-emoji{font-size:clamp(3.2rem,8vh,5.6rem);line-height:1.15;display:block}
+.fc .fc-name{
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.5rem);
+  color:var(--ink);min-height:1.3em;
+}
+.fc:hover{transform:translateY(-4px) scale(1.03)}
+.fc.picked{transform:scale(1.07);box-shadow:0 0 0 6px var(--mint),var(--shadow-lg)}
+/* big left/right arrows */
+.lr-row{display:flex;gap:clamp(20px,4vw,60px);justify-content:center;align-items:center}
+.lr{display:flex;flex-direction:column;align-items:center;gap:1vh;cursor:pointer;user-select:none}
+.lr .arrow{font-size:clamp(4rem,11vh,8rem);line-height:1;animation:wifipulse 2s ease-in-out infinite}
+.lr .lr-word{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.8rem,4vw,3.2rem);background:var(--white);border-radius:18px;
+  padding:.15em .6em;box-shadow:var(--shadow);
+}
+.lr.left .arrow{color:#5ecbb8}
+.lr.right .arrow{color:#FF8FAB}
+audio{width:min(560px,100%);margin-top:.4vh}
+video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--shadow-lg)}
+img.sheet{width:min(640px,92%);border-radius:16px;display:block;box-shadow:var(--shadow-lg);background:#fff}
+.linkcard{
+  display:inline-block;background:var(--lavender);color:var(--ink);text-decoration:none;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2.2vw,1.8rem);
+  border-radius:99px;padding:.6em 1.6em;box-shadow:var(--shadow);cursor:pointer;
+  transition:transform .15s ease;align-self:flex-start;
+}
+.linkcard:hover{transform:scale(1.05)}
+/* the ✍️ lesson-log panel */
+#logpanel .log-row{display:flex;gap:.8em;align-items:flex-start;padding:.6em .9em;border-radius:14px;background:var(--white);box-shadow:0 4px 12px rgba(45,52,54,.08);font-size:clamp(.95rem,1.6vw,1.2rem)}
+#logpanel textarea{width:100%;min-height:2.4em;border:2px solid var(--mint);border-radius:10px;padding:.4em .6em;font-family:'Nunito',sans-serif;font-size:1rem;resize:vertical}
+#logpanel .tick{font-size:1.25rem;cursor:pointer;flex:0 0 auto}
+#logpanel .lognav{display:flex;gap:8px;align-items:center;margin:1vh 0}
+#logpanel .lognav button{width:40px;height:40px;border-radius:50%;border:none;background:var(--white);font-size:1.1rem;cursor:pointer;box-shadow:var(--shadow)}
+#logpanel .lognav span{font-weight:800;color:var(--ink-soft)}
+#logpanel .logbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:1vh}
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+<div id="stamp">KB 1 · U2 · L6 · build 29.09 · v1</div>
+
+<!-- 1 · WARM UP — HELLO SONG -->
+<section class="slide" data-notes="THE WHOLE LESSON — Elena's plan for today: 1 · Warm up: this Hello song + the circle questions (How are you? — the kids' own routine). 2 · NEW: Genki English 'Left and Right' — teach it, play the song (slide 3). 3 · Lesson 6 (Unit 2 — My school): the bag lead-in · six new words · PB p.10 ex.1 · the 'My school' worksheet (GLUE!) · the 'Match' worksheet · Wordwall True/False. 4 · Phonics Tt + the Tt worksheet + poster 3 reading. 5 · Close: 'Left and Right' AGAIN — the karaoke. PREPARE AHEAD: the ball for the circle game · a BAG with a pen, a pencil, a book, an eraser inside · coloured pencils on the tables · Unit 2 flashcards (chair, table, eraser, pencil, pen, book) · printed worksheets: 'My school', 'Match', 'Tt' + the Unscramble worksheet (goes home) · poster 3 + the small poster versions to glue · GLUE (every printout is glued into the copybook the same lesson — the glue rule) · Tt realia (a toy, a top). Every recording is inside this deck.">
+  <div class="eyebrow reveal-el">🎵 Song time</div>
+  <h1 class="title reveal-el">Hello! How are you? 👋</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Sing and do the actions!</div>
+  <video class="reveal-el" controls preload="metadata" src="../media/kb1-u1-hello.mp4"></video>
+  <div class="card mint reveal-el"><p>💬 The circle: <b style="color:var(--mint-deep)">How are you?</b> — ask your friend! ⭕</p></div>
+</section>
+
+<!-- 2 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi! Open hand, wait for quiet — something NEW is coming: the Left and Right song.">
+  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
+  </svg>
+  <div class="card peach reveal-el" style="margin-top:2vh"><p>📶✋ <b>Stop and listen!</b></p></div>
+</section>
+
+<!-- 3 · GE — LEFT AND RIGHT (teach + song) -->
+<section class="slide" data-notes="TEACH FIRST (2 min): everyone holds up the LEFT hand — 'Left!' — then the RIGHT hand — 'Right!'. Clap twice: 'Left and right!' Do it 3–4 times, faster and faster. Point at the arrows on the board as you say it. THEN the actions row: Sit down! Stand up! Turn left! Turn right! Jump! — say, show, they copy. THEN play the song (Genki English — the audio is here): first time they just listen and DO what it says; second time louder. This song is today's CLASS MANAGEMENT TOOL: from now on, 'Left and right, forward and back' + claps = everybody back in position, no Russian needed.">
+  <div class="eyebrow reveal-el">🆕 A NEW song — Genki English</div>
+  <h1 class="title reveal-el">Left and right! ⬅️➡️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Hands up! Listen — DO what the song says!</div>
+  <div class="lr-row reveal-el">
+    <div class="lr left"><span class="arrow">⬅️</span><span class="lr-word">LEFT</span></div>
+    <div class="lr right"><span class="arrow">➡️</span><span class="lr-word">RIGHT</span></div>
+  </div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">🪑</span><div class="fc-name">Sit down!</div></div>
+    <div class="fc"><span class="fc-emoji">🧍</span><div class="fc-name">Stand up!</div></div>
+    <div class="fc"><span class="fc-emoji">⬅️</span><div class="fc-name">Turn left!</div></div>
+    <div class="fc"><span class="fc-emoji">➡️</span><div class="fc-name">Turn right!</div></div>
+    <div class="fc"><span class="fc-emoji">🤸</span><div class="fc-name">Jump!</div></div>
+  </div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-ge-left-right.mp3"></audio>
+</section>
+
+<!-- 4 · WI-FI -->
+<section class="slide wifi" data-notes="Wi-Fi! Lesson 6 begins — Unit 2: My school. The bag comes out.">
+  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
+  </svg>
+</section>
+
+<!-- 5 · LEAD-IN — THE BAG -->
+<section class="slide" data-notes="The real bag, the real objects (конспект): 'Look! It's my BAG. What's inside?' Take the objects out one by one — name each: pen, pencil, book, eraser. Ask 'What colour is it?' for each. Then: 'Show me your… book! pen! pencil!' — they hold up their own. The coloured pencils go to the centre: 'Look! Pencils! How many pencils?' Count together. 'Pick up a blue pencil!' — a red one, a green one…">
+  <div class="eyebrow reveal-el">Unit 2 · My school</div>
+  <h1 class="title reveal-el">What's in my bag? 🎒</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Look — what's inside?</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">🖊️</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">a pen</span></div></div>
+    <div class="fc"><span class="fc-emoji">✏️</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">a pencil</span></div></div>
+    <div class="fc"><span class="fc-emoji">📕</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">a book</span></div></div>
+    <div class="fc"><span class="fc-emoji">🩶</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">an eraser</span></div></div>
+  </div>
+  <div class="card peach reveal-el"><p>🖍️ <b style="color:var(--lavender-deep)">Pick up a BLUE pencil!</b> …a red one? a green one?</p></div>
+</section>
+
+<!-- 6 · NEW WORDS — MPF FLASHCARDS -->
+<section class="slide" data-notes="MPF (meaning – pronunciation – form), конспект: show each flashcard (the real Unit 2 cards — same pictures as on the board), the word FIRST as meaning (point), then drill the pronunciation — clap it, whisper it, shout it, sad voice / happy voice — then the written word appears on tap. Six words: chair, table, eraser, pencil, pen, book. Stick the cards on the board as you go. On the board here: tap a card — the word shows.">
+  <div class="eyebrow reveal-el">New words!</div>
+  <h1 class="title reveal-el">Tap a card — say the word!</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — point — repeat!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><img src="../media/kb1-u2-fc-1.png" alt="chair"><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">a chair</span></div></div>
+    <div class="fc"><img src="../media/kb1-u2-fc-2.png" alt="table"><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">a table</span></div></div>
+    <div class="fc"><img src="../media/kb1-u2-fc-3.png" alt="eraser"><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">an eraser</span></div></div>
+    <div class="fc"><img src="../media/kb1-u2-fc-4.png" alt="pencil"><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">a pencil</span></div></div>
+    <div class="fc"><img src="../media/kb1-u2-fc-5.png" alt="pen"><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">a pen</span></div></div>
+    <div class="fc"><img src="../media/kb1-u2-fc-6.png" alt="book"><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">a book</span></div></div>
+  </div>
+  <div class="card pink reveal-el"><p>👏 Clap it: <b style="color:var(--pink)">chair! table! eraser! pencil! pen! book!</b></p></div>
+</section>
+
+<!-- 7 · PB p.10 ex.1 -->
+<section class="slide" data-notes="'Open your books at page 10! What can you see?' — let them name what they know. 'Can you find a star?' — a child points (it's on the picture). ICQs before the audio: 'Do you point to Suzy and Simon? — no! To the objects — a book, a table!' TRACK 13 — listen and point (in their books). TRACK 14 — listen and repeat. A volunteer then points at the cards on the board — the class repeats. The two audios are here, in order.">
+  <div class="eyebrow reveal-el">PB p. 10 · ex. 1</div>
+  <h1 class="title reveal-el">Listen and point! 🎧</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 1st: listen and POINT · 2nd: listen and REPEAT!</div>
+  <div class="card lavender reveal-el"><p>⭐ <b style="color:var(--lavender-deep)">Can you find the star?</b> 🔍</p></div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-pb10-t13.mp3"></audio>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-pb10-t14.mp3"></audio>
+</section>
+
+<!-- 8 · WI-FI (pencil time) -->
+<section class="slide wifi" data-notes="Wi-Fi! Pencils next — and first, the pencil song: our switch for pencil time.">
+  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
+  </svg>
+</section>
+
+<!-- 9 · THE PENCIL SONG (pencil-time switch) -->
+<section class="slide" data-notes="The pencil-time switch: sing 'Hold your pencil up' — they do every action with their REAL pencil (up, down, on your hand…). Straight from the song into the worksheet: nobody picks a pencil before the song.">
+  <div class="eyebrow reveal-el">🎵 Pencil time!</div>
+  <h1 class="title reveal-el">Hold your pencil up! ✏️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Sing — DO it with your pencil!</div>
+  <audio controls preload="none" class="reveal-el" src="../media/pab-1-6-hold-your-pencil-up.mp3"></audio>
+</section>
+
+<!-- 10 · WORKSHEET 'MY SCHOOL' -->
+<section class="slide" data-notes="Hand out 'My school' (the halves are already printed). 'What do you see? What's green? What's yellow?' — elicit, then they colour what YOU name. GLUE RULE: the finished worksheet is GLUED into the copybook the same lesson — say it before they start, watch for the glue.">
+  <div class="eyebrow reveal-el">Worksheet</div>
+  <h1 class="title reveal-el">My school ✏️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 What's green? What's yellow? — colour!</div>
+  <img class="sheet reveal-el" src="../media/kb1-u2-school.png" alt="the My school worksheet">
+  <div class="card mint reveal-el"><p>🧴 <b style="color:var(--mint-deep)">GLUE it</b> into your copybook! 📓</p></div>
+</section>
+
+<!-- 11 · WORKSHEET 'MATCH' -->
+<section class="slide" data-notes="The 'Match' worksheet. First: name the pictures together, read 'pen'. Point to the pen — 'Look! Is it a pen?' Demonstrate ONE match on the board. 'Pick up your pencils and match. You have 2 minutes!' ICQ: 'How many minutes?' — TWO! Then peer check in pairs: a tick if it's OK, a cross if not. GLUE after checking.">
+  <div class="eyebrow reveal-el">Worksheet</div>
+  <h1 class="title reveal-el">Match! 🔗</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Match — you have 2 minutes! ⏱️</div>
+  <img class="sheet reveal-el" src="../media/kb1-u2-match.png" alt="the Match worksheet">
+  <div class="card peach reveal-el"><p>✅ Check with your friend: <b style="color:var(--lavender-deep)">a tick or a cross!</b></p></div>
+</section>
+
+<!-- 12 · WORDWALL TRUE/FALSE -->
+<section class="slide" data-notes="The Wordwall game (конспект): pictures of classroom objects + words — the children read and click True or False. Play it together on the board — one child clicks, the class shouts 'True!' or 'False!'. If the internet is slow — skip it, the lesson has enough; the link also goes home.">
+  <div class="eyebrow reveal-el">Game time</div>
+  <h1 class="title reveal-el">True or False? 🤔</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Look — read — click!</div>
+  <a class="linkcard reveal-el" href="https://wordwall.net/resource/85402274" target="_blank">▶ Play: True or False</a>
+  <div class="card pink reveal-el"><p>📖 Read the word… is it TRUE? is it FALSE? 🗣️</p></div>
+</section>
+
+<!-- 13 · WI-FI (reading/phonics) -->
+<section class="slide wifi" data-notes="Wi-Fi! Reading time — the new letter T t.">
+  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
+  </svg>
+</section>
+
+<!-- 14 · PHONICS Tt -->
+<section class="slide" data-notes="The NEW letter: T t. Say 't… t… TWO!' — they hear the sound. Realia: a toy, a top (юла). The four words: T-toy, T-tap, T-tummy, T-top. Drill with the rhythm (same as Rr last week): 'T-t-toy! T-t-tap! T-t-tummy! T-t-top!' — whole class, then rows, clap it. On the board: tap a card — the word shows.">
+  <div class="eyebrow reveal-el">Reading · a NEW letter!</div>
+  <h1 class="title reveal-el">T t — toy, tap, tummy, top! 🧸</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Tap a card — read the word!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">🧸</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">T-toy</span></div></div>
+    <div class="fc"><span class="fc-emoji">🚰</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">T-tap</span></div></div>
+    <div class="fc"><span class="fc-emoji">🫃</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">T-tummy</span></div></div>
+    <div class="fc"><span class="fc-emoji">🪀</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">T-top</span></div></div>
+  </div>
+  <div class="card peach reveal-el"><p>👏 Clap it: <b style="color:var(--lavender-deep)">T-t-toy! T-t-tap! T-t-tummy! T-t-top!</b></p></div>
+</section>
+
+<!-- 15 · THE Tt WORKSHEET -->
+<section class="slide" data-notes="The Tt worksheet. IN CLASS: circle the T t words / match — NO tracing today (конспект). The tracing rows stay for HOME. The worksheet itself goes home to finish — it's homework item 1.">
+  <div class="eyebrow reveal-el">Worksheet</div>
+  <h1 class="title reveal-el">The Tt worksheet ✏️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Circle the t words — NO tracing!</div>
+  <img class="sheet reveal-el" src="../media/kb1-u2-t.png" alt="the Tt worksheet">
+  <div class="card pink reveal-el"><p>⛔ Tracing? <b style="color:var(--pink)">At HOME!</b> 🏠</p></div>
+</section>
+
+<!-- 16 · POSTER 3 — READ! -->
+<section class="slide" data-notes="READ poster 3 (конспект): first choral — the whole class reads together, you point; then in pairs; then groups / volunteers read alone. The small poster versions get GLUED into the copybooks right now (glue rule). This is the lesson's reading finish.">
+  <div class="eyebrow reveal-el">Reading · poster 3</div>
+  <h1 class="title reveal-el">Read it together! 📖</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 1 ALL together · 2 in pairs · 3 YOU read! 🌟</div>
+  <img class="sheet reveal-el" src="../media/kb1-u2-poster3.png" alt="poster 3">
+  <div class="card mint reveal-el"><p>🧴 The small poster → <b style="color:var(--mint-deep)">GLUE it</b> into your copybook! 📓</p></div>
+</section>
+
+<!-- 17 · HOMEWORK -->
+<section class="slide" data-notes="The конспект's homework, in child words: 1) finish the Tt worksheet at home (the tracing rows); 2) AB p. 10 ex. 2 — draw YOUR table and the classroom objects on it; 3) the Unscramble worksheet (it goes home today); 4) the video: the parents record the child pointing at the new words and saying them (send to the group chat); 5) Wordwall 'Cards' — the link. The RU line is for the parents. The N n phonics deck link is today's bonus — 'the next letter is waiting at home'.">
+  <div class="eyebrow reveal-el">Homework</div>
+  <h1 class="title reveal-el">At home! 🏠</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="card peach reveal-el"><p>✏️ <b style="color:var(--lavender-deep)">Finish the Tt worksheet</b> — trace T t!</p></div>
+  <div class="card mint reveal-el"><p>🎨 AB p. 10, ex. 2 — <b style="color:var(--mint-deep)">draw your table</b> and the objects!</p></div>
+  <div class="card lavender reveal-el"><p>🔗 Unscramble — the worksheet in your bag!</p></div>
+  <div class="card pink reveal-el"><p>🎬 Point at the new words — <b style="color:var(--pink)">say them on video!</b></p></div>
+  <a class="linkcard reveal-el" href="https://wordwall.net/resource/86111229/kb1-unit-2-my-school" target="_blank">▶ Wordwall: new words cards</a>
+  <a class="linkcard reveal-el" style="background:var(--mint)" href="../phonics/brand-phonics-n.html">🎁 The next letter waits: N n!</a>
+  <div class="card reveal-el"><p style="font-size:clamp(1rem,1.7vw,1.4rem)">ДЗ: дописать лист Tt (обвести) · AB стр. 10 упр. 2 (нарисовать свой стол и школьные вещи) · лист Unscramble · видео с новыми словами в чат.</p></div>
+</section>
+
+<!-- 18 · GOODBYE — LEFT AND RIGHT, KARAOKE -->
+<section class="slide" data-notes="The close Elena ordered: 'Left and Right' AGAIN — but this time the KARAOKE (no voices on the track — they ARE the voices). All the actions, full speed, big finish. From Monday on: 'Left and right, forward and back' + two claps = everyone back in place. Then — goodbye!">
+  <div class="eyebrow reveal-el">🎵 One more time — YOU sing!</div>
+  <h1 class="title reveal-el">Left and right — KARAOKE! 🎤</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 No voices on the track — YOU are the voices!</div>
+  <div class="lr-row reveal-el">
+    <div class="lr left"><span class="arrow">⬅️</span><span class="lr-word">LEFT</span></div>
+    <div class="lr right"><span class="arrow">➡️</span><span class="lr-word">RIGHT</span></div>
+  </div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-ge-left-right-karaoke.mp3"></audio>
+  <div class="card peach reveal-el"><p>👋 Goodbye, everyone! <b style="color:var(--lavender-deep)">Left and right, forward and back…</b> 🎉</p></div>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <div id="counter">1 / 18</div>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" class="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<button id="tnbtn" title="teacher's notes (T)">🗒 Teacher's notes</button>
+<button id="logbtn" class="pill" title="lesson log (C)">✍️ Log</button>
+<button id="pardonbtn" class="pill" title="Pardon?">🙋 Pardon?</button>
+
+<div id="tnotes" class="overlay">
+  <span class="closer" onclick="toggleNotes(false)">✕ close</span>
+  <div class="eyebrow">🗒 Teacher's notes · slide <span id="tnstep"></span></div>
+  <div id="tnbody"></div>
+</div>
+
+<div id="pardon" class="overlay">
+  <span class="closer" onclick="togglePardon(false)">✕ close</span>
+  <div class="eyebrow">🙋 Say it in English!</div>
+  <div id="tnbody-p"></div>
+  <div class="card mint" style="margin-top:2vh;max-width:640px"><p style="font-size:clamp(1.6rem,3vw,2.6rem);font-family:'Fredoka',sans-serif;font-weight:700">
+    🙋 <b>Pardon?</b><br>
+    🔁 Can you repeat, please?<br>
+    🆘 Can you help me?<br>
+    ❓ What does … mean?<br>
+    🗣️ How do you say … in English?
+  </p></div>
+</div>
+
+<div id="logpanel" class="overlay">
+  <span class="closer" onclick="toggleLog(false)">✕ close</span>
+  <div class="eyebrow">✍️ Lesson log · slide <span id="logstep"></span> of <span id="logtotal"></span></div>
+  <div class="lognav">
+    <button id="logprev">‹</button><span id="logpos"></span><button id="lognext">›</button>
+  </div>
+  <div id="logrow" style="max-width:760px"></div>
+  <div class="logbtns">
+    <button class="reveal-btn" onclick="copyLog()">📋 Copy the report</button>
+  </div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const fill=document.getElementById('progress-fill'),
+      cnt=document.getElementById('counter'),
+      prev=document.getElementById('prev'),
+      next=document.getElementById('next');
+let showWatch;
+function show(n){
+  if(n<0||n>=slides.length)return;
+  slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
+  cur=n;
+  fill.style.width=((n+1)/slides.length*100)+'%';
+  cnt.textContent=(n+1)+' / '+slides.length;
+  prev.disabled=n===0;next.disabled=n===slides.length-1;
+  clearTimeout(showWatch);
+  showWatch=setTimeout(()=>{const a=slides[n];if(a)a.querySelectorAll('.reveal-el').forEach(el=>{el.style.animation='none';});},1500);
+  logGoto(n,false);
+}
+function go(n){
+  if(n<0||n>=slides.length)return;
+  if(document.querySelector('.overlay.open'))return;
+  show(n);
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  history.replaceState(null,'','#'+(n+1));
+}
+prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+/* ============ THE TEACHER'S NOTES ============ */
+function toggleNotes(force){
+  const ov=document.getElementById('tnotes');
+  const open=force===undefined?!ov.classList.contains('open'):force;
+  if(open){
+    document.getElementById('tnstep').textContent=(cur+1)+' / '+slides.length;
+    const body=document.getElementById('tnbody');
+    const txt=(slides[cur].dataset.notes||'').trim();
+    body.innerHTML='';
+    if(!txt){
+      body.innerHTML='<div class="note-step"><span class="b">·</span><span>No notes for this slide — just teach it. 🙂</span></div>';
+    }else{
+      txt.split('\n\n').forEach(block=>{
+        const d=document.createElement('div');d.className='note-step';
+        const b=document.createElement('span');b.className='b';b.textContent='›';
+        const s=document.createElement('span');s.textContent=block;
+        d.appendChild(b);d.appendChild(s);body.appendChild(d);
+      });
+    }
+  }
+  ov.classList.toggle('open',open);
+}
+function togglePardon(force){
+  const ov=document.getElementById('pardon');
+  const open=force===undefined?!ov.classList.contains('open'):force;
+  ov.classList.toggle('open',open);
+}
+document.getElementById('tnbtn').onclick=()=>toggleNotes();
+document.getElementById('pardonbtn').onclick=()=>togglePardon();
+/* ============ THE ✍️ LESSON-LOG ============ */
+const DECK='kb1-u2-l6';
+const logStore=()=>{
+  try{return JSON.parse(localStorage.getItem('log-'+DECK)||'{}')}catch(e){return {}}
+};
+const logSave=o=>{try{localStorage.setItem('log-'+DECK,JSON.stringify(o))}catch(e){}};
+let logCur=0;
+function logGoto(n,openPanel){
+  logCur=n;
+  const o=logStore(),row=document.getElementById('logrow');
+  if(!row)return;
+  const rec=o[n]||{};
+  row.innerHTML='';
+  const head=document.createElement('div');head.className='log-row';
+  head.innerHTML='<span class="tick" onclick="toggleTick()" style="cursor:pointer">'+(rec.done?'✅':'⬜')+'</span><span><b>Slide '+(n+1)+'</b> — '+(slides[n].querySelector('h1.title')?slides[n].querySelector('h1.title').textContent:'')+'</span>';
+  row.appendChild(head);
+  const ta=document.createElement('textarea');
+  ta.placeholder='comment for this slide…';
+  ta.value=rec.note||'';
+  ta.oninput=()=>{const s=logStore();s[n]=s[n]||{};s[n].note=ta.value;logSave(s);autoSend(s)};
+  row.appendChild(ta);
+  document.getElementById('logstep').textContent=(n+1);
+  document.getElementById('logtotal').textContent=slides.length;
+  document.getElementById('logpos').textContent=(n+1)+' / '+slides.length;
+  if(openPanel)document.getElementById('logpanel').classList.add('open');
+}
+window.toggleTick=()=>{
+  const s=logStore();s[logCur]=s[logCur]||{};s[logCur].done=!s[logCur].done;logSave(s);
+  logGoto(logCur,false);autoSend(s);
+};
+document.getElementById('logprev').onclick=()=>logGoto(Math.max(0,logCur-1),false);
+document.getElementById('lognext').onclick=()=>logGoto(Math.min(slides.length-1,logCur+1),false);
+function toggleLog(force){
+  const ov=document.getElementById('logpanel');
+  const open=force===undefined?!ov.classList.contains('open'):force;
+  if(open)logGoto(cur,true);
+  ov.classList.toggle('open',open);
+}
+document.getElementById('logbtn').onclick=()=>toggleLog();
+function buildReport(){
+  const o=logStore();let out='✍️ '+DECK+' — '+new Date().toLocaleDateString()+'\n';
+  slides.forEach((s,i)=>{const r=o[i];if(r&&(r.done||r.note))out+='· s'+(i+1)+(r.done?' ✓':'')+(r.note?' — '+r.note:'')+'\n'});
+  return out;
+}
+function copyLog(){
+  navigator.clipboard.writeText(buildReport()).then(()=>{alert('Report copied — paste it to Elena!')});
+}
+let sendT=null;
+function autoSend(s){
+  if(!/^https?:$/.test(location.protocol))return;
+  clearTimeout(sendT);
+  sendT=setTimeout(()=>{try{fetch('/report',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({deck:DECK,text:buildReport()})})}catch(e){}},800);
+}
+/* ============ keys & gestures ============ */
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.key==='Escape'){toggleNotes(false);togglePardon(false);toggleLog(false);}
+  if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();toggleNotes();}
+  if((e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();toggleLog();}
+  if(document.querySelector('.overlay.open'))return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
+});
+let wl=0;
+document.addEventListener('wheel',e=>{
+  const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;
+  go(cur+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
+},{passive:true});
+function reveal(btn){
+  const a=btn.nextElementSibling;
+  if(a){a.classList.add('show');}
+  btn.style.display='none';
+}
+const h=parseInt(location.hash.slice(1));
+show(isNaN(h)?0:h-1);
+</script>
+
+<script>
+/* READY-CHIME: the open window chimes and reloads when a new version is saved. */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.pathname,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
