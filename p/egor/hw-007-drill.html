@@ -320,23 +320,37 @@ function theEnd(){
   show("end-card");
 }
 
-/* ---------- the per-card timer ---------- */
+/* ---------- the per-card timer — PAUSES when the window loses focus ---------- */
+var leftMs=0,lastTick=0;
 function start(sec){
-  DUR=sec*1000;t0=Date.now();
+  DUR=sec*1000;leftMs=DUR;lastTick=Date.now();
   var bar=$("timer-bar"),num=$("timer-num");
   bar.style.transition="none";bar.style.width="100%";
   num.textContent=sec+" s";num.className="timer-num";
+  runTimer();
+}
+function runTimer(){
   timer=setInterval(function(){
-    var left=DUR-(Date.now()-t0);
-    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 s";
+    var now=Date.now();
+    leftMs-=now-lastTick;lastTick=now;
+    if(leftMs<=0){leftMs=0;
+      $("timer-bar").style.width="0%";$("timer-num").textContent="0 s";
       stop();timeUp();return;}
-    bar.style.transition="width .15s linear";
-    bar.style.width=(left/DUR*100)+"%";
-    var s=Math.ceil(left/1000);
-    num.textContent=s+" s";
-    num.className="timer-num"+(s<=3?" low":"");
+    $("timer-bar").style.transition="width .15s linear";
+    $("timer-bar").style.width=(leftMs/DUR*100)+"%";
+    var s=Math.ceil(leftMs/1000);
+    $("timer-num").textContent=s+" s";
+    $("timer-num").className="timer-num"+(s<=3?" low":"");
   },100);
 }
+function pauseTimer(){if(timer){clearInterval(timer);timer=null;}}
+function resumeTimer(){
+  if(answered||timer||leftMs<=0||$("q-card").classList.contains("hidden"))return;
+  lastTick=Date.now();runTimer();
+}
+document.addEventListener("visibilitychange",function(){document.hidden?pauseTimer():resumeTimer();});
+window.addEventListener("blur",pauseTimer);
+window.addEventListener("focus",resumeTimer);
 function stop(){if(timer){clearInterval(timer);timer=null;}}
 function timeUp(){
   if(answered)return;
