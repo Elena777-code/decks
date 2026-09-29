@@ -172,12 +172,18 @@ var R_COLL=[
  {q:'This gap can widen educational <span class="gap">______</span>.',a:['inequalities','inequality'],helperTip:'расширять неравенство',why:'widen inequalities'}
 ];
 var R_FAM=[
- {q:'May I <span class="gap">______</span> you for a moment? (the formal one)',a:['trouble']},
- {q:'Stop <span class="gap">______</span> your brother while he studies. (-ing form)',a:['bothering','bother']},
- {q:'She was clearly <span class="gap">______</span> by the delay. (word form)',a:['annoyed']},
- {q:'Don\'t <span class="gap">______</span> about the result — the work is done.',a:['worry']},
- {q:'The museum is well <span class="gap">______</span> visiting.',a:['worth']},
- {q:'The film wasn\'t <span class="gap">______</span> the two hours.',a:['worth']}
+ {q:'May I <span class="gap">______</span> you for a moment?',a:['trouble'],
+  choices:['trouble','bother','annoy','worry'],why:'the formal one'},
+ {q:'Stop <span class="gap">______</span> your brother while he studies.',a:['bothering'],
+  choices:['bothering','annoying','troubling','worrying'],why:'stop + -ing'},
+ {q:'She was clearly <span class="gap">______</span> by the delay.',a:['annoyed'],
+  choices:['annoyed','annoying','troubled','worried'],why:'was + the -ed form (she felt it)'},
+ {q:'Don\'t <span class="gap">______</span> about the result — the work is done.',a:['worry'],
+  choices:['worry','trouble','bother','annoy'],why:'worry ABOUT — no object needed'},
+ {q:'The museum is well <span class="gap">______</span> visiting.',a:['worth'],
+  choices:['worth','worthy','worthwhile','valuable'],why:'worth + -ing'},
+ {q:'The film wasn\'t <span class="gap">______</span> the two hours.',a:['worth'],
+  choices:['worth','worthy','worthwhile','valuable'],why:'worth + a noun'}
 ];
 var R_PHR=[
  {q:'to reach your full <span class="gap">______</span> <span class="helper">(to become as good as you can be)</span>',a:['potential'],why:'the essay favourite'},
@@ -195,7 +201,7 @@ var ROUNDS_META=[
  {id:'wf',icon:'②',name:'Word formation',sec:25,helper:'type the word'},
  {id:'trap',icon:'③',name:'The trap list — your own catches',sec:12,helper:'type the corrected word'},
  {id:'coll',icon:'④',name:'Exam collocations',sec:12,helper:'type the missing word'},
- {id:'fam',icon:'⑤',name:'The family round',sec:8,helper:'tap your verb',choices:['bother','trouble','annoy','worry','worth']},
+ {id:'fam',icon:'⑤',name:'The family round',sec:8,helper:'tap the correct form',choices:['bother','trouble','annoy','worry','worth']},
  {id:'phr',icon:'⑥',name:'The chapter\'s phrases',sec:15,helper:'type the word'}
 ];
 
@@ -244,9 +250,10 @@ function ask(){
   var r=rounds[ri],t=r.tasks[qi];
   $("q-count").textContent=r.meta.icon+" "+r.meta.name+" · card "+(qi+1)+" / "+r.tasks.length;
   var body='<div class="prompt">'+t.q+'</div>';
-  if(r.meta.choices){
+  var ch=t.choices||r.meta.choices;
+  if(ch){
     body+='<div class="helper">'+r.meta.helper+'</div>';
-    body+='<div class="answer-row">'+r.meta.choices.map(function(c){
+    body+='<div class="answer-row">'+ch.map(function(c){
       return '<button class="choice" data-v="'+c+'">'+c+'</button>';}).join("")+"</div>";
   }else{
     body+='<div class="helper">'+(t.helperTip||r.meta.helper)+'</div>';
