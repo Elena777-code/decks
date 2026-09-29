@@ -42,6 +42,9 @@ audio{width:100%}
 .song-title{font-weight:800;color:var(--mint-deep)}
 .note{color:var(--ink-soft);font-size:clamp(.9rem,2.2vw,1.05rem)}
 footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
+/* the animated exclamation mark (Elena, 2026-09-29) */
+@keyframes exc{0%,100%{transform:translateY(0) scale(1)}30%{transform:translateY(-16%) scale(1.18)}55%{transform:translateY(0) scale(.96)}75%{transform:translateY(-7%) scale(1.06)}}
+.exc{display:inline-block;animation:exc 1.5s ease-in-out infinite;color:var(--pink)}
 </style>
 </head>
 <body>
@@ -55,7 +58,7 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
   <section class="card">
     <div class="lesson">Урок 6 · My school — мой школьный класс ✏️</div>
     <div class="item"><span class="n">1</span><span><b>Учимся читать</b> — первые буквы, первые слова и первый рассказ:</span></div>
-    <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-s-i-t-p-a.html" target="_blank">▶ Первые буквы, первые слова и первый рассказ!</a>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-s-i-t-p-a.html" target="_blank">▶ Первые буквы, первые слова и первый рассказ<span class="exc">!</span></a>
     <div class="item"><span class="n">2</span><span><b>Лист Tt</b> — раскрасить кружочки с заглавными и строчными буквами, прописать, раскрасить дорожку из T и t кирпичиков.</span></div>
     <div class="item"><span class="n">3</span><span><b>AB стр. 10, упр. 1 🎧</b> — послушать аудио и выполнить задание в тетради:</span></div>
     <audio controls preload="none" src="../../media/kb1-u2-ab10-t05.mp3"></audio>
