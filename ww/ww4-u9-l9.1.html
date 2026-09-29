@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WW4 · Unit 9 · 9.1 Vocabulary — Education</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WW4 (8th-grade group, Tue 15.45 Elena / Fri 15.30 Farida) —
+   Wider World 3, Unit 9 "Think outside the box", section 9.1
+   Vocabulary — Education (SB pp. 106–107, TB pp. 198–200).
+   Engine: the ww4-u8-l8.5 sheets (familiar to the group) with the
+   standing kit: 🗒 Teacher's notes overlay on every slide (T),
+   🙋 Pardon? pill, ✍️ lesson-log (C), answers behind clicks,
+   build stamp, flex-shrink guard. Straight from the TB/SB —
+   TB order, nothing omitted. English only.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --radius:14px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* flex-shrink guard: nothing on a slide may collapse — the slide scrolls */
+.slide>*{flex-shrink:0}
+.slide{position:absolute;inset:0;padding:4.2vh 5vw 12vh;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.6vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.8rem,1.25vw,1rem);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.3rem,2.5vw,2.05rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.stamp{display:inline-block;font-size:clamp(.72rem,1.05vw,.85rem);font-weight:700;
+  color:var(--ink-soft);border:1.5px solid var(--line);border-radius:99px;
+  padding:.14em .7em;background:#fff;letter-spacing:.04em}
+.task{font-size:clamp(1.02rem,1.65vw,1.3rem);line-height:1.5;font-weight:500}
+.task strong{color:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.78rem,1.2vw,.95rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.16em .7em;
+  background:#fff;margin-bottom:.1em;white-space:nowrap}
+.note{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);font-style:italic;line-height:1.48}
+audio{width:min(460px,92%);height:42px;vertical-align:middle}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.8rem,1.5vw,1.2rem)}
+.card.tint{background:var(--accent-soft);border-color:#d5e2dd}
+.card.gold{background:var(--gold-soft);border-color:#e8dcb8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.5vw,1.1rem)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.5vw,1.1rem)}
+.chips{display:flex;flex-wrap:wrap;gap:.5em}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:.26em .8em;
+  font-size:clamp(.92rem,1.5vw,1.2rem);font-weight:600;background:#fff;user-select:none}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.42em 0;
+  border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.7vw,1.32rem);line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .no{font-weight:800;color:var(--accent);min-width:1.4em}
+/* click-to-reveal answers — ANSWERS HIDE, ALWAYS */
+.flip{cursor:pointer;border-radius:8px;transition:background .2s}
+.flip:hover{background:var(--accent-soft)}
+.flip .back{color:var(--accent);opacity:0;transition:opacity .2s;font-weight:700;font-size:.94em}
+.flip.shown .back{opacity:1}
+.vb{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.vb .vbh{background:var(--accent-soft);color:var(--accent);font-weight:800;
+  font-size:clamp(.85rem,1.4vw,1.05rem);letter-spacing:.06em;text-transform:uppercase;
+  padding:.35em .9em;border-bottom:1px solid var(--line)}
+.vb .vbb{padding:.5em .9em}
+.lead-sm{font-size:clamp(.95rem,1.5vw,1.18rem);line-height:1.5;color:#4a463d}
+.lead-sm strong{color:var(--accent)}
+
+/* ---------- pinned teacher pills + overlays ---------- */
+.pill{position:fixed;z-index:150;border:1.5px solid var(--line);background:rgba(255,255,255,.92);
+  backdrop-filter:blur(8px);color:var(--ink-soft);font-family:'Inter',sans-serif;
+  font-weight:700;font-size:clamp(.78rem,1.15vw,.92rem);padding:.4em 1em;
+  border-radius:99px;cursor:pointer;transition:all .18s}
+.pill:hover{transform:scale(1.05);color:var(--ink);border-color:var(--ink-soft)}
+#tnbtn{left:max(10px,1.6vw);bottom:calc(10px + .8vh)}
+#annoBtn{top:max(10px,1.6vh);left:max(10px,1.6vw)}
+#pardonBtn{top:max(10px,1.6vh);left:calc(max(10px,1.6vw) + 8.5em)}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(251,250,247,.985);
+  display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
+.overlay.open{display:flex}
+.overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);
+  font-size:clamp(.9rem,1.4vw,1.15rem);font-weight:700;color:var(--ink-soft);cursor:pointer}
+.overlay .closer:hover{color:var(--ink)}
+#tnotes .eyebrow{margin-bottom:1.4vh}
+#tnbody{display:flex;flex-direction:column;gap:.6em;max-width:900px}
+#tnbody .note-step{display:flex;gap:.7em;align-items:flex-start;padding:.7em 1em;
+  border-radius:14px;background:#fff;border:1px solid var(--line);
+  font-size:clamp(.95rem,1.6vw,1.25rem);line-height:1.5;color:#3a3f47}
+#tnbody .note-step .b{font-weight:800;color:var(--accent);flex:0 0 auto}
+/* Pardon? overlay */
+#pardon .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:.8em;max-width:900px;margin-top:2vh}
+#pardon .pcard{background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:1em 1.2em;font-size:clamp(1.05rem,1.9vw,1.5rem);font-weight:600;line-height:1.4}
+#pardon .pcard .ico{font-size:1.15em;margin-right:.35em}
+#pardon .phead{font-size:clamp(1.2rem,2.2vw,1.7rem);font-weight:800}
+/* ✍️ lesson-log panel */
+#anno{position:fixed;z-index:210;top:8vh;right:max(10px,2vw);width:min(400px,92vw);
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 14px 40px rgba(35,39,46,.18);padding:1em;display:none;flex-direction:column;gap:.6em}
+#anno.on{display:flex}
+#anno .a-head{display:flex;align-items:center;gap:.6em;font-weight:800;
+  font-size:clamp(.9rem,1.3vw,1.05rem);color:var(--ink-soft)}
+#anno .a-head .a-sp{flex:1}
+#anno button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.3em .9em;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:clamp(.8rem,1.1vw,.92rem);color:var(--ink);cursor:pointer}
+#anno button:hover{border-color:var(--accent);color:var(--accent)}
+#anno #annoTick.on{background:var(--accent);border-color:var(--accent);color:#fff}
+#anno textarea{width:100%;min-height:96px;resize:vertical;border:1.5px solid var(--line);
+  border-radius:10px;padding:.6em;font-family:'Inter',sans-serif;font-size:.95rem;color:var(--ink)}
+#anno .a-foot{display:flex;gap:.6em;align-items:center}
+#anno .a-hint{font-size:.78rem;color:var(--ink-soft);font-style:italic}
+#annoRep{position:fixed;inset:0;z-index:220;background:rgba(35,39,46,.35);
+  display:none;align-items:center;justify-content:center;padding:4vh}
+#annoRep.on{display:flex}
+#annoRep .a-rep-card{background:#fff;border-radius:16px;padding:1.2em;width:min(560px,94vw);
+  display:flex;flex-direction:column;gap:.7em}
+#annoRep .a-head{display:flex;align-items:center;font-weight:800;color:var(--ink-soft)}
+#annoRep .a-head .a-sp{flex:1}
+#annoRep textarea{width:100%;min-height:220px;border:1.5px solid var(--line);border-radius:10px;
+  padding:.6em;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;color:var(--ink)}
+
+/* ⛶ read big — fullscreen reading text */
+#fso{position:fixed;inset:0;z-index:190;background:var(--paper);display:none;
+  overflow:auto;padding:6vh 7vw 10vh}
+#fso.open{display:block}
+#fso .fsoinner{max-width:78ch;margin:0 auto;font-size:clamp(1.25rem,2.4vw,1.95rem);
+  line-height:1.65;color:var(--ink)}
+#fso .fsoinner .gp{display:inline-block;min-width:5.5ch;border-bottom:2px solid var(--accent);
+  text-align:center;padding:0 .3em}
+#fso .fsoinner .ex{color:var(--accent);font-weight:700}
+
+@media (max-width:900px){
+  .slide{padding:3.5vh 5vw 12vh}
+  .grid2,.grid3{grid-template-columns:1fr}
+  #pardonBtn{left:auto;right:max(10px,1.6vw)}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER + HOMEWORK CHECK -->
+<section class="slide active" data-notes="TODAY’S PLAN: homework check (WB pp. 100–101) → word-building dictation (the TB lead-in) → Unit 9 opener → 9.1 ex. 1–11 in TB order, nothing omitted (TB pp. 198–200) → homework.
+
+HOMEWORK CHECK — WB pp. 100–101 (the BBC Culture page, ex. 1–7): quick show-of-hands round — who did it all; take ONE answer per exercise orally, fast round-robin. Ex. 7 (the video script: underline the words you didn’t know + translate) has no single key — collect 2–3 of their underlined words on the board and gloss them; the strong ones stay for today’s word work.
+
+PREPARE AHEAD: the five tracks playable on this slide (sound check before the class); SB p. 106 open on desks after ex. 1; nothing to print.
+
+AIM (TB): ss can talk about school life — subjects, learning verbs, assessment types, describing students. The unit ends with BBC Culture “Can school be fun?” + Exam Time 3 (SB pp. 136–138) — the exam-shaped finale, good to flag when you get there.">
+  <div class="eyebrow reveal">Wider World 3 · Unit 9 “Think outside the box” · WW4 (8th grade) — Tue 15.45 Elena / Fri 15.30 Farida</div>
+  <h1 class="reveal">9.1 Vocabulary — <em>Education</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Today:</strong> “I can talk about school life.” <span class="stamp">build 29.09 · v1</span></p>
+  <p class="tag reveal">HOMEWORK CHECK — WB pp. 100–101 (the BBC Culture page)</p>
+  <div class="chips reveal">
+    <span class="chip flip" onclick="this.classList.toggle('shown')">ex. 1–6 <span class="back">→ one answer each, round-robin</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">ex. 7 — your underlined words <span class="back">→ name two — they go on the board</span></span>
+  </div>
+  <div class="card tint reveal">
+    <p class="lead-sm"><strong>Sound check</strong> — today’s five tracks:</p>
+    <div style="display:grid;gap:.4vh;margin-top:.6vh">
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1vw;align-items:center"><span class="tag">3.18</span><audio controls preload="none" src="../media/ww3-cd3-3_18.mp3"></audio></div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1vw;align-items:center"><span class="tag">3.19</span><audio controls preload="none" src="../media/ww3-cd3-3_19.mp3"></audio></div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1vw;align-items:center"><span class="tag">3.20</span><audio controls preload="none" src="../media/ww3-cd3-3_20.mp3"></audio></div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1vw;align-items:center"><span class="tag">3.21</span><audio controls preload="none" src="../media/ww3-cd3-3_21.mp3"></audio></div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1vw;align-items:center"><span class="tag">3.22</span><audio controls preload="none" src="../media/ww3-cd3-3_22.mp3"></audio></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · TB LEAD-IN · UNIT 8 WORD-BUILDING DICTATION -->
+<section class="slide" data-notes="The TB’s own 9.1 lead-in — Unit 8 revision by word building. Mechanics (TB): groups of three; you DICTATE the ten prompts below (each twice, natural pace); ss write a word from the same root in a different form; then they swap papers and mark each other — a point per correct word, group scores on the board.
+
+The prompts (exact TB wording — keep them off the screen while dictating):
+1 assist — the person who assists.
+2 burglar — the crime burglars carry out.
+3 correct — add a negative prefix.
+4 crime — the person who commits a crime.
+5 honest — add a negative prefix.
+6 legal — add a negative prefix.
+7 mystery — the adjective from “mystery”.
+8 polite — add a negative prefix.
+9 thief — the crime thieves commit.
+10 vandal — the crime vandals commit.
+
+Answers (also behind the chips on the slide): 1 assistant · 2 burglary · 3 incorrect · 4 criminal · 5 dishonest · 6 illegal · 7 mysterious · 8 impolite · 9 theft · 10 vandalism.">
+  <div class="eyebrow reveal">Warm-up · TB lead-in (p. 198) · Unit 8 revision · word building</div>
+  <h1 class="reveal">Ten words, one <em>family</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">I dictate ten prompts. For each one, write <strong>a word from the same root in a different form</strong>. Example: <em>happy → happiness</em>. In your notebooks — then <strong>swap and mark</strong>: a point per correct word.</p>
+  <p class="task reveal" style="font-size:clamp(1rem,1.6vw,1.25rem)">Done? Swap — click each number to check:</p>
+  <div class="chips reveal">
+    <span class="chip flip" onclick="this.classList.toggle('shown')">1 <span class="back">assistant</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">2 <span class="back">burglary</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">3 <span class="back">incorrect</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">4 <span class="back">criminal</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">5 <span class="back">dishonest</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">6 <span class="back">illegal</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">7 <span class="back">mysterious</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">8 <span class="back">impolite</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">9 <span class="back">theft</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">10 <span class="back">vandalism</span></span>
+  </div>
+</section>
+
+<!-- 3 · UNIT 9 OPENER -->
+<section class="slide" data-notes="Unit contents from SB p. 106 + TB p. 198 — one minute, don’t dwell. The BBC line is the bridge: they took the Unit 8 BBC spread last Friday, so they know the format — Unit 9’s is “Can school be fun?”. Exam Time 3 closes the unit (SB pp. 136–138).">
+  <div class="eyebrow reveal">Unit 9 · Think outside the box · SB pp. 106–115</div>
+  <h1 class="reveal">New unit: <em>school life</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid3 reveal">
+    <div class="card"><p class="lead-sm"><strong>Vocabulary</strong><br>school subjects · learning &amp; assessment · describing students</p></div>
+    <div class="card"><p class="lead-sm"><strong>Grammar</strong><br>word order in questions · mixed tenses</p></div>
+    <div class="card"><p class="lead-sm"><strong>Also ahead</strong><br>speaking: casual conversation · BBC Culture: Can school be fun? · Exam Time 3</p></div>
+  </div>
+  <div class="card gold reveal"><p class="task" style="font-size:clamp(1.05rem,1.8vw,1.4rem)">Today — lesson 9.1: <strong>“I can talk about school life.”</strong></p></div>
+</section>
+
+<!-- 4 · EX 1 — CLASS VOTE -->
+<section class="slide" data-notes="Books closed (TB). Class vote first — hands up per subject, count aloud in English. Then the real step: elicit WHAT MAKES a subject “the favourite” and rank the factors on the board: a nice teacher · interesting information · easy to learn · will be useful in future life. Make two or three ss argue their order — that ranking is the thinking step.">
+  <div class="eyebrow reveal">Vocabulary · SB ex. 1 (p. 106) · class vote</div>
+  <h1 class="reveal">The class <em>vote</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">What is your favourite school subject? <strong>Why?</strong> — hands up, we count.</p>
+  <p class="task reveal" style="font-size:clamp(1rem,1.6vw,1.25rem)">Then the real question: <strong>what makes a subject “the favourite”?</strong> Rank your reasons.</p>
+  <div class="chips reveal">
+    <span class="chip flip" onclick="this.classList.toggle('shown')">a nice teacher? <span class="back">↑ ↓ you rank it</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">interesting information? <span class="back">↑ ↓</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">easy to learn? <span class="back">↑ ↓</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">useful in future life? <span class="back">↑ ↓</span></span>
+  </div>
+</section>
+
+<!-- 5 · EX 2 — VOCAB A + PICTURES + AUDIO 3.18 -->
+<section class="slide scroll" data-notes="Books open at SB p. 106. TB: DESCRIBE FIRST — pairs discuss what the students in the six photos are doing and what equipment they can see (e.g. Art — students draw or paint; they use brushes, easels, charcoal). Only then play 3.18 — six words to match to the numbered photos.
+
+Answers: 1 Geography · 2 Biology · 3 PE · 4 ICT · 5 Cooking · 6 Chemistry.
+
+After checking: read the Vocabulary A box aloud together (all 18 subjects), choral then individual — this box is tonight’s learning. Citizenship and ICT are the two they will trip on — drill the pronunciation.">
+  <div class="eyebrow reveal">Vocabulary · SB ex. 2 (p. 106) · audio 3.18</div>
+  <h1 class="reveal">Six photos, six <em>subjects</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>SB p. 106 open.</strong> First — describe the six photos in pairs: what do the students do? what equipment can you see? Then <strong>listen and match</strong> the words to the photos (1–6).</p>
+  <p><span class="tag">🎧 AUDIO 3.18</span> <audio controls preload="none" src="../media/ww3-cd3-3_18.mp3"></audio></p>
+  <div class="vb reveal"><div class="vbh">Vocabulary A · School subjects</div><div class="vbb chips">
+    <span class="chip">Art</span><span class="chip">Biology</span><span class="chip">Chemistry</span><span class="chip">Citizenship</span><span class="chip">Cooking</span><span class="chip">English</span><span class="chip">French</span><span class="chip">Geography</span><span class="chip">Health</span><span class="chip">History</span><span class="chip">ICT</span><span class="chip">Literature</span><span class="chip">Maths</span><span class="chip">Music</span><span class="chip">PE</span><span class="chip">Philosophy</span><span class="chip">Physics</span><span class="chip">Spanish</span>
+  </div></div>
+  <div class="chips reveal">
+    <span class="chip flip" onclick="this.classList.toggle('shown')">photo 1 <span class="back">→ Geography</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">photo 2 <span class="back">→ Biology</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">photo 3 <span class="back">→ PE</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">photo 4 <span class="back">→ ICT</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">photo 5 <span class="back">→ Cooking</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">photo 6 <span class="back">→ Chemistry</span></span>
+  </div>
+</section>
+
+<!-- 6 · EX 3 — CLASS VOTE: SCHOOL SUBJECTS -->
+<section class="slide" data-notes="TB: the question = should these be timetable lessons or an after-school club? Class discussion. When a student picks a subject, ask WHICH AGE is a good time to start it (the TB’s follow-up).
+
+The three definitions are the real target language of this exercise — read them together, then make ss reuse compulsory / optional / extracurricular in their answers (“Photography should be optional because…”). Do NOT leave them as decoration.">
+  <div class="eyebrow reveal">Vocabulary · SB ex. 3 (p. 106) · class vote</div>
+  <h1 class="reveal">Should school teach <em>this</em>?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Are these taught in your school? If not — which would you <strong>add to the curriculum</strong>? Which must be <strong>compulsory</strong>? Which <strong>optional</strong> or <strong>extracurricular</strong>?</p>
+  <div class="chips reveal">
+    <span class="chip">driving</span><span class="chip">fashion design</span><span class="chip">film-making</span><span class="chip">gardening</span><span class="chip">karate</span><span class="chip">photography</span><span class="chip">yoga</span>
+  </div>
+  <div class="grid3 reveal">
+    <div class="card"><p class="lead-sm"><strong>compulsory</strong><br>everyone MUST do it — it’s on the timetable for all</p></div>
+    <div class="card"><p class="lead-sm"><strong>optional</strong><br>YOU choose it — school offers, you decide</p></div>
+    <div class="card"><p class="lead-sm"><strong>extracurricular</strong><br>outside the lessons — clubs, after school</p></div>
+  </div>
+</section>
+
+<!-- 7 · EX 4 — I KNOW: CATEGORIES -->
+<section class="slide" data-notes="TB: pairs or threes, one minute per category, then each group reads their words — elicit the SPELLING and the MEANING of every word they add (the TB step — don’t skip it: it turns a shout-out game into vocabulary work).
+
+TB possible answers: Types of school — boarding school, nursery school, private school, secondary school, state school · People at school — principal, school secretary, teacher · Places at school — gymnasium, science lab.">
+  <div class="eyebrow reveal">Vocabulary · SB ex. 4 (p. 106) · I know!</div>
+  <h1 class="reveal">How many can you <em>add</em>?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Add as many words as you can to each category — a minute per category, in pairs. The longest list wins… if you can <strong>spell and explain</strong> every word on it.</p>
+  <div class="grid3 reveal">
+    <div class="card"><p class="lead-sm"><strong>Types of schools</strong><br><em>primary school</em>, …</p></div>
+    <div class="card"><p class="lead-sm"><strong>People at school</strong><br><em>head teacher, form tutor</em>, …</p></div>
+    <div class="card"><p class="lead-sm"><strong>Places at school</strong><br><em>library, canteen</em>, …</p></div>
+  </div>
+</section>
+
+<!-- 8 · EX 5 — VOCAB B + AUDIO 3.19 -->
+<section class="slide" data-notes="TB on the four verbs — worth saying exactly: learn sth new · memorise = learn by heart, the exact wording (a part in a play, a poem) · revise for a test · study = the general word (learn + memorise + revise all live inside it).
+
+Answers: 2 revise · 3 study · 4 learn (1 memorise is the printed example).
+
+After checking, read the assessment half of Vocabulary B together — the five types. TB definitions (keep for ex. 6–8): performance = we act, sing, recite · practical exam = we produce something (a painting, a dish) or perform an experiment · project = an extended piece of work made at home, then presented · speaking exam = tests language ability · written exam = a question paper, answers in a set time.">
+  <div class="eyebrow reveal">Vocabulary · SB ex. 5 (p. 106) · audio 3.19</div>
+  <h1 class="reveal">learn · memorise · <em>revise</em> · study</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Read the Vocabulary B box. Choose the <strong>correct options</strong> — then listen and check.</p>
+  <p><span class="tag">🎧 AUDIO 3.19</span> <audio controls preload="none" src="../media/ww3-cd3-3_19.mp3"></audio></p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span><em>memorise / revise</em> a poem <span class="back">→ memorise (the example — done for you)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span><em>revise / learn</em> for a speaking exam <span class="back">→ revise</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span><em>learn / study</em> for the whole night <span class="back">→ study</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span><em>revise / learn</em> about the ancient Romans <span class="back">→ learn</span></span></div>
+  </div>
+  <div class="vb reveal"><div class="vbh">Vocabulary B · Learning and assessment</div><div class="vbb">
+    <p class="lead-sm"><strong>Learning:</strong> learn · memorise · revise · study<br>
+    <strong>Types of assessment:</strong> performance · practical exam · project · speaking exam · written exam</p>
+  </div></div>
+</section>
+
+<!-- 9 · EX 6 — PHOTOS A–D ↔ TYPES OF ASSESSMENT -->
+<section class="slide" data-notes="Books open at SB p. 107, photos A–D. TB: pairs take turns DESCRIBING what they can see as they match — model it yourself once: “Photo A looks like some sort of dance routine, possibly involving singing too.”
+
+Answers: A performance · B project · C practical exam · D speaking exam.
+
+Don’t rush the descriptions — the same four photos come back in ex. 7, and this describing IS the pre-listening work.">
+  <div class="eyebrow reveal">Vocabulary · SB ex. 6 (p. 107)</div>
+  <h1 class="reveal">Which type of <em>assessment</em> is it?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>SB p. 107, photos A–D.</strong> Match them to the types of assessment from Vocabulary B — and as you match, <strong>describe</strong> each photo: who is doing what?</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">A</span><span>type of assessment <span class="back">→ performance 🕺</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">B</span><span>type of assessment <span class="back">→ project 🔭</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">C</span><span>type of assessment <span class="back">→ practical exam 🧪</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">D</span><span>type of assessment <span class="back">→ speaking exam 🗣</span></span></div>
+  </div>
+  <p class="note reveal">Example voice: “Photo A looks like some sort of dance routine, possibly involving singing too.”</p>
+</section>
+
+<!-- 10 · EX 7 — AUDIO 3.20: SPEAKERS ↔ PHOTOS -->
+<section class="slide" data-notes="TB: groups of three, each group takes ONE photo and imagines what the person says BEFORE / AFTER the photo was taken — then shares, the class guesses which photo. Then play 3.20 and match the four speakers to the photos. After checking, elicit the KEY WORDS that gave each speaker away (experiment/equipment · project/presenting · revised/memorised/pairs · dance/moves/audience).
+
+Answers: Speaker A → Photo C · B → B · C → D · D → A.
+
+AUDIOSCRIPT 3.20 (TB p. 200):
+Speaker A: “I’m feeling quite nervous this morning because we’ve got a science exam. I don’t mind written exams, but this is a practical exam. We have to do an experiment on our own, and we get marks for things like safety and setting up the equipment properly.”
+Speaker B: “This term we studied alternative sources of energy. This is our group project we are presenting ourselves and it took ages to make. We’re very proud of it, so we’re hoping for a good mark.”
+Speaker C: “This afternoon we’ve got a speaking exam. I’ve revised lots of vocabulary and memorised some useful phrases. We’re working in pairs, so I think it will be OK. Wish me luck!”
+Speaker D: “We’re going on stage in a minute to do our dance. We created it ourselves and learned all the moves, but this is the first time I’ll have an audience. Our teacher and an examiner will watch us and give us marks for artistic creativity, dance moves, individual performance and group performance.”">
+  <div class="eyebrow reveal">Listening · SB ex. 7 (p. 107) · audio 3.20</div>
+  <h1 class="reveal">Who is <em>talking</em>?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Pick a photo (A–D) and <strong>predict</strong>: what does this person say before / after the photo was taken? Now <strong>listen and match</strong> the speakers to the photos.</p>
+  <p><span class="tag">🎧 AUDIO 3.20</span> <audio controls preload="none" src="../media/ww3-cd3-3_20.mp3"></audio></p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">A</span><span>Speaker A <span class="back">→ Photo C (science · practical exam · experiment · equipment)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">B</span><span>Speaker B <span class="back">→ Photo B (group project)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">C</span><span>Speaker C <span class="back">→ Photo D (speaking exam · pairs)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">D</span><span>Speaker D <span class="back">→ Photo A (dance · moves · audience · performance)</span></span></div>
+  </div>
+  <p class="note reveal">After checking: which words gave each speaker away?</p>
+</section>
+
+<!-- 11 · EX 8 — DISCUSSION -->
+<section class="slide" data-notes="TB follow-up (the gold step of this exercise): think of a test you have taken RECENTLY — take turns describing what happened, how you felt, and whether the result was BETTER OR WORSE THAN YOU ANTICIPATED. Anticipate = the word of the day — put it on the board, drill it, ask for one more sentence with it. Let them talk; this is the fluency slot of the lesson.">
+  <div class="eyebrow reveal">Speaking · SB ex. 8 (p. 107)</div>
+  <h1 class="reveal">Tests — love them or <em>hate</em> them?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Which types of assessment might you have for different school subjects? Which do you <strong>like</strong>? Which do you <strong>dislike</strong>? Why?</p>
+  <div class="chips reveal">
+    <span class="chip">Maths → ?</span><span class="chip">Art → ?</span><span class="chip">English → ?</span><span class="chip">PE → ?</span><span class="chip">Music → ?</span><span class="chip">your choice → ?</span>
+  </div>
+  <div class="card gold reveal"><p class="task" style="font-size:clamp(1rem,1.7vw,1.3rem)">Now — a test you took <strong>recently</strong>: what happened, how did you feel, and was the result better or worse than you <strong>anticipated</strong>?</p></div>
+</section>
+
+<!-- 12 · EX 9 — LIFE SKILLS TEXT + VOCAB C + AUDIO 3.21 -->
+<section class="slide scroll" data-notes="TB: books CLOSED for the filling (the text is on this slide — ⛶ read big puts it fullscreen for reading together). Let them guess each gap from the explanation in italics BEFORE any checking — the definitions are the exercise; the words are the payoff. Then play 3.21 to check, then re-read chorally.
+
+Answers: 2 confident · 3 creative · 4 critical thinking · 5 problem solving · 6 teamwork · 7 general knowledge · 8 hard-working · NOT in the text: lazy · talented/gifted.
+
+Vocabulary C = tonight’s learning too — all three boxes go home.">
+  <div class="eyebrow reveal">Reading · SB ex. 9 (p. 107) · audio 3.21</div>
+  <h1 class="reveal">Life skills are important, <em>too</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Complete the text with words and phrases from <strong>Vocabulary C</strong>. Which words are <strong>NOT</strong> in the text? Listen and check.</p>
+  <p><span class="tag">🎧 AUDIO 3.21</span> <audio controls preload="none" src="../media/ww3-cd3-3_21.mp3"></audio>
+  <button class="pill" style="position:static;padding:.3em 1em;margin-left:.6em" onclick="openFs('read9')">⛶ read big</button></p>
+  <div class="vb reveal"><div class="vbh">Vocabulary C · Describing students</div><div class="vbb">
+    <p class="lead-sm">confident · creative · hard-working · intelligent · lazy · talented/gifted<br>
+    <strong>good at:</strong> critical thinking · general knowledge · problem solving · teamwork</p>
+  </div></div>
+  <div class="card reveal" id="read9">
+    <p class="lead-sm" style="font-size:clamp(.95rem,1.5vw,1.15rem)"><strong>Life skills are important, too</strong><br>
+    It’s easy to think that school life is all about how <span class="ex">¹&nbsp;intelligent</span> you are, in other words, your <em>ability</em> to understand things. However, good life skills help you more than intelligence, at school and beyond.<br>
+    One key skill is how <em>²&nbsp;______</em> you are. That is, you <em>believe that you can do things successfully</em>. It’s important to build this skill because it helps with many areas of life. Once you believe in yourself, you can start being <em>³&nbsp;______</em>, using your <em>imagination</em>, which is helpful in all subjects, not just arts.<br>
+    Another life skill, which is a new school subject in some areas, is <em>⁴&nbsp;______</em>. This teaches you how to <em>think clearly and ask questions</em>. Part of this subject also involves <em>⁵&nbsp;______</em>: students develop the <em>ability to identify a problem and work out a solution</em>. Also, students learn how to work well with others, which is all part of another key skill, <em>⁶&nbsp;______</em>.<br>
+    Of course, traditional skills are important too, such as <em>⁷&nbsp;______</em>, <em>knowing information about the world around you</em>. And don’t forget about being <em>⁸&nbsp;______</em>, which means that you always <em>put in a lot of effort</em>, as that’s the secret to many people’s success.</p>
+  </div>
+  <div class="chips reveal">
+    <span class="chip flip" onclick="this.classList.toggle('shown')">2 <span class="back">confident</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">3 <span class="back">creative</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">4 <span class="back">critical thinking</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">5 <span class="back">problem solving</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">6 <span class="back">teamwork</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">7 <span class="back">general knowledge</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">8 <span class="back">hard-working</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">NOT in the text <span class="back">→ lazy · talented/gifted</span></span>
+  </div>
+</section>
+
+<!-- 13 · EX 10 — TWO RIDDLES + AUDIO 3.22 -->
+<section class="slide" data-notes="TB: pairs discuss BOTH riddles first — elicit ideas + reasons, THEN play 3.22 to check. Official answers: 1 creativity · 2 critical thinking (the TB accepts problem solving for the second too — both are careful systematic thinking).
+
+First skill to transform: the riddle answer is an ADJECTIVE (creative) but the skill is the NOUN (creativity) — make them do the transformation aloud.
+
+AUDIOSCRIPT 3.22 (TB p. 200) · J = Jacob · A = Anne:
+J: What are you doing, Anne?
+A: I’m doing riddles in a magazine. Look at this one. I’ve got to think of as many uses of paper clips as possible.
+J: What? Paper clips are used to hold papers together.
+A: Sure, but you can also use them as a bookmark, for example… You can make earrings from them, or a bracelet. This tests your creativity, Jacob.
+J: You’re right. In fact I often use them to push the emergency restart button on my mobile or to keep headphone wires in place… They’re very useful. Anything else?
+A: Err… my mum uses them to close bags of rice or cornflakes, and to hang decorations on the Christmas tree.
+J: Are there any other riddles?
+A: Yes. Listen to this one. Two boys are registering at a new school. When they fill out their forms, the head teacher sees that they have the same parents. He also notices that they share the same birthday. “Are you twins?” asks the head teacher. “No,” reply the boys. “Is it possible?”
+J: It’s difficult, isn’t it? It looks impossible…
+A: No, it’s not! They can have a third brother who was born on the same day — they can be triplets. Or even quadruplets!
+J: Wow, amazing. You’ve always been good at critical thinking, Jacob!">
+  <div class="eyebrow reveal">Thinking · SB ex. 10 (p. 107) · audio 3.22</div>
+  <h1 class="reveal">Two <em>riddles</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Which <strong>life skill</strong> does each riddle test? Find the solutions — then listen and check.</p>
+  <p><span class="tag">🎧 AUDIO 3.22</span> <audio controls preload="none" src="../media/ww3-cd3-3_22.mp3"></audio></p>
+  <div class="grid2 reveal">
+    <div class="card"><p class="lead-sm" style="font-size:clamp(.98rem,1.6vw,1.25rem)"><strong>A 📎</strong> You have two minutes to think of as many uses as possible for paper clips.</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">?</span><span>skill + solutions <span class="back">→ creativity — hold papers, a bookmark, earrings, a bracelet, push the restart button, close a bag of rice, hang decorations…</span></span></div>
+    </div>
+    <div class="card"><p class="lead-sm" style="font-size:clamp(.98rem,1.6vw,1.25rem)"><strong>B 👯</strong> Two boys are registering at a new school. The head teacher sees they have the same parents — and the same birthday. “Are you twins?” — “No,” reply the boys. Is it possible?</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">?</span><span>skill + solution <span class="back">→ critical thinking — yes! A third brother born the same day: triplets (or even quadruplets)</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 · EX 11 — AND YOU? -->
+<section class="slide" data-notes="TB: think about which skills YOU are good at and which to improve; then describe your PARTNER’s skills and compare — do the views match? (Pairs → two or three reports to the class.) This feeds tonight’s homework — the vocabulary is all on today’s slides.">
+  <div class="eyebrow reveal">Your turn · SB ex. 11 (p. 107) · and you?</div>
+  <h1 class="reveal">The student in the <em>mirror</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">How would you describe <strong>yourself as a student</strong>? Which skills could you <strong>improve</strong> — and how?</p>
+  <div class="chips reveal">
+    <span class="chip">confident</span><span class="chip">creative</span><span class="chip">hard-working</span><span class="chip">intelligent</span><span class="chip">lazy</span><span class="chip">talented/gifted</span><span class="chip">good at: critical thinking</span><span class="chip">general knowledge</span><span class="chip">problem solving</span><span class="chip">teamwork</span>
+  </div>
+  <p class="task reveal" style="font-size:clamp(1rem,1.6vw,1.25rem)">Then — describe your <strong>partner’s</strong> skills. Do the views match?</p>
+</section>
+
+<!-- 15 · HOMEWORK -->
+<section class="slide" data-notes="TB Further practice for 9.1 = Workbook pp. 102–103 (matches: WB p. 102 is the 9.1 Vocabulary — Education page). The three Vocabulary boxes all live on today’s slides — the fast quiz next lesson can be five chips from the boxes (subjects, learn/revise/study, describing students).
+
+Optional add-on in Farida’s pattern: a shkola.app vocab task on the three boxes — your call.
+
+Next lesson: 9.2 Reading &amp; Vocabulary “Does intelligence change?” + Grammar: word order in questions.">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">School words <em>travel home</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>📖 <b>Workbook pp. 102–103</b> — lesson 9.1 practice.</span></div>
+    <div class="item"><span class="no">2</span><span>🧠 Learn the three Vocabulary boxes — <b>A</b> school subjects · <b>B</b> learning &amp; assessment · <b>C</b> describing students. They all live on today’s slides. <b>Fast quiz next time.</b></span></div>
+  </div>
+  <p class="note reveal">Next time: <strong>9.2 Reading &amp; Vocabulary — “Does intelligence change?”</strong> + Grammar: word order in questions.</p>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 15</span>
+  <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<!-- pinned pills -->
+<button id="tnbtn" class="pill" title="teacher's notes (T)">🗒 Teacher’s notes</button>
+<button id="annoBtn" class="pill" title="lesson log (C)">✍️</button>
+<button id="pardonBtn" class="pill" title="class phrases (P)">🙋 Pardon?</button>
+
+<!-- overlays -->
+<div id="tnotes" class="overlay">
+  <span class="closer" onclick="toggleNotes(false)">✕ close</span>
+  <div class="eyebrow">🗒 Teacher’s notes · slide <span id="tnstep"></span></div>
+  <div id="tnbody"></div>
+</div>
+
+<div id="pardon" class="overlay">
+  <span class="closer" onclick="togglePardon(false)">✕ close</span>
+  <p class="phead">🙋 Say it in English!</p>
+  <div class="pgrid">
+    <div class="pcard"><span class="ico">🙉</span>Pardon?</div>
+    <div class="pcard"><span class="ico">🔁</span>Can you repeat, please?</div>
+    <div class="pcard"><span class="ico">❓</span>What does <b>compulsory</b> mean?</div>
+    <div class="pcard"><span class="ico">🔤</span>How do you spell <b>Chemistry</b>?</div>
+    <div class="pcard"><span class="ico">🇬🇧</span>How do you say … in English?</div>
+    <div class="pcard"><span class="ico">🤝</span>Can you help me?</div>
+    <div class="pcard"><span class="ico">🤔</span>I don’t understand.</div>
+  </div>
+</div>
+
+<div id="anno">
+  <div class="a-head"><b>✍️ lesson log</b><span id="annoSlide"></span><span class="a-sp"></span><button id="annoClose">✕</button></div>
+  <div style="display:flex;gap:.4em;flex-wrap:wrap">
+    <button id="annoPrev" title="annotate the previous slide (the deck stays where it is)">‹</button>
+    <button id="annoNext" title="annotate the next slide (the deck stays where it is)">›</button>
+    <button id="annoTick" title="tick = this slide was done">✓ done</button>
+  </div>
+  <textarea id="annoText" placeholder="your note for this slide…"></textarea>
+  <div class="a-foot">
+    <button id="annoCopy">📋 report</button>
+    <span class="a-hint" id="annoHint">saves in this browser</span>
+  </div>
+</div>
+<div id="annoRep">
+  <div class="a-rep-card">
+    <div class="a-head"><b>lesson report</b><span class="a-sp"></span><button id="annoRepClose">✕</button></div>
+    <textarea id="annoRepText" readonly></textarea>
+    <div class="a-foot" style="display:flex;gap:.6em;align-items:center">
+      <button id="annoRepCopy">copy</button>
+      <button id="annoRepClear" title="delete all ticks and comments">🧹 clear</button>
+      <span id="annoSent" style="margin-left:auto;font-size:.78rem;color:var(--ink-soft);font-style:italic"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ⛶ read big -->
+<div id="fso" onclick="this.classList.remove('open')"><div class="fsoinner" id="fsoinner"></div></div>
+
+<script>
+const CH='ww4-u9-l9.1';
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  document.querySelectorAll('audio').forEach(a=>{try{a.pause()}catch(e){}});
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  history.replaceState(null,'','#'+(i+1));
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* ---------- 🗒 Teacher's notes overlay (every slide, key T) ---------- */
+function toggleNotes(force){
+  const ov=document.getElementById('tnotes');
+  const open=force===undefined?!ov.classList.contains('open'):force;
+  if(open){
+    document.getElementById('tnstep').textContent=(i+1)+' / '+slides.length;
+    const body=document.getElementById('tnbody');
+    const txt=(slides[i].dataset.notes||'').trim();
+    body.innerHTML='';
+    if(!txt){
+      body.innerHTML='<div class="note-step"><span class="b">·</span><span>No notes for this slide — just teach it. 🙂</span></div>';
+    }else{
+      txt.split('\n\n').forEach(block=>{
+        const d=document.createElement('div');d.className='note-step';
+        const b=document.createElement('span');b.className='b';b.textContent='›';
+        const s=document.createElement('span');s.textContent=block;
+        d.appendChild(b);d.appendChild(s);body.appendChild(d);
+      });
+    }
+  }
+  ov.classList.toggle('open',open);
+}
+document.getElementById('tnbtn').onclick=()=>toggleNotes();
+
+/* ---------- 🙋 Pardon? overlay (key P) ---------- */
+function togglePardon(force){
+  const ov=document.getElementById('pardon');
+  const open=force===undefined?!ov.classList.contains('open'):force;
+  ov.classList.toggle('open',open);
+}
+document.getElementById('pardonBtn').onclick=()=>togglePardon();
+
+/* ---------- ⛶ read big ---------- */
+function openFs(id){document.getElementById('fsoinner').innerHTML=document.getElementById(id).innerHTML;
+  document.getElementById('fso').classList.add('open');}
+
+/* ---------- keys ---------- */
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.key==='Escape'){toggleNotes(false);togglePardon(false);
+    document.getElementById('fso').classList.remove('open');return}
+  if(document.getElementById('tnotes').classList.contains('open'))return;
+  if(document.getElementById('pardon').classList.contains('open'))return;
+  if(document.getElementById('fso').classList.contains('open'))return;
+  if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();toggleNotes();return}
+  if((e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();togglePardon();return}
+  if((e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();annoToggle();return}
+  /* AUDIO key-guard: SPACE pauses a playing track instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+
+/* ---------- wheel/touch: a .scroll slide scrolls, never flips ---------- */
+let wt=0;document.addEventListener('wheel',e=>{
+  if(document.getElementById('fso').classList.contains('open'))return;
+  if(e.target.closest('.slide')&&e.target.closest('.slide').classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ---------- ✍️ lesson log (tick + notes; 📋 report; auto-send over http) ---------- */
+const annoPanel=document.getElementById('anno'),annoSlideEl=document.getElementById('annoSlide'),
+annoText=document.getElementById('annoText'),annoTick=document.getElementById('annoTick'),
+annoHint=document.getElementById('annoHint'),annoSent=document.getElementById('annoSent');
+const CAN_SEND=(location.protocol==='http:');
+let annoIdx=i,annoData={};
+try{annoData=JSON.parse(localStorage.getItem(CH+'-anno')||'{}')}catch(e){annoData={}}
+function annoSave(){try{localStorage.setItem(CH+'-anno',JSON.stringify(annoData))}catch(e){}
+  annoSend()}
+function annoFill(){const a=annoData[annoIdx+1]||{};
+  annoSlideEl.textContent='· slide '+(annoIdx+1)+' / '+slides.length;
+  annoText.value=a.c||'';annoTick.classList.toggle('on',!!a.t)}
+function annoToggle(){annoPanel.classList.toggle('on');
+  if(annoPanel.classList.contains('on')){annoIdx=i;annoFill();annoText.focus()}}
+function annoSet(k,f){const a=annoData[k]||{};f(a);
+  if(!a.c&&!a.t)delete annoData[k];else annoData[k]=a;annoSave()}
+function annoReportText(){let out=CH+' · lesson notes · '+new Date().toLocaleString('en-GB')+'\n';
+  let any=false;
+  slides.forEach((s,k)=>{const a=annoData[k+1];if(!a||(!a.t&&!a.c))return;any=true;
+    out+=(k+1)+(a.t?' ✓':'')+(a.c?' — '+a.c:'')+'\n'});
+  if(!any)out+='(nothing ticked or noted yet)';
+  return out}
+let annoTimer=null;
+function annoSend(){if(!CAN_SEND)return;
+  clearTimeout(annoTimer);
+  annoTimer=setTimeout(()=>{
+    fetch('/report?deck='+encodeURIComponent(CH),{method:'POST',body:annoReportText()})
+      .then(()=>{annoSent.textContent='auto-sent to the Mac ✓'})
+      .catch(()=>{annoSent.textContent='not sent — use 📋 copy'})
+  },1200)}
+annoHint.textContent=CAN_SEND?'auto-sends to the Mac':'saves on this device';
+document.getElementById('annoBtn').onclick=annoToggle;
+document.getElementById('annoClose').onclick=()=>annoPanel.classList.remove('on');
+document.getElementById('annoPrev').onclick=()=>{annoIdx=Math.max(0,annoIdx-1);annoFill()};
+document.getElementById('annoNext').onclick=()=>{annoIdx=Math.min(slides.length-1,annoIdx+1);annoFill()};
+annoTick.onclick=()=>{annoSet(annoIdx+1,a=>a.t=a.t?0:1);annoFill()};
+annoText.addEventListener('input',()=>annoSet(annoIdx+1,a=>a.c=annoText.value));
+const rep=document.getElementById('annoRep'),repText=document.getElementById('annoRepText');
+document.getElementById('annoCopy').onclick=()=>{repText.value=annoReportText();rep.classList.add('on')};
+document.getElementById('annoRepClose').onclick=()=>rep.classList.remove('on');
+rep.addEventListener('click',e=>{if(e.target===rep)rep.classList.remove('on')});
+document.getElementById('annoRepCopy').onclick=()=>{
+  repText.select();
+  try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(repText.value);
+  else document.execCommand('copy')}catch(e){}
+  const b=document.getElementById('annoRepCopy');b.textContent='copied ✓';
+  setTimeout(()=>b.textContent='copy',1200)};
+document.getElementById('annoRepClear').onclick=()=>{
+  if(confirm('Delete all ticks and comments?')){annoData={};annoSave();annoFill();rep.classList.remove('on')}};
+
+/* ---------- boot: deep link #n ---------- */
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+
+/* ---------- ready-chime (http/https: reload on save) ---------- */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
