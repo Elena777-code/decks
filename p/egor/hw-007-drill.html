@@ -291,6 +291,11 @@ function judge(t,given,late){
   setTimeout(function(){hide("flash");next();},ok?800:1600);
 }
 function next(){
+  if(document.hidden){
+    var h=function(){document.removeEventListener("visibilitychange",h);next();};
+    document.addEventListener("visibilitychange",h);
+    return;
+  }
   qi++;
   if(qi<rounds[ri].tasks.length){ask();return;}
   if(rounds[ri].wfMode)wfMark();
@@ -320,38 +325,31 @@ function theEnd(){
   show("end-card");
 }
 
-/* ---------- the per-card timer — PAUSES when the window loses focus ---------- */
-var leftMs=0,lastTick=0;
+/* ---------- the per-card timer — RUNS ON WALL TIME, deliberately:
+   leave the window to look something up and the card burns (Elena's rule) ---------- */
+var deadline=null;
 function start(sec){
-  DUR=sec*1000;leftMs=DUR;lastTick=Date.now();
+  DUR=sec*1000;t0=Date.now();
   var bar=$("timer-bar"),num=$("timer-num");
   bar.style.transition="none";bar.style.width="100%";
   num.textContent=sec+" s";num.className="timer-num";
-  runTimer();
-}
-function runTimer(){
+  if(deadline){clearTimeout(deadline);deadline=null;}
+  deadline=setTimeout(function(){if(!answered)timeUp();},DUR);
   timer=setInterval(function(){
-    var now=Date.now();
-    leftMs-=now-lastTick;lastTick=now;
-    if(leftMs<=0){leftMs=0;
-      $("timer-bar").style.width="0%";$("timer-num").textContent="0 s";
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 s";
       stop();timeUp();return;}
-    $("timer-bar").style.transition="width .15s linear";
-    $("timer-bar").style.width=(leftMs/DUR*100)+"%";
-    var s=Math.ceil(leftMs/1000);
-    $("timer-num").textContent=s+" s";
-    $("timer-num").className="timer-num"+(s<=3?" low":"");
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" s";
+    num.className="timer-num"+(s<=3?" low":"");
   },100);
 }
-function pauseTimer(){if(timer){clearInterval(timer);timer=null;}}
-function resumeTimer(){
-  if(answered||timer||leftMs<=0||$("q-card").classList.contains("hidden"))return;
-  lastTick=Date.now();runTimer();
+function stop(){
+  if(timer){clearInterval(timer);timer=null;}
+  if(deadline){clearTimeout(deadline);deadline=null;}
 }
-document.addEventListener("visibilitychange",function(){document.hidden?pauseTimer():resumeTimer();});
-window.addEventListener("blur",pauseTimer);
-window.addEventListener("focus",resumeTimer);
-function stop(){if(timer){clearInterval(timer);timer=null;}}
 function timeUp(){
   if(answered)return;
   answered=true;
