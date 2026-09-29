@@ -290,22 +290,7 @@ function judge(t,given,late){
     (t.why?'<span class="sub">'+t.why+'</span>':'');
   setTimeout(function(){hide("flash");next();},ok?800:1600);
 }
-var holdNext=false;
-function away(){return document.hidden||!document.hasFocus();}
 function next(){
-  if(away()){
-    if(holdNext)return;
-    holdNext=true;
-    var h=function(){
-      if(away())return;
-      document.removeEventListener("visibilitychange",h);
-      window.removeEventListener("focus",h);
-      holdNext=false;next();
-    };
-    document.addEventListener("visibilitychange",h);
-    window.addEventListener("focus",h);
-    return;
-  }
   qi++;
   if(qi<rounds[ri].tasks.length){ask();return;}
   if(rounds[ri].wfMode)wfMark();
