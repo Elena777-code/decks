@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SM 5.1 · U2 L4 — A narrow escape (Super Minds 5, SB pp. 14–15 + WB pp. 14–15)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   SM 5.1 — Unit 2 (Around Pompeii), lesson 4 · Tue 29.09.
+   Farida's Thursday plan (24.09, her note): check the HW
+   (the p. 13 rule · WB p. 13 · Practice pp. 14–15) → SB
+   pp. 14–15 → WB pp. 14–15. Built strictly on the TB (the
+   SB pp. 14–15 lesson: skim → read & listen 016 → second
+   listen + comprehension → ex. 3 order → ex. 4 specific
+   words → WB p. 14 → WB p. 15 → the value → the role play).
+   The group HAS their books + ActiveTeach: ActiveTeach shows
+   the pages — THIS deck is the task/question layer in between,
+   no page reproduction. Same engine as U2 L2 (22.09) + the
+   ✍️ lesson-log (C) + the 🙋 Pardon? pill + build stamp.
+   English only. Answers behind clicks.
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.1rem);color:#fff}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cheese)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.4vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+/* flex-shrink guard: nothing on a slide may collapse — the slide scrolls */
+.slide>*{flex-shrink:0}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ---------- text & blocks ---------- */
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy);margin-bottom:.2em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin-bottom:.3em;
+  font-size:clamp(1.9rem,4.2vw,3.6rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp))}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(.9rem,1.6vw,1.35rem)}
+.card.sky{background:#E8F1FA}
+.card.cheese{background:var(--cheese-soft)}
+.card.stampc{background:var(--stamp-soft)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:.4em}
+.center{text-align:center}
+.mt{margin-top:.65em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink);background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem);align-self:flex-start}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.92rem,1.35vw,1.12rem);color:var(--ink-soft);font-style:italic}
+.stamp-box{font-family:'Fredoka',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  border:3px dashed var(--stamp);border-radius:16px;padding:.5em 1em;color:var(--stamp);
+  background:var(--white);box-shadow:var(--shadow);display:inline-block;font-size:clamp(1rem,1.7vw,1.4rem)}
+.bigq{font-family:'Fredoka',sans-serif;font-weight:600;color:#fff;background:var(--navy);
+  border-radius:99px;padding:.3em 1.1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.3rem);align-self:flex-start}
+.bigq::before{content:"❓ "}
+.bookchip{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy-deep);
+  background:#E8F1FA;border:2px solid var(--sky);border-radius:99px;
+  padding:.35em 1em;display:inline-block;font-size:clamp(.95rem,1.5vw,1.22rem);align-self:flex-start}
+.bookchip::before{content:"🖥 "}
+.stamp-box.big{font-size:clamp(1.3rem,2.6vw,2.2rem);padding:.6em 1.4em}
+
+/* the Wi-Fi attention signal (the class switch, taught 22.09) */
+.wifi-slide{justify-content:center;align-items:center;text-align:center}
+.wifi-ico{font-size:clamp(6rem,16vw,13rem);line-height:1;filter:drop-shadow(0 12px 24px rgba(34,48,63,.18))}
+.wifi-word{font-family:'Fredoka',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  font-size:clamp(2rem,5vw,3.6rem);color:var(--navy);margin-top:.2em}
+
+/* teacher-facing prepare-ahead list (slide 1, EN — standing rules) */
+.prep{display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;
+  background:var(--white);box-shadow:0 4px 12px rgba(34,48,63,.07);margin-bottom:.55em}
+.prep .ico{flex-shrink:0;font-size:clamp(1.3rem,2.2vw,1.8rem);line-height:1.3}
+.prep p{font-size:clamp(.98rem,1.55vw,1.25rem);line-height:1.45}
+.prep b{color:var(--navy)}
+
+/* teacher's notes — muted, small, click to unfold */
+button.tn{align-self:flex-start;border:1.5px solid #C9D8EA;background:var(--white);
+  color:var(--ink-soft);font-family:'Fredoka',sans-serif;font-weight:500;
+  font-size:clamp(.78rem,1.2vw,.95rem);padding:.3em 1em;border-radius:99px;
+  cursor:pointer;transition:all .18s}
+button.tn:hover{border-color:var(--ink-soft);color:var(--ink)}
+button.tn.on{background:var(--ink-soft);color:#fff;border-color:var(--ink-soft)}
+.tnotes{display:none;font-size:clamp(.86rem,1.35vw,1.06rem);color:var(--ink-soft);
+  line-height:1.5;border-left:3px solid var(--sky);padding:.15em 0 .15em 1em}
+.tnotes.open{display:block}
+.tnotes b{color:var(--navy)}
+
+/* numbered reveal items */
+.item{display:flex;gap:.7em;align-items:baseline;padding:.38em .2em;
+  border-bottom:2px dashed rgba(169,204,239,.7);cursor:pointer;border-radius:10px;
+  font-size:clamp(1.18rem,1.95vw,1.55rem);line-height:1.42;transition:background .2s ease;user-select:none}
+.item:last-child{border-bottom:none}
+.item:hover{background:#E8F1FA}
+.item .no{font-family:'Fredoka',sans-serif;font-weight:700;flex:none;color:var(--stamp);font-size:.85em}
+.item .agree{color:#fff;background:var(--navy);border-radius:99px;padding:.05em .55em;
+  font-weight:700;font-style:normal;opacity:0;transition:opacity .2s;white-space:nowrap}
+.item .agree.wrap{white-space:normal}
+.item.shown .agree{opacity:1}
+.item.shown{cursor:default}
+.item.shown:hover{background:transparent}
+.item s{color:var(--ink-soft)}
+
+/* speaking frames */
+.frame{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink);
+  font-size:clamp(1.3rem,2.4vw,1.95rem);line-height:1.5;padding:.5em .9em;border-radius:16px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.frame .slot{color:var(--stamp)}
+.frame.small{font-size:clamp(1.1rem,1.9vw,1.55rem)}
+
+/* word bank strip */
+.bank{display:flex;flex-wrap:wrap;gap:.4em;justify-content:center}
+.bank span{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);
+  padding:.15em .7em;border-radius:99px;background:var(--cheese-soft);color:var(--navy)}
+
+/* role-play steps */
+.steps{counter-reset:step;display:flex;flex-direction:column;gap:.6em}
+.steps .step{display:flex;gap:.8em;align-items:center;padding:.7em 1em;border-radius:16px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08);
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem)}
+.steps .step .n{flex-shrink:0;width:1.9em;height:1.9em;border-radius:50%;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;color:#fff}
+
+/* homework */
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08);margin-bottom:.7em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;color:#fff}
+.hw-step p{font-size:clamp(1.02rem,1.62vw,1.32rem);line-height:1.5}
+.hw-step .en{font-family:'Fredoka',sans-serif;color:var(--navy);font-weight:600}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#1E3A66;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav,body.presenter #annoBtn,body.presenter #pardonBtn{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1rem,1.6vw,1.3rem)}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:'Fredoka',sans-serif;font-size:.9em;cursor:pointer}
+#pv .head button:hover{background:rgba(255,255,255,.15)}
+#pv .head .cnt{margin-left:auto;background:rgba(255,255,255,.12);border-radius:99px;padding:.2em .9em}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(30,58,102,.85);color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:.8rem;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F5F3EE;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--cheese)}
+body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{display:none!important}
+
+/* ---------- 🙋 Pardon? pill + overlay (standing rule 27.09) ---------- */
+#pardonBtn{position:fixed;top:calc(10px + .8vh);left:max(10px,1.6vw);z-index:100;
+  border:1px solid rgba(255,255,255,.35);background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  color:#fff;font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.85rem,1.3vw,1.05rem);
+  padding:.35em 1em;border-radius:99px;cursor:pointer;transition:transform .15s ease}
+#pardonBtn:hover{transform:scale(1.06);border-color:var(--cheese)}
+#pardon{position:fixed;inset:0;z-index:220;background:rgba(246,248,251,.985);display:none;
+  flex-direction:column;align-items:center;justify-content:center;padding:4vh 6vw;overflow:auto}
+#pardon.open{display:flex}
+#pardon .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka',sans-serif;
+  font-weight:700;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
+#pardon .closer:hover{color:var(--ink)}
+#pardon .phead{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(1.4rem,2.6vw,2.1rem);margin-bottom:2vh}
+#pardon .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:.8em;max-width:920px}
+#pardon .pcard{background:var(--white);border:2px solid var(--sky);border-radius:16px;
+  padding:.9em 1.1em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.4;box-shadow:0 6px 16px rgba(34,48,63,.08)}
+#pardon .pcard .ico{font-size:1.15em;margin-right:.35em}
+
+/* ---------- ✍️ lesson-log — teacher-only (the pill / key C) ---------- */
+#annoBtn{position:fixed;top:calc(10px + .8vh);left:calc(max(10px,1.6vw) + 8.2em);z-index:100;
+  width:2.4em;height:2.4em;border-radius:50%;border:1px solid rgba(255,255,255,.35);
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);color:#fff;font-size:1.05rem;
+  cursor:pointer;transition:transform .15s ease}
+#annoBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#anno{position:fixed;left:max(10px,1.6vw);top:calc(56px + 1.2vh);z-index:150;width:min(340px,86vw);
+  background:var(--white);border-radius:16px;box-shadow:var(--shadow-lg);padding:.7em .8em;
+  display:none;flex-direction:column;gap:.5em}
+#anno.on{display:flex;animation:rise .25s both}
+#anno .a-head{display:flex;align-items:center;gap:.45em;font-family:'Fredoka',sans-serif;
+  font-size:.95rem;color:var(--navy-deep)}
+#anno .a-sp{flex:1}
+#anno .a-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:'Fredoka',sans-serif;font-size:.85rem;color:var(--ink-soft)}
+#anno .a-head button:hover{border-color:var(--ink-soft);color:var(--ink)}
+#anno #annoTick.on{background:var(--mint);border-color:var(--mint);color:#fff}
+#annoText{width:100%;min-height:86px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;
+  padding:.5em .6em;font-family:'Nunito',sans-serif;font-size:.98rem;color:var(--ink)}
+#annoText:focus{outline:none;border-color:var(--sky)}
+#anno .a-foot{display:flex;align-items:center;gap:.6em}
+#anno .a-foot button,#annoRep .a-rep-card button{border:none;border-radius:99px;padding:.28em 1em;
+  cursor:pointer;font-family:'Fredoka',sans-serif;font-size:.85rem;background:var(--navy);color:#fff}
+#anno .a-foot button:hover,#annoRep .a-rep-card button:hover{background:var(--navy-deep)}
+#anno .a-foot .a-hint{font-size:.76rem;color:var(--ink-soft);font-style:italic}
+#annoRep{position:fixed;inset:0;z-index:260;background:rgba(34,48,63,.45);display:none;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+#annoRep.on{display:flex;animation:rise .25s both}
+#annoRep .a-rep-card{background:var(--white);border-radius:18px;box-shadow:var(--shadow-lg);
+  padding:1em 1.1em;width:min(560px,92vw);display:flex;flex-direction:column;gap:.6em}
+#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;
+  padding:.6em .7em;font-family:ui-monospace,Menlo,monospace;font-size:.88rem;color:var(--ink)}
+
+@media (max-width:900px){
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+  #pv .panes{grid-template-columns:1fr}
+  #annoBtn{left:auto;right:max(10px,1.6vw)}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · PREPARE-AHEAD (teacher-facing, EN — start the class from slide 2) -->
+  <section class="slide">
+    <div class="eyebrow reveal">SM 5.1 · tuesday 29 september · Super Minds 5 · SB pp. 14–15 + WB pp. 14–15</div>
+    <h1 class="title reveal">Prepare ahead 🧰</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:920px">
+      <div class="prep"><span class="ico">🖥</span><p><b>ActiveTeach open at SB pp. 14–15</b> — the story lives there; this deck is the task layer in between. <b>Test the sound</b>: tracks <b>015</b> (the chant, slide 3) and <b>016</b> (the whole story, ~4 min, slides 6–7) play right on the slides.</p></div>
+      <div class="prep"><span class="ico">🖊</span><p><b>Homework check first</b> — Farida's three: the <b>p. 13 rule</b> by heart (the glued sheet) · <b>WB p. 13</b> · <b>Practice pp. 14–15</b>. Slide 3, every key in its notes.</p></div>
+      <div class="prep"><span class="ico">📗</span><p><b>The kids' books on desks:</b> PB + WB (paper). The grammar workbook is <b>not</b> needed today. The Practice books come out only for the homework check.</p></div>
+      <div class="prep"><span class="ico">⏱</span><p><b>If time runs short</b>, cut in this order: <b>WB p. 15</b> (slide 15) → <b>WB ex. 3</b> (slide 14) → <b>the retell race</b> (slide 18). <b>Never cut:</b> the story (slides 6–7) and the role play (slide 17). The WB block is the natural buffer.</p></div>
+      <div class="prep"><span class="ico">✍️</span><p><b>NEW today — the ✍️ pill</b> (top-left, or key <b>C</b>): tick a slide <b>✓ done</b> + a short comment — the ‹ › arrows move the panel without flipping the shared screen. Over http the notes <b>auto-send to the Mac</b> — say <b>"finished"</b> after the lesson and the report is read from the inbox. Give it one 30-second try before 17.15.</p></div>
+      <div class="prep"><span class="ico">🙋</span><p><b>NEW today — the Pardon? pill</b> (top-left): tap it with the class once — the phrases they can always say (<i>Pardon? · Can you repeat, please? · What does erupt mean?</i>). It stays pinned all year.</p></div>
+    </div>
+    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2. &nbsp;·&nbsp; <b style="color:var(--navy)">build 29.09 · v1</b></p>
+  </section>
+
+  <!-- SLIDE 2 · WI-FI SWITCH -->
+  <section class="slide wifi-slide">
+    <div class="wifi-ico reveal">📶</div>
+    <div class="wifi-word reveal">Wi-Fi!</div>
+  </section>
+
+  <!-- SLIDE 3 · HW CHECK — FARIDA'S THREE -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework check · Farida's three</div>
+    <h1 class="title reveal">Homework check ✅</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Click each line when it's checked — the rule first!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span>The rule by heart — SB p. 13 + your glued sheet <span class="agree">two of you say it! 💬</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>WB p. 13 <span class="agree">walk the desks 🚶</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>Practice pp. 14–15 <span class="agree">walk the desks 🚶</span></span></div>
+    </div>
+    <div class="card sky reveal" style="max-width:640px;margin:0 auto;width:100%;text-align:center">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem)">The p. 13 chant — the rule in rhythm. Say it with the track! 🎵</p>
+      <div class="center" style="display:flex;justify-content:center"><audio controls preload="none" src="../media/sm5-p13-t015.mp3" style="width:min(420px,90%)"></audio></div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">Item 1: two volunteers SAY the rule — <b>while + two past continuous actions</b> (two things happening at the same time); the chant says it four times — play 015 and let the whole class join. <b>WB p. 13 keys (TB):</b> ex. 1 order — <i>While Leo was looking at the moon · The explorer was stealing his favourite spoon · While Leo was swimming in the lake · The explorer was eating his chocolate cake</i>; ex. 2 match — <b>2 e · 3 a · 4 b · 5 d</b> (1 = c, given); ex. 3 (John &amp; Ava) — <i>2 While John was talking on his (mobile) phone, Ava was reading a map · 3 While John was playing football, Ava was walking the dog · 4 While John was eating cake, Ava was dancing · 5 While John was climbing a tree, the dog was chasing a cat · 6 While John was making a fire, Ava was putting up the tent</i>. <b>Practice p. 14</b> (ex. 1 correct the sentences): <b>2 was talking · 3 was playing · 4 While Jane was swimming (word order!) · 5 was studying · 6 were watching</b>. <b>Practice p. 15:</b> ex. 2 — <b>2 was sleeping · 3 were playing · 4 was drinking · 5 was talking · 6 was cutting</b>; exx. 3–4 are their own sentences — check one or two aloud. A quick walk between desks for items 2–3, no line-by-line marking.</div>
+  </section>
+
+  <!-- SLIDE 4 · WARM-UP — THE CHARACTERS + THE STORY SO FAR (TB) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Warm-up · the story so far</div>
+    <h1 class="title reveal">Who's who? 🧭</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:900px;margin:0 auto;width:100%;gap:.8em">
+      <div class="frame small">The time travellers — <b class="slot">what are their names?</b></div>
+      <div class="card" style="width:100%">
+        <div class="item" data-k><span class="no">👩</span><span>She knows her History — she saw the danger first <span class="agree">PHOEBE</span></span></div>
+        <div class="item" data-k><span class="no">👦</span><span>The boy with the questions: "But how do you know?" <span class="agree">ALEX</span></span></div>
+        <div class="item" data-k><span class="no">🧑</span><span>"I don't understand! What are we doing here?" <span class="agree">PATRICK</span></span></div>
+      </div>
+      <p class="task reveal" style="align-self:center">And what happened BEFORE? Use the words! 👇</p>
+      <div class="bank reveal">
+        <span>the science lab</span><span>the experiments</span><span>Mr Davis</span><span>the yellow gate</span><span>Italy</span>
+      </div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB warm-up, word for word: elicit the names of the story characters and write them on the board — <b>Phoebe, Alex and Patrick</b>. Ask what students remember about the story so far, prompt with the phrases: <b>Science lab · experiments · Mr Davis · the gate · Italy</b>. The reveals are just confirmation — collect THEIR memories first. The gate matters most: it is today's ending. 2–3 minutes.</div>
+  </section>
+
+  <!-- SLIDE 5 · THE TITLE + SKIM (SB p. 14 ex. 1) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Reading · SB p. 14 · ex. 1</div>
+    <h1 class="title reveal">A narrow escape 🌀</h1>
+    <div class="accent-line reveal"></div>
+    <div class="bigq reveal">What does "a narrow escape" mean?</div>
+    <div class="card reveal" style="max-width:900px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">🌀</span><span>A narrow escape is… <span class="agree wrap">you got away — but only JUST! 😮‍💨</span></span></div>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Now GO THROUGH the story quickly — 40 seconds on the clock! ⏱ Don't read every word — HUNT for two answers:</p>
+    <div class="card cheese reveal" style="max-width:900px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">a</span><span>Where are the kids? <span class="agree wrap">In Pompeii</span></span></div>
+      <div class="item" data-k><span class="no">b</span><span>What year is it? <span class="agree wrap">79 AD</span></span></div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB: explain the meaning of the title and check understanding of the questions FIRST. Then students go through the story quickly to find the answers — <b>set a time limit</b> (40 seconds works); don't worry about new language, they only hunt the two answers. Compare in pairs. <b>Don't confirm yet</b> — the listening on the next slide does it (TB's own move). The two reveals stay closed until then.</div>
+  </section>
+
+  <!-- SLIDE 6 · READ AND LISTEN (SB pp. 14-15 ex. 2 · 🎧 016) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Reading · SB pp. 14–15 · ex. 2</div>
+    <h1 class="title reveal">Read and listen 🎧</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">ActiveTeach — SB pp. 14–15 · read and listen — the story checks your two answers</span></div>
+    <div class="center reveal" style="display:flex;justify-content:center">
+      <audio controls preload="none" src="../media/sm5-p14-15-t016.mp3" style="width:min(520px,90%)"></audio>
+    </div>
+    <div class="card cheese reveal" style="max-width:880px;margin:0 auto;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem);line-height:1.5">Follow the words in your book. Four minutes — and you'll know:<br>Where are they? What year is it? And… <b>how does it end?</b></p>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Pencils down — ears and eyes only!</p>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB: play the recording ONCE — students read and listen to check their answers. Elicit the two answers now (In Pompeii · 79 AD — open the reveals on slide 5) and ask: <b>what happened at the end</b> (the children stepped back into the gate) <b>and why</b> (because the volcano erupted). Don't stop to explain vocabulary on this pass — the second listen (next slide) does it. SPACE pauses the track; it never flips the slide.</div>
+  </section>
+
+  <!-- SLIDE 7 · THE SECOND LISTEN + COMPREHENSION (TB) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Reading · the second listen</div>
+    <h1 class="title reveal">Check the details 🔍</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">ActiveTeach — play 🎧 016 again, pausing to explain the new words</span></div>
+    <div class="center reveal" style="display:flex;justify-content:center">
+      <audio controls preload="none" src="../media/sm5-p14-15-t016.mp3" style="width:min(480px,90%)"></audio>
+    </div>
+    <p class="task reveal">Say your answer first — then click to check!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span>Where did Phoebe run to? <span class="agree wrap">a hill outside the city</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>Why did Phoebe run? <span class="agree wrap">she remembered Pompeii from her History lessons</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>What do animals do when there's a disaster? <span class="agree wrap">they run away</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>What did the children try to tell the people? <span class="agree wrap">the volcano was going to erupt</span></span></div>
+      <div class="item" data-k><span class="no">🌀</span><span>And the title? Why "a narrow escape"? <span class="agree wrap">they escaped — but only JUST</span></span></div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB second pass: play the recording again, <b>pausing to explain new vocabulary and check comprehension</b> — the four questions are the TB's own (the fifth is the title link: The Time travellers have a narrow escape from the volcano). The new words get their own slide next — don't drown the listening in vocabulary here; pause 3–4 times only.</div>
+  </section>
+
+  <!-- SLIDE 8 · THE STORY'S NEW WORDS (TB new language) -->
+  <section class="slide">
+    <div class="eyebrow reveal">New words · the story</div>
+    <h1 class="title reveal">The story's new words 🌋</h1>
+    <div class="accent-line reveal"></div>
+    <div class="bank reveal" style="max-width:980px;margin:0 auto">
+      <span>narrow escape</span><span>hills</span><span>breathing</span><span>slow down</span><span>erupt</span><span>certain</span><span>chance</span><span>flash</span><span>destroy</span><span>lava</span><span>ashes</span><span>warn</span><span>bright</span>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Point — ask — explain! Which words do you already know?</p>
+    <div class="card sky reveal" style="max-width:760px;margin:0 auto;width:100%;text-align:center">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.1rem,1.9vw,1.5rem)">Ten of these words are Thursday's dictation — meet them properly! 📝</p>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">The TB's new-language lists for pp. 14–15: <b>narrow escape · hills · breathing (n) · slow down · erupt · certain · (only) chance · flash · destroy · lava · ash(es)</b> + <b>warn · bright</b> (p. 15). Quick glosses: narrow escape = got away, but only just · breathing = the air going in and out · slow down = become slower · certain = sure · chance = the one opportunity · flash = an instant · destroy = break completely · ashes = what is left after the fire · warn = tell about danger · bright = full of light. The DICTATION list is ten: <b>narrow escape · erupt · lava · ashes · destroy · chance · certain · warn · bright · breathing</b> (hills, slow down and flash rest — they come free in sentences). 3 minutes — they meet the words again in the WB exercises.</div>
+  </section>
+
+  <!-- SLIDE 9 · REAL HISTORY — THE FACT BOX (SB p. 15) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Real history · SB p. 15</div>
+    <h1 class="title reveal">It really happened! 🏛</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">ActiveTeach — SB p. 15 · the fact box — read it together</span></div>
+    <p class="task reveal">Read the box — catch the FOUR facts! 🕵️ Say them, then click!</p>
+    <div class="card reveal" style="max-width:940px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">📅</span><span>When did Vesuvius erupt? <span class="agree">August 29th, 79 AD</span></span></div>
+      <div class="item" data-k><span class="no">⛰</span><span>How high did the smoke and stones go? <span class="agree">more than 30 kilometres</span></span></div>
+      <div class="item" data-k><span class="no">⏱</span><span>How fast did the city disappear? <span class="agree">within minutes</span></span></div>
+      <div class="item" data-k><span class="no">🕯</span><span>How many people died? <span class="agree">almost 20,000</span></span></div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">The fact box sits at the end of the story on the ActiveTeach page (and in their PBs) — read it together (or you read it aloud, they catch), then reveal the four facts one by one. The bridge to say out loud: the children are fiction, Pompeii is real — and the volcano is still there. 2 minutes.</div>
+  </section>
+
+  <!-- SLIDE 10 · WI-FI SWITCH -->
+  <section class="slide wifi-slide">
+    <div class="wifi-ico reveal">📶</div>
+    <div class="wifi-word reveal">Wi-Fi!</div>
+  </section>
+
+  <!-- SLIDE 11 · SB p. 15 ex. 3 — ORDER THE SENTENCES -->
+  <section class="slide">
+    <div class="eyebrow reveal">Reading · SB p. 15 · ex. 3</div>
+    <h1 class="title reveal">Put the story in order 1️⃣2️⃣3️⃣</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">ActiveTeach — SB p. 15 · ex. 3 — read the sentences, look back at the story</span></div>
+    <p class="task reveal">Say the number first — then click to check!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span>They tried to <span class="agree">4</span> <b class="muted">warn</b> people.</span></div>
+      <div class="item" data-k><span class="no">2</span><span>They heard a loud noise. <span class="agree">3</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>The children ran up a hill. <span class="agree">1</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>Phoebe told the boys about Pompeii. <span class="agree">2</span></span></div>
+      <div class="item" data-k><span class="no">5</span><span>Suddenly they saw a bright light! <span class="agree">5</span></span></div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB: <b>pre-teach warn</b> here (it's on the chips slide too). Students read the sentences individually and put them in order, looking back at the story; compare in pairs, then check with the class. TB key: <b>(left column) 4, 3, 1 (right column) 2, 5</b> — the items above are in the book's own order. Full sequence: the hill → Pompeii → the noise → warning people → the bright light.</div>
+  </section>
+
+  <!-- SLIDE 12 · SB p. 15 ex. 4 — MORE SPECIFIC INFORMATION -->
+  <section class="slide">
+    <div class="eyebrow reveal">Reading · SB p. 15 · ex. 4</div>
+    <h1 class="title reveal">Say it exactly! 🎯</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Work in pairs. Check the text — replace <b>They</b> with the exact words from the story!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span><b>They</b> often run away from natural disasters. <span class="agree wrap">Animals</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span><b>They're</b> in danger. <span class="agree wrap">The people who live in Pompeii</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>… <b>they</b> were not worried. <span class="agree wrap">the people in the city</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span><b>They</b> ran as fast as they could… <span class="agree wrap">The children</span></span></div>
+    </div>
+    <div class="col reveal" style="max-width:820px;margin:.8em auto 0;width:100%">
+      <div class="frame small">💬 Let's find <i>"natural disasters"</i> in the text.</div>
+      <div class="frame small">💬 Here it is. Let's look. OK. It says…</div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB: students re-read the story and find the words to replace the underlined ones; compare in pairs, then check. TB key: <b>1 Animals · 2 The people · 3 the people · 4 The children</b>. The two bubbles are the book's own model for how the pairs work — read them aloud once as a demo. Push for the EXACT words from the text, not paraphrases.</div>
+  </section>
+
+  <!-- SLIDE 13 · WB p. 14 — EX. 1 + EX. 2 -->
+  <section class="slide">
+    <div class="eyebrow reveal">Workbook · p. 14 · ex. 1 + ex. 2</div>
+    <h1 class="title reveal">Story practice 📓</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">WB p. 14 — do ex. 1 and ex. 2 in your workbooks first</span></div>
+    <div class="row reveal" style="align-items:stretch">
+      <div class="card" style="flex:1;min-width:340px">
+        <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.3em">Ex. 1 · The five pictures — the story order. Left to right, what number?</p>
+        <div class="item" data-k><span class="no">1st</span><span>the eruption and the glowing gate <span class="agree">5</span></span></div>
+        <div class="item" data-k><span class="no">2nd</span><span>people look up at the smoking volcano <span class="agree">4</span></span></div>
+        <div class="item" data-k><span class="no">3rd</span><span>the volcano close-up <span class="agree">3</span></span></div>
+        <div class="item" data-k><span class="no">4th</span><span>the children run through the streets <span class="agree">1</span> ✓ given</span></div>
+        <div class="item" data-k><span class="no">5th</span><span>the view of Pompeii from the hill <span class="agree">2</span></span></div>
+      </div>
+      <div class="card sky" style="flex:1;min-width:340px">
+        <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.3em">Ex. 2 · The summary — words from the box (1 = hill, given)</p>
+        <div class="item" data-k><span class="no">2</span><span>the city is called… <span class="agree">Pompeii</span></span></div>
+        <div class="item" data-k><span class="no">3</span><span>She shows them a… <span class="agree">volcano</span></span></div>
+        <div class="item" data-k><span class="no">4</span><span>lots of dark grey… <span class="agree">smoke</span></span></div>
+        <div class="item" data-k><span class="no">5</span><span>animals run away when there is… <span class="agree">danger</span></span></div>
+        <div class="item" data-k><span class="no">6</span><span>go back to tell the… <span class="agree">people</span></span></div>
+        <div class="item" data-k><span class="no">7</span><span>The volcano… <span class="agree">erupts</span></span></div>
+        <div class="item" data-k><span class="no">8</span><span>Alex notices the yellow glowing… <span class="agree">gate</span></span></div>
+      </div>
+    </div>
+    <p class="hintline reveal mt" style="text-align:center">Four words never leave the box: <span class="item" data-k style="display:inline-flex;border:none;font-size:inherit"><span class="agree wrap">vase · statue · fountain · column — your p. 10 friends!</span></span></p>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">They do both exercises in their paper WBs first (5–6 minutes), then the deck checks. TB keys: ex. 1 — the pictures left to right get <b>5, 4, 3, (1 — the example), 2</b>; in story order: the run through the streets → the hill above Pompeii → the volcano close-up → the people look up → the gate. ex. 2 — <b>2 Pompeii · 3 volcano · 4 smoke · 5 danger · 6 people · 7 erupts · 8 gate</b>; the four extras are vase · statue · fountain · column. Finish by one student reading the completed summary aloud — that IS the story retold.</div>
+  </section>
+
+  <!-- SLIDE 14 · WB p. 14 ex. 3 — CORRECT THE SENTENCES -->
+  <section class="slide">
+    <div class="eyebrow reveal">Workbook · p. 14 · ex. 3</div>
+    <h1 class="title reveal">Correct the sentences 🛠</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">WB p. 14 · ex. 3 — cross out the wrong words, write the right ones</span></div>
+    <p class="task reveal">1 is done for you — the rest? Say the fix, then click!</p>
+    <div class="card reveal" style="max-width:1000px;margin:0 auto;width:100%">
+      <div class="item"><span class="no">1</span><span><b>While</b> Phoebe was running down the stairs, she told <s>the people in the market</s> <b>the boys to follow her</b>. <span class="muted" style="font-size:.8em">— the book's example ✓</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>…they ran past <s>carts and horses</s> <span class="agree wrap">houses and temples</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>…they <s>built a fire</s> <span class="agree">sat down</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>…they heard <s>people shout</s> <span class="agree">a loud noise</span></span></div>
+      <div class="item" data-k><span class="no">5</span><span>…they saw a lot of <s>animals</s> <span class="agree">smoke</span></span></div>
+      <div class="item" data-k><span class="no">6</span><span>…<s>a statue fell down</s> <span class="agree wrap">there was a loud explosion</span></span></div>
+      <div class="item" data-k><span class="no">7</span><span>…the people were very <s>angry</s> <span class="agree">scared</span></span></div>
+      <div class="item" data-k><span class="no">8</span><span>Alex saw <s>lots of birds in the sky</s> <span class="agree wrap">a yellow light through the smoke</span></span></div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB key, items 2–8: <b>houses and temples · sat down · a loud noise · smoke · there was a loud explosion · scared · a yellow light (through the smoke)</b>; item 1 is solved in the book. Point once at the grammar in the lines: <b>While + the long action</b> — their p. 13 rule doing real work. They correct in their WBs, then click-and-check together.</div>
+  </section>
+
+  <!-- SLIDE 15 · WB p. 15 — THE SIX TIMES + WHICH PICTURE -->
+  <section class="slide">
+    <div class="eyebrow reveal">Workbook · p. 15 · ex. 4 + ex. 5</div>
+    <h1 class="title reveal">Time travel times ⏳</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">WB p. 15 — the six pictures: order of age, the OLDEST first (b = 1, given)</span></div>
+    <p class="task reveal">Say the number — then click!</p>
+    <div class="card reveal" style="max-width:980px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">a</span><span>the Egyptians <span class="agree">→ 2</span></span></div>
+      <div class="item" data-k><span class="no">b</span><span>the stone age <span class="agree">→ 1</span> ✓ given</span></div>
+      <div class="item" data-k><span class="no">c</span><span>a future city <span class="agree">→ 6</span></span></div>
+      <div class="item" data-k><span class="no">d</span><span>the steam age <span class="agree">→ 4</span></span></div>
+      <div class="item" data-k><span class="no">e</span><span>the lab — that's TODAY! <span class="agree">→ 5</span></span></div>
+      <div class="item" data-k><span class="no">f</span><span>the knights <span class="agree">→ 3</span></span></div>
+    </div>
+    <div class="card sky reveal" style="max-width:860px;margin:0 auto;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem);line-height:1.5"><i>"In my story, the children go to Egypt. They get lost in a pyramid and they have a really exciting adventure. The gate saves them at the end of the story."</i></p>
+      <div class="item" data-k><span class="no">?</span><span>Which picture is it about? <span class="agree">picture a — the Egyptians!</span></span></div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB keys: ex. 4 — <b>a 2 · b (1, the example) · c 6 · d 4 · e 5 · f 3</b>. Say the order aloud together: the stone age → the Egyptians → the knights → the steam age → today (the lab — that's THEM, now!) → the future. ex. 5 — <b>picture a</b>. The TB's own point: picture e is NOW — nobody would SEND the children there. The Egypt text is the model for tonight's homework (ex. 6, "In my story…" — three sentences). Elastic: this slide cuts first if time is short — the game moves to Thursday.</div>
+  </section>
+
+  <!-- SLIDE 16 · THE VALUE (WB p. 15 + the TB ending discussion) -->
+  <section class="slide">
+    <div class="eyebrow reveal">The value · helping people in danger</div>
+    <h1 class="title reveal">What do we learn? 💛</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">WB p. 15 — underline the best summary in your workbook</span></div>
+    <p class="task reveal">Which one? Say WHY — then click!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">a</span><span>If there is danger, you should always run away quickly.</span></div>
+      <div class="item" data-k><span class="no">b</span><span>If there is danger, you should tell other people quickly, if there is time. <span class="agree">✓ the best one</span></span></div>
+      <div class="item" data-k><span class="no">c</span><span>If there is danger, you should never help other people.</span></div>
+    </div>
+    <div class="col reveal" style="max-width:880px;margin:.8em auto 0;width:100%">
+      <div class="frame small">💬 The three friends tried to help. <b class="slot">When did YOU help somebody?</b></div>
+      <div class="frame small">💬 Why is it important to tell people about danger?</div>
+    </div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB "Ending the lesson": ask how the three friends try to help the people in danger (they run to the city and tell them what's going to happen); discuss why this value is important and elicit examples of how the students have helped — or tried to help — people in danger. Key: <b>b</b>. The TB's own note: some of this discussion may need L1, and the topic needs sensitivity — your call, follow the room. This is the heart of the page: 3–4 minutes, don't rush it.</div>
+  </section>
+
+  <!-- SLIDE 17 · ENDING — THE ROLE PLAY (TB) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Ending the lesson · the role play</div>
+    <h1 class="title reveal">The story on stage! 🎭</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="justify-content:center">
+      <div class="stamp-box big">Phoebe 💡 · Alex ❓ · Patrick 😮</div>
+    </div>
+    <div class="steps reveal" style="max-width:880px;margin:0 auto;width:100%">
+      <div class="step"><span class="n">1</span><span>Read the story again — silently. Find the words that are YOURS.</span></div>
+      <div class="step"><span class="n">2</span><span>Practise in your group of three — use the story's own words.</span></div>
+      <div class="step"><span class="n">3</span><span>Show the class! 🌟</span></div>
+    </div>
+    <p class="hintline reveal mt" style="text-align:center">The narrator? The book itself — the story is the stage. 🎬</p>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB ending, word for word: put students into <b>groups of three</b>; they each take a role (Phoebe, Alex or Patrick); they read through the story silently and each find which dialogue is theirs; they practise their role plays in groups, <b>using the direct speech from the story</b>; volunteer groups role play for the class. 5–7 minutes. If a group of two — you take the third voice once, then they swap. Never cut completely — fewer performing groups if time is short.</div>
+  </section>
+
+  <!-- SLIDE 18 · IF TIME — THE RETELL RACE (TB extension) -->
+  <section class="slide">
+    <div class="eyebrow reveal">If time · TB extension</div>
+    <h1 class="title reveal">Retell race 🏁</h1>
+    <div class="accent-line reveal"></div>
+    <div class="bank reveal" style="max-width:820px;margin:0 auto">
+      <span>Phoebe runs</span><span>the hills</span><span>the boys follow</span><span>Pompeii</span><span>the volcano erupts</span><span>the gate!</span>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Books CLOSED! Retell the story in pairs — one line each, then swap!</p>
+    <p class="hintline reveal" style="text-align:center">Then around the class: every pair gives ONE line — together we tell the whole story. 🧵</p>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">TB extension: students close their books and retell the story in pairs; write the key words and phrases on the board as prompts — <b>Phoebe run hills · boys follow · Pompeii erupt</b> (the chips above). Then elicit a line of the story from each pair, retelling it together around the class. First slide to cut when time is short.</div>
+  </section>
+
+  <!-- SLIDE 19 · HOMEWORK -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework · for Thursday</div>
+    <h1 class="title reveal">Homework 📌</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:900px;width:100%">
+      <div class="hw-step"><span class="n">1</span><p>📓 <b>WB p. 15 · ex. 6</b> — <span class="en">"Where would you send the children?"</span> — write <b>three sentences</b>: <span class="en">In my story, the children go to …</span> (the Egypt text is your model — it's right there on the page!)</p></div>
+      <div class="hw-step"><span class="n">2</span><p>✍️ <b>The ten story words</b> — written dictation on Thursday: <span class="en">narrow escape · erupt · lava · ashes · destroy · chance · certain · warn · bright · breathing</span></p></div>
+    </div>
+    <div class="center reveal"><div class="stamp-box big">time travellers — great work today! 🌀</div></div>
+    <button class="tn reveal" onclick="tn(this)">notes</button>
+    <div class="tnotes">Item 1 is the TB's own homework suggestion for this lesson (ex. 6 writing — free production, no key: check that "In my story…" frames it and the past/present verbs hold). Item 2 = the group's dictation rhythm (like the p. 10 words): the TB's new-language list, ten words. No shkola.app tonight — Farida's list doesn't have it; she adds the next Practice pages on Thursday if she wants them.</div>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 19</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- 🙋 Pardon? pill (pinned, pupil-facing) -->
+<button id="pardonBtn" title="say it in English!">🙋 Pardon?</button>
+<div id="pardon">
+  <span class="closer" onclick="togglePardon(false)">✕ close</span>
+  <p class="phead">🙋 Say it in English!</p>
+  <div class="pgrid">
+    <div class="pcard"><span class="ico">🙉</span>Pardon?</div>
+    <div class="pcard"><span class="ico">🔁</span>Can you repeat, please?</div>
+    <div class="pcard"><span class="ico">❓</span>What does <b>erupt</b> mean?</div>
+    <div class="pcard"><span class="ico">🔤</span>How do you spell <b>Pompeii</b>?</div>
+    <div class="pcard"><span class="ico">🌍</span>How do you say … in English?</div>
+    <div class="pcard"><span class="ico">🤝</span>Can you help me?</div>
+    <div class="pcard"><span class="ico">🤔</span>I don't understand.</div>
+  </div>
+</div>
+
+<!-- ✍️ lesson-log — teacher-only (the pill or key C) -->
+<button id="annoBtn" title="lesson notes — tick + comments (C)">✍️</button>
+<div id="anno">
+  <div class="a-head">
+    <span id="annoSlide">slide 1</span><span class="a-sp"></span>
+    <button id="annoPrev" title="annotate the previous slide (the deck stays where it is)">‹</button>
+    <button id="annoNext" title="annotate the next slide (the deck stays where it is)">›</button>
+    <button id="annoTick" title="tick = this slide was done">✓ done</button>
+  </div>
+  <textarea id="annoText" placeholder="your note for this slide…"></textarea>
+  <div class="a-foot">
+    <button id="annoCopy">📋 report</button>
+    <span class="a-hint" id="annoHint">saves in this browser</span>
+  </div>
+</div>
+<div id="annoRep">
+  <div class="a-rep-card">
+    <div class="a-head"><b style="font-family:'Fredoka',sans-serif;color:var(--navy-deep)">lesson report</b><span class="a-sp"></span><button id="annoRepClose">✕</button></div>
+    <textarea id="annoRepText" readonly></textarea>
+    <div class="a-foot" style="display:flex;gap:.6em;align-items:center">
+      <button id="annoRepCopy">copy</button>
+      <button id="annoRepClear" title="delete all ticks and comments">🧹 clear</button>
+      <span id="annoSent" style="margin-left:auto;font-size:.78rem;color:var(--ink-soft);font-style:italic"></span>
+    </div>
+  </div>
+</div>
+
+<!-- presenter view shell (T / 🖥) -->
+<div id="pv">
+  <div class="head">
+    <b>SM 5.1 · U2 L4 — presenter</b>
+    <button id="pv-close">✕ close (T)</button>
+    <span class="cnt" id="pv-cnt">1 / 19</span>
+  </div>
+  <div class="panes">
+    <div class="pane"><span class="lbl">NOW — what the class sees</span><iframe id="pv-cur"></iframe></div>
+    <div class="pane"><span class="lbl">NEXT</span><iframe id="pv-next"></iframe></div>
+  </div>
+  <div class="notes" id="pv-notes">—</div>
+</div>
+
+<script>
+/* ============ core deck engine (the U2-L2 engine, 22.09) ============ */
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.querySelector('#bar i'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+
+/* every sync element gets a stable key; class to switch = data-on */
+const syncs=[...document.querySelectorAll('[data-k]')];
+syncs.forEach((el,k)=>{el.dataset.k=k;if(!el.dataset.on)el.dataset.on='shown'});
+function setSync(k,on){const el=syncs[k];if(!el)return;
+  if(el.classList.contains('yn')){el.classList.toggle('shown-yes',on&&el.dataset.on==='shown-yes');
+    el.classList.toggle('shown-no',on&&el.dataset.on==='shown-no');}
+  else el.classList.toggle(el.dataset.on,on);}
+
+const CH='sm5-u2-l4';
+const bc=('BroadcastChannel'in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get('embed')?'embed':(qs.get('presenter')?'presenter':'main');
+const open=new Set();
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==='hello'&&MODE==='main'){post({t:'state',i,open:[...open]});return}
+  if(m.t==='state'){if(MODE==='embed'){showEmbed(m.i)}applyOpen(m.open);if(MODE==='presenter')pvShow(m.i);return}
+  if(m.t==='go'){if(MODE==='embed')showEmbed(m.i);else{go(m.i,true)}applyOpen(m.open||[]);return}
+  if(m.t==='tap'){setSync(m.k,m.on);if(m.on)open.add(m.k);else open.delete(m.k);
+    if(MODE==='embed')post({t:'tap',k:m.k,on:m.on});}
+};
+function applyOpen(list){open.clear();(list||[]).forEach(k=>{open.add(k);setSync(k,true)})}
+function broadcastState(){post({t:'state',i,open:[...open]})}
+
+/* clicks on reveal elements — child answers first, click confirms */
+document.getElementById('deck').addEventListener('click',e=>{
+  const el=e.target.closest('[data-k]');if(!el)return;
+  const k=+el.dataset.k;
+  const nowOn=!el.classList.contains(el.dataset.on);
+  setSync(k,nowOn);if(nowOn)open.add(k);else open.delete(k);
+  post({t:'tap',k,on:nowOn});
+});
+
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(annoPanel&&annoPanel.classList.contains('on')){annoIdx=n;annoFill()}
+  if(!silent)post({t:'go',i,open:[...open]});
+  if(MODE==='presenter')pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* teacher's notes toggle (muted, small — click to unfold) */
+function tn(b){const n=b.nextElementSibling;n.classList.toggle('open');b.classList.toggle('on');b.blur();}
+
+/* 🙋 Pardon? overlay */
+function togglePardon(on){document.getElementById('pardon').classList.toggle('open',on)}
+document.getElementById('pardonBtn').onclick=()=>togglePardon(!document.getElementById('pardon').classList.contains('open'));
+document.getElementById('pardon').addEventListener('click',e=>{if(e.target.id==='pardon')togglePardon(false)});
+
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.key==='Escape'){togglePardon(false);
+    document.getElementById('annoRep').classList.remove('on');
+    if(annoPanel)annoPanel.classList.remove('on');return}
+  if(MODE==='embed')return;
+  /* AUDIO key-guard: SPACE pauses a playing track instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+  if(e.key==='t'||e.key==='T')togglePresenter();
+  if((e.key==='c'||e.key==='C')&&MODE==='main')annoToggle(!annoPanel.classList.contains('on'));
+});
+/* the wheel never flips a scrolled slide — it scrolls it */
+let wt=0;document.addEventListener('wheel',e=>{if(MODE!=='main')return;
+  const sl=e.target.closest('.slide');if(sl&&sl.classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(MODE!=='main')return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ presenter view (T / 🖥) ============ */
+const pv=document.getElementById('pv');
+function togglePresenter(){
+  if(MODE==='embed')return;
+  if(MODE==='presenter'){window.close();return}
+  window.open(location.pathname+'?presenter=1','sm5-pv-l4','width=1180,height=820');
+}
+document.getElementById('pvt').onclick=togglePresenter;
+document.getElementById('pv-close').onclick=()=>window.close();
+const pvCur=document.getElementById('pv-cur'),pvNext=document.getElementById('pv-next'),
+pvNotes=document.getElementById('pv-notes'),pvCnt=document.getElementById('pv-cnt');
+if(MODE==='presenter'){
+  document.body.classList.add('presenter');
+  pvCur.src=location.pathname+'?embed=cur';pvNext.src=location.pathname+'?embed=next';
+}
+function pvShow(n){
+  if(MODE!=='presenter')return;
+  pvCnt.textContent=(n+1)+' / '+slides.length;
+  pvNotes.innerHTML='';
+  const tnEl=slides[n].querySelector('.tnotes');
+  const note=tnEl?tnEl.textContent:slides[n].dataset.notes;
+  if(note){const p=document.createElement('p');p.textContent=note;pvNotes.appendChild(p)}
+  const nx=slides[n+1];
+  const nxTn=nx&&nx.querySelector('.tnotes');
+  const nxt=nx?(nxTn?nxTn.textContent:nx.dataset.notes):null;
+  if(nxt){const h=document.createElement('p');h.innerHTML='<b>next →</b> ';h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+/* embed panes: mirror the authoritative index, no chrome, no wheel-nav */
+let embedSlot=qs.get('embed');
+function showEmbed(n){
+  const target=embedSlot==='next'?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==='next')document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle('active',k===target);s.classList.remove('prev')});
+}
+
+/* ============ lesson annotations — teacher's tick + per-slide notes
+   + the live report AUTO-SEND to the Mac inbox: POST /report when
+   the deck is served over http; on the iPad 📋 copy is the way ============ */
+const annoPanel=document.getElementById('anno'),annoSlideEl=document.getElementById('annoSlide'),
+annoText=document.getElementById('annoText'),annoTick=document.getElementById('annoTick'),
+annoHint=document.getElementById('annoHint'),annoSent=document.getElementById('annoSent');
+const CAN_SEND=(location.protocol==='http:'&&MODE==='main');
+let annoIdx=i,annoData={};
+try{annoData=JSON.parse(localStorage.getItem(CH+'-anno')||'{}')}catch(e){annoData={}}
+function annoSave(){try{localStorage.setItem(CH+'-anno',JSON.stringify(annoData))}catch(e){}
+  annoSend()}
+function annoFill(){const a=annoData[annoIdx+1]||{};
+  annoSlideEl.textContent='slide '+(annoIdx+1)+' / '+slides.length;
+  annoText.value=a.c||'';annoTick.classList.toggle('on',!!a.t)}
+function annoToggle(open){annoPanel.classList.toggle('on',open);
+  if(open){annoIdx=i;annoFill();annoText.focus()}else annoText.blur()}
+function annoSet(k,f){const a=annoData[k]||{};f(a);
+  if(!a.c&&!a.t)delete annoData[k];else annoData[k]=a;annoSave()}
+function annoReportText(){let out=CH+' · lesson notes · '+new Date().toLocaleString('en-GB')+'\n';
+  let any=false;
+  slides.forEach((s,k)=>{const a=annoData[k+1];if(!a||(!a.t&&!a.c))return;any=true;
+    out+=(k+1)+(a.t?' ✓':'')+(a.c?' — '+a.c:'')+'\n'});
+  if(!any)out+='(nothing ticked or noted yet)';
+  return out}
+let annoTimer=null;
+function annoSend(){if(!CAN_SEND)return;
+  clearTimeout(annoTimer);
+  annoTimer=setTimeout(()=>{
+    fetch('/report?deck='+encodeURIComponent(CH),{method:'POST',body:annoReportText()})
+      .then(()=>{if(annoSent)annoSent.textContent='auto-sent to the Mac ✓'})
+      .catch(()=>{if(annoSent)annoSent.textContent='not sent — use 📋 copy'})
+  },1200)}
+if(annoHint)annoHint.textContent=CAN_SEND
+  ?'auto-sends to the Mac · they see the screen while you type'
+  :'saves on this device · they see the screen while you type';
+if(MODE==='main'){
+  document.getElementById('annoBtn').onclick=()=>annoToggle(!annoPanel.classList.contains('on'));
+  document.getElementById('annoPrev').onclick=()=>{annoIdx=Math.max(0,annoIdx-1);annoFill()};
+  document.getElementById('annoNext').onclick=()=>{annoIdx=Math.min(slides.length-1,annoIdx+1);annoFill()};
+  annoTick.onclick=()=>{annoSet(annoIdx+1,a=>a.t=a.t?0:1);annoFill()};
+  annoText.addEventListener('input',()=>annoSet(annoIdx+1,a=>a.c=annoText.value));
+  const rep=document.getElementById('annoRep'),repText=document.getElementById('annoRepText');
+  document.getElementById('annoCopy').onclick=()=>{
+    repText.value=annoReportText();rep.classList.add('on')};
+  document.getElementById('annoRepClose').onclick=()=>rep.classList.remove('on');
+  rep.addEventListener('click',e=>{if(e.target===rep)rep.classList.remove('on')});
+  document.getElementById('annoRepCopy').onclick=()=>{
+    repText.select();
+    try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(repText.value);
+    else document.execCommand('copy')}catch(e){}
+    const b=document.getElementById('annoRepCopy');b.textContent='copied ✓';
+    setTimeout(()=>b.textContent='copy',1200)};
+  document.getElementById('annoRepClear').onclick=()=>{
+    if(confirm('Delete all ticks and comments?')){annoData={};annoSave();annoFill();rep.classList.remove('on')}};
+}
+
+/* boot: hash → slide; main announces state, others say hello and catch up.
+   Only main may broadcast state — an embed/presenter never overrides it. */
+const h=parseInt(location.hash.slice(1));
+if(MODE==='main'){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true);broadcastState()}
+else post({t:'hello'});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=='main')return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();}catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
