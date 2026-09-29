@@ -118,16 +118,36 @@ var R_PREP=[
  {q:'You have to study <span class="gap">____</span> the exam.',a:['for'],why:'study FOR'}
 ];
 var R_WF=[
- {q:'a <span class="gap">______</span>-size-fits-all approach (ONE)',a:['one'],why:'one-size-fits-all — the fixed idiom'},
- {q:'<span class="gap">______</span> learning pathways (PERSON)',a:['personalised','personalized'],why:'personal→personalise→personalised'},
- {q:'Online education is highly <span class="gap">______</span>. (ACCESS)',a:['accessible'],why:'access→accessible'},
- {q:'educational <span class="gap">______</span> (EQUAL, the negative noun)',a:['inequalities','inequality'],why:'equal→equality→inequality'},
- {q:'an <span class="gap">______</span> and dedicated teacher (ENGAGE)',a:['engaged'],why:'engage→engaged'},
- {q:'his <span class="gap">______</span> in maths (EXCEL, the noun)',a:['excellence'],why:'excel→excellence'},
- {q:'time was <span class="gap">______</span> up (FREE, participle)',a:['freed'],why:'free→freed→freed'},
- {q:'a <span class="gap">______</span> of knowledge (WEALTHY, the noun)',a:['wealth'],why:'wealthy→wealth'},
- {q:'progress moves <span class="gap">______</span> (SEAMLESS, the adverb)',a:['seamlessly'],why:'seamless→seamlessly'},
- {q:'the <span class="gap">______</span> of grading to machines (OUTSOURCE, the noun)',a:['outsourcing'],why:'outsource→outsourcing'}
+ {pos:'a <span class="gap">______</span>-size-fits-all approach (ONE — the fixed idiom)',
+  ctx:'No two students learn the same way, so a <span class="gap">______</span>-size-fits-all model fails. (ONE)',
+  a:['one'],why:'one-size-fits-all'},
+ {pos:'<span class="gap">______</span> learning pathways (PERSON — the adjective)',
+  ctx:'AI creates <span class="gap">______</span> learning pathways for each student. (PERSON)',
+  a:['personalised','personalized'],why:'personal→personalise→personalised'},
+ {pos:'Online education is highly <span class="gap">______</span>. (ACCESS — the adjective)',
+  ctx:'For students in remote villages, online education is highly <span class="gap">______</span>. (ACCESS)',
+  a:['accessible'],why:'access→accessible'},
+ {pos:'educational <span class="gap">______</span> (EQUAL — the negative noun)',
+  ctx:'The reform could widen educational <span class="gap">______</span> between rich and poor regions. (EQUAL)',
+  a:['inequalities','inequality'],why:'equal→equality→inequality'},
+ {pos:'an <span class="gap">______</span> and dedicated teacher (ENGAGE — the adjective)',
+  ctx:'An <span class="gap">______</span> and dedicated teacher changes everything. (ENGAGE)',
+  a:['engaged'],why:'engage→engaged'},
+ {pos:'his <span class="gap">______</span> in maths (EXCEL — the noun)',
+  ctx:'His <span class="gap">______</span> in maths won him a place at university. (EXCEL)',
+  a:['excellence'],why:'excel→excellence'},
+ {pos:'time was <span class="gap">______</span> up (FREE — the participle)',
+  ctx:'Two hours a day were <span class="gap">______</span> up for real teaching. (FREE)',
+  a:['freed'],why:'free→freed→freed'},
+ {pos:'a <span class="gap">______</span> of knowledge (WEALTHY — the noun)',
+  ctx:'The internet offers students a <span class="gap">______</span> of knowledge. (WEALTHY)',
+  a:['wealth'],why:'wealthy→wealth'},
+ {pos:'progress moves <span class="gap">______</span> (SEAMLESS — the adverb)',
+  ctx:'With one account, lessons now move <span class="gap">______</span> between home and school. (SEAMLESS)',
+  a:['seamlessly'],why:'seamless→seamlessly'},
+ {pos:'the <span class="gap">______</span> of grading to machines (OUTSOURCE — the noun)',
+  ctx:'The <span class="gap">______</span> of grading to machines has already begun. (OUTSOURCE)',
+  a:['outsourcing'],why:'outsource→outsourcing'}
 ];
 var R_TRAP=[
  {q:'work <span class="verb">in</span> your own pace — type the fix',a:['at'],why:'AT your own pace — never in'},
@@ -179,10 +199,23 @@ var ROUNDS_META=[
  {id:'phr',icon:'⑥',name:'The chapter\'s phrases',sec:15,helper:'type the word'}
 ];
 
+/* ---------- WORD FORMATION's two lives (Elena's rule): first pass names
+   the part of speech; every later pass = same words, full sentence +
+   stem, no part of speech. The deck remembers. ---------- */
+function wfSeen(){
+  try{return localStorage.getItem('egor-hw007-wf')==='done';}catch(e){return false;}
+}
+function wfMark(){
+  try{localStorage.setItem('egor-hw007-wf','done');}catch(e){}
+}
 function buildRounds(){
+  var wfMode=wfSeen()?'ctx':'pos';
+  var wf=shuffle(R_WF).map(function(t){
+    return {q:(wfMode==='ctx')?t.ctx:t.pos,a:t.a,why:t.why};
+  });
   return [
     {meta:ROUNDS_META[0],tasks:shuffle(R_PREP)},
-    {meta:ROUNDS_META[1],tasks:shuffle(R_WF)},
+    {meta:ROUNDS_META[1],tasks:wf,wfMode:wfMode},
     {meta:ROUNDS_META[2],tasks:shuffle(R_TRAP)},
     {meta:ROUNDS_META[3],tasks:shuffle(R_COLL)},
     {meta:ROUNDS_META[4],tasks:shuffle(R_FAM)},
@@ -201,7 +234,9 @@ function roundFlash(){
   var f=$("flash");show("flash");
   f.className="flash info";
   var m=rounds[ri].meta;
-  f.innerHTML=m.icon+" "+m.name+'<span class="sub">round '+(ri+1)+' of '+rounds.length+'</span>';
+  var sub='round '+(ri+1)+' of '+rounds.length;
+  if(rounds[ri].wfMode)sub+=rounds[ri].wfMode==='ctx'?' · sentences today — no part of speech':' · part of speech told today';
+  f.innerHTML=m.icon+" "+m.name+'<span class="sub">'+sub+'</span>';
   setTimeout(function(){hide("flash");qi=0;ask();},1200);
 }
 function ask(){
@@ -251,6 +286,7 @@ function judge(t,given,late){
 function next(){
   qi++;
   if(qi<rounds[ri].tasks.length){ask();return;}
+  if(rounds[ri].wfMode)wfMark();
   ri++;
   if(ri<rounds.length){roundFlash();return;}
   theEnd();
