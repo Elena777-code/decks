@@ -91,6 +91,11 @@ button.big{background:var(--teal);color:#fff;font-size:clamp(1.1rem,4.2vw,1.35re
   <div class="card hidden" id="end-card">
     <div class="eyebrow" style="margin-bottom:.6em">the score card</div>
     <div id="end-body"></div>
+    <div class="answer-row" style="margin-top:1.4em">
+      <button class="big" id="copy-btn" style="margin-top:0">📋 Copy the report for Elena</button>
+      <button class="big" id="send-btn" style="margin-top:0;background:var(--amber)">📤 Send the report</button>
+    </div>
+    <p class="helper" id="send-hint">Copy → paste it to Elena in Telegram. She also gets it automatically once her form is connected.</p>
     <button class="big" id="again-btn">Play again</button>
     <p class="helper">A fresh run reshuffles every round.</p>
   </div>
@@ -317,8 +322,100 @@ function theEnd(){
     html+='<p class="helper" style="margin-top:1em">Zero misses. Take the perfect score to Elena on Saturday.</p>';
   }
   $("end-body").innerHTML=html;
+  LAST_REPORT=reportText(hits,total,byRound,misses);
+  try{localStorage.setItem("egor-hw007-last",LAST_REPORT);}catch(e){}
+  queueReport(LAST_REPORT);
+  flushQueue();
   show("end-card");
 }
+
+/* ---------- the report: auto-send to Elena's Google Form + Egor's own copy ---------- */
+
+/* ELENA: create a Google Form with ONE long-answer question ("Report"),
+   press Send → link, take the part that looks like
+   https://docs.google.com/forms/d/e/…/formResponse
+   and the entry.ID from the question (View source → "entry.")
+   Paste BOTH lines here — auto-send switches on by itself (like MR's). */
+var FORM_ACTION="";
+var FORM_ENTRY="entry.000000";
+
+var LAST_REPORT="";
+function reportText(hits,total,byRound,misses){
+  var d=new Date();
+  var pad=function(n){return (n<10?"0":"")+n;};
+  var lines=["EGOR · hw-007 drill · "+pad(d.getDate())+"/"+pad(d.getMonth()+1)+" "+pad(d.getHours())+":"+pad(d.getMinutes()),
+    "Score: "+hits+"/"+total];
+  for(var k in byRound){lines.push("· "+k+": "+byRound[k].ok+"/"+byRound[k].n);}
+  if(rounds[1]&&rounds[1].wfMode)lines.push("· word formation: "+(rounds[1].wfMode==="ctx"?"sentences mode":"POS mode"));
+  if(misses.length){
+    lines.push("Misses ("+misses.length+"):");
+    misses.forEach(function(m){lines.push("  – "+m.q.replace(/\s+/g," ").trim()+" → "+m.key);});
+  }else{lines.push("Zero misses.");}
+  return lines.join("\n");
+}
+function sendViaForm(txt){
+  if(!FORM_ACTION)return false;
+  var frame=document.createElement("iframe");
+  frame.name="hw-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);
+  var sub=document.createElement("input");
+  sub.type="hidden";sub.name="submit";sub.value="Submit";
+  f.appendChild(sub);
+  document.body.appendChild(f);
+  f.submit();
+  setTimeout(function(){f.remove();frame.remove();},15000);
+  return true;
+}
+function queueReport(txt){
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("egor-hw007-queue")||"[]");}catch(e){}
+  q.push(txt);
+  if(q.length>20)q=q.slice(-20);
+  try{localStorage.setItem("egor-hw007-queue",JSON.stringify(q));}catch(e){}
+}
+function flushQueue(){
+  if(!FORM_ACTION)return; /* no form yet — reports wait in the queue */
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("egor-hw007-queue")||"[]");}catch(e){}
+  if(!q.length)return;
+  q.forEach(sendViaForm);
+  try{localStorage.setItem("egor-hw007-queue","[]");}catch(e){}
+}
+flushQueue();
+$("copy-btn").addEventListener("click",function(){
+  var txt=LAST_REPORT;
+  try{txt=localStorage.getItem("egor-hw007-last")||txt;}catch(e){}
+  function done(){$("copy-btn").textContent="✅ Copied — now paste it to Elena";
+    setTimeout(function(){$("copy-btn").textContent="📋 Copy the report for Elena";},2500);}
+  function fallback(){
+    var ta=document.createElement("textarea");
+    ta.value=txt;ta.style.cssText="position:fixed;left:-999px";
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");done();}catch(e){}
+    ta.remove();
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done,fallback);
+  }else fallback();
+});
+$("send-btn").addEventListener("click",function(){
+  var txt=LAST_REPORT;
+  try{txt=localStorage.getItem("egor-hw007-last")||txt;}catch(e){}
+  if(!txt)return;
+  if(sendViaForm(txt)){
+    try{localStorage.setItem("egor-hw007-queue","[]");}catch(e){}
+    $("send-btn").textContent="✅ Sent";
+    setTimeout(function(){$("send-btn").textContent="📤 Send the report";},2500);
+  }else{
+    $("send-hint").textContent="The form isn't connected yet — use 📋 Copy and paste the report to Elena in Telegram.";
+  }
+});
 
 /* ---------- the per-card timer — RUNS ON WALL TIME, deliberately:
    leave the window to look something up and the card burns (Elena's rule) ---------- */
