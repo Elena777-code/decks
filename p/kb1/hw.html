@@ -58,8 +58,23 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
     <div class="item"><span class="n">2</span><span><b>AB стр. 10, упр. 1 🎧</b> — послушать аудио и выполнить задание в тетради (AB есть у каждого дома):</span></div>
     <audio controls preload="none" src="../../media/kb1-u2-ab10-t05.mp3"></audio>
     <div class="item"><span class="n">3</span><span><b>AB стр. 10, упр. 2</b> — нарисовать свой стол и школьные вещи на нём.</span></div>
-    <div class="item"><span class="n">4</span><span><b>Лист Unscramble</b> — он в портфеле ребёнка. Задание: в словах перепутались буквы (например, «nep») — нужно составить правильное слово и подписать картинку. Вот как выглядит лист:</span></div>
-    <img src="../../media/kb1-u2-unscr.png" alt="the Unscramble worksheet" style="width:100%;max-width:520px;border-radius:16px;box-shadow:var(--shadow);align-self:center">
+    <div class="item"><span class="n">4</span><span><b>Игра «Составь слово»</b> — буквы перепутались! Посмотри на картинку, составь слово и <b>напиши его</b>:</span></div>
+    <div id="unscr" style="display:flex;flex-direction:column;gap:1.2vh;align-items:center;background:var(--cream);border-radius:16px;padding:14px">
+      <button id="unscr-start" class="btn mint" onclick="unscrStart()">▶ Играть</button>
+      <div id="unscr-game" style="display:none;flex-direction:column;gap:1.2vh;align-items:center;width:100%">
+        <div id="unscr-prog" style="font-weight:800;color:var(--ink-soft)"></div>
+        <img id="unscr-img" alt="" style="height:130px;border-radius:14px;background:#fff;box-shadow:var(--shadow)">
+        <div id="unscr-mix" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,7vw,2.8rem);letter-spacing:.18em;color:var(--lavender-deep)"></div>
+        <input id="unscr-in" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+          placeholder="слово…" style="font-family:'Fredoka',sans-serif;font-size:clamp(1.4rem,5vw,1.9rem);text-align:center;letter-spacing:.1em;padding:.35em .8em;border:3px solid var(--mint);border-radius:14px;width:min(280px,100%);outline:none">
+        <button class="btn mint" onclick="unscrCheck()">Проверить</button>
+        <div id="unscr-fb" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4vw,1.6rem);min-height:1.4em"></div>
+      </div>
+      <div id="unscr-end" style="display:none;flex-direction:column;gap:1vh;align-items:center">
+        <div id="unscr-score" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,5vw,2.1rem);color:var(--mint-deep)"></div>
+        <button class="btn" onclick="unscrStart()">Ещё раз 🔁</button>
+      </div>
+    </div>
     <div class="item"><span class="n">5</span><span>🎬 <b>Видео:</b> ребёнок показывает на новые слова (chair, table, eraser, pencil, pen, book) и называет их. Запишите и пришлите в чат группы.</span></div>
     <div class="item"><span class="n">6</span><span>🎮 Две игры с новыми словами:</span></div>
     <a class="btn" href="https://wordwall.net/resource/86111229/kb1-unit-2-my-school" target="_blank">▶ Wordwall: карточки со словами</a>
@@ -74,5 +89,56 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
 
   <footer>Kid's Box 1 · группы школы · страница домашних заданий</footer>
 </div>
+<script>
+/* ===== the Unscramble typing game (Elena, 2026-09-29: "make it an online game so that they could type") ===== */
+const UNSCR=[
+  {img:'../../media/kb1-u2-fc-chair.png', mix:'ricah',  ans:'chair'},
+  {img:'../../media/kb1-u2-fc-table.png', mix:'elbat',  ans:'table'},
+  {img:'../../media/kb1-u2-fc-eraser.png',mix:'resare', ans:'eraser'},
+  {img:'../../media/kb1-u2-fc-pencil.png',mix:'licpen', ans:'pencil'},
+  {img:'../../media/kb1-u2-fc-pen.png',   mix:'nep',    ans:'pen'},
+  {img:'../../media/kb1-u2-fc-book.png',  mix:'koob',   ans:'book'}
+];
+let uOrd=[],uI=0,uFirstTry=0,uTried=false;
+function unscrShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function unscrStart(){
+  uOrd=unscrShuffle([...UNSCR]);uI=0;uFirstTry=0;
+  document.getElementById('unscr-start').style.display='none';
+  document.getElementById('unscr-end').style.display='none';
+  document.getElementById('unscr-game').style.display='flex';
+  unscrShow();
+}
+function unscrShow(){
+  uTried=false;
+  const it=uOrd[uI];
+  document.getElementById('unscr-prog').textContent=(uI+1)+' / '+uOrd.length;
+  document.getElementById('unscr-img').src=it.img;
+  document.getElementById('unscr-mix').textContent=it.mix.split('').join(' ');
+  const in_=document.getElementById('unscr-in');
+  in_.value='';in_.disabled=false;in_.focus();
+  document.getElementById('unscr-fb').textContent='';
+}
+function unscrCheck(){
+  const it=uOrd[uI],in_=document.getElementById('unscr-in'),fb=document.getElementById('unscr-fb');
+  if(in_.value.trim().toLowerCase()===it.ans){
+    if(!uTried)uFirstTry++;
+    fb.textContent='✅ '+(it.ans.charAt(0).toUpperCase()+it.ans.slice(1))+'!';
+    fb.style.color='#2fa86b';in_.disabled=true;
+    setTimeout(()=>{
+      uI++;
+      if(uI<uOrd.length){unscrShow();}else{
+        document.getElementById('unscr-game').style.display='none';
+        document.getElementById('unscr-score').textContent='🌟 '+uFirstTry+' из '+uOrd.length+' с первой попытки!';
+        document.getElementById('unscr-end').style.display='flex';
+      }
+    },1100);
+  }else{
+    uTried=true;
+    fb.textContent='❌ Попробуй ещё раз';fb.style.color='var(--pink)';
+    in_.select();
+  }
+}
+document.getElementById('unscr-in').addEventListener('keydown',e=>{if(e.key==='Enter')unscrCheck();});
+</script>
 </body>
 </html>
