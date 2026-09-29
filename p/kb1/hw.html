@@ -65,6 +65,11 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
     <div class="item"><span class="n">4</span><span><b>AB стр. 10, упр. 2</b> — нарисовать свой стол и школьные вещи на нём.</span></div>
     <div class="item"><span class="n">5</span><span><b>Игра «Составь слово»</b> — буквы перепутались! Посмотри на картинку, составь слово и <b>напиши его</b>:</span></div>
     <div id="unscr" style="display:flex;flex-direction:column;gap:1.2vh;align-items:center;background:var(--cream);border-radius:16px;padding:14px">
+      <div style="display:flex;gap:.6em;align-items:center;flex-wrap:wrap;justify-content:center">
+        <span style="font-weight:800">👤 Твоё имя:</span>
+        <input id="unscr-name" type="text" autocomplete="off" placeholder="имя…"
+          style="font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,4vw,1.4rem);text-align:center;padding:.3em .8em;border:3px solid var(--mint);border-radius:12px;width:min(180px,60%);outline:none">
+      </div>
       <button id="unscr-start" class="btn mint" onclick="unscrStart()">▶ Играть</button>
       <div id="unscr-game" style="display:none;flex-direction:column;gap:1.2vh;align-items:center;width:100%">
         <div id="unscr-prog" style="font-weight:800;color:var(--ink-soft)"></div>
@@ -77,6 +82,7 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
       </div>
       <div id="unscr-end" style="display:none;flex-direction:column;gap:1vh;align-items:center">
         <div id="unscr-score" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,5vw,2.1rem);color:var(--mint-deep)"></div>
+        <div id="unscr-sent" style="font-size:clamp(.9rem,2.4vw,1.1rem);color:var(--ink-soft)"></div>
         <button class="btn" onclick="unscrStart()">Ещё раз 🔁</button>
       </div>
     </div>
@@ -91,7 +97,15 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
   <footer>Kid's Box 1 · группы школы · страница домашних заданий</footer>
 </div>
 <script>
-/* ===== the Unscramble typing game (Elena, 2026-09-29: "make it an online game so that they could type") ===== */
+/* ===== the Unscramble typing game + the Google-Form report ===== */
+/* ELENA: when you create the form (the recipe in lesson-deck-prompt.md),
+   paste the two values here:
+   FORM_ACTION = everything before the "?" of the pre-fill link, with
+                 viewform changed to formResponse
+   FORM_ENTRY  = the number after "entry." in that link               */
+const FORM_ACTION="";
+const FORM_ENTRY="";
+const UNAME_KEY='kb1-hw-name', UQUEUE_KEY='kb1-hw-report-queue';
 const UNSCR=[
   {img:'../../media/kb1-u2-fc-chair.png', mix:'ricah',  ans:'chair'},
   {img:'../../media/kb1-u2-fc-table.png', mix:'elbat',  ans:'table'},
@@ -101,8 +115,39 @@ const UNSCR=[
   {img:'../../media/kb1-u2-fc-book.png',  mix:'koob',   ans:'book'}
 ];
 let uOrd=[],uI=0,uFirstTry=0,uTried=false;
+(function(){const n=localStorage.getItem(UNAME_KEY);if(n)document.getElementById('unscr-name').value=n;})();
 function unscrShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function unscrSend(text){
+  if(!FORM_ACTION||!FORM_ENTRY){
+    try{const q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');q.push(text);localStorage.setItem(UQUEUE_KEY,JSON.stringify(q));}catch(e){}
+    return false;
+  }
+  try{
+    fetch(FORM_ACTION,{method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:FORM_ENTRY+'='+encodeURIComponent(text)});
+    return true;
+  }catch(e){
+    try{const q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');q.push(text);localStorage.setItem(UQUEUE_KEY,JSON.stringify(q));}catch(e2){}
+    return false;
+  }
+}
+function unscrFlushQueue(){
+  if(!FORM_ACTION||!FORM_ENTRY)return;
+  try{
+    const q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');
+    q.forEach(t=>{try{fetch(FORM_ACTION,{method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:FORM_ENTRY+'='+encodeURIComponent(t)});}catch(e){}});
+    localStorage.setItem(UQUEUE_KEY,'[]');
+  }catch(e){}
+}
 function unscrStart(){
+  const nameEl=document.getElementById('unscr-name');
+  const name=nameEl.value.trim();
+  if(!name){nameEl.focus();nameEl.placeholder='сначала имя!';nameEl.style.borderColor='var(--pink)';return;}
+  nameEl.style.borderColor='var(--mint)';
+  try{localStorage.setItem(UNAME_KEY,name);}catch(e){}
   uOrd=unscrShuffle([...UNSCR]);uI=0;uFirstTry=0;
   document.getElementById('unscr-start').style.display='none';
   document.getElementById('unscr-end').style.display='none';
@@ -130,6 +175,12 @@ function unscrCheck(){
       if(uI<uOrd.length){unscrShow();}else{
         document.getElementById('unscr-game').style.display='none';
         document.getElementById('unscr-score').textContent='🌟 '+uFirstTry+' из '+uOrd.length+' с первой попытки!';
+        const name=localStorage.getItem(UNAME_KEY)||'';
+        const when=new Date().toLocaleDateString();
+        const report='KB1 · Урок 6 · Составь слово · '+name+': '+uFirstTry+' из '+uOrd.length+' с первой попытки · '+when;
+        const sent=unscrSend(report);
+        unscrFlushQueue();
+        document.getElementById('unscr-sent').textContent=sent?'✉️ Результат отправлен Елене':'✨ Результат сохранён';
         document.getElementById('unscr-end').style.display='flex';
       }
     },1100);
