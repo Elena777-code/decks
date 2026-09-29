@@ -110,8 +110,6 @@ audio{width:min(460px,92%);height:42px;vertical-align:middle}
   font-weight:700;font-size:clamp(.78rem,1.15vw,.92rem);padding:.4em 1em;
   border-radius:99px;cursor:pointer;transition:all .18s}
 .pill:hover{transform:scale(1.05);color:var(--ink);border-color:var(--ink-soft)}
-#tnbtn{left:max(10px,1.6vw);bottom:calc(10px + .8vh)}
-#annoBtn{top:max(10px,1.6vh);left:max(10px,1.6vw)}
 #pardonBtn{top:max(10px,1.6vh);left:calc(max(10px,1.6vw) + 8.5em)}
 .overlay{position:fixed;inset:0;z-index:200;background:rgba(251,250,247,.985);
   display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
@@ -119,12 +117,6 @@ audio{width:min(460px,92%);height:42px;vertical-align:middle}
 .overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);
   font-size:clamp(.9rem,1.4vw,1.15rem);font-weight:700;color:var(--ink-soft);cursor:pointer}
 .overlay .closer:hover{color:var(--ink)}
-#tnotes .eyebrow{margin-bottom:1.4vh}
-#tnbody{display:flex;flex-direction:column;gap:.6em;max-width:900px}
-#tnbody .note-step{display:flex;gap:.7em;align-items:flex-start;padding:.7em 1em;
-  border-radius:14px;background:#fff;border:1px solid var(--line);
-  font-size:clamp(.95rem,1.6vw,1.25rem);line-height:1.5;color:#3a3f47}
-#tnbody .note-step .b{font-weight:800;color:var(--accent);flex:0 0 auto}
 /* Pardon? overlay */
 #pardon .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:.8em;max-width:900px;margin-top:2vh}
@@ -133,31 +125,6 @@ audio{width:min(460px,92%);height:42px;vertical-align:middle}
 #pardon .pcard .ico{font-size:1.15em;margin-right:.35em}
 #pardon .phead{font-size:clamp(1.2rem,2.2vw,1.7rem);font-weight:800}
 /* ✍️ lesson-log panel */
-#anno{position:fixed;z-index:210;top:8vh;right:max(10px,2vw);width:min(400px,92vw);
-  background:#fff;border:1px solid var(--line);border-radius:16px;
-  box-shadow:0 14px 40px rgba(35,39,46,.18);padding:1em;display:none;flex-direction:column;gap:.6em}
-#anno.on{display:flex}
-#anno .a-head{display:flex;align-items:center;gap:.6em;font-weight:800;
-  font-size:clamp(.9rem,1.3vw,1.05rem);color:var(--ink-soft)}
-#anno .a-head .a-sp{flex:1}
-#anno button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
-  padding:.3em .9em;font-family:'Inter',sans-serif;font-weight:700;
-  font-size:clamp(.8rem,1.1vw,.92rem);color:var(--ink);cursor:pointer}
-#anno button:hover{border-color:var(--accent);color:var(--accent)}
-#anno #annoTick.on{background:var(--accent);border-color:var(--accent);color:#fff}
-#anno textarea{width:100%;min-height:96px;resize:vertical;border:1.5px solid var(--line);
-  border-radius:10px;padding:.6em;font-family:'Inter',sans-serif;font-size:.95rem;color:var(--ink)}
-#anno .a-foot{display:flex;gap:.6em;align-items:center}
-#anno .a-hint{font-size:.78rem;color:var(--ink-soft);font-style:italic}
-#annoRep{position:fixed;inset:0;z-index:220;background:rgba(35,39,46,.35);
-  display:none;align-items:center;justify-content:center;padding:4vh}
-#annoRep.on{display:flex}
-#annoRep .a-rep-card{background:#fff;border-radius:16px;padding:1.2em;width:min(560px,94vw);
-  display:flex;flex-direction:column;gap:.7em}
-#annoRep .a-head{display:flex;align-items:center;font-weight:800;color:var(--ink-soft)}
-#annoRep .a-head .a-sp{flex:1}
-#annoRep textarea{width:100%;min-height:220px;border:1.5px solid var(--line);border-radius:10px;
-  padding:.6em;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;color:var(--ink)}
 
 /* ⛶ read big — fullscreen reading text */
 #fso{position:fixed;inset:0;z-index:190;background:var(--paper);display:none;
@@ -181,17 +148,11 @@ audio{width:min(460px,92%);height:42px;vertical-align:middle}
 <div id="bar"></div>
 
 <!-- 1 · COVER + HOMEWORK CHECK -->
-<section class="slide active" data-notes="TODAY’S PLAN: homework check (WB pp. 100–101) → word-building dictation (the TB lead-in) → Unit 9 opener → 9.1 ex. 1–11 in TB order, nothing omitted (TB pp. 198–200) → homework.
-
-HOMEWORK CHECK — WB pp. 100–101 (the BBC Culture page, ex. 1–7): quick show-of-hands round — who did it all; take ONE answer per exercise orally, fast round-robin. Ex. 7 (the video script: underline the words you didn’t know + translate) has no single key — collect 2–3 of their underlined words on the board and gloss them; the strong ones stay for today’s word work.
-
-PREPARE AHEAD: the five tracks playable on this slide (sound check before the class); SB p. 106 open on desks after ex. 1; nothing to print.
-
-AIM (TB): ss can talk about school life — subjects, learning verbs, assessment types, describing students. The unit ends with BBC Culture “Can school be fun?” + Exam Time 3 (SB pp. 136–138) — the exam-shaped finale, good to flag when you get there.">
+<section class="slide active">
   <div class="eyebrow reveal">Wider World 3 · Unit 9 “Think outside the box” · WW4 (8th grade) — Tue 15.45 Elena / Fri 15.30 Farida</div>
   <h1 class="reveal">9.1 Vocabulary — <em>Education</em></h1>
   <div class="rule reveal"></div>
-  <p class="task reveal"><strong>Today:</strong> “I can talk about school life.” <span class="stamp">build 29.09 · v1</span></p>
+  <p class="task reveal"><strong>Today:</strong> “I can talk about school life.” <span class="stamp">build 29.09 · v2</span></p>
   <p class="tag reveal">HOMEWORK CHECK — WB pp. 100–101 (the BBC Culture page)</p>
   <div class="chips reveal">
     <span class="chip flip" onclick="this.classList.toggle('shown')">ex. 1–6 <span class="back">→ one answer each, round-robin</span></span>
@@ -210,21 +171,7 @@ AIM (TB): ss can talk about school life — subjects, learning verbs, assessment
 </section>
 
 <!-- 2 · TB LEAD-IN · UNIT 8 WORD-BUILDING DICTATION -->
-<section class="slide" data-notes="The TB’s own 9.1 lead-in — Unit 8 revision by word building. Mechanics (TB): groups of three; you DICTATE the ten prompts below (each twice, natural pace); ss write a word from the same root in a different form; then they swap papers and mark each other — a point per correct word, group scores on the board.
-
-The prompts (exact TB wording — keep them off the screen while dictating):
-1 assist — the person who assists.
-2 burglar — the crime burglars carry out.
-3 correct — add a negative prefix.
-4 crime — the person who commits a crime.
-5 honest — add a negative prefix.
-6 legal — add a negative prefix.
-7 mystery — the adjective from “mystery”.
-8 polite — add a negative prefix.
-9 thief — the crime thieves commit.
-10 vandal — the crime vandals commit.
-
-Answers (also behind the chips on the slide): 1 assistant · 2 burglary · 3 incorrect · 4 criminal · 5 dishonest · 6 illegal · 7 mysterious · 8 impolite · 9 theft · 10 vandalism.">
+<section class="slide">
   <div class="eyebrow reveal">Warm-up · TB lead-in (p. 198) · Unit 8 revision · word building</div>
   <h1 class="reveal">Ten words, one <em>family</em></h1>
   <div class="rule reveal"></div>
@@ -245,7 +192,7 @@ Answers (also behind the chips on the slide): 1 assistant · 2 burglary · 3 inc
 </section>
 
 <!-- 3 · UNIT 9 OPENER -->
-<section class="slide" data-notes="Unit contents from SB p. 106 + TB p. 198 — one minute, don’t dwell. The BBC line is the bridge: they took the Unit 8 BBC spread last Friday, so they know the format — Unit 9’s is “Can school be fun?”. Exam Time 3 closes the unit (SB pp. 136–138).">
+<section class="slide">
   <div class="eyebrow reveal">Unit 9 · Think outside the box · SB pp. 106–115</div>
   <h1 class="reveal">New unit: <em>school life</em></h1>
   <div class="rule reveal"></div>
@@ -258,7 +205,7 @@ Answers (also behind the chips on the slide): 1 assistant · 2 burglary · 3 inc
 </section>
 
 <!-- 4 · EX 1 — CLASS VOTE -->
-<section class="slide" data-notes="Books closed (TB). Class vote first — hands up per subject, count aloud in English. Then the real step: elicit WHAT MAKES a subject “the favourite” and rank the factors on the board: a nice teacher · interesting information · easy to learn · will be useful in future life. Make two or three ss argue their order — that ranking is the thinking step.">
+<section class="slide">
   <div class="eyebrow reveal">Vocabulary · SB ex. 1 (p. 106) · class vote</div>
   <h1 class="reveal">The class <em>vote</em></h1>
   <div class="rule reveal"></div>
@@ -273,11 +220,7 @@ Answers (also behind the chips on the slide): 1 assistant · 2 burglary · 3 inc
 </section>
 
 <!-- 5 · EX 2 — VOCAB A + PICTURES + AUDIO 3.18 -->
-<section class="slide scroll" data-notes="Books open at SB p. 106. TB: DESCRIBE FIRST — pairs discuss what the students in the six photos are doing and what equipment they can see (e.g. Art — students draw or paint; they use brushes, easels, charcoal). Only then play 3.18 — six words to match to the numbered photos.
-
-Answers: 1 Geography · 2 Biology · 3 PE · 4 ICT · 5 Cooking · 6 Chemistry.
-
-After checking: read the Vocabulary A box aloud together (all 18 subjects), choral then individual — this box is tonight’s learning. Citizenship and ICT are the two they will trip on — drill the pronunciation.">
+<section class="slide scroll">
   <div class="eyebrow reveal">Vocabulary · SB ex. 2 (p. 106) · audio 3.18</div>
   <h1 class="reveal">Six photos, six <em>subjects</em></h1>
   <div class="rule reveal"></div>
@@ -297,9 +240,7 @@ After checking: read the Vocabulary A box aloud together (all 18 subjects), chor
 </section>
 
 <!-- 6 · EX 3 — CLASS VOTE: SCHOOL SUBJECTS -->
-<section class="slide" data-notes="TB: the question = should these be timetable lessons or an after-school club? Class discussion. When a student picks a subject, ask WHICH AGE is a good time to start it (the TB’s follow-up).
-
-The three definitions are the real target language of this exercise — read them together, then make ss reuse compulsory / optional / extracurricular in their answers (“Photography should be optional because…”). Do NOT leave them as decoration.">
+<section class="slide">
   <div class="eyebrow reveal">Vocabulary · SB ex. 3 (p. 106) · class vote</div>
   <h1 class="reveal">Should school teach <em>this</em>?</h1>
   <div class="rule reveal"></div>
@@ -315,9 +256,7 @@ The three definitions are the real target language of this exercise — read the
 </section>
 
 <!-- 7 · EX 4 — I KNOW: CATEGORIES -->
-<section class="slide" data-notes="TB: pairs or threes, one minute per category, then each group reads their words — elicit the SPELLING and the MEANING of every word they add (the TB step — don’t skip it: it turns a shout-out game into vocabulary work).
-
-TB possible answers: Types of school — boarding school, nursery school, private school, secondary school, state school · People at school — principal, school secretary, teacher · Places at school — gymnasium, science lab.">
+<section class="slide">
   <div class="eyebrow reveal">Vocabulary · SB ex. 4 (p. 106) · I know!</div>
   <h1 class="reveal">How many can you <em>add</em>?</h1>
   <div class="rule reveal"></div>
@@ -330,11 +269,7 @@ TB possible answers: Types of school — boarding school, nursery school, privat
 </section>
 
 <!-- 8 · EX 5 — VOCAB B + AUDIO 3.19 -->
-<section class="slide" data-notes="TB on the four verbs — worth saying exactly: learn sth new · memorise = learn by heart, the exact wording (a part in a play, a poem) · revise for a test · study = the general word (learn + memorise + revise all live inside it).
-
-Answers: 2 revise · 3 study · 4 learn (1 memorise is the printed example).
-
-After checking, read the assessment half of Vocabulary B together — the five types. TB definitions (keep for ex. 6–8): performance = we act, sing, recite · practical exam = we produce something (a painting, a dish) or perform an experiment · project = an extended piece of work made at home, then presented · speaking exam = tests language ability · written exam = a question paper, answers in a set time.">
+<section class="slide">
   <div class="eyebrow reveal">Vocabulary · SB ex. 5 (p. 106) · audio 3.19</div>
   <h1 class="reveal">learn · memorise · <em>revise</em> · study</h1>
   <div class="rule reveal"></div>
@@ -353,11 +288,7 @@ After checking, read the assessment half of Vocabulary B together — the five t
 </section>
 
 <!-- 9 · EX 6 — PHOTOS A–D ↔ TYPES OF ASSESSMENT -->
-<section class="slide" data-notes="Books open at SB p. 107, photos A–D. TB: pairs take turns DESCRIBING what they can see as they match — model it yourself once: “Photo A looks like some sort of dance routine, possibly involving singing too.”
-
-Answers: A performance · B project · C practical exam · D speaking exam.
-
-Don’t rush the descriptions — the same four photos come back in ex. 7, and this describing IS the pre-listening work.">
+<section class="slide">
   <div class="eyebrow reveal">Vocabulary · SB ex. 6 (p. 107)</div>
   <h1 class="reveal">Which type of <em>assessment</em> is it?</h1>
   <div class="rule reveal"></div>
@@ -372,15 +303,7 @@ Don’t rush the descriptions — the same four photos come back in ex. 7, and t
 </section>
 
 <!-- 10 · EX 7 — AUDIO 3.20: SPEAKERS ↔ PHOTOS -->
-<section class="slide" data-notes="TB: groups of three, each group takes ONE photo and imagines what the person says BEFORE / AFTER the photo was taken — then shares, the class guesses which photo. Then play 3.20 and match the four speakers to the photos. After checking, elicit the KEY WORDS that gave each speaker away (experiment/equipment · project/presenting · revised/memorised/pairs · dance/moves/audience).
-
-Answers: Speaker A → Photo C · B → B · C → D · D → A.
-
-AUDIOSCRIPT 3.20 (TB p. 200):
-Speaker A: “I’m feeling quite nervous this morning because we’ve got a science exam. I don’t mind written exams, but this is a practical exam. We have to do an experiment on our own, and we get marks for things like safety and setting up the equipment properly.”
-Speaker B: “This term we studied alternative sources of energy. This is our group project we are presenting ourselves and it took ages to make. We’re very proud of it, so we’re hoping for a good mark.”
-Speaker C: “This afternoon we’ve got a speaking exam. I’ve revised lots of vocabulary and memorised some useful phrases. We’re working in pairs, so I think it will be OK. Wish me luck!”
-Speaker D: “We’re going on stage in a minute to do our dance. We created it ourselves and learned all the moves, but this is the first time I’ll have an audience. Our teacher and an examiner will watch us and give us marks for artistic creativity, dance moves, individual performance and group performance.”">
+<section class="slide">
   <div class="eyebrow reveal">Listening · SB ex. 7 (p. 107) · audio 3.20</div>
   <h1 class="reveal">Who is <em>talking</em>?</h1>
   <div class="rule reveal"></div>
@@ -396,7 +319,7 @@ Speaker D: “We’re going on stage in a minute to do our dance. We created it 
 </section>
 
 <!-- 11 · EX 8 — DISCUSSION -->
-<section class="slide" data-notes="TB follow-up (the gold step of this exercise): think of a test you have taken RECENTLY — take turns describing what happened, how you felt, and whether the result was BETTER OR WORSE THAN YOU ANTICIPATED. Anticipate = the word of the day — put it on the board, drill it, ask for one more sentence with it. Let them talk; this is the fluency slot of the lesson.">
+<section class="slide">
   <div class="eyebrow reveal">Speaking · SB ex. 8 (p. 107)</div>
   <h1 class="reveal">Tests — love them or <em>hate</em> them?</h1>
   <div class="rule reveal"></div>
@@ -408,11 +331,7 @@ Speaker D: “We’re going on stage in a minute to do our dance. We created it 
 </section>
 
 <!-- 12 · EX 9 — LIFE SKILLS TEXT + VOCAB C + AUDIO 3.21 -->
-<section class="slide scroll" data-notes="TB: books CLOSED for the filling (the text is on this slide — ⛶ read big puts it fullscreen for reading together). Let them guess each gap from the explanation in italics BEFORE any checking — the definitions are the exercise; the words are the payoff. Then play 3.21 to check, then re-read chorally.
-
-Answers: 2 confident · 3 creative · 4 critical thinking · 5 problem solving · 6 teamwork · 7 general knowledge · 8 hard-working · NOT in the text: lazy · talented/gifted.
-
-Vocabulary C = tonight’s learning too — all three boxes go home.">
+<section class="slide scroll">
   <div class="eyebrow reveal">Reading · SB ex. 9 (p. 107) · audio 3.21</div>
   <h1 class="reveal">Life skills are important, <em>too</em></h1>
   <div class="rule reveal"></div>
@@ -443,22 +362,7 @@ Vocabulary C = tonight’s learning too — all three boxes go home.">
 </section>
 
 <!-- 13 · EX 10 — TWO RIDDLES + AUDIO 3.22 -->
-<section class="slide" data-notes="TB: pairs discuss BOTH riddles first — elicit ideas + reasons, THEN play 3.22 to check. Official answers: 1 creativity · 2 critical thinking (the TB accepts problem solving for the second too — both are careful systematic thinking).
-
-First skill to transform: the riddle answer is an ADJECTIVE (creative) but the skill is the NOUN (creativity) — make them do the transformation aloud.
-
-AUDIOSCRIPT 3.22 (TB p. 200) · J = Jacob · A = Anne:
-J: What are you doing, Anne?
-A: I’m doing riddles in a magazine. Look at this one. I’ve got to think of as many uses of paper clips as possible.
-J: What? Paper clips are used to hold papers together.
-A: Sure, but you can also use them as a bookmark, for example… You can make earrings from them, or a bracelet. This tests your creativity, Jacob.
-J: You’re right. In fact I often use them to push the emergency restart button on my mobile or to keep headphone wires in place… They’re very useful. Anything else?
-A: Err… my mum uses them to close bags of rice or cornflakes, and to hang decorations on the Christmas tree.
-J: Are there any other riddles?
-A: Yes. Listen to this one. Two boys are registering at a new school. When they fill out their forms, the head teacher sees that they have the same parents. He also notices that they share the same birthday. “Are you twins?” asks the head teacher. “No,” reply the boys. “Is it possible?”
-J: It’s difficult, isn’t it? It looks impossible…
-A: No, it’s not! They can have a third brother who was born on the same day — they can be triplets. Or even quadruplets!
-J: Wow, amazing. You’ve always been good at critical thinking, Jacob!">
+<section class="slide">
   <div class="eyebrow reveal">Thinking · SB ex. 10 (p. 107) · audio 3.22</div>
   <h1 class="reveal">Two <em>riddles</em></h1>
   <div class="rule reveal"></div>
@@ -475,7 +379,7 @@ J: Wow, amazing. You’ve always been good at critical thinking, Jacob!">
 </section>
 
 <!-- 14 · EX 11 — AND YOU? -->
-<section class="slide" data-notes="TB: think about which skills YOU are good at and which to improve; then describe your PARTNER’s skills and compare — do the views match? (Pairs → two or three reports to the class.) This feeds tonight’s homework — the vocabulary is all on today’s slides.">
+<section class="slide">
   <div class="eyebrow reveal">Your turn · SB ex. 11 (p. 107) · and you?</div>
   <h1 class="reveal">The student in the <em>mirror</em></h1>
   <div class="rule reveal"></div>
@@ -487,11 +391,7 @@ J: Wow, amazing. You’ve always been good at critical thinking, Jacob!">
 </section>
 
 <!-- 15 · HOMEWORK -->
-<section class="slide" data-notes="TB Further practice for 9.1 = Workbook pp. 102–103 (matches: WB p. 102 is the 9.1 Vocabulary — Education page). The three Vocabulary boxes all live on today’s slides — the fast quiz next lesson can be five chips from the boxes (subjects, learn/revise/study, describing students).
-
-Optional add-on in Farida’s pattern: a shkola.app vocab task on the three boxes — your call.
-
-Next lesson: 9.2 Reading &amp; Vocabulary “Does intelligence change?” + Grammar: word order in questions.">
+<section class="slide">
   <div class="eyebrow reveal">Homework</div>
   <h1 class="reveal">School words <em>travel home</em></h1>
   <div class="rule reveal"></div>
@@ -507,18 +407,10 @@ Next lesson: 9.2 Reading &amp; Vocabulary “Does intelligence change?” + Gram
   <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
 </div>
 
-<!-- pinned pills -->
-<button id="tnbtn" class="pill" title="teacher's notes (T)">🗒 Teacher’s notes</button>
-<button id="annoBtn" class="pill" title="lesson log (C)">✍️</button>
+<!-- pinned pill -->
 <button id="pardonBtn" class="pill" title="class phrases (P)">🙋 Pardon?</button>
 
 <!-- overlays -->
-<div id="tnotes" class="overlay">
-  <span class="closer" onclick="toggleNotes(false)">✕ close</span>
-  <div class="eyebrow">🗒 Teacher’s notes · slide <span id="tnstep"></span></div>
-  <div id="tnbody"></div>
-</div>
-
 <div id="pardon" class="overlay">
   <span class="closer" onclick="togglePardon(false)">✕ close</span>
   <p class="phead">🙋 Say it in English!</p>
@@ -533,36 +425,10 @@ Next lesson: 9.2 Reading &amp; Vocabulary “Does intelligence change?” + Gram
   </div>
 </div>
 
-<div id="anno">
-  <div class="a-head"><b>✍️ lesson log</b><span id="annoSlide"></span><span class="a-sp"></span><button id="annoClose">✕</button></div>
-  <div style="display:flex;gap:.4em;flex-wrap:wrap">
-    <button id="annoPrev" title="annotate the previous slide (the deck stays where it is)">‹</button>
-    <button id="annoNext" title="annotate the next slide (the deck stays where it is)">›</button>
-    <button id="annoTick" title="tick = this slide was done">✓ done</button>
-  </div>
-  <textarea id="annoText" placeholder="your note for this slide…"></textarea>
-  <div class="a-foot">
-    <button id="annoCopy">📋 report</button>
-    <span class="a-hint" id="annoHint">saves in this browser</span>
-  </div>
-</div>
-<div id="annoRep">
-  <div class="a-rep-card">
-    <div class="a-head"><b>lesson report</b><span class="a-sp"></span><button id="annoRepClose">✕</button></div>
-    <textarea id="annoRepText" readonly></textarea>
-    <div class="a-foot" style="display:flex;gap:.6em;align-items:center">
-      <button id="annoRepCopy">copy</button>
-      <button id="annoRepClear" title="delete all ticks and comments">🧹 clear</button>
-      <span id="annoSent" style="margin-left:auto;font-size:.78rem;color:var(--ink-soft);font-style:italic"></span>
-    </div>
-  </div>
-</div>
 
-<!-- ⛶ read big -->
 <div id="fso" onclick="this.classList.remove('open')"><div class="fsoinner" id="fsoinner"></div></div>
 
 <script>
-const CH='ww4-u9-l9.1';
 const slides=[...document.querySelectorAll('.slide')];let i=0;
 const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
 prev=document.getElementById('prev'),next=document.getElementById('next');
@@ -580,31 +446,7 @@ function go(n){
 prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
 document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
 
-/* ---------- 🗒 Teacher's notes overlay (every slide, key T) ---------- */
-function toggleNotes(force){
-  const ov=document.getElementById('tnotes');
-  const open=force===undefined?!ov.classList.contains('open'):force;
-  if(open){
-    document.getElementById('tnstep').textContent=(i+1)+' / '+slides.length;
-    const body=document.getElementById('tnbody');
-    const txt=(slides[i].dataset.notes||'').trim();
-    body.innerHTML='';
-    if(!txt){
-      body.innerHTML='<div class="note-step"><span class="b">·</span><span>No notes for this slide — just teach it. 🙂</span></div>';
-    }else{
-      txt.split('\n\n').forEach(block=>{
-        const d=document.createElement('div');d.className='note-step';
-        const b=document.createElement('span');b.className='b';b.textContent='›';
-        const s=document.createElement('span');s.textContent=block;
-        d.appendChild(b);d.appendChild(s);body.appendChild(d);
-      });
-    }
-  }
-  ov.classList.toggle('open',open);
-}
-document.getElementById('tnbtn').onclick=()=>toggleNotes();
 
-/* ---------- 🙋 Pardon? overlay (key P) ---------- */
 function togglePardon(force){
   const ov=document.getElementById('pardon');
   const open=force===undefined?!ov.classList.contains('open'):force;
@@ -619,14 +461,11 @@ function openFs(id){document.getElementById('fsoinner').innerHTML=document.getEl
 /* ---------- keys ---------- */
 document.addEventListener('keydown',e=>{
   if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
-  if(e.key==='Escape'){toggleNotes(false);togglePardon(false);
+  if(e.key==='Escape'){togglePardon(false);
     document.getElementById('fso').classList.remove('open');return}
-  if(document.getElementById('tnotes').classList.contains('open'))return;
   if(document.getElementById('pardon').classList.contains('open'))return;
   if(document.getElementById('fso').classList.contains('open'))return;
-  if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();toggleNotes();return}
   if((e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();togglePardon();return}
-  if((e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();annoToggle();return}
   /* AUDIO key-guard: SPACE pauses a playing track instead of flipping */
   if(e.key===' '){
     const playing=[...document.querySelectorAll('audio')].find(a=>!a.paused);
@@ -648,57 +487,7 @@ let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX
 document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
   if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
 
-/* ---------- ✍️ lesson log (tick + notes; 📋 report; auto-send over http) ---------- */
-const annoPanel=document.getElementById('anno'),annoSlideEl=document.getElementById('annoSlide'),
-annoText=document.getElementById('annoText'),annoTick=document.getElementById('annoTick'),
-annoHint=document.getElementById('annoHint'),annoSent=document.getElementById('annoSent');
-const CAN_SEND=(location.protocol==='http:');
-let annoIdx=i,annoData={};
-try{annoData=JSON.parse(localStorage.getItem(CH+'-anno')||'{}')}catch(e){annoData={}}
-function annoSave(){try{localStorage.setItem(CH+'-anno',JSON.stringify(annoData))}catch(e){}
-  annoSend()}
-function annoFill(){const a=annoData[annoIdx+1]||{};
-  annoSlideEl.textContent='· slide '+(annoIdx+1)+' / '+slides.length;
-  annoText.value=a.c||'';annoTick.classList.toggle('on',!!a.t)}
-function annoToggle(){annoPanel.classList.toggle('on');
-  if(annoPanel.classList.contains('on')){annoIdx=i;annoFill();annoText.focus()}}
-function annoSet(k,f){const a=annoData[k]||{};f(a);
-  if(!a.c&&!a.t)delete annoData[k];else annoData[k]=a;annoSave()}
-function annoReportText(){let out=CH+' · lesson notes · '+new Date().toLocaleString('en-GB')+'\n';
-  let any=false;
-  slides.forEach((s,k)=>{const a=annoData[k+1];if(!a||(!a.t&&!a.c))return;any=true;
-    out+=(k+1)+(a.t?' ✓':'')+(a.c?' — '+a.c:'')+'\n'});
-  if(!any)out+='(nothing ticked or noted yet)';
-  return out}
-let annoTimer=null;
-function annoSend(){if(!CAN_SEND)return;
-  clearTimeout(annoTimer);
-  annoTimer=setTimeout(()=>{
-    fetch('/report?deck='+encodeURIComponent(CH),{method:'POST',body:annoReportText()})
-      .then(()=>{annoSent.textContent='auto-sent to the Mac ✓'})
-      .catch(()=>{annoSent.textContent='not sent — use 📋 copy'})
-  },1200)}
-annoHint.textContent=CAN_SEND?'auto-sends to the Mac':'saves on this device';
-document.getElementById('annoBtn').onclick=annoToggle;
-document.getElementById('annoClose').onclick=()=>annoPanel.classList.remove('on');
-document.getElementById('annoPrev').onclick=()=>{annoIdx=Math.max(0,annoIdx-1);annoFill()};
-document.getElementById('annoNext').onclick=()=>{annoIdx=Math.min(slides.length-1,annoIdx+1);annoFill()};
-annoTick.onclick=()=>{annoSet(annoIdx+1,a=>a.t=a.t?0:1);annoFill()};
-annoText.addEventListener('input',()=>annoSet(annoIdx+1,a=>a.c=annoText.value));
-const rep=document.getElementById('annoRep'),repText=document.getElementById('annoRepText');
-document.getElementById('annoCopy').onclick=()=>{repText.value=annoReportText();rep.classList.add('on')};
-document.getElementById('annoRepClose').onclick=()=>rep.classList.remove('on');
-rep.addEventListener('click',e=>{if(e.target===rep)rep.classList.remove('on')});
-document.getElementById('annoRepCopy').onclick=()=>{
-  repText.select();
-  try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(repText.value);
-  else document.execCommand('copy')}catch(e){}
-  const b=document.getElementById('annoRepCopy');b.textContent='copied ✓';
-  setTimeout(()=>b.textContent='copy',1200)};
-document.getElementById('annoRepClear').onclick=()=>{
-  if(confirm('Delete all ticks and comments?')){annoData={};annoSave();annoFill();rep.classList.remove('on')}};
 
-/* ---------- boot: deep link #n ---------- */
 const h=parseInt(location.hash.slice(1));
 go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
 
