@@ -126,12 +126,12 @@ var R1=[
   {q:'🃏🃏 <b>раздавать (карты)</b>',label:"раздавать",key:"deal",choices:["cost","cut","deal"]}
 ];
 var R2=[
-  {q:'<b>Yesterday</b> the ticket to the match <span class="gap">______</span> <span class="base">(стоил)</span> 300 roubles. 🎟',label:"ticket (стоил)",key:"cost"},
-  {q:'<b>Yesterday</b> Mum <span class="gap">______</span> <span class="base">(порезала)</span> bread for sandwiches. 🥪',label:"bread (порезала)",key:"cut"},
-  {q:'<b>Yesterday</b> Grandpa <span class="gap">______</span> <span class="base">(раздавал)</span> the cards — and I won! 🃏',label:"cards (раздавал)",key:"dealt"},
-  {q:'<b>Yesterday’s</b> training <span class="gap">______</span> <span class="base">(стоила)</span> nothing — football is free! ⚽',label:"training (стоила)",key:"cost"},
-  {q:'I <span class="gap">______</span> <span class="base">(порезала)</span> the paper and made a card for Granny. ✉️',label:"paper (порезала)",key:"cut"},
-  {q:'We <span class="gap">______</span> <span class="base">(раздавали)</span> the cards again — best of three! 🃏',label:"again (раздавали)",key:"dealt"}
+  {q:'<b>Yesterday</b> the ticket to the match <span class="gap">______</span> <span class="base">(the price 🪙)</span> 300 roubles. 🎟',label:"ticket (the price)",key:"cost"},
+  {q:'<b>Yesterday</b> Mum <span class="gap">______</span> <span class="base">(with a knife 🔪)</span> bread for sandwiches. 🥪',label:"bread (knife)",key:"cut"},
+  {q:'<b>Yesterday</b> Grandpa <span class="gap">______</span> <span class="base">(gave out 🃏)</span> the cards — and I won! 🃏',label:"cards (gave out)",key:"dealt"},
+  {q:'<b>Yesterday’s</b> training <span class="gap">______</span> <span class="base">(the price 🪙)</span> nothing — football is free! ⚽',label:"training (price)",key:"cost"},
+  {q:'I <span class="gap">______</span> <span class="base">(with a knife 🔪)</span> the paper and made a card for Granny. ✉️',label:"paper (knife)",key:"cut"},
+  {q:'We <span class="gap">______</span> <span class="base">(gave out 🃏)</span> the cards again — best of three! 🃏',label:"again (gave out)",key:"dealt"}
 ];
 var R3=[
   {q:'<span class="base">cost</span> → <span class="gap">______</span> — cost',gloss:"стоить 🗿 (вторая форма)",label:"cost 2nd",key:"cost"},
@@ -144,7 +144,7 @@ var R3=[
 
 var ROUNDS_META=[
   {id:"R1",icon:"🗿",name:"Кто есть кто",helper:"выбери игрока",sec:8},
-  {id:"R2",icon:"🕰",name:"Вчера…",helper:"понимай фразу — в скобках смысл; впиши глагол в прошедшей форме",sec:15},
+  {id:"R2",icon:"🕰",name:"Вчера…",helper:"читай и понимай — в скобках СМЫСЛ по-английски; впиши глагол в прошедшей форме",sec:15},
   {id:"R3",icon:"💎",name:"Все три формы",helper:"впиши пропущенную форму",sec:18}
 ];
 
