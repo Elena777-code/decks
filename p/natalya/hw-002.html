@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natalya's homework · lesson 2 · the words, the sentences, the article</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --blue:#1F5FA8; --blue-soft:#E8F0FA;
+  --rust:#A2402F; --rust-soft:#F7EAE6;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#EFECE5;
+  padding:4vh 4vw;display:flex;justify-content:center}
+.page{background:var(--paper);border-radius:18px;max-width:780px;width:100%;
+  padding:clamp(1.4rem,4vw,3rem);display:flex;flex-direction:column;gap:1.4rem}
+h1{font-size:clamp(1.5rem,3.6vw,2.3rem);line-height:1.15;letter-spacing:-.01em}
+h1 em{color:var(--accent);font-style:normal}
+h3{margin-top:.8em;font-size:clamp(1.15rem,2.4vw,1.5rem)}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.9rem,2vw,1.4rem)}
+.step .no{display:inline-flex;width:2em;height:2em;border-radius:50%;
+  background:var(--accent);color:#fff;font-weight:800;align-items:center;
+  justify-content:center;margin-bottom:.5em}
+.step.rust .no{background:var(--rust)} .step.blue .no{background:var(--blue)}
+.step p{font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55;margin:.25em 0}
+.step p.how{color:var(--ink-soft);font-style:italic;font-size:clamp(.9rem,1.8vw,1.05rem)}
+.line{display:block;border-bottom:2px dashed var(--line);height:2em;margin:.15em 0 .5em}
+details{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);
+  margin-top:.7em;overflow:hidden}
+details summary{cursor:pointer;padding:.5em .9em;font-weight:700;color:var(--ink-soft);
+  font-size:clamp(.9rem,1.8vw,1.05rem);list-style:none}
+details summary::before{content:"▸ ";color:var(--accent)}
+details[open] summary::before{content:"▾ "}
+details summary:hover{color:var(--ink)}
+details .body{padding:.4em .95em .8em;border-top:1px dashed var(--line);
+  font-size:clamp(1rem,2vw,1.22rem);line-height:1.55}
+details .body b{color:var(--accent)}
+details .body .ru{color:var(--rust);font-weight:700}
+.sent{padding:.5em 0;border-bottom:1px dashed var(--line);font-size:clamp(1.02rem,2.1vw,1.3rem)}
+.sent:last-child{border-bottom:none}
+.sent .q{color:var(--ink)}
+.word{padding:.5em 0;border-bottom:1px dashed var(--line)}
+.word:last-child{border-bottom:none}
+.word .w{font-weight:800;color:var(--accent);font-size:clamp(1.08rem,2.2vw,1.35rem)}
+.word .ru-w{font-weight:800;color:var(--rust);font-size:clamp(1.08rem,2.2vw,1.35rem)}
+.word .how{color:var(--ink-soft);font-style:italic;font-size:clamp(.85rem,1.7vw,1rem)}
+.art{font-size:clamp(1.02rem,1.9vw,1.25rem);line-height:1.7;color:#33302a}
+.art p{margin:.55em 0}
+.art blockquote{border-left:3px solid var(--rust);padding:.2em 0 .2em .9em;margin:.6em 0;
+  color:var(--rust);font-weight:600}
+.closing{background:var(--gold-soft);border:1px solid #e8dcb8;border-radius:var(--radius);
+  padding:1em 1.4em;font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55}
+a{color:var(--blue);font-weight:600}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div>
+  <h1>Five small <em>jobs</em></h1>
+  <div class="rule"></div>
+  <p style="margin-top:.6em;color:var(--ink-soft);font-weight:600">Homework after yesterday’s lesson · the judge game · your words · the bridge riddle · the weathers</p>
+</div>
+
+<div class="step rust">
+  <span class="no">1</span>
+  <p><strong>✍️ Be your own judge — your sentences from yesterday’s lesson.</strong></p>
+  <p class="how">You said these in the lesson. Write the corrected version of each — then open the check.</p>
+  <div class="sent">1. “I had lack of time to rest.”
+    <details><summary>check yourself</summary><div class="body">→ <b>I didn't have time to rest.</b> / <b>I had no time to rest.</b>
+    <i>lack</i> needs its article as a noun (<i>a lack of time</i>) — or works as a verb: <i>I lacked time to rest.</i></div></details></div>
+  <div class="sent">2. “Three of my child were born because of her helping.”
+    <details><summary>check yourself</summary><div class="body">→ <b>Three of my children were born thanks to her help.</b>
+    child → <b>children</b> (three of them!); <i>her helping</i> → <b>her help</b>.</div></details></div>
+  <div class="sent">3. “We did see each other for 6 or 7 years.”
+    <details><summary>check yourself</summary><div class="body">→ <b>We haven't seen each other for six or seven years.</b>
+    Six years <i>up to now</i> = present perfect. The emphatic <i>did</i> can't carry “until today”.</div></details></div>
+  <div class="sent">4. “Firstly they had took torch. The first group came on the bridge.”
+    <details><summary>check yourself</summary><div class="body">→ <b>First, they took the torch. The first pair crossed the bridge.</b>
+    <i>had took</i> → <b>took</b>; in a story: <b>First…</b>; and the lesson's own word — two people = <b>a pair</b>, and they <b>crossed</b>.</div></details></div>
+  <div class="sent">5. “When I did any mistakes.”
+    <details><summary>check yourself</summary><div class="body">→ <b>When I made a mistake.</b> / <b>…when I made mistakes.</b>
+    In English you <b>make</b> a mistake — never <i>do</i> one.</div></details></div>
+  <div class="sent">6. “She speak with her.”
+    <details><summary>check yourself</summary><div class="body">→ <b>She speaks with her.</b> (or: <b>spoke</b>, if it's the past)
+    he / she / it — the verb takes its <b>-s</b>. Bring me the full sentence next time — I'll wait.</div></details></div>
+  <div class="sent">7. “Somebody have…”
+    <details><summary>check yourself</summary><div class="body">→ <b>Somebody has…</b>
+    somebody · everybody · nobody — always <b>singular</b>: has, was, does.</div></details></div>
+</div>
+
+<div class="step">
+  <span class="no">2</span>
+  <p><strong>📖 The words you asked me for — yours now.</strong></p>
+  <p class="how">Write each word into your notebook. For each, ONE of the three: the translation · the meaning · one example — then check.</p>
+  <div class="word">
+    <span class="ru-w">заготовки на зиму</span>
+    <span class="how">— your line: ______________</span>
+    <details><summary>check yourself</summary><div class="body"><b>preserves for the winter</b> —
+    <i>Every September we make preserves for the winter: pickles, jam, compote.</i></div></details>
+  </div>
+  <div class="word">
+    <span class="ru-w">гинеколог</span>
+    <span class="how">— your line: ______________</span>
+    <details><summary>check yourself</summary><div class="body"><b>a gynaecologist</b> —
+    <i>Her appointment with the gynaecologist is at ten.</i></div></details>
+  </div>
+  <div class="word">
+    <span class="ru-w">заметки</span>
+    <span class="how">— your line: ______________</span>
+    <details><summary>check yourself</summary><div class="body"><b>notes</b> — and you <b>make</b> them:
+    <i>I make notes during every English lesson.</i></div></details>
+  </div>
+  <div class="word">
+    <span class="ru-w">фонарь</span>
+    <span class="how">— your line: ______________</span>
+    <details><summary>check yourself</summary><div class="body"><b>a torch</b> (British) / <b>a flashlight</b> (American) —
+    the bridge-riddle word: <i>They crossed the bridge with one torch.</i></div></details>
+  </div>
+  <div class="word">
+    <span class="ru-w">склад</span>
+    <span class="how">— your line: ______________</span>
+    <details><summary>check yourself</summary><div class="body"><b>a warehouse</b> (big, business) / <b>a storage room</b> (home) —
+    <i>The school keeps its old chairs in a warehouse.</i></div></details>
+  </div>
+</div>
+
+<div class="step">
+  <span class="no">3</span>
+  <p><strong>🧩 The grammar that got away — three points, taught.</strong></p>
+  <p class="how">The three sentences from yesterday’s judge game — the ones that got away.
+  Judge each, write your corrected version, and only then open the check and the explanation.
+  Same eight traps, a new order — whenever we play again.</p>
+  <h3 style="color:var(--accent)">① Not only… — and the words change seats</h3>
+  <p>From yesterday’s judge game: <b>“Not only she passed the exam, but she also topped the class.”</b></p>
+  <p><strong>✗ Fix it — write the corrected sentence:</strong><span class="line"></span></p>
+  <details><summary>check + explanation</summary><div class="body">
+  <b>→ “Not only <b>did she pass</b> the exam, but she also topped the class.”</b><br>
+  <b>Why:</b> when <i>not only</i> starts the sentence, the words change seats — the question
+  order follows: <i>did she pass</i>, never <i>she passed</i>. The verb jumps over the subject.</div></details>
+  <h3 style="color:var(--accent)">② It is the brain that… — never “what”</h3>
+  <p>From yesterday’s judge game: <b>“It is the brain what makes teenagers take risks.”</b></p>
+  <p><strong>✗ Fix it — write the corrected sentence:</strong><span class="line"></span></p>
+  <details><summary>check + explanation</summary><div class="body">
+  <b>→ “It is the brain <b>that</b> makes teenagers take risks.”</b><br>
+  <b>Why:</b> the spotlight construction (the cleft) takes <b>that</b> or <b>who</b> —
+  never <i>what</i>. The spotlight shines on <i>the brain</i>; <i>that</i> connects it to the verb.</div></details>
+  <h3 style="color:var(--accent)">③ I'd rather she didn't… — the polite unreal past</h3>
+  <p>From yesterday’s judge game: <b>“I’d rather she doesn’t take her phone to bed.”</b></p>
+  <p><strong>✗ Fix it — write the corrected sentence:</strong><span class="line"></span></p>
+  <details><summary>check + explanation</summary><div class="body">
+  <b>→ “I'd rather she <b>didn't take</b> her phone to bed.”</b><br>
+  <b>Why:</b> <i>would rather</i> + another person → the past form, unreal and polite:
+  <i>didn't take</i> — no present, no -s. You're not reporting; you're wishing.</div></details>
+</div>
+
+<div class="step blue">
+  <span class="no">4</span>
+  <p><strong>🌉 The riddle returns — watch the video again.</strong></p>
+  <p class="how">We both forgot who exactly was crossing that bridge — so, one more meeting with them.</p>
+  <video controls preload="metadata" src="media/bridge-riddle-ted-ed.mp4" style="width:100%;border-radius:12px;border:2px solid var(--blue)"></video>
+  <p class="how">No internet needed. If the file ever misbehaves:
+  <a href="https://www.youtube.com/watch?v=7yDmGnA8Hw0" target="_blank" rel="noopener">watch it on YouTube</a> (VPN on).</p>
+  <p><strong>Then the gentle ladder — three steps up, and the story is yours.</strong></p>
+
+  <p><strong>① True or false?</strong> (say it aloud, then check)</p>
+  <div class="sent">a. Four friends are running from zombies.
+    <details><summary>check</summary><div class="body">✓ <b>True.</b></div></details></div>
+  <div class="sent">b. The old bridge holds three people at a time.
+    <details><summary>check</summary><div class="body">✗ <b>False — only two.</b></div></details></div>
+  <div class="sent">c. It is dark, and they have one lantern.
+    <details><summary>check</summary><div class="body">✓ <b>True.</b></div></details></div>
+  <div class="sent">d. The friends need 1, 2, 5 and 10 minutes to cross.
+    <details><summary>check</summary><div class="body">✓ <b>True.</b></div></details></div>
+  <div class="sent">e. The zombies arrive in 20 minutes.
+    <details><summary>check</summary><div class="body">✗ <b>False — seventeen.</b></div></details></div>
+  <div class="sent">f. In the fastest plan, the two slowest friends cross one by one, alone.
+    <details><summary>check</summary><div class="body">✗ <b>False — they cross TOGETHER.</b> That is the whole trick: together, their times overlap instead of adding up.</div></details></div>
+
+  <p><strong>② Put the plan in order</strong> — number these 1–5, then check:</p>
+  <div class="sent">____ · The two slowest friends cross together.
+  <br>____ · The two fastest friends cross again — the last crossing.
+  <br>____ · The two fastest friends cross first.
+  <br>____ · The second-fastest brings the lantern back.
+  <br>____ · The lantern comes back with the fastest friend.
+    <details><summary>check</summary><div class="body"><b>3 · 5 · 1 · 4 · 2</b><br>
+    1 — the fastest pair crosses (2 min) · 2 — the lantern returns with friend 1 (1 min) ·
+    3 — the slow pair crosses together (10 min) · 4 — friend 2 returns with the lantern (2 min) ·
+    5 — the fastest pair crosses again (2 min). Total: 17.</div></details></div>
+
+  <p><strong>③ Build the story</strong> — fill the walls, say each line ALOUD:</p>
+  <div class="sent">First, the two ______ (fastest) friends cross — ______ (two) minutes.</div>
+  <div class="sent">Then the lantern ______ (comes) back with the fastest friend — one minute.</div>
+  <div class="sent">After that, the two ______ (slowest) friends cross together — ten minutes.</div>
+  <div class="sent">Then the second-fastest ______ (brings) the lantern back — two minutes.</div>
+  <div class="sent">In the end, the two fastest ______ (cross) again — two minutes.</div>
+  <div class="sent">And the total: 2 + 1 + 10 + 2 + 2 = ______ (seventeen). Exactly in time!
+    <details><summary>check the whole telling</summary><div class="body">
+    First, the two <b>fastest</b> friends cross — <b>two</b> minutes. Then the lantern <b>comes</b> back
+    with the fastest friend — one minute. After that, the two <b>slowest</b> friends cross <b>together</b> —
+    ten minutes. Then the second-fastest <b>brings</b> the lantern back — two minutes. In the end, the
+    two fastest <b>cross</b> again — two minutes. Seventeen. Exactly in time!</div></details></div>
+
+  <p><strong>④ The mission:</strong> say the whole story out loud three times — to the mirror,
+  to the cat, to your phone's recorder. At the lesson <strong>you tell ME the riddle</strong>:
+  set it, hide the answer, and let me suffer.</p>
+</div>
+
+<div class="step">
+  <span class="no">5</span>
+  <p><strong>💬 “How are you?” — four answers, four weathers.</strong></p>
+  <p class="how">One small thing that got away — let's make it stay.</p>
+  <p><b>I'm fine</b> — neutral, always safe, any room.<br>
+  <b>I'm good</b> — relaxed, everyday, for friends.<br>
+  <b>I'm well</b> — <b>“I'm not ill any more”</b> — the health answer, the one we
+  discussed. After an illness, at the doctor's, on the phone with family:
+  <i>“I'm well now, thank you.”</i> The little <b>now</b> carries the whole recovery.
+  (And in greetings it grows a <i>very</i>: <i>“I'm very well, thank you — and you?”</i>)<br>
+  <b>I'm OK</b> — so-so, honest, could be better.</p>
+  <p><strong>Match the weather to the day:</strong></p>
+  <div class="sent">1. Monday morning, a colleague you don't know well.
+    <details><summary>check</summary><div class="body">→ <b>I'm fine, thank you.</b> — the polite register</div></details></div>
+  <div class="sent">2. Friday evening, your best friend calls.
+    <details><summary>check</summary><div class="body">→ <b>I'm good!</b> — relaxed and warm</div></details></div>
+  <div class="sent">3. The doctor asks — you've just recovered from a cold.
+    <details><summary>check</summary><div class="body">→ <b>I'm well now, thank you.</b> — not ill any more; the <i>now</i> is the recovery</div></details></div>
+  <div class="sent">4. Tired Tuesday, and you're honest.
+    <details><summary>check</summary><div class="body">→ <b>I'm OK…</b> — the so-so weather</div></details></div>
+  <p><strong>And the live one:</strong> say your answer aloud once, right now.
+  It's in your pocket already.</p>
+</div>
+
+<div class="step" style="border-top:4px solid var(--gold)">
+  <p><strong>🎰 The Fourteen Chips — yesterday’s lesson in fourteen cards.</strong></p>
+  <p>Fourteen cards from the lesson, one chip each, a very loyal clock (25 seconds).
+  Type, press Enter. At the end — one button sends me your results.</p>
+  <p><a href="fourteen-chips.html">▶ play The Fourteen Chips</a>
+  <span class="how">— the same drill works for the teacher, she plays too</span></p>
+</div>
+
+<div class="closing">
+  You corrected your own sentences, you named your own words, you took the bridge back.
+  Well done. 💬
+</div>
+
+</div>
+</body>
+</html>
