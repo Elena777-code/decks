@@ -319,6 +319,7 @@ document.getElementById('pbtn').onclick=openPresenter;
 function openPresenter(){window.open(location.pathname+'?presenter=1','egorL3presenter','width=620,height=820');}
 document.addEventListener('keydown',e=>{
   if(e.target.matches('INPUT,TEXTAREA'))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
   if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){go(cur+1);broadcast();}
   if(e.key==='ArrowLeft'||e.key==='ArrowUp'){go(cur-1);broadcast();}
   if(e.key==='Home'){go(0);broadcast();} if(e.key==='End'){go(slides.length-1);broadcast();}

@@ -487,6 +487,7 @@ if(MAIN){
   document.getElementById('pvbtn').onclick=openPresenter;
   document.addEventListener('keydown',e=>{
     if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
     if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
     if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
     if(e.key==='Home')go(0);

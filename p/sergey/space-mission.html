@@ -543,6 +543,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   prevBtn.addEventListener("click", ()=>go(current-1));
   document.addEventListener("keydown", e=>{
     if(e.target && (e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA")) return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
     const el = screens[current];
     const canScroll = el.scrollHeight > el.clientHeight + 2;
     switch(e.key){

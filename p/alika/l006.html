@@ -424,6 +424,7 @@ audio{width:100%;height:54px}
   prevBtn.addEventListener('click', prev);
   document.addEventListener('keydown', e=>{
     if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
     switch(e.key){
       case 'ArrowRight': case 'ArrowDown': e.preventDefault(); next(); break;
       case 'ArrowLeft': case 'ArrowUp': e.preventDefault(); prev(); break;

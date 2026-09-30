@@ -500,6 +500,7 @@ document.getElementById('fs').onclick=()=>document.fullscreenElement?document.ex
 
 document.addEventListener('keydown',e=>{
   if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
   if(MODE==='embed')return;
   if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
   if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);

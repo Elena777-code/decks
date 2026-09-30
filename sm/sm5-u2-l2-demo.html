@@ -661,6 +661,7 @@ function tn(b){const n=b.nextElementSibling;n.classList.toggle('open');b.classLi
 
 document.addEventListener('keydown',e=>{
   if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
   if(e.key==='Escape')return;
   if(MODE==='embed')return;
   /* AUDIO key-guard: SPACE pauses a playing track instead of flipping */

@@ -441,6 +441,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   document.getElementById('bigread-btn').addEventListener('click', e=>{ e.stopPropagation(); bigread.classList.add('open'); });
   bigread.addEventListener('click', ()=>bigread.classList.remove('open'));
   document.addEventListener('keydown', e=>{
+    if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
     if(bigread.classList.contains('open')){
       if(e.key==='Escape') bigread.classList.remove('open');
       return;

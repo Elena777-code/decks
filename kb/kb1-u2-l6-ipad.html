@@ -198,7 +198,7 @@ img.sheet{width:min(640px,92%);border-radius:16px;display:block;box-shadow:var(-
 <body>
 
 <div id="progress-track"><div id="progress-fill"></div></div>
-<div id="stamp">KB 1 · U2 · L6 · build 29.09 · v9 · ipad</div>
+<div id="stamp">KB 1 · U2 · L6 · build 30.09 · v10 · ipad</div>
 
 <!-- 1 · WARM UP — HELLO SONG -->
 <section class="slide" data-notes="WHAT THIS LESSON IS — Unit 2 'My school' starts today (Lesson 6 of the конспект). Five stages, Elena's plan: 1 · this Hello song + the circle questions. 2 · NEW: the Genki English 'Left and Right' song (slide 3). 3 · Lesson 6 itself: the bag game, six new words, PB p. 10, two worksheets, a Wordwall game. 4 · Phonics: the new letter T t + poster reading. 5 · Close: 'Left and Right' again — karaoke.
@@ -638,6 +638,7 @@ function autoSend(s){
 /* ============ keys & gestures ============ */
 document.addEventListener('keydown',e=>{
   if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
   if(e.key==='Escape'){toggleNotes(false);togglePardon(false);toggleLog(false);document.getElementById('bigword').classList.remove('open');}
   if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();toggleNotes();}
   if((e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();toggleLog();}

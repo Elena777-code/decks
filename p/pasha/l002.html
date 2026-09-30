@@ -576,6 +576,7 @@ fsr.addEventListener('click',()=>fsr.classList.remove('on'));
 
 document.addEventListener('keydown',e=>{
   if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
   if(e.key==='Escape'){fsr.classList.remove('on');return}
   if(MODE==='embed')return;
   if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);

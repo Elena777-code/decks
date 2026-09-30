@@ -683,6 +683,7 @@ document.getElementById('fs').onclick=()=>{
 };
 document.addEventListener('keydown',e=>{
   if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
   if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ')show(cur+1);
   else if(e.key==='ArrowLeft'||e.key==='ArrowUp')show(cur-1);
   else if(e.key==='Home')show(0);

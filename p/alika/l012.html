@@ -427,6 +427,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   const tnotes=document.getElementById('tnotes'), tpad=document.getElementById('tpad');
   const pardonEl=document.getElementById('pardon');
   document.addEventListener('keydown', e=>{
+    if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
     if(tnotes.classList.contains('open')||tpad.classList.contains('open')||pardonEl.classList.contains('open')){
       if(e.key==='Escape'){ tnotes.classList.remove('open'); tpad.classList.remove('open'); pardonEl.classList.remove('open'); }
       return;

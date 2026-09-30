@@ -546,6 +546,7 @@ function toggleNotes(force){
 document.getElementById('tnbtn').onclick=()=>toggleNotes();
 document.addEventListener('keydown',e=>{
   if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
   if(e.key==='Escape')toggleNotes(false);
   if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&!e.metaKey&&!e.ctrlKey){e.preventDefault();toggleNotes();}
   const notesOpen=document.getElementById('tnotes').classList.contains('open');

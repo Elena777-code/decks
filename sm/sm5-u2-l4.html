@@ -272,7 +272,7 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
       <div class="prep"><span class="ico">✍️</span><p><b>NEW today — the ✍️ pill</b> (top-left, or key <b>C</b>): tick a slide <b>✓ done</b> + a short comment — the ‹ › arrows move the panel without flipping the shared screen. Over http the notes <b>auto-send to the Mac</b> — say <b>"finished"</b> after the lesson and the report is read from the inbox. Give it one 30-second try before 17.15.</p></div>
       <div class="prep"><span class="ico">🙋</span><p><b>NEW today — the Pardon? pill</b> (top-left): tap it with the class once — the phrases they can always say (<i>Pardon? · Can you repeat, please? · What does erupt mean?</i>). It stays pinned all year.</p></div>
     </div>
-    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2. &nbsp;·&nbsp; <b style="color:var(--navy)">build 29.09 · v1</b></p>
+    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2. &nbsp;·&nbsp; <b style="color:var(--navy)">build 30.09 · v2</b></p>
   </section>
 
   <!-- SLIDE 2 · WI-FI SWITCH -->
@@ -730,6 +730,7 @@ document.getElementById('pardon').addEventListener('click',e=>{if(e.target.id===
 
 document.addEventListener('keydown',e=>{
   if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
   if(e.key==='Escape'){togglePardon(false);
     document.getElementById('annoRep').classList.remove('on');
     if(annoPanel)annoPanel.classList.remove('on');return}

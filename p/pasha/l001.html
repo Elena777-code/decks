@@ -443,6 +443,7 @@ h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw
   document.getElementById('fs').onclick = ()=>document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen();
   document.addEventListener('keydown', e=>{
     if(/INPUT|TEXTAREA/.test(e.target.tagName)) return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
     const scr = slides[i];
     const canScroll = scr.scrollHeight > scr.clientHeight + 2;
     switch(e.key){

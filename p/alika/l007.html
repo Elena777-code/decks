@@ -361,6 +361,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   prevBtn.addEventListener('click', prev);
   document.addEventListener('keydown', e=>{
     if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
     switch(e.key){
       case 'ArrowRight': case 'ArrowDown': e.preventDefault(); next(); break;
       case 'ArrowLeft': case 'ArrowUp': e.preventDefault(); prev(); break;
