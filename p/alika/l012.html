@@ -146,6 +146,10 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
 #rec-sent{font-weight:800;color:var(--mint-deep);margin-top:.25em;font-size:clamp(.95rem,1.5vw,1.15rem)}
 #rec-copy{display:none;margin-top:.5em;font-family:'Fredoka',sans-serif;font-weight:600;font-size:1rem;border:none;border-radius:99px;padding:.5em 1.3em;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.14);cursor:pointer}
 @media(max-width:900px){ .row{flex-direction:column} .judges{grid-template-columns:1fr} .judge .ans-btns{float:none;display:flex;margin:.3em 0 0} }
+/* THE CORNERS (Elena, 01.10): notes → top-left · Pardon → top-right — every deck */
+#pardon-bar{top:2.4vh;bottom:auto;left:auto;right:max(10px,1.6vw)}
+#tnotes-btn{position:fixed;top:2.4vh;left:max(10px,1.6vw);z-index:95}
+.slide{padding-top:8vh}
 </style>
 </head>
 <body>
@@ -314,7 +318,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     <div class="row reveal" style="justify-content:center;gap:1em;margin-top:.9em">
       <p class="task">Listen! 👂 One answer fits — SAY it! 🗣</p>
       <div class="small-tools">
-        <button class="mini-btn" id="tnotes-btn">🗒 Teacher's notes</button>
+        
         <button class="mini-btn" id="pad-btn" title="Elena's question pad (T)">🔑</button>
       </div>
     </div>
@@ -746,5 +750,6 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   poll();setInterval(poll,1500);
 })();
 </script>
+<button class="mini-btn" id="tnotes-btn">🗒 Teacher's notes</button>
 </body>
 </html>
