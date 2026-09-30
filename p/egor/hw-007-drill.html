@@ -58,6 +58,8 @@ button:active{transform:scale(.96)}
 .flash.ok{color:var(--teal)} .flash.bad{color:var(--terra)} .flash.info{color:var(--amber)}
 .verb{color:var(--terra);text-decoration:line-through;text-decoration-thickness:2px}
 button.big{background:var(--teal);color:#fff;font-size:clamp(1.1rem,4.2vw,1.35rem);padding:.7em 2.4em;margin-top:1.2em}
+a.big{background:var(--ink-soft);color:#fff;font:600 clamp(1.1rem,4.2vw,1.35rem) 'Inter',sans-serif;
+  padding:.7em 2.4em;margin-top:1.2em;text-decoration:none;display:inline-block}
 .score-line{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dotted var(--line);
   padding:.55em 0;font-size:clamp(1rem,3.8vw,1.2rem);font-weight:600}
 .score-line b{color:var(--teal)}
@@ -82,7 +84,7 @@ button.big{background:var(--teal);color:#fff;font-size:clamp(1.1rem,4.2vw,1.35re
       <input class="type-box" id="name-box" autocomplete="off" autocapitalize="on" spellcheck="false" placeholder="your name">
     </div>
     <button class="big" id="begin-btn">Begin</button>
-    <p class="helper">build 2026-09-30 · v8 <span style="opacity:.7">(if this line is missing, your browser kept an old copy — reload)</span></p>
+    <p class="helper">build 2026-09-30 · v9 <span style="opacity:.7">(if this line is missing, your browser kept an old copy — reload)</span></p>
   </div>
 
   <div class="card hidden" id="q-card">
@@ -96,12 +98,15 @@ button.big{background:var(--teal);color:#fff;font-size:clamp(1.1rem,4.2vw,1.35re
     <div class="eyebrow" style="margin-bottom:.6em">the score card</div>
     <div id="end-body"></div>
     <div class="answer-row" style="margin-top:1.4em">
-      <button class="big" id="copy-btn" style="margin-top:0">📋 Copy the report for Elena</button>
-      <button class="big" id="send-btn" style="margin-top:0;background:var(--amber)">📤 Send the report</button>
+      <button class="big" id="send-btn" style="margin-top:0">📤 Send the result to your teacher</button>
+      <button class="big" id="copy-btn" style="margin-top:0;background:var(--amber)">📋 Copy the report</button>
     </div>
-    <p class="helper" id="send-hint">Copy → paste it to Elena in Telegram. She also gets it automatically once her form is connected.</p>
-    <button class="big" id="again-btn">Play again</button>
-    <p class="helper">A fresh run reshuffles every round.</p>
+    <p class="helper" id="send-hint">Send → it lands in your teacher's form automatically. Copy → paste it to her in Telegram.</p>
+    <div class="answer-row" style="margin-top:.4em">
+      <a class="big" href="hw.html" style="margin-top:0;background:var(--ink-soft)">← Back to my homework</a>
+      <button class="big" id="again-btn" style="margin-top:0">Play again</button>
+    </div>
+    <div id="misses-body"></div>
   </div>
 </main>
 <div class="flash hidden" id="flash"></div>
@@ -279,6 +284,7 @@ function ask(){
   }
   $("q-body").innerHTML=body;
   show("q-card");
+  setTimeout(function(){try{$("q-card").scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}},60);
   if(r.meta.choices){
     Array.prototype.forEach.call(document.querySelectorAll(".choice"),function(b){
       b.addEventListener("click",function(){if(answered)return;answered=true;stop();
@@ -327,18 +333,21 @@ function theEnd(){
     (hits>=total*0.9?"the topic is yours 🏆":hits>=total*0.7?"strong 💪":"one more run needed →")+'</span></div>';
   for(var k in byRound){html+='<div class="score-line"><span>'+k+'</span><span><b>'+byRound[k].ok+'</b> / '+byRound[k].n+'</span></div>';}
   var misses=log.filter(function(l){return !l.ok;});
+  var mhtml="";
   if(misses.length){
-    html+='<p class="helper" style="text-align:left;margin-top:1em">📋 into your notebook — and tell Elena on Saturday:</p>';
-    misses.forEach(function(m){html+='<div class="miss">'+m.q+' → <span class="fix">'+m.key+'</span>'+(m.why?' · '+m.why:'')+'</div>';});
+    mhtml='<p class="helper" style="text-align:left;margin-top:1.4em">📋 into your notebook — and show Elena on Saturday:</p>';
+    misses.forEach(function(m){mhtml+='<div class="miss">'+m.q+' → <span class="fix">'+m.key+'</span>'+(m.why?' · '+m.why:'')+'</div>';});
   }else{
-    html+='<p class="helper" style="margin-top:1em">Zero misses. Take the perfect score to Elena on Saturday.</p>';
+    mhtml='<p class="helper" style="margin-top:1.4em">Zero misses. Take the perfect score to Elena on Saturday.</p>';
   }
   $("end-body").innerHTML=html;
+  $("misses-body").innerHTML=mhtml;
   LAST_REPORT=reportText(hits,total,byRound,misses);
   try{localStorage.setItem("egor-hw007-last",LAST_REPORT);}catch(e){}
   queueReport(LAST_REPORT);
   flushQueue();
   show("end-card");
+  setTimeout(function(){try{$("end-card").scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}},60);
 }
 
 /* ---------- the report: auto-send to Elena's Google Form + Egor's own copy ---------- */
@@ -404,7 +413,7 @@ $("copy-btn").addEventListener("click",function(){
   var txt=LAST_REPORT;
   try{txt=localStorage.getItem("egor-hw007-last")||txt;}catch(e){}
   function done(){$("copy-btn").textContent="✅ Copied — now paste it to Elena";
-    setTimeout(function(){$("copy-btn").textContent="📋 Copy the report for Elena";},2500);}
+    setTimeout(function(){$("copy-btn").textContent="📋 Copy the report";},2500);}
   function fallback(){
     var ta=document.createElement("textarea");
     ta.value=txt;ta.style.cssText="position:fixed;left:-999px";
@@ -423,7 +432,7 @@ $("send-btn").addEventListener("click",function(){
   if(sendViaForm(txt)){
     try{localStorage.setItem("egor-hw007-queue","[]");}catch(e){}
     $("send-btn").textContent="✅ Sent";
-    setTimeout(function(){$("send-btn").textContent="📤 Send the report";},2500);
+    setTimeout(function(){$("send-btn").textContent="📤 Send the result to your teacher";},2500);
   }else{
     $("send-hint").textContent="The form isn't connected yet — use 📋 Copy and paste the report to Elena in Telegram.";
   }
