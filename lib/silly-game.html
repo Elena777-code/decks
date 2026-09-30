@@ -92,25 +92,32 @@ body.playing #backchip{font-size:clamp(1.4rem,2vw,1.9rem);padding:.3em .8em}
      The core still rules: exactly ONE answer fits each question —
      rainy and It's hot! never meet; Yes! and No! never meet. */
   const POOL=[
-    {a:"during the lesson", q:["When do you brush your teeth?","When do you get up?","When do you sleep?","When do you wash your face?"]},
-    {a:"my friend", q:["Who is in your school bag?","Who sings in the bathroom?","Who eats your homework?","Who sleeps at school?"]},
-    {a:"eight", q:["How many heads have you got?","How many cats have you got?","How many noses have you got?","How many brothers have you got?","How many tails have you got?","How many teachers have you got?"]},
-    {a:"under the chair", q:["Where is your homework?","Where do you sleep?","Where is the cat?","Where do you live?","Where does your granny live?"]},
-    {a:"rainy", q:["What's the weather like in Africa?","What's the weather like in Egypt?","What's the weather like in the sea?","What's the weather like in winter?"]},
-    {a:"It's hot!", q:["What's the weather like in winter?","What's the weather like today?","What's the weather like at the North Pole?"]},
-    {a:"Yes!", q:["Do you sleep during the lesson?","Is your cat hungry?","Is your friend under the chair?","Is your granny six?","Do your cats sleep during the lesson?"]},
-    {a:"No!", q:["Do you eat your homework?","Do you live under the chair?"]},
-    {a:"pink", q:["What colour is my hair?","What colour is your cat?","What colour is your sister's hair?"]},
-    {a:"hungry", q:["What's the matter with your teddy bear?","How are you?","How is your cat?","How is your dog?"]},
-    {a:"One knee hurts!", q:["What's the matter, Elena?"]},
-    {a:"Because it's fun!", q:["Why does the baby cry?","Why do you like gymnastics?","Why do cats sleep a lot?","Why do you like English?"]}
+    {a:"during the lesson", t:"when", q:["When do you brush your teeth?","When do you get up?","When do you sleep?","When do you wash your face?"]},
+    {a:"my friend", t:"who", q:["Who is in your school bag?","Who sings in the bathroom?","Who eats your homework?","Who sleeps at school?"]},
+    {a:"eight", t:"howmany", q:["How many heads have you got?","How many cats have you got?","How many noses have you got?","How many brothers have you got?","How many tails have you got?","How many teachers have you got?"]},
+    {a:"under the chair", t:"where", q:["Where is your homework?","Where do you sleep?","Where is the cat?","Where do you live?","Where does your granny live?"]},
+    {a:"rainy", t:"weather", q:["What's the weather like in Africa?","What's the weather like in Egypt?","What's the weather like in the sea?","What's the weather like in winter?"]},
+    {a:"It's hot!", t:"weather", q:["What's the weather like in winter?","What's the weather like today?","What's the weather like at the North Pole?"]},
+    {a:"Yes!", t:"yesno", q:["Do you sleep during the lesson?","Is your cat hungry?","Is your friend under the chair?","Is your granny six?","Do your cats sleep during the lesson?"]},
+    {a:"No!", t:"yesno", q:["Do you eat your homework?","Do you live under the chair?"]},
+    {a:"pink", t:"colour", q:["What colour is my hair?","What colour is your cat?","What colour is your sister's hair?"]},
+    {a:"hungry", t:"matter", q:["What's the matter with your teddy bear?","How are you?","How is your cat?","How is your dog?"]},
+    {a:"One knee hurts!", t:"matter", q:["What's the matter, Elena?"]},
+    {a:"Because it's fun!", t:"because", q:["Why does the baby cry?","Why do you like gymnastics?","Why do cats sleep a lot?","Why do you like English?"]}
   ];
   function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
   function dealRound(){
+    /* THE ONE-FITS RULE per category (question-base.md 2026-09-27): one
+       yes/no, one weather, 4 answers of four DIFFERENT categories. */
     const yn = Math.random() < .5 ? "Yes!" : "No!";
     const weather = Math.random() < .5 ? "rainy" : "It's hot!";
-    const rest = shuffle(["during the lesson","my friend","eight","under the chair","pink","hungry","One knee hurts!","Because it's fun!"]).slice(0,4);
-    const groups = shuffle([yn, weather].concat(rest)).map(a => POOL.find(g => g.a === a));
+    const chosen=[yn,weather]; const used=new Set(["yesno","weather"]);
+    for(const g of shuffle(POOL.filter(x=>!used.has(x.t)))){
+      if(chosen.length>=6) break;
+      if(used.has(g.t)) continue;
+      chosen.push(g.a); used.add(g.t);
+    }
+    const groups = shuffle(chosen).map(a => POOL.find(g => g.a === a));
     const qs = [];
     let pass = 0;
     while(qs.length < 10 && pass < 3){
