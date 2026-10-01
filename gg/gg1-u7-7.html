@@ -316,6 +316,8 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
 /* THE CORNERS (Elena, 01.10): notes → top-left · Pardon → top-right — every deck */
 #tnbtn{position:fixed;top:max(10px,1.6vh);left:max(10px,1.6vw);bottom:auto;right:auto}
 #pardonBtn{right:max(10px,1.6vw)}
+/* the log pill keeps the BOTTOM (the plain corner) — else it lands under Pardon */
+#annoBtn{position:fixed;top:auto;right:auto;bottom:calc(14px + .8vh);left:max(10px,1.6vw)}
 .slide{padding-top:8vh}
 </style>
 </head>
@@ -328,7 +330,7 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   <div class="eyebrow reveal-el">Go Getter 1 · Unit 7 · 7.7 + Get</div>
   <h1 class="title reveal-el">Language revision — Pets in the UK! 🐾</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">I can…</b> ⭐ revise Unit 7 and read about unusual pets! <span class="stamp">build 01.10 · v2</span></p></div>
+  <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">I can…</b> ⭐ revise Unit 7 and read about unusual pets! <span class="stamp">build 01.10 · v3</span></p></div>
   <div class="card reveal-el" style="align-self:flex-start">
     <p style="font-size:clamp(1.05rem,1.9vw,1.45rem)"><b style="color:var(--lavender-deep)">🧺 Prepare ahead:</b> SB p. 91 + WB p. 67 on desks · sound check ⬇ · nothing to print</p>
     <div style="display:grid;gap:.4vh;margin-top:.6vh">
@@ -620,6 +622,18 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   <div class="accent-line reveal-el"></div>
   <div class="card peach reveal-el"><p>📖 <b style="color:var(--lavender-deep)">WB pp. 68–69</b> — Unit 7 revision</p></div>
   <div class="card lavender reveal-el"><p>💻 Extra Online Practice — Unit 7</p></div>
+  <div class="card reveal-el" style="align-self:stretch">
+    <p style="font-size:clamp(1.15rem,2vw,1.6rem)">📒 <b style="color:var(--lavender-deep)">Copy the words into your dictionary!</b> The word + <b>one</b>: Russian · meaning · example. Write first — then tap and check! ✓</p>
+    <div class="qa-row" style="margin-top:.6em">
+      <div class="qa" onclick="this.classList.add('open')"><span class="no">1</span><span>different <span class="a">→ разные · not the same · Jason and his family are very different!</span></span></div>
+      <div class="qa" onclick="this.classList.add('open')"><span class="no">2</span><span>want <span class="a">→ хотеть · to wish for something · Jackie wants a rabbit.</span></span></div>
+      <div class="qa" onclick="this.classList.add('open')"><span class="no">3</span><span>their <span class="a">→ их · of them · Their parents want a parrot.</span></span></div>
+      <div class="qa" onclick="this.classList.add('open')"><span class="no">4</span><span>cartoons <span class="a">→ мультфильмы · funny animated films · Jason likes cartoons!</span></span></div>
+      <div class="qa" onclick="this.classList.add('open')"><span class="no">5</span><span>neighbours <span class="a">→ соседи · the people next door · Their parents visit the neighbours.</span></span></div>
+      <div class="qa" onclick="this.classList.add('open')"><span class="no">6</span><span>at the weekend <span class="a">→ на выходных · on Saturday and Sunday · What do you do at the weekend?</span></span></div>
+      <div class="qa" onclick="this.classList.add('open')"><span class="no">7</span><span>hang out with their friends <span class="a">→ проводить время с друзьями · to spend time with friends · They hang out with their friends at the weekend.</span></span></div>
+    </div>
+  </div>
   <div class="card mint reveal-el"><p>Great job! ⭐ Unit 7 is nearly finished — you know it ALL! 🐾</p></div>
 </section>
 
