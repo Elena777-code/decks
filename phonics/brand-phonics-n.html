@@ -472,6 +472,14 @@ function sayText(t){
   speechSynthesis.speak(u);
 }
 function ring(el){el.classList.remove('said');void el.offsetWidth;el.classList.add('said')}
+/* a tapped read-card: the whole word speaks (the picture reveal is the check) */
+const QUIET={'si':1};
+function speakReadCard(card){
+  const w=(card.querySelector('.wrd').textContent||'').trim();
+  if(w.length<2||QUIET[w])return;
+  ring(card);
+  sayText(w);
+}
 const slides=[...document.querySelectorAll('.slide')];
 let cur=0;
 const fill=document.getElementById('progress-fill'),
@@ -535,7 +543,7 @@ document.addEventListener('click',e=>{
   const read=e.target.closest('.read-card');
   if(read){
     read.classList.toggle('show');
-    if(read.dataset.snd)speak(read.dataset.snd);
+    speakReadCard(read);
     return;
   }
   const ig=e.target.closest('.iguana-card');
