@@ -159,6 +159,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
   font-size:clamp(1.2rem,2.1vw,1.9rem);transform:rotate(-1.2deg)}
 .read-card.show .sndtxt{display:inline;animation:pip .45s cubic-bezier(.34,1.56,.64,1)}
 @keyframes pip{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+.slide video{width:min(440px,88%);border-radius:18px;display:block;margin:.4vh auto 0;box-shadow:0 8px 22px rgba(10,6,20,.25)}
 /* the words speak (the phonics-workspace pattern, voice approved 2026-09-11):
    tap a story line → a gold ring + the line says itself */
 .story .line{cursor:pointer}
@@ -310,6 +311,7 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
   <div class="rule reveal"></div>
   <div class="thebig reveal">I</div>
   <div class="task reveal">🎯 I sit · I tap Pat — the little word!</div>
+  <video class="reveal" controls preload="metadata" src="../media/phonics-n-i.mp4"></video>
 </section>
 <section class="slide">
   <div class="eyebrow reveal">Watch out! A little word</div>
@@ -317,6 +319,7 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
   <div class="rule reveal"></div>
   <div class="thebig reveal">the</div>
   <div class="task reveal">🎯 the tin · the pips — the little word!</div>
+  <video class="reveal" controls preload="metadata" src="../media/phonics-n-the.mp4"></video>
 </section>
 
 <!-- 4 · THE STORY -->
