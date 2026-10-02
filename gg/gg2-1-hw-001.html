@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework · GG 1 U7 L7.7 — At home! 🏠</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ GG2.1 homework — ONE page, phone-first ============
+   The homework slide of GG 1 U7 L7.7 as a standalone share page
+   for the children and their parents. Mint, as the group's deck.
+   The words check themselves behind taps (ANSWERS HIDE, ALWAYS). */
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A;
+  --lavender:#C8B6FF; --lavender-deep:#9a7fff; --cream:#FFF8F0;
+  --pink:#FF8FAB; --ink:#2D3436; --ink-soft:#636e72; --white:#fff;
+  --radius:22px; --shadow:0 10px 30px rgba(45,52,54,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);
+  min-height:100vh;padding:4vh 4vw 8vh;display:flex;flex-direction:column;gap:2vh;
+  align-items:stretch;max-width:680px;margin:0 auto}
+.eyebrow{font-size:clamp(.95rem,2.6vw,1.15rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lavender-deep)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,6vw,2.6rem);line-height:1.15}
+.accent-line{width:110px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.stamp{display:inline-block;font-weight:800;font-size:.8rem;color:var(--ink-soft);
+  border:2px solid #e7e0d8;border-radius:99px;padding:.14em .7em;background:#fff;
+  letter-spacing:.04em;vertical-align:middle;margin-left:.6em}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.4vh,24px) clamp(16px,3vw,28px)}
+.card p{font-size:clamp(1.15rem,3.4vw,1.5rem);line-height:1.45}
+.card.peach{background:#fff8db}
+.card.mint{background:#eafbf6}
+.rule{border:3px solid #5b8fbe}
+.rule .rt{font-size:clamp(1.25rem,3.8vw,1.7rem);color:#3a6ea5;font-weight:800;margin-top:.3em}
+.rule .rex{font-size:clamp(1.1rem,3.2vw,1.4rem);margin-top:.4em}
+.b{color:var(--lavender-deep)}
+.sfx{background:#d6e8f7;border-radius:10px;padding:0 .25em;color:#3a6ea5;font-weight:800}
+/* the words — tap a row to check */
+.words{display:flex;flex-direction:column;gap:.5em;margin-top:.6em}
+.wrow{background:var(--white);border:2px solid var(--lavender);border-radius:16px;
+  padding:.55em .9em;cursor:pointer;user-select:none;
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,3.2vw,1.35rem);
+  display:flex;align-items:baseline;gap:.6em;box-shadow:var(--shadow);transition:transform .15s ease}
+.wrow:hover{transform:scale(1.01)}
+.wrow .n{color:var(--lavender-deep);font-weight:700;min-width:1.3em}
+.wrow .chk{display:none;color:var(--pink);font-weight:700;font-family:'Nunito',sans-serif;font-size:.92em}
+.wrow.open .chk{display:inline;animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.warm{font-size:clamp(1.1rem,3.2vw,1.4rem);text-align:center}
+</style>
+</head>
+<body>
+
+<div class="eyebrow">Homework · Go Getter 1 · Unit 7</div>
+<h1>At home! 🏠 <span class="stamp">build 01.10 · v1</span></h1>
+<div class="accent-line"></div>
+
+<div class="card rule">
+  <p>📘 <b style="color:#3a6ea5">THE RULE — copy it into your notebook and learn it!</b></p>
+  <p class="rt">it · he · she — and ONE thing (a singular noun) → the verb takes <span class="sfx">-S</span></p>
+  <p class="rex"><b style="color:#3a6ea5">Jason</b> like<b style="color:#3a6ea5">s</b> cartoons. · <b style="color:#3a6ea5">Jackie</b> hang<b style="color:#3a6ea5">s</b> out with her best friend. · <b style="color:#3a6ea5">He</b> go<b style="color:#3a6ea5">es</b> to the park.</p>
+</div>
+
+<div class="card peach">
+  <p>✏️ <b class="b">SB p. 91 ex. 6</b> — write the questions and short answers in your notebook</p>
+</div>
+
+<div class="card">
+  <p>📒 <b class="b">Copy the words into your dictionary!</b> The word + <b>one</b>: Russian · meaning · example. Write first — then tap and check! ✓</p>
+  <div class="words">
+    <div class="wrow" onclick="this.classList.add('open')"><span class="n">1</span><span>different</span><span class="chk">→ разные · not the same · Jason and his family are very different!</span></div>
+    <div class="wrow" onclick="this.classList.add('open')"><span class="n">2</span><span>want</span><span class="chk">→ хотеть · to wish for something · Jackie wants a rabbit.</span></div>
+    <div class="wrow" onclick="this.classList.add('open')"><span class="n">3</span><span>their</span><span class="chk">→ их · of them · Their parents want a parrot.</span></div>
+    <div class="wrow" onclick="this.classList.add('open')"><span class="n">4</span><span>cartoons</span><span class="chk">→ мультфильмы · funny animated films · Jason likes cartoons!</span></div>
+    <div class="wrow" onclick="this.classList.add('open')"><span class="n">5</span><span>neighbours</span><span class="chk">→ соседи · the people next door · Their parents visit the neighbours.</span></div>
+    <div class="wrow" onclick="this.classList.add('open')"><span class="n">6</span><span>at the weekend</span><span class="chk">→ на выходных · on Saturday and Sunday · What do you do at the weekend?</span></div>
+    <div class="wrow" onclick="this.classList.add('open')"><span class="n">7</span><span>hang out with their friends</span><span class="chk">→ проводить время с друзьями · to spend time with friends · They hang out with their friends at the weekend.</span></div>
+  </div>
+</div>
+
+<div class="card mint"><p class="warm">Great job! ⭐ Unit 7 is nearly finished — you know it ALL! 🐾</p></div>
+
+</body>
+</html>

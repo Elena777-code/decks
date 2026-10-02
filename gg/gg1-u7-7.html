@@ -330,7 +330,7 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   <div class="eyebrow reveal-el">Go Getter 1 · Unit 7 · 7.7 + Get</div>
   <h1 class="title reveal-el">Language revision — Pets in the UK! 🐾</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">I can…</b> ⭐ revise Unit 7 and read about unusual pets! <span class="stamp">build 01.10 · v4</span></p></div>
+  <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">I can…</b> ⭐ revise Unit 7 and read about unusual pets! <span class="stamp">build 01.10 · v5</span></p></div>
   <div class="card reveal-el" style="align-self:flex-start">
     <p style="font-size:clamp(1.05rem,1.9vw,1.45rem)"><b style="color:var(--lavender-deep)">🧺 Prepare ahead:</b> SB p. 91 + WB p. 67 on desks · sound check ⬇ · nothing to print</p>
     <div style="display:grid;gap:.4vh;margin-top:.6vh">
@@ -623,7 +623,7 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   <div class="card reveal-el" style="align-self:stretch;border:3px solid #5b8fbe">
     <p style="font-size:clamp(1.2rem,2.1vw,1.65rem)">📘 <b style="color:#3a6ea5">THE RULE — copy it into your notebook and learn it!</b></p>
     <p style="font-size:clamp(1.25rem,2.2vw,1.8rem);margin-top:.35em;color:#3a6ea5;font-weight:800">it · he · she — and ONE thing (a singular noun) → the verb takes <b style="background:#d6e8f7;border-radius:10px;padding:0 .25em">-S</b></p>
-    <p style="font-size:clamp(1.1rem,1.9vw,1.5rem);margin-top:.35em"><b style="color:#3a6ea5">Jason</b> like<b style="color:#3a6ea5">s</b> cartoons. · <b style="color:#3a6ea5">Jackie</b> hang<b style="color:#3a6ea5">s</b> out with her best friend. · <b style="color:#3a6ea5">He</b> go<b style="color:#3a6ea5">s</b> to the park.</p>
+    <p style="font-size:clamp(1.1rem,1.9vw,1.5rem);margin-top:.35em"><b style="color:#3a6ea5">Jason</b> like<b style="color:#3a6ea5">s</b> cartoons. · <b style="color:#3a6ea5">Jackie</b> hang<b style="color:#3a6ea5">s</b> out with her best friend. · <b style="color:#3a6ea5">He</b> go<b style="color:#3a6ea5">es</b> to the park.</p>
   </div>
   <div class="card peach reveal-el"><p>✏️ <b style="color:var(--lavender-deep)">SB p. 91 ex. 6</b> — write the questions and short answers in your notebook</p></div>
   <div class="card reveal-el" style="align-self:stretch">
@@ -816,14 +816,16 @@ function togglePardon(force){
 document.getElementById('pardonBtn').onclick=()=>togglePardon();
 document.addEventListener('keydown',e=>{
   if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
-  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* +C / Ctrl+C copy must work */
   if(e.key==='Escape'){togglePardon(false);
     document.querySelectorAll('.fsread.show').forEach(f=>f.classList.remove('show'));return}
   if(document.getElementById('pardon').classList.contains('open'))return;
   if(document.querySelector('.fsread.show'))return;
-  if(e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З'){e.preventDefault();togglePardon();return}
+  if(e.key==='p'||e.key==='P'){e.preventDefault();togglePardon();return}
 });
-/* ready-chime (https: reload on save) */
+</script>
+<!-- ready-chime (https: reload on save) -->
+<script>
 (function(){
   if(!/^https?:$/.test(location.protocol))return;
   let last=null,ctx=null;
