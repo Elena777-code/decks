@@ -42,12 +42,17 @@ audio{width:100%}
 .song-title{font-weight:800;color:var(--mint-deep)}
 .note{color:var(--ink-soft);font-size:clamp(.9rem,2.2vw,1.05rem)}
 footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
-/* the archive toggle (Elena, 02.10: only the current card shows on the starting page) */
-.hw-archive summary{cursor:pointer;list-style:none;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,2.6vw,1.3rem);background:var(--white);border-radius:99px;padding:.6em 1.4em;box-shadow:var(--shadow);text-align:center;color:var(--ink-soft)}
-.hw-archive summary::-webkit-details-marker{display:none}
-.hw-archive summary:after{content:' ▾'}
-.hw-archive[open] summary:after{content:' ▴'}
-.hw-archive .arch-wrap{display:flex;flex-direction:column;gap:2.4vh;margin-top:2.4vh}
+/* lesson rows — Alika-page look (Elena, 02.10: «I want the starting page to look like this. Check Alika's page») */
+.hw-row summary{display:flex;align-items:center;gap:.9em;background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:1em 1.2em;cursor:pointer;list-style:none;transition:transform .15s ease}
+.hw-row summary:hover{transform:translateY(-3px)}
+.hw-row summary::-webkit-details-marker{display:none}
+.hw-row summary:after{content:'▾';color:var(--ink-soft);font-size:1.25em;flex:0 0 auto}
+.hw-row[open] summary:after{content:'▴'}
+.hw-row summary .txt{flex:1;min-width:0}
+.hw-row summary .nm{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,2.6vw,1.4rem);line-height:1.25}
+.hw-row summary .dt{color:var(--ink-soft);font-size:.92rem;line-height:1.35}
+.hw-row .hw-body{margin-top:.8em}
+.hw-row .new{color:var(--pink);font-weight:800;font-size:.78em;letter-spacing:.04em;vertical-align:middle;margin-left:.5em}
 /* the animated exclamation mark (Elena, 2026-09-29) */
 @keyframes exc{0%,100%{transform:translateY(0) scale(1)}30%{transform:translateY(-16%) scale(1.18)}55%{transform:translateY(0) scale(.96)}75%{transform:translateY(-7%) scale(1.06)}}
 .exc{display:inline-block;animation:exc 1.5s ease-in-out infinite;color:var(--pink)}
@@ -61,9 +66,10 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
     <div class="sub">Новое задание всегда сверху. Ссылка постоянная — сохраните её.</div>
   </header>
 
-  <section class="card">
-    <div class="lesson">Урок 6 · My school — мой школьный класс ✏️</div>
-    <div class="item"><span class="n">1</span><span><b>Учимся читать</b> — первые буквы, первые слова и первый рассказ:</span></div>
+<details class="hw-row" open>
+  <summary><span class="txt"><span class="nm">Урок 6 · My school — мой школьный класс ✏️ <span class="new">✨ новое!</span></span><br><span class="dt">первые буквы, первые слова и первый рассказ! · лист Tt · AB стр. 10 · «Составь слово» · Wordwall · песня Left and Right</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>Учимся читать</b> — первые буквы, первые слова и первый рассказ:</span></div>
     <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-s-i-t-p-a.html" target="_blank">▶ Первые буквы, первые слова и первый рассказ<span class="exc">!</span></a>
     <div class="item"><span class="n">2</span><span><b>Лист Tt</b> — раскрасить кружочки с заглавными и строчными буквами, прописать, раскрасить дорожку из T и t кирпичиков.</span></div>
     <div class="item"><span class="n">3</span><span><b>AB стр. 10, упр. 1 🎧</b> — послушать аудио и выполнить задание в тетради:</span></div>
@@ -98,47 +104,52 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
     <div class="item" style="margin-top:.6vh"><span class="n">🎵</span><span class="song-title">Наша новая песня — Left and Right</span></div>
     <div class="note">Пусть звучит дома: дети показывают движения (sit down · stand up · turn left · turn right · jump).</div>
     <audio controls preload="none" src="../../media/kb1-u2-ge-left-right.mp3"></audio>
-  </section>
-
-  <details class="hw-archive">
-  <summary>📚 Задания прошлых уроков</summary>
-  <div class="arch-wrap">
-<section class="card">
-    <div class="lesson">Урок 5 · Буква Rr и цвета 🌈</div>
-    <div class="item"><span class="n">1</span><span><b>AB стр. 8, упр. 2</b> — вписать букву r в слова (red, rainbow) и нарисовать.</span></div>
-    <div class="item"><span class="n">2</span><span><b>Лист Rr</b> — прописать буквы в строчках до конца.</span></div>
-  </section>
-
-  <section class="card">
-    <div class="lesson">Урок 4 · Буквы Aa, Bb 🔤</div>
-    <div class="item"><span class="n">1</span><span><b>Распечатка Аа</b> — дорешать лабиринт с буквой a.</span></div>
-    <div class="item"><span class="n">2</span><span><b>AB стр. 9</b> — задание в тетради.</span></div>
-    <div class="item"><span class="n">3</span><span><b>Видео для родителей</b> — в школьном приложении.</span></div>
-  </section>
-
-  <section class="card">
-    <div class="lesson">Урок 3 · Сколько тебе лет? 🎂</div>
-    <div class="item"><span class="n">1</span><span><b>AB стр. 6, упр. 1</b> — послушать и вписать.</span></div>
-    <div class="item"><span class="n">2</span><span><b>Видео «How old are you?»</b> — в школьном приложении.</span></div>
-    <div class="item"><span class="n">3</span><span><b>Раскраска AB стр. 7</b> — в школьном приложении.</span></div>
-  </section>
-
-  <section class="card">
-    <div class="lesson">Урок 2 · Новые друзья 🧸</div>
-    <div class="item"><span class="n">1</span><span><b>Игра</b> — повторить слова урока:</span></div>
-    <a class="btn" href="https://wordwall.net/resource/85538200" target="_blank">▶ Wordwall: новые слова</a>
-  </section>
-
-  <section class="card">
-    <div class="lesson">Урок 1 · Знакомство 👋</div>
-    <div class="item"><span class="n">1</span><span><b>Игра</b> — колесо со словами первого урока:</span></div>
-    <a class="btn" href="https://wordwall.net/resource/75555558" target="_blank">▶ Wordwall: колесо слов</a>
-  </section>
   </div>
 </details>
 
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 5 · Буква Rr и цвета 🌈</span><br><span class="dt">AB стр. 8, упр. 2 — вписать r (red, rainbow) · прописать лист Rr</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>AB стр. 8, упр. 2</b> — вписать букву r в слова (red, rainbow) и нарисовать.</span></div>
+    <div class="item"><span class="n">2</span><span><b>Лист Rr</b> — прописать буквы в строчках до конца.</span></div>
+  </div>
+</details>
 
-  <footer>Kid's Box 1 · группы школы · страница домашних заданий</footer>
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 4 · Буквы Aa, Bb 🔤</span><br><span class="dt">дорешать лабиринт Аа · AB стр. 9 · видео в школьном приложении</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>Распечатка Аа</b> — дорешать лабиринт с буквой a.</span></div>
+    <div class="item"><span class="n">2</span><span><b>AB стр. 9</b> — задание в тетради.</span></div>
+    <div class="item"><span class="n">3</span><span><b>Видео для родителей</b> — в школьном приложении.</span></div>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 3 · Сколько тебе лет? 🎂</span><br><span class="dt">AB стр. 6, упр. 1 · видео «How old are you?» · раскраска — в приложении</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>AB стр. 6, упр. 1</b> — послушать и вписать.</span></div>
+    <div class="item"><span class="n">2</span><span><b>Видео «How old are you?»</b> — в школьном приложении.</span></div>
+    <div class="item"><span class="n">3</span><span><b>Раскраска AB стр. 7</b> — в школьном приложении.</span></div>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 2 · Новые друзья 🧸</span><br><span class="dt">игра Wordwall — новые слова урока</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>Игра</b> — повторить слова урока:</span></div>
+    <a class="btn" href="https://wordwall.net/resource/85538200" target="_blank">▶ Wordwall: новые слова</a>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 1 · Знакомство 👋</span><br><span class="dt">игра Wordwall — колесо слов</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>Игра</b> — колесо со словами первого урока:</span></div>
+    <a class="btn" href="https://wordwall.net/resource/75555558" target="_blank">▶ Wordwall: колесо слов</a>
+  </div>
+</details>
+
+<footer>Kid's Box 1 · группы школы · страница домашних заданий</footer>
 </div>
 <script>
 /* ===== the Unscramble typing game + the Google-Form report ===== */
