@@ -106,7 +106,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
 
 <main>
   <div class="card" id="start-card">
-    <p class="rules">First — your <b>Workbook 9.3</b> (📓 ex. 1–2, every run) + a few <b>9.1 review</b> questions.<br>
+    <p class="rules">First — your <b>Workbook 9.4</b> (📓 ex. 1, every run) + a few <b>9.1 review</b> questions.<br>
     Then four games + your sentences.<br>
     ⚡ The sprint is <b>timed</b> — everywhere else: no clock, think as long as you want.<br>
     Wrong answers come back with the fix.</p>
@@ -141,6 +141,17 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <div class="sent" id="sent-line"></div>
     <div><button class="copy-btn" id="copy-btn">📋 Copy the report for Elena</button></div>
     <div><button class="again-btn" id="again-btn">🔁 Fresh set</button></div>
+  </div>
+
+  <div class="card hwcard">
+    <div class="no">Homework · tenses travel home</div>
+    <h2>📘 Workbook 9.4 — p. 106, ex. 1–2</h2>
+    <p class="hint"><b>Your printed Workbook.</b> Ex 1 — the verb forms (the story about Tom the teacher).
+    Ex 2 — choose the correct words. Last lesson's grammar is the key — you already know how.</p>
+    <ol>
+      <li>📘 WB p. 106 (9.4): <b>ex. 1</b> and <b>ex. 2</b>.</li>
+      <li>🤖 One more <b>machine run</b> — the drill's first round now carries the Workbook 9.4 verbs.</li>
+    </ol>
   </div>
 
   <div class="card hwcard">
@@ -353,6 +364,31 @@ var POOL_WB93=[
   choices:["a · What are the advantages of homeschooling?","b · Facts and figures about homeschooling","c · Do homeschoolers get good results?","d · Are there any disadvantages?"],key:["d · Are there any disadvantages?"],label:"9.3 ex 2 · para 4",type:"choice"}
 ];
 
+/* 📓 W · Workbook 9.4 (WB p. 106, ex. 1 — the assigned homework, set at the
+   27.09 lesson; the round mirrors it in full, forms as choices — the
+   discrimination IS the exercise). Text corroborated against the TB's
+   Workbook key 2026-10-03: teaches · started · won · don't speak · gives ·
+   is planning · are · have never visited. Ex 2 checks at the lesson
+   (round-robin) — it isn't mirrored. */
+var POOL_WB94=[
+ {q:'My cousin Tom is a teacher. He <span class="gap">______</span> at a school in London. <span class="base">(TEACH)</span>',
+  choices:["teaches","teach","is teaching"],key:["teaches"],label:"9.4 ex 1 · teach",type:"choice"},
+ {q:'He <span class="gap">______</span> his job two years ago. <span class="base">(START)</span>',
+  choices:["started","starts","has started"],key:["started"],label:"9.4 ex 1 · start",type:"choice"},
+ {q:'Last year, he <span class="gap">______</span> a prize for his lessons. <span class="base">(WIN)</span>',
+  choices:["won","wins","winned","has won"],key:["won"],label:"9.4 ex 1 · win",type:"choice"},
+ {q:'Some of his pupils <span class="gap">______</span> English at home. <span class="base">(NOT / SPEAK)</span>',
+  choices:["don’t speak","doesn’t speak","aren’t speaking"],key:["don’t speak"],label:"9.4 ex 1 · not speak",type:"choice"},
+ {q:'…so he always <span class="gap">______</span> them extra help. <span class="base">(GIVE)</span>',
+  choices:["gives","give","is giving"],key:["gives"],label:"9.4 ex 1 · give",type:"choice"},
+ {q:'At the moment, he <span class="gap">______</span> a school trip. <span class="base">(PLAN)</span>',
+  choices:["is planning","plans","planned"],key:["is planning"],label:"9.4 ex 1 · plan",type:"choice"},
+ {q:'His pupils <span class="gap">______</span> very excited. <span class="base">(BE)</span>',
+  choices:["are","is","be"],key:["are"],label:"9.4 ex 1 · be",type:"choice"},
+ {q:'They <span class="gap">______</span> England before. <span class="base">(NEVER / VISIT)</span>',
+  choices:["have never visited","never visited","has never visited"],key:["have never visited"],label:"9.4 ex 1 · never visit",type:"choice"}
+];
+
 /* R1 · Fix it — the rr items from the 19.09 lesson + the usage fixes */
 var POOL_FIX=[
  {q:'Last week we <span class="gap">______</span> a robot for the science fair. <span class="base">(ASSEMBLE — spelling!)</span>',
@@ -522,7 +558,7 @@ var WRITE_PROMPTS=[
 ];
 
 var ROUNDS_META=[
- {id:"W",icon:"📓",name:"Workbook 9.3",sub:"the homework itself — WB p. 105 · ex. 1–2 + a 9.1 review",helper:"from your Workbook — it lives on this page",sec:0},
+ {id:"W",icon:"📓",name:"Workbook 9.4",sub:"the homework itself — WB p. 106 · ex. 1 + a 9.1 review",helper:"from your Workbook — it lives on this page",sec:0},
  {id:"R1",icon:"🔧",name:"Fix it",sub:"repair the word or the sentence",helper:"type it or tap it",sec:0},
  {id:"R2",icon:"⚡",name:"Passive sprint",sub:"beat the clock — 10 s a question",helper:"one word in the gap",sec:10},
  {id:"R3",icon:"🧠",name:"Exam reflex",sub:"no clock — the HSE reflexes",helper:"tap the right one",sec:0},
@@ -552,7 +588,7 @@ function shuffleChoices(t){
 
 /* ---------- a fresh set per run ---------- */
 function buildRounds(){
-  var wb=POOL_WB93.map(function(t){return shuffleChoices(t);}).concat(pick(POOL_WB91,4).map(function(t){return shuffleChoices(t);}));
+  var wb=POOL_WB94.map(function(t){return shuffleChoices(t);}).concat(pick(POOL_WB91,4).map(function(t){return shuffleChoices(t);}));
   var r1=pick(POOL_GR,1).concat(pick(POOL_FIX,Math.max(0,DEAL[0]-1))).map(function(t){return shuffleChoices(t);});
   var r2=pick(POOL_PASSIVE,DEAL[1]);
   var r3=pick(POOL_REFLEX,DEAL[2]).map(function(t){return shuffleChoices(t);});
