@@ -84,7 +84,7 @@ a.big{background:var(--ink-soft);color:#fff;font:600 clamp(1.1rem,4.2vw,1.35rem)
       <input class="type-box" id="name-box" autocomplete="off" autocapitalize="on" spellcheck="false" placeholder="your name">
     </div>
     <button class="big" id="begin-btn">Begin</button>
-    <p class="helper">build 2026-09-30 · v9 <span style="opacity:.7">(if this line is missing, your browser kept an old copy — reload)</span></p>
+    <p class="helper">build 2026-10-03 · v10 <span style="opacity:.7">(if this line is missing, your browser kept an old copy — reload)</span></p>
   </div>
 
   <div class="card hidden" id="q-card">
@@ -344,8 +344,7 @@ function theEnd(){
   $("misses-body").innerHTML=mhtml;
   LAST_REPORT=reportText(hits,total,byRound,misses);
   try{localStorage.setItem("egor-hw007-last",LAST_REPORT);}catch(e){}
-  queueReport(LAST_REPORT);
-  flushQueue();
+  try{queueReport(LAST_REPORT);flushQueue();}catch(e){} /* plumbing must never kill the score card */
   show("end-card");
   setTimeout(function(){try{$("end-card").scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}},60);
 }
@@ -385,9 +384,7 @@ function sendViaForm(txt){
   var inp=document.createElement("input");
   inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
   f.appendChild(inp);
-  var sub=document.createElement("input");
-  sub.type="hidden";sub.name="submit";sub.value="Submit";
-  f.appendChild(sub);
+  /* no input named "submit" — a named child shadows f.submit() and kills the run */
   document.body.appendChild(f);
   f.submit();
   setTimeout(function(){f.remove();frame.remove();},15000);
@@ -405,10 +402,10 @@ function flushQueue(){
   var q=[];
   try{q=JSON.parse(localStorage.getItem("egor-hw007-queue")||"[]");}catch(e){}
   if(!q.length)return;
-  q.forEach(sendViaForm);
-  try{localStorage.setItem("egor-hw007-queue","[]");}catch(e){}
+  /* send what sends, KEEP what fails — and never throw into the caller */
+  var rest=q.filter(function(t){try{return !sendViaForm(t);}catch(e){return true;}});
+  try{localStorage.setItem("egor-hw007-queue",JSON.stringify(rest));}catch(e){}
 }
-flushQueue();
 $("copy-btn").addEventListener("click",function(){
   var txt=LAST_REPORT;
   try{txt=localStorage.getItem("egor-hw007-last")||txt;}catch(e){}
@@ -429,7 +426,9 @@ $("send-btn").addEventListener("click",function(){
   var txt=LAST_REPORT;
   try{txt=localStorage.getItem("egor-hw007-last")||txt;}catch(e){}
   if(!txt)return;
-  if(sendViaForm(txt)){
+  var sent=false;
+  try{sent=sendViaForm(txt);}catch(e){}
+  if(sent){
     try{localStorage.setItem("egor-hw007-queue","[]");}catch(e){}
     $("send-btn").textContent="✅ Sent";
     setTimeout(function(){$("send-btn").textContent="📤 Send the result to your teacher";},2500);
@@ -468,6 +467,9 @@ function timeUp(){
   answered=true;
   judge(rounds[ri].tasks[qi],null,true);
 }
+
+/* load-time flush goes LAST — every listener is attached before it, and it cannot throw */
+try{flushQueue();}catch(e){}
 </script>
 </body>
 </html>
