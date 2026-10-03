@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pasha — homework 🔬</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Pasha's homework hub — ONE permanent link.
+   Pattern: MR's page (plan card with done-boxes · drill ·
+   dictionary · send-to-teacher at the end) in Pasha's own
+   palette (paper · navy · cheese — his decks' look).
+   First homework: 03.10 → check at the lesson, Sunday 11.10.
+   The timed test follows THE HWDT RULE: one card = one item,
+   a loyal timer per card, shuffle every attempt, misses
+   re-enter the next attempt, «Include to the report» at the end.
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --mint:#5FBFA0; --mint-soft:#EAF6EE;
+  --stamp:#E4572E; --stamp-soft:#FDEAE3; --ink:#22303F; --ink-soft:#5D6B7A;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  min-height:100vh;padding:3.5vh 4vw 6vh;display:flex;flex-direction:column;gap:1.5vh;
+  -webkit-font-smoothing:antialiased}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.2vw,.95rem);color:var(--navy)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.8rem,3.8vw,3rem);line-height:1.08}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.25rem,2.2vw,1.7rem)}
+h3{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.35rem)}
+.card{background:#fff;border-radius:22px;box-shadow:var(--shadow);padding:clamp(1rem,1.8vw,1.5rem)}
+.card.cheese{background:var(--cheese-soft)}
+.card.mintc{background:var(--mint-soft)}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.5vw,1.25rem);align-self:flex-start}
+.hintline{font-size:clamp(.9rem,1.3vw,1.08rem);color:var(--ink-soft);font-style:italic}
+.mt{margin-top:.65em}
+.row{display:flex;gap:1em;align-items:center;flex-wrap:wrap}
+button.big{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem);
+  padding:.5em 1.5em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:var(--shadow-lg);
+  transition:transform .15s ease}
+button.big:hover{transform:scale(1.05)}
+button.big.stamp{background:linear-gradient(135deg,var(--stamp),var(--cheese))}
+
+/* plan card with done boxes */
+.plan{display:flex;flex-direction:column;gap:.55em}
+.plan .p-row{display:flex;gap:.7em;align-items:center;background:#fff;border-radius:14px;
+  box-shadow:0 5px 14px rgba(34,48,63,.07);padding:.6em .85em;cursor:pointer;user-select:none;
+  transition:transform .12s ease}
+.plan .p-row:hover{transform:translateY(-2px)}
+.plan .box{flex-shrink:0;width:1.55em;height:1.55em;border-radius:9px;border:3px solid var(--sky);
+  display:grid;place-items:center;font-weight:800;color:#fff;font-size:1em;transition:all .2s}
+.plan .p-row.done .box{background:var(--mint);border-color:var(--mint)}
+.plan .p-row.done .box::after{content:"✓"}
+.plan .p-row p{font-size:clamp(1rem,1.55vw,1.25rem);line-height:1.4}
+.plan .p-row.done p{text-decoration:line-through;color:var(--ink-soft)}
+.plan .p-row p b{color:var(--navy)}
+
+/* word cards (teach: everything shows — meaning + 2 examples) */
+.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.9em}
+.wcard{background:#fff;border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.09);padding:.9em 1em;
+  border-top:6px solid var(--cheese)}
+.wcard .head{display:flex;align-items:baseline;gap:.5em;flex-wrap:wrap}
+.wcard .w{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2vw,1.5rem);color:var(--navy)}
+.wcard .m{font-size:clamp(.95rem,1.4vw,1.12rem);color:var(--ink);margin:.25em 0}
+.wcard .ex{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);line-height:1.45}
+.wcard .ex b{color:var(--navy)}
+
+/* picture→word cards (the dictation ten) */
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.7em}
+.gal .g{background:#fff;border-radius:16px;box-shadow:0 6px 16px rgba(34,48,63,.08);
+  padding:.7em .4em;text-align:center;cursor:pointer;user-select:none;border:3px solid transparent;
+  transition:transform .15s ease}
+.gal .g:hover{transform:translateY(-3px)}
+.gal .g .ico{font-size:clamp(2rem,4vw,3rem);line-height:1.2}
+.gal .g .nm{display:none;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1rem,1.7vw,1.25rem);margin-top:.1em}
+.gal .g.rev{border-color:var(--cheese);background:var(--cheese-soft)}
+.gal .g.rev .nm{display:block}
+
+/* ---------- the timed test (hwdt) ---------- */
+#test{display:flex;flex-direction:column;gap:1em}
+#t-stage{display:none;flex-direction:column;gap:.9em;align-items:center;
+  background:#fff;border-radius:22px;box-shadow:var(--shadow-lg);padding:clamp(1.2rem,2.4vw,2rem);
+  max-width:760px;width:100%;margin:0 auto}
+#t-stage.on{display:flex}
+#t-flash{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(1.2rem,2.2vw,1.7rem);text-align:center}
+#t-cue{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.25rem,2.4vw,1.9rem);
+  text-align:center;line-height:1.4;min-height:2.6em}
+#t-cue .ico{font-size:1.25em}
+#t-bar{width:100%;height:14px;border-radius:99px;background:#E8F1FA;overflow:hidden}
+#t-bar i{display:block;height:100%;width:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--mint),var(--sky));transition:none}
+#t-bar.amber i{background:linear-gradient(90deg,var(--cheese),var(--stamp))}
+#t-in{font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,1.9vw,1.45rem);text-align:center;
+  border:3px solid var(--sky);border-radius:14px;padding:.4em .8em;width:min(420px,92%);
+  color:var(--ink);background:#fff}
+#t-in:focus{outline:none;border-color:var(--cheese)}
+#t-choices{display:flex;flex-direction:column;gap:.5em;width:min(520px,94%)}
+#t-choices button{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(1rem,1.7vw,1.3rem);
+  border:2.5px solid var(--sky);background:#fff;color:var(--ink);border-radius:14px;
+  padding:.45em .8em;cursor:pointer;transition:all .15s ease}
+#t-choices button:hover{border-color:var(--cheese);transform:scale(1.02)}
+#t-choices button.right{border-color:var(--mint);background:var(--mint-soft)}
+#t-choices button.wrong{border-color:var(--stamp);background:var(--stamp-soft)}
+#t-verdict{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.05rem,1.7vw,1.35rem);
+  min-height:1.5em;text-align:center}
+#t-verdict.ok{color:var(--mint)} #t-verdict.no{color:var(--stamp)}
+#t-count{font-family:'Fredoka',sans-serif;color:var(--ink-soft);font-size:clamp(.9rem,1.3vw,1.05rem)}
+#t-end{display:none;flex-direction:column;gap:.7em;align-items:center;text-align:center}
+#t-end.on{display:flex}
+.chips{display:flex;gap:.5em;flex-wrap:wrap;justify-content:center}
+.chip{font-family:'Fredoka',sans-serif;font-weight:600;border-radius:99px;padding:.25em .95em;
+  background:var(--cheese-soft);color:var(--navy-deep);font-size:clamp(.95rem,1.4vw,1.15rem)}
+.chip.miss{background:var(--stamp-soft);color:var(--stamp)}
+
+/* report */
+#rep-text{width:100%;min-height:150px;border:3px solid var(--sky);border-radius:14px;padding:.7em;
+  font-family:ui-monospace,Menlo,monospace;font-size:.92rem;color:var(--ink);resize:vertical;background:#fff}
+#rep-text:focus{outline:none;border-color:var(--cheese)}
+#rep-note{width:100%;min-height:70px;border:3px solid #E1E9F4;border-radius:14px;padding:.6em;
+  font-family:'Nunito',sans-serif;font-size:1rem;color:var(--ink);resize:vertical}
+#rep-note:focus{outline:none;border-color:var(--sky)}
+.sent{font-family:'Fredoka',sans-serif;color:var(--mint);font-weight:600}
+iframe.hide{display:none}
+@media (max-width:700px){ .words{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+
+<div class="eyebrow">Pasha · homework · this link never changes — new homework lands here</div>
+<h1>Homework 🔬</h1>
+<p class="hintline">for the lesson on Sunday, 11 October · tick the boxes as you finish — then send it all to Miss Elena at the end</p>
+
+<!-- ============ THE PLAN CARD (done boxes) ============ -->
+<div class="card cheese">
+  <h2>📌 Your plan — tick when done!</h2>
+  <div class="plan mt" id="plan"></div>
+</div>
+
+<!-- ============ 1 · THE 13 NEW WORDS ============ -->
+<div class="card">
+  <h2>1 · Thirteen new words 📖</h2>
+  <p class="task mt">Read every card. Learn the words — <b>Miss Elena will ask you the Russian</b> at the lesson!</p>
+  <div class="words mt" id="words13"></div>
+  <p class="hintline mt">Can't remember a word at the lesson? Then next time you write it in your dictionary — the Russian + one example. So learn them now! 😉</p>
+</div>
+
+<!-- ============ 2 · WORKBOOK PP. 5–6 ============ -->
+<div class="card">
+  <h2>2 · Workbook pages 5 and 6 🖊</h2>
+  <div class="mt" style="display:flex;flex-direction:column;gap:.5em;font-size:clamp(1rem,1.55vw,1.25rem);line-height:1.5">
+    <p><b style="color:var(--navy)">WB p. 5</b> — put the verbs in the correct column and write their base forms, then complete the sentences with the correct form of each verb. <span class="hintline">(We looked at these tasks together in the lesson.)</span></p>
+    <p><b style="color:var(--navy)">WB p. 6</b> — complete the song with the words in the box, then match the rhyming words.</p>
+  </div>
+  <p class="hintline mt">Write in your Workbook — we check it together at the lesson.</p>
+</div>
+
+<!-- ============ 3 · THE TIMED TEST ============ -->
+<div class="card mintc">
+  <h2>3 · The science test ⏱</h2>
+  <p class="task mt">Small test, kind timer — the words change every game. Play it at least twice!</p>
+  <div class="mt" id="test">
+    <div id="t-idle" class="row">
+      <button class="big stamp" id="t-start">▶ start the test</button>
+      <span class="hintline">three short rounds · one question at a time · don't leave the window — the clock keeps running!</span>
+    </div>
+    <div id="t-stage">
+      <div id="t-flash">round 1</div>
+      <div id="t-cue"></div>
+      <div id="t-bar"><i></i></div>
+      <input id="t-in" placeholder="type the word… (Enter = OK)" autocomplete="off">
+      <div id="t-choices"></div>
+      <div id="t-verdict"></div>
+      <div id="t-count"></div>
+    </div>
+    <div id="t-end">
+      <h3 id="t-score"></h3>
+      <div class="chips" id="t-chips"></div>
+      <div id="t-misses"></div>
+      <div class="row">
+        <button class="big" id="t-include">📋 Include to the report</button>
+        <button class="big" id="t-again" style="background:linear-gradient(135deg,var(--navy),var(--mint))">🎲 play again</button>
+      </div>
+      <p class="hintline">the missed ones come back first in the next game — and write them into your notebook!</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 4 · THE TEN DICTATION WORDS ============ -->
+<div class="card">
+  <h2>4 · Ten words for the dictation ✍️</h2>
+  <p class="task mt">Learn these ten — Miss Elena's dictation at the lesson! Write the word first, then click the card to check yourself.</p>
+  <div class="gal mt" id="gal"></div>
+</div>
+
+<!-- ============ 5 · MY PERFECT DAY ============ -->
+<div class="card">
+  <h2>5 · ⭐ My perfect day</h2>
+  <p class="task mt">Write 3–4 sentences in your notebook about YOUR perfect day — yesterday style!</p>
+  <p class="mt" style="font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.5">
+    Yesterday was great. I <b style="color:var(--stamp)">got up</b> at ten o'clock. I <b style="color:var(--stamp)">ate</b> chocolate for breakfast and I <b style="color:var(--stamp)">watched</b> three Spiderman films on TV. Then I …
+  </p>
+  <p class="hintline mt">Past simple only — red words are yesterday words!</p>
+</div>
+
+<!-- ============ 6 · THE GAME ============ -->
+<div class="card cheese">
+  <h2>6 · Play and say it! 🔬</h2>
+  <p class="task mt"><a href="../lib/science-or-nonsense.html" style="color:var(--navy);text-decoration:none">▶ Science — or nonsense?</a> — the detective game. Say every word out loud, three times!</p>
+</div>
+
+<!-- ============ THE REPORT ============ -->
+<div class="card" id="report">
+  <h2>📤 Send it to Miss Elena</h2>
+  <p class="hintline mt">Your boxes, your test scores and your words — one tap.</p>
+  <textarea id="rep-text" class="mt" readonly></textarea>
+  <textarea id="rep-note" class="mt" placeholder="Anything you want to tell Miss Elena? (optional)"></textarea>
+  <div class="row mt">
+    <button class="big stamp" id="send">📤 Send to Miss Elena</button>
+    <button class="big" id="copy" style="background:var(--navy)">📋 Copy</button>
+    <span class="sent" id="sent"></span>
+  </div>
+</div>
+
+<iframe class="hide" name="form-target"></iframe>
+
+<script>
+/* ====== ELENA: the shared «Drill reports» Google Form (the same one Egor's drill uses) ====== */
+const FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSeHQqLTCwsgpvG4T1T_bHHDVj8VyvB4BomKyjV7zmeIBEH6yA/formResponse";
+const FORM_ENTRY="entry.892008789";
+
+const LS={plan:'pasha-hw-plan',miss:'pasha-hw-misses',inc:'pasha-hw-included',note:'pasha-hw-note'};
+const store=(k,v)=>{try{v===undefined?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
+
+/* ====== the plan card (done boxes) ====== */
+const PLAN=[
+ {id:'words', t:'The thirteen new words — read the cards + learn them'},
+ {id:'wb', t:'WB p. 5 + p. 6 (the tasks we explained at the lesson)'},
+ {id:'test', t:'The science test — play it at least twice'},
+ {id:'ten', t:'Learn the ten dictation words'},
+ {id:'star', t:'⭐ My perfect day — 3–4 sentences'},
+ {id:'game', t:'🔬 Play Science or nonsense — and say the words!'}
+];
+const planEl=document.getElementById('plan');
+let done=load(LS.plan,{});
+PLAN.forEach(p=>{
+  const d=document.createElement('div');
+  d.className='p-row'+(done[p.id]?' done':'');
+  d.innerHTML='<span class="box"></span><p>'+p.t+'</p>';
+  d.onclick=()=>{done[p.id]=!done[p.id];store(LS.plan,done);d.classList.toggle('done',!!done[p.id]);buildReport()};
+  planEl.appendChild(d);
+});
+
+/* ====== the 13 teach cards (meaning + 2 examples, no Russian — the Russian is Miss Elena's lesson check) ====== */
+const WORDS13=[
+ {w:'put on',m:'to place clothes or glasses on your body',e:['Put on your goggles before the experiment.','It\u2019s cold \u2014 put on your coat!']},
+ {w:'say',m:'to speak words',e:['Say your name, please.','What did you say?']},
+ {w:'important',m:'a thing that matters a lot',e:['Safety is important in the lab.','This is an important day.']},
+ {w:'guess',m:'to give an answer when you don\u2019t know it',e:['Guess the word!','I guess he is ten.']},
+ {w:'round',m:'shaped like a ball or a circle',e:['Bubbles are round.','The Earth is round.']},
+ {w:'different',m:'not the same',e:['English and Russian are different.','Try a different colour.']},
+ {w:'want to',m:'to wish to do something',e:['I want to dance.','They want to go home.']},
+ {w:'wait',m:'to stay and do nothing until something happens',e:['Wait for me!','Don\u2019t wait \u2014 run!']},
+ {w:'after',m:'later than something',e:['Music is after lunch.','We play after school.']},
+ {w:'before',m:'earlier than something',e:['Wash your hands before dinner.','Before the test, breathe!']},
+ {w:'early',m:'not late; near the start',e:['The bus is early today.','He goes to bed early.']},
+ {w:'never',m:'at no time; not one time',e:['I never eat chalk!','She is never late.']},
+ {w:'always',m:'every time',e:['We always warm up.','The sun always rises.']}
+];
+const w13=document.getElementById('words13');
+WORDS13.forEach(x=>{
+  const d=document.createElement('div');d.className='wcard';
+  d.innerHTML='<div class="head"><span class="w">'+x.w+'</span></div>'
+   +'<p class="m">'+x.m+'</p>'
+   +'<p class="ex">💊 <b>'+x.e[0]+'</b></p><p class="ex">💬 <b>'+x.e[1]+'</b></p>';
+  w13.appendChild(d);
+});
+
+/* ====== the dictation ten (picture → word, click to check) ====== */
+const TEN=[
+ {i:'🥽',w:'goggles'},{i:'🗄️',w:'shelf'},{i:'🥼',w:'apron'},{i:'💥',w:'explosion'},
+ {i:'🫧',w:'bubbles'},{i:'💧',w:'liquid'},{i:'📋',w:'instructions'},{i:'🧪',w:'test tube'},
+ {i:'⚪🥄',w:'powder'},{i:'🧤',w:'gloves'}
+];
+const gal=document.getElementById('gal');
+TEN.slice().sort(()=>Math.random()-.5).forEach(x=>{
+  const d=document.createElement('div');d.className='g';
+  d.innerHTML='<div class="ico">'+x.i+'</div><div class="nm">'+x.w+'</div>';
+  d.onclick=()=>d.classList.toggle('rev');
+  gal.appendChild(d);
+});
+
+/* ====== the timed test (THE HWDT RULE: one card one item · loyal timer · shuffle · misses re-enter) ====== */
+const R_WORDS=TEN.map(x=>({k:'w',cue:x.i+'  '+({goggles:'you wear them over your eyes in the lab',
+ shelf:'things stand on it, up on the wall',apron:'you wear it over your clothes so they stay clean',
+ explosion:'a very loud bang',bubbles:'little balls of air inside a liquid',liquid:'you can pour it, like water',
+ instructions:'the lines that tell you what to do','test tube':'the little glass tube for experiments',
+ powder:'dry stuff, like flour',gloves:'you wear them on your hands'})[x.w],a:x.w,t:20}));
+const R_GAPS=[
+ ['Alex, Phoebe and Patrick were in the Science ___ (1).','lab'],
+ ['All three were wearing ___ on their hands.','gloves'],
+ ['Phoebe and Alex were also wearing ___, but Patrick wasn\u2019t.','goggles'],
+ ['His goggles were on a ___.','shelf'],
+ ['Patrick was holding the ___ in his left hand.','test tube'],
+ ['He put two ___ of blue powder in the test tube.','spoons'],
+ ['He put two spoons of blue ___ in the test tube.','powder'],
+ ['He put the powder in the ___.','test tube'],
+ ['Then there was an ___!','explosion'],
+ ['Lots of ___ came out of the test tube.','bubbles'],
+ ['The bubbles came out of the ___.','test tube'],
+ ['He told Patrick to put on his ___.','goggles'],
+ ['Mr Davis said: \u201cJohn, get back to your place.\u201d So I ___.','left'],
+ ['I didn\u2019t see what happened in the ___ lesson afterwards.','Science']
+].map(g=>({k:'g',cue:g[0],a:g[1],t:15}));
+const SOMEANY=[
+ {cue:'I need ___ apron for the experiment.',ch:['a','an','some'],a:'an'},
+ {cue:'There isn\u2019t ___ water in the test tube.',ch:['some','any','a'],a:'any'},
+ {cue:'Put ___ blue powder in the tube.',ch:['a','some','any'],a:'some'},
+ {cue:'There was ___ explosion!',ch:['a','an','any'],a:'an'},
+ {cue:'Are there ___ goggles on the shelf?',ch:['some','any','a'],a:'any'},
+ {cue:'I have ___ new instructions.',ch:['any','a','some'],a:'some'}
+];
+const ORDER=[
+ {cue:'you / Did / the film / enjoy / ?',ch:['Did you enjoy the film?','You did enjoy the film?','Did enjoy you the film?'],a:'Did you enjoy the film?'},
+ {cue:'she / Was / at school / yesterday / ?',ch:['Was she at school yesterday?','She was at school yesterday?','Was at school she yesterday?'],a:'Was she at school yesterday?'},
+ {cue:'Where / you / did / go / last summer / ?',ch:['Where did you go last summer?','Where you did go last summer?','Did where you go last summer?'],a:'Where did you go last summer?'},
+ {cue:'they / Were / in the lab / ?',ch:['Were they in the lab?','They were in the lab?','Were in the lab they?'],a:'Were they in the lab?'},
+ {cue:'What / you / did / do / yesterday / ?',ch:['What did you do yesterday?','What you did do yesterday?','Did you do what yesterday?'],a:'What did you do yesterday?'},
+ {cue:'your brother / Was / early / today / ?',ch:['Was your brother early today?','Your brother was early today?','Was early your brother today?'],a:'Was your brother early today?'}
+];
+const R_GRAM=[...SOMEANY,...ORDER].map(g=>({k:'c',cue:g.cue,ch:g.ch,a:g.a,t:18}));
+
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a};
+const pick=(a,n)=>shuffle(a).slice(0,n);
+const norm=s=>s.toLowerCase().replace(/\s+/g,' ').trim();
+
+const stage=document.getElementById('t-stage'),idle=document.getElementById('t-idle'),
+endEl=document.getElementById('t-end'),flash=document.getElementById('t-flash'),
+cue=document.getElementById('t-cue'),barI=document.querySelector('#t-bar i'),barBox=document.getElementById('t-bar'),
+input=document.getElementById('t-in'),choices=document.getElementById('t-choices'),
+verdict=document.getElementById('t-verdict'),countEl=document.getElementById('t-count');
+let queue=[],qi=0,timer=null,amberT=null,t0=0,scores={},misses=[],running=false;
+
+function buildQueue(){
+  let missPool=load(LS.miss,[]);          /* misses from the previous game come FIRST */
+  const missItems=[];
+  missPool=missPool.filter(m=>{
+    const all=[...R_WORDS,...R_GAPS,...R_GRAM];
+    const hit=all.find(x=>x.a===m.a&&x.cue===m.cue);
+    if(hit&&missItems.length<5&&!(missItems.some(x=>x.cue===hit.cue))){missItems.push(hit);return false}
+    return true;                            /* keep unknown/stale misses for later attempt */
+  });
+  store(LS.miss,missPool);
+  const fresh=[...pick(R_WORDS,Math.max(0,3-missItems.filter(x=>x.k==='w').length)),
+               ...pick(R_GAPS,Math.max(0,4-missItems.filter(x=>x.k==='g').length)),
+               ...pick(SOMEANY,2).map(g=>({k:'c',cue:g.cue,ch:g.ch,a:g.a,t:18})),
+               ...pick(ORDER,2).map(g=>({k:'c',cue:g.cue,ch:g.ch,a:g.a,t:18}))];
+  queue=shuffle([...missItems,...fresh]);
+}
+function startTest(){
+  running=true;buildQueue();qi=0;scores={w:[0,0],g:[0,0],c:[0,0]};misses=[];
+  idle.style.display='none';endEl.classList.remove('on');stage.classList.add('on');
+  nextCard();
+}
+function nextCard(){
+  clearTimeout(timer);clearTimeout(amberT);
+  if(qi>=queue.length){finishTest();return}
+  const c=queue[qi];
+  const roundName=c.k==='w'?'words':(c.k==='g'?'John\u2019s story':'grammar');
+  flash.textContent='round · '+roundName+(misses.length?'':'');
+  countEl.textContent=(qi+1)+' / '+queue.length;
+  cue.innerHTML=c.k==='w'?c.cue:c.cue;
+  verdict.textContent='';verdict.className='';
+  choices.innerHTML='';
+  if(c.ch){input.style.display='none';
+    shuffle(c.ch.map((x,i)=>[x,i])).forEach(([x,i])=>{
+      const b=document.createElement('button');b.textContent=x;
+      b.onclick=()=>answer(i===c.ch.indexOf(c.a),c,b,x);
+      choices.appendChild(b)});
+  }else{input.style.display='block';input.value='';input.placeholder='type the word… (Enter = OK)';input.focus();
+    input.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();judge(input.value,c)}};
+  }
+  /* the loyal timer: full bar, amber only near the end, wall time — no pause */
+  const T=c.t*1000;t0=Date.now();
+  barBox.classList.remove('amber');barI.style.transition='none';barI.style.width='100%';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    barI.style.transition='width '+c.t+'s linear';barI.style.width='0%'}));
+  amberT=setTimeout(()=>barBox.classList.add('amber'),T*0.72);
+  timer=setTimeout(()=>{answer(false,c,null,null,true)},T);
+}
+function judge(v,c){answer(norm(v)===norm(c.a),c,null,v)}
+function answer(right,c,btn,given,timedOut){
+  clearTimeout(timer);clearTimeout(amberT);
+  [...choices.children].forEach(b=>b.onclick=null);input.onkeydown=null;
+  scores[c.k][1]++;if(right)scores[c.k][0]++;
+  else misses.push(c);
+  if(btn){btn.classList.add(right?'right':'wrong');
+    if(!right){[...choices.children].find(b=>b.textContent===c.a)?.classList.add('right')}}
+  verdict.textContent=right?'✓ yes!':(timedOut?'⏰ time\u2019s up! '+c.a:'✗ '+c.a);
+  verdict.className=right?'ok':'no';
+  if(c.k==='g'||c.k==='w')cue.innerHTML=c.cue.replace('___','<b style="color:var(--stamp)">'+c.a+'</b>');
+  setTimeout(()=>{qi++;nextCard()},right?750:1900);
+}
+function finishTest(){
+  running=false;stage.classList.remove('on');endEl.classList.add('on');
+  const tot=scores.w[0]+scores.g[0]+scores.c[0],all=scores.w[1]+scores.g[1]+scores.c[1];
+  document.getElementById('t-score').textContent='🎉 '+tot+' / '+all+' — well done!';
+  const chips=document.getElementById('t-chips');chips.innerHTML='';
+  [['words',scores.w],['John\u2019s story',scores.g],['grammar',scores.c]].forEach(([n,[r,a]])=>{
+    const s=document.createElement('span');s.className='chip'+(r<a?' miss':'');s.textContent=n+' '+r+'/'+a;chips.appendChild(s)});
+  const m=document.getElementById('t-misses');
+  m.innerHTML=misses.length?'<p class="hintline">for your notebook ✍️: '+misses.map(x=>'<b>'+x.a+'</b>').join(' · ')+'</p>':'<p class="hintline">no misses — perfect round! 🌟</p>';
+  store(LS.miss,[...misses,...load(LS.miss,[]).slice(0,6)]);
+}
+document.getElementById('t-start').onclick=startTest;
+document.getElementById('t-again').onclick=startTest;
+document.getElementById('t-include').onclick=()=>{
+  const tot=scores.w[0]+scores.g[0]+scores.c[0],all=scores.w[1]+scores.g[1]+scores.c[1];
+  if(!all){document.getElementById('t-include').textContent='play the test first!';return}
+  const line='\u{1F52C} Test: '+tot+'/'+all+' · words '+scores.w[0]+'/'+scores.w[1]+' · story '+scores.g[0]+'/'+scores.g[1]+' · grammar '+scores.c[0]+'/'+scores.c[1]
+   +(misses.length?' · to learn: '+misses.map(x=>x.a).join(', '):' · no misses!');
+  store(LS.inc,[...load(LS.inc,[]).filter(l=>!l.startsWith('\u{1F52C}')),line].slice(-6));
+  const b=document.getElementById('t-include');b.textContent='✅ in the report!';
+  setTimeout(()=>b.textContent='\u{1F4CB} Include to the report',1600);
+  buildReport();
+};
+
+/* ====== the report + send ====== */
+function buildReport(){
+  let t='Pasha \u00b7 homework \u00b7 '+new Date().toLocaleDateString('en-GB')+'\n';
+  PLAN.forEach(p=>{t+=(done[p.id]?'\u2705 ':'\u2610 ')+p.t+'\n'});
+  (load(LS.inc,[])).forEach(l=>t+=l+'\n');
+  const note=document.getElementById('rep-note').value.trim();
+  if(note)t+='\uD83D\uDCDD '+note+'\n';
+  document.getElementById('rep-text').value=t;
+}
+document.getElementById('rep-note').addEventListener('input',()=>{store(LS.note,document.getElementById('rep-note').value);buildReport()});
+document.getElementById('rep-note').value=load(LS.note,'');
+document.getElementById('copy').onclick=()=>{
+  const txt=document.getElementById('rep-text');
+  const done2=()=>{const b=document.getElementById('copy');b.textContent='✅ copied — paste it to Miss Elena';setTimeout(()=>b.textContent='\u{1F4CB} Copy',2200)};
+  try{navigator.clipboard.writeText(txt.value).then(done2,()=>{txt.select();document.execCommand('copy');done2()})}
+  catch(e){txt.select();document.execCommand('copy');done2()}
+};
+document.getElementById('send').onclick=()=>{
+  const f=document.createElement('form');
+  f.method='POST';f.action=FORM_ACTION;f.target='form-target';
+  const inp=document.createElement('input');inp.type='hidden';inp.name=FORM_ENTRY;
+  inp.value=document.getElementById('rep-text').value;
+  f.appendChild(inp);document.body.appendChild(f);f.submit();f.remove();
+  document.getElementById('sent').textContent='sent to Miss Elena \u2705';
+};
+buildReport();
+</script>
+</body>
+</html>

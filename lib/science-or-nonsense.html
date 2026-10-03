@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Science or nonsense? 🔬 — the detective game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --mint:#5FBFA0; --mint-soft:#EAF6EE;
+  --stamp:#E4572E; --stamp-soft:#FDEAE3; --ink:#22303F; --ink-soft:#5D6B7A;
+  --shadow:0 10px 30px rgba(34,48,63,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  min-height:100vh;padding:4vh 4vw;display:flex;flex-direction:column;gap:1.6vh;
+  -webkit-font-smoothing:antialiased}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.2vw,.95rem);color:var(--navy)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,3.6vw,2.9rem);line-height:1.08}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;align-self:flex-start;
+  font-size:clamp(1rem,1.5vw,1.25rem)}
+.scorebar{display:flex;gap:.7em;align-items:center;flex-wrap:wrap}
+.pill{font-family:'Fredoka',sans-serif;font-weight:600;border-radius:99px;padding:.3em 1em;
+  background:#fff;box-shadow:0 4px 12px rgba(34,48,63,.08);font-size:clamp(.95rem,1.4vw,1.15rem)}
+.pill.mint{background:var(--mint-soft);color:var(--navy-deep)}
+button.play{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.3rem);
+  padding:.45em 1.3em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:var(--shadow);
+  transition:transform .15s ease}
+button.play:hover{transform:scale(1.05)}
+#rows{display:flex;flex-direction:column;gap:.8em;max-width:900px;width:100%}
+.row{background:#fff;border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.09);
+  padding:.85em 1em;display:flex;flex-direction:column;gap:.5em;border:3px solid transparent;
+  transition:border-color .2s ease}
+.row.right{border-color:var(--mint);background:var(--mint-soft)}
+.row.wrong{border-color:var(--stamp);background:var(--stamp-soft);animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.q{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.1rem,1.9vw,1.5rem);line-height:1.35}
+.q .em{font-size:1.1em}
+.btns{display:flex;gap:.6em;flex-wrap:wrap}
+.btns button{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);
+  border:none;border-radius:99px;padding:.35em 1.1em;cursor:pointer;
+  transition:transform .12s ease,opacity .2s ease}
+.btns button:hover{transform:scale(1.06)}
+.b-ok{background:#E8F1FA;color:var(--navy-deep)}
+.b-no{background:var(--stamp-soft);color:var(--stamp)}
+.row.judged .btns button{opacity:.45;cursor:default}
+.row.judged .btns button.chosen{opacity:1;outline:3px solid currentColor}
+.fix{display:none;font-weight:700;font-size:clamp(1rem,1.7vw,1.3rem);color:var(--navy-deep)}
+.row.judged .fix{display:block;animation:rise .35s both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.verdict{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.9rem,1.3vw,1.05rem)}
+.verdict.ok{color:var(--mint)}
+.verdict.no{color:var(--stamp)}
+.say{display:none;align-items:center;gap:.7em;flex-wrap:wrap;background:#fff;
+  border-radius:14px;padding:.45em .8em;border:2px dashed var(--cheese)}
+.say.on{display:flex;animation:rise .35s both}
+.say .w{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2vw,1.6rem);color:var(--navy)}
+.say .ipa{font-size:clamp(.95rem,1.4vw,1.15rem);color:var(--ink-soft)}
+.say button{border:none;background:var(--navy);color:#fff;border-radius:99px;cursor:pointer;
+  font-size:1.1em;padding:.15em .7em}
+.say .hint{font-size:clamp(.85rem,1.2vw,1rem);color:var(--ink-soft);font-style:italic}
+.hintline{font-size:clamp(.9rem,1.3vw,1.1rem);color:var(--ink-soft);font-style:italic}
+</style>
+</head>
+<body>
+<div class="eyebrow">The detective game · say the words out loud</div>
+<h1>Science — or nonsense? 🔬🤪</h1>
+<div class="task">Read each line. Tap 🙂 SCIENCE if it is right, 🤪 NONSENSE if it is silly — then SAY the word!</div>
+<div class="scorebar">
+  <span class="pill" id="score">🙂 0 · 🤪 0 · of 0</span>
+  <button class="play" onclick="deal()">🎲 play again</button>
+</div>
+<div id="rows"></div>
+<p class="hintline">Every card hides a word to SAY — three times, louder each time! 🔊 reads it for you.</p>
+
+<script>
+/* Universal game (the detective pattern) — no pupil names, no course refs.
+   SETS ARE SWAPPABLE: edit ROWS below; keep the shape {q, ok, fix, word, ipa}. */
+const ROWS=[
+ {q:'Where do you do experiments? — <b>In the Science lab.</b> 🥼',ok:1,fix:'',word:'science',ipa:'/ˈsaɪəns/',em:'🔬'},
+ {q:'Goggles protect your <b>hands</b>.',ok:0,fix:'They protect your EYES! 🥽',word:'goggles',ipa:'/ˈɡɒɡlz/',em:'🥽'},
+ {q:'Water is a <b>liquid</b>. 💧',ok:1,fix:'',word:'liquid',ipa:'/ˈlɪkwɪd/',em:'💧'},
+ {q:'You eat your dinner with a <b>test tube</b>.',ok:0,fix:'You eat with a SPOON! 🥄',word:'test tube',ipa:'/ˈtest tjuːb/',em:'🧪'},
+ {q:'The <b>instructions</b> tell you what to do. 📋',ok:1,fix:'',word:'instructions',ipa:'/ɪnˈstrʌkʃnz/',em:'📋'},
+ {q:'You wear <b>one glove</b> on your head.',ok:0,fix:'Gloves go on your HANDS — both of them! 🧤',word:'gloves',ipa:'/ɡlʌvz/',em:'🧤'},
+ {q:'An <b>explosion</b> is very quiet.',ok:0,fix:'It is very LOUD — BOOM! 💥',word:'explosion',ipa:'/ɪkˈspləʊʒn/',em:'💥'},
+ {q:'<b>Powder</b> is a liquid.',ok:0,fix:'Powder is DRY — you can pour a liquid, not powder!',word:'powder',ipa:'/ˈpaʊdə/',em:'⚪'},
+ {q:'The <b>shelf</b> is on the floor.',ok:0,fix:'The shelf is ABOVE — on the wall! 🗄️',word:'shelf',ipa:'/ʃelf/',em:'🗄️'},
+ {q:'You walk <b>through</b> the door. 🚪',ok:1,fix:'',word:'through',ipa:'/θruː/',em:'🚪'},
+ {q:'<b>Half</b> past three is a time. 🕒',ok:1,fix:'',word:'half',ipa:'/hɑːf/',em:'🕒'},
+ {q:'<b>Science</b> is a lesson about the past.',ok:0,fix:'Science is about the world and experiments!',word:'science',ipa:'/ˈsaɪəns/',em:'🔬'}
+];
+let voices=[];
+function warm(){try{voices=speechSynthesis.getVoices()}catch(e){}}
+warm();try{speechSynthesis.onvoiceschanged=warm}catch(e){}
+function speak(w){try{
+  const u=new SpeechSynthesisUtterance(w);
+  const v=voices.find(v=>/^en(-|_)GB/i.test(v.lang))||voices.find(v=>/^en/i.test(v.lang));
+  if(v)u.voice=v; u.rate=.85; speechSynthesis.cancel(); speechSynthesis.speak(u);
+}catch(e){}}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function deal(){
+  const box=document.getElementById('rows');box.innerHTML='';
+  const rows=ROWS.slice().sort(()=>Math.random()-.5);
+  let ok=0,no=0,total=rows.length;
+  const sc=document.getElementById('score');sc.textContent='🙂 0 · 🤪 0 · of '+total;
+  rows.forEach(r=>{
+    const d=document.createElement('div');d.className='row';
+    d.innerHTML='<div class="q">'+r.q+'</div>'
+      +'<div class="btns"><button class="b-ok">🙂 science</button><button class="b-no">🤪 nonsense</button></div>'
+      +'<div class="verdict"></div>'
+      +'<div class="fix">'+(r.ok?'Good science! '+r.word+' ✅':'🤪 Nonsense! '+(r.fix||''))+'</div>'
+      +'<div class="say"><span class="w">'+r.em+' '+r.word+'</span><span class="ipa">'+r.ipa+'</span>'
+      +'<button title="listen">🔊</button><span class="hint">say it ×3 — louder each time!</span></div>';
+    const [bOk,bNo]=d.querySelectorAll('.btns button');
+    const judge=(saidOk,btn)=>{
+      if(d.classList.contains('judged'))return;
+      d.classList.add('judged');btn.classList.add('chosen');
+      const right=(saidOk&&r.ok)||(!saidOk&&!r.ok);
+      d.classList.add(right?'right':'wrong');
+      const v=d.querySelector('.verdict');
+      if(right){ok++;v.textContent='✓ right!';v.className='verdict ok'}
+      else{no++;v.textContent='✗ listen again';v.className='verdict no'}
+      sc.textContent='🙂 '+ok+' · 🤪 '+no+' · of '+total;
+      d.querySelector('.say').classList.add('on');
+    };
+    bOk.onclick=e=>{e.stopPropagation();judge(true,bOk)};
+    bNo.onclick=e=>{e.stopPropagation();judge(false,bNo)};
+    d.querySelector('.say button').onclick=e=>{e.stopPropagation();speak(r.word)};
+    box.appendChild(d);
+  });
+}
+deal();
+</script>
+</body>
+</html>
