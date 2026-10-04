@@ -8,10 +8,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ============ Minty Fresh + the standing kit — GG2.1 (Go Getter 1) ====
-   GG 1 U7 L7.7 + Get "Pets in the UK" — THE SCREEN-ONLY site copy (no teacher notes, no lesson log —
-   those live in the full MacBook deck). Pardon? pill, answers behind
-   clicks, build stamp, flex-shrink guard, hotkey guard. Built from the
-   TB (pp. 109–111) + SB pp. 91–92. English only.
+   GG 1 U7 L7.7 + Get "Pets in the UK" — the ONE deck (the 7.5 board
+   engine, familiar to the group) with: 🗒 Teacher's notes overlay (T),
+   🙋 Pardon? pill (P), ✍️ lesson log (C, auto-send over http),
+   answers behind clicks, build stamp, flex-shrink guard, hotkey
+   guard. Built from the TB (pp. 109–111) + SB pp. 91–92. English only.
    ==================================================================== */
 :root{
   --mint:#95E1D3;
@@ -167,7 +168,8 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,2vw,1.6rem);
   color:var(--ink);transition:transform .15s ease}
 .fchip:hover{transform:scale(1.05)}
-.fchip .back{color:var(--pink);font-weight:700}
+.fchip .back{display:none;color:var(--pink);font-weight:700}
+.fchip.open .back{display:inline;animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
 /* adjective gap cards (Ex 3) */
 .agap{display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,20px);justify-content:center}
 .ag{
@@ -330,7 +332,7 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   <div class="eyebrow reveal-el">Go Getter 1 · Unit 7 · 7.7 + Get</div>
   <h1 class="title reveal-el">Language revision — Pets in the UK! 🐾</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">I can…</b> ⭐ revise Unit 7 and read about unusual pets! <span class="stamp">build 01.10 · v5</span></p></div>
+  <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">I can…</b> ⭐ revise Unit 7 and read about unusual pets! <span class="stamp">build 01.10 · v6</span></p></div>
   <div class="card reveal-el" style="align-self:flex-start">
     <p style="font-size:clamp(1.05rem,1.9vw,1.45rem)"><b style="color:var(--lavender-deep)">🧺 Prepare ahead:</b> SB p. 91 + WB p. 67 on desks · sound check ⬇ · nothing to print</p>
     <div style="display:grid;gap:.4vh;margin-top:.6vh">
@@ -821,11 +823,9 @@ document.addEventListener('keydown',e=>{
     document.querySelectorAll('.fsread.show').forEach(f=>f.classList.remove('show'));return}
   if(document.getElementById('pardon').classList.contains('open'))return;
   if(document.querySelector('.fsread.show'))return;
-  if(e.key==='p'||e.key==='P'){e.preventDefault();togglePardon();return}
+  if(e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З'){e.preventDefault();togglePardon();return}
 });
-</script>
-<!-- ready-chime (https: reload on save) -->
-<script>
+/* ready-chime (https: reload on save) */
 (function(){
   if(!/^https?:$/.test(location.protocol))return;
   let last=null,ctx=null;
