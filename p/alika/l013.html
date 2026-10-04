@@ -105,7 +105,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
 .wallbox.won .wall-word{color:var(--lavender-deep);transform:scale(1.08)}
 .wallbox.won .wemoji{display:inline-block}
 .bricks{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:6px;padding:8px;pointer-events:none}
-.brick{border-radius:10px;background:linear-gradient(135deg,#d9825f,#e9967a);box-shadow:inset 0 -6px 0 rgba(45,52,54,.16),0 4px 10px rgba(45,52,54,.22);transition:all .45s cubic-bezier(.34,1.2,.5,1)}
+.brick{border-radius:10px;background:linear-gradient(135deg,#d9825f,#e9967a);box-shadow:inset 0 -6px 0 rgba(45,52,54,.16),0 4px 10px rgba(45,52,54,.22);transition:all .45s cubic-bezier(.34,1.2,.5,1);display:grid;place-items:center;font-family:'Fredoka',sans-serif;font-weight:700;color:rgba(255,255,255,.85);font-size:clamp(.9rem,1.8vw,1.4rem);text-shadow:0 2px 4px rgba(45,52,54,.3)}
 .brick.off{opacity:0;transform:translateY(70px) rotate(14deg)}
 /* --- the two-screen silly game --- */
 .bigboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(.6em,1.4vw,1.1em);width:100%;flex:1;align-content:center}
@@ -185,12 +185,26 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
 #log-bar{position:fixed;bottom:2.4vh;left:50%;transform:translateX(-50%);z-index:90}
 .log-pill{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.85rem,1.3vw,1.05rem);border:none;cursor:pointer;border-radius:99px;padding:.5em 1.1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);box-shadow:0 8px 22px rgba(45,52,54,.16);color:var(--ink);transition:transform .15s ease}
 .log-pill:hover{transform:scale(1.05)}
-#logpanel .log-row{display:flex;gap:.6em;align-items:center;font-family:'Fredoka';font-weight:600;font-size:clamp(1.1rem,2vw,1.5rem);margin-bottom:.5em}
-#logpanel .tick{cursor:pointer;font-size:1.3em}
-#logpanel textarea{width:100%;min-height:6.5em;border:2px solid rgba(200,182,255,.6);border-radius:14px;padding:.6em .8em;font-family:'Nunito',sans-serif;font-size:clamp(1rem,1.6vw,1.25rem);resize:vertical;background:var(--white)}
-#logpanel .chips{display:flex;gap:.45em;margin:.4em 0 .6em;flex-wrap:wrap;align-items:center}
-#logpanel .chip{font-family:'Fredoka';font-weight:600;border:none;cursor:pointer;border-radius:99px;padding:.3em .85em;background:#f1ecff;box-shadow:0 3px 8px rgba(45,52,54,.12);color:var(--ink);font-size:clamp(.85rem,1.3vw,1.05rem)}
-#logpanel .chip:hover{transform:translateY(-2px)}
+/* ✍️ v2 window — top right, the d: · //: · free column (04.10) */
+#log-btn{position:fixed;right:max(10px,1.6vw);top:calc(10px + .8vh);z-index:110}
+#logpanel{position:fixed;right:max(10px,1.6vw);top:calc(60px + 1.2vh);z-index:210;width:min(440px,92vw);background:#fff;border-radius:18px;box-shadow:0 18px 44px rgba(30,30,40,.28);padding:.9em 1em;display:none;flex-direction:column;gap:.5em}
+#logpanel.open{display:flex}
+#logpanel .closer{position:absolute;right:.6em;top:.5em;border:none;background:none;cursor:pointer;font-size:1rem;color:var(--ink-soft)}
+#logpanel .a-head{display:flex;align-items:center;gap:.45em;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.9rem,1.5vw,1.1rem);padding-right:1.7em}
+#logpanel .a-sp{flex:1}
+#logpanel #logrow{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#logpanel #logtick2.on{background:var(--mint);color:#fff}
+#logpanel .arow{display:flex;gap:.5em;align-items:center}
+#logpanel .arow label{flex:0 0 3.1em;text-align:right;font-family:ui-monospace,Menlo,monospace;font-weight:800;font-size:.9rem;color:var(--ink-soft)}
+#logpanel .arow input{flex:1;min-width:0;border:2px solid #d8dee6;border-radius:10px;padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;background:#fff}
+#logpanel .arow input:focus{outline:none;border-color:#a78bfa}
+#logpanel .arow.free{margin-top:.2em}
+#logpanel .arow.free input{border-style:dashed}
+#logpanel .arow.free input::placeholder{color:#9aa7b3;font-style:italic}
+#logpanel .a-foot{display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
+#logpanel .a-foot .hintline{flex:1;min-width:4em;font-size:.72rem}
+#logrep .rep-card{background:#fff;border-radius:18px;padding:1.1em 1.2em;display:flex;flex-direction:column;gap:.7em;width:min(560px,92vw);box-shadow:0 18px 44px rgba(30,30,40,.3)}
+#logrep textarea{width:100%;min-height:220px;border:2px solid #d8dee6;border-radius:12px;padding:.5em .65em;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;background:#fff;resize:vertical}
 /* --- recorder report --- */
 #rec-card{display:none;margin-top:.9em;background:rgba(255,255,255,.93);border-radius:18px;padding:.8em 1.1em;box-shadow:var(--shadow);text-align:center}
 #rec-card.show{display:block}
@@ -209,7 +223,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
 <body>
 
 <div id="progress-track"><div id="progress-fill"></div></div>
-<div id="stamp">build 04.10 · v4</div>
+<div id="stamp">build 04.10 · v6</div>
 
 <main id="deck">
 
@@ -273,6 +287,8 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
       <div class="card peach" style="flex:1;min-width:260px">
         <h2>✍️ Tom and the Ball on the Wall</h2>
         <p class="mt">Which gap made you <b>think the longest</b>? 🧠</p>
+        <div class="mt"><button class="mini-btn" id="bk-btn">answers ▾</button>
+        <p class="hintline" id="bk-line" style="display:none;margin-top:.3em">1 has · 2 goes · 3 talks · 4 walk · 5 watches · 6 flies · 7 wants · 8 like · 9 play · 10 cries · 11 hurt</p></div>
         <p class="mt">The reading video — done? 📖</p>
       </div>
     </div>
@@ -350,7 +366,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     <div class="row reveal" style="justify-content:center;align-items:center;gap:clamp(.8rem,3vw,2em);flex:1;flex-wrap:nowrap;min-width:0">
       <span class="sticker hero-where"><span class="wq">When?</span></span>
       <span class="thumb" style="font-size:clamp(3rem,7.5vw,6.2rem)">🕐</span>
-      <span class="sticker" style="font-size:clamp(1.5rem,3.8vw,2.9rem)">when → ten! 🔟</span>
+      <span class="sticker" style="font-size:clamp(1.5rem,3.8vw,2.9rem)">When → at ten! 🕐</span>
     </div>
 
     <div class="row glass reveal" style="max-width:1080px;margin:0 auto 1em;width:100%;justify-content:center;gap:1em;padding:.7em;border-radius:20px;flex-wrap:wrap">
@@ -392,6 +408,9 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
       <span class="model-line" style="margin:0"><span class="hlp">ph</span>one → a <b class="key">phone</b>! 📞</span>
       <span class="model-line" style="margin:0"><span class="hlp">ph</span>oto → a <b class="key">photo</b>! 📸</span>
       <span class="model-line" style="margin:0">ele<span class="hlp">ph</span>ant → an <b class="key">elephant</b>! 🐘</span>
+    </div>
+    <div class="row glass reveal" style="max-width:1080px;margin:0 auto .6em;width:100%;justify-content:center;padding:.6em;border-radius:20px;flex-wrap:wrap">
+      <span class="model-line" style="margin:0">🐘 An elephant took a <b class="key">ph</b>oto of a dol<b class="key">ph</b>in with a <b class="key">ph</b>one! 📸</span>
     </div>
     <p class="task reveal" style="display:block;text-align:center">Read with me ×3 — faster! phone · photo · elephant! 🎯</p>
   </section>
@@ -610,6 +629,19 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
 
   <!-- THE ✍️ LESSON LOG -->
 
+<!-- the report card -->
+<div id="logrep" class="overlay" style="align-items:center;justify-content:center">
+  <span class="closer" data-close="logrep">✕ close</span>
+  <div class="rep-card">
+    <b style="font-family:'Fredoka',sans-serif">lesson report</b>
+    <textarea id="logrep-text" readonly></textarea>
+    <div style="display:flex;gap:.6em;align-items:center">
+      <button class="mini-btn" id="logrep-copy">copy</button>
+      <button class="mini-btn" id="logrep-clear" title="delete all ticks and comments">🧹 clear</button>
+      <span class="hintline" id="logsent" style="margin-left:auto"></span>
+    </div>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -645,10 +677,12 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
         pardonEl=document.getElementById('pardon'),
         logpanel=document.getElementById('logpanel');
   document.addEventListener('keydown', e=>{
+    /* ⌘S / Ctrl+S = save + close while the notes window is open — the one combo we own */
+    if((e.metaKey||e.ctrlKey)&&(e.key==='s'||e.key==='S')&&logpanel.classList.contains('open')){ e.preventDefault(); logDoneClose(); return }
     if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
-    const anyOpen = tnotes.classList.contains('open')||tpad.classList.contains('open')||pardonEl.classList.contains('open')||(logpanel&&logpanel.classList.contains('open'))||(writeEl&&writeEl.classList.contains('open'));
+    const anyOpen = tnotes.classList.contains('open')||tpad.classList.contains('open')||pardonEl.classList.contains('open')||(logpanel&&logpanel.classList.contains('open'))||(writeEl&&writeEl.classList.contains('open'))||(logrepEl&&logrepEl.classList.contains('open'));
     if(anyOpen){
-      if(e.key==='Escape'){ tnotes.classList.remove('open'); tpad.classList.remove('open'); pardonEl.classList.remove('open'); if(logpanel)logpanel.classList.remove('open'); if(writeEl)writeEl.classList.remove('open'); }
+      if(e.key==='Escape'){ tnotes.classList.remove('open'); tpad.classList.remove('open'); pardonEl.classList.remove('open'); if(logpanel)logpanel.classList.remove('open'); if(writeEl)writeEl.classList.remove('open'); if(logrepEl)logrepEl.classList.remove('open'); }
       return;
     }
     if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
@@ -661,6 +695,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
       case 'f': case 'F': case 'а': case 'А': toggleFs(); break;
       case 't': case 'T': case 'е': case 'Е': if(current===14) togglePad(); else toggleNotes(); break;
       case 'c': case 'C': case 'с': case 'С': toggleLog(); break;
+      case 'n': case 'N': case 'т': case 'Т': toggleLog(); break;
       case 'p': case 'P': case 'з': case 'З': togglePardon(); break;
       case 'Escape': if(document.fullscreenElement) document.exitFullscreen?.(); break;
     }
@@ -791,27 +826,29 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     ['🚶','walk like a robot?','stiff legs! beep!'],
     ['🐘','walk like an elephant?','stomp, stomp!'],
     ['📸','take a photo?','click! say cheese!'],
-    ['🐬','jump like a dolphin?','splash!'
-    ]
+    ['🐬','jump like a dolphin?','splash!'],
+    ['📺','Why do you watch TV?',"Because it's fun!",'w'],
+    ['🍫','Why do you eat chocolate?',"Because it's sweet!",'w']
   ];
   const mimeGrid=document.getElementById('mime-grid');
   function renderMimes(){
     const pool=BANK.slice();
     for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
-    mimeGrid.innerHTML=pool.slice(0,10).map(([ico,q,m])=>
-      '<div class="model-line" style="margin:0;font-size:clamp(.95rem,1.65vw,1.35rem);padding:.4em .7em;line-height:1.4">'+ico+' <span class="hlp">How do you</span> '+q+' — <span class="gap">'+m+'</span></div>'
-    ).join('');
+    mimeGrid.innerHTML=pool.slice(0,10).map(function(r){
+      var ico=r[0],q=r[1],m=r[2],f=r[3];
+      return '<div class="model-line" style="margin:0;font-size:clamp(.95rem,1.65vw,1.35rem);padding:.4em .7em;line-height:1.4">'+ico+' '+(f?'':'<span class="hlp">How do you</span> ')+q+' — <span class="gap">'+m+'</span></div>';
+    }).join('');
   }
   document.getElementById('dice-btn').addEventListener('click', renderMimes);
   renderMimes();
 
   /* --- knock the wall: the ph edition --- */
   const WALL_WORDS=[
-    ['p','hone','📞'],
-    ['p','hoto','📸'],
-    ['ele','phant','🐘'],
-    ['dol','phin','🐬'],
-    ['al','phabet','🔤']
+    ['phone','ph','📞'],
+    ['photo','ph','📸'],
+    ['elephant','ph','🐘'],
+    ['dolphin','ph','🐬'],
+    ['alphabet','ph','🔤']
   ];
   function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
   let wallDeck=shuffle(WALL_WORDS.slice()), wi=-1;
@@ -821,10 +858,10 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     if(wi>=wallDeck.length){ wallDeck=shuffle(WALL_WORDS.slice()); wi=0; }
     const w=wallDeck[wi];
     wallbox.classList.remove('won');
-    document.getElementById('wall-word').innerHTML=w[0]+'<span class="chunk">'+w[1]+'</span><span class="wemoji"> '+w[2]+'</span>';
+    document.getElementById('wall-word').innerHTML=w[0].replace(w[1],'<span class="chunk">'+w[1]+'</span>')+'<span class="wemoji"> '+w[2]+'</span>';
     const bricks=document.getElementById('bricks');
     bricks.innerHTML='';
-    for(let i=0;i<6;i++){ const b=document.createElement('div'); b.className='brick'; bricks.appendChild(b); }
+    for(let i=0;i<6;i++){ const b=document.createElement('div'); b.className='brick'; b.textContent=w[1]; bricks.appendChild(b); }
   }
   function knockOne(){
     const b=wallbox.querySelector('.brick:not(.off)');
@@ -837,6 +874,13 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   nextWall();
 
   /* --- revision hint: closed by default --- */
+  const bkBtn=document.getElementById('bk-btn');
+  if(bkBtn) bkBtn.addEventListener('click', function(){
+    const l=document.getElementById('bk-line');
+    const open=l.style.display!=='none';
+    l.style.display=open?'none':'block';
+    this.textContent=open?'answers ▾':'answers ▴';
+  });
   document.getElementById('rule-btn').addEventListener('click', function(){
     const l=document.getElementById('rule-line');
     const open=l.style.display!=='none';
@@ -1022,15 +1066,11 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
     if(!row) return;
     const rec2=o[n]||{};
     const t=slides[n].querySelector('h1.title');
-    row.innerHTML='<span class="tick" id="logtick" style="cursor:pointer">'+(rec2.done?'✅':'⬜')+'</span><span><b>Slide '+(n+1)+'</b> — '+(t?t.textContent:'')+'</span>';
-    document.getElementById('logtick').onclick=()=>{
-      const s=logStore(); s[logCur]=s[logCur]||{}; s[logCur].done=!s[logCur].done; logSave(s);
-      logGoto(logCur,false); logAutoSend();
-    };
-    const ta=document.getElementById('lognote');
-    ta.value=rec2.note||'';
-    ta.oninput=()=>{ const s=logStore(); s[n]=s[n]||{}; s[n].note=ta.value; logSave(s); logAutoSend(); };
-    document.getElementById('logpos').textContent=(n+1);
+    row.innerHTML='<b>Slide '+(n+1)+' / '+total+'</b> — '+(t?t.textContent:'');
+    if(rec2.note&&!rec2.free)rec2.free=rec2.note;
+    const dEl=document.getElementById('annoD'),slEl=document.getElementById('annoSL'),fEl=document.getElementById('annoF');
+    if(dEl)dEl.value=rec2.d||''; if(slEl)slEl.value=rec2.sl||''; if(fEl)fEl.value=rec2.free||'';
+    const tk=document.getElementById('logtick2'); if(tk)tk.classList.toggle('on',!!rec2.done);
     if(openPanel) logpanel.classList.add('open');
   }
   function toggleLog(){
@@ -1044,20 +1084,33 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   const logPrev=document.getElementById('logprev'), logNext=document.getElementById('lognext');
   if(logPrev) logPrev.addEventListener('click', ()=>logGoto(Math.max(0,logCur-1),false));
   if(logNext) logNext.addEventListener('click', ()=>logGoto(Math.min(total-1,logCur+1),false));
-  document.querySelectorAll('#logpanel .chip').forEach(ch=>{
-    ch.addEventListener('click', ()=>{
-      const ta=document.getElementById('lognote');
-      if(!ta) return;
-      ta.value=(ta.value?ta.value+' ':'')+ch.dataset.ins+' ';
-      ta.focus();
-      const s=logStore(); s[logCur]=s[logCur]||{}; s[logCur].note=ta.value; logSave(s);
-    });
+  /* the v2 column wires (d: · //: · free) + Done ⌘S + the report card */
+  const logrepEl=document.getElementById('logrep');
+  ['d','sl','free'].forEach(k=>{
+    const el=document.getElementById(k==='d'?'annoD':(k==='sl'?'annoSL':'annoF'));
+    if(el) el.addEventListener('input',()=>{ const s=logStore(); s[logCur]=s[logCur]||{}; s[logCur][k]=el.value; logSave(s); logAutoSend(); });
   });
+  const logtick2=document.getElementById('logtick2');
+  if(logtick2) logtick2.onclick=()=>{ const s=logStore(); s[logCur]=s[logCur]||{}; s[logCur].done=!s[logCur].done; logSave(s); logAutoSend(); logGoto(logCur,false); };
+  function logDoneClose(){
+    logSave(logStore());
+    const h=document.getElementById('loghint');
+    if(h){h.textContent='saved ✓'; setTimeout(()=>{h.textContent=/^https?:$/.test(location.protocol)?'auto-sends to the Mac · she sees the screen while you type':'saves on this device · she sees the screen while you type'},1400)}
+    logpanel.classList.remove('open');
+  }
+  const logdoneBtn=document.getElementById('logdone');
+  if(logdoneBtn) logdoneBtn.addEventListener('click', logDoneClose);
+  const loghintEl=document.getElementById('loghint');
+  if(loghintEl) loghintEl.textContent=/^https?:$/.test(location.protocol)?'auto-sends to the Mac · she sees the screen while you type':'saves on this device · she sees the screen while you type';
   function buildReport(){
     const o=logStore();
     let out='✍️ '+DECK_ID+' · lesson log · '+new Date().toLocaleString('en-GB')+'\n';
     let any=false;
-    slides.forEach((s,i)=>{ const r=o[i]; if(r&&(r.done||r.note)){ out+='· s'+(i+1)+(r.done?' ✓':'')+(r.note?' — '+r.note:'')+'\n'; any=true; } });
+    slides.forEach((s,i)=>{ const r=o[i]; if(!r) return;
+      const free=r.free||r.note||''; const rows=[];
+      if(r.d)rows.push('d: '+r.d); if(r.sl)rows.push('//: '+r.sl); if(free)rows.push(free);
+      if(!r.done&&!rows.length) return;
+      out+='· s'+(i+1)+(r.done?' ✓':'')+'\n'+rows.map(x=>'   '+x).join('\n')+'\n'; any=true; });
     const wv=Object.keys(WORDV);
     if(wv.length){ out+='WORDS CHECK · '+wv.map(w=>w+' '+WORDV[w]).join(' · ')+'\n'; any=true; }
     if(!any) out+='(nothing ticked or noted yet)\n';
@@ -1065,8 +1118,13 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   }
   const logCopy=document.getElementById('logcopy');
   if(logCopy) logCopy.addEventListener('click', ()=>{
-    copyText(buildReport());
+    document.getElementById('logrep-text').value=buildReport();
+    logrepEl.classList.add('open');
   });
+  const logrepCopy=document.getElementById('logrep-copy');
+  if(logrepCopy) logrepCopy.addEventListener('click', ()=>{ copyText(document.getElementById('logrep-text').value); logrepCopy.textContent='✓ copied'; setTimeout(()=>logrepCopy.textContent='copy',1200); });
+  const logrepClear=document.getElementById('logrep-clear');
+  if(logrepClear) logrepClear.addEventListener('click', ()=>{ try{localStorage.removeItem('log-'+DECK_ID)}catch(e){} logGoto(logCur,false); logrepEl.classList.remove('open'); });
   let logT=null;
   function logAutoSend(){
     if(!/^https?:$/.test(location.protocol)) return;
