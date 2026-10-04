@@ -83,6 +83,7 @@ button.big.stamp{background:linear-gradient(135deg,var(--stamp),var(--cheese))}
   font-size:clamp(1rem,1.7vw,1.25rem);margin-top:.1em}
 .gal .g.rev{border-color:var(--cheese);background:var(--cheese-soft)}
 .gal .g.rev .nm{display:block}
+.gal .g img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block}
 
 /* ---------- the timed test (hwdt) ---------- */
 #test{display:flex;flex-direction:column;gap:1em}
@@ -309,20 +310,20 @@ WORDS13.forEach(x=>{
 
 /* ====== the dictation ten (picture → word, click to check) ====== */
 const TEN=[
- {i:'🥽',w:'goggles'},{i:'🗄️',w:'shelf'},{i:'🥼',w:'apron'},{i:'💥',w:'explosion'},
+ {i:'🥽',w:'goggles'},{img:'media/hw-shelf.jpg',w:'shelf'},{img:'media/hw-apron.jpg',w:'apron'},{i:'💥',w:'explosion'},
  {i:'🫧',w:'bubbles'},{i:'💧',w:'liquid'},{i:'📋',w:'instructions'},{i:'🧪',w:'test tube'},
- {i:'⚪🥄',w:'powder'},{i:'🧤',w:'gloves'}
+ {img:'media/hw-powder.jpg',w:'powder'},{i:'🧤',w:'gloves'}
 ];
 const gal=document.getElementById('gal');
 TEN.slice().sort(()=>Math.random()-.5).forEach(x=>{
   const d=document.createElement('div');d.className='g';
-  d.innerHTML='<div class="ico">'+x.i+'</div><div class="nm">'+x.w+'</div>';
+  d.innerHTML=(x.img?'<img src="'+x.img+'" alt="'+x.w+'">':'<div class="ico">'+x.i+'</div>')+'<div class="nm">'+x.w+'</div>';
   d.onclick=()=>d.classList.toggle('rev');
   gal.appendChild(d);
 });
 
 /* ====== the timed test (THE HWDT RULE: one card one item · loyal timer · shuffle · misses re-enter) ====== */
-const R_WORDS=TEN.map(x=>({k:'w',cue:x.i+'  '+({goggles:'you wear them over your eyes in the lab',
+const R_WORDS=TEN.map(x=>({k:'w',cue:(x.i?x.i+'  ':'')+({goggles:'you wear them over your eyes in the lab',
  shelf:'things stand on it, up on the wall',apron:'you wear it over your clothes so they stay clean',
  explosion:'a very loud bang',bubbles:'little balls of air inside a liquid',liquid:'you can pour it, like water',
  instructions:'the lines that tell you what to do','test tube':'the little glass tube for experiments',
