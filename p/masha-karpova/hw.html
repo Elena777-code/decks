@@ -617,9 +617,8 @@ function sendViaForm(txt){
   var inp=document.createElement("input");
   inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
   f.appendChild(inp);
-  var sub=document.createElement("input");
-  sub.type="hidden";sub.name="submit";sub.value="Submit";
-  f.appendChild(sub);
+  /* no input name="submit" — it shadows f.submit and kills the flush
+     (the v9 lesson; Pasha's page runs the clean pattern) */
   document.body.appendChild(f);
   f.submit();
   setTimeout(function(){f.remove();frame.remove();},15000);
