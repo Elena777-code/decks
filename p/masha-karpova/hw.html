@@ -182,7 +182,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <div class="one-line" id="end-rows"></div>
     <div class="remember hidden" id="end-remember"></div>
     <div class="sent" id="sent-line"></div>
-    <div><button class="copy-btn" id="copy-btn">📋 Copy the report for Elena</button></div>
+    <div class="sent" id="report-sent"></div>
     <div><button class="again-btn" id="again-btn">🔁 Fresh set</button></div>
   </div>
 
@@ -283,13 +283,11 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
 (function(){
 "use strict";
 
-/* === ELENA: Mashulik's reports do NOT go to the shared «Drill reports»
-   form (that sheet is KB1's — Elena, 05.10: «I don't want Mashulik's
-   answers to drop in KB1 report»). When HER OWN Google Form exists, paste
-   its formResponse link + entry here — auto-send switches on by itself,
-   and the queue waiting in her browser flushes to her own sheet. === */
-var FORM_ACTION="";
-var FORM_ENTRY="entry.000000";
+/* Wired 2026-10-05 (night) to Masha K.'s OWN form «Mashulik» (Elena's
+   link, test-POST-verified) — auto-send on, the queue waiting in her
+   browser flushes to her own sheet on the next run. */
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSes5aESy1eVaZIKQljbhK1XKlpXhqmpmN3hprsv7o1tGEeZiA/formResponse";
+var FORM_ENTRY="entry.1570749775";
 
 /* ================= POOLS — they grow with the course =================
    Born 2026-09-28 with the LIVE tracker rows only (rr-in-the-game rule).
@@ -602,6 +600,7 @@ function finish(){
     localStorage.setItem("mashak-hw-queue",JSON.stringify(q));
   }catch(e){}
   flushQueue();
+  $("report-sent").textContent=FORM_ACTION?("sent to Elena ✅"):"";
   show("end-card");
   window.scrollTo(0,0);
 }
@@ -632,23 +631,6 @@ function flushQueue(){
   try{localStorage.setItem("mashak-hw-queue","[]");}catch(e){}
 }
 flushQueue();
-
-/* ---------- copy button (works without the form) ---------- */
-$("copy-btn").addEventListener("click",function(){
-  var txt;
-  try{txt=localStorage.getItem("mashak-hw-last")||reportText();}catch(e){txt=reportText();}
-  function done(){$("copy-btn").textContent="✅ Copied — now paste it to Elena";
-    setTimeout(function(){$("copy-btn").textContent="📋 Copy the report for Elena";},2500);}
-  if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(txt).then(done,function(){fallback();});
-  }else fallback();
-  function fallback(){
-    var ta=document.createElement("textarea");
-    ta.value=txt;document.body.appendChild(ta);ta.select();
-    try{document.execCommand("copy");done();}catch(e){}
-    ta.remove();
-  }
-});
 
 /* ---------- best/runs on the start card ---------- */
 try{
