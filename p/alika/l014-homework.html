@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alika's homework · Lesson 14</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A; --lavender:#C8B6FF;
+  --lavender-deep:#9a7fff; --cream:#FFF8F0; --ink:#2D3436; --ink-soft:#636e72;
+  --pink:#FF8FAB; --white:#fff;
+  --shadow:0 10px 30px rgba(45,52,54,.12); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--cream);padding:3vh 4vw 8vh;-webkit-font-smoothing:antialiased}
+header{max-width:1000px;margin:0 auto 1.6em}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.2vw,.95rem);color:var(--lavender-deep)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,4vw,3rem);line-height:1.1;margin-top:.2em}
+.sub{font-size:clamp(1rem,1.7vw,1.3rem);color:var(--ink-soft);margin-top:.3em}
+.accent{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--lavender));margin-top:.8em}
+main{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:1.6em}
+.part{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1.1rem,2.4vw,2rem)}
+.part.small{padding:clamp(.9rem,1.8vw,1.4rem);background:#eafbf6}
+.part h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.25rem,2.6vw,2rem);display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
+.ptask{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(1rem,1.8vw,1.35rem);background:#fff8db;border-radius:14px;padding:.55em 1em;display:inline-block;margin:.7em 0 .4em}
+.ptask::before{content:"🎯 "}
+/* d: cards */
+.dcard{background:var(--cream);border-radius:16px;box-shadow:0 5px 12px rgba(45,52,54,.08);padding:.9em 1.1em;margin-top:.6em}
+.dcard .dw{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--lavender-deep)}
+.dcard .dru{font-size:clamp(1.05rem,1.9vw,1.4rem);margin-top:.15em}
+.dcard .dru b{color:#d6336c}
+.dcard .den{font-size:clamp(1rem,1.8vw,1.3rem);color:var(--ink-soft);margin-top:.15em;font-style:italic}
+.dcard .dex{font-size:clamp(1rem,1.8vw,1.3rem);margin-top:.3em;line-height:1.55}
+.dcard .dex b{color:#2a9d8f}
+/* reveal rows (the dictation words) */
+.wq{display:flex;align-items:baseline;gap:.35em;flex-wrap:wrap;padding:.5em .2em;border-bottom:2px dotted rgba(200,182,255,.5);font-size:clamp(1.1rem,2vw,1.55rem);cursor:pointer}
+.wq .qn{font-family:'Fredoka';font-weight:700;color:var(--lavender-deep)}
+.wq .ans{display:inline-block;min-width:6.5em;border-bottom:3px solid var(--mint-deep);text-align:center;color:transparent;transition:all .2s;font-family:'Fredoka',sans-serif;font-weight:600;border-radius:4px 4px 0 0}
+.wq.shown .ans{color:var(--lavender-deep);background:#f1ecff;border-color:var(--lavender)}
+.wq .wemoji{font-size:1.15em}
+/* the big link card */
+.biglink{display:block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.1rem,2.2vw,1.6rem);color:var(--ink);background:linear-gradient(135deg,#eafbf6,#f1ecff);border-radius:18px;padding:1em 1.3em;text-decoration:none;box-shadow:0 8px 20px rgba(45,52,54,.12);margin-top:.6em}
+.biglink:hover{transform:translateY(-2px)}
+.biglink small{display:block;font-family:'Nunito';font-weight:600;color:var(--ink-soft);font-size:.72em;margin-top:.25em}
+/* done chips */
+.chips{display:flex;gap:.7em;flex-wrap:wrap;margin-top:.7em}
+.dchip{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.6vw,1.2rem);border:none;cursor:pointer;border-radius:99px;padding:.5em 1.1em;background:var(--white);box-shadow:0 5px 14px rgba(45,52,54,.12);color:var(--ink-soft);transition:all .15s ease}
+.dchip:hover{transform:translateY(-2px)}
+.dchip.done{background:linear-gradient(135deg,var(--mint),var(--lavender));color:var(--ink)}
+/* report */
+.report{background:linear-gradient(135deg,#eafbf6,#f1ecff)}
+.report .rep-line{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.8vw,1.35rem);margin:.25em 0}
+.report .btns{display:flex;gap:.7em;flex-wrap:wrap;margin-top:.8em}
+.rbtn{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.6vw,1.25rem);color:var(--ink);background:var(--white);border:none;border-radius:99px;padding:.5em 1.2em;cursor:pointer;box-shadow:0 6px 16px rgba(45,52,54,.15);text-decoration:none}
+.rbtn:hover{transform:translateY(-2px)}
+footer{max-width:1000px;margin:2em auto 0;text-align:center;color:var(--ink-soft);font-size:clamp(.85rem,1.4vw,1.1rem)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Alika · English · Lesson 14</div>
+  <h1>📝 Homework · Lesson 14</h1>
+  <div class="sub">доска от 27 сентября 🏡 · алфавит 🔤 · готовимся к диктанту ✍️ · новое слово 🌳</div>
+  <div class="accent"></div>
+</header>
+
+<main>
+
+  <!-- PART 1 · THE SEPTEMBER BOARD -->
+  <section class="part small" id="p1">
+    <h2>🏡 Доска «Homework · September the 27th»</h2>
+    <p class="ptask">Открой доску и сделай ВСЁ с неё — мы её проверим на уроке!</p>
+    <a class="biglink" href="l012-homework.html">👉 Homework · September the 27th<small>треки ·Starters · текст · скобки — всё на одной доске</small></a>
+    <div class="chips" id="ch1">
+      <button class="dchip" data-k="sept">Сделала ✓</button>
+    </div>
+  </section>
+
+  <!-- PART 2 · THE ALPHABET -->
+  <section class="part" id="p2">
+    <h2>🔤 Алфавит — по порядку!</h2>
+    <p class="ptask">Пропой алфавит по порядку: A, B, C… до Z! Рэп живёт на доске от 27 сентября 🎤</p>
+    <div class="wq" id="az"><span class="qn">Проверь себя — нажми:</span><span class="ans">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</span></div>
+    <div class="chips" id="ch2">
+      <button class="dchip" data-k="alphabet">Пропела без запинки ✓</button>
+    </div>
+  </section>
+
+  <!-- PART 3 · DICTATION PREP -->
+  <section class="part" id="p3">
+    <h2>✍️ Готовимся к диктанту — 5 слов</h2>
+    <p class="ptask">Посмотри → прочитай вслух → закрой рукой → напиши в тетрадь → нажми и проверь!</p>
+    <div class="wq"><span class="qn">1</span> <span class="wemoji">🔢</span> fourteen <span style="flex:1"></span><span class="ans">fourteen</span></div>
+    <div class="wq"><span class="qn">2</span> <span class="wemoji">🔢</span> forty <span style="flex:1"></span><span class="ans">forty</span></div>
+    <div class="wq"><span class="qn">3</span> <span class="wemoji">💯</span> one hundred <span style="flex:1"></span><span class="ans">one hundred</span></div>
+    <div class="wq"><span class="qn">4</span> <span class="wemoji">✂️</span> scissors <span style="flex:1"></span><span class="ans">scissors</span></div>
+    <div class="wq"><span class="qn">5</span> <span class="wemoji">🪵</span> board <span style="flex:1"></span><span class="ans">board</span></div>
+    <p class="exline" style="font-family:'Fredoka';font-size:clamp(.95rem,1.6vw,1.25rem);color:var(--ink-soft);background:#fff8db;border-radius:12px;padding:.5em .9em;margin:.6em 0 .2em">💡 forty-three · seventy-five — через <b>дефис</b>! Числа 21–99 пишутся с чёрточкой.</p>
+    <div class="chips" id="ch3">
+      <button class="dchip" data-k="words">Все 5 слов написаны ✓</button>
+    </div>
+  </section>
+
+  <!-- PART 4 · THE NEW WORD -->
+  <section class="part" id="p4">
+    <h2>🌳 Новое слово — просто посмотри!</h2>
+    <p class="ptask">Прочитай карточку два раза. Ничего не списываем — просто знакомимся!</p>
+    <div class="dcard">
+      <span class="dw">tree <span style="font-size:.55em">🌳</span></span>
+      <div class="den">a tall green plant with a trunk — деревья в парке!</div>
+      <div class="dex"><b>The trees are green.</b> — так было в тесте! 🌳</div>
+      <div class="dex"><b>A bird is in the tree.</b> 🐦</div>
+      <div class="dru" style="margin-top:.35em"><span style="cursor:pointer;border-bottom:3px solid var(--mint-deep);padding:0 .4em" onclick="this.textContent='дерево 🌳'">перевод — нажми, если хочешь</span></div>
+    </div>
+    <div class="chips" id="ch4">
+      <button class="dchip" data-k="tree">Прочитала 2 раза ✓</button>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="part report" id="p5">
+    <h2>📊 My results</h2>
+    <div class="rep-line" id="rep-line">Отметь галочками, что сделано! ⭐</div>
+    <div class="btns">
+      <a class="rbtn" id="tg-send" href="#">📨 Send results to Miss Elena</a>
+      <button class="rbtn" id="copy-btn">📋 Copy</button>
+    </div>
+  </section>
+
+</main>
+
+<footer>Увидимся на уроке! 🎀</footer>
+
+<script>
+(function(){
+  "use strict";
+  var DONE={};
+  try{ DONE=JSON.parse(localStorage.getItem('alika-hw-l014-done')||'{}'); }catch(e){}
+  function save(){ try{ localStorage.setItem('alika-hw-l014-done',JSON.stringify(DONE)); }catch(e){} report(); }
+  document.querySelectorAll('.dchip').forEach(function(ch){
+    if(DONE[ch.dataset.k]) ch.classList.add('done');
+    ch.addEventListener('click',function(){
+      DONE[ch.dataset.k]=!DONE[ch.dataset.k];
+      ch.classList.toggle('done',!!DONE[ch.dataset.k]);
+      save();
+    });
+  });
+  document.getElementById('az').addEventListener('click',function(){ this.classList.add('shown'); });
+  document.querySelectorAll('.wq .ans').forEach(function(a){
+    a.closest('.wq').addEventListener('click',function(){ this.classList.toggle('shown'); });
+  });
+  var NAMES={sept:'Доска 27 сентября',alphabet:'Алфавит по порядку',words:'5 слов к диктанту',tree:'Новое слово tree'};
+  function report(){
+    var keys=Object.keys(NAMES).filter(function(k){return DONE[k];});
+    document.getElementById('rep-line').textContent = keys.length
+      ? '⭐ Сделано: '+keys.length+' из 4 — '+keys.map(function(k){return NAMES[k];}).join(' · ')
+      : 'Отметь галочками, что сделано! ⭐';
+  }
+  function reportText(){
+    var keys=Object.keys(NAMES).filter(function(k){return DONE[k];});
+    return "Alika · homework L14\n"+ (keys.length
+      ? "Сделано: "+keys.length+"/4\n• "+keys.map(function(k){return NAMES[k];}).join("\n• ")
+      : "Пока ничего не отмечено");
+  }
+  var tg=document.getElementById('tg-send');
+  tg.addEventListener('click',function(e){
+    e.preventDefault();
+    window.location.href='tg://msg?text='+encodeURIComponent(reportText());
+  });
+  document.getElementById('copy-btn').addEventListener('click',function(){
+    var txt=reportText();
+    var done=function(){ this.textContent='📋 Copied!'; var b=this; setTimeout(function(){b.textContent='📋 Copy';},1500); }.bind(this);
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done,function(){}); }
+    else{
+      var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta);
+      ta.select(); try{document.execCommand('copy'); done();}catch(e){} ta.remove();
+    }
+  });
+  report();
+})();
+</script>
+</body>
+</html>
