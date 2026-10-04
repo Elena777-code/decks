@@ -198,17 +198,18 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
 #rec-line{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.25rem);margin-top:.15em}
 #rec-sent{font-weight:800;color:var(--mint-deep);margin-top:.25em;font-size:clamp(.95rem,1.5vw,1.15rem)}
 #rec-copy{display:none;margin-top:.5em;font-family:'Fredoka',sans-serif;font-weight:600;font-size:1rem;border:none;border-radius:99px;padding:.5em 1.3em;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.14);cursor:pointer}
-/* THE CORNERS (Elena, 01.10): notes → top-left · Pardon → top-right — every deck */
-#pardon-bar{top:2.4vh;bottom:auto;left:auto;right:max(10px,1.6vw)}
-#tnotes-btn{position:fixed;top:2.4vh;left:max(10px,1.6vw);z-index:95}
-#stamp{position:fixed;top:calc(2.4vh + .55em);right:calc(max(10px,1.6vw) + 8.4em);z-index:89;font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.72rem,1.1vw,.9rem);color:var(--ink-soft);background:rgba(255,255,255,.7);border-radius:99px;padding:.3em .8em;backdrop-filter:blur(8px)}
+/* THE CORNERS v2 (Elena, 04.10): Pardon → top-left · ✍️ log → top-right · 🗒 notes → bottom centre — the last line under the slide */
+#pardon-bar{top:2.4vh;bottom:auto;left:max(10px,1.6vw);right:auto}
+#log-bar{top:2.4vh;bottom:auto;left:auto;right:max(10px,1.6vw);transform:none}
+#tnotes-btn{position:fixed;top:auto;bottom:2.4vh;left:50%;transform:translateX(-50%);z-index:95}
+#stamp{position:fixed;top:calc(2.4vh + .55em);right:calc(max(10px,1.6vw) + 5.6em);z-index:89;font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.72rem,1.1vw,.9rem);color:var(--ink-soft);background:rgba(255,255,255,.7);border-radius:99px;padding:.3em .8em;backdrop-filter:blur(8px)}
 @media(max-width:900px){ .row{flex-direction:column} .judges{grid-template-columns:1fr} .judge .ans-btns{float:none;display:flex;margin:.3em 0 0} .wcheck{grid-template-columns:1fr} .baggrid{grid-template-columns:repeat(3,1fr)} #stamp{display:none} }
 </style>
 </head>
 <body>
 
 <div id="progress-track"><div id="progress-fill"></div></div>
-<div id="stamp">build 04.10 · v3</div>
+<div id="stamp">build 04.10 · v4</div>
 
 <main id="deck">
 
