@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alika · L13 · When? · ph says /f/! · the Starter test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A; --lavender:#C8B6FF;
+  --lavender-deep:#9a7fff; --cream:#FFF8F0; --ink:#2D3436; --ink-soft:#636e72;
+  --pink:#FF8FAB; --white:#ffffff;
+  --shadow:0 10px 30px rgba(45,52,54,.12); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased}
+#progress-track{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(200,182,255,.25)}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--lavender),var(--pink));transition:width .45s cubic-bezier(.22,1,.36,1)}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:8vh 5vw calc(74px + 2.4vh);opacity:0;transform:translateX(60px) scale(.985);transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);pointer-events:none;overflow:auto}
+.slide.active{opacity:1;transform:none;pointer-events:auto;z-index:2}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide>*{flex-shrink:0}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.1vw,.95rem);color:var(--lavender-deep);margin-bottom:.4em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.05;margin-bottom:.5em}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--lavender));margin-bottom:1.1em}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.25rem,2.3vw,1.9rem)}
+p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,2vw,1.8rem)}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.card.pink{background:#ffe9f0}
+.model-line{font-size:clamp(1.25rem,2.2vw,1.85rem);padding:.55em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.6em}
+.model-line .key{color:var(--lavender-deep);font-weight:800}
+.model-line .hlp{color:#d6336c;font-weight:800}
+.sent{font-size:clamp(1.2rem,2vw,1.65rem);line-height:1.55;padding:.5em .2em;border-bottom:2px dotted rgba(200,182,255,.5)}
+.gap{display:inline-block;min-width:3.6em;border-bottom:4px solid var(--mint-deep);text-align:center;font-family:'Fredoka';font-weight:600;color:transparent;cursor:pointer;transition:all .2s ease;padding:0 .15em;border-radius:4px 4px 0 0}
+.gap:hover{background:#eafbf6}
+.gap.filled{color:var(--lavender-deep);border-color:var(--lavender);background:#f1ecff}
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.55em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--lavender));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:var(--ink)}
+.hw-step .ru{font-size:clamp(1rem,1.6vw,1.35rem);line-height:1.45}
+#nav{position:fixed;bottom:2.4vh;right:max(10px,1.6vw);z-index:90;display:flex;align-items:center;gap:1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);padding:.5em 1em;border-radius:99px;box-shadow:0 20px 50px rgba(45,52,54,.18)}
+.nav-btn{width:3em;height:3em;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--mint),var(--lavender));display:grid;place-items:center;color:var(--ink);font-size:1.2rem;box-shadow:0 6px 16px rgba(90,123,191,.25);transition:transform .15s ease;font-family:'Fredoka'}
+.nav-btn:hover{transform:scale(1.08)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#counter{font-family:'Fredoka';font-weight:600;font-size:1.1rem;min-width:3.5em;text-align:center}
+#counter .now{color:var(--lavender-deep)}
+#fs-btn{width:2.6em;height:2.6em;border-radius:50%;border:none;cursor:pointer;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.1);font-size:1rem;transition:transform .15s ease}
+#fs-btn:hover{transform:scale(1.08)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:1em}
+.center{text-align:center}
+.mt{margin-top:1em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka';font-weight:500;color:var(--ink);background:#fff8db;border-radius:14px;padding:.6em 1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.35rem)}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.9rem,1.3vw,1.1rem);color:var(--ink-soft);font-style:italic}
+/* --- bright hero slides --- */
+.slide.bright{background:linear-gradient(135deg,var(--mint) 0%,var(--peach) 32%,var(--lavender) 66%,var(--pink) 100%)}
+.slide.bright .eyebrow{color:#fff;text-shadow:0 2px 10px rgba(45,52,54,.3)}
+.slide.bright .accent-line{background:rgba(255,255,255,.9)}
+.sticker{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.1;color:#fff;text-shadow:-3px -3px 0 var(--ink),3px -3px 0 var(--ink),-3px 3px 0 var(--ink),3px 3px 0 var(--ink),-3px 0 0 var(--ink),3px 0 0 var(--ink),0 -3px 0 var(--ink),0 3px 0 var(--ink),0 16px 34px rgba(45,52,54,.3)}
+.hero-where{font-size:clamp(3.6rem,11vw,9rem)}
+.thumb{font-size:clamp(3.6rem,9vw,7.5rem);line-height:1;animation:bob 2.4s ease-in-out infinite alternate;filter:drop-shadow(0 14px 20px rgba(45,52,54,.25))}
+@keyframes bob{from{transform:translateY(0) rotate(-6deg)}to{transform:translateY(-16px) rotate(6deg)}}
+.glass{background:rgba(255,255,255,.93)}
+.hero-where .wq{color:var(--peach)}
+/* --- judge rows: the detective --- */
+.judges{display:grid;grid-template-columns:1fr 1fr;gap:.45em 1em;width:100%}
+.judges .model-line{font-size:clamp(.98rem,1.65vw,1.4rem);line-height:1.45;padding:.45em .7em;margin:0}
+.judge{cursor:pointer}
+.judge .fix{display:none;font-size:.78em;color:var(--mint-deep);font-weight:700;margin-top:.15em}
+.judge.wrong .fix{display:block}
+.judge .badge{flex-shrink:0;width:1.55em;height:1.55em;border-radius:50%;display:inline-grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.8em;background:#eee;color:transparent;transition:all .2s;vertical-align:middle;margin-right:.4em}
+.judge.shown-ok .badge{background:var(--mint);color:var(--ink)}
+.judge.shown-no .badge{background:var(--pink);color:#fff}
+.ans-btns{display:inline-flex;gap:.35em;margin-left:.4em;vertical-align:middle}
+.ans{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.68rem,1.1vw,.9rem);border:none;cursor:pointer;border-radius:99px;padding:.32em .85em;background:var(--cream);box-shadow:0 3px 8px rgba(45,52,54,.14);color:var(--ink-soft);transition:all .15s ease}
+.ans:hover:not(:disabled){transform:translateY(-2px);color:var(--ink)}
+.ans.picked-ok{background:var(--mint);color:var(--ink)}
+.ans.picked-no{background:var(--pink);color:#fff}
+.ans:disabled{cursor:default;opacity:.8}
+.judge .ans-btns{float:right}
+/* --- riddles: two reveal cards --- */
+.riddle-answer{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.8rem);color:var(--lavender-deep);opacity:0;transform:scale(.6);transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.reveal-box{cursor:pointer;transition:transform .15s ease}
+.reveal-box:hover{transform:scale(1.02)}
+.reveal-box.shown .riddle-answer{opacity:1;transform:scale(1)}
+/* --- knock the wall --- */
+.wallstage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8em;width:100%}
+.wallbox{position:relative;background:linear-gradient(135deg,#ffe9f0,#f1ecff);border-radius:26px;box-shadow:var(--shadow);padding:clamp(1.2em,3vw,2em) clamp(1.6em,4vw,3em);cursor:pointer;overflow:hidden;min-width:min(560px,86vw);text-align:center}
+.wall-word{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2.2rem,6vw,4.8rem);line-height:1.15;letter-spacing:.02em;transition:color .3s ease, transform .3s ease}
+.wall-word .chunk{color:var(--pink)}
+.wall-word .wemoji{display:none;font-size:.62em;vertical-align:middle}
+.wallbox.won .wall-word{color:var(--lavender-deep);transform:scale(1.08)}
+.wallbox.won .wemoji{display:inline-block}
+.bricks{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:6px;padding:8px;pointer-events:none}
+.brick{border-radius:10px;background:linear-gradient(135deg,#d9825f,#e9967a);box-shadow:inset 0 -6px 0 rgba(45,52,54,.16),0 4px 10px rgba(45,52,54,.22);transition:all .45s cubic-bezier(.34,1.2,.5,1)}
+.brick.off{opacity:0;transform:translateY(70px) rotate(14deg)}
+/* --- the two-screen silly game --- */
+.bigboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(.6em,1.4vw,1.1em);width:100%;flex:1;align-content:center}
+.bigboard .bchip{display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,3.4vw,2.9rem);line-height:1.15;padding:.55em .5em;border-radius:24px;background:var(--white);box-shadow:0 12px 30px rgba(45,52,54,.14);cursor:pointer;transition:all .2s ease;min-height:2.6em}
+.bigboard .bchip:hover{transform:translateY(-4px)}
+@keyframes missshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.bigboard .bchip.miss{animation:missshake .35s ease;background:#ffe9f0}
+.bigboard .bchip.hit{background:linear-gradient(135deg,var(--mint),var(--lavender));transform:scale(1.06)}
+.small-tools{display:flex;gap:.6em;align-items:center;flex-wrap:wrap}
+.mini-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.78rem,1.2vw,1rem);border:none;cursor:pointer;border-radius:99px;padding:.4em 1em;background:var(--white);box-shadow:0 4px 12px rgba(45,52,54,.12);color:var(--ink-soft);transition:transform .15s ease}
+.mini-btn:hover{transform:scale(1.05);color:var(--ink)}
+/* --- the words check: tick/cross rows (the teacher's tool) --- */
+.wcheck{display:grid;grid-template-columns:1fr 1fr;gap:.5em .9em;width:100%}
+.wrow{display:flex;align-items:center;gap:.6em;background:var(--white);border-radius:16px;box-shadow:0 6px 16px rgba(45,52,54,.08);padding:.5em .8em;font-family:'Fredoka';font-weight:600;font-size:clamp(1.1rem,2vw,1.6rem)}
+.wrow .wn{flex-shrink:0;width:1.6em;height:1.6em;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--lavender));display:grid;place-items:center;font-size:.75em}
+.wrow .wv{margin-left:auto;display:flex;gap:.3em}
+.wbtn{width:2em;height:2em;border-radius:50%;border:none;cursor:pointer;font-size:1rem;background:var(--cream);box-shadow:0 3px 8px rgba(45,52,54,.14);transition:all .15s ease}
+.wbtn:hover{transform:scale(1.1)}
+.wrow.ok .wbtn.yes{background:var(--mint)}
+.wrow.no .wbtn.noop{background:var(--pink);color:#fff}
+.wrow.ok{outline:3px solid var(--mint)}
+.wrow.no{outline:3px solid var(--pink)}
+/* --- Jen's bag: the dictation check grid --- */
+.baggrid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.5em,1.1vw,.9em);width:100%;flex:1;align-content:center}
+.bagcell{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15em;background:var(--white);border-radius:18px;box-shadow:0 8px 20px rgba(45,52,54,.1);cursor:pointer;padding:.6em .4em;transition:transform .15s ease;min-height:5.6em}
+.bagcell:hover{transform:translateY(-3px)}
+.bagcell .num{position:absolute;top:.4em;left:.55em;font-family:'Fredoka';font-weight:700;font-size:clamp(.85rem,1.4vw,1.1rem);color:var(--lavender-deep)}
+.bagcell .art{font-size:clamp(1.9rem,4.2vw,3.2rem);line-height:1.15}
+.bagcell .art svg{width:clamp(44px,5.4vw,76px);height:auto;display:block}
+.bagcell .wword{font-family:'Fredoka';font-weight:600;font-size:clamp(.85rem,1.5vw,1.2rem);color:var(--lavender-deep);opacity:0;transform:scale(.6);transition:all .25s cubic-bezier(.34,1.56,.64,1);text-align:center;line-height:1.2}
+.bagcell.shown .wword{opacity:1;transform:scale(1)}
+/* --- the Starter test slides --- */
+.testrow{font-size:clamp(1.05rem,1.8vw,1.5rem);line-height:1.5;padding:.42em .15em;border-bottom:2px dotted rgba(200,182,255,.5);display:flex;align-items:center;gap:.4em;flex-wrap:wrap}
+.testrow .tno{flex-shrink:0;font-family:'Fredoka';font-weight:700;color:var(--lavender-deep);width:1.4em}
+.testrow .art{font-size:1.15em}
+.testrow .hintw{font-family:'Fredoka';font-weight:600;letter-spacing:.08em;color:var(--ink-soft)}
+.wordbox{display:flex;gap:.45em;flex-wrap:wrap;justify-content:center;margin-top:.5em}
+.wordbox span{font-family:'Fredoka';font-weight:600;background:var(--white);border-radius:99px;padding:.25em .9em;box-shadow:0 4px 10px rgba(45,52,54,.1);font-size:clamp(.9rem,1.4vw,1.15rem)}
+/* --- the treasure card --- */
+.treasure .q{font-family:'Fredoka';font-weight:700;font-size:clamp(1.3rem,2.6vw,2.1rem);line-height:1.35}
+/* --- teacher's notes + question pad overlays --- */
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(255,248,240,.985);display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
+.overlay.open{display:flex}
+.overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka';font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
+#tpad .pad-q{display:flex;gap:.7em;align-items:flex-start;padding:.55em .7em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.45em;cursor:pointer;transition:all .2s ease}
+#tpad .pad-q .n{flex-shrink:0;width:1.6em;height:1.6em;border-radius:50%;background:linear-gradient(135deg,var(--mint),var(--lavender));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:clamp(.85rem,1.6vw,1.15rem)}
+#tpad .pad-q .t{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,2.4vw,1.7rem);line-height:1.3}
+#tpad .pad-q .k{display:block;font-size:clamp(.78rem,1.4vw,1rem);color:var(--mint-deep);font-weight:800;margin-top:.1em}
+#tpad .pad-q.done{opacity:.42}
+#tpad .pad-q.done .t{text-decoration:line-through}
+#tnotes .note-step{display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.5em;font-size:clamp(.95rem,1.7vw,1.3rem);line-height:1.45}
+#tnotes .note-step .b{flex-shrink:0;font-family:'Fredoka';font-weight:700;color:var(--lavender-deep)}
+#tnotes b.z{color:#2D8CFF}
+/* --- the Pardon? button --- */
+#pardon-bar{position:fixed;bottom:2.4vh;left:max(10px,1.6vw);z-index:90}
+.pardon-pill{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.85rem,1.3vw,1.05rem);border:none;cursor:pointer;border-radius:99px;padding:.5em 1.1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);box-shadow:0 8px 22px rgba(45,52,54,.16);color:var(--ink);transition:transform .15s ease}
+.pardon-pill:hover{transform:scale(1.05)}
+#pardon .phrase{display:flex;gap:.7em;align-items:center;padding:.6em 1em;border-radius:16px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);margin-bottom:.5em;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.6vw,1.9rem);line-height:1.3}
+#pardon .phrase .i{flex-shrink:0;font-size:1.2em}
+/* --- the ✍️ lesson log --- */
+#log-bar{position:fixed;bottom:2.4vh;left:50%;transform:translateX(-50%);z-index:90}
+.log-pill{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.85rem,1.3vw,1.05rem);border:none;cursor:pointer;border-radius:99px;padding:.5em 1.1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);box-shadow:0 8px 22px rgba(45,52,54,.16);color:var(--ink);transition:transform .15s ease}
+.log-pill:hover{transform:scale(1.05)}
+#logpanel .log-row{display:flex;gap:.6em;align-items:center;font-family:'Fredoka';font-weight:600;font-size:clamp(1.1rem,2vw,1.5rem);margin-bottom:.5em}
+#logpanel .tick{cursor:pointer;font-size:1.3em}
+#logpanel textarea{width:100%;min-height:6.5em;border:2px solid rgba(200,182,255,.6);border-radius:14px;padding:.6em .8em;font-family:'Nunito',sans-serif;font-size:clamp(1rem,1.6vw,1.25rem);resize:vertical;background:var(--white)}
+#logpanel .chips{display:flex;gap:.45em;margin:.4em 0 .6em;flex-wrap:wrap;align-items:center}
+#logpanel .chip{font-family:'Fredoka';font-weight:600;border:none;cursor:pointer;border-radius:99px;padding:.3em .85em;background:#f1ecff;box-shadow:0 3px 8px rgba(45,52,54,.12);color:var(--ink);font-size:clamp(.85rem,1.3vw,1.05rem)}
+#logpanel .chip:hover{transform:translateY(-2px)}
+/* --- recorder report --- */
+#rec-card{display:none;margin-top:.9em;background:rgba(255,255,255,.93);border-radius:18px;padding:.8em 1.1em;box-shadow:var(--shadow);text-align:center}
+#rec-card.show{display:block}
+#rec-stars{font-size:1.5em;letter-spacing:.08em}
+#rec-line{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.25rem);margin-top:.15em}
+#rec-sent{font-weight:800;color:var(--mint-deep);margin-top:.25em;font-size:clamp(.95rem,1.5vw,1.15rem)}
+#rec-copy{display:none;margin-top:.5em;font-family:'Fredoka',sans-serif;font-weight:600;font-size:1rem;border:none;border-radius:99px;padding:.5em 1.3em;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.14);cursor:pointer}
+/* THE CORNERS (Elena, 01.10): notes → top-left · Pardon → top-right — every deck */
+#pardon-bar{top:2.4vh;bottom:auto;left:auto;right:max(10px,1.6vw)}
+#tnotes-btn{position:fixed;top:2.4vh;left:max(10px,1.6vw);z-index:95}
+#stamp{position:fixed;top:calc(2.4vh + .55em);right:calc(max(10px,1.6vw) + 8.4em);z-index:89;font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.72rem,1.1vw,.9rem);color:var(--ink-soft);background:rgba(255,255,255,.7);border-radius:99px;padding:.3em .8em;backdrop-filter:blur(8px)}
+@media(max-width:900px){ .row{flex-direction:column} .judges{grid-template-columns:1fr} .judge .ans-btns{float:none;display:flex;margin:.3em 0 0} .wcheck{grid-template-columns:1fr} .baggrid{grid-template-columns:repeat(3,1fr)} #stamp{display:none} }
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+<div id="stamp">build 04.10 · v1</div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · CHECK HOMEWORK — the words + prepare-ahead -->
+  <section class="slide" id="s1">
+    <div class="eyebrow reveal">Homework · let's check</div>
+    <h1 class="title reveal">Let's check! ⭐</h1>
+    <div class="accent-line reveal"></div>
+    <p class="hintline reveal" style="margin:-.6em 0 .8em">Prepare: 🎧 sound · 📕 SB + WB · ✏️ copybook + pencil — the test today! · 🏠 homework board «Lesson 13»</p>
+
+    <div class="wcheck reveal">
+      <div class="wrow" data-w="also"><span class="wn">1</span>also<span class="wv"><button class="wbtn yes">✓</button><button class="wbtn noop">✗</button></span></div>
+      <div class="wrow" data-w="talk"><span class="wn">2</span>talk<span class="wv"><button class="wbtn yes">✓</button><button class="wbtn noop">✗</button></span></div>
+      <div class="wrow" data-w="walk"><span class="wn">3</span>walk<span class="wv"><button class="wbtn yes">✓</button><button class="wbtn noop">✗</button></span></div>
+      <div class="wrow" data-w="place"><span class="wn">4</span>place<span class="wv"><button class="wbtn yes">✓</button><button class="wbtn noop">✗</button></span></div>
+      <div class="wrow" data-w="good"><span class="wn">5</span>good<span class="wv"><button class="wbtn yes">✓</button><button class="wbtn noop">✗</button></span></div>
+      <div class="wrow" data-w="grey"><span class="wn">6</span>grey<span class="wv"><button class="wbtn yes">✓</button><button class="wbtn noop">✗</button></span></div>
+    </div>
+    <p class="task reveal" style="align-self:center">Words first! 🗣 — then we check the bag!</p>
+  </section>
+
+  <!-- SLIDE 2 · THE DICTATION CHECK — Jen's bag (SB p. 8 ex. 1) -->
+  <section class="slide" id="s2">
+    <div class="eyebrow reveal">Homework · the dictation</div>
+    <h1 class="title reveal">Jen's school bag 🎒</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="baggrid reveal" id="baggrid">
+      <div class="bagcell"><span class="num">1</span><span class="art"><svg viewBox="0 0 100 70" aria-hidden="true"><g transform="rotate(-10 50 40)"><rect x="18" y="16" width="9" height="42" rx="3" fill="#e5533d"/><path d="M18 16 l4.5 -9 4.5 9z" fill="#f2c53d"/><rect x="44" y="14" width="9" height="42" rx="3" fill="#3d7de5"/><path d="M44 14 l4.5 -9 4.5 9z" fill="#f2c53d"/><rect x="70" y="16" width="9" height="42" rx="3" fill="#3da65c"/><path d="M70 16 l4.5 -9 4.5 9z" fill="#f2c53d"/></g></svg></span><span class="wword">coloured pencils</span></div>
+      <div class="bagcell"><span class="num">2</span><span class="art">📕</span><span class="wword">a book</span></div>
+      <div class="bagcell"><span class="num">3</span><span class="art"><svg viewBox="0 0 100 70" aria-hidden="true"><rect x="14" y="22" width="72" height="34" rx="17" fill="#C8B6FF" stroke="#9a7fff" stroke-width="4"/><path d="M22 33 h56" stroke="#5ecbb8" stroke-width="5" stroke-linecap="round"/><circle cx="72" cy="33" r="4" fill="#5ecbb8"/></svg></span><span class="wword">a pencil case</span></div>
+      <div class="bagcell"><span class="num">4</span><span class="art">✏️</span><span class="wword">a pencil</span></div>
+      <div class="bagcell"><span class="num">5</span><span class="art">🖊️</span><span class="wword">a pen</span></div>
+      <div class="bagcell"><span class="num">6</span><span class="art">✂️</span><span class="wword">scissors</span></div>
+      <div class="bagcell"><span class="num">7</span><span class="art">📓</span><span class="wword">a notebook</span></div>
+      <div class="bagcell"><span class="num">8</span><span class="art">📏</span><span class="wword">a ruler</span></div>
+      <div class="bagcell"><span class="num">9</span><span class="art"><svg viewBox="0 0 100 70" aria-hidden="true"><rect x="24" y="26" width="42" height="26" rx="8" fill="#FCE38A" stroke="#d9a94e" stroke-width="3"/><circle cx="43" cy="39" r="6" fill="#2D3436"/><g transform="rotate(-32 76 26)"><rect x="73" y="6" width="7" height="34" rx="2" fill="#FCE38A" stroke="#d9a94e" stroke-width="2"/><path d="M73 6 l3.5 -8 3.5 8z" fill="#e5533d"/><path d="M76.5 -2 l1.8 4 -3.6 0z" fill="#2D3436"/></g></svg></span><span class="wword">a pencil sharpener</span></div>
+      <div class="bagcell"><span class="num">10</span><span class="art"><svg viewBox="0 0 100 70" aria-hidden="true"><g transform="rotate(-14 50 40)"><rect x="20" y="24" width="60" height="26" rx="6" fill="#FF8FAB" stroke="#e26a8a" stroke-width="2.5"/><rect x="20" y="24" width="24" height="26" rx="6" fill="#95E1D3" stroke="#5ecbb8" stroke-width="2.5"/><path d="M44 24 v26" stroke="#fff" stroke-width="3"/></g></svg></span><span class="wword">a rubber</span></div>
+      <div class="bagcell"><span class="num">11</span><span class="art">🥪</span><span class="wword">a sandwich</span></div>
+    </div>
+    <p class="task reveal" style="align-self:center">Read me your words — then we tap and check! 👆</p>
+  </section>
+
+  <!-- SLIDE 3 · HOMEWORK CHECK — the rest -->
+  <section class="slide" id="s3">
+    <div class="eyebrow reveal">Homework · the rest</div>
+    <h1 class="title reveal">Tracks, Workbook, brackets ✅</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:stretch;gap:1.2em">
+      <div class="card mint" style="flex:1;min-width:260px">
+        <h2>🎧 Starters 6 · Test 1 · Part 2</h2>
+        <p class="mt" style="font-family:'Fredoka'">1 <span class="gap">Happy</span> · 2 <span class="gap">3</span> · 3 <span class="gap">7</span> · 4 <span class="gap">Pat</span> · 5 <span class="gap">Brown</span></p>
+        <p class="hintline mt">Say your answers first — then tap the gaps! 👆</p>
+      </div>
+      <div class="card lavender" style="flex:1;min-width:260px">
+        <h2>📘 WB 0.3 — check together!</h2>
+        <p class="mt">Open your Workbook. We read the answers — <b>one by one!</b></p>
+        <p class="mt">Which task was <b>hard</b>? 🤔</p>
+      </div>
+      <div class="card peach" style="flex:1;min-width:260px">
+        <h2>✍️ Tom and the Ball on the Wall</h2>
+        <p class="mt">Which gap made you <b>think the longest</b>? 🧠</p>
+        <p class="mt">The reading video — done? 📖</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 · OPEN THE BRACKETS (quick round) -->
+  <section class="slide" id="s4">
+    <div class="eyebrow reveal">Grammar · quick round</div>
+    <h1 class="title reveal">Open the brackets! ✍️</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:flex-start;gap:1.4em">
+      <div class="card" style="flex:1;min-width:280px">
+        <div class="sent">She _____ <span class="muted">(talk)</span> on the phone. 📞</div>
+        <div class="sent">I _____ <span class="muted">(walk)</span> to school. 🚶</div>
+        <div class="sent">Tom _____ <span class="muted">(watch)</span> the dolphin. 🐬</div>
+        <div class="sent">The baby _____ <span class="muted">(cry)</span>. 😢</div>
+      </div>
+      <div class="card" style="flex:1;min-width:280px">
+        <div class="sent">The elephant _____ <span class="muted">(have)</span> a long nose. 🐘</div>
+        <div class="sent">She _____ <span class="muted">(go)</span> to the gym on Sunday. 🤸‍♀️</div>
+        <div class="sent">We _____ <span class="muted">(want)</span> a photo. 📸</div>
+        <div class="sent">My legs _____ <span class="muted">(hurt)</span> after the gym. 🙌</div>
+      </div>
+    </div>
+    <p class="task reveal" style="display:block;text-align:center">Say it FIRST — then click the gap! 🎯</p>
+    <div class="reveal center" style="margin-top:.25em">
+      <button class="mini-btn" id="rule-btn">hint ▾</button>
+      <p class="hintline" id="rule-line" style="display:none;margin-top:.3em">it/he/she → +s (+es · y→ies) · I/we/they → no s!</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 5 · RIDDLES: THE OLD FRIEND RE-SOLD + THE NEW-FAMILY TEASER -->
+  <section class="slide" id="s5">
+    <div class="eyebrow reveal">Riddle time 🧠 · two riddles</div>
+    <h1 class="title reveal">The old friend &amp; a grey one</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="col reveal" style="flex:1;justify-content:center;gap:.9em;max-width:980px;margin:0 auto;width:100%">
+      <div class="reveal-box card lavender" id="riddle-old" style="padding:.9em 1.4em">
+        <h2>1 · You talk on it. It lives in your bag. Granny says hello through it. 🤔</h2>
+        <p class="hintline">Wild guesses first! Then one hint: it rings — ring-ring! 🔔</p>
+        <div class="riddle-answer">a phone! 📞</div>
+        <div class="hintline" style="margin-top:.2em">ph<b style="color:var(--lavender-deep)">o</b>ne — our o_e old friend… with a NEW trick today! 😉</div>
+      </div>
+      <div class="reveal-box card pink" id="riddle-new" style="padding:.9em 1.4em">
+        <h2>2 · I am big and grey. My nose is long. I can't jump. What am I? 🤔</h2>
+        <p class="hintline">Guess, guess! Then one hint: it says tooooo! 🎺</p>
+        <div class="riddle-answer">an elephant! 🐘</div>
+        <div class="hintline" style="margin-top:.2em">el<b style="color:#d6336c">e</b>phant — a NEW family lands today! 😉</div>
+      </div>
+    </div>
+    <p class="hintline reveal" style="text-align:center">Read twice → wild guesses → one hint → click to reveal! 👆</p>
+  </section>
+
+  <!-- SLIDE 6 · STANDING: HOW DO YOU…? MIME GAME -->
+  <section class="slide" id="s6">
+    <div class="eyebrow reveal">Every lesson · the mime game</div>
+    <h1 class="title reveal">How do you…? 🎭</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="col reveal" id="mime-grid" style="flex:1;justify-content:center;display:grid;grid-template-columns:1fr 1fr;gap:.45em 1em;align-content:center;width:100%"></div>
+
+    <div class="row reveal" style="justify-content:center;gap:1em">
+      <p class="task">🎭 Watch Elena — say the sentence! Then YOU mime — Elena says!</p>
+      <button id="dice-btn" class="mini-btn">🎲 Ten more!</button>
+    </div>
+  </section>
+
+  <!-- SLIDE 7 · NEW HERO: WHEN (bright) -->
+  <section class="slide bright" id="s7">
+    <div class="eyebrow reveal">NEW · the question word</div>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="justify-content:center;align-items:center;gap:clamp(.8rem,3vw,2em);flex:1;flex-wrap:nowrap;min-width:0">
+      <span class="sticker hero-where"><span class="wq">When?</span></span>
+      <span class="thumb" style="font-size:clamp(3rem,7.5vw,6.2rem)">🕐</span>
+      <span class="sticker" style="font-size:clamp(1.5rem,3.8vw,2.9rem)">when → ten! 🔟</span>
+    </div>
+
+    <div class="row glass reveal" style="max-width:1080px;margin:0 auto 1em;width:100%;justify-content:center;gap:1em;padding:.7em;border-radius:20px;flex-wrap:wrap">
+      <span class="model-line" style="margin:0"><span class="hlp">When</span> is our lesson? — <b class="key">On Sunday!</b> 📖</span>
+      <span class="model-line" style="margin:0"><span class="hlp">When</span> do you sleep? — <b class="key">At night.</b> 🌙</span>
+      <span class="model-line" style="margin:0"><span class="hlp">When</span> is your birthday? — <b class="key">In ___ !</b> 🎂</span>
+    </div>
+    <p class="task reveal" style="display:block;text-align:center">The answer is a TIME — a day, a month, a clock time! ⏰</p>
+  </section>
+
+  <!-- SLIDE 8 · THE DETECTIVE: THE RIGHT TIME — OR NONSENSE? -->
+  <section class="slide" id="s8">
+    <div class="eyebrow reveal">The detective game 🕵️</div>
+    <h1 class="title reveal">The right time — or nonsense?</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="judges reveal" style="flex:1;align-content:center">
+      <div class="model-line judge" data-a="ok" data-q="When is our English lesson? — On Sunday."><span class="badge">?</span><span class="hlp">When</span> is our English lesson? — <b>On Sunday.</b> 📖<span class="ans-btns"><button class="ans" data-v="ok">🙂 time</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix"></span></div>
+      <div class="model-line judge" data-a="ok" data-q="When do cats sleep? — At night."><span class="badge">?</span><span class="hlp">When</span> do cats sleep? — <b>At night.</b> 🐱<span class="ans-btns"><button class="ans" data-v="ok">🙂 time</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix"></span></div>
+      <div class="model-line judge" data-a="no" data-q="When do you eat lunch? — At twelve at night."><span class="badge">?</span><span class="hlp">When</span> do you eat lunch? — <b>At twelve at night.</b> 🍽<span class="ans-btns"><button class="ans" data-v="ok">🙂 time</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix">Silly! Lunch is in the day — At twelve at NOON!</span></div>
+      <div class="model-line judge" data-a="no" data-q="When is your birthday? — Under the chair."><span class="badge">?</span><span class="hlp">When</span> is your birthday? — <b>Under the chair.</b> 🪑<span class="ans-btns"><button class="ans" data-v="ok">🙂 time</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix">Under the chair is a PLACE! Say: In December!</span></div>
+      <div class="model-line judge" data-a="ok" data-q="When does the dolphin jump? — In the morning."><span class="badge">?</span><span class="hlp">When</span> does the dolphin jump? — <b>In the morning.</b> 🐬<span class="ans-btns"><button class="ans" data-v="ok">🙂 time</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix"></span></div>
+      <div class="model-line judge" data-a="no" data-q="When do you phone granny? — Because I love her."><span class="badge">?</span><span class="hlp">When</span> do you phone granny? — <b>Because I love her.</b> 💗<span class="ans-btns"><button class="ans" data-v="ok">🙂 time</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix">Because is a REASON — it answers WHY! Say: On Saturday!</span></div>
+    </div>
+    <p class="task reveal" style="display:block;text-align:center">What do YOU think? Tap 🙂 or 🤪 first — then check! 🕵️</p>
+  </section>
+
+  <!-- SLIDE 9 · NEW HERO: PH = /F/ (bright) -->
+  <section class="slide bright" id="s9">
+    <div class="eyebrow reveal">NEW · the reading family</div>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="justify-content:center;align-items:center;gap:clamp(.8rem,3vw,2em);flex:1;flex-wrap:nowrap;min-width:0">
+      <span class="sticker hero-where" style="font-size:clamp(2.6rem,8vw,6.6rem)"><span class="wq">ph</span> = f!</span>
+      <span class="thumb" style="font-size:clamp(3rem,7.5vw,6.2rem)">🐘</span>
+    </div>
+
+    <div class="row glass reveal" style="max-width:1080px;margin:0 auto 1em;width:100%;justify-content:center;gap:1em;padding:.7em;border-radius:20px;flex-wrap:wrap">
+      <span class="model-line" style="margin:0"><span class="hlp">ph</span>one → a <b class="key">phone</b>! 📞</span>
+      <span class="model-line" style="margin:0"><span class="hlp">ph</span>oto → a <b class="key">photo</b>! 📸</span>
+      <span class="model-line" style="margin:0">ele<span class="hlp">ph</span>ant → an <b class="key">elephant</b>! 🐘</span>
+    </div>
+    <p class="task reveal" style="display:block;text-align:center">Read with me ×3 — faster! phone · photo · elephant! 🎯</p>
+  </section>
+
+  <!-- SLIDE 10 · KNOCK THE WALL — THE PH EDITION -->
+  <section class="slide" id="s10">
+    <div class="eyebrow reveal">Knock knock 🧱 · the wall is back!</div>
+    <h1 class="title reveal">Knock the wall! 👋</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="wallstage reveal">
+      <div class="wallbox" id="wallbox">
+        <div class="wall-word" id="wall-word"></div>
+        <div class="bricks" id="bricks"></div>
+      </div>
+    </div>
+
+    <div class="row reveal" style="justify-content:center;gap:1em">
+      <p class="task">Knock the bricks — read the word before the wall falls! 🧱</p>
+      <button class="mini-btn" id="wall-next">🧱 Next wall ↻</button>
+    </div>
+  </section>
+
+  <!-- SLIDE 11 · THE STARTER TEST — VOCABULARY -->
+  <section class="slide" id="s11">
+    <div class="eyebrow reveal">The Go Getter test · part 1 of 3</div>
+    <h1 class="title reveal">Vocabulary 📝</h1>
+    <div class="accent-line reveal"></div>
+    <p class="hintline reveal" style="margin:-.6em 0 .7em">Write in your copybook! ✏️ Then we check together.</p>
+
+    <div class="row reveal" style="align-items:flex-start;gap:1.2em">
+      <div class="card" style="flex:1;min-width:250px">
+        <h2>1 · Write the numbers. 🔢</h2>
+        <div class="mt">
+          <div class="testrow"><span class="tno">1</span> 11 → <span class="gap">eleven</span></div>
+          <div class="testrow"><span class="tno">2</span> 14 → <span class="gap">fourteen</span></div>
+          <div class="testrow"><span class="tno">3</span> 43 → <span class="gap">forty-three</span></div>
+          <div class="testrow"><span class="tno">4</span> 75 → <span class="gap">seventy-five</span></div>
+          <div class="testrow"><span class="tno">5</span> 100 → <span class="gap">one hundred</span></div>
+        </div>
+      </div>
+      <div class="card mint" style="flex:1.2;min-width:280px">
+        <h2>2 · Look and write the word. 👀</h2>
+        <div class="mt">
+          <div class="testrow"><span class="tno">1</span><span class="art">🕐</span><span class="hintw">c _ _ c _</span> → <span class="gap">a clock</span></div>
+          <div class="testrow"><span class="tno">2</span><span class="art"><svg viewBox="0 0 100 70" aria-hidden="true" style="width:1.4em"><rect x="10" y="8" width="80" height="44" rx="4" fill="#2f7d5c" stroke="#8a5a33" stroke-width="5"/><path d="M22 30 h22 M52 22 v16 M60 30 h18" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/><rect x="46" y="52" width="8" height="14" fill="#8a5a33"/></svg></span><span class="hintw">b _ a _ _</span> → <span class="gap">a board</span></div>
+          <div class="testrow"><span class="tno">3</span><span class="art"><svg viewBox="0 0 100 70" aria-hidden="true" style="width:1.4em"><rect x="14" y="22" width="72" height="34" rx="17" fill="#C8B6FF" stroke="#9a7fff" stroke-width="4"/><path d="M22 33 h56" stroke="#5ecbb8" stroke-width="5" stroke-linecap="round"/></svg></span><span class="hintw">p _ _ _ _ l c _ _ _</span> → <span class="gap">a pencil case</span></div>
+          <div class="testrow"><span class="tno">4</span><span class="art"><svg viewBox="0 0 100 70" aria-hidden="true" style="width:1.4em"><g transform="rotate(-14 50 40)"><rect x="20" y="24" width="60" height="26" rx="6" fill="#FF8FAB" stroke="#e26a8a" stroke-width="2.5"/><rect x="20" y="24" width="24" height="26" rx="6" fill="#95E1D3" stroke="#5ecbb8" stroke-width="2.5"/><path d="M44 24 v26" stroke="#fff" stroke-width="3"/></g></svg></span><span class="hintw">r _ _ _ r</span> → <span class="gap">a rubber</span></div>
+          <div class="testrow"><span class="tno">5</span><span class="art">✂️</span><span class="hintw">s _ _ _ s _ _ _</span> → <span class="gap">scissors</span></div>
+        </div>
+      </div>
+      <div class="card peach" style="flex:1;min-width:250px">
+        <h2>3 · Colours! 🎨</h2>
+        <div class="mt">
+          <div class="testrow"><span class="tno">1</span><span class="art">🦓</span> Zebras are <span class="gap">black</span> and white.</div>
+          <div class="testrow"><span class="tno">2</span><span class="art">🌳</span> Trees are <span class="gap">green</span>.</div>
+          <div class="testrow"><span class="tno">3</span><span class="art">🍋</span> Lemons are <span class="gap">yellow</span>.</div>
+          <div class="testrow"><span class="tno">4</span><span class="art">🦩</span> Flamingos are <span class="gap">pink</span>.</div>
+          <div class="testrow"><span class="tno">5</span><span class="art">🐘</span> Elephants are <span class="gap">grey</span>.</div>
+        </div>
+        <div class="wordbox"><span>black</span><span>blue</span><span>green</span><span>grey</span><span>pink</span><span>purple</span><span>yellow</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 12 · THE STARTER TEST — GRAMMAR -->
+  <section class="slide" id="s12">
+    <div class="eyebrow reveal">The Go Getter test · part 2 of 3</div>
+    <h1 class="title reveal">Grammar 📝</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="row reveal" style="align-items:flex-start;gap:1.2em">
+      <div class="card" style="flex:1;min-width:290px">
+        <h2>4 · a or an? ⭕</h2>
+        <div class="mt">
+          <div class="testrow"><span class="tno">1</span><span class="art">🐘</span> It's <span class="gap">an</span> elephant.</div>
+          <div class="testrow"><span class="tno">2</span><span class="art">🦓</span> It's <span class="gap">a</span> zebra.</div>
+          <div class="testrow"><span class="tno">3</span><span class="art">🌸</span> It's <span class="gap">a</span> flower.</div>
+          <div class="testrow"><span class="tno">4</span><span class="art">🍊</span> It's <span class="gap">an</span> orange.</div>
+          <div class="testrow"><span class="tno">5</span><span class="art">☂️</span> It's <span class="gap">an</span> umbrella.</div>
+        </div>
+      </div>
+      <div class="card lavender" style="flex:1.2;min-width:320px">
+        <h2>5 · One → many! ✌️</h2>
+        <div class="mt">
+          <div class="testrow"><span class="tno">1</span> 🥪 It's a sandwich. → They're <span class="gap">sandwiches</span>.</div>
+          <div class="testrow"><span class="tno">2</span> ✏️ It's a pencil case. → They're <span class="gap">pencil cases</span>.</div>
+          <div class="testrow"><span class="tno">3</span> 🍊 It's an orange. → They're <span class="gap">oranges</span>.</div>
+          <div class="testrow"><span class="tno">4</span> 📦 It's a box. → They're <span class="gap">boxes</span>.</div>
+          <div class="testrow"><span class="tno">5</span> 🪑 It's a desk. → They're <span class="gap">desks</span>.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 13 · THE STARTER TEST — COMMUNICATION -->
+  <section class="slide" id="s13">
+    <div class="eyebrow reveal">The Go Getter test · part 3 of 3</div>
+    <h1 class="title reveal">Communication 📝</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="col reveal" style="flex:1;justify-content:center;max-width:860px;margin:0 auto;width:100%">
+      <div class="card mint" style="padding:.9em 1.3em">
+        <h2>6 · Match! 🤝</h2>
+        <div class="mt">
+          <div class="testrow"><span class="tno">1</span> Sit → <span class="gap">a · down.</span></div>
+          <div class="testrow"><span class="tno">2</span> How do you → <span class="gap">c · spell that?</span></div>
+          <div class="testrow"><span class="tno">3</span> Can → <span class="gap">b · you help me?</span></div>
+          <div class="testrow"><span class="tno">4</span> Stand → <span class="gap">e · up, please.</span></div>
+          <div class="testrow"><span class="tno">5</span> Close → <span class="gap">d · your books, please.</span></div>
+        </div>
+      </div>
+      <p class="task" style="align-self:center">Now DO them! 🎬 Elena says — you do!</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 14 · THE TREASURE TASK -->
+  <section class="slide" id="s14">
+    <div class="eyebrow reveal">🧠 The treasure task</div>
+    <h1 class="title reveal">Think it through! 💎</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="col reveal" style="flex:1;justify-content:center;max-width:900px;margin:0 auto;width:100%">
+      <div class="card lavender treasure" style="padding:1.1em 1.5em">
+        <p style="font-size:clamp(1.2rem,2.2vw,1.7rem);line-height:1.55">📞 The phone call is <b>before</b> the photo.<br>🐬 The dolphin is <b>after</b> the photo.</p>
+        <p class="q mt">The photo is after <span class="gap" style="min-width:7em">the phone call</span> and before <span class="gap" style="min-width:7em">the dolphin</span>!</p>
+      </div>
+      <p class="hintline" style="text-align:center">Say it FIRST — then tap the gaps! 💎</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 15 · THE SILLY GAME, TWO SCREENS -->
+  <section class="slide" id="s15">
+    <div class="eyebrow reveal">The silly game 🎪 · two screens</div>
+    <h1 class="title reveal">Answers on the screen!</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="bigboard reveal" id="bigboard">
+      <div class="bchip">in the pencil case</div>
+      <div class="bchip">grey</div>
+      <div class="bchip">eight</div>
+      <div class="bchip">Because it's fun!</div>
+      <div class="bchip">On Sunday!</div>
+    </div>
+
+    <div class="row reveal" style="justify-content:center;gap:1em;margin-top:.9em">
+      <p class="task">Listen! 👂 One answer fits — SAY it! 🗣</p>
+      <div class="small-tools">
+      </div>
+    </div>
+    <p class="hintline reveal" style="text-align:center">🎁 Homework bonus: make YOUR silly question for next time!</p>
+  </section>
+
+  <!-- SLIDE 16 · HOMEWORK AFTER THE LESSON + REPORT -->
+  <section class="slide" id="s16">
+    <div class="eyebrow reveal">Homework</div>
+    <h1 class="title reveal">📝 Homework — after the lesson!</h1>
+    <div class="accent-line reveal"></div>
+
+    <div class="col reveal" style="max-width:940px;margin:0 auto;gap:.55em">
+      <div class="hw-step"><span class="n">1</span><div class="ru">✨ The homework appears after the lesson! 🎀</div></div>
+    </div>
+    <div id="rec-card" class="reveal">
+      <div id="rec-stars"></div>
+      <div id="rec-line"></div>
+      <div id="rec-sent"></div>
+      <button id="rec-copy">📋 Copy for Miss Elena</button>
+    </div>
+  </section>
+
+</main>
+
+<div id="pardon-bar"><button class="pardon-pill" id="pardon-btn">🙋 Pardon?</button></div>
+<div id="nav">
+  <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
+  <div id="counter"><span class="now">1</span> / 16</div>
+  <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
+  <button id="fs-btn" title="Fullscreen (F)">⛶</button>
+</div>
+
+<!-- THE PARDON? BUTTON · the pupil's class-management phrases -->
+<div id="pardon" class="overlay">
+  <span class="closer" data-close="pardon">✕ close</span>
+  <div class="eyebrow">Your phrases — say them in English!</div>
+  <h1 class="title" style="font-size:clamp(1.5rem,3vw,2.4rem)">What can you say? 🙋</h1>
+  <div class="accent-line"></div>
+  <div style="max-width:760px">
+    <div class="phrase"><span class="i">🙋</span>Pardon?</div>
+    <div class="phrase"><span class="i">🤩</span>What does <b>brilliant</b> mean?</div>
+    <div class="phrase"><span class="i">🤝</span>Can you help me?</div>
+    <div class="phrase"><span class="i">🔁</span>Can you repeat, please?</div>
+    <div class="phrase"><span class="i">💬</span>How do you say <b>…</b> in English?</div>
+    <div class="phrase"><span class="i">🤔</span>I don't understand.</div>
+  </div>
+  <p class="hintline" style="margin-top:.8em">Try one now! 😊</p>
+</div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const DECK_ID='alika-l013';
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+  const fill = document.getElementById('progress-fill');
+  const counter = document.getElementById('counter').querySelector('.now');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const fsBtn = document.getElementById('fs-btn');
+  function render(){
+    slides.forEach((s,i)=>{ s.classList.toggle('active', i===current); s.classList.toggle('prev', i<current); });
+    counter.textContent = current+1;
+    fill.style.width = ((current+1)/total*100) + '%';
+    prevBtn.disabled = current===0;
+    nextBtn.disabled = current===total-1;
+    history.replaceState(null,'','#'+(current+1));
+    maybeFinish();
+  }
+  function go(n){ current = Math.max(0, Math.min(total-1, n)); render(); }
+  const hashSlide = parseInt(location.hash.slice(1),10);
+  if(hashSlide>=1 && hashSlide<=total) current = hashSlide-1;
+  const next = ()=>go(current+1);
+  const prev = ()=>go(current-1);
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  const dummyCl=()=>({contains:()=>false,remove:()=>{},add:()=>{}});
+  const tnotes=document.getElementById('tnotes')||{classList:dummyCl()},
+        tpad=document.getElementById('tpad')||{classList:dummyCl()},
+        pardonEl=document.getElementById('pardon'),
+        logpanel=document.getElementById('logpanel');
+  document.addEventListener('keydown', e=>{
+    if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+    const anyOpen = tnotes.classList.contains('open')||tpad.classList.contains('open')||pardonEl.classList.contains('open')||(logpanel&&logpanel.classList.contains('open'));
+    if(anyOpen){
+      if(e.key==='Escape'){ tnotes.classList.remove('open'); tpad.classList.remove('open'); pardonEl.classList.remove('open'); if(logpanel)logpanel.classList.remove('open'); }
+      return;
+    }
+    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
+    switch(e.key){
+      case 'ArrowRight': case 'ArrowDown': e.preventDefault(); next(); break;
+      case 'ArrowLeft': case 'ArrowUp': e.preventDefault(); prev(); break;
+      case ' ': e.preventDefault(); next(); break;
+      case 'Home': e.preventDefault(); go(0); break;
+      case 'End': e.preventDefault(); go(total-1); break;
+      case 'f': case 'F': case 'а': case 'А': toggleFs(); break;
+      case 't': case 'T': case 'е': case 'Е': if(current===14) togglePad(); else toggleNotes(); break;
+      case 'c': case 'C': case 'с': case 'С': toggleLog(); break;
+      case 'p': case 'P': case 'з': case 'З': togglePardon(); break;
+      case 'Escape': if(document.fullscreenElement) document.exitFullscreen?.(); break;
+    }
+  });
+  let wheelLock = false;
+  document.getElementById('deck').addEventListener('wheel', e=>{
+    if(wheelLock) return;
+    if(Math.abs(e.deltaY) < 25) return;
+    wheelLock = true;
+    (e.deltaY>0 ? next() : prev());
+    setTimeout(()=>wheelLock=false, 650);
+  }, {passive:true});
+  let touchX=null;
+  document.addEventListener('touchstart', e=>{touchX=e.changedTouches[0].clientX},{passive:true});
+  document.addEventListener('touchend', e=>{
+    if(touchX===null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx)>60){ dx<0 ? next() : prev(); }
+    touchX=null;
+  },{passive:true});
+  function toggleFs(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+    else { document.exitFullscreen?.(); }
+  }
+  fsBtn.addEventListener('click', toggleFs);
+  document.addEventListener('click', e=>{
+    const g = e.target.closest('.gap');
+    if(g) g.classList.add('filled');
+    const c = e.target.closest('.closer');
+    if(c){ const ov=document.getElementById(c.dataset.close); if(ov) ov.classList.remove('open'); }
+    const cell = e.target.closest('.bagcell');
+    if(cell) cell.classList.toggle('shown');
+  });
+
+  /* --- teacher's notes: this slide's own note (T) --- */
+  function toggleNotes(){
+    const tbody=document.getElementById('tnotes-body');
+    if(!tbody){ tnotes.classList.remove('open'); return; }
+    if(tnotes.classList.contains('open')){ tnotes.classList.remove('open'); return; }
+    tpad.classList.remove('open'); if(logpanel)logpanel.classList.remove('open');
+    document.getElementById('tn-step').textContent = current+1;
+    const t = slides[current].querySelector('h1.title');
+    document.getElementById('tnotes-title').textContent = t ? t.textContent : ('Slide '+(current+1));
+    const body=tbody;
+    body.innerHTML='';
+    const txt=(slides[current].dataset.notes||'').trim();
+    if(!txt){
+      body.innerHTML='<div class="note-step"><span class="b">·</span><span>No notes for this slide — just teach it.</span></div>';
+    }else{
+      txt.split('\n\n').forEach(block=>{
+        const d=document.createElement('div'); d.className='note-step';
+        const b=document.createElement('span'); b.className='b'; b.textContent='›';
+        const s=document.createElement('span'); s.textContent=block;
+        d.appendChild(b); d.appendChild(s); body.appendChild(d);
+      });
+    }
+    tnotes.classList.add('open');
+  }
+  const tnotesBtn=document.getElementById('tnotes-btn');
+  if(tnotesBtn) tnotesBtn.addEventListener('click', toggleNotes);
+
+  /* --- pardon --- */
+  function togglePardon(){
+    if(pardonEl.classList.contains('open')){ pardonEl.classList.remove('open'); return; }
+    tnotes.classList.remove('open'); tpad.classList.remove('open'); if(logpanel)logpanel.classList.remove('open');
+    pardonEl.classList.add('open');
+  }
+  document.getElementById('pardon-btn').addEventListener('click', togglePardon);
+
+  /* --- the words check: Elena's tick/cross tool --- */
+  var WORDV={};
+  document.querySelectorAll('.wrow').forEach(r=>{
+    r.querySelectorAll('.wbtn').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        e.stopPropagation();
+        const yes = btn.classList.contains('yes');
+        r.classList.remove('ok','no');
+        r.classList.add(yes?'ok':'no');
+        WORDV[r.dataset.w]= yes?'✓':'✗';
+        logAutoSend();
+      });
+    });
+  });
+
+  /* --- riddle reveals --- */
+  ['riddle-old','riddle-new'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.addEventListener('click', function(){ this.classList.toggle('shown'); });
+  });
+
+  /* --- judge rows: the detective --- */
+  document.querySelectorAll('.judge').forEach(j=>{
+    j.querySelectorAll('.ans').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        e.stopPropagation();
+        if(j.dataset.done) return;
+        j.dataset.done='1';
+        const truth = j.dataset.a;
+        const good = btn.dataset.v===truth;
+        rec('Detective', j.dataset.q, btn.dataset.v==='ok'?'right time':'nonsense',
+            truth==='ok'?'right time':'nonsense', good);
+        j.classList.remove('shown-ok','shown-no','wrong');
+        j.classList.add(truth==='ok' ? 'shown-ok' : 'shown-no');
+        if(truth!=='ok') j.classList.add('wrong');
+        j.querySelector('.badge').textContent = truth==='ok' ? '✓' : '✗';
+        btn.classList.add(good?'picked-ok':'picked-no');
+        j.querySelectorAll('.ans').forEach(b=>b.disabled=true);
+      });
+    });
+  });
+
+  /* --- standing mime slide --- */
+  const BANK=[
+    ['🫙','open the jar?','twist the lid!'],
+    ['📦','open the box?','pull the flaps!'],
+    ['🧼','wash your hands?','rub, rub, rub!'],
+    ['🍎','eat an apple?','big bite!'],
+    ['💧','drink your water?','careful sips!'],
+    ['🚲','ride a bike?','pedal, pedal!'],
+    ['🪁','fly a kite?','pull the string, run!'],
+    ['🐈','draw a cat?','draw in the air!'],
+    ['📺','watch TV?','popcorn + stare!'],
+    ['🍵','make tea?','pour and stir!'],
+    ['🤸‍♀️','swing on the bar?','swing your arms!'],
+    ['🪟','open the window?','push!'],
+    ['🏐','catch the ball?','hands up!'],
+    ['📖','read this word?','point and decode!'],
+    ['🚶','walk like a robot?','stiff legs! beep!'],
+    ['🐘','walk like an elephant?','stomp, stomp!'],
+    ['📸','take a photo?','click! say cheese!'],
+    ['🐬','jump like a dolphin?','splash!'
+    ]
+  ];
+  const mimeGrid=document.getElementById('mime-grid');
+  function renderMimes(){
+    const pool=BANK.slice();
+    for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
+    mimeGrid.innerHTML=pool.slice(0,10).map(([ico,q,m])=>
+      '<div class="model-line" style="margin:0;font-size:clamp(.95rem,1.65vw,1.35rem);padding:.4em .7em;line-height:1.4">'+ico+' <span class="hlp">How do you</span> '+q+' — <span class="gap">'+m+'</span></div>'
+    ).join('');
+  }
+  document.getElementById('dice-btn').addEventListener('click', renderMimes);
+  renderMimes();
+
+  /* --- knock the wall: the ph edition --- */
+  const WALL_WORDS=[
+    ['p','hone','📞'],
+    ['p','hoto','📸'],
+    ['ele','phant','🐘'],
+    ['dol','phin','🐬'],
+    ['al','phabet','🔤']
+  ];
+  function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+  let wallDeck=shuffle(WALL_WORDS.slice()), wi=-1;
+  const wallbox=document.getElementById('wallbox');
+  function nextWall(){
+    wi++;
+    if(wi>=wallDeck.length){ wallDeck=shuffle(WALL_WORDS.slice()); wi=0; }
+    const w=wallDeck[wi];
+    wallbox.classList.remove('won');
+    document.getElementById('wall-word').innerHTML=w[0]+'<span class="chunk">'+w[1]+'</span><span class="wemoji"> '+w[2]+'</span>';
+    const bricks=document.getElementById('bricks');
+    bricks.innerHTML='';
+    for(let i=0;i<6;i++){ const b=document.createElement('div'); b.className='brick'; bricks.appendChild(b); }
+  }
+  function knockOne(){
+    const b=wallbox.querySelector('.brick:not(.off)');
+    if(!b) return;
+    b.classList.add('off');
+    if(!wallbox.querySelector('.brick:not(.off)')) wallbox.classList.add('won');
+  }
+  wallbox.addEventListener('click', knockOne);
+  document.getElementById('wall-next').addEventListener('click', e=>{ e.stopPropagation(); nextWall(); });
+  nextWall();
+
+  /* --- revision hint: closed by default --- */
+  document.getElementById('rule-btn').addEventListener('click', function(){
+    const l=document.getElementById('rule-line');
+    const open=l.style.display!=='none';
+    l.style.display=open?'none':'block';
+    this.textContent=open?'hint ▾':'hint ▴';
+  });
+
+  /* --- the two-screen silly game --- */
+  const DEAL=[
+    ['Where is your pencil? ✏️','in the pencil case'],
+    ['Where is the rubber? 🩹','in the pencil case'],
+    ['What colour is an elephant? 🐘','grey'],
+    ['What colour is a mouse? 🐭','grey'],
+    ['How many legs has a spider got? 🕷','eight'],
+    ['How many balls have you got? 🏐🏐','eight'],
+    ['Why do you like gymnastics? 🤸‍♀️',"Because it's fun!"],
+    ['Why do we play games? 🎲',"Because it's fun!"],
+    ['When is our English lesson? 📖','On Sunday!'],
+    ['When is your day off school? 🛴','On Sunday!']
+  ];
+  function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+  function seededDeal(){
+    const d=new Date();
+    const rnd=mulberry32(d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate());
+    const idx=DEAL.map((_,i)=>i);
+    for(let i=idx.length-1;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [idx[i],idx[j]]=[idx[j],idx[i]]; }
+    return idx.map(i=>DEAL[i]);
+  }
+  document.querySelectorAll('#bigboard .bchip').forEach(chip=>{
+    chip.addEventListener('click', ()=>chip.classList.toggle('hit'));
+  });
+  function togglePad(){
+    if(tpad.classList.contains('open')){ tpad.classList.remove('open'); return; }
+    tnotes.classList.remove('open'); if(logpanel)logpanel.classList.remove('open');
+    renderPad();
+    tpad.classList.add('open');
+  }
+  const padBtn=document.getElementById('pad-btn');
+  if(padBtn) padBtn.addEventListener('click', togglePad);
+  let padOrder=seededDeal(), padState={};
+  const padList=document.getElementById('pad-list');
+  function renderPad(){
+    if(!padList) return;
+    padList.innerHTML=padOrder.map((q,i)=>
+      '<div class="pad-q'+(padState[i]?' done':'')+'" data-i="'+i+'"><span class="n">'+(i+1)+'</span><span><span class="t">'+q[0]+'</span><span class="k">→ '+q[1]+'</span></span></div>'
+    ).join('');
+  }
+  if(padList) padList.addEventListener('click', e=>{
+    const row=e.target.closest('.pad-q');
+    if(!row) return;
+    const i=row.dataset.i;
+    padState[i]=!padState[i];
+    row.classList.toggle('done', !!padState[i]);
+  });
+  const padShuffle=document.getElementById('pad-shuffle');
+  if(padShuffle) padShuffle.addEventListener('click', ()=>{
+    padOrder=shuffle(DEAL.slice()); padState={}; renderPad();
+  });
+
+  /* --- answer recorder (the detective verdicts → stars) --- */
+  var LOG=[];
+  function rec(game,q,hers,key,ok){ LOG.push({g:game,q:q,h:hers,k:key,ok:ok}); }
+  var sentRun=false;
+  function maybeFinish(){
+    if(sentRun || current<total-1 || !LOG.length) return;
+    sentRun=true;
+    finishRec();
+  }
+  function finishRec(){
+    const totalAns=LOG.length, okN=LOG.filter(l=>l.ok).length;
+    const stars=Math.max(1,Math.round(okN/totalAns*5));
+    document.getElementById('rec-card').classList.add('show');
+    document.getElementById('rec-stars').textContent='⭐'.repeat(stars)+'☆'.repeat(5-stars);
+    const head='✅ 🕵️ '+okN+'/'+totalAns;
+    document.getElementById('rec-line').textContent=head;
+    const misses=LOG.filter(l=>!l.ok);
+    let txt='🎀 Alika · L13 deck · '+new Date().toLocaleString('en-GB')+'\n'+head;
+    if(misses.length){
+      txt+='\nMisses:';
+      misses.forEach(l=>{ txt+='\n• ['+l.g+'] '+l.q+' — her answer: '+l.h+' · key: '+l.k; });
+    }else txt+='\nMisses: none!';
+    try{localStorage.setItem('alika-l013-last',txt);}catch(e){}
+    const sentEl=document.getElementById('rec-sent'), copyBtn=document.getElementById('rec-copy');
+    sentEl.textContent='The result is ready — ask mum to press the button 👇';
+    copyBtn.style.display='inline-block';
+  }
+  function copyText(t){
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(t); }
+    else{
+      const ta=document.createElement('textarea'); ta.value=t;
+      document.body.appendChild(ta); ta.select();
+      try{document.execCommand('copy');}catch(e){}
+      ta.remove();
+    }
+  }
+  document.getElementById('rec-copy').addEventListener('click', function(){
+    let t='';try{t=localStorage.getItem('alika-l013-last')||'';}catch(e){}
+    if(t){ copyText(t); this.textContent='✓ Copied!'; }
+  });
+
+  /* --- the ✍️ lesson log (C) — ticks + notes + shorthand chips + auto-send --- */
+  const logStore=()=>{ try{return JSON.parse(localStorage.getItem('log-'+DECK_ID)||'{}')}catch(e){return {}} };
+  const logSave=o=>{ try{localStorage.setItem('log-'+DECK_ID,JSON.stringify(o))}catch(e){} };
+  let logCur=0;
+  function logGoto(n,openPanel){
+    logCur=n;
+    const o=logStore(),row=document.getElementById('logrow');
+    if(!row) return;
+    const rec2=o[n]||{};
+    const t=slides[n].querySelector('h1.title');
+    row.innerHTML='<span class="tick" id="logtick" style="cursor:pointer">'+(rec2.done?'✅':'⬜')+'</span><span><b>Slide '+(n+1)+'</b> — '+(t?t.textContent:'')+'</span>';
+    document.getElementById('logtick').onclick=()=>{
+      const s=logStore(); s[logCur]=s[logCur]||{}; s[logCur].done=!s[logCur].done; logSave(s);
+      logGoto(logCur,false); logAutoSend();
+    };
+    const ta=document.getElementById('lognote');
+    ta.value=rec2.note||'';
+    ta.oninput=()=>{ const s=logStore(); s[n]=s[n]||{}; s[n].note=ta.value; logSave(s); logAutoSend(); };
+    document.getElementById('logpos').textContent=(n+1);
+    if(openPanel) logpanel.classList.add('open');
+  }
+  function toggleLog(){
+    if(!logpanel) return;
+    if(logpanel.classList.contains('open')){ logpanel.classList.remove('open'); return; }
+    tnotes.classList.remove('open'); tpad.classList.remove('open'); pardonEl.classList.remove('open');
+    logGoto(current,true);
+  }
+  const logBtn=document.getElementById('log-btn');
+  if(logBtn) logBtn.addEventListener('click', toggleLog);
+  const logPrev=document.getElementById('logprev'), logNext=document.getElementById('lognext');
+  if(logPrev) logPrev.addEventListener('click', ()=>logGoto(Math.max(0,logCur-1),false));
+  if(logNext) logNext.addEventListener('click', ()=>logGoto(Math.min(total-1,logCur+1),false));
+  document.querySelectorAll('#logpanel .chip').forEach(ch=>{
+    ch.addEventListener('click', ()=>{
+      const ta=document.getElementById('lognote');
+      if(!ta) return;
+      ta.value=(ta.value?ta.value+' ':'')+ch.dataset.ins+' ';
+      ta.focus();
+      const s=logStore(); s[logCur]=s[logCur]||{}; s[logCur].note=ta.value; logSave(s);
+    });
+  });
+  function buildReport(){
+    const o=logStore();
+    let out='✍️ '+DECK_ID+' · lesson log · '+new Date().toLocaleString('en-GB')+'\n';
+    let any=false;
+    slides.forEach((s,i)=>{ const r=o[i]; if(r&&(r.done||r.note)){ out+='· s'+(i+1)+(r.done?' ✓':'')+(r.note?' — '+r.note:'')+'\n'; any=true; } });
+    const wv=Object.keys(WORDV);
+    if(wv.length){ out+='WORDS CHECK · '+wv.map(w=>w+' '+WORDV[w]).join(' · ')+'\n'; any=true; }
+    if(!any) out+='(nothing ticked or noted yet)\n';
+    return out;
+  }
+  const logCopy=document.getElementById('logcopy');
+  if(logCopy) logCopy.addEventListener('click', ()=>{
+    copyText(buildReport());
+  });
+  let logT=null;
+  function logAutoSend(){
+    if(!/^https?:$/.test(location.protocol)) return;
+    clearTimeout(logT);
+    logT=setTimeout(()=>{ try{
+      fetch('/report?deck='+DECK_ID,{method:'POST',body:buildReport()});
+    }catch(e){} },800);
+  }
+
+  render();
+})();
+
+/* READY-CHIME — STANDING: polls this file over http; when a new version
+   is saved the open window chimes once and reloads, keeping the slide. */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
