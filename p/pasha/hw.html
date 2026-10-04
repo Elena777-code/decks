@@ -248,7 +248,6 @@ iframe.hide{display:none}
   <textarea id="rep-note" class="mt" placeholder="Anything you want to tell Miss Elena? (optional)"></textarea>
   <div class="row mt">
     <button class="big stamp" id="send">📤 Send to Miss Elena</button>
-    <button class="big" id="copy" style="background:var(--navy)">📋 Copy</button>
     <span class="sent" id="sent"></span>
   </div>
 </div>
@@ -468,12 +467,6 @@ function buildReport(){
 }
 document.getElementById('rep-note').addEventListener('input',()=>{store(LS.note,document.getElementById('rep-note').value);buildReport()});
 document.getElementById('rep-note').value=load(LS.note,'');
-document.getElementById('copy').onclick=()=>{
-  const txt=document.getElementById('rep-text');
-  const done2=()=>{const b=document.getElementById('copy');b.textContent='✅ copied — paste it to Miss Elena';setTimeout(()=>b.textContent='\u{1F4CB} Copy',2200)};
-  try{navigator.clipboard.writeText(txt.value).then(done2,()=>{txt.select();document.execCommand('copy');done2()})}
-  catch(e){txt.select();document.execCommand('copy');done2()}
-};
 document.getElementById('send').onclick=()=>{
   const f=document.createElement('form');
   f.method='POST';f.action=FORM_ACTION;f.target='form-target';
