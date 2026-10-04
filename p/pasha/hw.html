@@ -68,6 +68,7 @@ button.big.stamp{background:linear-gradient(135deg,var(--stamp),var(--cheese))}
   border-top:6px solid var(--cheese)}
 .wcard .head{display:flex;align-items:baseline;gap:.5em;flex-wrap:wrap}
 .wcard .w{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2vw,1.5rem);color:var(--navy)}
+.wcard .ru{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.9rem,1.3vw,1.05rem);color:var(--stamp);background:var(--stamp-soft);border-radius:99px;padding:.05em .6em}
 .wcard .m{font-size:clamp(.95rem,1.4vw,1.12rem);color:var(--ink);margin:.25em 0}
 .wcard .ex{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);line-height:1.45}
 .wcard .ex b{color:var(--navy)}
@@ -159,10 +160,10 @@ iframe.hide{display:none}
 
 <!-- ============ 1 · THE 13 NEW WORDS ============ -->
 <div class="card">
-  <h2>1 · Thirteen new words 📖</h2>
-  <p class="task mt">Read every card. Learn the words — <b>Miss Elena will ask you the Russian</b> at the lesson!</p>
-  <div class="words mt" id="words13"></div>
-  <p class="hintline mt">Can't remember a word at the lesson? Then next time you write it in your dictionary — the Russian + one example. So learn them now! 😉</p>
+  <h2>1 · Eight new words 📖 — to your dictionary</h2>
+  <p class="task mt">Copy all eight into your dictionary — <b>the Russian + the English + one example</b> each. Write neatly — Miss Elena checks your dictionary at the lesson!</p>
+  <div class="words mt" id="words8"></div>
+  <p class="hintline mt">The 💊 line is your example — choose your own for the dictionary if you like it better. 😉</p>
 </div>
 
 <!-- ============ 2 · WORKBOOK PP. 5–6 (with the three tracks embedded) ============ -->
@@ -266,7 +267,7 @@ const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){re
 
 /* ====== the plan card (done boxes) ====== */
 const PLAN=[
- {id:'words', t:'The thirteen new words — read the cards + learn them'},
+ {id:'words', t:'The eight new words — copy them into your dictionary'},
  {id:'wb', t:'WB p. 5 + p. 6 — the song tracks are right on this page'},
  {id:'test', t:'The science test — play it at least twice'},
  {id:'ten', t:'Learn the ten dictation words'},
@@ -284,25 +285,20 @@ PLAN.forEach(p=>{
 });
 
 /* ====== the 13 teach cards (meaning + 2 examples, no Russian — the Russian is Miss Elena's lesson check) ====== */
-const WORDS13=[
- {w:'put on',m:'to place clothes or glasses on your body',e:['Put on your goggles before the experiment.','It\u2019s cold \u2014 put on your coat!']},
- {w:'say',m:'to speak words',e:['Say your name, please.','What did you say?']},
- {w:'important',m:'a thing that matters a lot',e:['Safety is important in the lab.','This is an important day.']},
- {w:'guess',m:'to give an answer when you don\u2019t know it',e:['Guess the word!','I guess he is ten.']},
- {w:'round',m:'shaped like a ball or a circle',e:['Bubbles are round.','The Earth is round.']},
- {w:'different',m:'not the same',e:['English and Russian are different.','Try a different colour.']},
- {w:'want to',m:'to wish to do something',e:['I want to dance.','They want to go home.']},
- {w:'wait',m:'to stay and do nothing until something happens',e:['Wait for me!','Don\u2019t wait \u2014 run!']},
- {w:'after',m:'later than something',e:['Music is after lunch.','We play after school.']},
- {w:'before',m:'earlier than something',e:['Wash your hands before dinner.','Before the test, breathe!']},
- {w:'early',m:'not late; near the start',e:['The bus is early today.','He goes to bed early.']},
- {w:'never',m:'at no time; not one time',e:['I never eat chalk!','She is never late.']},
- {w:'always',m:'every time',e:['We always warm up.','The sun always rises.']}
+const WORDS8=[
+ {w:'put on',ru:'надевать',m:'to place clothes or glasses on your body',e:['Put on your goggles before the experiment.','It\u2019s cold \u2014 put on your coat!']},
+ {w:'say',ru:'говорить',m:'to speak words',e:['Say your name, please.','What did you say?']},
+ {w:'want to',ru:'хотеть (сделать что-то)',m:'to wish to do something',e:['I want to dance.','They want to go home.']},
+ {w:'wait',ru:'ждать',m:'to stay and do nothing until something happens',e:['Wait for me!','Don\u2019t wait \u2014 run!']},
+ {w:'before',ru:'до, перед',m:'earlier than something',e:['Wash your hands before dinner.','Before the test, breathe!']},
+ {w:'after',ru:'после',m:'later than something',e:['Music is after lunch.','We play after school.']},
+ {w:'always',ru:'всегда',m:'every time',e:['We always warm up.','The sun always rises.']},
+ {w:'never',ru:'никогда',m:'at no time; not one time',e:['I never eat chalk!','She is never late.']}
 ];
 const w13=document.getElementById('words13');
-WORDS13.forEach(x=>{
+WORDS8.forEach(x=>{
   const d=document.createElement('div');d.className='wcard';
-  d.innerHTML='<div class="head"><span class="w">'+x.w+'</span></div>'
+  d.innerHTML='<div class="head"><span class="w">'+x.w+'</span><span class="ru">'+x.ru+'</span></div>'
    +'<p class="m">'+x.m+'</p>'
    +'<p class="ex">💊 <b>'+x.e[0]+'</b></p><p class="ex">💬 <b>'+x.e[1]+'</b></p>';
   w13.appendChild(d);
