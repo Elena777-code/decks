@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGOR — Homework 8 · the drill · one card, one clock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#F6F4EF; --card:#FFFFFF; --ink:#33312B; --ink-soft:#8B8678;
+  --teal:#3E8E7E; --teal-soft:rgba(62,142,126,.09);
+  --amber:#C99A3C; --amber-soft:rgba(201,154,60,.10);
+  --terra:#C4744D; --line:#E5E0D5; --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--wall);color:var(--ink);font-family:'Inter',system-ui,sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:4vh 5vw 8vh;-webkit-font-smoothing:antialiased}
+header{max-width:660px;width:100%;text-align:center;margin-bottom:1.2em}
+.eyebrow{color:var(--amber);letter-spacing:.18em;text-transform:uppercase;font-weight:600;font-size:.78rem}
+h1{font-weight:800;font-size:clamp(1.6rem,6vw,2.4rem);line-height:1.12;margin-top:.15em}
+h1 .calm{color:var(--teal)}
+.rules{margin-top:.7em;color:var(--ink-soft);font-weight:500;font-size:clamp(.95rem,3.4vw,1.1rem);line-height:1.65}
+main{max-width:660px;width:100%}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:0 10px 30px rgba(51,49,43,.10);padding:clamp(1.4rem,5vw,2.4rem);text-align:center;
+  animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none!important}
+.qcount{font-size:.82rem;font-weight:800;color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+.timer-wrap{height:12px;background:rgba(62,142,126,.14);border-radius:99px;overflow:hidden;margin:1.1em 0 .35em}
+.timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--teal),var(--amber));border-radius:99px}
+.timer-num{font-weight:800;color:var(--ink-soft);font-size:.95rem;font-variant-numeric:tabular-nums}
+.timer-num.low{color:var(--terra)}
+.prompt{font-size:clamp(1.35rem,5.5vw,1.9rem);font-weight:700;line-height:1.5;margin-top:.5em}
+.prompt .gap{color:var(--terra);letter-spacing:.04em}
+.helper{margin-top:.6em;color:var(--ink-soft);font-size:clamp(.85rem,3vw,1rem);font-weight:500}
+.answer-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:1.3em}
+.type-box{font:600 1.15rem 'Inter',sans-serif;color:var(--ink);background:var(--wall);
+  border:2px solid var(--line);border-radius:14px;padding:.65em 1em;width:min(230px,60vw);
+  text-align:center;outline:none;transition:.2s}
+.type-box:focus{border-color:var(--teal)}
+button{font-family:'Inter',sans-serif;font-weight:600;border:none;cursor:pointer;border-radius:99px;
+  transition:transform .12s ease,filter .12s ease}
+button:active{transform:scale(.96)}
+.ok-btn{background:var(--teal);color:#fff;font-size:1.05rem;padding:.7em 1.9em}
+.ok-btn:hover{filter:brightness(1.08)}
+.flash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;
+  background:rgba(246,244,239,.96);z-index:50;font-weight:800;font-size:clamp(1.6rem,7vw,2.6rem);text-align:center;padding:5vw}
+.flash .sub{font-size:.45em;color:var(--ink-soft);font-weight:500;margin-top:.4em}
+.flash.ok{color:var(--teal)} .flash.bad{color:var(--terra)} .flash.info{color:var(--amber)}
+.verb{color:var(--terra);text-decoration:line-through;text-decoration-thickness:2px}
+button.big{background:var(--teal);color:#fff;font-size:clamp(1.1rem,4.2vw,1.35rem);padding:.7em 2.4em;margin-top:1.2em}
+a.big{background:var(--ink-soft);color:#fff;font:600 clamp(1.1rem,4.2vw,1.35rem) 'Inter',sans-serif;
+  padding:.7em 2.4em;margin-top:1.2em;text-decoration:none;display:inline-block}
+.score-line{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dotted var(--line);
+  padding:.55em 0;font-size:clamp(1rem,3.8vw,1.2rem);font-weight:600}
+.score-line b{color:var(--teal)}
+.miss{background:var(--amber-soft);border:1px dashed var(--amber);border-radius:12px;padding:.5em .9em;
+  margin:.45em 0;font-size:clamp(.9rem,3.2vw,1.05rem);font-weight:500;text-align:left}
+.miss .fix{color:var(--teal);font-weight:700}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">homework · the drill · six rounds · one card at a time</div>
+  <h1>One card — <span class="calm">one clock</span></h1>
+  <p class="rules">Every card sets its own timer. Type your answer, press OK — Enter works too.
+  The card flips to the answer: green if you had it <b>before</b> the click. Misses come back at the end.</p>
+</header>
+<main>
+  <div class="card" id="start-card">
+    <div class="eyebrow" style="margin-bottom:.6em">ready?</div>
+    <p class="prompt">27 cards · 4 rounds</p>
+    <p class="helper">the turn family 8 · the four verbs 6 · grammar keys 7 · word formation 6</p>
+    <div class="answer-row" style="margin-top:1.2em">
+      <input class="type-box" id="name-box" autocomplete="off" autocapitalize="on" spellcheck="false" placeholder="your name">
+    </div>
+    <button class="big" id="begin-btn">Begin</button>
+    <p class="helper">build 2026-10-04 · v4 <span style="opacity:.7">(if this line is missing, your browser kept an old copy — reload)</span></p>
+  </div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div class="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="card hidden" id="end-card">
+    <div class="eyebrow" style="margin-bottom:.6em">the score card</div>
+    <div id="end-body"></div>
+    <div class="answer-row" style="margin-top:1.4em">
+      <button class="big" id="send-btn" style="margin-top:0">📤 Send the result to your teacher</button>
+      <button class="big" id="copy-btn" style="margin-top:0;background:var(--amber)">📋 Copy the report</button>
+    </div>
+    <p class="helper" id="send-hint">Send → it lands in your teacher's form automatically. Copy → paste it to her in Telegram.</p>
+    <div class="answer-row" style="margin-top:.4em">
+      <a class="big" href="hw.html" style="margin-top:0;background:var(--ink-soft)">← Back to my homework</a>
+      <button class="big" id="again-btn" style="margin-top:0">Play again</button>
+    </div>
+    <div id="misses-body"></div>
+  </div>
+</main>
+<div class="flash hidden" id="flash"></div>
+
+<script>
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function show(id){$(id).classList.remove('hidden');}
+function hide(id){$(id).classList.add('hidden');}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ---------- the rounds (1 gap per card, always). Sources: the classwork
+   worksheet 04-10 + his own essays & email (both pairs) — HIS OWN WORDS
+   ONLY (v3, Elena 04.10: the returners round is out — too difficult,
+   time is precious; no chapter-bank extras in his drills).
+  excel / excellence / wealthy / wealth are OUT — Elena's call 04-10.
+  trophics→trophies is OUT too (v4, Elena: «trophics — handwriting» —
+  same amnesty).
+  The spelling-under-load round is OUT too (v2, Elena's promise 04.10:
+  he promised to write carefully — the handwriting slips get the pass
+  this once; «next time he will not be forgiven». The cards are banked
+  in word-drill.md and come back on her word.) ---------- */
+var R_TURN=[
+ {q:'She turned <span class="gap">____</span> to be a witch.',a:['out'],why:'turn out to be — оказаться'},
+ {q:'It turned <span class="gap">____</span> that the test was moved.',a:['out'],why:'it turned out that — оказалось, что…'},
+ {q:'Don\'t forget to turn <span class="gap">____</span> the lights when you leave.',a:['off'],why:'turn off / turn on — выкл./вкл.'},
+ {q:'Turn <span class="gap">____</span> the music — it\'s too loud.',a:['down'],why:'turn down — сделать тише (also: отказать)'},
+ {q:'A problem turned <span class="gap">____</span> at the last minute.',a:['up'],why:'turn up — появиться / возникнуть'},
+ {q:'You can turn <span class="gap">____</span> your teacher for help.',a:['to'],why:'turn to smb — обращаться к'},
+ {q:'The factory turns <span class="gap">____</span> the best equipment.',a:['out'],why:'turn out = produce — your own sentence!'},
+ {q:'She turned <span class="verb">up</span> the lights. — type the fix',a:['on'],why:'you caught this one yourself — ON the lights'}
+];
+var R_VERBS=[
+ {q:'We will <span class="gap">____</span> the project next week.',a:['review'],why:'review — пересмотреть (look at again)'},
+ {q:'I need to <span class="gap">____</span> my essay before I hand it in.',a:['revise'],why:'revise — переработать / исправить'},
+ {q:'Please <span class="gap">____</span> me to call you tomorrow.',a:['remind'],why:'remind smb TO do smth'},
+ {q:'This song reminds me <span class="gap">____</span> summer.',a:['of'],why:'remind smb OF smth — you underlined it twice'},
+ {q:'<span class="gap">______</span> to lock the door when you leave!',a:['remember'],why:'remember TO do = не забудь · remember doing = помню, как дел'},
+ {q:'I need to revise my essay <span class="verb">I</span> hand it in. — type the fix',a:['before'],why:'two clauses need a joiner: …essay BEFORE I hand it in'}
+];
+var R_GRAM=[
+ {q:'Some problems that can <span class="verb">aris</span> with watching TV. — type the fix',a:['arise'],why:'arise–arose–arisen'},
+ {q:'«News» <span class="gap">____</span> very boring.',a:['is'],why:'news IS — plural look, singular verb'},
+ {q:'Some respondents <span class="verb">choosed</span> "Sitcoms" to be their favourite option. — type the fix',
+  a:['choose'],why:'the chart speaks present: is · opt for → CHOOSE (choose–chose–chosen — never choosed)'},
+ {q:'…in front of the TV, <span class="verb">that</span> can lead to lack of communication. — type the fix',a:['which'],why:'after a comma only WHICH'},
+ {q:'How <span class="gap">____</span> has your team existed?',a:['long'],why:'How LONG — never «how much time»'},
+ {q:'beautiful places <span class="verb">for walk</span> — type the fix',a:['for walks','for a walk'],why:'walk is countable here'},
+ {q:'The categories in the pie chart <span class="verb">are vary</span> statistically. — type the fix',a:['vary'],why:'vary is the verb — no are'}
+];
+var R_WF=[
+ {pos:'a <span class="gap">______</span>-size-fits-all approach (ONE — the fixed idiom)',
+  ctx:'No two students learn the same way, so a <span class="gap">______</span>-size-fits-all model fails. (ONE)',
+  a:['one'],why:'one-size-fits-all'},
+ {pos:'time was <span class="gap">______</span> up (FREE — the participle)',
+  ctx:'Two hours a day were <span class="gap">______</span> up for real teaching. (FREE)',
+  a:['freed'],why:'free→freed→freed'},
+ {pos:'educational <span class="gap">______</span> (EQUAL — the negative noun)',
+  ctx:'The reform could widen educational <span class="gap">______</span> between rich and poor regions. (EQUAL)',
+  a:['inequalities','inequality'],why:'equal→equality→inequality'},
+ {pos:'<span class="gap">______</span> learning pathways (PERSON — the adjective)',
+  ctx:'AI creates <span class="gap">______</span> learning pathways for each student. (PERSON)',
+  a:['personalised','personalized'],why:'personal→personalise→personalised'},
+ {pos:'progress moves <span class="gap">______</span> (SEAMLESS — the adverb)',
+  ctx:'With one account, lessons now move <span class="gap">______</span> between home and school. (SEAMLESS)',
+  a:['seamlessly'],why:'seamless→seamlessly'},
+ {pos:'the <span class="gap">______</span> of grading to machines (OUTSOURCE — the noun)',
+  ctx:'The <span class="gap">______</span> of grading to machines has already begun. (OUTSOURCE)',
+  a:['outsourcing'],why:'outsource→outsourcing'}
+];
+
+var ROUNDS_META=[
+ {id:'turn',icon:'①',name:'The turn family',sec:10,helper:'type the particle'},
+ {id:'verbs',icon:'②',name:'The four verbs',sec:10,helper:'type the word'},
+ {id:'gram',icon:'③',name:'Grammar keys from your texts',sec:12,helper:'type the word / the fix'},
+ {id:'wf',icon:'④',name:'Word formation — your misses',sec:25,helper:'type the word'}
+];
+
+/* ---------- WORD FORMATION's two lives (Elena's rule): first pass names
+   the part of speech; every later pass = same words, full sentence +
+   stem, no part of speech. The deck remembers. ---------- */
+function wfSeen(){
+  try{return localStorage.getItem('egor-hw008-wf')==='done';}catch(e){return false;}
+}
+function wfMark(){
+  try{localStorage.setItem('egor-hw008-wf','done');}catch(e){}
+}
+function buildRounds(){
+  var wfMode=wfSeen()?'ctx':'pos';
+  var wf=shuffle(R_WF).map(function(t){
+    return {q:(wfMode==='ctx')?t.ctx:t.pos,a:t.a,why:t.why};
+  });
+  return [
+    {meta:ROUNDS_META[0],tasks:shuffle(R_TURN)},
+    {meta:ROUNDS_META[1],tasks:shuffle(R_VERBS)},
+    {meta:ROUNDS_META[2],tasks:shuffle(R_GRAM)},
+    {meta:ROUNDS_META[3],tasks:wf,wfMode:wfMode}
+  ];
+}
+
+/* ---------- state ---------- */
+var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false;
+var RUNNER="EGOR";
+try{RUNNER=localStorage.getItem("egor-hw008-name")||"EGOR";}catch(e){}
+$("name-box").value=RUNNER==="EGOR"?"":RUNNER;
+$("begin-btn").addEventListener("click",function(){
+  var v=$("name-box").value.trim();
+  if(!v){$("name-box").style.borderColor="var(--terra)";
+    $("name-box").placeholder="write your name first";return;}
+  RUNNER=v;
+  try{localStorage.setItem("egor-hw008-name",v);}catch(e){}
+  ri=0;log=[];roundFlash();});
+$("again-btn").addEventListener("click",function(){rounds=buildRounds();ri=0;log=[];hide("end-card");roundFlash();});
+
+function roundFlash(){
+  hide("start-card");hide("end-card");hide("q-card");
+  var f=$("flash");show("flash");
+  f.className="flash info";
+  var m=rounds[ri].meta;
+  var sub='round '+(ri+1)+' of '+rounds.length;
+  if(rounds[ri].wfMode)sub+=rounds[ri].wfMode==='ctx'?' · sentences today — no part of speech':' · part of speech told today';
+  f.innerHTML=m.icon+" "+m.name+'<span class="sub">'+sub+'</span>';
+  setTimeout(function(){hide("flash");qi=0;ask();},1200);
+}
+function ask(){
+  answered=false;
+  var r=rounds[ri],t=r.tasks[qi];
+  $("q-count").textContent=r.meta.icon+" "+r.meta.name+" · card "+(qi+1)+" / "+r.tasks.length;
+  var body='<div class="prompt">'+t.q+'</div>';
+  body+='<div class="helper">'+(t.helperTip||r.meta.helper)+'</div>';
+  body+='<div class="answer-row"><input class="type-box" id="type-box" autocomplete="off" autocapitalize="off" spellcheck="false">'+
+    '<button class="ok-btn" id="ok-btn">OK</button></div>';
+  $("q-body").innerHTML=body;
+  show("q-card");
+  setTimeout(function(){try{$("q-card").scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}},60);
+  var box=$("type-box");
+  var submit=function(){if(answered)return;answered=true;stop();
+    judge(t,box.value,false);};
+  $("ok-btn").addEventListener("click",submit);
+  box.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
+  setTimeout(function(){box.focus();},60);
+  start(r.meta.sec);
+}
+function isOk(t,given){
+  var g=(given||"").trim().toLowerCase().replace(/[.,!?;:]/g,"");
+  if(!g)return false;
+  return t.a.some(function(k){return k.toLowerCase()===g;});
+}
+function judge(t,given,late){
+  var ok=!late&&isOk(t,given);
+  log.push({rid:rounds[ri].meta.id,name:rounds[ri].meta.name,q:t.q.replace(/<[^>]+>/g," "),key:t.a[0],why:t.why||"",ok:ok,late:late});
+  var f=$("flash");show("flash");
+  f.className="flash "+(ok?"ok":"bad");
+  f.innerHTML=ok?"✓":"✗ "+'<span style="font-size:.55em">'+t.a[0]+'</span>'+
+    (t.why?'<span class="sub">'+t.why+'</span>':'');
+  setTimeout(function(){hide("flash");next();},ok?800:1600);
+}
+function next(){
+  qi++;
+  if(qi<rounds[ri].tasks.length){ask();return;}
+  if(rounds[ri].wfMode)wfMark();
+  ri++;
+  if(ri<rounds.length){roundFlash();return;}
+  theEnd();
+}
+function theEnd(){
+  hide("q-card");
+  var total=log.length,hits=log.filter(function(l){return l.ok;}).length;
+  var byRound={};
+  log.forEach(function(l){
+    byRound[l.name]=byRound[l.name]||{n:0,ok:0};
+    byRound[l.name].n++;if(l.ok)byRound[l.name].ok++;
+  });
+  var html='<div class="score-line"><span><b>'+hits+'</b> / '+total+' cards</span><span>'+
+    (hits>=total*0.9?"the topic is yours 🏆":hits>=total*0.7?"strong 💪":"one more run needed →")+'</span></div>';
+  for(var k in byRound){html+='<div class="score-line"><span>'+k+'</span><span><b>'+byRound[k].ok+'</b> / '+byRound[k].n+'</span></div>';}
+  var misses=log.filter(function(l){return !l.ok;});
+  var mhtml="";
+  if(misses.length){
+    mhtml='<p class="helper" style="text-align:left;margin-top:1.4em">📋 into your notebook — and show Elena at the lesson:</p>';
+    misses.forEach(function(m){mhtml+='<div class="miss">'+m.q+' → <span class="fix">'+m.key+'</span>'+(m.why?' · '+m.why:'')+'</div>';});
+  }else{
+    mhtml='<p class="helper" style="margin-top:1.4em">Zero misses. Take the perfect score to Elena.</p>';
+  }
+  $("end-body").innerHTML=html;
+  $("misses-body").innerHTML=mhtml;
+  LAST_REPORT=reportText(hits,total,byRound,misses);
+  try{localStorage.setItem("egor-hw008-last",LAST_REPORT);}catch(e){}
+  try{queueReport(LAST_REPORT);flushQueue();}catch(e){} /* plumbing must never kill the score card */
+  show("end-card");
+  setTimeout(function(){try{$("end-card").scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}},60);
+}
+
+/* ---------- the report: auto-send to Elena's Google Form + Egor's own copy ---------- */
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSeHQqLTCwsgpvG4T1T_bHHDVj8VyvB4BomKyjV7zmeIBEH6yA/formResponse";
+var FORM_ENTRY="entry.892008789";
+
+var LAST_REPORT="";
+function reportText(hits,total,byRound,misses){
+  var d=new Date();
+  var pad=function(n){return (n<10?"0":"")+n;};
+  var lines=["DRILL REPORT · "+RUNNER+" · hw-008 · "+pad(d.getDate())+"/"+pad(d.getMonth()+1)+" "+pad(d.getHours())+":"+pad(d.getMinutes()),
+    "Score: "+hits+"/"+total];
+  for(var k in byRound){lines.push("· "+k+": "+byRound[k].ok+"/"+byRound[k].n);}
+  if(rounds[3]&&rounds[3].wfMode)lines.push("· word formation: "+(rounds[3].wfMode==="ctx"?"sentences mode":"POS mode"));
+  if(misses.length){
+    lines.push("Misses ("+misses.length+"):");
+    misses.forEach(function(m){lines.push("  – "+m.q.replace(/\s+/g," ").trim()+" → "+m.key);});
+  }else{lines.push("Zero misses.");}
+  return lines.join("\n");
+}
+function sendViaForm(txt){
+  if(!FORM_ACTION)return false;
+  var frame=document.createElement("iframe");
+  frame.name="hw-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);
+  /* no input named "submit" — a named child shadows f.submit() and kills the run */
+  document.body.appendChild(f);
+  f.submit();
+  setTimeout(function(){f.remove();frame.remove();},15000);
+  return true;
+}
+function queueReport(txt){
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("egor-hw008-queue")||"[]");}catch(e){}
+  q.push(txt);
+  if(q.length>20)q=q.slice(-20);
+  try{localStorage.setItem("egor-hw008-queue",JSON.stringify(q));}catch(e){}
+}
+function flushQueue(){
+  if(!FORM_ACTION)return; /* no form yet — reports wait in the queue */
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("egor-hw008-queue")||"[]");}catch(e){}
+  if(!q.length)return;
+  /* send what sends, KEEP what fails — and never throw into the caller */
+  var rest=q.filter(function(t){try{return !sendViaForm(t);}catch(e){return true;}});
+  try{localStorage.setItem("egor-hw008-queue",JSON.stringify(rest));}catch(e){}
+}
+$("copy-btn").addEventListener("click",function(){
+  var txt=LAST_REPORT;
+  try{txt=localStorage.getItem("egor-hw008-last")||txt;}catch(e){}
+  function done(){$("copy-btn").textContent="✅ Copied — now paste it to Elena";
+    setTimeout(function(){$("copy-btn").textContent="📋 Copy the report";},2500);}
+  function fallback(){
+    var ta=document.createElement("textarea");
+    ta.value=txt;ta.style.cssText="position:fixed;left:-999px";
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");done();}catch(e){}
+    ta.remove();
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done,fallback);
+  }else fallback();
+});
+$("send-btn").addEventListener("click",function(){
+  var txt=LAST_REPORT;
+  try{txt=localStorage.getItem("egor-hw008-last")||txt;}catch(e){}
+  if(!txt)return;
+  var sent=false;
+  try{sent=sendViaForm(txt);}catch(e){}
+  if(sent){
+    try{localStorage.setItem("egor-hw008-queue","[]");}catch(e){}
+    $("send-btn").textContent="✅ Sent";
+    setTimeout(function(){$("send-btn").textContent="📤 Send the result to your teacher";},2500);
+  }else{
+    $("send-hint").textContent="The form isn't connected yet — use 📋 Copy and paste the report to Elena in Telegram.";
+  }
+});
+
+/* ---------- the per-card timer — RUNS ON WALL TIME, deliberately:
+   leave the window to look something up and the card burns (Elena's rule) ---------- */
+var deadline=null;
+function start(sec){
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  num.textContent=sec+" s";num.className="timer-num";
+  if(deadline){clearTimeout(deadline);deadline=null;}
+  deadline=setTimeout(function(){if(!answered)timeUp();},DUR);
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 s";
+      stop();timeUp();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" s";
+    num.className="timer-num"+(s<=3?" low":"");
+  },100);
+}
+function stop(){
+  if(timer){clearInterval(timer);timer=null;}
+  if(deadline){clearTimeout(deadline);deadline=null;}
+}
+function timeUp(){
+  if(answered)return;
+  answered=true;
+  judge(rounds[ri].tasks[qi],null,true);
+}
+
+/* load-time flush goes LAST — every listener is attached before it, and it cannot throw */
+try{flushQueue();}catch(e){}
+</script>
+</body>
+</html>
