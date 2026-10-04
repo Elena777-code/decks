@@ -189,7 +189,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <div class="one-line" id="end-rows"></div>
     <div class="remember hidden" id="end-remember"></div>
     <div class="sent" id="sent-line"></div>
-    <div><button class="copy-btn" id="copy-btn">📋 Copy the report for Elena</button></div>
+    <div class="sent" id="report-sent"></div>
     <div><button class="again-btn" id="again-btn">🔁 Fresh set</button></div>
   </div>
 
@@ -287,10 +287,11 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
 (function(){
 "use strict";
 
-/* Wired 2026-10-05 to the shared «Drill reports» Google Form (Elena's):
-   auto-send switches on by itself. */
-var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSclA75beBw43_odq4MnKpQTyVZ8IAnaVGuJ2hYXPj5ZWGS3fg/formResponse";
-var FORM_ENTRY="entry.1388210654";
+/* Wired 2026-10-05 (evening) to Masha R.'s OWN form «Maria R» (Elena's
+   link, test-POST-verified) — the shared «Drill reports» detour retired;
+   auto-send stays on. */
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSePEkW0XFP-ZvMS8gSEIM2vGwc2KyRJ42Jm4f6E1XcciVpRzg/formResponse";
+var FORM_ENTRY="entry.416346957";
 
 /* ================= POOLS — they grow with the course ================= */
 
@@ -851,6 +852,7 @@ function finish(){
     localStorage.setItem("mashar-hw-queue",JSON.stringify(q));
   }catch(e){}
   flushQueue();
+  $("report-sent").textContent=FORM_ACTION?("sent to Elena ✅"):"";
   show("end-card");
   window.scrollTo(0,0);
 }
@@ -866,9 +868,8 @@ function sendViaForm(txt){
   var inp=document.createElement("input");
   inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
   f.appendChild(inp);
-  var sub=document.createElement("input");
-  sub.type="hidden";sub.name="submit";sub.value="Submit";
-  f.appendChild(sub);
+  /* no input name="submit" — it shadows f.submit and kills the flush
+     (the v9 lesson; fixed same night as Masha K.'s page) */
   document.body.appendChild(f);
   f.submit();
   setTimeout(function(){f.remove();frame.remove();},15000);
@@ -882,23 +883,6 @@ function flushQueue(){
   try{localStorage.setItem("mashar-hw-queue","[]");}catch(e){}
 }
 flushQueue();
-
-/* ---------- copy button (works without the form) ---------- */
-$("copy-btn").addEventListener("click",function(){
-  var txt;
-  try{txt=localStorage.getItem("mashar-hw-last")||reportText();}catch(e){txt=reportText();}
-  function done(){$("copy-btn").textContent="✅ Copied — now paste it to Elena";
-    setTimeout(function(){$("copy-btn").textContent="📋 Copy the report for Elena";},2500);}
-  if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(txt).then(done,function(){fallback();});
-  }else fallback();
-  function fallback(){
-    var ta=document.createElement("textarea");
-    ta.value=txt;document.body.appendChild(ta);ta.select();
-    try{document.execCommand("copy");done();}catch(e){}
-    ta.remove();
-  }
-});
 
 /* ---------- best/runs on the start card ---------- */
 try{
