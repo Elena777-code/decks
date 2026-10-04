@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Homework · GG 1 U7 L7.7 — At home! 🏠</title>
+<title>Домашнее задание · GG 1 U7 L7.7 — Дома! 🏠</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ============ GG2.1 homework — ONE page, phone-first ============
-   The homework slide of GG 1 U7 L7.7 as a standalone share page
-   for the children and their parents. Mint, as the group's deck.
-   The words check themselves behind taps (ANSWERS HIDE, ALWAYS). */
+   Speaks RUSSIAN with the children (Elena, 01.10: "speak Russian
+   with them in their hw deck"); the English words arrive ONE AT A
+   TIME: a Russian card → recall & write → tap → the English checks.
+   Mint, as the group's deck. Answers hide behind taps. */
 :root{
   --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A;
   --lavender:#C8B6FF; --lavender-deep:#9a7fff; --cream:#FFF8F0;
@@ -38,50 +39,98 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,6vw,2
 .rule .rex{font-size:clamp(1.1rem,3.2vw,1.4rem);margin-top:.4em}
 .b{color:var(--lavender-deep)}
 .sfx{background:#d6e8f7;border-radius:10px;padding:0 .25em;color:#3a6ea5;font-weight:800}
-/* the words — tap a row to check */
-.words{display:flex;flex-direction:column;gap:.5em;margin-top:.6em}
-.wrow{background:var(--white);border:2px solid var(--lavender);border-radius:16px;
-  padding:.55em .9em;cursor:pointer;user-select:none;
-  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,3.2vw,1.35rem);
-  display:flex;align-items:baseline;gap:.6em;box-shadow:var(--shadow);transition:transform .15s ease}
-.wrow:hover{transform:scale(1.01)}
-.wrow .n{color:var(--lavender-deep);font-weight:700;min-width:1.3em}
-.wrow .chk{display:none;color:var(--pink);font-weight:700;font-family:'Nunito',sans-serif;font-size:.92em}
-.wrow.open .chk{display:inline;animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+/* the words — one at a time */
+.wbox{display:flex;flex-direction:column;gap:.9em;align-items:stretch;text-align:center}
+.wstep{font-weight:800;color:var(--ink-soft);font-size:clamp(.95rem,2.8vw,1.15rem)}
+.dots{display:flex;gap:.4em;justify-content:center}
+.dot{width:12px;height:12px;border-radius:50%;background:#e7dcff;border:2px solid var(--lavender)}
+.dot.done{background:var(--mint);border-color:var(--mint-deep)}
+.dot.now{border-color:var(--pink);transform:scale(1.25)}
+.wru{font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.9rem,7vw,2.7rem);color:var(--ink);padding:.15em 0}
+.wclue{font-size:clamp(1rem,3vw,1.25rem);color:var(--ink-soft)}
+.wcheck{display:none;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
+.wcheck .wen{font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.8rem,6.5vw,2.5rem);color:var(--pink)}
+.wcheck .wtrio{font-size:clamp(1rem,3vw,1.2rem);color:var(--ink-soft);margin-top:.3em}
+.wbox.open .wcheck{display:block}
+.wbox.open .wq{display:none}
 @keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.btn{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.05rem,3.2vw,1.35rem);
+  border:none;border-radius:99px;padding:.55em 1.6em;cursor:pointer;
+  background:var(--mint);color:var(--ink);box-shadow:var(--shadow);transition:transform .15s ease}
+.btn:hover{transform:scale(1.05)}
+.btn.gold{background:var(--peach)}
+.btn.hide{display:none}
 .warm{font-size:clamp(1.1rem,3.2vw,1.4rem);text-align:center}
 </style>
 </head>
 <body>
 
-<div class="eyebrow">Homework · Go Getter 1 · Unit 7</div>
-<h1>At home! 🏠 <span class="stamp">build 01.10 · v1</span></h1>
+<div class="eyebrow">Домашнее задание · Go Getter 1 · Unit 7</div>
+<h1>Дома! 🏠 <span class="stamp">build 01.10 · v2</span></h1>
 <div class="accent-line"></div>
 
 <div class="card rule">
-  <p>📘 <b style="color:#3a6ea5">THE RULE — copy it into your notebook and learn it!</b></p>
+  <p>📘 <b style="color:#3a6ea5">ПРАВИЛО — запиши в тетрадь и выучи!</b></p>
   <p class="rt">it · he · she — and ONE thing (a singular noun) → the verb takes <span class="sfx">-S</span></p>
   <p class="rex"><b style="color:#3a6ea5">Jason</b> like<b style="color:#3a6ea5">s</b> cartoons. · <b style="color:#3a6ea5">Jackie</b> hang<b style="color:#3a6ea5">s</b> out with her best friend. · <b style="color:#3a6ea5">He</b> go<b style="color:#3a6ea5">es</b> to the park.</p>
 </div>
 
 <div class="card peach">
-  <p>✏️ <b class="b">SB p. 91 ex. 6</b> — write the questions and short answers in your notebook</p>
+  <p>✏️ <b class="b">SB с. 91 упр. 6</b> — запиши вопросы и короткие ответы в тетрадь</p>
 </div>
 
 <div class="card">
-  <p>📒 <b class="b">Copy the words into your dictionary!</b> The word + <b>one</b>: Russian · meaning · example. Write first — then tap and check! ✓</p>
-  <div class="words">
-    <div class="wrow" onclick="this.classList.add('open')"><span class="n">1</span><span>different</span><span class="chk">→ разные · not the same · Jason and his family are very different!</span></div>
-    <div class="wrow" onclick="this.classList.add('open')"><span class="n">2</span><span>want</span><span class="chk">→ хотеть · to wish for something · Jackie wants a rabbit.</span></div>
-    <div class="wrow" onclick="this.classList.add('open')"><span class="n">3</span><span>their</span><span class="chk">→ их · of them · Their parents want a parrot.</span></div>
-    <div class="wrow" onclick="this.classList.add('open')"><span class="n">4</span><span>cartoons</span><span class="chk">→ мультфильмы · funny animated films · Jason likes cartoons!</span></div>
-    <div class="wrow" onclick="this.classList.add('open')"><span class="n">5</span><span>neighbours</span><span class="chk">→ соседи · the people next door · Their parents visit the neighbours.</span></div>
-    <div class="wrow" onclick="this.classList.add('open')"><span class="n">6</span><span>at the weekend</span><span class="chk">→ на выходных · on Saturday and Sunday · What do you do at the weekend?</span></div>
-    <div class="wrow" onclick="this.classList.add('open')"><span class="n">7</span><span>hang out with their friends</span><span class="chk">→ проводить время с друзьями · to spend time with friends · They hang out with their friends at the weekend.</span></div>
+  <p>📒 <b class="b">Слова — в словарик!</b> Читай русское слово → вспомни и запиши английское → нажми и проверь. Одно слово за раз!</p>
+  <div class="wbox" id="wbox" style="margin-top:.8em">
+    <div class="wstep" id="wstep"></div>
+    <div class="dots" id="wdots"></div>
+    <div class="wru" id="wru"></div>
+    <div class="wq">
+      <p class="wclue">Вспомнил? Записал? — проверяй!</p>
+      <button class="btn" onclick="check()">проверить ✓</button>
+    </div>    <div class="wcheck">
+      <div class="wen" id="wen"></div>
+      <div class="wtrio" id="wtrio"></div>
+      <button class="btn gold" onclick="next()">дальше →</button>
+    </div>
   </div>
 </div>
 
-<div class="card mint"><p class="warm">Great job! ⭐ Unit 7 is nearly finished — you know it ALL! 🐾</p></div>
+<div class="card mint"><p class="warm">Молодцы! ⭐ Юнит 7 почти пройден — вы знаете всё! 🐾</p></div>
+
+<script>
+const WORDS=[
+  {ru:'разные',clue:'not the same',en:'different',trio:'разные · not the same · Jason and his family are very different!'},
+  {ru:'хотеть',clue:'to wish for something',en:'want',trio:'хотеть · to wish for something · Jackie wants a rabbit.'},
+  {ru:'их',clue:'of them',en:'their',trio:'их · of them · Their parents want a parrot.'},
+  {ru:'мультфильмы',clue:'funny animated films',en:'cartoons',trio:'мультфильмы · funny animated films · Jason likes cartoons!'},
+  {ru:'соседи',clue:'the people next door',en:'neighbours',trio:'соседи · the people next door · Their parents visit the neighbours.'},
+  {ru:'на выходных',clue:'on Saturday and Sunday',en:'at the weekend',trio:'на выходных · on Saturday and Sunday · What do you do at the weekend?'},
+  {ru:'проводить время с друзьями',clue:'to spend time with friends',en:'hang out with their friends',trio:'проводить время с друзьями · to spend time with friends · They hang out with their friends at the weekend.'}
+];
+let i=0;
+function draw(){
+  const w=WORDS[i];
+  document.getElementById('wstep').textContent='Слово '+(i+1)+' из '+WORDS.length;
+  document.getElementById('wdots').innerHTML=WORDS.map((_,k)=>'<span class="dot'+(k<i?' done':k===i?' now':'')+'"></span>').join('');
+  document.getElementById('wru').textContent=w.ru;
+  document.getElementById('wen').textContent=w.en;
+  document.getElementById('wtrio').textContent=w.trio;
+  document.getElementById('wbox').classList.remove('open');
+}
+function check(){document.getElementById('wbox').classList.add('open')}
+function next(){
+  i++;
+  if(i>=WORDS.length){
+    document.getElementById('wbox').innerHTML='<div class="wen" style="color:var(--pink)">Готово! ⭐</div><div class="wtrio">Все '+WORDS.length+' слов — проверь, что каждое в словарике!</div>';
+    return;
+  }
+  draw();
+}
+draw();
+</script>
 
 </body>
 </html>
