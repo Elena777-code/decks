@@ -68,7 +68,10 @@ button.big.stamp{background:linear-gradient(135deg,var(--stamp),var(--cheese))}
   border-top:6px solid var(--cheese)}
 .wcard .head{display:flex;align-items:baseline;gap:.5em;flex-wrap:wrap}
 .wcard .w{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2vw,1.5rem);color:var(--navy)}
-.wcard .ru{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.9rem,1.3vw,1.05rem);color:var(--stamp);background:var(--stamp-soft);border-radius:99px;padding:.05em .6em}
+.wcard{cursor:pointer}
+.wcard .ru{display:none;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.9rem,1.3vw,1.05rem);color:var(--stamp);background:var(--stamp-soft);border-radius:99px;padding:.05em .6em}
+.wcard.open .ru{display:inline-block}
+.wcard .peek{font-size:clamp(.8rem,1.2vw,.95rem);color:var(--ink-soft);font-style:italic;margin-top:.3em}
 .wcard .m{font-size:clamp(.95rem,1.4vw,1.12rem);color:var(--ink);margin:.25em 0}
 .wcard .ex{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);line-height:1.45}
 .wcard .ex b{color:var(--navy)}
@@ -161,7 +164,7 @@ iframe.hide{display:none}
 <!-- ============ 1 · THE 13 NEW WORDS ============ -->
 <div class="card">
   <h2>1 · Eight new words 📖 — to your dictionary</h2>
-  <p class="task mt">Copy all eight into your dictionary — <b>the Russian + the English + one example</b> each. Write neatly — Miss Elena checks your dictionary at the lesson!</p>
+  <p class="task mt">Copy all eight into your dictionary — <b>the Russian + the English + one example</b> each. Say the Russian to yourself first — <b>click the card</b> to check it!</p>
   <div class="words mt" id="words8"></div>
   <p class="hintline mt">The 💊 line is your example — choose your own for the dictionary if you like it better. 😉</p>
 </div>
@@ -300,7 +303,9 @@ WORDS8.forEach(x=>{
   const d=document.createElement('div');d.className='wcard';
   d.innerHTML='<div class="head"><span class="w">'+x.w+'</span><span class="ru">'+x.ru+'</span></div>'
    +'<p class="m">'+x.m+'</p>'
-   +'<p class="ex">💊 <b>'+x.e[0]+'</b></p><p class="ex">💬 <b>'+x.e[1]+'</b></p>';
+   +'<p class="ex">💊 <b>'+x.e[0]+'</b></p><p class="ex">💬 <b>'+x.e[1]+'</b></p>'
+   +'<p class="peek">translation — click the card 👀</p>';
+  d.onclick=()=>d.classList.toggle('open');
   w13.appendChild(d);
 });
 
