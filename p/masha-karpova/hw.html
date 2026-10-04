@@ -134,15 +134,17 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
 
 <main>
   <div class="card plan hwcard" id="plan-card">
-    <div class="no">Start here</div>
+    <div class="no">Start here · homework of 30 September</div>
     <h2>Tonight's plan</h2>
     <p class="hint">Tap the box when it's done — the page remembers, on this device.</p>
-    <div class="plan-row" data-k="listen"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="listen-card">🎧 Listening — twice + your one-minute retell</div></div>
-    <div class="plan-row" data-k="drill"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="start-card">🔧 The drill — one fresh run</div></div>
-    <div class="plan-row" data-k="dict"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="dict-card">📖 Dictionary words — write first, then check</div></div>
+    <div class="plan-row" data-k="drill2"><button class="pbox" aria-label="mark done">✓</button>
+      <div class="plabel" data-to="start-card">🔧 The drill — now builds questions too</div></div>
+    <div class="plan-row" data-k="retell"><button class="pbox" aria-label="mark done">✓</button>
+      <div class="plabel" data-to="speak-card">🎙 “Bright sparks!” — read again, retell it</div></div>
+    <div class="plan-row" data-k="whq"><button class="pbox" aria-label="mark done">✓</button>
+      <div class="plabel" data-to="speak-card">✍️ Your two questions — written</div></div>
+    <div class="plan-row" data-k="words3"><button class="pbox" aria-label="mark done">✓</button>
+      <div class="plabel" data-to="dict-card">📖 Meet the three new words</div></div>
     <div class="plan-row" data-k="repair"><button class="pbox" aria-label="mark done">✓</button>
       <div class="plabel" data-to="repair-card">✍️ Repair your sentences</div></div>
     <p class="plan-progress" id="plan-progress"></p>
@@ -152,8 +154,8 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <p class="rules">Three games + your sentences.<br>
     No clock anywhere — think as long as you want.<br>
     Wrong answers come back with the fix.</p>
-    <div class="icons">🔧 🧠 ✍️</div>
-    <div class="meta">3 rounds · ~8 minutes</div>
+    <div class="icons">🔧 ❓ 🧠 ✍️</div>
+    <div class="meta">4 rounds · ~10 minutes</div>
     <div class="best" id="best-line"></div>
     <button class="start-btn" id="begin-btn">Start the drill</button>
   </div>
@@ -184,6 +186,16 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <div><button class="again-btn" id="again-btn">🔁 Fresh set</button></div>
   </div>
 
+  <div class="card hwcard" id="speak-card">
+    <div class="no">This week · speak &amp; write</div>
+    <h2>🎙 “Bright sparks!” — yours to retell</h2>
+    <ol>
+      <li>Read the article once more (it’s on the lesson slides), then <b>retell it in 5–6 sentences</b> — record a voice message for Elena. Your words, not the article’s. The anchors: <b>a report in Scotland · IQ 100 · 118 in 1950 · 130 in 1910 · diets and health · puzzle questions</b>.</li>
+      <li>Write your <b>two Wh- questions</b> about the article — the ones you asked in the lesson, now on paper, perfect word order. You know the rule: question word + auxiliary + subject + verb.</li>
+    </ol>
+    <p class="hint">Bring both on Wednesday — the voice message and the questions.</p>
+  </div>
+
   <div class="card hwcard" id="listen-card">
     <div class="no">Every homework · listen twice</div>
     <h2>🎧 Listening</h2>
@@ -200,13 +212,23 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
   </div>
 
   <div class="card hwcard" id="dict-card">
-    <div class="no">For the next lesson · your dictionary</div>
-    <h2>Dictionary words</h2>
-    <p class="hint">Write each word into your notebook: the translation in Russian or the meaning in English or one example.
-    <b>Write first</b> — then click to check yourself.</p>
-    <!-- ELENA / the next conversation: the d: words land here per progress, one item like:
-         <li><b>word</b><br><details><summary>check</summary><div class="hint">🇷🇺 перевод · meaning in English<br><i>Example.</i></div></details></li> -->
-    <div class="slot">The words land here, per your progress 📖</div>
+    <div class="no">Meet them · three new words from the lesson</div>
+    <h2>📖 Three words — meet them</h2>
+    <p class="hint">Read each card twice, say the examples aloud. <b>No writing yet</b> — first meet, then next time we ask.</p>
+    <ol>
+      <li><b>crafting</b> <span style="color:var(--sub)">· noun/gerund</span><br>
+        <span class="hint">making beautiful things by hand as a hobby.<br>
+        <i>I love crafting — I make bracelets and decorations.</i><br>
+        <i>Crafting is popular: candles, pottery, knitting.</i></span></li>
+      <li><b>to deceive</b> <span style="color:var(--sub)">· verb</span><br>
+        <span class="hint">to make someone believe something that is not true.<br>
+        <i>The magician deceived the audience.</i><br>
+        <i>Don’t deceive your friends — lies always come out.</i></span></li>
+      <li><b>a root</b> <span style="color:var(--sub)">· noun</span><br>
+        <span class="hint">the part of a plant under the ground; also the cause of something.<br>
+        <i>The tree’s roots are deep.</i><br>
+        <i>Let’s find the root of the problem.</i></span></li>
+    </ol>
   </div>
 
   <div class="card hwcard" id="repair-card">
@@ -214,6 +236,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <h2>✍️ Your sentences — repair them yourself</h2>
     <p class="hint">Say the corrected sentence aloud first — then click to check.</p>
     <ol>
+      <li>“<b>If the children will like</b> the lesson, they will be quiet.”<br><details><summary>check</summary><div class="hint">→ <b>If the children like the lesson, they will be quiet.</b> — <b>if</b> + Present Simple; <i>will</i> stays in the other half.</div></details></li>
       <li>“Our teacher give us number.”<br><details><summary>check</summary><div class="hint">→ <b>Our teacher gives us marks.</b> — third-person <b>-s</b>; <i>marks</i>, not numbers.</div></details></li>
       <li>“I like study Chinese grammar.”<br><details><summary>check</summary><div class="hint">→ <b>I like studying Chinese grammar.</b> — like + <b>-ing</b>.</div></details></li>
       <li>“It can blew up.”<br><details><summary>check</summary><div class="hint">→ <b>It can blow up.</b> — <b>can</b> + the base form.</div></details></li>
@@ -234,7 +257,8 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
       <li><b>Chinese characters</b> — hieroglyphs are Egyptian</li>
       <li><b>principal</b> = the school director · <b>principle</b> = a rule in your head</li>
       <li><b>other</b> + a noun (<i>other languages</i>); <i>others</i> stands alone</li>
-      <li><b>New from the lessons:</b> examiner · axolotls · senior high school · promotion · advertisement · look after</li>
+      <li><b>The question builder:</b> auxiliary up front (<i>Have you finished?</i>), the wh- word first (<i>Why are people getting cleverer?</i>) — and no auxiliary when <i>who</i> is the doer (<i>Who taught you?</i>)</li>
+      <li><b>New from the lessons:</b> examiner · axolotls · senior high school · promotion · advertisement · look after · crafting · deceive · a root · memorise · compulsory · critical thinking</li>
     </ul>
   </div>
 </main>
@@ -293,6 +317,54 @@ var POOL_WORDS_MK=[
   choices:["scared","fearful","narrow","terrified"],key:["narrow"],label:"fear family: the odd one"}
 ];
 
+/* R2b · The ten from the fast quiz (30.09) — she crossed them, now she owns them */
+var POOL_QUIZ_MK=[
+ {q:'Learn by heart — a poem, a part in a play.',
+  choices:["memorise","revise","study"],key:["memorise"],label:"memorise"},
+ {q:'You act, sing or recite — this type of assessment.',
+  choices:["a performance","a project","a written exam"],key:["a performance"],label:"performance"},
+ {q:'You make something or do an experiment.',
+  choices:["a practical exam","a speaking exam","a performance"],key:["a practical exam"],label:"practical exam"},
+ {q:'Everyone MUST do it — it’s on the timetable for all.',
+  choices:["compulsory","optional","extracurricular"],key:["compulsory"],label:"compulsory"},
+ {q:'School offers it — YOU decide.',
+  choices:["optional","compulsory","extracurricular"],key:["optional"],label:"optional"},
+ {q:'Outside the lessons — clubs, after school.',
+  choices:["extracurricular","optional","compulsory"],key:["extracurricular"],label:"extracurricular"},
+ {q:'You always put in a lot of effort.',
+  choices:["hard-working","talented","confident"],key:["hard-working"],label:"hard-working"},
+ {q:'You think clearly and ask questions.',
+  choices:["critical thinking","general knowledge","teamwork"],key:["critical thinking"],label:"critical thinking"},
+ {q:'You know facts about the world.',
+  choices:["general knowledge","problem solving","critical thinking"],key:["general knowledge"],label:"general knowledge"},
+ {q:'You find the problem and work out a solution.',
+  choices:["problem solving","general knowledge","teamwork"],key:["problem solving"],label:"problem solving"}
+];
+
+/* RQ · Question builder — 9.2’s three types, the lesson’s own loop */
+var POOL_QUESTIONS_MK=[
+ {q:'he / want / to learn / tai chi — he’s much too shy. Build the question.',
+  key:["does he want to learn tai chi"],label:"yes/no question",type:"type"},
+ {q:'they / meet / at the concert — yes, they did. Build the question.',
+  key:["did they meet at the concert"],label:"yes/no question",type:"type"},
+ {q:'what / you / think / of this sport — it’s brilliant. Build the question.',
+  key:["what do you think of this sport"],label:"wh- question",type:"type"},
+ {q:'how / we / get / to the sports centre — take the bus. Build the question.',
+  key:["how do we get to the sports centre"],label:"wh- question",type:"type"},
+ {q:'The answer: “Yes, I have.” Which question fits?',
+  choices:["Have you finished?","Did you enjoy it?","Are you hungry?"],key:["have you finished"],label:"the auxiliary answers"},
+ {q:'The answer: “No, I didn’t.” Which question fits?',
+  choices:["Did you enjoy it?","Does she cycle?","Are you hungry?"],key:["did you enjoy it"],label:"the auxiliary answers"},
+ {q:'<u>Paul</u> taught Lily to swim. Ask about <b>Paul</b> — the doer.',
+  choices:["Who taught Lily to swim?","Who did Paul teach to swim?"],key:["who taught lily to swim"],label:"subject question — no auxiliary"},
+ {q:'<u>Paul</u> taught Lily to swim. Ask about <b>Lily</b> — the receiver.',
+  choices:["Who taught Lily to swim?","Who did Paul teach to swim?"],key:["who did paul teach to swim"],label:"object question — auxiliary returns"},
+ {q:'<u>Mia</u> invited Sam to her party. Ask about <b>Sam</b>.',
+  choices:["Who invited Sam to her party?","Who did Mia invite to her party?"],key:["who did mia invite to her party"],label:"object question — auxiliary returns"},
+ {q:'<u>Grandpa</u> made this kite. Ask about <b>Grandpa</b> — the doer.',
+  choices:["Who made this kite?","Who did make this kite?"],key:["who made this kite"],label:"subject question — no auxiliary"}
+];
+
 /* R3 · Your turn — three sentences about you (the homework itself; no keys) */
 var WRITE_PROMPTS=[
  {hint:"like + -ing",ph:"What do you like studying? I like studying …"},
@@ -302,10 +374,11 @@ var WRITE_PROMPTS=[
 
 var ROUNDS_META=[
  {id:"R1",icon:"🔧",name:"Fix it",sub:"repair the word or the sentence",helper:"type it or tap it",sec:0},
+ {id:"RQ",icon:"❓",name:"Question builder",sub:"build the question — 9.2’s three types",helper:"type the full question",sec:0},
  {id:"R2",icon:"🧠",name:"Word check",sub:"no clock — your words",helper:"tap the word",sec:0},
  {id:"R3",icon:"✍️",name:"Your turn",sub:"three sentences about you",helper:"",sec:0}
 ];
-var DEAL=[5,5]; /* per run: R1 R2 — Your turn always plays in full */
+var DEAL=[4,4,5]; /* per run: R1 RQ R2 — Your turn always plays in full */
 
 /* ---------- helpers ---------- */
 function $(id){return document.getElementById(id);}
@@ -329,11 +402,13 @@ function shuffleChoices(t){
 /* ---------- a fresh set per run ---------- */
 function buildRounds(){
   var r1=pick(POOL_FIX_MK,DEAL[0]).map(function(t){return shuffleChoices(t);});
-  var r2=pick(POOL_WORDS_MK,DEAL[1]).map(function(t){return shuffleChoices(t);});
+  var rq=pick(POOL_QUESTIONS_MK,DEAL[1]).map(function(t){return shuffleChoices(t);});
+  var r2=pick(POOL_WORDS_MK.concat(POOL_QUIZ_MK),DEAL[2]).map(function(t){return shuffleChoices(t);});
   return [
     {meta:ROUNDS_META[0],tasks:r1},
-    {meta:ROUNDS_META[1],tasks:r2},
-    {meta:ROUNDS_META[2],tasks:WRITE_PROMPTS}
+    {meta:ROUNDS_META[1],tasks:rq},
+    {meta:ROUNDS_META[2],tasks:r2},
+    {meta:ROUNDS_META[3],tasks:WRITE_PROMPTS}
   ];
 }
 
@@ -453,7 +528,7 @@ $("write-done").addEventListener("click",function(){
 });
 
 /* ---------- end ---------- */
-var ICONS={R1:"🔧",R2:"🧠"};
+var ICONS={R1:"🔧",RQ:"❓",R2:"🧠"};
 function drillScore(){
   var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
   return {total:total,ok:ok};
@@ -462,7 +537,7 @@ function reportText(){
   var s=drillScore();
   var lines=["MASHA K. · HW · "+new Date().toLocaleString(),
     "Drill: "+s.ok+" / "+s.total];
-  ["R1","R2"].forEach(function(rid){
+  ["R1","RQ","R2"].forEach(function(rid){
     var rows=log.filter(function(l){return l.rid===rid;});
     if(rows.length)lines.push(ICONS[rid]+" "+rid+": "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
   });
@@ -484,7 +559,7 @@ function finish(){
   var s=drillScore();
   $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(s.ok/Math.max(1,s.total)*5)));
   var bits=[];
-  ["R1","R2"].forEach(function(rid){
+  ["R1","RQ","R2"].forEach(function(rid){
     var r=log.filter(function(l){return l.rid===rid;});
     if(r.length)bits.push(ICONS[rid]+" "+r.filter(function(l){return l.ok;}).length+"/"+r.length);
   });
