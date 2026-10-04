@@ -67,13 +67,14 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,6vw,2
 </head>
 <body>
 
-<div class="eyebrow">Домашнее задание · Go Getter 1 · Unit 7</div>
-<h1>Дома! 🏠 <span class="stamp">build 01.10 · v2</span></h1>
+<div class="eyebrow">Домашнее задание · Go Getter 1 · Юнит 7 — Unit 7</div>
+<h1>Дома! 🏠 <span class="stamp">build 01.10 · v3</span></h1>
 <div class="accent-line"></div>
 
 <div class="card rule">
   <p>📘 <b style="color:#3a6ea5">ПРАВИЛО — запиши в тетрадь и выучи!</b></p>
-  <p class="rt">it · he · she — and ONE thing (a singular noun) → the verb takes <span class="sfx">-S</span></p>
+  <p class="rt">it / he / she — глагол с <span class="sfx">S-кой</span> напиши!</p>
+  <p class="wclue" style="margin-top:.3em">(it / he / she = 1 человек · предмет · животное)</p>
   <p class="rex"><b style="color:#3a6ea5">Jason</b> like<b style="color:#3a6ea5">s</b> cartoons. · <b style="color:#3a6ea5">Jackie</b> hang<b style="color:#3a6ea5">s</b> out with her best friend. · <b style="color:#3a6ea5">He</b> go<b style="color:#3a6ea5">es</b> to the park.</p>
 </div>
 
@@ -82,7 +83,7 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,6vw,2
 </div>
 
 <div class="card">
-  <p>📒 <b class="b">Слова — в словарик!</b> Читай русское слово → вспомни и запиши английское → нажми и проверь. Одно слово за раз!</p>
+  <p>📒 <b class="b">Слова — в словарик!</b> Читай английское слово → вспомни перевод → запиши в словарик → нажми и проверь. Одно слово за раз!</p>
   <div class="wbox" id="wbox" style="margin-top:.8em">
     <div class="wstep" id="wstep"></div>
     <div class="dots" id="wdots"></div>
@@ -93,7 +94,7 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,6vw,2
     </div>    <div class="wcheck">
       <div class="wen" id="wen"></div>
       <div class="wtrio" id="wtrio"></div>
-      <button class="btn gold" onclick="next()">дальше →</button>
+      <button class="btn gold" onclick="next()">следующая →</button>
     </div>
   </div>
 </div>
@@ -115,8 +116,8 @@ function draw(){
   const w=WORDS[i];
   document.getElementById('wstep').textContent='Слово '+(i+1)+' из '+WORDS.length;
   document.getElementById('wdots').innerHTML=WORDS.map((_,k)=>'<span class="dot'+(k<i?' done':k===i?' now':'')+'"></span>').join('');
-  document.getElementById('wru').textContent=w.ru;
-  document.getElementById('wen').textContent=w.en;
+  document.getElementById('wru').textContent=w.en;
+  document.getElementById('wen').textContent=w.ru;
   document.getElementById('wtrio').textContent=w.trio;
   document.getElementById('wbox').classList.remove('open');
 }
