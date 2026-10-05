@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WW4 · Unit 9 · 9.3 Reading &amp; Vocabulary — Does intelligence change?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WW4 (8th-grade group, Tue 15.45 Elena / Fri 15.30 Farida) —
+   Wider World 3, Unit 9 "Think outside the box", section 9.3
+   Reading & Vocabulary — "Does intelligence change?" (SB p. 109,
+   TB p. 204). Engine: the group's familiar 9.1 sheets, upgraded to
+   the current standard: THE CORNERS V2 (🙋 Pardon top-left · ✍️
+   top-right · 🗒 bottom-centre — emoji-only pills), the ✍️ V2
+   window (d: · //: · free · fix:, ⌘S = save+close, auto-send over
+   http), the hotkey guard, flex-shrink guard, answers behind
+   clicks, build stamp. Opening: the homework checks (the 29.09
+   sentences + riddles · the three-boxes fast quiz · Friday's HW:
+   the worksheet + WB p. 104) double as the 9.2 catch-up for the
+   four who were absent. Then 9.3 straight from the TB — ex. 1–6 +
+   the TB extra activity, nothing omitted. English only.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --radius:14px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* flex-shrink guard: nothing on a slide may collapse — the slide scrolls */
+.slide>*{flex-shrink:0}
+.slide{position:absolute;inset:0;padding:8vh 5vw 12vh;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.6vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.8rem,1.25vw,1rem);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.3rem,2.5vw,2.05rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.stamp{display:inline-block;font-size:clamp(.72rem,1.05vw,.85rem);font-weight:700;
+  color:var(--ink-soft);border:1.5px solid var(--line);border-radius:99px;
+  padding:.14em .7em;background:#fff;letter-spacing:.04em}
+.task{font-size:clamp(1.02rem,1.65vw,1.3rem);line-height:1.5;font-weight:500}
+.task strong{color:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.78rem,1.2vw,.95rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.16em .7em;
+  background:#fff;margin-bottom:.1em;white-space:nowrap}
+.note{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);font-style:italic;line-height:1.48}
+audio{width:min(460px,92%);height:42px;vertical-align:middle}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.8rem,1.5vw,1.2rem)}
+.card.tint{background:var(--accent-soft);border-color:#d5e2dd}
+.card.gold{background:var(--gold-soft);border-color:#e8dcb8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.5vw,1.1rem)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.5vw,1.1rem)}
+.chips{display:flex;flex-wrap:wrap;gap:.5em}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:.26em .8em;
+  font-size:clamp(.92rem,1.5vw,1.2rem);font-weight:600;background:#fff;user-select:none}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.42em 0;
+  border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.7vw,1.32rem);line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .no{font-weight:800;color:var(--accent);min-width:1.4em}
+/* click-to-reveal answers — ANSWERS HIDE, ALWAYS */
+.flip{cursor:pointer;border-radius:8px;transition:background .2s}
+.flip:hover{background:var(--accent-soft)}
+.flip .back{color:var(--accent);opacity:0;transition:opacity .2s;font-weight:700;font-size:.94em}
+.flip.shown .back{opacity:1}
+.vb{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.vb .vbh{background:var(--accent-soft);color:var(--accent);font-weight:800;
+  font-size:clamp(.85rem,1.4vw,1.05rem);letter-spacing:.06em;text-transform:uppercase;
+  padding:.35em .9em;border-bottom:1px solid var(--line)}
+.vb .vbb{padding:.5em .9em}
+.lead-sm{font-size:clamp(.95rem,1.5vw,1.18rem);line-height:1.5;color:#4a463d}
+.lead-sm strong{color:var(--accent)}
+.dlg{padding:.42em 0;border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.5}
+.dlg:last-child{border-bottom:none}
+.dlg b{color:var(--accent)}
+
+/* ---------- THE CORNERS V2 — pinned emoji pills ---------- */
+.pill{position:fixed;z-index:150;border:2px solid var(--line);background:rgba(255,255,255,.95);
+  backdrop-filter:blur(8px);color:var(--ink);font-family:'Inter',sans-serif;
+  font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1;
+  padding:.42em .6em;border-radius:99px;cursor:pointer;
+  box-shadow:0 3px 10px rgba(35,39,46,.10);transition:transform .12s,border-color .12s}
+.pill:hover{transform:scale(1.08);border-color:var(--accent)}
+#pardonBtn{top:max(10px,1.6vh);left:max(10px,1.6vw)}
+#annoBtn{top:max(10px,1.6vh);right:max(10px,1.6vw)}
+
+/* ---------- 🙋 Pardon? — the one universal list (top-left popup) ---------- */
+#pq{position:fixed;left:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(420px,92vw);
+  background:#fff;border:2px solid var(--line);border-radius:16px;padding:.75em .9em .9em;
+  display:none;flex-direction:column;gap:.35em;box-shadow:0 16px 40px rgba(35,39,46,.22)}
+#pq.on{display:flex}
+#pq .pq-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft);padding:0 .2em .2em}
+#pq .a-sp{flex:1}
+#pq .pq-head button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#pq .pq-head button:hover{border-color:var(--ink-soft)}
+#pq .pqRow{display:flex;align-items:center;gap:.6em;font-size:clamp(1rem,1.9vw,1.2rem);
+  font-weight:600;color:var(--ink);padding:.3em .5em;border-radius:10px;line-height:1.35}
+#pq .pqRow:hover{background:var(--accent-soft)}
+#pq .pqRow .pqE{flex:0 0 1.6em;text-align:center;font-weight:400}
+
+
+
+/* ⛶ read big — fullscreen reading text */
+#fso{position:fixed;inset:0;z-index:190;background:var(--paper);display:none;
+  overflow:auto;padding:6vh 7vw 10vh}
+#fso.open{display:block}
+#fso .fsoinner{max-width:78ch;margin:0 auto;font-size:clamp(1.25rem,2.4vw,1.95rem);
+  line-height:1.65;color:var(--ink)}
+#fso .fsoinner .gp{display:inline-block;min-width:5.5ch;border-bottom:2px solid var(--accent);
+  text-align:center;padding:0 .3em}
+#fso .fsoinner .ex{color:var(--accent);font-weight:700}
+
+@media (max-width:900px){
+  .slide{padding:8vh 5vw 12vh}
+  .grid2,.grid3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER + HOMEWORK CHECK + PREPARE AHEAD -->
+<section class="slide">
+  <div class="eyebrow reveal">Wider World 3 · Unit 9 “Think outside the box” · WW4 (8th grade) — Tue 15.45 Elena / Fri 15.30 Farida</div>
+  <h1 class="reveal">9.3 Reading &amp; Vocabulary — <em>Does intelligence change?</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Today:</strong> “I can find specific detail in an article and talk about intelligence.” <span class="stamp">build 05.10 · v2</span></p>
+  <p class="tag reveal">HOMEWORK CHECK — today’s order</p>
+  <div class="chips reveal">
+    <span class="chip">1 · last time’s sentences + riddles</span>
+    <span class="chip">2 · the three boxes — fast quiz</span>
+    <span class="chip">3 · the worksheet + WB p. 104</span>
+  </div>
+  <div class="card tint reveal">
+    <p class="lead-sm"><strong>Prepare ahead</strong> — 🎧 <strong>test the track</strong> (right here) · 🖨 <strong>3 paper slips per pupil</strong> (the lead-in game writes on them) · 🖨 <strong>spare worksheet copies</strong> for anyone who needs one · nothing else.</p>
+    <div style="display:grid;gap:.4vh;margin-top:.6vh">
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1vw;align-items:center"><span class="tag">3.24 · the article</span><audio controls preload="none" src="../media/ww3-cd3-3_24.mp3"></audio></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · HOMEWORK CHECK A — THE 29.09 SENTENCES + THE TWO RIDDLES -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework check · set 29.09 · find the mistake · + the two riddles</div>
+  <h1 class="reveal">First — last time’s <em>sentences</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Each sentence has <strong>one or two mistakes</strong>. Find them, say the fixed sentence — then click to check:</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>On the geometry we have a speaking exam. <span class="back">→ In Geometry we have a speaking exam. — school subjects take in</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Last year we have an exam. <span class="back">→ Last year we had an exam. — last year = past</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>But on this year we don’t have a Geometry speaking exam. <span class="back">→ But this year we don’t have… — this year, no preposition</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>On the last time I have a mark. <span class="back">→ Last time I got a mark. — no preposition + past</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>I have three for a dictation. <span class="back">→ I got a three for the dictation. — got + the mark</span></span></div>
+  </div>
+  <p class="task reveal" style="font-size:clamp(1rem,1.6vw,1.25rem)">And the two <strong>riddles</strong> from ex. 10 — which life skill does each test?</p>
+  <div class="grid2 reveal">
+    <div class="card"><p class="lead-sm"><strong>A 📎</strong> As many uses as possible — for paper clips.</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">?</span><span>skill <span class="back">→ creativity</span></span></div>
+    </div>
+    <div class="card"><p class="lead-sm"><strong>B 👯</strong> Same parents, same birthday — “Are you twins?” “No.” Possible?</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">?</span><span>skill + how <span class="back">→ critical thinking — a third brother: triplets (even quadruplets!)</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · HOMEWORK CHECK B — THE THREE BOXES, FAST QUIZ -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework check · the three Vocabulary boxes · fast quiz</div>
+  <h1 class="reveal">The boxes, <em>at speed</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">I say the definition — you fire the word. <strong>Click to confirm:</strong></p>
+  <div class="chips reveal">
+    <span class="chip flip" onclick="this.classList.toggle('shown')">the study of living things <span class="back">→ Biology</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">the computers subject <span class="back">→ ICT</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">learn by heart <span class="back">→ memorise</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">the general word — lessons, memory, revision <span class="back">→ study</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">we act, sing, recite <span class="back">→ performance</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">you produce something — a dish, a painting, an experiment <span class="back">→ practical exam</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">a piece of work made at home, then presented <span class="back">→ project</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">you believe you can do things <span class="back">→ confident</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">working well with others <span class="back">→ teamwork</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">always puts in a lot of effort <span class="back">→ hard-working</span></span>
+  </div>
+  <div class="card gold reveal"><p class="lead-sm">Now — <strong>your turn</strong>: one definition each for the class, from any box. Make them sweat.</p></div>
+</section>
+
+<!-- 4 · THE 9.2 BOARD — QUESTION WORD ORDER (catch-up + Friday's grammar) -->
+<section class="slide">
+  <div class="eyebrow reveal">Grammar · SB p. 108 · 9.2 word order in questions · the board</div>
+  <h1 class="reveal">Questions — the four <em>shapes</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card"><p class="lead-sm"><strong>1 · Yes/No — inversion</strong><br>
+      <span class="dlg">You are hungry. → <b>Are you</b> hungry?</span>
+      <span class="dlg">I enjoyed it. → <b>Did you</b> enjoy it?</span>
+      <span class="dlg">She cycles. → <b>Does she</b> cycle?</span></p></div>
+    <div class="card"><p class="lead-sm"><strong>2 · Wh- — question word + inversion</strong><br>
+      <span class="dlg"><b>Why are</b> you hungry?</span>
+      <span class="dlg"><b>What did</b> you enjoy?</span>
+      <span class="dlg"><b>When does</b> she cycle?</span></p></div>
+    <div class="card"><p class="lead-sm"><strong>3 · Subject questions</strong> — <em>who/what</em> IS the subject: no <em>do</em><br>
+      <span class="dlg"><b>Who taught</b> you?</span>
+      <span class="dlg"><b>What happened</b>?</span></p></div>
+    <div class="card"><p class="lead-sm"><strong>4 · Object questions</strong> — <em>who/what</em> is the object: <em>do</em> + subject<br>
+      <span class="dlg"><b>Who did</b> they see? — They saw Tommo.</span>
+      <span class="dlg"><b>What did</b> you buy?</span></p></div>
+  </div>
+  <div class="card gold reveal"><p class="task" style="font-size:clamp(1rem,1.7vw,1.3rem)">One idea behind all four: <strong>auxiliary (or question word) BEFORE the subject.</strong></p></div>
+</section>
+
+<!-- 5 · WORKSHEET CHECK 1 — WS ex. 1 + ex. 3 (+ WB p. 104 round-robin) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Homework check · the worksheet ex. 1 + 3 · + WB p. 104</div>
+  <h1 class="reveal">Worksheet — <em>your answers</em> (1/2)</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Ex. 1</strong> — put the words in the correct order:</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>you / Why / late / are / ? <span class="back">→ Why are you late?</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>the film / did / enjoy / you / ? <span class="back">→ Did you enjoy the film?</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>she / every day / Does / run / ? <span class="back">→ Does she run every day?</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>they / to the party / come / can / ? <span class="back">→ Can they come to the party?</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>we / finish / Should / now / ? <span class="back">→ Should we finish now?</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>he / help / Will / us / ? <span class="back">→ Will he help us?</span></span></div>
+    </div>
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.3em"><strong>Ex. 3</strong> — turn the statements into questions:</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>You are happy. <span class="back">→ Are you happy?</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>We have finished. <span class="back">→ Have you finished?</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>She lives in London. <span class="back">→ Does she live in London?</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>They can swim. <span class="back">→ Can they swim?</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>He will be there. <span class="back">→ Will he be there?</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>I enjoyed the lesson. <span class="back">→ Did you enjoy the lesson?</span></span></div>
+    </div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm">📄 <strong>WB p. 104</strong> — round-robin: one answer each, fast. The board (previous slide) is the key.</p></div>
+</section>
+
+<!-- 6 · WORKSHEET CHECK 2 — WS ex. 2 + ex. 4 -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Homework check · the worksheet ex. 2 + 4</div>
+  <h1 class="reveal">Worksheet — <em>your answers</em> (2/2)</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Ex. 2</strong> — the auxiliary or wh-word:</p>
+  <div class="chips reveal">
+    <span class="chip flip" onclick="this.classList.toggle('shown')">1 <span class="back">Why</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">2 <span class="back">Why</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">3 <span class="back">Does</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">4 <span class="back">Have</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">5 <span class="back">Where</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">6 <span class="back">Where</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">7 <span class="back">What</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">8 <span class="back">When</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">9 <span class="back">Who — no do!</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">10 <span class="back">Why</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">11 <span class="back">Who — no do!</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">12 <span class="back">What</span></span>
+  </div>
+  <p class="task reveal"><strong>Ex. 4</strong> — choose the correct option:</p>
+  <div class="chips reveal">
+    <span class="chip flip" onclick="this.classList.toggle('shown')">1 Why / What <span class="back">→ What did you enjoy about the trip?</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">2 Who / What <span class="back">→ Who taught you to cook? — the subject</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">3 Who / What <span class="back">→ Who did they see at the museum? — the object</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">4 Why / How <span class="back">→ How should we solve this problem?</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">5 Who / What <span class="back">→ Who made this decision? — the subject</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">6 Why / Which <span class="back">→ Why are you so interested in this topic?</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">7 Who / What <span class="back">→ What did you buy at the shop?</span></span>
+    <span class="chip flip" onclick="this.classList.toggle('shown')">8 Where / Who <span class="back">→ Who will help us with the homework?</span></span>
+  </div>
+  <div class="card gold reveal"><p class="lead-sm"><strong>The trap:</strong> <em>Who made this cake?</em> (subject — no <em>do</em>) vs <em>Who did you see?</em> (object — <em>did</em> returns). Say the answer first — it decides the shape.</p></div>
+</section>
+
+<!-- 7 · 9.3 LEAD-IN — THE SHORT-ANSWER PAPER GAME (TB p. 204) -->
+<section class="slide">
+  <div class="eyebrow reveal">Lead-in · TB p. 204 · a question for every answer</div>
+  <h1 class="reveal">A question for every <em>answer</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Take a paper slip. <strong>Write a short answer</strong> at the top —
+  <em>Yes, I am. · No, he isn’t. · Yes, they have.</em></p>
+  <p class="task reveal">Now swap slips. <strong>Think of the question</strong> that leads to the other’s answer — and write it on the slip. Two minutes, then we share.</p>
+  <div class="card tint reveal"><p class="lead-sm">Example: the slip says <strong>“Yes, I have.”</strong> → the question could be
+  <em>Have you ever been to China?</em></p></div>
+</section>
+
+<!-- 8 · SB EX. 1 — CLASS VOTE -->
+<section class="slide">
+  <div class="eyebrow reveal">Reading · SB ex. 1 (p. 109) · CLASS VOTE · books closed</div>
+  <h1 class="reveal">Can you <em>measure</em> a mind?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Do you think <strong>intelligence can be measured</strong>? Why? / Why not?</p>
+  <div class="card reveal">
+    <div class="item"><span class="no">?</span><span>Is <b>intelligence</b> the same thing as <b>knowledge</b>?</span></div>
+    <div class="item"><span class="no">?</span><span>Are <b>exams</b> a good test of intelligence? If not — how <i>could</i> we test it better?</span></div>
+  </div>
+</section>
+
+<!-- 9 · THE ARTICLE 1/2 -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Reading · SB p. 109 · the article 1/2 · the heading slots are ① and ②</div>
+  <h1 class="reveal">Bright <em>sparks!</em></h1>
+  <div class="rule reveal"></div>
+  <p><button class="pill" style="position:static;padding:.3em .8em;font-size:clamp(.8rem,1.25vw,1rem)" onclick="openFs('fsarticleAll')">⛶ read big</button> <span class="note">the whole article, fullscreen</span></p>
+  
+  <div class="card reveal" id="fsarticle1">
+    <p class="dlg"><b>① ______________</b></p>
+    <p class="lead-sm">Is modern education rubbish? Are today’s teenagers poor learners who can’t think for themselves? Not according to a report from researchers in Scotland. The good news is that young people are more intelligent than their great-grandparents were!</p>
+    <p class="dlg"><b>② ______________</b></p>
+    <p class="lead-sm">Intelligence Quotient (IQ) tests are a way of measuring general intelligence. An average score in a given population is 100 points. Scientist Steven Pinker has taken a look at IQ test results over many years and made notes about what he found. Every few years, people did better in the tests, so the test writers made changes and the tests became harder.</p>
+  </div>
+</section>
+
+<!-- 10 · THE ARTICLE 2/2 -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Reading · SB p. 109 · the article 2/2 · the heading slots are ③ and ④</div>
+  <h1 class="reveal">Bright sparks! <em>(2/2)</em></h1>
+  <div class="rule reveal"></div>
+  <p><button class="pill" style="position:static;padding:.3em .8em;font-size:clamp(.8rem,1.25vw,1rem)" onclick="openFs('fsarticleAll')">⛶ read big</button> <span class="note">the whole article, fullscreen — the time machine paragraph first, read it slowly</span></p>
+  <div class="card reveal" id="fsarticle2">
+    <p class="dlg"><b>③ ______________</b></p>
+    <p class="lead-sm">If some average modern teenagers went back in time, their IQ score would be higher than the people around them. If your IQ is 100 now, and you travelled back to 1950, you would probably have an IQ of 118. If you went back to 1910, you would have an IQ of 130. That’s better than 98 percent of other people in 1910! To look at it another way, an average person from 1910 who visited us today would have an IQ measurement of only 70.</p>
+    <p class="dlg"><b>④ ______________</b></p>
+    <p class="lead-sm">Now, why are people getting cleverer? In order to find the reasons, we have to ask ‘How have people changed?’ We have made improvements in diets and health, and because they influence the brain, this is the main reason. Answers to vocabulary, maths or general knowledge questions haven’t changed so much, but we have become better at problem solving. We have made progress with puzzle questions, such as ‘GLOVE is to HAND as SHOE is to what?’. This is also because we live in a fast-paced digital world where we have to think and react quickly, and we can’t be afraid of making mistakes.</p>
+  </div>
+</section>
+
+<!-- 11 · SB EX. 2 — MATCH THE HEADINGS -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Reading · SB ex. 2 (p. 109) · audio 3.24</div>
+  <h1 class="reveal">Match the <em>headings</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Read the text quickly. <strong>Match headings a–f</strong> with paragraphs 1–4.
+  <strong>Two are extra</strong> — no home at all.</p>
+  <p><button class="pill" style="position:static;padding:.3em .8em;font-size:clamp(.8rem,1.25vw,1rem)" onclick="openFs('fsarticleAll')">⛶ read big</button> <span class="tag">🎧 AUDIO 3.24</span> <audio controls preload="none" src="../media/ww3-cd3-3_24.mp3"></audio></p>
+  <div class="chips reveal">
+    <span class="chip"><b>a</b> Why are tests so hard?</span>
+    <span class="chip"><b>b</b> IQs have improved</span>
+    <span class="chip"><b>c</b> A new report</span>
+    <span class="chip"><b>d</b> What are the reasons?</span>
+    <span class="chip"><b>e</b> Tests have changed</span>
+    <span class="chip"><b>f</b> Intelligence has no use</span>
+  </div>
+  <p class="note reveal">Decide first — then click to check:</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Paragraph 1 → <span class="back">c — the new report is a Scottish one: people are getting more intelligent</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Paragraph 2 → <span class="back">a — the tests are so hard because people’s scores keep getting higher</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Paragraph 3 → <span class="back">b — a score of 100 today would have been 118 in 1950 and 130 in 1910</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Paragraph 4 → <span class="back">d — diet, health, and the fast-paced digital world</span></span></div>
+  </div>
+  <div class="card gold reveal"><p class="lead-sm">Left without a paragraph: <strong>e</strong> (Tests have changed) and <strong>f</strong> (Intelligence has no use) — the two extras.</p></div>
+</section>
+
+<!-- 12 · SB EX. 3 — TRUE OR FALSE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Reading · SB ex. 3 (p. 109) · audio 3.24</div>
+  <h1 class="reveal">True or <em>false</em>?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Read the text again. <strong>T or F?</strong> — and point at the words that prove it:</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Researchers believe that humans are cleverer now than in the past. <span class="back">→ T — “researchers in Scotland … young people are more intelligent than their great-grandparents were”</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Steven Pinker based his report on IQ tests which he took himself. <span class="back">→ F — “has taken a look at IQ test results over many years” — he studied results, he didn’t sit the tests</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Test writers had to make the tests more challenging. <span class="back">→ T — “the test writers made changes and the tests became harder”</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Some teenagers travelled a long way for an experiment. <span class="back">→ F — “if … went back in time, … would be higher” — nobody went anywhere; it’s a hypothetical</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>A change in lifestyle is responsible for the better test scores. <span class="back">→ T — “made improvements in diets and health … this is the main reason”</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>Big improvements were made in answers to all types of questions. <span class="back">→ F — “answers to vocabulary, maths or general knowledge questions haven’t changed so much”</span></span></div>
+  </div>
+  <p><span class="tag">🎧 AUDIO 3.24</span> <audio controls preload="none" src="../media/ww3-cd3-3_24.mp3"></audio></p>
+</section>
+
+<!-- 13 · SB EX. 4 — WH- QUESTIONS -->
+<section class="slide">
+  <div class="eyebrow reveal">Reading · SB ex. 4 (p. 109) · pairs</div>
+  <h1 class="reveal">Your <em>Wh-</em> questions</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">In pairs, write <strong>two Wh- questions</strong> about the article — then <strong>ask the class</strong>.</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">?</span><span>Paragraph 1 — two starters: <span class="back">Where were the researchers from? → Scotland · What did the researchers find? → that today’s teenagers are more intelligent than their great-grandparents</span></span></div>
+  </div>
+  <p class="note reveal">Wh- word first, then the auxiliary — 9.2 still counts.</p>
+</section>
+
+<!-- 14 · SB EX. 5 — WORD FRIENDS: MAKE OR TAKE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Vocabulary · SB ex. 5 (p. 109) · WORD FRIENDS</div>
+  <h1 class="reveal"><em>Make</em> or <em>take</em>?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Complete the <strong>Word Friends</strong> with <strong>make</strong> or <strong>take</strong>.
+  Sometimes more than one answer is possible. <strong>Guess first</strong> — then check.</p>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>________ changes <b style="color:var(--accent)">→ make</b> (the example)</span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>________ a test/exam <span class="back">→ take</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>________ sense <span class="back">→ make</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>________ notes <span class="back">→ take/make — both are fine!</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>________ progress <span class="back">→ make</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>________ a look <span class="back">→ take</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">7</span><span>________ an improvement <span class="back">→ make</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">8</span><span>________ a mistake <span class="back">→ make</span></span></div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm"><strong>Hunt:</strong> five of the eight lived in the article — find them! <i>(para 2 · para 4)</i></p></div>
+</section>
+
+<!-- 15 · SB EX. 6 + AND YOU — OTHER REASONS -->
+<section class="slide">
+  <div class="eyebrow reveal">Speaking · SB ex. 6 (p. 109) · And you?</div>
+  <h1 class="reveal">Other <em>reasons</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">In pairs: <strong>other reasons</strong> for the test results? What’s <strong>your opinion</strong>?
+  Use the ideas below — and add your own.</p>
+  <div class="chips reveal">
+    <span class="chip">We take more tests.</span>
+    <span class="chip">More people go to college and university.</span>
+    <span class="chip">We learn a lot from TV and magazines.</span>
+    <span class="chip">Schools are better.</span>
+    <span class="chip">Parents talk to their children more.</span>
+    <span class="chip">We read more books.</span>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm">The lens: is the idea <strong>true</strong>, <strong>false</strong>, or <strong>true but irrelevant</strong>? Argue your corner — a reason for every verdict.</p></div>
+</section>
+
+<!-- 16 · TB EXTRA ACTIVITY — THE PUZZLE GAME -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Extra activity · TB p. 204 · the lesson’s game</div>
+  <h1 class="reveal">The puzzle <em>game</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">First — the number sequence. What comes next?</p>
+  <div class="card tint reveal"><p class="task" style="font-size:clamp(1.3rem,2.4vw,1.9rem);text-align:center">1,&nbsp; 1,&nbsp; 2,&nbsp; 3,&nbsp; 5,&nbsp; 8,&nbsp; 13,&nbsp; …</p>
+  <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">?</span><span>The next number <span class="back">→ 21 — each number is the total of the previous two</span></span></div></div>
+  <p class="task reveal">Now guess the endings:</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>A glove is to a hand like a shoe is to a … <span class="back">→ foot</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Monday is to January like Sunday is to … <span class="back">→ December</span></span></div>
+  </div>
+  <div class="card gold reveal"><p class="lead-sm">Your turn: <strong>each pair writes one analogy riddle</strong> for the class — swap and solve.</p></div>
+</section>
+
+<!-- 17 · HOMEWORK -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">Word friends <em>travel home</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>📘 <b>Workbook p. 105</b> (9.3): <b>ex. 1</b> — Word Friends (<i>make</i> or <i>take</i>) · <b>ex. 2</b> — match the headings <i>a–d</i>. Today’s lesson is the key — you already know how.</span></div>
+    <div class="item"><span class="no">2</span><span>🎧 Optional: the article one more time with <b>3.24</b> — read aloud with the track, then a <b>one-minute retell</b>: why are people getting cleverer?</span></div>
+  </div>
+  <p class="note reveal">Next: <strong>9.4 Grammar — Mixed tenses</strong>.</p>
+</section>
+
+<!-- ⛶ THE WHOLE ARTICLE — the read-big buttons open all four paragraphs fullscreen -->
+<div id="fsarticleAll" style="display:none">
+  <h3>Bright sparks! — the whole article</h3>
+  <p class="dlg"><b>① ______________</b></p>
+  <p class="lead-sm">Is modern education rubbish? Are today’s teenagers poor learners who can’t think for themselves? Not according to a report from researchers in Scotland. The good news is that young people are more intelligent than their great-grandparents were!</p>
+  <p class="dlg"><b>② ______________</b></p>
+  <p class="lead-sm">Intelligence Quotient (IQ) tests are a way of measuring general intelligence. An average score in a given population is 100 points. Scientist Steven Pinker has taken a look at IQ test results over many years and made notes about what he found. Every few years, people did better in the tests, so the test writers made changes and the tests became harder.</p>
+  <p class="dlg"><b>③ ______________</b></p>
+  <p class="lead-sm">If some average modern teenagers went back in time, their IQ score would be higher than the people around them. If your IQ is 100 now, and you travelled back to 1950, you would probably have an IQ of 118. If you went back to 1910, you would have an IQ of 130. That’s better than 98 percent of other people in 1910! To look at it another way, an average person from 1910 who visited us today would have an IQ measurement of only 70.</p>
+  <p class="dlg"><b>④ ______________</b></p>
+  <p class="lead-sm">Now, why are people getting cleverer? In order to find the reasons, we have to ask ‘How have people changed?’ We have made improvements in diets and health, and because they influence the brain, this is the main reason. Answers to vocabulary, maths or general knowledge questions haven’t changed so much, but we have become better at problem solving. We have made progress with puzzle questions, such as ‘GLOVE is to HAND as SHOE is to what?’. This is also because we live in a fast-paced digital world where we have to think and react quickly, and we can’t be afraid of making mistakes.</p>
+</div>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 17</span>
+  <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<!-- pinned pills — THE CORNERS V2: 🙋 top-left · ✍️ top-right · 🗒 bottom-centre -->
+<button id="pardonBtn" class="pill" title="Pardon? — class phrases (P)">🙋</button>
+<button id="annoBtn" class="pill" title="lesson notes (N)">✍️</button>
+
+
+
+
+<!-- 🙋 Pardon? — the one universal list -->
+<div id="pq">
+  <div class="pq-head"><span>say it in class</span><span class="a-sp"></span>
+    <button id="pqX" title="close (Esc / P)">✕</button></div>
+  <div class="pqRow"><span class="pqE">🙋</span>Pardon?</div>
+  <div class="pqRow"><span class="pqE">❓</span>What does <b>___</b> mean?</div>
+  <div class="pqRow"><span class="pqE">🆘</span>Can you help me?</div>
+  <div class="pqRow"><span class="pqE">🔁</span>Can you repeat, please?</div>
+  <div class="pqRow"><span class="pqE">🇬🇧</span>How do you say <b>___</b> in English?</div>
+  <div class="pqRow"><span class="pqE">🤷</span>I don't understand.</div>
+</div>
+
+
+
+<!-- ⛶ read big -->
+<div id="fso" onclick="this.classList.remove('open')"><div class="fsoinner" id="fsoinner"></div></div>
+
+<script>
+const CH='ww4-u9-l9.3';
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  document.querySelectorAll('audio').forEach(a=>{try{a.pause()}catch(e){}});
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  history.replaceState(null,'','#'+(i+1));
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  if(typeof annoFill==='function'&&document.getElementById('anno').classList.contains('on')){annoIdx=n;annoFill()}
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* ---------- ⛶ read big ---------- */
+function openFs(id){document.getElementById('fsoinner').innerHTML=document.getElementById(id).innerHTML;
+  document.getElementById('fso').classList.add('open');}
+
+/* ---------- 🙋 Pardon? (top-left pill, key P) — the one universal list ---------- */
+const pqPanel=document.getElementById('pq');
+function pqToggle(open){pqPanel.classList.toggle('on',open);
+  if(open){const a=document.getElementById('anno');if(a)a.classList.remove('on')}}
+function pqEsc(){if(pqPanel.classList.contains('on')){pqPanel.classList.remove('on');return true}return false}
+document.getElementById('pardonBtn').onclick=()=>pqToggle(!pqPanel.classList.contains('on'));
+document.getElementById('pqX').onclick=()=>pqToggle(false);
+
+/* ---------- keys (the guard first: ⌘/Ctrl/Alt never triggers deck keys) ---------- */
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){
+    if(typeof annoEsc==='function'&&annoEsc())return;
+    if(pqEsc())return;
+    if(typeof notesEsc==='function'&&notesEsc())return;
+    document.getElementById('fso').classList.remove('open');return}
+  if(document.getElementById('fso').classList.contains('open')){
+    if(e.key==='Escape')document.getElementById('fso').classList.remove('open');
+    return}
+  if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&typeof toggleNotes==='function'){e.preventDefault();toggleNotes();return}
+  if((e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З')){e.preventDefault();pqToggle(!pqPanel.classList.contains('on'));return}
+  if(pqPanel.classList.contains('on'))return; /* the list is open — other keys sleep */
+  /* AUDIO key-guard: SPACE pauses a playing track instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+
+
+
+/* ---------- wheel/touch: a .scroll slide scrolls, never flips ---------- */
+let wt=0;document.addEventListener('wheel',e=>{
+  if(document.getElementById('fso').classList.contains('open'))return;
+  if(e.target.closest('.slide')&&e.target.closest('.slide').classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ---------- boot: deep link #n ---------- */
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+
+/* ---------- ready-chime (http/https: chime + reload on save) ---------- */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
