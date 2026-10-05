@@ -227,6 +227,16 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 /* the treasure card */
 .treasure{max-width:760px;margin:1em auto 0;width:100%}
 .treasure .t-q{font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.2vw,1.75rem);color:var(--navy)}
+/* ===== v3 · the video card + the India map + the last-timeline ===== */
+.vidcard video{max-height:44vh;width:100%;height:auto;display:block;border-radius:12px;background:#000}
+.minimap svg .mm{cursor:pointer}
+.minimap svg .mm ellipse,.minimap svg .mm path{fill:#DCEAF7;stroke:var(--navy);stroke-width:2.5;transition:fill .15s ease}
+.minimap svg .mm:hover ellipse,.minimap svg .mm:hover path{fill:#C6DDF2}
+.minimap svg .mm text{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;fill:var(--ink-soft);pointer-events:none;letter-spacing:.04em}
+.minimap svg .mm.target ellipse,.minimap svg .mm.target path{fill:var(--cheese-soft)}
+.minimap svg .mm.hit ellipse,.minimap svg .mm.hit path{fill:var(--mint)}
+.mmsvg-mmcap{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;fill:var(--navy)}
+.tlc{display:inline-block;background:var(--white);border-radius:50%;padding:.3em;box-shadow:0 5px 14px rgba(34,48,63,.1);border:3px solid var(--sky)}
 </style>
 </head>
 <body>
@@ -237,16 +247,18 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <!-- 1 · prepare ahead -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v2</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v3</div>
     <h1 class="title reveal">The Most Popular Sports in the World ⚽</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
       <ol class="prep">
-        <li>🌍 <b>A UNIVERSAL READING DECK</b> — one chapter of Select Readings Elementary, one lesson flow, any pupil. The book's own order runs the lesson: the sports talk → my guesses → the reading → check the guesses → the notes chart → true/false → what do you think? → vocabulary → synonyms → the words shelf → the games.</li>
+        <li>🌍 <b>A UNIVERSAL READING DECK</b> — one chapter of Select Readings Elementary, one lesson flow, any pupil. The book's own order runs the lesson: the sports talk (ONE QUESTION PER SLIDE — the strip · cricket video + the India map · rules + touch TPR · lasts + the solve tasks · similar/different) → my guesses → the reading → check the guesses → the notes chart → true/false → what do you think? → vocabulary → synonyms → the words shelf → the games.</li>
+        <li>🎬 <b>THE CRICKET VIDEO (48 s) ON SLIDE 3</b> — click it once before the lesson. The 2-minute backup lives at <i>media/cricket-2min.mp4</i> (say the word and it swaps in).</li>
+        <li>⏰ <b>QUARTER TO IS BORN TODAY</b> (the clocks slide): the teach strip first, then TWO quarter-to rounds in the game.</li>
         <li>🎒 <b>Open with YOUR pupil's homework check first</b> (2–3 minutes, your own material — the dictionary words from the last lesson). Then slide 2.</li>
         <li>🎧 <b>ONE AUDIO TRACK</b> (3:33) — the reading itself, on the reading slide. Test it once before the lesson. Pause + scroll in the bottom bar.</li>
-        <li>📖 <b>THE TEXT IS ON THE SLIDE</b> (slide 5) — the deck is the book, no PDF jumping. The ⛶ button shows the whole text BIG (also from the chart slide — the pupil scans it for answers).</li>
-        <li>🎯 <b>THE TREASURE TASK</b> rides the clocks slide (slide 14): the top-five ranking deduction — let the pupil DERIVE it, help only at the edges.</li>
+        <li>📖 <b>THE TEXT IS ON THE SLIDE</b> (slide 8) — the deck is the book, no PDF jumping. The ⛶ button shows the whole text BIG (also from the chart slide — the pupil scans it for answers).</li>
+        <li>🎯 <b>THE TREASURE TASK</b> rides the clocks slide (slide 17): the top-five ranking deduction — let the pupil DERIVE it, help only at the edges.</li>
         <li>⏱️ <b>Time-your-reading card</b> (on the reading slide): 221 words — the book's own fluency check. Note the time after the first silent read.</li>
         <li>✍️ <b>The lesson-log pill</b> (top-left / key C): tick + notes per slide; over http it auto-sends to the Mac inbox. <b>No race — where you stop is where the next lesson starts.</b></li>
       </ol>
@@ -276,18 +288,137 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <p class="hintline reveal mt center">now close your eyes 🙈 — tap a card and say the word! · then answer in a full sentence: "I play… / I like to watch…"</p>
   </section>
 
-<!-- 3 · before you read A — questions 2–5 -->
+<!-- 3 · Q2 · cricket in India — the video + the map -->
 <section class="slide" id="r3">
-    <div class="eyebrow reveal">before you read · talk! · book p. 2</div>
-    <h1 class="title reveal">Talk! 🗣</h1>
+    <div class="eyebrow reveal">before you read · question 2 · cricket in India 🇮🇳</div>
+    <h1 class="title reveal">Cricket in India 🏏</h1>
     <div class="accent-line reveal"></div>
-    <div class="col reveal" style="max-width:960px;margin:0 auto;width:100%">
-      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">2</span><span class="gs">🏏 Cricket is very popular in India. Many people there play or watch this sport. <b>Is cricket popular in your country?</b></span></div>
-      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">3</span><span class="gs">📜 Every sport has rules. For example, a football player can't touch the ball with his or her hands. <b>Do you know the rules of tennis? What is one rule in your favourite sport?</b></span></div>
-      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">4</span><span class="gs">⏱️ Most football games last for about 90 minutes. <b>Do you know how long a basketball game usually lasts? Can a tennis game last longer than three hours?</b></span></div>
-      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">5</span><span class="gs">🏑⚽ Football and field hockey are similar in some ways — both sports use a ball, and both are outdoor sports. <b>Think of two other sports. How are they similar?</b></span></div>
+    <p class="task reveal">Watch! 👀 Then find India on the map!</p>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="card vidcard" style="flex:1.1;min-width:280px;padding:.8em;text-align:center">
+        <p style="font-size:clamp(2.4rem,4.5vw,3.6rem)">🏏🎬</p>
+        <p style="font-size:clamp(1.1rem,1.8vw,1.45rem)">The cricket video plays in the lesson — ask your teacher!</p>
+        <p class="hintline">48 seconds of real cricket 🏏</p>
+      </div>
+      <div class="card sky" style="flex:1;min-width:280px;padding:.6em .8em">
+        <p style="font-size:clamp(1.05rem,1.7vw,1.4rem)"><b>Talk! 🗣</b> Cricket is very popular in India. Many people there play or watch this sport.</p>
+        <p class="mt" style="font-size:clamp(1.05rem,1.7vw,1.4rem)"><b>Is cricket popular in YOUR country?</b></p>
+        <div class="minimap mt" id="minimap">
+          <svg viewBox="0 0 460 310" style="width:100%;height:auto;display:block">
+            <text x="230" y="16" text-anchor="middle" class="mmsvg-mmcap">find India! 🔎 (the map is not to scale)</text>
+            <g class="mm" data-c="ru"><ellipse cx="150" cy="60" rx="130" ry="34"/><text x="150" y="65" text-anchor="middle">RUSSIA</text></g>
+            <g class="mm" data-c="uk"><ellipse cx="30" cy="140" rx="20" ry="15"/><text x="30" y="178" text-anchor="middle">UK</text></g>
+            <g class="mm" data-c="cn"><path d="M180,120 q45,-42 110,-26 q48,12 52,48 q4,34 -28,46 l-118,4 q-38,-22 -16,-72z"/><text x="252" y="146" text-anchor="middle">CHINA</text></g>
+            <g class="mm" data-c="jp"><ellipse cx="400" cy="128" rx="12" ry="24"/><text x="400" y="172" text-anchor="middle">JAPAN</text></g>
+            <g class="mm" data-c="pk"><path d="M182,192 l34,-10 10,24 -32,12z"/></g>
+            <g class="mm target" data-c="in"><path d="M222,196 L284,196 L266,242 L252,300 L240,244 Z"/></g>
+          </svg>
+        </div>
+        <div class="secret" id="india-reveal" style="margin-top:.5em">
+          <div class="model-line row" style="gap:.8em;align-items:center">
+            <svg viewBox="0 0 90 60" style="width:64px;height:auto;flex-shrink:0;border:2px solid var(--sky);border-radius:6px">
+              <rect width="90" height="20" fill="#FF9933"/><rect y="20" width="90" height="20" fill="#ffffff"/><rect y="40" width="90" height="20" fill="#138808"/>
+              <circle cx="45" cy="30" r="8.5" fill="none" stroke="#000080" stroke-width="2"/>
+              <g stroke="#000080" stroke-width="1.3">
+                <line x1="36.5" y1="30" x2="53.5" y2="30"/><line x1="45" y1="21.5" x2="45" y2="38.5"/>
+                <line x1="39" y1="24" x2="51" y2="36"/><line x1="39" y1="36" x2="51" y2="24"/>
+              </g>
+            </svg>
+            <span><b>INDIA!</b> 🎉 The flag: orange · white · green + the blue wheel. <b>Capital?</b> → <span class="gap" style="min-width:5em">New Delhi!</span></span>
+          </div>
+        </div>
+      </div>
     </div>
-    <p class="hintline reveal mt center">question 4 is a trap — the answer hides in today's reading! 🕵️</p>
+    <p class="hintline reveal mt center">click the right country on the map 🗺️ · wrong countries just shake!</p>
+  </section>
+
+<!-- 4 · Q3 · rules + touch -->
+<section class="slide" id="r3b">
+    <div class="eyebrow reveal">before you read · question 3 · rules 📜</div>
+    <h1 class="title reveal">Rules! 📜</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="card cheese" style="flex:1.1;min-width:280px;padding:.7em 1em">
+        <p style="font-size:clamp(1.3rem,2.2vw,1.8rem)">⚽ ✋ 🚫</p>
+        <p class="mt read-text" style="font-size:clamp(1.1rem,1.9vw,1.55rem)">A football player <b>can't touch</b> the ball with his or her hands.</p>
+        <p class="mt" style="font-size:clamp(1.1rem,1.9vw,1.55rem)">This is a <b>RULE</b> 📜 — <i>rules</i> = what you <b>CAN</b> and <b>CANNOT</b> do in a game.</p>
+      </div>
+      <div class="card" style="flex:1;min-width:280px;padding:.7em 1em">
+        <h2 style="font-size:clamp(1.1rem,1.8vw,1.5rem)">Touch! ✋ — do it NOW:</h2>
+        <div class="sent">Touch your <span class="gap" style="min-width:4em">nose!</span> 👃</div>
+        <div class="sent">Touch your <span class="gap" style="min-width:4em">ear!</span> 👂</div>
+        <div class="sent" style="border-bottom:none">Touch your <span class="gap" style="min-width:4em">chair!</span> 🪑</div>
+        <div class="model-line mt">Football question: <b>Can you touch the ball with your hands?</b> → <span class="gap" style="min-width:3.5em">NO!</span> only the goalkeeper 🧤</div>
+      </div>
+    </div>
+    <div class="card stampc reveal mt center" style="max-width:860px;margin:1em auto 0;width:100%;padding:.7em 1.2em">
+      <p style="font-size:clamp(1.2rem,2vw,1.6rem)"><b>Now the book's questions 🗣</b> — Do you know the rules of tennis? What is one rule in your favourite sport?</p>
+    </div>
+  </section>
+
+<!-- 5 · Q4 · how long does it last -->
+<section class="slide" id="r3c">
+    <div class="eyebrow reveal">before you read · question 4 · how long does it last? ⏱</div>
+    <h1 class="title reveal">How long does it LAST? ⏱</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card cheese reveal" style="max-width:1000px;margin:0 auto;width:100%;padding:.7em 1.1em">
+      <div class="row" style="justify-content:center;gap:1em;align-items:center">
+        <div class="tlc" id="tl-900"></div>
+        <div style="flex:1;min-width:180px;text-align:center">
+          <p style="font-family:'Fredoka';font-weight:600;font-size:clamp(1.1rem,1.9vw,1.5rem);color:var(--navy)">the game lasts 90 minutes</p>
+          <p class="muted" style="font-size:clamp(.95rem,1.5vw,1.25rem)">STARTS at 9 o'clock ─────▶ FINISHES at half past ten</p>
+        </div>
+        <div class="tlc" id="tl-1030"></div>
+      </div>
+      <p class="center mt" style="font-size:clamp(1.05rem,1.7vw,1.4rem)"><b>last</b> = to go on for a time ⏳ (the game, the film, the lesson — they all LAST!)</p>
+    </div>
+    <div class="row reveal mt" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="card" style="flex:1;min-width:280px;padding:.7em 1em">
+        <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">🧠 SOLVE it! — task 1</h2>
+        <p class="mt" style="font-size:clamp(1.05rem,1.7vw,1.4rem)">The football game starts at <b>9 o'clock</b>. It lasts <b>90 minutes</b>.</p>
+        <p style="font-size:clamp(1.15rem,2vw,1.6rem);font-family:'Fredoka';color:var(--navy)">When does it finish? 🤔</p>
+        <div class="center mt"><button class="show-btn" data-show="last-a1" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.6vw,1.3rem);border:none;border-radius:99px;padding:.4em 1.3em;cursor:pointer;background:var(--navy);color:#fff">the answer ▾</button></div>
+        <div class="secret" id="last-a1"><div class="model-line row mt" style="gap:.7em;align-items:center;justify-content:center"><span class="tlc" id="tl-a1"></span><b>Half past ten! 10:30</b></div></div>
+      </div>
+      <div class="card sky" style="flex:1;min-width:280px;padding:.7em 1em">
+        <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">🧠 SOLVE it! — task 2</h2>
+        <p class="mt" style="font-size:clamp(1.05rem,1.7vw,1.4rem)">It's <b>quarter past twelve</b>. We need <b>15 minutes</b> to get to the café.</p>
+        <p style="font-size:clamp(1.15rem,2vw,1.6rem);font-family:'Fredoka';color:var(--navy)">When will we have lunch? 🍽️</p>
+        <div class="center mt"><button class="show-btn" data-show="last-a2" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.6vw,1.3rem);border:none;border-radius:99px;padding:.4em 1.3em;cursor:pointer;background:var(--navy);color:#fff">the answer ▾</button></div>
+        <div class="secret" id="last-a2"><div class="model-line row mt" style="gap:.7em;align-items:center;justify-content:center"><span class="tlc" id="tl-a2"></span><b>Half past twelve! 12:30</b></div></div>
+      </div>
+    </div>
+    <div class="card stampc reveal mt center" style="max-width:900px;margin:1em auto 0;width:100%;padding:.6em 1.2em">
+      <p style="font-size:clamp(1.1rem,1.8vw,1.5rem)"><b>And the book asks 🗣</b> — How long does a basketball game usually last? Can a tennis game last longer than three hours? <i>(the answer hides in today's reading! 🕵️)</i></p>
+    </div>
+  </section>
+
+<!-- 6 · Q5 · similar or different -->
+<section class="slide" id="r3d">
+    <div class="eyebrow reveal">before you read · question 5 · similar or different? 🔍</div>
+    <h1 class="title reveal">Similar or different? 🔍</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1000px;margin:0 auto;width:100%">
+      <div class="card cheese" style="flex:1;min-width:260px;padding:.7em 1em;text-align:center">
+        <p style="font-size:clamp(2rem,3.6vw,3rem)">⚽ ⚽</p>
+        <p style="font-size:clamp(1.15rem,1.9vw,1.55rem)"><b>SIMILAR</b> = alike in some ways</p>
+        <p class="muted">two footballs — the same game!</p>
+      </div>
+      <div class="card stampc" style="flex:1;min-width:260px;padding:.7em 1em;text-align:center">
+        <p style="font-size:clamp(2rem,3.6vw,3rem)">⚽ 🎾</p>
+        <p style="font-size:clamp(1.15rem,1.9vw,1.55rem)"><b>DIFFERENT</b> = not alike</p>
+        <p class="muted">a ball and a racket — different games!</p>
+      </div>
+    </div>
+    <div class="col reveal" style="max-width:960px;margin:.9em auto 0;width:100%">
+      <div class="syn-row"><span class="st">🔵🔵 Two blue balls — similar or different?</span><button class="pick" data-ok="1">SIMILAR</button><button class="pick">DIFFERENT</button></div>
+      <div class="syn-row"><span class="st">🏐 🍌 A volleyball and a banana — similar or different?</span><button class="pick">SIMILAR</button><button class="pick" data-ok="1">DIFFERENT</button></div>
+    </div>
+    <div class="card stampc reveal mt center" style="max-width:960px;margin:1em auto 0;width:100%;padding:.7em 1.2em">
+      <p style="font-size:clamp(1.1rem,1.8vw,1.5rem)"><b>The book's question 🗣</b> — Football and field hockey are similar in some ways: both sports use a ball, and both are outdoor sports.</p>
+      <p class="mt" style="font-size:clamp(1.2rem,2vw,1.6rem);font-family:'Fredoka';color:var(--navy)">Think of two other sports. How are THEY similar?</p>
+      <p class="hintline mt">model: "Swimming and running are similar — they are both Olympic sports!" 🏅</p>
+    </div>
   </section>
 
 <!-- 4 · before you read B — my guesses -->
@@ -302,7 +433,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       <div class="guess"><span class="gs"><b>3.</b> Table tennis is very popular in China.</span><button class="gpick t">TRUE</button><button class="gpick f">FALSE</button></div>
       <div class="guess"><span class="gs"><b>4.</b> Basketball is one of the top five sports in the world.</span><button class="gpick t">TRUE</button><button class="gpick f">FALSE</button></div>
     </div>
-    <p class="hintline reveal mt center">the answers live on slide 6 — after the reading 🔒</p>
+    <p class="hintline reveal mt center">the answers live on slide 9 — after the reading 🔒</p>
   </section>
 
 <!-- 5 · the reading -->
@@ -476,6 +607,10 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <h1 class="title reveal">Sports day clocks 🕒</h1>
     <div class="accent-line reveal"></div>
     <p class="task reveal">Tap the clock you hear!</p>
+    <div class="card cheese reveal" style="max-width:920px;margin:.8em auto 0;width:100%;padding:.5em 1.1em">
+      <p class="center" style="font-size:clamp(1rem,1.6vw,1.3rem)">⏰ <b>TODAY'S NEW TIME — QUARTER TO!</b> 7:45 = <b>quarter to eight</b> = 15 minutes <b>BEFORE</b> eight · the minute hand points at the <b>NINE</b> 🕘</p>
+      <p class="center hintline">the clock family: o'clock · half past · quarter past · <b>quarter to (NEW today!)</b></p>
+    </div>
     <div class="row reveal mt" style="justify-content:center"><span class="hud-chip" id="clock-count">round 1 / 4</span><button class="reset-btn" id="clock-reset">🔄 again</button></div>
     <div class="roundlabel mt" id="round-label">…</div>
     <div class="clockrow mt" id="clockrow"></div>
@@ -556,7 +691,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       <div class="hw-step"><span class="n">2</span><div><span class="en">📚 FIVE WORDS → YOUR DICTIONARY</span> — the words we did NOT tick today. For each word write the translation OR one example — your choice!</div></div>
       <div class="hw-step"><span class="n">3</span><div style="flex:1"><span class="en">🕵️ RESEARCH A SPORT</span> — badminton 🏸 · baseball ⚾ · ice hockey 🏒 · rugby 🏉 — pick ONE. Find three facts: how many people play or watch it? WHERE is it popular? one fun fact. Bring the facts — you are the teacher! 🎓</div><img src="media/sport-icehockey.jpg?v=1" alt="ice hockey" style="flex-shrink:0;width:clamp(90px,12vw,140px);height:auto;border-radius:10px;border:3px solid var(--sky);align-self:center"></div>
     </div>
-    <p class="hintline reveal mt center">the words live on slide 12 (Words to remember) — the deck remembers where you stopped</p>
+    <p class="hintline reveal mt center">the words live on slide 15 (Words to remember) — the deck remembers where you stopped</p>
   </section>
 
 <!-- 18 · goodbye -->
@@ -608,7 +743,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <div id="nav">
   <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
-  <div id="counter"><span class="now">1</span> / 19</div>
+  <div id="counter"><span class="now">1</span> / 22</div>
   <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
   <button id="fs-btn" title="Fullscreen (F)">⛶</button>
 </div>
@@ -923,7 +1058,9 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     {label:"The football game starts — seven o'clock! ⚽", h:7, m:0},
     {label:'Cricket practice — quarter past nine! 🏏', h:9, m:15},
     {label:'The tennis game — half past three! 🎾', h:3, m:30},
-    {label:'Volleyball on the beach — ten o\u0027clock! 🏐', h:10, m:0}
+    {label:'NEW! The rugby match — quarter to six! 🏉', h:5, m:45},
+    {label:'Volleyball on the beach — ten o\u0027clock! 🏐', h:10, m:0},
+    {label:'NEW! The basketball game — quarter to eight! 🏀', h:7, m:45}
   ];
   const HOURS=[1,2,4,5,6,8,9,11,12];
   let rIdx=0, clockTarget=9, clockMin=0;
@@ -934,7 +1071,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     const round=ROUNDS[rIdx];
     clockTarget=round.h; clockMin=round.m;
     roundLabel.textContent=round.label;
-    clockCount.textContent='round '+(rIdx+1)+' / 4';
+    clockCount.textContent='round '+(rIdx+1)+' / '+ROUNDS.length;
     clockrow.innerHTML='';
     const others=HOURS.filter(h=>h!==clockTarget);
     shuffle(others.slice()).slice(0,3).concat([clockTarget]).sort(()=>Math.random()-.5).forEach(h=>{
@@ -955,6 +1092,33 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   }
   document.getElementById('clock-reset').addEventListener('click',()=>{ rIdx=0; clockRound(); });
   clockRound();
+
+  /* v3 · the LAST-timeline clocks (static, painted at load) */
+  const TL={ 'tl-900':[9,0], 'tl-1030':[10,30], 'tl-a1':[10,30], 'tl-a2':[12,30] };
+  Object.keys(TL).forEach(id=>{ const el=document.getElementById(id); if(el){ el.appendChild(drawClock(TL[id][0],TL[id][1])); } });
+
+  /* v3 · the India map: the target glows + reveals, the decoys shake */
+  const minimap=document.getElementById('minimap');
+  if(minimap){
+    minimap.querySelectorAll('.mm').forEach(g=>{
+      g.addEventListener('click',()=>{
+        if(g.classList.contains('target')){
+          g.classList.add('hit');
+          document.getElementById('india-reveal').classList.add('show');
+        } else {
+          g.classList.remove('shake'); void g.getBoundingClientRect(); g.classList.add('shake');
+        }
+      });
+    });
+  }
+
+  /* v3 · the generic answer buttons ("the answer ▾" → show the card, hide the button) */
+  document.querySelectorAll('.show-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const c=document.getElementById(b.dataset.show);
+      if(c){ c.classList.add('show'); b.style.display='none'; }
+    });
+  });
 
   /* mime bank: sports + the reading's actions, deal 10 at random */
   const MIME=[
