@@ -90,6 +90,11 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
   font-size:1000px;fill:var(--ink-dark);
 }
 .big-letter.pop .glyph{animation:pop .5s cubic-bezier(.34,1.56,.64,1);transform-origin:center}
+/* the Genki monkey presents the letter (Elena, 2026-10-05: «cut out the monkey
+   and use it to present m» — cut from the Genki disc's own poster 11) */
+.big-letter .mascot{position:absolute;top:-26px;right:-34px;width:clamp(90px,12vw,150px);
+  transform:rotate(7deg);pointer-events:none;
+  filter:drop-shadow(0 8px 16px rgba(10,6,20,.35))}
 @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.1)}100%{transform:scale(1)}}
 .big-letter .tdot{fill:var(--yellow);stroke:var(--ink-dark);stroke-width:14;
   filter:drop-shadow(0 6px 10px rgba(10,6,20,.35))}
@@ -269,6 +274,7 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
   <div class="pres-row reveal">
     <div class="big-letter" role="button" tabindex="0" data-snd="m" aria-label="Letter m — tap to hear the sound">
       <img class="glyph" src="genki-letters/m.png" alt="letter m">
+      <img class="mascot" src="logos/monkey.png" alt="the Genki monkey — m for monkey">
     </div>
     <div class="pres-side">
       <div class="sound-chip f-yellow"><span class="snd">m-m-m…</span><span class="hint">like</span><img class="chiplogo" src="logos/mcdonalds.svg" alt="McDonald's"></div>
