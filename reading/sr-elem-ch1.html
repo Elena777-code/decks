@@ -289,7 +289,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <!-- 1 · prepare ahead -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v11</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v12</div>
     <h1 class="title reveal">The Most Popular Sports in the World ⚽</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
@@ -824,7 +824,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <div class="eyebrow reveal">after you read · check your guesses · scanning</div>
     <h1 class="title reveal">Were you right? 🕵️</h1>
     <div class="accent-line reveal"></div>
-    <p class="task reveal">Find the answer in the text — then click to check!</p>
+    <p class="task reveal">Find the answer in the text — then click to check! <button class="reset-btn" id="fsstory3-btn" style="margin-left:.4em">📖 look at the text</button></p>
     <div class="col reveal mt" style="max-width:960px;margin:1em auto 0;width:100%">
       <div class="yn" data-a="yes"><span class="badge">?</span><span class="gs"><b>1.</b> Football is the most popular sport in the world.</span><span class="tfkey">✓ TRUE — "the world's most popular sport… 3.5 billion people" — number ONE!</span></div>
       <div class="yn" data-a="no"><span class="badge">?</span><span class="gs"><b>2.</b> The most popular sport in India is tennis.</span><span class="tfkey">✗ FALSE — in India and Pakistan, CRICKET is more popular than football!</span></div>
@@ -1292,7 +1292,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
   /* the ⛶ fullscreen text (from the reading slide and the chart slide) */
   const fsStory=document.getElementById('fsstory');
-  const fsOpenBtns=[document.getElementById('fsstory-btn'),document.getElementById('fsstory2-btn')];
+  const fsOpenBtns=['fsstory-btn','fsstory2-btn','fsstory3-btn'].map(i=>document.getElementById(i));
   fsOpenBtns.forEach(b=>{ if(b) b.addEventListener('click',()=> fsStory.classList.add('on')); });
   fsStory.addEventListener('click',()=> fsStory.classList.remove('on'));
 
