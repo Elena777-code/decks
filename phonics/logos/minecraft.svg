@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <rect width="200" height="200" rx="24" fill="#E7E2D4"/>
+  <!-- blocky pixel M: 5x5 grid, block 36, one clean silhouette -->
+  <g fill="#3B3B3B">
+    <!-- row 0: two stem tops -->
+    <rect x="10" y="14" width="36" height="36"/>
+    <rect x="154" y="14" width="36" height="36"/>
+    <!-- row 1: stems + inner shoulders -->
+    <rect x="10" y="50" width="36" height="36"/>
+    <rect x="46" y="50" width="36" height="36"/>
+    <rect x="118" y="50" width="36" height="36"/>
+    <rect x="154" y="50" width="36" height="36"/>
+    <!-- row 2: stems + centre bottom of the V -->
+    <rect x="10" y="86" width="36" height="36"/>
+    <rect x="82" y="86" width="36" height="36"/>
+    <rect x="154" y="86" width="36" height="36"/>
+    <!-- row 3 -->
+    <rect x="10" y="122" width="36" height="36"/>
+    <rect x="154" y="122" width="36" height="36"/>
+    <!-- row 4 -->
+    <rect x="10" y="158" width="36" height="28"/>
+    <rect x="154" y="158" width="36" height="28"/>
+  </g>
+</svg>
