@@ -236,34 +236,29 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 /* the treasure card */
 .treasure{max-width:760px;margin:1em auto 0;width:100%}
 .treasure .t-q{font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.2vw,1.75rem);color:var(--navy)}
-/* ===== v3 · the video card + the India map + the last-timeline ===== */
+/* ===== v3 · the video card + the last-timeline ===== */
 .vidcard video{max-height:44vh;width:100%;height:auto;display:block;border-radius:12px;background:#000}
-.minimap svg .mm{cursor:pointer}
-.minimap svg .mm ellipse,.minimap svg .mm path{fill:#DCEAF7;stroke:var(--navy);stroke-width:2.5;transition:fill .15s ease}
-.minimap svg .mm:hover ellipse,.minimap svg .mm:hover path{fill:#C6DDF2}
-.minimap svg .mm text{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;fill:var(--ink-soft);pointer-events:none;letter-spacing:.04em}
-.minimap svg .mm.target ellipse,.minimap svg .mm.target path{fill:var(--cheese-soft)}
-.minimap svg .mm.hit ellipse,.minimap svg .mm.hit path{fill:var(--mint)}
-.mmsvg-mmcap{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;fill:var(--navy)}
 .tlc{display:inline-block;background:var(--white);border-radius:50%;padding:.3em;box-shadow:0 5px 14px rgba(34,48,63,.1);border:3px solid var(--sky)}
+/* ===== v14 · the real maps + the invisible hotspots ===== */
+.mapwrap{position:relative;max-width:620px;margin:0 auto;width:100%}
+.mapwrap img{width:100%;height:auto;display:block;border-radius:12px;border:3px solid var(--sky)}
+.mapwrap.map-asia{max-width:400px}
+.mapwrap.map-asia img{max-height:46vh;width:auto;margin:0 auto}
+.hot{position:absolute;border:2.5px dashed transparent;border-radius:12px;cursor:pointer;transition:all .15s ease}
+.hot:hover{border-color:rgba(44,78,128,.3)}
+.hot .tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.72rem,1.15vw,.95rem);color:transparent;white-space:nowrap;pointer-events:none;background:rgba(255,255,255,.9);border-radius:99px;padding:.08em .55em;opacity:0;transition:all .2s ease;box-shadow:0 3px 8px rgba(34,48,63,.15)}
+.hot.on{border-color:var(--mint);background:rgba(95,191,160,.16)}
+.hot.on .tag{opacity:1;color:var(--navy)}
+.hot.pale.on{border-color:#B9CADB;background:rgba(185,202,219,.2)}
+.hot.pale.on .tag{color:var(--ink-soft)}
+.hot.target{border-color:var(--cheese)}
+.hot.gold{border-color:var(--cheese)}
+.hot.gold:hover{border-color:var(--stamp)}
 /* ===== v5 · the type-ins + the world map ===== */
 .tin{font-family:'Fredoka';font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem);color:var(--navy);border:3px solid var(--sky);border-radius:12px;padding:.15em .4em;text-align:center;background:var(--white);outline:none;min-width:2.4em}
 .tin:focus{border-color:var(--navy)}
 .tin.good{border-color:var(--mint);background:#EAF6F1;color:var(--navy)}
 .tin.bad{border-color:var(--stamp);background:var(--stamp-soft)}
-.worldmap-svg svg .cont,.worldmap-svg svg .dot{cursor:pointer}
-.worldmap-svg svg .cont path{fill:#DCEAF7;stroke:var(--navy);stroke-width:3;transition:fill .15s ease}
-.worldmap-svg svg .cont.pale path{fill:#EDF2F8;stroke:#8FA6C0}
-.worldmap-svg svg .cont:hover path{fill:#C6DDF2}
-.worldmap-svg svg .cont.pale:hover path{fill:#DEE8F2}
-.worldmap-svg svg .cont text,.worldmap-svg svg .dot text{font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;fill:transparent;pointer-events:none;letter-spacing:.03em}
-.worldmap-svg svg .dot circle{fill:var(--cheese);stroke:var(--stamp);stroke-width:3;transition:fill .15s ease}
-.worldmap-svg svg .dot:hover circle{fill:#FFD97A}
-.worldmap-svg svg .cont.on path{fill:var(--mint)}
-.worldmap-svg svg .cont.pale.on path{fill:#B9CADB}
-.worldmap-svg svg .cont.on text,.worldmap-svg svg .dot.on text{fill:#1E3A66}
-.worldmap-svg svg .cont.extra.on path{fill:#C9D3DC}
-.worldmap-svg svg .dot.on circle{fill:var(--stamp)}
 /* ===== v7 · the click-to-fill name slots ===== */
 .cfill{display:inline-block;min-width:4.6em;border-bottom:4px dotted var(--stamp);color:transparent;text-align:center;font-family:'Fredoka';font-weight:600;padding:0 .25em;border-radius:4px 4px 0 0;transition:all .25s ease}
 .cfill.on{color:var(--navy);border-bottom-color:var(--mint);background:#EAF6F1}
@@ -289,7 +284,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <!-- 1 · prepare ahead -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v13</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v15 · full</div>
     <h1 class="title reveal">The Most Popular Sports in the World ⚽</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
@@ -341,17 +336,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       <div class="card sky" style="flex:1;min-width:280px;padding:.6em .8em">
         <p style="font-size:clamp(1.05rem,1.7vw,1.4rem)"><b>Talk! 🗣</b> Cricket is very popular in India. Many people there play or watch this sport.</p>
         <p class="mt" style="font-size:clamp(1.05rem,1.7vw,1.4rem)"><b>Is cricket popular in YOUR country?</b></p>
-        <div class="minimap mt" id="minimap">
-          <svg viewBox="0 0 460 310" style="width:100%;height:auto;display:block">
-            <text x="230" y="16" text-anchor="middle" class="mmsvg-mmcap">find India! 🔎 (the map is not to scale)</text>
-            <g class="mm" data-c="ru"><ellipse cx="150" cy="60" rx="130" ry="34"/><text x="150" y="65" text-anchor="middle">RUSSIA</text></g>
-            <g class="mm" data-c="uk"><ellipse cx="30" cy="140" rx="20" ry="15"/><text x="30" y="178" text-anchor="middle">UK</text></g>
-            <g class="mm" data-c="cn"><path d="M180,120 q45,-42 110,-26 q48,12 52,48 q4,34 -28,46 l-118,4 q-38,-22 -16,-72z"/><text x="252" y="146" text-anchor="middle">CHINA</text></g>
-            <g class="mm" data-c="jp"><ellipse cx="400" cy="128" rx="12" ry="24"/><text x="400" y="172" text-anchor="middle">JAPAN</text></g>
-            <g class="mm" data-c="pk"><path d="M182,192 l34,-10 10,24 -32,12z"/></g>
-            <g class="mm target" data-c="in"><path d="M222,196 L284,196 L266,242 L252,300 L240,244 Z"/></g>
-          </svg>
-        </div>
+        <div class="mapwrap map-asia mt" id="minimap"><img src="media/map-asia.jpg?v=1" alt="the map of Asia — find India!"></div>
         <div class="secret" id="india-reveal" style="margin-top:.5em">
           <div class="model-line row" style="gap:.8em;align-items:center">
             <svg viewBox="0 0 90 60" style="width:64px;height:auto;flex-shrink:0;border:2px solid var(--sky);border-radius:6px">
@@ -517,16 +502,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       </div>
       <div class="card" style="flex:1;min-width:300px;padding:.6em .8em">
         <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">🗺️ Football is popular in… click the continents!</h2>
-        <div class="worldmap-svg" id="worldmap">
-          <svg viewBox="0 0 700 400" style="width:100%;height:auto;display:block">
-            <g class="cont" data-n="NORTH AMERICA"><path d="M28,62 Q85,32 148,50 Q172,62 162,95 Q143,122 122,130 Q114,142 106,172 Q98,184 93,162 Q85,142 72,130 Q42,112 28,82 Z"/><text x="88" y="95" text-anchor="middle"></text></g>
-            <g class="cont" data-n="SOUTH AMERICA"><path d="M122,208 Q152,196 176,212 Q186,232 171,266 Q156,302 141,332 Q132,300 127,262 Q116,232 122,208 Z"/><text x="150" y="255" text-anchor="middle"></text></g>
-            <g class="cont" data-n="EUROPE"><path d="M332,72 Q366,56 402,74 Q410,94 391,107 Q356,114 336,99 Q326,84 332,72 Z"/><text x="368" y="90" text-anchor="middle"></text></g>
-            <g class="cont" data-n="AFRICA"><path d="M346,132 Q390,116 426,137 Q438,162 428,192 Q414,236 395,276 Q378,302 368,272 Q356,226 351,182 Q341,152 346,132 Z"/><text x="388" y="195" text-anchor="middle"></text></g>
-            <g class="cont" data-n="ASIA"><path d="M410,62 Q492,36 582,56 Q652,78 646,112 Q602,132 562,126 Q548,152 522,162 Q494,148 472,152 Q442,122 416,102 Q402,82 410,62 Z M505,158 Q512,178 516,198 Q505,180 496,163 Z"/><text x="530" y="95" text-anchor="middle"></text></g>
-            <g class="cont extra" data-n="OCEANIA"><path d="M592,272 Q627,259 657,277 Q662,302 637,312 Q607,314 594,297 Q587,282 592,272 Z"/><text x="622" y="292" text-anchor="middle"></text></g>
-          </svg>
-        </div>
+        <div class="mapwrap" id="worldmap"><img src="media/map-world.jpg?v=1" alt="the world map"></div>
         <p class="hintline center">the five continents are IN the text — one is NOT! 😄</p>
       </div>
     </div>
@@ -560,18 +536,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       <div class="card" style="flex:1.15;min-width:300px;padding:.6em .8em">
         <p style="font-size:clamp(1.05rem,1.75vw,1.45rem)">Cricket is <b>originally from</b> <span class="gap" style="min-width:5em">the UK!</span> — click the country on the map! 🇬🇧</p>
         <p style="font-size:clamp(1rem,1.65vw,1.35rem)">…but today it is also popular in <b>Australia</b>, <b>New Zealand</b>, some <b>African countries</b>, and some <b>Caribbean countries</b> — click them all!</p>
-        <div class="worldmap-svg" id="worldmap2">
-          <svg viewBox="0 0 700 400" style="width:100%;height:auto;display:block">
-            <g class="cont" data-n="ASIA — India 🇮🇳 &amp; Pakistan 🇵🇰!"><path d="M410,62 Q492,36 582,56 Q652,78 646,112 Q602,132 562,126 Q548,152 522,162 Q494,148 472,152 Q442,122 416,102 Q402,82 410,62 Z M505,158 Q512,178 516,198 Q505,180 496,163 Z"/><text x="530" y="95" text-anchor="middle"></text></g>
-            <g class="cont" data-n="AFRICAN COUNTRIES 🌍"><path d="M346,132 Q390,116 426,137 Q438,162 428,192 Q414,236 395,276 Q378,302 368,272 Q356,226 351,182 Q341,152 346,132 Z"/><text x="388" y="195" text-anchor="middle"></text></g>
-            <g class="cont" data-n="AUSTRALIA 🇦🇺"><path d="M592,272 Q627,259 657,277 Q662,302 637,312 Q607,314 594,297 Q587,282 592,272 Z"/><text x="622" y="292" text-anchor="middle"></text></g>
-            <g class="cont pale" data-n="THE AMERICAS"><path d="M28,62 Q85,32 148,50 Q172,62 162,95 Q143,122 122,130 Q114,142 106,172 Q98,184 93,162 Q85,142 72,130 Q42,112 28,82 Z"/><text x="88" y="95" text-anchor="middle"></text></g>
-            <g class="cont pale" data-n="EUROPE"><path d="M332,72 Q366,56 402,74 Q410,94 391,107 Q356,114 336,99 Q326,84 332,72 Z"/><text x="368" y="90" text-anchor="middle"></text></g>
-            <g class="dot" data-n="THE UK 🇬🇧 — cricket's birthplace!"><circle cx="344" cy="78" r="13"/><text x="344" y="60" text-anchor="middle"></text></g>
-            <g class="dot" data-n="NEW ZEALAND 🇳🇿"><circle cx="672" cy="330" r="11"/><text x="662" y="356" text-anchor="middle"></text></g>
-            <g class="dot" data-n="THE CARIBBEAN 🌴"><circle cx="152" cy="182" r="11"/><text x="128" y="205" text-anchor="middle"></text></g>
-          </svg>
-        </div>
+        <div class="mapwrap" id="worldmap2"><img src="media/map-world.jpg?v=1" alt="the world map"></div>
         <p class="hintline center">the big map: 🇬🇧 is the tiny island — born THERE, loved EVERYWHERE!</p>
       </div>
       <div class="col" style="flex:1;min-width:280px;gap:.7em">
@@ -612,17 +577,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <div class="row reveal mt" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
       <div class="card" style="flex:1;min-width:280px;padding:.6em .8em">
         <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">🗺️ Click the four places — the names land in the text!</h2>
-        <div class="worldmap-svg" id="worldmap3">
-          <svg viewBox="0 0 700 400" style="width:100%;height:auto;display:block">
-            <g class="cont" data-n="ASIA" data-fill="ASIA"><path d="M410,62 Q492,36 582,56 Q652,78 646,112 Q602,132 562,126 Q548,152 522,162 Q494,148 472,152 Q442,122 416,102 Q402,82 410,62 Z M505,158 Q512,178 516,198 Q505,180 496,163 Z"/><text x="530" y="95" text-anchor="middle"></text></g>
-            <g class="cont" data-n="EUROPE" data-fill="EUROPE"><path d="M332,72 Q366,56 402,74 Q410,94 391,107 Q356,114 336,99 Q326,84 332,72 Z"/><text x="368" y="90" text-anchor="middle"></text></g>
-            <g class="cont" data-n="AFRICA" data-fill="AFRICA"><path d="M346,132 Q390,116 426,137 Q438,162 428,192 Q414,236 395,276 Q378,302 368,272 Q356,226 351,182 Q341,152 346,132 Z"/><text x="388" y="195" text-anchor="middle"></text></g>
-            <g class="cont" data-n="AUSTRALIA" data-fill="AUSTRALIA"><path d="M592,272 Q627,259 657,277 Q662,302 637,312 Q607,314 594,297 Q587,282 592,272 Z"/><text x="622" y="292" text-anchor="middle"></text></g>
-            <g class="cont pale" data-n="THE AMERICAS"><path d="M28,62 Q85,32 148,50 Q172,62 162,95 Q143,122 122,130 Q114,142 106,172 Q98,184 93,162 Q85,142 72,130 Q42,112 28,82 Z M122,208 Q152,196 176,212 Q186,232 171,266 Q156,302 141,332 Q132,300 127,262 Q116,232 122,208 Z"/><text x="88" y="95" text-anchor="middle"></text></g>
-            <g class="dot" data-n="THE USA 🇺🇸"><circle cx="82" cy="98" r="12"/><text x="70" y="80" text-anchor="middle"></text></g>
-            <g class="dot" data-n="EGYPT 🇪🇬 — the old drawings!"><circle cx="383" cy="150" r="11"/><text x="366" y="135" text-anchor="middle"></text></g>
-          </svg>
-        </div>
+        <div class="mapwrap" id="worldmap3"><img src="media/map-world.jpg?v=1" alt="the world map"></div>
         <p class="hintline center">four glow and land in the text · the USA and Egypt dots tell their own stories</p>
       </div>
       <div class="col" style="flex:1;min-width:280px;gap:.7em">
@@ -663,17 +618,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <div class="row reveal mt" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
       <div class="card" style="flex:1;min-width:280px;padding:.6em .8em">
         <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">🗺️ Click — the names land in the text!</h2>
-        <div class="worldmap-svg" id="worldmap4">
-          <svg viewBox="0 0 700 400" style="width:100%;height:auto;display:block">
-            <g class="cont" data-n="ASIA" data-fill="ASIA"><path d="M410,62 Q492,36 582,56 Q652,78 646,112 Q602,132 562,126 Q548,152 522,162 Q494,148 472,152 Q442,122 416,102 Q402,82 410,62 Z M505,158 Q512,178 516,198 Q505,180 496,163 Z"/><text x="530" y="95" text-anchor="middle"></text></g>
-            <g class="cont" data-n="EUROPE" data-fill="EUROPE"><path d="M332,72 Q366,56 402,74 Q410,94 391,107 Q356,114 336,99 Q326,84 332,72 Z"/><text x="368" y="90" text-anchor="middle"></text></g>
-            <g class="cont" data-n="AFRICA"><path d="M346,132 Q390,116 426,137 Q438,162 428,192 Q414,236 395,276 Q378,302 368,272 Q356,226 351,182 Q341,152 346,132 Z"/><text x="388" y="195" text-anchor="middle"></text></g>
-            <g class="cont" data-n="AUSTRALIA" data-fill="AUSTRALIA"><path d="M592,272 Q627,259 657,277 Q662,302 637,312 Q607,314 594,297 Q587,282 592,272 Z"/><text x="622" y="292" text-anchor="middle"></text></g>
-            <g class="cont pale" data-n="THE AMERICAS"><path d="M28,62 Q85,32 148,50 Q172,62 162,95 Q143,122 122,130 Q114,142 106,172 Q98,184 93,162 Q85,142 72,130 Q42,112 28,82 Z M122,208 Q152,196 176,212 Q186,232 171,266 Q156,302 141,332 Q132,300 127,262 Q116,232 122,208 Z"/><text x="88" y="95" text-anchor="middle"></text></g>
-            <g class="dot" data-n="FRANCE 🇫🇷" data-fill="FRANCE"><circle cx="358" cy="100" r="11"/><text x="342" y="86" text-anchor="middle"></text></g>
-            <g class="dot" data-n="THE USA 🇺🇸" data-fill="USA"><circle cx="82" cy="98" r="12"/><text x="70" y="80" text-anchor="middle"></text></g>
-          </svg>
-        </div>
+        <div class="mapwrap" id="worldmap4"><img src="media/map-world.jpg?v=1" alt="the world map"></div>
         <p class="hintline center">France and the USA are the golden dots · Africa names itself (not in the text!)</p>
       </div>
       <div class="col" style="flex:1;min-width:280px;gap:.7em">
@@ -718,18 +663,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <div class="row reveal mt" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
       <div class="card" style="flex:1;min-width:280px;padding:.6em .8em">
         <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">🗺️ The three golden dots!</h2>
-        <div class="worldmap-svg" id="worldmap5">
-          <svg viewBox="0 0 700 400" style="width:100%;height:auto;display:block">
-            <g class="cont pale" data-n="ASIA"><path d="M410,62 Q492,36 582,56 Q652,78 646,112 Q602,132 562,126 Q548,152 522,162 Q494,148 472,152 Q442,122 416,102 Q402,82 410,62 Z M505,158 Q512,178 516,198 Q505,180 496,163 Z"/><text x="530" y="95" text-anchor="middle"></text></g>
-            <g class="cont pale" data-n="EUROPE"><path d="M332,72 Q366,56 402,74 Q410,94 391,107 Q356,114 336,99 Q326,84 332,72 Z"/><text x="368" y="90" text-anchor="middle"></text></g>
-            <g class="cont pale" data-n="AFRICA"><path d="M346,132 Q390,116 426,137 Q438,162 428,192 Q414,236 395,276 Q378,302 368,272 Q356,226 351,182 Q341,152 346,132 Z"/><text x="388" y="195" text-anchor="middle"></text></g>
-            <g class="cont pale" data-n="AUSTRALIA"><path d="M592,272 Q627,259 657,277 Q662,302 637,312 Q607,314 594,297 Q587,282 592,272 Z"/><text x="622" y="292" text-anchor="middle"></text></g>
-            <g class="cont pale" data-n="THE AMERICAS"><path d="M28,62 Q85,32 148,50 Q172,62 162,95 Q143,122 122,130 Q114,142 106,172 Q98,184 93,162 Q85,142 72,130 Q42,112 28,82 Z M122,208 Q152,196 176,212 Q186,232 171,266 Q156,302 141,332 Q132,300 127,262 Q116,232 122,208 Z"/><text x="88" y="95" text-anchor="middle"></text></g>
-            <g class="dot" data-n="CHINA 🇨🇳" data-fill="CHINA"><circle cx="560" cy="115" r="16"/><text x="560" y="88" text-anchor="middle"></text></g>
-            <g class="dot" data-n="KOREA 🇰🇷" data-fill="KOREA"><circle cx="601" cy="128" r="10"/><text x="620" y="112" text-anchor="middle"></text></g>
-            <g class="dot" data-n="SINGAPORE 🇸🇬" data-fill="SINGAPORE"><circle cx="527" cy="207" r="9"/><text x="500" y="232" text-anchor="middle"></text></g>
-          </svg>
-        </div>
+        <div class="mapwrap" id="worldmap5"><img src="media/map-world.jpg?v=1" alt="the world map"></div>
         <p class="hintline center">the big golden dot is CHINA · the small ones — Korea and the tiny island of Singapore</p>
       </div>
       <div class="col" style="flex:1;min-width:280px;gap:.7em">
@@ -1092,7 +1026,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 </main>
 
-<button id="pardon-btn" title="class phrases">🙋 Pardon?</button>
+<button id="pardon-btn" title="Pardon? — class phrases (P)">🙋</button>
   <div class="card sky" id="pardon-card">
     <div class="hl"><span class="qw">🙋</span><span>Pardon?</span></div>
     <div class="hl"><span class="qw">❓</span><span>What does <b>___</b> mean?</span></div>
@@ -1471,60 +1405,122 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   const TL={ 'tl-900':[9,0], 'tl-1030':[10,30], 'tl-a1':[10,30], 'tl-a2':[12,30] };
   Object.keys(TL).forEach(id=>{ const el=document.getElementById(id); if(el){ el.appendChild(drawClock(TL[id][0],TL[id][1])); } });
 
-  /* v3 · the India map: the target glows + reveals, the decoys shake */
-  const minimap=document.getElementById('minimap');
-  if(minimap){
-    minimap.querySelectorAll('.mm').forEach(g=>{
-      g.addEventListener('click',()=>{
-        if(g.classList.contains('target')){
-          g.classList.add('hit');
-          document.getElementById('india-reveal').classList.add('show');
-        } else {
-          g.classList.remove('shake'); void g.getBoundingClientRect(); g.classList.add('shake');
+
+  /* ===== v14 · the real maps + the invisible hotspots =====
+     ONE coordinate table for the world map (four slides share it — fix
+     once, all slides follow); the Asia close-up has its own spec.
+     Click: the hotspot glows + its name appears; data-fill lands the
+     name in the slide's gap; data-reveal opens a secret card. */
+  const WORLD_HOTS = [
+    {n:'ASIA',          x:55, y:3,  w:41, h:50},
+    {n:'NORTH AMERICA', x:3,  y:5,  w:30, h:36},
+    {n:'SOUTH AMERICA', x:21, y:45, w:17, h:43},
+    {n:'EUROPE',        x:46, y:11, w:17, h:23},
+    {n:'AFRICA',        x:45, y:32, w:22, h:46},
+    {n:'OCEANIA',       x:77, y:59, w:20, h:27, pale:1},
+    {n:'INDIA',         x:65, y:37, w:10, h:18},
+    {n:'PAKISTAN',      x:61, y:36, w:5,  h:9},
+    {n:'CHINA',         x:72, y:20, w:17, h:21},
+    {n:'JAPAN',         x:91, y:17, w:5,  h:13},
+    {n:'THE UK',        x:44, y:20, w:6,  h:8},
+    {n:'FRANCE',        x:47, y:24, w:6,  h:7},
+    {n:'THE USA',       x:6,  y:21, w:21, h:17},
+    {n:'EGYPT',         x:54, y:32, w:8,  h:10},
+    {n:'AUSTRALIA',     x:80, y:62, w:15, h:19},
+    {n:'NEW ZEALAND',   x:93, y:79, w:5,  h:10},
+    {n:'THE CARIBBEAN', x:28, y:41, w:11, h:6},
+    {n:'KOREA',         x:88, y:26, w:4,  h:8},
+    {n:'SINGAPORE',     x:78, y:55, w:4,  h:5}
+  ];
+  const ASIA_HOTS = [
+    {n:'CHINA',    x:20, y:14, w:42, h:42},
+    {n:'JAPAN',    x:50, y:4,  w:13, h:13},
+    {n:'PAKISTAN', x:35, y:60, w:15, h:19},
+    {n:'SRI LANKA',x:62, y:70, w:6,  h:5},
+    {n:'INDIA',    x:50, y:56, w:18, h:22, target:1, reveal:'india-reveal'}
+  ];
+  function labelFor(n){
+    if(n==='THE USA' || n==='USA') return 'the United States';
+    if(n==='THE UK') return 'the UK';
+    if(n==='THE CARIBBEAN') return 'the Caribbean';
+    if(n==='NEW ZEALAND') return 'New Zealand';
+    return n.charAt(0) + n.slice(1).toLowerCase();
+  }
+  function buildMap(id, hots){
+    const wrap = document.getElementById(id);
+    if(!wrap) return;
+    hots.forEach(h=>{
+      const d=document.createElement('div');
+      d.className='hot' + (h.pale?' pale':'') + (h.target?' target':'') + (h.gold?' gold':'');
+      d.style.left=h.x+'%'; d.style.top=h.y+'%'; d.style.width=h.w+'%'; d.style.height=h.h+'%';
+      d.dataset.n=h.n;
+      if(h.fill) d.dataset.fill=h.fill;
+      if(h.reveal) d.dataset.reveal=h.reveal;
+      if(h.gap) d.dataset.gap=h.gap;
+      const t=document.createElement('span');
+      t.className='tag'; t.textContent=labelFor(h.n);
+      d.appendChild(t);
+      d.addEventListener('click',()=>{
+        d.classList.add('on');
+        if(d.dataset.fill){
+          const scope=d.closest('.slide')||document;
+          const slot=scope.querySelector('.cfill[data-want="'+d.dataset.fill+'"]');
+          if(slot){ slot.textContent=labelFor(d.dataset.fill); slot.classList.add('on'); }
+        }
+        if(d.dataset.reveal){
+          const sec=document.getElementById(d.dataset.reveal);
+          if(sec) sec.classList.add('show');
+        }
+        if(d.dataset.gap){
+          const scope=d.closest('.slide')||document;
+          const g=scope.querySelector(d.dataset.gap);
+          if(g) g.classList.add('filled');
         }
       });
+      wrap.appendChild(d);
     });
   }
-
-  /* v5 · the type-ins: Enter (or click away) checks — green locks, red shakes back */
-  document.querySelectorAll('.tin:not(.guessin)').forEach(inp=>{
-    function check(){
-      const okList=(inp.dataset.ok||'').split('|');
-      let val=(inp.value||'').trim();
-      if(inp.dataset.strip){ val=val.replace(/[\s,_.\u00A0]/g,''); }
-      else { val=val.replace(/\s+/g,'').replace(',', '.'); }
-      const hit=okList.some(ok=>val===ok.replace(/\s+/g,'').replace(',', '.'));
-      if(inp.value.trim()===''){ inp.classList.remove('good','bad'); return; }
-      inp.classList.remove('good','bad');
-      if(hit){ inp.classList.add('good'); }
-      else { inp.classList.add('bad'); inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake'); }
-    }
-    inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); check(); inp.blur(); } });
-    inp.addEventListener('blur',check);
-  });
-
-  /* v5 · the world map: click a continent → its name appears (exploration, not a quiz) */
-  document.querySelectorAll('.worldmap-svg .cont, .worldmap-svg .dot').forEach(g=>{
-    g.addEventListener('click',()=>{
-      g.classList.add('on');
-      g.querySelector('text').textContent=g.dataset.n;
-      /* v7 · the click-to-fill map: the four hockey continents land in their text gaps;
-         the USA dot reveals the high-school line */
-      if(g.dataset.fill){
-        const want=g.dataset.fill;
-        const scope=g.closest('.slide')||document;
-        const slot=scope.querySelector('.cfill[data-want="'+want+'"]');
-        if(slot){
-          const label = want==='USA' ? 'the United States' : (want==='FRANCE' ? 'France' : want.charAt(0)+want.slice(1).toLowerCase());
-          slot.textContent=label; slot.classList.add('on');
-        }
-      }
-      if(g.closest('#worldmap3') && g.dataset.n.indexOf('USA')>-1){
-        const us=document.getElementById('us-card');
-        if(us) us.classList.add('show');
-      }
-    });
-  });
+  /* slide 3 · the Asia close-up */
+  buildMap('minimap', ASIA_HOTS);
+  /* slide 9 · football: the five continents + Oceania */
+  buildMap('worldmap', WORLD_HOTS.filter(h=>['ASIA','NORTH AMERICA','SOUTH AMERICA','EUROPE','AFRICA','OCEANIA'].includes(h.n)));
+  /* slide 10 · cricket: the UK hunt + the cricket countries */
+  buildMap('worldmap2', WORLD_HOTS.filter(h=>['THE UK','AUSTRALIA','NEW ZEALAND','THE CARIBBEAN','AFRICA','ASIA'].includes(h.n)).map(h=>{
+    const c=Object.assign({}, h);
+    if(h.n==='THE UK'){ c.fill='UK'; c.gap='#r5c .gap'; }
+    if(h.n==='AUSTRALIA' || h.n==='NEW ZEALAND' || h.n==='THE CARIBBEAN' || h.n==='ASIA') c.gold=1;
+    if(h.n==='AFRICA') c.fill='AFRICA';
+    if(h.n==='ASIA') c.fill='ASIA';
+    return c;
+  }));
+  /* slide 11 · hockey: the click-to-fill four + the USA + Egypt */
+  buildMap('worldmap3', WORLD_HOTS.filter(h=>['ASIA','EUROPE','AUSTRALIA','AFRICA','THE USA','EGYPT'].includes(h.n)).map(h=>{
+    const c=Object.assign({}, h);
+    if(h.n==='ASIA') c.fill='ASIA';
+    if(h.n==='EUROPE') c.fill='EUROPE';
+    if(h.n==='AUSTRALIA') c.fill='AUSTRALIA';
+    if(h.n==='AFRICA') c.fill='AFRICA';
+    if(h.n==='THE USA') c.reveal='us-card';
+    return c;
+  }));
+  /* slide 12 · tennis: FRANCE the origin + the popular-in four */
+  buildMap('worldmap4', WORLD_HOTS.filter(h=>['FRANCE','THE USA','ASIA','AUSTRALIA','EUROPE','AFRICA'].includes(h.n)).map(h=>{
+    const c=Object.assign({}, h);
+    if(h.n==='FRANCE') c.fill='FRANCE';
+    if(h.n==='THE USA') c.fill='USA';
+    if(h.n==='ASIA') c.fill='ASIA';
+    if(h.n==='AUSTRALIA') c.fill='AUSTRALIA';
+    if(h.n==='EUROPE') c.fill='EUROPE';
+    return c;
+  }));
+  /* slide 13 · table tennis: the three golden dots */
+  buildMap('worldmap5', WORLD_HOTS.filter(h=>['CHINA','KOREA','SINGAPORE'].includes(h.n)).map(h=>{
+    const c=Object.assign({}, h, {gold:1});
+    if(h.n==='CHINA') c.fill='CHINA';
+    if(h.n==='KOREA') c.fill='KOREA';
+    if(h.n==='SINGAPORE') c.fill='SINGAPORE';
+    return c;
+  }));
   document.querySelectorAll('.show-btn').forEach(b=>{
     b.addEventListener('click',()=>{
       const c=document.getElementById(b.dataset.show);
