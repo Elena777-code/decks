@@ -242,8 +242,8 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 /* ===== v14 · the real maps + the invisible hotspots ===== */
 .mapwrap{position:relative;max-width:620px;margin:0 auto;width:100%}
 .mapwrap img{width:100%;height:auto;display:block;border-radius:12px;border:3px solid var(--sky)}
-.mapwrap.map-asia{max-width:400px}
-.mapwrap.map-asia img{max-height:46vh;width:auto;margin:0 auto}
+.mapwrap.map-asia{max-width:100%}
+.mapwrap.map-asia img{max-height:44vh;width:auto;margin:0 auto}
 .hot{position:absolute;border:2.5px dashed transparent;border-radius:12px;cursor:pointer;transition:all .15s ease}
 .hot:hover{border-color:rgba(44,78,128,.3)}
 .hot .tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.72rem,1.15vw,.95rem);color:transparent;white-space:nowrap;pointer-events:none;background:rgba(255,255,255,.9);border-radius:99px;padding:.08em .55em;opacity:0;transition:all .2s ease;box-shadow:0 3px 8px rgba(34,48,63,.15)}
@@ -284,7 +284,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <!-- 1 · prepare ahead -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v16</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v17</div>
     <h1 class="title reveal">The Most Popular Sports in the World ⚽</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
@@ -1432,12 +1432,12 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     {n:'KOREA',         x:88, y:26, w:4,  h:8},
     {n:'SINGAPORE',     x:78, y:55, w:4,  h:5}
   ];
-  const ASIA_HOTS = [
-    {n:'CHINA',    x:20, y:14, w:42, h:42},
-    {n:'JAPAN',    x:50, y:4,  w:13, h:13},
-    {n:'PAKISTAN', x:35, y:60, w:15, h:19},
-    {n:'SRI LANKA',x:62, y:70, w:6,  h:5},
-    {n:'INDIA',    x:50, y:56, w:18, h:22, target:1, reveal:'india-reveal'}
+  const ASIA_HOTS = [ /* the map is rotated 90° CW — north points right */
+    {n:'CHINA',    x:44, y:20, w:42, h:42},
+    {n:'JAPAN',    x:83, y:50, w:13, h:13},
+    {n:'PAKISTAN', x:19, y:51, w:16, h:16},
+    {n:'SRI LANKA',x:26, y:65, w:6,  h:5},
+    {n:'INDIA',    x:24, y:55, w:22, h:16, target:1, reveal:'india-reveal'}
   ];
   function labelFor(n){
     if(n==='THE USA' || n==='USA') return 'the United States';
