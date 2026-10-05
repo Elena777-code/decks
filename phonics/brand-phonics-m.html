@@ -159,7 +159,10 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 .read-card.show .wlogo{display:inline-block;animation:pip .45s cubic-bezier(.34,1.56,.64,1)}
 .read-card .sndtxt{font-family:'Permanent Marker',cursive;color:var(--marker-ink);
   font-size:clamp(1.2rem,2.1vw,1.9rem);transform:rotate(-1.2deg)}
-.read-card.show .sndtxt{display:inline;animation:pip .45s cubic-bezier(.34,1.56,.64,1)}
+.read-card.show .sndtxt{display:inline;animation:pip .45s cubic-bezier(.34,1.56,.64,1) both}
+.read-card .pic .photo{display:none;max-width:95%;max-height:clamp(48px,8.5vh,80px);
+  border-radius:8px;object-fit:contain}
+.read-card.show .photo{display:inline-block;animation:pip .45s cubic-bezier(.34,1.56,.64,1) both}
 @keyframes pip{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
 /* the WORDS speak (the published n-deck pattern; the voice Elena
    approved 2026-09-11: en-US, rate .8, pitch 1.05). Whole words/lines —
@@ -302,6 +305,8 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
     <div class="read-card" role="button" tabindex="0"><div class="wrd"><span class="c">m</span><span class="v">i</span><span class="c">tt</span></div><div class="pic"><span class="q">?</span><span class="emo">🧤</span></div></div>
     <div class="read-card" role="button" tabindex="0"><div class="wrd"><span class="c">m</span><span class="v">i</span><span class="c">st</span></div><div class="pic"><span class="q">?</span><span class="emo">🌫️</span></div></div>
     <div class="read-card" role="button" tabindex="0"><div class="wrd"><span class="c">S</span><span class="v">a</span><span class="c">m</span></div><div class="pic"><span class="q">?</span><span class="emo">👦</span></div></div>
+    <div class="read-card" role="button" tabindex="0"><div class="wrd"><span class="c">st</span><span class="v">a</span><span class="c">mp</span></div><div class="pic"><span class="q">?</span><span class="emo"><img class="photo" src="logos/stamp.png" alt="stamp — a hand stamps little rabbits"></span></div></div>
+    <div class="read-card" role="button" tabindex="0"><div class="wrd"><span class="c">m</span><span class="v">i</span><span class="c">nt</span></div><div class="pic"><span class="q">?</span><span class="emo"><img class="photo" src="logos/mint.png" alt="mint leaves"></span></div></div>
     <div class="read-card" role="button" tabindex="0"><div class="wrd"><span class="c">p</span><span class="v">a</span><span class="c">n</span></div><div class="pic"><span class="q">?</span><span class="emo">🍳</span></div></div>
     <div class="read-card" role="button" tabindex="0"><div class="wrd"><span class="c">n</span><span class="v">a</span><span class="c">p</span></div><div class="pic"><span class="q">?</span><span class="emo">😴</span></div></div>
   </div>
@@ -329,22 +334,24 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
   <div class="task reveal">🎯 I sit · the tin — the little words!</div>
 </section>
 
-<!-- 5 · THE STORY -->
+<!-- 5 · THE STORY — Genki text 3 (the authentic poster text, Elena's files) -->
 <section class="slide soft">
   <div class="eyebrow reveal">Your next story — you can read it!</div>
-  <h1 class="reveal"><span class="spray">Sam, tap the map!</span></h1>
+  <h1 class="reveal"><span class="spray">Stamp! Stamp! Stamp!</span></h1>
   <div class="rule reveal"></div>
   <div class="story-wrap reveal">
     <div class="story">
-      <div class="line"><span class="c">S</span><span class="v">a</span><span class="c">m</span>, <span class="c">t</span><span class="v">a</span><span class="c">p</span> <span class="sight">the</span> <span class="c">m</span><span class="v">a</span><span class="c">p</span>!</div>
-      <div class="line"><span class="c">P</span><span class="v">a</span><span class="c">t</span> <span class="sight">and</span> <span class="c">S</span><span class="v">a</span><span class="c">m</span> <span class="c">n</span><span class="v">a</span><span class="c">p</span> <span class="v">i</span><span class="c">n</span> <span class="sight">the</span> <span class="c">t</span><span class="v">i</span><span class="c">n</span>!</div>
+      <div class="line"><span class="c">St</span><span class="v">a</span><span class="c">mp</span>! <span class="c">St</span><span class="v">a</span><span class="c">mp</span>! <span class="c">St</span><span class="v">a</span><span class="c">mp</span>!</div>
+      <div class="line"><span class="c">P</span><span class="v">a</span><span class="c">t</span> <span class="sight">the</span> <span class="v">a</span><span class="c">nt</span>, <span class="c">st</span><span class="v">a</span><span class="c">mps</span> <span class="sight">the</span> <span class="c">m</span><span class="v">a</span><span class="c">p</span>.</div>
+      <div class="line"><span class="c">St</span><span class="v">a</span><span class="c">mp</span>! <span class="c">St</span><span class="v">a</span><span class="c">mp</span>! <span class="c">St</span><span class="v">a</span><span class="c">mp</span>!</div>
+      <div class="line"><span class="c">P</span><span class="v">a</span><span class="c">t</span> <span class="sight">the</span> <span class="v">a</span><span class="c">nt</span>, <span class="c">st</span><span class="v">a</span><span class="c">mps</span> <span class="sight">the</span> <span class="c">m</span><span class="v">i</span><span class="c">nt</span>!</div>
       <div class="canread" id="canread" role="button" tabindex="0"><span class="ckbox" id="ckbox">□</span>I can read!</div>
     </div>
     <div class="comics">
-      <div class="panel"><span class="pn">1</span><span class="emo">👦</span></div>
-      <div class="panel"><span class="pn">2</span><span class="emo">👆🗺️</span></div>
-      <div class="panel"><span class="pn">3</span><span class="emo"><img src="logos/pat.png" alt="Pat" class="tall">👦</span></div>
-      <div class="panel"><span class="pn">4</span><span class="emo"><img src="logos/tin.png" alt="tin" class="tall">😴</span></div>
+      <div class="panel"><span class="pn">1</span><span class="emo"><img src="logos/stamp.png" alt="stamp" style="max-width:96%;max-height:88%;border-radius:10px;object-fit:contain"></span></div>
+      <div class="panel"><span class="pn">2</span><span class="emo"><img src="logos/pat.png" alt="Pat" class="tall">🗺️</span></div>
+      <div class="panel"><span class="pn">3</span><span class="emo"><img src="logos/stamp.png" alt="stamp" style="max-width:96%;max-height:88%;border-radius:10px;object-fit:contain"></span></div>
+      <div class="panel"><span class="pn">4</span><span class="emo"><img src="logos/pat.png" alt="Pat" class="tall"><img src="logos/mint.png" alt="mint" style="max-height:1.4em;border-radius:6px"></span></div>
     </div>
   </div>
 <div class="know-row reveal" style="margin-top:auto">
