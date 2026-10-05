@@ -94,6 +94,70 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 .pick:hover{transform:translateY(-2px);border-color:var(--navy)}
 .pick.good{border-color:var(--mint);background:var(--mint);color:#fff;pointer-events:none}
 .pick.bad{border-color:var(--stamp);background:var(--stamp-soft);color:var(--stamp)}
+/* ===== ✍️ v2 — the notes window, top right + the d: · //: rows + ⌘S ===== */
+#annoBtn{position:fixed;right:max(10px,1.6vw);top:calc(10px + .8vh);z-index:110;
+  border:2px solid rgba(255,255,255,.4);background:rgba(30,58,102,.85);border-radius:99px;font-size:1.25rem;
+  padding:.3em .55em;cursor:pointer;box-shadow:0 3px 10px rgba(30,30,40,.12);transition:transform .12s}
+#annoBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#anno{position:fixed;right:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(430px,92vw);
+  background:var(--white);border:2px solid #E1E9F4;border-radius:16px;padding:.8em .9em;display:none;
+  flex-direction:column;gap:.5em;box-shadow:0 16px 40px rgba(30,30,40,.22)}
+#anno.on{display:flex;animation:rise .25s both}
+#anno .a-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft)}
+#anno .a-sp{flex:1}
+#anno .a-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#anno .a-head button:hover{border-color:var(--ink-soft)}
+#anno #annoTick{border:none;border-radius:99px;padding:.3em 1em;cursor:pointer;font-family:inherit;
+  font-size:.9rem;font-weight:700;background:#eef1f5}
+#anno #annoTick.on{background:var(--mint);color:#fff}
+#annoRows{display:flex;flex-direction:column;gap:.45em}
+.arow{display:flex;gap:.5em;align-items:center}
+.arow label{flex:0 0 3.1em;text-align:right;font-weight:800;font-size:.9rem;
+  color:var(--ink-soft);font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+.arow input{flex:1;min-width:0;border:2px solid #E1E9F4;border-radius:10px;
+  padding:.34em .55em;font-family:inherit;font-size:.95rem;color:var(--ink);background:#fff}
+.arow input:focus{outline:none;border-color:var(--sky)}
+.arow.free{margin-top:.2em}
+.arow.free textarea,.arow.fix textarea{flex:1;min-width:0;border:2px dashed #E1E9F4;border-radius:10px;padding:.34em .55em;font-family:inherit;font-size:.95rem;background:#fff;resize:vertical;min-height:3.4em}
+.arow.free textarea:focus,.arow.fix textarea:focus{outline:none;border-color:var(--sky)}
+.arow.free textarea::placeholder,.arow.fix textarea::placeholder{color:#9aa7b3;font-style:italic}
+#anno .a-foot{display:flex;align-items:center;gap:.6em}
+#anno .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;font-family:inherit;
+  font-size:.85rem;font-weight:600;background:var(--navy);color:#fff}
+#anno .a-foot button:hover{background:var(--navy-deep)}
+#anno .a-foot .a-hint{font-size:.74rem;color:var(--ink-soft);font-style:italic}
+#annoRep{position:fixed;inset:0;z-index:260;background:rgba(34,48,63,.45);display:none;
+  align-items:center;justify-content:center;padding:4vw}
+#annoRep.on{display:flex;animation:rise .25s both}
+#annoRep .a-rep-card{background:var(--white);border-radius:18px;box-shadow:var(--shadow-lg);
+  padding:1.1em 1.2em;display:flex;flex-direction:column;gap:.7em;width:min(560px,92vw)}
+#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;
+  padding:.5em .65em;font-family:ui-monospace,Menlo,monospace;font-size:.85rem}
+#annoRep .a-head b{color:var(--ink)}
+#annoRep .a-foot{display:flex;gap:.6em;align-items:center}
+#annoRep .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;
+  font-family:inherit;font-size:.85rem;font-weight:600;background:var(--navy);color:#fff}
+#annoRep .a-foot button:hover{background:var(--navy-deep)}
+#annoRepCopy{background:var(--mint)!important;color:#fff!important}
+/* ===== 🙋 Pardon — emoji-only pill top left; click / P opens the phrase list ===== */
+#pqBtn{position:fixed;left:max(10px,1.6vw);top:calc(10px + .8vh);z-index:110;
+  border:2px solid rgba(255,255,255,.4);background:rgba(30,58,102,.85);border-radius:99px;font-size:1.25rem;
+  padding:.3em .55em;cursor:pointer;box-shadow:0 3px 10px rgba(30,30,40,.12);transition:transform .12s}
+#pqBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#pq{position:fixed;left:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(420px,92vw);
+  background:var(--white);border:2px solid #E1E9F4;border-radius:16px;padding:.75em .9em .9em;display:none;
+  flex-direction:column;gap:.35em;box-shadow:0 16px 40px rgba(30,30,40,.22)}
+#pq.on{display:flex;animation:rise .25s both}
+#pq .pq-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft);padding:0 .2em .2em}
+#pq .a-sp{flex:1}
+#pq .pq-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#pq .pq-head button:hover{border-color:var(--ink-soft)}
+#pq .pqRow{display:flex;align-items:center;gap:.6em;font-size:clamp(1rem,1.9vw,1.2rem);
+  font-weight:600;color:var(--ink);padding:.3em .5em;border-radius:10px;line-height:1.35}
+#pq .pqRow:hover{background:#E8F1FA}
+#pq .pqRow .pqE{flex:0 0 1.6em;text-align:center;font-weight:400}
 .subjgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6em;max-width:1020px;margin:0 auto;width:100%}
 .subj{background:var(--white);border-radius:16px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.6em .45em;cursor:pointer;text-align:center;transition:transform .15s ease}
 .subj:hover{transform:translateY(-3px)}
@@ -114,31 +178,6 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 #ab-toggle:hover{transform:scale(1.07)}
 #ab-seek{flex:1;min-width:8em;accent-color:var(--navy);cursor:pointer}
 #abar .ab-time{font-family:'Fredoka';font-weight:600;font-size:clamp(.72rem,1.2vw,.9rem);color:var(--ink-soft);white-space:nowrap}
-#annoBtn{position:fixed;left:max(10px,1.6vw);top:calc(10px + .8vh);z-index:100;width:2.4em;height:2.4em;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(30,58,102,.85);backdrop-filter:blur(10px);color:#fff;font-size:1.05rem;cursor:pointer;transition:transform .15s ease}
-#annoBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
-#anno{position:fixed;left:max(10px,1.6vw);top:calc(56px + 1.2vh);z-index:150;width:min(340px,86vw);background:var(--white);border-radius:16px;box-shadow:var(--shadow-lg);padding:.7em .8em;display:none;flex-direction:column;gap:.5em}
-#anno.on{display:flex;animation:rise .25s both}
-#anno .a-head{display:flex;align-items:center;gap:.45em;font-family:'Fredoka',sans-serif;font-size:.95rem;color:var(--navy-deep)}
-#anno .a-sp{flex:1}
-#anno .a-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;padding:.12em .6em;cursor:pointer;font-family:'Fredoka',sans-serif;font-size:.85rem;color:var(--ink-soft)}
-#anno .a-head button:hover{border-color:var(--ink-soft);color:var(--ink)}
-#anno #annoTick.on{background:var(--mint);border-color:var(--mint);color:#fff}
-#annoText{width:100%;min-height:86px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;padding:.5em .6em;font-family:'Nunito',sans-serif;font-size:.98rem;color:var(--ink)}
-#annoText:focus{outline:none;border-color:var(--sky)}
-#anno .a-foot{display:flex;align-items:center;gap:.6em}
-#anno .a-foot button,#annoRep .a-rep-card button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;font-family:'Fredoka',sans-serif;font-size:.85rem;background:var(--navy);color:#fff}
-#anno .a-foot button:hover,#annoRep .a-rep-card button:hover{background:var(--navy-deep)}
-#anno .a-foot .a-hint{font-size:.76rem;color:var(--ink-soft);font-style:italic}
-#annoRep{position:fixed;inset:0;z-index:260;background:rgba(34,48,63,.45);display:none;align-items:center;justify-content:center;padding:4vh 4vw}
-#annoRep.on{display:flex;animation:rise .25s both}
-#annoRep .a-rep-card{background:var(--white);border-radius:18px;box-shadow:var(--shadow-lg);padding:1em 1.1em;width:min(560px,92vw);display:flex;flex-direction:column;gap:.6em}
-#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;padding:.6em .7em;font-family:ui-monospace,Menlo,monospace;font-size:.88rem;color:var(--ink)}
-#pardon-btn{position:fixed;bottom:2.4vh;left:max(10px,1.6vw);z-index:90;border:none;cursor:pointer;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.6vw,1.3rem);background:var(--white);color:var(--navy);border-radius:99px;padding:.45em 1.2em;box-shadow:0 6px 16px rgba(34,48,63,.14);transition:transform .15s}
-#pardon-btn:hover{transform:scale(1.06)}
-#pardon-card{position:fixed;bottom:calc(2.4vh + 3.6em);left:max(10px,1.6vw);z-index:90;max-width:380px;width:86%;display:none}
-#pardon-card.show{display:block}
-#pardon-btn{top:2.4vh;bottom:auto;left:auto;right:max(10px,1.6vw)}
-#pardon-card{top:calc(2.4vh + 3.6em);bottom:auto;left:auto;right:max(10px,1.6vw)}
 .slide{padding-top:8vh}
 /* ===== the food scale ===== */
 .scale{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;max-width:1080px;margin:0 auto;width:100%}
@@ -210,7 +249,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <!-- 1 · teacher's list -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 2 · teacher's list · build 06.10 · v1</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 2 · teacher's list · build 06.10 · v2</div>
     <h1 class="title reveal">Are You a Healthy Eater? 🥦</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
@@ -606,9 +645,6 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 </main>
 
-<button id="pardon-btn" title="Pardon? — class phrases (P)">🙋</button>
-  <div class="card sky" id="pardon-card">
-    <div class="hl"><span class="qw">🙋</span><span>Pardon?</span></div>
     <div class="hl"><span class="qw">❓</span><span>What does <b>___</b> mean?</span></div>
     <div class="hl"><span class="qw">🆘</span><span>Can you help me?</span></div>
     <div class="hl"><span class="qw">🔁</span><span>Can you repeat, please?</span></div>
@@ -621,6 +657,19 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   <span class="ab-name" id="ab-name">…</span>
   <input type="range" id="ab-seek" min="0" max="100" step="0.1" value="0">
   <span class="ab-time" id="ab-time">0:00</span>
+</div>
+
+<button id="pqBtn" title="Pardon? — the class phrases (P)">🙋</button>
+
+<div id="pq">
+  <div class="pq-head"><span>say it in class</span><span class="a-sp"></span>
+    <button id="pqX" title="close (Esc / P)">✕</button></div>
+  <div class="pqRow"><span class="pqE">🙋</span>Pardon?</div>
+  <div class="pqRow"><span class="pqE">❓</span>What does ___ mean?</div>
+  <div class="pqRow"><span class="pqE">🆘</span>Can you help me?</div>
+  <div class="pqRow"><span class="pqE">🔁</span><span>Can you repeat, please?</span></div>
+  <div class="pqRow"><span class="pqE">🇬🇧</span><span>How do you say ___ in English?</span></div>
+  <div class="pqRow"><span class="pqE">🤷</span><span>I don't understand.</span></div>
 </div>
 
 <div id="nav">
@@ -661,6 +710,8 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     if(e.metaKey||e.ctrlKey||e.altKey) return;
     const scr = slides[current];
     const canScroll = scr.scrollHeight > scr.clientHeight + 2;
+    if(e.key==='Escape'){pqPanel.classList.remove('on');return}
+    if(e.key==='p'||e.key==='P'){pqToggle(!pqPanel.classList.contains('on'));return}
     switch(e.key){
       case 'ArrowRight': e.preventDefault(); next(); break;
       case 'ArrowDown':
@@ -882,6 +933,12 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   } else {
     current = Math.max(0,Math.min(total-1,h-1));
   }
+
+  /* ===== 🙋 Pardon — the class phrases (click / P) ===== */
+  const pqPanel=document.getElementById('pq');
+  function pqToggle(open){pqPanel.classList.toggle('on',open)}
+  document.getElementById('pqBtn').onclick=()=>pqToggle(!pqPanel.classList.contains('on'));
+  document.getElementById('pqX').onclick=()=>pqToggle(false);
 
   /* READY-CHIME */
   (function(){

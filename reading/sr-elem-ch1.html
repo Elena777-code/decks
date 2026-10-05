@@ -178,67 +178,73 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 #ab-toggle:hover{transform:scale(1.07)}
 #ab-seek{flex:1;min-width:8em;accent-color:var(--navy);cursor:pointer}
 #abar .ab-time{font-family:'Fredoka';font-weight:600;font-size:clamp(.72rem,1.2vw,.9rem);color:var(--ink-soft);white-space:nowrap}
-/* the ✍️ lesson annotations */
-#annoBtn{position:fixed;left:max(10px,1.6vw);top:calc(10px + .8vh);z-index:100;width:2.4em;height:2.4em;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(30,58,102,.85);backdrop-filter:blur(10px);color:#fff;font-size:1.05rem;cursor:pointer;transition:transform .15s ease}
+/* ===== ✍️ v2 — the notes window, top right + the d: · //: rows + ⌘S ===== */
+#annoBtn{position:fixed;right:max(10px,1.6vw);top:calc(10px + .8vh);z-index:110;
+  border:2px solid rgba(255,255,255,.4);background:rgba(30,58,102,.85);border-radius:99px;font-size:1.25rem;
+  padding:.3em .55em;cursor:pointer;box-shadow:0 3px 10px rgba(30,30,40,.12);transition:transform .12s}
 #annoBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
-#anno{position:fixed;left:max(10px,1.6vw);top:calc(56px + 1.2vh);z-index:150;width:min(340px,86vw);background:var(--white);border-radius:16px;box-shadow:var(--shadow-lg);padding:.7em .8em;display:none;flex-direction:column;gap:.5em}
+#anno{position:fixed;right:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(430px,92vw);
+  background:var(--white);border:2px solid var(--line,#d8dee6);border-radius:16px;padding:.8em .9em;display:none;
+  flex-direction:column;gap:.5em;box-shadow:0 16px 40px rgba(30,30,40,.22)}
 #anno.on{display:flex;animation:rise .25s both}
-#anno .a-head{display:flex;align-items:center;gap:.45em;font-family:'Fredoka',sans-serif;font-size:.95rem;color:var(--navy-deep)}
+#anno .a-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft)}
 #anno .a-sp{flex:1}
-#anno .a-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;padding:.12em .6em;cursor:pointer;font-family:'Fredoka',sans-serif;font-size:.85rem;color:var(--ink-soft)}
-#anno .a-head button:hover{border-color:var(--ink-soft);color:var(--ink)}
-#anno #annoTick.on{background:var(--mint);border-color:var(--mint);color:#fff}
-#annoText{width:100%;min-height:86px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;padding:.5em .6em;font-family:'Nunito',sans-serif;font-size:.98rem;color:var(--ink)}
-#annoText:focus{outline:none;border-color:var(--sky)}
+#anno .a-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#anno .a-head button:hover{border-color:var(--ink-soft)}
+#anno #annoTick{border:none;border-radius:99px;padding:.3em 1em;cursor:pointer;font-family:inherit;
+  font-size:.9rem;font-weight:700;background:#eef1f5}
+#anno #annoTick.on{background:var(--mint);color:#fff}
+#annoRows{display:flex;flex-direction:column;gap:.45em}
+.arow{display:flex;gap:.5em;align-items:center}
+.arow label{flex:0 0 3.1em;text-align:right;font-weight:800;font-size:.9rem;
+  color:var(--ink-soft);font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+.arow input{flex:1;min-width:0;border:2px solid #E1E9F4;border-radius:10px;
+  padding:.34em .55em;font-family:inherit;font-size:.95rem;color:var(--ink);background:#fff}
+.arow input:focus{outline:none;border-color:var(--sky)}
+.arow.free{margin-top:.2em}
+.arow.free textarea,.arow.fix textarea{flex:1;min-width:0;border:2px dashed #E1E9F4;border-radius:10px;padding:.34em .55em;font-family:inherit;font-size:.95rem;background:#fff;resize:vertical;min-height:3.4em}
+.arow.free textarea:focus,.arow.fix textarea:focus{outline:none;border-color:var(--sky)}
+.arow.free textarea::placeholder,.arow.fix textarea::placeholder{color:#9aa7b3;font-style:italic}
 #anno .a-foot{display:flex;align-items:center;gap:.6em}
-#anno .a-foot button,#annoRep .a-rep-card button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;font-family:'Fredoka',sans-serif;font-size:.85rem;background:var(--navy);color:#fff}
-#anno .a-foot button:hover,#annoRep .a-rep-card button:hover{background:var(--navy-deep)}
-#anno .a-foot .a-hint{font-size:.76rem;color:var(--ink-soft);font-style:italic}
-#annoRep{position:fixed;inset:0;z-index:260;background:rgba(34,48,63,.45);display:none;align-items:center;justify-content:center;padding:4vh 4vw}
+#anno .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;font-family:inherit;
+  font-size:.85rem;font-weight:600;background:var(--navy);color:#fff}
+#anno .a-foot button:hover{background:var(--navy-deep)}
+#anno .a-foot .a-hint{font-size:.74rem;color:var(--ink-soft);font-style:italic}
+#annoRep{position:fixed;inset:0;z-index:260;background:rgba(34,48,63,.45);display:none;
+  align-items:center;justify-content:center;padding:4vw}
 #annoRep.on{display:flex;animation:rise .25s both}
-#annoRep .a-rep-card{background:var(--white);border-radius:18px;box-shadow:var(--shadow-lg);padding:1em 1.1em;width:min(560px,92vw);display:flex;flex-direction:column;gap:.6em}
-#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;padding:.6em .7em;font-family:ui-monospace,Menlo,monospace;font-size:.88rem;color:var(--ink)}
-/* the Pardon? pill (standing 2026-09-27) */
-#pardon-btn{position:fixed;bottom:2.4vh;left:max(10px,1.6vw);z-index:90;border:none;cursor:pointer;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.6vw,1.3rem);background:var(--white);color:var(--navy);border-radius:99px;padding:.45em 1.2em;box-shadow:0 6px 16px rgba(34,48,63,.14);transition:transform .15s}
-#pardon-btn:hover{transform:scale(1.06)}
-#pardon-card{position:fixed;bottom:calc(2.4vh + 3.6em);left:max(10px,1.6vw);z-index:90;max-width:380px;width:86%;display:none}
-#pardon-card.show{display:block}
-/* THE CORNERS (Elena, 01.10): notes → top-left · Pardon → top-right — every deck */
-#pardon-btn{top:2.4vh;bottom:auto;left:auto;right:max(10px,1.6vw)}
-#pardon-card{top:calc(2.4vh + 3.6em);bottom:auto;left:auto;right:max(10px,1.6vw)}
-.slide{padding-top:8vh}
-/* the synonyms items */
-.syn-row{display:flex;align-items:center;gap:.7em;flex-wrap:wrap;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.55em .9em;margin-bottom:.55em}
-.syn-row .st{flex:1;font-size:clamp(1rem,1.7vw,1.35rem);line-height:1.45;min-width:220px}
-.syn-row .st b{color:var(--navy)}
-/* the words shelf */
-#tickrow .wb-chip{cursor:pointer}
-#tickrow .wb-chip.tick-on{background:var(--mint);color:#fff}
-.pos-h{font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1rem,1.6vw,1.3rem);margin:.5em 0 .1em}
-/* the ranking slots */
-.cslot{display:inline-block;min-width:5.5em;border-bottom:4px solid var(--cheese);font-family:'Fredoka';font-weight:600;color:var(--stamp);padding:0 .3em;outline:none}
-.rankrow{display:flex;align-items:center;gap:.6em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.45em .9em;margin-bottom:.45em}
-.rankrow .rn{flex-shrink:0;width:1.9em;height:1.9em;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:#fff}
-/* ===== v11 · the picture ranking ===== */
-.rankbank{display:flex;flex-wrap:wrap;gap:.4em;justify-content:center;margin:.2em 0 .6em}
-.rpick{font-size:clamp(1.6rem,2.8vw,2.3rem);width:2.2em;height:2.2em;border-radius:16px;border:3px solid var(--sky);background:var(--white);cursor:pointer;transition:all .15s ease;line-height:1}
-.rpick:hover{transform:translateY(-3px);border-color:var(--navy)}
-.rpick.used{opacity:.28;pointer-events:none}
-.rslot{cursor:pointer}
-.rslot .rs-fill{flex:1;font-family:'Fredoka';font-weight:600;color:var(--ink-soft);font-size:clamp(1.05rem,1.8vw,1.4rem)}
-.rslot.filled{background:#EAF6F1}
-.rslot.filled .rs-fill{color:var(--navy)}
-/* the vocabulary paragraphs */
-.vp{font-size:clamp(1.05rem,1.75vw,1.4rem);line-height:1.9}
-.vp .gap{min-width:4.5em}
-.bank{display:flex;flex-wrap:wrap;gap:.35em;justify-content:center}
-.bank .wb-chip{cursor:default}
-/* the treasure card */
-.treasure{max-width:760px;margin:1em auto 0;width:100%}
-.treasure .t-q{font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.2vw,1.75rem);color:var(--navy)}
-/* ===== v3 · the video card + the last-timeline ===== */
-.vidcard video{max-height:44vh;width:100%;height:auto;display:block;border-radius:12px;background:#000}
-.tlc{display:inline-block;background:var(--white);border-radius:50%;padding:.3em;box-shadow:0 5px 14px rgba(34,48,63,.1);border:3px solid var(--sky)}
+#annoRep .a-rep-card{background:var(--white);border-radius:18px;box-shadow:var(--shadow-lg);
+  padding:1.1em 1.2em;display:flex;flex-direction:column;gap:.7em;width:min(560px,92vw)}
+#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;
+  padding:.5em .65em;font-family:ui-monospace,Menlo,monospace;font-size:.85rem}
+#annoRep .a-head b{color:var(--ink)}
+#annoRep .a-foot{display:flex;gap:.6em;align-items:center}
+#annoRep .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;
+  font-family:inherit;font-size:.85rem;font-weight:600;background:var(--navy);color:#fff}
+#annoRep .a-foot button:hover{background:var(--navy-deep)}
+#annoRepCopy{background:var(--mint)!important;color:#fff!important}
+/* ===== 🙋 Pardon — emoji-only pill top left; click / P opens the phrase list ===== */
+#pqBtn{position:fixed;left:max(10px,1.6vw);top:calc(10px + .8vh);z-index:110;
+  border:2px solid rgba(255,255,255,.4);background:rgba(30,58,102,.85);border-radius:99px;font-size:1.25rem;
+  padding:.3em .55em;cursor:pointer;box-shadow:0 3px 10px rgba(30,30,40,.12);transition:transform .12s}
+#pqBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#pq{position:fixed;left:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(420px,92vw);
+  background:var(--white);border:2px solid #E1E9F4;border-radius:16px;padding:.75em .9em .9em;display:none;
+  flex-direction:column;gap:.35em;box-shadow:0 16px 40px rgba(30,30,40,.22)}
+#pq.on{display:flex;animation:rise .25s both}
+#pq .pq-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft);padding:0 .2em .2em}
+#pq .a-sp{flex:1}
+#pq .pq-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#pq .pq-head button:hover{border-color:var(--ink-soft)}
+#pq .pqRow{display:flex;align-items:center;gap:.6em;font-size:clamp(1rem,1.9vw,1.2rem);
+  font-weight:600;color:var(--ink);padding:.3em .5em;border-radius:10px;line-height:1.35}
+#pq .pqRow:hover{background:#E8F1FA}
+#pq .pqRow .pqE{flex:0 0 1.6em;text-align:center;font-weight:400}
+/* ===== the rules match game ===== */
+#players-col .fcard,#rules-col .fcard{width:100%;text-align:left}
+#players-col .fcard.good,#rules-col .fcard.good{border-color:var(--mint);background:var(--mint);color:#fff;pointer-events:none}
 /* ===== v14 · the real maps + the invisible hotspots ===== */
 .mapwrap{position:relative;max-width:620px;margin:0 auto;width:100%}
 .mapwrap img{width:100%;height:auto;display:block;border-radius:12px;border:3px solid var(--sky)}
@@ -284,7 +290,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <!-- 1 · prepare ahead -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v17</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 06.10 · v19</div>
     <h1 class="title reveal">The Most Popular Sports in the World ⚽</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
@@ -295,7 +301,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
         <li>🎒 <b>Open with YOUR pupil's homework check first</b> (2–3 minutes, your own material — the dictionary words from the last lesson). Then slide 2.</li>
         <li>🎧 <b>ONE AUDIO TRACK</b> (3:33) — the reading itself, on the reading slide. Test it once before the lesson. Pause + scroll in the bottom bar.</li>
         <li>👂 <b>LISTEN FIRST (Elena's route):</b> slide 8 = the whole text as AUDIO over the five pictures (no text!) → slide 9 = the FOOTBALL part on repeat (0:40, pause + scroll) with typed numbers, the Moscow wow, the continents map and the 25-s sprint clip → the CRICKET part (1:19: the video again, the UK click, the flip card, 3 billion · 3,000,000,000 · 40 percent · 400,000,000) → <b>only then the text arrives</b> (slide 11, the deck is the book — ⛶ shows it BIG) — the deck is the book, no PDF jumping. The ⛶ button shows the whole text BIG (also from the chart slide — the pupil scans it for answers).</li>
-        <li>🎯 <b>THE TREASURE TASK</b> rides the clocks slide (slide 25): the top-five ranking deduction — let the pupil DERIVE it, help only at the edges.</li>
+        <li>🎯 <b>THE TREASURE TASK</b> rides the clocks slide (slide 27): the top-five ranking deduction — let the pupil DERIVE it, help only at the edges.</li>
         <li>⏱️ <b>Time-your-reading card</b> (on the reading slide): 221 words — the book's own fluency check. Note the time after the first silent read.</li>
         <li>✍️ <b>The lesson-log pill</b> (top-left / key C): tick + notes per slide; over http it auto-sends to the Mac inbox. <b>No race — where you stop is where the next lesson starts.</b></li>
       </ol>
@@ -332,7 +338,10 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <div class="accent-line reveal"></div>
     <p class="task reveal">Watch! 👀 Then find India on the map!</p>
     <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
-      <div class="card vidcard" style="padding:.8em;text-align:center;flex:1;min-width:240px"><p style="font-size:clamp(2rem,3.6vw,3rem)">🏏🎬</p><p style="font-size:clamp(1.05rem,1.7vw,1.35rem)">The cricket video plays in the lesson — ask your teacher!</p></div>
+      <div class="card vidcard" style="flex:1.1;min-width:280px;padding:.6em">
+        <video controls preload="metadata" src="media/cricket.mp4" style="width:100%;height:auto;display:block;border-radius:12px;background:#000"></video>
+        <p class="hintline center" style="margin-top:.3em">«How Do You Win a Game of Cricket?» — Cricket Facts For Kids · 48 s</p>
+      </div>
       <div class="card sky" style="flex:1;min-width:280px;padding:.6em .8em">
         <p style="font-size:clamp(1.05rem,1.7vw,1.4rem)"><b>Talk! 🗣</b> Cricket is very popular in India. Many people there play or watch this sport.</p>
         <p class="mt" style="font-size:clamp(1.05rem,1.7vw,1.4rem)"><b>Is cricket popular in YOUR country?</b></p>
@@ -376,6 +385,49 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     </div>
     <div class="card stampc reveal mt center" style="max-width:860px;margin:1em auto 0;width:100%;padding:.7em 1.2em">
       <p style="font-size:clamp(1.2rem,2vw,1.6rem)"><b>Now the book's questions 🗣</b> — Do you know the rules of tennis? What is one rule in your favourite sport?</p>
+    </div>
+  </section>
+
+<!-- 4 · the d: words — presentation cards (wheel · capital) -->
+<section class="slide" id="r3w">
+    <div class="eyebrow reveal">the flag's two words · presentation cards</div>
+    <h1 class="title reveal">The wheel &amp; the capital 🛞🏛️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1000px;margin:0 auto;width:100%">
+      <div class="card" style="flex:1;min-width:260px;padding:.8em 1em;text-align:center">
+        <p style="font-size:clamp(2.6rem,5vw,4rem)">🛞☸️</p>
+        <p style="font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(1.3rem,2.2vw,1.8rem)">a WHEEL</p>
+        <p class="mt" style="font-size:clamp(1rem,1.7vw,1.35rem);line-height:1.5">A wheel is a circle that turns. A car has four wheels. A bike has two. The wheel on India's flag is BLUE — it is a very old wheel!</p>
+        <p class="mt" style="font-size:clamp(1rem,1.7vw,1.35rem)"><span class="gap" style="min-width:6em">колесо</span> — tap!</p>
+      </div>
+      <div class="card" style="flex:1;min-width:260px;padding:.8em 1em;text-align:center">
+        <p style="font-size:clamp(2.6rem,5vw,4rem)">🏛️</p>
+        <p style="font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(1.3rem,2.2vw,1.8rem)">a CAPITAL</p>
+        <p class="mt" style="font-size:clamp(1rem,1.7vw,1.35rem);line-height:1.5">A capital is the city where the government works — the most important city! Moscow is the capital of Russia. New Delhi is the capital of India.</p>
+        <p class="mt" style="font-size:clamp(1rem,1.7vw,1.35rem)"><span class="gap" style="min-width:6em">столица</span> — tap!</p>
+      </div>
+    </div>
+    <div class="card stampc reveal center mt" style="max-width:820px;margin:1em auto 0;width:100%;padding:.6em 1.1em">
+      <p style="font-size:clamp(1.1rem,1.9vw,1.5rem)">🔎 Quick check — look at India's flag on the last slide: <b>can you POINT at the wheel?</b> And say: <i>«New Delhi is the capital of India!»</i></p>
+    </div>
+  </section>
+
+<!-- 5 · the rules game: can / mustn't -->
+<section class="slide" id="r3e">
+    <div class="eyebrow reveal">the rules game · can — mustn't · grammar through the players</div>
+    <h1 class="title reveal">The rules game ⚽ can — mustn't</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Tap a PLAYER → tap THEIR rule. Then say the sentence!</p>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
+      <div class="col" style="flex:1;min-width:280px;gap:.6em" id="players-col">
+        <p class="hintline center">THE PLAYERS 🧑‍Sports</p>
+      </div>
+      <div class="col" style="flex:1.4;min-width:280px;gap:.6em" id="rules-col">
+        <p class="hintline center">THE RULES — shuffled!</p>
+      </div>
+    </div>
+    <div class="card cheese reveal mt" style="max-width:1080px;margin:1em auto 0;width:100%;padding:.6em 1em" id="match-sent">
+      <p class="center" style="font-size:clamp(1.05rem,1.8vw,1.45rem);min-height:1.5em" id="match-line">Match all four — the sentences appear here! 🎯</p>
     </div>
   </section>
 
@@ -456,7 +508,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       <div class="guess"><span class="gs"><b>3.</b> Table tennis is very popular in China.</span><button class="gpick t">TRUE</button><button class="gpick f">FALSE</button></div>
       <div class="guess"><span class="gs"><b>4.</b> Basketball is one of the top five sports in the world.</span><button class="gpick t">TRUE</button><button class="gpick f">FALSE</button></div>
     </div>
-    <p class="hintline reveal mt center">the answers live on slide 17 — after the reading 🔒</p>
+    <p class="hintline reveal mt center">the answers live on slide 19 — after the reading 🔒</p>
   </section>
 
 <!-- 8 · the whole-text LISTEN — pictures only -->
@@ -496,7 +548,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
         </div>
         <div class="card sky" style="padding:.7em 1em">
           <p style="font-size:clamp(1.1rem,1.8vw,1.5rem)">⚽ Fun fact: in a professional game, players run about <input class="tin" data-ok="5" size="2" placeholder="…"> miles ( <input class="tin" data-ok="8" size="2" placeholder="…"> km )!</p>
-          <div class="center mt"><p>▶ the clip plays in the lesson</p>
+          <div class="center mt"><video controls preload="metadata" src="media/sprint.mp4" style="max-width:100%;max-height:26vh;border-radius:12px;background:#000"></video>
           <p class="hintline">«Mbappé — 39 km/h!» · 25 s — THAT is how fast the best run 🏎️</p></div>
         </div>
       </div>
@@ -514,7 +566,10 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <h1 class="title reveal">Cricket 🏏</h1>
     <div class="accent-line reveal"></div>
     <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
-      <div class="card vidcard" style="padding:.8em;text-align:center;flex:1;min-width:240px"><p style="font-size:clamp(2rem,3.6vw,3rem)">🏏🎬</p><p style="font-size:clamp(1.05rem,1.7vw,1.35rem)">The cricket video plays in the lesson — ask your teacher!</p></div>
+      <div class="card vidcard" style="flex:1;min-width:260px;padding:.6em">
+        <video controls preload="metadata" src="media/cricket.mp4" style="width:100%;height:auto;display:block;border-radius:12px;background:#000"></video>
+        <p class="hintline center" style="margin-top:.3em">«How Do You Win a Game of Cricket?» — watch it again! 🏏</p>
+      </div>
       <div class="card cheese" style="flex:1.3;min-width:300px;padding:.7em 1em">
         <div class="row" style="justify-content:center;gap:1.6em;align-items:stretch;flex-wrap:wrap">
           <div class="center" style="flex:1;min-width:150px">
@@ -561,7 +616,10 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <h1 class="title reveal">Field hockey 🏑</h1>
     <div class="accent-line reveal"></div>
     <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
-      <div class="card vidcard" style="padding:.8em;text-align:center;flex:1;min-width:240px"><p style="font-size:clamp(2rem,3.6vw,3rem)">🏏🎬</p><p style="font-size:clamp(1.05rem,1.7vw,1.35rem)">The cricket video plays in the lesson — ask your teacher!</p></div>
+      <div class="card vidcard" style="flex:1;min-width:260px;padding:.6em">
+        <video controls preload="metadata" src="media/hockey.mp4" style="width:100%;height:auto;display:block;border-radius:12px;background:#000"></video>
+        <p class="hintline center" style="margin-top:.3em">penalty strokes — real field hockey! · 60 s</p>
+      </div>
       <div class="col" style="flex:1.3;min-width:280px;gap:.7em">
         <div class="card sky" style="padding:.7em 1em">
           <p style="font-size:clamp(1.1rem,1.8vw,1.5rem)">3️⃣ Field hockey is <b>number three</b>. Approximately <input class="tin" data-ok="2" size="2" placeholder="…"> <b>billion</b> people play or watch field hockey, mostly in <span class="cfill" data-want="ASIA">…</span>, <span class="cfill" data-want="EUROPE">…</span>, <span class="cfill" data-want="AUSTRALIA">…</span>, and <span class="cfill" data-want="AFRICA">…</span>.</p>
@@ -603,7 +661,10 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <h1 class="title reveal">Tennis 🎾</h1>
     <div class="accent-line reveal"></div>
     <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
-      <div class="card vidcard" style="padding:.8em;text-align:center;flex:1;min-width:240px"><p style="font-size:clamp(2rem,3.6vw,3rem)">🏏🎬</p><p style="font-size:clamp(1.05rem,1.7vw,1.35rem)">The cricket video plays in the lesson — ask your teacher!</p></div>
+      <div class="card vidcard" style="flex:1;min-width:260px;padding:.6em">
+        <video controls preload="metadata" src="media/tennis.mp4" style="width:100%;height:auto;display:block;border-radius:12px;background:#000"></video>
+        <p class="hintline center" style="margin-top:.3em">Djokovic – Nadal, the 54-shot rally! · 90 s</p>
+      </div>
       <div class="col" style="flex:1.3;min-width:280px;gap:.7em">
         <div class="card sky" style="padding:.7em 1em">
           <p style="font-size:clamp(1.1rem,1.8vw,1.5rem)">4️⃣ Next is tennis. Today there are roughly <input class="tin" data-ok="1" size="2" placeholder="…"> <b>billion</b> players and spectators of tennis around the world.</p>
@@ -648,7 +709,10 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <h1 class="title reveal">Table tennis 🏓</h1>
     <div class="accent-line reveal"></div>
     <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
-      <div class="card vidcard" style="padding:.8em;text-align:center;flex:1;min-width:240px"><p style="font-size:clamp(2rem,3.6vw,3rem)">🏏🎬</p><p style="font-size:clamp(1.05rem,1.7vw,1.35rem)">The cricket video plays in the lesson — ask your teacher!</p></div>
+      <div class="card vidcard" style="flex:1;min-width:260px;padding:.6em">
+        <video controls preload="metadata" src="media/tabletennis.mp4" style="width:100%;height:auto;display:block;border-radius:12px;background:#000"></video>
+        <p class="hintline center" style="margin-top:.3em">«the point of the century» · 23 s 🏓</p>
+      </div>
       <div class="col" style="flex:1.3;min-width:280px;gap:.7em">
         <div class="card sky" style="padding:.7em 1em">
           <p style="font-size:clamp(1.1rem,1.8vw,1.5rem)">5️⃣ Table tennis (ping-pong!) is popular around the world, with about <input class="tin" data-ok="900" size="4" placeholder="…"> <b>million</b> players and spectators.</p>
@@ -994,7 +1058,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       <div class="hw-step"><span class="n">2</span><div><span class="en">📚 FIVE WORDS → YOUR DICTIONARY</span> — the words we did NOT tick today. For each word write the translation OR one example — your choice!</div></div>
       <div class="hw-step"><span class="n">3</span><div style="flex:1"><span class="en">🕵️ RESEARCH A SPORT</span> — badminton 🏸 · baseball ⚾ · ice hockey 🏒 · rugby 🏉 — pick ONE. Find three facts: how many people play or watch it? WHERE is it popular? one fun fact. Bring the facts — you are the teacher! 🎓</div><img src="media/sport-icehockey.jpg?v=1" alt="ice hockey" style="flex-shrink:0;width:clamp(90px,12vw,140px);height:auto;border-radius:10px;border:3px solid var(--sky);align-self:center"></div>
     </div>
-    <p class="hintline reveal mt center">the words live on slide 23 (Words to remember) — the deck remembers where you stopped</p>
+    <p class="hintline reveal mt center">the words live on slide 25 (Words to remember) — the deck remembers where you stopped</p>
   </section>
 
 <!-- 18 · goodbye -->
@@ -1026,9 +1090,6 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 </main>
 
-<button id="pardon-btn" title="Pardon? — class phrases (P)">🙋</button>
-  <div class="card sky" id="pardon-card">
-    <div class="hl"><span class="qw">🙋</span><span>Pardon?</span></div>
     <div class="hl"><span class="qw">❓</span><span>What does <b>___</b> mean?</span></div>
     <div class="hl"><span class="qw">🆘</span><span>Can you help me?</span></div>
     <div class="hl"><span class="qw">🔁</span><span>Can you repeat, please?</span></div>
@@ -1044,9 +1105,23 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   <span class="ab-time" id="ab-time">0:00</span>
 </div>
 
+<!-- lesson annotations — teacher-only: the ✍️ pill or key C -->
+<button id="pqBtn" title="Pardon? — the class phrases (P)">🙋</button>
+
+<div id="pq">
+  <div class="pq-head"><span>say it in class</span><span class="a-sp"></span>
+    <button id="pqX" title="close (Esc / P)">✕</button></div>
+  <div class="pqRow"><span class="pqE">🙋</span>Pardon?</div>
+  <div class="pqRow"><span class="pqE">❓</span>What does ___ mean?</div>
+  <div class="pqRow"><span class="pqE">🆘</span>Can you help me?</div>
+  <div class="pqRow"><span class="pqE">🔁</span><span>Can you repeat, please?</span></div>
+  <div class="pqRow"><span class="pqE">🇬🇧</span><span>How do you say ___ in English?</span></div>
+  <div class="pqRow"><span class="pqE">🤷</span><span>I don't understand.</span></div>
+</div>
+
 <div id="nav">
   <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
-  <div id="counter"><span class="now">1</span> / 30</div>
+  <div id="counter"><span class="now">1</span> / 32</div>
   <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
   <button id="fs-btn" title="Fullscreen (F)">⛶</button>
 </div>
@@ -1078,10 +1153,14 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   nextBtn.addEventListener('click', next);
   prevBtn.addEventListener('click', prev);
   document.addEventListener('keydown', e=>{
+    /* ⌘S / Ctrl+S = save + close — ONLY while the notes window is open; it must
+       work WHILE TYPING in the d: rows, so it sits BEFORE the input guard */
     if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
     if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
     const scr = slides[current];
     const canScroll = scr.scrollHeight > scr.clientHeight + 2;
+    if(e.key==='Escape'){pqPanel.classList.remove('on');return}
+    if(e.key==='p'||e.key==='P'){pqToggle(!pqPanel.classList.contains('on'));return}
     switch(e.key){
       case 'ArrowRight': e.preventDefault(); next(); break;
       case 'ArrowDown':
@@ -1406,7 +1485,8 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   Object.keys(TL).forEach(id=>{ const el=document.getElementById(id); if(el){ el.appendChild(drawClock(TL[id][0],TL[id][1])); } });
 
 
-  /* ===== v14 · the real maps + the invisible hotspots =====
+/* ===== the rules match game ===== */
+/* ===== v14 · the real maps + the invisible hotspots =====
      ONE coordinate table for the world map (four slides share it — fix
      once, all slides follow); the Asia close-up has its own spec.
      Click: the hotspot glows + its name appears; data-fill lands the
@@ -1563,10 +1643,6 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   const helpCard=document.getElementById('help-card');
   helpBtn.addEventListener('click',()=>helpCard.classList.toggle('show'));
 
-  /* the Pardon? pill */
-  const pardonBtn=document.getElementById('pardon-btn');
-  const pardonCard=document.getElementById('pardon-card');
-  pardonBtn.addEventListener('click',()=>pardonCard.classList.toggle('show'));
 
   /* the silly game — the frozen dealer (one answer per category) */
   const POOL=[
@@ -1668,6 +1744,65 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     });
   });
 
+  /* ===== 🙋 Pardon — the class phrases (click / P) ===== */
+  const pqPanel=document.getElementById('pq');
+  function pqToggle(open){pqPanel.classList.toggle('on',open)}
+  document.getElementById('pqBtn').onclick=()=>pqToggle(!pqPanel.classList.contains('on'));
+  document.getElementById('pqX').onclick=()=>pqToggle(false);
+
+  /* ===== the rules game: can / mustn't — match the player to their rule ===== */
+  const RULE_PLAYERS=[
+    {e:'\uD83E\uDD4A', n:'the goalkeeper'},
+    {e:'\u26BD', n:'the football player'},
+    {e:'\uD83C\uDFC0', n:'the basketball player'},
+    {e:'\uD83C\uDFD2', n:'the hockey player'}
+  ];
+  const RULE_RULES=[
+    {n:'the goalkeeper',        t:'CAN touch the ball with his hands'},
+    {n:'the football player',   t:'MUSTN\u2019T touch the ball with his hands \u2014 he kicks it!'},
+    {n:'the basketball player', t:'CAN touch the ball \u2014 but MUSTN\u2019T kick it!'},
+    {n:'the hockey player',     t:'MUSTN\u2019T touch the puck with his hands \u2014 he has a stick!'}
+  ];
+  const pcol=document.getElementById('players-col'), rcol=document.getElementById('rules-col'),
+        mline=document.getElementById('match-line');
+  if(pcol && rcol){
+    let selP=null, matched=0;
+    RULE_PLAYERS.forEach(p=>{
+      const c=document.createElement('button');
+      c.className='fcard'; c.dataset.n=p.n; c.textContent=p.e+' '+p.n;
+      c.style.fontSize='clamp(.95rem,1.6vw,1.25rem)';
+      c.addEventListener('click',()=>{
+        if(c.classList.contains('good')) return;
+        pcol.querySelectorAll('.fcard').forEach(x=>x.classList.remove('sel'));
+        c.classList.add('sel'); selP=p.n;
+      });
+      pcol.appendChild(c);
+    });
+    shuffle(RULE_RULES.slice()).forEach(r=>{
+      const c=document.createElement('button');
+      c.className='fcard'; c.dataset.n=r.n; c.textContent=r.t;
+      c.style.fontSize='clamp(.9rem,1.5vw,1.15rem)';
+      c.style.textAlign='left';
+      c.addEventListener('click',()=>{
+        if(c.classList.contains('good')) return;
+        if(!selP){ c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake'); return; }
+        if(selP===r.n){
+          c.classList.add('good');
+          const pc=Array.from(pcol.children).find(x=>x.dataset.n===selP);
+          pc.classList.remove('sel'); pc.classList.add('good'); pc.style.pointerEvents='none';
+          mline.innerHTML='\u2705 Say it: \u00abThe '+selP.replace('the ','')+' '+r.t.replace('CAN ','can ').replace('MUSTN\u2019T ','mustn\u2019t ')+'\u00bb';
+          selP=null; matched++;
+          if(matched===RULE_RULES.length){ mline.innerHTML='\uD83C\uDFC6 ALL FOUR \u2014 now say all four sentences from memory!'; }
+        } else {
+          c.classList.remove('shake'); void c.offsetWidth; c.classList.add('shake');
+          const pc=Array.from(pcol.children).find(x=>x.dataset.n===selP);
+          if(pc){ pc.classList.remove('shake'); void pc.offsetWidth; pc.classList.add('shake'); }
+        }
+      });
+      rcol.appendChild(c);
+    });
+  }
+
   /* deep-link: #n opens slide n; without a hash, resume where it was last open */
   const h=parseInt(location.hash.slice(1));
   if(isNaN(h)){
@@ -1676,6 +1811,9 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   } else {
     current = Math.max(0,Math.min(total-1,h-1));
   }
+  annoIdx = current;
+
+  /* ===== the ✍️ V2 + 🙋 Pardon + the auto-send: see the V2 block below ===== */
 
   /* READY-CHIME: when a new version of this deck is saved, the OPEN window
      chimes and reloads itself. Needs http://; on file:// it stays quiet. */
