@@ -237,6 +237,19 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 .minimap svg .mm.hit ellipse,.minimap svg .mm.hit path{fill:var(--mint)}
 .mmsvg-mmcap{font-family:'Fredoka',sans-serif;font-weight:600;font-size:15px;fill:var(--navy)}
 .tlc{display:inline-block;background:var(--white);border-radius:50%;padding:.3em;box-shadow:0 5px 14px rgba(34,48,63,.1);border:3px solid var(--sky)}
+/* ===== v5 · the type-ins + the world map ===== */
+.tin{font-family:'Fredoka';font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem);color:var(--navy);border:3px solid var(--sky);border-radius:12px;padding:.15em .4em;text-align:center;background:var(--white);outline:none;min-width:2.4em}
+.tin:focus{border-color:var(--navy)}
+.tin.good{border-color:var(--mint);background:#EAF6F1;color:var(--navy)}
+.tin.bad{border-color:var(--stamp);background:var(--stamp-soft)}
+#worldmap svg .cont{cursor:pointer}
+#worldmap svg .cont path{fill:#DCEAF7;stroke:var(--navy);stroke-width:3;transition:fill .15s ease}
+#worldmap svg .cont:hover path{fill:#C6DDF2}
+#worldmap svg .cont text{font-family:'Fredoka',sans-serif;font-weight:700;font-size:17px;fill:transparent;pointer-events:none;letter-spacing:.03em}
+#worldmap svg .cont.on path{fill:var(--mint)}
+#worldmap svg .cont.on text{fill:#1E3A66}
+#worldmap svg .cont.extra.on path{fill:#C9D3DC}
+#worldmap svg .cont.extra.on text{fill:var(--ink-soft)}
 </style>
 </head>
 <body>
@@ -247,18 +260,18 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <!-- 1 · prepare ahead -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v4</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v5</div>
     <h1 class="title reveal">The Most Popular Sports in the World ⚽</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
       <ol class="prep">
         <li>🌍 <b>A UNIVERSAL READING DECK</b> — one chapter of Select Readings Elementary, one lesson flow, any pupil. The book's own order runs the lesson: the sports talk (ONE QUESTION PER SLIDE — the strip · cricket video + the India map · rules + touch TPR · lasts + the solve tasks · similar/different) → my guesses → the reading → check the guesses → the notes chart → true/false → what do you think? → vocabulary → synonyms → the words shelf → the games.</li>
-        <li>🎬 <b>THE CRICKET VIDEO (48 s) ON SLIDE 3</b> — click it once before the lesson. The 2-minute backup lives at <i>media/cricket-2min.mp4</i> (say the word and it swaps in).</li>
+        <li>🎬 <b>TWO VIDEOS</b> — the cricket clip (48 s, slide 3) + the Mbappé sprint (25 s, slide 9): click both once before the lesson — click it once before the lesson. The 2-minute backup lives at <i>media/cricket-2min.mp4</i> (say the word and it swaps in).</li>
         <li>⏰ <b>QUARTER TO IS BORN TODAY</b> (the clocks slide): the teach strip first, then TWO quarter-to rounds in the game.</li>
         <li>🎒 <b>Open with YOUR pupil's homework check first</b> (2–3 minutes, your own material — the dictionary words from the last lesson). Then slide 2.</li>
         <li>🎧 <b>ONE AUDIO TRACK</b> (3:33) — the reading itself, on the reading slide. Test it once before the lesson. Pause + scroll in the bottom bar.</li>
-        <li>📖 <b>THE TEXT IS ON THE SLIDE</b> (slide 8) — the deck is the book, no PDF jumping. The ⛶ button shows the whole text BIG (also from the chart slide — the pupil scans it for answers).</li>
-        <li>🎯 <b>THE TREASURE TASK</b> rides the clocks slide (slide 18): the top-five ranking deduction — let the pupil DERIVE it, help only at the edges.</li>
+        <li>👂 <b>LISTEN FIRST (Elena's route):</b> slide 8 = the whole text as AUDIO over the five pictures (no text!) → slide 9 = the FOOTBALL part on repeat (0:40, pause + scroll) with typed numbers, the Moscow wow, the continents map and the 25-s sprint clip → <b>only then the text arrives</b> (slide 10, the deck is the book — ⛶ shows it BIG) — the deck is the book, no PDF jumping. The ⛶ button shows the whole text BIG (also from the chart slide — the pupil scans it for answers).</li>
+        <li>🎯 <b>THE TREASURE TASK</b> rides the clocks slide (slide 20): the top-five ranking deduction — let the pupil DERIVE it, help only at the edges.</li>
         <li>⏱️ <b>Time-your-reading card</b> (on the reading slide): 221 words — the book's own fluency check. Note the time after the first silent read.</li>
         <li>✍️ <b>The lesson-log pill</b> (top-left / key C): tick + notes per slide; over http it auto-sends to the Mac inbox. <b>No race — where you stop is where the next lesson starts.</b></li>
       </ol>
@@ -295,11 +308,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <div class="accent-line reveal"></div>
     <p class="task reveal">Watch! 👀 Then find India on the map!</p>
     <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
-      <div class="card vidcard" style="flex:1.1;min-width:280px;padding:.8em;text-align:center">
-        <p style="font-size:clamp(2.4rem,4.5vw,3.6rem)">🏏🎬</p>
-        <p style="font-size:clamp(1.1rem,1.8vw,1.45rem)">The cricket video plays in the lesson — ask your teacher!</p>
-        <p class="hintline">48 seconds of real cricket 🏏</p>
-      </div>
+      <div class="card vidcard" style="padding:.8em;text-align:center;flex:1;min-width:240px"><p style="font-size:clamp(2rem,3.6vw,3rem)">🏏🎬</p><p style="font-size:clamp(1.05rem,1.7vw,1.35rem)">The cricket video plays in the lesson — ask your teacher!</p></div>
       <div class="card sky" style="flex:1;min-width:280px;padding:.6em .8em">
         <p style="font-size:clamp(1.05rem,1.7vw,1.4rem)"><b>Talk! 🗣</b> Cricket is very popular in India. Many people there play or watch this sport.</p>
         <p class="mt" style="font-size:clamp(1.05rem,1.7vw,1.4rem)"><b>Is cricket popular in YOUR country?</b></p>
@@ -433,10 +442,67 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       <div class="guess"><span class="gs"><b>3.</b> Table tennis is very popular in China.</span><button class="gpick t">TRUE</button><button class="gpick f">FALSE</button></div>
       <div class="guess"><span class="gs"><b>4.</b> Basketball is one of the top five sports in the world.</span><button class="gpick t">TRUE</button><button class="gpick f">FALSE</button></div>
     </div>
-    <p class="hintline reveal mt center">the answers live on slide 10 — after the reading 🔒</p>
+    <p class="hintline reveal mt center">the answers live on slide 12 — after the reading 🔒</p>
   </section>
 
-<!-- 5 · the reading -->
+<!-- 8 · the whole-text LISTEN — pictures only -->
+<section class="slide" id="r5a">
+    <div class="eyebrow reveal">the listening · the whole text · 3:33</div>
+    <h1 class="title reveal">Just listen! 👂</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:860px;margin:0 auto;width:100%;padding:.6em .8em">
+      <img src="media/sports-strip.jpg?v=1" alt="the five sports — cricket, field hockey, football, tennis, volleyball" style="width:100%;height:auto;display:block;border-radius:14px;border:3px solid var(--sky)">
+    </div>
+    <div class="center reveal mt"><button class="trk-btn" data-audio="full" style="font-size:clamp(1.15rem,2vw,1.6rem);padding:.6em 2em">🎧 listen to the whole text (3:33)</button></div>
+    <p class="hintline reveal mt center">no reading yet — the pictures tell the story · pause and scroll in the bottom bar · listen as many times as you need!</p>
+  </section>
+
+<!-- 9 · FOOTBALL — listen and do -->
+<section class="slide" id="r5f">
+    <div class="eyebrow reveal">the listening · part 1 · football · 0:40</div>
+    <h1 class="title reveal">Football ⚽</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card cheese reveal" style="max-width:960px;margin:0 auto .6em;width:100%;padding:.5em 1.1em">
+      <div class="center">
+        <span style="font-size:clamp(1.5rem,2.6vw,2.2rem)">🇬🇧 <b>football</b></span>
+        <span style="font-size:clamp(1.3rem,2.2vw,1.9rem);margin:0 .4em">=</span>
+        <span style="font-size:clamp(1.5rem,2.6vw,2.2rem)">🇺🇸 <b>soccer</b></span>
+        <span class="hintline" style="display:block;margin-top:.2em">one game — two names! Listen and TYPE what you hear 👇</span>
+      </div>
+      <div class="center mt"><button class="trk-btn" data-audio="football">🎧 the football part (0:40) — play it again!</button></div>
+    </div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
+      <div class="col" style="flex:1.1;min-width:300px;gap:.7em">
+        <div class="card" style="padding:.7em 1em">
+          <p style="font-size:clamp(1.1rem,1.8vw,1.5rem)">Today, about <input class="tin" data-ok="3.5|3,5" size="4" placeholder="…"> <b>billion</b> people watch or play football.</p>
+          <p class="hintline">…and 3.5 billion in FULL digits — type it with all the zeros! (Enter ↵ checks)</p>
+          <p style="font-size:clamp(1.1rem,1.8vw,1.5rem)"><input class="tin" data-ok="3500000000" data-strip="1" size="12" placeholder="3 …"></p>
+          <div class="center mt"><button class="show-btn" data-show="moscow-reveal" style="font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);border:none;border-radius:99px;padding:.35em 1.2em;cursor:pointer;background:var(--navy);color:#fff">🏙️ and how many people live in MOSCOW?</button></div>
+          <div class="secret" id="moscow-reveal"><p class="model-line mt" style="font-size:clamp(1rem,1.7vw,1.4rem)">About <b>13 million</b> people live in Moscow. Football's fans: <b>3.5 billion</b> — that's about <b>270 MOSCOWS</b>! 🤯</p></div>
+        </div>
+        <div class="card sky" style="padding:.7em 1em">
+          <p style="font-size:clamp(1.1rem,1.8vw,1.5rem)">⚽ Fun fact: in a professional game, players run about <input class="tin" data-ok="5" size="2" placeholder="…"> miles ( <input class="tin" data-ok="8" size="2" placeholder="…"> km )!</p>
+          <div class="center mt"><div class="card vidcard" style="padding:.8em;text-align:center;flex:1;min-width:240px"><p style="font-size:clamp(2rem,3.6vw,3rem)">🏎️🎬</p><p style="font-size:clamp(1.05rem,1.7vw,1.35rem)">The sprint clip plays in the lesson — 39 km/h!</p></div></div>
+        </div>
+      </div>
+      <div class="card" style="flex:1;min-width:300px;padding:.6em .8em">
+        <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">🗺️ Football is popular in… click the continents!</h2>
+        <div id="worldmap">
+          <svg viewBox="0 0 700 400" style="width:100%;height:auto;display:block">
+            <g class="cont" data-n="NORTH AMERICA"><path d="M28,62 Q85,32 148,50 Q172,62 162,95 Q143,122 122,130 Q114,142 106,172 Q98,184 93,162 Q85,142 72,130 Q42,112 28,82 Z"/><text x="88" y="95" text-anchor="middle"></text></g>
+            <g class="cont" data-n="SOUTH AMERICA"><path d="M122,208 Q152,196 176,212 Q186,232 171,266 Q156,302 141,332 Q132,300 127,262 Q116,232 122,208 Z"/><text x="150" y="255" text-anchor="middle"></text></g>
+            <g class="cont" data-n="EUROPE"><path d="M332,72 Q366,56 402,74 Q410,94 391,107 Q356,114 336,99 Q326,84 332,72 Z"/><text x="368" y="90" text-anchor="middle"></text></g>
+            <g class="cont" data-n="AFRICA"><path d="M346,132 Q390,116 426,137 Q438,162 428,192 Q414,236 395,276 Q378,302 368,272 Q356,226 351,182 Q341,152 346,132 Z"/><text x="388" y="195" text-anchor="middle"></text></g>
+            <g class="cont" data-n="ASIA"><path d="M410,62 Q492,36 582,56 Q652,78 646,112 Q602,132 562,126 Q548,152 522,162 Q494,148 472,152 Q442,122 416,102 Q402,82 410,62 Z M505,158 Q512,178 516,198 Q505,180 496,163 Z"/><text x="530" y="95" text-anchor="middle"></text></g>
+            <g class="cont extra" data-n="OCEANIA"><path d="M592,272 Q627,259 657,277 Q662,302 637,312 Q607,314 594,297 Q587,282 592,272 Z"/><text x="622" y="292" text-anchor="middle"></text></g>
+          </svg>
+        </div>
+        <p class="hintline center">the five continents are IN the text — one is NOT! 😄</p>
+      </div>
+    </div>
+  </section>
+
+<!-- 10 · the reading -->
 <section class="slide" id="r5">
     <div class="eyebrow reveal">the reading · book p. 3 · 221 words</div>
     <h1 class="title reveal">The reading 📖</h1>
@@ -718,7 +784,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       <div class="hw-step"><span class="n">2</span><div><span class="en">📚 FIVE WORDS → YOUR DICTIONARY</span> — the words we did NOT tick today. For each word write the translation OR one example — your choice!</div></div>
       <div class="hw-step"><span class="n">3</span><div style="flex:1"><span class="en">🕵️ RESEARCH A SPORT</span> — badminton 🏸 · baseball ⚾ · ice hockey 🏒 · rugby 🏉 — pick ONE. Find three facts: how many people play or watch it? WHERE is it popular? one fun fact. Bring the facts — you are the teacher! 🎓</div><img src="media/sport-icehockey.jpg?v=1" alt="ice hockey" style="flex-shrink:0;width:clamp(90px,12vw,140px);height:auto;border-radius:10px;border:3px solid var(--sky);align-self:center"></div>
     </div>
-    <p class="hintline reveal mt center">the words live on slide 16 (Words to remember) — the deck remembers where you stopped</p>
+    <p class="hintline reveal mt center">the words live on slide 18 (Words to remember) — the deck remembers where you stopped</p>
   </section>
 
 <!-- 18 · goodbye -->
@@ -770,7 +836,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <div id="nav">
   <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
-  <div id="counter"><span class="now">1</span> / 23</div>
+  <div id="counter"><span class="now">1</span> / 25</div>
   <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
   <button id="fs-btn" title="Fullscreen (F)">⛶</button>
 </div>
@@ -898,10 +964,11 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     });
   });
 
-  /* ===== the chapter audio (3:33) — straight from the book's audio shelf.
+  /* ===== the chapter audio — TWO sources: the full track + the football part.
      Space pauses the track, not the slide; the slide change pauses the audio. ===== */
   window.currentTrkAudio=null; let currentTrkBtn=null;
   const AUDIO_URL='media/sr-elem-ch01.mp3';
+  const FOOTBALL_URL='media/ch1-football.m4a';
   function trkReset(b){ b.classList.remove('playing'); b.textContent=b.dataset.label; }
   /* the player bar — pause + scroll */
   const abar=document.getElementById('abar'),abToggle=document.getElementById('ab-toggle'),
@@ -928,7 +995,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       }
       if(window.currentTrkAudio){ window.currentTrkAudio.pause(); }
       if(currentTrkBtn && currentTrkBtn!==b){ trkReset(currentTrkBtn); }
-      const a=new Audio(AUDIO_URL);
+      const a=new Audio(b.dataset.audio==='football' ? FOOTBALL_URL : AUDIO_URL);
       a.style.display='none'; document.body.appendChild(a);
       window.currentTrkAudio=a; currentTrkBtn=b;
       b.classList.add('playing'); b.textContent='⏸ '+b.dataset.label.replace('🎧 ','');
@@ -1139,7 +1206,30 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     });
   }
 
-  /* v3 · the generic answer buttons ("the answer ▾" → show the card, hide the button) */
+  /* v5 · the type-ins: Enter (or click away) checks — green locks, red shakes back */
+  document.querySelectorAll('.tin').forEach(inp=>{
+    function check(){
+      const okList=(inp.dataset.ok||'').split('|');
+      let val=(inp.value||'').trim();
+      if(inp.dataset.strip){ val=val.replace(/[\s,_.\u00A0]/g,''); }
+      else { val=val.replace(/\s+/g,'').replace(',', '.'); }
+      const hit=okList.some(ok=>val===ok.replace(/\s+/g,'').replace(',', '.'));
+      if(inp.value.trim()===''){ inp.classList.remove('good','bad'); return; }
+      inp.classList.remove('good','bad');
+      if(hit){ inp.classList.add('good'); }
+      else { inp.classList.add('bad'); inp.classList.remove('shake'); void inp.offsetWidth; inp.classList.add('shake'); }
+    }
+    inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); check(); inp.blur(); } });
+    inp.addEventListener('blur',check);
+  });
+
+  /* v5 · the world map: click a continent → its name appears (exploration, not a quiz) */
+  document.querySelectorAll('#worldmap .cont').forEach(g=>{
+    g.addEventListener('click',()=>{
+      g.classList.add('on');
+      g.querySelector('text').textContent=g.dataset.n;
+    });
+  });
   document.querySelectorAll('.show-btn').forEach(b=>{
     b.addEventListener('click',()=>{
       const c=document.getElementById(b.dataset.show);
