@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- the Moscow Metro roundel: the red line looping round, tail to bottom-right -->
+  <path d="M 74 148 A 62 62 0 1 1 126 148 L 164 196"
+        fill="none" stroke="#D93B2B" stroke-width="15" stroke-linecap="round"/>
+  <text x="100" y="117" text-anchor="middle" font-family="'Fredoka','Chalkboard SE',Arial,sans-serif" font-weight="700" font-size="76" fill="#D93B2B">M</text>
+</svg>
