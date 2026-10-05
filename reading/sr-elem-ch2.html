@@ -23,6 +23,7 @@ body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(-
 #progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));transition:width .45s cubic-bezier(.22,1,.36,1)}
 #deck{position:relative;width:100vw;height:100vh;overflow:hidden}
 .slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:4.2vh 5vw calc(74px + 4.2vh);opacity:0;transform:translateX(60px) scale(.985);transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);pointer-events:none;overflow:auto}
+/* THE FLEX-SHRINK ENGINE RULE: nothing ever shrinks — the slide scrolls instead */
 .slide>*{flex-shrink:0}
 .slide.active{opacity:1;transform:none;pointer-events:auto;z-index:2}
 .slide.prev{transform:translateX(-60px) scale(.985)}
@@ -50,6 +51,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 .yn .badge{flex-shrink:0;width:1.7em;height:1.7em;border-radius:50%;display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.85em;background:#eee;color:transparent;transition:all .2s}
 .yn.shown-yes .badge{background:var(--mint);color:#fff}
 .yn.shown-no .badge{background:var(--stamp);color:#fff}
+/* the t/f key appears ONLY when the badge is revealed (ANSWERS HIDE, ALWAYS) */
 .yn .tfkey{display:none}
 .yn.shown-yes .tfkey,.yn.shown-no .tfkey{display:inline}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
@@ -78,9 +80,11 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 .task::before{content:"🎯 "}
 .hintline{font-size:clamp(.9rem,1.3vw,1.1rem);color:var(--ink-soft);font-style:italic}
 .model-line{font-size:clamp(1.15rem,2vw,1.6rem);padding:.55em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.model-line .key{color:var(--navy);font-weight:800}
 .read-text{font-size:clamp(1.15rem,1.9vw,1.55rem);line-height:1.75}
 .read-text .key{color:var(--navy);font-weight:800}
 .wb-chip{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.4rem);padding:.25em .9em;border-radius:99px;background:var(--cheese-soft);color:var(--navy);margin:.3em .3em 0 0;box-shadow:0 4px 10px rgba(34,48,63,.06)}
+/* slide 1 · prepare ahead (teacher) */
 #s1 h1.title{margin-bottom:.3em}
 #s1 .accent-line{margin-bottom:.8em}
 #s1 .prep li{padding:.3em .2em;border-bottom:2px dotted rgba(169,204,239,.7);font-size:clamp(.95rem,1.45vw,1.25rem)}
@@ -94,6 +98,136 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 .pick:hover{transform:translateY(-2px);border-color:var(--navy)}
 .pick.good{border-color:var(--mint);background:var(--mint);color:#fff;pointer-events:none}
 .pick.bad{border-color:var(--stamp);background:var(--stamp-soft);color:var(--stamp)}
+/* the food cards — tap a card → the word appears (the memory check) */
+.subjgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6em;max-width:1020px;margin:0 auto;width:100%}
+.subj{background:var(--white);border-radius:16px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.5em .45em .55em;cursor:pointer;text-align:center;transition:transform .15s ease}
+.subj:hover{transform:translateY(-3px)}
+.subj img{width:100%;max-width:150px;height:auto;border-radius:10px;display:block}
+.subj .sw{display:none;font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(1rem,1.7vw,1.3rem);padding-top:.3em}
+.subj.on .sw{display:block}
+/* ===== the food scale ===== */
+.scale{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;max-width:1080px;margin:0 auto;width:100%}
+.step{flex:1;min-width:150px;max-width:210px;background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:.6em .5em;text-align:center;border:3px solid transparent;transition:all .15s ease;cursor:pointer}
+.step .sw-word{font-family:'Fredoka';font-weight:700;font-size:clamp(1.05rem,1.8vw,1.5rem);color:var(--navy)}
+.step .week{display:flex;gap:.2em;justify-content:center;margin:.35em 0}
+.step .week i{width:.85em;height:.85em;border-radius:50%;border:2.5px solid var(--sky);display:inline-block}
+.step .week i.f{background:var(--mint);border-color:var(--mint)}
+.step .pct{font-size:clamp(.72rem,1.15vw,.92rem);color:var(--ink-soft);font-style:italic}
+.step .frame{font-size:clamp(.82rem,1.3vw,1.05rem);color:var(--ink-soft);font-style:italic;min-height:2.6em;line-height:1.35}
+.step.lit{border-color:var(--cheese);background:var(--cheese-soft)}
+/* the food bank + landing rows (the scale game) */
+.foodbank{display:flex;flex-wrap:wrap;gap:.5em;justify-content:center;max-width:1000px;margin:0 auto;width:100%}
+.fcard{display:inline-flex;align-items:center;gap:.45em;font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.6vw,1.3rem);border:2.5px solid var(--sky);background:var(--white);color:var(--navy);border-radius:14px;padding:.25em .8em .25em .25em;cursor:pointer;transition:all .15s ease;box-shadow:0 4px 10px rgba(34,48,63,.08)}
+.fcard img{width:2.4em;height:2.4em;object-fit:cover;border-radius:9px}
+.fcard:hover{transform:translateY(-3px);border-color:var(--navy)}
+.fcard.sel{background:var(--navy);color:#fff;border-color:var(--navy)}
+.fcard.used{opacity:.25;pointer-events:none}
+.landrow{display:flex;align-items:center;gap:.7em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.4em .9em;margin-bottom:.4em;min-height:3.2em;cursor:pointer}
+.landrow .lw{flex-shrink:0;width:7.5em;font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(.95rem,1.5vw,1.2rem)}
+.landrow .lweek{display:flex;gap:.15em;flex-shrink:0}
+.landrow .lweek i{width:.7em;height:.7em;border-radius:50%;border:2px solid var(--sky);display:inline-block}
+.landrow .lweek i.f{background:var(--mint);border-color:var(--mint)}
+.landrow .lsent{flex:1;font-size:clamp(.95rem,1.6vw,1.3rem);color:var(--ink-soft);font-style:italic}
+.landrow.filled{background:#EAF6F1}
+.landrow.filled .lsent{color:var(--navy);font-style:normal;font-weight:600}
+/* ===== the quiz — one question per slide ===== */
+.qrow{display:flex;align-items:center;gap:.7em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.5em .9em;margin-bottom:.5em;cursor:pointer;transition:all .15s ease;border:3px solid transparent}
+.qrow:hover{transform:translateY(-2px)}
+.qrow .qn{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;background:var(--cheese-soft);display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:.95em}
+.qrow .qt{flex:1;font-size:clamp(1.05rem,1.8vw,1.45rem);line-height:1.45}
+.qrow.sel{border-color:var(--mint);background:#EAF6F1}
+.qrow.sel .qn{background:var(--mint);color:#fff}
+.mychip{font-family:'Fredoka';font-weight:600;color:var(--navy);background:var(--white);border-radius:99px;padding:.3em 1em;box-shadow:0 6px 16px rgba(34,48,63,.08);display:inline-block}
+/* ===== the score meter + chips ===== */
+.meter{display:flex;gap:.3em;max-width:900px;margin:.5em auto;width:100%}
+.mseg{flex:1;border-radius:12px;padding:.45em .2em;text-align:center;font-family:'Fredoka';font-weight:700;font-size:clamp(.85rem,1.5vw,1.2rem);color:#fff;opacity:.45;transition:all .3s ease}
+.mseg.hit{opacity:1;transform:scale(1.06);box-shadow:var(--shadow)}
+.mseg small{display:block;font-family:'Nunito';font-weight:600;font-size:.72em;opacity:.95}
+.m1{background:var(--stamp)} .m2{background:#E88C3A} .m3{background:var(--cheese);color:var(--ink)!important}
+.m4{background:#79B874} .m5{background:var(--mint)}
+.scorechips{display:flex;gap:.4em;justify-content:center;flex-wrap:wrap}
+.scorechips .schip{font-family:'Fredoka';font-weight:700;width:2.6em;height:2.6em;border-radius:50%;display:grid;place-items:center;background:var(--white);border:3px solid var(--sky);color:var(--ink-soft);font-size:clamp(1rem,1.7vw,1.35rem)}
+.scorechips .schip.got{border-color:var(--mint);color:var(--navy);background:#EAF6F1}
+.score-in{font-family:'Fredoka';font-weight:700;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--navy);border:4px solid var(--sky);border-radius:16px;padding:.2em .5em;width:5em;text-align:center;background:var(--white);outline:none}
+.score-in:focus{border-color:var(--navy)}
+.verdict{font-family:'Fredoka';font-weight:700;font-size:clamp(1.3rem,2.4vw,1.9rem);color:var(--navy)}
+/* ===== the ten-plates percent visual ===== */
+.plates{display:flex;gap:.35em;justify-content:center;flex-wrap:wrap}
+.plate{font-size:clamp(1.6rem,2.8vw,2.4rem);filter:grayscale(1);opacity:.3;transition:all .3s}
+.plate.full{filter:none;opacity:1}
+/* ===== the click-food (question H) ===== */
+.foodrow{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;margin:.5em 0}
+.foodclick{background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.4em .5em;text-align:center;cursor:pointer;transition:all .15s ease;border:3px solid transparent;width:clamp(100px,13vw,150px)}
+.foodclick:hover{transform:translateY(-3px)}
+.foodclick img{width:100%;height:auto;border-radius:9px;display:block}
+.foodclick .fcw{font-family:'Fredoka';font-weight:600;color:var(--ink-soft);font-size:clamp(.8rem,1.3vw,1.05rem);padding-top:.25em}
+.foodclick.hit{border-color:var(--mint)}
+.foodclick.hit .fcw{color:var(--navy)}
+.cfill{display:inline-block;min-width:4.6em;border-bottom:4px dotted var(--stamp);color:transparent;text-align:center;font-family:'Fredoka';font-weight:600;padding:0 .25em;border-radius:4px 4px 0 0;transition:all .25s ease}
+.cfill.on{color:var(--navy);border-bottom-color:var(--mint);background:#EAF6F1}
+/* the chart (click-reveal gaps) */
+.chart{max-width:1060px;margin:0 auto;width:100%;border-collapse:collapse;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.chart th{font-family:'Fredoka';font-weight:600;font-size:clamp(.85rem,1.3vw,1.05rem);background:var(--navy);color:#fff;padding:.5em .6em;text-align:left}
+.chart td{font-size:clamp(.9rem,1.45vw,1.2rem);padding:.45em .6em;border-bottom:2px dotted rgba(169,204,239,.7);vertical-align:top;line-height:1.4;width:50%}
+.chart .gap{min-width:6em;font-size:clamp(.9rem,1.45vw,1.2rem)}
+.chart tr.ex td{background:#F0F7EE}
+/* hangman */
+#s7 .accent-line{margin-bottom:.7em}
+#s7 .wordrow{display:flex;gap:.35em;justify-content:center;margin:.5em 0}
+#s7 .slot{width:1.6em;height:2em;border-bottom:4px solid var(--navy);display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:clamp(1.6rem,3vw,2.6rem);color:var(--navy)}
+#s7 .slot.empty{color:transparent}
+#s7 .keys{display:flex;flex-wrap:wrap;gap:.3em;justify-content:center;max-width:820px;margin:.5em auto 0;width:100%}
+#s7 .key{font-family:'Fredoka';font-weight:600;width:2.1em;height:2.1em;border:none;border-radius:10px;background:var(--white);color:var(--navy);box-shadow:0 4px 10px rgba(34,48,63,.1);cursor:pointer;font-size:clamp(1rem,1.7vw,1.4rem);transition:transform .12s ease}
+#s7 .key:hover{transform:translateY(-3px)}
+#s7 .key.hit{background:var(--mint);color:#fff;pointer-events:none}
+#s7 .key.miss{background:var(--stamp-soft);color:var(--stamp);pointer-events:none}
+#s7 .key:disabled{opacity:.4;cursor:default}
+#s7 .catline{font-family:'Fredoka';font-weight:600;font-size:clamp(1.3rem,2.4vw,1.9rem);text-align:center;letter-spacing:.06em}
+#s7 .factcard{background:var(--stamp-soft);border-radius:16px;padding:.6em 1em;margin:.6em auto 0;max-width:760px;width:100%;box-shadow:var(--shadow)}
+#s7 .factcard b{color:var(--stamp)}
+/* clocks */
+#s8 .clockrow{display:flex;gap:1em;justify-content:center;flex-wrap:wrap}
+#s8 .clockcard{background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:.6em;cursor:pointer;transition:transform .15s ease,border-color .2s ease;border:4px solid transparent}
+#s8 .clockcard:hover{transform:translateY(-4px)}
+#s8 .clockcard.right{border-color:var(--mint)}
+#s8 .roundlabel{font-family:'Fredoka';font-weight:600;font-size:clamp(1.35rem,2.4vw,2rem);color:var(--navy);text-align:center}
+.hud-chip{font-family:'Fredoka';font-weight:600;color:var(--navy);background:var(--white);border-radius:99px;padding:.3em 1em;box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.reset-btn{font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);padding:.45em 1.2em;border:none;border-radius:99px;cursor:pointer;background:var(--white);color:var(--navy);box-shadow:0 6px 16px rgba(34,48,63,.1);transition:transform .15s ease}
+.reset-btn:hover{transform:scale(1.06)}
+/* mime */
+#mime-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:.45em;max-width:1000px;margin:0 auto;width:100%}
+.mime-row{display:flex;align-items:center;gap:.7em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.32em .8em}
+.mime-row .mq{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1.2rem,2vw,1.6rem)}
+.mime-row .mh{margin-left:auto;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);font-style:italic;text-align:right}
+/* silly game + HELP */
+#silly-board{display:flex;gap:.5em;justify-content:center;flex-wrap:wrap}
+#silly-board .wb-chip{cursor:default}
+#qlist{display:none;grid-template-columns:1fr 1fr;gap:.3em 1.4em;max-width:1000px;margin:0 auto;width:100%}
+#qlist.dealt{display:grid}
+.deal-q{font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.5;padding:.18em 0}
+.deal-q::before{content:"🎙 "}
+#help-btn{position:absolute;top:1vh;left:1.2vw;font-family:'Fredoka';font-weight:700;font-size:clamp(1.1rem,2vw,1.6rem);width:1.9em;height:1.9em;border-radius:50%;border:3px solid var(--navy);background:var(--cheese);color:var(--navy);cursor:pointer;box-shadow:var(--shadow);z-index:5}
+#help-card{position:absolute;top:6vh;left:1.2vw;max-width:420px;width:88%;z-index:6;padding:.8em 1em}
+.hl{display:flex;gap:.6em;align-items:baseline;font-size:clamp(.95rem,1.5vw,1.25rem);padding:.12em 0}
+.qw{font-family:'Fredoka';font-weight:700;color:var(--navy);min-width:4.2em}
+@media(max-width:900px){ #qlist{grid-template-columns:1fr} }
+/* the fullscreen text (the standing ⛶ read-big extra) */
+#fsstory{position:fixed;inset:0;z-index:220;background:rgba(34,48,63,.55);display:none;align-items:center;justify-content:center;padding:4vh 4vw;cursor:pointer}
+#fsstory.on{display:flex}
+#fsstory .fs-card{background:var(--white);border-radius:22px;box-shadow:var(--shadow-lg);padding:1.2em 1.6em;max-width:900px;width:100%;max-height:86vh;overflow:auto}
+#fsstory .fs-card h2{margin-bottom:.4em}
+#fsstory .frm{font-size:clamp(1rem,1.7vw,1.35rem);line-height:1.6;padding:.35em 0;border-bottom:2px dotted rgba(169,204,239,.7)}
+#fsstory .frm b{color:var(--navy)}
+#fsstory .frm .ff{font-style:italic;color:var(--stamp);font-size:.92em;display:block}
+#fsstory .tag{position:sticky;top:0;float:right;font-size:.85rem;color:var(--ink-soft);font-style:italic}
+/* the audio player bar (pause + scroll the audio) */
+#abar{position:fixed;bottom:2.4vh;left:50%;transform:translateX(-50%) translateY(140%);transition:transform .35s cubic-bezier(.22,1,.36,1);z-index:95;display:flex;align-items:center;gap:.6em;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-radius:99px;box-shadow:var(--shadow-lg);padding:.4em .9em;max-width:min(560px,46vw)}
+#abar.on{transform:translateX(-50%) translateY(0)}
+#abar .ab-name{font-family:'Fredoka';font-weight:600;font-size:clamp(.8rem,1.3vw,1rem);color:var(--navy);white-space:nowrap;max-width:9em;overflow:hidden;text-overflow:ellipsis}
+#ab-toggle{width:2.2em;height:2.2em;border-radius:50%;border:none;cursor:pointer;flex-shrink:0;background:linear-gradient(135deg,var(--navy),var(--sky));color:#fff;font-size:.9rem;display:grid;place-items:center}
+#ab-toggle:hover{transform:scale(1.07)}
+#ab-seek{flex:1;min-width:8em;accent-color:var(--navy);cursor:pointer}
+#abar .ab-time{font-family:'Fredoka';font-weight:600;font-size:clamp(.72rem,1.2vw,.9rem);color:var(--ink-soft);white-space:nowrap}
 /* ===== ✍️ v2 — the notes window, top right + the d: · //: rows + ⌘S ===== */
 #annoBtn{position:fixed;right:max(10px,1.6vw);top:calc(10px + .8vh);z-index:110;
   border:2px solid rgba(255,255,255,.4);background:rgba(30,58,102,.85);border-radius:99px;font-size:1.25rem;
@@ -158,51 +292,60 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   font-weight:600;color:var(--ink);padding:.3em .5em;border-radius:10px;line-height:1.35}
 #pq .pqRow:hover{background:#E8F1FA}
 #pq .pqRow .pqE{flex:0 0 1.6em;text-align:center;font-weight:400}
-.subjgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6em;max-width:1020px;margin:0 auto;width:100%}
-.subj{background:var(--white);border-radius:16px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.6em .45em;cursor:pointer;text-align:center;transition:transform .15s ease}
-.subj:hover{transform:translateY(-3px)}
-.subj .se{font-size:clamp(2.6rem,5vw,4rem);line-height:1.1;display:block}
-.subj .sw{display:none;font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(1rem,1.7vw,1.35rem);padding-top:.3em}
-.subj.on .sw{display:block}
-#fsstory{position:fixed;inset:0;z-index:220;background:rgba(34,48,63,.55);display:none;align-items:center;justify-content:center;padding:4vh 4vw;cursor:pointer}
-#fsstory.on{display:flex}
-#fsstory .fs-card{background:var(--white);border-radius:22px;box-shadow:var(--shadow-lg);padding:1.2em 1.6em;max-width:900px;width:100%;max-height:86vh;overflow:auto}
-#fsstory .fs-card h2{margin-bottom:.4em}
-#fsstory .frm{font-size:clamp(1rem,1.7vw,1.35rem);line-height:1.6;padding:.35em 0;border-bottom:2px dotted rgba(169,204,239,.7)}
-#fsstory .frm b{color:var(--navy)}
-#fsstory .tag{position:sticky;top:0;float:right;font-size:.85rem;color:var(--ink-soft);font-style:italic}
-#abar{position:fixed;bottom:2.4vh;left:50%;transform:translateX(-50%) translateY(140%);transition:transform .35s cubic-bezier(.22,1,.36,1);z-index:95;display:flex;align-items:center;gap:.6em;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-radius:99px;box-shadow:var(--shadow-lg);padding:.4em .9em;max-width:min(560px,46vw)}
-#abar.on{transform:translateX(-50%) translateY(0)}
-#abar .ab-name{font-family:'Fredoka';font-weight:600;font-size:clamp(.8rem,1.3vw,1rem);color:var(--navy);white-space:nowrap;max-width:9em;overflow:hidden;text-overflow:ellipsis}
-#ab-toggle{width:2.2em;height:2.2em;border-radius:50%;border:none;cursor:pointer;flex-shrink:0;background:linear-gradient(135deg,var(--navy),var(--sky));color:#fff;font-size:.9rem;display:grid;place-items:center}
-#ab-toggle:hover{transform:scale(1.07)}
-#ab-seek{flex:1;min-width:8em;accent-color:var(--navy);cursor:pointer}
-#abar .ab-time{font-family:'Fredoka';font-weight:600;font-size:clamp(.72rem,1.2vw,.9rem);color:var(--ink-soft);white-space:nowrap}
 .slide{padding-top:8vh}
-/* ===== the food scale ===== */
-.scale{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;max-width:1080px;margin:0 auto;width:100%}
-.step{flex:1;min-width:150px;max-width:210px;background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:.6em .5em;text-align:center;border:3px solid transparent;transition:all .15s ease}
-.step .sw-word{font-family:'Fredoka';font-weight:700;font-size:clamp(1.05rem,1.8vw,1.5rem);color:var(--navy)}
-.step .week{display:flex;gap:.2em;justify-content:center;margin:.35em 0}
-.step .week i{width:.85em;height:.85em;border-radius:50%;border:2.5px solid var(--sky);display:inline-block}
-.step .week i.f{background:var(--mint);border-color:var(--mint)}
-.step .frame{font-size:clamp(.82rem,1.3vw,1.05rem);color:var(--ink-soft);font-style:italic;min-height:2.6em;line-height:1.35}
-.step.lit{border-color:var(--cheese);background:var(--cheese-soft)}
-/* the food bank + landing rows */
-.foodbank{display:flex;flex-wrap:wrap;gap:.5em;justify-content:center;max-width:1000px;margin:0 auto;width:100%}
-.fcard{font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);border:2.5px solid var(--sky);background:var(--white);color:var(--navy);border-radius:99px;padding:.3em 1em;cursor:pointer;transition:all .15s ease;box-shadow:0 4px 10px rgba(34,48,63,.08)}
-.fcard:hover{transform:translateY(-3px);border-color:var(--navy)}
-.fcard.sel{background:var(--navy);color:#fff;border-color:var(--navy)}
-.fcard.used{opacity:.25;pointer-events:none}
-.landrow{display:flex;align-items:center;gap:.7em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.4em .9em;margin-bottom:.4em;min-height:3.2em}
-.landrow .lw{flex-shrink:0;width:7.5em;font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(.95rem,1.5vw,1.2rem)}
-.landrow .lweek{display:flex;gap:.15em;flex-shrink:0}
-.landrow .lweek i{width:.7em;height:.7em;border-radius:50%;border:2px solid var(--sky);display:inline-block}
-.landrow .lweek i.f{background:var(--mint);border-color:var(--mint)}
-.landrow .lsent{flex:1;font-size:clamp(.95rem,1.6vw,1.3rem);color:var(--ink-soft);font-style:italic}
-.landrow.filled{background:#EAF6F1}
-.landrow.filled .lsent{color:var(--navy);font-style:normal;font-weight:600}
-/* the quiz */
+/* the glosses (the score slide's three little words) */
+.gloss{display:inline-flex;align-items:baseline;gap:.4em;background:var(--white);border-radius:12px;box-shadow:0 4px 10px rgba(34,48,63,.08);padding:.3em .8em;cursor:pointer;margin:.2em}
+.gloss .gw{font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(1rem,1.6vw,1.3rem)}
+.gloss .gv{color:transparent;transition:color .2s;font-size:clamp(.95rem,1.5vw,1.2rem)}
+.gloss.on .gv{color:var(--ink-soft)}
+/* the synonyms items */
+.syn-row{display:flex;align-items:center;gap:.7em;flex-wrap:wrap;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.55em .9em;margin-bottom:.55em}
+.syn-row .st{flex:1;font-size:clamp(1rem,1.7vw,1.35rem);line-height:1.45;min-width:220px}
+.syn-row .st b{color:var(--navy)}
+/* the words shelf */
+#tickrow .wb-chip{cursor:pointer}
+#tickrow .wb-chip.tick-on{background:var(--mint);color:#fff}
+.pos-h{font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1rem,1.6vw,1.3rem);margin:.5em 0 .1em}
+/* the ranking slots */
+.rankrow{display:flex;align-items:center;gap:.6em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.45em .9em;margin-bottom:.45em}
+.rankrow .rn{flex-shrink:0;width:1.9em;height:1.9em;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:#fff}
+.cslot{display:inline-block;min-width:5.5em;border-bottom:4px solid var(--cheese);font-family:'Fredoka';font-weight:600;color:var(--stamp);padding:0 .3em;outline:none}
+/* the picture ranking with photos */
+.rankbank{display:flex;flex-wrap:wrap;gap:.4em;justify-content:center;margin:.2em 0 .6em}
+.rpick{border:3px solid var(--sky);background:var(--white);border-radius:14px;cursor:pointer;transition:all .15s ease;padding:.3em;width:clamp(84px,10vw,110px)}
+.rpick img{width:100%;height:auto;border-radius:9px;display:block}
+.rpick .rw{font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(.75rem,1.2vw,.95rem);display:block;padding-top:.25em;text-align:center}
+.rpick:hover{transform:translateY(-3px);border-color:var(--navy)}
+.rpick.used{opacity:.25;pointer-events:none}
+.rslot{cursor:pointer}
+.rslot .rs-fill{flex:1;font-family:'Fredoka';font-weight:600;color:var(--ink-soft);font-size:clamp(1.05rem,1.8vw,1.4rem)}
+.rslot.filled{background:#EAF6F1}
+.rslot.filled .rs-fill{color:var(--navy)}
+/* the vocabulary paragraphs */
+.vp{font-size:clamp(1.05rem,1.75vw,1.4rem);line-height:1.9}
+.vp .gap{min-width:4.5em}
+.bank{display:flex;flex-wrap:wrap;gap:.35em;justify-content:center}
+.bank .wb-chip{cursor:default}
+/* the treasure card */
+.treasure{max-width:760px;margin:1em auto 0;width:100%}
+.treasure .t-q{font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.2vw,1.75rem);color:var(--navy)}
+/* the video card + the graceful fallback */
+.vidcard video{max-height:42vh;width:100%;height:auto;display:block;border-radius:12px;background:#000}
+.vidcard .vfall{display:none}
+.vidcard.nofvid video{display:none}
+.vidcard.nofvid .vfall{display:block}
+/* the type-ins */
+.tin{font-family:'Fredoka';font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem);color:var(--navy);border:3px solid var(--sky);border-radius:12px;padding:.15em .4em;text-align:center;background:var(--white);outline:none;min-width:2.4em}
+.tin:focus{border-color:var(--navy)}
+.tin.good{border-color:var(--mint);background:#EAF6F1;color:var(--navy)}
+.tin.bad{border-color:var(--stamp);background:var(--stamp-soft)}
+.guessin{border-color:var(--cheese)!important;background:var(--cheese-soft)!important}
+/* the write-in quiz (the book's discussion task) */
+.writein{display:flex;align-items:baseline;gap:.5em;margin:.25em 0;font-size:clamp(1.05rem,1.75vw,1.4rem)}
+.writein .wn{flex-shrink:0;width:1.6em;height:1.6em;border-radius:50%;border:2.5px solid var(--sky);display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.8em;color:var(--sky)}
+.writein input{flex:1;font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);color:var(--navy);border:none;border-bottom:3px solid var(--sky);background:transparent;outline:none;padding:.1em .3em}
+.writein input:focus{border-bottom-color:var(--navy)}
+/* the write-your-own quiz cards */
 .qcard{background:var(--white);border-radius:16px;box-shadow:var(--shadow);padding:.7em 1em;margin:0 auto .7em;max-width:1000px;width:100%}
 .qcard .qhead{display:flex;gap:.6em;align-items:baseline;margin-bottom:.3em}
 .qcard .qletter{flex-shrink:0;width:1.7em;height:1.7em;border-radius:8px;background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:#fff;font-size:clamp(1rem,1.6vw,1.3rem)}
@@ -212,33 +355,6 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 .qans .an{flex-shrink:0;width:1.5em;height:1.5em;border-radius:50%;border:2.5px solid var(--sky);display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.85em;color:var(--sky)}
 .qans.sel{background:var(--cheese-soft)}
 .qans.sel .an{background:var(--cheese);border-color:var(--cheese);color:var(--navy)}
-/* the score */
-.score-in{font-family:'Fredoka';font-weight:700;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--navy);border:4px solid var(--sky);border-radius:16px;padding:.2em .5em;width:5em;text-align:center;background:var(--white);outline:none}
-.score-in:focus{border-color:var(--navy)}
-.verdict{font-family:'Fredoka';font-weight:700;font-size:clamp(1.3rem,2.4vw,1.9rem);color:var(--navy)}
-.gloss{display:inline-flex;align-items:baseline;gap:.4em;background:var(--white);border-radius:12px;box-shadow:0 4px 10px rgba(34,48,63,.08);padding:.3em .8em;cursor:pointer;margin:.2em}
-.gloss .gw{font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(1rem,1.6vw,1.3rem)}
-.gloss .gv{color:transparent;transition:color .2s;font-size:clamp(.95rem,1.5vw,1.2rem)}
-.gloss.on .gv{color:var(--ink-soft)}
-.chart{max-width:1060px;margin:0 auto;width:100%;border-collapse:collapse;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
-.chart th{font-family:'Fredoka';font-weight:600;font-size:clamp(.85rem,1.3vw,1.05rem);background:var(--navy);color:#fff;padding:.5em .6em;text-align:left}
-.chart td{font-size:clamp(.9rem,1.45vw,1.2rem);padding:.45em .6em;border-bottom:2px dotted rgba(169,204,239,.7);vertical-align:top;line-height:1.4;width:50%}
-.chart .gap{min-width:6em;font-size:clamp(.9rem,1.45vw,1.2rem)}
-.chart tr.ex td{background:#F0F7EE}
-#tickrow .wb-chip{cursor:pointer}
-#tickrow .wb-chip.tick-on{background:var(--mint);color:#fff}
-.pos-h{font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1rem,1.6vw,1.3rem);margin:.5em 0 .1em}
-.writein{display:flex;align-items:baseline;gap:.5em;margin:.25em 0;font-size:clamp(1.05rem,1.75vw,1.4rem)}
-.writein .wn{flex-shrink:0;width:1.6em;height:1.6em;border-radius:50%;border:2.5px solid var(--sky);display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.8em;color:var(--sky)}
-.writein input{flex:1;font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);color:var(--navy);border:none;border-bottom:3px solid var(--sky);background:transparent;outline:none;padding:.1em .3em}
-.writein input:focus{border-bottom-color:var(--navy)}
-.syn-row{display:flex;align-items:center;gap:.7em;flex-wrap:wrap;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.55em .9em;margin-bottom:.55em}
-.syn-row .st{flex:1;font-size:clamp(1rem,1.7vw,1.35rem);line-height:1.45;min-width:220px}
-.syn-row .st b{color:var(--navy)}
-.rankrow{display:flex;align-items:center;gap:.6em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.45em .9em;margin-bottom:.45em}
-.rankrow .rn{flex-shrink:0;width:1.9em;height:1.9em;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:#fff}
-.cslot{display:inline-block;min-width:5.5em;border-bottom:4px solid var(--cheese);font-family:'Fredoka';font-weight:600;color:var(--stamp);padding:0 .3em;outline:none}
-.treasure{max-width:760px;margin:1em auto 0;width:100%}
 </style>
 </head>
 <body>
@@ -249,18 +365,23 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <!-- 1 · teacher's list -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 2 · teacher's list · build 06.10 · v2</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 2 · teacher's list · build 06.10 · v3</div>
     <h1 class="title reveal">Are You a Healthy Eater? 🥦</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
       <ol class="prep">
-        <li>🥦 <b>A UNIVERSAL READING DECK</b> — chapter 2 of Select Readings Elementary, any pupils, any teacher. The reading is a QUIZ — the class plays it, adds the score, reads the verdict.</li>
-        <li>🎤 <b>RUN BY ANOTHER TEACHER</b> — everything is on the slides; the Teacher's notes (🗒 button on every slide) carry the steps, the keys and the models. The ✍️ log (top-left / key C): tick + notes; the 📋 report button copies the lesson report to paste to Elena.</li>
-        <li>🎧 <b>ONE AUDIO TRACK (5:15)</b> — the whole quiz read aloud. Test it once before the lesson (slide 7). Pause + scroll in the bottom bar.</li>
-        <li>🥦 <b>THE FLOW:</b> the quote → the FOOD SCALE teach + game (the book's frequency words: never → always, drawn as a week) → previewing → listen first → PLAY THE QUIZ (2 slides) → the score → healthy do/don't → true/false → what do you think → vocabulary → -ly suffixes → synonyms → the words shelf → WRITE YOUR OWN QUIZ → homework.</li>
-        <li>📱 <b>No race — where you stop is where the next lesson starts.</b> One chapter = one or two lessons.</li>
+        <li>🌍 <b>A UNIVERSAL READING DECK</b> — one chapter of Select Readings Elementary, one lesson flow, any pupil. The reading is a QUIZ — the class plays it, adds the score, reads the verdict.</li>
+        <li>🎒 <b>Open with YOUR pupil's homework check first</b> (2–3 minutes — chapter 1's homework: read aloud · the dictionary words · the research-a-sport talk — he is the teacher!). <b>This deck starts only when chapter 1 is finished</b> — where you stopped there is where it starts.</li>
+        <li>🎬 <b>THE VIDEOS</b> — a market walk (slide 3) · a healthy breakfast (slide 8) · junk food vs fresh (slide 10): click each once before the lesson. A clip that did not arrive shows its picture card — the lesson runs without it.</li>
+        <li>🎧 <b>ONE AUDIO TRACK (5:15)</b> — the whole quiz read aloud (slide 7). The question cuts (0:23–0:33 each) ride the eight quiz slides — one cut per question. Test the track once before the lesson; pause + scroll in the bottom bar.</li>
+        <li>🥦 <b>THE FLOW:</b> the quote → the food photos → the FOOD SCALE teach + game (never → always, drawn as a week) → previewing → listen first → <b>the quiz PLAYED, one question per slide (8 slides, be honest!)</b> → the score + the ladder → the reading → healthy do/don't → true/false → what do you think → vocabulary → -ly suffixes → synonyms → the words shelf → the games (hangman · clocks + THE TREASURE · mime · the silly game · rank the foods) → write your own quiz → homework.</li>
+        <li>💎 <b>THE TREASURE TASK</b> rides the clocks slide (26): Anna's eight circled numbers — let the pupil DERIVE the total and the band.</li>
+        <li>⏱️ <b>Time-your-reading card</b> (slide 17): 440 words — the book's own fluency check.</li>
+        <li>📱 <b>No race — where you stop is where the next lesson starts.</b> One chapter = one or two lessons. A natural stop: after the score slide (16).</li>
+        <li>✍️ <b>The lesson-log pill</b> (top right / key N): the d: · //: rows + the free space; ⌘S = save + close; over http it auto-sends to the Mac inbox. The 🙋 Pardon pill (top left / P) = the class phrases.</li>
       </ol>
     </div>
+    <p class="hintline reveal mt center">ELENA'S FOOD STRIP IS IN: the p. 8 Vocabulary Preview (slide 3) — sliced into the eight food cards 📸</p>
   </section>
 
 <!-- 2 · the quote -->
@@ -286,154 +407,378 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     </div>
   </section>
 
-<!-- 3 · the food scale — teach -->
+<!-- 3 · the food photos — the book's vocabulary preview -->
 <section class="slide" id="r3">
+    <div class="eyebrow reveal">before you read · the eight foods · book p. 8</div>
+    <h1 class="title reveal">What food can you see? 👀</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:880px;margin:0 auto .7em;width:100%;padding:.5em .6em">
+      <img src="media/ch2-food-strip.jpg?v=2" alt="the book's eight food photos — white rice, fresh fruit, junk food, white bread, brown rice, fresh vegetables, fried food, wheat bread" style="width:100%;height:auto;display:block;border-radius:12px">
+      <p class="hintline center" style="margin-top:.3em">study the pictures — read the eight words! 📖 (the book's own page)</p>
+    </div>
+    <div class="subjgrid reveal">
+      <div class="subj" data-w="white rice 🍚"><img src="media/ch2-food-white-rice.jpg" alt="white rice"><div class="sw"></div></div>
+      <div class="subj" data-w="fresh fruit 🍓"><img src="media/ch2-food-fresh-fruit.jpg" alt="fresh fruit"><div class="sw"></div></div>
+      <div class="subj" data-w="junk food 🍩"><img src="media/ch2-food-junk-food.jpg" alt="junk food"><div class="sw"></div></div>
+      <div class="subj" data-w="white bread 🍞"><img src="media/ch2-food-white-bread.jpg" alt="white bread"><div class="sw"></div></div>
+      <div class="subj" data-w="brown rice 🥣"><img src="media/ch2-food-brown-rice.jpg" alt="brown rice"><div class="sw"></div></div>
+      <div class="subj" data-w="fresh vegetables 🥕"><img src="media/ch2-food-fresh-vegetables.jpg" alt="fresh vegetables"><div class="sw"></div></div>
+      <div class="subj" data-w="fried food 🍟"><img src="media/ch2-food-fried-food.jpg" alt="fried food"><div class="sw"></div></div>
+      <div class="subj" data-w="wheat bread 🍞"><img src="media/ch2-food-wheat-bread.jpg" alt="wheat bread"><div class="sw"></div></div>
+    </div>
+    <div class="row reveal mt" style="align-items:stretch;gap:1.2em;max-width:1000px;margin:1em auto 0;width:100%">
+      <div class="card vidcard nofvid" style="flex:1;min-width:280px;padding:.6em">
+        <div class="vfall card cheese" style="padding:.8em 1em"><p style="font-size:clamp(1.05rem,1.7vw,1.4rem)">🎬 <b>The market walk</b> — the clip plays in the lesson (your teacher has it!). Fresh fruit and fresh vegetables come from places like this! 🥕🍓</p></div>
+        <p class="hintline center" style="margin-top:.3em">a real fruit &amp; vegetable market · ~60 s</p>
+      </div>
+      <div class="card cheese" style="flex:1;min-width:280px;padding:.7em 1em">
+        <p style="font-size:clamp(1.2rem,2vw,1.6rem)"><b>Talk! 🗣</b> Which of these foods do you eat every day?</p>
+        <p class="mt" style="font-size:clamp(1.2rem,2vw,1.6rem)">Which do you eat… never? 🤔</p>
+        <p class="hintline mt">next: the FOOD SCALE — the five words that answer "how often?"</p>
+      </div>
+    </div>
+    <p class="hintline reveal mt center">now close your eyes 🙈 — tap a card and say the word!</p>
+  </section>
+
+<!-- 4 · the food scale — teach -->
+<section class="slide" id="r4">
     <div class="eyebrow reveal">before you read · the frequency words · book p. 8</div>
     <h1 class="title reveal">How often? The scale 📏</h1>
     <div class="accent-line reveal"></div>
     <p class="task reveal">Five words — one week each. Look: the circles are DAYS!</p>
     <div class="scale reveal mt">
-      <div class="step"><div class="sw-word">never</div><div class="week"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="frame">0 of 7 days<br>«I never eat ___»</div></div>
-      <div class="step"><div class="sw-word">sometimes</div><div class="week"><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i></i></div><div class="frame">2 of 7 days<br>«I sometimes eat ___»</div></div>
-      <div class="step"><div class="sw-word">often</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i></div><div class="frame">4 of 7 days<br>«I often eat ___»</div></div>
-      <div class="step"><div class="sw-word">usually</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div><div class="frame">6 of 7 days<br>«I usually eat ___»</div></div>
-      <div class="step"><div class="sw-word">always</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div><div class="frame">7 of 7 days!<br>«I eat ___ every day»</div></div>
+      <div class="step"><div class="sw-word">never</div><div class="week"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="pct">0 days · 0%</div><div class="frame">«I never eat ___»</div></div>
+      <div class="step"><div class="sw-word">sometimes</div><div class="week"><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i></i></div><div class="pct">2 days · ~25%</div><div class="frame">«I eat ___ once in a while»</div></div>
+      <div class="step"><div class="sw-word">often</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i></div><div class="pct">4 days · ~50%</div><div class="frame">«I often eat ___»</div></div>
+      <div class="step"><div class="sw-word">usually</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div><div class="pct">6 days · ~75%</div><div class="frame">«I usually eat ___»</div></div>
+      <div class="step"><div class="sw-word">always</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div><div class="pct">7 days · 100%</div><div class="frame">«I eat ___ every day»</div></div>
     </div>
     <div class="card cheese reveal center mt" style="max-width:760px;margin:1em auto 0;width:100%;padding:.7em 1.2em">
       <p style="font-size:clamp(1.15rem,2vw,1.6rem)">☕ Example — MY week with tea: <b>6 of 7 circles</b> → «I <b>usually</b> drink tea.»</p>
-      <p class="mt" style="font-size:clamp(1.1rem,1.9vw,1.5rem)">Now YOUR week — and next: the foods! 🥦</p>
+      <p class="mt hintline">once in a while = sometimes · all the time = always — the quiz uses both!</p>
     </div>
+    <p class="hintline reveal mt center">tap a step — say its sentence aloud!</p>
   </section>
 
-<!-- 4 · the food scale — the game -->
-<section class="slide" id="r4">
+<!-- 5 · the food scale — the game (book task A) -->
+<section class="slide" id="r5">
     <div class="eyebrow reveal">before you read · vocabulary preview · book p. 8</div>
     <h1 class="title reveal">Your week with these foods 🍽️</h1>
     <div class="accent-line reveal"></div>
     <p class="task reveal">Tap a FOOD → tap YOUR step. The sentence builds itself!</p>
     <div class="foodbank reveal mt" id="foodbank"></div>
     <div class="col reveal mt" style="max-width:1000px;margin:1em auto 0;width:100%" id="foodrows"></div>
-    <div class="card cheese reveal center mt" style="max-width:900px;margin:1em auto 0;width:100%;padding:.6em 1.1em">
-      <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">➕ And the book asks: <b>think of OTHER foods</b> for your steps! 🍎🍕🥚 (say them — or add them on the next slides)</p>
+    <div class="card stampc reveal center mt" style="max-width:900px;margin:1em auto 0;width:100%;padding:.6em 1.1em">
+      <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">➕ And the book asks: <b>think of OTHER foods</b> for your steps! 🍎🍕🥚 (say them aloud!)</p>
     </div>
   </section>
 
-<!-- 5 · previewing -->
-<section class="slide" id="r5">
+<!-- 6 · previewing -->
+<section class="slide" id="r6">
     <div class="eyebrow reveal">reading skill · previewing · book p. 8</div>
     <h1 class="title reveal">Preview! 👀</h1>
     <div class="accent-line reveal"></div>
-    <p class="task reveal">Look QUICKLY — the title and the pictures only. Don't read!</p>
-    <div class="col reveal" style="max-width:900px;margin:1em auto 0;width:100%">
-      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">1</span><span class="gs">What is this reading about?</span></div>
-      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">2</span><span class="gs">What kind of reading is it — a newspaper article, a blog, a story, a quiz?</span></div>
+    <div class="card cheese reveal" style="max-width:960px;margin:0 auto .7em;width:100%;padding:.5em 1.1em">
+      <p class="center" style="font-size:clamp(1rem,1.7vw,1.35rem)">🔎 <b>PREVIEW</b> = <b>look BEFORE</b> you read: the title, the pictures, the shape. Guess what is coming!</p>
     </div>
-    <div class="center reveal mt"><button class="show-btn" data-show="prev-ans" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.6vw,1.3rem);border:none;border-radius:99px;padding:.45em 1.4em;cursor:pointer;background:var(--navy);color:#fff">the answers ▾</button></div>
-    <div class="secret" id="prev-ans">
-      <div class="card cheese mt" style="max-width:900px;margin:1em auto 0;width:100%;padding:.7em 1.2em">
-        <p style="font-size:clamp(1.1rem,1.9vw,1.5rem)">1 → <b>about eating habits</b> (the foods tell you!) · 2 → <b>it's a QUIZ!</b> — with questions, numbers and a score 🎯</p>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1020px;margin:0 auto;width:100%">
+      <div class="card" style="flex:1;min-width:280px;padding:.7em">
+        <h2 style="font-size:clamp(1.05rem,1.8vw,1.45rem)">👁 Look quickly — five seconds!</h2>
+        <img src="media/ch2-p9-peek.jpg?v=1" alt="a quick look at the reading on page 9" style="width:100%;height:auto;display:block;border-radius:12px;border:3px solid var(--sky);margin:.4em 0">
+        <p class="hintline center">the reading on p. 9 — what do you SEE? (letters? numbers? colours?)</p>
+      </div>
+      <div class="col" style="flex:1.1;min-width:280px;gap:.7em">
+        <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">1</span><span class="gs">What is this reading about?</span></div>
+        <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">2</span><span class="gs">What kind of reading is it — a newspaper article, a blog, a story, a quiz?</span></div>
+        <div class="center"><button class="show-btn" data-show="prev-ans" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.6vw,1.3rem);border:none;border-radius:99px;padding:.45em 1.4em;cursor:pointer;background:var(--navy);color:#fff">the answers ▾</button></div>
+        <div class="secret" id="prev-ans">
+          <div class="card cheese" style="padding:.7em 1.1em">
+            <p style="font-size:clamp(1.05rem,1.85vw,1.45rem)">1 → <b>about eating habits</b> (the foods tell you!) · 2 → <b>it's a QUIZ!</b> — questions, numbers, a score 🎯 You don't read it — you PLAY it!</p>
+          </div>
+        </div>
       </div>
     </div>
-    <p class="hintline reveal mt center">previewing = the reader's first look: the title, the pictures, the shape — BEFORE reading</p>
+    <div class="center reveal mt"><button class="trk-btn" data-audio="intro">🎧 hear the intro (0:22)</button></div>
   </section>
 
-<!-- 6 · listen first -->
-<section class="slide" id="r6">
+<!-- 7 · listen first -->
+<section class="slide" id="r7">
     <div class="eyebrow reveal">the listening · the whole quiz · 5:15</div>
     <h1 class="title reveal">Just listen! 👂</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:860px;margin:0 auto;width:100%;padding:.5em .6em">
-      <img src="media/ch2-food-strip.jpg?v=1" alt="the eight foods — white rice, fresh fruit, junk food, white bread, brown rice, fresh vegetables, fried food, wheat bread" style="width:100%;height:auto;display:block;border-radius:14px;border:3px solid var(--sky)">
+      <img src="media/ch2-food-strip.jpg?v=2" alt="the eight foods — white rice, fresh fruit, junk food, white bread, brown rice, fresh vegetables, fried food, wheat bread" style="width:100%;height:auto;display:block;border-radius:14px;border:3px solid var(--sky)">
     </div>
-    <div class="center reveal mt"><button class="trk-btn" data-audio="1">🎧 listen to the whole quiz (5:15)</button></div>
+    <div class="center reveal mt"><button class="trk-btn" data-audio="full">🎧 listen to the whole quiz (5:15)</button></div>
     <p class="hintline reveal mt center">no reading yet — the foods tell the story · pause + scroll in the bottom bar · listen as many times as you need!</p>
   </section>
 
-<!-- 7 · the quiz · part 1 -->
-<section class="slide" id="r7">
-    <div class="eyebrow reveal">the quiz · played · questions A–D · be honest!</div>
-    <h1 class="title reveal">Play the quiz! 🎯 part 1</h1>
+<!-- 8 · QUIZ A — breakfast -->
+<section class="slide" id="r8a">
+    <div class="eyebrow reveal">the quiz · question A of 8 · breakfast 🍳</div>
+    <h1 class="title reveal">A · How often do you eat breakfast? 🍳</h1>
     <div class="accent-line reveal"></div>
-    <div class="card cheese reveal center" style="max-width:1000px;margin:0 auto .7em;width:100%;padding:.5em 1.1em">
-      <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">Tap YOUR answer — the real one, not the good one! 😄 🎧 <button class="trk-btn" data-audio="1" style="margin-left:.5em">listen again</button></p>
+    <div class="card cheese reveal" style="max-width:960px;margin:0 auto .6em;width:100%;padding:.5em 1.1em">
+      <p class="center" style="font-size:clamp(1rem,1.7vw,1.35rem)">📜 <b>THE QUIZ RULES:</b> <b>Be honest!</b> Answer the way you <b>REALLY</b> eat — not the way you think you should eat. The number = your POINTS for that question!</p>
     </div>
-    <div class="qcard reveal"><div class="qhead"><span class="qletter">A</span><span class="qtext">How often do you eat breakfast?</span></div>
-      <div class="qans"><span class="an">1</span> I never eat breakfast.</div>
-      <div class="qans"><span class="an">2</span> I have breakfast once or twice a week.</div>
-      <div class="qans"><span class="an">3</span> I eat breakfast 3–6 times a week.</div>
-      <div class="qans"><span class="an">4</span> I eat breakfast every morning.</div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="col" style="flex:1.25;min-width:300px;gap:.5em">
+        <div class="qrow" data-q="A" data-v="1"><span class="qn">1</span><span class="qt">I never eat breakfast.</span></div>
+        <div class="qrow" data-q="A" data-v="2"><span class="qn">2</span><span class="qt">I have breakfast once or twice a week.</span></div>
+        <div class="qrow" data-q="A" data-v="3"><span class="qn">3</span><span class="qt">I eat breakfast 3–6 times a week.</span></div>
+        <div class="qrow" data-q="A" data-v="4"><span class="qn">4</span><span class="qt">I eat breakfast every morning.</span></div>
+        <div class="center"><span class="mychip" id="chip-A">your answer: …</span></div>
+        <div class="center"><button class="trk-btn" data-audio="a">🎧 question A (0:25) — play it again!</button></div>
+      </div>
+      <div class="card vidcard nofvid" style="flex:1;min-width:260px;padding:.6em">
+        <div class="vfall card cheese" style="padding:.8em 1em"><p style="font-size:clamp(1.05rem,1.7vw,1.4rem)">🎬 <b>A healthy breakfast</b> — the clip plays in the lesson (your teacher has it!). What would YOU make? 🥣</p></div>
+        <p class="hintline center" style="margin-top:.3em">a real healthy breakfast · ~60 s</p>
+      </div>
     </div>
-    <div class="qcard reveal"><div class="qhead"><span class="qletter">B</span><span class="qtext">How often do you snack on fresh fruits and vegetables?</span></div>
-      <div class="qans"><span class="an">1</span> I never snack on fresh fruits and vegetables.</div>
-      <div class="qans"><span class="an">2</span> I snack on fresh fruits and vegetables once in a while.</div>
-      <div class="qans"><span class="an">3</span> I snack on fresh fruits and vegetables once a day.</div>
-      <div class="qans"><span class="an">4</span> I snack on fresh fruits and vegetables more than once a day.</div>
-    </div>
-    <div class="qcard reveal"><div class="qhead"><span class="qletter">C</span><span class="qtext">Do you eat junk food?</span></div>
-      <div class="qans"><span class="an">1</span> Yes, I often eat junk food.</div>
-      <div class="qans"><span class="an">2</span> Yes, I sometimes eat junk food.</div>
-      <div class="qans"><span class="an">3</span> No, I hardly ever eat junk food.</div>
-      <div class="qans"><span class="an">4</span> No, I never eat junk food.</div>
-    </div>
-    <div class="qcard reveal"><div class="qhead"><span class="qletter">D</span><span class="qtext">Do you eat quickly?</span></div>
-      <div class="qans"><span class="an">1</span> Yes, I always eat quickly.</div>
-      <div class="qans"><span class="an">2</span> Yes, I eat quickly 90 percent of the time.</div>
-      <div class="qans"><span class="an">3</span> Yes, I sometimes eat quickly.</div>
-      <div class="qans"><span class="an">4</span> No, I usually eat slowly.</div>
-    </div>
-    <p class="hintline reveal mt center">the number is your POINTS for that question — remember them! · part 2 →</p>
   </section>
 
-<!-- 8 · the quiz · part 2 -->
-<section class="slide" id="r8">
-    <div class="eyebrow reveal">the quiz · played · questions E–H</div>
-    <h1 class="title reveal">Play the quiz! 🎯 part 2</h1>
+<!-- 9 · QUIZ B — snack on -->
+<section class="slide" id="r8b">
+    <div class="eyebrow reveal">the quiz · question B of 8 · snack on 🍎</div>
+    <h1 class="title reveal">B · How often do you snack on fruit and veg? 🍎</h1>
     <div class="accent-line reveal"></div>
-    <div class="qcard reveal"><div class="qhead"><span class="qletter">E</span><span class="qtext">How often do you skip meals?</span></div>
-      <div class="qans"><span class="an">1</span> I frequently skip meals.</div>
-      <div class="qans"><span class="an">2</span> I skip meals about 3 times a week.</div>
-      <div class="qans"><span class="an">3</span> I rarely skip a meal.</div>
-      <div class="qans"><span class="an">4</span> I never skip meals.</div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="col" style="flex:1.25;min-width:300px;gap:.5em">
+        <div class="card stampc" style="padding:.6em 1em">
+          <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">📸 <b>A NEW WORD:</b> <b>snack on</b> = eat something <b>BETWEEN</b> meals 🍎<br><span class="hintline">say it in Russian first — then click!</span> <span class="gap" style="min-width:6em">перекусывать</span></p>
+        </div>
+        <div class="qrow" data-q="B" data-v="1"><span class="qn">1</span><span class="qt">I never snack on fresh fruits and vegetables.</span></div>
+        <div class="qrow" data-q="B" data-v="2"><span class="qn">2</span><span class="qt">I snack on fresh fruits and vegetables once in a while.</span></div>
+        <div class="qrow" data-q="B" data-v="3"><span class="qn">3</span><span class="qt">I snack on fresh fruits and vegetables once a day.</span></div>
+        <div class="qrow" data-q="B" data-v="4"><span class="qn">4</span><span class="qt">I snack on fresh fruits and vegetables more than once a day.</span></div>
+        <div class="center"><span class="mychip" id="chip-B">your answer: …</span></div>
+        <div class="center"><button class="trk-btn" data-audio="b">🎧 question B (0:33) — play it again!</button></div>
+      </div>
+      <div class="col" style="flex:1;min-width:260px;gap:.7em">
+        <div class="card" style="padding:.6em .8em">
+          <img src="media/ch2-food-fresh-fruit.jpg?v=2" alt="fresh fruit — a perfect snack" style="width:100%;height:auto;display:block;border-radius:12px;border:3px solid var(--cheese)">
+          <p class="hintline center" style="margin-top:.3em">fresh fruit — the PERFECT snack 🍓 · 3 p.m. — not lunch time — snack time!</p>
+        </div>
+        <div class="card cheese" style="padding:.6em 1em">
+          <p style="font-size:clamp(1rem,1.7vw,1.35rem)">🔁 <b>once in a while</b> = <b>sometimes</b> — remember the scale! (2 green days of 7)</p>
+        </div>
+      </div>
     </div>
-    <div class="qcard reveal"><div class="qhead"><span class="qletter">F</span><span class="qtext">How often do you eat something just before you go to bed?</span></div>
-      <div class="qans"><span class="an">1</span> I always eat something just before I go to bed.</div>
-      <div class="qans"><span class="an">2</span> I often have something to eat just before I go to bed.</div>
-      <div class="qans"><span class="an">3</span> I rarely eat just before I go to bed.</div>
-      <div class="qans"><span class="an">4</span> I never eat just before I go to bed.</div>
-    </div>
-    <div class="qcard reveal"><div class="qhead"><span class="qletter">G</span><span class="qtext">How often do you eat your largest meal in the evening?</span></div>
-      <div class="qans"><span class="an">1</span> I always eat my largest meal in the evening.</div>
-      <div class="qans"><span class="an">2</span> I frequently eat my largest meal in the evening.</div>
-      <div class="qans"><span class="an">3</span> I rarely eat my largest meal in the evening.</div>
-      <div class="qans"><span class="an">4</span> I never eat my largest meal in the evening.</div>
-    </div>
-    <div class="qcard reveal"><div class="qhead"><span class="qletter">H</span><span class="qtext">How often do you eat brown rice or wheat bread instead of white rice or white bread?</span></div>
-      <div class="qans"><span class="an">1</span> I never eat brown rice or wheat bread.</div>
-      <div class="qans"><span class="an">2</span> I sometimes eat brown rice or wheat bread.</div>
-      <div class="qans"><span class="an">3</span> I usually eat brown rice or wheat bread.</div>
-      <div class="qans"><span class="an">4</span> I eat brown rice or wheat bread all the time.</div>
-    </div>
-    <p class="hintline reveal mt center">all eight answered? → the score! 🧮</p>
   </section>
 
-<!-- 9 · the score -->
+<!-- 10 · QUIZ C — junk food -->
+<section class="slide" id="r8c">
+    <div class="eyebrow reveal">the quiz · question C of 8 · junk food 🍩</div>
+    <h1 class="title reveal">C · Do you eat junk food? 🍩</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="card vidcard nofvid" style="flex:1;min-width:260px;padding:.6em">
+        <div class="vfall card cheese" style="padding:.8em 1em"><p style="font-size:clamp(1.05rem,1.7vw,1.4rem)">🎬 <b>Junk food vs fresh food</b> — the clip plays in the lesson (your teacher has it!). Which plate would YOU take? 🍩🥗</p></div>
+        <p class="hintline center" style="margin-top:.3em">junk vs fresh · ~60 s</p>
+      </div>
+      <div class="col" style="flex:1.25;min-width:300px;gap:.5em">
+        <div class="qrow" data-q="C" data-v="1"><span class="qn">1</span><span class="qt">Yes, I often eat junk food.</span></div>
+        <div class="qrow" data-q="C" data-v="2"><span class="qn">2</span><span class="qt">Yes, I sometimes eat junk food.</span></div>
+        <div class="qrow" data-q="C" data-v="3"><span class="qn">3</span><span class="qt">No, I hardly ever eat junk food.</span></div>
+        <div class="qrow" data-q="C" data-v="4"><span class="qn">4</span><span class="qt">No, I never eat junk food.</span></div>
+        <div class="center"><span class="mychip" id="chip-C">your answer: …</span></div>
+        <div class="center"><button class="trk-btn" data-audio="c">🎧 question C (0:27) — play it again!</button></div>
+        <div class="card cheese" style="padding:.6em 1em">
+          <p style="font-size:clamp(1rem,1.7vw,1.35rem)">📘 <b>hardly ever</b> = almost never (once a month? once a year? — that's hardly ever!)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- 11 · QUIZ D — eat quickly -->
+<section class="slide" id="r8d">
+    <div class="eyebrow reveal">the quiz · question D of 8 · quickly or slowly? 🏃</div>
+    <h1 class="title reveal">D · Do you eat quickly? 🏃🍽️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="col" style="flex:1.25;min-width:300px;gap:.5em">
+        <div class="qrow" data-q="D" data-v="1"><span class="qn">1</span><span class="qt">Yes, I always eat quickly.</span></div>
+        <div class="qrow" data-q="D" data-v="2"><span class="qn">2</span><span class="qt">Yes, I eat quickly <b>90 percent</b> of the time.</span></div>
+        <div class="qrow" data-q="D" data-v="3"><span class="qn">3</span><span class="qt">Yes, I sometimes eat quickly.</span></div>
+        <div class="qrow" data-q="D" data-v="4"><span class="qn">4</span><span class="qt">No, I usually eat slowly.</span></div>
+        <div class="center"><span class="mychip" id="chip-D">your answer: …</span></div>
+        <div class="center"><button class="trk-btn" data-audio="d">🎧 question D (0:27) — play it again!</button></div>
+      </div>
+      <div class="col" style="flex:1;min-width:260px;gap:.7em">
+        <div class="card sky" style="padding:.7em 1em">
+          <h2 style="font-size:clamp(1.05rem,1.8vw,1.45rem)">A meal is over in <input class="tin" data-ok="90" size="3" placeholder="…"> percent of the time!</h2>
+          <p class="hintline" style="margin:.3em 0">type the number you hear (Enter ↵ checks) — then LOOK what 90 percent means:</p>
+          <div class="plates" id="plates90">
+            <span class="plate full">🍽️</span><span class="plate full">🍽️</span><span class="plate full">🍽️</span><span class="plate full">🍽️</span><span class="plate full">🍽️</span><span class="plate full">🍽️</span><span class="plate full">🍽️</span><span class="plate full">🍽️</span><span class="plate full">🍽️</span><span class="plate">🍽️</span>
+          </div>
+          <p class="hintline center mt">9 plates of 10 — that's 90 percent! Nine meals fast, one meal slow 🏃</p>
+        </div>
+        <div class="card cheese" style="padding:.6em 1em">
+          <p style="font-size:clamp(1rem,1.7vw,1.35rem)">⚡ <b>quickly</b> = fast 🏃 · <b>slowly</b> = not fast 🐢 — the -ly words! (they return on slide 22)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- 12 · QUIZ E — skip meals -->
+<section class="slide" id="r8e">
+    <div class="eyebrow reveal">the quiz · question E of 8 · skip meals 🚫🍽️</div>
+    <h1 class="title reveal">E · How often do you skip meals? 🚫🍽️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="col" style="flex:1.25;min-width:300px;gap:.5em">
+        <div class="card stampc" style="padding:.6em 1em">
+          <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">📸 <b>A NEW WORD:</b> <b>skip a meal</b> = <b>NOT</b> eat a meal (no breakfast — "I skipped it!")<br><span class="hintline">say it in Russian first — then click!</span> <span class="gap" style="min-width:7em">пропускать еду</span></p>
+        </div>
+        <div class="qrow" data-q="E" data-v="1"><span class="qn">1</span><span class="qt">I frequently skip meals.</span></div>
+        <div class="qrow" data-q="E" data-v="2"><span class="qn">2</span><span class="qt">I skip meals about 3 times a week.</span></div>
+        <div class="qrow" data-q="E" data-v="3"><span class="qn">3</span><span class="qt">I rarely skip a meal.</span></div>
+        <div class="qrow" data-q="E" data-v="4"><span class="qn">4</span><span class="qt">I never skip meals.</span></div>
+        <div class="center"><span class="mychip" id="chip-E">your answer: …</span></div>
+        <div class="center"><button class="trk-btn" data-audio="e">🎧 question E (0:23) — play it again!</button></div>
+      </div>
+      <div class="col" style="flex:1;min-width:260px;gap:.7em">
+        <div class="card" style="padding:.6em .8em;text-align:center">
+          <p style="font-size:clamp(2.4rem,4.5vw,3.6rem);line-height:1.2">🍳 ❌ 🥪 ❌ 🍲 ❌</p>
+          <p class="hintline mt">breakfast — SKIPPED · lunch — SKIPPED · dinner — SKIPPED!<br>the plate stays empty 😮</p>
+        </div>
+        <div class="card cheese" style="padding:.6em 1em">
+          <p style="font-size:clamp(1rem,1.7vw,1.35rem)">📘 <b>frequently</b> = often · <b>rarely</b> = hardly ever — two more scale words!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- 13 · QUIZ F — just before bed -->
+<section class="slide" id="r8f">
+    <div class="eyebrow reveal">the quiz · question F of 8 · just before bed 🌙</div>
+    <h1 class="title reveal">F · Do you eat just before bed? 🌙</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="col" style="flex:1.25;min-width:300px;gap:.5em">
+        <div class="qrow" data-q="F" data-v="1"><span class="qn">1</span><span class="qt">I always eat something just before I go to bed.</span></div>
+        <div class="qrow" data-q="F" data-v="2"><span class="qn">2</span><span class="qt">I often have something to eat just before I go to bed.</span></div>
+        <div class="qrow" data-q="F" data-v="3"><span class="qn">3</span><span class="qt">I rarely eat just before I go to bed.</span></div>
+        <div class="qrow" data-q="F" data-v="4"><span class="qn">4</span><span class="qt">I never eat just before I go to bed.</span></div>
+        <div class="center"><span class="mychip" id="chip-F">your answer: …</span></div>
+        <div class="center"><button class="trk-btn" data-audio="f">🎧 question F (0:31) — play it again!</button></div>
+      </div>
+      <div class="col" style="flex:1;min-width:260px;gap:.7em">
+        <div class="card" style="padding:.6em .8em;text-align:center">
+          <p style="font-size:clamp(2.4rem,4.5vw,3.6rem);line-height:1.2">🦉🍪🌙🛏️</p>
+          <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)" class="mt"><b>just before</b> = RIGHT before — ten minutes! Not an hour, not at dinner. 🕙</p>
+          <p class="hintline mt">the owl and the night cookie — a midnight snacker! 😄</p>
+        </div>
+        <div class="card cheese" style="padding:.6em 1em">
+          <p style="font-size:clamp(1rem,1.7vw,1.35rem)">🗣 <b>Talk:</b> what is YOUR midnight snack — cookies? an apple? nothing? 🍪🍎🚫</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- 14 · QUIZ G — the largest meal -->
+<section class="slide" id="r8g">
+    <div class="eyebrow reveal">the quiz · question G of 8 · the largest meal 🍽️</div>
+    <h1 class="title reveal">G · Is your largest meal in the evening? 🍽️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="col" style="flex:1.25;min-width:300px;gap:.5em">
+        <div class="qrow" data-q="G" data-v="1"><span class="qn">1</span><span class="qt">I always eat my largest meal in the evening.</span></div>
+        <div class="qrow" data-q="G" data-v="2"><span class="qn">2</span><span class="qt">I frequently eat my largest meal in the evening.</span></div>
+        <div class="qrow" data-q="G" data-v="3"><span class="qn">3</span><span class="qt">I rarely eat my largest meal in the evening.</span></div>
+        <div class="qrow" data-q="G" data-v="4"><span class="qn">4</span><span class="qt">I never eat my largest meal in the evening.</span></div>
+        <div class="center"><span class="mychip" id="chip-G">your answer: …</span></div>
+        <div class="center"><button class="trk-btn" data-audio="g">🎧 question G (0:30) — play it again!</button></div>
+      </div>
+      <div class="col" style="flex:1;min-width:260px;gap:.7em">
+        <div class="card" style="padding:.6em .8em;text-align:center">
+          <p class="hintline">largest = BIGGEST — which plate is it? 🤔</p>
+          <div class="row mt" style="justify-content:center;gap:1.2em">
+            <div class="card sky" style="flex:1;min-width:110px;padding:.5em .6em"><p style="font-size:clamp(1.8rem,3.2vw,2.6rem)">🥗</p><p style="font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(.95rem,1.6vw,1.25rem)">LUNCH<br><span class="hintline">1 p.m.</span></p></div>
+            <div class="card stampc" style="flex:1;min-width:110px;padding:.5em .6em"><p style="font-size:clamp(1.8rem,3.2vw,2.6rem)">🍲🍲🍲</p><p style="font-family:'Fredoka';font-weight:600;color:var(--stamp);font-size:clamp(.95rem,1.6vw,1.25rem)">DINNER<br><span class="hintline">7 p.m.</span></p></div>
+          </div>
+          <p class="hintline mt">here the largest meal is DINNER — in the EVENING!</p>
+        </div>
+        <div class="card cheese" style="padding:.6em 1em">
+          <p style="font-size:clamp(1rem,1.7vw,1.35rem)">🗣 <b>Talk:</b> in YOUR family — when is the BIG meal: lunch or dinner?</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- 15 · QUIZ H — brown or white (the click-food) -->
+<section class="slide" id="r8h">
+    <div class="eyebrow reveal">the quiz · question H of 8 · brown or white? 🍚</div>
+    <h1 class="title reveal">H · Brown rice or white rice? 🍚🍞</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card sky reveal" style="max-width:1000px;margin:0 auto .6em;width:100%;padding:.6em 1em">
+      <p style="font-size:clamp(1.1rem,1.9vw,1.5rem)">How often do you eat brown rice or wheat bread <b>INSTEAD OF</b> white rice or white bread?</p>
+      <p class="hintline mt">📸 <b>A NEW WORD:</b> <b>instead of</b> = in place of — juice 🧃 <b>instead of</b> cola 🥤! · say it in Russian — then click: <span class="gap" style="min-width:5em">вместо</span></p>
+    </div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="col" style="flex:1.25;min-width:300px;gap:.5em">
+        <div class="card" style="padding:.7em 1em">
+          <p style="font-size:clamp(1.05rem,1.75vw,1.4rem)">I eat <span class="cfill" data-want="BROWN RICE">…</span> and <span class="cfill" data-want="WHEAT BREAD">…</span> instead of white rice and white bread.</p>
+          <p class="hintline" style="margin:.3em 0">the two healthy twins are NOT written — click the right photos! 👇 (the white ones shake!)</p>
+        </div>
+        <div class="qrow" data-q="H" data-v="1"><span class="qn">1</span><span class="qt">I never eat brown rice or wheat bread.</span></div>
+        <div class="qrow" data-q="H" data-v="2"><span class="qn">2</span><span class="qt">I sometimes eat brown rice or wheat bread.</span></div>
+        <div class="qrow" data-q="H" data-v="3"><span class="qn">3</span><span class="qt">I usually eat brown rice or wheat bread.</span></div>
+        <div class="qrow" data-q="H" data-v="4"><span class="qn">4</span><span class="qt">I eat brown rice or wheat bread all the time.</span></div>
+        <div class="center"><span class="mychip" id="chip-H">your answer: …</span></div>
+        <div class="center"><button class="trk-btn" data-audio="h">🎧 question H (0:33) — play it again!</button></div>
+      </div>
+      <div class="col" style="flex:1;min-width:260px;gap:.7em">
+        <div class="card" style="padding:.6em .8em">
+          <h2 style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🍚 Click the healthy twins!</h2>
+          <div class="foodrow" style="margin:.4em 0 0">
+            <div class="foodclick" data-want="WHITE RICE"><img src="media/ch2-food-white-rice.jpg" alt="white rice"><div class="fcw">white rice</div></div>
+            <div class="foodclick" data-want="BROWN RICE"><img src="media/ch2-food-brown-rice.jpg" alt="brown rice"><div class="fcw">brown rice</div></div>
+            <div class="foodclick" data-want="WHITE BREAD"><img src="media/ch2-food-white-bread.jpg" alt="white bread"><div class="fcw">white bread</div></div>
+            <div class="foodclick" data-want="WHEAT BREAD"><img src="media/ch2-food-wheat-bread.jpg" alt="wheat bread"><div class="fcw">wheat bread</div></div>
+          </div>
+          <p class="hintline center" style="margin-top:.4em">brown rice + wheat bread land IN the sentence · the white twins just shake</p>
+        </div>
+        <div class="card cheese" style="padding:.6em 1em">
+          <p style="font-size:clamp(1rem,1.7vw,1.35rem)">📘 <b>all the time</b> = <b>always</b> — the quiz's last scale word!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- 16 · the score -->
 <section class="slide" id="r9">
     <div class="eyebrow reveal">the quiz · your score · book p. 9</div>
     <h1 class="title reveal">Your score 🧮</h1>
     <div class="accent-line reveal"></div>
-    <div class="card reveal center" style="max-width:860px;margin:0 auto;width:100%;padding:.9em 1.2em">
-      <p style="font-size:clamp(1.1rem,1.9vw,1.5rem)">Add your eight numbers → type the <b>TOTAL</b>:</p>
-      <div class="row mt" style="justify-content:center;gap:1em">
-        <input class="score-in" id="score-in" inputmode="numeric" placeholder="8–32">
-        <button class="gift-btn" id="score-btn" style="font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1.4em">my verdict!</button>
+    <div class="card stampc reveal" style="max-width:960px;margin:0 auto .6em;width:100%;padding:.5em 1.1em">
+      <p class="center" style="font-size:clamp(1rem,1.7vw,1.35rem)">Look at the numbers you circled and <b>ADD THEM TOGETHER</b>. The total is your score! <span class="hintline">(for each question, the number 4 is the healthiest answer)</span></p>
+    </div>
+    <div class="card reveal" style="max-width:960px;margin:.6em auto;width:100%;padding:.7em 1em">
+      <p class="hintline center" style="margin-bottom:.4em">your eight answers — in order A → H (the deck remembers your taps!):</p>
+      <div class="scorechips" id="score-chips">
+        <span class="schip" data-chip="A">A</span><span class="schip" data-chip="B">B</span><span class="schip" data-chip="C">C</span><span class="schip" data-chip="D">D</span><span class="schip" data-chip="E">E</span><span class="schip" data-chip="F">F</span><span class="schip" data-chip="G">G</span><span class="schip" data-chip="H">H</span>
       </div>
+      <p class="center mt" style="font-size:clamp(1.1rem,1.9vw,1.5rem)">Add them — my total is
+        <input class="score-in" id="score-in" inputmode="numeric" placeholder="8–32">
+        <button class="gift-btn" id="score-btn" style="font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1.4em">my verdict!</button></p>
       <div class="verdict mt" id="verdict-out"></div>
       <div class="card stampc mt" id="verdict-card" style="display:none;padding:.7em 1.1em">
         <p id="verdict-text" style="font-size:clamp(1.05rem,1.8vw,1.45rem);line-height:1.5"></p>
       </div>
-      <p class="hintline mt">(for each question, the number 4 is the healthiest answer)</p>
+      <p class="hintline center mt" id="score-hint"></p>
     </div>
-    <div class="card reveal mt" style="max-width:860px;margin:1em auto 0;width:100%;padding:.6em 1em">
+    <div class="secret" id="meter-wrap">
+      <div class="meter mt" id="meter">
+        <div class="mseg m1" data-lo="8" data-hi="13">8–13<small>"Oh no!"</small></div>
+        <div class="mseg m2" data-lo="14" data-hi="19">14–19<small>"Oops!"</small></div>
+        <div class="mseg m3" data-lo="20" data-hi="25">20–25<small>"Not bad"</small></div>
+        <div class="mseg m4" data-lo="26" data-hi="31">26–31<small>"Good job!"</small></div>
+        <div class="mseg m5" data-lo="32" data-hi="32">32<small>"Perfect!"</small></div>
+      </div>
+      <p class="hintline center">the score ladder — 8 points is the lowest (all 1s), 32 is the top (all 4s)</p>
+    </div>
+    <div class="card reveal mt" style="max-width:960px;margin:.6em auto 0;width:100%;padding:.6em 1em">
       <p class="hintline" style="margin-bottom:.25em">the quiz's three little words — tap! 👇</p>
       <span class="gloss"><span class="gw">snack on</span><span class="gv">= to eat between meals</span></span>
       <span class="gloss"><span class="gw">skip a meal</span><span class="gv">= to not eat a meal</span></span>
@@ -441,12 +786,39 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     </div>
   </section>
 
-<!-- 10 · healthy do / don't -->
+<!-- 17 · the reading — the whole quiz -->
 <section class="slide" id="r10">
+    <div class="eyebrow reveal">the reading · book p. 9 · 440 words</div>
+    <h1 class="title reveal">The reading 📖</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card cheese reveal" style="max-width:1020px;margin:0 auto .6em;width:100%;padding:.5em 1.1em">
+      <div class="center"><button class="trk-btn" data-audio="full">🎧 listen to the text</button> <button class="reset-btn" id="fsstory-btn" style="margin-left:.6em">⛶ the whole text — big!</button> <span class="hintline" style="margin-left:.6em">you played it — now READ it!</span></div>
+    </div>
+    <div class="card reveal read-text" style="max-width:1020px;margin:0 auto;width:100%;max-height:50vh;overflow:auto">
+      <p style="font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1.2rem,2.1vw,1.7rem)">Are You a Healthy Eater?</p>
+      <p class="mt">How well do you eat? To find out, read each question below and circle the number of your answer. Be honest. Answer the way you really eat, not the way you think you should eat.</p>
+      <p class="mt"><b>A.</b> How often do you eat breakfast? &nbsp; 1 I never eat breakfast. · 2 I have breakfast once or twice a week. · 3 I eat breakfast 3–6 times a week. · 4 I eat breakfast every morning.</p>
+      <p class="mt"><b>B.</b> How often do you snack on fresh fruits and vegetables? &nbsp; 1 I never snack… · 2 …once in a while. · 3 …once a day. · 4 …more than once a day.</p>
+      <p class="mt"><b>C.</b> Do you eat junk food? &nbsp; 1 Yes, I often… · 2 Yes, I sometimes… · 3 No, I hardly ever… · 4 No, I never eat junk food.</p>
+      <p class="mt"><b>D.</b> Do you eat quickly? &nbsp; 1 Yes, I always… · 2 Yes, I eat quickly 90 percent of the time. · 3 Yes, I sometimes… · 4 No, I usually eat slowly.</p>
+      <p class="mt"><b>E.</b> How often do you skip meals? &nbsp; 1 I frequently… · 2 …about 3 times a week. · 3 I rarely… · 4 I never skip meals.</p>
+      <p class="mt"><b>F.</b> How often do you eat something just before you go to bed? &nbsp; 1 I always… · 2 I often… · 3 I rarely… · 4 I never eat just before I go to bed.</p>
+      <p class="mt"><b>G.</b> How often do you eat your largest meal in the evening? &nbsp; 1 I always… · 2 I frequently… · 3 I rarely… · 4 I never eat my largest meal in the evening.</p>
+      <p class="mt"><b>H.</b> How often do you eat brown rice or wheat bread instead of white rice or white bread? &nbsp; 1 I never… · 2 I sometimes… · 3 I usually… · 4 I eat brown rice or wheat bread all the time.</p>
+      <p class="mt"><b>Your score:</b> Look at the numbers you circled and add them together. The total is your score. (For each question on this quiz, the number 4 is the healthiest answer.)</p>
+      <p class="mt"><b>32</b> — Congratulations! You have a perfect score. You are a healthy eater. · <b>26–31</b> — Good job! You eat very well. · <b>20–25</b> — Not bad, but you could eat better. · <b>14–19</b> — Oops! You aren't a healthy eater. Remember, fruits and vegetables are really good for you. Junk food isn't. · <b>8–13</b> — Oh no! You need to change the way you eat. Can you do it?</p>
+    </div>
+    <div class="row reveal" style="justify-content:center;gap:1em;margin-top:.7em">
+      <div class="card stampc" style="padding:.55em 1.1em;font-size:clamp(1rem,1.6vw,1.3rem)">⏱️ <b>Time your reading!</b> This passage has <b>440 words</b>. My time: <span class="cslot">…</span> · My WPM: <span class="cslot" style="min-width:3.2em">…</span></div>
+    </div>
+  </section>
+
+<!-- 18 · healthy do / don't -->
+<section class="slide" id="r11">
     <div class="eyebrow reveal">understanding the text · taking notes · book p. 10</div>
     <h1 class="title reveal">Healthy eaters… 🥗</h1>
     <div class="accent-line reveal"></div>
-    <p class="task reveal">Read the quiz again — what do healthy eaters DO? Fill the chart!</p>
+    <p class="task reveal">Read the quiz again — what do healthy eaters DO? Fill the chart! <button class="reset-btn" id="fsstory2-btn" style="margin-left:.4em">📖 look at the quiz</button></p>
     <table class="chart reveal mt">
       <tr><th>Healthy eaters… ✅</th><th>Healthy eaters don't… ❌</th></tr>
       <tr class="ex"><td>eat breakfast every day</td><td>eat junk food</td></tr>
@@ -455,11 +827,10 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       <tr><td><span class="gap" style="min-width:14em">eat brown rice or wheat bread</span></td><td><span class="gap" style="min-width:16em">eat just before they go to bed</span></td></tr>
       <tr><td><span class="gap" style="min-width:16em">never eat their largest meal in the evening</span></td><td><span class="gap" style="min-width:8em">…</span></td></tr>
     </table>
-    <div class="center reveal mt"><button class="reset-btn" id="fsstory2-btn" style="margin-left:.4em">📖 look at the quiz</button></div>
   </section>
 
-<!-- 11 · true or false -->
-<section class="slide" id="r11">
+<!-- 19 · true or false -->
+<section class="slide" id="r12">
     <div class="eyebrow reveal">understanding the text · comprehension · book p. 10</div>
     <h1 class="title reveal">True or false? ✅❌</h1>
     <div class="accent-line reveal"></div>
@@ -476,8 +847,8 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     </div>
   </section>
 
-<!-- 12 · what do you think -->
-<section class="slide" id="r12">
+<!-- 20 · what do you think -->
+<section class="slide" id="r13">
     <div class="eyebrow reveal">understanding the text · what do you think? · book p. 10</div>
     <h1 class="title reveal">What do YOU think? 💭</h1>
     <div class="accent-line reveal"></div>
@@ -490,14 +861,14 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <p class="hintline reveal mt center">no keys here — these answers are YOURS 🗣 (full sentences!)</p>
   </section>
 
-<!-- 13 · vocabulary D -->
-<section class="slide" id="r13">
+<!-- 21 · vocabulary D -->
+<section class="slide" id="r14">
     <div class="eyebrow reveal">vocabulary · book p. 11</div>
     <h1 class="title reveal">Choose the word! 🧩</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
       <div class="bank"><span class="wb-chip">fresh</span><span class="wb-chip">healthy</span><span class="wb-chip">instead of</span><span class="wb-chip">meal</span><span class="wb-chip">total</span></div>
-      <div class="vp mt" style="font-size:clamp(1.05rem,1.75vw,1.4rem);line-height:2.1">
+      <div class="vp mt" style="line-height:2.1">
         1. I think I'm a <span class="gap">healthy</span> eater because I never skip breakfast. Every morning I have a bowl of cereal and some fresh fruit.<br>
         2. I usually eat my biggest <span class="gap">meal</span> in the middle of the day.<br>
         3. I try to snack on <span class="gap">fresh</span> fruit when I get hungry between meals.<br>
@@ -508,8 +879,8 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <p class="hintline reveal mt center">say the word first — then click the gap to check</p>
   </section>
 
-<!-- 14 · suffixes -ly -->
-<section class="slide" id="r14">
+<!-- 22 · suffixes -ly -->
+<section class="slide" id="r15">
     <div class="eyebrow reveal">vocabulary skill · understanding suffixes: -ly · book p. 11</div>
     <h1 class="title reveal">The -ly machine 🤖</h1>
     <div class="accent-line reveal"></div>
@@ -531,8 +902,8 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <p class="hintline reveal mt center">say the adverb first — then click to check!</p>
   </section>
 
-<!-- 15 · synonyms F -->
-<section class="slide" id="r15">
+<!-- 23 · synonyms F -->
+<section class="slide" id="r16">
     <div class="eyebrow reveal">vocabulary skill · using synonyms · book p. 11</div>
     <h1 class="title reveal">Say it differently! 🔁</h1>
     <div class="accent-line reveal"></div>
@@ -548,8 +919,8 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <p class="hintline reveal mt center">say the whole sentence aloud — then tap!</p>
   </section>
 
-<!-- 16 · words to remember -->
-<section class="slide" id="r16">
+<!-- 24 · words to remember -->
+<section class="slide" id="r17">
     <div class="eyebrow reveal">words to remember · book p. 12</div>
     <h1 class="title reveal">Words to remember 📚</h1>
     <div class="accent-line reveal"></div>
@@ -565,8 +936,105 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <p class="hintline reveal mt center">a word you don't know? Say it — it goes to your homework 📓</p>
   </section>
 
-<!-- 17 · write your own quiz -->
-<section class="slide" id="r17">
+<!-- 25 · hangman -->
+<section class="slide" id="s7">
+    <div class="eyebrow reveal">hangman · the chapter's words 🐭</div>
+    <h1 class="title reveal">Save the mouse! 🐭</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center mt"><span class="hud-chip" id="hang-count">word 1 / 4</span></div>
+    <div class="catline mt" id="catline"></div>
+    <div class="wordrow" id="wordrow"></div>
+    <p class="center hintline" id="hang-hint">guess the word!</p>
+    <div class="keys" id="keys"></div>
+    <div class="factcard secret" id="factcard"><span id="fact-text"></span></div>
+    <div class="center mt"><button class="gift-btn" id="hang-next" style="display:none;font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1.4em">next word →</button></div>
+  </section>
+
+<!-- 26 · clocks + treasure -->
+<section class="slide" id="s8">
+    <div class="eyebrow reveal">the clock game · a food day 🕒</div>
+    <h1 class="title reveal">Food-day clocks 🕒</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Tap the clock you hear!</p>
+    <div class="card cheese reveal" style="max-width:920px;margin:.8em auto 0;width:100%;padding:.5em 1.1em">
+      <p class="center" style="font-size:clamp(1rem,1.6vw,1.3rem)">⏰ <b>THE CLOCK FAMILY:</b> o'clock · half past · quarter past · <b>quarter to</b> (the minute hand on the NINE 🕘 = 15 minutes BEFORE)</p>
+      <p class="center hintline">today: the whole family, mixed — a food day from breakfast to the midnight snack!</p>
+    </div>
+    <div class="row reveal mt" style="justify-content:center"><span class="hud-chip" id="clock-count">round 1 / 6</span><button class="reset-btn" id="clock-reset">🔄 again</button></div>
+    <div class="roundlabel mt" id="round-label">…</div>
+    <div class="clockrow mt" id="clockrow"></div>
+    <div class="card stampc treasure reveal" style="padding:.8em 1.2em">
+      <div class="center" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.6vw,1.3rem);color:var(--stamp)">💎 THE TREASURE TASK</div>
+      <p class="sent" style="border-bottom:none;text-align:center">Anna took the quiz. She circled <b>4, 4, 4, 4</b> — and <b>2, 2, 2, 2</b>.<br>The best score of all is <b>32</b>.</p>
+      <p class="t-q center" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.2vw,1.75rem);color:var(--navy)">What is Anna's total? Which band is she in? 🤔</p>
+      <div class="center mt"><button class="show-btn" data-show="treasure-a" style="font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);border:none;border-radius:99px;padding:.35em 1.2em;cursor:pointer;background:var(--navy);color:#fff">the answer ▾</button></div>
+      <div class="secret" id="treasure-a"><p class="model-line mt center" style="font-size:clamp(1.05rem,1.8vw,1.45rem)">4+4+4+4 = <b>16</b> · 2+2+2+2 = <b>8</b> · 16+8 = <b>24 points!</b> · 24 lives in <b>20–25</b>: "Not bad, but you could eat better!" 📊</p></div>
+    </div>
+  </section>
+
+<!-- 27 · mime -->
+<section class="slide" id="s9">
+    <div class="eyebrow reveal">the mime game · food &amp; cooking 🎭</div>
+    <h1 class="title reveal">Mime it! 🎭</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">You mime — I say. Then swap! (the answer shows on the right)</p>
+    <div class="center mt"><button class="gift-btn" id="mime-deal" style="font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1.4em">🎬 deal 10!</button></div>
+    <div id="mime-grid" class="mt"></div>
+  </section>
+
+<!-- 28 · the silly game -->
+<section class="slide" id="s11">
+    <button id="help-btn" title="question words + their answers">?</button>
+    <div class="card sky" id="help-card">
+      <div class="hl"><span class="qw">Who?</span><span>a person</span></div>
+      <div class="hl"><span class="qw">What?</span><span>a thing</span></div>
+      <div class="hl"><span class="qw">Where?</span><span>a place</span></div>
+      <div class="hl"><span class="qw">When?</span><span>a time</span></div>
+      <div class="hl"><span class="qw">How many?</span><span>a number</span></div>
+    </div>
+    <div class="eyebrow reveal">the silly game · answers on the screen 🃏</div>
+    <h1 class="title reveal">The silly game 🃏</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center reveal"><button class="gift-btn" id="silly-deal" style="font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1.4em">🃏 deal the questions!</button></div>
+    <div class="card reveal mt" style="max-width:1020px;margin:.8em auto 0;width:100%;padding:.8em 1em">
+      <p class="center" style="font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1.05rem,1.7vw,1.4rem);margin-bottom:.4em">THE ANSWERS 👀</p>
+      <div id="silly-board"></div>
+    </div>
+    <div id="qlist" class="mt"></div>
+    <p class="hintline reveal center">the questions hide until you deal — then read them, answer with THE chip on the screen! · tap the questions to clear</p>
+  </section>
+
+<!-- 29 · rank the foods -->
+<section class="slide" id="r16b">
+    <div class="eyebrow reveal">discussion · the foods on trial 🏆</div>
+    <h1 class="title reveal">The healthiest of them all! 🏆</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Put the eight foods in YOUR order: 1 = the healthiest … 8 = the least healthy!</p>
+    <div class="rankbank reveal">
+      <button class="rpick" data-s="fresh vegetables"><img src="media/ch2-food-fresh-vegetables.jpg" alt=""><span class="rw">fresh vegetables</span></button>
+      <button class="rpick" data-s="fresh fruit"><img src="media/ch2-food-fresh-fruit.jpg" alt=""><span class="rw">fresh fruit</span></button>
+      <button class="rpick" data-s="brown rice"><img src="media/ch2-food-brown-rice.jpg" alt=""><span class="rw">brown rice</span></button>
+      <button class="rpick" data-s="wheat bread"><img src="media/ch2-food-wheat-bread.jpg" alt=""><span class="rw">wheat bread</span></button>
+      <button class="rpick" data-s="white rice"><img src="media/ch2-food-white-rice.jpg" alt=""><span class="rw">white rice</span></button>
+      <button class="rpick" data-s="white bread"><img src="media/ch2-food-white-bread.jpg" alt=""><span class="rw">white bread</span></button>
+      <button class="rpick" data-s="fried food"><img src="media/ch2-food-fried-food.jpg" alt=""><span class="rw">fried food</span></button>
+      <button class="rpick" data-s="junk food"><img src="media/ch2-food-junk-food.jpg" alt=""><span class="rw">junk food</span></button>
+    </div>
+    <div class="col reveal" style="max-width:560px;margin:0 auto;width:100%">
+      <div class="rankrow rslot" data-n="1"><span class="rn">1</span><span class="rs-fill">…</span></div>
+      <div class="rankrow rslot" data-n="2"><span class="rn">2</span><span class="rs-fill">…</span></div>
+      <div class="rankrow rslot" data-n="3"><span class="rn">3</span><span class="rs-fill">…</span></div>
+      <div class="rankrow rslot" data-n="4"><span class="rn">4</span><span class="rs-fill">…</span></div>
+      <div class="rankrow rslot" data-n="5"><span class="rn">5</span><span class="rs-fill">…</span></div>
+      <div class="rankrow rslot" data-n="6"><span class="rn">6</span><span class="rs-fill">…</span></div>
+      <div class="rankrow rslot" data-n="7"><span class="rn">7</span><span class="rs-fill">…</span></div>
+      <div class="rankrow rslot" data-n="8"><span class="rn">8</span><span class="rs-fill">…</span></div>
+    </div>
+    <p class="mt center" style="font-size:clamp(.95rem,1.5vw,1.25rem)">🗣 Then say it: <i>"Number one is … because …"</i></p>
+  </section>
+
+<!-- 30 · write your own quiz -->
+<section class="slide" id="r18">
     <div class="eyebrow reveal">discussion &amp; writing · book p. 12</div>
     <h1 class="title reveal">Write YOUR own quiz! ✍️🎯</h1>
     <div class="accent-line reveal"></div>
@@ -600,8 +1068,8 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     </div>
   </section>
 
-<!-- 18 · homework -->
-<section class="slide" id="r18">
+<!-- 31 · homework -->
+<section class="slide" id="r19">
     <div class="eyebrow reveal">homework · web search · book p. 12</div>
     <h1 class="title reveal">Your homework 🏡</h1>
     <div class="accent-line reveal"></div>
@@ -610,16 +1078,16 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       <div class="hw-step"><span class="n">2</span><div><span class="en">📚 THE WORDS WE DIDN'T TICK</span> → your dictionary — the translation or one example, your choice!</div></div>
       <div class="hw-step"><span class="n">3</span><div style="flex:1"><span class="en">🕵️ WEB SEARCH — a mini-research!</span> Choose ONE: a healthy breakfast 🍳 · junk food snacks 🍩 · a healthy eating quiz 🎯 — find <b>three interesting facts</b> and bring them: you are the teacher! 🎓</div></div>
     </div>
-    <p class="hintline reveal mt center">the words live on slide 16 (Words to remember)</p>
+    <p class="hintline reveal mt center">the words live on slide 24 (Words to remember)</p>
   </section>
 
-<!-- 19 · goodbye -->
-<section class="slide" id="r19">
+<!-- 32 · goodbye -->
+<section class="slide" id="r20">
     <div class="eyebrow reveal">the end of chapter 2</div>
     <h1 class="title reveal" style="font-size:clamp(2.2rem,5vw,4.2rem)">The greatest wealth is health! ❤️</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal center" style="max-width:820px;margin:0 auto;width:100%;padding:1.2em 1.6em">
-      <p style="font-size:clamp(1.3rem,2.3vw,1.9rem);line-height:1.6">You played a whole quiz today — and you know your score. 🎯<br>And the old proverb says:</p>
+      <p style="font-size:clamp(1.25rem,2.2vw,1.85rem);line-height:1.6">You played a whole quiz today — and you know your score. 🎯<br>And the old proverb says:</p>
       <p class="mt" style="font-family:'Fredoka';font-weight:700;font-size:clamp(1.4rem,2.6vw,2.1rem);color:var(--navy)">«An apple a day keeps the doctor away!» 🍎</p>
     </div>
     <div class="leg reveal mt center" style="display:flex;gap:.4em;justify-content:center;flex-wrap:wrap"><span class="wb-chip">never</span><span class="wb-chip">sometimes</span><span class="wb-chip">often</span><span class="wb-chip">usually</span><span class="wb-chip">always</span></div>
@@ -631,34 +1099,21 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <span class="tag">tap anywhere to close</span>
     <h2>Are You a Healthy Eater?</h2>
     <div class="frm">How well do you eat? To find out, read each question below and circle the number of your answer. Be honest. Answer the way you really eat, not the way you think you should eat.</div>
-    <div class="frm"><b>A. How often do you eat breakfast?</b> 1 I never eat breakfast. 2 I have breakfast once or twice a week. 3 I eat breakfast 3–6 times a week. 4 I eat breakfast every morning.</div>
-    <div class="frm"><b>B. How often do you snack on fresh fruits and vegetables?</b> 1 I never snack on fresh fruits and vegetables. 2 I snack on fresh fruits and vegetables once in a while. 3 I snack on fresh fruits and vegetables once a day. 4 I snack on fresh fruits and vegetables more than once a day.</div>
-    <div class="frm"><b>C. Do you eat junk food?</b> 1 Yes, I often eat junk food. 2 Yes, I sometimes eat junk food. 3 No, I hardly ever eat junk food. 4 No, I never eat junk food.</div>
-    <div class="frm"><b>D. Do you eat quickly?</b> 1 Yes, I always eat quickly. 2 Yes, I eat quickly 90 percent of the time. 3 Yes, I sometimes eat quickly. 4 No, I usually eat slowly.</div>
-    <div class="frm"><b>E. How often do you skip meals?</b> 1 I frequently skip meals. 2 I skip meals about 3 times a week. 3 I rarely skip a meal. 4 I never skip meals.</div>
-    <div class="frm"><b>F. How often do you eat something just before you go to bed?</b> 1 I always eat something just before I go to bed. 2 I often have something to eat just before I go to bed. 3 I rarely eat just before I go to bed. 4 I never eat just before I go to bed.</div>
-    <div class="frm"><b>G. How often do you eat your largest meal in the evening?</b> 1 I always eat my largest meal in the evening. 2 I frequently eat my largest meal in the evening. 3 I rarely eat my largest meal in the evening. 4 I never eat my largest meal in the evening.</div>
-    <div class="frm"><b>H. How often do you eat brown rice or wheat bread instead of white rice or white bread?</b> 1 I never eat brown rice or wheat bread. 2 I sometimes eat brown rice or wheat bread. 3 I usually eat brown rice or wheat bread. 4 I eat brown rice or wheat bread all the time.</div>
-    <div class="frm"><b>Your Score:</b> look at the numbers you circled and add them together. The total is your score. (For each question on this quiz, the number 4 is the healthiest answer.) 32 — Congratulations! You have a perfect score. You are a healthy eater. 26–31 — Good job! You eat very well. 20–25 — Not bad, but you could eat better. 14–19 — Oops! You aren't a healthy eater. Remember, fruits and vegetables are really good for you. Junk food isn't. 8–13 — Oh no! You need to change the way you eat. Can you do it?</div>
+    <div class="frm"><b>A.</b> How often do you eat breakfast? — 1 I never eat breakfast. 2 I have breakfast once or twice a week. 3 I eat breakfast 3–6 times a week. 4 I eat breakfast every morning.</div>
+    <div class="frm"><b>B.</b> How often do you snack on fresh fruits and vegetables? — 1 I never snack on fresh fruits and vegetables. 2 I snack on fresh fruits and vegetables once in a while. 3 I snack on fresh fruits and vegetables once a day. 4 I snack on fresh fruits and vegetables more than once a day.</div>
+    <div class="frm"><b>C.</b> Do you eat junk food? — 1 Yes, I often eat junk food. 2 Yes, I sometimes eat junk food. 3 No, I hardly ever eat junk food. 4 No, I never eat junk food.</div>
+    <div class="frm"><b>D.</b> Do you eat quickly? — 1 Yes, I always eat quickly. 2 Yes, I eat quickly 90 percent of the time. 3 Yes, I sometimes eat quickly. 4 No, I usually eat slowly.</div>
+    <div class="frm"><b>E.</b> How often do you skip meals? — 1 I frequently skip meals. 2 I skip meals about 3 times a week. 3 I rarely skip a meal. 4 I never skip meals.</div>
+    <div class="frm"><b>F.</b> How often do you eat something just before you go to bed? — 1 I always eat something just before I go to bed. 2 I often have something to eat just before I go to bed. 3 I rarely eat just before I go to bed. 4 I never eat just before I go to bed.</div>
+    <div class="frm"><b>G.</b> How often do you eat your largest meal in the evening? — 1 I always eat my largest meal in the evening. 2 I frequently eat my largest meal in the evening. 3 I rarely eat my largest meal in the evening. 4 I never eat my largest meal in the evening.</div>
+    <div class="frm"><b>H.</b> How often do you eat brown rice or wheat bread instead of white rice or white bread? — 1 I never eat brown rice or wheat bread. 2 I sometimes eat brown rice or wheat bread. 3 I usually eat brown rice or wheat bread. 4 I eat brown rice or wheat bread all the time.</div>
+    <div class="frm"><b>Your Score:</b> look at the numbers you circled and add them together. The total is your score. (For each question on this quiz, the number 4 is the healthiest answer.)<span class="ff">32 — Congratulations! You have a perfect score. You are a healthy eater. · 26–31 — Good job! You eat very well. · 20–25 — Not bad, but you could eat better. · 14–19 — Oops! You aren't a healthy eater. Remember, fruits and vegetables are really good for you. Junk food isn't. · 8–13 — Oh no! You need to change the way you eat. Can you do it?</span></div>
   </div>
 </div>
 
 </main>
 
-    <div class="hl"><span class="qw">❓</span><span>What does <b>___</b> mean?</span></div>
-    <div class="hl"><span class="qw">🆘</span><span>Can you help me?</span></div>
-    <div class="hl"><span class="qw">🔁</span><span>Can you repeat, please?</span></div>
-    <div class="hl"><span class="qw">🇬🇧</span><span>How do you say <b>___</b> in English?</span></div>
-    <div class="hl"><span class="qw">🤷</span><span>I don't understand.</span></div>
-  </div>
-
-<div id="abar">
-  <button id="ab-toggle" title="play / pause">⏸</button>
-  <span class="ab-name" id="ab-name">…</span>
-  <input type="range" id="ab-seek" min="0" max="100" step="0.1" value="0">
-  <span class="ab-time" id="ab-time">0:00</span>
-</div>
-
+<button id="annoBtn" title="lesson notes — tick + comments (N)">✍️</button>
 <button id="pqBtn" title="Pardon? — the class phrases (P)">🙋</button>
 
 <div id="pq">
@@ -667,14 +1122,55 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   <div class="pqRow"><span class="pqE">🙋</span>Pardon?</div>
   <div class="pqRow"><span class="pqE">❓</span>What does ___ mean?</div>
   <div class="pqRow"><span class="pqE">🆘</span>Can you help me?</div>
-  <div class="pqRow"><span class="pqE">🔁</span><span>Can you repeat, please?</span></div>
-  <div class="pqRow"><span class="pqE">🇬🇧</span><span>How do you say ___ in English?</span></div>
-  <div class="pqRow"><span class="pqE">🤷</span><span>I don't understand.</span></div>
+  <div class="pqRow"><span class="pqE">🔁</span>Can you repeat, please?</div>
+  <div class="pqRow"><span class="pqE">🇬🇧</span>How do you say ___ in English?</div>
+  <div class="pqRow"><span class="pqE">🤷</span>I don't understand.</div>
+</div>
+
+<div id="anno">
+  <div class="a-head">
+    <span id="annoSlide">slide 1</span><span class="a-sp"></span>
+    <button id="annoPrev" title="annotate the previous slide (the deck stays where it is)">‹</button>
+    <button id="annoNext" title="annotate the next slide (the deck stays where it is)">›</button>
+    <button id="annoTick" title="tick = this slide was done">✓ done</button>
+    <button id="annoX" title="close (Esc / N)">✕</button>
+  </div>
+  <div id="annoRows">
+    <div class="arow"><label>d:</label><input id="annoD" type="text" autocomplete="off" spellcheck="false"></div>
+    <div class="arow"><label>//:</label><input id="annoSL" type="text" autocomplete="off" spellcheck="false"></div>
+    <div class="arow free"><textarea id="annoF" rows="3" autocomplete="off" spellcheck="false" placeholder="anything else…"></textarea></div>
+    <div class="arow fix"><label>fix:</label><textarea id="annoFX" rows="3" autocomplete="off" spellcheck="false" placeholder="their sentences to fix…"></textarea></div>
+  </div>
+  <div class="a-foot">
+    <button id="annoCopy">📋 report</button>
+    <span class="a-hint" id="annoHint">saves in this browser · the pupil sees the screen while you type</span>
+    <span class="a-sp"></span>
+    <button id="annoDone" title="save and close (⌘S)">Done ⌘S</button>
+  </div>
+</div>
+
+<div id="annoRep">
+  <div class="a-rep-card">
+    <div class="a-head"><b>lesson report</b><span class="a-sp"></span><button id="annoRepClose">✕</button></div>
+    <textarea id="annoRepText" readonly></textarea>
+    <div class="a-foot">
+      <button id="annoRepCopy">copy</button>
+      <button id="annoRepClear" title="delete all ticks and comments">🧹 clear</button>
+      <span id="annoSent" style="margin-left:auto;font-size:.78rem;color:var(--ink-soft);font-style:italic"></span>
+    </div>
+  </div>
+</div>
+
+<div id="abar">
+  <button id="ab-toggle" title="play / pause">⏸</button>
+  <span class="ab-name" id="ab-name">…</span>
+  <input type="range" id="ab-seek" min="0" max="100" step="0.1" value="0">
+  <span class="ab-time" id="ab-time">0:00</span>
 </div>
 
 <div id="nav">
   <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
-  <div id="counter"><span class="now">1</span> / 19</div>
+  <div id="counter"><span class="now">1</span> / 32</div>
   <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
   <button id="fs-btn" title="Fullscreen (F)">⛶</button>
 </div>
@@ -699,19 +1195,33 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     prevBtn.disabled = current===0;
     nextBtn.disabled = current===total-1;
     try{sessionStorage.setItem('sr-elem-ch2-slide', current+1)}catch(e){}
+    if(slides[current].id==='r9') paintScoreChips();
   }
-  function go(n){ current = Math.max(0, Math.min(total-1, n)); render(); }
+  function go(n){ current = Math.max(0, Math.min(total-1, n)); render();
+    if(annoReady && annoPanel.classList.contains('on')){ annoIdx = current; annoFill(); }
+  }
   const next = ()=>go(current+1);
   const prev = ()=>go(current-1);
   nextBtn.addEventListener('click', next);
   prevBtn.addEventListener('click', prev);
   document.addEventListener('keydown', e=>{
+    /* ⌘S / Ctrl+S = save + close — ONLY while the notes window is open; it must
+       work WHILE TYPING in the d: rows, so it sits BEFORE the input guard */
+    if((e.metaKey||e.ctrlKey)&&(e.key==='s'||e.key==='S')&&annoReady&&annoPanel.classList.contains('on')){
+      e.preventDefault(); annoDoneClose(); return; }
     if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
-    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
     const scr = slides[current];
     const canScroll = scr.scrollHeight > scr.clientHeight + 2;
-    if(e.key==='Escape'){pqPanel.classList.remove('on');return}
-    if(e.key==='p'||e.key==='P'){pqToggle(!pqPanel.classList.contains('on'));return}
+    if(e.key==='Escape'){
+      if(annoRep.classList.contains('on')){annoRep.classList.remove('on');return}
+      if(annoPanel.classList.contains('on')){annoToggle(false);return}
+      pqPanel.classList.remove('on');return}
+    if(e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З'){pqToggle(!pqPanel.classList.contains('on'));return}
+    if(e.key==='n'||e.key==='N'||e.key==='т'||e.key==='Т'){
+      if(annoPanel.classList.contains('on'))annoDoneClose();
+      else annoToggle(true);
+      return}
     switch(e.key){
       case 'ArrowRight': e.preventDefault(); next(); break;
       case 'ArrowDown':
@@ -727,6 +1237,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       case 'Home': e.preventDefault(); go(0); break;
       case 'End': e.preventDefault(); go(total-1); break;
       case 'f': case 'F': case 'а': case 'А': toggleFs(); break;
+      case 'c': case 'C': case 'с': case 'С': annoToggle(true); break;
     }
   });
   let wheelLock = false;
@@ -754,11 +1265,10 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   fsBtn.addEventListener('click', toggleFs);
   function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
 
-  /* gaps */
+  /* gaps + yes/no + reveals */
   document.querySelectorAll('.gap').forEach(g=>{
     g.addEventListener('click', ()=> g.classList.toggle('filled'));
   });
-  /* the yn reveals */
   document.querySelectorAll('.yn[data-a]').forEach(yn=>{
     yn.addEventListener('click', ()=>{
       const a = yn.dataset.a;
@@ -767,7 +1277,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       yn.querySelector('.badge').textContent = a==='yes' ? '✓' : '✗';
     });
   });
-  /* the synonyms picks */
+  /* the synonyms picks (say aloud first, then lock) */
   document.querySelectorAll('.pick').forEach(p=>{
     p.addEventListener('click',()=>{ p.classList.add('good'); });
   });
@@ -778,81 +1288,63 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       if(c){ c.classList.add('show'); b.style.display='none'; }
     });
   });
-  /* the quiz: tap YOUR answer — one per question, switchable */
-  document.querySelectorAll('.qans').forEach(q=>{
-    q.addEventListener('click',()=>{
-      q.parentElement.querySelectorAll('.qans').forEach(x=>x.classList.remove('sel'));
-      q.classList.add('sel');
+  /* the food cards · tap → the word appears */
+  document.querySelectorAll('.subj').forEach(s=>{
+    s.addEventListener('click',()=>{
+      s.classList.toggle('on');
+      const w=s.querySelector('.sw');
+      if(s.classList.contains('on')) w.textContent=s.dataset.w;
+    });
+  });
+  /* the food scale — tap a step → it lights up */
+  document.querySelectorAll('#r4 .step').forEach(st=>{
+    st.addEventListener('click',()=>{
+      document.querySelectorAll('#r4 .step').forEach(q=>q.classList.remove('lit'));
+      st.classList.add('lit');
     });
   });
   /* the glosses */
   document.querySelectorAll('.gloss').forEach(gl=>{
     gl.addEventListener('click',()=>gl.classList.add('on'));
   });
-  /* the words shelf ticks */
-  document.querySelectorAll('#tickrow .wb-chip, .pos-h ~ div .wb-chip').forEach(ch=>{
-    ch.style.cursor='pointer';
-    ch.addEventListener('click',()=>ch.classList.toggle('tick-on'));
-  });
-
-  /* ===== the chapter audio (5:15) ===== */
-  window.currentTrkAudio=null; let currentTrkBtn=null;
-  const AUDIO_URL='media/sr-elem-ch02.mp3';
-  function trkReset(b){ b.classList.remove('playing'); b.textContent=b.dataset.label; }
-  const abar=document.getElementById('abar'),abToggle=document.getElementById('ab-toggle'),
-        abSeek=document.getElementById('ab-seek'),abName=document.getElementById('ab-name'),
-        abTime=document.getElementById('ab-time');
-  const fmt=s=>isFinite(s)?Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'):'0:00';
-  function abBind(a,name){
-    abName.textContent=name; abar.classList.add('on');
-    abSeek.value=0; abTime.textContent='0:00'; abToggle.textContent='⏸';
-    abSeek.oninput=()=>{ if(isFinite(a.duration)) a.currentTime=abSeek.value/100*a.duration; };
-    abToggle.onclick=()=>{ a.paused ? a.play().catch(()=>{}) : a.pause(); };
-    a.ontimeupdate=()=>{ if(!isFinite(a.duration))return;
-      if(document.activeElement!==abSeek) abSeek.value=a.currentTime/a.duration*100;
-      abTime.textContent=fmt(a.currentTime)+' / '+fmt(a.duration); };
-    a.onplay=()=>abToggle.textContent='⏸';
-    a.onpause=()=>abToggle.textContent='▶';
-    a.onended=()=>{ abToggle.textContent='▶'; abSeek.value=100; };
-  }
-  document.querySelectorAll('.trk-btn').forEach(b=>{
-    b.dataset.label=b.textContent;
-    b.addEventListener('click',()=>{
-      if(currentTrkBtn===b && window.currentTrkAudio && !window.currentTrkAudio.paused){
-        window.currentTrkAudio.pause(); trkReset(b); return;
-      }
-      if(window.currentTrkAudio){ window.currentTrkAudio.pause(); }
-      if(currentTrkBtn && currentTrkBtn!==b){ trkReset(currentTrkBtn); }
-      const a=new Audio(AUDIO_URL);
-      a.style.display='none'; document.body.appendChild(a);
-      window.currentTrkAudio=a; currentTrkBtn=b;
-      b.classList.add('playing'); b.textContent='⏸ '+b.dataset.label.replace('🎧 ','');
-      a.addEventListener('ended',()=>{ if(currentTrkBtn===b) trkReset(b); });
-      abBind(a,b.dataset.label.replace('🎧 ','').replace('⏸ ',''));
-      a.play().catch(()=>{});
+  /* the write-your-own quiz: tap an answer (the example shape, no grading) */
+  document.querySelectorAll('.qans').forEach(q=>{
+    q.addEventListener('click',()=>{
+      q.parentElement.querySelectorAll('.qans').forEach(x=>x.classList.remove('sel'));
+      q.classList.add('sel');
     });
   });
 
-  /* teacher's notes toggles */
-  document.querySelectorAll('.tn-btn').forEach(b=>{
-    b.addEventListener('click',()=>{
-      const c=document.getElementById(b.dataset.tn);
-      c.classList.toggle('show');
-      b.textContent=c.classList.contains('show') ? '🗒 hide the notes' : '🗒 teacher\u0027s notes';
+  /* ===== ch2 · the QUIZ picks — tap YOUR answer (the number records) ===== */
+  const QUIZ={};
+  document.querySelectorAll('.qrow[data-q]').forEach(row=>{
+    row.addEventListener('click',()=>{
+      const q=row.dataset.q;
+      document.querySelectorAll('.qrow[data-q="'+q+'"]').forEach(r=>r.classList.remove('sel'));
+      row.classList.add('sel');
+      QUIZ[q]=parseInt(row.dataset.v,10);
+      const chip=document.getElementById('chip-'+q);
+      if(chip) chip.textContent='your answer: '+row.dataset.v;
     });
   });
 
-  /* ===== slide 3–4 · the food scale + the game ===== */
+  /* ===== ch2 · the food scale game (the photos + the landing rows) ===== */
   const STEPS=[
     {w:'never',      filled:0, frame:'I never eat ___'},
-    {w:'sometimes',  filled:2, frame:'I sometimes eat ___'},
+    {w:'sometimes',  filled:2, frame:'I eat ___ once in a while'},
     {w:'often',      filled:4, frame:'I often eat ___'},
     {w:'usually',    filled:6, frame:'I usually eat ___'},
     {w:'always',     filled:7, frame:'I eat ___ every day'}
   ];
   const FOODS=[
-    {e:'🍚', n:'white rice'}, {e:'🍓', n:'fresh fruit'}, {e:'🍩', n:'junk food'}, {e:'🍞', n:'white bread'},
-    {e:'🍙', n:'brown rice'}, {e:'🥕', n:'fresh vegetables'}, {e:'🍗', n:'fried food'}, {e:'🥖', n:'wheat bread'}
+    {img:'media/ch2-food-white-rice.jpg', n:'white rice'},
+    {img:'media/ch2-food-fresh-fruit.jpg', n:'fresh fruit'},
+    {img:'media/ch2-food-junk-food.jpg', n:'junk food'},
+    {img:'media/ch2-food-white-bread.jpg', n:'white bread'},
+    {img:'media/ch2-food-brown-rice.jpg', n:'brown rice'},
+    {img:'media/ch2-food-fresh-vegetables.jpg', n:'fresh vegetables'},
+    {img:'media/ch2-food-fried-food.jpg', n:'fried food'},
+    {img:'media/ch2-food-wheat-bread.jpg', n:'wheat bread'}
   ];
   const bank=document.getElementById('foodbank');
   const rows=document.getElementById('foodrows');
@@ -878,14 +1370,17 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
         const fc=Array.from(bank.children).find(b=>b.dataset.n===selected);
         fc.classList.add('used');
         row.classList.add('filled'); row.dataset.food=selected;
-        row.querySelector('.lsent').textContent=s.frame.replace('___', selected);
+        row.querySelector('.lsent').textContent=s.frame.replace('___', selected)+'.';
         selected=null;
       });
       rows.appendChild(row);
     });
     FOODS.forEach(f=>{
       const c=document.createElement('button');
-      c.className='fcard'; c.dataset.n=f.n; c.textContent=f.e+' '+f.n;
+      c.className='fcard'; c.dataset.n=f.n;
+      const im=document.createElement('img'); im.src=f.img; im.alt='';
+      c.appendChild(im);
+      c.appendChild(document.createTextNode(' '+f.n));
       c.addEventListener('click',()=>{
         bank.querySelectorAll('.fcard').forEach(x=>x.classList.remove('sel'));
         c.classList.add('sel'); selected=f.n;
@@ -894,15 +1389,64 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     });
   }
 
-  /* ===== slide 9 · the score ===== */
+  /* ===== ch2 · the click-food (question H) ===== */
+  document.querySelectorAll('#r8h .foodclick').forEach(fc=>{
+    fc.addEventListener('click',()=>{
+      const want=fc.dataset.want;
+      const scope=fc.closest('.slide');
+      const slot=scope.querySelector('.cfill[data-want="'+want+'"]');
+      if(slot){
+        slot.textContent=want.toLowerCase();
+        slot.classList.add('on');
+        fc.classList.add('hit');
+      } else {
+        fc.classList.remove('shake'); void fc.offsetWidth; fc.classList.add('shake');
+      }
+    });
+  });
+
+  /* ===== ch2 · the 90-percent plates light up with the right answer ===== */
+  const d90=document.querySelector('#r8d .tin[data-ok="90"]');
+  if(d90){
+    d90.addEventListener('keydown',e=>{
+      if(e.key!=='Enter') return;
+      const v=d90.value.replace(/\s|,/g,'.').replace('%','');
+      if(v==='90'){ d90.classList.add('good'); d90.classList.remove('bad');
+        document.querySelectorAll('#plates90 .plate').forEach(p=>p.classList.add('full'));
+      } else { d90.classList.remove('good'); d90.classList.add('shake'); setTimeout(()=>d90.classList.remove('shake'),500); }
+    });
+  }
+
+  /* ===== ch2 · YOUR SCORE — the adding + the verdict ===== */
+  function paintScoreChips(){
+    document.querySelectorAll('#score-chips .schip').forEach(ch=>{
+      const v=QUIZ[ch.dataset.chip];
+      if(v){ ch.textContent=v; ch.classList.add('got'); }
+      else { ch.textContent=ch.dataset.chip; ch.classList.remove('got'); }
+    });
+  }
   const scoreIn=document.getElementById('score-in'), scoreBtn=document.getElementById('score-btn');
   if(scoreIn && scoreBtn){
     scoreBtn.addEventListener('click',()=>{
-      const v=parseInt((scoreIn.value||'').trim(),10);
+      const hint=document.getElementById('score-hint');
       const card=document.getElementById('verdict-card'), txt=document.getElementById('verdict-text');
-      card.style.display='block';
+      let missing=[]; let sum=0;
+      ['A','B','C','D','E','F','G','H'].forEach(q=>{ if(QUIZ[q]) sum+=QUIZ[q]; else missing.push(q); });
+      const v=parseInt((scoreIn.value||'').trim(),10);
+      if(!isNaN(v) && missing.length===8){
+        /* the class answered aloud (no taps) — the deck trusts a sane total */
+      } else if(missing.length){
+        hint.textContent='answer question'+(missing.length>1?'s':'')+' '+missing.join(', ')+' first — then add!';
+        paintScoreChips(); return;
+      } else if(v!==sum){
+        hint.textContent='add the eight numbers again — one of them slipped! 🧮 (your taps sum to '+sum+')';
+        scoreIn.classList.add('shake'); setTimeout(()=>scoreIn.classList.remove('shake'),500);
+        return;
+      }
       if(isNaN(v)||v<8||v>32){
+        card.style.display='block';
         txt.innerHTML='🤔 Type your total — the quiz gives <b>8 to 32</b> points (8 answers × 1–4 points).';
+        hint.textContent='';
         return;
       }
       let band;
@@ -912,15 +1456,383 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
       else if(v>=14) band='😅 <b>Oops! You aren\u0027t a healthy eater.</b> Remember, fruits and vegetables are really good for you. Junk food isn\u0027t.';
       else band='😱 <b>Oh no! You need to change the way you eat.</b> Can you do it?';
       txt.innerHTML='<span class="verdict">'+v+' points →</span><br>'+band;
+      card.style.display='block';
+      hint.textContent='the ladder lights YOUR band! 🎯';
+      document.getElementById('meter-wrap').classList.add('show');
+      document.querySelectorAll('#meter .mseg').forEach(m=>{
+        m.classList.toggle('hit', v>=parseInt(m.dataset.lo,10) && v<=parseInt(m.dataset.hi,10));
+      });
     });
     scoreIn.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); scoreBtn.click(); } });
   }
 
-  /* the ⛶ fullscreen quiz */
+  /* ===== the chapter audio — the full track + the ten cuts.
+     Space pauses the track, not the slide; the slide change pauses the audio. ===== */
+  window.currentTrkAudio=null; let currentTrkBtn=null;
+  const AUDIO_URL='media/sr_elem_ch02.mp3';
+  const CUTS={
+    intro:'media/ch2-intro.m4a',
+    a:'media/ch2-a-breakfast.m4a',
+    b:'media/ch2-b-snack.m4a',
+    c:'media/ch2-c-junk.m4a',
+    d:'media/ch2-d-quickly.m4a',
+    e:'media/ch2-e-skip.m4a',
+    f:'media/ch2-f-bed.m4a',
+    g:'media/ch2-g-largest.m4a',
+    h:'media/ch2-h-brown.m4a',
+    score:'media/ch2-score.m4a'
+  };
+  function trkReset(b){ b.classList.remove('playing'); b.textContent=b.dataset.label; }
+  const abar=document.getElementById('abar'),abToggle=document.getElementById('ab-toggle'),
+        abSeek=document.getElementById('ab-seek'),abName=document.getElementById('ab-name'),
+        abTime=document.getElementById('ab-time');
+  const fmt=s=>isFinite(s)?Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'):'0:00';
+  function abBind(a,name){
+    abName.textContent=name; abar.classList.add('on');
+    abSeek.value=0; abTime.textContent='0:00'; abToggle.textContent='⏸';
+    abSeek.oninput=()=>{ if(isFinite(a.duration)) a.currentTime=abSeek.value/100*a.duration; };
+    abToggle.onclick=()=>{ a.paused ? a.play().catch(()=>{}) : a.pause(); };
+    a.ontimeupdate=()=>{ if(!isFinite(a.duration))return;
+      if(document.activeElement!==abSeek) abSeek.value=a.currentTime/a.duration*100;
+      abTime.textContent=fmt(a.currentTime)+' / '+fmt(a.duration); };
+    a.onplay=()=>abToggle.textContent='⏸';
+    a.onpause=()=>abToggle.textContent='▶';
+    a.onended=()=>{ abToggle.textContent='▶'; abSeek.value=100; };
+  }
+  document.querySelectorAll('.trk-btn').forEach(b=>{
+    b.dataset.label=b.textContent;
+    b.addEventListener('click',()=>{
+      if(currentTrkBtn===b && window.currentTrkAudio && !window.currentTrkAudio.paused){
+        window.currentTrkAudio.pause(); trkReset(b); return;
+      }
+      if(window.currentTrkAudio){ window.currentTrkAudio.pause(); }
+      if(currentTrkBtn && currentTrkBtn!==b){ trkReset(currentTrkBtn); }
+      const key=b.dataset.audio;
+      const a=new Audio(key==='full' ? AUDIO_URL : (CUTS[key]||AUDIO_URL));
+      a.style.display='none'; document.body.appendChild(a);
+      window.currentTrkAudio=a; currentTrkBtn=b;
+      b.classList.add('playing'); b.textContent='⏸ '+b.dataset.label.replace('🎧 ','');
+      a.addEventListener('ended',()=>{ if(currentTrkBtn===b) trkReset(b); });
+      abBind(a,b.dataset.label.replace('🎧 ','').replace('⏸ ',''));
+      a.play().catch(()=>{});
+    });
+  });
+
+  /* teacher's notes toggles */
+  document.querySelectorAll('.tn-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const c=document.getElementById(b.dataset.tn);
+      c.classList.toggle('show');
+      b.textContent=c.classList.contains('show') ? '🗒 hide the notes' : '🗒 teacher\u0027s notes';
+    });
+  });
+
+  /* the ⛶ fullscreen text (from the reading slide and the find-tasks) */
   const fsStory=document.getElementById('fsstory');
-  const fsBtns=[document.getElementById('fsstory2-btn')].filter(Boolean);
+  const fsBtns=['fsstory-btn','fsstory2-btn','fsstory3-btn'].map(i=>document.getElementById(i)).filter(Boolean);
   fsBtns.forEach(b=> b.addEventListener('click',()=> fsStory.classList.add('on')));
   fsStory.addEventListener('click',()=> fsStory.classList.remove('on'));
+
+  /* hangman — the chapter's words */
+  const WORDS=[
+    {w:'BREAKFAST', hint:'the first meal of the day — the quiz wants it EVERY morning! 🍳',
+     fact:'Fun fact: "I eat breakfast every morning" is the healthiest answer in question A!'},
+    {w:'VEGETABLES', hint:'carrots, onions, lettuce — fresh from the garden 🥕',
+     fact:'Fun fact: the quiz says — fruits and vegetables are REALLY good for you!'},
+    {w:'JUNK', hint:'chips, cola, sweets — ___ food 🥤',
+     fact:'Fun fact: junk food is EVERYWHERE — that is why the quiz asks about it!'},
+    {w:'HEALTHY', hint:'the word in the title — good for your body 💪',
+     fact:'Fun fact: "The greatest wealth is health" — Virgil said it 2,000 years ago!'}
+  ];
+  const MAXWRONG=6;
+  let wIdx=0, word='', guessed=null, wrong=0, solved=0;
+  const wordrow=document.getElementById('wordrow');
+  const keysBox=document.getElementById('keys');
+  const catline=document.getElementById('catline');
+  const hangHint=document.getElementById('hang-hint');
+  const hangCount=document.getElementById('hang-count');
+  const hangNext=document.getElementById('hang-next');
+  const factcard=document.getElementById('factcard');
+  const factText=document.getElementById('fact-text');
+  function drawCat(){
+    const left=MAXWRONG-wrong;
+    catline.textContent='🐭 '+' ─ '.repeat(Math.max(left,0))+' 🐈‍⬛';
+  }
+  function paintWord(){
+    wordrow.innerHTML='';
+    for(const ch of word){
+      const s=document.createElement('div');
+      s.className='slot'+(guessed.has(ch)?'':' empty');
+      s.textContent=guessed.has(ch)?ch:'•';
+      wordrow.appendChild(s);
+    }
+  }
+  function winCheck(){
+    for(const ch of word){ if(!guessed.has(ch)) return false; }
+    return true;
+  }
+  function hangReset(){
+    word=WORDS[wIdx].w; guessed=new Set(); wrong=0;
+    hangCount.textContent='word '+(wIdx+1)+' / 4';
+    hangHint.textContent='guess the word!';
+    hangNext.style.display='none';
+    factcard.classList.remove('show');
+    drawCat(); paintWord();
+    keysBox.innerHTML='';
+    for(let i=0;i<26;i++){
+      const L=String.fromCharCode(65+i);
+      const b=document.createElement('button');
+      b.className='key'; b.textContent=L;
+      b.addEventListener('click',()=>{
+        if(word.includes(L)){
+          b.classList.add('hit');
+          guessed.add(L); paintWord();
+          if(winCheck()){
+            hangHint.textContent='✅ '+WORDS[wIdx].hint;
+            factText.innerHTML=WORDS[wIdx].fact;
+            factcard.classList.add('show');
+            solved++;
+            hangNext.style.display='inline-block';
+            hangNext.textContent = wIdx<WORDS.length-1 ? 'next word →' : '⭐ finish!';
+            [...keysBox.children].forEach(k=>k.disabled=true);
+          }
+        } else {
+          b.classList.add('miss');
+          wrong++;
+          drawCat();
+          catline.classList.remove('shake'); void catline.offsetWidth; catline.classList.add('shake');
+          if(wrong>=MAXWRONG){
+            hangHint.textContent='🙈 the cat got it — the word was '+word+'!';
+            [...keysBox.children].forEach(k=>k.disabled=true);
+            hangNext.style.display='inline-block';
+            hangNext.textContent = wIdx<WORDS.length-1 ? 'next word →' : '⭐ finish!';
+          }
+        }
+      });
+      keysBox.appendChild(b);
+    }
+  }
+  hangNext.addEventListener('click',()=>{
+    if(wIdx<WORDS.length-1){ wIdx++; hangReset(); }
+    else {
+      hangHint.textContent='⭐ WORD MASTER — all from YOUR quiz! '+solved+' / 4 saved the mouse!';
+      hangNext.style.display='none';
+    }
+  });
+  hangReset();
+
+  /* clocks — a food day (the whole family, mixed) */
+  const SVGNS='http://www.w3.org/2000/svg';
+  function drawClock(h,m){
+    const svg=document.createElementNS(SVGNS,'svg');
+    svg.setAttribute('viewBox','0 0 100 100');
+    svg.setAttribute('width','clamp(84px,10vw,120px)');
+    svg.setAttribute('height','clamp(84px,10vw,120px)');
+    const face=document.createElementNS(SVGNS,'circle');
+    face.setAttribute('cx',50);face.setAttribute('cy',50);face.setAttribute('r',46);
+    face.setAttribute('fill','#fff');face.setAttribute('stroke','#2C4E80');face.setAttribute('stroke-width',4);
+    svg.appendChild(face);
+    for(let t=0;t<12;t++){
+      const a=t*30*Math.PI/180;
+      const tick=document.createElementNS(SVGNS,'line');
+      const r1=t%3===0?36:40;
+      tick.setAttribute('x1',50+r1*Math.sin(a));tick.setAttribute('y1',50-r1*Math.cos(a));
+      tick.setAttribute('x2',50+43*Math.sin(a));tick.setAttribute('y2',50-43*Math.cos(a));
+      tick.setAttribute('stroke',t%3===0?'#2C4E80':'#A9CCEF');
+      tick.setAttribute('stroke-width',t%3===0?3.5:2);
+      tick.setAttribute('stroke-linecap','round');
+      svg.appendChild(tick);
+    }
+    const ha=((h%12)*30+m*.5)*Math.PI/180;
+    const hour=document.createElementNS(SVGNS,'line');
+    hour.setAttribute('x1',50);hour.setAttribute('y1',50);
+    hour.setAttribute('x2',50+24*Math.sin(ha));hour.setAttribute('y2',50-24*Math.cos(ha));
+    hour.setAttribute('stroke','#2C4E80');hour.setAttribute('stroke-width',5);hour.setAttribute('stroke-linecap','round');
+    svg.appendChild(hour);
+    const ma=m*6*Math.PI/180;
+    const min=document.createElementNS(SVGNS,'line');
+    min.setAttribute('x1',50);min.setAttribute('y1',50);
+    min.setAttribute('x2',50+36*Math.sin(ma));min.setAttribute('y2',50-36*Math.cos(ma));
+    min.setAttribute('stroke','#E4572E');min.setAttribute('stroke-width',4);min.setAttribute('stroke-linecap','round');
+    svg.appendChild(min);
+    const pin=document.createElementNS(SVGNS,'circle');
+    pin.setAttribute('cx',50);pin.setAttribute('cy',50);pin.setAttribute('r',3.5);
+    pin.setAttribute('fill','#2C4E80');
+    svg.appendChild(pin);
+    return svg;
+  }
+  const ROUNDS=[
+    {label:"Breakfast — seven o'clock! 🍳", h:7, m:0},
+    {label:'The fruit snack at school — quarter past ten! 🍎', h:10, m:15},
+    {label:'Lunch — half past twelve! 🍽️', h:12, m:30},
+    {label:'Cooking dinner — quarter to six! 👩‍🍳', h:5, m:45},
+    {label:'Dinner — quarter past seven! 🌙', h:7, m:15},
+    {label:'The last snack — quarter to nine — just before bed! 😴', h:8, m:45}
+  ];
+  const HOURS=[1,2,3,4,6,9,11];
+  let rIdx=0, clockTarget=7, clockMin=0;
+  const clockrow=document.getElementById('clockrow');
+  const roundLabel=document.getElementById('round-label');
+  const clockCount=document.getElementById('clock-count');
+  function clockRound(){
+    const round=ROUNDS[rIdx];
+    clockTarget=round.h; clockMin=round.m;
+    roundLabel.textContent=round.label;
+    clockCount.textContent='round '+(rIdx+1)+' / '+ROUNDS.length;
+    clockrow.innerHTML='';
+    const others=HOURS.filter(h=>h!==clockTarget);
+    shuffle(others.slice()).slice(0,3).concat([clockTarget]).sort(()=>Math.random()-.5).forEach(h=>{
+      const card=document.createElement('div');
+      card.className='clockcard';
+      card.appendChild(drawClock(h,clockMin));
+      card.addEventListener('click',()=>{
+        if(h===clockTarget){
+          card.classList.add('right');
+          if(rIdx<ROUNDS.length-1){ rIdx++; clockRound(); }
+          else { roundLabel.textContent='✅ what a food day! 🥦'; }
+        } else {
+          card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+        }
+      });
+      clockrow.appendChild(card);
+    });
+  }
+  document.getElementById('clock-reset').addEventListener('click',()=>{ rIdx=0; clockRound(); });
+  clockRound();
+
+  /* mime bank: the food & cooking actions, deal 10 at random */
+  const MIME=[
+    ['Eat soup! 🍜','you are eating soup!'],
+    ['Drink water! 🥛','you are drinking water!'],
+    ['Bite an apple! 🍎','you are biting an apple!'],
+    ['Chew — yum! 😋','you are chewing!'],
+    ['Peel a banana! 🍌','you are peeling a banana!'],
+    ['Chop vegetables! 🔪','you are chopping vegetables!'],
+    ['Fry an egg! 🍳','you are frying an egg!'],
+    ['Pour the juice! 🧃','you are pouring the juice!'],
+    ['Taste the soup! 🥄','you are tasting the soup!'],
+    ['Stir the pot! 🥣','you are stirring the pot!'],
+    ['Cook dinner! 👩‍🍳','you are cooking dinner!'],
+    ['Wash the apple! 🚿','you are washing the apple!']
+  ];
+  const mimeGrid=document.getElementById('mime-grid');
+  function dealMime(){
+    mimeGrid.innerHTML='';
+    shuffle(MIME.slice()).slice(0,10).forEach(([q,h])=>{
+      const r=document.createElement('div');
+      r.className='mime-row';
+      r.innerHTML='<span class="mq"></span><span class="mh"></span>';
+      r.querySelector('.mq').textContent=q;
+      r.querySelector('.mh').textContent=h;
+      mimeGrid.appendChild(r);
+    });
+  }
+  document.getElementById('mime-deal').addEventListener('click', dealMime);
+  dealMime();
+
+  /* silly game HELP button */
+  const helpBtn=document.getElementById('help-btn');
+  const helpCard=document.getElementById('help-card');
+  helpBtn.addEventListener('click',()=>helpCard.classList.toggle('show'));
+
+  /* the silly game — the frozen dealer (one answer per category) */
+  const POOL=[
+    {a:"breakfast", t:"meal", q:["Which meal does the elephant eat at six in the morning?","Which meal does the lion eat before its morning nap?"]},
+    {a:"junk food", t:"food", q:["What does the crocodile buy at the fast-food shop?","What does the panda order — chips, cola and pizza?"]},
+    {a:"brown rice", t:"food2", q:["What does the brown bear cook for dinner?","Which rice does the beaver build its house with?"]},
+    {a:"in the fridge", t:"where", q:["Where does the penguin keep its fish?","Where does the milk sleep in the kitchen?"]},
+    {a:"on the plate", t:"where2", q:["Where does the pancake live?","Where does the hungry cat sit at dinner time?"]},
+    {a:"eight glasses", t:"howmany", q:["How many glasses of water does the camel drink after the desert?","How many glasses of water fit in the elephant's trunk?"]},
+    {a:"a spoon", t:"what", q:["What does the baby eat its porridge with?","What does the soup ask you to bring?"]},
+    {a:"the cook", t:"who", q:["Who cooks dinner in the lion's house?","Who wears the white hat in the kitchen?"]},
+    {a:"Yes!", t:"yesno", q:["Is an apple a healthy snack?","Do healthy eaters have breakfast every day?"]},
+    {a:"No!", t:"yesno2", q:["Is cola a fresh fruit?","Do healthy eaters eat junk food every day?"]},
+    {a:"rainy", t:"weather", q:["What's the weather like during the duck's picnic?","What's the weather like on a no-walk day?"]},
+    {a:"It's hot!", t:"weather2", q:["What's the weather like in the soup?","What's the weather like in the desert at lunch?"]},
+    {a:"salty", t:"taste", q:["What do chips taste like?","What does the sea taste like?"]}
+  ];
+  const sillyBoard=document.getElementById('silly-board');
+  const dealList=document.getElementById('qlist');
+  function paintBoard(answers){
+    sillyBoard.innerHTML='';
+    answers.forEach(a=>{
+      const chip=document.createElement('span');
+      chip.className='wb-chip';
+      chip.textContent=a;
+      sillyBoard.appendChild(chip);
+    });
+  }
+  function dealRound(){
+    /* THE ONE-FITS RULE, per category: one yes/no, one weather, and 4
+       answers of FOUR DIFFERENT categories — two same-category answers on
+       one board break the game. */
+    const yn = Math.random() < .5 ? "Yes!" : "No!";
+    const weather = Math.random() < .5 ? "rainy" : "It's hot!";
+    const chosen=[yn,weather]; const used=new Set(["yesno","yesno2","weather","weather2"]);
+    const ynT = yn==="Yes!" ? "yesno" : "yesno2";
+    const wT = weather==="rainy" ? "weather" : "weather2";
+    used.delete(ynT); used.delete(wT); used.add(ynT); used.add(wT);
+    for(const g of shuffle(POOL.filter(x=>!used.has(x.t)))){
+      if(chosen.length>=6) break;
+      if(used.has(g.t)) continue;
+      chosen.push(g.a); used.add(g.t);
+    }
+    const groups = shuffle(chosen).map(a => POOL.find(g => g.a === a));
+    const qs = [];
+    let pass = 0;
+    while(qs.length < 10 && pass < 3){
+      for(const g of groups){
+        if(qs.length >= 10) break;
+        const cand = g.q.filter(q => !qs.includes(q));
+        if(cand.length) qs.push(cand[Math.floor(Math.random()*cand.length)]);
+      }
+      pass++;
+    }
+    return {questions: shuffle(qs), board: shuffle(groups.map(g => g.a))};
+  }
+  document.getElementById('silly-deal').addEventListener('click',()=>{
+    const round=dealRound();
+    dealList.innerHTML='';
+    round.questions.forEach(q=>{
+      const d=document.createElement('div');
+      d.className='deal-q'; d.textContent=q;
+      dealList.appendChild(d);
+    });
+    dealList.classList.add('dealt');
+    paintBoard(round.board);
+  });
+  dealList.addEventListener('click',()=>{ dealList.classList.remove('dealt'); dealList.innerHTML=''; });
+  paintBoard(dealRound().board);
+
+  /* the words shelf ticks */
+  document.querySelectorAll('#tickrow .wb-chip, #r17 .pos-h ~ div .wb-chip').forEach(ch=>{
+    ch.style.cursor='pointer';
+    ch.addEventListener('click',()=>ch.classList.toggle('tick-on'));
+  });
+
+  /* the ranking + chart slots are editable */
+  document.querySelectorAll('.cslot').forEach(el=>{el.contentEditable='true';el.spellcheck=false;});
+
+  /* the picture ranking: tap a food → the next free place; tap a place → give it back */
+  document.querySelectorAll('#r16b .rpick').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const free=Array.from(document.querySelectorAll('#r16b .rslot')).find(s=>!s.classList.contains('filled'));
+      if(!free) return;
+      free.querySelector('.rs-fill').textContent=b.dataset.s;
+      free.classList.add('filled');
+      b.classList.add('used');
+    });
+  });
+  document.querySelectorAll('#r16b .rslot').forEach(s=>{
+    s.addEventListener('click',()=>{
+      if(!s.classList.contains('filled')) return;
+      const name=s.querySelector('.rs-fill').textContent;
+      const b=Array.from(document.querySelectorAll('#r16b .rpick')).find(x=>x.dataset.s===name);
+      if(b) b.classList.remove('used');
+      s.querySelector('.rs-fill').textContent='…';
+      s.classList.remove('filled');
+    });
+  });
 
   /* the write-in quiz inputs (just honest fields — no grading) */
   document.querySelectorAll('.writein input').forEach(i=>{ i.spellcheck=false; });
@@ -933,14 +1845,87 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   } else {
     current = Math.max(0,Math.min(total-1,h-1));
   }
+  annoIdx = current;
 
-  /* ===== 🙋 Pardon — the class phrases (click / P) ===== */
+  /* ===== ✍️ v2 lesson log — top right, the d: · //: rows, ⌘S = save + close ===== */
+  const annoPanel=document.getElementById('anno'),annoSlideEl=document.getElementById('annoSlide'),
+  annoFields={d:document.getElementById('annoD'),sl:document.getElementById('annoSL'),free:document.getElementById('annoF'),fx:document.getElementById('annoFX')},
+  annoTick=document.getElementById('annoTick'),
+  annoHint=document.getElementById('annoHint'),annoSent=document.getElementById('annoSent');
+  const annoRep=document.getElementById('annoRep'),annoRepText=document.getElementById('annoRepText');
+  const CAN_SEND=(location.protocol==='http:');
+  let annoIdx=current,annoData={},annoReady=false;
+  try{annoData=JSON.parse(localStorage.getItem('sr-elem-ch2-anno-v7')||'{}')}catch(e){annoData={}}
+  function annoSave(){try{localStorage.setItem('sr-elem-ch2-anno-v7',JSON.stringify(annoData))}catch(e){}
+    annoSend()}
+  function annoFill(){const a=annoData[annoIdx+1]||{};
+    annoSlideEl.textContent='slide '+(annoIdx+1)+' / '+slides.length;
+    annoFields.d.value=a.d||'';annoFields.sl.value=a.sl||'';annoFields.free.value=a.free||'';annoFields.fx.value=a.fx||'';
+    annoTick.classList.toggle('on',!!a.t)}
+  function annoToggle(open){annoPanel.classList.toggle('on',open);
+    if(open){pqPanel.classList.remove('on');annoIdx=current;annoFill();
+      const firstEmpty=Object.values(annoFields).find(f=>!f.value)||annoFields.d;
+      firstEmpty.focus()}
+    else document.activeElement&&document.activeElement.blur()}
+  function annoSet(k,f){const a=annoData[k]||{};f(a);
+    if(!a.t&&!a.d&&!a.sl&&!a.free&&!a.fx)delete annoData[k];else annoData[k]=a;annoSave()}
+  function annoDoneClose(){annoSave();
+    annoHint.textContent='saved ✓';
+    setTimeout(()=>annoHint.textContent=CAN_SEND
+      ?'auto-sends to the Mac · the pupil sees the screen while you type'
+      :'saves on this device · the pupil sees the screen while you type',1400);
+    annoToggle(false)}
+  function annoReportText(){let out='sr-elem-ch2 · lesson notes · '+new Date().toLocaleString('en-GB')+'\n';
+    let any=false;
+    slides.forEach((s,k)=>{const a=annoData[k+1];if(!a)return;
+      const rows=[];
+      if(a.d)rows.push('d: '+a.d);
+      if(a.sl)rows.push('//: '+a.sl);
+      if(a.free)rows.push(a.free);
+      if(a.fx)rows.push(('fix: '+a.fx).replace(/\n/g,'\n   '));
+      if(!a.t&&!rows.length)return;any=true;
+      out+=(k+1)+(a.t?' ✓':'')+'\n'+rows.map(r=>'   '+r).join('\n')+'\n'});
+    if(!any)out+='(nothing ticked or noted yet)';
+    return out}
+  let annoTimer=null;
+  function annoSend(){if(!CAN_SEND)return;
+    clearTimeout(annoTimer);
+    annoTimer=setTimeout(()=>{
+      fetch('/report?deck=sr-elem-ch2',{method:'POST',body:annoReportText()})
+        .then(()=>{annoSent.textContent='auto-sent to the Mac ✓'})
+        .catch(()=>{annoSent.textContent='not sent — use 📋 copy'})
+    },1200)}
+  annoHint.textContent=CAN_SEND
+    ?'auto-sends to the Mac · the pupil sees the screen while you type'
+    :'saves on this device · the pupil sees the screen while you type';
+  document.getElementById('annoBtn').onclick=()=>annoToggle(!annoPanel.classList.contains('on'));
+  document.getElementById('annoPrev').onclick=()=>{annoIdx=Math.max(0,annoIdx-1);annoFill()};
+  document.getElementById('annoNext').onclick=()=>{annoIdx=Math.min(slides.length-1,annoIdx+1);annoFill()};
+  document.getElementById('annoX').onclick=()=>annoToggle(false);
+  annoTick.onclick=()=>{annoSet(annoIdx+1,a=>a.t=a.t?0:1);annoFill()};
+  Object.entries(annoFields).forEach(([key,f])=>
+    f.addEventListener('input',()=>annoSet(annoIdx+1,a=>a[key]=f.value)));
+  document.getElementById('annoDone').onclick=annoDoneClose;
+  document.getElementById('annoCopy').onclick=()=>{annoRepText.value=annoReportText();annoRep.classList.add('on')};
+  document.getElementById('annoRepClose').onclick=()=>annoRep.classList.remove('on');
+  annoRep.addEventListener('click',e=>{if(e.target===annoRep)annoRep.classList.remove('on')});
+  document.getElementById('annoRepCopy').onclick=()=>{annoRepText.select();
+    try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(annoRepText.value);
+    else document.execCommand('copy')}catch(e){}};
+  document.getElementById('annoRepClear').onclick=()=>{
+    annoData={};try{localStorage.removeItem('sr-elem-ch2-anno-v7')}catch(e){}
+    annoFill();annoRep.classList.remove('on');annoRepText.value=''};
+
+  /* ===== 🙋 Pardon — emoji-only; click / P ===== */
   const pqPanel=document.getElementById('pq');
-  function pqToggle(open){pqPanel.classList.toggle('on',open)}
+  function pqToggle(open){pqPanel.classList.toggle('on',open);
+    if(open)annoPanel.classList.remove('on')}
   document.getElementById('pqBtn').onclick=()=>pqToggle(!pqPanel.classList.contains('on'));
   document.getElementById('pqX').onclick=()=>pqToggle(false);
+  annoReady=true;
 
-  /* READY-CHIME */
+  /* READY-CHIME: when a new version of this deck is saved, the OPEN window
+     chimes and reloads itself. Needs http://; on file:// it stays quiet. */
   (function(){
     if(!/^https?:$/.test(location.protocol))return;
     let last=null,ctx=null;
