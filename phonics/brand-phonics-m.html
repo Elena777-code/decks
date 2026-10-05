@@ -161,6 +161,13 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
   font-size:clamp(1.2rem,2.1vw,1.9rem);transform:rotate(-1.2deg)}
 .read-card.show .sndtxt{display:inline;animation:pip .45s cubic-bezier(.34,1.56,.64,1)}
 @keyframes pip{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+/* the WORDS speak (the published n-deck pattern; the voice Elena
+   approved 2026-09-11: en-US, rate .8, pitch 1.05). Whole words/lines —
+   never single letters. Tap a story line → a gold ring + it says itself. */
+.story .line{cursor:pointer}
+.said{animation:saidring .55s ease}
+@keyframes saidring{from{outline:4px solid rgba(255,201,60,.95);outline-offset:0}
+to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
 /* sight word + story */
 .thebig{background:var(--pink);color:#fff;border-radius:var(--radius);
   padding:.06em .18em;font-weight:800;font-size:clamp(12rem,30vw,25rem);line-height:1.1;
@@ -435,6 +442,33 @@ function speak(name){
     curAudio.play();
   }catch(e){}
 }
+/* ---- the WORDS speak (the voice Elena approved 2026-09-11:
+   en-US, rate .8, pitch 1.05). Whole words/lines — never single letters. ---- */
+let ttsVoice=null;
+function pickTTSVoice(){
+  const vs=speechSynthesis.getVoices();
+  ttsVoice=vs.find(v=>/en[-_]US/i.test(v.lang)&&/Samantha|Ava|Allison|Aria|Zira/i.test(v.name))
+      ||vs.find(v=>/^en/i.test(v.lang))||null;
+}
+if('speechSynthesis' in window){pickTTSVoice();speechSynthesis.onvoiceschanged=pickTTSVoice}
+function sayText(t){
+  if(!('speechSynthesis' in window)||!t)return;
+  if(curAudio){curAudio.pause();curAudio.currentTime=0;}
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t);
+  if(ttsVoice)u.voice=ttsVoice;
+  u.lang='en-US';u.rate=.8;u.pitch=1.05;
+  speechSynthesis.speak(u);
+}
+function ring(el){el.classList.remove('said');void el.offsetWidth;el.classList.add('said')}
+/* a tapped read-card: the whole word speaks (the picture reveal is the check) */
+const QUIET={'si':1};
+function speakReadCard(card){
+  const w=(card.querySelector('.wrd').textContent||'').trim();
+  if(w.length<2||QUIET[w])return;
+  ring(card);
+  sayText(w);
+}
 const slides=[...document.querySelectorAll('.slide')];
 let cur=0;
 const fill=document.getElementById('progress-fill'),
@@ -498,11 +532,13 @@ document.addEventListener('click',e=>{
   const read=e.target.closest('.read-card');
   if(read){
     read.classList.toggle('show');
-    if(read.dataset.snd)speak(read.dataset.snd);
+    speakReadCard(read);
     return;
   }
   const ig=e.target.closest('.iguana-card');
   if(ig){ig.classList.toggle('show');return;}
+  const line=e.target.closest('.story .line');
+  if(line){ring(line);sayText(line.textContent.replace(/\s+/g,' ').trim());return;}
   const pill=e.target.closest('.know-pill');
   if(pill){speak(pill.dataset.snd);return;}
   if(e.target.closest('#canread')){document.getElementById('ckbox').textContent='✓';return;}
