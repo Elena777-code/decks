@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SM 5.1 · U2 L6 — The Earth's plates (Super Minds 5, SB pp. 18–19)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   SM 5.1 — Unit 2 (Around Pompeii), lesson 6 · Tue 06.10.
+   Farida's Thursday (01.10, her note via Elena): все кроме
+   Сергея; взяли SB pp. 16–17; ДЗ = 1) SB p. 16 (слова к
+   диктанту) 2) SB p. 17 ex. 3 (the report) 3) WB pp. 16–17
+   (the p. 17 audio = WB Track 6, in the parents' chat).
+   «Вы берете стр 18-19» → this deck: U2 L6 — the Earth's
+   plates + the Ring of Fire + the project. Strictly on the TB
+   (TB pp. 44–45). The group HAS their books + ActiveTeach:
+   ActiveTeach shows the pages (and plays the Think and learn
+   video) — THIS deck is the task/question layer in between,
+   no page reproduction. Same engine as U2 L4 (29.09),
+   upgraded: the ✍️ V2 window (N · d: //: rows · ⌘S), the
+   corners V2 (Pardon top-left · ✍️ top-right), the universal
+   Pardon six, the hotkey guard, flex-shrink, stamp, chime.
+   English only. Answers behind clicks.
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.1rem);color:#fff}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cheese)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.4vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+/* flex-shrink guard: nothing on a slide may collapse — the slide scrolls */
+.slide>*{flex-shrink:0}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ---------- text & blocks ---------- */
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy);margin-bottom:.2em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin-bottom:.3em;
+  font-size:clamp(1.9rem,4.2vw,3.6rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp))}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(.9rem,1.6vw,1.35rem)}
+.card.sky{background:#E8F1FA}
+.card.cheese{background:var(--cheese-soft)}
+.card.stampc{background:var(--stamp-soft)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:.4em}
+.center{text-align:center}
+.mt{margin-top:.65em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink);background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem);align-self:flex-start}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.92rem,1.35vw,1.12rem);color:var(--ink-soft);font-style:italic}
+.stamp-box{font-family:'Fredoka',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  border:3px dashed var(--stamp);border-radius:16px;padding:.5em 1em;color:var(--stamp);
+  background:var(--white);box-shadow:var(--shadow);display:inline-block;font-size:clamp(1rem,1.7vw,1.4rem)}
+.bigq{font-family:'Fredoka',sans-serif;font-weight:600;color:#fff;background:var(--navy);
+  border-radius:99px;padding:.3em 1.1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.3rem);align-self:flex-start}
+.bigq::before{content:"❓ "}
+.bookchip{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy-deep);
+  background:#E8F1FA;border:2px solid var(--sky);border-radius:99px;
+  padding:.35em 1em;display:inline-block;font-size:clamp(.95rem,1.5vw,1.22rem);align-self:flex-start}
+.bookchip::before{content:"🖥 "}
+.stamp-box.big{font-size:clamp(1.3rem,2.6vw,2.2rem);padding:.6em 1.4em}
+
+/* the Wi-Fi attention signal (the class switch, taught 22.09) */
+.wifi-slide{justify-content:center;align-items:center;text-align:center}
+.wifi-ico{font-size:clamp(6rem,16vw,13rem);line-height:1;filter:drop-shadow(0 12px 24px rgba(34,48,63,.18))}
+.wifi-word{font-family:'Fredoka',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  font-size:clamp(2rem,5vw,3.6rem);color:var(--navy);margin-top:.2em}
+
+/* teacher-facing prepare-ahead list (slide 1, EN — standing rules) */
+.prep{display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;
+  background:var(--white);box-shadow:0 4px 12px rgba(34,48,63,.07);margin-bottom:.55em}
+.prep .ico{flex-shrink:0;font-size:clamp(1.3rem,2.2vw,1.8rem);line-height:1.3}
+.prep p{font-size:clamp(.98rem,1.55vw,1.25rem);line-height:1.45}
+.prep b{color:var(--navy)}
+
+/* teacher's notes — muted, small, click to unfold */
+button.tn{align-self:flex-start;border:1.5px solid #C9D8EA;background:var(--white);
+  color:var(--ink-soft);font-family:'Fredoka',sans-serif;font-weight:500;
+  font-size:clamp(.78rem,1.2vw,.95rem);padding:.3em 1em;border-radius:99px;
+  cursor:pointer;transition:all .18s}
+button.tn:hover{border-color:var(--ink-soft);color:var(--ink)}
+button.tn.on{background:var(--ink-soft);color:#fff;border-color:var(--ink-soft)}
+.tnotes{display:none;font-size:clamp(.86rem,1.35vw,1.06rem);color:var(--ink-soft);
+  line-height:1.5;border-left:3px solid var(--sky);padding:.15em 0 .15em 1em}
+.tnotes.open{display:block}
+.tnotes b{color:var(--navy)}
+
+/* numbered reveal items */
+.item{display:flex;gap:.7em;align-items:baseline;padding:.38em .2em;
+  border-bottom:2px dashed rgba(169,204,239,.7);cursor:pointer;border-radius:10px;
+  font-size:clamp(1.18rem,1.95vw,1.55rem);line-height:1.42;transition:background .2s ease;user-select:none}
+.item:last-child{border-bottom:none}
+.item:hover{background:#E8F1FA}
+.item .no{font-family:'Fredoka',sans-serif;font-weight:700;flex:none;color:var(--stamp);font-size:.85em}
+.item .agree{color:#fff;background:var(--navy);border-radius:99px;padding:.05em .55em;
+  font-weight:700;font-style:normal;opacity:0;transition:opacity .2s;white-space:nowrap}
+.item .agree.wrap{white-space:normal}
+.item.shown .agree{opacity:1}
+.item.shown{cursor:default}
+.item.shown:hover{background:transparent}
+.item s{color:var(--ink-soft)}
+
+/* the dictation rows (photo → word, the p. 16 board) */
+.ditem{align-items:center}
+.ditem .dthumb{height:clamp(78px,11vh,118px);width:auto;border-radius:10px;
+  box-shadow:0 4px 12px rgba(34,48,63,.18);flex:none}
+.ditem .dword{font-family:'Fredoka',sans-serif;font-weight:700;white-space:normal;
+  font-size:clamp(1.25rem,2.3vw,1.85rem)}
+
+/* the skip-if-done branch — the ten story words as flip chips */
+.chipgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:.45em}
+.chip{cursor:pointer;border:2px dashed var(--sky);border-radius:12px;background:var(--white);
+  min-height:2.5em;padding:.3em .4em;display:flex;align-items:center;justify-content:center;
+  text-align:center;font-family:'Fredoka',sans-serif;font-weight:600;line-height:1.25;
+  font-size:clamp(.92rem,1.5vw,1.2rem);transition:background .2s ease;user-select:none}
+.chip:hover{background:#E8F1FA}
+.chip .cw{color:var(--stamp);font-weight:700}
+.chip .agree{color:#fff;background:var(--navy);border-radius:99px;padding:.05em .55em;
+  opacity:0;transition:opacity .2s}
+.chip.shown .cw{display:none}
+.chip.shown .agree{opacity:1}
+.chip.shown{cursor:default;background:var(--white)}
+
+/* speaking frames */
+.frame{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink);
+  font-size:clamp(1.3rem,2.4vw,1.95rem);line-height:1.5;padding:.5em .9em;border-radius:16px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.frame .slot{color:var(--stamp)}
+.frame.small{font-size:clamp(1.1rem,1.9vw,1.55rem)}
+
+/* word bank strip */
+.bank{display:flex;flex-wrap:wrap;gap:.4em;justify-content:center}
+.bank span{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);
+  padding:.15em .7em;border-radius:99px;background:var(--cheese-soft);color:var(--navy)}
+
+/* role-play / project steps */
+.steps{counter-reset:step;display:flex;flex-direction:column;gap:.6em}
+.steps .step{display:flex;gap:.8em;align-items:center;padding:.7em 1em;border-radius:16px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08);
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem)}
+.steps .step .n{flex-shrink:0;width:1.9em;height:1.9em;border-radius:50%;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;color:#fff}
+
+/* homework */
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08);margin-bottom:.7em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;color:#fff}
+.hw-step p{font-size:clamp(1.02rem,1.62vw,1.32rem);line-height:1.5}
+.hw-step .en{font-family:'Fredoka',sans-serif;color:var(--navy);font-weight:600}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#1E3A66;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav,body.presenter #annoBtn,body.presenter #pardonBtn{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1rem,1.6vw,1.3rem)}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:'Fredoka',sans-serif;font-size:.9em;cursor:pointer}
+#pv .head button:hover{background:rgba(255,255,255,.15)}
+#pv .head .cnt{margin-left:auto;background:rgba(255,255,255,.12);border-radius:99px;padding:.2em .9em}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(30,58,102,.85);color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:.8rem;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F5F3EE;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--cheese)}
+body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{display:none!important}
+
+/* ---------- 🙋 Pardon? — fullscreen overlay, pill top-LEFT (corners V2) ---------- */
+#pardonBtn{position:fixed;top:calc(10px + .8vh);left:max(10px,1.6vw);z-index:100;
+  width:2.5em;height:2.5em;border-radius:50%;border:1px solid rgba(255,255,255,.35);
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);color:#fff;font-size:1.1rem;
+  cursor:pointer;transition:transform .15s ease}
+#pardonBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#pardon{position:fixed;inset:0;z-index:220;background:rgba(246,248,251,.985);display:none;
+  flex-direction:column;align-items:center;justify-content:center;padding:4vh 6vw;overflow:auto}
+#pardon.open{display:flex}
+#pardon .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka',sans-serif;
+  font-weight:700;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
+#pardon .closer:hover{color:var(--ink)}
+#pardon .phead{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(1.4rem,2.6vw,2.1rem);margin-bottom:2vh}
+#pardon .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:.8em;max-width:920px}
+#pardon .pcard{background:var(--white);border:2px solid var(--sky);border-radius:16px;
+  padding:.9em 1.1em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.4;box-shadow:0 6px 16px rgba(34,48,63,.08)}
+#pardon .pcard .ico{font-size:1.15em;margin-right:.35em}
+
+/* ---------- ✍️ V2 lesson-log — the window top-RIGHT (corners V2):
+   the d: · //: rows + the 3-line free space + fix:, ⌘S = save + close.
+   First SM install (the standing universal standard, 04.10). ---------- */
+#annoBtn{position:fixed;top:calc(10px + .8vh);right:max(10px,1.6vw);z-index:100;
+  width:2.5em;height:2.5em;border-radius:50%;border:1px solid rgba(255,255,255,.35);
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);color:#fff;font-size:1.1rem;
+  cursor:pointer;transition:transform .15s ease}
+#annoBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#anno{position:fixed;right:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(430px,92vw);
+  background:var(--white);border-radius:16px;box-shadow:var(--shadow-lg);padding:.8em .9em;
+  display:none;flex-direction:column;gap:.5em}
+#anno.on{display:flex;animation:rise .25s both}
+#anno .a-head{display:flex;align-items:center;gap:.45em;font-family:'Fredoka',sans-serif;
+  font-size:.92rem;color:var(--navy-deep)}
+#anno .a-sp{flex:1}
+#anno .a-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:'Fredoka',sans-serif;font-size:.85rem;color:var(--ink-soft)}
+#anno .a-head button:hover{border-color:var(--ink-soft);color:var(--ink)}
+#anno #annoTick{border:none;border-radius:99px;padding:.3em 1em;cursor:pointer;
+  font-family:'Fredoka',sans-serif;font-size:.9rem;font-weight:700;background:#eef1f5;color:var(--ink)}
+#anno #annoTick.on{background:var(--mint);color:#fff}
+#annoRows{display:flex;flex-direction:column;gap:.45em}
+.arow{display:flex;gap:.5em;align-items:center}
+.arow label{flex:0 0 3.1em;text-align:right;font-weight:800;font-size:.9rem;
+  color:var(--ink-soft);font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+.arow input{flex:1;min-width:0;border:2px solid #E1E9F4;border-radius:10px;
+  padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;color:var(--ink);background:var(--white)}
+.arow input:focus{outline:none;border-color:var(--sky)}
+.arow.free{margin-top:.2em}
+.arow.free textarea,.arow.fix textarea{flex:1;min-width:0;border:2px dashed #D8DEE6;border-radius:10px;
+  padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;color:var(--ink);
+  background:var(--white);resize:vertical;min-height:3.4em}
+.arow.free textarea:focus,.arow.fix textarea:focus{outline:none;border-color:var(--sky)}
+.arow.free textarea::placeholder,.arow.fix textarea::placeholder{color:#9AA7B3;font-style:italic}
+#anno .a-foot{display:flex;align-items:center;gap:.6em}
+#anno .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;
+  font-family:'Fredoka',sans-serif;font-size:.85rem;font-weight:600;background:#eef1f5;color:var(--ink)}
+#anno .a-foot button:hover{background:var(--navy);color:#fff}
+#anno .a-foot .a-hint{font-size:.74rem;color:var(--ink-soft);font-style:italic}
+#annoDone{font-weight:700}
+#annoRep{position:fixed;inset:0;z-index:260;background:rgba(34,48,63,.45);display:none;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+#annoRep.on{display:flex;animation:rise .25s both}
+#annoRep .a-rep-card{background:var(--white);border-radius:18px;box-shadow:var(--shadow-lg);
+  padding:1em 1.1em;width:min(560px,92vw);display:flex;flex-direction:column;gap:.6em}
+#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;
+  padding:.6em .7em;font-family:ui-monospace,Menlo,monospace;font-size:.88rem;color:var(--ink)}
+#annoRep .a-head b{font-family:'Fredoka',sans-serif;color:var(--navy-deep)}
+#annoRep .a-foot{display:flex;gap:.6em;align-items:center}
+#annoRep .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;
+  font-family:'Fredoka',sans-serif;font-size:.85rem;font-weight:600;background:#eef1f5;color:var(--ink)}
+#annoRep .a-foot button:hover{background:var(--navy);color:#fff}
+#annoRepCopy{background:var(--navy)!important;color:#fff!important}
+
+@media (max-width:900px){
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+  #pv .panes{grid-template-columns:1fr}
+}
+/* THE CORNERS V2 (Elena, 04.10): Pardon top-left · ✍️ top-right ·
+   emoji-only pills (names in tooltips). The SM5 inline notes buttons
+   stay — the rule governs the fixed corner pills. */
+.slide{padding-top:8.5vh}
+</style>
+</head>
+<body>
+
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · PREPARE-AHEAD (teacher-facing, EN — start the class from slide 2) -->
+  <section class="slide">
+    <div class="eyebrow reveal">SM 5.1 · tuesday 6 october · Super Minds 5 · SB pp. 18–19</div>
+    <h1 class="title reveal">Prepare ahead 🧰</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:920px">
+      <div class="prep"><span class="ico">🖥</span><p><b>ActiveTeach open at SB pp. 18–19</b> — the pages live there, and so does the <b>Think and learn video</b> (slide 9, books closed — test it before 17.15). This deck is the task layer in between.</p></div>
+      <div class="prep"><span class="ico">🖊</span><p><b>Homework check first</b> — the <b>p. 16 dictation</b> (slide 3, the five photos) + Farida's three: the <b>p. 17 reports</b> · <b>WB p. 16</b> · <b>WB p. 17</b> (the fire-scene audio is already in the parents' chat). Every key in the notes.</p></div>
+      <div class="prep"><span class="ico">❓</span><p><b>Open question:</b> did Farida run the <b>p. 14–15 story-ten dictation</b> on Thursday? If yes — skip the second board on slide 3; if no — it checks there.</p></div>
+      <div class="prep"><span class="ico">📗</span><p><b>On the desks:</b> PB + WB (paper) · <b>A3 paper + coloured pens</b> for the project (slide 17) — one sheet per pair.</p></div>
+      <div class="prep"><span class="ico">🎧</span><p><b>Test the sound:</b> track <b>019</b> (the Ring of Fire check, ~1 min) plays on slide 14.</p></div>
+      <div class="prep"><span class="ico">⏱</span><p><b>If time runs short</b>, cut in this order: <b>the volcano model</b> (slide 18) → <b>WB p. 19</b> (slide 16) → <b>the map work</b> (slide 12). <b>Never cut:</b> the dictation (slide 3) and the Ring of Fire (slide 14).</p></div>
+      <div class="prep"><span class="ico">✍️</span><p><b>NEW today — the ✍️ window v2</b> (top-right, key <b>N</b>): per-slide <b>d:</b> (doesn't know) · <b>//:</b> (can't pronounce) rows + the free space; <b>⌘S saves and closes</b>. Over http it <b>auto-sends to the Mac</b> — say <b>"finished"</b> after the lesson. Give it one 30-second try before 17.15.</p></div>
+    </div>
+    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2. &nbsp;·&nbsp; <b style="color:var(--navy)">build 05.10 · v1</b></p>
+  </section>
+
+  <!-- SLIDE 2 · WI-FI SWITCH -->
+  <section class="slide wifi-slide">
+    <div class="wifi-ico reveal">📶</div>
+    <div class="wifi-word reveal">Wi-Fi!</div>
+  </section>
+
+  <!-- SLIDE 3 · HW CHECK 1 — THE P. 16 DICTATION + THE SKIP-IF-DONE BRANCH -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework check · the p. 16 words</div>
+    <h1 class="title reveal">Dictation 📝</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Look at the photo — write the word. Then click — check your spelling!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item ditem" data-k><span class="no">1</span><img class="dthumb" src="../media/dict-earthquake.jpg" alt="dictation photo 1"><span class="dword agree">earthquake</span></div>
+      <div class="item ditem" data-k><span class="no">2</span><img class="dthumb" src="../media/dict-forestfire.jpg" alt="dictation photo 2"><span class="dword agree">forest fire</span></div>
+      <div class="item ditem" data-k><span class="no">3</span><img class="dthumb" src="../media/dict-flood.jpg" alt="dictation photo 3"><span class="dword agree">flood</span></div>
+      <div class="item ditem" data-k><span class="no">4</span><img class="dthumb" src="../media/dict-hurricane.jpg" alt="dictation photo 4"><span class="dword agree">hurricane</span></div>
+      <div class="item ditem" data-k><span class="no">5</span><img class="dthumb" src="../media/dict-avalanche.jpg" alt="dictation photo 5"><span class="dword agree">avalanche</span></div>
+    </div>
+    <div class="card sky reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.3rem);margin-bottom:.4em">And if Farida DIDN'T run Thursday's dictation — the ten story words are still waiting here 👇</p>
+      <div class="chipgrid">
+        <div class="chip" data-k><span class="cw">1</span><span class="agree">certain</span></div>
+        <div class="chip" data-k><span class="cw">2</span><span class="agree">narrow escape</span></div>
+        <div class="chip" data-k><span class="cw">3</span><span class="agree">warn</span></div>
+        <div class="chip" data-k><span class="cw">4</span><span class="agree">breathing</span></div>
+        <div class="chip" data-k><span class="cw">5</span><span class="agree">lava</span></div>
+        <div class="chip" data-k><span class="cw">6</span><span class="agree">bright</span></div>
+        <div class="chip" data-k><span class="cw">7</span><span class="agree">ashes</span></div>
+        <div class="chip" data-k><span class="cw">8</span><span class="agree">chance</span></div>
+        <div class="chip" data-k><span class="cw">9</span><span class="agree">erupt</span></div>
+        <div class="chip" data-k><span class="cw">10</span><span class="agree">destroy</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 · HW CHECK 2 — THE REPORTS (SB p. 17 ex. 3) + WB p. 16 ex. 1 -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework check · the reports + the speech bubbles</div>
+    <h1 class="title reveal">Your disaster reports 📰</h1>
+    <div class="accent-line reveal"></div>
+    <div class="frame small reveal">💬 This report is about <b class="slot">___</b> . Read it to us!</div>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">WB p. 16 · ex. 1 — what are the people talking about? (1 is done in the book)</p>
+      <div class="item"><span class="no">1</span><span>"It started at two o'clock in the morning. The whole house was shaking!" <span class="muted" style="font-size:.8em">— an earthquake ✓ given</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>"It snowed heavily for three days before the catastrophe happened." <span class="agree">an avalanche</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>"There was water everywhere. They had to rescue some people by helicopter." <span class="agree">a flood</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>"When the wind came up, the flames spread quickly. There are no trees left." <span class="agree">a forest fire</span></span></div>
+      <div class="item" data-k><span class="no">5</span><span>"The wind was very strong. It destroyed houses and cars, and several people were injured." <span class="agree">a hurricane</span></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5 · HW CHECK 3 — WB p. 16 ex. 2 THE CHART -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework check · WB p. 16 · ex. 2</div>
+    <h1 class="title reveal">Sort the disasters! 🗂</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">WB p. 16 · ex. 2 — the chart around NATURAL DISASTERS</span></div>
+    <p class="task reveal">Which box does each disaster go in? Say it — then click!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">🌧</span><span>Caused by weather: <span class="agree wrap">hurricanes · floods · avalanches</span></span></div>
+      <div class="item" data-k><span class="no">🌋</span><span>NOT caused by weather: <span class="agree wrap">earthquakes · volcanoes</span></span></div>
+      <div class="item" data-k><span class="no">🔥</span><span>Can be caused by people, too: <span class="agree wrap">forest fires</span></span></div>
+      <div class="item" data-k><span class="no">💰</span><span>The most expensive natural disaster: <span class="agree wrap">floods</span></span></div>
+    </div>
+    <p class="hintline reveal mt" style="text-align:center">Exx. 3–4 were your own research — who tells us their disaster?</p>
+  </section>
+
+  <!-- SLIDE 6 · HW CHECK 4 — WB p. 17: THE FIRE SCENE + YES/NO -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework check · WB p. 17</div>
+    <h1 class="title reveal">Who is who at the fire? 🚒</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">WB p. 17 · ex. 1 — you listened at home (the audio is in your parents' chat)</span></div>
+    <div class="center reveal" style="display:flex;justify-content:center">
+      <audio controls preload="none" src="../media/wb-u2-p17-t6.mp3" style="width:min(480px,90%)"></audio>
+    </div>
+    <p class="task reveal">Who is who? Say it — then click! (1 is done in the book)</p>
+    <div class="card reveal" style="max-width:980px;margin:0 auto;width:100%">
+      <div class="item"><span class="no">1</span><span>Mr Roberts <span class="muted" style="font-size:.8em">— the fireman with the hose, pouring water on the flames ✓ given</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>David <span class="agree wrap">the boy with the bike, on the other side of the road</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>Mr Richards <span class="agree wrap">the fireman holding his helmet, taller than the other fireman</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>William <span class="agree wrap">the shorter fireman</span></span></div>
+      <div class="item" data-k><span class="no">5</span><span>Harry <span class="agree wrap">the boy, fallen down and hurt his knee</span></span></div>
+      <div class="item" data-k><span class="no">6</span><span>Helen <span class="agree wrap">the girl helping Harry, with dark hair</span></span></div>
+    </div>
+    <div class="card cheese reveal" style="max-width:980px;margin:0 auto;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">Ex. 2 — Look and read: yes or no? The whole string:</p>
+      <div class="item" data-k><span class="no">2–9</span><span><span class="agree">2 no · 3 yes · 4 no · 5 no · 6 yes · 7 no · 8 yes · 9 yes</span></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7 · THE HARVEST CHECK (29.09'S STORY WORDS) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Words we met in the story</div>
+    <h1 class="title reveal">Our story words 💬</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Say what it means — or use it in a sentence. Then click!</p>
+    <div class="card reveal" style="max-width:920px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span>direction <span class="agree wrap">in the direction of the hills = towards</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>reached <span class="agree wrap">got to</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>brought <span class="agree wrap">the past of bring</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>natural disasters <span class="agree wrap">earthquakes, volcanoes, floods…</span></span></div>
+      <div class="item" data-k><span class="no">5</span><span>tried to <span class="agree wrap">attempted</span></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 8 · WARM-UP (TB) — POMPEII → THE BIG QUESTIONS -->
+  <section class="slide">
+    <div class="eyebrow reveal">Warm-up · the story so far</div>
+    <h1 class="title reveal">Remember Pompeii? 🌋</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:900px;margin:0 auto;width:100%;gap:.7em">
+      <div class="item" data-k><span class="no">🏛</span><span>Where were the time traders in the story? <span class="agree">Pompeii</span></span></div>
+      <div class="item" data-k><span class="no">⛰</span><span>And the volcano's name? <span class="agree">Vesuvius</span></span></div>
+    </div>
+    <div class="col reveal" style="max-width:900px;margin:0 auto;width:100%;gap:.6em">
+      <div class="bigq">How do volcanoes form?</div>
+      <div class="bigq">Why do some places have a lot of volcanoes — or lots of earthquakes?</div>
+    </div>
+    <p class="hintline reveal" style="text-align:center">Hold your answers — the video knows! 🎬</p>
+  </section>
+
+  <!-- SLIDE 9 · THE THINK AND LEARN VIDEO (ActiveTeach, books closed) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Think and learn · the video</div>
+    <h1 class="title reveal">The Earth's plates 🌍</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">ActiveTeach — the Think and learn video · books CLOSED!</span></div>
+    <p class="task reveal">Watch — then answer!</p>
+    <div class="card reveal" style="max-width:920px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span>How many BIG plates are there? <span class="agree">seven</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>Where are most volcanoes? <span class="agree wrap">under water</span></span></div>
+    </div>
+    <div class="card sky reveal" style="max-width:920px;margin:0 auto;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem);line-height:1.5">⭐ Super fact: <b>plates can create mountains!</b> This happens when two plates meet and the land on them moves up. — Name a famous mountain!</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 10 · SB p. 18 ex. 1 — HOW DO PLATES MAKE DISASTERS HAPPEN? -->
+  <section class="slide">
+    <div class="eyebrow reveal">Reading · SB p. 18 · ex. 1</div>
+    <h1 class="title reveal">Plates + disasters 🔗</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">ActiveTeach — SB p. 18 · read the text and the captions</span></div>
+    <p class="task reveal">Read — then tell your partner: HOW do plates make natural disasters happen?</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">🌋</span><span>Where two plates meet… <span class="agree wrap">a volcano can erupt</span></span></div>
+      <div class="item" data-k><span class="no">🫨</span><span>Where plates meet… <span class="agree wrap">an earthquake can happen</span></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 11 · SB p. 18 ex. 2 — WHAT ARE THE WORDS? -->
+  <section class="slide">
+    <div class="eyebrow reveal">Reading · SB p. 18 · ex. 2</div>
+    <h1 class="title reveal">What are the words? 🧩</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Read the definition — say the word! Then click.</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span>These plates are under the ocean. <span class="agree">oceanic</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>This is the line around each plate. <span class="agree">boundary</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>These plates are under land. <span class="agree">continental</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>This plate is under land and water. <span class="agree">South American</span></span></div>
+      <div class="item" data-k><span class="no">5</span><span>This is when fire comes from a volcano because two plates meet. <span class="agree">erupt</span></span></div>
+      <div class="item" data-k><span class="no">6</span><span>This is when land moves because two plates meet. <span class="agree">earthquake</span></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 12 · SB p. 18 ex. 3 — THE MAP WORK -->
+  <section class="slide">
+    <div class="eyebrow reveal">Speaking · SB p. 18 · ex. 3</div>
+    <h1 class="title reveal">Find out — YOU are on a plate! 🗺</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">The big map on SB p. 18 + a map of your country</span></div>
+    <p class="task reveal">Work in pairs. Find out:</p>
+    <div class="card reveal" style="max-width:880px;margin:0 auto;width:100%">
+      <div class="item"><span class="no">🧭</span><span>which plate you are on</span></div>
+      <div class="item"><span class="no">📏</span><span>the boundary nearest to where you live</span></div>
+      <div class="item"><span class="no">⛰</span><span>if there are mountains there</span></div>
+      <div class="item"><span class="no">🌋</span><span>if there are volcanoes there</span></div>
+      <div class="item"><span class="no">🫨</span><span>if any earthquakes happened there</span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 13 · WI-FI SWITCH -->
+  <section class="slide wifi-slide">
+    <div class="wifi-ico reveal">📶</div>
+    <div class="wifi-word reveal">Wi-Fi!</div>
+  </section>
+
+  <!-- SLIDE 14 · SB p. 19 ex. 4 — THE RING OF FIRE + TRACK 019 + THE TREASURE -->
+  <section class="slide">
+    <div class="eyebrow reveal">Reading · SB p. 19 · ex. 4</div>
+    <h1 class="title reveal">The Ring of Fire 🔥</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">SB p. 19 · think and complete the fact file with the words from the box</span></div>
+    <div class="bank reveal">
+      <span>volcanoes</span><span>millions</span><span>452</span><span>cities</span><span>plate</span><span>earthquakes</span><span>40,000</span><span>water</span>
+    </div>
+    <p class="task reveal mt">Write your guesses in the book — then listen and check! 🎧</p>
+    <div class="center reveal" style="display:flex;justify-content:center">
+      <audio controls preload="none" src="../media/sm5-u2-l6-t019.mp3" style="width:min(480px,90%)"></audio>
+    </div>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span>It's around the Pacific… <span class="agree">plate</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>It's … km long. <span class="agree">40,000</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>There are … volcanoes there. <span class="agree">452</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>Most of the volcanoes are under… <span class="agree">water</span></span></div>
+      <div class="item" data-k><span class="no">5</span><span>About 90% of all … happen in the Ring of Fire. <span class="agree">earthquakes</span></span></div>
+      <div class="item" data-k><span class="no">6</span><span>Some famous and dangerous … are Mount Fuji and Krakatoa. <span class="agree">volcanoes</span></span></div>
+      <div class="item" data-k><span class="no">7</span><span>…it is near two big … : Mexico City and Puebla. <span class="agree">cities</span></span></div>
+      <div class="item" data-k><span class="no">8</span><span>… of people live near Popocatépetl. <span class="agree">Millions</span></span></div>
+    </div>
+    <div class="card stampc reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--stamp);margin-bottom:.2em">🧠 Detective time!</p>
+      <div class="item" data-k><span class="no">🔎</span><span>The Ring of Fire is around the Pacific Plate. About 90% of all earthquakes happen in the Ring of Fire. — So where do MOST earthquakes happen? <span class="agree wrap">in the Ring of Fire — around the Pacific Ocean!</span></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 15 · WB p. 18 — THE PLATE SENTENCES + THE VOLCANO PLACES -->
+  <section class="slide">
+    <div class="eyebrow reveal">Workbook · p. 18 · ex. 1–3</div>
+    <h1 class="title reveal">Plate practice 📓</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch">
+      <div class="card" style="flex:1;min-width:340px">
+        <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">Ex. 1 · Look and complete (the map is right there!)</p>
+        <div class="item" data-k><span class="no">1</span><span>The boxed plate on the map — under land <i>and</i> water: <span class="agree">South American</span></span></div>
+        <div class="item" data-k><span class="no">2</span><span>The Pacific Plate is an… <span class="agree">oceanic</span> plate.</span></div>
+        <div class="item" data-k><span class="no">3</span><span>The Eurasian Plate is mostly a… <span class="agree">continental</span> plate.</span></div>
+        <div class="item" data-k><span class="no">4</span><span>Lots of … happen in the 'Ring of Fire'. <span class="agree">earthquakes</span></span></div>
+        <div class="item" data-k><span class="no">5</span><span>Where two plates meet, volcanoes can… <span class="agree">erupt</span></span></div>
+      </div>
+      <div class="col" style="flex:1;min-width:340px;gap:.8em">
+        <div class="card sky" style="width:100%">
+          <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">Ex. 2 · Read the Fiery Facts — where are these volcanoes found?</p>
+          <div class="item" data-k><span class="no">1</span><span>Olympus Mons is on… <span class="agree">Io (Jupiter)</span></span></div>
+          <div class="item" data-k><span class="no">2</span><span>Mt Kilauea is in… <span class="agree">Hawaii</span></span></div>
+          <div class="item" data-k><span class="no">3</span><span>Eyjafjallajökull is in… <span class="agree">Iceland</span></span></div>
+        </div>
+        <div class="card cheese" style="width:100%">
+          <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">Ex. 3 · Read and answer — why so many volcanoes in Iceland?</p>
+          <div class="item" data-k><span class="no">❓</span><span><span class="agree wrap">Iceland is on a plate boundary — and also a hot spot!</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 16 · WB p. 19 — TICK + THE PHRASES CHART + THE ANDES -->
+  <section class="slide">
+    <div class="eyebrow reveal">Workbook · p. 19</div>
+    <h1 class="title reveal">Volcano sort 🌋</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch">
+      <div class="col" style="flex:1.15;min-width:360px;gap:.8em">
+        <div class="card" style="width:100%">
+          <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">Tick ✓ the true sentences (read the Fiery Facts again!)</p>
+          <div class="item" data-k><span class="no">✔</span><span>The true ones are… <span class="agree">2 and 5</span></span></div>
+        </div>
+        <div class="card sky" style="width:100%">
+          <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">Read and answer — why are the Andes where they are?</p>
+          <div class="item" data-k><span class="no">⛰</span><span><span class="agree wrap">They are on a tectonic plate boundary — two plates collided, the land moved up.</span></span></div>
+        </div>
+      </div>
+      <div class="card cheese" style="flex:1;min-width:360px">
+        <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">Write the phrases in the correct place:</p>
+        <div class="item" data-k><span class="no">💨</span><span>Things that come OUT of volcanoes: <span class="agree wrap">solid rocks · liquid rock (lava) · hot gas · hot ash</span></span></div>
+        <div class="item" data-k><span class="no">📍</span><span>Where volcanoes can erupt: <span class="agree wrap">under ice · under the sea · on land</span></span></div>
+        <div class="item" data-k><span class="no">💥</span><span>The damage volcanoes do: <span class="agree wrap">injure people · destroy buildings · make mud slides</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 17 · THE PROJECT + THE LESSON REVIEW -->
+  <section class="slide">
+    <div class="eyebrow reveal">Project · SB p. 19 · ex. 5</div>
+    <h1 class="title reveal">Your fact file 📄</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">The model: the Ring of Fire file + the South American Plate page in your book</span></div>
+    <div class="row reveal" style="justify-content:center">
+      <div class="stamp-box big">pairs · A3 · coloured pens</div>
+    </div>
+    <div class="steps reveal" style="max-width:880px;margin:0 auto;width:100%">
+      <div class="step"><span class="n">1</span><span>Find out about the <b>South American Plate</b> — how big is it? Earthquakes? Volcanoes? Cities?</span></div>
+      <div class="step"><span class="n">2</span><span>Make notes.</span></div>
+      <div class="step"><span class="n">3</span><span>Design your fact file — use the Ring of Fire as the model!</span></div>
+      <div class="step"><span class="n">4</span><span>Add a photo or draw a picture + a label.</span></div>
+    </div>
+    <div class="card sky reveal" style="max-width:880px;margin:.4em auto 0;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.5">📋 Lesson review — copy into your notebooks:<br><i>"Today I've researched the South American Plate and written a fact file."</i></p>
+    </div>
+  </section>
+
+  <!-- SLIDE 18 · IF TIME — THE TB EXTENSION: THE VOLCANO MODEL -->
+  <section class="slide">
+    <div class="eyebrow reveal">If time · TB extension</div>
+    <h1 class="title reveal">Build a volcano! 🌋</h1>
+    <div class="accent-line reveal"></div>
+    <div class="steps reveal" style="max-width:860px;margin:0 auto;width:100%">
+      <div class="step"><span class="n">1</span><span>Card — roll a <b>cone</b> with a hole at the top.</span></div>
+      <div class="step"><span class="n">2</span><span>Orange tissue paper = the <b>lava</b> — down the side it goes!</span></div>
+      <div class="step"><span class="n">3</span><span>Use your model: tell your partner <b>why volcanoes are dangerous</b>.</span></div>
+    </div>
+    <p class="hintline reveal" style="text-align:center">First slide to cut when time is short.</p>
+  </section>
+
+  <!-- SLIDE 19 · HOMEWORK -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework · for Thursday</div>
+    <h1 class="title reveal">Homework 📌</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:900px;width:100%">
+      <div class="hw-step"><span class="n">1</span><p>✍️ <b>The new words</b> — written dictation on Thursday: <span class="en">plate · boundary · oceanic plate · continental plate · magma</span></p></div>
+      <div class="hw-step"><span class="n">2</span><p>📄 <b>Your fact file</b> — if the project didn't fit today: finish it at home (find the facts, draw the picture, add the label) 🎨</p></div>
+    </div>
+    <div class="center reveal"><div class="stamp-box big">plate hunters — great work today! 🌍</div></div>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 19</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- 🙋 Pardon? pill — top LEFT (corners V2), emoji-only -->
+<button id="pardonBtn" title="Pardon? — class phrases (P)">🙋</button>
+<div id="pardon">
+  <span class="closer" onclick="togglePardon(false)">✕ close</span>
+  <p class="phead">🙋 Say it in English!</p>
+  <div class="pgrid">
+<div class="pcard"><span class="ico">🙋</span>Pardon?</div>
+<div class="pcard"><span class="ico">❓</span>What does <b>___</b> mean?</div>
+<div class="pcard"><span class="ico">🆘</span>Can you help me?</div>
+<div class="pcard"><span class="ico">🔁</span>Can you repeat, please?</div>
+<div class="pcard"><span class="ico">🇬🇧</span>How do you say <b>___</b> in English?</div>
+<div class="pcard"><span class="ico">🤷</span>I don't understand.</div>
+    </div>
+</div>
+
+<!-- ✍️ V2 lesson-log — top RIGHT (corners V2), emoji-only --><div id="annoRep">
+  <div class="a-rep-card">
+    <div class="a-head"><b>lesson report</b><span class="a-sp"></span><button id="annoRepClose">✕</button></div>
+    <textarea id="annoRepText" readonly></textarea>
+    <div class="a-foot" style="display:flex;gap:.6em;align-items:center">
+      <button id="annoRepCopy">copy</button>
+      <button id="annoRepClear" title="delete all ticks and comments">🧹 clear</button>
+      <span id="annoSent" style="margin-left:auto;font-size:.78rem;color:var(--ink-soft);font-style:italic"></span>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ============ core deck engine (the U2-L2 engine, 22.09 → upgraded) ============ */
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.querySelector('#bar i'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+
+/* every sync element gets a stable key; class to switch = data-on */
+const syncs=[...document.querySelectorAll('[data-k]')];
+syncs.forEach((el,k)=>{el.dataset.k=k;if(!el.dataset.on)el.dataset.on='shown'});
+function setSync(k,on){const el=syncs[k];if(!el)return;
+  if(el.classList.contains('yn')){el.classList.toggle('shown-yes',on&&el.dataset.on==='shown-yes');
+    el.classList.toggle('shown-no',on&&el.dataset.on==='shown-no');}
+  else el.classList.toggle(el.dataset.on,on);}
+
+const CH='sm5-u2-l6';
+const bc=('BroadcastChannel'in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get('embed')?'embed':(qs.get('presenter')?'presenter':'main');
+const open=new Set();
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==='hello'&&MODE==='main'){post({t:'state',i,open:[...open]});return}
+  if(m.t==='state'){if(MODE==='embed'){showEmbed(m.i)}applyOpen(m.open);if(MODE==='presenter')pvShow(m.i);return}
+  if(m.t==='go'){if(MODE==='embed')showEmbed(m.i);else{go(m.i,true)}applyOpen(m.open||[]);return}
+  if(m.t==='tap'){setSync(m.k,m.on);if(m.on)open.add(m.k);else open.delete(m.k);
+    if(MODE==='embed')post({t:'tap',k:m.k,on:m.on});}
+};
+function applyOpen(list){open.clear();(list||[]).forEach(k=>{open.add(k);setSync(k,true)})}
+function broadcastState(){post({t:'state',i,open:[...open]})}
+
+/* clicks on reveal elements — child answers first, click confirms */
+document.getElementById('deck').addEventListener('click',e=>{
+  const el=e.target.closest('[data-k]');if(!el)return;
+  const k=+el.dataset.k;
+  const nowOn=!el.classList.contains(el.dataset.on);
+  setSync(k,nowOn);if(nowOn)open.add(k);else open.delete(k);
+  post({t:'tap',k,on:nowOn});
+});
+
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(annoPanel&&annoPanel.classList.contains('on')){annoIdx=n;annoFill()}
+  if(!silent)post({t:'go',i,open:[...open]});
+  if(MODE==='presenter')pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+const fsBtn=document.getElementById('fs');
+if(fsBtn)fsBtn.onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* teacher's notes toggle (muted, small — click to unfold) */
+function tn(b){const n=b.nextElementSibling;n.classList.toggle('open');b.classList.toggle('on');b.blur();}
+
+/* 🙋 Pardon? overlay */
+function togglePardon(on){const p=document.getElementById('pardon');if(p)p.classList.toggle('open',on)}
+const pardonBtnEl=document.getElementById('pardonBtn');
+if(pardonBtnEl)pardonBtnEl.onclick=()=>togglePardon(!document.getElementById('pardon').classList.contains('open'));
+const pardonEl=document.getElementById('pardon');
+if(pardonEl)pardonEl.addEventListener('click',e=>{if(e.target.id==='pardon')togglePardon(false)});
+
+document.addEventListener('keydown',e=>{
+  /* ⌘S / Ctrl+S = save + close the ✍️ window — the ONE modifier combo the deck
+     owns, and only while the window is open; the browser save dialog never appears */
+  if((e.metaKey||e.ctrlKey)&&(e.key==='s'||e.key==='S')&&annoPanel&&annoPanel.classList.contains('on')){
+    e.preventDefault();annoDoneClose();return}
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){
+    const rep=document.getElementById('annoRep');
+    if(rep&&rep.classList.contains('on')){rep.classList.remove('on');return}
+    if(annoPanel&&annoPanel.classList.contains('on')){annoPanel.classList.remove('on');return}
+    togglePardon(false);return}
+  if(MODE==='embed')return;
+  /* AUDIO key-guard: SPACE pauses a playing track instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'){if(fsBtn)fsBtn.click();}
+  if(e.key==='t'||e.key==='T')togglePresenter();
+  if(e.key==='p'||e.key==='P'){togglePardon(!document.getElementById('pardon').classList.contains('open'));return}
+  if((e.key==='n'||e.key==='N'||e.key==='c'||e.key==='C')&&MODE==='main'&&annoPanel){
+    if(annoPanel.classList.contains('on'))annoDoneClose();
+    else annoToggle(true);
+    return}
+});
+/* the wheel never flips a scrolled slide — it scrolls it */
+let wt=0;document.addEventListener('wheel',e=>{if(MODE!=='main')return;
+  const sl=e.target.closest('.slide');if(sl&&sl.classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(MODE!=='main')return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ presenter view (T / 🖥) ============ */
+const pv=document.getElementById('pv');
+function togglePresenter(){
+  if(MODE==='embed')return;
+  if(!pv)return; /* the screen-only copy carries no presenter view */
+  if(MODE==='presenter'){window.close();return}
+  window.open(location.pathname+'?presenter=1','sm5-pv-l6','width=1180,height=820');
+}
+const pvtBtn=document.getElementById('pvt');
+if(pvtBtn)pvtBtn.onclick=togglePresenter;
+const pvCloseBtn=document.getElementById('pv-close');
+if(pvCloseBtn)pvCloseBtn.onclick=()=>window.close();
+const pvCur=document.getElementById('pv-cur'),pvNext=document.getElementById('pv-next'),
+pvNotes=document.getElementById('pv-notes'),pvCnt=document.getElementById('pv-cnt');
+if(MODE==='presenter'&&pv){
+  document.body.classList.add('presenter');
+  pvCur.src=location.pathname+'?embed=cur';pvNext.src=location.pathname+'?embed=next';
+}
+function pvShow(n){
+  if(MODE!=='presenter'||!pv)return;
+  pvCnt.textContent=(n+1)+' / '+slides.length;
+  pvNotes.innerHTML='';
+  const tnEl=slides[n].querySelector('.tnotes');
+  const note=tnEl?tnEl.textContent:slides[n].dataset.notes;
+  if(note){const p=document.createElement('p');p.textContent=note;pvNotes.appendChild(p)}
+  const nx=slides[n+1];
+  const nxTn=nx&&nx.querySelector('.tnotes');
+  const nxt=nx?(nxTn?nxTn.textContent:nx.dataset.notes):null;
+  if(nxt){const h=document.createElement('p');h.innerHTML='<b>next →</b> ';h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+/* embed panes: mirror the authoritative index, no chrome, no wheel-nav */
+let embedSlot=qs.get('embed');
+function showEmbed(n){
+  const target=embedSlot==='next'?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==='next')document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle('active',k===target);s.classList.remove('prev')});
+}
+
+/* ============ ✍️ V2 lesson log — the d: · //: column + the 3-line free
+   space + fix:, ⌘S = save + close; the live report AUTO-SENDS to the Mac
+   inbox over http (POST /report); on the iPad 📋 copy is the way ============ */
+const annoPanel=document.getElementById('anno'),annoSlideEl=document.getElementById('annoSlide'),
+annoFields=annoPanel?{
+  d:document.getElementById('annoD'),sl:document.getElementById('annoSL'),
+  free:document.getElementById('annoF'),fx:document.getElementById('annoFX')}:null,
+annoTick=document.getElementById('annoTick'),
+annoHint=document.getElementById('annoHint'),annoSent=document.getElementById('annoSent');
+const CAN_SEND=(location.protocol==='http:'&&MODE==='main');
+let annoIdx=i,annoData={};
+try{annoData=JSON.parse(localStorage.getItem(CH+'-anno-v2')||'{}')}catch(e){annoData={}}
+function annoSave(){try{localStorage.setItem(CH+'-anno-v2',JSON.stringify(annoData))}catch(e){}
+  annoSend()}
+function annoFill(){if(!annoPanel)return;const a=annoData[annoIdx+1]||{};
+  annoSlideEl.textContent='slide '+(annoIdx+1)+' / '+slides.length;
+  annoFields.d.value=a.d||'';annoFields.sl.value=a.sl||'';annoFields.free.value=a.free||'';annoFields.fx.value=a.fx||'';
+  annoTick.classList.toggle('on',!!a.t)}
+function annoToggle(open){if(!annoPanel)return;annoPanel.classList.toggle('on',open);
+  if(open){annoIdx=i;annoFill();
+    const firstEmpty=Object.values(annoFields).find(f=>!f.value)||annoFields.d;
+    firstEmpty.focus()}
+  else document.activeElement&&document.activeElement.blur()}
+function annoSet(k,f){const a=annoData[k]||{};f(a);
+  if(!a.t&&!a.d&&!a.sl&&!a.free&&!a.fx)delete annoData[k];else annoData[k]=a;annoSave()}
+function annoDoneClose(){annoSave();
+  if(annoHint){annoHint.textContent='saved ✓';
+    setTimeout(()=>annoHint.textContent=CAN_SEND
+      ?'auto-sends to the Mac · they see the screen while you type'
+      :'saves on this device · they see the screen while you type',1400)}
+  annoToggle(false)}
+function annoReportText(){let out=CH+' · lesson notes · '+new Date().toLocaleString('en-GB')+'\n';
+  let any=false;
+  slides.forEach((s,k)=>{const a=annoData[k+1];if(!a)return;
+    const rows=[];
+    if(a.d)rows.push('d: '+a.d);
+    if(a.sl)rows.push('//: '+a.sl);
+    if(a.free)rows.push(a.free);
+    if(a.fx)rows.push(('fix: '+a.fx).replace(/\n/g,'\n   '));
+    if(!a.t&&!rows.length)return;any=true;
+    out+=(k+1)+(a.t?' ✓':'')+'\n'+rows.map(r=>'   '+r).join('\n')+'\n'});
+  if(!any)out+='(nothing ticked or noted yet)';
+  return out}
+let annoTimer=null;
+function annoSend(){if(!CAN_SEND)return;
+  clearTimeout(annoTimer);
+  annoTimer=setTimeout(()=>{
+    fetch('/report?deck='+encodeURIComponent(CH),{method:'POST',body:annoReportText()})
+      .then(()=>{if(annoSent)annoSent.textContent='auto-sent to the Mac ✓'})
+      .catch(()=>{if(annoSent)annoSent.textContent='not sent — use 📋 copy'})
+  },1200)}
+if(annoHint)annoHint.textContent=CAN_SEND
+  ?'auto-sends to the Mac · they see the screen while you type'
+  :'saves on this device · they see the screen while you type';
+if(MODE==='main'&&annoPanel){
+  document.getElementById('annoBtn').onclick=()=>annoToggle(!annoPanel.classList.contains('on'));
+  document.getElementById('annoPrev').onclick=()=>{annoIdx=Math.max(0,annoIdx-1);annoFill()};
+  document.getElementById('annoNext').onclick=()=>{annoIdx=Math.min(slides.length-1,annoIdx+1);annoFill()};
+  document.getElementById('annoX').onclick=()=>annoToggle(false);
+  annoTick.onclick=()=>{annoSet(annoIdx+1,a=>a.t=a.t?0:1);annoFill()};
+  Object.entries(annoFields).forEach(([key,f])=>
+    f.addEventListener('input',()=>annoSet(annoIdx+1,a=>a[key]=f.value)));
+  document.getElementById('annoDone').onclick=annoDoneClose;
+  const rep=document.getElementById('annoRep'),repText=document.getElementById('annoRepText');
+  document.getElementById('annoCopy').onclick=()=>{
+    repText.value=annoReportText();rep.classList.add('on')};
+  document.getElementById('annoRepClose').onclick=()=>rep.classList.remove('on');
+  rep.addEventListener('click',e=>{if(e.target===rep)rep.classList.remove('on')});
+  document.getElementById('annoRepCopy').onclick=()=>{
+    repText.select();
+    try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(repText.value);
+    else document.execCommand('copy')}catch(e){}
+    const b=document.getElementById('annoRepCopy');b.textContent='copied ✓';
+    setTimeout(()=>b.textContent='copy',1200)};
+  document.getElementById('annoRepClear').onclick=()=>{
+    if(confirm('Delete all ticks and comments?')){annoData={};
+      try{localStorage.removeItem(CH+'-anno-v2')}catch(e){}
+      annoSave();annoFill();rep.classList.remove('on')}};
+}
+
+/* boot: hash → slide; main announces state, others say hello and catch up.
+   Only main may broadcast state — an embed/presenter never overrides it. */
+const h=parseInt(location.hash.slice(1));
+if(MODE==='main'){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true);broadcastState()}
+else post({t:'hello'});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=='main')return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();}catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
