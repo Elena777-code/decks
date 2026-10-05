@@ -219,6 +219,15 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 .cslot{display:inline-block;min-width:5.5em;border-bottom:4px solid var(--cheese);font-family:'Fredoka';font-weight:600;color:var(--stamp);padding:0 .3em;outline:none}
 .rankrow{display:flex;align-items:center;gap:.6em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.45em .9em;margin-bottom:.45em}
 .rankrow .rn{flex-shrink:0;width:1.9em;height:1.9em;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:#fff}
+/* ===== v11 · the picture ranking ===== */
+.rankbank{display:flex;flex-wrap:wrap;gap:.4em;justify-content:center;margin:.2em 0 .6em}
+.rpick{font-size:clamp(1.6rem,2.8vw,2.3rem);width:2.2em;height:2.2em;border-radius:16px;border:3px solid var(--sky);background:var(--white);cursor:pointer;transition:all .15s ease;line-height:1}
+.rpick:hover{transform:translateY(-3px);border-color:var(--navy)}
+.rpick.used{opacity:.28;pointer-events:none}
+.rslot{cursor:pointer}
+.rslot .rs-fill{flex:1;font-family:'Fredoka';font-weight:600;color:var(--ink-soft);font-size:clamp(1.05rem,1.8vw,1.4rem)}
+.rslot.filled{background:#EAF6F1}
+.rslot.filled .rs-fill{color:var(--navy)}
 /* the vocabulary paragraphs */
 .vp{font-size:clamp(1.05rem,1.75vw,1.4rem);line-height:1.9}
 .vp .gap{min-width:4.5em}
@@ -280,7 +289,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <!-- 1 · prepare ahead -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v10</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v11</div>
     <h1 class="title reveal">The Most Popular Sports in the World ⚽</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
@@ -1008,12 +1017,22 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     <div class="row reveal" style="align-items:flex-start;gap:1.2em;max-width:1020px;margin:0 auto;width:100%">
       <div class="card" style="flex:1.2;min-width:300px;padding:.8em 1.1em">
         <h2 style="font-size:clamp(1.1rem,1.8vw,1.5rem)">1 · The top five sports HERE 🏠</h2>
-        <p class="hintline" style="margin:.2em 0 .5em">type together — from 1 (the most popular) to 5</p>
-        <div class="rankrow"><span class="rn">1</span><span class="cslot" style="flex:1">…</span></div>
-        <div class="rankrow"><span class="rn">2</span><span class="cslot" style="flex:1">…</span></div>
-        <div class="rankrow"><span class="rn">3</span><span class="cslot" style="flex:1">…</span></div>
-        <div class="rankrow"><span class="rn">4</span><span class="cslot" style="flex:1">…</span></div>
-        <div class="rankrow"><span class="rn">5</span><span class="cslot" style="flex:1">…</span></div>
+        <p class="hintline" style="margin:.2em 0 .5em">TAP a picture → it takes the next place! Tap a ranked one → it goes back.</p>
+        <div class="rankbank">
+          <button class="rpick" data-s="⚽ football">⚽</button>
+          <button class="rpick" data-s="🏒 ice hockey">🏒</button>
+          <button class="rpick" data-s="⛸️ figure skating">⛸️</button>
+          <button class="rpick" data-s="🏀 basketball">🏀</button>
+          <button class="rpick" data-s="🏐 volleyball">🏐</button>
+          <button class="rpick" data-s="🎾 tennis">🎾</button>
+          <button class="rpick" data-s="🎿 biathlon">🎿</button>
+          <button class="rpick" data-s="🤸 gymnastics">🤸</button>
+        </div>
+        <div class="rankrow rslot" data-n="1"><span class="rn">1</span><span class="rs-fill">…</span></div>
+        <div class="rankrow rslot" data-n="2"><span class="rn">2</span><span class="rs-fill">…</span></div>
+        <div class="rankrow rslot" data-n="3"><span class="rn">3</span><span class="rs-fill">…</span></div>
+        <div class="rankrow rslot" data-n="4"><span class="rn">4</span><span class="rs-fill">…</span></div>
+        <div class="rankrow rslot" data-n="5"><span class="rn">5</span><span class="rs-fill">…</span></div>
         <p class="mt" style="font-size:clamp(.95rem,1.5vw,1.25rem)">🗣 Then say it: <i>"Number one is … because …"</i></p>
       </div>
       <div class="card cheese" style="flex:1;min-width:280px;padding:.8em 1.1em">
@@ -1627,6 +1646,27 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
   /* the ranking + chart slots are editable */
   document.querySelectorAll('.cslot').forEach(el=>{el.contentEditable='true';el.spellcheck=false;});
+
+  /* v11 · the picture ranking: tap a sport → the next free place; tap a place → give it back */
+  document.querySelectorAll('.rpick').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const free=Array.from(document.querySelectorAll('.rslot')).find(s=>!s.classList.contains('filled'));
+      if(!free) return;
+      free.querySelector('.rs-fill').textContent=b.dataset.s;
+      free.classList.add('filled');
+      b.classList.add('used');
+    });
+  });
+  document.querySelectorAll('.rslot').forEach(s=>{
+    s.addEventListener('click',()=>{
+      if(!s.classList.contains('filled')) return;
+      const name=s.querySelector('.rs-fill').textContent;
+      const b=Array.from(document.querySelectorAll('.rpick')).find(x=>x.dataset.s===name);
+      if(b) b.classList.remove('used');
+      s.querySelector('.rs-fill').textContent='…';
+      s.classList.remove('filled');
+    });
+  });
 
   /* deep-link: #n opens slide n; without a hash, resume where it was last open */
   const h=parseInt(location.hash.slice(1));
