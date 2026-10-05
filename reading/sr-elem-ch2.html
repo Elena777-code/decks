@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Readings · Elementary · Chapter 2 · Are You a Healthy Eater? · the universal reading deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+#progress-track{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));transition:width .45s cubic-bezier(.22,1,.36,1)}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:4.2vh 5vw calc(74px + 4.2vh);opacity:0;transform:translateX(60px) scale(.985);transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);pointer-events:none;overflow:auto}
+.slide>*{flex-shrink:0}
+.slide.active{opacity:1;transform:none;pointer-events:auto;z-index:2}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.40s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.1vw,.95rem);color:var(--navy);margin-bottom:.4em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.05;margin-bottom:.5em}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1.1em}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,2vw,1.8rem)}
+.card.sky{background:#E8F1FA}
+.card.cheese{background:var(--cheese-soft)}
+.card.stampc{background:var(--stamp-soft)}
+.sent{font-size:clamp(1.15rem,2vw,1.7rem);line-height:1.6;padding:.5em .2em;border-bottom:2px dotted rgba(169,204,239,.7)}
+.gap{display:inline-block;min-width:3.2em;border-bottom:4px solid var(--sky);text-align:center;font-family:'Fredoka';font-weight:600;color:transparent;cursor:pointer;transition:all .2s ease;padding:0 .15em;border-radius:4px 4px 0 0}
+.gap:hover{background:#E8F1FA}
+.gap.filled{color:var(--navy);border-color:var(--cheese);background:var(--cheese-soft)}
+.yn{display:flex;align-items:center;gap:.6em;cursor:pointer;padding:.5em .9em;border-radius:12px;background:var(--white);box-shadow:0 4px 10px rgba(34,48,63,.06);font-size:clamp(1.05rem,1.8vw,1.45rem)}
+.yn .badge{flex-shrink:0;width:1.7em;height:1.7em;border-radius:50%;display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.85em;background:#eee;color:transparent;transition:all .2s}
+.yn.shown-yes .badge{background:var(--mint);color:#fff}
+.yn.shown-no .badge{background:var(--stamp);color:#fff}
+.yn .tfkey{display:none}
+.yn.shown-yes .tfkey,.yn.shown-no .tfkey{display:inline}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.shake{animation:shake .45s ease}
+.gift-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.7rem);padding:.7em 1.8em;border:none;border-radius:99px;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--stamp),var(--cheese));box-shadow:var(--shadow-lg);transition:transform .15s ease}
+.gift-btn:hover{transform:scale(1.05)}
+.secret{opacity:0;transform:scale(.94);transition:all .5s ease;pointer-events:none}
+.secret.show{opacity:1;transform:none;pointer-events:auto}
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08);margin-bottom:.7em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:#fff}
+.hw-step .en{font-family:'Fredoka';color:var(--navy);font-weight:600}
+#nav{position:fixed;bottom:2.4vh;right:max(10px,1.6vw);z-index:90;display:flex;align-items:center;gap:1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);padding:.5em 1em;border-radius:99px;box-shadow:var(--shadow-lg)}
+.nav-btn{width:3em;height:3em;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--navy),var(--sky));display:grid;place-items:center;color:#fff;font-size:1.2rem;box-shadow:0 6px 16px rgba(44,78,128,.3);transition:transform .15s ease;font-family:'Fredoka'}
+.nav-btn:hover{transform:scale(1.08)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#counter{font-family:'Fredoka';font-weight:600;font-size:1.1rem;min-width:3.5em;text-align:center}
+#counter .now{color:var(--navy)}
+#fs-btn{width:2.6em;height:2.6em;border-radius:50%;border:none;cursor:pointer;background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.1);font-size:1rem;transition:transform .15s ease}
+#fs-btn:hover{transform:scale(1.08)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:1em}
+.center{text-align:center}
+.mt{margin-top:1em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka';font-weight:500;color:var(--ink);background:var(--cheese-soft);border-radius:14px;padding:.6em 1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.35rem)}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.9rem,1.3vw,1.1rem);color:var(--ink-soft);font-style:italic}
+.model-line{font-size:clamp(1.15rem,2vw,1.6rem);padding:.55em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.read-text{font-size:clamp(1.15rem,1.9vw,1.55rem);line-height:1.75}
+.read-text .key{color:var(--navy);font-weight:800}
+.wb-chip{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.4rem);padding:.25em .9em;border-radius:99px;background:var(--cheese-soft);color:var(--navy);margin:.3em .3em 0 0;box-shadow:0 4px 10px rgba(34,48,63,.06)}
+#s1 h1.title{margin-bottom:.3em}
+#s1 .accent-line{margin-bottom:.8em}
+#s1 .prep li{padding:.3em .2em;border-bottom:2px dotted rgba(169,204,239,.7);font-size:clamp(.95rem,1.45vw,1.25rem)}
+#s1 .hintline{margin-top:.5em}
+.trk-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);padding:.45em 1.2em;border:none;border-radius:99px;cursor:pointer;background:var(--navy);color:#fff;box-shadow:0 6px 16px rgba(44,78,128,.25);transition:transform .15s ease}
+.trk-btn:hover{transform:scale(1.05)}
+.trk-btn.playing{background:var(--mint)}
+.tn-btn{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.8rem,1.25vw,1rem);padding:.35em 1.1em;border:2px dashed rgba(44,78,128,.35);border-radius:99px;background:transparent;color:var(--ink-soft);cursor:pointer}
+.tn-btn:hover{color:var(--navy)}
+.pick{font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.7vw,1.4rem);border:2.5px solid var(--sky);background:var(--white);color:var(--navy);border-radius:99px;padding:.12em .8em;cursor:pointer;transition:all .15s ease;margin:0 .15em}
+.pick:hover{transform:translateY(-2px);border-color:var(--navy)}
+.pick.good{border-color:var(--mint);background:var(--mint);color:#fff;pointer-events:none}
+.pick.bad{border-color:var(--stamp);background:var(--stamp-soft);color:var(--stamp)}
+.subjgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6em;max-width:1020px;margin:0 auto;width:100%}
+.subj{background:var(--white);border-radius:16px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.6em .45em;cursor:pointer;text-align:center;transition:transform .15s ease}
+.subj:hover{transform:translateY(-3px)}
+.subj .se{font-size:clamp(2.6rem,5vw,4rem);line-height:1.1;display:block}
+.subj .sw{display:none;font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(1rem,1.7vw,1.35rem);padding-top:.3em}
+.subj.on .sw{display:block}
+#fsstory{position:fixed;inset:0;z-index:220;background:rgba(34,48,63,.55);display:none;align-items:center;justify-content:center;padding:4vh 4vw;cursor:pointer}
+#fsstory.on{display:flex}
+#fsstory .fs-card{background:var(--white);border-radius:22px;box-shadow:var(--shadow-lg);padding:1.2em 1.6em;max-width:900px;width:100%;max-height:86vh;overflow:auto}
+#fsstory .fs-card h2{margin-bottom:.4em}
+#fsstory .frm{font-size:clamp(1rem,1.7vw,1.35rem);line-height:1.6;padding:.35em 0;border-bottom:2px dotted rgba(169,204,239,.7)}
+#fsstory .frm b{color:var(--navy)}
+#fsstory .tag{position:sticky;top:0;float:right;font-size:.85rem;color:var(--ink-soft);font-style:italic}
+#abar{position:fixed;bottom:2.4vh;left:50%;transform:translateX(-50%) translateY(140%);transition:transform .35s cubic-bezier(.22,1,.36,1);z-index:95;display:flex;align-items:center;gap:.6em;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-radius:99px;box-shadow:var(--shadow-lg);padding:.4em .9em;max-width:min(560px,46vw)}
+#abar.on{transform:translateX(-50%) translateY(0)}
+#abar .ab-name{font-family:'Fredoka';font-weight:600;font-size:clamp(.8rem,1.3vw,1rem);color:var(--navy);white-space:nowrap;max-width:9em;overflow:hidden;text-overflow:ellipsis}
+#ab-toggle{width:2.2em;height:2.2em;border-radius:50%;border:none;cursor:pointer;flex-shrink:0;background:linear-gradient(135deg,var(--navy),var(--sky));color:#fff;font-size:.9rem;display:grid;place-items:center}
+#ab-toggle:hover{transform:scale(1.07)}
+#ab-seek{flex:1;min-width:8em;accent-color:var(--navy);cursor:pointer}
+#abar .ab-time{font-family:'Fredoka';font-weight:600;font-size:clamp(.72rem,1.2vw,.9rem);color:var(--ink-soft);white-space:nowrap}
+#annoBtn{position:fixed;left:max(10px,1.6vw);top:calc(10px + .8vh);z-index:100;width:2.4em;height:2.4em;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(30,58,102,.85);backdrop-filter:blur(10px);color:#fff;font-size:1.05rem;cursor:pointer;transition:transform .15s ease}
+#annoBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#anno{position:fixed;left:max(10px,1.6vw);top:calc(56px + 1.2vh);z-index:150;width:min(340px,86vw);background:var(--white);border-radius:16px;box-shadow:var(--shadow-lg);padding:.7em .8em;display:none;flex-direction:column;gap:.5em}
+#anno.on{display:flex;animation:rise .25s both}
+#anno .a-head{display:flex;align-items:center;gap:.45em;font-family:'Fredoka',sans-serif;font-size:.95rem;color:var(--navy-deep)}
+#anno .a-sp{flex:1}
+#anno .a-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;padding:.12em .6em;cursor:pointer;font-family:'Fredoka',sans-serif;font-size:.85rem;color:var(--ink-soft)}
+#anno .a-head button:hover{border-color:var(--ink-soft);color:var(--ink)}
+#anno #annoTick.on{background:var(--mint);border-color:var(--mint);color:#fff}
+#annoText{width:100%;min-height:86px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;padding:.5em .6em;font-family:'Nunito',sans-serif;font-size:.98rem;color:var(--ink)}
+#annoText:focus{outline:none;border-color:var(--sky)}
+#anno .a-foot{display:flex;align-items:center;gap:.6em}
+#anno .a-foot button,#annoRep .a-rep-card button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;font-family:'Fredoka',sans-serif;font-size:.85rem;background:var(--navy);color:#fff}
+#anno .a-foot button:hover,#annoRep .a-rep-card button:hover{background:var(--navy-deep)}
+#anno .a-foot .a-hint{font-size:.76rem;color:var(--ink-soft);font-style:italic}
+#annoRep{position:fixed;inset:0;z-index:260;background:rgba(34,48,63,.45);display:none;align-items:center;justify-content:center;padding:4vh 4vw}
+#annoRep.on{display:flex;animation:rise .25s both}
+#annoRep .a-rep-card{background:var(--white);border-radius:18px;box-shadow:var(--shadow-lg);padding:1em 1.1em;width:min(560px,92vw);display:flex;flex-direction:column;gap:.6em}
+#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;padding:.6em .7em;font-family:ui-monospace,Menlo,monospace;font-size:.88rem;color:var(--ink)}
+#pardon-btn{position:fixed;bottom:2.4vh;left:max(10px,1.6vw);z-index:90;border:none;cursor:pointer;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.6vw,1.3rem);background:var(--white);color:var(--navy);border-radius:99px;padding:.45em 1.2em;box-shadow:0 6px 16px rgba(34,48,63,.14);transition:transform .15s}
+#pardon-btn:hover{transform:scale(1.06)}
+#pardon-card{position:fixed;bottom:calc(2.4vh + 3.6em);left:max(10px,1.6vw);z-index:90;max-width:380px;width:86%;display:none}
+#pardon-card.show{display:block}
+#pardon-btn{top:2.4vh;bottom:auto;left:auto;right:max(10px,1.6vw)}
+#pardon-card{top:calc(2.4vh + 3.6em);bottom:auto;left:auto;right:max(10px,1.6vw)}
+.slide{padding-top:8vh}
+/* ===== the food scale ===== */
+.scale{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;max-width:1080px;margin:0 auto;width:100%}
+.step{flex:1;min-width:150px;max-width:210px;background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:.6em .5em;text-align:center;border:3px solid transparent;transition:all .15s ease}
+.step .sw-word{font-family:'Fredoka';font-weight:700;font-size:clamp(1.05rem,1.8vw,1.5rem);color:var(--navy)}
+.step .week{display:flex;gap:.2em;justify-content:center;margin:.35em 0}
+.step .week i{width:.85em;height:.85em;border-radius:50%;border:2.5px solid var(--sky);display:inline-block}
+.step .week i.f{background:var(--mint);border-color:var(--mint)}
+.step .frame{font-size:clamp(.82rem,1.3vw,1.05rem);color:var(--ink-soft);font-style:italic;min-height:2.6em;line-height:1.35}
+.step.lit{border-color:var(--cheese);background:var(--cheese-soft)}
+/* the food bank + landing rows */
+.foodbank{display:flex;flex-wrap:wrap;gap:.5em;justify-content:center;max-width:1000px;margin:0 auto;width:100%}
+.fcard{font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);border:2.5px solid var(--sky);background:var(--white);color:var(--navy);border-radius:99px;padding:.3em 1em;cursor:pointer;transition:all .15s ease;box-shadow:0 4px 10px rgba(34,48,63,.08)}
+.fcard:hover{transform:translateY(-3px);border-color:var(--navy)}
+.fcard.sel{background:var(--navy);color:#fff;border-color:var(--navy)}
+.fcard.used{opacity:.25;pointer-events:none}
+.landrow{display:flex;align-items:center;gap:.7em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.4em .9em;margin-bottom:.4em;min-height:3.2em}
+.landrow .lw{flex-shrink:0;width:7.5em;font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(.95rem,1.5vw,1.2rem)}
+.landrow .lweek{display:flex;gap:.15em;flex-shrink:0}
+.landrow .lweek i{width:.7em;height:.7em;border-radius:50%;border:2px solid var(--sky);display:inline-block}
+.landrow .lweek i.f{background:var(--mint);border-color:var(--mint)}
+.landrow .lsent{flex:1;font-size:clamp(.95rem,1.6vw,1.3rem);color:var(--ink-soft);font-style:italic}
+.landrow.filled{background:#EAF6F1}
+.landrow.filled .lsent{color:var(--navy);font-style:normal;font-weight:600}
+/* the quiz */
+.qcard{background:var(--white);border-radius:16px;box-shadow:var(--shadow);padding:.7em 1em;margin:0 auto .7em;max-width:1000px;width:100%}
+.qcard .qhead{display:flex;gap:.6em;align-items:baseline;margin-bottom:.3em}
+.qcard .qletter{flex-shrink:0;width:1.7em;height:1.7em;border-radius:8px;background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:#fff;font-size:clamp(1rem,1.6vw,1.3rem)}
+.qcard .qtext{font-family:'Fredoka';font-weight:600;font-size:clamp(1.1rem,1.9vw,1.55rem);color:var(--ink)}
+.qans{display:flex;align-items:center;gap:.6em;padding:.28em .6em;border-radius:10px;cursor:pointer;transition:all .12s ease;font-size:clamp(1rem,1.65vw,1.35rem)}
+.qans:hover{background:#E8F1FA}
+.qans .an{flex-shrink:0;width:1.5em;height:1.5em;border-radius:50%;border:2.5px solid var(--sky);display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.85em;color:var(--sky)}
+.qans.sel{background:var(--cheese-soft)}
+.qans.sel .an{background:var(--cheese);border-color:var(--cheese);color:var(--navy)}
+/* the score */
+.score-in{font-family:'Fredoka';font-weight:700;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--navy);border:4px solid var(--sky);border-radius:16px;padding:.2em .5em;width:5em;text-align:center;background:var(--white);outline:none}
+.score-in:focus{border-color:var(--navy)}
+.verdict{font-family:'Fredoka';font-weight:700;font-size:clamp(1.3rem,2.4vw,1.9rem);color:var(--navy)}
+.gloss{display:inline-flex;align-items:baseline;gap:.4em;background:var(--white);border-radius:12px;box-shadow:0 4px 10px rgba(34,48,63,.08);padding:.3em .8em;cursor:pointer;margin:.2em}
+.gloss .gw{font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(1rem,1.6vw,1.3rem)}
+.gloss .gv{color:transparent;transition:color .2s;font-size:clamp(.95rem,1.5vw,1.2rem)}
+.gloss.on .gv{color:var(--ink-soft)}
+.chart{max-width:1060px;margin:0 auto;width:100%;border-collapse:collapse;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.chart th{font-family:'Fredoka';font-weight:600;font-size:clamp(.85rem,1.3vw,1.05rem);background:var(--navy);color:#fff;padding:.5em .6em;text-align:left}
+.chart td{font-size:clamp(.9rem,1.45vw,1.2rem);padding:.45em .6em;border-bottom:2px dotted rgba(169,204,239,.7);vertical-align:top;line-height:1.4;width:50%}
+.chart .gap{min-width:6em;font-size:clamp(.9rem,1.45vw,1.2rem)}
+.chart tr.ex td{background:#F0F7EE}
+#tickrow .wb-chip{cursor:pointer}
+#tickrow .wb-chip.tick-on{background:var(--mint);color:#fff}
+.pos-h{font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1rem,1.6vw,1.3rem);margin:.5em 0 .1em}
+.writein{display:flex;align-items:baseline;gap:.5em;margin:.25em 0;font-size:clamp(1.05rem,1.75vw,1.4rem)}
+.writein .wn{flex-shrink:0;width:1.6em;height:1.6em;border-radius:50%;border:2.5px solid var(--sky);display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.8em;color:var(--sky)}
+.writein input{flex:1;font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);color:var(--navy);border:none;border-bottom:3px solid var(--sky);background:transparent;outline:none;padding:.1em .3em}
+.writein input:focus{border-bottom-color:var(--navy)}
+.syn-row{display:flex;align-items:center;gap:.7em;flex-wrap:wrap;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.55em .9em;margin-bottom:.55em}
+.syn-row .st{flex:1;font-size:clamp(1rem,1.7vw,1.35rem);line-height:1.45;min-width:220px}
+.syn-row .st b{color:var(--navy)}
+.rankrow{display:flex;align-items:center;gap:.6em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.45em .9em;margin-bottom:.45em}
+.rankrow .rn{flex-shrink:0;width:1.9em;height:1.9em;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:#fff}
+.cslot{display:inline-block;min-width:5.5em;border-bottom:4px solid var(--cheese);font-family:'Fredoka';font-weight:600;color:var(--stamp);padding:0 .3em;outline:none}
+.treasure{max-width:760px;margin:1em auto 0;width:100%}
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<main id="deck">
+
+<!-- 1 · teacher's list -->
+<section class="slide" id="s1">
+    <div class="eyebrow reveal">select readings · elementary · chapter 2 · teacher's list · build 06.10 · v1</div>
+    <h1 class="title reveal">Are You a Healthy Eater? 🥦</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
+      <ol class="prep">
+        <li>🥦 <b>A UNIVERSAL READING DECK</b> — chapter 2 of Select Readings Elementary, any pupils, any teacher. The reading is a QUIZ — the class plays it, adds the score, reads the verdict.</li>
+        <li>🎤 <b>RUN BY ANOTHER TEACHER</b> — everything is on the slides; the Teacher's notes (🗒 button on every slide) carry the steps, the keys and the models. The ✍️ log (top-left / key C): tick + notes; the 📋 report button copies the lesson report to paste to Elena.</li>
+        <li>🎧 <b>ONE AUDIO TRACK (5:15)</b> — the whole quiz read aloud. Test it once before the lesson (slide 7). Pause + scroll in the bottom bar.</li>
+        <li>🥦 <b>THE FLOW:</b> the quote → the FOOD SCALE teach + game (the book's frequency words: never → always, drawn as a week) → previewing → listen first → PLAY THE QUIZ (2 slides) → the score → healthy do/don't → true/false → what do you think → vocabulary → -ly suffixes → synonyms → the words shelf → WRITE YOUR OWN QUIZ → homework.</li>
+        <li>📱 <b>No race — where you stop is where the next lesson starts.</b> One chapter = one or two lessons.</li>
+      </ol>
+    </div>
+  </section>
+
+<!-- 2 · the quote -->
+<section class="slide" id="r2">
+    <div class="eyebrow reveal">the chapter's thought · Virgil, Roman poet</div>
+    <h1 class="title reveal" style="font-size:clamp(2rem,4.6vw,3.8rem)">«The greatest wealth is health.»</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:960px;margin:0 auto;width:100%">
+      <div class="card cheese" style="flex:1;min-width:240px;text-align:center;padding:1em">
+        <p style="font-size:clamp(2.4rem,4.5vw,3.6rem)">💰</p>
+        <p style="font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(1.2rem,2vw,1.7rem)">WEALTH</p>
+        <p class="muted">money, a lot of money — rich</p>
+      </div>
+      <div class="card stampc" style="flex:1;min-width:240px;text-align:center;padding:1em">
+        <p style="font-size:clamp(2.4rem,4.5vw,3.6rem)">❤️</p>
+        <p style="font-family:'Fredoka';font-weight:700;color:var(--stamp);font-size:clamp(1.2rem,2vw,1.7rem)">HEALTH</p>
+        <p class="muted">when your body and mind feel good</p>
+      </div>
+    </div>
+    <div class="card reveal center mt" style="max-width:860px;margin:1em auto 0;width:100%;padding:.8em 1.2em">
+      <p style="font-size:clamp(1.2rem,2.1vw,1.7rem)">Virgil says: <b>health is worth more than money.</b> 🤔 Do you agree?</p>
+      <p class="hintline mt">Today's reading: <b>a quiz on eating habits</b> — are YOU a healthy eater?</p>
+    </div>
+  </section>
+
+<!-- 3 · the food scale — teach -->
+<section class="slide" id="r3">
+    <div class="eyebrow reveal">before you read · the frequency words · book p. 8</div>
+    <h1 class="title reveal">How often? The scale 📏</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Five words — one week each. Look: the circles are DAYS!</p>
+    <div class="scale reveal mt">
+      <div class="step"><div class="sw-word">never</div><div class="week"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="frame">0 of 7 days<br>«I never eat ___»</div></div>
+      <div class="step"><div class="sw-word">sometimes</div><div class="week"><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i></i></div><div class="frame">2 of 7 days<br>«I sometimes eat ___»</div></div>
+      <div class="step"><div class="sw-word">often</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i></div><div class="frame">4 of 7 days<br>«I often eat ___»</div></div>
+      <div class="step"><div class="sw-word">usually</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div><div class="frame">6 of 7 days<br>«I usually eat ___»</div></div>
+      <div class="step"><div class="sw-word">always</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div><div class="frame">7 of 7 days!<br>«I eat ___ every day»</div></div>
+    </div>
+    <div class="card cheese reveal center mt" style="max-width:760px;margin:1em auto 0;width:100%;padding:.7em 1.2em">
+      <p style="font-size:clamp(1.15rem,2vw,1.6rem)">☕ Example — MY week with tea: <b>6 of 7 circles</b> → «I <b>usually</b> drink tea.»</p>
+      <p class="mt" style="font-size:clamp(1.1rem,1.9vw,1.5rem)">Now YOUR week — and next: the foods! 🥦</p>
+    </div>
+  </section>
+
+<!-- 4 · the food scale — the game -->
+<section class="slide" id="r4">
+    <div class="eyebrow reveal">before you read · vocabulary preview · book p. 8</div>
+    <h1 class="title reveal">Your week with these foods 🍽️</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Tap a FOOD → tap YOUR step. The sentence builds itself!</p>
+    <div class="foodbank reveal mt" id="foodbank"></div>
+    <div class="col reveal mt" style="max-width:1000px;margin:1em auto 0;width:100%" id="foodrows"></div>
+    <div class="card cheese reveal center mt" style="max-width:900px;margin:1em auto 0;width:100%;padding:.6em 1.1em">
+      <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">➕ And the book asks: <b>think of OTHER foods</b> for your steps! 🍎🍕🥚 (say them — or add them on the next slides)</p>
+    </div>
+  </section>
+
+<!-- 5 · previewing -->
+<section class="slide" id="r5">
+    <div class="eyebrow reveal">reading skill · previewing · book p. 8</div>
+    <h1 class="title reveal">Preview! 👀</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Look QUICKLY — the title and the pictures only. Don't read!</p>
+    <div class="col reveal" style="max-width:900px;margin:1em auto 0;width:100%">
+      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">1</span><span class="gs">What is this reading about?</span></div>
+      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">2</span><span class="gs">What kind of reading is it — a newspaper article, a blog, a story, a quiz?</span></div>
+    </div>
+    <div class="center reveal mt"><button class="show-btn" data-show="prev-ans" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.6vw,1.3rem);border:none;border-radius:99px;padding:.45em 1.4em;cursor:pointer;background:var(--navy);color:#fff">the answers ▾</button></div>
+    <div class="secret" id="prev-ans">
+      <div class="card cheese mt" style="max-width:900px;margin:1em auto 0;width:100%;padding:.7em 1.2em">
+        <p style="font-size:clamp(1.1rem,1.9vw,1.5rem)">1 → <b>about eating habits</b> (the foods tell you!) · 2 → <b>it's a QUIZ!</b> — with questions, numbers and a score 🎯</p>
+      </div>
+    </div>
+    <p class="hintline reveal mt center">previewing = the reader's first look: the title, the pictures, the shape — BEFORE reading</p>
+  </section>
+
+<!-- 6 · listen first -->
+<section class="slide" id="r6">
+    <div class="eyebrow reveal">the listening · the whole quiz · 5:15</div>
+    <h1 class="title reveal">Just listen! 👂</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:860px;margin:0 auto;width:100%;padding:.5em .6em">
+      <img src="media/ch2-food-strip.jpg?v=1" alt="the eight foods — white rice, fresh fruit, junk food, white bread, brown rice, fresh vegetables, fried food, wheat bread" style="width:100%;height:auto;display:block;border-radius:14px;border:3px solid var(--sky)">
+    </div>
+    <div class="center reveal mt"><button class="trk-btn" data-audio="1">🎧 listen to the whole quiz (5:15)</button></div>
+    <p class="hintline reveal mt center">no reading yet — the foods tell the story · pause + scroll in the bottom bar · listen as many times as you need!</p>
+  </section>
+
+<!-- 7 · the quiz · part 1 -->
+<section class="slide" id="r7">
+    <div class="eyebrow reveal">the quiz · played · questions A–D · be honest!</div>
+    <h1 class="title reveal">Play the quiz! 🎯 part 1</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card cheese reveal center" style="max-width:1000px;margin:0 auto .7em;width:100%;padding:.5em 1.1em">
+      <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">Tap YOUR answer — the real one, not the good one! 😄 🎧 <button class="trk-btn" data-audio="1" style="margin-left:.5em">listen again</button></p>
+    </div>
+    <div class="qcard reveal"><div class="qhead"><span class="qletter">A</span><span class="qtext">How often do you eat breakfast?</span></div>
+      <div class="qans"><span class="an">1</span> I never eat breakfast.</div>
+      <div class="qans"><span class="an">2</span> I have breakfast once or twice a week.</div>
+      <div class="qans"><span class="an">3</span> I eat breakfast 3–6 times a week.</div>
+      <div class="qans"><span class="an">4</span> I eat breakfast every morning.</div>
+    </div>
+    <div class="qcard reveal"><div class="qhead"><span class="qletter">B</span><span class="qtext">How often do you snack on fresh fruits and vegetables?</span></div>
+      <div class="qans"><span class="an">1</span> I never snack on fresh fruits and vegetables.</div>
+      <div class="qans"><span class="an">2</span> I snack on fresh fruits and vegetables once in a while.</div>
+      <div class="qans"><span class="an">3</span> I snack on fresh fruits and vegetables once a day.</div>
+      <div class="qans"><span class="an">4</span> I snack on fresh fruits and vegetables more than once a day.</div>
+    </div>
+    <div class="qcard reveal"><div class="qhead"><span class="qletter">C</span><span class="qtext">Do you eat junk food?</span></div>
+      <div class="qans"><span class="an">1</span> Yes, I often eat junk food.</div>
+      <div class="qans"><span class="an">2</span> Yes, I sometimes eat junk food.</div>
+      <div class="qans"><span class="an">3</span> No, I hardly ever eat junk food.</div>
+      <div class="qans"><span class="an">4</span> No, I never eat junk food.</div>
+    </div>
+    <div class="qcard reveal"><div class="qhead"><span class="qletter">D</span><span class="qtext">Do you eat quickly?</span></div>
+      <div class="qans"><span class="an">1</span> Yes, I always eat quickly.</div>
+      <div class="qans"><span class="an">2</span> Yes, I eat quickly 90 percent of the time.</div>
+      <div class="qans"><span class="an">3</span> Yes, I sometimes eat quickly.</div>
+      <div class="qans"><span class="an">4</span> No, I usually eat slowly.</div>
+    </div>
+    <p class="hintline reveal mt center">the number is your POINTS for that question — remember them! · part 2 →</p>
+  </section>
+
+<!-- 8 · the quiz · part 2 -->
+<section class="slide" id="r8">
+    <div class="eyebrow reveal">the quiz · played · questions E–H</div>
+    <h1 class="title reveal">Play the quiz! 🎯 part 2</h1>
+    <div class="accent-line reveal"></div>
+    <div class="qcard reveal"><div class="qhead"><span class="qletter">E</span><span class="qtext">How often do you skip meals?</span></div>
+      <div class="qans"><span class="an">1</span> I frequently skip meals.</div>
+      <div class="qans"><span class="an">2</span> I skip meals about 3 times a week.</div>
+      <div class="qans"><span class="an">3</span> I rarely skip a meal.</div>
+      <div class="qans"><span class="an">4</span> I never skip meals.</div>
+    </div>
+    <div class="qcard reveal"><div class="qhead"><span class="qletter">F</span><span class="qtext">How often do you eat something just before you go to bed?</span></div>
+      <div class="qans"><span class="an">1</span> I always eat something just before I go to bed.</div>
+      <div class="qans"><span class="an">2</span> I often have something to eat just before I go to bed.</div>
+      <div class="qans"><span class="an">3</span> I rarely eat just before I go to bed.</div>
+      <div class="qans"><span class="an">4</span> I never eat just before I go to bed.</div>
+    </div>
+    <div class="qcard reveal"><div class="qhead"><span class="qletter">G</span><span class="qtext">How often do you eat your largest meal in the evening?</span></div>
+      <div class="qans"><span class="an">1</span> I always eat my largest meal in the evening.</div>
+      <div class="qans"><span class="an">2</span> I frequently eat my largest meal in the evening.</div>
+      <div class="qans"><span class="an">3</span> I rarely eat my largest meal in the evening.</div>
+      <div class="qans"><span class="an">4</span> I never eat my largest meal in the evening.</div>
+    </div>
+    <div class="qcard reveal"><div class="qhead"><span class="qletter">H</span><span class="qtext">How often do you eat brown rice or wheat bread instead of white rice or white bread?</span></div>
+      <div class="qans"><span class="an">1</span> I never eat brown rice or wheat bread.</div>
+      <div class="qans"><span class="an">2</span> I sometimes eat brown rice or wheat bread.</div>
+      <div class="qans"><span class="an">3</span> I usually eat brown rice or wheat bread.</div>
+      <div class="qans"><span class="an">4</span> I eat brown rice or wheat bread all the time.</div>
+    </div>
+    <p class="hintline reveal mt center">all eight answered? → the score! 🧮</p>
+  </section>
+
+<!-- 9 · the score -->
+<section class="slide" id="r9">
+    <div class="eyebrow reveal">the quiz · your score · book p. 9</div>
+    <h1 class="title reveal">Your score 🧮</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal center" style="max-width:860px;margin:0 auto;width:100%;padding:.9em 1.2em">
+      <p style="font-size:clamp(1.1rem,1.9vw,1.5rem)">Add your eight numbers → type the <b>TOTAL</b>:</p>
+      <div class="row mt" style="justify-content:center;gap:1em">
+        <input class="score-in" id="score-in" inputmode="numeric" placeholder="8–32">
+        <button class="gift-btn" id="score-btn" style="font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1.4em">my verdict!</button>
+      </div>
+      <div class="verdict mt" id="verdict-out"></div>
+      <div class="card stampc mt" id="verdict-card" style="display:none;padding:.7em 1.1em">
+        <p id="verdict-text" style="font-size:clamp(1.05rem,1.8vw,1.45rem);line-height:1.5"></p>
+      </div>
+      <p class="hintline mt">(for each question, the number 4 is the healthiest answer)</p>
+    </div>
+    <div class="card reveal mt" style="max-width:860px;margin:1em auto 0;width:100%;padding:.6em 1em">
+      <p class="hintline" style="margin-bottom:.25em">the quiz's three little words — tap! 👇</p>
+      <span class="gloss"><span class="gw">snack on</span><span class="gv">= to eat between meals</span></span>
+      <span class="gloss"><span class="gw">skip a meal</span><span class="gv">= to not eat a meal</span></span>
+      <span class="gloss"><span class="gw">score</span><span class="gv">= the points you get in a quiz</span></span>
+    </div>
+  </section>
+
+<!-- 10 · healthy do / don't -->
+<section class="slide" id="r10">
+    <div class="eyebrow reveal">understanding the text · taking notes · book p. 10</div>
+    <h1 class="title reveal">Healthy eaters… 🥗</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Read the quiz again — what do healthy eaters DO? Fill the chart!</p>
+    <table class="chart reveal mt">
+      <tr><th>Healthy eaters… ✅</th><th>Healthy eaters don't… ❌</th></tr>
+      <tr class="ex"><td>eat breakfast every day</td><td>eat junk food</td></tr>
+      <tr><td><span class="gap" style="min-width:14em">snack on fresh fruits and vegetables</span></td><td><span class="gap" style="min-width:12em">eat quickly</span></td></tr>
+      <tr><td><span class="gap" style="min-width:10em">eat slowly</span></td><td><span class="gap" style="min-width:12em">skip meals</span></td></tr>
+      <tr><td><span class="gap" style="min-width:14em">eat brown rice or wheat bread</span></td><td><span class="gap" style="min-width:16em">eat just before they go to bed</span></td></tr>
+      <tr><td><span class="gap" style="min-width:16em">never eat their largest meal in the evening</span></td><td><span class="gap" style="min-width:8em">…</span></td></tr>
+    </table>
+    <div class="center reveal mt"><button class="reset-btn" id="fsstory2-btn" style="margin-left:.4em">📖 look at the quiz</button></div>
+  </section>
+
+<!-- 11 · true or false -->
+<section class="slide" id="r11">
+    <div class="eyebrow reveal">understanding the text · comprehension · book p. 10</div>
+    <h1 class="title reveal">True or false? ✅❌</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Click the line — then say WHY! The false ones: make them TRUE!</p>
+    <div class="col reveal mt" style="max-width:980px;margin:1em auto 0;width:100%">
+      <div class="yn" data-a="no"><span class="badge">?</span><span class="gs"><b>1.</b> It's good to eat your largest meal of the day in the evening.</span><span class="tfkey">✗ FALSE — healthy eaters NEVER eat their largest meal in the evening!</span></div>
+      <div class="yn" data-a="yes"><span class="badge">?</span><span class="gs"><b>2.</b> Eating slowly is a good idea.</span><span class="tfkey">✓ TRUE — usually eat slowly, say the quiz (D)</span></div>
+      <div class="yn" data-a="yes"><span class="badge">?</span><span class="gs"><b>3.</b> It's important to eat breakfast every day.</span><span class="tfkey">✓ TRUE — answer 4 is the healthiest (A)</span></div>
+      <div class="yn" data-a="no"><span class="badge">?</span><span class="gs"><b>4.</b> White rice is better for you than brown rice.</span><span class="tfkey">✗ FALSE — brown rice and wheat bread are the healthy choice (H)!</span></div>
+      <div class="yn" data-a="no"><span class="badge">?</span><span class="gs"><b>5.</b> It's healthy to eat something just before you go to bed.</span><span class="tfkey">✗ FALSE — the healthiest answer is NEVER (F)</span></div>
+      <div class="yn" data-a="yes"><span class="badge">?</span><span class="gs"><b>6.</b> An apple or an orange is a healthy snack.</span><span class="tfkey">✓ TRUE — snack on fresh fruits and vegetables (B)</span></div>
+      <div class="yn" data-a="no"><span class="badge">?</span><span class="gs"><b>7.</b> You should snack on junk food instead of vegetables.</span><span class="tfkey">✗ FALSE — the other way round! Junk food isn't good for you</span></div>
+      <div class="yn" data-a="no"><span class="badge">?</span><span class="gs"><b>8.</b> Healthy eaters frequently skip meals.</span><span class="tfkey">✗ FALSE — they NEVER skip meals (E)</span></div>
+    </div>
+  </section>
+
+<!-- 12 · what do you think -->
+<section class="slide" id="r12">
+    <div class="eyebrow reveal">understanding the text · what do you think? · book p. 10</div>
+    <h1 class="title reveal">What do YOU think? 💭</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">1</span><span class="gs">Are you a healthy eater? Why or why not?</span></div>
+      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">2</span><span class="gs">What is your favourite healthy snack? What are some other healthy snacks?</span></div>
+      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">3</span><span class="gs">Why is breakfast an important meal?</span></div>
+      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">4</span><span class="gs">Lots of people like junk food. Why do you think junk food is so popular?</span></div>
+    </div>
+    <p class="hintline reveal mt center">no keys here — these answers are YOURS 🗣 (full sentences!)</p>
+  </section>
+
+<!-- 13 · vocabulary D -->
+<section class="slide" id="r13">
+    <div class="eyebrow reveal">vocabulary · book p. 11</div>
+    <h1 class="title reveal">Choose the word! 🧩</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="bank"><span class="wb-chip">fresh</span><span class="wb-chip">healthy</span><span class="wb-chip">instead of</span><span class="wb-chip">meal</span><span class="wb-chip">total</span></div>
+      <div class="vp mt" style="font-size:clamp(1.05rem,1.75vw,1.4rem);line-height:2.1">
+        1. I think I'm a <span class="gap">healthy</span> eater because I never skip breakfast. Every morning I have a bowl of cereal and some fresh fruit.<br>
+        2. I usually eat my biggest <span class="gap">meal</span> in the middle of the day.<br>
+        3. I try to snack on <span class="gap">fresh</span> fruit when I get hungry between meals.<br>
+        4. I usually eat a <span class="gap">total</span> of five small meals every day.<br>
+        5. I know I should snack on fresh fruit <span class="gap">instead of</span> junk food.
+      </div>
+    </div>
+    <p class="hintline reveal mt center">say the word first — then click the gap to check</p>
+  </section>
+
+<!-- 14 · suffixes -ly -->
+<section class="slide" id="r14">
+    <div class="eyebrow reveal">vocabulary skill · understanding suffixes: -ly · book p. 11</div>
+    <h1 class="title reveal">The -ly machine 🤖</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card sky reveal" style="max-width:860px;margin:0 auto .8em;width:100%;padding:.6em 1.1em">
+      <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🤖 Add <b>-ly</b> to an adjective → you get an ADVERB (how you do it!):</p>
+      <div class="row mt" style="justify-content:center;gap:1.2em">
+        <span style="font-size:clamp(1.1rem,1.9vw,1.5rem)">quick + ly = <b>quickly</b></span>
+        <span style="font-size:clamp(1.1rem,1.9vw,1.5rem)">frequent + ly = <b>frequently</b></span>
+        <span style="font-size:clamp(1.1rem,1.9vw,1.5rem)">real + ly = <b>really</b></span>
+      </div>
+    </div>
+    <div class="col reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="sent"><b>1.</b> My <b>usual</b> breakfast is cereal. → I <span class="gap">usually</span> have cereal for breakfast.</div>
+      <div class="sent"><b>2.</b> My parents are <b>slow</b> eaters. → My parents eat <span class="gap">slowly</span>.</div>
+      <div class="sent"><b>3.</b> It is <b>rare</b> for me to eat junk food. → I <span class="gap">rarely</span> eat junk food.</div>
+      <div class="sent"><b>4.</b> I have a <b>quick</b> meal in the evening. → I eat <span class="gap">quickly</span> in the evening.</div>
+      <div class="sent" style="border-bottom:none"><b>5.</b> My sister is a <b>professional</b> cook. → My sister cooks <span class="gap">professionally</span>.</div>
+    </div>
+    <p class="hintline reveal mt center">say the adverb first — then click to check!</p>
+  </section>
+
+<!-- 15 · synonyms F -->
+<section class="slide" id="r15">
+    <div class="eyebrow reveal">vocabulary skill · using synonyms · book p. 11</div>
+    <h1 class="title reveal">Say it differently! 🔁</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card sky reveal" style="max-width:900px;margin:0 auto .8em;width:100%;padding:.6em 1.1em">
+      <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🔁 Rewrite with a <b>synonym</b>: <span class="wb-chip">one time</span><span class="wb-chip">frequently</span><span class="wb-chip">sometimes</span><span class="wb-chip">hardly ever</span></p>
+    </div>
+    <div class="col reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="syn-row"><span class="st"><b>1.</b> Some people prefer to eat <b>once</b> a day.</span><span class="st muted" style="font-style:italic">→ Some people prefer to eat one time a day. (the book's example ✓)</span></div>
+      <div class="syn-row"><span class="st"><b>2.</b> We go to restaurants <b>once in a while</b>.</span><button class="pick" data-ok="1">We go to restaurants sometimes.</button></div>
+      <div class="syn-row"><span class="st"><b>3.</b> My brother skips breakfast <b>often</b>.</span><button class="pick" data-ok="1">My brother skips breakfast frequently.</button></div>
+      <div class="syn-row"><span class="st"><b>4.</b> We <b>almost never</b> eat a big breakfast.</span><button class="pick" data-ok="1">We hardly ever eat a big breakfast.</button></div>
+    </div>
+    <p class="hintline reveal mt center">say the whole sentence aloud — then tap!</p>
+  </section>
+
+<!-- 16 · words to remember -->
+<section class="slide" id="r16">
+    <div class="eyebrow reveal">words to remember · book p. 12</div>
+    <h1 class="title reveal">Words to remember 📚</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Point — say the meaning — tap the word when you know it!</p>
+    <div class="card reveal mt" style="max-width:1000px;margin:1em auto 0;width:100%">
+      <div class="pos-h">nouns</div>
+      <div id="tickrow"><span class="wb-chip">breakfast</span><span class="wb-chip">meal</span><span class="wb-chip">total</span></div>
+      <div class="pos-h">adjectives</div>
+      <div><span class="wb-chip">fresh</span><span class="wb-chip">healthy</span><span class="wb-chip">perfect</span></div>
+      <div class="pos-h">adverbs</div>
+      <div><span class="wb-chip">hardly ever</span><span class="wb-chip">instead of</span><span class="wb-chip">just</span><span class="wb-chip">once in a while</span><span class="wb-chip">quickly</span><span class="wb-chip">rarely</span></div>
+    </div>
+    <p class="hintline reveal mt center">a word you don't know? Say it — it goes to your homework 📓</p>
+  </section>
+
+<!-- 17 · write your own quiz -->
+<section class="slide" id="r17">
+    <div class="eyebrow reveal">discussion &amp; writing · book p. 12</div>
+    <h1 class="title reveal">Write YOUR own quiz! ✍️🎯</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">The book's challenge: add answers to the health quiz. The best answer is number 4!</p>
+    <div class="qcard reveal"><div class="qhead"><span class="qletter">A</span><span class="qtext">How often do you exercise? 🏃</span></div>
+      <div class="qans"><span class="an">1</span> I never exercise.</div>
+      <div class="qans"><span class="an">2</span> I exercise once or twice a week.</div>
+      <div class="qans"><span class="an">3</span> I exercise 3–6 times a week.</div>
+      <div class="qans"><span class="an">4</span> I exercise every day.</div>
+    </div>
+    <div class="qcard reveal"><div class="qhead"><span class="qletter">B</span><span class="qtext">How often do you drink 6–8 glasses of water a day? 💧</span></div>
+      <div class="writein"><span class="wn">1</span><input placeholder="write your answer…"></div>
+      <div class="writein"><span class="wn">2</span><input placeholder="write your answer…"></div>
+      <div class="writein"><span class="wn">3</span><input placeholder="write your answer…"></div>
+      <div class="writein"><span class="wn">4</span><span style="font-family:'Fredoka';color:var(--mint);font-weight:700">I drink 6–8 glasses of water every day. ✓</span></div>
+    </div>
+    <div class="qcard reveal"><div class="qhead"><span class="qletter">C</span><span class="qtext">Do you drink juice instead of soda? 🧃</span></div>
+      <div class="writein"><span class="wn">1</span><input placeholder="write your answer…"></div>
+      <div class="writein"><span class="wn">2</span><input placeholder="write your answer…"></div>
+      <div class="writein"><span class="wn">3</span><input placeholder="write your answer…"></div>
+      <div class="writein"><span class="wn">4</span><span style="font-family:'Fredoka';color:var(--mint);font-weight:700">I always drink juice instead of soda. ✓</span></div>
+    </div>
+    <div class="qcard reveal"><div class="qhead"><span class="qletter">D</span><span class="qtext">How often do you get 8 hours of sleep at night? 😴</span></div>
+      <div class="writein"><span class="wn">1</span><input placeholder="write your answer…"></div>
+      <div class="writein"><span class="wn">2</span><input placeholder="write your answer…"></div>
+      <div class="writein"><span class="wn">3</span><input placeholder="write your answer…"></div>
+      <div class="writein"><span class="wn">4</span><span style="font-family:'Fredoka';color:var(--mint);font-weight:700">I always get 8 hours of sleep at night. ✓</span></div>
+    </div>
+    <div class="card stampc reveal center mt" style="max-width:900px;margin:1em auto 0;width:100%;padding:.6em 1.1em">
+      <p style="font-size:clamp(1.1rem,1.9vw,1.5rem)"> Then SWAP quizzes — ask YOUR questions to your partner! 🎤</p>
+    </div>
+  </section>
+
+<!-- 18 · homework -->
+<section class="slide" id="r18">
+    <div class="eyebrow reveal">homework · web search · book p. 12</div>
+    <h1 class="title reveal">Your homework 🏡</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:880px;margin:0 auto;width:100%">
+      <div class="hw-step"><span class="n">1</span><div><span class="en">📖 READ THE QUIZ ALOUD</span> — all eight questions, to someone at home — or to your favourite toy! 😄</div></div>
+      <div class="hw-step"><span class="n">2</span><div><span class="en">📚 THE WORDS WE DIDN'T TICK</span> → your dictionary — the translation or one example, your choice!</div></div>
+      <div class="hw-step"><span class="n">3</span><div style="flex:1"><span class="en">🕵️ WEB SEARCH — a mini-research!</span> Choose ONE: a healthy breakfast 🍳 · junk food snacks 🍩 · a healthy eating quiz 🎯 — find <b>three interesting facts</b> and bring them: you are the teacher! 🎓</div></div>
+    </div>
+    <p class="hintline reveal mt center">the words live on slide 16 (Words to remember)</p>
+  </section>
+
+<!-- 19 · goodbye -->
+<section class="slide" id="r19">
+    <div class="eyebrow reveal">the end of chapter 2</div>
+    <h1 class="title reveal" style="font-size:clamp(2.2rem,5vw,4.2rem)">The greatest wealth is health! ❤️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal center" style="max-width:820px;margin:0 auto;width:100%;padding:1.2em 1.6em">
+      <p style="font-size:clamp(1.3rem,2.3vw,1.9rem);line-height:1.6">You played a whole quiz today — and you know your score. 🎯<br>And the old proverb says:</p>
+      <p class="mt" style="font-family:'Fredoka';font-weight:700;font-size:clamp(1.4rem,2.6vw,2.1rem);color:var(--navy)">«An apple a day keeps the doctor away!» 🍎</p>
+    </div>
+    <div class="leg reveal mt center" style="display:flex;gap:.4em;justify-content:center;flex-wrap:wrap"><span class="wb-chip">never</span><span class="wb-chip">sometimes</span><span class="wb-chip">often</span><span class="wb-chip">usually</span><span class="wb-chip">always</span></div>
+  </section>
+
+<!-- the fullscreen quiz text -->
+<div id="fsstory">
+  <div class="fs-card">
+    <span class="tag">tap anywhere to close</span>
+    <h2>Are You a Healthy Eater?</h2>
+    <div class="frm">How well do you eat? To find out, read each question below and circle the number of your answer. Be honest. Answer the way you really eat, not the way you think you should eat.</div>
+    <div class="frm"><b>A. How often do you eat breakfast?</b> 1 I never eat breakfast. 2 I have breakfast once or twice a week. 3 I eat breakfast 3–6 times a week. 4 I eat breakfast every morning.</div>
+    <div class="frm"><b>B. How often do you snack on fresh fruits and vegetables?</b> 1 I never snack on fresh fruits and vegetables. 2 I snack on fresh fruits and vegetables once in a while. 3 I snack on fresh fruits and vegetables once a day. 4 I snack on fresh fruits and vegetables more than once a day.</div>
+    <div class="frm"><b>C. Do you eat junk food?</b> 1 Yes, I often eat junk food. 2 Yes, I sometimes eat junk food. 3 No, I hardly ever eat junk food. 4 No, I never eat junk food.</div>
+    <div class="frm"><b>D. Do you eat quickly?</b> 1 Yes, I always eat quickly. 2 Yes, I eat quickly 90 percent of the time. 3 Yes, I sometimes eat quickly. 4 No, I usually eat slowly.</div>
+    <div class="frm"><b>E. How often do you skip meals?</b> 1 I frequently skip meals. 2 I skip meals about 3 times a week. 3 I rarely skip a meal. 4 I never skip meals.</div>
+    <div class="frm"><b>F. How often do you eat something just before you go to bed?</b> 1 I always eat something just before I go to bed. 2 I often have something to eat just before I go to bed. 3 I rarely eat just before I go to bed. 4 I never eat just before I go to bed.</div>
+    <div class="frm"><b>G. How often do you eat your largest meal in the evening?</b> 1 I always eat my largest meal in the evening. 2 I frequently eat my largest meal in the evening. 3 I rarely eat my largest meal in the evening. 4 I never eat my largest meal in the evening.</div>
+    <div class="frm"><b>H. How often do you eat brown rice or wheat bread instead of white rice or white bread?</b> 1 I never eat brown rice or wheat bread. 2 I sometimes eat brown rice or wheat bread. 3 I usually eat brown rice or wheat bread. 4 I eat brown rice or wheat bread all the time.</div>
+    <div class="frm"><b>Your Score:</b> look at the numbers you circled and add them together. The total is your score. (For each question on this quiz, the number 4 is the healthiest answer.) 32 — Congratulations! You have a perfect score. You are a healthy eater. 26–31 — Good job! You eat very well. 20–25 — Not bad, but you could eat better. 14–19 — Oops! You aren't a healthy eater. Remember, fruits and vegetables are really good for you. Junk food isn't. 8–13 — Oh no! You need to change the way you eat. Can you do it?</div>
+  </div>
+</div>
+
+</main>
+
+<button id="pardon-btn" title="Pardon? — class phrases (P)">🙋</button>
+  <div class="card sky" id="pardon-card">
+    <div class="hl"><span class="qw">🙋</span><span>Pardon?</span></div>
+    <div class="hl"><span class="qw">❓</span><span>What does <b>___</b> mean?</span></div>
+    <div class="hl"><span class="qw">🆘</span><span>Can you help me?</span></div>
+    <div class="hl"><span class="qw">🔁</span><span>Can you repeat, please?</span></div>
+    <div class="hl"><span class="qw">🇬🇧</span><span>How do you say <b>___</b> in English?</span></div>
+    <div class="hl"><span class="qw">🤷</span><span>I don't understand.</span></div>
+  </div>
+
+<div id="abar">
+  <button id="ab-toggle" title="play / pause">⏸</button>
+  <span class="ab-name" id="ab-name">…</span>
+  <input type="range" id="ab-seek" min="0" max="100" step="0.1" value="0">
+  <span class="ab-time" id="ab-time">0:00</span>
+</div>
+
+<div id="nav">
+  <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
+  <div id="counter"><span class="now">1</span> / 19</div>
+  <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
+  <button id="fs-btn" title="Fullscreen (F)">⛶</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+  const fill = document.getElementById('progress-fill');
+  const counter = document.getElementById('counter').querySelector('.now');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const fsBtn = document.getElementById('fs-btn');
+  function render(){
+    slides.forEach((s,i)=>{ s.classList.toggle('active', i===current); s.classList.toggle('prev', i<current); });
+    document.querySelectorAll('audio').forEach(a=>{ try{a.pause()}catch(e){} });
+    document.querySelectorAll('.trk-btn.playing').forEach(b=>{ b.classList.remove('playing'); b.textContent=b.dataset.label; });
+    counter.textContent = current+1;
+    fill.style.width = ((current+1)/total*100) + '%';
+    prevBtn.disabled = current===0;
+    nextBtn.disabled = current===total-1;
+    try{sessionStorage.setItem('sr-elem-ch2-slide', current+1)}catch(e){}
+  }
+  function go(n){ current = Math.max(0, Math.min(total-1, n)); render(); }
+  const next = ()=>go(current+1);
+  const prev = ()=>go(current-1);
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  document.addEventListener('keydown', e=>{
+    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return;
+    const scr = slides[current];
+    const canScroll = scr.scrollHeight > scr.clientHeight + 2;
+    switch(e.key){
+      case 'ArrowRight': e.preventDefault(); next(); break;
+      case 'ArrowDown':
+        e.preventDefault();
+        if(canScroll && scr.scrollTop + scr.clientHeight < scr.scrollHeight - 2){ scr.scrollBy({top:120}); break; }
+        next(); break;
+      case 'ArrowLeft': e.preventDefault(); prev(); break;
+      case 'ArrowUp':
+        e.preventDefault();
+        if(canScroll && scr.scrollTop > 2){ scr.scrollBy({top:-120}); break; }
+        prev(); break;
+      case ' ': e.preventDefault(); if(window.currentTrkAudio && !window.currentTrkAudio.paused){ window.currentTrkAudio.pause(); break; } next(); break;
+      case 'Home': e.preventDefault(); go(0); break;
+      case 'End': e.preventDefault(); go(total-1); break;
+      case 'f': case 'F': case 'а': case 'А': toggleFs(); break;
+    }
+  });
+  let wheelLock = false;
+  document.getElementById('deck').addEventListener('wheel', e=>{
+    if(wheelLock) return;
+    const scr = slides[current];
+    if(scr.scrollHeight > scr.clientHeight + 2) return;
+    if(Math.abs(e.deltaY) < 25) return;
+    wheelLock = true;
+    (e.deltaY>0 ? next() : prev());
+    setTimeout(()=>wheelLock=false, 650);
+  }, {passive:true});
+  let touchX=null;
+  document.addEventListener('touchstart', e=>{touchX=e.changedTouches[0].clientX},{passive:true});
+  document.addEventListener('touchend', e=>{
+    if(touchX===null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx)>60){ dx<0 ? next() : prev(); }
+    touchX=null;
+  },{passive:true});
+  function toggleFs(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+    else { document.exitFullscreen?.(); }
+  }
+  fsBtn.addEventListener('click', toggleFs);
+  function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+  /* gaps */
+  document.querySelectorAll('.gap').forEach(g=>{
+    g.addEventListener('click', ()=> g.classList.toggle('filled'));
+  });
+  /* the yn reveals */
+  document.querySelectorAll('.yn[data-a]').forEach(yn=>{
+    yn.addEventListener('click', ()=>{
+      const a = yn.dataset.a;
+      yn.classList.remove('shown-yes','shown-no');
+      yn.classList.add(a==='yes' ? 'shown-yes' : 'shown-no');
+      yn.querySelector('.badge').textContent = a==='yes' ? '✓' : '✗';
+    });
+  });
+  /* the synonyms picks */
+  document.querySelectorAll('.pick').forEach(p=>{
+    p.addEventListener('click',()=>{ p.classList.add('good'); });
+  });
+  /* the show buttons */
+  document.querySelectorAll('.show-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const c=document.getElementById(b.dataset.show);
+      if(c){ c.classList.add('show'); b.style.display='none'; }
+    });
+  });
+  /* the quiz: tap YOUR answer — one per question, switchable */
+  document.querySelectorAll('.qans').forEach(q=>{
+    q.addEventListener('click',()=>{
+      q.parentElement.querySelectorAll('.qans').forEach(x=>x.classList.remove('sel'));
+      q.classList.add('sel');
+    });
+  });
+  /* the glosses */
+  document.querySelectorAll('.gloss').forEach(gl=>{
+    gl.addEventListener('click',()=>gl.classList.add('on'));
+  });
+  /* the words shelf ticks */
+  document.querySelectorAll('#tickrow .wb-chip, .pos-h ~ div .wb-chip').forEach(ch=>{
+    ch.style.cursor='pointer';
+    ch.addEventListener('click',()=>ch.classList.toggle('tick-on'));
+  });
+
+  /* ===== the chapter audio (5:15) ===== */
+  window.currentTrkAudio=null; let currentTrkBtn=null;
+  const AUDIO_URL='media/sr-elem-ch02.mp3';
+  function trkReset(b){ b.classList.remove('playing'); b.textContent=b.dataset.label; }
+  const abar=document.getElementById('abar'),abToggle=document.getElementById('ab-toggle'),
+        abSeek=document.getElementById('ab-seek'),abName=document.getElementById('ab-name'),
+        abTime=document.getElementById('ab-time');
+  const fmt=s=>isFinite(s)?Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'):'0:00';
+  function abBind(a,name){
+    abName.textContent=name; abar.classList.add('on');
+    abSeek.value=0; abTime.textContent='0:00'; abToggle.textContent='⏸';
+    abSeek.oninput=()=>{ if(isFinite(a.duration)) a.currentTime=abSeek.value/100*a.duration; };
+    abToggle.onclick=()=>{ a.paused ? a.play().catch(()=>{}) : a.pause(); };
+    a.ontimeupdate=()=>{ if(!isFinite(a.duration))return;
+      if(document.activeElement!==abSeek) abSeek.value=a.currentTime/a.duration*100;
+      abTime.textContent=fmt(a.currentTime)+' / '+fmt(a.duration); };
+    a.onplay=()=>abToggle.textContent='⏸';
+    a.onpause=()=>abToggle.textContent='▶';
+    a.onended=()=>{ abToggle.textContent='▶'; abSeek.value=100; };
+  }
+  document.querySelectorAll('.trk-btn').forEach(b=>{
+    b.dataset.label=b.textContent;
+    b.addEventListener('click',()=>{
+      if(currentTrkBtn===b && window.currentTrkAudio && !window.currentTrkAudio.paused){
+        window.currentTrkAudio.pause(); trkReset(b); return;
+      }
+      if(window.currentTrkAudio){ window.currentTrkAudio.pause(); }
+      if(currentTrkBtn && currentTrkBtn!==b){ trkReset(currentTrkBtn); }
+      const a=new Audio(AUDIO_URL);
+      a.style.display='none'; document.body.appendChild(a);
+      window.currentTrkAudio=a; currentTrkBtn=b;
+      b.classList.add('playing'); b.textContent='⏸ '+b.dataset.label.replace('🎧 ','');
+      a.addEventListener('ended',()=>{ if(currentTrkBtn===b) trkReset(b); });
+      abBind(a,b.dataset.label.replace('🎧 ','').replace('⏸ ',''));
+      a.play().catch(()=>{});
+    });
+  });
+
+  /* teacher's notes toggles */
+  document.querySelectorAll('.tn-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const c=document.getElementById(b.dataset.tn);
+      c.classList.toggle('show');
+      b.textContent=c.classList.contains('show') ? '🗒 hide the notes' : '🗒 teacher\u0027s notes';
+    });
+  });
+
+  /* ===== slide 3–4 · the food scale + the game ===== */
+  const STEPS=[
+    {w:'never',      filled:0, frame:'I never eat ___'},
+    {w:'sometimes',  filled:2, frame:'I sometimes eat ___'},
+    {w:'often',      filled:4, frame:'I often eat ___'},
+    {w:'usually',    filled:6, frame:'I usually eat ___'},
+    {w:'always',     filled:7, frame:'I eat ___ every day'}
+  ];
+  const FOODS=[
+    {e:'🍚', n:'white rice'}, {e:'🍓', n:'fresh fruit'}, {e:'🍩', n:'junk food'}, {e:'🍞', n:'white bread'},
+    {e:'🍙', n:'brown rice'}, {e:'🥕', n:'fresh vegetables'}, {e:'🍗', n:'fried food'}, {e:'🥖', n:'wheat bread'}
+  ];
+  const bank=document.getElementById('foodbank');
+  const rows=document.getElementById('foodrows');
+  if(bank && rows){
+    let selected=null;
+    STEPS.forEach((s,si)=>{
+      const row=document.createElement('div');
+      row.className='landrow'; row.dataset.step=si;
+      row.innerHTML='<span class="lw">'+s.w+'</span><span class="lweek">'+Array.from({length:7},(_,k)=>'<i class="'+(k<s.filled?'f':'')+'"></i>').join('')+'</span><span class="lsent">…</span>';
+      row.addEventListener('click',()=>{
+        /* nothing selected + a filled row → give the food back to the bank */
+        if(!selected){
+          if(row.classList.contains('filled')){
+            const prev=row.dataset.food;
+            const old=Array.from(bank.children).find(b=>b.dataset.n===prev);
+            if(old) old.classList.remove('used');
+            row.classList.remove('filled'); delete row.dataset.food;
+            row.querySelector('.lsent').textContent='…';
+          }
+          return;
+        }
+        if(row.classList.contains('filled')){ const prev=row.dataset.food; const old=Array.from(bank.children).find(b=>b.dataset.n===prev); if(old) old.classList.remove('used'); }
+        const fc=Array.from(bank.children).find(b=>b.dataset.n===selected);
+        fc.classList.add('used');
+        row.classList.add('filled'); row.dataset.food=selected;
+        row.querySelector('.lsent').textContent=s.frame.replace('___', selected);
+        selected=null;
+      });
+      rows.appendChild(row);
+    });
+    FOODS.forEach(f=>{
+      const c=document.createElement('button');
+      c.className='fcard'; c.dataset.n=f.n; c.textContent=f.e+' '+f.n;
+      c.addEventListener('click',()=>{
+        bank.querySelectorAll('.fcard').forEach(x=>x.classList.remove('sel'));
+        c.classList.add('sel'); selected=f.n;
+      });
+      bank.appendChild(c);
+    });
+  }
+
+  /* ===== slide 9 · the score ===== */
+  const scoreIn=document.getElementById('score-in'), scoreBtn=document.getElementById('score-btn');
+  if(scoreIn && scoreBtn){
+    scoreBtn.addEventListener('click',()=>{
+      const v=parseInt((scoreIn.value||'').trim(),10);
+      const card=document.getElementById('verdict-card'), txt=document.getElementById('verdict-text');
+      card.style.display='block';
+      if(isNaN(v)||v<8||v>32){
+        txt.innerHTML='🤔 Type your total — the quiz gives <b>8 to 32</b> points (8 answers × 1–4 points).';
+        return;
+      }
+      let band;
+      if(v===32) band='🏆 <b>32 — Congratulations! You have a perfect score. You are a healthy eater.</b>';
+      else if(v>=26) band='🎉 <b>Good job! You eat very well.</b>';
+      else if(v>=20) band='🙂 <b>Not bad, but you could eat better.</b>';
+      else if(v>=14) band='😅 <b>Oops! You aren\u0027t a healthy eater.</b> Remember, fruits and vegetables are really good for you. Junk food isn\u0027t.';
+      else band='😱 <b>Oh no! You need to change the way you eat.</b> Can you do it?';
+      txt.innerHTML='<span class="verdict">'+v+' points →</span><br>'+band;
+    });
+    scoreIn.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); scoreBtn.click(); } });
+  }
+
+  /* the ⛶ fullscreen quiz */
+  const fsStory=document.getElementById('fsstory');
+  const fsBtns=[document.getElementById('fsstory2-btn')].filter(Boolean);
+  fsBtns.forEach(b=> b.addEventListener('click',()=> fsStory.classList.add('on')));
+  fsStory.addEventListener('click',()=> fsStory.classList.remove('on'));
+
+  /* the write-in quiz inputs (just honest fields — no grading) */
+  document.querySelectorAll('.writein input').forEach(i=>{ i.spellcheck=false; });
+
+  /* deep-link: #n opens slide n; without a hash, resume where it was last open */
+  const h=parseInt(location.hash.slice(1));
+  if(isNaN(h)){
+    const saved=parseInt(sessionStorage.getItem('sr-elem-ch2-slide')||'1');
+    current = Math.max(0,Math.min(total-1,saved-1));
+  } else {
+    current = Math.max(0,Math.min(total-1,h-1));
+  }
+
+  /* READY-CHIME */
+  (function(){
+    if(!/^https?:$/.test(location.protocol))return;
+    let last=null,ctx=null;
+    const unlock=()=>{try{
+      ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(ctx.state==='suspended')ctx.resume();
+    }catch(e){}};
+    addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+    function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+      [880,1174.7].forEach((f,n)=>{
+        const o=ctx.createOscillator(),g=ctx.createGain();
+        o.type='sine';o.frequency.value=f;
+        g.gain.setValueAtTime(0,t+n*.18);
+        g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+        g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+        o.connect(g);g.connect(ctx.destination);
+        o.start(t+n*.18);o.stop(t+n*.18+1);
+      });
+    }catch(e){}}
+    function poll(){
+      fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+        const m=r.headers.get('last-modified');
+        if(!m)return;
+        if(last===null){last=m;return}
+        if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+      }).catch(()=>{});
+    }
+    poll();setInterval(poll,1500);
+  })();
+
+  render();
+})();
+</script>
+</body>
+</html>
