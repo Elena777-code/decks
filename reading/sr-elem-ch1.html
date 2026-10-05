@@ -284,7 +284,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <!-- 1 · prepare ahead -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v15 · full</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 05.10 · v16</div>
     <h1 class="title reveal">The Most Popular Sports in the World ⚽</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
@@ -1443,8 +1443,8 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     if(n==='THE USA' || n==='USA') return 'the United States';
     if(n==='THE UK') return 'the UK';
     if(n==='THE CARIBBEAN') return 'the Caribbean';
-    if(n==='NEW ZEALAND') return 'New Zealand';
-    return n.charAt(0) + n.slice(1).toLowerCase();
+    /* every word keeps its capital — North America, not North america */
+    return n.split(' ').map(w=>w.charAt(0)+w.slice(1).toLowerCase()).join(' ');
   }
   function buildMap(id, hots){
     const wrap = document.getElementById(id);
