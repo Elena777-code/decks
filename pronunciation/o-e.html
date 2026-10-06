@@ -199,7 +199,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 .wallbox.won .wall-word{transform:scale(1.08)}
 .wallbox.won .wemoji{display:inline-block}
 .bricks{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1fr 1fr;gap:0;padding:6px;pointer-events:none}
-.brick{border-radius:8px;border:3px solid rgba(45,52,54,.28);background:linear-gradient(135deg,#d9825f,#e9967a);
+.brick{border-radius:8px;border:3px solid rgba(45,52,54,.28);background:linear-gradient(135deg,#e2701f,#ef8f4e); /* matched to Elena's Shedevrum wall */
   box-shadow:inset 0 -6px 0 rgba(45,52,54,.16),0 4px 10px rgba(45,52,54,.22);
   transition:all .45s cubic-bezier(.34,1.2,.5,1);display:grid;place-items:center;
   font-family:'Fredoka',sans-serif;font-weight:700;color:rgba(255,255,255,.9);
@@ -218,6 +218,8 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 .gap.open{color:var(--pink-ink)}
 /* sparse slides breathe: the card row centres between the header and the task */
 .slide.soft .mx-row,.slide.soft .trick-row,.slide.soft .grid-row{margin-top:auto;margin-bottom:auto}
+/* a generated picture inside a picture slot (the wall, Shedevrum 06.10) */
+.pic-img{height:clamp(2.2rem,4.5vw,3.6rem);width:auto;max-width:100%;border-radius:10px;display:block;margin:0 auto}
 /* the ghost l (walk · talk): written but not said — FADED, never crossed
    (a struck l reads as a t! Elena's screenshot 06.10) — pale grey = quiet */
 .ghost-l{opacity:.38;color:var(--ink-dark)}
@@ -255,7 +257,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 </head>
 <body>
 <div id="progress"><div id="progress-fill"></div></div>
-<div id="stamp">build 06.10 · v5</div>
+<div id="stamp">build 06.10 · v6</div>
 <div id="pardon-bar"><button class="pardon-pill" id="pardon-btn" aria-label="Pardon?">🙋</button></div>
 <!--BODY-->
 <!-- 1 · COVER -->
