@@ -96,10 +96,6 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
   transform:rotate(7deg);cursor:grab;touch-action:none;z-index:5;
   filter:drop-shadow(0 8px 16px rgba(10,6,20,.35))}
 .big-letter .mascot.dragging{filter:drop-shadow(0 14px 26px rgba(10,6,20,.5));opacity:.9}
-.big-letter .metro-badge{position:absolute;bottom:-16px;right:-18px;width:clamp(60px,7.5vw,96px);
-  cursor:grab;touch-action:none;z-index:5;
-  filter:drop-shadow(0 8px 16px rgba(10,6,20,.35))}
-.big-letter .metro-badge.dragging{filter:drop-shadow(0 14px 26px rgba(10,6,20,.5));opacity:.9}
 @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.1)}100%{transform:scale(1)}}
 .big-letter .tdot{fill:var(--yellow);stroke:var(--ink-dark);stroke-width:14;
   filter:drop-shadow(0 6px 10px rgba(10,6,20,.35))}
@@ -294,7 +290,6 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
     <div class="big-letter" role="button" tabindex="0" data-snd="m" aria-label="Letter m — tap to hear the sound">
       <img class="glyph" src="genki-letters/m.png?v=3" alt="letter m">
       <img class="mascot" src="logos/monkey.png" alt="the Genki monkey — m for monkey">
-      <img class="metro-badge" src="logos/metro.png" alt="the Moscow Metro M">
     </div>
     <div class="pres-side">
       <div class="sound-chip f-yellow"><span class="snd">m-m-m…</span><span class="hint">like</span><img class="chiplogo" src="logos/mcdonalds.svg" alt="McDonald's"></div>
@@ -616,7 +611,6 @@ function makeMovable(mk, KEY){
   });
 }
 makeMovable(document.querySelector('.big-letter .mascot'), 'bp-m-monkey');
-makeMovable(document.querySelector('.big-letter .metro-badge'), 'bp-m-metro');
 /* click reveals */
 document.addEventListener('click',e=>{
   const card=e.target.closest('.logo-card');
