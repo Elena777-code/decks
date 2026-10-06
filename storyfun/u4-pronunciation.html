@@ -396,6 +396,7 @@ function openPic(){
         $('sentBox').className='sent on';
         $('sentHint').className='hint';
         playSent(def);
+        $('sentBox').scrollIntoView({behavior:'smooth',block:'nearest'});
       }else{
         b.classList.add('bad');misses++;
         playSent(def);

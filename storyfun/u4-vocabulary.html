@@ -275,6 +275,7 @@ function openItem(){
         $('itemReveal').className='reveal on';
         $('itemHint').className='hint';
         playItem(it);
+        $('itemReveal').scrollIntoView({behavior:'smooth',block:'nearest'});
       }else{
         b.classList.add('bad');misses++;
         playItem(it);
