@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fourteen Chips · a drill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THE FOURTEEN CHIPS · an hwdt drill (29.09, Elena's order)
+   One card = one chip = one item from lesson 002. A VERY LOYAL
+   timer (25 seconds, gentle colours). Type your answer, Enter.
+   End of the round: the chips you leave the table with, every
+   miss listed for the notebook, and ONE button that sends the
+   results straight to Elena's Google Form («Natalya», wired
+   06.10). The game is named and standalone — Elena plays it too.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --rust:#A2402F; --rust-soft:#F7EAE6;
+  --blue:#1F5FA8;
+  --radius:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#EFECE5;
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:3vh 4vw}
+.g{background:var(--paper);border-radius:20px;max-width:640px;width:100%;
+  padding:clamp(1.2rem,3.5vw,2.4rem);display:flex;flex-direction:column;gap:1.1rem;
+  box-shadow:0 18px 50px rgba(35,39,46,.1)}
+/* every screen is a column — the end screen collapsed into a row of slivers
+   without this (Elena's catch: "why is this page so ugly?") */
+#start,#run,#end{flex-direction:column;gap:1.05rem}
+.eyebrow{font-size:clamp(.78rem,1.3vw,.95rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-soft)}
+h1{font-size:clamp(1.5rem,3.2vw,2.2rem);line-height:1.15}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:64px;height:4px;border-radius:99px;background:var(--gold)}
+p{font-size:clamp(1rem,2vw,1.25rem);line-height:1.55}
+.hint{color:var(--ink-soft);font-style:italic;font-size:clamp(.88rem,1.7vw,1.02rem)}
+/* timer */
+.tz{display:flex;align-items:center;gap:.7em}
+.tnum{font-weight:800;font-size:clamp(1.2rem,2.4vw,1.6rem);color:var(--accent);min-width:2.2em;text-align:right}
+.tbar{flex:1;height:10px;border-radius:99px;background:var(--accent-soft);overflow:hidden}
+.tfill{height:100%;border-radius:99px;background:var(--accent);transition:width 1s linear}
+.tz.warn .tnum{color:var(--gold)} .tz.warn .tfill{background:var(--gold)}
+.tz.over .tnum{color:var(--rust)} .tz.over .tfill{background:var(--rust)}
+/* card */
+.cardq{background:#fff;border:1px solid var(--line);border-top:4px solid var(--gold);
+  border-radius:var(--radius);padding:clamp(1rem,2.5vw,1.6rem);min-height:11.5em;
+  display:flex;flex-direction:column;gap:.7em;justify-content:center}
+.chipno{font-size:clamp(.85rem,1.6vw,1rem);font-weight:800;color:var(--gold);letter-spacing:.06em}
+.q{font-size:clamp(1.25rem,2.6vw,1.7rem);line-height:1.5;font-weight:600}
+.q b{color:var(--accent)}
+.ans{display:flex;gap:.6em}
+.ans input{flex:1;border:2px solid var(--line);border-radius:12px;padding:.55em .8em;
+  font-family:'Inter',sans-serif;font-size:clamp(1.05rem,2.2vw,1.35rem);color:var(--ink)}
+.ans input:focus{outline:none;border-color:var(--accent)}
+.ans button{border:none;border-radius:12px;padding:.55em 1.3em;background:var(--ink);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(1rem,2vw,1.2rem);cursor:pointer}
+.ans button:hover{background:#000}
+.fd{min-height:1.6em;font-size:clamp(1rem,2vw,1.25rem);font-weight:700}
+.fd.ok{color:var(--accent)} .fd.no{color:var(--rust)}
+/* start + end */
+.big{border:none;border-radius:14px;padding:.8em 1.8em;background:var(--accent);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(1.1rem,2.3vw,1.4rem);
+  cursor:pointer;align-self:center;transition:transform .15s}
+.big:hover{transform:scale(1.04)}
+.score{font-size:clamp(1.35rem,2.9vw,1.9rem);font-weight:800;text-align:center;
+  color:var(--gold);line-height:1.35}
+.chipsline{display:flex;flex-wrap:wrap;gap:.45em;justify-content:center}
+.chipdot{width:1.5em;height:1.5em;border-radius:50%;border:2px solid var(--line);background:#fff}
+.chipdot.won{background:var(--gold);border-color:var(--gold)}
+.misses{background:#fff;border:1px solid var(--line);border-radius:12px;padding:.9em 1.1em}
+.misses p{font-size:clamp(.95rem,1.8vw,1.15rem);line-height:1.5}
+.misses .m{padding:.3em 0;border-bottom:1px dashed var(--line)}
+.misses .m:last-child{border-bottom:none}
+.misses .k{color:var(--accent)}
+.sendrow{display:flex;gap:.6em;align-items:center;flex-wrap:wrap}
+@media (max-width:480px){.g{padding:1rem}.sendrow button{width:100%}}
+.sendrow button{border:none;border-radius:12px;padding:.6em 1.4em;background:var(--ink);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(1rem,2vw,1.2rem);cursor:pointer}
+.sendrow button:hover{background:#000}
+.sendstat{font-size:clamp(.85rem,1.6vw,1rem);color:var(--ink-soft);font-style:italic}
+.chipsline{display:flex;flex-wrap:wrap;gap:.35em;justify-content:center}
+.chipdot{width:1.35em;height:1.35em;border-radius:50%;border:2px solid var(--line);background:#fff}
+.chipdot.won{background:var(--gold);border-color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="g" id="g">
+
+  <!-- start screen -->
+  <div id="start">
+    <div class="eyebrow">A drill with a clock — a very loyal one</div>
+    <h1>The Fourteen <em>Chips</em></h1>
+    <div class="rule"></div>
+    <p>Fourteen cards from yesterday’s lesson. Each card is a chip: answer it — and the chip
+    is yours. <strong>25 seconds each</strong>, which is genuinely generous. Type your
+    answer, press <strong>Enter</strong>.</p>
+    <p class="hint">Miss a card, and the chip goes back to the bank — with the right answer
+    shown, for your notebook. The order shuffles every round.</p>
+    <button class="big" id="play">Deal me in</button>
+    <p class="hint" style="align-self:center">the same drill works for the teacher — she plays too</p>
+  </div>
+
+  <!-- play screen -->
+  <div id="run" style="display:none">
+    <div class="tz" id="tz"><span class="tnum" id="tnum">25</span><div class="tbar"><div class="tfill" id="tfill"></div></div></div>
+    <div class="cardq">
+      <div class="chipno" id="chipno">chip 1 of 14</div>
+      <div class="q" id="q">…</div>
+      <div class="ans"><input id="inp" autocomplete="off" spellcheck="false" placeholder="your answer…"><button id="ok">OK</button></div>
+      <div class="fd" id="fd"></div>
+    </div>
+  </div>
+
+  <!-- end screen -->
+  <div id="end" style="display:none">
+    <div class="eyebrow">End of the round</div>
+    <div class="score" id="score">—</div>
+    <div class="chipsline" id="chipsline"></div>
+    <div class="misses" id="misses"></div>
+    <div class="sendrow">
+      <button id="send">Send results to Miss Elena</button>
+      <span class="sendstat" id="sendstat"></span>
+    </div>
+    <button class="big" id="again">Play again — new order</button>
+  </div>
+
+</div>
+
+<script>
+/* ── the Google Form — Elena's «Natalya» (created 06.10, her link pasted here):
+      FORM_ACTION = the form's submit URL · FORM_ENTRY = its answer field.
+      One button, straight to the form — nothing to paste anywhere. */
+const FORM_ACTION='https://docs.google.com/forms/d/e/1FAIpQLSd7B6GMpuy9fSRl7clE7BGHL43qyxEE2baPO725kN6QlJatjw/formResponse';
+const FORM_ENTRY='entry.1917651123';
+
+const ITEMS=[
+ {q:'Three of my ______ were born thanks to her help.',a:['children'],tag:'children (3rd outing!)'},
+ {q:'I always ______ notes during our English lessons.',a:['make','make notes'],tag:'make notes'},
+ {q:'Somebody ______ the answer.',a:['has','knows'],tag:'somebody + has'},
+ {q:'We ______ seen each other for six or seven years.',a:["haven't","have not","havent"],tag:"haven't seen (until now)"},
+ {q:'Not only ______ she pass the exam, but she also topped the class.',a:['did'],tag:'not only + did she…'},
+ {q:'It was the lantern ______ came back with the fastest friend.',a:['that'],tag:'the cleft takes that (never what)'},
+ {q:"I'd rather she ______ take her phone to bed.",a:["didn't","did not","didnt"],tag:"would rather + didn't"},
+ {q:'If I ______ about the research, I would have changed my approach.',a:['had known','known'],tag:'If I had known…'},
+ {q:'фонарь → (British English) a ______',a:['torch'],tag:'a torch'},
+ {q:'склад → (business) a ______',a:['warehouse'],tag:'a warehouse'},
+ {q:'заготовки на зиму → ______ for the winter',a:['preserves'],tag:'preserves'},
+ {q:'Ozlem\u2019s rule: if you need to improve speaking, you need to ______ — speak!',a:['produce'],tag:'produce — speak!'},
+ {q:'The surgeon riddle beats an ______ — a picture in the head you never checked.',a:['assumption','assumptions'],tag:'assumption'},
+ {q:"The doctor asks — you've recovered: 'I'm ______ now, thank you.'",a:['well'],tag:'well = not ill any more'},
+];
+const SECONDS=25; /* the loyal clock */
+
+const g=document.getElementById('g'),start=document.getElementById('start'),
+run=document.getElementById('run'),end=document.getElementById('end'),
+tnum=document.getElementById('tnum'),tfill=document.getElementById('tfill'),tz=document.getElementById('tz'),
+q=document.getElementById('q'),chipno=document.getElementById('chipno'),inp=document.getElementById('inp'),
+fd=document.getElementById('fd');
+
+let deck=[],idx=0,won=0,misses=[],timer=null,left=0;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function norm(s){return s.toLowerCase().replace(/[.,!?;:'’"]/g,'').replace(/\s+/g,' ').trim()}
+
+function begin(){
+  deck=shuffle(ITEMS.slice());idx=0;won=0;misses=[];
+  start.style.display='none';end.style.display='none';run.style.display='flex';
+  g.style.maxWidth='640px';
+  next();
+}
+function next(){
+  if(idx>=deck.length){finish();return}
+  fd.textContent='';fd.className='fd';inp.value='';inp.disabled=false;inp.focus();
+  chipno.textContent='chip '+(idx+1)+' of '+deck.length;
+  q.innerHTML=deck[idx].q.replace('______','<b>______</b>');
+  left=SECONDS;tnum.textContent=left;tfill.style.width='100%';
+  tz.className='tz';
+  clearInterval(timer);
+  timer=setInterval(()=>{
+    left--;tnum.textContent=left;tfill.style.width=(left/SECONDS*100)+'%';
+    if(left<=5)tz.className='tz warn';
+    if(left<=0){clearInterval(timer);tz.className='tz over';judge(null)}
+  },1000);
+}
+function judge(val){
+  clearInterval(timer);inp.disabled=true;
+  const it=deck[idx];
+  const ok=val!==null&&it.a.some(x=>norm(x)===norm(val));
+  if(ok){won++;fd.textContent='✓ yours.';fd.className='fd ok'}
+  else{
+    misses.push({tag:it.tag,key:it.a[0]});
+    fd.textContent=(val===null?'⏱ the chip goes back — ':'✗ not this time — ')+it.a[0];
+    fd.className='fd no';
+  }
+  setTimeout(()=>{idx++;next()},ok?700:2100);
+}
+inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&inp.value.trim()!=='')judge(inp.value.trim())});
+document.getElementById('ok').onclick=()=>{if(inp.value.trim()!=='')judge(inp.value.trim())};
+
+function finish(){
+  run.style.display='none';end.style.display='flex';
+  document.getElementById('score').textContent='You leave the table with '+won+' of '+deck.length+' chips.';
+  const cl=document.getElementById('chipsline');cl.innerHTML='';
+  deck.forEach(()=>{const d=document.createElement('span');d.className='chipdot';cl.appendChild(d)});
+  const dots=[...cl.children];
+  let k=0;
+  const mark=setInterval(()=>{if(k>=won){clearInterval(mark);return}dots[k].classList.add('won');k+=1},90);
+  const m=document.getElementById('misses');
+  m.innerHTML=misses.length
+    ?'<p><b>For your notebook — the chips the bank kept:</b></p>'
+      +misses.map(x=>'<p class="m">'+x.tag+' → <b class="k">'+x.key+'</b></p>').join('')
+    :'<p><b>A clean sweep.</b> The bank is empty; the table is yours. 🎰</p>';
+}
+function resultsText(){
+  let out='Natalya · The Fourteen Chips · '+new Date().toLocaleString('en-GB')+'\n'+
+    'chips: '+won+'/'+deck.length+'\n';
+  out+=misses.length?('misses: '+misses.map(x=>x.tag+' → '+x.key).join(' · ')):'no misses — clean sweep';
+  return out;
+}
+document.getElementById('send').onclick=()=>{
+  const txt=resultsText();
+  try{
+    const b=new URLSearchParams();b.append(FORM_ENTRY,txt);
+    fetch(FORM_ACTION,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:b.toString()});
+  }catch(e){}
+  document.getElementById('sendstat').textContent='sent to Elena ✓';
+};
+document.getElementById('again').onclick=begin;
+document.getElementById('play').onclick=begin;
+</script>
+</body>
+</html>
