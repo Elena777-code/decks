@@ -93,8 +93,9 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 /* the Genki monkey presents the letter (Elena, 2026-10-05: «cut out the monkey
    and use it to present m» — cut from the Genki disc's own poster 11) */
 .big-letter .mascot{position:absolute;top:-16px;right:-22px;width:clamp(78px,10vw,122px);
-  transform:rotate(7deg);pointer-events:none;
+  transform:rotate(7deg);cursor:grab;touch-action:none;z-index:5;
   filter:drop-shadow(0 8px 16px rgba(10,6,20,.35))}
+.big-letter .mascot.dragging{filter:drop-shadow(0 14px 26px rgba(10,6,20,.5));opacity:.9}
 @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.1)}100%{transform:scale(1)}}
 .big-letter .tdot{fill:var(--yellow);stroke:var(--ink-dark);stroke-width:14;
   filter:drop-shadow(0 6px 10px rgba(10,6,20,.35))}
@@ -570,6 +571,47 @@ document.querySelectorAll('.big-letter').forEach(bl=>{
     if(chip)chip.classList.add('on');
   });
 });
+/* THE MONKEY IS MOVABLE (Elena, 2026-10-05: «I want it to be movable.
+   I want to place it where I want to») — drag him anywhere; the deck
+   remembers the spot (localStorage, per device); double-tap = back to
+   the corner. A tap without moving does nothing. */
+(function(){
+  const mk = document.querySelector('.big-letter .mascot');
+  if(!mk) return;
+  const KEY = 'bp-m-monkey';
+  let dx = 0, dy = 0;
+  try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) { dx = s.dx|0; dy = s.dy|0; } } catch(e) {}
+  const apply = () => { mk.style.translate = dx + 'px ' + dy + 'px'; };
+  apply();
+  let sx = 0, sy = 0, ox = 0, oy = 0, moved = false, pid = null;
+  mk.addEventListener('pointerdown', e => {
+    e.stopPropagation();
+    pid = e.pointerId;
+    try { mk.setPointerCapture(pid); } catch(err) {}
+    sx = e.clientX; sy = e.clientY; ox = dx; oy = dy; moved = false;
+    mk.style.cursor = 'grabbing';
+  });
+  mk.addEventListener('pointermove', e => {
+    if (pid === null || e.pointerId !== pid) return;
+    const mx = e.clientX - sx, my = e.clientY - sy;
+    if (!moved && Math.abs(mx) + Math.abs(my) > 6) { moved = true; mk.classList.add('dragging'); }
+    if (moved) { dx = ox + mx; dy = oy + my; apply(); }
+  });
+  const drop = e => {
+    if (pid === null || e.pointerId !== pid) return;
+    pid = null;
+    mk.style.cursor = 'grab';
+    setTimeout(() => mk.classList.remove('dragging'), 80);
+    if (moved) { try { localStorage.setItem(KEY, JSON.stringify({dx, dy})); } catch(err) {} }
+  };
+  mk.addEventListener('pointerup', drop);
+  mk.addEventListener('pointercancel', drop);
+  mk.addEventListener('click', e => e.stopPropagation()); /* a drag must not tap the letter */
+  mk.addEventListener('dblclick', () => {
+    dx = 0; dy = 0; apply();
+    try { localStorage.removeItem(KEY); } catch(err) {}
+  });
+})();
 /* click reveals */
 document.addEventListener('click',e=>{
   const card=e.target.closest('.logo-card');
