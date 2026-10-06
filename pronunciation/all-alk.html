@@ -218,9 +218,10 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 .gap.open{color:var(--pink-ink)}
 /* sparse slides breathe: the card row centres between the header and the task */
 .slide.soft .mx-row,.slide.soft .trick-row,.slide.soft .grid-row{margin-top:auto;margin-bottom:auto}
-/* the ghost l (walk · talk): written but not said — the strike must read at arm's length */
-.ghost-l{opacity:.75;text-decoration:line-through;text-decoration-color:var(--pink-ink);text-decoration-thickness:.2em}
-.mx-card.on .mx-word .ghost-l{color:var(--ink-dark);opacity:.55;text-decoration-thickness:.16em}
+/* the ghost l (walk · talk): written but not said — FADED, never crossed
+   (a struck l reads as a t! Elena's screenshot 06.10) — pale grey = quiet */
+.ghost-l{opacity:.38;color:var(--ink-dark)}
+.mx-card.on .mx-word .ghost-l{color:var(--ink-dark);opacity:.38}
 /* --- THE STAMP --- */
 #stamp{position:fixed;top:2.4vh;right:max(10px,1.6vw);z-index:89;font-family:'Fredoka',sans-serif;
   font-weight:500;font-size:clamp(.72rem,1.1vw,.9rem);color:rgba(255,255,255,.85);
@@ -254,7 +255,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 </head>
 <body>
 <div id="progress"><div id="progress-fill"></div></div>
-<div id="stamp">build 06.10 · v3</div>
+<div id="stamp">build 06.10 · v4</div>
 <div id="pardon-bar"><button class="pardon-pill" id="pardon-btn" aria-label="Pardon?">🙋</button></div>
 <!--BODY-->
 <!-- 1 · COVER -->
