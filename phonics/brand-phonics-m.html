@@ -575,9 +575,9 @@ document.querySelectorAll('.big-letter').forEach(bl=>{
    I want to place it where I want to») — drag him anywhere; the deck
    remembers the spot (localStorage, per device); double-tap = back to
    the corner. A tap without moving does nothing. */
-function makeMovable(mk, KEY){
+function makeMovable(mk, KEY, defX, defY){
   if(!mk) return;
-  let dx = 0, dy = 0;
+  let dx = defX|0, dy = defY|0; /* the starting point — Elena places it near the letter */
   try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) { dx = s.dx|0; dy = s.dy|0; } } catch(e) {}
   const apply = () => { mk.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(7deg)'; };
   apply();
@@ -612,7 +612,7 @@ function makeMovable(mk, KEY){
     try { localStorage.removeItem(KEY); } catch(err) {}
   });
 }
-makeMovable(document.querySelector('.big-letter .mascot'), 'bp-m-monkey');
+makeMovable(document.querySelector('.big-letter .mascot'), 'bp-m-monkey', -83, 48);
 /* click reveals */
 document.addEventListener('click',e=>{
   const card=e.target.closest('.logo-card');
