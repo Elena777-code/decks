@@ -32,6 +32,21 @@ h3{margin-top:.8em;font-size:clamp(1.15rem,2.4vw,1.5rem)}
 .step.rust .no{background:var(--rust)} .step.blue .no{background:var(--blue)}
 .step p{font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55;margin:.25em 0}
 .step p.how{color:var(--ink-soft);font-style:italic;font-size:clamp(.9rem,1.8vw,1.05rem)}
+/* the done chips (06.10, Elena's order: Natalya ticks what she has done —
+   the send button reports the ticks to the form, so Elena reads the
+   state before the lesson). Float, not absolute — the header text
+   wraps around it, nothing ever overlaps. */
+.dchip{float:right;border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.3em .85em;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:clamp(.75rem,1.5vw,.92rem);color:var(--ink-soft);cursor:pointer;
+  transition:all .15s;margin:0 0 .4em .6em}
+.dchip:hover{border-color:var(--accent);color:var(--accent)}
+.dchip.done{background:var(--accent);border-color:var(--accent);color:#fff}
+#send-btn{border:none;border-radius:14px;padding:.7em 1.6em;background:var(--accent);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(1rem,2vw,1.25rem);
+  cursor:pointer;margin-top:.5em}
+#send-btn:hover{transform:scale(1.03)}
+#send-btn[disabled]{opacity:.75;cursor:default;transform:none}
 .line{display:block;border-bottom:2px dashed var(--line);height:2em;margin:.15em 0 .5em}
 details{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);
   margin-top:.7em;overflow:hidden}
@@ -71,6 +86,7 @@ a{color:var(--blue);font-weight:600}
 </div>
 
 <div class="step rust">
+  <button class="dchip" data-k="job1" type="button">done</button>
   <span class="no">1</span>
   <p><strong>✍️ Be your own judge — your sentences from yesterday’s lesson.</strong></p>
   <p class="how">You said these in the lesson. Write the corrected version of each — then open the check.</p>
@@ -98,6 +114,7 @@ a{color:var(--blue);font-weight:600}
 </div>
 
 <div class="step">
+  <button class="dchip" data-k="job2" type="button">done</button>
   <span class="no">2</span>
   <p><strong>📖 The words you asked me for — yours now.</strong></p>
   <p class="how">Write each word into your notebook. For each, ONE of the three: the translation · the meaning · one example — then check.</p>
@@ -134,6 +151,7 @@ a{color:var(--blue);font-weight:600}
 </div>
 
 <div class="step">
+  <button class="dchip" data-k="job3" type="button">done</button>
   <span class="no">3</span>
   <p><strong>🧩 The grammar that got away — three points, taught.</strong></p>
   <p class="how">The three sentences from yesterday’s judge game — the ones that got away.
@@ -163,6 +181,7 @@ a{color:var(--blue);font-weight:600}
 </div>
 
 <div class="step blue">
+  <button class="dchip" data-k="job4" type="button">done</button>
   <span class="no">4</span>
   <p><strong>🌉 The riddle returns — watch the video again.</strong></p>
   <p class="how">We both forgot who exactly was crossing that bridge — so, one more meeting with them.</p>
@@ -215,6 +234,7 @@ a{color:var(--blue);font-weight:600}
 </div>
 
 <div class="step">
+  <button class="dchip" data-k="job5" type="button">done</button>
   <span class="no">5</span>
   <p><strong>💬 “How are you?” — four answers, four weathers.</strong></p>
   <p class="how">One small thing that got away — let's make it stay.</p>
@@ -239,11 +259,20 @@ a{color:var(--blue);font-weight:600}
 </div>
 
 <div class="step" style="border-top:4px solid var(--gold)">
+  <button class="dchip" data-k="drill" type="button">done</button>
   <p><strong>🎰 The Fourteen Chips — yesterday’s lesson in fourteen cards.</strong></p>
   <p>Fourteen cards from the lesson, one chip each, a very loyal clock (25 seconds).
   Type, press Enter. At the end — one button sends me your results.</p>
   <p><a href="fourteen-chips.html">▶ play The Fourteen Chips</a>
   <span class="how">— the same drill works for the teacher, she plays too</span></p>
+</div>
+
+<div class="step" style="border-top:4px solid var(--accent)">
+  <p><strong>📮 Your progress — one button for Miss Elena.</strong></p>
+  <p class="how">Tick <em>done</em> on each job as you finish it. Then press the button —
+  Miss Elena sees what is done and what is still waiting, before the lesson.</p>
+  <p id="rep-line" style="font-weight:700;color:var(--accent)"></p>
+  <button id="send-btn" type="button">📤 Send my progress</button>
 </div>
 
 <div class="closing">
@@ -252,5 +281,63 @@ a{color:var(--blue);font-weight:600}
 </div>
 
 </div>
+
+<iframe name="hw-form-target" style="display:none"></iframe>
+<script>
+/* ── the done chips + the progress send (06.10, Elena's order: «let her click
+   what was fulfilled in her hw so I knew before the lesson»). The ticks live
+   in the browser (localStorage) — they survive closing the page. The button
+   sends the ticked list through Elena's form «Natalya» — the same pipe as
+   the drill's own report. */
+(function(){
+"use strict";
+var NAMES={job1:'1 · your sentences (the judge)',job2:'2 · your five words',
+  job3:'3 · the three grammar points',job4:'4 · the bridge riddle',
+  job5:'5 · “How are you?” — the four weathers',drill:'6 · The Fourteen Chips drill'};
+var DONE={};
+try{DONE=JSON.parse(localStorage.getItem('natalya-hw-002-done')||'{}')}catch(e){}
+function save(){try{localStorage.setItem('natalya-hw-002-done',JSON.stringify(DONE))}catch(e){}report()}
+document.querySelectorAll('.dchip').forEach(function(ch){
+  var k=ch.dataset.k;
+  if(DONE[k]){ch.classList.add('done');ch.textContent='✓ done'}
+  ch.addEventListener('click',function(){
+    DONE[k]=!DONE[k];
+    ch.classList.toggle('done',!!DONE[k]);
+    ch.textContent=DONE[k]?'✓ done':'done';
+    save();
+  });
+});
+function state(){
+  return Object.keys(NAMES).reduce(function(acc,k){
+    (DONE[k]?acc.done:acc.yet).push(k);return acc;
+  },{done:[],yet:[]});
+}
+function report(){
+  var s=state();
+  document.getElementById('rep-line').textContent=s.done.length
+    ?'Ticked '+s.done.length+' of 6 — '+s.done.map(function(k){return NAMES[k]}).join(' · ')
+    :'Tick «done» on each job as you finish it!';
+}
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSd7B6GMpuy9fSRl7clE7BGHL43qyxEE2baPO725kN6QlJatjw/formResponse";
+var FORM_ENTRY="entry.1917651123";
+document.getElementById('send-btn').addEventListener('click',function(){
+  var s=state();
+  var txt='Natalya · homework L2 · '+new Date().toLocaleDateString('en-GB')+'\n'
+    +(s.done.length
+      ?'Done ('+s.done.length+'/6):\n• '+s.done.map(function(k){return NAMES[k]}).join('\n• ')+'\n'
+      :'Nothing ticked yet\n')
+    +(s.yet.length
+      ?'Not yet: '+s.yet.map(function(k){return NAMES[k]}).join(' · ')
+      :'All six ticked — clean sweep!');
+  var f=document.createElement('form');
+  f.method='POST';f.action=FORM_ACTION;f.target='hw-form-target';
+  var inp=document.createElement('input');inp.type='hidden';inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);document.body.appendChild(f);f.submit();f.remove();
+  this.textContent='sent to Elena ✓';this.disabled=true;
+  document.getElementById('rep-line').textContent='Sent to Miss Elena ✓ — see you at the lesson!';
+});
+report();
+})();
+</script>
 </body>
 </html>
