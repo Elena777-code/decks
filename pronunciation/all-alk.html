@@ -136,7 +136,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 .mx-pics .pic1{display:none}
 .mx-card.on .mx-pics .pic0{display:none}
 .mx-card.on .mx-pics .pic1{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
-.mx-sub{font-family:'Caveat',cursive;font-size:clamp(1rem,1.7vw,1.4rem);color:var(--ink-dark-soft);margin-top:.2vh}
+.mx-sub{font-family:'Caveat',cursive;font-size:clamp(.95rem,1.5vw,1.25rem);color:var(--ink-dark-soft);margin-top:.2vh}
 .mx-card.on .mx-sub{color:var(--pink-ink)}
 /* --- 3 · WORD GRID (the picture shows, the word hides) --- */
 .grid-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vh 1vw;width:100%}
@@ -218,8 +218,9 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 .gap.open{color:var(--pink-ink)}
 /* sparse slides breathe: the card row centres between the header and the task */
 .slide.soft .mx-row,.slide.soft .trick-row,.slide.soft .grid-row{margin-top:auto;margin-bottom:auto}
-/* the ghost l (walk · talk): written but not said */
-.ghost-l{opacity:.5;text-decoration:line-through;text-decoration-color:var(--pink-ink);text-decoration-thickness:.13em}
+/* the ghost l (walk · talk): written but not said — the strike must read at arm's length */
+.ghost-l{opacity:.75;text-decoration:line-through;text-decoration-color:var(--pink-ink);text-decoration-thickness:.2em}
+.mx-card.on .mx-word .ghost-l{color:var(--ink-dark);opacity:.55;text-decoration-thickness:.16em}
 /* --- THE STAMP --- */
 #stamp{position:fixed;top:2.4vh;right:max(10px,1.6vw);z-index:89;font-family:'Fredoka',sans-serif;
   font-weight:500;font-size:clamp(.72rem,1.1vw,.9rem);color:rgba(255,255,255,.85);
@@ -253,7 +254,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 </head>
 <body>
 <div id="progress"><div id="progress-fill"></div></div>
-<div id="stamp">build 06.10 · v2</div>
+<div id="stamp">build 06.10 · v3</div>
 <div id="pardon-bar"><button class="pardon-pill" id="pardon-btn" aria-label="Pardon?">🙋</button></div>
 <!--BODY-->
 <!-- 1 · COVER -->
