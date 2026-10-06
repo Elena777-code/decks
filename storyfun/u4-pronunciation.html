@@ -197,7 +197,7 @@
     <button class="btn blue start" id="againBtn">↺ Play again</button>
   </div>
 
-  <div class="stamp">Storyfun 2 · Unit 4 · Mrs Day's garden · build 05.10 · v1 · real story audio + 🤖 helper</div>
+  <div class="stamp">Storyfun 2 · Unit 4 · Mrs Day's garden · build 06.10 · v2 · real story audio + 🤖 helper</div>
 </div>
 
 <script>
@@ -218,9 +218,20 @@ function say(t){
   u.lang='en-GB';u.rate=.72;u.pitch=1.05;
   speechSynthesis.speak(u);
 }
-/* play a real course clip; TTS words carry au:null and use the robot voice */
-function playWord(def){ if(def.au&&AU[def.au]){new Audio(AU[def.au]).play()} else {say(def.w)} }
-function playSent(def){ if(def.sau&&AU[def.sau]){new Audio(AU[def.sau]).play()} else {say(def.sent)} }
+/* play a real course clip; TTS words carry au:null and use the robot voice.
+   Audio elements are POOLED and unlocked on the first user tap — Safari
+   blocks dynamically-created elements after the first one (Elena's catch:
+   only one sound of 18 played). */
+const APool={};
+function playClip(k){
+  if(!AU[k])return;
+  const a=APool[k]||(APool[k]=new Audio(AU[k]));
+  try{a.currentTime=0}catch(e){}
+  const p=a.play(); if(p&&p.catch)p.catch(()=>{});
+}
+function unlockAudio(){ Object.keys(AU).forEach(k=>{ if(!APool[k]){ const a=new Audio(); a.src=AU[k]; a.load(); APool[k]=a; } }); }
+function playWord(def){ if(def.au&&AU[def.au]){playClip(def.au)} else {say(def.w)} }
+function playSent(def){ if(def.sau&&AU[def.sau]){playClip(def.sau)} else {say(def.sent)} }
 
 const GROUPS=['ow /aʊ/','short u /ʌ/','ear /eə/','magic e 🪄'];
 const GATE_SVG=`<svg viewBox="0 0 100 100"><rect width="100" height="62" fill="#bfe3f5"/><rect y="62" width="100" height="38" fill="#93c47d"/><rect x="6" y="26" width="7" height="52" rx="2" fill="#fff" stroke="#7a6a55" stroke-width="2"/><rect x="87" y="26" width="7" height="52" rx="2" fill="#fff" stroke="#7a6a55" stroke-width="2"/><g fill="#fff" stroke="#7a6a55" stroke-width="2"><polygon points="17,60 17,34 22,26 27,34 27,60"/><polygon points="31,60 31,34 36,26 41,34 41,60"/><polygon points="45,60 45,34 50,26 55,34 55,60"/><polygon points="59,60 59,34 64,26 69,34 69,60"/><polygon points="73,60 73,34 78,26 83,34 83,60"/></g><rect x="15" y="40" width="70" height="5" fill="#e8d9b8" stroke="#7a6a55" stroke-width="1.5"/></svg>`;
@@ -410,8 +421,8 @@ function openEnd(){
   });
   show('c4');
 }
-$('goBtn').onclick=()=>{order=shuffle(WORDS);idx=0;stars=0;$('stars').textContent='⭐ 0';openWord()};
-$('againBtn').onclick=()=>{order=shuffle(WORDS);idx=0;stars=0;$('stars').textContent='⭐ 0';openWord()};
+$('goBtn').onclick=()=>{unlockAudio();order=shuffle(WORDS);idx=0;stars=0;$('stars').textContent='⭐ 0';openWord()};
+$('againBtn').onclick=()=>{unlockAudio();order=shuffle(WORDS);idx=0;stars=0;$('stars').textContent='⭐ 0';openWord()};
 </script>
 </body>
 </html>

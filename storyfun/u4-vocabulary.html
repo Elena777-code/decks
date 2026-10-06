@@ -160,7 +160,7 @@
     <button class="btn blue start" id="againBtn">↺ Play again</button>
   </div>
 
-  <div class="stamp">Storyfun 2 · Unit 4 · Mrs Day's garden · build 05.10 · v1 · real story audio + 🤖 helper</div>
+  <div class="stamp">Storyfun 2 · Unit 4 · Mrs Day's garden · build 06.10 · v2 · real story audio + 🤖 helper</div>
 </div>
 
 <script>
@@ -181,7 +181,16 @@ function say(t){
   u.lang='en-GB';u.rate=.78;u.pitch=1.05;
   speechSynthesis.speak(u);
 }
-function playItem(it){ if(it.au&&AU[it.au]){new Audio(AU[it.au]).play()} else {say(it.w)} }
+/* pooled + unlocked audio — Safari blocks dynamically-created elements after the first */
+const APool={};
+function playClip(k){
+  if(!AU[k])return;
+  const a=APool[k]||(APool[k]=new Audio(AU[k]));
+  try{a.currentTime=0}catch(e){}
+  const p=a.play(); if(p&&p.catch)p.catch(()=>{});
+}
+function unlockAudio(){ Object.keys(AU).forEach(k=>{ if(!APool[k]){ const a=new Audio(); a.src=AU[k]; a.load(); APool[k]=a; } }); }
+function playItem(it){ if(it.au&&AU[it.au]){playClip(it.au)} else {say(it.w)} }
 
 const SKIRT_SVG=`<svg viewBox="0 0 100 100"><path d="M30 20 L70 20 L82 78 Q50 90 18 78 Z" fill="#c94f7c" stroke="#8f3657" stroke-width="3"/><rect x="30" y="14" width="40" height="10" rx="4" fill="#8f3657"/></svg>`;
 const SHIRT_SVG=`<svg viewBox="0 0 100 100"><path d="M38 14 L50 22 L62 14 L84 26 L74 42 L68 38 L68 86 L32 86 L32 38 L26 42 L16 26 Z" fill="#5b8fd4" stroke="#3a6396" stroke-width="3"/><circle cx="50" cy="40" r="2.5" fill="#fff"/><circle cx="50" cy="55" r="2.5" fill="#fff"/><circle cx="50" cy="70" r="2.5" fill="#fff"/></svg>`;
@@ -246,7 +255,7 @@ function openRound(){
   $('rSub').textContent=r.sub;
   $('rGo').onclick=()=>{item=0;openItem()};
   show('rintro');
-  if(r.punch&&AU[r.punch]){setTimeout(()=>new Audio(AU[r.punch]).play(),700)}
+  if(r.punch&&AU[r.punch]){setTimeout(()=>playClip(r.punch),700)}
 }
 function openItem(){
   misses=0;
@@ -295,8 +304,8 @@ function nextRound(){
   $('finalStars').textContent='You have ⭐ '+stars+' of '+total+'!';
   show('final');
 }
-$('goBtn').onclick=()=>{round=0;item=0;stars=0;$('stars').textContent='⭐ 0';openRound()};
-$('againBtn').onclick=()=>{round=0;item=0;stars=0;$('stars').textContent='⭐ 0';openRound()};
+$('goBtn').onclick=()=>{unlockAudio();round=0;item=0;stars=0;$('stars').textContent='⭐ 0';openRound()};
+$('againBtn').onclick=()=>{unlockAudio();round=0;item=0;stars=0;$('stars').textContent='⭐ 0';openRound()};
 </script>
 </body>
 </html>
