@@ -125,7 +125,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 .mx-word .v{position:relative;transition:color .25s ease}
 .mx-word .mx-e{display:inline-block;max-width:0;opacity:0;transform:translateX(-6px) scale(.6);
   color:var(--pink-ink);transition:all .35s cubic-bezier(.34,1.4,.5,1);overflow:hidden;white-space:nowrap}
-.mx-card.on .mx-word .mx-e{max-width:1.1em;opacity:1;transform:none}
+.mx-card.on .mx-word .mx-e{max-width:3.4em;opacity:1;transform:none} /* room for 3-letter chunks (all · alk) and ph's «h = /f/» — the 1.1em cap clipped the k */
 .mx-card.on .mx-word .v{color:var(--pink-ink);text-decoration:overline;text-decoration-thickness:.09em}
 /* the picture BEFORE and AFTER the magic e (Elena, 06.10: «show the picture
    before and after adding e») — the before-picture swaps to the after-picture
@@ -255,7 +255,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 </head>
 <body>
 <div id="progress"><div id="progress-fill"></div></div>
-<div id="stamp">build 06.10 · v4</div>
+<div id="stamp">build 06.10 · v5</div>
 <div id="pardon-bar"><button class="pardon-pill" id="pardon-btn" aria-label="Pardon?">🙋</button></div>
 <!--BODY-->
 <!-- 1 · COVER -->
