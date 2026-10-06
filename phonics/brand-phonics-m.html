@@ -200,8 +200,8 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
   background:#fdfdfb radial-gradient(rgba(45,52,54,.09) 1.2px, transparent 1.3px);
   background-size:11px 11px;
   border:3px solid #221B30;border-radius:16px;
-  min-height:clamp(90px,15vh,150px);display:flex;align-items:center;justify-content:center;
-  position:relative;padding:1vh;
+  aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+  position:relative;padding:0;overflow:hidden;
 }
 .panel:nth-child(odd){transform:rotate(-1.1deg)}
 .panel:nth-child(even){transform:rotate(1deg)}
@@ -400,10 +400,10 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
       <div class="canread" id="canread" role="button" tabindex="0"><span class="ckbox" id="ckbox">□</span>I can read!</div>
     </div>
     <div class="comics">
-      <div class="panel"><span class="pn">1</span><span class="emo"><img src="logos/stamp-boy-book.png" alt="the boy stamps in his book" style="max-width:96%;max-height:88%;border-radius:10px;object-fit:contain"></span></div>
-      <div class="panel"><span class="pn">2</span><span class="emo"><img src="logos/stamp-ant-map.png" alt="the ant stamps the map" style="max-width:96%;max-height:88%;border-radius:10px;object-fit:contain"></span></div>
-      <div class="panel"><span class="pn">3</span><span class="emo"><img src="logos/stamp-boy.png" alt="a boy stamps with his feet" style="max-width:96%;max-height:88%;border-radius:10px;object-fit:contain"></span></div>
-      <div class="panel"><span class="pn">4</span><span class="emo"><img src="logos/stamp-ant.png" alt="Pat the ant at the mint" style="max-width:96%;max-height:88%;border-radius:10px;object-fit:contain"></span></div>
+      <div class="panel"><span class="pn">1</span><span class="emo"><img src="logos/stamp-boy-book.png" alt="the boy stamps in his book" style="width:100%;height:100%;object-fit:cover"></span></div>
+      <div class="panel"><span class="pn">2</span><span class="emo"><img src="logos/stamp-ant-map.png" alt="the ant stamps the map" style="width:100%;height:100%;object-fit:cover"></span></div>
+      <div class="panel"><span class="pn">3</span><span class="emo"><img src="logos/stamp-boy.png" alt="a boy stamps with his feet" style="width:100%;height:100%;object-fit:cover"></span></div>
+      <div class="panel"><span class="pn">4</span><span class="emo"><img src="logos/stamp-ant.png" alt="Pat the ant at the mint" style="width:100%;height:100%;object-fit:cover"></span></div>
     </div>
   </div>
 <div class="know-row reveal" style="margin-top:auto">
