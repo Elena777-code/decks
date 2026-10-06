@@ -340,6 +340,19 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 .tin.good{border-color:var(--mint);background:#EAF6F1;color:var(--navy)}
 .tin.bad{border-color:var(--stamp);background:var(--stamp-soft)}
 .guessin{border-color:var(--cheese)!important;background:var(--cheese-soft)!important}
+/* v4 · the frequency family chips + the grocery cards + the reading kinds */
+.fam{margin-top:.3em}
+.fam span{display:inline-block;font-size:clamp(.68rem,1.1vw,.88rem);font-weight:700;color:var(--navy);background:var(--cheese-soft);border-radius:99px;padding:.06em .5em;margin:.08em .04em 0}
+.subj .se{font-size:clamp(2.4rem,4.5vw,3.4rem);line-height:1.3;display:block;padding:.1em 0}
+.subj.got{background:#EAF6F1;border:3px solid var(--mint)}
+#r6 .kindgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.55em;max-width:900px;margin:.5em auto;width:100%}
+.kindcard{background:var(--white);border:3px solid var(--sky);border-radius:16px;padding:.5em .4em .6em;text-align:center;cursor:pointer;transition:all .15s ease}
+.kindcard:hover{transform:translateY(-3px);border-color:var(--navy)}
+.kindcard svg{width:100%;max-width:130px;height:auto;display:block;margin:0 auto}
+.kindcard .kw{font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(.9rem,1.5vw,1.2rem);padding-top:.3em}
+.kindcard .kc{font-size:clamp(.72rem,1.15vw,.95rem);color:var(--ink-soft);font-style:italic;line-height:1.3}
+.kindcard.good{border-color:var(--mint);background:#EAF6F1;pointer-events:none}
+.kindcard.bad{border-color:var(--stamp);background:var(--stamp-soft)}
 /* the write-in quiz (the book's discussion task) */
 .writein{display:flex;align-items:baseline;gap:.5em;margin:.25em 0;font-size:clamp(1.05rem,1.75vw,1.4rem)}
 .writein .wn{flex-shrink:0;width:1.6em;height:1.6em;border-radius:50%;border:2.5px solid var(--sky);display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.8em;color:var(--sky)}
@@ -368,7 +381,20 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
 #s8 svg{width:68px!important;height:68px!important}
 #s8 .clockrow{margin-top:.2em}
 #r3 .subj img{max-width:92px}
-#r3 .card img{max-width:480px;margin:0 auto}
+#r3 .card img{max-width:420px;max-height:26vh;margin:0 auto}
+#r6 .card img{max-height:21vh;object-fit:cover;object-position:top}
+#r6 .card.cheese{padding:.3em .8em}
+#r6 .kindgrid{grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin:.3em auto}
+#r6 .kindcard svg{max-width:92px}
+#r6 .kindcard svg{max-width:104px}
+#r6 .kindcard{padding:.35em .3em .45em}
+#r6 .kindcard .kc{font-size:clamp(.68rem,1.05vw,.88rem)}
+#r14b .col{display:grid;grid-template-columns:1fr 1fr;gap:.35em .8em;max-width:1000px}
+#r14b .syn-row{padding:.25em .7em;margin-bottom:0}
+#r14b .syn-row .st{font-size:clamp(.95rem,1.5vw,1.25rem)}
+#r14b .row .card{padding:.4em .8em}
+#r14b .card{padding:.5em .9em}
+#r8h .foodclick img{max-height:7vh}
 #r8h .foodclick img{max-height:8vh;object-fit:cover}
 #r8h .qrow{padding:.35em .7em;margin-bottom:.35em}
 #r8h .card{padding:.5em .8em}
@@ -383,6 +409,17 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
 #s8 .card.cheese p{font-size:clamp(.9rem,1.45vw,1.2rem)!important}
 #s8 .clockcard{padding:.22em}
 #s8 .task{padding:.35em .8em}
+#r6 .kindcard svg{max-width:80px}
+#r6 .yn{padding:.35em .7em}
+#r6 .row{align-items:flex-start}
+#r14b .syn-row{gap:.4em;padding:.2em .6em}
+#r14b .pick{padding:.08em .7em;font-size:clamp(.9rem,1.4vw,1.15rem)}
+#r8h .card{padding:.4em .8em}
+#r8h .qrow{padding:.3em .65em;margin-bottom:.3em}
+#r8h .foodrow{margin:.3em 0 0}
+#r15 .sent{padding:.3em .2em}
+#r15 .card.sky{padding:.4em .9em}
+#r18 .card.stampc{padding:.4em 1em;margin-top:.4em!important}
 #r12 .yn{padding:.35em .8em}
 #r12 .col{gap:.3em}
 #r15 .sent{padding:.35em .2em}
@@ -427,19 +464,19 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
 
 <!-- 1 · teacher's list -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 2 · teacher's list · build 06.10 · v3</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 2 · teacher's list · build 06.10 · v4</div>
     <h1 class="title reveal">Are You a Healthy Eater? 🥦</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
       <ol class="prep">
         <li>🌍 <b>A UNIVERSAL READING DECK</b> — one chapter of Select Readings Elementary, one lesson flow, any pupil. The reading is a QUIZ — the class plays it, adds the score, reads the verdict.</li>
         <li>🎒 <b>Open with YOUR pupil's homework check first</b> (2–3 minutes — chapter 1's homework: read aloud · the dictionary words · the research-a-sport talk — he is the teacher!). <b>This deck starts only when chapter 1 is finished</b> — where you stopped there is where it starts.</li>
-        <li>🎬 <b>THE VIDEOS</b> — a market walk (slide 3) · a healthy breakfast (slide 8) · junk food vs fresh (slide 10): click each once before the lesson. A clip that did not arrive shows its picture card — the lesson runs without it.</li>
-        <li>🎧 <b>ONE AUDIO TRACK (5:15)</b> — the whole quiz read aloud (slide 7). The question cuts (0:23–0:33 each) ride the eight quiz slides — one cut per question. Test the track once before the lesson; pause + scroll in the bottom bar.</li>
-        <li>🥦 <b>THE FLOW:</b> the quote → the food photos → the FOOD SCALE teach + game (never → always, drawn as a week) → previewing → listen first → <b>the quiz PLAYED, one question per slide (8 slides, be honest!)</b> → the score + the ladder → the reading → healthy do/don't → true/false → what do you think → vocabulary → -ly suffixes → synonyms → the words shelf → the games (hangman · clocks + THE TREASURE · mime · the silly game · rank the foods) → write your own quiz → homework.</li>
-        <li>💎 <b>THE TREASURE TASK</b> rides the clocks slide (26): Anna's eight circled numbers — let the pupil DERIVE the total and the band.</li>
-        <li>⏱️ <b>Time-your-reading card</b> (slide 17): 440 words — the book's own fluency check.</li>
-        <li>📱 <b>No race — where you stop is where the next lesson starts.</b> One chapter = one or two lessons. A natural stop: after the score slide (16).</li>
+        <li>🎬 <b>THE VIDEOS</b> — a market walk (slide 3) · a healthy breakfast (slide 9) · junk food vs fresh (slide 11): click each once before the lesson. A clip that did not arrive shows its picture card — the lesson runs without it.</li>
+        <li>🎧 <b>ONE AUDIO TRACK (5:15)</b> — the whole quiz read aloud (slide 8). The question cuts (0:23–0:33 each) ride the eight quiz slides — one cut per question. Test the track once before the lesson; pause + scroll in the bottom bar.</li>
+        <li>🥦 <b>THE FLOW:</b> the quote → the food photos → the FOOD SCALE teach + game (the whole frequency family: never · hardly ever · once in a while · sometimes · often · frequently · usually · always) → the GROCERY ROUND (продукты) → previewing (the four kinds, illustrated) → listen first → <b>the quiz PLAYED, one question per slide (8 slides, be honest!)</b> → the score + the ladder → the reading → healthy do/don't → true/false → what do you think → vocabulary → adjectives &amp; adverbs → the -ly machine → synonyms → the words shelf → the games (hangman · clocks + THE TREASURE · mime · the silly game · rank the foods) → write your own quiz → homework.</li>
+        <li>💎 <b>THE TREASURE TASK</b> rides the clocks slide (28): Anna's eight circled numbers — let the pupil DERIVE the total and the band.</li>
+        <li>⏱️ <b>Time-your-reading card</b> (slide 18): 440 words — the book's own fluency check.</li>
+        <li>📱 <b>No race — where you stop is where the next lesson starts.</b> One chapter = one or two lessons. A natural stop: after the score slide (17).</li>
         <li>✍️ <b>The lesson-log pill</b> (top right / key N): the d: · //: rows + the free space; ⌘S = save + close; over http it auto-sends to the Mac inbox. The 🙋 Pardon pill (top left / P) = the class phrases.</li>
       </ol>
     </div>
@@ -511,15 +548,15 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
     <div class="accent-line reveal"></div>
     <p class="task reveal">Five words — one week each. Look: the circles are DAYS!</p>
     <div class="scale reveal mt">
-      <div class="step"><div class="sw-word">never</div><div class="week"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="pct">0 days · 0%</div><div class="frame">«I never eat ___»</div></div>
-      <div class="step"><div class="sw-word">sometimes</div><div class="week"><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i></i></div><div class="pct">2 days · ~25%</div><div class="frame">«I eat ___ once in a while»</div></div>
-      <div class="step"><div class="sw-word">often</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i></div><div class="pct">4 days · ~50%</div><div class="frame">«I often eat ___»</div></div>
+      <div class="step"><div class="sw-word">never</div><div class="week"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="pct">0 days · 0%</div><div class="frame">«I never eat ___»</div><div class="fam"><span>hardly ever</span><span>rarely</span></div></div>
+      <div class="step"><div class="sw-word">sometimes</div><div class="week"><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i></i></div><div class="pct">2 days · ~25%</div><div class="frame">«I eat ___ once in a while»</div><div class="fam"><span>once in a while</span></div></div>
+      <div class="step"><div class="sw-word">often</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i></div><div class="pct">4 days · ~50%</div><div class="frame">«I often eat ___»</div><div class="fam"><span>frequently</span></div></div>
       <div class="step"><div class="sw-word">usually</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div><div class="pct">6 days · ~75%</div><div class="frame">«I usually eat ___»</div></div>
-      <div class="step"><div class="sw-word">always</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div><div class="pct">7 days · 100%</div><div class="frame">«I eat ___ every day»</div></div>
+      <div class="step"><div class="sw-word">always</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div><div class="pct">7 days · 100%</div><div class="frame">«I eat ___ every day»</div><div class="fam"><span>all the time</span></div></div>
     </div>
     <div class="card cheese reveal center mt" style="max-width:760px;margin:1em auto 0;width:100%;padding:.7em 1.2em">
       <p style="font-size:clamp(1.15rem,2vw,1.6rem)">☕ Example — MY week with tea: <b>6 of 7 circles</b> → «I <b>usually</b> drink tea.»</p>
-      <p class="mt hintline">once in a while = sometimes · all the time = always — the quiz uses both!</p>
+      <p class="mt hintline">the whole family lives on the scale: never · hardly ever · rarely · sometimes · <b>once in a while</b> · often · <b>frequently</b> · usually · always · <b>all the time</b> — the quiz uses them ALL — spot them! 🔎</p>
     </div>
     <p class="hintline reveal mt center">tap a step — say its sentence aloud!</p>
   </section>
@@ -534,6 +571,33 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
     <div class="col reveal mt" style="max-width:1000px;margin:1em auto 0;width:100%" id="foodrows"></div>
     <div class="card stampc reveal center mt" style="max-width:900px;margin:1em auto 0;width:100%;padding:.6em 1.1em">
       <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">➕ And the book asks: <b>think of OTHER foods</b> for your steps! 🍎🍕🥚 (say them aloud!)</p>
+    </div>
+  </section>
+
+<!-- 6 · the grocery round -->
+<section class="slide" id="r5b">
+    <div class="eyebrow reveal">before you read · grocery items · продукты 🛒</div>
+    <h1 class="title reveal">At the grocery store 🛒</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Tap a picture — say the word! Tap again — into YOUR basket 🧺</p>
+    <div class="subjgrid reveal" style="grid-template-columns:repeat(auto-fit,minmax(120px,1fr))">
+      <div class="subj" data-w="milk 🥛"><span class="se">🥛</span><div class="sw"></div></div>
+      <div class="subj" data-w="bread 🍞"><span class="se">🍞</span><div class="sw"></div></div>
+      <div class="subj" data-w="eggs 🥚"><span class="se">🥚</span><div class="sw"></div></div>
+      <div class="subj" data-w="cheese 🧀"><span class="se">🧀</span><div class="sw"></div></div>
+      <div class="subj" data-w="butter 🧈"><span class="se">🧈</span><div class="sw"></div></div>
+      <div class="subj" data-w="chicken 🍗"><span class="se">🍗</span><div class="sw"></div></div>
+      <div class="subj" data-w="fish 🐟"><span class="se">🐟</span><div class="sw"></div></div>
+      <div class="subj" data-w="pasta 🍝"><span class="se">🍝</span><div class="sw"></div></div>
+      <div class="subj" data-w="potatoes 🥔"><span class="se">🥔</span><div class="sw"></div></div>
+      <div class="subj" data-w="apples 🍎"><span class="se">🍎</span><div class="sw"></div></div>
+      <div class="subj" data-w="bananas 🍌"><span class="se">🍌</span><div class="sw"></div></div>
+      <div class="subj" data-w="juice 🧃"><span class="se">🧃</span><div class="sw"></div></div>
+    </div>
+    <div class="card stampc reveal mt" style="max-width:920px;margin:1em auto 0;width:100%;padding:.6em 1.1em">
+      <p style="font-size:clamp(1.1rem,1.9vw,1.5rem)"><b>🛒 YOUR basket — tap 4 foods, then say:</b></p>
+      <p class="mt" style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🟢 «I <b>always</b> buy ___ and ___.» · 🟡 «I <b>sometimes</b> buy ___.»<br>🔴 «I <b>never</b> buy ___ — yuk!» 😄</p>
+      <p class="hintline mt">the green ring = the food is IN your basket 🧺 (tap once more to take it out) · use the WHOLE family: usually, often, hardly ever…</p>
     </div>
   </section>
 
@@ -553,7 +617,7 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
       </div>
       <div class="col" style="flex:1.1;min-width:280px;gap:.7em">
         <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">1</span><span class="gs">What is this reading about?</span></div>
-        <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">2</span><span class="gs">What kind of reading is it — a newspaper article, a blog, a story, a quiz?</span></div>
+        <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">2</span><span class="gs">What kind of reading is it? — tap the picture!</span></div>
         <div class="center"><button class="show-btn" data-show="prev-ans" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.6vw,1.3rem);border:none;border-radius:99px;padding:.45em 1.4em;cursor:pointer;background:var(--navy);color:#fff">the answers ▾</button></div>
         <div class="secret" id="prev-ans">
           <div class="card cheese" style="padding:.7em 1.1em">
@@ -562,6 +626,59 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
         </div>
       </div>
     </div>
+
+        <div class="kindgrid">
+            <div class="kindcard" data-kind="article">
+              <svg viewBox="0 0 120 84" aria-label="a newspaper">
+                <rect x="6" y="4" width="108" height="76" rx="4" fill="#fff" stroke="#2C4E80" stroke-width="2.5"/>
+                <rect x="12" y="10" width="96" height="12" rx="2" fill="#2C4E80"/>
+                <rect x="12" y="27" width="42" height="28" fill="#A9CCEF"/>
+                <circle cx="24" cy="36" r="5" fill="#5FBFA0"/><rect x="30" y="44" width="16" height="3" fill="#5FBFA0"/>
+                <rect x="60" y="27" width="48" height="4" rx="2" fill="#C9D8EA"/><rect x="60" y="35" width="48" height="4" rx="2" fill="#C9D8EA"/><rect x="60" y="43" width="40" height="4" rx="2" fill="#C9D8EA"/>
+                <rect x="12" y="60" width="96" height="4" rx="2" fill="#E1E9F4"/><rect x="12" y="68" width="80" height="4" rx="2" fill="#E1E9F4"/>
+              </svg>
+              <div class="kw">a newspaper article</div><div class="kc">fresh news, every day 📰</div>
+            </div>
+            <div class="kindcard" data-kind="blog">
+              <svg viewBox="0 0 120 84" aria-label="a blog on a screen">
+                <rect x="10" y="6" width="100" height="66" rx="6" fill="#fff" stroke="#2C4E80" stroke-width="2.5"/>
+                <rect x="10" y="6" width="100" height="12" rx="6" fill="#FFC53D"/>
+                <circle cx="20" cy="12" r="2.5" fill="#E4572E"/><circle cx="28" cy="12" r="2.5" fill="#5FBFA0"/>
+                <rect x="16" y="24" width="52" height="6" rx="3" fill="#2C4E80"/>
+                <circle cx="24" cy="40" r="6" fill="#A9CCEF"/>
+                <rect x="34" y="34" width="34" height="3.5" rx="1.75" fill="#C9D8EA"/><rect x="34" y="41" width="28" height="3.5" rx="1.75" fill="#C9D8EA"/>
+                <circle cx="24" cy="56" r="6" fill="#A9CCEF"/>
+                <rect x="34" y="50" width="34" height="3.5" rx="1.75" fill="#C9D8EA"/><rect x="34" y="57" width="28" height="3.5" rx="1.75" fill="#C9D8EA"/>
+                <rect x="78" y="24" width="24" height="40" rx="3" fill="#E8F1FA"/>
+                <rect x="44" y="74" width="32" height="4" rx="2" fill="#2C4E80"/>
+              </svg>
+              <div class="kw">a blog</div><div class="kc">a person writes online 💻</div>
+            </div>
+            <div class="kindcard" data-kind="story">
+              <svg viewBox="0 0 120 84" aria-label="an open story book">
+                <path d="M60 16 C 45 6, 22 8, 14 14 L 14 66 C 24 60, 46 60, 60 70 C 74 60, 96 60, 106 66 L 106 14 C 98 8, 75 6, 60 16 Z" fill="#fff" stroke="#2C4E80" stroke-width="2.5"/>
+                <line x1="60" y1="18" x2="60" y2="68" stroke="#2C4E80" stroke-width="2"/>
+                <rect x="22" y="24" width="28" height="4" rx="2" fill="#C9D8EA"/><rect x="22" y="32" width="28" height="4" rx="2" fill="#C9D8EA"/><rect x="22" y="40" width="22" height="4" rx="2" fill="#C9D8EA"/>
+                <rect x="70" y="24" width="28" height="4" rx="2" fill="#C9D8EA"/><rect x="70" y="32" width="28" height="4" rx="2" fill="#C9D8EA"/><rect x="70" y="40" width="22" height="4" rx="2" fill="#C9D8EA"/>
+                <path d="M52 8 l3 6 6 1 -4.5 4.5 1 6.5 -5.5-3 -5.5 3 1-6.5 -4.5-4.5 6-1 Z" fill="#FFC53D"/>
+              </svg>
+              <div class="kw">a story</div><div class="kc">characters and adventures 📖</div>
+            </div>
+            <div class="kindcard" data-kind="quiz">
+              <svg viewBox="0 0 120 84" aria-label="a quiz page">
+                <rect x="14" y="4" width="92" height="76" rx="4" fill="#fff" stroke="#2C4E80" stroke-width="2.5"/>
+                <rect x="20" y="10" width="80" height="10" rx="2" fill="#5FBFA0"/>
+                <circle cx="26" cy="30" r="6" fill="#FFC53D"/><text x="26" y="33.5" text-anchor="middle" font-size="8" font-weight="bold" fill="#2C4E80">A</text>
+                <rect x="36" y="27" width="60" height="4" rx="2" fill="#C9D8EA"/><rect x="36" y="34" width="48" height="4" rx="2" fill="#E1E9F4"/>
+                <circle cx="26" cy="48" r="6" fill="#FFC53D"/><text x="26" y="51.5" text-anchor="middle" font-size="8" font-weight="bold" fill="#2C4E80">B</text>
+                <rect x="36" y="45" width="60" height="4" rx="2" fill="#C9D8EA"/><rect x="36" y="52" width="48" height="4" rx="2" fill="#E1E9F4"/>
+                <circle cx="26" cy="66" r="6" fill="#FFC53D"/><text x="26" y="69.5" text-anchor="middle" font-size="8" font-weight="bold" fill="#2C4E80">C</text>
+                <rect x="36" y="63" width="60" height="4" rx="2" fill="#C9D8EA"/><rect x="36" y="70" width="48" height="4" rx="2" fill="#E1E9F4"/>
+              </svg>
+              <div class="kw">a quiz</div><div class="kc">questions + a score 🎯</div>
+            </div>
+          </div>
+          <p class="hintline center">the quiz page looks JUST like our peek — letters, numbers, a score box! 🕵️</p>
     <div class="center reveal mt"><button class="trk-btn" data-audio="intro">🎧 hear the intro (0:22)</button></div>
   </section>
 
@@ -678,7 +795,7 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
           <p class="hintline center mt">9 plates of 10 — that's 90 percent! Nine meals fast, one meal slow 🏃</p>
         </div>
         <div class="card cheese" style="padding:.6em 1em">
-          <p style="font-size:clamp(1rem,1.7vw,1.35rem)">⚡ <b>quickly</b> = fast 🏃 · <b>slowly</b> = not fast 🐢 — the -ly words! (they return on slide 22)</p>
+          <p style="font-size:clamp(1rem,1.7vw,1.35rem)">⚡ <b>quickly</b> = fast 🏃 · <b>slowly</b> = not fast 🐢 — the -ly words! (they return on slide 24)</p>
         </div>
       </div>
     </div>
@@ -943,7 +1060,36 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
     <p class="hintline reveal mt center">say the word first — then click the gap to check</p>
   </section>
 
-<!-- 22 · suffixes -ly -->
+<!-- 23 · adjectives & adverbs -->
+<section class="slide" id="r14b">
+    <div class="eyebrow reveal">vocabulary skill · adjectives &amp; adverbs · book p. 11</div>
+    <h1 class="title reveal">Adjective or adverb? 🎨🏎️</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1em;max-width:1000px;margin:0 auto .7em;width:100%">
+      <div class="card sky" style="flex:1;min-width:260px;padding:.6em 1em">
+        <p style="font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(1.15rem,2vw,1.6rem)">🟦 ADJECTIVE</p>
+        <p style="font-size:clamp(1rem,1.7vw,1.35rem)">describes a <b>THING</b> (a noun) — <b>what kind?</b></p>
+        <p class="mt" style="font-size:clamp(1rem,1.7vw,1.35rem)"><b>fresh</b> fruit · <b>brown</b> rice · a <b>healthy</b> eater · a <b>quick</b> meal</p>
+      </div>
+      <div class="card cheese" style="flex:1;min-width:260px;padding:.6em 1em">
+        <p style="font-family:'Fredoka';font-weight:700;color:var(--stamp);font-size:clamp(1.15rem,2vw,1.6rem)">🟩 ADVERB</p>
+        <p style="font-size:clamp(1rem,1.7vw,1.35rem)">describes an <b>ACTION</b> (a verb) — <b>how?</b> · many end in <b>-LY</b></p>
+        <p class="mt" style="font-size:clamp(1rem,1.7vw,1.35rem)">eat <b>quickly</b> · skip <b>rarely</b> · cook <b>professionally</b></p>
+      </div>
+    </div>
+    <p class="task reveal">Tap ADJECTIVE or ADVERB — say it with the word!</p>
+    <div class="col reveal" style="max-width:880px;margin:0 auto;width:100%">
+      <div class="syn-row"><span class="st">1. <b>fresh</b> fruit 🍓</span><button class="pick" data-ok="1">ADJECTIVE</button><button class="pick">ADVERB</button></div>
+      <div class="syn-row"><span class="st">2. eat <b>quickly</b> 🏃</span><button class="pick">ADJECTIVE</button><button class="pick" data-ok="1">ADVERB</button></div>
+      <div class="syn-row"><span class="st">3. <b>healthy</b> food 🥦</span><button class="pick" data-ok="1">ADJECTIVE</button><button class="pick">ADVERB</button></div>
+      <div class="syn-row"><span class="st">4. skip meals <b>rarely</b> 🚫</span><button class="pick">ADJECTIVE</button><button class="pick" data-ok="1">ADVERB</button></div>
+      <div class="syn-row"><span class="st">5. a <b>professional</b> cook 👩‍🍳</span><button class="pick" data-ok="1">ADJECTIVE</button><button class="pick">ADVERB</button></div>
+      <div class="syn-row"><span class="st">6. <b>hardly ever</b> eat junk food 🍩</span><button class="pick">ADJECTIVE</button><button class="pick" data-ok="1">ADVERB</button></div>
+    </div>
+    <p class="hintline reveal mt center">the pair is the point: a quick meal → we eat quickly · a slow eater → he eats slowly!</p>
+  </section>
+
+<!-- 24 · suffixes -ly -->
 <section class="slide" id="r15">
     <div class="eyebrow reveal">vocabulary skill · understanding suffixes: -ly · book p. 11</div>
     <h1 class="title reveal">The -ly machine 🤖</h1>
@@ -1149,7 +1295,7 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
       <div class="hw-step"><span class="n">2</span><div><span class="en">📚 THE WORDS WE DIDN'T TICK</span> → your dictionary — the translation or one example, your choice!</div></div>
       <div class="hw-step"><span class="n">3</span><div style="flex:1"><span class="en">🕵️ WEB SEARCH — a mini-research!</span> Choose ONE: a healthy breakfast 🍳 · junk food snacks 🍩 · a healthy eating quiz 🎯 — find <b>three interesting facts</b> and bring them: you are the teacher! 🎓</div></div>
     </div>
-    <p class="hintline reveal mt center">the words live on slide 24 (Words to remember)</p>
+    <p class="hintline reveal mt center">the words live on slide 26 (Words to remember)</p>
   </section>
 
 <!-- 32 · goodbye -->
@@ -1241,7 +1387,7 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
 
 <div id="nav">
   <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
-  <div id="counter"><span class="now">1</span> / 32</div>
+  <div id="counter"><span class="now">1</span> / 34</div>
   <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
   <button id="fs-btn" title="Fullscreen (F)">⛶</button>
 </div>
@@ -1348,9 +1494,25 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
       yn.querySelector('.badge').textContent = a==='yes' ? '✓' : '✗';
     });
   });
-  /* the synonyms picks (say aloud first, then lock) */
+  /* the reading kinds — the quiz card is the catch */
+  document.querySelectorAll('#r6 .kindcard').forEach(k=>{
+    k.addEventListener('click',()=>{
+      if(k.dataset.kind==='quiz'){ k.classList.add('good'); }
+      else { k.classList.remove('shake'); void k.offsetWidth; k.classList.add('shake'); k.classList.add('bad'); setTimeout(()=>k.classList.remove('bad'),700); }
+    });
+  });
+  /* the picks: green locks the right one; a wrong pick shakes back */
   document.querySelectorAll('.pick').forEach(p=>{
-    p.addEventListener('click',()=>{ p.classList.add('good'); });
+    p.addEventListener('click',()=>{
+      if(p.dataset.ok){
+        p.classList.add('good');
+        [...p.parentElement.querySelectorAll('.pick')].forEach(q=>{ if(q!==p) q.classList.add('bad'); });
+      } else {
+        p.classList.remove('shake'); void p.offsetWidth; p.classList.add('shake');
+        p.classList.add('bad');
+        setTimeout(()=>p.classList.remove('bad'),700);
+      }
+    });
   });
   /* the show buttons */
   document.querySelectorAll('.show-btn').forEach(b=>{
@@ -1359,12 +1521,14 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
       if(c){ c.classList.add('show'); b.style.display='none'; }
     });
   });
-  /* the food cards · tap → the word appears */
+  /* the food cards · tap → the word appears; a second tap → IN the basket */
   document.querySelectorAll('.subj').forEach(s=>{
     s.addEventListener('click',()=>{
+      if(s.classList.contains('got')){ s.classList.remove('got'); return; }
       s.classList.toggle('on');
       const w=s.querySelector('.sw');
       if(s.classList.contains('on')) w.textContent=s.dataset.w;
+      if(s.closest('#r5b')) s.classList.add('got');
     });
   });
   /* the food scale — tap a step → it lights up */
