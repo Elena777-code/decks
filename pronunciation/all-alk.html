@@ -127,6 +127,15 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
   color:var(--pink-ink);transition:all .35s cubic-bezier(.34,1.4,.5,1);overflow:hidden;white-space:nowrap}
 .mx-card.on .mx-word .mx-e{max-width:1.1em;opacity:1;transform:none}
 .mx-card.on .mx-word .v{color:var(--pink-ink);text-decoration:overline;text-decoration-thickness:.09em}
+/* the picture BEFORE and AFTER the magic e (Elena, 06.10: «show the picture
+   before and after adding e») — the before-picture swaps to the after-picture
+   exactly when the e flies in */
+.mx-card .mx-pics{display:flex;gap:.3em;justify-content:center;align-items:center;
+  min-height:clamp(1.9rem,3.6vw,3rem);margin-bottom:.4vh}
+.mx-pics .pic{font-size:clamp(1.8rem,3.6vw,3rem);line-height:1}
+.mx-pics .pic1{display:none}
+.mx-card.on .mx-pics .pic0{display:none}
+.mx-card.on .mx-pics .pic1{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
 .mx-sub{font-family:'Caveat',cursive;font-size:clamp(1rem,1.7vw,1.4rem);color:var(--ink-dark-soft);margin-top:.2vh}
 .mx-card.on .mx-sub{color:var(--pink-ink)}
 /* --- 3 · WORD GRID (the picture shows, the word hides) --- */
@@ -244,7 +253,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 </head>
 <body>
 <div id="progress"><div id="progress-fill"></div></div>
-<div id="stamp">build 06.10 · v1</div>
+<div id="stamp">build 06.10 · v2</div>
 <div id="pardon-bar"><button class="pardon-pill" id="pardon-btn" aria-label="Pardon?">🙋</button></div>
 <!--BODY-->
 <!-- 1 · COVER -->
@@ -277,36 +286,43 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
   <div class="mx-row reveal">
     <div class="mx-card" role="button" tabindex="0" data-say0="" data-say="ball">
       <span class="mx-wand">🪄</span>
+      <div class="mx-pics"><span class="pic pic1">🏀</span></div>
       <div class="mx-word">b<span class="mx-e">all</span></div>
       <div class="mx-sub">b + all → ball</div>
     </div>
     <div class="mx-card" role="button" tabindex="0" data-say0="" data-say="wall">
       <span class="mx-wand">🪄</span>
+      <div class="mx-pics"><span class="pic pic1">🧱</span></div>
       <div class="mx-word">w<span class="mx-e">all</span></div>
       <div class="mx-sub">w + all → wall</div>
     </div>
     <div class="mx-card" role="button" tabindex="0" data-say0="" data-say="tall">
       <span class="mx-wand">🪄</span>
+      <div class="mx-pics"><span class="pic pic1">🦒</span></div>
       <div class="mx-word">t<span class="mx-e">all</span></div>
       <div class="mx-sub">t + all → tall</div>
     </div>
     <div class="mx-card" role="button" tabindex="0" data-say0="" data-say="fall">
       <span class="mx-wand">🪄</span>
+      <div class="mx-pics"><span class="pic pic1">🍂</span></div>
       <div class="mx-word">f<span class="mx-e">all</span></div>
       <div class="mx-sub">f + all → fall</div>
     </div>
     <div class="mx-card" role="button" tabindex="0" data-say0="" data-say="call">
       <span class="mx-wand">🪄</span>
+      <div class="mx-pics"><span class="pic pic1">📞</span></div>
       <div class="mx-word">c<span class="mx-e">all</span></div>
       <div class="mx-sub">c + all → call</div>
     </div>
     <div class="mx-card" role="button" tabindex="0" data-say0="" data-say="walk">
       <span class="mx-wand">👻</span>
+      <div class="mx-pics"><span class="pic pic1">🚶</span></div>
       <div class="mx-word">w<span class="mx-e">a<span class="ghost-l">l</span>k</span></div>
       <div class="mx-sub">w + a<span class="ghost-l">l</span>k → walk</div>
     </div>
     <div class="mx-card" role="button" tabindex="0" data-say0="" data-say="talk">
       <span class="mx-wand">👻</span>
+      <div class="mx-pics"><span class="pic pic1">💬</span></div>
       <div class="mx-word">t<span class="mx-e">a<span class="ghost-l">l</span>k</span></div>
       <div class="mx-sub">t + a<span class="ghost-l">l</span>k → talk</div>
     </div>
