@@ -259,6 +259,20 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
   .big-letter{height:auto;aspect-ratio:1;width:100%}
   .brand-col{overflow:visible}
 }
+/* the two meanings of stamp (2026-10-05, Elena presents them live) */
+.stamp-row{display:flex;gap:2vw;justify-content:center;align-items:stretch}
+.stamp-card{flex:1;max-width:30vw;background:#fff;border-radius:var(--radius);
+  padding:1.6vh 1vw 1.2vh;text-align:center;cursor:pointer;user-select:none;-webkit-user-select:none;
+  box-shadow:0 12px 32px rgba(10,6,20,.28);border:3px solid rgba(255,255,255,.95);
+  transition:transform .15s ease}
+.stamp-card:hover{transform:translateY(-4px) rotate(-.6deg)}
+.stamp-card:nth-child(odd){transform:rotate(-1deg)}
+.stamp-card:nth-child(even){transform:rotate(1deg)}
+.stamp-card img{max-width:100%;max-height:30vh;object-fit:contain;border-radius:10px}
+.stamp-card .cap{font-weight:800;font-size:clamp(1.5rem,2.8vw,2.5rem);margin-top:1vh;color:var(--ink-dark)}
+.stamp-card .cap .c{color:var(--cyan-ink)}
+.stamp-card .cap .v{color:var(--pink-ink)}
+.stamp-card .sub{font-weight:600;color:var(--ink-dark-soft);font-size:clamp(1rem,1.7vw,1.4rem);margin-top:.3vh}
 /* the Lumpini video slide (2026-09-10) */
 .lumpini{display:block;margin:0 auto;max-height:56vh;max-width:82vw;width:auto;
   border-radius:var(--radius);box-shadow:0 18px 44px rgba(10,6,20,.4);background:#000}
@@ -336,7 +350,27 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
   <div class="task reveal">🎯 the tin · the map — the little word!</div>
 </section>
 
-<!-- 5 · THE STORY — Genki text 3 (the authentic poster text, Elena's files) -->
+<!-- 5 · STAMP — two meanings (Elena presents: a small thing in the hand · the feet) -->
+<section class="slide soft">
+  <div class="eyebrow reveal">One word — two meanings!</div>
+  <h1 class="reveal"><span class="spray">Stamp!</span></h1>
+  <div class="rule reveal"></div>
+  <div class="stamp-row reveal">
+    <div class="stamp-card" role="button" tabindex="0" onclick="sayText('stamp')">
+      <img src="logos/stamp.png" alt="a stamp — a small thing in your hand">
+      <div class="cap"><span class="c">a st</span><span class="v">a</span><span class="c">mp</span></div>
+      <div class="sub">a small thing — in your hand</div>
+    </div>
+    <div class="stamp-card" role="button" tabindex="0" onclick="sayText('stamp')">
+      <img src="logos/stamp-feet.png" alt="stamp — with your feet">
+      <div class="cap"><span class="c">st</span><span class="v">a</span><span class="c">mp</span>!</div>
+      <div class="sub">with your feet!</div>
+    </div>
+  </div>
+  <div class="task reveal">🎯 A stamp in the hand — stamp with your feet!</div>
+</section>
+
+<!-- 6 · THE STORY — Genki text 3 (the authentic poster text, Elena's files) -->
 <section class="slide soft">
   <div class="eyebrow reveal">Your next story — you can read it!</div>
   <h1 class="reveal"><span class="spray">Stamp! Stamp! Stamp!</span></h1>
@@ -368,7 +402,7 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
   </div>
 </section>
 
-<!-- 6 · READ AGAIN — revision: the deck-2 strip + story words, pictures behind the taps -->
+<!-- 7 · READ AGAIN — revision: the deck-2 strip + story words, pictures behind the taps -->
 <section class="slide soft">
   <div class="eyebrow reveal">Revise! All our words</div>
   <h1 class="reveal">Read again!</h1>
@@ -400,7 +434,7 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
   </div>
 </section>
 
-<!-- 7 · SILLY SENTENCES — revision reading: only strip words + the sight words -->
+<!-- 8 · SILLY SENTENCES — revision reading: only strip words + the sight words -->
 <section class="slide soft">
   <div class="eyebrow reveal">New sentences — you can read them!</div>
   <h1 class="reveal">Silly sentences!</h1>
@@ -430,7 +464,7 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
 
 <nav id="nav">
   <button id="prev" aria-label="previous">‹</button>
-  <span id="counter">1 / 7</span>
+  <span id="counter">1 / 8</span>
   <button id="next" aria-label="next">›</button>
   <button id="fs" aria-label="fullscreen">⛶</button>
 </nav>
