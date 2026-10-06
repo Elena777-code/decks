@@ -77,6 +77,9 @@
   #pardonBtn{top:12px;left:12px;background:#fff;font-size:22px;padding:7px 14px}
   #logBtn{top:12px;right:12px;background:#fff;font-size:22px;padding:7px 14px}
   #notesBtn{bottom:12px;left:50%;transform:translateX(-50%);background:#fff;font-size:22px;padding:7px 14px}
+  #prevBtn{bottom:12px;left:12px;background:#fff;font-size:26px;padding:5px 18px;font-weight:bold;color:var(--ink)}
+  #nextBtn{bottom:12px;right:64px;background:#fff;font-size:26px;padding:5px 18px;font-weight:bold;color:var(--ink)}
+  #counterBtn{bottom:12px;right:12px;background:#fff;font-size:14px;padding:10px 12px;color:var(--soft);cursor:default}
   .ov{position:fixed;inset:0;background:rgba(40,35,25,.45);z-index:100;display:none;
       align-items:center;justify-content:center;padding:18px}
   .ov.on{display:flex}
@@ -263,6 +266,9 @@
 
 <!-- THE CORNERS: Pardon top-left · ✍️ top-right · 🗒 bottom-centre -->
 <button class="pill" id="pardonBtn" title="Pardon? — class phrases (P)">🙋</button>
+<button class="pill" id="prevBtn" title="previous slide (←)">‹</button>
+<button class="pill" id="nextBtn" title="next slide (→ or space)">›</button>
+<button class="pill" id="counterBtn">1/9</button>
 
 <div class="ov" id="pardonOv"><div class="panel">
   <button class="x" onclick="closeOv('pardonOv')">✕</button>
@@ -294,8 +300,19 @@ function show(i){
   i=Math.max(0,Math.min(slides.length-1,i));
   slides[cur].classList.remove('on');cur=i;slides[cur].classList.add('on');
   window.scrollTo(0,0);
+  $('counterBtn').textContent=(cur+1)+'/'+slides.length;
   if(TEACHER){ $('logSlideN').textContent=i+1; loadSlide(); }
 }
+$('prevBtn').onclick=()=>show(cur-1);
+$('nextBtn').onclick=()=>show(cur+1);
+/* touch swipe for the iPad */
+let tx=null;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(tx===null)return;
+  const dx=e.changedTouches[0].clientX-tx; tx=null;
+  if(dx<-60)show(cur+1); if(dx>60)show(cur-1);
+},{passive:true});
 document.addEventListener('keydown',e=>{
   if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
   if(e.metaKey||e.ctrlKey||e.altKey)return; /* the hotkey guard — system shortcuts pass */
