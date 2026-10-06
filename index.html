@@ -23,6 +23,7 @@
   h2{font-size:21px; margin:34px 0 4px; display:flex; align-items:center; gap:10px}
   .dot{width:13px; height:13px; border-radius:50%; flex:none}
   details.sect{margin:34px 0 0}
+  details.sect details.sect{margin:22px 0 0}
   .sect summary{list-style:none; display:flex; align-items:center; gap:10px;
     cursor:pointer; font-size:21px; font-weight:700; min-height:34px}
   .sect summary::-webkit-details-marker{display:none}
@@ -71,6 +72,9 @@
 <p class="hint">One link instead of a memory stick. Tap a deck — it opens right here.</p>
 
 <details class="sect">
+  <summary><span class="dot" style="background:var(--sub)"></span><span>Groups</span><span class="meta">KB · WW · GG · SM</span><span class="arrow">▸</span></summary>
+  <p class="sect-sub">tap the course, then the lesson code</p>
+  <details class="sect">
   <summary><span class="dot" style="background:var(--kb)"></span><span>KB groups</span><span class="meta">same pace · latest KB 1 U2 L6 — My school + the GE Left&Right song</span><span class="arrow">▸</span></summary>
   <p class="sect-sub">all KB groups keep the same pace — find your lesson code</p>
   <div class="chips">
@@ -119,6 +123,7 @@
     <a class="chip sm" href="sm/sm5-u2-l4.html"><span class="code">SM 5 U2 L4</span><span class="what">A narrow escape 🌀 · the Pompeii story · WB pp. 14–15 · HW check: the p. 13 rule</span></a>
     <a class="chip sm" href="sm/sm5-u2-l2-demo.html"><span class="code">SM 5 U2 L2</span><span class="what">Volcano blew 🎵 · punk · magic e · the tasks &amp; questions layer</span></a>
   </div>
+</details>
 </details>
 
 <details class="sect">
