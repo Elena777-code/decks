@@ -93,7 +93,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 /* the Genki monkey presents the letter (Elena, 2026-10-05: «cut out the monkey
    and use it to present m» — cut from the Genki disc's own poster 11) */
 .big-letter .mascot{position:absolute;top:-16px;right:-22px;width:clamp(78px,10vw,122px);
-  transform:rotate(7deg);cursor:grab;touch-action:none;z-index:5;
+  cursor:grab;touch-action:none;z-index:5;-webkit-user-drag:none;
   filter:drop-shadow(0 8px 16px rgba(10,6,20,.35))}
 .big-letter .mascot.dragging{filter:drop-shadow(0 14px 26px rgba(10,6,20,.5));opacity:.9}
 @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.1)}100%{transform:scale(1)}}
@@ -579,8 +579,10 @@ function makeMovable(mk, KEY){
   if(!mk) return;
   let dx = 0, dy = 0;
   try { const s = JSON.parse(localStorage.getItem(KEY) || 'null'); if (s) { dx = s.dx|0; dy = s.dy|0; } } catch(e) {}
-  const apply = () => { mk.style.translate = dx + 'px ' + dy + 'px'; };
+  const apply = () => { mk.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(7deg)'; };
   apply();
+  mk.draggable = false;
+  mk.addEventListener('dragstart', e => e.preventDefault());
   let sx = 0, sy = 0, ox = 0, oy = 0, moved = false, pid = null;
   mk.addEventListener('pointerdown', e => {
     e.stopPropagation();
