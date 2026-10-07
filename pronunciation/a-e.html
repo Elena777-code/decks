@@ -110,7 +110,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 .hero.pop{animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
 @keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
 /* --- 2 · THE MACHINE (flip cards) --- */
-.mx-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1.2vh 1vw;width:100%}
+.mx-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(116px,1fr));gap:1.2vh .8vw;width:100%}
 .mx-card{cursor:pointer;user-select:none;-webkit-user-select:none;position:relative;
   background:rgba(255,250,242,.94);border:3px solid rgba(255,255,255,.95);border-radius:20px;
   box-shadow:0 12px 30px rgba(10,6,20,.35);padding:1.6vh 1vw;text-align:center;
@@ -136,7 +136,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 .mx-pics .pic1{display:none}
 .mx-card.on .mx-pics .pic0{display:none}
 .mx-card.on .mx-pics .pic1{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
-.mx-sub{font-family:'Caveat',cursive;font-size:clamp(.95rem,1.5vw,1.25rem);color:var(--ink-dark-soft);margin-top:.2vh}
+.mx-sub{font-family:'Caveat',cursive;font-size:clamp(.85rem,1.3vw,1.1rem);color:var(--ink-dark-soft);margin-top:.2vh}
 .mx-card.on .mx-sub{color:var(--pink-ink)}
 /* --- 3 · WORD GRID (the picture shows, the word hides) --- */
 .grid-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vh 1vw;width:100%}
@@ -258,7 +258,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 </head>
 <body>
 <div id="progress"><div id="progress-fill"></div></div>
-<div id="stamp">build 06.10 · v8</div>
+<div id="stamp">build 06.10 · v9</div>
 <div id="pardon-bar"><button class="pardon-pill" id="pardon-btn" aria-label="Pardon?">🙋</button></div>
 <!--BODY-->
 <!-- 1 · COVER -->
