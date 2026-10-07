@@ -218,8 +218,9 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 .gap.open{color:var(--pink-ink)}
 /* sparse slides breathe: the card row centres between the header and the task */
 .slide.soft .mx-row,.slide.soft .trick-row,.slide.soft .grid-row{margin-top:auto;margin-bottom:auto}
-/* a generated picture inside a picture slot (the wall, Shedevrum 06.10) */
+/* generated pictures in picture slots (the wall + the tall man, 06.10) */
 .pic-img{height:clamp(2.2rem,4.5vw,3.6rem);width:auto;max-width:100%;border-radius:10px;display:block;margin:0 auto}
+.pic-img.tall-img{height:clamp(3rem,6vw,4.6rem);border-radius:0} /* the stick man is tall AND thin — give him room */
 /* the ghost l (walk · talk): written but not said — FADED, never crossed
    (a struck l reads as a t! Elena's screenshot 06.10) — pale grey = quiet */
 .ghost-l{opacity:.38;color:var(--ink-dark)}
@@ -257,7 +258,7 @@ h1 .spray::before{content:'';position:absolute;inset:0;z-index:-1;
 </head>
 <body>
 <div id="progress"><div id="progress-fill"></div></div>
-<div id="stamp">build 06.10 · v6</div>
+<div id="stamp">build 06.10 · v7</div>
 <div id="pardon-bar"><button class="pardon-pill" id="pardon-btn" aria-label="Pardon?">🙋</button></div>
 <!--BODY-->
 <!-- 1 · COVER -->
