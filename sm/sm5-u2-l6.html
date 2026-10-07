@@ -321,7 +321,7 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
       <div class="prep"><span class="ico">⏱</span><p><b>If time runs short</b>, cut in this order: <b>the volcano model</b> (slide 18) → <b>WB p. 19</b> (slide 16) → <b>the map work</b> (slide 12). <b>Never cut:</b> the dictation (slide 3) and the Ring of Fire (slide 14).</p></div>
       <div class="prep"><span class="ico">✍️</span><p><b>NEW today — the ✍️ window v2</b> (top-right, key <b>N</b>): per-slide <b>d:</b> (doesn't know) · <b>//:</b> (can't pronounce) rows + the free space; <b>⌘S saves and closes</b>. Over http it <b>auto-sends to the Mac</b> — say <b>"finished"</b> after the lesson. Give it one 30-second try before 17.15.</p></div>
     </div>
-    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2. &nbsp;·&nbsp; <b style="color:var(--navy)">build 06.10 · v2</b></p>
+    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2. &nbsp;·&nbsp; <b style="color:var(--navy)">build 07.10 · v3</b></p>
   </section>
 
   <!-- SLIDE 2 · WI-FI SWITCH -->
@@ -774,7 +774,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='f'||e.key==='F'){if(fsBtn)fsBtn.click();}
   if(e.key==='t'||e.key==='T')togglePresenter();
   if(e.key==='p'||e.key==='P'){togglePardon(!document.getElementById('pardon').classList.contains('open'));return}
-  if((e.key==='n'||e.key==='N'||e.key==='c'||e.key==='C')&&MODE==='main'&&annoPanel){
+  if((e.key==='n'||e.key==='N'||e.key==='т'||e.key==='Т'||e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С')&&MODE==='main'&&annoPanel){
     if(annoPanel.classList.contains('on'))annoDoneClose();
     else annoToggle(true);
     return}

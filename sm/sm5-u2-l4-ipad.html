@@ -275,7 +275,7 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
       <div class="prep"><span class="ico">✍️</span><p><b>NEW today — the ✍️ pill</b> (top-left, or key <b>C</b>): tick a slide <b>✓ done</b> + a short comment — the ‹ › arrows move the panel without flipping the shared screen. Over http the notes <b>auto-send to the Mac</b> — say <b>"finished"</b> after the lesson and the report is read from the inbox. Give it one 30-second try before 17.15.</p></div>
       <div class="prep"><span class="ico">🙋</span><p><b>NEW today — the Pardon? pill</b> (top-left): tap it with the class once — the phrases they can always say (<i>Pardon? · Can you repeat, please? · What does erupt mean?</i>). It stays pinned all year.</p></div>
     </div>
-    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2. &nbsp;·&nbsp; <b style="color:var(--navy)">build 05.10 · v4 · ipad</b></p>
+    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2. &nbsp;·&nbsp; <b style="color:var(--navy)">build 07.10 · v5 · ipad</b></p>
   </section>
 
   <!-- SLIDE 2 · WI-FI SWITCH -->
@@ -624,7 +624,7 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
 </div>
 
 <!-- ✍️ lesson-log — teacher-only (the pill or key C) -->
-<button id="annoBtn" title="lesson notes — tick + comments (C)">✍️</button>
+<button id="annoBtn" title="lesson notes — tick + comments (N / C)">✍️</button>
 <div id="anno">
   <div class="a-head">
     <span id="annoSlide">slide 1</span><span class="a-sp"></span>
@@ -747,7 +747,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
   if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
   if(e.key==='t'||e.key==='T')togglePresenter();
-  if((e.key==='c'||e.key==='C')&&MODE==='main')annoToggle(!annoPanel.classList.contains('on'));
+  if((e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С'||e.key==='n'||e.key==='N'||e.key==='т'||e.key==='Т')&&MODE==='main')annoToggle(!annoPanel.classList.contains('on'));
 });
 /* the wheel never flips a scrolled slide — it scrolls it */
 let wt=0;document.addEventListener('wheel',e=>{if(MODE!=='main')return;
