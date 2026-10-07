@@ -412,11 +412,20 @@ function shuffleChoices(t){
   c.forEach(function(x){var k=norm(x);if(!seen[k]){seen[k]=1;out.push(x);}});
   return Object.assign({},t,{choices:out});}
 
-/* ---------- a fresh set per run ---------- */
+/* ---------- a fresh set per run — but the misses lead it (03.10 rule):
+   every finish stores its missed labels; the next deal opens with the
+   ones still in the pools, fresh items fill the rest of the quota. */
+function storedMisses(){
+  try{return JSON.parse(localStorage.getItem("mashak-hw-remiss")||"{}");}catch(e){return {};}}
+function deal(pool,n,rid){
+  var st=storedMisses()[rid]||[];
+  var first=pool.filter(function(t){return st.indexOf(t.label)>=0;}).slice(0,n);
+  var rest=pick(pool.filter(function(t){return st.indexOf(t.label)<0;}),n-first.length);
+  return first.concat(rest);}
 function buildRounds(){
-  var r1=pick(POOL_FIX_MK,DEAL[0]).map(function(t){return shuffleChoices(t);});
-  var rq=pick(POOL_QUESTIONS_MK,DEAL[1]).map(function(t){return shuffleChoices(t);});
-  var r2=pick(POOL_WORDS_MK.concat(POOL_QUIZ_MK),DEAL[2]).map(function(t){return shuffleChoices(t);});
+  var r1=deal(POOL_FIX_MK,DEAL[0],"R1").map(function(t){return shuffleChoices(t);});
+  var rq=deal(POOL_QUESTIONS_MK,DEAL[1],"RQ").map(function(t){return shuffleChoices(t);});
+  var r2=deal(POOL_WORDS_MK.concat(POOL_QUIZ_MK),DEAL[2],"R2").map(function(t){return shuffleChoices(t);});
   return [
     {meta:ROUNDS_META[0],tasks:r1},
     {meta:ROUNDS_META[1],tasks:rq},
@@ -586,6 +595,10 @@ function finish(){
   }else{rem.className="remember hidden";}
   var written=sentences.filter(Boolean).length;
   $("sent-line").textContent=written?("✍️ Sentences saved: "+written+" of "+WRITE_PROMPTS.length):"";
+  /* the 03.10 rule's store: this run's misses lead the next deal */
+  try{var om={};["R1","RQ","R2"].forEach(function(rid){
+    om[rid]=log.filter(function(l){return !l.ok&&l.rid===rid;}).map(function(l){return l.label;});});
+    localStorage.setItem("mashak-hw-remiss",JSON.stringify(om));}catch(e){}
   var txt=reportText();
   try{localStorage.setItem("mashak-hw-last",txt);}catch(e){}
   try{localStorage.setItem("mashak-hw-runs",String((+localStorage.getItem("mashak-hw-runs")||0)+1));}catch(e){}
