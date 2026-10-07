@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- big numbers 10¹⁰⁰ · I wonder line · build 07.10 · v4 -->
+<!-- big numbers 10¹⁰⁰ · I wonder line · build 07.10 · v5 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -45,11 +45,6 @@
   .prep{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:2px}
   .prep span{background:#1C2148; color:#C9CCE4; border:1px solid #ffffff2a; padding:7px 14px;
     border-radius:999px; font-size:14px}
-
-  .logbig{width:96px; height:96px; border-radius:50%; font-size:44px; cursor:pointer;
-    background:var(--card); border:2.5px solid #B99A2E; margin-top:10px;
-    box-shadow:0 7px 0 #B99A2E, 0 16px 34px #0007}
-  .logbig:active{transform:translateY(4px); box-shadow:0 3px 0 #B99A2E, 0 8px 18px #0007}
 
   /* the number face */
   .digits{display:flex; align-items:center; gap:10px; justify-content:center; flex-wrap:wrap}
@@ -192,6 +187,7 @@
     border:2px solid #ffffff2e; box-shadow:0 4px 14px #0007}
   .pill:active{transform:scale(.94)}
   #notesBtn{top:14px; left:14px}
+  #annoBtn{top:14px; right:14px}
   #backBtn{bottom:16px; left:14px; width:auto; height:44px; border-radius:999px; padding:0 20px;
     font-size:19px; font-weight:700; font-family:Georgia,serif; gap:8px; background:#1C2148EE; color:#FDF6E3}
   #navR{bottom:16px; right:14px} #navL{bottom:16px; right:76px}
@@ -242,7 +238,7 @@
 <body>
 
 <!-- ───────────────────────── 1 · TITLE ───────────────────────── -->
-<section class="slide" id="s1" data-notes="The extra-curiosity deck — open it when a lesson meets a huge number (a reading fact, a video, a pupil question). Click ⬅ (bottom left) any time to jump back to the lesson you came from. The big ✍️ on this slide is THE log emoji (the only one — no extra emojis in the corners). It opens the agreed window: d: · //: · free · fix, ⌘S saves and closes; N opens it from any slide, and the ‹ › inside reach any slide without leaving your place.
+<section class="slide" id="s1" data-notes="The extra-curiosity deck — open it when a lesson meets a huge number (a reading fact, a video, a pupil question). Click ⬅ (bottom left) any time to jump back to the lesson you came from. The ✍️ in the top-right corner = the lesson log (the agreed window: d: · //: · free · fix, ⌘S saves and closes; N opens it from any slide, and the ‹ › inside reach any slide without leaving your place).
 
 FLOW (≈15–20 min, or 5 with the fast lane): 2 hook (the football number) → 3 video (Dr Binocs, 6:09 — watch or skip) → 4 million → 5 the machine → 6 THE WHY (bi=2, three chips — slowly) → 7 the moves drills (we do → you do) → 8–16 the ladder billion→decillion (each: read the number aloud, count the zero-chips together, then 🪄 reveals the word's secret) → 17 Rome's calendar → 18 the music stairs → 19 googol (the history hit) → 20 and they keep going → 21 the powers of ten → 22–24 the games → 25 the treasure → 26 the wall.
 
@@ -250,7 +246,6 @@ FLOW (≈15–20 min, or 5 with the fast lane): 2 hook (the football number) →
 PREPARE AHEAD: video on slide 3 — click play once before the lesson (sound on, headphones not needed). Counters/rice optional. The deck works offline.">
   <h1 style="font-size:64px">How <span style="color:var(--gold)">BIG</span> is big?</h1>
   <div class="sub">million, billion … googol</div>
-  <button class="logbig" id="logBig" title="the lesson log (N)">✍️</button>
 </section>
 
 <!-- ───────────────────────── 2 · HOOK ───────────────────────── -->
@@ -843,6 +838,7 @@ If opened directly (no lesson behind): just close the tab.">
 
 <!-- chrome -->
 <button class="pill" id="notesBtn" title="Teacher's notes (T)">🗒</button>
+<button class="pill" id="annoBtn" title="lesson notes — tick + comments (N)">✍️</button>
 <button class="pill" id="backBtn" title="back to the lesson">⬅ lesson</button>
 <button class="navp" id="navL" title="previous slide (←)">‹</button>
 <button class="navp" id="navR" title="next slide (→)">›</button>
@@ -1022,7 +1018,7 @@ If opened directly (no lesson behind): just close the tab.">
     document.getElementById('annoFX').value = d.fx || '';
   }
   function row(k){ return function(){ data[annoIdx] = data[annoIdx] || {}; data[annoIdx][k] = this.value; save(); }; }
-  document.getElementById('logBig').onclick = function(){ annoIdx = cur; annoFill(); tgl(annoOvl, !annoOvl.classList.contains('on')); };
+  document.getElementById('annoBtn').onclick = function(){ annoIdx = cur; annoFill(); tgl(annoOvl, !annoOvl.classList.contains('on')); };
   document.getElementById('annoX').onclick = function(){ tgl(annoOvl, false); };
   document.getElementById('annoPrev').onclick = function(){ annoIdx = Math.max(0, annoIdx-1); annoFill(); };
   document.getElementById('annoNext').onclick = function(){ annoIdx = Math.min(slides.length-1, annoIdx+1); annoFill(); };
