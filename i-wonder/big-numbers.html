@@ -77,6 +77,27 @@
   .trap p{color:#E4DDFB}
   .wide{grid-column:1 / -1}
 
+  /* teach lines + drills */
+  .reveal-btn.mini{font-size:17px; padding:10px 22px; box-shadow:0 4px 0 #B99A2E}
+  .whyrow{width:min(920px,100%); display:flex; flex-direction:column; gap:9px; align-items:stretch}
+  .whyline{display:flex; align-items:center; gap:12px; background:var(--card); border-radius:14px;
+    padding:11px 16px; border:2px solid #0003; font-size:18px; line-height:1.45; text-align:left}
+  .whyline .wn{font-family:Georgia,serif; font-weight:800; font-size:22px; width:34px; text-align:center; flex-shrink:0}
+  .whyline .z{font-size:19px; padding:4px 9px}
+  .rulebox{background:#2A2050; color:#EFE9FF; border:2.5px solid #5A4BA8; border-radius:14px;
+    padding:13px 18px; font-size:19px; line-height:1.55; text-align:center; width:min(920px,100%)}
+  .rulebox b{color:var(--gold)}
+  .drill{width:min(920px,100%); background:var(--card); border-radius:16px; padding:14px 18px; border:2px solid #0002}
+  .drill h3{font-family:Georgia,serif; font-size:19px; margin-bottom:6px; text-align:left}
+  .drow{display:flex; align-items:center; gap:10px; padding:7px 0; border-top:1.5px solid var(--line); font-size:18px}
+  .drill h3 + .drow{border-top:none}
+  .drow .q{flex:1; text-align:left}
+  .peek{width:34px; height:34px; border-radius:50%; border:none; cursor:pointer; font-weight:800;
+    font-size:16px; background:#EFE6C8; color:#5A4712; flex-shrink:0; box-shadow:0 3px 0 #C9B96A}
+  .peek:active{transform:translateY(2px); box-shadow:0 1px 0 #C9B96A}
+  .ans{display:none; font-weight:700; color:#1F7A45}
+  .ans.show{display:inline}
+
   /* tasks */
   .task-q{font-family:Georgia,serif; font-size:27px; color:#FDF6E3; text-align:center; line-height:1.35}
   .task-num{font-family:ui-monospace,Menlo,monospace; font-size:34px; color:var(--gold); letter-spacing:.1em}
@@ -92,6 +113,15 @@
   .round2{display:none}
   .task-q.round2.show{display:block}
   .opts.round2.show{display:flex}
+
+  /* drill peeks: one answer per line, tap to check */
+  Array.prototype.forEach.call(document.querySelectorAll('.peek'), function(b){
+    b.onclick = function(){
+      var a = b.parentNode.querySelector('.ans');
+      var on = a.classList.toggle('show');
+      b.textContent = on ? '✓' : '?';
+    };
+  });
 
   /* treasure */
   .keybox{display:none; flex-direction:column; align-items:center; gap:8px}
@@ -204,6 +234,8 @@
     .secret-panel{grid-template-columns:1fr}
     .step button{width:64px; font-size:13px} .mcard{width:150px; min-height:132px}
     .stairs{flex-wrap:wrap; justify-content:center}
+    .drill{padding:10px 14px} .drill h3{font-size:17px}
+    .drow{font-size:16px; padding:5px 0} .whyline{font-size:16.5px; padding:9px 12px}
   }
 </style>
 </head>
@@ -212,8 +244,8 @@
 <!-- ───────────────────────── 1 · TITLE ───────────────────────── -->
 <section class="slide" id="s1" data-notes="The extra-curiosity deck — open it when a lesson meets a huge number (a reading fact, a video, a pupil question). Click ⬅ (bottom left) any time to jump back to the lesson you came from.
 
-FLOW (≈15–20 min, or 5 with the fast lane):
-1 hook (the football number) → 2 video (Dr Binocs, 6:09 — watch or skip) → 3 million → 4 the machine → 5–13 the ladder billion→decillion (each: read the number aloud, count the zero-chips together, then 🪄 reveals the word's secret) → 14 Rome's calendar → 15 the music stairs → 16 googol (the history hit) → 17 the powers of ten → 18–20 the games → 21 the treasure → 22 the wall.
+FLOW (≈15–20 min, or 5 with the fast lane): 2 hook (the football number) → 3 video (Dr Binocs, 6:09 — watch or skip) → 4 million → 5 the machine → 6 THE WHY (bi=2, three chips — slowly) → 7 the moves drills (we do → you do) → 8–16 the ladder billion→decillion (each: read the number aloud, count the zero-chips together, then 🪄 reveals the word's secret) → 17 Rome's calendar → 18 the music stairs → 19 googol (the history hit) → 20 and they keep going → 21 the powers of ten → 22–24 the games → 25 the treasure → 26 the wall.
+
 
 PREPARE AHEAD: video on slide 2 — click play once before the lesson (sound on, headphones not needed). Counters/rice optional. The deck works offline.">
   <div class="kicker">I wonder <span class="dot">·</span> extra deck <span class="dot">·</span> for every curious mind</div>
@@ -224,7 +256,7 @@ PREPARE AHEAD: video on slide 2 — click play once before the lesson (sound on,
     <span>🔢 zeros you can count like treasure</span>
     <span>🏛️ 🎹 Rome and music speak the same numbers</span>
   </div>
-  <div class="stamp">I wonder · build 07.10 · v1</div>
+  <div class="stamp">I wonder · build 07.10 · v2</div>
 </section>
 
 <!-- ───────────────────────── 2 · HOOK ───────────────────────── -->
@@ -301,14 +333,82 @@ The rule in one line: (Latin number + 1) × 3 = zeros. Show it with billion: bi 
     <div class="secret-panel">
       <div class="scard"><h3>🔍 the recipe</h3>
         <p>Every -illion word = <b>a Latin number + illion</b>. The Latin number + 1 = how many chips of 000.</p></div>
-      <div class="scard"><h3>✅ worked out</h3>
-        <p><b>bi = 2</b> → (2 + 1) chips → <b>9 zeros</b>. <b>tri = 3</b> → 4 chips → <b>12 zeros</b>. Try <b>oct</b> on the game slide!</p></div>
+      <div class="scard"><h3>🤔 bi = 2… but three chips?</h3>
+        <p>Looks strange — the Latin number counts <b>steps</b>, not chips! The next slide takes it apart <b>slowly</b>, then we practise the moves 👉</p></div>
     </div>
   </div>
 </section>
 
-<!-- ───────────────────────── 6 · BILLION ───────────────────────── -->
-<section class="slide" id="s6" style="--acc:#F4845F" data-notes="bi = TWO (Latin). The family: bicycle, bilingual, binary, binoculars. In Russia they say миллиард for 10⁹ — same number, different word.
+<!-- ───────────────────────── 6 · THE WHY ───────────────────────── -->
+<section class="slide" id="s6" style="--acc:#F4C95E" data-notes="THE hardest idea of the deck (Elena, 07.10: «the most difficult part is to explain that bi=2 but we need 3 times 000») — open ONE line at a time and let each sink in before the next.
+
+① million = the 1st step, and it ALREADY carries two chips — count the chips together, touch them: one thousand × one thousand.
+② every NEW word means «a THOUSAND of the previous word»: a thousand MILLIONS = billion — that's where the third chip comes from. A thousand billions = trillion…
+③ the rule: the Latin number counts STEPS on the ladder, not chips. The ladder starts with a bonus chip, so chips = steps + 1, and zeros = chips × 3.
+
+Then CHECK it against the billion slide: bi = 2 → 2 + 1 = 3 chips → 3 × 3 = 9 zeros — matches the face! ✓">
+  <div class="kicker">🧩 the trickiest bit — slowly, step by step</div>
+  <h1>bi = 2 … but <span class="acc">three</span> chips?!</h1>
+  <div class="sub">Three moves: ① where the chips start → ② the +1 climb → ③ the rule. Tap each line!</div>
+  <div class="whyrow">
+    <div class="secret" style="width:100%; align-items:stretch">
+      <button class="reveal-btn mini">① where the chips start</button>
+      <div class="secret-panel" style="grid-template-columns:1fr">
+        <div class="scard"><p><b>million</b> is the <b>1st step</b> of the ladder — and it <b>already</b> carries <b>two</b> chips:
+        <span class="digits" style="display:inline-flex;gap:5px;margin-left:8px;transform:translateY(4px)"><span class="one" style="font-size:34px">1</span><span class="z" style="font-size:20px;padding:4px 9px">000</span><span class="z" style="font-size:20px;padding:4px 9px">000</span></span><br>
+        One <b>thousand</b> × one <b>thousand</b> = two chips of zeros. Count them: <b>2</b>!</p></div>
+      </div>
+    </div>
+    <div class="secret" style="width:100%; align-items:stretch">
+      <button class="reveal-btn mini">② the +1 climb</button>
+      <div class="secret-panel" style="grid-template-columns:1fr">
+        <div class="scard"><p>Every new word means <b>«a thousand of the previous word»</b>.<br>
+        A thousand <b>millions</b> = <b>billion</b> → add <b>one more chip</b>: <b>3</b> chips.<br>
+        A thousand <b>billions</b> = <b>trillion</b> → <b>4</b> chips. The ladder climbs like that forever ↗</p></div>
+      </div>
+    </div>
+    <div class="secret" style="width:100%; align-items:stretch">
+      <button class="reveal-btn mini">③ the rule</button>
+      <div class="secret-panel" style="grid-template-columns:1fr">
+        <div class="rulebox">The Latin number counts <b>STEPS</b> — not chips!<br><b>chips = steps + 1</b> &nbsp;·&nbsp; <b>zeros = chips × 3</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────────────── 7 · THE MOVES ───────────────────────── -->
+<section class="slide" id="s7" style="--acc:#A8C256" data-notes="The moves, drilled BEFORE the game (Elena, 07.10: «you later ask, but the pupil is not prepared yet»).
+
+Drill 1 (quad) is WE-DO: narrate each line, the pupils say the next answer BEFORE the tap. Drills 2 (tri) and 3 (sept) are YOU-DO: a pupil says all three answers aloud, then taps to check each.
+
+Keys: quad → the 4th step → 4 + 1 = 5 chips → 5 × 3 = 15 zeros · tri → the 3rd step → 4 chips → 12 zeros · sept → the 7th step → 8 chips → 24 zeros.
+
+The game later asks oct and quint — both still fresh, not drilled here.">
+  <div class="kicker">🏋️ practice the three moves</div>
+  <h1>Step → chips → zeros</h1>
+  <div class="sub">Say each answer <b>before</b> you tap the «?» — three moves every time.</div>
+  <div class="drill">
+    <h3>🐸 WE DO — <b>quad = 4</b></h3>
+    <div class="drow"><span class="q">① the step:</span><button class="peek">?</button><span class="ans">the 4th step</span></div>
+    <div class="drow"><span class="q">② the chips:</span><button class="peek">?</button><span class="ans">4 + 1 = 5 chips</span></div>
+    <div class="drow"><span class="q">③ the zeros:</span><button class="peek">?</button><span class="ans">5 × 3 = 15 zeros ✓</span></div>
+  </div>
+  <div class="drill">
+    <h3>🙋 YOU DO — <b>tri = 3</b></h3>
+    <div class="drow"><span class="q">① the step:</span><button class="peek">?</button><span class="ans">the 3rd step</span></div>
+    <div class="drow"><span class="q">② the chips:</span><button class="peek">?</button><span class="ans">3 + 1 = 4 chips</span></div>
+    <div class="drow"><span class="q">③ the zeros:</span><button class="peek">?</button><span class="ans">4 × 3 = 12 zeros ✓</span></div>
+  </div>
+  <div class="drill">
+    <h3>💪 YOU DO — <b>sept = 7</b></h3>
+    <div class="drow"><span class="q">① the step:</span><button class="peek">?</button><span class="ans">the 7th step</span></div>
+    <div class="drow"><span class="q">② the chips:</span><button class="peek">?</button><span class="ans">7 + 1 = 8 chips</span></div>
+    <div class="drow"><span class="q">③ the zeros:</span><button class="peek">?</button><span class="ans">8 × 3 = 24 zeros ✓</span></div>
+  </div>
+</section>
+
+<!-- ───────────────────────── 8 · BILLION ───────────────────────── -->
+<section class="slide" id="s8" style="--acc:#F4845F" data-notes="bi = TWO (Latin). The family: bicycle, bilingual, binary, binoculars. In Russia they say миллиард for 10⁹ — same number, different word.
 
 THE TRAP CARD (Elena's question): библия/библиотека look like bi- but are NOT — Greek biblos = book (from the city of Byblos, which sold papyrus). библиотека = book-place; аптека = the same -тека (Greek thēkē = a chest where things are kept).
 
@@ -334,8 +434,8 @@ Wow: 1 billion seconds = about 32 years.">
   </div>
 </section>
 
-<!-- ───────────────────────── 7 · TRILLION ───────────────────────── -->
-<section class="slide" id="s7" style="--acc:#F4C95E" data-notes="tri = THREE. Family: triangle, tricycle, trident, trio. Russian: трио, тройка.
+<!-- ───────────────────────── 9 · TRILLION ───────────────────────── -->
+<section class="slide" id="s9" style="--acc:#F4C95E" data-notes="tri = THREE. Family: triangle, tricycle, trident, trio. Russian: трио, тройка.
 
 Wow: one trillion seconds ≈ 32,000 years — at that time people were already painting on cave walls. A history-lover moment: the painted caves of Lascaux/Chauvet.">
   <div class="kicker">the ladder · step 3</div>
@@ -357,8 +457,8 @@ Wow: one trillion seconds ≈ 32,000 years — at that time people were already 
   </div>
 </section>
 
-<!-- ───────────────────────── 8 · QUADRILLION ───────────────────────── -->
-<section class="slide" id="s8" style="--acc:#A8C256" data-notes="quad/quart = FOUR (Latin quartus = fourth). The richest Russian slide: квадрат, квадроцикл, квартет, квартал, кварта (music: the 4th step).
+<!-- ───────────────────────── 10 · QUADRILLION ───────────────────────── -->
+<section class="slide" id="s10" style="--acc:#A8C256" data-notes="quad/quart = FOUR (Latin quartus = fourth). The richest Russian slide: квадрат, квадроцикл, квартет, квартал, кварта (music: the 4th step).
 
 КВАРТИРА — Elena's question, checked: YES, a distant cousin. The road: Latin quartus (fourth) → German Quartier (soldiers' quarter — a share of a house) → Russian квартира. So a квартира secretly means «a fourth share». Explain simply: soldiers were given one FOURTH of a house to sleep in; that share's name became the word for a home.
 
@@ -389,8 +489,8 @@ English: quarter = ¼.">
   </div>
 </section>
 
-<!-- ───────────────────────── 9 · QUINTILLION ───────────────────────── -->
-<section class="slide" id="s9" style="--acc:#4CAF6E" data-notes="quint = FIVE (Latin quintus). Family: quintuplets, quintet. Music: квинта — the 5th step.
+<!-- ───────────────────────── 11 · QUINTILLION ───────────────────────── -->
+<section class="slide" id="s11" style="--acc:#4CAF6E" data-notes="quint = FIVE (Latin quintus). Family: quintuplets, quintet. Music: квинта — the 5th step.
 
 Wow: all the sand on all the beaches of the world ≈ 7 quintillion grains. Let them hold that picture.">
   <div class="kicker">the ladder · step 5</div>
@@ -412,8 +512,8 @@ Wow: all the sand on all the beaches of the world ≈ 7 quintillion grains. Let 
   </div>
 </section>
 
-<!-- ───────────────────────── 10 · SEXTILLION ───────────────────────── -->
-<section class="slide" id="s10" style="--acc:#35B5AC" data-notes="sext = SIX (Latin sextus). Family: sextet, sextuplets, sextant — a sailor's star tool, ONE SIXTH of a circle (a history-lover detail). Music: секста — the 6th step.
+<!-- ───────────────────────── 12 · SEXTILLION ───────────────────────── -->
+<section class="slide" id="s12" style="--acc:#35B5AC" data-notes="sext = SIX (Latin sextus). Family: sextet, sextuplets, sextant — a sailor's star tool, ONE SIXTH of a circle (a history-lover detail). Music: секста — the 6th step.
 
 Wow: about 200 sextillion stars shine in the part of the sky we can see.">
   <div class="kicker">the ladder · step 6</div>
@@ -435,8 +535,8 @@ Wow: about 200 sextillion stars shine in the part of the sky we can see.">
   </div>
 </section>
 
-<!-- ───────────────────────── 11 · SEPTILLION ───────────────────────── -->
-<section class="slide" id="s11" style="--acc:#4895EF" data-notes="sept = SEVEN (Latin septem). The star cousin: SEPTEMBER — Rome's 7th month (full story two slides later). Music: септима — the 7th step.
+<!-- ───────────────────────── 13 · SEPTILLION ───────────────────────── -->
+<section class="slide" id="s13" style="--acc:#4895EF" data-notes="sept = SEVEN (Latin septem). The star cousin: SEPTEMBER — Rome's 7th month (full story two slides later). Music: септима — the 7th step.
 
 Wow: a septillion — about the number of water drops in all the oceans? (Estimates sit near 10²⁶ for all water; don't push a precise claim.) Keep the slide light: the month is the fact.">
   <div class="kicker">the ladder · step 7</div>
@@ -458,8 +558,8 @@ Wow: a septillion — about the number of water drops in all the oceans? (Estima
   </div>
 </section>
 
-<!-- ───────────────────────── 12 · OCTILLION ───────────────────────── -->
-<section class="slide" id="s12" style="--acc:#6C63C9" data-notes="oct = EIGHT (Latin octo). The stars: OCTOPUS — eight arms; the Russian осьминог says the same thing (осьмь = eight, ног = legs — a translation-twin!). October = month 8. Octagon = the stop-sign shape. Music: октава — the 8th step, and the 8th note repeats the 1st, only higher.
+<!-- ───────────────────────── 14 · OCTILLION ───────────────────────── -->
+<section class="slide" id="s14" style="--acc:#6C63C9" data-notes="oct = EIGHT (Latin octo). The stars: OCTOPUS — eight arms; the Russian осьминог says the same thing (осьмь = eight, ног = legs — a translation-twin!). October = month 8. Octagon = the stop-sign shape. Music: октава — the 8th step, and the 8th note repeats the 1st, only higher.
 
 Wow: an octillion — you'd need to count the atoms in three teaspoons of water… close enough: a drop of water holds about a sextillion+ molecules; keep it playful, no precise claim needed. The slide's own wow: the осьминог reveal.">
   <div class="kicker">the ladder · step 8</div>
@@ -481,8 +581,8 @@ Wow: an octillion — you'd need to count the atoms in three teaspoons of water�
   </div>
 </section>
 
-<!-- ───────────────────────── 13 · NONILLION ───────────────────────── -->
-<section class="slide" id="s13" style="--acc:#9D4EDD" data-notes="non = NINE (Latin novem/nonus). Family: November — Rome's month 9; nonagon — nine sides. Music: нона — the 9th step.
+<!-- ───────────────────────── 15 · NONILLION ───────────────────────── -->
+<section class="slide" id="s15" style="--acc:#9D4EDD" data-notes="non = NINE (Latin novem/nonus). Family: November — Rome's month 9; nonagon — nine sides. Music: нона — the 9th step.
 
 Zeros: 30 — ten chips. The ladder is one step from the top…">
   <div class="kicker">the ladder · step 9</div>
@@ -504,8 +604,8 @@ Zeros: 30 — ten chips. The ladder is one step from the top…">
   </div>
 </section>
 
-<!-- ───────────────────────── 14 · DECILLION ───────────────────────── -->
-<section class="slide" id="s14" style="--acc:#C05299" data-notes="dec = TEN (Latin decem). Family: December — Rome's month 10; decade — ten years; decimal — tenths; дециметр — the Russian school ruler word (a tenth of a metre). Music: децима — the 10th step.
+<!-- ───────────────────────── 16 · DECILLION ───────────────────────── -->
+<section class="slide" id="s16" style="--acc:#C05299" data-notes="dec = TEN (Latin decem). Family: December — Rome's month 10; decade — ten years; decimal — tenths; дециметр — the Russian school ruler word (a tenth of a metre). Music: децима — the 10th step.
 
 Zeros: 33 — eleven chips (draw the line under the digits: they no longer fit on one row comfortably — that's WHY powers of ten exist, next-but-one slide).">
   <div class="kicker">the ladder · step 10 · the roof</div>
@@ -527,8 +627,8 @@ Zeros: 33 — eleven chips (draw the line under the digits: they no longer fit o
   </div>
 </section>
 
-<!-- ───────────────────────── 15 · ROME ───────────────────────── -->
-<section class="slide" id="s15" style="--acc:#E9996C" data-notes="The months are FROZEN Latin numbers. Tap each card to flip it — collect the numbers first, THEN tell the story: Rome's year once began in MARCH. Later January and February were added AT THE FRONT (153 BC) — every month slid two places down, but the NAMES stayed. September still says «seven» while sitting in place nine.
+<!-- ───────────────────────── 17 · ROME ───────────────────────── -->
+<section class="slide" id="s17" style="--acc:#E9996C" data-notes="The months are FROZEN Latin numbers. Tap each card to flip it — collect the numbers first, THEN tell the story: Rome's year once began in MARCH. Later January and February were added AT THE FRONT (153 BC) — every month slid two places down, but the NAMES stayed. September still says «seven» while sitting in place nine.
 
 Game variant: before flipping, they guess the hidden number. Keys: сентябрь=7, октябрь=8, ноябрь=9, декабрь=10.">
   <div class="kicker">🏛️ Rome left numbers in your calendar</div>
@@ -560,8 +660,8 @@ Game variant: before flipping, they guess the hidden number. Keys: сентяб�
   </div>
 </section>
 
-<!-- ───────────────────────── 16 · MUSIC ───────────────────────── -->
-<section class="slide" id="s16" style="--acc:#D4A3F5" data-notes="For every child who hears music lessons — even from the outside. The intervals are the SAME Latin ladder: секунда=2 … октава=8. Tap each stair to light its number; count up together — прима, секунда, терция…
+<!-- ───────────────────────── 18 · MUSIC ───────────────────────── -->
+<section class="slide" id="s18" style="--acc:#D4A3F5" data-notes="For every child who hears music lessons — even from the outside. The intervals are the SAME Latin ladder: секунда=2 … октава=8. Tap each stair to light its number; count up together — прима, секунда, терция…
 
 The gift line: кварта = the 4th step, квинта = the 5th, октава = the 8th — and now they know WHY. (Prima is Latin; терция is the odd one out — it's the Latin 'third' too, tertius.">
   <div class="kicker">🎹 music counts in Latin</div>
@@ -588,8 +688,8 @@ The gift line: кварта = the 4th step, квинта = the 5th, октава
   </div>
 </section>
 
-<!-- ───────────────────────── 17 · GOOGOL ───────────────────────── -->
-<section class="slide" id="s17" style="--acc:#FFD700" data-notes="THE history hit — a NINE-year-old named this number (Milton Sirotta, 1920, on a walk with his uncle, the mathematician Edward Kasner). Say the age slowly. Google the website is a MISSPELLING of it.
+<!-- ───────────────────────── 19 · GOOGOL ───────────────────────── -->
+<section class="slide" id="s19" style="--acc:#FFD700" data-notes="THE history hit — a NINE-year-old named this number (Milton Sirotta, 1920, on a walk with his uncle, the mathematician Edward Kasner). Say the age slowly. Google the website is a MISSPELLING of it.
 
 googol = 10¹⁰⁰ — more than the atoms in everything we can see. googolplex = 1 + a googol zeros — there is not enough room in the universe to write it out.">
   <div class="kicker">✨ beyond the ladder</div>
@@ -611,8 +711,8 @@ googol = 10¹⁰⁰ — more than the atoms in everything we can see. googolplex
   </div>
 </section>
 
-<!-- ───────────────────────── 18 · KEEP GOING ───────────────────────── -->
-<section class="slide" id="s18" style="--acc:#8D92B8" data-notes="The ladder never ends: 11 = undecillion, 12 = duodecillion, 13 = tredecillion… all the way to centillion (10³⁰³ — the biggest with its own dictionary name in this family).
+<!-- ───────────────────────── 20 · KEEP GOING ───────────────────────── -->
+<section class="slide" id="s20" style="--acc:#8D92B8" data-notes="The ladder never ends: 11 = undecillion, 12 = duodecillion, 13 = tredecillion… all the way to centillion (10³⁰³ — the biggest with its own dictionary name in this family).
 
 The bridge to the next slide: when even names give up, mathematics has a short way.">
   <div class="kicker">…and they keep going</div>
@@ -630,8 +730,8 @@ The bridge to the next slide: when even names give up, mathematics has a short w
   </div>
 </section>
 
-<!-- ───────────────────────── 19 · POWERS OF TEN ───────────────────────── -->
-<section class="slide" id="s19" style="--acc:#F4C95E" data-notes="The short way: the little raised number = how many zeros. Press ×10 and watch it grow.
+<!-- ───────────────────────── 21 · POWERS OF TEN ───────────────────────── -->
+<section class="slide" id="s21" style="--acc:#F4C95E" data-notes="The short way: the little raised number = how many zeros. Press ×10 and watch it grow.
 
 Worked examples (Elena's own): 3.5 billion = 3.5 × 10⁹, because a billion carries nine zeros. 7 trillion = 7 × 10¹². The zeros count becomes the exponent — that's the whole trick.">
   <div class="kicker">✍️ the shortest way to write giants</div>
@@ -652,8 +752,8 @@ Worked examples (Elena's own): 3.5 billion = 3.5 × 10⁹, because a billion car
   </div>
 </section>
 
-<!-- ───────────────────────── 20 · TASK 1 ───────────────────────── -->
-<section class="slide" id="s20" style="--acc:#F4845F" data-notes="Game 1 — name the giant. Read the digits together first (one — thousand — million — billion — trillion). Keys: round 1 = TRILLION, round 2 = BILLION. Wrong taps shake, the right one locks green.">
+<!-- ───────────────────────── 22 · TASK 1 ───────────────────────── -->
+<section class="slide" id="s22" style="--acc:#F4845F" data-notes="Game 1 — name the giant. Read the digits together first (one — thousand — million — billion — trillion). Keys: round 1 = TRILLION, round 2 = BILLION. Wrong taps shake, the right one locks green.">
   <div class="kicker">💫 game 1 · name the giant</div>
   <h1>Which word is this?</h1>
   <div class="task-q round-a"><span class="task-num">1 000 000 000 000</span></div>
@@ -671,8 +771,8 @@ Worked examples (Elena's own): 3.5 billion = 3.5 × 10⁹, because a billion car
   <div class="sub round2-hint" style="display:none"></div>
 </section>
 
-<!-- ───────────────────────── 21 · TASK 2 ───────────────────────── -->
-<section class="slide" id="s21" style="--acc:#A8C256" data-notes="Game 2 — the machine check. Keys: oct = 8 → (8+1)×3 = 27 zeros. quint = 5 → (5+1)×3 = 18 zeros. Let them run the recipe aloud: number + 1, then chips of three.">
+<!-- ───────────────────────── 23 · TASK 2 ───────────────────────── -->
+<section class="slide" id="s23" style="--acc:#A8C256" data-notes="Game 2 — the machine check. Keys: oct = 8 → (8+1)×3 = 27 zeros. quint = 5 → (5+1)×3 = 18 zeros. The moves were drilled on slide 6 — oct and quint stay fresh here. Let them run the recipe aloud: number + 1, then chips of three.">
   <div class="kicker">⚙️ game 2 · the machine check</div>
   <h1>Use the recipe!</h1>
   <div class="task-q round-a">oct = 8 … so <b>octillion</b> has how many zeros?</div>
@@ -689,8 +789,8 @@ Worked examples (Elena's own): 3.5 billion = 3.5 × 10⁹, because a billion car
   </div>
 </section>
 
-<!-- ───────────────────────── 22 · TASK 3 ───────────────────────── -->
-<section class="slide" id="s22" style="--acc:#4895EF" data-notes="Game 3 — powers. Keys: 4 trillion = 4 × 10¹² (twelve zeros); 2.5 million = 2.5 × 10⁶ (six zeros). If hesitation — send them back to the recipe card (slide 5/19), not to the answer.">
+<!-- ───────────────────────── 24 · TASK 3 ───────────────────────── -->
+<section class="slide" id="s24" style="--acc:#4895EF" data-notes="Game 3 — powers. Keys: 4 trillion = 4 × 10¹² (twelve zeros); 2.5 million = 2.5 × 10⁶ (six zeros). If hesitation — send them back to the recipe card (slide 5/19), not to the answer.">
   <div class="kicker">✍️ game 3 · write it short</div>
   <h1>What goes up high?</h1>
   <div class="task-q round-a"><b>4 trillion</b> = 4 × 10<sup style="font-size:30px">?</sup></div>
@@ -707,8 +807,8 @@ Worked examples (Elena's own): 3.5 billion = 3.5 × 10⁹, because a billion car
   </div>
 </section>
 
-<!-- ───────────────────────── 23 · TREASURE ───────────────────────── -->
-<section class="slide" id="s23" style="--acc:#F4C95E" data-notes="The treasure task — two true statements, one deduction. They may run the machine OR just add 3 to 9. Key: TWELVE. Say it aloud, then click.">
+<!-- ───────────────────────── 25 · TREASURE ───────────────────────── -->
+<section class="slide" id="s25" style="--acc:#F4C95E" data-notes="The treasure task — two true statements, one deduction. They may run the machine OR just add 3 to 9. Key: TWELVE. Say it aloud, then click.">
   <div class="kicker">🗝 the treasure task</div>
   <h1>Two facts. <span class="acc">One answer.</span></h1>
   <div class="card" style="font-family:Georgia,serif; font-size:24px; line-height:1.7; text-align:center">
@@ -723,8 +823,8 @@ Worked examples (Elena's own): 3.5 billion = 3.5 × 10⁹, because a billion car
   </div>
 </section>
 
-<!-- ───────────────────────── 24 · GOODBYE ───────────────────────── -->
-<section class="slide" id="s24" data-notes="The wall — read it like a champion's table, one row each. Then the goodbye. The ⬅ button (bottom left or here, big) returns to the lesson you came from.
+<!-- ───────────────────────── 26 · GOODBYE ───────────────────────── -->
+<section class="slide" id="s26" data-notes="The wall — read it like a champion's table, one row each. Then the goodbye. The ⬅ button (bottom left or here, big) returns to the lesson you came from.
 
 If opened directly (no lesson behind): just close the tab.">
   <div class="kicker">🌟 the whole ladder, one last look</div>
@@ -837,6 +937,15 @@ If opened directly (no lesson behind): just close the tab.">
       } else {
         b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
       }
+    };
+  });
+
+  /* drill peeks: one answer per line, tap to check */
+  Array.prototype.forEach.call(document.querySelectorAll('.peek'), function(b){
+    b.onclick = function(){
+      var a = b.parentNode.querySelector('.ans');
+      var on = a.classList.toggle('show');
+      b.textContent = on ? '✓' : '?';
     };
   });
 
