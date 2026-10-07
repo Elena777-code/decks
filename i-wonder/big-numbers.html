@@ -46,6 +46,11 @@
   .prep span{background:#1C2148; color:#C9CCE4; border:1px solid #ffffff2a; padding:7px 14px;
     border-radius:999px; font-size:14px}
 
+  .logbig{width:96px; height:96px; border-radius:50%; font-size:44px; cursor:pointer;
+    background:var(--card); border:2.5px solid #B99A2E; margin-top:10px;
+    box-shadow:0 7px 0 #B99A2E, 0 16px 34px #0007}
+  .logbig:active{transform:translateY(4px); box-shadow:0 3px 0 #B99A2E, 0 8px 18px #0007}
+
   /* the number face */
   .digits{display:flex; align-items:center; gap:10px; justify-content:center; flex-wrap:wrap}
   .digits .one{font-family:Georgia,serif; font-size:64px; color:#FDF6E3; font-weight:700}
@@ -242,21 +247,16 @@
 <body>
 
 <!-- ───────────────────────── 1 · TITLE ───────────────────────── -->
-<section class="slide" id="s1" data-notes="The extra-curiosity deck — open it when a lesson meets a huge number (a reading fact, a video, a pupil question). Click ⬅ (bottom left) any time to jump back to the lesson you came from.
+<section class="slide" id="s1" data-notes="The extra-curiosity deck — open it when a lesson meets a huge number (a reading fact, a video, a pupil question). Click ⬅ (bottom left) any time to jump back to the lesson you came from. The big ✍️ on this slide = the lesson log (the agreed window: d: · //: · free · fix, ⌘S saves and closes).
 
 FLOW (≈15–20 min, or 5 with the fast lane): 2 hook (the football number) → 3 video (Dr Binocs, 6:09 — watch or skip) → 4 million → 5 the machine → 6 THE WHY (bi=2, three chips — slowly) → 7 the moves drills (we do → you do) → 8–16 the ladder billion→decillion (each: read the number aloud, count the zero-chips together, then 🪄 reveals the word's secret) → 17 Rome's calendar → 18 the music stairs → 19 googol (the history hit) → 20 and they keep going → 21 the powers of ten → 22–24 the games → 25 the treasure → 26 the wall.
 
 
-PREPARE AHEAD: video on slide 2 — click play once before the lesson (sound on, headphones not needed). Counters/rice optional. The deck works offline.">
-  <div class="kicker">I wonder <span class="dot">·</span> extra deck <span class="dot">·</span> for every curious mind</div>
+PREPARE AHEAD: video on slide 3 — click play once before the lesson (sound on, headphones not needed). Counters/rice optional. The deck works offline.">
   <h1 style="font-size:64px">How <span style="color:var(--gold)">BIG</span> is big?</h1>
-  <div class="sub">million · billion · trillion · quadrillion · quintillion · sextillion · septillion · octillion · nonillion · decillion… and one number so big it has no room in the universe</div>
-  <div class="prep">
-    <span>🪄 every word hides a secret — tap to open it</span>
-    <span>🔢 zeros you can count like treasure</span>
-    <span>🏛️ 🎹 Rome and music speak the same numbers</span>
-  </div>
-  <div class="stamp">I wonder · build 07.10 · v2</div>
+  <div class="sub">million, billion … googol</div>
+  <button class="logbig" id="logBig" title="the lesson log (N)">✍️</button>
+  <div class="stamp">I wonder · build 07.10 · v3</div>
 </section>
 
 <!-- ───────────────────────── 2 · HOOK ───────────────────────── -->
@@ -1043,6 +1043,7 @@ If opened directly (no lesson behind): just close the tab.">
     document.getElementById('annoFX').value = d.fx || '';
   }
   function row(k){ return function(){ data[annoIdx] = data[annoIdx] || {}; data[annoIdx][k] = this.value; save(); }; }
+  document.getElementById('logBig').onclick = function(){ annoIdx = cur; annoFill(); tgl(annoOvl, !annoOvl.classList.contains('on')); };
   document.getElementById('annoBtn').onclick = function(){ annoIdx = cur; annoFill(); tgl(annoOvl, !annoOvl.classList.contains('on')); };
   document.getElementById('annoX').onclick = function(){ tgl(annoOvl, false); };
   document.getElementById('annoPrev').onclick = function(){ annoIdx = Math.max(0, annoIdx-1); annoFill(); };
@@ -1070,6 +1071,11 @@ If opened directly (no lesson behind): just close the tab.">
 
   /* keyboard (⌘C & friends always reach the browser) */
   document.addEventListener('keydown', function(e){
+    /* ⌘S / Ctrl+S = save + close — ONLY while the log window is open; it must
+       work WHILE TYPING in the rows, so it sits BEFORE the guard */
+    if((e.metaKey || e.ctrlKey) && (e.key === 's' || e.key === 'S') && annoOvl.classList.contains('on')){
+      e.preventDefault(); save(); tgl(annoOvl, false); return;
+    }
     if(e.metaKey || e.ctrlKey || e.altKey) return;
     if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){ e.preventDefault(); show(cur+1); }
     else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); show(cur-1); }
