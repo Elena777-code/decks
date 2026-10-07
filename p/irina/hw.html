@@ -83,8 +83,10 @@ footer{max-width:640px;width:100%;text-align:center;margin-top:1.6em;
     <p class="rules">Отвечай, пока бежит полоска.<br>
     Время вышло — вопрос улетел 🪁<br>
     Назад нельзя!</p>
-    <div class="icons">🟢 ⚙️ ⚖️ 🐻</div>
-    <div class="meta">4 игры · ~7 минут</div>
+    <div class="icons">🟢 ⚙️ ⚖️ 🐻 🐘</div>
+    <div class="meta">5 игр · ~10 минут</div>
+    <div class="name-row" style="margin-top:1.1em"><input class="type-box" id="who-box" placeholder="Кто делает тест?" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+    <p class="helper" style="margin-top:.5em">подпиши тест — учитель увидит, чьи это ответы</p>
     <button class="start-btn" id="begin-btn">Начать</button>
   </div>
 
@@ -106,7 +108,7 @@ footer{max-width:640px;width:100%;text-align:center;margin-top:1.6em;
   </div>
 </main>
 
-<footer>Успей до звонка · домашка Иры по английскому</footer>
+<footer>Успей до звонка · домашка Иры по английскому · build 2026-10-07 · v2 (timers ×2 · name line · 🐘 round)</footer>
 
 <script>
 (function(){
@@ -165,6 +167,18 @@ var POOL_NS=[
    q:'<b>Ira likes apples.</b>',label:"Ira likes apples",key:"Not stated"}
 ];
 
+/* Степени сравнения: regular + the three exceptions (good, bad, much/many) */
+var POOL_COMP=[
+  {q:'This cake is <span class="gap">______</span> than that cake. <span class="base">(GOOD)</span>',label:"good → -er",key:"better"},
+  {q:'This is <span class="gap">______</span> pizza in the shop. <span class="base">(GOOD)</span>',label:"good → the -est",key:["the best","best"]},
+  {q:'The weather today is <span class="gap">______</span> than yesterday. <span class="base">(BAD)</span>',label:"bad → -er",key:"worse"},
+  {q:'It is <span class="gap">______</span> film of the year. <span class="base">(BAD)</span>',label:"bad → the -est",key:["the worst","worst"]},
+  {q:'Ira has got <span class="gap">______</span> friends than Tom. <span class="base">(MANY)</span>',label:"many → more",key:"more"},
+  {q:'This shop has got <span class="gap">______</span> milk of all. <span class="base">(MUCH)</span>',label:"much → the most",key:["the most","most"]},
+  {q:'An elephant is <span class="gap">______</span> than a dog. <span class="base">(BIG)</span>',label:"big → -er",key:"bigger"},
+  {q:'Ira is <span class="gap">______</span> today than yesterday. <span class="base">(HAPPY)</span>',label:"happy → -er",key:"happier"}
+];
+
 var VERBS=[
   {b:"be",    s:"was/were", t:"been",    fix3:true},
   {b:"bear",  s:"bore",     t:"born",    a3:["borne"]},
@@ -184,7 +198,8 @@ var ROUNDS_META=[
   {id:"R1",icon:"🟢",name:"Разминка",helper:"выбери слово"},
   {id:"R2",icon:"⚙️",name:"Машинка слов",helper:"слово из скобок меняет одежду — подгони его"},
   {id:"R3",icon:"⚖️",name:"Судья и комментатор",helper:"читай и считай!"},
-  {id:"R4",icon:"🐻",name:"Спринт: 12 глаголов",helper:"впиши пропущенную форму"}
+  {id:"R4",icon:"🐻",name:"Спринт: 12 глаголов",helper:"впиши пропущенную форму"},
+  {id:"R5",icon:"🐘",name:"Степени сравнения",helper:"прилагательное меняет форму — сравнивай!"}
 ];
 
 /* ---------- helpers ---------- */
@@ -215,25 +230,44 @@ function buildRounds(){
     return {q:'<span class="base">'+v.b+'</span> → '+(ask3?(v.s+' - <span class="gap">______</span>'):('<span class="gap">______</span> - '+v.t)),
       label:v.b+" → "+(ask3?"3rd":"2nd"),key:key};
   });
+  var comp=pick(POOL_COMP,6);
   return [
-    {meta:ROUNDS_META[0],sec:5,tasks:someAny},
-    {meta:ROUNDS_META[1],sec:15,tasks:machine},
-    {meta:ROUNDS_META[2],sec:15,tasks:judge},
-    {meta:ROUNDS_META[3],sec:16,tasks:verbs}
+    {meta:ROUNDS_META[0],sec:10,tasks:someAny},
+    {meta:ROUNDS_META[1],sec:30,tasks:machine},
+    {meta:ROUNDS_META[2],sec:30,tasks:judge},
+    {meta:ROUNDS_META[3],sec:32,tasks:verbs},
+    {meta:ROUNDS_META[4],sec:30,tasks:comp}
   ];
 }
 
 /* ---------- state ---------- */
-var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false;
+var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false,WHO="";
+
+/* ---------- whose run is it? (the name heads every report) ---------- */
+try{$("who-box").value=(localStorage.getItem("irina-hw-who")||"").trim();}catch(e){}
+function saveWho(){
+  var v=$("who-box").value.trim();
+  if(!v)return false;
+  WHO=v;
+  try{localStorage.setItem("irina-hw-who",v);}catch(e){}
+  return true;
+}
 
 /* ---------- flow: no intro pages — the flash names the round ---------- */
-$("begin-btn").addEventListener("click",function(){ri=0;log=[];roundFlash();});
+$("begin-btn").addEventListener("click",function(){
+  if(!saveWho()){
+    show("flash");
+    $("flash").innerHTML="✏️ Подпиши тест!<span class=\"sub\">напиши имя — и жми «Начать»</span>";
+    setTimeout(function(){show("start-card");},1500);
+    return;
+  }
+  ri=0;log=[];roundFlash();});
 $("again-btn").addEventListener("click",function(){rounds=buildRounds();ri=0;log=[];roundFlash();});
 
 function roundFlash(){
   show("flash");
   var m=rounds[ri].meta;
-  $("flash").innerHTML=m.icon+" "+m.name+'<span class="sub">'+(ri+1)+"-я из 4 игр</span>";
+  $("flash").innerHTML=m.icon+" "+m.name+'<span class="sub">'+(ri+1)+"-я из 5 игр</span>";
   setTimeout(function(){qi=0;ask();},1400);
 }
 
@@ -319,12 +353,12 @@ function move(late,wasOk){
 }
 
 /* ---------- end ---------- */
-var ICONS={R1:"🟢",R2:"⚙️",R3:"⚖️",R4:"🐻"};
+var ICONS={R1:"🟢",R2:"⚙️",R3:"⚖️",R4:"🐻",R5:"🐘"};
 function reportText(){
   var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
-  var lines=["IRINA · HW · "+new Date().toLocaleString(),
+  var lines=[(WHO||"IRINA")+" · HW · "+new Date().toLocaleString(),
     "Beat the clock: "+ok+" / "+total];
-  ["R1","R2","R3","R4"].forEach(function(rid){
+  ["R1","R2","R3","R4","R5"].forEach(function(rid){
     var rows=log.filter(function(l){return l.rid===rid;});
     if(rows.length)lines.push(ICONS[rid]+" "+rid+": "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
   });
@@ -340,7 +374,7 @@ function finish(){
   var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
   $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/total*5)));
   var bits=[];
-  ["R1","R2","R3","R4"].forEach(function(rid){
+  ["R1","R2","R3","R4","R5"].forEach(function(rid){
     var r=log.filter(function(l){return l.rid===rid;});
     if(r.length)bits.push(ICONS[rid]+" "+r.filter(function(l){return l.ok;}).length+"/"+r.length);
   });
