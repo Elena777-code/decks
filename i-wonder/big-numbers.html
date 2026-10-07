@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- big numbers 10¹⁰⁰ · I wonder line · build 07.10 · v5 -->
+<!-- big numbers 10¹⁰⁰ · I wonder line · build 07.10 · v6 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -76,6 +76,16 @@
   .trap h3{color:#C9B8FF}
   .trap p{color:#E4DDFB}
   .wide{grid-column:1 / -1}
+
+  /* the three windows: each opens beside ITS pill */
+  #pq{align-items:flex-start; justify-content:flex-start; padding:78px 14px 14px}
+  #anno{align-items:flex-start; justify-content:flex-end; padding:78px 14px 14px}
+  #notes{align-items:flex-end; justify-content:center; padding:0 14px 14px}
+  #pq .panel{width:min(430px,94vw); animation:drop .18s ease-out}
+  #anno .panel{width:min(680px,94vw); max-height:calc(100vh - 100px); animation:drop .18s ease-out}
+  #notes .panel{width:min(880px,96vw); max-height:70vh; border-radius:20px 20px 0 0; animation:rise .22s ease-out}
+  @keyframes drop{from{opacity:0} to{opacity:1}}
+  @keyframes rise{from{opacity:0} to{opacity:1}}
 
   /* teach lines + drills */
   .reveal-btn.mini{font-size:17px; padding:10px 22px; box-shadow:0 4px 0 #B99A2E}
@@ -186,12 +196,14 @@
     display:flex; align-items:center; justify-content:center; cursor:pointer; background:#1C2148EE;
     border:2px solid #ffffff2e; box-shadow:0 4px 14px #0007}
   .pill:active{transform:scale(.94)}
-  #notesBtn{top:14px; left:14px}
+  #pqBtn{top:14px; left:14px}
   #annoBtn{top:14px; right:14px}
+  #notesBtn{bottom:16px; left:50%; transform:translateX(-50%)}
+  #notesBtn:active{transform:translateX(-50%) scale(.94)}
   #backBtn{bottom:16px; left:14px; width:auto; height:44px; border-radius:999px; padding:0 20px;
     font-size:19px; font-weight:700; font-family:Georgia,serif; gap:8px; background:#1C2148EE; color:#FDF6E3}
   #navR{bottom:16px; right:14px} #navL{bottom:16px; right:76px}
-  #counter{position:fixed; bottom:26px; left:50%; transform:translateX(-50%); z-index:50;
+  #counter{position:fixed; bottom:32px; left:calc(50% + 44px); z-index:50;
     font-size:14px; color:#8D92B8; letter-spacing:.12em; font-family:ui-monospace,Menlo,monospace}
   .navp{position:fixed; z-index:50; width:52px; height:52px; border-radius:50%; font-size:26px;
     display:flex; align-items:center; justify-content:center; cursor:pointer; background:#1C2148EE;
@@ -207,6 +219,9 @@
   .p-head span:first-child{font-family:Georgia,serif; font-size:21px; font-weight:700}
   .p-head .sp{flex:1}
   .p-x{border:none; background:#EFE6C8; width:36px; height:36px; border-radius:50%; font-size:16px; cursor:pointer; font-weight:700}
+  .pqRow{display:flex; align-items:center; gap:12px; padding:11px 14px; border-radius:12px;
+    background:#fff; border:1.5px solid var(--line); margin-bottom:8px; font-size:19px; font-weight:600}
+  .pqRow .pqE{font-size:22px}
   .ncard{background:#fff; border:1.5px solid var(--line); border-radius:12px; padding:12px 15px;
     margin-bottom:9px; font-size:16.5px; line-height:1.5; white-space:pre-wrap}
   .arow{display:flex; gap:9px; align-items:center; margin-bottom:9px}
@@ -837,8 +852,9 @@ If opened directly (no lesson behind): just close the tab.">
 </section>
 
 <!-- chrome -->
-<button class="pill" id="notesBtn" title="Teacher's notes (T)">🗒</button>
+<button class="pill" id="pqBtn" title="Pardon? — the class phrases (P)">🙋</button>
 <button class="pill" id="annoBtn" title="lesson notes — tick + comments (N)">✍️</button>
+<button class="pill" id="notesBtn" title="Teacher's notes (T)">🗒</button>
 <button class="pill" id="backBtn" title="back to the lesson">⬅ lesson</button>
 <button class="navp" id="navL" title="previous slide (←)">‹</button>
 <button class="navp" id="navR" title="next slide (→)">›</button>
@@ -848,6 +864,18 @@ If opened directly (no lesson behind): just close the tab.">
   <div class="panel">
     <div class="p-head"><span>🗒 Teacher's notes</span><span class="sp"></span><button class="p-x" id="notesX">✕</button></div>
     <div id="notesBody"></div>
+  </div>
+</div>
+
+<div class="ovl" id="pq">
+  <div class="panel">
+    <div class="p-head"><span>say it in class</span><span class="sp"></span><button class="p-x" id="pqX">✕</button></div>
+    <div class="pqRow"><span class="pqE">🙋</span><b>Pardon?</b></div>
+    <div class="pqRow"><span class="pqE">❓</span><b>What does ___ mean?</b></div>
+    <div class="pqRow"><span class="pqE">🆘</span><b>Can you help me?</b></div>
+    <div class="pqRow"><span class="pqE">🔁</span><b>Can you repeat, please?</b></div>
+    <div class="pqRow"><span class="pqE">🇬🇧</span><b>How do you say ___ in English?</b></div>
+    <div class="pqRow"><span class="pqE">🤷</span><b>I don't understand.</b></div>
   </div>
 </div>
 
@@ -974,8 +1002,10 @@ If opened directly (no lesson behind): just close the tab.">
   powRender();
 
   /* overlays */
-  var notesOvl = document.getElementById('notes'), annoOvl = document.getElementById('anno');
+  var notesOvl = document.getElementById('notes'), pqOvl = document.getElementById('pq'), annoOvl = document.getElementById('anno');
   function tgl(ovl, on){ ovl.classList.toggle('on', on); }
+  document.getElementById('pqBtn').onclick = function(){ tgl(pqOvl, !pqOvl.classList.contains('on')); };
+  document.getElementById('pqX').onclick = function(){ tgl(pqOvl, false); };
   document.getElementById('notesBtn').onclick = function(){ tgl(notesOvl, !notesOvl.classList.contains('on')); };
   document.getElementById('notesX').onclick = function(){ tgl(notesOvl, false); };
 
@@ -1055,10 +1085,11 @@ If opened directly (no lesson behind): just close the tab.">
     else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); show(cur-1); }
     else if(e.key === 'Home') show(0);
     else if(e.key === 'End') show(slides.length-1);
+    else if(e.key === 'p' || e.key === 'P') tgl(pqOvl, !pqOvl.classList.contains('on'));
     else if(e.key === 't' || e.key === 'T') tgl(notesOvl, !notesOvl.classList.contains('on'));
     else if(e.key === 'n' || e.key === 'N') { annoIdx = cur; annoFill(); tgl(annoOvl, !annoOvl.classList.contains('on')); }
     else if(e.key === 'f' || e.key === 'F'){ if(document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen(); }
-    else if(e.key === 'Escape'){ tgl(notesOvl, false); tgl(annoOvl, false); }
+    else if(e.key === 'Escape'){ tgl(notesOvl, false); tgl(pqOvl, false); tgl(annoOvl, false); }
   });
 
   /* READY-CHIME: when a new version of this deck is saved, the OPEN window
