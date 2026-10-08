@@ -70,17 +70,11 @@ body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var
 .pill:hover{transform:scale(1.05);color:var(--ink)}
 /* THE CORNERS v2 (Elena, 04.10): Pardon → top-left · ✍️ log → top-right · 🗒 notes → bottom centre */
 #pardonbtn{top:2.4vh;left:max(10px,1.6vw);right:auto;bottom:auto}
-#logbtn{top:calc(10px + .8vh);right:max(10px,1.6vw);left:auto;bottom:auto}
-#tnbtn{bottom:2.4vh;left:50%;transform:translateX(-50%)}
 #stamp{top:12px;right:calc(max(10px,1.6vw) + 5.6em)}
 .overlay{position:fixed;inset:0;z-index:200;background:rgba(255,248,240,.985);display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
 .overlay.open{display:flex}
 .overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
 .overlay .closer:hover{color:var(--ink)}
-#tnotes .eyebrow{margin-bottom:1vh}
-#tnbody{display:flex;flex-direction:column;gap:.6em;max-width:900px}
-#tnbody .note-step{display:flex;gap:.7em;align-items:flex-start;padding:.7em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.08);font-size:clamp(1rem,1.8vw,1.35rem);line-height:1.5}
-#tnbody .note-step .b{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--mint-deep);flex:0 0 auto}
 /* ============ slides ============ */
 .slide{
   position:absolute;inset:0;
@@ -187,35 +181,12 @@ img.sheet.small{width:min(430px,90%)}
 #bigword .bw .art{display:block;font-size:clamp(1.6rem,4vw,3.4rem);color:var(--mint-deep);margin-bottom:1.5vh}
 #bigword .bw .noun{display:block;font-size:clamp(4.5rem,17vh,11rem);letter-spacing:.02em}
 #bigword .tap-hint{position:absolute;bottom:6vh;left:0;right:0;text-align:center;font-size:clamp(.9rem,1.5vw,1.2rem);color:var(--ink-soft)}
-/* ============ the ✍️ V2 window (04.10 — the column: d: · //: · free) ============ */
-#logpanel{position:fixed;right:max(10px,1.6vw);top:calc(60px + 1.2vh);z-index:210;width:min(440px,92vw);background:#fff;border-radius:18px;box-shadow:0 18px 44px rgba(30,30,40,.28);padding:.9em 1em;display:none;flex-direction:column;gap:.5em}
-#logpanel.open{display:flex}
-#logpanel .closer{position:absolute;right:.6em;top:.5em;border:none;background:none;cursor:pointer;font-size:1rem;color:var(--ink-soft)}
-#logpanel .a-head{display:flex;align-items:center;gap:.45em;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.9rem,1.5vw,1.1rem);padding-right:1.7em}
-#logpanel .a-sp{flex:1}
-#logpanel #logrow{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#logpanel .mini-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.78rem,1.2vw,1rem);border:none;cursor:pointer;border-radius:99px;padding:.4em 1em;background:var(--white);box-shadow:0 4px 12px rgba(45,52,54,.12);color:var(--ink-soft);transition:transform .15s ease}
-#logpanel .mini-btn:hover{transform:scale(1.05)}
-#logpanel #logtick2.on{background:var(--mint);color:var(--ink)}
-#logpanel .arow{display:flex;gap:.5em;align-items:center}
-#logpanel .arow label{flex:0 0 3.1em;text-align:right;font-family:ui-monospace,Menlo,monospace;font-weight:800;font-size:.9rem;color:var(--ink-soft)}
-#logpanel .arow input{flex:1;min-width:0;border:2px solid #d8dee6;border-radius:10px;padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;background:#fff}
-#logpanel .arow input:focus{outline:none;border-color:#a78bfa}
-#logpanel .arow.free textarea{width:100%;border:2px dashed #d8dee6;border-radius:10px;padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;background:#fff;resize:vertical;min-height:5.6em}
-#logpanel .arow.free textarea:focus{outline:none;border-color:#a78bfa}
-#logpanel .arow.free textarea::placeholder{color:#9aa7b3;font-style:italic}
-#logpanel .a-foot{display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
-#logpanel .a-foot .hintline{flex:1;min-width:4em;font-size:.72rem;color:var(--ink-soft)}
-/* the report card */
-#logrep{align-items:center;justify-content:center}
-#logrep .rep-card{background:#fff;border-radius:18px;padding:1.1em 1.2em;display:flex;flex-direction:column;gap:.7em;width:min(560px,92vw);box-shadow:0 18px 44px rgba(30,30,40,.3)}
-#logrep textarea{width:100%;min-height:220px;border:2px solid #d8dee6;border-radius:12px;padding:.5em .65em;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;background:#fff;resize:vertical}
-</style>
+
 </head>
 <body>
 
 <div id="progress-track"><div id="progress-fill"></div></div>
-<div id="stamp">KB 1 · U2 · L8 · build 05.10 · v2</div>
+<div id="stamp">KB 1 · U2 · L8 · build 08.10 · v5</div>
 
 <!-- 1 · WARM UP — HELLO SONG -->
 <section class="slide">
@@ -229,24 +200,127 @@ img.sheet.small{width:min(430px,90%)}
     <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.35rem);color:var(--lavender-deep)">🧺 Prepare ahead</p>
     <p style="font-size:clamp(.85rem,1.35vw,1.1rem);line-height:1.55">
       🃏 flashcards: <b>Simon · Suzy · Stella · Meera</b> + the classroom objects &nbsp;·&nbsp; 📄 worksheets: <b>Rule · Complete · Circle · Pp</b><br>
-      📌 <b>DEAL OUT</b> the Дорисуй pages — they go home! &nbsp;·&nbsp; 🧵 the <b>puppet sheet</b> (TB p. 98) — one per child<br>
+      📄 <b>PW1 AB p. 5</b> — a copy per child (tick!) &nbsp;·&nbsp; 💻 the <b>GE app</b> on Farida's computer (rock-paper-scissors!) &nbsp;·&nbsp; 🧵 the <b>puppet sheet</b> (TB p. 98) — one per child<br>
       🖼️ poster <b>8</b> + the small versions &nbsp;·&nbsp; 🧴 <b>GLUE</b> &nbsp;·&nbsp; 🖍️ coloured pencils &nbsp;·&nbsp; 🖊️ a pen &nbsp;·&nbsp; 🐷 a toy pig
     </p>
   </div>
 </section>
 
-<!-- 2 · HOMEWORK CHECK — THE SWEEP -->
+<!-- 2 · FIRST SONG — LEFT AND RIGHT (the homework check, item 3) -->
 <section class="slide">
-  <div class="eyebrow reveal-el">Homework time ✅</div>
-  <h1 class="title reveal-el">What did you do at home? 🎒</h1>
+  <div class="eyebrow reveal-el">🎵 Song time — you know it!</div>
+  <h1 class="title reveal-el">Left and right — YOU know it! 🎤</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="card mint reveal-el"><p>📖 The Nn story — <b style="color:var(--mint-deep)">who read it?</b> 👍</p></div>
-  <div class="card lavender reveal-el"><p>🦇 The tongue twister — <b style="color:var(--lavender-deep)">ALL together, faster!</b></p></div>
-  <div class="card peach reveal-el"><p>✏️ The Ss and Mm sheets — <b style="color:var(--lavender-deep)">is the tracing done?</b></p></div>
-  <div class="card pink reveal-el"><p>🎮 The two word games — <b style="color:var(--pink)">who played? ✋</b></p></div>
+  <div class="task reveal-el">🎯 Stand up — sing and DO!</div>
+  <div class="lr-row reveal-el">
+    <div class="lr left"><span class="arrow">⬅️</span><span class="lr-word">LEFT</span></div>
+    <div class="lr right"><span class="arrow">➡️</span><span class="lr-word">RIGHT</span></div>
+  </div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-ge-left-right.mp3"></audio>
+  <div class="card peach reveal-el"><p>🏠 Did you sing it at home? — <b style="color:var(--lavender-deep)">Show me the moves!</b> 👏</p></div>
 </section>
 
-<!-- 3 · GUIDED DISCOVERY — ONE / TWO (the re-teach from L7) -->
+<!-- 3 · GAME — LIGHTS, CAMERA, ACTION! (the director) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">🎬 Game time</div>
+  <h1 class="title reveal-el">Lights, camera, action! 🎬</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 You shout — I direct — you DO!</div>
+  <div class="card peach reveal-el"><p>🎬 All together: <b style="color:var(--lavender-deep)">«Lights, camera… ACTION!»</b></p></div>
+  <div class="card reveal-el"><p><button class="reveal-btn" onclick="reveal(this)">🎬 action 1 ▾</button> <span class="answer" style="font-size:1.15em;padding:.15em .6em">2 steps <b>LEFT!</b> ⬅️</span></p></div>
+  <div class="card reveal-el"><p><button class="reveal-btn" onclick="reveal(this)">🎬 action 2 ▾</button> <span class="answer" style="font-size:1.15em;padding:.15em .6em">3 jumps <b>RIGHT!</b> ➡️</span></p></div>
+  <div class="card reveal-el"><p><button class="reveal-btn" onclick="reveal(this)">🎬 action 3 ▾</button> <span class="answer" style="font-size:1.15em;padding:.15em .6em"><b>Forward and back!</b> ⬆️⬇️</span></p></div>
+  <div class="card reveal-el"><p><button class="reveal-btn" onclick="reveal(this)">🎬 action 4 ▾</button> <span class="answer" style="font-size:1.15em;padding:.15em .6em"><b>Spin around!</b> 🌀</span></p></div>
+  <div class="card reveal-el"><p><button class="reveal-btn" onclick="reveal(this)">🎬 action 5 ▾</button> <span class="answer" style="font-size:1.15em;padding:.15em .6em"><b>Jump, jump, jump!</b> 🦘🦘🦘</span></p></div>
+  <div class="card reveal-el"><p><button class="reveal-btn" onclick="reveal(this)">🎬 action 6 ▾</button> <span class="answer" style="font-size:1.15em;padding:.15em .6em"><b>…and SIT DOWN!</b> 🪑</span></p></div>
+</section>
+
+<!-- 4 · READING — PB p. 11 ex. 1, THE CHANT (the homework check, item 2) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Reading · homework check 📖</div>
+  <h1 class="title reveal-el">Say the chant — smoothly! 📖</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Finger on the page — read along!</div>
+  <img class="sheet reveal-el" src="../media/kb1-u2-pb11.png" alt="PB p. 11 — the school-things chant">
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-pb11-t15.mp3"></audio>
+  <button class="reveal-btn reveal-el" onclick="reveal(this)">words ▾</button>
+  <div class="answer reveal-el" style="font-size:clamp(1.2rem,2.4vw,2rem)">A pencil · a book · an eraser · a pen · a table · a chair — say it again!</div>
+  <div class="card peach reveal-el"><p>📱 Who recorded it <b style="color:var(--lavender-deep)">in the app?</b> 👏 &nbsp; 🎴 And the <b style="color:var(--lavender-deep)">shkola cards?</b> ✋</p></div>
+</section>
+
+<!-- 5 · WI-FI (pencil time) -->
+<section class="slide wifi">
+  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
+  </svg>
+</section>
+
+<!-- 6 · THE PENCIL SONG -->
+<section class="slide">
+  <div class="eyebrow reveal-el">🎵 Pencil time!</div>
+  <h1 class="title reveal-el">Hold your pencil up! ✏️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Sing — DO it with your pencil!</div>
+  <audio controls preload="none" class="reveal-el" src="../media/pab-1-6-hold-your-pencil-up.mp3"></audio>
+</section>
+
+<!-- 7 · PW1 p.5 ex.3 — LISTEN, POINT, WRITE THE NUMBER -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Listening game 👂</div>
+  <h1 class="title reveal-el">Listen, point — write 1·2·3·4!</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — point — number the pictures!</div>
+  <img class="sheet small reveal-el" src="../media/pw1-p5-ex3.png" alt="four actions: stand up, stretch, shout Hooray, sit down">
+  <audio controls preload="none" class="reveal-el" src="../media/pw1-cd1-5.mp3"></audio>
+  <div class="card peach reveal-el"><p>🙌 Then DO them all: <b style="color:var(--lavender-deep)">stand up · stretch · HOORAY! · sit down!</b></p></div>
+</section>
+
+<!-- 8 · PW1 AB p.5 ex.2 — LISTEN AND TICK -->
+<section class="slide">
+  <div class="eyebrow reveal-el">AB p. 5 · Listening 👂</div>
+  <h1 class="title reveal-el">Listen and tick! ✓</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — tick the right picture!</div>
+  <img class="sheet small reveal-el" src="../media/pw1-ab-p5-ex2.png" alt="AB p. 5 — listen and tick: the four actions">
+  <audio controls preload="none" class="reveal-el" src="../media/pw1-cd1-6.mp3"></audio>
+  <button class="reveal-btn reveal-el" onclick="reveal(this)">key ▾</button>
+  <div class="answer reveal-el" style="font-size:clamp(1.1rem,2.2vw,1.8rem)">2 shout «Hooray!» · 3 stretch · 4 sit down &nbsp;<span style="font-size:.75em">(1 stand up — the book's example ✓)</span></div>
+</section>
+
+<!-- 9 · GAME — ROCK, PAPER, SCISSORS (Part 1, the reminder) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Game time ✊✋✌️</div>
+  <h1 class="title reveal-el">Rock, paper, scissors!</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 In pairs — the winner shouts a word!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">✊</span><div class="fc-name">ROCK</div></div>
+    <div class="fc"><span class="fc-emoji">✋</span><div class="fc-name">PAPER</div></div>
+    <div class="fc"><span class="fc-emoji">✌️</span><div class="fc-name">SCISSORS</div></div>
+  </div>
+  <div class="card peach reveal-el"><p>🥁 Say it together: <b style="color:var(--lavender-deep)">«Rock… paper… scissors… GO!»</b></p></div>
+  <div class="card mint reveal-el"><p>🏆 Winner shouts: <b style="color:var(--mint-deep)">«A pencil! A book!»</b> — the loser does a mime: <b style="color:var(--mint-deep)">stretch! jump!</b> 😄</p></div>
+</section>
+
+<!-- 10 · READING M — THE BRANDS DECK (the doorway) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Reading · brands 🔤</div>
+  <h1 class="title reveal-el">M m says m-m-m! 🏷️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Lips together — mmm!</div>
+  <div class="card lavender reveal-el" style="text-align:center;align-self:stretch">
+    <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(4rem,13vh,9rem);line-height:1.1">M m</p>
+    <p style="font-size:clamp(1.2rem,2.2vw,1.8rem)">mmm… 🤫 lips together!</p>
+  </div>
+  <div class="card peach reveal-el"><p>🏷️ The <b style="color:var(--lavender-deep)">brands you know</b> — let's read them! ▶ <b style="color:var(--lavender-deep)">brand-phonics-m</b></p></div>
+</section>
+
+<!-- 11 · GUIDED DISCOVERY — ONE / TWO (the re-teach from L7) -->
 <section class="slide">
   <div class="eyebrow reveal-el">One and many… ✨</div>
   <h1 class="title reveal-el">1 pencil · 2 pencil<span style="color:var(--pink)">s</span>!</h1>
@@ -263,7 +337,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>🔊 Say it <b style="color:var(--mint-deep)">loudly</b>… 😊 <b style="color:var(--mint-deep)">happily</b>… 🤫 <b style="color:var(--mint-deep)">quietly</b>!</p></div>
 </section>
 
-<!-- 4 · AB p.11 ex.2 — HOW MANY (the plural drill) -->
+<!-- 12 · AB p.11 ex.2 — HOW MANY (the plural drill) -->
 <section class="slide">
   <div class="eyebrow reveal-el">AB p. 11 · ex. 2</div>
   <h1 class="title reveal-el">How many? 🧮</h1>
@@ -273,7 +347,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>🗣️ «How many tables?» — <b style="color:var(--mint-deep)">«Four tables!»</b> 👏</p></div>
 </section>
 
-<!-- 5 · AB p.11 ex.1 — WHAT'S NUMBER + PAIRS -->
+<!-- 13 · AB p.11 ex.1 — WHAT'S NUMBER + PAIRS -->
 <section class="slide">
   <div class="eyebrow reveal-el">AB p. 11 · ex. 1</div>
   <h1 class="title reveal-el">What's number 1? 🗣️</h1>
@@ -284,39 +358,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>👫 Now in pairs: <b style="color:var(--mint-deep)">ask — and draw your friend's pictures!</b> ✏️</p></div>
 </section>
 
-<!-- 6 · WI-FI (pencil time) -->
-<section class="slide wifi">
-  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
-    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
-      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
-      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
-      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
-    </g>
-    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
-  </svg>
-</section>
-
-<!-- 7 · THE PENCIL SONG -->
-<section class="slide">
-  <div class="eyebrow reveal-el">🎵 Pencil time!</div>
-  <h1 class="title reveal-el">Hold your pencil up! ✏️</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Sing — DO it with your pencil!</div>
-  <audio controls preload="none" class="reveal-el" src="../media/pab-1-6-hold-your-pencil-up.mp3"></audio>
-</section>
-
-<!-- 8 · PW1 p.5 ex.3 — LISTEN, POINT, WRITE THE NUMBER -->
-<section class="slide">
-  <div class="eyebrow reveal-el">Listening game 👂</div>
-  <h1 class="title reveal-el">Listen, point — write 1·2·3·4!</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Listen — point — number the pictures!</div>
-  <img class="sheet small reveal-el" src="../media/pw1-p5-ex3.png" alt="four actions: stand up, stretch, shout Hooray, sit down">
-  <audio controls preload="none" class="reveal-el" src="../media/pw1-cd1-5.mp3"></audio>
-  <div class="card peach reveal-el"><p>🙌 Then DO them all: <b style="color:var(--lavender-deep)">stand up · stretch · HOORAY! · sit down!</b></p></div>
-</section>
-
-<!-- 9 · PRESENTATION — HE / SHE -->
+<!-- 14 · PRESENTATION — HE / SHE -->
 <section class="slide">
   <div class="eyebrow reveal-el">NEW WORDS!</div>
   <h1 class="title reveal-el">HE 👦 — SHE 👧!</h1>
@@ -329,7 +371,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>💪 <b style="color:var(--mint-deep)">HE</b> = a boy — show your muscles! &nbsp; 💃 <b style="color:var(--pink)">SHE</b> = a girl — dance!</p></div>
 </section>
 
-<!-- 10 · WORKSHEET 'RULE' (he/she) -->
+<!-- 15 · WORKSHEET 'RULE' (he/she) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Worksheet</div>
   <h1 class="title reveal-el">HE or SHE? Circle! ⭕</h1>
@@ -339,7 +381,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>🧴 <b style="color:var(--mint-deep)">GLUE it</b> into your copybook! 📓</p></div>
 </section>
 
-<!-- 11 · PRACTICE — SORT THE FAMILY + WORDWALL -->
+<!-- 16 · PRACTICE — SORT THE FAMILY + WORDWALL -->
 <section class="slide">
   <div class="eyebrow reveal-el">Game time 🃏</div>
   <h1 class="title reveal-el">He's Simon! She's Suzy!</h1>
@@ -355,7 +397,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>🤔 Stella… <b style="color:var(--lavender-deep)">HE or SHE?</b> — SHE's Stella! 🎉</p></div>
 </section>
 
-<!-- 12 · WORKSHEET 'COMPLETE' -->
+<!-- 17 · WORKSHEET «COMPLETE» -->
 <section class="slide">
   <div class="eyebrow reveal-el">Worksheet</div>
   <h1 class="title reveal-el">___ is Mr Star. ✍️</h1>
@@ -366,7 +408,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>🧴 <b style="color:var(--mint-deep)">GLUE it</b> into your copybook! 📓</p></div>
 </section>
 
-<!-- 13 · PB p.12 ex.1 — NEW FRIENDS, WHO'S THAT -->
+<!-- 18 · PB p.12 ex.1 — NEW FRIENDS, WHO'S THAT -->
 <section class="slide">
   <div class="eyebrow reveal-el">PB p. 12 · NEW FRIENDS!</div>
   <h1 class="title reveal-el">Who's that? 🧑‍🤝‍🧑</h1>
@@ -378,15 +420,7 @@ img.sheet.small{width:min(430px,90%)}
   <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-pb12-t18.mp3"></audio>
   <div class="card lavender reveal-el"><p>❓ Is Stella 5? · Is Meera 8? · <b style="color:var(--lavender-deep)">Is he Simon? Is she Stella?</b></p></div>
 </section>
-<section class="slide">
-  <div class="eyebrow reveal-el">VIDEO TIME · FOR MUM AND DAD</div>
-  <h1 class="title reveal-el">Lights, camera, action! 🎬</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">😄 Smile big — you are the stars! ⭐</div>
-  <div class="card peach reveal-el"><p>🎬 Let's show how we <b style="color:var(--lavender-deep)">read and speak English!</b></p></div>
-</section>
-
-<!-- 14 · PRODUCTION — HE IS SIMON. HE IS SIX. -->
+<!-- 19 · PRODUCTION — HE IS SIMON. HE IS SIX. -->
 <section class="slide">
   <div class="eyebrow reveal-el">Your turn! 🗣️</div>
   <h1 class="title reveal-el">He is Simon. He is six!</h1>
@@ -403,7 +437,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>🌟 A confident speaker <b style="color:var(--lavender-deep)">starts</b> — then EVERYONE!</p></div>
 </section>
 
-<!-- 15 · SONG — THE STAR FAMILY (PB p.13) -->
+<!-- 20 · SONG — THE STAR FAMILY (PB p.13) -->
 <section class="slide">
   <div class="eyebrow reveal-el">🎵 Song time</div>
   <h1 class="title reveal-el">How are you, Mr Star? 🌟</h1>
@@ -414,7 +448,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>👋 HE is Mr Star — big wave! &nbsp; SHE is Mrs Star — little wave!</p></div>
 </section>
 
-<!-- 16 · PHONICS Pp -->
+<!-- 21 · PHONICS Pp -->
 <section class="slide">
   <div class="eyebrow reveal-el">Reading · NEW!</div>
   <h1 class="title reveal-el">P p — pig, pen, peg, pot! 🐷</h1>
@@ -429,7 +463,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>👏 Clap it: <b style="color:var(--lavender-deep)">P-p-pig! P-p-pen! P-p-peg! P-p-pot!</b> &nbsp; 💬 More P…? <b style="color:var(--lavender-deep)">PINK!</b></p></div>
 </section>
 
-<!-- 17 · GAME — WHAT'S MISSING -->
+<!-- 22 · GAME — WHAT'S MISSING -->
 <section class="slide">
   <div class="eyebrow reveal-el">Game time 👀</div>
   <h1 class="title reveal-el">What's missing?!</h1>
@@ -444,7 +478,7 @@ img.sheet.small{width:min(430px,90%)}
   <button class="reveal-btn reveal-el" id="missbtn" onclick="missOne(this)">👀 Close your eyes!</button>
 </section>
 
-<!-- 18 · WORKSHEET 'Pp' -->
+<!-- 23 · WORKSHEET «Pp» -->
 <section class="slide">
   <div class="eyebrow reveal-el">Worksheet</div>
   <h1 class="title reveal-el">The Pp worksheet ✏️</h1>
@@ -454,7 +488,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card pink reveal-el"><p>⛔ Tracing? <b style="color:var(--pink)">At HOME!</b> 🏠</p></div>
 </section>
 
-<!-- 19 · READING — POSTER 8 -->
+<!-- 24 · READING — POSTER 8 -->
 <section class="slide">
   <div class="eyebrow reveal-el">Reading · NEW!</div>
   <h1 class="title reveal-el">pat… pat a RAT! 🐕🐀</h1>
@@ -464,7 +498,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>🎯 1 ALL together · 2 in pairs · 3 YOU read! 🌟 &nbsp; 🧴 the small poster → <b style="color:var(--mint-deep)">GLUE it</b> in!</p></div>
 </section>
 
-<!-- 20 · PB p.14 ex.1 — THE TONGUE TWISTER -->
+<!-- 25 · PB p.14 ex.1 — THE TONGUE TWISTER -->
 <section class="slide">
   <div class="eyebrow reveal-el">PB p. 14 · Monty's sounds</div>
   <h1 class="title reveal-el">Put the pizza in the purple bag! 🍕</h1>
@@ -475,7 +509,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>🐢 slow… 🚶 faster… 🏃 <b style="color:var(--lavender-deep)">FASTER!</b> &nbsp; Where's the <b style="color:var(--mint-deep)">p</b>? — <b style="color:var(--mint-deep)">PUT! PIZZA! PURPLE!</b></p></div>
 </section>
 
-<!-- 21 · PB p.14 ex.2 — COUNT, COLOUR, OBJECT + THE TREASURE -->
+<!-- 26 · PB p.14 ex.2 — COUNT, COLOUR, OBJECT + THE TREASURE -->
 <section class="slide">
   <div class="eyebrow reveal-el">PB p. 14 · ex. 2</div>
   <h1 class="title reveal-el">Seven pink books! 📚</h1>
@@ -487,7 +521,7 @@ img.sheet.small{width:min(430px,90%)}
   &nbsp;<button class="reveal-btn" style="font-size:.7em;padding:.15em .8em;vertical-align:middle" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.8em;padding:.1em .5em">Seven! 🎉</span></p></div>
 </section>
 
-<!-- 22 · FEEDBACK — FAVOURITE WORD -->
+<!-- 27 · FEEDBACK — FAVOURITE WORD -->
 <section class="slide">
   <div class="eyebrow reveal-el">Your turn! 💬</div>
   <h1 class="title reveal-el">Your favourite word! 💛</h1>
@@ -505,7 +539,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>👏 Everyone says <b style="color:var(--lavender-deep)">ONE word!</b></p></div>
 </section>
 
-<!-- 23 · HOMEWORK -->
+<!-- 28 · HOMEWORK -->
 <section class="slide">
   <div class="eyebrow reveal-el">Homework</div>
   <h1 class="title reveal-el">At home! 🏠</h1>
@@ -519,7 +553,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card reveal-el"><p style="font-size:clamp(1rem,1.7vw,1.4rem)">ДЗ: лист «Дорисуй» — посчитать и дорисовать · лист Pp — обвести буквы · AB стр. 14 упр. 1 и 2 (+ прочитать слова родителям) · PB стр. 13 — пальчиковые куклы (вырезать и раскрасить, лист в портфеле) · игра Wordwall по кнопке · дополнительно: лист «Circle» — обвести He или She.</p></div>
 </section>
 
-<!-- 24 · GOODBYE — LEFT AND RIGHT, THE SONG -->
+<!-- 29 · GOODBYE — LEFT AND RIGHT, THE SONG -->
 <section class="slide">
   <div class="eyebrow reveal-el">🎵 One more time — sing along!</div>
   <h1 class="title reveal-el">Left and right — sing along! 🎤</h1>
@@ -535,13 +569,14 @@ img.sheet.small{width:min(430px,90%)}
 
 <div id="nav">
   <button id="prev" aria-label="previous">‹</button>
-  <div id="counter">1 / 24</div>
+  <div id="counter">1 / 29</div>
   <button id="next" aria-label="next">›</button>
   <button id="fs" class="fs" aria-label="fullscreen">⛶</button>
 </div>
 
 <button id="pardonbtn" class="pill" title="Pardon? — class phrases (P)">🙋</button>
-<div id="bigword" class="overlay" onclick="this.classList.remove('open')">
+
+ class="overlay" onclick="this.classList.remove('open')">
   <div class="bw"><span class="art"></span><span class="noun"></span></div>
   <div class="tap-hint">tap anywhere to close</div>
 </div>
@@ -559,6 +594,7 @@ img.sheet.small{width:min(430px,90%)}
     🤷 I don't understand.
   </p></div>
 </div>
+
 
 <script>
 const slides=[...document.querySelectorAll('.slide')];
@@ -587,14 +623,7 @@ function go(n){
 }
 prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
 document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
-function togglePardon(force){
-  const ov=document.getElementById('pardon');
-  const open=force===undefined?!ov.classList.contains('open'):force;
-  ov.classList.toggle('open',open);
-}
-document.getElementById('pardonbtn').onclick=()=>togglePardon();
 
-/* ============ WHAT'S MISSING ============ */
 function missOne(btn){
   const cards=[...document.querySelectorAll('#wmiss .fc')];
   const hidden=cards.filter(c=>c.classList.contains('gone'));
@@ -606,6 +635,7 @@ function missOne(btn){
 }
 /* ============ keys & gestures ============ */
 document.addEventListener('keydown',e=>{
+  /* ⌘S / Ctrl+S = save + close while the log window is open — the one combo we own */
   if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
   if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
   if(e.key==='Escape'){togglePardon(false);document.getElementById('bigword').classList.remove('open');}
