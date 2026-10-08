@@ -271,7 +271,7 @@ function ask(){
 /* ---------- matching round ---------- */
 function buildMatch(){
   var left=shuffle(rounds[ri].tasks), right=shuffle(rounds[ri].tasks);
-  mPairs=left.map(function(item){return {s:item.s,ol:item.ol,o:item.o,tries:0,done:false};});
+  mPairs=left; /* same object references — the right column finds its pair by indexOf */
   mSelL=-1;mSelR=-1;mDone=0;mTries=0;mLock=false;
   var html='<div class="match-wrap"><div class="match-col" id="mcol-l">';
   left.forEach(function(p,i){ /* left column: the sentences in R6 order (shuffled once) */
