@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Домашнее задание · GG 1 U8 L8.1 — Дома! 🏠</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ GG2.1 homework — DRAFT v2 (publishes on Elena's word,
+   THE HOMEWORK PUBLISH TIMING rule). Speaks RUSSIAN with the children.
+   This lesson's hw = WB p. 70 (the TB's own) + THE TEST PREP PACKAGE
+   (Elena, 08.10 evening): ① Language Test 7 B as the practice test
+   (the real test feels familiar), ② the U7 vocabulary set on
+   shkola.app, ③ the Verb + s памятка deck. Plus the 16 sports
+   self-checker from the lesson (the hw-001 shape the children know).
+   ANSWERS HIDE, ALWAYS — every key behind a tap. */
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A;
+  --lavender:#C8B6FF; --lavender-deep:#9a7fff; --cream:#FFF8F0;
+  --pink:#FF8FAB; --ink:#2D3436; --ink-soft:#636e72; --white:#fff;
+  --blue:#3a6ea5; --blue-bg:#d6e8f7;
+  --radius:22px; --shadow:0 10px 30px rgba(45,52,54,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);
+  min-height:100vh;padding:4vh 4vw 8vh;display:flex;flex-direction:column;gap:2vh;
+  align-items:stretch;max-width:680px;margin:0 auto}
+.eyebrow{font-size:clamp(.95rem,2.6vw,1.15rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lavender-deep)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,6vw,2.6rem);line-height:1.15}
+h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.3rem,4.6vw,1.8rem);line-height:1.2}
+.accent-line{width:110px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.stamp{display:inline-block;font-weight:800;font-size:.8rem;color:var(--ink-soft);
+  border:2px solid #e7e0d8;border-radius:99px;padding:.14em .7em;background:#fff;
+  letter-spacing:.04em;vertical-align:middle;margin-left:.6em}
+.draftbar{background:#ffe9f0;border:2px dashed var(--pink);border-radius:16px;
+  padding:.6em 1em;font-weight:800;font-size:clamp(.9rem,2.4vw,1.1rem);color:#c2185b}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.4vh,24px) clamp(16px,3vw,28px)}
+.card p{font-size:clamp(1.1rem,3.2vw,1.4rem);line-height:1.5}
+.card.peach{background:#fff8db}
+.card.mint{background:#eafbf6}
+.card.lav{background:#f3edff}
+.b{color:var(--lavender-deep)}
+.sfx{background:var(--blue-bg);border-radius:10px;padding:0 .25em;color:var(--blue);font-weight:800}
+.gap{display:inline-block;min-width:2.2em;border-bottom:2px dashed var(--ink-soft);text-align:center}
+/* test tasks */
+.tnum{display:inline-flex;width:1.7em;height:1.7em;border-radius:50%;background:var(--mint-deep);
+  color:#fff;font-weight:800;align-items:center;justify-content:center;margin-right:.4em;
+  font-size:clamp(.95rem,2.8vw,1.15rem);vertical-align:middle}
+.tbox{background:#f7f5ff;border-radius:16px;padding:.8em 1em;margin-top:.7em}
+.tbox p{font-size:clamp(1rem,3vw,1.25rem);line-height:1.65}
+.chips{display:flex;flex-wrap:wrap;gap:.45em;margin-top:.6em}
+.chip{background:#fff;border:2px solid var(--lavender);border-radius:99px;
+  padding:.12em .7em;font-weight:800;font-size:clamp(.95rem,2.7vw,1.15rem);color:var(--ink)}
+.reveal{margin-top:.7em}
+.reveal button{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.98rem,2.8vw,1.15rem);
+  border:none;border-radius:99px;padding:.4em 1.3em;cursor:pointer;background:var(--lavender);
+  color:var(--ink);box-shadow:var(--shadow)}
+.answers{display:none;margin-top:.6em;background:#eafbf6;border-radius:14px;padding:.7em 1em;
+  font-size:clamp(1rem,2.9vw,1.2rem);line-height:1.6}
+.reveal.open .answers{display:block;animation:pop .4s ease}
+@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:scale(1);opacity:1}}
+/* big link buttons */
+.bigbtn{display:flex;align-items:center;gap:.8em;text-decoration:none;margin-top:.7em;
+  background:var(--mint);border-radius:18px;padding:.7em 1em;box-shadow:var(--shadow);
+  transition:transform .15s ease}
+.bigbtn:hover{transform:scale(1.02)}
+.bigbtn .ic{font-size:clamp(1.6rem,5vw,2.1rem)}
+.bigbtn .tt{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.05rem,3.2vw,1.3rem);color:var(--ink)}
+.bigbtn .sub{font-size:clamp(.9rem,2.6vw,1.05rem);color:var(--ink-soft)}
+.bigbtn.gold{background:var(--peach)}
+.bigbtn.lav{background:#e5dbff}
+/* the words — one at a time */
+.wbox{display:flex;flex-direction:column;gap:.9em;align-items:stretch;text-align:center}
+.wstep{font-weight:800;color:var(--ink-soft);font-size:clamp(.95rem,2.8vw,1.15rem)}
+.dots{display:flex;gap:.4em;justify-content:center;flex-wrap:wrap}
+.dot{width:12px;height:12px;border-radius:50%;background:#e7dcff;border:2px solid var(--lavender)}
+.dot.done{background:var(--mint);border-color:var(--mint-deep)}
+.dot.now{border-color:var(--pink);transform:scale(1.25)}
+.wru{font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.5rem,5.5vw,2.2rem);color:var(--ink);padding:.15em 0}
+.wclue{font-size:clamp(1rem,3vw,1.25rem);color:var(--ink-soft)}
+.wcheck{display:none;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
+.wcheck .wen{font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.6rem,6vw,2.3rem);color:var(--pink)}
+.wbox.open .wcheck{display:block}
+.wbox.open .wq{display:none}
+.btn{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.05rem,3.2vw,1.35rem);
+  border:none;border-radius:99px;padding:.55em 1.6em;cursor:pointer;
+  background:var(--mint);color:var(--ink);box-shadow:var(--shadow);transition:transform .15s ease}
+.btn:hover{transform:scale(1.05)}
+.btn.gold{background:var(--peach)}
+.warm{font-size:clamp(1.1rem,3.2vw,1.4rem);text-align:center}
+</style>
+</head>
+<body>
+
+<div class="eyebrow">Домашнее задание · Go Getter 1 · Unit 8 → готовимся к тесту Unit 7</div>
+<h1>Дома! 🏠 <span class="stamp">build 08.10 · v2</span></h1>
+<div class="accent-line"></div>
+
+
+<div class="card">
+  <p>🤿 <b class="b">Подсказка из книги</b> (она напечатана и в учебнике, и в тетради на стр. 70):</p>
+  <p style="margin-top:.3em;line-height:1.7">I <span class="sfx">do</span> taekwondo. · I <span class="sfx">go</span> swimming. · I <span class="sfx">play</span> tennis.</p>
+</div>
+
+<div class="card lav">
+  <h2>🧪 Готовимся к тесту — Unit 7!</h2>
+  <p style="margin-top:.3em">Это <b class="b">тренировочный тест</b> (вариант B). Делай как настоящий: <b class="b">пиши ответы в тетрадь</b>, а потом нажми «ответы» и проверь себя. Справишься — и настоящий тест будет лёгким! 💪</p>
+
+  <div class="tbox">
+    <p><span class="tnum">1</span><b>Вставь слова в текст.</b> Одно слово лишнее! Слово 0 уже стоит.</p>
+    <div class="chips">
+      <span class="chip">crocodiles</span><span class="chip">cute</span><span class="chip">dangerous</span><span class="chip">flies</span><span class="chip">lions</span><span class="chip">slow</span><span class="chip">snakes</span><span class="chip">strong</span><span class="chip">tortoises</span><span class="chip">ugly</span>
+    </div>
+    <p style="margin-top:.6em">
+      • Elephants are big and <b>0 strong</b>. They've got a long nose and big ears.<br>
+      • <b>1</b> <span class="gap"></span> can walk but they can't run. They're <b>2</b> <span class="gap"></span>.<br>
+      • <b>3</b> <span class="gap"></span> have got four legs, a big and long mouth and a lot of big teeth. They're <b>4</b> <span class="gap"></span>.<br>
+      • Baby <b>5</b> <span class="gap"></span> have got yellow eyes and big feet. They're <b>6</b> <span class="gap"></span>.<br>
+      • <b>7</b> <span class="gap"></span> have got six legs, two wings and big eyes. They're <b>8</b> <span class="gap"></span>.
+    </p>
+    <div class="reveal"><button onclick="tg(this)">ответы ▾</button>
+      <div class="answers">1 tortoises · 2 slow · 3 crocodiles · 4 dangerous · 5 lions · 6 cute · 7 flies · 8 ugly · лишнее слово: <b>snakes</b></div>
+    </div>
+  </div>
+
+  <div class="tbox">
+    <p><span class="tnum">2</span><b>Кто это?</b> Прочитай и напиши животное.</p>
+    <p style="margin-top:.5em">
+      • 0 It can fly but it can't talk. — It's a <b>parrot</b>.<br>
+      • 1 It can climb trees and it's got four legs. — It's a <span class="gap"></span>.<br>
+      • 2 It's a good pet and it's got long ears. — It's a <span class="gap"></span>.<br>
+      • 3 It can swim and jump. — It's a <span class="gap"></span>.<br>
+      • 4 It's got eight legs. It's small but it can run fast. — It's a <span class="gap"></span>.
+    </p>
+    <div class="reveal"><button onclick="tg(this)">ответы ▾</button>
+      <div class="answers">1 monkey · 2 rabbit · 3 frog · 4 spider</div>
+    </div>
+  </div>
+
+  <div class="tbox">
+    <p><span class="tnum">3</span><b>Напиши с <span class="sfx">don't</span> / <span class="sfx">doesn't</span>.</b></p>
+    <p style="margin-top:.5em">
+      • 0 I <b>don't like</b> snakes and spiders. (like)<br>
+      • 1 Thomas <span class="gap"></span> to school on Saturdays. (go)<br>
+      • 2 Steve and Gloria <span class="gap"></span> to music in the evening. (listen)<br>
+      • 3 Emma <span class="gap"></span> a bike to school. She walks. (ride)<br>
+      • 4 Cats <span class="gap"></span> a lot. (eat)
+    </p>
+    <div class="reveal"><button onclick="tg(this)">ответы ▾</button>
+      <div class="answers">1 doesn't go · 2 don't listen · 3 doesn't ride · 4 don't eat</div>
+    </div>
+  </div>
+
+  <div class="tbox">
+    <p><span class="tnum">4</span><b>Напиши вопросы.</b> Ответ уже есть — какой был вопрос?</p>
+    <p style="margin-top:.5em">
+      • 0 <b>Do you want a dog?</b> — Yes, I want a dog.<br>
+      • 1 <span class="gap"></span> at twelve o'clock? — No, the students don't have lunch at twelve o'clock.<br>
+      • 2 <span class="gap"></span> early on Sundays? — Yes, Lucy goes to bed early on Sundays.<br>
+      • 3 <span class="gap"></span>? — I draw pictures of flowers.<br>
+      • 4 <span class="gap"></span> in the evening? — She watches TV in the evening.
+    </p>
+    <div class="reveal"><button onclick="tg(this)">ответы ▾</button>
+      <div class="answers">1 Do the students have lunch · 2 Does Lucy go to bed · 3 What do you draw · 4 What does she do</div>
+    </div>
+  </div>
+
+  <div class="tbox">
+    <p><span class="tnum">5</span><b>Дополни диалог.</b> Поставь глагол в правильную форму.</p>
+    <p style="margin-top:.5em">
+      Rob: Hi, Ewa. Tell me about your weekend.<br>
+      Ewa: <b>0</b> <b>Do you get up</b> (you / get up) early?<br>
+      Ewa: No, I <b>1</b> <span class="gap"></span> but I make lunch for the family.<br>
+      Rob: And your brother Zac?<br>
+      Ewa: Zac <b>2</b> <span class="gap"></span> (not cook) but he helps Dad in the garden. That's a big job! I <b>3</b> <span class="gap"></span> (not help) Dad but I help Mum in the house.<br>
+      Rob: What <b>4</b> <span class="gap"></span> (you / do) to relax?<br>
+      Ewa: I play computer games with my friends.<br>
+      Rob: <b>5</b> <span class="gap"></span> (Zac / play) computer games too?<br>
+      Ewa: Yes, he does.
+    </p>
+    <div class="reveal"><button onclick="tg(this)">ответы ▾</button>
+      <div class="answers">1 don't · 2 doesn't cook · 3 don't help · 4 do you do · 5 Does Zac play</div>
+    </div>
+  </div>
+
+  <div class="tbox">
+    <p><span class="tnum">6</span><b>Круг правильное слово</b> — разговор в музее.</p>
+    <p style="margin-top:.5em">
+      A: Get your ticket, Petra. Richard and I have got our tickets.<br>
+      B: <b>1</b> <span class="gap"></span> I help you? <span style="color:var(--ink-soft)">(Can / Do)</span><br>
+      C: Can I <b>2</b> <span class="gap"></span> one ticket to the museum, please? <span style="color:var(--ink-soft)">(take / have)</span><br>
+      B: <b>3</b> <span class="gap"></span> four pounds, please. <span style="color:var(--ink-soft)">(That's / They're)</span><br>
+      C: Here <b>4</b> <span class="gap"></span> are. <span style="color:var(--ink-soft)">(you / we)</span><br>
+      B: And <b>5</b> <span class="gap"></span> your ticket. <span style="color:var(--ink-soft)">(it's / here's)</span>
+    </p>
+    <div class="reveal"><button onclick="tg(this)">ответы ▾</button>
+      <div class="answers">1 Can · 2 take · 3 That's · 4 you · 5 it's</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <p>📗 <b class="b">Слова Unit 7 — на shkola.app!</b> Жми на кнопку, входи в свои слова и пройди задания: карточки → послушай → послушай и впиши → введи слова.</p>
+  <a class="bigbtn lav" href="https://student.shkola.app/lesson/11953423" target="_blank" rel="noopener">
+    <span class="ic">📱</span>
+    <span><span class="tt">Открыть слова на shkola.app</span><br><span class="sub">29 слов: животные · питомцы · прилагательные</span></span>
+  </a>
+  <p style="margin-top:.8em">✏️ И правило <b class="b">Verb + s</b> — повтори по нашей памятке (она как раз про -S!):</p>
+  <a class="bigbtn gold" href="https://elena777-code.github.io/decks/lib/verb-s-spelling.html" target="_blank" rel="noopener">
+    <span class="ic">🧠</span>
+    <span><span class="tt">Памятка Verb + s</span><br><span class="sub"> spelling rules · when to add the S</span></span>
+  </a>
+</div>
+
+<div class="card mint">
+  <p>⚽ <b class="b">Новые слова — виды спорта!</b> Читай подсказку → вспомни слово по-английски → нажми и проверь. Одно слово за раз!</p>
+  <div class="wbox" id="wbox" style="margin-top:.8em">
+    <div class="wstep" id="wstep"></div>
+    <div class="dots" id="wdots"></div>
+    <div class="wru" id="wru"></div>
+    <div class="wq">
+      <p class="wclue">Вспомнил? — проверяй!</p>
+      <button class="btn" onclick="check()">check ✓</button>
+    </div>
+    <div class="wcheck">
+      <div class="wen" id="wen"></div>
+      <div style="margin-top:.5em"><button class="btn gold" onclick="next()">next →</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <p class="warm">Big вопрос дня: <b class="b">What sports do YOU do?</b> 🤸</p>
+</div>
+
+<script>
+/* Test-prep reveals — ANSWERS HIDE, ALWAYS. */
+function tg(btn){ btn.parentElement.classList.toggle('open');
+  btn.textContent = btn.parentElement.classList.contains('open') ? 'ответы ▴' : 'ответы ▾'; }
+
+/* The 16 sports of the Vocabulary box (SB p. 95). SHUFFLED, never
+   alphabetical (the standing dictation law). */
+const WORDS = [
+  {ru:'бадминтон', en:'badminton'},
+  {ru:'баскетбол', en:'basketball'},
+  {ru:'езда на велосипеде', en:'cycling'},
+  {ru:'футбол', en:'football'},
+  {ru:'хоккей', en:'hockey'},
+  {ru:'катание на коньках (по льду)', en:'ice-skating'},
+  {ru:'катание на роликах', en:'roller skating'},
+  {ru:'парусный спорт', en:'sailing'},
+  {ru:'катание на скейтборде', en:'skateboarding'},
+  {ru:'катание на лыжах', en:'skiing'},
+  {ru:'плавание', en:'swimming'},
+  {ru:'настольный теннис', en:'table tennis'},
+  {ru:'тхэквондо', en:'taekwondo'},
+  {ru:'большой теннис', en:'tennis'},
+  {ru:'волейбол', en:'volleyball'},
+  {ru:'виндсёрфинг', en:'windsurfing'}
+];
+for (let i = WORDS.length - 1; i > 0; i--){
+  const j = Math.floor(Math.random() * (i + 1));
+  [WORDS[i], WORDS[j]] = [WORDS[j], WORDS[i]];
+}
+let idx = 0;
+const wbox = document.getElementById('wbox'), wstep = document.getElementById('wstep'),
+      wdots = document.getElementById('wdots'), wru = document.getElementById('wru'),
+      wen = document.getElementById('wen');
+WORDS.forEach((w, k) => {
+  const d = document.createElement('span');
+  d.className = 'dot'; d.id = 'dot' + k;
+  wdots.appendChild(d);
+});
+function paint(){
+  wbox.classList.remove('open');
+  const w = WORDS[idx];
+  wstep.textContent = 'слово ' + (idx + 1) + ' из ' + WORDS.length;
+  wru.textContent = w.ru;
+  wen.textContent = w.en;
+  WORDS.forEach((_, k) => {
+    const d = document.getElementById('dot' + k);
+    d.className = 'dot' + (k < idx ? ' done' : k === idx ? ' now' : '');
+  });
+}
+function check(){ wbox.classList.add('open'); }
+function next(){
+  if (idx < WORDS.length - 1){ idx++; paint(); }
+  else {
+    wstep.textContent = 'все 16 слов! ⭐';
+    wru.textContent = 'Ты выучил все виды спорта! 🏆';
+    wdots.style.display = 'none';
+    wbox.classList.add('open');
+    wen.style.display = 'none';
+  }
+}
+paint();
+</script>
+</body>
+</html>
