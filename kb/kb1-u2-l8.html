@@ -182,6 +182,7 @@ img.sheet.small{width:min(430px,90%)}
 #bigword .bw .noun{display:block;font-size:clamp(4.5rem,17vh,11rem);letter-spacing:.02em}
 #bigword .tap-hint{position:absolute;bottom:6vh;left:0;right:0;text-align:center;font-size:clamp(.9rem,1.5vw,1.2rem);color:var(--ink-soft)}
 
+</style>
 </head>
 <body>
 
@@ -576,7 +577,7 @@ img.sheet.small{width:min(430px,90%)}
 
 <button id="pardonbtn" class="pill" title="Pardon? — class phrases (P)">🙋</button>
 
- class="overlay" onclick="this.classList.remove('open')">
+<div id="bigword" class="overlay" onclick="this.classList.remove('open')">
   <div class="bw"><span class="art"></span><span class="noun"></span></div>
   <div class="tap-hint">tap anywhere to close</div>
 </div>
@@ -624,6 +625,13 @@ function go(n){
 prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
 document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
 
+function togglePardon(force){
+  const ov=document.getElementById('pardon');
+  const open=force===undefined?!ov.classList.contains('open'):force;
+  ov.classList.toggle('open',open);
+}
+document.getElementById('pardonbtn').onclick=()=>togglePardon();
+/* ============ WHAT'S MISSING ============ */
 function missOne(btn){
   const cards=[...document.querySelectorAll('#wmiss .fc')];
   const hidden=cards.filter(c=>c.classList.contains('gone'));
