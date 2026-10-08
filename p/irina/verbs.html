@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ирина · ДЗ · футбольная пятёрка на время</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sea:#2EC4B6; --sea-deep:#1B7A8C; --ink:#123B44; --ink-soft:#5b7a80;
+  --coral:#FF6B6B; --sun:#FFD166; --card:#ffffff; --bg:#EAF7F5;
+  --shadow:0 10px 30px rgba(18,59,68,.14); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--bg);
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:4vh 5vw 8vh;-webkit-font-smoothing:antialiased}
+header{max-width:680px;width:100%;text-align:center;margin-bottom:1em}
+.eyebrow{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;font-size:.72rem;color:var(--sea-deep)}
+h1{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.6rem,7vw,2.4rem);line-height:1.15;margin-top:.15em}
+main{max-width:680px;width:100%}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(1.3rem,4.5vw,2.2rem);text-align:center;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none}
+.rules{margin-top:1em;color:var(--ink-soft);font-weight:700;font-size:clamp(1rem,3.6vw,1.15rem);line-height:1.7}
+.icons{font-size:1.6rem;letter-spacing:.3em;margin-top:.9em}
+.meta{margin-top:.4em;color:var(--ink-soft);font-weight:700;font-size:.9rem}
+button{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;border:none;cursor:pointer;
+  border-radius:99px;transition:transform .12s ease,box-shadow .12s ease}
+button:active{transform:scale(.96)}
+.start-btn{background:var(--sea);color:#fff;font-size:clamp(1.2rem,4.6vw,1.5rem);
+  padding:.65em 2.6em;margin-top:1.3em;box-shadow:0 6px 0 #239d92}
+.start-btn:active{box-shadow:0 2px 0 #239d92;transform:translateY(4px)}
+.qcount{font-size:.85rem;font-weight:800;color:var(--sea-deep);letter-spacing:.06em;text-transform:uppercase}
+.timer-wrap{height:12px;background:#d8efec;border-radius:99px;overflow:hidden;margin:1em 0 .3em}
+.timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--sea),var(--sun));border-radius:99px}
+.timer-num{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;color:var(--sea-deep);font-size:.9rem}
+.timer-num.low{color:var(--coral)}
+.prompt{font-size:clamp(1.25rem,5vw,1.75rem);font-weight:800;line-height:1.45;margin-top:.4em}
+.prompt .gap{color:var(--coral);letter-spacing:.05em}
+.prompt .base{color:var(--sea-deep);font-family:'Fredoka','Nunito',sans-serif;font-weight:600}
+.helper{margin-top:.7em;font-size:.9rem;font-weight:700;color:var(--ink-soft)}
+.answer-row{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;margin-top:1em}
+.choice{background:#f0fafa;color:var(--ink);font-size:clamp(1.05rem,4.2vw,1.3rem);
+  padding:.5em 1.4em;box-shadow:0 4px 0 #cfe9e6;line-height:1.15}
+.choice:active{box-shadow:0 1px 0 #cfe9e6;transform:translateY(3px)}
+input.type-box{font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1.2rem,5vw,1.6rem);
+  color:var(--ink);text-align:center;border:3px solid #cfe9e6;border-radius:16px;
+  padding:.45em .6em;width:min(300px,76vw);outline:none;background:#fbffff}
+input.type-box:focus{border-color:var(--sea)}
+input.type-box.need{border-color:var(--coral);animation:need .3s ease}
+@keyframes need{50%{transform:translateX(-4px)}}
+.ok-btn{background:var(--sea-deep);color:#fff;font-size:clamp(1rem,4vw,1.2rem);
+  padding:.6em 1.8em;box-shadow:0 4px 0 #145a67;align-self:center}
+.flash{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6.5vw,2.2rem);
+  color:var(--coral);text-align:center;padding:2.6em 0;animation:pop .2s ease}
+.flash .sub{display:block;font-size:.55em;color:var(--ink-soft);margin-top:.6em}
+/* --- matching (Найди пару) --- */
+.match-wrap{display:flex;gap:.7em;justify-content:center;align-items:stretch;margin-top:.8em}
+.match-col{display:flex;flex-direction:column;gap:.5em;flex:1;min-width:0}
+.mcard{background:#f0fafa;border-radius:14px;padding:.55em .6em;font-size:clamp(.82rem,3vw,1rem);
+  font-weight:800;line-height:1.3;cursor:pointer;box-shadow:0 3px 0 #cfe9e6;
+  transition:all .15s ease;user-select:none}
+.mcard .mo{font-size:1.35em}
+.mcard.sel{background:#FFF3D6;box-shadow:0 3px 0 #f0d998;transform:scale(1.03)}
+.mcard.ok{background:#D9F7EE;box-shadow:0 3px 0 #9adecd;cursor:default;opacity:.85}
+.mcard.shake{animation:shake .3s ease;background:#FFE3E3}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.mhelp{margin-top:.7em;font-size:.85rem;font-weight:700;color:var(--ink-soft)}
+.stars{font-size:clamp(2rem,9vw,3rem);margin:.2em 0}
+.end-title{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw,2.2rem)}
+.one-line{margin:1em 0 .2em;font-weight:800;font-size:clamp(1.05rem,4vw,1.25rem)}
+.miss-list{margin-top:.8em;text-align:left;background:#f2fbf9;border-radius:16px;padding:.9em 1.1em;
+  font-size:clamp(.95rem,3.6vw,1.1rem);font-weight:700;line-height:1.6;display:none}
+.miss-list .k{color:var(--sea-deep)}
+.copy-btn{background:var(--sea);color:#fff;font-size:clamp(1rem,4vw,1.2rem);
+  padding:.7em 1.8em;margin-top:.9em;box-shadow:0 6px 0 #239d92}
+.again-btn{background:transparent;color:var(--sea-deep);font-size:1rem;
+  padding:.6em 1.4em;margin-top:.7em;border:2px solid #bfe3df}
+.sent{margin-top:.6em;font-weight:700;color:var(--sea-deep)}
+footer{max-width:680px;width:100%;text-align:center;margin-top:1.6em;
+  color:var(--ink-soft);font-size:.78rem;font-weight:600}
+@media(max-width:560px){.match-wrap{flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Ирина · домашка ⏰ · урок 9</div>
+  <h1>Футбольная пятёрка! ⚽</h1>
+</header>
+
+<main>
+  <div class="card" id="start-card">
+    <div class="name-row"><input class="type-box" id="who-box" placeholder="Кто играет?" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+    <p class="rules">Отвечай, пока бежит полоска.<br>
+    Время вышло — карточка улетела 🪁<br>
+    Назад нельзя!<br>
+    А в конце — «Найди пару» 🧩 без часов.</p>
+    <div class="icons">📷 💭 🎤 👏 🐱</div>
+    <div class="meta">take · think · sing · clap · feel · 6 игр · ~10 минут</div>
+    <button class="start-btn" id="begin-btn">Начать</button>
+  </div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div class="timer-wrap" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="flash hidden" id="flash"></div>
+
+  <div class="card hidden" id="end-card">
+    <div class="stars" id="end-stars"></div>
+    <div class="end-title">Молодец!</div>
+    <div class="one-line" id="end-rows"></div>
+    <div class="miss-list" id="miss-list"></div>
+    <div><button class="copy-btn" id="copy-btn">📋 Результат — мисс Елене</button></div>
+    <div class="sent" id="sent-line"></div>
+    <div><button class="again-btn" id="again-btn">🔁 Ещё раз</button></div>
+  </div>
+</main>
+
+<footer>урок 9 · пять игроков: take · think · sing · clap · feel</footer>
+
+<script>
+(function(){
+"use strict";
+/* auto-send → Elena's Google Form «Irina» (same form as the daily page) */
+var HW_FORM={action:"https://docs.google.com/forms/d/e/1FAIpQLScYuudgy8Zza0OF09fpnu43OsOehkkNQT5BtnF7QH7uVne9SA/formResponse",entryReport:"entry.1898990974"};
+
+/* ---------- the six lanes (Quickmarch lesson A: take · think · sing · clap · feel) ----------
+   R1 RU → 1st form · R2 RU → past · R3 past → RU · R4 sentences (the object friends)
+   R5 the match email fragments · R6 Найди пару (untimed) */
+
+var R1=[
+  {q:'📷 <b>брать</b>',label:"брать (📷)",key:"take"},
+  {q:'💭 <b>думать</b>',label:"думать (💭)",key:"think"},
+  {q:'🎤 <b>петь</b>',label:"петь (🎤)",key:"sing"},
+  {q:'👏 <b>хлопать</b>',label:"хлопать (👏)",key:"clap"},
+  {q:'🐱 <b>чувствовать</b>',label:"чувствовать (🐱)",key:"feel"}
+];
+var R2=[
+  {q:'📷 <b>брать</b> — <span class="base">ВЧЕРА!</span>',label:"брать → вчера",key:"took"},
+  {q:'💭 <b>думать</b> — <span class="base">ВЧЕРА!</span>',label:"думать → вчера",key:"thought"},
+  {q:'🎤 <b>петь</b> — <span class="base">ВЧЕРА!</span>',label:"петь → вчера",key:"sang"},
+  {q:'👏 <b>хлопать</b> — <span class="base">ВЧЕРА!</span>',label:"хлопать → вчера",key:"clapped"},
+  {q:'🐱 <b>чувствовать</b> — <span class="base">ВЧЕРА!</span>',label:"чувствовать → вчера",key:"felt"}
+];
+var R3=[
+  {q:'<span class="base">took</span> — <b>по-русски?</b>',label:"took → RU",accept:["взя","брал"]},
+  {q:'<span class="base">thought</span> — <b>по-русски?</b>',label:"thought → RU",accept:["дума"]},
+  {q:'<span class="base">sang</span> — <b>по-русски?</b>',label:"sang → RU",accept:["пел","спел"]},
+  {q:'<span class="base">clapped</span> — <b>по-русски?</b>',label:"clapped → RU",accept:["хлопа","аплодир"]},
+  {q:'<span class="base">felt</span> — <b>по-русски?</b>',label:"felt → RU",accept:["чувств","трог","щуп"]}
+];
+var R4=[
+  {q:'<b>Yesterday</b> Dad <span class="gap">______</span> <span class="base">(a camera 📷)</span> some photos of our team. ⚽',label:"Dad … photos (camera)",key:"took"},
+  {q:'<b>Yesterday</b> I <span class="gap">______</span> <span class="base">(in my head 💭)</span> about the big match all evening.',label:"…about the match (head)",key:"thought"},
+  {q:'We <span class="gap">______</span> <span class="base">(into a microphone 🎤)</span> our favourite song on the bus home.',label:"…our song (microphone)",key:"sang"},
+  {q:'After the goal, the fans <span class="gap">______</span> <span class="base">(hands together 👏)</span> for a long time!',label:"the fans … (hands)",key:"clapped"},
+  {q:'I <span class="gap">______</span> <span class="base">(the soft cat 🐱)</span> the kitten’s soft fur — so nice!',label:"…the fur (soft cat)",key:"felt"},
+  {q:'And my dog <span class="gap">______</span> <span class="base">(a hole 🕳)</span> a hole in the garden — again! 🐶',label:"my dog … a hole (revision)",key:"dug"}
+];
+var R5=[
+  {q:'Our team played super! I <span class="gap">______</span> the game was finished — but then — GOAL! ⚽',label:"email: the game … finished",key:"thought"},
+  {q:'All the fans <span class="gap">______</span> and shouted.',label:"email: the fans …",key:"clapped"},
+  {q:'I <span class="gap">______</span> our song with Dad — loud!',label:"email: I … our song",key:"sang"},
+  {q:'After the match I <span class="gap">______</span> very happy.',label:"email: I … very happy",key:"felt"},
+  {q:'My hot chocolate <span class="gap">______</span> 200 roubles!',label:"email: chocolate … 200 roubles",key:"cost"},
+  {q:'At home my little brother <span class="gap">______</span> a hole in the sofa cushion!',label:"email: brother … a hole",key:"dug"},
+  {q:'At night I <span class="gap">______</span> about the next match.',label:"email: at night I …",key:"dreamt"},
+  {q:'In the morning I <span class="gap">______</span> a picture of the goal — for you!',label:"email: I … a picture",key:"drew"},
+  {q:'And Mum <span class="gap">______</span> her tea and said: «Well done!»',label:"email: Mum … her tea",key:"drank"}
+];
+/* R6 — the pairs: sentence ↔ object friend */
+var R6=[
+  {s:"Dad took photos of the teams.",o:"📷",ol:"a camera"},
+  {s:"I thought the game was finished.",o:"💭",ol:"a head"},
+  {s:"We sang our favourite song.",o:"🎤",ol:"a microphone"},
+  {s:"The fans clapped for a long time.",o:"👏",ol:"hands"},
+  {s:"I felt the kitten’s soft fur.",o:"🐱",ol:"the soft cat"}
+];
+
+var ROUNDS_META=[
+  {id:"R1",icon:"📖",name:"Первая форма",helper:"первая форма — как в словаре",sec:30},
+  {id:"R2",icon:"🔴",name:"Вторая форма",helper:"вторая форма — ВЧЕРА",sec:30},
+  {id:"R3",icon:"🇷🇺",name:"Перевод",helper:"как это по-русски?",sec:30},
+  {id:"R4",icon:"🕰",name:"Предложение",helper:"в скобках — друг-предмет; впиши глагол во второй форме",sec:40},
+  {id:"R5",icon:"📧",name:"Письмо",helper:"кусочек письма с урока; впиши глагол во второй форме",sec:50},
+  {id:"R6",icon:"🧩",name:"Найди пару",helper:"соедини предложение и предмет-друга",sec:0,mode:"match"}
+];
+var DEAL_N=3; /* how many cards each timed lane deals of its pool */
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function norm(s){return (s||"").toString().trim().toLowerCase().replace(/[.!?]+$/,"");}
+function isOk(t,given){
+  if(t.accept){ var g=norm(given); return t.accept.some(function(a){return g.indexOf(a)!==-1;}); }
+  return norm(t.key)===norm(given);
+}
+function show(id){["start-card","q-card","flash","end-card"].forEach(function(c){
+  $(c).classList.add("hidden");});
+  if(id)$(id).classList.remove("hidden");}
+
+function buildRounds(){
+  return ROUNDS_META.map(function(m){
+    var pool=m.id==="R1"?R1:m.id==="R2"?R2:m.id==="R3"?R3:m.id==="R4"?R4:m.id==="R5"?R5:R6;
+    return {meta:m,tasks:m.mode==="match"?shuffle(pool):shuffle(pool).slice(0,DEAL_N)};
+  });
+}
+
+/* ---------- state ---------- */
+var WHO="";
+var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false;
+/* matching state */
+var mSelL=-1,mSelR=-1,mPairs=null,mDone=0,mTries=0,mLock=false;
+
+try{$("who-box").value=(localStorage.getItem("irina-hw-who")||"").trim();}catch(e){}
+
+$("begin-btn").addEventListener("click",function(){
+  var v=$("who-box").value.trim();
+  if(!v){ $("who-box").classList.add("need");
+    setTimeout(function(){$("who-box").classList.remove("need");},900);
+    $("who-box").focus(); return; }
+  try{localStorage.setItem("irina-hw-who",v);}catch(e){}
+  WHO=v;
+  ri=0;log=[];roundFlash();
+});
+$("again-btn").addEventListener("click",function(){
+  rounds=buildRounds();ri=0;log=[];roundFlash();
+});
+
+function roundFlash(){
+  show("flash");
+  var m=rounds[ri].meta;
+  $("flash").innerHTML=m.icon+" "+m.name+'<span class="sub">'+(ri+1)+"-я из "+rounds.length+" игр"+(m.sec?" · "+m.sec+" секунд":"")+"</span>";
+  setTimeout(function(){qi=0;ask();},1400);
+}
+
+function ask(){
+  answered=false;
+  var r=rounds[ri],t=r.tasks[qi];
+  $("q-count").textContent=r.meta.icon+" "+r.meta.name+" · "+(qi+1)+"/"+r.tasks.length;
+  if(r.meta.mode==="match"){ buildMatch(); show("q-card"); return; }
+  var body='<div class="prompt">'+t.q+"</div>";
+  body+='<div class="helper">'+r.meta.helper+"</div>";
+  body+='<div class="answer-row"><input class="type-box" id="type-box" autocomplete="off" autocapitalize="off" spellcheck="false">'+
+        '<button class="ok-btn" id="ok-btn">OK</button></div>';
+  $("q-body").innerHTML=body;
+  show("q-card");
+  var box=$("type-box");
+  var submit=function(){if(answered)return;answered=true;stop();
+    advance(record(t,box.value,false));};
+  $("ok-btn").addEventListener("click",submit);
+  box.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
+  setTimeout(function(){box.focus();},60);
+  start(r.meta.sec,function(){
+    if(answered)return;answered=true;
+    var typed=$("type-box")?$("type-box").value:null;
+    record(t,typed,true);nextLate();
+  });
+}
+
+/* ---------- matching round ---------- */
+function buildMatch(){
+  var left=shuffle(rounds[ri].tasks), right=shuffle(rounds[ri].tasks);
+  mPairs=left.map(function(item){return {s:item.s,ol:item.ol,o:item.o,tries:0,done:false};});
+  mSelL=-1;mSelR=-1;mDone=0;mTries=0;mLock=false;
+  var html='<div class="match-wrap"><div class="match-col" id="mcol-l">';
+  left.forEach(function(p,i){ /* left column: the sentences in R6 order (shuffled once) */
+    html+='<div class="mcard" data-i="'+i+'">'+p.s+"</div>";
+  });
+  html+='</div><div class="match-col" id="mcol-r">';
+  right.forEach(function(p){
+    var li=mPairs.indexOf(p);
+    html+='<div class="mcard" data-i="'+li+'"><span class="mo">'+p.o+"</span> "+p.ol+"</div>";
+  });
+  html+='</div></div><div class="mhelp" id="mhelp">Нажми предложение, потом предмет-друга 🧩</div>';
+  $("q-body").innerHTML=html;
+  $("timer-wrap").style.visibility="hidden";$("timer-num").textContent="";
+  Array.prototype.forEach.call(document.querySelectorAll('#mcol-l .mcard'),function(el){
+    el.addEventListener("click",function(){pickL(parseInt(el.getAttribute("data-i"),10),el);});});
+  Array.prototype.forEach.call(document.querySelectorAll('#mcol-r .mcard'),function(el){
+    el.addEventListener("click",function(){pickR(parseInt(el.getAttribute("data-i"),10),el);});});
+}
+function pickL(i,el){
+  if(mLock)return;
+  mSelL=i;
+  Array.prototype.forEach.call(document.querySelectorAll('#mcol-l .mcard'),function(e){e.classList.remove("sel");});
+  el.classList.add("sel");
+  judge();
+}
+function pickR(i,el){
+  if(mLock)return;
+  mSelR=i;
+  Array.prototype.forEach.call(document.querySelectorAll('#mcol-r .mcard'),function(e){e.classList.remove("sel");});
+  el.classList.add("sel");
+  judge();
+}
+function judge(){
+  if(mSelL<0||mSelR<0)return;
+  mLock=true;
+  var p=mPairs[mSelL], rEl=document.querySelector('#mcol-r .mcard[data-i="'+mSelR+'"]');
+  var lEl=document.querySelector('#mcol-l .mcard[data-i="'+mSelL+'"]');
+  if(p.ol===mPairs[mSelR].ol){
+    p.tries=mTries; /* wrong attempts since the last match */
+    p.done=true;mDone++;mTries=0;
+    lEl.classList.remove("sel");lEl.classList.add("ok");
+    rEl.classList.remove("sel");rEl.classList.add("ok");
+    log.push({rid:"R6",label:p.s+" ↔ "+p.o+" "+p.ol,
+      given:p.tries===0?"с первой попытки ✓":("попыток: "+(p.tries+1)),
+      key:"ok",ok:p.tries===0});
+    mSelL=-1;mSelR=-1;
+    if(mDone>=mPairs.length){ setTimeout(function(){move(false,true);},650); mLock=false; return; }
+    $("mhelp").textContent="Есть пара! ✅ Осталось: "+(mPairs.length-mDone);
+    mLock=false;
+  }else{
+    mTries++;
+    lEl.classList.add("shake");rEl.classList.add("shake");
+    setTimeout(function(){
+      lEl.classList.remove("sel","shake");rEl.classList.remove("sel","shake");
+      mSelL=-1;mSelR=-1;mLock=false;
+      $("mhelp").textContent="Не та пара — попробуй ещё! 🧩";
+    },550);
+  }
+}
+
+/* ---------- wall-clock timer ---------- */
+function start(sec,onOut){
+  if(!sec){$("timer-wrap").style.visibility="hidden";$("timer-num").textContent="";return;}
+  $("timer-wrap").style.visibility="visible";
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  num.textContent=sec+" с";num.className="timer-num";
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 с";
+      stop();onOut();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" с";
+    num.className="timer-num"+(s<=5?" low":"");
+  },100);
+}
+function stop(){if(timer){clearInterval(timer);timer=null;}}
+
+function record(t,given,late){
+  var ok=!late&&given!=null&&isOk(t,given);
+  log.push({rid:rounds[ri].meta.id,label:t.label,
+    given:late?(given?("не успела, написала: "+given):"ВРЕМЯ ВЫШЛО"):given,
+    key:t.key||"—",ok:ok});
+  return ok;
+}
+function advance(wasOk){move(false,wasOk);}
+function nextLate(){move(true,false);}
+function move(late,wasOk){
+  var r=rounds[ri];
+  var lastOfRound=r.meta.mode==="match"||qi>=r.tasks.length-1;
+  var go=function(){
+    if(!lastOfRound){qi++;ask();}
+    else if(ri<rounds.length-1){ri++;roundFlash();}
+    else{finish();}
+  };
+  if(late){show("flash");$("flash").innerHTML="⏰ Время!";setTimeout(go,950);}
+  else if(wasOk){show("flash");$("flash").innerHTML="✅";setTimeout(go,700);}
+  else if(lastOfRound&&ri<rounds.length-1){show("flash");
+    $("flash").innerHTML="✨";setTimeout(go,650);}
+  else go();
+}
+
+/* ---------- end + reports ---------- */
+var ICONS={R1:"📖",R2:"🔴",R3:"🇷🇺",R4:"🕰",R5:"📧",R6:"🧩"};
+function reportText(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  var lines=[(WHO||"IRINA")+" · VERBS L9 · футбольная пятёрка (take·think·sing·clap·feel) · "+new Date().toLocaleString(),
+    "Beat the clock: "+ok+" / "+total];
+  ROUNDS_META.forEach(function(m){
+    var rows=log.filter(function(l){return l.rid===m.id;});
+    if(rows.length)lines.push(m.icon+" "+m.id+" "+m.name+": "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
+  });
+  var missed=log.filter(function(l){return !l.ok;});
+  if(missed.length){
+    lines.push("","Missed or too late ("+missed.length+"):");
+    missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+(l.given||"—")+" · key: "+l.key);});
+  }else{lines.push("","Missed or too late: none! 🎉");}
+  return lines.join("\n");
+}
+function finish(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/total*5)));
+  var bits=[];
+  ROUNDS_META.forEach(function(m){
+    var r=log.filter(function(l){return l.rid===m.id;});
+    if(r.length)bits.push(m.icon+" "+r.filter(function(l){return l.ok;}).length+"/"+r.length);
+  });
+  $("end-rows").textContent=bits.join("  ·  ");
+  var missed=log.filter(function(l){return !l.ok;});
+  if(missed.length){
+    $("miss-list").style.display="block";
+    $("miss-list").innerHTML="<b>Для словарика:</b><br>"+missed.map(function(l){
+      return "· "+l.label+" → <span class='k'>"+l.key+"</span>";}).join("<br>");
+  }
+  var txt=reportText();
+  try{localStorage.setItem("irina-verbs-last",txt);}catch(e){}
+  sendReport(txt);
+  $("sent-line").textContent="…";
+  setTimeout(function(){
+    $("sent-line").textContent="✅ Результат уже у твоего учителя!";
+  },1400);
+  show("end-card");
+  window.scrollTo(0,0);
+}
+$("copy-btn").addEventListener("click",function(){
+  var txt=reportText();
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){
+      var b=$("copy-btn");b.textContent="📋 Скопировано!";
+      setTimeout(function(){b.textContent="📋 Результат — мисс Елене";},1500);});
+  }
+});
+
+/* ---------- auto-send (fetch → iframe fallback → localStorage queue) ---------- */
+var QKEY="irina-hw-form-queue";
+function queueGet(){try{return JSON.parse(localStorage.getItem(QKEY)||"[]");}catch(e){return[];}}
+function queueAdd(txt){var q=queueGet();q.push(txt);try{localStorage.setItem(QKEY,JSON.stringify(q));}catch(e){}}
+function queueClear(){try{localStorage.setItem(QKEY,"[]");}catch(e){}}
+function postOne(txt,done){
+  var okFn=function(){done(true);},badFn=function(){done(false);};
+  try{
+    var body=new FormData();
+    body.append(HW_FORM.entryReport,txt);
+    body.append("submit","Submit");
+    fetch(HW_FORM.action,{method:"POST",mode:"no-cors",body:body})
+      .then(function(){okFn();}).catch(function(){iframePost(txt,okFn,badFn);});
+  }catch(e){iframePost(txt,okFn,badFn);}
+}
+function iframePost(txt,okFn,badFn){
+  try{
+    var frame=document.createElement("iframe");
+    frame.name="hf-"+Date.now();frame.style.display="none";
+    document.body.appendChild(frame);
+    var f=document.createElement("form");
+    f.method="POST";f.action=HW_FORM.action;f.target=frame.name;
+    var inp=document.createElement("input");
+    inp.type="hidden";inp.name=HW_FORM.entryReport;inp.value=txt;
+    f.appendChild(inp);
+    var sub=document.createElement("input");
+    sub.type="hidden";sub.name="submit";sub.value="Submit";
+    f.appendChild(sub);
+    document.body.appendChild(f);f.submit();
+    setTimeout(function(){okFn();},1200);
+  }catch(e){badFn();}
+}
+function sendReport(txt){
+  postOne(txt,function(ok){
+    if(!ok){queueAdd(txt);return;}
+    /* a fresh send flushes everything queued before it */
+    var q=queueGet();
+    if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}
+  });
+}
+/* flush old queue on load */
+(function(){var q=queueGet();if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}})();
+})();
+</script>
+</body>
+</html>
