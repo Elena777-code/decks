@@ -84,7 +84,7 @@ footer{max-width:640px;width:100%;text-align:center;margin-top:1.6em;
     Время вышло — вопрос улетел 🪁<br>
     Назад нельзя!</p>
     <div class="icons">🟢 ⚙️ ⚖️ 🐻 🐘</div>
-    <div class="meta">5 игр · ~10 минут</div>
+    <div class="meta">5 игр · ~12 минут</div>
     <div class="name-row" style="margin-top:1.1em"><input class="type-box" id="who-box" placeholder="Кто делает тест?" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
     <p class="helper" style="margin-top:.5em">подпиши тест — учитель увидит, чьи это ответы</p>
     <button class="start-btn" id="begin-btn">Начать</button>
@@ -108,7 +108,7 @@ footer{max-width:640px;width:100%;text-align:center;margin-top:1.6em;
   </div>
 </main>
 
-<footer>Успей до звонка · домашка Иры по английскому · build 2026-10-07 · v2 (timers ×2 · name line · 🐘 round)</footer>
+<footer>Успей до звонка · домашка Иры по английскому · build 2026-10-08 · v3 (the sprint grows: the D-Team 8 join the B-Team 12)</footer>
 
 <script>
 (function(){
@@ -191,14 +191,22 @@ var VERBS=[
   {b:"bring", s:"brought",  t:"brought"},
   {b:"build", s:"built",    t:"built"},
   {b:"burn",  s:"burnt",    t:"burnt",   a2:["burned"], a3:["burned"]},
-  {b:"burst", s:"burst",    t:"burst"}
+  {b:"burst", s:"burst",    t:"burst"},
+  {b:"cost",  s:"cost",     t:"cost"},
+  {b:"cut",   s:"cut",      t:"cut"},
+  {b:"deal",  s:"dealt",    t:"dealt"},
+  {b:"dig",   s:"dug",      t:"dug"},
+  {b:"do",    s:"did",      t:"done"},
+  {b:"draw",  s:"drew",     t:"drawn"},
+  {b:"dream", s:"dreamt",   t:"dreamt",  a2:["dreamed"], a3:["dreamed"]},
+  {b:"drink", s:"drank",    t:"drunk"}
 ];
 
 var ROUNDS_META=[
   {id:"R1",icon:"🟢",name:"Разминка",helper:"выбери слово"},
   {id:"R2",icon:"⚙️",name:"Машинка слов",helper:"слово из скобок меняет одежду — подгони его"},
   {id:"R3",icon:"⚖️",name:"Судья и комментатор",helper:"читай и считай!"},
-  {id:"R4",icon:"🐻",name:"Спринт: 12 глаголов",helper:"впиши пропущенную форму"},
+  {id:"R4",icon:"🐻",name:"Спринт: 20 глаголов",helper:"впиши пропущенную форму"},
   {id:"R5",icon:"🐘",name:"Степени сравнения",helper:"прилагательное меняет форму — сравнивай!"}
 ];
 
