@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- big numbers 10¹⁰⁰ · I wonder line · build 07.10 · v7 -->
+<!-- big numbers 10¹⁰⁰ · I wonder line · build 08.10 · v8 (v7 + the ✍️ input guard + the machine chips off-by-one fixed) -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -981,7 +981,7 @@ If opened directly (no lesson behind): just close the tab.">
     var m = MACH[mIdx];
     document.getElementById('machWord').textContent = m.w;
     document.getElementById('machWord').style.color = COLORS[mIdx];
-    document.getElementById('machZ').innerHTML = new Array(m.z+1).join('x').split('x').map(function(){return '<span class="zz">000</span>'}).join(' ');
+    document.getElementById('machZ').innerHTML = new Array(m.z).join('x').split('x').map(function(){return '<span class="zz">000</span>'}).join(' ');
     document.getElementById('machCnt').textContent = m.z*3;
     document.getElementById('machPow').textContent = m.p;
     document.getElementById('machGo').textContent = mIdx >= MACH.length-1 ? '🎉 the roof of the ladder!' : '▶ add a 000';
@@ -1081,6 +1081,7 @@ If opened directly (no lesson behind): just close the tab.">
       e.preventDefault(); save(); tgl(annoOvl, false); return;
     }
     if(e.metaKey || e.ctrlKey || e.altKey) return;
+    if(/INPUT|TEXTAREA/.test(e.target.tagName))return; /* typing in the ✍️ rows — no slide flips, no hotkeys */
     if(e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' '){ e.preventDefault(); show(cur+1); }
     else if(e.key === 'ArrowLeft' || e.key === 'PageUp'){ e.preventDefault(); show(cur-1); }
     else if(e.key === 'Home') show(0);

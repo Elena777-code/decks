@@ -188,6 +188,7 @@ applyStyle();
 /* keys */
 addEventListener('keydown',e=>{
   if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(/INPUT|TEXTAREA/.test((e.target&&e.target.tagName)||''))return; /* typing in a field — no Space/r/f */
   if(e.code==='Space'){e.preventDefault();
     document.body.classList.contains('run')?togglePause():document.getElementById('go').click();}
   if(e.key==='r'||e.key==='R'||e.key==='к'||e.key==='К')
