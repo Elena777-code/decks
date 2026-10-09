@@ -557,12 +557,12 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 </svg>
 
 <!-- 1 · THE CHANT — play + reveal the lines in time -->
-<section class="slide" data-notes="PREP: a PENCIL per child — the chant needs it! Play the track (the button). 1st round: the class LISTENS AND WATCHES — you click the cards in time with the chant, each lights up: grey → colour (they go left to right, top to bottom). 2nd round: play again — EVERYBODY does the actions with the chant, pencils up! 3rd round: faster — or mute the track and YOU chant, the class does. The kids can't read — they follow the PICTURES and you; the small words are for your eyes. The chant's language: hold your pencil up · put it down again · write, draw, tap · point to the blackboard / floor / window / door · clap 1 2 3 · stand up.">
+<section class="slide" data-notes="PREP: a PENCIL per child — the chant needs it! The track is the FULL activity recording (4:15) with its own teaching rounds: 0:00 spoken intro + the tune · 0:18 ROUND 1 «Listen» — the whole chant · 1:03 ROUND 2 «Listen and repeat» — line by line · 2:23 ROUND 3 «sing with the children» · 3:01 ROUND 4 «and again» · 3:48 ROUND 5 «sing by yourselves» — backing only. PRESS PLAY and the pictures light up BY THEMSELVES, in time with the singing (whisper-checked timings). Rounds 3–4 have no «put it down» lines — those three cards stay grey, the children SEE which lines come. Round 1: they just WATCH and LISTEN. Rounds 2–4: everybody does the actions. Round 5: the board rests — the class sings from memory. Muted track: tapping a card lights it by hand. Cards may also be tapped between rounds for a quick recap.">
   <div class="eyebrow reveal-el">🎵 Our chant · Primary Activity Box 1.6</div>
-  <div class="stamp">build 2026-10-09 · v3 pictures</div>
+  <div class="stamp">build 2026-10-09 · v4 · auto-listen</div>
   <h1 class="title reveal-el">Hold your pencil up! ✏️⬆️</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Listen — tap the lines as the chant goes!</div>
+  <div class="task reveal-el">🎯 Press play — LISTEN! The pictures light up with the chant.</div>
   <audio controls preload="none" class="reveal-el" src="../media/pab-1-6-hold-your-pencil-up.mp3"></audio>
   <div class="chant reveal-el">
     <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid holds the pencil up high"><use href="#pab-hold-up"/></svg></span><span class="txt">Hold your pencil up.<span class="hint">✋ pencil HIGH!</span></span></div>
@@ -717,6 +717,33 @@ document.addEventListener('touchend',e=>{
 },{passive:true});
 const h=parseInt(location.hash.slice(1));
 show(isNaN(h)?0:h-1);
+
+/* ============ LISTEN MODE (2026-10-09): the pictures light up in time ============
+   The track is the full CD activity recording. Whisper-checked line timings;
+   each round lights its lines; rounds 3-4 have no «put it down» lines —
+   cards 3-5 stay grey there; the «by yourselves» backing (3:48+) stays
+   unguided on purpose — the class sings from memory. Manual taps still work
+   while paused/muted (during playback the sync owns the cards). */
+const au=document.querySelector('audio');
+const chantCards=[...document.querySelectorAll('.line-card')];
+const ROUNDS=[
+ {t:[17.57,19.25,21.84,25.14,27.00,29.35,33.20,35.45,37.12,39.33,41.12,45.12], c:[0,1,2,3,4,5,6,7,8,9,10,11]},
+ {t:[62.84,67.27,71.80,79.42,82.51,88.12,95.56,100.04,104.52,108.23,111.60,120.00], c:[0,1,2,3,4,5,6,7,8,9,10,11]},
+ {t:[142.96,144.97,147.04,151.74,154.78,157.47,160.40,163.28,172.21], c:[0,1,2,6,7,8,9,10,11]},
+ {t:[181.44,185.94,189.72,197.11,202.44,206.34,210.96,213.70,222.04], c:[0,1,2,6,7,8,9,10,11]}
+];
+function syncLit(){
+  const t=au.currentTime;
+  let r=null;
+  for(const R of ROUNDS){ if(t>=R.t[0]-0.25) r=R; }
+  if(!r)return;                      /* before the first round — nothing to sync */
+  const on=new Set();
+  r.t.forEach((tt,i)=>{ if(t>=tt-0.15) on.add(r.c[i]); });
+  chantCards.forEach((c,i)=>c.classList.toggle('on', on.has(i)));
+}
+au.addEventListener('timeupdate',syncLit);
+au.addEventListener('seeked',syncLit);
+au.addEventListener('playing',syncLit);
 </script>
 
 <script>
