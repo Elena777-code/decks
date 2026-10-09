@@ -151,23 +151,26 @@ h1.title{
 }
 .phone.bye .phone-pic,.phone.bye .phone-hint{display:none}
 .sheet{display:grid;grid-template-columns:1fr 1fr;gap:clamp(6px,1.1vh,12px);width:min(94vw,100%)}
-.match{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(8px,1.4vh,18px);width:min(94vw,100%)}
-.mcol{display:flex;flex-direction:column;gap:clamp(5px,.9vh,10px)}
+.match{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(12px,2vh,26px);width:min(96vw,100%);align-items:start}
+#m-pics{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,1.3vh,16px)}
+#m-txts{display:flex;flex-direction:column;gap:clamp(6px,1vh,12px)}
 .mpic,.mtxt{
-  background:var(--white);border-radius:14px;box-shadow:var(--shadow);
-  display:flex;align-items:center;gap:clamp(6px,1vw,12px);
-  padding:clamp(3px,.7vh,7px) clamp(8px,1vw,14px);
-  cursor:pointer;user-select:none;
+  background:var(--white);border-radius:24px;box-shadow:var(--shadow);
+  cursor:pointer;user-select:none;overflow:hidden;
   transition:transform .15s cubic-bezier(.34,1.56,.64,1),box-shadow .15s ease,opacity .2s ease;
 }
-.mpic{justify-content:center}
-.mpic svg{width:clamp(2.4rem,5vh,3.4rem);height:clamp(2.4rem,5vh,3.4rem)}
-.mtxt{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.9rem,1.9vh,1.45rem);line-height:1.15;color:var(--ink)}
-.mpic:hover,.mtxt:hover{transform:translateY(-2px)}
-.msel{box-shadow:0 0 0 4px var(--peach),var(--shadow);transform:scale(1.03)}
-.mdone{box-shadow:0 0 0 4px var(--mint),var(--shadow);opacity:.62;pointer-events:none}
+.mpic svg{width:100%;height:auto;display:block}
+.mtxt{
+  font-family:'Fredoka',sans-serif;font-weight:700;text-align:center;
+  font-size:clamp(1.35rem,3.3vh,2.2rem);line-height:1.1;color:var(--pink);
+  padding:clamp(8px,1.3vh,15px) clamp(10px,1.2vw,18px);
+}
+.mpic:hover,.mtxt:hover{transform:translateY(-3px)}
+.msel{box-shadow:0 0 0 5px var(--peach),var(--shadow);transform:scale(1.03)}
+.mdone{box-shadow:0 0 0 5px var(--mint),var(--shadow);opacity:.55;pointer-events:none}
+.mpic.mdone svg{filter:saturate(.35)}
 .mbad{animation:mshake .32s ease}
-@keyframes mshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@keyframes mshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 .sheet-card{
   background:var(--white);border-radius:18px;box-shadow:var(--shadow);
   padding:clamp(6px,1.2vh,12px) clamp(8px,1.2vw,16px);
@@ -729,7 +732,7 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 <!-- 1-4 · THE FOUR ROUNDS — each line fills a phone-screen, driven by the track -->
 <section class="slide stage-slide" data-notes="PREP: a PENCIL per child. PART 1 «Listen» (0:41 — the whole chant): PRESS PLAY — each line fills the phone by itself; «Write, draw, tap-tap-tap» shows word by word (tap = the rubber end!). The class just WATCHES and LISTENS. When the part ends, the deck flips to «Listen and repeat» by itself.">
   <div class="eyebrow reveal-el">🎧 Round 1 · the first song</div>
-  <div class="stamp">build 2026-10-09 · v11 · matching game</div>
+  <div class="stamp">build 2026-10-09 · v11.1 · big matching cards</div>
   <h1 class="title reveal-el">Listen 👂</h1>
   <div class="phone reveal-el" data-round="0">
     <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
