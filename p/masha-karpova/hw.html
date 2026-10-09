@@ -129,8 +129,10 @@ details.deck>summary{cursor:pointer;font-weight:800;color:var(--sage-deep);backg
 details.deck>summary::-webkit-details-marker{display:none}
 details.deck>summary:hover{border-color:var(--sage);background:var(--sage-soft)}
 details.deck[open]>summary{border-color:var(--sage);border-bottom:none;border-radius:14px 14px 0 0}
-details.deck .card{border-radius:0 0 14px 14px;border-top:none}
-details.deck .card + .card{border-radius:0;border-bottom:1px solid var(--line)}
+details.deck>.card{border-radius:0 0 14px 14px;border-top:none}
+details.deck>.card + .card{border-radius:0;border-bottom:1px solid var(--line)}
+#older-hw>details{margin:0 .9em .9em}
+#older-hw>details>summary{border-radius:14px}
 /* the homework stack: one collapsed card per deck (the KB1 look, in English) */
 details.hwk{background:var(--card);border:1px solid var(--line);border-radius:18px;
   padding:0;margin:0}
@@ -182,7 +184,9 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     </div>
   </details>
 
-  <details class="hwk" id="hw-sep30" hidden>
+  <details class="deck" id="older-hw">
+    <summary>📌 Older homework</summary>
+  <details class="hwk" id="hw-sep30">
     <summary>
       <span class="t">Still due · from 30 September 🎙</span>
       <span class="s">the retell · two Wh- questions · three words · repair your sentences</span>
@@ -199,7 +203,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     </div>
   </details>
 
-  <details class="deck" id="bs-hw" hidden>
+  <details class="deck" id="bs-hw">
     <summary>🎙 “Bright sparks!” homework — the article &amp; the seven words</summary>
   <div class="card hwcard" id="article-oct7">
     <div class="no">This week · read</div>
@@ -258,7 +262,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
   </div>
   </details>
 
-  <details class="deck" id="drill-deck" hidden>
+  <details class="deck" id="drill-deck">
     <summary>🔧 The drill — your missed cards come back first</summary>
   <div class="card" id="start-card">
     <p class="rules">Three games + your sentences.<br>
@@ -297,7 +301,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
   </div>
   </details>
 
-  <details class="deck" id="sep30-board" hidden>
+  <details class="deck" id="sep30-board">
     <summary>🗂 The 30 September board — still due</summary>
   <div class="card hwcard" id="speak-card">
     <div class="no">From 30 September · speak &amp; write</div>
@@ -387,9 +391,8 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     </ul>
   </div>
   </details>
+  </details>
 </main>
-
-<div class="archive-note">Older homework stays below as the list grows 📌</div>
 
 <footer>Masha K. · English · one permanent link — bookmark it ⭐</footer>
 
