@@ -131,6 +131,24 @@ details.deck>summary:hover{border-color:var(--sage);background:var(--sage-soft)}
 details.deck[open]>summary{border-color:var(--sage);border-bottom:none;border-radius:14px 14px 0 0}
 details.deck .card{border-radius:0 0 14px 14px;border-top:none}
 details.deck .card + .card{border-radius:0;border-bottom:1px solid var(--line)}
+/* the homework stack: one collapsed card per deck (the KB1 look, in English) */
+details.hwk{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:0;margin:0}
+details.hwk>summary{cursor:pointer;list-style:none;padding:clamp(.9rem,2.4vw,1.2rem) clamp(1rem,3vw,1.4rem);
+  position:relative}
+details.hwk>summary::-webkit-details-marker{display:none}
+details.hwk>summary::after{content:"▾";position:absolute;right:1.1em;top:50%;
+  transform:translateY(-50%);color:var(--sub);font-size:1.1em;transition:transform .2s}
+details.hwk[open]>summary::after{transform:translateY(-50%) rotate(180deg)}
+details.hwk>summary .t{display:block;font-family:'Lora',Georgia,serif;font-weight:700;
+  font-size:clamp(1.15rem,2.6vw,1.45rem);line-height:1.3;color:var(--ink)}
+details.hwk>summary .s{display:block;margin-top:.25em;font-size:clamp(.88rem,1.8vw,.98rem);
+  color:var(--sub);line-height:1.5;padding-right:2em}
+details.hwk>.body{padding:0 clamp(1rem,3vw,1.4rem) clamp(1rem,2.6vw,1.3rem);
+  display:flex;flex-direction:column;gap:.65em}
+.trow{display:flex;gap:.7em;align-items:baseline;flex-wrap:wrap;
+  font-size:clamp(.98rem,2vw,1.12rem);line-height:1.5}
+.trow .no{font-weight:800;color:var(--sage-deep)}
 /* the harvest card */
 .proverb{font-family:'Lora',serif;font-style:italic;color:var(--sub);font-size:clamp(.95rem,3.6vw,1.05rem);
   margin:.1em 0 .7em;line-height:1.6}
@@ -153,25 +171,39 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
 <div class="rule"></div>
 
 <main>
-  <div class="card plan hwcard" id="plan-oct7">
-    <div class="no">Start here · homework of 7 October</div>
-    <h2>Tonight's plan</h2>
-    <p class="hint">Tap the box when it's done — the page remembers, on this device.</p>
-    <div class="plan-row" data-k="o7-wf"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel"><a href="word-formation.html?v=1" style="color:inherit;text-decoration:none">✍️ Word formation — the FIPI text</a></div></div>
-    <p class="plan-progress" id="plan-progress-oct7"></p>
-    <details class="more">
-      <summary>📚 More decks — last week &amp; extra drills</summary>
-      <div class="mbtns">
-        <a class="mbtn" href="ten-boxes.html?v=1">🧰 The Ten Boxes</a>
-        <a class="mbtn" href="#start-card" onclick="document.getElementById('start-card').scrollIntoView({behavior:'smooth'});return false">🔧 The drill</a>
-        <a class="mbtn" href="#bs-hw" onclick="var d=document.getElementById('bs-hw');d.open=true;setTimeout(function(){d.scrollIntoView({behavior:'smooth'})},50);return false">🎙 “Bright sparks!” homework</a>
-        <a class="mbtn" href="#speak-card" onclick="document.getElementById('speak-card').scrollIntoView({behavior:'smooth'});return false">🎙 Last week: retell &amp; two questions</a>
-        <a class="mbtn" href="#dict-card" onclick="document.getElementById('dict-card').scrollIntoView({behavior:'smooth'});return false">📖 Last week: the three words</a>
-        <a class="mbtn" href="#repair-card" onclick="document.getElementById('repair-card').scrollIntoView({behavior:'smooth'});return false">✍️ Last week: repair your sentences</a>
-      </div>
-    </details>
-  </div>
+  <details class="hwk" id="hw-oct7">
+    <summary>
+      <span class="t">Homework · 7 October — word formation first ✍️</span>
+      <span class="s">word formation (FIPI) · the Ten Boxes · “Bright sparks!” retell · seven new words</span>
+    </summary>
+    <div class="body">
+      <div class="trow"><span class="no">1</span><span>✍️ <b>Word formation</b> — the FIPI text, six gaps. Type, Check, Send.</span>
+        <a class="mbtn" href="word-formation.html?v=1">Open ▸</a></div>
+      <div class="trow"><span class="no">2</span><span>🧰 <b>The Ten Boxes</b> — the lesson’s words against the clock.</span>
+        <a class="mbtn" href="ten-boxes.html?v=1">Open ▸</a></div>
+      <div class="trow"><span class="no">3</span><span>🎙 <b>“Bright sparks!”</b> — read the article, retell it, write your two questions.</span>
+        <a class="mbtn" href="#bs-hw" onclick="var d=document.getElementById('bs-hw');d.open=true;setTimeout(function(){d.scrollIntoView({behavior:'smooth'})},50);return false">Open ▸</a></div>
+      <div class="trow"><span class="no">4</span><span>📚 <b>Seven new words</b> — meet them; the Ten Boxes asks them too.</span>
+        <a class="mbtn" href="#bs-hw" onclick="var d=document.getElementById('bs-hw');d.open=true;setTimeout(function(){d.scrollIntoView({behavior:'smooth'})},50);return false">Open ▸</a></div>
+    </div>
+  </details>
+
+  <details class="hwk" id="hw-sep30">
+    <summary>
+      <span class="t">Still due · from 30 September 🎙</span>
+      <span class="s">the retell · two Wh- questions · three words · repair your sentences</span>
+    </summary>
+    <div class="body">
+      <div class="trow"><span class="no">1</span><span>🎙 <b>The voice retell</b> — “Bright sparks!” in 5–6 sentences.</span>
+        <a class="mbtn" href="#speak-card" onclick="document.getElementById('speak-card').scrollIntoView({behavior:'smooth'});return false">Open ▸</a></div>
+      <div class="trow"><span class="no">2</span><span>✍️ <b>Your two written Wh- questions</b> — perfect word order.</span>
+        <a class="mbtn" href="#speak-card" onclick="document.getElementById('speak-card').scrollIntoView({behavior:'smooth'});return false">Open ▸</a></div>
+      <div class="trow"><span class="no">3</span><span>📖 <b>The three words</b> — crafting, deceive, a root.</span>
+        <a class="mbtn" href="#dict-card" onclick="document.getElementById('dict-card').scrollIntoView({behavior:'smooth'});return false">Open ▸</a></div>
+      <div class="trow"><span class="no">4</span><span>✍️ <b>Repair your sentences</b> — the six from the lessons.</span>
+        <a class="mbtn" href="#repair-card" onclick="document.getElementById('repair-card').scrollIntoView({behavior:'smooth'});return false">Open ▸</a></div>
+    </div>
+  </details>
 
   <details class="deck" id="bs-hw">
     <summary>🎙 “Bright sparks!” homework — the article &amp; the seven words</summary>
