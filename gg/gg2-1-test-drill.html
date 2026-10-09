@@ -101,13 +101,22 @@ input:focus{outline:none;border-color:var(--mint-deep)}
 .imgstrip{display:flex;gap:.3em;justify-content:center;align-items:flex-end;flex-wrap:nowrap;
   margin:.4em 0 .3em;background:#fbf9ff;border-radius:16px;padding:.5em .4em}
 .imgstrip img{width:clamp(58px,16vw,92px)}
+.reveal{margin-top:.7em}
+.reveal button{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.98rem,2.8vw,1.15rem);
+  border:none;border-radius:99px;padding:.4em 1.3em;cursor:pointer;background:var(--lavender);
+  color:var(--ink);box-shadow:var(--shadow)}
+.answers{display:none;margin-top:.6em;background:#eafbf6;border-radius:14px;padding:.7em 1em;
+  font-size:clamp(1rem,2.9vw,1.2rem);line-height:1.6}
+.reveal.open .answers{display:block;animation:pop .4s ease}
+.notebook{background:#fff8db;border-radius:14px;padding:.5em .8em;margin-top:.6em;
+  font-weight:800;font-size:clamp(.95rem,2.7vw,1.1rem);color:var(--ink-soft)}
 .warm{font-size:clamp(1.1rem,3.2vw,1.4rem);text-align:center}
 </style>
 </head>
 <body>
 
 <div class="eyebrow">Готовимся к тесту · Go Getter 1 · Unit 7 · Language Test B</div>
-<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v10</span></h1>
+<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v11</span></h1>
 <div class="accent-line"></div>
 
 <div class="notimer">🐢 Без таймера — отвечай спокойно, тут никто не торопится. Задания — как в настоящем тесте, одно за другим.</div>
@@ -119,6 +128,7 @@ input:focus{outline:none;border-color:var(--mint-deep)}
   </div>
   <div style="margin-top:.7em">
     <div class="sec" id="sec"></div>
+    <div class="notebook" id="notebook" style="display:none">📝 Это задание делается в тетради — проверим в классе!</div>
     <div class="task" id="task"></div>
     <div id="strip" class="imgstrip" style="display:none"></div>
     <div class="prompt" id="prompt"></div>
@@ -212,30 +222,21 @@ const CARDS = [
    why:'Emma = she → doesn\'t ride. She walks — она ходит пешком.'},
   {sec:3,n:'номер 4',task:'don\'t / doesn\'t',prompt:'Cats ___ a lot. (eat)',ans:["don't eat","dont eat","donteat"],norm:true,
    why:'Cats = они → don\'t eat.'},
-  /* ---------- Задание 4 · Grammar /4 (выбор вопроса) ---------- */
-  {sec:4,n:'номер 1',task:'Напиши вопрос — выбери',prompt:'A: ___ at twelve o\'clock?\nB: No, the students don\'t have lunch at twelve o\'clock.',
-   choices:['Do the students have lunch','Does the students have lunch','Do the students has lunch'],ans:0,
-   why:'The students = они → Do + have. Does и has здесь ломают правило.'},
-  {sec:4,n:'номер 2',task:'Напиши вопрос — выбери',prompt:'A: ___ early on Sundays?\nB: Yes, Lucy goes to bed early on Sundays.',
-   choices:['Does Lucy go to bed','Do Lucy goes to bed','Does Lucy goes to bed'],ans:0,
-   why:'Lucy = she → Does + go (БЕЗ -s: не goes!).'},
-  {sec:4,n:'номер 3',task:'Напиши вопрос — выбери',prompt:'A: ___?\nB: I draw pictures of flowers.',
-   choices:['What do you draw','Where do you draw','What you draw'],ans:0,
-   why:'Рисунки — это ЧТО → What do you draw? (нужен do).'},
-  {sec:4,n:'номер 4',task:'Напиши вопрос — выбери',prompt:'A: ___ in the evening?\nB: She watches TV in the evening.',
-   choices:['What does she do','What she does','What does she does'],ans:0,
-   why:'She → What does she do? После does — do без -s.'},
-  /* ---------- Задание 5 · Grammar /5 ---------- */
-  {sec:5,n:'пропуск 1',task:'Дополни диалог',prompt:'Ewa: No, I ___ but I make lunch for the family.',ans:["don't","dont"],norm:true,
-   why:'Короткий ответ: No, I don\'t.'},
-  {sec:5,n:'пропуск 2',task:'Дополни диалог',prompt:'Zac ___ (not cook) but he helps Dad in the garden.',ans:["doesn't cook","doesnt cook","doesntcook"],norm:true,
-   why:'Zac = he → doesn\'t cook.'},
-  {sec:5,n:'пропуск 3',task:'Дополни диалог',prompt:'I ___ (not help) Dad but I help Mum in the house.',ans:["don't help","dont help","donthelp"],norm:true,
-   why:'I → don\'t help.'},
-  {sec:5,n:'пропуск 4',task:'Дополни диалог',prompt:'Rob: What ___ (you / do) to relax?',ans:['do you do','do yuo do'],norm:true,
-   why:'Вопрос про тебя → What do you do?'},
-  {sec:5,n:'пропуск 5',task:'Дополни диалог',prompt:'Rob: ___ (Zac / play) computer games too?',ans:['Does Zac play','Does zac play','does zac play'],norm:true,
-   why:'Zac = he → Does Zac play? После Does — play БЕЗ -s.'},
+  /* ---------- Задание 4 · Grammar /4 — В ТЕТРАДЬ ---------- */
+  {sec:4,n:'задание 4',task:'Напиши вопросы — В ТЕТРАДЬ 📝',notebook:true,
+   html:`<p><b>A:</b> ___ at twelve o'clock?<br><b>B:</b> No, the students don't have lunch at twelve o'clock.</p>
+    <p style="margin-top:.5em"><b>A:</b> ___ early on Sundays?<br><b>B:</b> Yes, Lucy goes to bed early on Sundays.</p>
+    <p style="margin-top:.5em"><b>A:</b> ___?<br><b>B:</b> I draw pictures of flowers.</p>
+    <p style="margin-top:.5em"><b>A:</b> ___ in the evening?<br><b>B:</b> She watches TV in the evening.</p>
+    <div class="reveal"><button onclick="tg(this)">проверь себя ▾</button>
+      <div class="answers">1 Do the students have lunch · 2 Does Lucy go to bed · 3 What do you draw · 4 What does she do</div>
+    </div>`},
+  /* ---------- Задание 5 · Grammar /5 — В ТЕТРАДЬ ---------- */
+  {sec:5,n:'задание 5',task:'Дополни диалог — В ТЕТРАДЬ 📝',notebook:true,
+   html:`<p><b>Rob:</b> Hi, Ewa. Tell me about your weekend.<br><b>Ewa:</b> <b>0</b> <b>Do you get up</b> (you / get up) early?<br><b>Ewa:</b> No, I <b>1</b> ___ but I make lunch for the family.<br><b>Rob:</b> And your brother Zac?<br><b>Ewa:</b> Zac <b>2</b> ___ (not cook) but he helps Dad in the garden. That's a big job! I <b>3</b> ___ (not help) Dad but I help Mum in the house.<br><b>Rob:</b> What <b>4</b> ___ (you / do) to relax?<br><b>Ewa:</b> I play computer games with my friends.<br><b>Rob:</b> <b>5</b> ___ (Zac / play) computer games too?<br><b>Ewa:</b> Yes, he does.</p>
+    <div class="reveal"><button onclick="tg(this)">проверь себя ▾</button>
+      <div class="answers">1 don't · 2 doesn't cook · 3 don't help · 4 do you do · 5 Does Zac play</div>
+    </div>`},
   /* ---------- Задание 6 · Communication /5 ---------- */
   {sec:6,n:'номер 1',task:'Круг правильное',prompt:'B: ___ I help you?',choices:['Can','Do'],ans:0,
    why:'Can I help you? — так вежливо предлагают помощь.'},
@@ -253,7 +254,7 @@ let queue = CARDS.slice(), requeue = [], lap2 = false;
 let score = 0, firstTry = 0, missed = [], missedSec = [], locked = false, lastSec = 0;
 const boxUsed = new Set();                     /* box words already answered — grayed out */
 const usedWords = () => boxUsed;
-const total = CARDS.length;
+const total = CARDS.filter(c => !c.notebook).length;
 const el = id => document.getElementById(id);
 function norm(s){ return s.toLowerCase().trim().replace(/['’`]/g,'').replace(/\s+/g,' '); }
 function rightText(c){ return c.choices ? c.choices[c.ans] : c.ans[0]; }
@@ -275,8 +276,9 @@ function draw(){
   } else {
     el('sec').style.display = 'none';
   }
+  el('notebook').style.display = c.notebook ? 'block' : 'none';
   el('step').textContent = lap2 ? '🔁 повторим сложное · осталось ' + queue.length
-                               : 'карточка ' + (total - queue.length + 1) + ' из ' + total;
+                               : 'карточка ' + (CARDS.length - queue.length + 1) + ' из ' + CARDS.length;
   el('score').textContent = score;
   el('task').innerHTML = '<span class="itemn">' + c.n + '</span> · ' + c.task;
   el('prompt').textContent = c.prompt;
@@ -298,6 +300,21 @@ function draw(){
     st.innerHTML = ['parrot','monkey','rabbit','frog','spider'].map(k => '<img src="' + IMG[k] + '" style="height:clamp(44px,11vw,54px);width:auto" alt="">').join('');
     st.style.display = 'flex';
   } else st.style.display = 'none';
+  if (c.notebook){
+    el('task').innerHTML = '<span class="itemn">' + c.n + '</span> · ' + c.task;
+    el('prompt').innerHTML = c.html;
+    el('prompt').style.fontSize = 'clamp(1.05rem,3.2vw,1.35rem)';
+    el('hint').textContent = '';
+    el('notebook').style.display = 'block';
+    el('inrow').style.display = 'none';
+    el('choices').style.display = 'none';
+    el('fb').className = 'fb show';
+    el('verdict').textContent = '📝 Пиши в тетради — проверим в классе!';
+    el('why').textContent = 'Сделал(а)? Жми «дальше» — на тесте будут эти же вопросы.';
+    el('next').classList.add('show');
+    return;
+  }
+  el('prompt').style.fontSize = '';
   if (c.example){
     el('task').innerHTML = '<span class="itemn">' + c.n + '</span> · ' + c.task;
     el('hint').textContent = 'это пример из теста — просто читай';
@@ -365,7 +382,7 @@ function advance(){
   }
   el('play').style.display = 'none';
   el('end').style.display = 'block';
-  el('finalScore').textContent = '⭐ ' + firstTry + ' из ' + total + ' с первого раза!';
+  el('finalScore').textContent = '⭐ ' + firstTry + ' из ' + total + ' с первого раза! (плюс задания в тетради)';
   const missEl = el('missBox');
   if (firstTry === total){
     missEl.innerHTML = '<div class="nomiss">Ни одной ошибки — ты готов(а) к тесту! 🏆</div>';
@@ -379,6 +396,8 @@ function advance(){
     missEl.innerHTML = '<div class="misses">📝 <b>Запиши в тетрадь и повтори:</b><br>' + rows.join('<br>') + '</div>';
   }
 }
+function tg(btn){ btn.parentElement.classList.toggle('open');
+  btn.textContent = btn.parentElement.classList.contains('open') ? 'проверь себя ▴' : 'проверь себя ▾'; }
 el('check').onclick = check;
 el('inp').addEventListener('keydown', e => { if (e.key === 'Enter' && !locked) check(); });
 el('next').onclick = advance;
