@@ -238,10 +238,10 @@ const CARDS = [
   /* ---------- Задание 4 · Grammar /4 — В ТЕТРАДЬ ---------- */
   {sec:4,n:'задание 4',task:'Напиши вопросы — В ТЕТРАДЬ 📝, потом впиши сюда',notebook:true,
    html:`<input class="nbin nbname" placeholder="Твоё имя ✏️">
-    <p style="margin-top:.5em"><b>A:</b> <input class="nbin nba" style="width:100%" data-ok="do the students have lunch" placeholder="1 — вопрос…"></p>
-    <p style="margin-top:.5em"><b>A:</b> <input class="nbin nba" style="width:100%" data-ok="does lucy go to bed early on sundays" placeholder="2 — вопрос…"></p>
-    <p style="margin-top:.5em"><b>A:</b> <input class="nbin nba" style="width:100%" data-ok="what do you draw" placeholder="3 — вопрос…"></p>
-    <p style="margin-top:.5em"><b>A:</b> <input class="nbin nba" style="width:100%" data-ok="what does she do in the evening" placeholder="4 — вопрос…"></p>
+    <p style="margin-top:.5em"><b>A:</b> <input class="nbin nba" style="width:100%" data-ok="do the students have lunch" data-show="Do the students have lunch at twelve o'clock?" placeholder="1 — вопрос…"></p>
+    <p style="margin-top:.5em"><b>A:</b> <input class="nbin nba" style="width:100%" data-ok="does lucy go to bed early on sundays" data-show="Does Lucy go to bed early on Sundays?" placeholder="2 — вопрос…"></p>
+    <p style="margin-top:.5em"><b>A:</b> <input class="nbin nba" style="width:100%" data-ok="what do you draw" data-show="What do you draw?" placeholder="3 — вопрос…"></p>
+    <p style="margin-top:.5em"><b>A:</b> <input class="nbin nba" style="width:100%" data-ok="what does she do in the evening" data-show="What does she do in the evening?" placeholder="4 — вопрос…"></p>
     <div class="answers" style="display:none;margin-top:.6em">
       <span class="ansline">1 Do the students have lunch at twelve o'clock?</span>
       <span class="ansline">2 Does Lucy go to bed early on Sundays?</span>
@@ -440,7 +440,7 @@ function gradeNB(btn){
       wrong.push(i.placeholder || '?');
       const dl = document.createElement('span');
       dl.className = 'ansline';
-      dl.textContent = 'Правильно: ' + (i.dataset.ok || '').split('|')[0];
+      dl.textContent = 'Правильно: ' + (i.dataset.show || (i.dataset.ok || '').split('|')[0]);
       i.after(dl);
     }
   });
