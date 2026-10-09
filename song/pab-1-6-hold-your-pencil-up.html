@@ -150,6 +150,14 @@ h1.title{
   font-size:clamp(.95rem,2.4vh,1.5rem);color:var(--mint-deep);letter-spacing:.04em;
 }
 .phone.bye .phone-pic,.phone.bye .phone-hint{display:none}
+.sheet{display:grid;grid-template-columns:1fr 1fr;gap:clamp(6px,1.1vh,12px);width:min(94vw,100%)}
+.sheet-card{
+  background:var(--white);border-radius:18px;box-shadow:var(--shadow);
+  padding:clamp(6px,1.2vh,12px) clamp(8px,1.2vw,16px);
+  display:flex;align-items:center;gap:clamp(8px,1.2vw,16px);
+}
+.sheet-card svg{width:clamp(2.6rem,5.4vh,3.6rem);height:clamp(2.6rem,5.4vh,3.6rem);flex:0 0 auto}
+.sheet-card .t{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.9rem,1.9vh,1.45rem);line-height:1.2;color:var(--ink)}
 .phone-count{
   position:absolute;top:4%;right:6%;width:30%;aspect-ratio:1;border-radius:50%;
   background:#FFFFFF;box-shadow:0 8px 22px rgba(45,52,54,.2);
@@ -704,7 +712,7 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 <!-- 1-4 · THE FOUR ROUNDS — each line fills a phone-screen, driven by the track -->
 <section class="slide stage-slide" data-notes="PREP: a PENCIL per child. PART 1 «Listen» (0:41 — the whole chant): PRESS PLAY — each line fills the phone by itself; «Write, draw, tap-tap-tap» shows word by word (tap = the rubber end!). The class just WATCHES and LISTENS. When the part ends, the deck flips to «Listen and repeat» by itself.">
   <div class="eyebrow reveal-el">🎧 Round 1 · the first song</div>
-  <div class="stamp">build 2026-10-09 · v9.2 · the pictures open every slide</div>
+  <div class="stamp">build 2026-10-09 · v10 · illustrated lyrics</div>
   <h1 class="title reveal-el">Listen 👂</h1>
   <div class="phone reveal-el" data-round="0">
     <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
@@ -745,17 +753,24 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 
 
 
-<section class="slide stage-slide" data-notes="PART 4 «Now sing by yourselves» (0:41): the part opens with the cue — the phone shows the sing card — then the PICTURES run as the guide and the class sings from memory (no pencils needed). NOTE: the backing has no words, so the picture timing is an even spread, not word-checked. When the part ends, the deck flips to the Wi-Fi slide.">
-  <div class="eyebrow reveal-el">🎵 Part 4</div>
+<section class="slide stage-slide" data-notes="PART 4 «Now sing by yourselves» (0:41 — the cue + the backing): PRESS PLAY — the class sings the whole chant with the pictures. The backing has no words, so the pictures don't move with the music — they show ALL the lyrics at once, and the class paces itself. The chant here is the FULL version (with «put it down again» twice), exactly as taught in rounds 1-2. When the part ends, the deck flips to the Wi-Fi slide.">
+  <div class="eyebrow reveal-el">🎵 Part 4 · by yourselves</div>
   <h1 class="title reveal-el">By yourselves! 🎤</h1>
-  <div class="phone reveal-el bye" data-round="3">
-    <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-stand"/></svg></div>
-    <div class="phone-word"></div>
-    <div class="phone-count" aria-hidden="true"></div>
-    <div class="phone-line">Now sing by yourselves! 🎵</div>
-    <div class="phone-hint">🎤 you sing!</div>
+  <div class="task reveal-el">🎯 Play the music — sing the whole chant with the pictures!</div>
+  <div class="sheet reveal-el">
+    <div class="sheet-card"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg><span class="t">Hold your pencil up.</span></div>
+    <div class="sheet-card"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg><span class="t">Hold your pencil up.</span></div>
+    <div class="sheet-card"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-write-word"/></svg><span class="t">Write, draw, tap, tap, tap.</span></div>
+    <div class="sheet-card"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-put-down"/></svg><span class="t">Put it down again.</span></div>
+    <div class="sheet-card"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-put-down"/></svg><span class="t">Put it down again.</span></div>
+    <div class="sheet-card"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-write-word"/></svg><span class="t">Write, draw, tap, tap, tap.</span></div>
+    <div class="sheet-card"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-board"/></svg><span class="t">Point to the blackboard.</span></div>
+    <div class="sheet-card"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-floor"/></svg><span class="t">Point to the floor.</span></div>
+    <div class="sheet-card"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-window"/></svg><span class="t">Point to the window.</span></div>
+    <div class="sheet-card"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-door"/></svg><span class="t">Point to the door.</span></div>
+    <div class="sheet-card"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-clap"/></svg><span class="t">Clap your hands together 1, 2, 3.</span></div>
+    <div class="sheet-card"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-stand"/></svg><span class="t">Now stand up and sing with me.</span></div>
   </div>
-  <div class="dots reveal-el" data-round="3"></div>
 </section>
 
 <!-- 2 · WI-FI -->
@@ -986,22 +1001,7 @@ const PARTS=[
   [85.19,'pab-clap','Clap your hands together 1, 2, 3.','👏 three!',3],
   [87.00,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!'],
  ]},
- {slide:3,au:'#part4',m:[
-  [6.00,'pab-hold-up','Hold your pencil up.','✋ pencil HIGH!'],
-  [8.30,'pab-hold-up','Hold your pencil up.','✋ pencil HIGH!'],
-  [10.60,'pab-write-word','Write, draw.','✍️ write!'],
-  [12.90,'pab-draw-word','Write, draw.','✏️ draw!'],
-  [15.20,'pab-tap-word','Tap, tap, tap.','👆 the rubber end!'],
-  [17.50,'pab-board','Point to the blackboard.','👉 point!'],
-  [19.80,'pab-floor','Point to the floor.','👇 point DOWN.'],
-  [22.10,'pab-window','Point to the window.','👉 point!'],
-  [24.40,'pab-door','Point to the door.','👉 point!'],
-  [26.70,'pab-clap','Clap your hands together 1, 2, 3.','👏 clap!'],
-  [29.00,'pab-clap','Clap your hands together 1, 2, 3.','👏 one!',1],
-  [31.30,'pab-clap','Clap your hands together 1, 2, 3.','👏 two!',2],
-  [33.60,'pab-clap','Clap your hands together 1, 2, 3.','👏 three!',3],
-  [35.90,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!'],
- ]}
+
 ];
 const WORDS={
  'pab-hold-up':'UP!','pab-put-down':'DOWN!','pab-write-word':'WRITE!','pab-draw-word':'DRAW!',
@@ -1045,7 +1045,6 @@ function tickPart(r){
   var idx=-1;
   r.m.forEach((mm,i)=>{ if(t>=mm[0]-0.12) idx=i; });
   if(idx<0)return;
-  if(r.slide===3 && t<6.0)return;      /* part 4: the sing card holds till the backing starts */
   if(r.phone.classList.contains('bye')){r.phone.classList.remove('bye');r.last=-2;}
   paint(r,idx);
 }
@@ -1055,6 +1054,7 @@ rounds.forEach(r=>{
   r.au.addEventListener('playing',stageTick);
   r.au.addEventListener('ended',()=>show(r.slide+1));
 });
+document.getElementById('part4').addEventListener('ended',()=>show(4));
 /* the robust driver: while a part is PLAYING, a steady interval keeps the
    stage with the audio even when the pane is backgrounded (pages playing
    audio are exempt from browser timer throttling) — timeupdate alone can
