@@ -101,6 +101,51 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 .pick.good{border-color:var(--mint);background:var(--mint);color:#fff;pointer-events:none}
 .pick.bad{border-color:var(--stamp);background:var(--stamp-soft);color:var(--stamp)}
 /* the food cards — tap a card → the word appears (the memory check) */
+/* ===== the 📘 grammar task overlay (opens from the scale slides; the way back is always visible) ===== */
+.gt-open-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.9rem,1.5vw,1.2rem);
+  padding:.4em 1.2em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--mint),var(--sky));box-shadow:0 5px 14px rgba(34,48,63,.15);
+  transition:transform .15s ease}
+.gt-open-btn:hover{transform:scale(1.05)}
+#grtask{position:fixed;inset:0;z-index:300;background:var(--paper);overflow:auto;display:none;padding:4vh 5vw 8vh}
+#grtask.on{display:block;animation:rise .25s both}
+#grtask .gt-back{position:fixed;top:2vh;right:max(10px,3vw);z-index:310;
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);
+  padding:.5em 1.4em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--stamp),var(--cheese));box-shadow:var(--shadow-lg)}
+#grtask .gt-back:hover{transform:scale(1.05)}
+#grtask .gt-inner{max-width:880px;margin:0 auto}
+#grtask .eyebrow{margin-bottom:.4em}
+#grtask h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.9rem,4.2vw,3.4rem);line-height:1.05;margin-bottom:.4em}
+#grtask .accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1.2em}
+#grtask .card{background:var(--white);border-radius:22px;box-shadow:var(--shadow);padding:clamp(1rem,2vw,1.6rem);max-width:880px;margin:0 auto 1.2em}
+#grtask .task{font-family:'Fredoka';font-weight:500;background:var(--cheese-soft);border-radius:14px;padding:.6em 1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.35rem)}
+#grtask .task::before{content:"🎯 "}
+#grtask .hintline{font-size:clamp(.85rem,1.3vw,1.05rem);color:var(--ink-soft);font-style:italic}
+#grtask .gt-bank{display:flex;flex-wrap:wrap;gap:.5em;justify-content:center}
+#grtask .bword{font-family:'Fredoka';font-weight:600;font-size:clamp(1.05rem,1.8vw,1.45rem);border:2.5px solid var(--sky);background:var(--white);color:var(--navy);border-radius:99px;padding:.3em 1.1em;cursor:pointer;transition:all .15s ease;box-shadow:0 4px 10px rgba(34,48,63,.08)}
+#grtask .bword:hover{transform:translateY(-3px);border-color:var(--navy)}
+#grtask .bword.sel{background:var(--navy);color:#fff;border-color:var(--navy)}
+#grtask .bword.used{opacity:.25;pointer-events:none}
+#grtask .srow{display:flex;align-items:center;gap:.7em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.6em 1em;margin-bottom:.55em;flex-wrap:wrap}
+#grtask .srow .num{flex-shrink:0;width:1.9em;height:1.9em;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:#fff}
+#grtask .srow .txt{flex:1;font-size:clamp(1.1rem,1.9vw,1.5rem);line-height:1.5;min-width:200px}
+#grtask .slot{display:inline-flex;align-items:center;justify-content:center;min-width:8em;min-height:1.6em;border-bottom:4px solid var(--sky);background:#F0F6FC;border-radius:8px 8px 0 0;cursor:pointer;font-family:'Fredoka';font-weight:700;color:var(--navy);padding:.05em .5em;transition:all .15s ease}
+#grtask .slot:hover{background:var(--cheese-soft)}
+#grtask .slot.filled{border-bottom-color:var(--mint);background:#EAF6F1}
+#grtask .slot.wrong{border-bottom-color:var(--stamp);background:var(--stamp-soft)}
+@keyframes gshake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.shake{animation:shake .45s ease}
+#grtask .gt-check{font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1.6em;border:none;border-radius:99px;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--navy),var(--sky));box-shadow:var(--shadow)}
+#grtask .gt-check:hover{transform:scale(1.05)}
+#grtask .scale{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;max-width:1000px;margin:0 auto}
+#grtask .gstep{flex:1;min-width:130px;max-width:190px;background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:.6em .5em;text-align:center}
+#grtask .gstep .gw{font-family:'Fredoka';font-weight:700;font-size:clamp(1rem,1.7vw,1.4rem);color:var(--navy)}
+#grtask .gstep .week{display:flex;gap:.2em;justify-content:center;margin:.35em 0}
+#grtask .gstep .week i{width:.8em;height:.8em;border-radius:50%;border:2.5px solid var(--sky);display:inline-block}
+#grtask .gstep .week i.f{background:var(--mint);border-color:var(--mint)}
+#grtask .gstep .days{font-size:clamp(.8rem,1.2vw,.95rem);color:var(--ink-soft)}
+#grtask .gt-done{position:fixed;bottom:3vh;left:50%;transform:translateX(-50%);background:var(--white);border-radius:99px;box-shadow:var(--shadow-lg);padding:.5em 1.6em;font-family:'Fredoka';font-weight:700;font-size:clamp(1rem,1.7vw,1.35rem);color:var(--navy)}
 .subjgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6em;max-width:1020px;margin:0 auto;width:100%}
 .subj{background:var(--white);border-radius:16px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.5em .45em .55em;cursor:pointer;text-align:center;transition:transform .15s ease}
 .subj:hover{transform:translateY(-3px)}
@@ -466,7 +511,7 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
 
 <!-- 1 · teacher's list -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 2 · teacher's list · build 07.10 · v6 + 🤔 I-wonder link</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 2 · teacher's list · build 08.10 · v8 · full + 🤔 I-wonder link</div>
     <h1 class="title reveal">Are You a Healthy Eater? 🥦</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
@@ -530,7 +575,8 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
     </div>
     </div>
     <div class="row reveal mt" style="align-items:flex-start;gap:1.2em;max-width:1000px;margin:.5em auto 0;width:100%">
-      <div class="card vidcard nofvid" style="flex:1;min-width:280px;padding:.6em">
+      <div class="card vidcard" style="flex:1;min-width:280px;padding:.6em">
+        <video controls preload="metadata" src="media/ch2-market.mp4" onerror="this.closest('.vidcard').classList.add('nofvid')"></video>
         <div class="vfall card cheese" style="padding:.8em 1em"><p style="font-size:clamp(1.05rem,1.7vw,1.4rem)">🎬 <b>The market walk</b> — the clip plays in the lesson (your teacher has it!). Fresh fruit and fresh vegetables come from places like this! 🥕🍓</p></div>
         <p class="hintline center" style="margin-top:.3em">a real fruit &amp; vegetable market · ~60 s</p>
       </div>
@@ -541,7 +587,8 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
       </div>
     </div>
     <p class="hintline reveal mt center">now close your eyes 🙈 — tap a card and say the word!</p>
-  </section>
+  <div class="center reveal mt" style="margin-top:.8em"><button class="gt-open-btn" data-gt="1">📘 the frequency task — open it here!</button></div>
+</section>
 
 <!-- 4 · the food scale — teach -->
 <section class="slide" id="r4">
@@ -561,7 +608,8 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
       <p class="mt hintline">the whole family lives on the scale: never · hardly ever · rarely · sometimes · <b>once in a while</b> · often · <b>frequently</b> · usually · always · <b>all the time</b> — the quiz uses them ALL — spot them! 🔎</p>
     </div>
     <p class="hintline reveal mt center">tap a step — say its sentence aloud!</p>
-  </section>
+  <div class="center reveal mt" style="margin-top:.8em"><button class="gt-open-btn" data-gt="1">📘 the frequency task — open it here!</button></div>
+</section>
 
 <!-- 5 · the food scale — the game (book task A) -->
 <section class="slide" id="r5">
@@ -713,7 +761,8 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
         <div class="center"><span class="mychip" id="chip-A">your answer: …</span></div>
         <div class="center"><button class="trk-btn" data-audio="a">🎧 question A (0:25) — play it again!</button></div>
       </div>
-      <div class="card vidcard nofvid" style="flex:1;min-width:260px;padding:.6em">
+      <div class="card vidcard" style="flex:1;min-width:260px;padding:.6em">
+        <video controls preload="metadata" src="media/ch2-breakfast.mp4" onerror="this.closest('.vidcard').classList.add('nofvid')"></video>
         <div class="vfall card cheese" style="padding:.8em 1em"><p style="font-size:clamp(1.05rem,1.7vw,1.4rem)">🎬 <b>A healthy breakfast</b> — the clip plays in the lesson (your teacher has it!). What would YOU make? 🥣</p></div>
         <p class="hintline center" style="margin-top:.3em">a real healthy breakfast · ~60 s</p>
       </div>
@@ -755,7 +804,8 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
     <h1 class="title reveal">C · Do you eat junk food? 🍩</h1>
     <div class="accent-line reveal"></div>
     <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
-      <div class="card vidcard nofvid" style="flex:1;min-width:260px;padding:.6em">
+      <div class="card vidcard" style="flex:1;min-width:260px;padding:.6em">
+        <video controls preload="metadata" src="media/ch2-junk.mp4" onerror="this.closest('.vidcard').classList.add('nofvid')"></video>
         <div class="vfall card cheese" style="padding:.8em 1em"><p style="font-size:clamp(1.05rem,1.7vw,1.4rem)">🎬 <b>Junk food vs fresh food</b> — the clip plays in the lesson (your teacher has it!). Which plate would YOU take? 🍩🥗</p></div>
         <p class="hintline center" style="margin-top:.3em">junk vs fresh · ~60 s</p>
       </div>
@@ -1313,6 +1363,44 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
   </section>
 
 <!-- the fullscreen quiz text -->
+<!-- the 📘 grammar task overlay — the way back is always top right -->
+<style>#annoBtn{display:none!important}</style>
+<div id="grtask">
+  <button class="gt-back" id="gt-back">◀ back to the lesson</button>
+  <div class="gt-inner">
+    <div class="eyebrow">how often? — the frequency words · the grammar page</div>
+    <h1>How often? 📏</h1>
+    <div class="accent-line"></div>
+    <div class="card">
+      <span class="task">Tap a word → tap YOUR gap. One word per sentence!</span>
+      <p class="hintline mt">the words come from the scale 👇</p>
+      <div class="gt-bank mt" id="gt-bank"></div>
+    </div>
+    <div class="card" id="gt-sentences">
+      <div class="srow"><span class="num">1</span><span class="txt">I <span class="slot" data-ok="always">___</span> eat breakfast — every single morning! 🍳</span></div>
+      <div class="srow"><span class="num">2</span><span class="txt">I <span class="slot" data-ok="hardly ever">___</span> eat junk food — maybe once a month, no more. 🍩</span></div>
+      <div class="srow"><span class="num">3</span><span class="txt">We watch films together <span class="slot" data-ok="sometimes">___</span> — about twice a week. 🎬</span></div>
+      <div class="srow"><span class="num">4</span><span class="txt">Our family <span class="slot" data-ok="usually">___</span> has dinner together in the evening. 🍽️</span></div>
+      <div class="srow"><span class="num">5</span><span class="txt">He <span class="slot" data-ok="never">___</span> drinks fizzy drinks — water only! 💧</span></div>
+    </div>
+    <div style="text-align:center;margin:1.2em 0">
+      <button class="gt-check" id="gt-check">✅ check my sentences!</button>
+    </div>
+    <div class="card">
+      <p style="font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1.05rem,1.8vw,1.4rem);margin-bottom:.5em">The scale — frequency = days per week 📅</p>
+      <div class="scale">
+        <div class="gstep"><div class="gw">never</div><div class="week"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="days">0 of 7</div></div>
+        <div class="gstep"><div class="gw">sometimes</div><div class="week"><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i></i></div><div class="days">2 of 7</div></div>
+        <div class="gstep"><div class="gw">often</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i></div><div class="days">4 of 7</div></div>
+        <div class="gstep"><div class="gw">usually</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div><div class="days">6 of 7</div></div>
+        <div class="gstep"><div class="gw">always</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div><div class="days">7 of 7!</div></div>
+      </div>
+      <p class="hintline center mt">+ one more from the quiz: <b>hardly ever</b> = almost never</p>
+    </div>
+  </div>
+  <div class="gt-done" id="gt-done" style="display:none">Great job! 🎉</div>
+</div>
+
 <div id="fsstory">
   <div class="fs-card">
     <span class="tag">tap anywhere to close</span>
@@ -1332,7 +1420,6 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
 
 </main>
 
-<button id="annoBtn" title="lesson notes — tick + comments (N)">✍️</button>
 <button id="pqBtn" title="Pardon? — the class phrases (P)">🙋</button>
 
 <div id="pq">
@@ -1346,7 +1433,7 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
   <div class="pqRow"><span class="pqE">🤷</span>I don't understand.</div>
 </div>
 
-<div id="anno">
+<div id="anno" style="display:none">
   <div class="a-head">
     <span id="annoSlide">slide 1</span><span class="a-sp"></span>
     <button id="annoPrev" title="annotate the previous slide (the deck stays where it is)">‹</button>
@@ -1368,7 +1455,7 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
   </div>
 </div>
 
-<div id="annoRep">
+<div id="annoRep" style="display:none">
   <div class="a-rep-card">
     <div class="a-head"><b>lesson report</b><span class="a-sp"></span><button id="annoRepClose">✕</button></div>
     <textarea id="annoRepText" readonly></textarea>
@@ -1392,7 +1479,7 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
   <div id="counter"><span class="now">1</span> / 34</div>
   <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
   <button id="fs-btn" title="Fullscreen (F)">⛶</button>
-    <a id="iw-btn" href="https://elena777-code.github.io/decks/i-wonder/big-numbers.html" title="I wonder — big numbers side trip (⬅ returns here)">🤔</a>
+    <a id="iw-btn" href="../../../../I%20wonder/big-numbers.html" title="I wonder — big numbers side trip (⬅ returns here)">🤔</a>
 </div>
 
 <script>
@@ -1434,6 +1521,7 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
     const scr = slides[current];
     const canScroll = scr.scrollHeight > scr.clientHeight + 2;
     if(e.key==='Escape'){
+      if(document.getElementById('grtask').classList.contains('on')){document.getElementById('grtask').classList.remove('on');return}
       if(annoRep.classList.contains('on')){annoRep.classList.remove('on');return}
       if(annoPanel.classList.contains('on')){annoToggle(false);return}
       pqPanel.classList.remove('on');return}
@@ -1707,7 +1795,7 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
   /* ===== the chapter audio — the full track + the ten cuts.
      Space pauses the track, not the slide; the slide change pauses the audio. ===== */
   window.currentTrkAudio=null; let currentTrkBtn=null;
-  const AUDIO_URL='media/sr_elem_ch02.mp3';
+  const AUDIO_URL='media/sr-elem-ch02.mp3';
   const CUTS={
     intro:'media/ch2-intro.m4a',
     a:'media/ch2-a-breakfast.m4a',
@@ -2074,6 +2162,64 @@ h1.title{font-size:clamp(1.6rem,3.4vw,2.9rem)}
 
   /* the write-in quiz inputs (just honest fields — no grading) */
   document.querySelectorAll('.writein input').forEach(i=>{ i.spellcheck=false; });
+
+  /* ===== the 📘 grammar task overlay (the frequency words) ===== */
+  const gtPanel=document.getElementById('grtask');
+  const GT_WORDS=['always','usually','often','sometimes','hardly ever','never'];
+  let gtSel=null;
+  function gtBuild(){
+    const bank=document.getElementById('gt-bank');
+    bank.innerHTML='';
+    GT_WORDS.forEach(w=>{
+      const b=document.createElement('button');
+      b.className='bword'; b.dataset.w=w; b.textContent=w;
+      b.addEventListener('click',()=>{
+        if(b.classList.contains('used')) return;
+        bank.querySelectorAll('.bword').forEach(x=>x.classList.remove('sel'));
+        b.classList.add('sel'); gtSel=b;
+      });
+      bank.appendChild(b);
+    });
+    document.querySelectorAll('#gt-sentences .slot').forEach(s=>{
+      s.classList.remove('filled','wrong'); s.textContent='___'; delete s.dataset.filled;
+      s.onclick=()=>{
+        if(s.classList.contains('filled')){
+          const old=Array.from(bank.children).find(b=>b.dataset.w===s.dataset.filled);
+          if(old) old.classList.remove('used');
+          s.textContent='___'; s.classList.remove('filled','wrong'); delete s.dataset.filled;
+          return;
+        }
+        if(!gtSel) return;
+        s.textContent=gtSel.dataset.w; s.dataset.filled=gtSel.dataset.w; s.classList.add('filled');
+        s.classList.remove('wrong');
+        gtSel.classList.add('used'); gtSel.classList.remove('sel');
+        gtSel=null;
+      };
+    });
+    document.getElementById('gt-done').style.display='none';
+  }
+  document.querySelectorAll('.gt-open-btn').forEach(b=>{
+    b.addEventListener('click',()=>{ gtBuild(); gtPanel.classList.add('on'); });
+  });
+  document.getElementById('gt-back').addEventListener('click',()=>gtPanel.classList.remove('on'));
+  document.getElementById('gt-check').addEventListener('click',()=>{
+    let good=0, filled=0;
+    document.querySelectorAll('#gt-sentences .slot').forEach(s=>{
+      if(!s.classList.contains('filled')) return;
+      filled++;
+      if(s.dataset.filled===s.dataset.ok){ good++; }
+      else { s.classList.remove('filled'); s.textContent='___'; delete s.dataset.filled;
+             s.classList.remove('shake'); void s.offsetWidth; s.classList.add('shake'); }
+    });
+    const bar=document.getElementById('gt-done');
+    if(filled===5 && good===5){
+      bar.textContent='🎉 All five — perfect! 🏆'; bar.style.display='block';
+    } else {
+      bar.textContent='💬 '+good+' of 5 in place — the shaken ones try a different word!';
+      bar.style.display='block';
+      setTimeout(()=>{ bar.style.display='none'; }, 2600);
+    }
+  });
 
   /* deep-link: #n opens slide n; without a hash, resume where it was last open */
   const h=parseInt(location.hash.slice(1));
