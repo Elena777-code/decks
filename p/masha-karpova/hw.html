@@ -195,13 +195,13 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     </summary>
     <div class="body">
       <div class="trow"><span class="no">1</span><span>🎙 <b>The voice retell</b> — “Bright sparks!” in 5–6 sentences.</span>
-        <a class="mbtn" href="#speak-card" onclick="document.getElementById('speak-card').scrollIntoView({behavior:'smooth'});return false">Open ▸</a></div>
+        <a class="mbtn" href="#speak-card" onclick="var b=document.getElementById('sep30-board');b.open=true;setTimeout(function(){document.getElementById('speak-card').scrollIntoView({behavior:'smooth'})},50);return false">Open ▸</a></div>
       <div class="trow"><span class="no">2</span><span>✍️ <b>Your two written Wh- questions</b> — perfect word order.</span>
-        <a class="mbtn" href="#speak-card" onclick="document.getElementById('speak-card').scrollIntoView({behavior:'smooth'});return false">Open ▸</a></div>
+        <a class="mbtn" href="#speak-card" onclick="var b=document.getElementById('sep30-board');b.open=true;setTimeout(function(){document.getElementById('speak-card').scrollIntoView({behavior:'smooth'})},50);return false">Open ▸</a></div>
       <div class="trow"><span class="no">3</span><span>📖 <b>The three words</b> — crafting, deceive, a root.</span>
-        <a class="mbtn" href="#dict-card" onclick="document.getElementById('dict-card').scrollIntoView({behavior:'smooth'});return false">Open ▸</a></div>
+        <a class="mbtn" href="#dict-card" onclick="var b=document.getElementById('sep30-board');b.open=true;setTimeout(function(){document.getElementById('dict-card').scrollIntoView({behavior:'smooth'})},50);return false">Open ▸</a></div>
       <div class="trow"><span class="no">4</span><span>✍️ <b>Repair your sentences</b> — the six from the lessons.</span>
-        <a class="mbtn" href="#repair-card" onclick="document.getElementById('repair-card').scrollIntoView({behavior:'smooth'});return false">Open ▸</a></div>
+        <a class="mbtn" href="#repair-card" onclick="var b=document.getElementById('sep30-board');b.open=true;setTimeout(function(){document.getElementById('repair-card').scrollIntoView({behavior:'smooth'})},50);return false">Open ▸</a></div>
     </div>
   </details>
 
@@ -264,6 +264,8 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
   </div>
   </details>
 
+  <details class="deck" id="drill-deck">
+    <summary>🔧 The drill — your missed cards come back first</summary>
   <div class="card" id="start-card">
     <p class="rules">Three games + your sentences.<br>
     No clock anywhere — think as long as you want.<br>
@@ -299,9 +301,12 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <div class="sent" id="report-sent"></div>
     <div><button class="again-btn" id="again-btn">🔁 Fresh set</button></div>
   </div>
+  </details>
 
+  <details class="deck" id="sep30-board">
+    <summary>🗂 The 30 September board — still due</summary>
   <div class="card hwcard" id="speak-card">
-    <div class="no">This week · speak &amp; write</div>
+    <div class="no">From 30 September · speak &amp; write</div>
     <h2>🎙 “Bright sparks!” — yours to retell</h2>
     <ol>
       <li>Read the article once more (<b>tap to open it below</b>), then <b>retell it in 5–6 sentences</b> — record a voice message for Elena. Your words, not the article’s. The anchors: <b>a report in Scotland · IQ 100 · 118 in 1950 · 130 in 1910 · diets and health · puzzle questions</b>.
@@ -387,6 +392,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
       <li><b>New from the lessons:</b> examiner · axolotls · senior high school · promotion · advertisement · look after · crafting · deceive · a root · memorise · compulsory · critical thinking</li>
     </ul>
   </div>
+  </details>
 </main>
 
 <div class="archive-note">Older homework stays below as the list grows 📌</div>
