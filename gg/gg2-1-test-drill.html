@@ -130,7 +130,17 @@ input:focus{outline:none;border-color:var(--mint-deep)}
 
 <div class="notimer">🐢 Без таймера — отвечай спокойно, тут никто не торопится. Задания — как в настоящем тесте, одно за другим.</div>
 
-<div class="card" id="play">
+<div class="card" id="start">
+  <div class="task">Привет! 👋</div>
+  <div class="prompt">Напиши своё имя — и начинай!</div>
+  <div class="inrow">
+    <input id="pname" autocomplete="off" placeholder="твоё имя">
+    <button class="btn" id="begin">начать →</button>
+  </div>
+  <div class="hint" style="margin-top:.7em">Без имени тренажёр не показывает ответы — так честнее 😉</div>
+</div>
+
+<div class="card" id="play" style="display:none">
   <div class="bar">
     <span id="step">карточка 1 из 30</span>
     <span class="chips">⭐ <span id="score">0</span></span>
@@ -276,6 +286,7 @@ const CARDS = [
 ];
 /* NO shuffling — the test's own order. Missed cards return once at the end. */
 let queue = CARDS.slice(), requeue = [], lap2 = false;
+let hasName = false;
 let score = 0, firstTry = 0, missed = [], missedSec = [], locked = false, lastSec = 0;
 const boxUsed = new Set();                     /* box words already answered — grayed out */
 const usedWords = () => boxUsed;
@@ -385,8 +396,12 @@ function answer(ok, c){
     if (!lap2){ missed.push(rightText(c)); missedSec.push(c.sec); }
     fb.className = 'fb bad show';
     v.textContent = '✗ Не совсем.';
-    w.innerHTML = 'Правильно: <span class="ans">' + rightText(c) + '</span>. ' + c.why +
-      '<br>Запиши в тетрадь! 🔁 Эта карточка вернётся в конце.';
+    if (hasName){
+      w.innerHTML = 'Правильно: <span class="ans">' + rightText(c) + '</span>. ' + c.why +
+        '<br>Запиши в тетрадь! 🔁 Эта карточка вернётся в конце.';
+    } else {
+      w.innerHTML = 'Запиши свой ответ в тетрадь — проверим в классе! 🔁 Эта карточка вернётся в конце.';
+    }
     requeue.push(c);
     el('next').classList.add('show');
   }
@@ -412,7 +427,9 @@ function advance(){
   el('end').style.display = 'block';
   el('finalScore').textContent = '⭐ ' + firstTry + ' из ' + total + ' с первого раза! (плюс задания в тетради)';
   const missEl = el('missBox');
-  if (firstTry === total){
+  if (!hasName){
+    missEl.innerHTML = '<div class="nomiss">Готово! Покажи свой результат в классе 🏫</div>';
+  } else if (firstTry === total){
     missEl.innerHTML = '<div class="nomiss">Ни одной ошибки — ты готов(а) к тесту! 🏆</div>';
   } else {
     const seen = new Set(); const rows = [];
@@ -438,20 +455,29 @@ function gradeNB(btn){
     if (ok) right++;
     else {
       wrong.push(i.placeholder || '?');
-      const dl = document.createElement('span');
-      dl.className = 'ansline';
-      dl.textContent = 'Правильно: ' + (i.dataset.show || (i.dataset.ok || '').split('|')[0]);
-      i.after(dl);
+      if (canShow){
+        const dl = document.createElement('span');
+        dl.className = 'ansline';
+        dl.textContent = 'Правильно: ' + (i.dataset.show || (i.dataset.ok || '').split('|')[0]);
+        i.after(dl);
+      }
     }
   });
   const nameI = root.querySelector('.nbname');
   const name = nameI ? nameI.value.trim() : '';
-  if (nameI && name) localStorage.setItem('nbname', name);
+  const canShow = name !== '';
+  if (!canShow){
+    const hint = document.createElement('div');
+    hint.className = 'ansline';
+    hint.style.color = 'var(--bad)';
+    hint.textContent = 'Впиши своё имя — и проверь ещё раз: тогда увидишь ответы!';
+    btn.before(hint);
+  }
   const sec = queue[0].sec;
   const report = 'GG2.1 · тренажёр тест B · задание ' + sec + ' · ' + (name || 'без имени') + ': ' +
     right + '/' + ins.length + (wrong.length ? ' · не так: ' + wrong.join(', ') : ' · всё верно') +
     ' · ' + new Date().toLocaleString('ru-RU');
-  if (FORM_ACTION && FORM_ENTRY){
+  if (canShow && FORM_ACTION && FORM_ENTRY){
     const fd = new FormData();
     fd.append(FORM_ENTRY, report);
     fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: fd });
@@ -461,13 +487,22 @@ function gradeNB(btn){
   btn.textContent = right === ins.length ? 'проверено ✓ отлично!' : 'проверено ✓';
   btn.disabled = true;
   const a = root.querySelector('.answers');
-  if (a) a.style.display = 'block';
+  if (a && canShow) a.style.display = 'block';
 }
+el('begin').onclick = () => {
+  const v = el('pname').value.trim();
+  hasName = v !== '';
+  if (hasName) localStorage.setItem('nbname', v);
+  el('start').style.display = 'none';
+  el('play').style.display = 'block';
+  draw();
+};
+el('pname').addEventListener('keydown', e => { if (e.key === 'Enter') el('begin').onclick(); });
 el('check').onclick = check;
 el('inp').addEventListener('keydown', e => { if (e.key === 'Enter' && !locked) check(); });
 el('next').onclick = advance;
 el('again').onclick = () => location.reload();
-draw();
+el('pname').value = localStorage.getItem('nbname') || '';
 </script>
 </body>
 </html>
