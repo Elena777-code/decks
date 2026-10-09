@@ -111,6 +111,17 @@ input.type-box:focus{border-color:var(--sage)}
 .plabel{font-weight:700;font-size:clamp(.98rem,3.7vw,1.08rem);line-height:1.5;cursor:pointer;text-align:left}
 .plan-row.done .plabel{opacity:.55;text-decoration:line-through}
 .plan-progress{margin-top:.7em;font-weight:800;color:var(--sage-deep);font-size:.88rem;min-height:1.2em}
+/* the one-task plan: everything else hides behind the More button */
+details.more{margin-top:.8em}
+details.more summary{cursor:pointer;font-weight:800;color:var(--sub);font-size:.88rem;
+  border:1.5px dashed var(--line);border-radius:99px;padding:.35em 1em;display:inline-block;
+  list-style:none;user-select:none}
+details.more summary::-webkit-details-marker{display:none}
+details.more[open] summary{color:var(--sage-deep);border-color:var(--sage)}
+.mbtns{display:flex;flex-wrap:wrap;gap:.5em;margin-top:.7em}
+a.mbtn{display:inline-block;border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.4em 1em;font-weight:700;font-size:.92rem;color:var(--ink);text-decoration:none}
+a.mbtn:hover{border-color:var(--sage);background:var(--sage-soft)}
 /* the harvest card */
 .proverb{font-family:'Lora',serif;font-style:italic;color:var(--sub);font-size:clamp(.95rem,3.6vw,1.05rem);
   margin:.1em 0 .7em;line-height:1.6}
@@ -137,23 +148,21 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <div class="no">Start here · homework of 7 October</div>
     <h2>Tonight's plan</h2>
     <p class="hint">Tap the box when it's done — the page remembers, on this device.</p>
-    <div class="plan-row" data-k="o7-read"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="article-oct7">📖 “Bright sparks!” — read the whole article</div></div>
-    <div class="plan-row" data-k="o7-boxes"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel"><a href="ten-boxes.html?v=1" style="color:inherit;text-decoration:none">🧰 The Ten Boxes — the new drill test</a></div></div>
     <div class="plan-row" data-k="o7-wf"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel"><a href="word-formation.html?v=1" style="color:inherit;text-decoration:none">✍️ Word formation — the FIPI text (new every week)</a></div></div>
-    <div class="plan-row" data-k="o7-meet"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="meet7-card">📚 Meet the seven new words</div></div>
-    <div class="plan-row" data-k="retell"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="speak-card">🎙 From last week — your voice retell, still due</div></div>
-    <div class="plan-row" data-k="whq"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="speak-card">✍️ From last week — your two written Wh- questions</div></div>
-    <div class="plan-row" data-k="words3"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="dict-card">📖 From last week — the three words, we ask them this time</div></div>
-    <div class="plan-row" data-k="repair"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="repair-card">✍️ From last week — repair your sentences</div></div>
+      <div class="plabel"><a href="word-formation.html?v=1" style="color:inherit;text-decoration:none">✍️ Word formation — the FIPI text</a></div></div>
     <p class="plan-progress" id="plan-progress-oct7"></p>
+    <details class="more">
+      <summary>📚 More decks — last week &amp; extra drills</summary>
+      <div class="mbtns">
+        <a class="mbtn" href="ten-boxes.html?v=1">🧰 The Ten Boxes</a>
+        <a class="mbtn" href="#start-card" onclick="document.getElementById('start-card').scrollIntoView({behavior:'smooth'});return false">🔧 The drill</a>
+        <a class="mbtn" href="#article-oct7" onclick="document.getElementById('article-oct7').scrollIntoView({behavior:'smooth'});return false">📖 The article</a>
+        <a class="mbtn" href="#meet7-card" onclick="document.getElementById('meet7-card').scrollIntoView({behavior:'smooth'});return false">📚 Seven new words</a>
+        <a class="mbtn" href="#speak-card" onclick="document.getElementById('speak-card').scrollIntoView({behavior:'smooth'});return false">🎙 Last week: retell &amp; two questions</a>
+        <a class="mbtn" href="#dict-card" onclick="document.getElementById('dict-card').scrollIntoView({behavior:'smooth'});return false">📖 Last week: the three words</a>
+        <a class="mbtn" href="#repair-card" onclick="document.getElementById('repair-card').scrollIntoView({behavior:'smooth'});return false">✍️ Last week: repair your sentences</a>
+      </div>
+    </details>
   </div>
 
   <div class="card hwcard" id="article-oct7">
