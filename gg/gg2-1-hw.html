@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GG 2.1 — Домашнее задание</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ GG2.1 homework HUB — ONE permanent link (born 08.10:
+   Elena hit the hw-001/hw-003 link confusion — «Does it change every
+   homework?» — so GG joins the one-link pattern: the address never
+   changes, the newest homework is always the top card.) Phone-first,
+   mint, Russian for kids and parents. */
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A;
+  --lavender:#C8B6FF; --lavender-deep:#9a7fff; --cream:#FFF8F0;
+  --pink:#FF8FAB; --ink:#2D3436; --ink-soft:#636e72; --white:#fff;
+  --blue:#3a6ea5; --radius:22px; --shadow:0 10px 30px rgba(45,52,54,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);
+  min-height:100vh;padding:4vh 4vw 8vh;display:flex;flex-direction:column;gap:2vh;
+  align-items:stretch;max-width:640px;margin:0 auto}
+.eyebrow{font-size:clamp(.95rem,2.6vw,1.15rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lavender-deep)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,6vw,2.6rem);line-height:1.15}
+.accent-line{width:110px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.4vh,24px) clamp(16px,3vw,28px)}
+.card.peach{background:#fff8db}
+.card.mint{background:#eafbf6}
+.card p{font-size:clamp(1.1rem,3.2vw,1.4rem);line-height:1.5}
+.b{color:var(--lavender-deep)}
+.now{border:3px solid var(--mint-deep)}
+.badge{display:inline-block;background:var(--mint);border-radius:99px;padding:.14em .8em;
+  font-weight:800;font-size:clamp(.85rem,2.5vw,1.05rem);margin-left:.5em;vertical-align:middle}
+.bigbtn{display:flex;align-items:center;gap:.8em;text-decoration:none;margin-top:.7em;
+  background:var(--mint);border-radius:18px;padding:.7em 1em;box-shadow:var(--shadow);
+  transition:transform .15s ease}
+.bigbtn:hover{transform:scale(1.02)}
+.bigbtn .ic{font-size:clamp(1.6rem,5vw,2.1rem)}
+.bigbtn .tt{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.05rem,3.2vw,1.3rem);color:var(--ink)}
+.bigbtn .sub{font-size:clamp(.9rem,2.6vw,1.05rem);color:var(--ink-soft)}
+.bigbtn.gold{background:var(--peach)}
+.bigbtn.lav{background:#e5dbff}
+.arch{margin-top:.4em}
+.arch a{display:block;text-decoration:none;color:var(--ink);font-weight:700;
+  font-size:clamp(1rem,3vw,1.2rem);padding:.45em .2em;border-bottom:1px solid #eee7dc}
+.arch a span{color:var(--ink-soft);font-weight:600;font-size:.85em}
+.warm{font-size:clamp(1.1rem,3.2vw,1.4rem);text-align:center}
+h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw,1.6rem)}
+</style>
+</head>
+<body>
+
+<div class="eyebrow">GG 2.1 · Go Getter 1</div>
+<h1>Домашнее задание 🏠</h1>
+<div class="accent-line"></div>
+
+<div class="card mint">
+  <p>🔗 <b class="b">Ссылка не меняется!</b> Новая домашка — всегда здесь, сверху. Сохрани эту страницу.</p>
+</div>
+
+<div class="card now">
+  <h2>Сейчас задано <span class="badge">новое</span></h2>
+  <a class="bigbtn" href="gg2-1-hw-003.html" target="_blank" rel="noopener">
+    <span class="ic">📚</span>
+    <span><span class="tt">Тест · Verb + s · Проект</span><br><span class="sub">тренировочный тест · правило и игры · моё животное</span></span>
+  </a>
+  <p style="margin-top:.5em;color:var(--ink-soft);font-size:clamp(.95rem,2.7vw,1.1rem)">Задание от 8 октября · проверим в классе</p>
+</div>
+
+<div class="card">
+  <h2>🎯 Тренажёр к тесту</h2>
+  <p>16 карточек — как в тесте. Без таймера, ошибки объясняются.</p>
+  <a class="bigbtn gold" href="gg2-1-test-drill.html" target="_blank" rel="noopener">
+    <span class="ic">🧪</span>
+    <span><span class="tt">Открыть тренажёр</span><br><span class="sub">можно проходить сколько угодно раз</span></span>
+  </a>
+</div>
+
+<div class="card">
+  <h2>📚 Прошлые домашки</h2>
+  <div class="arch">
+    <a href="gg2-1-hw-002.html"><span>8 октября —</span> тест + слова на shkola.app + Verb + s</a>
+    <a href="gg2-1-hw-001.html"><span>1 октября —</span> юнит 7.7: слова в словарик + правило</a>
+  </div>
+</div>
+
+<div class="card mint">
+  <p class="warm">Good luck на тесте! ⭐🍀</p>
+</div>
+
+</body>
+</html>
