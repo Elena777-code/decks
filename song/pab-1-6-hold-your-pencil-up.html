@@ -165,10 +165,11 @@ h1.title{
 .dots i{width:clamp(7px,1.3vh,11px);height:clamp(7px,1.3vh,11px);border-radius:50%;background:rgba(45,52,54,.14);transition:background .25s ease,transform .25s ease}
 .dots i.hot{background:var(--mint-deep);transform:scale(1.25)}
 .dots i.past{background:var(--lavender)}
-#part1,#part2,#part3{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:95;width:min(430px,52vw);opacity:.95;display:none}
+#part1,#part2,#part3,#part4{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:95;width:min(430px,52vw);opacity:.95;display:none}
 body[data-slide="0"] #part1{display:block}
 body[data-slide="1"] #part2{display:block}
 body[data-slide="2"] #part3{display:block}
+body[data-slide="3"] #part4{display:block}
 /* the actions game: pictures only, tap → the class does it */
 .act-grid{display:flex;flex-wrap:wrap;gap:clamp(12px,1.8vw,24px);justify-content:center}
 .act{
@@ -196,6 +197,7 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 <audio id="part1" controls preload="auto" src="../media/pab-1-6-part1-listen.mp3"></audio>
 <audio id="part2" controls preload="auto" src="../media/pab-1-6-part2-listen-repeat.mp3"></audio>
 <audio id="part3" controls preload="auto" src="../media/pab-1-6-part3-sing-together.mp3"></audio>
+<audio id="part4" controls preload="auto" src="../media/pab-1-6-part4-by-yourselves.mp3"></audio>
 
 <!-- ============ THE NINE ILLUSTRATIONS (v2, 2026-10-09) ============
      One kid, one picture per action — originals drawn in the
@@ -702,7 +704,7 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 <!-- 1-4 · THE FOUR ROUNDS — each line fills a phone-screen, driven by the track -->
 <section class="slide stage-slide" data-notes="PREP: a PENCIL per child. PART 1 «Listen» (0:41 — the whole chant): PRESS PLAY — each line fills the phone by itself; «Write, draw, tap-tap-tap» shows word by word (tap = the rubber end!). The class just WATCHES and LISTENS. When the part ends, the deck flips to «Listen and repeat» by itself.">
   <div class="eyebrow reveal-el">🎧 Round 1 · the first song</div>
-  <div class="stamp">build 2026-10-09 · v7.1 · words + gestures</div>
+  <div class="stamp">build 2026-10-09 · v8 · by yourselves slide</div>
   <h1 class="title reveal-el">Listen 👂</h1>
   <div class="phone reveal-el" data-round="0">
     <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
@@ -741,6 +743,20 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 </section>
 
 
+
+
+<section class="slide stage-slide" data-notes="PART 4 «Now sing by yourselves» (0:41): the part opens with the cue — the phone shows the sing card — then the PICTURES run as the guide and the class sings from memory (no pencils needed). NOTE: the backing has no words, so the picture timing is an even spread, not word-checked. When the part ends, the deck flips to the Wi-Fi slide.">
+  <div class="eyebrow reveal-el">🎵 Part 4</div>
+  <h1 class="title reveal-el">By yourselves! 🎤</h1>
+  <div class="phone reveal-el bye" data-round="3">
+    <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-stand"/></svg></div>
+    <div class="phone-word"></div>
+    <div class="phone-count" aria-hidden="true"></div>
+    <div class="phone-line">Now sing by yourselves! 🎵</div>
+    <div class="phone-hint">🎤 you sing!</div>
+  </div>
+  <div class="dots reveal-el" data-round="3"></div>
+</section>
 
 <!-- 2 · WI-FI -->
 <section class="slide wifi" data-notes="Wi-Fi! Then the actions game — pictures only.">
@@ -962,10 +978,25 @@ const PARTS=[
   [87.21,'pab-clap','Clap your hands together 1, 2, 3.','👏 one!',1],
   [88.61,'pab-clap','Clap your hands together 1, 2, 3.','👏 two!',2],
   [89.30,'pab-clap','Clap your hands together 1, 2, 3.','👏 three!',3],
-  [91.24,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!']
+  [91.24,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!'],
+ ]},
+{slide:3,au:'#part4',m:[
+  [6.00,'pab-hold-up','Hold your pencil up.','✋ pencil HIGH!'],
+  [8.30,'pab-hold-up','Hold your pencil up.','✋ pencil HIGH!'],
+  [10.60,'pab-write-word','Write.','✍️ write!'],
+  [12.90,'pab-draw-word','Draw.','✏️ draw!'],
+  [15.20,'pab-tap-word','Tap-tap-tap!','👆 the rubber end!'],
+  [17.50,'pab-board','Point to the blackboard.','👉 point!'],
+  [19.80,'pab-floor','Point to the floor.','👇 point DOWN.'],
+  [22.10,'pab-window','Point to the window.','👉 point!'],
+  [24.40,'pab-door','Point to the door.','👉 point!'],
+  [26.70,'pab-clap','Clap your hands together 1, 2, 3.','👏 clap!'],
+  [29.00,'pab-clap','Clap your hands together 1, 2, 3.','👏 one!',1],
+  [31.30,'pab-clap','Clap your hands together 1, 2, 3.','👏 two!',2],
+  [33.60,'pab-clap','Clap your hands together 1, 2, 3.','👏 three!',3],
+  [35.90,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!'],
  ]}
 ];
-const BYE={t:96.88,line:'Now sing by yourselves! 🎵'};
 const WORDS={
  'pab-hold-up':'UP!','pab-put-down':'DOWN!','pab-write-word':'WRITE!','pab-draw-word':'DRAW!',
  'pab-tap-word':'TAP-TAP-TAP!','pab-board':'BLACKBOARD!','pab-floor':'FLOOR!','pab-window':'WINDOW!',
@@ -999,16 +1030,6 @@ function stageTick(){
   let idx=-1;
   r.m.forEach((mm,i)=>{ if(t>=mm[0]-0.12) idx=i; });
   if(idx<0)return;
-  if(r.slide===2 && t>=BYE.t){
-    if(!r.phone.classList.contains('bye')){
-      r.phone.classList.add('bye');
-      r.use.setAttribute('href','#pab-stand');
-      r.line.textContent=BYE.line;
-      r.hint.textContent='';
-    }
-    r.dotEls.forEach(d=>d.className='past');
-    return;
-  }
   if(r.phone.classList.contains('bye')){r.phone.classList.remove('bye');r.last=-2;}
   paint(r,idx);
 }
