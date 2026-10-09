@@ -704,7 +704,7 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 <!-- 1-4 · THE FOUR ROUNDS — each line fills a phone-screen, driven by the track -->
 <section class="slide stage-slide" data-notes="PREP: a PENCIL per child. PART 1 «Listen» (0:41 — the whole chant): PRESS PLAY — each line fills the phone by itself; «Write, draw, tap-tap-tap» shows word by word (tap = the rubber end!). The class just WATCHES and LISTENS. When the part ends, the deck flips to «Listen and repeat» by itself.">
   <div class="eyebrow reveal-el">🎧 Round 1 · the first song</div>
-  <div class="stamp">build 2026-10-09 · v8.1 · round cards</div>
+  <div class="stamp">build 2026-10-09 · v8.2 · words+gestures always in step</div>
   <h1 class="title reveal-el">Listen 👂</h1>
   <div class="phone reveal-el bye" data-round="0">
     <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
@@ -1033,12 +1033,27 @@ function stageTick(){
   if(r.phone.classList.contains('bye')){r.phone.classList.remove('bye');r.last=-2;}
   paint(r,idx);
 }
+function tickPart(r){
+  if(r.au.paused)return;               /* paused = you browse freely */
+  var t=r.au.currentTime;
+  var idx=-1;
+  r.m.forEach((mm,i)=>{ if(t>=mm[0]-0.12) idx=i; });
+  if(idx<0)return;
+  if(r.slide===3 && t<6.0)return;      /* part 4: the sing card holds till the backing starts */
+  if(r.phone.classList.contains('bye')){r.phone.classList.remove('bye');r.last=-2;}
+  paint(r,idx);
+}
 rounds.forEach(r=>{
   r.au.addEventListener('timeupdate',stageTick);
   r.au.addEventListener('seeked',stageTick);
   r.au.addEventListener('playing',stageTick);
   r.au.addEventListener('ended',()=>show(r.slide+1));
 });
+/* the robust driver: while a part is PLAYING, a steady interval keeps the
+   stage with the audio even when the pane is backgrounded (pages playing
+   audio are exempt from browser timer throttling) — timeupdate alone can
+   stall there, which reads as «the pictures don't follow the words». */
+setInterval(function(){ rounds.forEach(tickPart); }, 300);
 </script>
 
 <script>
