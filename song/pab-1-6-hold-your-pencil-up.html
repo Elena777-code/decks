@@ -145,6 +145,16 @@ h1.title{
   font-size:clamp(.95rem,2.4vh,1.5rem);color:var(--mint-deep);letter-spacing:.04em;
 }
 .phone.bye .phone-pic,.phone.bye .phone-hint{display:none}
+.phone-count{
+  position:absolute;top:4%;right:6%;width:30%;aspect-ratio:1;border-radius:50%;
+  background:#FFFFFF;box-shadow:0 8px 22px rgba(45,52,54,.2);
+  display:none;align-items:center;justify-content:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2.4rem,10vh,5rem);color:var(--pink);
+}
+.phone-count.show{display:flex;animation:countpop .32s cubic-bezier(.34,1.56,.64,1)}
+@keyframes countpop{from{transform:scale(.35);opacity:.3}to{transform:scale(1);opacity:1}}
+.phone-pic{transition:transform .16s ease}
+.phone-pic.beat{transform:scale(1.045)}
 .phone.bye .phone-line{font-size:clamp(1.4rem,4.4vh,2.6rem);color:var(--lavender-deep)}
 .dots{display:flex;gap:clamp(5px,.9vh,9px);justify-content:center;flex-wrap:wrap;max-width:60vw}
 .dots i{width:clamp(7px,1.3vh,11px);height:clamp(7px,1.3vh,11px);border-radius:50%;background:rgba(45,52,54,.14);transition:background .25s ease,transform .25s ease}
@@ -682,11 +692,12 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 <!-- 1-4 · THE FOUR ROUNDS — each line fills a phone-screen, driven by the track -->
 <section class="slide stage-slide" data-notes="PREP: a PENCIL per child for rounds 2-4. ROUND 1 «Listen» (0:09-0:40): PRESS PLAY — each line fills the phone by itself; «Write, draw, tap-tap-tap» shows word by word (tap = the rubber end!). The class just WATCHES and LISTENS — no pencils yet. The deck flips to «Listen and repeat» by itself when the track says it.">
   <div class="eyebrow reveal-el">🎧 Round 1 · the first song</div>
-  <div class="stamp">build 2026-10-09 · v6 · intro cut</div>
+  <div class="stamp">build 2026-10-09 · v6.1 · intro cut + live counts</div>
   <h1 class="title reveal-el">Listen 👂</h1>
   <div class="phone reveal-el" data-round="0">
     <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
     <div class="phone-line">Hold your pencil up.</div>
+    <div class="phone-count" aria-hidden="true"></div>
     <div class="phone-hint">✋ pencil HIGH!</div>
   </div>
   <div class="dots reveal-el" data-round="0"></div>
@@ -698,6 +709,7 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
   <div class="phone reveal-el" data-round="1">
     <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
     <div class="phone-line">Hold your pencil up.</div>
+    <div class="phone-count" aria-hidden="true"></div>
     <div class="phone-hint">✋ pencil HIGH!</div>
   </div>
   <div class="dots reveal-el" data-round="1"></div>
@@ -709,6 +721,7 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
   <div class="phone reveal-el" data-round="2">
     <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
     <div class="phone-line">Hold your pencil up.</div>
+    <div class="phone-count" aria-hidden="true"></div>
     <div class="phone-hint">✋ pencil HIGH!</div>
   </div>
   <div class="dots reveal-el" data-round="2"></div>
@@ -720,6 +733,7 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
   <div class="phone reveal-el" data-round="3">
     <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
     <div class="phone-line">Hold your pencil up.</div>
+    <div class="phone-count" aria-hidden="true"></div>
     <div class="phone-hint">✋ pencil HIGH!</div>
   </div>
   <div class="dots reveal-el" data-round="3"></div>
@@ -890,7 +904,10 @@ const SEQ=[
   [26.45,'pab-floor','Point to the floor.','👇 point DOWN.'],
   [28.12,'pab-window','Point to the window.','👉 point!'],
   [30.33,'pab-door','Point to the door.','👉 point!'],
-  [32.12,'pab-clap','Clap your hands together 1, 2, 3.','👏👏👏'],
+  [32.12,'pab-clap','Clap your hands together 1, 2, 3.','👏 clap!'],
+  [34.00,'pab-clap','Clap your hands together 1, 2, 3.','👏 one!',1],
+  [34.86,'pab-clap','Clap your hands together 1, 2, 3.','👏 two!',2],
+  [35.40,'pab-clap','Clap your hands together 1, 2, 3.','👏 three!',3],
   [36.12,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!']
  ]},
  {slide:1,m:[
@@ -908,7 +925,10 @@ const SEQ=[
   [91.04,'pab-floor','Point to the floor.','👇 point DOWN.'],
   [95.52,'pab-window','Point to the window.','👉 point!'],
   [99.23,'pab-door','Point to the door.','👉 point!'],
-  [102.60,'pab-clap','Clap your hands together 1, 2, 3.','👏👏👏'],
+  [102.60,'pab-clap','Clap your hands together 1, 2, 3.','👏 clap!'],
+  [107.13,'pab-clap','Clap your hands together 1, 2, 3.','👏 one!',1],
+  [108.91,'pab-clap','Clap your hands together 1, 2, 3.','👏 two!',2],
+  [109.90,'pab-clap','Clap your hands together 1, 2, 3.','👏 three!',3],
   [111.00,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!']
  ]},
  {slide:2,m:[
@@ -921,7 +941,10 @@ const SEQ=[
   [145.78,'pab-floor','Point to the floor.','👇 point DOWN.'],
   [148.47,'pab-window','Point to the window.','👉 point!'],
   [151.40,'pab-door','Point to the door.','👉 point!'],
-  [154.28,'pab-clap','Clap your hands together 1, 2, 3.','👏👏👏'],
+  [154.28,'pab-clap','Clap your hands together 1, 2, 3.','👏 clap!'],
+  [158.89,'pab-clap','Clap your hands together 1, 2, 3.','👏 one!',1],
+  [160.59,'pab-clap','Clap your hands together 1, 2, 3.','👏 two!',2],
+  [161.30,'pab-clap','Clap your hands together 1, 2, 3.','👏 three!',3],
   [163.21,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!']
  ]},
  {slide:3,m:[
@@ -934,7 +957,10 @@ const SEQ=[
   [193.44,'pab-floor','Point to the floor.','👇 point DOWN.'],
   [197.34,'pab-window','Point to the window.','👉 point!'],
   [201.96,'pab-door','Point to the door.','👉 point!'],
-  [204.70,'pab-clap','Clap your hands together 1, 2, 3.','👏👏👏'],
+  [204.70,'pab-clap','Clap your hands together 1, 2, 3.','👏 clap!'],
+  [209.01,'pab-clap','Clap your hands together 1, 2, 3.','👏 one!',1],
+  [210.41,'pab-clap','Clap your hands together 1, 2, 3.','👏 two!',2],
+  [211.10,'pab-clap','Clap your hands together 1, 2, 3.','👏 three!',3],
   [213.04,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!']
  ]}
 ];
@@ -945,6 +971,7 @@ const rounds=SEQ.map(R=>{
   const dots=document.querySelector('.dots[data-round="'+R.slide+'"]');
   R.m.forEach(()=>dots.appendChild(document.createElement('i')));
   return {...R,phone,dots,use:phone.querySelector('use'),
+          pic:phone.querySelector('.phone-pic'),count:phone.querySelector('.phone-count'),
           line:phone.querySelector('.phone-line'),hint:phone.querySelector('.phone-hint'),
           dotEls:[...dots.children],last:-2};
 });
@@ -954,6 +981,10 @@ function paint(r,idx){
   r.use.setAttribute('href','#'+m[1]);
   r.line.textContent=m[2];
   r.hint.textContent=m[3];
+  if(m[4]){r.count.textContent=m[4];r.count.classList.add('show');}
+  else r.count.classList.remove('show');
+  r.pic.classList.add('beat');
+  setTimeout(()=>r.pic.classList.remove('beat'),170);
   r.dotEls.forEach((d,i)=>{d.className=i<idx?'past':(i===idx?'hot':'');});
 }
 function stageTick(){
