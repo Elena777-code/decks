@@ -52,6 +52,9 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.6rem,5.6vw
 .wordbox{display:flex;flex-wrap:wrap;gap:.35em;margin-top:.6em}
 .wordbox span{background:#fff;border:2px solid var(--lavender);border-radius:99px;
   padding:.08em .6em;font-weight:800;font-size:clamp(.85rem,2.5vw,1.05rem)}
+.wordbox .wchip{font-family:'Nunito',sans-serif;cursor:pointer;transition:transform .12s ease}
+.wordbox .wchip:hover{transform:scale(1.06);border-color:var(--mint-deep)}
+.wordbox .used{opacity:.32;text-decoration:line-through;pointer-events:none}
 .inrow{display:flex;gap:.6em;margin-top:.9em;flex-wrap:wrap}
 input{flex:1 1 12em;font-family:'Nunito',sans-serif;font-size:clamp(1.15rem,3.6vw,1.5rem);
   border:3px solid var(--lavender);border-radius:14px;padding:.45em .8em;color:var(--ink);
@@ -92,7 +95,7 @@ input:focus{outline:none;border-color:var(--mint-deep)}
 <body>
 
 <div class="eyebrow">Готовимся к тесту · Go Getter 1 · Unit 7 · Language Test B</div>
-<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v2</span></h1>
+<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v3</span></h1>
 <div class="accent-line"></div>
 
 <div class="notimer">🐢 Без таймера — отвечай спокойно, тут никто не торопится. Задания — как в настоящем тесте, одно за другим.</div>
@@ -220,6 +223,8 @@ const CARDS = [
 /* NO shuffling — the test's own order. Missed cards return once at the end. */
 let queue = CARDS.slice(), requeue = [], lap2 = false;
 let score = 0, firstTry = 0, missed = [], missedSec = [], locked = false, lastSec = 0;
+const boxUsed = new Set();                     /* box words already answered — grayed out */
+const usedWords = () => boxUsed;
 const total = CARDS.length;
 const el = id => document.getElementById(id);
 function norm(s){ return s.toLowerCase().trim().replace(/['’`]/g,'').replace(/\s+/g,' '); }
@@ -244,7 +249,13 @@ function draw(){
   const wb = el('wordbox');
   if (c.sec === 1){
     wb.style.display = 'flex';
-    wb.innerHTML = BOX.map(w => '<span>' + w + '</span>').join('');
+    /* tappable box — like the real test: tap the word, used words gray out */
+    const used = usedWords();
+    wb.innerHTML = BOX.map(w => '<button class="wchip' + (used.has(w) ? ' used' : '') +
+      '" data-w="' + w + '">' + w + '</button>').join('');
+    [...wb.querySelectorAll('.wchip')].forEach(b => {
+      b.onclick = () => answer(norm(b.dataset.w) === norm(rightText(c)), c);
+    });
   } else wb.style.display = 'none';
   el('fb').className = 'fb'; el('next').classList.remove('show');
   el('inrow').style.display = c.choices ? 'none' : 'flex';
@@ -268,6 +279,7 @@ function answer(ok, c){
   if (ok){
     score++;
     if (!lap2) firstTry++;
+    if (c.sec === 1){ const w = rightText(c).toLowerCase(); if (BOX.includes(w)) boxUsed.add(w); }
     fb.className = 'fb good show';
     v.textContent = '✓ Верно! +1 ⭐';
     w.innerHTML = 'Правильно: <span class="ans">' + rightText(c) + '</span>';
