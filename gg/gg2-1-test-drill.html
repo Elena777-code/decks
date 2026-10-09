@@ -93,13 +93,18 @@ input:focus{outline:none;border-color:var(--mint-deep)}
   font-size:clamp(1.05rem,3.1vw,1.3rem);line-height:1.6}
 .end .nomiss{background:#e3f7ee;border-radius:16px;padding:.8em 1em;margin-top:.7em;
   font-size:clamp(1.05rem,3.1vw,1.3rem)}
+.skip{margin-top:.9em;text-align:center}
+.skip button{background:none;border:none;cursor:pointer;color:var(--ink-soft);
+  font-family:'Nunito',sans-serif;font-weight:700;font-size:clamp(.9rem,2.6vw,1.05rem);
+  text-decoration:underline;text-underline-offset:3px}
+.skip button:hover{color:var(--blue)}
 .warm{font-size:clamp(1.1rem,3.2vw,1.4rem);text-align:center}
 </style>
 </head>
 <body>
 
 <div class="eyebrow">Готовимся к тесту · Go Getter 1 · Unit 7 · Language Test B</div>
-<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v6</span></h1>
+<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v7</span></h1>
 <div class="accent-line"></div>
 
 <div class="notimer">🐢 Без таймера — отвечай спокойно, тут никто не торопится. Задания — как в настоящем тесте, одно за другим.</div>
@@ -121,6 +126,7 @@ input:focus{outline:none;border-color:var(--mint-deep)}
       <button class="btn" id="check">проверить</button>
     </div>
     <div class="choices" id="choices"></div>
+    <div class="skip" id="skip" style="display:none"><button id="skipBtn">пропустить задание 1 → сразу к заданию 2</button></div>
     <div class="fb" id="fb">
       <div class="verdict" id="verdict"></div>
       <div class="why" id="why"></div>
@@ -248,9 +254,16 @@ const total = CARDS.length;
 const el = id => document.getElementById(id);
 function norm(s){ return s.toLowerCase().trim().replace(/['’`]/g,'').replace(/\s+/g,' '); }
 function rightText(c){ return c.choices ? c.choices[c.ans] : c.ans[0]; }
+function skipTask1(){
+  queue = queue.filter(x => x.sec !== 1);
+  requeue = requeue.filter(x => x.sec !== 1);
+  draw();
+}
+el('skipBtn').onclick = skipTask1;
 function draw(){
   locked = false;
   const c = queue[0];
+  el('skip').style.display = (c && c.sec === 1 && !lap2) ? 'block' : 'none';
   if (c.sec !== lastSec){
     lastSec = c.sec;
     const s = SECS[c.sec];
