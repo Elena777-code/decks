@@ -49,10 +49,13 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.6rem,5.6vw
 .prompt{font-family:'Fredoka',sans-serif;font-weight:600;
   font-size:clamp(1.3rem,4.6vw,1.8rem);line-height:1.45;margin:.35em 0 .2em}
 .hint{font-size:clamp(1rem,3vw,1.2rem);color:var(--ink-soft)}
-.wordbox{display:flex;flex-wrap:wrap;gap:.35em;margin-top:.6em}
+.wordbox{display:flex;flex-wrap:wrap;gap:.45em;margin-top:.6em}
 .wordbox span{background:#fff;border:2px solid var(--lavender);border-radius:99px;
   padding:.08em .6em;font-weight:800;font-size:clamp(.85rem,2.5vw,1.05rem)}
-.wordbox .wchip{font-family:'Nunito',sans-serif;cursor:pointer;transition:transform .12s ease}
+.wordbox .wchip{font-family:'Nunito',sans-serif;background:#fff;color:var(--ink);
+  border:2px solid var(--lavender);border-radius:99px;padding:.14em .8em;
+  font-weight:800;font-size:clamp(.9rem,2.8vw,1.15rem);line-height:1.3;
+  cursor:pointer;transition:transform .12s ease}
 .wordbox .wchip:hover{transform:scale(1.06);border-color:var(--mint-deep)}
 .wordbox .used{opacity:.32;text-decoration:line-through;pointer-events:none}
 .inrow{display:flex;gap:.6em;margin-top:.9em;flex-wrap:wrap}
@@ -95,7 +98,7 @@ input:focus{outline:none;border-color:var(--mint-deep)}
 <body>
 
 <div class="eyebrow">Готовимся к тесту · Go Getter 1 · Unit 7 · Language Test B</div>
-<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v3</span></h1>
+<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v4</span></h1>
 <div class="accent-line"></div>
 
 <div class="notimer">🐢 Без таймера — отвечай спокойно, тут никто не торопится. Задания — как в настоящем тесте, одно за другим.</div>
