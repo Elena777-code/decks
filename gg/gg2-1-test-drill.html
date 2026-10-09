@@ -110,13 +110,22 @@ input:focus{outline:none;border-color:var(--mint-deep)}
 .reveal.open .answers{display:block;animation:pop .4s ease}
 .notebook{background:#fff8db;border-radius:14px;padding:.5em .8em;margin-top:.6em;
   font-weight:800;font-size:clamp(.95rem,2.7vw,1.1rem);color:var(--ink-soft)}
+.nbin{font-family:'Nunito',sans-serif;font-size:clamp(1rem,3vw,1.25rem);border:3px solid var(--lavender);
+  border-radius:12px;padding:.4em .7em;color:var(--ink);background:#fbf9ff;margin-top:.45em}
+.nbin:focus{outline:none;border-color:var(--mint-deep)}
+.nbin.ok{border-color:var(--ok);background:#e3f7ee}
+.nbin.bad{border-color:var(--bad);background:#ffe9ec}
+.nbname{border-color:var(--peach);font-weight:800}
+.ansline{display:block;font-size:clamp(.95rem,2.8vw,1.15rem);color:var(--blue);margin:.15em 0 0 1em}
+.sent{display:none;margin-top:.5em;font-weight:800;color:var(--ok)}
+.sent.show{display:block}
 .warm{font-size:clamp(1.1rem,3.2vw,1.4rem);text-align:center}
 </style>
 </head>
 <body>
 
 <div class="eyebrow">Готовимся к тесту · Go Getter 1 · Unit 7 · Language Test B</div>
-<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v12</span></h1>
+<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v13</span></h1>
 <div class="accent-line"></div>
 
 <div class="notimer">🐢 Без таймера — отвечай спокойно, тут никто не торопится. Задания — как в настоящем тесте, одно за другим.</div>
@@ -163,6 +172,10 @@ input:focus{outline:none;border-color:var(--mint-deep)}
    item numbers, the test's order, no shuffling. Box = the task 1 word
    box (shown on every task 1 card). norm() forgives capitals and
    missing apostrophes. */
+/* GOOGLE FORM — the send activates when Elena pastes the form link:
+   FORM_ACTION = the form's formResponse URL, FORM_ENTRY = the field id */
+const FORM_ACTION = '';
+const FORM_ENTRY = '';
 const BOX = ['crocodiles','cute','dangerous','flies','lions','slow','snakes','strong','tortoises','ugly'];
 const SECS = {
   1:{t:'Задание 1 · Vocabulary — вставь слова в текст', pts:'/ 8'},
@@ -223,20 +236,32 @@ const CARDS = [
   {sec:3,n:'номер 4',task:'don\'t / doesn\'t',prompt:'Cats ___ a lot. (eat)',ans:["don't eat","dont eat","donteat"],norm:true,
    why:'Cats = они → don\'t eat.'},
   /* ---------- Задание 4 · Grammar /4 — В ТЕТРАДЬ ---------- */
-  {sec:4,n:'задание 4',task:'Напиши вопросы — В ТЕТРАДЬ 📝',notebook:true,
-   html:`<p><b>A:</b> ___ at twelve o'clock?<br><b>B:</b> No, the students don't have lunch at twelve o'clock.</p>
-    <p style="margin-top:.5em"><b>A:</b> ___ early on Sundays?<br><b>B:</b> Yes, Lucy goes to bed early on Sundays.</p>
-    <p style="margin-top:.5em"><b>A:</b> ___?<br><b>B:</b> I draw pictures of flowers.</p>
-    <p style="margin-top:.5em"><b>A:</b> ___ in the evening?<br><b>B:</b> She watches TV in the evening.</p>
-    <div class="reveal"><button onclick="tg(this)">проверь себя ▾</button>
-      <div class="answers">1 Do the students have lunch · 2 Does Lucy go to bed · 3 What do you draw · 4 What does she do</div>
-    </div>`},
+  {sec:4,n:'задание 4',task:'Напиши вопросы — В ТЕТРАДЬ 📝, потом впиши сюда',notebook:true,
+   html:`<input class="nbin nbname" placeholder="Твоё имя ✏️">
+    <p style="margin-top:.5em"><b>A:</b> <input class="nbin nba" style="width:100%" data-ok="do the students have lunch" placeholder="1 — вопрос…"></p>
+    <p style="margin-top:.5em"><b>A:</b> <input class="nbin nba" style="width:100%" data-ok="does lucy go to bed early on sundays" placeholder="2 — вопрос…"></p>
+    <p style="margin-top:.5em"><b>A:</b> <input class="nbin nba" style="width:100%" data-ok="what do you draw" placeholder="3 — вопрос…"></p>
+    <p style="margin-top:.5em"><b>A:</b> <input class="nbin nba" style="width:100%" data-ok="what does she do in the evening" placeholder="4 — вопрос…"></p>
+    <div class="answers" style="display:none;margin-top:.6em">
+      <span class="ansline">1 Do the students have lunch at twelve o'clock?</span>
+      <span class="ansline">2 Does Lucy go to bed early on Sundays?</span>
+      <span class="ansline">3 What do you draw?</span>
+      <span class="ansline">4 What does she do in the evening?</span>
+    </div>
+    <button class="btn gold" style="margin-top:.7em" onclick="gradeNB(this)">check ✓</button>
+    <div class="sent">отправлено ✓</div>`},
   /* ---------- Задание 5 · Grammar /5 — В ТЕТРАДЬ ---------- */
-  {sec:5,n:'задание 5',task:'Дополни диалог — В ТЕТРАДЬ 📝',notebook:true,
-   html:`<p><b>Rob:</b> Hi, Ewa. Tell me about your weekend.<br><b>Ewa:</b> <b>0</b> <b>Do you get up</b> (you / get up) early?<br><b>Ewa:</b> No, I <b>1</b> ___ but I make lunch for the family.<br><b>Rob:</b> And your brother Zac?<br><b>Ewa:</b> Zac <b>2</b> ___ (not cook) but he helps Dad in the garden. That's a big job! I <b>3</b> ___ (not help) Dad but I help Mum in the house.<br><b>Rob:</b> What <b>4</b> ___ (you / do) to relax?<br><b>Ewa:</b> I play computer games with my friends.<br><b>Rob:</b> <b>5</b> ___ (Zac / play) computer games too?<br><b>Ewa:</b> Yes, he does.</p>
-    <div class="reveal"><button onclick="tg(this)">проверь себя ▾</button>
-      <div class="answers">1 don't · 2 doesn't cook · 3 don't help · 4 do you do · 5 Does Zac play</div>
-    </div>`},
+  {sec:5,n:'задание 5',task:'Дополни диалог — В ТЕТРАДЬ 📝, потом впиши сюда',notebook:true,
+   html:`<input class="nbin nbname" placeholder="Твоё имя ✏️">
+    <p style="margin-top:.5em"><b>Rob:</b> Hi, Ewa. Tell me about your weekend.<br><b>Ewa:</b> <b>0</b> <b>Do you get up</b> (you / get up) early?<br><b>Ewa:</b> No, I <input class="nbin nba" style="width:5em" data-ok="don't|dont" placeholder="1"> but I make lunch for the family.</p>
+    <p style="margin-top:.5em"><b>Rob:</b> And your brother Zac?<br><b>Ewa:</b> Zac <input class="nbin nba" style="width:9em" data-ok="doesn't cook|doesnt cook" placeholder="2"> but he helps Dad in the garden. That's a big job! I <input class="nbin nba" style="width:8em" data-ok="don't help|dont help" placeholder="3"> Dad but I help Mum in the house.</p>
+    <p style="margin-top:.5em"><b>Rob:</b> What <input class="nbin nba" style="width:8em" data-ok="do you do|do yuo do" placeholder="4"> (you / do) to relax?<br><b>Ewa:</b> I play computer games with my friends.</p>
+    <p style="margin-top:.5em"><b>Rob:</b> <input class="nbin nba" style="width:11em" data-ok="does zac play|does zac plays" placeholder="5"> (Zac / play) computer games too?<br><b>Ewa:</b> Yes, he does.</p>
+    <div class="answers" style="display:none;margin-top:.6em">
+      <span class="ansline">1 don't · 2 doesn't cook · 3 don't help · 4 do you do · 5 Does Zac play</span>
+    </div>
+    <button class="btn gold" style="margin-top:.7em" onclick="gradeNB(this)">check ✓</button>
+    <div class="sent">отправлено ✓</div>`},
   /* ---------- Задание 6 · Communication /5 ---------- */
   {sec:6,n:'номер 1',task:'Круг правильное',prompt:'B: ___ I help you?',choices:['Can','Do'],ans:0,
    why:'Can I help you? — так вежливо предлагают помощь.'},
@@ -310,9 +335,11 @@ function draw(){
     el('inrow').style.display = 'none';
     el('choices').style.display = 'none';
     el('fb').className = 'fb show';
-    el('verdict').textContent = '📝 Пиши в тетради — проверим в классе!';
-    el('why').textContent = 'Сделал(а)? Жми «дальше» — на тесте будут эти же вопросы.';
+    el('verdict').textContent = '📝 Впиши имя и ответы — потом check ✓';
+    el('why').textContent = 'Ты пишешь в тетради, сюда — чтобы я увидела. Проверим в классе!';
     el('next').classList.add('show');
+    const nm = document.querySelector('#prompt .nbname');
+    if (nm && localStorage.getItem('nbname')) nm.value = localStorage.getItem('nbname');
     return;
   }
   el('prompt').style.fontSize = '';
@@ -399,6 +426,43 @@ function advance(){
 }
 function tg(btn){ btn.parentElement.classList.toggle('open');
   btn.textContent = btn.parentElement.classList.contains('open') ? 'проверь себя ▴' : 'проверь себя ▾'; }
+function gradeNB(btn){
+  const root = btn.parentElement;
+  const ins = [...root.querySelectorAll('.nba')];
+  let right = 0; const wrong = [];
+  ins.forEach(i => {
+    const oks = (i.dataset.ok || '').split('|').map(a => norm(a));
+    const ok = oks.includes(norm(i.value));
+    i.classList.remove('ok','bad');
+    i.classList.add(ok ? 'ok' : 'bad');
+    if (ok) right++;
+    else {
+      wrong.push(i.placeholder || '?');
+      const dl = document.createElement('span');
+      dl.className = 'ansline';
+      dl.textContent = 'Правильно: ' + (i.dataset.ok || '').split('|')[0];
+      i.after(dl);
+    }
+  });
+  const nameI = root.querySelector('.nbname');
+  const name = nameI ? nameI.value.trim() : '';
+  if (nameI && name) localStorage.setItem('nbname', name);
+  const sec = queue[0].sec;
+  const report = 'GG2.1 · тренажёр тест B · задание ' + sec + ' · ' + (name || 'без имени') + ': ' +
+    right + '/' + ins.length + (wrong.length ? ' · не так: ' + wrong.join(', ') : ' · всё верно') +
+    ' · ' + new Date().toLocaleString('ru-RU');
+  if (FORM_ACTION && FORM_ENTRY){
+    const fd = new FormData();
+    fd.append(FORM_ENTRY, report);
+    fetch(FORM_ACTION, { method: 'POST', mode: 'no-cors', body: fd });
+    const sent = root.querySelector('.sent');
+    if (sent) sent.classList.add('show');
+  }
+  btn.textContent = right === ins.length ? 'проверено ✓ отлично!' : 'проверено ✓';
+  btn.disabled = true;
+  const a = root.querySelector('.answers');
+  if (a) a.style.display = 'block';
+}
 el('check').onclick = check;
 el('inp').addEventListener('keydown', e => { if (e.key === 'Enter' && !locked) check(); });
 el('next').onclick = advance;
