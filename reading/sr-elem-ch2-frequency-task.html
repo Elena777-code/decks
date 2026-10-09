@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How often? — the frequency task</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);min-height:100vh;padding:5vh 5vw}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.1vw,.95rem);color:var(--navy);margin-bottom:.4em}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.9rem,4.2vw,3.4rem);line-height:1.05;margin-bottom:.4em}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1.2em}
+.card{background:var(--white);border-radius:22px;box-shadow:var(--shadow);padding:clamp(1rem,2vw,1.6rem);max-width:880px;margin:0 auto 1.2em}
+.task{font-family:'Fredoka';font-weight:500;background:var(--cheese-soft);border-radius:14px;padding:.6em 1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.35rem)}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.85rem,1.3vw,1.05rem);color:var(--ink-soft);font-style:italic}
+.bank{display:flex;flex-wrap:wrap;gap:.5em;justify-content:center}
+.bword{font-family:'Fredoka';font-weight:600;font-size:clamp(1.05rem,1.8vw,1.45rem);border:2.5px solid var(--sky);background:var(--white);color:var(--navy);border-radius:99px;padding:.3em 1.1em;cursor:pointer;transition:all .15s ease;box-shadow:0 4px 10px rgba(34,48,63,.08)}
+.bword:hover{transform:translateY(-3px);border-color:var(--navy)}
+.bword.sel{background:var(--navy);color:#fff;border-color:var(--navy)}
+.bword.used{opacity:.25;pointer-events:none}
+.srow{display:flex;align-items:center;gap:.7em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.6em 1em;margin-bottom:.55em;flex-wrap:wrap}
+.srow .num{flex-shrink:0;width:1.9em;height:1.9em;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:#fff}
+.srow .txt{flex:1;font-size:clamp(1.1rem,1.9vw,1.5rem);line-height:1.5;min-width:200px}
+.srow .slot{display:inline-flex;align-items:center;justify-content:center;min-width:8em;min-height:1.6em;border-bottom:4px solid var(--sky);background:#F0F6FC;border-radius:8px 8px 0 0;cursor:pointer;font-family:'Fredoka';font-weight:700;color:var(--navy);padding:.05em .5em;transition:all .15s ease}
+.srow .slot:hover{background:var(--cheese-soft)}
+.srow .slot.filled{border-bottom-color:var(--mint);background:#EAF6F1}
+.srow .slot.wrong{border-bottom-color:var(--stamp);background:var(--stamp-soft)}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.shake{animation:shake .45s ease}
+.check-btn{font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1.6em;border:none;border-radius:99px;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--navy),var(--sky));box-shadow:var(--shadow);transition:transform .15s ease}
+.check-btn:hover{transform:scale(1.05)}
+.scale{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;max-width:1000px;margin:0 auto}
+.step{flex:1;min-width:130px;max-width:190px;background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:.6em .5em;text-align:center}
+.step .sw-word{font-family:'Fredoka';font-weight:700;font-size:clamp(1rem,1.7vw,1.4rem);color:var(--navy)}
+.step .week{display:flex;gap:.2em;justify-content:center;margin:.35em 0}
+.step .week i{width:.8em;height:.8em;border-radius:50%;border:2.5px solid var(--sky);display:inline-block}
+.step .week i.f{background:var(--mint);border-color:var(--mint)}
+.step .days{font-size:clamp(.8rem,1.2vw,.95rem);color:var(--ink-soft)}
+.done{position:fixed;bottom:3vh;left:50%;transform:translateX(-50%);background:var(--white);border-radius:99px;box-shadow:var(--shadow-lg);padding:.5em 1.6em;font-family:'Fredoka';font-weight:700;font-size:clamp(1rem,1.7vw,1.35rem);color:var(--navy)}
+</style>
+</head>
+<body>
+
+<div class="eyebrow">how often? — the frequency words</div>
+<h1>How often? 📏</h1>
+<div class="accent-line"></div>
+
+<div class="card">
+  <span class="task">Tap a word → tap YOUR gap. One word per sentence!</span>
+  <p class="hintline mt">the words come from today's scale 👇</p>
+  <div class="bank mt" id="bank"></div>
+</div>
+
+<div class="card" id="sentences">
+  <div class="srow"><span class="num">1</span><span class="txt">I <span class="slot" data-ok="always">___</span> eat breakfast — every single morning! 🍳</span></div>
+  <div class="srow"><span class="num">2</span><span class="txt">I <span class="slot" data-ok="hardly ever">___</span> eat junk food — maybe once a month, no more. 🍩</span></div>
+  <div class="srow"><span class="num">3</span><span class="txt">We watch films together <span class="slot" data-ok="sometimes">___</span> — about twice a week. 🎬</span></div>
+  <div class="srow"><span class="num">4</span><span class="txt">Our family <span class="slot" data-ok="usually">___</span> has dinner together in the evening. 🍽️</span></div>
+  <div class="srow"><span class="num">5</span><span class="txt">He <span class="slot" data-ok="never">___</span> drinks fizzy drinks — water only! 💧</span></div>
+</div>
+
+<div class="center" style="text-align:center;margin:1.2em 0">
+  <button class="check-btn" id="check-btn">✅ check my sentences!</button>
+</div>
+
+<div class="card">
+  <p style="font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1.05rem,1.8vw,1.4rem);margin-bottom:.5em">The scale — frequency = days per week 📅</p>
+  <div class="scale">
+    <div class="step"><div class="sw-word">never</div><div class="week"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="days">0 of 7</div></div>
+    <div class="step"><div class="sw-word">sometimes</div><div class="week"><i class="f"></i><i class="f"></i><i></i><i></i><i></i><i></i><i></i></div><div class="days">2 of 7</div></div>
+    <div class="step"><div class="sw-word">often</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i><i></i><i></i></div><div class="days">4 of 7</div></div>
+    <div class="step"><div class="sw-word">usually</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i></i></div><div class="days">6 of 7</div></div>
+    <div class="step"><div class="sw-word">always</div><div class="week"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></div><div class="days">7 of 7!</div></div>
+  </div>
+  <p class="hintline center mt">+ one more from the quiz: <b>hardly ever</b> = almost never (1 of 7… if that!)</p>
+</div>
+
+<div class="done" id="done-bar" style="display:none">Great job! 🎉</div>
+
+<script>
+(function(){
+  "use strict";
+  const WORDS=['always','usually','often','sometimes','hardly ever','never'];
+  const bank=document.getElementById('bank');
+  let selected=null;
+  WORDS.forEach(w=>{
+    const b=document.createElement('button');
+    b.className='bword'; b.dataset.w=w; b.textContent=w;
+    b.addEventListener('click',()=>{
+      if(b.classList.contains('used')) return;
+      document.querySelectorAll('.bword').forEach(x=>x.classList.remove('sel'));
+      b.classList.add('sel'); selected=b;
+    });
+    bank.appendChild(b);
+  });
+  document.querySelectorAll('.slot').forEach(slot=>{
+    slot.addEventListener('click',()=>{
+      if(slot.classList.contains('filled')){
+        /* give the word back */
+        const prev=slot.dataset.filled;
+        const old=Array.from(bank.children).find(b=>b.dataset.w===prev);
+        if(old) old.classList.remove('used');
+        slot.textContent='___'; slot.classList.remove('filled','wrong');
+        delete slot.dataset.filled;
+        return;
+      }
+      if(!selected) return;
+      const w=selected.dataset.w;
+      slot.textContent=w; slot.dataset.filled=w; slot.classList.add('filled');
+      slot.classList.remove('wrong');
+      selected.classList.add('used'); selected.classList.remove('sel');
+      selected=null;
+    });
+  });
+  document.getElementById('check-btn').addEventListener('click',()=>{
+    let good=0, filled=0;
+    document.querySelectorAll('.slot').forEach(s=>{
+      if(!s.classList.contains('filled')) return;
+      filled++;
+      if(s.dataset.filled===s.dataset.ok){ s.classList.remove('wrong'); good++; }
+      else { s.classList.remove('filled'); s.textContent='___'; delete s.dataset.filled;
+             s.classList.remove('shake'); void s.offsetWidth; s.classList.add('shake'); }
+    });
+    const bar=document.getElementById('done-bar');
+    if(filled===5 && good===5){
+      bar.textContent='🎉 All five — perfect! 🏆';
+      bar.style.display='block';
+    } else {
+      bar.textContent='💬 '+good+' of 5 in place — the shaken ones try a different word!';
+      bar.style.display='block';
+      setTimeout(()=>{ bar.style.display='none'; }, 2600);
+    }
+  });
+})();
+</script>
+</body>
+</html>
