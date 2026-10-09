@@ -122,6 +122,15 @@ details.more[open] summary{color:var(--sage-deep);border-color:var(--sage)}
 a.mbtn{display:inline-block;border:1.5px solid var(--line);background:#fff;border-radius:99px;
   padding:.4em 1em;font-weight:700;font-size:.92rem;color:var(--ink);text-decoration:none}
 a.mbtn:hover{border-color:var(--sage);background:var(--sage-soft)}
+/* a whole homework folded into one button */
+details.deck{margin-top:.2em}
+details.deck>summary{cursor:pointer;font-weight:800;color:var(--sage-deep);background:#fff;
+  border:1.5px solid var(--line);border-radius:14px;padding:.75em 1.1em;list-style:none;user-select:none}
+details.deck>summary::-webkit-details-marker{display:none}
+details.deck>summary:hover{border-color:var(--sage);background:var(--sage-soft)}
+details.deck[open]>summary{border-color:var(--sage);border-bottom:none;border-radius:14px 14px 0 0}
+details.deck .card{border-radius:0 0 14px 14px;border-top:none}
+details.deck .card + .card{border-radius:0;border-bottom:1px solid var(--line)}
 /* the harvest card */
 .proverb{font-family:'Lora',serif;font-style:italic;color:var(--sub);font-size:clamp(.95rem,3.6vw,1.05rem);
   margin:.1em 0 .7em;line-height:1.6}
@@ -156,8 +165,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
       <div class="mbtns">
         <a class="mbtn" href="ten-boxes.html?v=1">🧰 The Ten Boxes</a>
         <a class="mbtn" href="#start-card" onclick="document.getElementById('start-card').scrollIntoView({behavior:'smooth'});return false">🔧 The drill</a>
-        <a class="mbtn" href="#article-oct7" onclick="document.getElementById('article-oct7').scrollIntoView({behavior:'smooth'});return false">📖 The article</a>
-        <a class="mbtn" href="#meet7-card" onclick="document.getElementById('meet7-card').scrollIntoView({behavior:'smooth'});return false">📚 Seven new words</a>
+        <a class="mbtn" href="#bs-hw" onclick="var d=document.getElementById('bs-hw');d.open=true;setTimeout(function(){d.scrollIntoView({behavior:'smooth'})},50);return false">🎙 “Bright sparks!” homework</a>
         <a class="mbtn" href="#speak-card" onclick="document.getElementById('speak-card').scrollIntoView({behavior:'smooth'});return false">🎙 Last week: retell &amp; two questions</a>
         <a class="mbtn" href="#dict-card" onclick="document.getElementById('dict-card').scrollIntoView({behavior:'smooth'});return false">📖 Last week: the three words</a>
         <a class="mbtn" href="#repair-card" onclick="document.getElementById('repair-card').scrollIntoView({behavior:'smooth'});return false">✍️ Last week: repair your sentences</a>
@@ -165,6 +173,8 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     </details>
   </div>
 
+  <details class="deck" id="bs-hw">
+    <summary>🎙 “Bright sparks!” homework — the article &amp; the seven words</summary>
   <div class="card hwcard" id="article-oct7">
     <div class="no">This week · read</div>
     <h2>📖 “Bright sparks!” — the whole article</h2>
@@ -220,6 +230,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     </ol>
     <p class="hint">Then play <b>The Ten Boxes</b> — round two asks exactly these seven.</p>
   </div>
+  </details>
 
   <div class="card" id="start-card">
     <p class="rules">Three games + your sentences.<br>
