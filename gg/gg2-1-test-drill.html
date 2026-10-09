@@ -107,7 +107,7 @@ input:focus{outline:none;border-color:var(--mint-deep)}
 <body>
 
 <div class="eyebrow">Готовимся к тесту · Go Getter 1 · Unit 7 · Language Test B</div>
-<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v8</span></h1>
+<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v9</span></h1>
 <div class="accent-line"></div>
 
 <div class="notimer">🐢 Без таймера — отвечай спокойно, тут никто не торопится. Задания — как в настоящем тесте, одно за другим.</div>
@@ -295,7 +295,7 @@ function draw(){
   el('fb').className = 'fb'; el('next').classList.remove('show');
   const st = el('strip');
   if (c.sec === 2){
-    st.innerHTML = ['parrot','monkey','rabbit','frog','spider'].map(k => '<img src="' + IMG[k] + '" alt="">').join('');
+    st.innerHTML = ['parrot','monkey','rabbit','frog','spider'].map(k => '<img src="' + IMG[k] + '" style="height:72px;width:auto" alt="">').join('');
     st.style.display = 'flex';
   } else st.style.display = 'none';
   if (c.example){
