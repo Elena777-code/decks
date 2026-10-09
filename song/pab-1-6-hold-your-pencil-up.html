@@ -123,25 +123,34 @@ h1.title{
   background:var(--peach);border-radius:99px;align-self:flex-start;
   padding:.45em 1.2em;font-size:clamp(1.2rem,2.1vw,1.7rem);font-weight:800;color:var(--ink);
 }
-/* the chant: 12 line-cards, grey → colour as the track goes */
-.chant{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.3vh,16px)}
-.line-card{
-  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
-  padding:clamp(8px,1.3vh,14px) clamp(10px,1.2vw,18px);
-  display:flex;align-items:center;gap:clamp(10px,1.4vw,22px);
-  cursor:pointer;user-select:none;
-  filter:grayscale(1);opacity:.32;
-  transition:filter .35s ease,opacity .35s ease,transform .2s cubic-bezier(.34,1.56,.64,1);
+/* the stage: each line fills a phone-screen, driven by the track */
+.stage-slide{align-items:center;text-align:center}
+.phone{
+  width:min(37vh,86vw);aspect-ratio:9/16;flex:0 0 auto;
+  background:var(--white);border-radius:34px;box-shadow:var(--shadow-lg);
+  display:flex;flex-direction:column;overflow:hidden;position:relative;
 }
-.line-card:hover{transform:scale(1.02)}
-.line-card.on{filter:none;opacity:1;transform:scale(1.02)}
-.line-card .pic{font-size:clamp(2rem,5.2vh,3.6rem);line-height:1.15;flex:0 0 auto}
-.line-card .txt{
+.phone::before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:26%;height:9px;border-radius:5px;background:rgba(45,52,54,.08)}
+.phone-pic{width:100%;aspect-ratio:1;flex:0 0 auto;background:#fff}
+.phone-pic svg{width:100%;height:100%;display:block}
+.phone-line{
+  flex:1;display:flex;align-items:center;justify-content:center;
   font-family:'Fredoka',sans-serif;font-weight:700;
-  font-size:clamp(1.05rem,2vw,1.6rem);line-height:1.25;color:var(--ink);
+  font-size:clamp(1.1rem,3.2vh,2rem);line-height:1.25;color:var(--ink);
+  padding:0 7%;
 }
-.line-card .hint{display:block;font-family:'Nunito',sans-serif;font-weight:700;font-size:.68em;color:var(--mint-deep);letter-spacing:.04em}
-audio{width:min(560px,100%);margin-top:.2vh}
+.phone-hint{
+  flex:0 0 auto;padding:0 7% 5.5%;
+  font-family:'Nunito',sans-serif;font-weight:800;
+  font-size:clamp(.95rem,2.4vh,1.5rem);color:var(--mint-deep);letter-spacing:.04em;
+}
+.phone.bye .phone-pic,.phone.bye .phone-hint{display:none}
+.phone.bye .phone-line{font-size:clamp(1.4rem,4.4vh,2.6rem);color:var(--lavender-deep)}
+.dots{display:flex;gap:clamp(5px,.9vh,9px);justify-content:center;flex-wrap:wrap;max-width:60vw}
+.dots i{width:clamp(7px,1.3vh,11px);height:clamp(7px,1.3vh,11px);border-radius:50%;background:rgba(45,52,54,.14);transition:background .25s ease,transform .25s ease}
+.dots i.hot{background:var(--mint-deep);transform:scale(1.25)}
+.dots i.past{background:var(--lavender)}
+#chant-audio{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:95;width:min(430px,52vw);opacity:.95}
 /* the actions game: pictures only, tap → the class does it */
 .act-grid{display:flex;flex-wrap:wrap;gap:clamp(12px,1.8vw,24px);justify-content:center}
 .act{
@@ -166,6 +175,8 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 
 <div id="progress-track"><div id="progress-fill"></div></div>
 
+<audio id="chant-audio" controls preload="auto" src="../media/pab-1-6-hold-your-pencil-up.mp3"></audio>
+
 <!-- ============ THE NINE ILLUSTRATIONS (v2, 2026-10-09) ============
      One kid, one picture per action — originals drawn in the
      Cambridge-coursebook manner. Defined once here, <use>d on the
@@ -180,6 +191,9 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
     <clipPath id="shirt8"><path d="M57 112 Q76 104 95 112 L99 146 Q76 153 53 146 Z"/></clipPath>
     <clipPath id="shirt7"><path d="M70 102 Q88 94 106 102 L110 136 Q88 143 66 136 Z"/></clipPath>
     <clipPath id="shirt9"><path d="M85 112 Q104 104 123 112 L127 146 Q104 153 81 146 Z"/></clipPath>
+    <clipPath id="shirtW"><path d="M81 112 Q100 104 119 112 L123 146 Q100 153 77 146 Z"/></clipPath>
+    <clipPath id="shirtD"><path d="M81 112 Q100 104 119 112 L123 146 Q100 153 77 146 Z"/></clipPath>
+    <clipPath id="shirtT"><path d="M81 112 Q100 104 119 112 L123 146 Q100 153 77 146 Z"/></clipPath>
 
     <!-- 1 · hold your pencil up -->
     <symbol id="pab-hold-up" viewBox="0 0 200 200">
@@ -553,31 +567,162 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
         <path d="M41.8 22 Q48.6 23.6 48.6 30 Q46.2 26.2 41.8 26.2 Z"/>
       </g>
     </symbol>
+
+    <!-- 10 · WRITE (word picture) -->
+    <symbol id="pab-write-word" viewBox="0 0 200 200">
+      <rect width="200" height="200" rx="28" fill="#EAF4FF"/>
+      <path d="M81 112 Q100 104 119 112 L123 146 Q100 153 77 146 Z" fill="#FFFFFF"/>
+      <g clip-path="url(#shirtW)">
+        <rect x="70" y="118" width="60" height="6" fill="#5ECBB8"/>
+        <rect x="70" y="130" width="60" height="6" fill="#5ECBB8"/>
+        <rect x="70" y="142" width="60" height="6" fill="#5ECBB8"/>
+      </g>
+      <circle cx="67" cy="76" r="5.5" fill="#FFDFC4"/>
+      <circle cx="133" cy="76" r="5.5" fill="#FFDFC4"/>
+      <circle cx="100" cy="74" r="33" fill="#FFDFC4"/>
+      <path d="M67 72 A33 33 0 0 1 133 72 L133 69 Q127 61 119 65 Q111 53 100 59 Q89 53 81 65 Q73 61 67 69 Z" fill="#7A4A2B"/>
+      <circle cx="90" cy="76" r="3.6" fill="#2D3436"/>
+      <circle cx="113" cy="76" r="3.6" fill="#2D3436"/>
+      <path d="M92 89 Q100 94 108 89" fill="none" stroke="#2D3436" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="79" cy="82" r="4.6" fill="#FF8FAB" opacity=".5"/>
+      <circle cx="121" cy="82" r="4.6" fill="#FF8FAB" opacity=".5"/>
+      <rect x="38" y="147" width="10" height="29" rx="4" fill="#B87742"/>
+      <rect x="152" y="147" width="10" height="29" rx="4" fill="#B87742"/>
+      <rect x="28" y="134" width="144" height="13" rx="6.5" fill="#C98850"/>
+      <polygon points="60,114 138,114 148,146 50,146" fill="#FFFFFF" stroke="#E5DED2" stroke-width="1.5"/>
+      <g fill="none" stroke="#8A8A8A" stroke-width="2.4" stroke-linecap="round">
+        <path d="M66 125 Q70 120 74 125 T82 125 T90 125 T98 125 T106 125 T114 125 T122 125"/>
+        <path d="M66 136 Q70 131 74 136 T82 136 T90 136"/>
+      </g>
+      <path d="M115 112 Q124 104 129 95" fill="none" stroke="#FFDFC4" stroke-width="11" stroke-linecap="round"/>
+      <g transform="translate(130,91) rotate(217)">
+        <rect x="-5" y="-46" width="10" height="40" rx="2" fill="#FFD166"/>
+        <polygon points="-5,-46 5,-46 0,-58" fill="#EACDA3"/>
+        <polygon points="-2.2,-51.5 2.2,-51.5 0,-58" fill="#5A5A5A"/>
+      </g>
+      <circle cx="130" cy="91" r="7" fill="#FFDFC4"/>
+    </symbol>
+
+    <!-- 11 · DRAW (word picture) -->
+    <symbol id="pab-draw-word" viewBox="0 0 200 200">
+      <rect width="200" height="200" rx="28" fill="#F1ECFF"/>
+      <path d="M81 112 Q100 104 119 112 L123 146 Q100 153 77 146 Z" fill="#FFFFFF"/>
+      <g clip-path="url(#shirtD)">
+        <rect x="70" y="118" width="60" height="6" fill="#5ECBB8"/>
+        <rect x="70" y="130" width="60" height="6" fill="#5ECBB8"/>
+        <rect x="70" y="142" width="60" height="6" fill="#5ECBB8"/>
+      </g>
+      <circle cx="67" cy="76" r="5.5" fill="#FFDFC4"/>
+      <circle cx="133" cy="76" r="5.5" fill="#FFDFC4"/>
+      <circle cx="100" cy="74" r="33" fill="#FFDFC4"/>
+      <path d="M67 72 A33 33 0 0 1 133 72 L133 69 Q127 61 119 65 Q111 53 100 59 Q89 53 81 65 Q73 61 67 69 Z" fill="#7A4A2B"/>
+      <circle cx="90" cy="76" r="3.6" fill="#2D3436"/>
+      <circle cx="113" cy="76" r="3.6" fill="#2D3436"/>
+      <path d="M92 89 Q100 94 108 89" fill="none" stroke="#2D3436" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="79" cy="82" r="4.6" fill="#FF8FAB" opacity=".5"/>
+      <circle cx="121" cy="82" r="4.6" fill="#FF8FAB" opacity=".5"/>
+      <rect x="38" y="147" width="10" height="29" rx="4" fill="#B87742"/>
+      <rect x="152" y="147" width="10" height="29" rx="4" fill="#B87742"/>
+      <rect x="28" y="134" width="144" height="13" rx="6.5" fill="#C98850"/>
+      <polygon points="60,114 138,114 148,146 50,146" fill="#FFFFFF" stroke="#E5DED2" stroke-width="1.5"/>
+      <g fill="none" stroke="#8A8A8A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M76 140 L76 128 L98 128 L98 140"/>
+        <path d="M72 129 L87 117 L102 129"/>
+        <path d="M82 140 L82 133 L90 133"/>
+        <path d="M113 120 A5 5 0 1 0 113 130" stroke-dasharray="4 2.6"/>
+      </g>
+      <path d="M116 112 Q134 98 150 82" fill="none" stroke="#FFDFC4" stroke-width="11" stroke-linecap="round"/>
+      <g transform="translate(151,79) rotate(217)">
+        <rect x="-5" y="-46" width="10" height="40" rx="2" fill="#FFD166"/>
+        <polygon points="-5,-46 5,-46 0,-58" fill="#EACDA3"/>
+        <polygon points="-2.2,-51.5 2.2,-51.5 0,-58" fill="#5A5A5A"/>
+      </g>
+      <circle cx="151" cy="79" r="7" fill="#FFDFC4"/>
+    </symbol>
+
+    <!-- 12 · TAP (word picture — the rubber end) -->
+    <symbol id="pab-tap-word" viewBox="0 0 200 200">
+      <rect width="200" height="200" rx="28" fill="#FFF6DC"/>
+      <path d="M81 112 Q100 104 119 112 L123 146 Q100 153 77 146 Z" fill="#FFFFFF"/>
+      <g clip-path="url(#shirtT)">
+        <rect x="70" y="118" width="60" height="6" fill="#5ECBB8"/>
+        <rect x="70" y="130" width="60" height="6" fill="#5ECBB8"/>
+        <rect x="70" y="142" width="60" height="6" fill="#5ECBB8"/>
+      </g>
+      <circle cx="67" cy="76" r="5.5" fill="#FFDFC4"/>
+      <circle cx="133" cy="76" r="5.5" fill="#FFDFC4"/>
+      <circle cx="100" cy="74" r="33" fill="#FFDFC4"/>
+      <path d="M67 72 A33 33 0 0 1 133 72 L133 69 Q127 61 119 65 Q111 53 100 59 Q89 53 81 65 Q73 61 67 69 Z" fill="#7A4A2B"/>
+      <circle cx="90" cy="76" r="3.6" fill="#2D3436"/>
+      <circle cx="113" cy="76" r="3.6" fill="#2D3436"/>
+      <path d="M92 89 Q100 94 108 89" fill="none" stroke="#2D3436" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="79" cy="82" r="4.6" fill="#FF8FAB" opacity=".5"/>
+      <circle cx="121" cy="82" r="4.6" fill="#FF8FAB" opacity=".5"/>
+      <rect x="38" y="147" width="10" height="29" rx="4" fill="#B87742"/>
+      <rect x="152" y="147" width="10" height="29" rx="4" fill="#B87742"/>
+      <rect x="28" y="134" width="144" height="13" rx="6.5" fill="#C98850"/>
+      <path d="M116 114 Q127 112 135 110" fill="none" stroke="#FFDFC4" stroke-width="11" stroke-linecap="round"/>
+      <g transform="translate(137,110)">
+        <polygon points="-5,-38 5,-38 0,-50" fill="#EACDA3"/>
+        <polygon points="-2.2,-44.5 2.2,-44.5 0,-50" fill="#5A5A5A"/>
+        <rect x="-5" y="-38" width="10" height="41" rx="2" fill="#FFD166"/>
+        <rect x="-5.5" y="3" width="11" height="5.5" fill="#9AA7B0"/>
+        <rect x="-5" y="8" width="10" height="9" rx="3" fill="#FF8FAB"/>
+      </g>
+      <circle cx="137" cy="110" r="7" fill="#FFDFC4"/>
+      <g stroke="#E8A33D" stroke-width="2.6" stroke-linecap="round" fill="none">
+        <path d="M124 138 Q122 142 124 146"/>
+        <path d="M150 138 Q152 142 150 146"/>
+        <path d="M137 143 L137 138"/>
+      </g>
+    </symbol>
   </defs>
 </svg>
 
-<!-- 1 · THE CHANT — play + reveal the lines in time -->
-<section class="slide" data-notes="PREP: a PENCIL per child — the chant needs it! The track is the FULL activity recording (4:15) with its own teaching rounds: 0:00 spoken intro + the tune · 0:18 ROUND 1 «Listen» — the whole chant · 1:03 ROUND 2 «Listen and repeat» — line by line · 2:23 ROUND 3 «sing with the children» · 3:01 ROUND 4 «and again» · 3:48 ROUND 5 «sing by yourselves» — backing only. PRESS PLAY and the pictures light up BY THEMSELVES, in time with the singing (whisper-checked timings). Rounds 3–4 have no «put it down» lines — those three cards stay grey, the children SEE which lines come. Round 1: they just WATCH and LISTEN. Rounds 2–4: everybody does the actions. Round 5: the board rests — the class sings from memory. Muted track: tapping a card lights it by hand. Cards may also be tapped between rounds for a quick recap.">
-  <div class="eyebrow reveal-el">🎵 Our chant · Primary Activity Box 1.6</div>
-  <div class="stamp">build 2026-10-09 · v4 · auto-listen</div>
-  <h1 class="title reveal-el">Hold your pencil up! ✏️⬆️</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Press play — LISTEN! The pictures light up with the chant.</div>
-  <audio controls preload="none" class="reveal-el" src="../media/pab-1-6-hold-your-pencil-up.mp3"></audio>
-  <div class="chant reveal-el">
-    <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid holds the pencil up high"><use href="#pab-hold-up"/></svg></span><span class="txt">Hold your pencil up.<span class="hint">✋ pencil HIGH!</span></span></div>
-    <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid holds the pencil up high"><use href="#pab-hold-up"/></svg></span><span class="txt">Hold your pencil up.<span class="hint">✋ pencil HIGH!</span></span></div>
-    <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid writes and draws, then taps the rubber end — tap-tap-tap"><use href="#pab-write-tap"/></svg></span><span class="txt">Write, draw, tap, tap, tap.<span class="hint">✍️ tap-tap-tap!</span></span></div>
-    <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the pencil lies on the desk, put down"><use href="#pab-put-down"/></svg></span><span class="txt">Put it down again.<span class="hint">⬇️ pencil DOWN.</span></span></div>
-    <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the pencil lies on the desk, put down"><use href="#pab-put-down"/></svg></span><span class="txt">Put it down again.<span class="hint">⬇️ pencil DOWN.</span></span></div>
-    <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid writes and draws, then taps the rubber end — tap-tap-tap"><use href="#pab-write-tap"/></svg></span><span class="txt">Write, draw, tap, tap, tap.<span class="hint">✍️ tap-tap-tap!</span></span></div>
-    <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid points to the blackboard"><use href="#pab-board"/></svg></span><span class="txt">Point to the blackboard.<span class="hint">👉 point!</span></span></div>
-    <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid points down to the floor"><use href="#pab-floor"/></svg></span><span class="txt">Point to the floor.<span class="hint">👇 point DOWN.</span></span></div>
-    <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid points to the window"><use href="#pab-window"/></svg></span><span class="txt">Point to the window.<span class="hint">👉 point!</span></span></div>
-    <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid points to the door"><use href="#pab-door"/></svg></span><span class="txt">Point to the door.<span class="hint">👉 point!</span></span></div>
-    <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid claps — one, two, three"><use href="#pab-clap"/></svg></span><span class="txt">Clap your hands together 1, 2, 3.<span class="hint">👏👏👏</span></span></div>
-    <div class="line-card" onclick="this.classList.add('on')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid stands up and sings by the empty chair"><use href="#pab-stand"/></svg></span><span class="txt">Now stand up and sing with me.<span class="hint">🧍 UP and SING!</span></span></div>
+<!-- 1-4 · THE FOUR ROUNDS — each line fills a phone-screen, driven by the track -->
+<section class="slide stage-slide" data-notes="PREP: a PENCIL per child for rounds 2-4. ROUND 1 «Listen» (0:18-0:49): PRESS PLAY — each line fills the phone by itself; «Write, draw, tap-tap-tap» shows word by word (tap = the rubber end!). The class just WATCHES and LISTENS — no pencils yet. The deck flips to «Listen and repeat» by itself when the track says it.">
+  <div class="eyebrow reveal-el">🎧 Round 1 · the first song</div>
+  <div class="stamp">build 2026-10-09 · v5 · phone stage</div>
+  <h1 class="title reveal-el">Listen 👂</h1>
+  <div class="phone reveal-el" data-round="0">
+    <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
+    <div class="phone-line">Hold your pencil up.</div>
+    <div class="phone-hint">✋ pencil HIGH!</div>
   </div>
+  <div class="dots reveal-el" data-round="0"></div>
+</section>
+
+<section class="slide stage-slide" data-notes="ROUND 2 «Listen and repeat» (1:03-2:11): the track sings every line twice — the class repeats after it. The deck flips here by itself while the track plays; pause the track (the bar on top) to browse freely.">
+  <div class="eyebrow reveal-el">🔁 Round 2</div>
+  <h1 class="title reveal-el">Listen and repeat 🔁</h1>
+  <div class="phone reveal-el" data-round="1">
+    <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
+    <div class="phone-line">Hold your pencil up.</div>
+    <div class="phone-hint">✋ pencil HIGH!</div>
+  </div>
+  <div class="dots reveal-el" data-round="1"></div>
+</section>
+
+<section class="slide stage-slide" data-notes="ROUND 3 «sing with the children» (2:23-3:00): everybody sings with the recording, pencils ready. NOTE: this round has no «put it down» lines — the chant goes straight from «write, draw» to the pointing lines.">
+  <div class="eyebrow reveal-el">🎶 Round 3</div>
+  <h1 class="title reveal-el">Sing with the children 🎶</h1>
+  <div class="phone reveal-el" data-round="2">
+    <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
+    <div class="phone-line">Hold your pencil up.</div>
+    <div class="phone-hint">✋ pencil HIGH!</div>
+  </div>
+  <div class="dots reveal-el" data-round="2"></div>
+</section>
+
+<section class="slide stage-slide" data-notes="ROUND 4 «and again» (3:01-3:47) — one more sing-all-together. Then «NOW SING BY YOURSELVES» (3:48+): the phone shows the sing card, backing only — the class performs from memory. When the track ends, the deck flips to the Wi-Fi slide by itself.">
+  <div class="eyebrow reveal-el">💪 Round 4 + by yourselves</div>
+  <h1 class="title reveal-el">And again! 💪</h1>
+  <div class="phone reveal-el" data-round="3">
+    <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
+    <div class="phone-line">Hold your pencil up.</div>
+    <div class="phone-hint">✋ pencil HIGH!</div>
+  </div>
+  <div class="dots reveal-el" data-round="3"></div>
 </section>
 
 <!-- 2 · WI-FI -->
@@ -649,6 +794,12 @@ let showWatch;
 function show(n){
   if(n<0||n>=slides.length)return;
   slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
+  /* frozen-clock safety: a background pane can freeze a slide mid-fade —
+     sweep the leftovers once the transition had its time */
+  setTimeout(()=>{slides.forEach((s,i)=>{
+    if(i!==n){s.style.opacity='0';s.style.visibility='hidden';}
+    else{s.style.opacity='';s.style.visibility='';s.style.transform='';}
+  });},650);
   cur=n;
   fill.style.width=((n+1)/slides.length*100)+'%';
   cnt.textContent=(n+1)+' / '+slides.length;
@@ -718,32 +869,119 @@ document.addEventListener('touchend',e=>{
 const h=parseInt(location.hash.slice(1));
 show(isNaN(h)?0:h-1);
 
-/* ============ LISTEN MODE (2026-10-09): the pictures light up in time ============
-   The track is the full CD activity recording. Whisper-checked line timings;
-   each round lights its lines; rounds 3-4 have no «put it down» lines —
-   cards 3-5 stay grey there; the «by yourselves» backing (3:48+) stays
-   unguided on purpose — the class sings from memory. Manual taps still work
-   while paused/muted (during playback the sync owns the cards). */
-const au=document.querySelector('audio');
-const chantCards=[...document.querySelectorAll('.line-card')];
-const ROUNDS=[
- {t:[17.57,19.25,21.84,25.14,27.00,29.35,33.20,35.45,37.12,39.33,41.12,45.12], c:[0,1,2,3,4,5,6,7,8,9,10,11]},
- {t:[62.84,67.27,71.80,79.42,82.51,88.12,95.56,100.04,104.52,108.23,111.60,120.00], c:[0,1,2,3,4,5,6,7,8,9,10,11]},
- {t:[142.96,144.97,147.04,151.74,154.78,157.47,160.40,163.28,172.21], c:[0,1,2,6,7,8,9,10,11]},
- {t:[181.44,185.94,189.72,197.11,202.44,206.34,210.96,213.70,222.04], c:[0,1,2,6,7,8,9,10,11]}
+/* ============ STAGE ENGINE (v5): each line fills a phone, driven by the track ============
+   Line + word timings whisper-checked from the CD recording. Rounds 3-4 have
+   no «put it down» lines (the phone skips them — the children see it).
+   «By yourselves» (3:48) = the sing card, backing only. Manual slide
+   navigation still works; while the track plays, the deck follows it. */
+const SEQ=[
+ {slide:0,m:[
+  [17.57,'pab-hold-up','Hold your pencil up.','✋ pencil HIGH!'],
+  [19.25,'pab-hold-up','Hold your pencil up.','✋ pencil HIGH!'],
+  [21.84,'pab-write-word','Write.','✍️ write!'],
+  [22.60,'pab-draw-word','Draw.','✏️ draw!'],
+  [23.27,'pab-tap-word','Tap-tap-tap!','👆 the rubber end!'],
+  [25.14,'pab-put-down','Put it down again.','⬇️ pencil DOWN.'],
+  [27.00,'pab-put-down','Put it down again.','⬇️ pencil DOWN.'],
+  [29.35,'pab-write-word','Write.','✍️ write!'],
+  [30.00,'pab-draw-word','Draw.','✏️ draw!'],
+  [30.90,'pab-tap-word','Tap-tap-tap!','👆 the rubber end!'],
+  [33.20,'pab-board','Point to the blackboard.','👉 point!'],
+  [35.45,'pab-floor','Point to the floor.','👇 point DOWN.'],
+  [37.12,'pab-window','Point to the window.','👉 point!'],
+  [39.33,'pab-door','Point to the door.','👉 point!'],
+  [41.12,'pab-clap','Clap your hands together 1, 2, 3.','👏👏👏'],
+  [45.12,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!']
+ ]},
+ {slide:1,m:[
+  [62.84,'pab-hold-up','Hold your pencil up.','✋ pencil HIGH!'],
+  [67.27,'pab-hold-up','Hold your pencil up.','✋ pencil HIGH!'],
+  [71.80,'pab-write-word','Write.','✍️ write!'],
+  [72.35,'pab-draw-word','Draw.','✏️ draw!'],
+  [72.85,'pab-tap-word','Tap-tap-tap!','👆 the rubber end!'],
+  [79.42,'pab-put-down','Put it down again.','⬇️ pencil DOWN.'],
+  [82.51,'pab-put-down','Put it down again.','⬇️ pencil DOWN.'],
+  [88.12,'pab-write-word','Write.','✍️ write!'],
+  [88.60,'pab-draw-word','Draw.','✏️ draw!'],
+  [89.40,'pab-tap-word','Tap-tap-tap!','👆 the rubber end!'],
+  [95.56,'pab-board','Point to the blackboard.','👉 point!'],
+  [100.04,'pab-floor','Point to the floor.','👇 point DOWN.'],
+  [104.52,'pab-window','Point to the window.','👉 point!'],
+  [108.23,'pab-door','Point to the door.','👉 point!'],
+  [111.60,'pab-clap','Clap your hands together 1, 2, 3.','👏👏👏'],
+  [120.00,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!']
+ ]},
+ {slide:2,m:[
+  [142.96,'pab-hold-up','Hold your pencil up.','✋ pencil HIGH!'],
+  [144.97,'pab-hold-up','Hold your pencil up.','✋ pencil HIGH!'],
+  [147.04,'pab-write-word','Write.','✍️ write!'],
+  [148.01,'pab-draw-word','Draw.','✏️ draw!'],
+  [149.27,'pab-tap-word','Tap-tap-tap!','👆 the rubber end!'],
+  [151.74,'pab-board','Point to the blackboard.','👉 point!'],
+  [154.78,'pab-floor','Point to the floor.','👇 point DOWN.'],
+  [157.47,'pab-window','Point to the window.','👉 point!'],
+  [160.40,'pab-door','Point to the door.','👉 point!'],
+  [163.28,'pab-clap','Clap your hands together 1, 2, 3.','👏👏👏'],
+  [172.21,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!']
+ ]},
+ {slide:3,m:[
+  [181.44,'pab-hold-up','Hold your pencil up.','✋ pencil HIGH!'],
+  [185.94,'pab-hold-up','Hold your pencil up.','✋ pencil HIGH!'],
+  [189.72,'pab-write-word','Write.','✍️ write!'],
+  [191.33,'pab-draw-word','Draw.','✏️ draw!'],
+  [192.71,'pab-tap-word','Tap-tap-tap!','👆 the rubber end!'],
+  [197.11,'pab-board','Point to the blackboard.','👉 point!'],
+  [202.44,'pab-floor','Point to the floor.','👇 point DOWN.'],
+  [206.34,'pab-window','Point to the window.','👉 point!'],
+  [210.96,'pab-door','Point to the door.','👉 point!'],
+  [213.70,'pab-clap','Clap your hands together 1, 2, 3.','👏👏👏'],
+  [222.04,'pab-stand','Now stand up and sing with me.','🧍 UP and SING!']
+ ]}
 ];
-function syncLit(){
+const BYE={t:227.68,line:'Now sing by yourselves! 🎵'};
+const au=document.getElementById('chant-audio');
+const rounds=SEQ.map(R=>{
+  const phone=document.querySelector('.phone[data-round="'+R.slide+'"]');
+  const dots=document.querySelector('.dots[data-round="'+R.slide+'"]');
+  R.m.forEach(()=>dots.appendChild(document.createElement('i')));
+  return {...R,phone,dots,use:phone.querySelector('use'),
+          line:phone.querySelector('.phone-line'),hint:phone.querySelector('.phone-hint'),
+          dotEls:[...dots.children],last:-2};
+});
+function paint(r,idx){
+  if(r.last===idx)return; r.last=idx;
+  const m=r.m[idx];
+  r.use.setAttribute('href','#'+m[1]);
+  r.line.textContent=m[2];
+  r.hint.textContent=m[3];
+  r.dotEls.forEach((d,i)=>{d.className=i<idx?'past':(i===idx?'hot':'');});
+}
+function stageTick(){
   const t=au.currentTime;
   let r=null;
-  for(const R of ROUNDS){ if(t>=R.t[0]-0.25) r=R; }
-  if(!r)return;                      /* before the first round — nothing to sync */
-  const on=new Set();
-  r.t.forEach((tt,i)=>{ if(t>=tt-0.15) on.add(r.c[i]); });
-  chantCards.forEach((c,i)=>c.classList.toggle('on', on.has(i)));
+  for(const R of rounds){ if(t>=R.m[0][0]-0.4) r=R; }
+  if(!r)return;
+  if(!au.paused && cur!==r.slide){show(r.slide);history.replaceState(null,'','#'+(r.slide+1));}
+  let idx=-1;
+  r.m.forEach((mm,i)=>{ if(t>=mm[0]-0.12) idx=i; });
+  if(idx<0)return;
+  if(t>=BYE.t && r.slide===3){
+    if(!r.phone.classList.contains('bye')){
+      r.phone.classList.add('bye');
+      r.use.setAttribute('href','#pab-stand');
+      r.line.textContent=BYE.line;
+      r.hint.textContent='';
+    }
+    r.dotEls.forEach(d=>d.className='past');
+    return;
+  }
+  if(r.phone.classList.contains('bye')){r.phone.classList.remove('bye');r.last=-2;}
+  paint(r,idx);
 }
-au.addEventListener('timeupdate',syncLit);
-au.addEventListener('seeked',syncLit);
-au.addEventListener('playing',syncLit);
+au.addEventListener('timeupdate',stageTick);
+au.addEventListener('seeked',stageTick);
+au.addEventListener('playing',stageTick);
+au.addEventListener('ended',()=>show(4));
 </script>
 
 <script>
