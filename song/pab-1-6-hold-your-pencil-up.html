@@ -151,6 +151,23 @@ h1.title{
 }
 .phone.bye .phone-pic,.phone.bye .phone-hint{display:none}
 .sheet{display:grid;grid-template-columns:1fr 1fr;gap:clamp(6px,1.1vh,12px);width:min(94vw,100%)}
+.match{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(8px,1.4vh,18px);width:min(94vw,100%)}
+.mcol{display:flex;flex-direction:column;gap:clamp(5px,.9vh,10px)}
+.mpic,.mtxt{
+  background:var(--white);border-radius:14px;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:clamp(6px,1vw,12px);
+  padding:clamp(3px,.7vh,7px) clamp(8px,1vw,14px);
+  cursor:pointer;user-select:none;
+  transition:transform .15s cubic-bezier(.34,1.56,.64,1),box-shadow .15s ease,opacity .2s ease;
+}
+.mpic{justify-content:center}
+.mpic svg{width:clamp(2.4rem,5vh,3.4rem);height:clamp(2.4rem,5vh,3.4rem)}
+.mtxt{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.9rem,1.9vh,1.45rem);line-height:1.15;color:var(--ink)}
+.mpic:hover,.mtxt:hover{transform:translateY(-2px)}
+.msel{box-shadow:0 0 0 4px var(--peach),var(--shadow);transform:scale(1.03)}
+.mdone{box-shadow:0 0 0 4px var(--mint),var(--shadow);opacity:.62;pointer-events:none}
+.mbad{animation:mshake .32s ease}
+@keyframes mshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .sheet-card{
   background:var(--white);border-radius:18px;box-shadow:var(--shadow);
   padding:clamp(6px,1.2vh,12px) clamp(8px,1.2vw,16px);
@@ -712,7 +729,7 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 <!-- 1-4 · THE FOUR ROUNDS — each line fills a phone-screen, driven by the track -->
 <section class="slide stage-slide" data-notes="PREP: a PENCIL per child. PART 1 «Listen» (0:41 — the whole chant): PRESS PLAY — each line fills the phone by itself; «Write, draw, tap-tap-tap» shows word by word (tap = the rubber end!). The class just WATCHES and LISTENS. When the part ends, the deck flips to «Listen and repeat» by itself.">
   <div class="eyebrow reveal-el">🎧 Round 1 · the first song</div>
-  <div class="stamp">build 2026-10-09 · v10 · illustrated lyrics</div>
+  <div class="stamp">build 2026-10-09 · v11 · matching game</div>
   <h1 class="title reveal-el">Listen 👂</h1>
   <div class="phone reveal-el" data-round="0">
     <div class="phone-pic"><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#pab-hold-up"/></svg></div>
@@ -787,21 +804,15 @@ video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--sha
 </section>
 
 <!-- 3 · THE ACTIONS GAME — no reading, pictures only -->
-<section class="slide" data-notes="NO READING NEEDED — pictures only, the class DOES what lights up. YOU tap a card (or a child taps — they love being the caller) — the whole class does the action: hold the pencil high · put it down · point to the blackboard · the floor · the window · the door · clap 1 2 3 · stand up! Say the words as you tap — they hear the chant language again and again. Speed up round by round; wrong action = a laugh and try again. 2–3 minutes, or longer if they love it.">
-  <div class="eyebrow reveal-el">Game · do what lights up!</div>
-  <h1 class="title reveal-el">Do it! ⚡</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Tap a picture — EVERYBODY does it!</div>
-  <div class="act-grid reveal-el">
-    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid holds the pencil up high"><use href="#pab-hold-up"/></svg></span></div>
-    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the pencil lies on the desk, put down"><use href="#pab-put-down"/></svg></span></div>
-    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid points to the blackboard"><use href="#pab-board"/></svg></span></div>
-    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid points down to the floor"><use href="#pab-floor"/></svg></span></div>
-    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid points to the window"><use href="#pab-window"/></svg></span></div>
-    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid points to the door"><use href="#pab-door"/></svg></span></div>
-    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid claps — one, two, three"><use href="#pab-clap"/></svg></span></div>
-    <div class="act" onclick="this.classList.toggle('picked')"><span class="pic"><svg class="pic-svg" viewBox="0 0 200 200" role="img" aria-label="the kid stands up and sings by the empty chair"><use href="#pab-stand"/></svg></span></div>
+<section class="slide" data-notes="MATCHING — pictures ↔ words (Elena's game). HOW TO PLAY: the teacher reads a card aloud — or a pupil «reads» it — then a pupil taps the matching PICTURE and the matching WORDS. A correct pair locks green; a wrong pair shakes — try again. Match all 9 and the star banner appears. «Play again» reshuffles the words. The kids can't read yet — YOU are the voice of the cards; the words on screen build the reading bridge.">
+  <div class="eyebrow reveal-el">🎯 Matching game</div>
+  <h1 class="title reveal-el">Match them! 🧩</h1>
+  <div class="task reveal-el" id="match-task">🎯 Tap a picture — then tap the words! ⭐ <span id="match-score">0</span> / 9</div>
+  <div class="match reveal-el">
+    <div class="mcol" id="m-pics"></div>
+    <div class="mcol" id="m-txts"></div>
   </div>
+  <div class="task reveal-el" id="match-done" style="display:none">⭐ All matched! Brilliant! <span style="cursor:pointer" onclick="matchReset()">🔁 Play again</span></div>
 </section>
 
 <!-- 4 · GOODBYE + HOMEWORK -->
@@ -916,6 +927,77 @@ document.addEventListener('touchend',e=>{
 },{passive:true});
 const h=parseInt(location.hash.slice(1));
 show(isNaN(h)?0:h-1);
+
+/* ============ THE MATCHING GAME (slide 6): pictures ↔ words ============ */
+var MATCH_PAIRS=[
+ ['pab-hold-up','Hold your pencil up.'],
+ ['pab-write-word','Write, draw, tap, tap, tap.'],
+ ['pab-put-down','Put it down again.'],
+ ['pab-board','Point to the blackboard.'],
+ ['pab-floor','Point to the floor.'],
+ ['pab-window','Point to the window.'],
+ ['pab-door','Point to the door.'],
+ ['pab-clap','Clap your hands together 1, 2, 3.'],
+ ['pab-stand','Now stand up and sing with me.']
+];
+var mSelPic=null,mSelTxt=null,mDone=0;
+function matchBuild(){
+  var pics=document.getElementById('m-pics'),txts=document.getElementById('m-txts');
+  pics.innerHTML='';txts.innerHTML='';
+  /* the pictures keep the chant order; the words shuffle every game */
+  MATCH_PAIRS.forEach(function(p,i){
+    var d=document.createElement('div');d.className='mpic';d.dataset.pair=i;
+    d.innerHTML='<svg viewBox="0 0 200 200" aria-hidden="true"><use href="#'+p[0]+'"/></svg>';
+    d.onclick=function(){matchPickPic(d,i);};
+    pics.appendChild(d);
+  });
+  var wOrder=MATCH_PAIRS.map(function(p,i){return i;});
+  for(var i=wOrder.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=wOrder[i];wOrder[i]=wOrder[j];wOrder[j]=t;}
+  wOrder.forEach(function(i){
+    var p=MATCH_PAIRS[i];
+    var t2=document.createElement('div');t2.className='mtxt';t2.dataset.pair=i;
+    t2.textContent=p[1];
+    t2.onclick=function(){matchPickTxt(t2,i);};
+    txts.appendChild(t2);
+  });
+  mSelPic=null;mSelTxt=null;mDone=0;
+  document.getElementById('match-score').textContent='0';
+  var task=document.getElementById('match-task');
+  task.style.display='';
+  document.getElementById('match-done').style.display='none';
+}
+function matchPickPic(el,i){
+  if(el.classList.contains('mdone'))return;
+  document.querySelectorAll('.mpic').forEach(function(x){x.classList.remove('msel');});
+  el.classList.add('msel');mSelPic=i;matchTry();
+}
+function matchPickTxt(el,i){
+  if(el.classList.contains('mdone'))return;
+  document.querySelectorAll('.mtxt').forEach(function(x){x.classList.remove('msel');});
+  el.classList.add('msel');mSelTxt=i;matchTry();
+}
+function matchTry(){
+  if(mSelPic===null||mSelTxt===null)return;
+  var pic=document.querySelector('.mpic[data-pair="'+mSelPic+'"]');
+  var txt=document.querySelector('.mtxt[data-pair="'+mSelTxt+'"]');
+  if(mSelPic===mSelTxt){
+    pic.classList.add('mdone');txt.classList.add('mdone');
+    pic.classList.remove('msel');txt.classList.remove('msel');
+    mSelPic=null;mSelTxt=null;mDone++;
+    document.getElementById('match-score').textContent=mDone;
+    if(mDone===MATCH_PAIRS.length){
+      document.getElementById('match-task').style.display='none';
+      document.getElementById('match-done').style.display='';
+    }
+  }else{
+    pic.classList.add('mbad');txt.classList.add('mbad');
+    setTimeout(function(){pic.classList.remove('mbad');txt.classList.remove('mbad');
+      pic.classList.remove('msel');txt.classList.remove('msel');},330);
+    mSelPic=null;mSelTxt=null;
+  }
+}
+function matchReset(){matchBuild();}
+matchBuild();
 
 /* ============ STAGE ENGINE (v7): the audio is cut in three PARTS, one per round ============
    part1 «Listen» (0:41) · part2 «Listen and repeat» (1:21) · part3 «Sing with the children»
