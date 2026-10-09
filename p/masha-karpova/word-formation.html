@@ -73,8 +73,8 @@ button.act:hover{filter:brightness(1.06)}
   <span class="week-chip">This week · the Grand National (FIPI)</span>
   <div class="rule"></div>
   <p class="lead"><strong>Read the text. Type the word in CAPITALS in a new form</strong> in each gap —
-  one word per gap, exactly as in the FIPI bank and on the exam. <strong>Check</strong> shows the right answers;
-  <strong>Send</strong> gives your result to Elena.</p>
+  one word per gap, exactly as in the FIPI bank and on the exam.
+  <strong>Send the result</strong> — it shows the right answers and gives your result to Elena.</p>
 
   <div class="card">
     <p class="task">Прочитайте текст. Преобразуйте слова, напечатанные заглавными буквами, так, чтобы они грамматически и лексически соответствовали содержанию текста. Заполните пропуски полученными словами.</p>
@@ -95,7 +95,6 @@ button.act:hover{filter:brightness(1.06)}
       <span class="gap">(6) <input id="g6" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">FAIR</span></span>
       and cruel to make the animals race and jump for people’s entertainment.</p>
       <div class="btnrow">
-        <button class="act" id="check-btn">Check</button>
         <button class="act" id="send-btn" style="background:var(--sage-deep)">📤 Send the result to Elena</button>
         <span id="score"></span>
         <span class="sent" id="sent-line"></span>
@@ -137,9 +136,8 @@ function grade(reveal){
   lines.push("Score: "+ok+" / 6");
   if(misses.length){lines.push("Missed ("+misses.length+"):");lines=lines.concat(misses);}
   lastScore=lines.join("\n");
-  $("score").textContent=reveal
-    ?(ok+" of 6 right"+(ok===6?" — beautiful! 🌟":""))
-    :("sent to Elena — "+ok+" of 6");
+  $("score").textContent=(ok+" of 6 right"+(ok===6?" — beautiful! 🌟":""))
+    +(reveal?"":" — sent to Elena");
   return lastScore;
 }
 function sendViaForm(txt){
@@ -168,9 +166,8 @@ function flushQueue(){
     localStorage.setItem("mashak-wf-queue",JSON.stringify(q));
   }catch(e){}
 }
-$("check-btn").addEventListener("click",function(){grade(true);});
-$("send-btn").addEventListener("click",function(){
-  var txt=grade(false);
+function sendFlow(){
+  var txt=grade(true);
   try{
     var q=JSON.parse(localStorage.getItem("mashak-wf-queue")||"[]");
     q.push(txt);if(q.length>10)q=q.slice(-10);
@@ -178,10 +175,11 @@ $("send-btn").addEventListener("click",function(){
   }catch(e){}
   flushQueue();
   $("sent-line").textContent=FORM_ACTION?("sent to Elena ✅"):"";
-});
+}
+$("send-btn").addEventListener("click",sendFlow);
 for(var i=1;i<=6;i++){
   (function(n){$("g"+n).addEventListener("keydown",function(e){
-    if(e.key==="Enter")grade(true);});})(i);
+    if(e.key==="Enter")sendFlow();});})(i);
 }
 /* the load-time flush goes LAST — after all listeners attach (the v9 lesson) */
 flushQueue();
