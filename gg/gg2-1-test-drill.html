@@ -116,7 +116,7 @@ input:focus{outline:none;border-color:var(--mint-deep)}
 <body>
 
 <div class="eyebrow">Готовимся к тесту · Go Getter 1 · Unit 7 · Language Test B</div>
-<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v11</span></h1>
+<h1>Тренажёр 🧪 <span class="stamp">build 08.10 · v12</span></h1>
 <div class="accent-line"></div>
 
 <div class="notimer">🐢 Без таймера — отвечай спокойно, тут никто не торопится. Задания — как в настоящем тесте, одно за другим.</div>
@@ -258,16 +258,17 @@ const total = CARDS.filter(c => !c.notebook).length;
 const el = id => document.getElementById(id);
 function norm(s){ return s.toLowerCase().trim().replace(/['’`]/g,'').replace(/\s+/g,' '); }
 function rightText(c){ return c.choices ? c.choices[c.ans] : c.ans[0]; }
-function skipTask1(){
-  queue = queue.filter(x => x.sec !== 1);
-  requeue = requeue.filter(x => x.sec !== 1);
+function skipTask(sec){
+  queue = queue.filter(x => x.sec !== sec);
+  requeue = requeue.filter(x => x.sec !== sec);
   draw();
 }
-el('skipBtn').onclick = skipTask1;
+el('skipBtn').onclick = () => { const c = queue[0]; if (c) skipTask(c.sec); };
 function draw(){
   locked = false;
   const c = queue[0];
-  el('skip').style.display = (c && c.sec === 1 && !lap2) ? 'block' : 'none';
+  el('skipBtn').textContent = c ? 'пропустить задание ' + c.sec + ' →' : '';
+  el('skip').style.display = c ? 'block' : 'none';
   if (c.sec !== lastSec){
     lastSec = c.sec;
     const s = SECS[c.sec];
