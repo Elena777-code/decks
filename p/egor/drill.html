@@ -61,6 +61,13 @@ body.play .topbar{display:flex}
   padding:.15em .6em;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
   font-size:clamp(1.05rem,1.8vw,1.4rem)}
 .ansrow{display:flex;gap:.7em;margin-top:1em;flex-wrap:wrap}
+.namewrap{margin:1.4em 0 .1em}
+#name-box{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem);
+  padding:.45em .8em;border:2.5px solid var(--navy);border-radius:14px;color:var(--ink);
+  background:var(--white);width:min(260px,70vw);outline:none}
+#name-box:focus{border-color:var(--mint)}
+#name-box.refuse{border-color:var(--stamp)}
+.namehint{color:var(--stamp);font-weight:700;font-size:.95rem;min-height:1.4em;margin-top:.4em}
 .ansrow input{flex:1 1 200px;font-family:'Fredoka',sans-serif;font-weight:600;
   font-size:clamp(1.1rem,1.9vw,1.5rem);padding:.45em .8em;border:2.5px solid var(--navy);
   border-radius:14px;color:var(--ink);background:var(--white)}
@@ -94,6 +101,11 @@ textarea{width:100%;min-height:7em;font-family:'Nunito',monospace;font-size:.85r
 <div class="eyebrow">ЕГЭ 2027 · grammar & word formation · the daily engine</div>
 <h1>Drill &amp; Adaptive test ⚙️</h1>
 <div class="accent"></div>
+
+<div class="namewrap">
+  <input id="name-box" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="your name">
+  <div class="namehint" id="name-hint"></div>
+</div>
 
 <div class="modes">
   <div class="mode" id="mDrill">
@@ -257,6 +269,13 @@ function nextItem(sameTag){
   return it;
 }
 function start(m){
+  var nm=($("name-box").value||"").trim();
+  if(!nm){$("name-box").classList.add("refuse");
+    $("name-hint").textContent="Write your name first — the report carries it to Elena";
+    $("name-box").focus();return;}
+  $("name-box").classList.remove("refuse");$("name-hint").textContent="";
+  RUNNER=nm;
+  try{localStorage.setItem("egor-drill-name",nm);}catch(e){}
   mode=m;Q=1;done=0;log=[];
   BANK.forEach(function(it){it.used=false;});
   queue=[];
@@ -350,7 +369,7 @@ function finish(){
   rows+='<tr><td><b>total</b></td><td><b>'+totalOk+"/"+log.length+"</b></td></tr>";
   $("stable").innerHTML=rows;
   var weak=weakestTags(3).map(function(t){return TAGNAME[t]||t;});
-  var txt="Egor · drill "+(mode==="adapt"?"(adaptive)":"")+" · "+
+  var txt=(RUNNER||"Egor")+" · drill "+(mode==="adapt"?"(adaptive)":"")+" · "+
     new Date().toLocaleDateString()+" · "+totalOk+"/"+log.length+
     (weak.length?" · to watch: "+weak.join(", "):"");
   $("report").value=txt;
@@ -372,6 +391,13 @@ function finish(){
       (weak||"—")+"</b>";
   }
 })();
+/* ---------- WHO plays — the name leads the report (Elena, 2026-10-10:
+   the same gate the homework drills 007/008 already carry) ---------- */
+var RUNNER="";
+try{RUNNER=localStorage.getItem("egor-drill-name")||"";}catch(e){}
+$("name-box").value=RUNNER;
+$("name-box").addEventListener("keydown",function(e){
+  if(e.key==="Enter"){e.preventDefault();start("drill");}});
 $("mDrill").addEventListener("click",function(){start("drill");});
 $("mAdapt").addEventListener("click",function(){start("adapt");});
 $("check").addEventListener("click",check);
