@@ -144,6 +144,13 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
         <span style="font-weight:800">👤 Твоё имя:</span>
         <input id="unscr-name" type="text" autocomplete="off" placeholder="имя…"
           style="font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,4vw,1.4rem);text-align:center;padding:.3em .8em;border:3px solid var(--mint);border-radius:12px;width:min(180px,60%);outline:none">
+        <span style="font-weight:800">Первая буква фамилии:</span>
+        <input id="unscr-surn" type="text" autocomplete="off" maxlength="1" autocapitalize="characters" placeholder="К"
+          style="font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,4vw,1.4rem);text-align:center;text-transform:uppercase;padding:.3em .8em;border:3px solid var(--mint);border-radius:12px;width:2.4em;outline:none">
+        <span style="font-weight:800">Твоя группа:</span>
+        <span style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.1rem,4vw,1.4rem)">KB 1.</span>
+        <input id="unscr-group" type="text" inputmode="numeric" autocomplete="off" maxlength="1" placeholder="?"
+          style="font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,4vw,1.4rem);text-align:center;padding:.3em .8em;border:3px solid var(--mint);border-radius:12px;width:2.2em;outline:none">
       </div>
       <button id="unscr-start" class="btn mint" onclick="unscrStart()">▶ Играть</button>
       <div id="unscr-game" style="display:none;flex-direction:column;gap:1.2vh;align-items:center;width:100%">
@@ -223,7 +230,7 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
    FORM_ENTRY  = the number after "entry." in that link               */
 const FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSclA75beBw43_odq4MnKpQTyVZ8IAnaVGuJ2hYXPj5ZWGS3fg/formResponse";
 const FORM_ENTRY="entry.1388210654";
-const UNAME_KEY='kb1-hw-name', UQUEUE_KEY='kb1-hw-report-queue';
+const UNAME_KEY='kb1-hw-name', USURN_KEY='kb1-hw-surn', UGROUP_KEY='kb1-hw-group', UQUEUE_KEY='kb1-hw-report-queue';
 const UNSCR=[
   {img:'../../media/kb1-u2-fc-chair.png', mix:'ricah',  ans:'chair'},
   {img:'../../media/kb1-u2-fc-table.png', mix:'elbat',  ans:'table'},
@@ -233,7 +240,14 @@ const UNSCR=[
   {img:'../../media/kb1-u2-fc-book.png',  mix:'koob',   ans:'book'}
 ];
 let uOrd=[],uI=0,uFirstTry=0,uTried=false;
-(function(){const n=localStorage.getItem(UNAME_KEY);if(n)document.getElementById('unscr-name').value=n;})();
+(function(){
+  const n=localStorage.getItem(UNAME_KEY);
+  if(n)document.getElementById('unscr-name').value=n;
+  const s=localStorage.getItem(USURN_KEY);
+  if(s)document.getElementById('unscr-surn').value=s;
+  const g=localStorage.getItem(UGROUP_KEY);
+  if(g)document.getElementById('unscr-group').value=g;
+})();
 function unscrShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function unscrSend(text){
   if(!FORM_ACTION||!FORM_ENTRY){
@@ -262,10 +276,23 @@ function unscrFlushQueue(){
 }
 function unscrStart(){
   const nameEl=document.getElementById('unscr-name');
+  const surnEl=document.getElementById('unscr-surn');
+  const groupEl=document.getElementById('unscr-group');
   const name=nameEl.value.trim();
-  if(!name){nameEl.focus();nameEl.placeholder='сначала имя!';nameEl.style.borderColor='var(--pink)';return;}
-  nameEl.style.borderColor='var(--mint)';
-  try{localStorage.setItem(UNAME_KEY,name);}catch(e){}
+  const surn=surnEl.value.trim().toUpperCase();
+  const group=groupEl.value.trim();
+  let bad=null;
+  if(!name)bad=[nameEl,'сначала имя!'];
+  else if(!surn)bad=[surnEl,'буква!'];
+  else if(!['1','2','3'].includes(group))bad=[groupEl,'1, 2 или 3!'];
+  if(bad){const el=bad[0];el.focus();el.placeholder=bad[1];el.style.borderColor='var(--pink)';return;}
+  nameEl.style.borderColor='var(--mint)';surnEl.style.borderColor='var(--mint)';groupEl.style.borderColor='var(--mint)';
+  surnEl.value=surn;
+  try{
+    localStorage.setItem(UNAME_KEY,name);
+    localStorage.setItem(USURN_KEY,surn);
+    localStorage.setItem(UGROUP_KEY,group);
+  }catch(e){}
   uOrd=unscrShuffle([...UNSCR]);uI=0;uFirstTry=0;
   document.getElementById('unscr-start').style.display='none';
   document.getElementById('unscr-end').style.display='none';
@@ -293,9 +320,10 @@ function unscrCheck(){
       if(uI<uOrd.length){unscrShow();}else{
         document.getElementById('unscr-game').style.display='none';
         document.getElementById('unscr-score').textContent='🌟 '+uFirstTry+' из '+uOrd.length+' с первой попытки!';
-        const name=localStorage.getItem(UNAME_KEY)||'';
+        const who=(localStorage.getItem(UNAME_KEY)||'')+' '+(localStorage.getItem(USURN_KEY)||'');
+        const grp=localStorage.getItem(UGROUP_KEY)||'?';
         const when=new Date().toLocaleDateString();
-        const report='KB1 · Урок 6 · Составь слово · '+name+': '+uFirstTry+' из '+uOrd.length+' с первой попытки · '+when;
+        const report='KB 1.'+grp+' · Урок 6 · Составь слово · '+who+': '+uFirstTry+' из '+uOrd.length+' с первой попытки · '+when;
         const sent=unscrSend(report);
         unscrFlushQueue();
         document.getElementById('unscr-sent').textContent=sent?'✉️ Результат отправлен Елене':'✨ Результат сохранён';
