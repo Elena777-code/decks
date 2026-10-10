@@ -63,6 +63,9 @@ input.type-box{font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1
   color:var(--ink);text-align:center;border:3px solid var(--line);border-radius:14px;
   padding:.45em .6em;width:min(320px,78vw);outline:none;background:var(--paper-soft)}
 input.type-box:focus{border-color:var(--sage)}
+.name-row{margin-top:1em}
+.name-row .type-box{width:min(240px,64vw);font-size:clamp(1rem,4.2vw,1.25rem)}
+.name-hint{color:var(--coral-deep);font-weight:800;font-size:.88rem;min-height:1.3em;margin-top:.4em}
 .ok-btn{background:var(--ink);color:var(--card);font-size:clamp(.95rem,3.8vw,1.15rem);
   padding:.6em 1.7em;box-shadow:0 4px 0 rgba(0,0,0,.18);align-self:center}
 .flash{font-family:'Lora',serif;font-weight:600;font-size:clamp(1.5rem,6.5vw,2.2rem);
@@ -163,6 +166,10 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <div class="icons">📓 🔧 ⚡ 🧠 🔬 ✍️</div>
     <div class="meta">6 rounds · Workbook 9.4 in full · ~15 minutes</div>
     <div class="best" id="best-line"></div>
+    <div class="name-row">
+      <input class="type-box" id="pupil-name" placeholder="Your name" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <div class="name-hint" id="name-hint"></div>
+    </div>
     <button class="start-btn" id="begin-btn">Start the drill</button>
   </div>
 
@@ -678,10 +685,23 @@ function buildRounds(){
 }
 
 /* ---------- state ---------- */
-var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false,sentences=[];
+var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false,sentences=[],who="";
+
+/* ---------- the name gate — Elena reads the reports, so every report
+   carries WHO played (born 2026-10-10: «I need the name to know who
+   writes the test»). Remembered on this device, editable every run. */
+try{who=localStorage.getItem("mashar-hw-name")||"";}catch(e){}
+$("pupil-name").value=who;
+$("pupil-name").addEventListener("keydown",function(e){if(e.key==="Enter")$("begin-btn").click();});
 
 /* ---------- flow ---------- */
-$("begin-btn").addEventListener("click",function(){ri=0;log=[];sentences=[];roundFlash();});
+$("begin-btn").addEventListener("click",function(){
+  var name=($("pupil-name").value||"").trim();
+  if(!name){$("name-hint").textContent="Type your name first — the report travels to Elena ✈️";
+    $("pupil-name").focus();return;}
+  who=name;try{localStorage.setItem("mashar-hw-name",name);}catch(e){}
+  $("name-hint").textContent="";
+  ri=0;log=[];sentences=[];roundFlash();});
 $("again-btn").addEventListener("click",function(){rounds=buildRounds();ri=0;log=[];sentences=[];roundFlash();});
 
 function roundFlash(){
@@ -800,7 +820,7 @@ function drillScore(){
 }
 function reportText(){
   var s=drillScore();
-  var lines=["MASHA R. · HW · "+new Date().toLocaleString(),
+  var lines=[(who||"MASHA R.")+" · HW · "+new Date().toLocaleString(),
     "Drill: "+s.ok+" / "+s.total];
   ["W","R1","R2","R3","R4"].forEach(function(rid){
     var rows=log.filter(function(l){return l.rid===rid;});
@@ -809,10 +829,10 @@ function reportText(){
   var missed=log.filter(function(l){return !l.ok;});
   if(missed.length){
     lines.push("","Missed ("+missed.length+"):");
-    missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+(l.given||"—")+" · key: "+l.key);});
+    missed.forEach(function(l){lines.push("  · "+l.label+" — wrote: "+(l.given||"—")+" · key: "+l.key);});
   }else{lines.push("","Missed: none! 🎉");}
   var written=sentences.filter(Boolean);
-  lines.push("","Her sentences ("+written.length+" of "+WRITE_PROMPTS.length+"):");
+  lines.push("","Sentences ("+written.length+" of "+WRITE_PROMPTS.length+"):");
   written.forEach(function(v,i){lines.push("  "+(i+1)+". "+v);});
   var empty=sentences.length-written.length;
   if(empty>0)lines.push("  ("+empty+" not written yet)");
