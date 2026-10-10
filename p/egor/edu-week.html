@@ -82,6 +82,10 @@ details.tr p{font-size:clamp(.95rem,1.5vw,1.15rem);line-height:1.65;margin-top:.
 .survey th{background:rgba(51,49,43,.05)}
 .note{background:var(--amber-soft);border:1px dashed var(--amber);border-radius:12px;padding:1.2vh 1.2vw;font-size:clamp(.95rem,1.55vw,1.2rem);margin-top:1vh}
 .bigbtn{display:inline-block;background:var(--teal);color:#fff;font:600 1rem 'Inter';border-radius:12px;padding:.7em 1.4em;cursor:pointer;border:none;margin-top:1vh}
+.sendrow{margin-top:1.4vh}
+.sendbtn{border:none;background:var(--teal);color:#fff;font:600 .95rem 'Inter';border-radius:12px;padding:.65em 1.3em;cursor:pointer}
+.sendbtn:hover{filter:brightness(1.08)}
+.sendbtn[disabled]{background:var(--teal-soft);color:var(--teal);cursor:default;filter:none}
 .done{background:rgba(62,142,126,.08);border-radius:12px;padding:1.2vh 1.2vw;margin-top:1vh;font-size:clamp(.95rem,1.55vw,1.2rem)}
 a{color:var(--teal)}
 </style>
@@ -575,6 +579,51 @@ function cutText(id){
   });
 });
 try{speechSynthesis.getVoices();}catch(e){}
+
+/* ---------- one button per task: reveals the answers AND sends to Miss Elena ---------- */
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSeHQqLTCwsgpvG4T1T_bHHDVj8VyvB4BomKyjV7zmeIBEH6yA/formResponse";
+var FORM_ENTRY="entry.892008789";
+function eduSend(txt){
+  if(!FORM_ACTION)return false;
+  var frame=document.createElement("iframe");
+  frame.name="edu-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);
+  /* no input named "submit" — a named child shadows f.submit() and kills the run */
+  document.body.appendChild(f);
+  f.submit();
+  setTimeout(function(){f.remove();frame.remove();},15000);
+  return true;
+}
+var SENT=[];try{SENT=JSON.parse(localStorage.getItem("egor-edu-sent")||"[]");}catch(e){}
+document.querySelectorAll("section.day").forEach(function(sec){
+  var dayNum=(sec.id||"").replace("d","");
+  sec.querySelectorAll(".block").forEach(function(blk,i){
+    var key=sec.id+"-"+i;
+    var tagEl=blk.querySelector(".bhead .tag"),ttlEl=blk.querySelector(".bhead h3");
+    var title=((tagEl?tagEl.textContent+" · ":"")+(ttlEl?ttlEl.textContent:"")).trim();
+    var row=document.createElement("div");row.className="sendrow";
+    var b=document.createElement("button");b.type="button";b.className="sendbtn";
+    b.textContent="📤 Send to Miss Elena";
+    b.addEventListener("click",function(){
+      blk.querySelectorAll(".item,.qq,.dcard").forEach(function(el){el.classList.add("show");});
+      blk.querySelectorAll("details.tr").forEach(function(d){d.open=true;});
+      var d=new Date(),pad=function(n){return(n<10?"0":"")+n;};
+      var txt="Egor · edu-week D"+dayNum+" · "+title+" · answers shown · "+pad(d.getDate())+"/"+pad(d.getMonth()+1)+" "+pad(d.getHours())+":"+pad(d.getMinutes());
+      try{eduSend(txt);}catch(e){}
+      b.textContent="sent to Miss Elena ✓";b.disabled=true;
+      SENT.push(key);try{localStorage.setItem("egor-edu-sent",JSON.stringify(SENT));}catch(e){}
+    });
+    if(SENT.indexOf(key)>=0){b.textContent="sent to Miss Elena ✓";b.disabled=true;}
+    row.appendChild(b);blk.appendChild(row);
+  });
+});
+
 </script>
 </body>
 </html>
