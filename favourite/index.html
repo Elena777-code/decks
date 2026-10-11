@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My favourite · учимся печатать всеми пальцами</title>
+<meta property="og:title" content="My favourite ⌨️ — игра: слепая печать, урок 1">
+<meta property="og:description" content="Учимся печатать всеми десятью пальцами — по 5 минут в день. Первый урок: клавиши F и J. Лучше всего — в Safari.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A; --lavender:#C8B6FF;
+  --lavender-deep:#9a7fff; --cream:#FFF8F0; --ink:#2D3436; --ink-soft:#636e72;
+  --pink:#FF8FAB; --white:#ffffff;
+  --shadow:0 10px 30px rgba(45,52,54,.12); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;
+     display:flex;flex-direction:column;align-items:center;padding:26px 16px 34px}
+.wrap{width:min(1080px,100%)}
+header{display:flex;flex-direction:column;align-items:center;text-align:center;gap:.45em;margin-bottom:1.1em}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,4.5vw,3.2rem);line-height:1.05}
+h1 .k{color:var(--mint-deep)}
+.sub{font-size:clamp(1rem,1.8vw,1.25rem);color:var(--ink-soft);max-width:36em}
+.hints{display:flex;flex-wrap:wrap;justify-content:center;gap:.5em;margin:.7em 0 1.2em}
+.hint{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.82rem,1.4vw,1rem);
+      background:var(--white);border-radius:99px;padding:.5em 1.1em;box-shadow:0 4px 12px rgba(45,52,54,.10);color:var(--ink-soft)}
+.framebox{position:relative;width:100%;aspect-ratio:16/9;background:var(--white);border-radius:var(--radius);
+          box-shadow:var(--shadow);overflow:hidden}
+iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+@media (max-aspect-ratio:4/5){ /* portrait phones: give the game more height */
+  .framebox{aspect-ratio:4/3}
+}
+footer{margin-top:1.4em;font-family:'Fredoka',sans-serif;font-weight:500;font-size:.78rem;color:var(--ink-soft);
+       background:rgba(255,255,255,.85);padding:.35em .9em;border-radius:99px;box-shadow:0 4px 12px rgba(45,52,54,.10)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>My favourite <span class="k">⌨️</span></h1>
+    <p class="sub">Учимся печатать всеми десятью пальцами — по 5 минут в день, глаза на экране, руки дома.
+       Первый урок: клавиши <b>F</b> и <b>J</b> — найдите на них бугорки!</p>
+    <div class="hints">
+      <span class="hint">💻 На компьютере откройте в Safari — печатайте на настоящей клавиатуре</span>
+      <span class="hint">📱 На планшете и в Telegram нажимайте клавиши прямо на экране</span>
+      <span class="hint">🔄 На телефоне поверните экран горизонтально</span>
+    </div>
+  </header>
+  <div class="framebox">
+    <iframe id="game" src="../typing/home-row-01-fj.html" title="Touch typing · Lesson 1 · F and J" allow="fullscreen"></iframe>
+  </div>
+  <footer>favourite · 11.10 · v1</footer>
+</div>
+<script>
+/* keep the keyboard alive inside the game: focus the frame on load and after any click on the page */
+var gameFrame=document.getElementById('game');
+gameFrame.addEventListener('load',function(){try{gameFrame.contentWindow.focus();}catch(e){}});
+document.addEventListener('click',function(){try{gameFrame.contentWindow.focus();}catch(e){}});
+</script>
+</body>
+</html>
