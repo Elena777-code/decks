@@ -144,27 +144,29 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <h2>Tonight's plan</h2>
     <p class="hint">Tap the box when it's done — the page remembers, on this device.</p>
     <div class="plan-row" data-k="wb"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="wb-card">📘 Workbook 9.4 — p. 106, ex. 1–2 (your printed book)</div></div>
+      <div class="plabel" data-to="wb-card">📘 Workbook 9.6 — p. 108, ex. 1–4 (your printed book)</div></div>
     <div class="plan-row" data-k="listen"><button class="pbox" aria-label="mark done">✓</button>
       <div class="plabel" data-to="listen-card">🎧 Listening — track 3.20, twice + your one-minute retell</div></div>
     <div class="plan-row" data-k="drill"><button class="pbox" aria-label="mark done">✓</button>
       <div class="plabel" data-to="start-card">🔧 The drill — one fresh run, about 15 minutes</div></div>
     <div class="plan-row" data-k="dict"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="dict-card">📖 Seven dictionary words — write first, then check</div></div>
+      <div class="plabel" data-to="dict-card">📖 Eight dictionary words — write first, then check</div></div>
     <div class="plan-row" data-k="repair"><button class="pbox" aria-label="mark done">✓</button>
-      <div class="plabel" data-to="repair-card">✍️ Repair your five sentences</div></div>
+      <div class="plabel" data-to="repair-card">✍️ Repair your sentences — two are new</div></div>
+    <div class="plan-row" data-k="test"><button class="pbox" aria-label="mark done">✓</button>
+      <div class="plabel" data-to="test-card">📄 Your test paper — five clean lines + Test 3 waits</div></div>
     <div class="plan-row" data-k="interview"><button class="pbox" aria-label="mark done">✓</button>
       <div class="plabel" data-to="interview-card">📋 Write your six interview questions</div></div>
     <p class="plan-progress" id="plan-progress"></p>
   </div>
 
   <div class="card" id="start-card">
-    <p class="rules">First — your <b>Workbook 9.4</b> (📓 ex. 1, every run) + a few <b>9.1 review</b> questions.<br>
+    <p class="rules">First — your <b>Workbook 9.6</b> (📓 ex. 1–2, every run) + a few <b>9.1 / 9.4 review</b> questions.<br>
     Then four games + your sentences.<br>
     ⚡ The sprint is <b>timed</b> — everywhere else: no clock, think as long as you want.<br>
     Wrong answers come back with the fix.</p>
     <div class="icons">📓 🔧 ⚡ 🧠 🔬 ✍️</div>
-    <div class="meta">6 rounds · Workbook 9.4 in full · ~15 minutes</div>
+    <div class="meta">6 rounds · Workbook 9.6 in full · ~15 minutes</div>
     <div class="best" id="best-line"></div>
     <div class="name-row">
       <input class="type-box" id="pupil-name" placeholder="Your name" autocomplete="off" autocapitalize="off" spellcheck="false">
@@ -201,11 +203,20 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
   </div>
 
   <div class="card hwcard" id="wb-card">
-    <div class="no">Homework · tenses travel home</div>
-    <h2>📘 Workbook 9.4 — p. 106, ex. 1–2</h2>
-    <p class="hint"><b>Your printed Workbook.</b> Ex 1 — the verb forms (the story about Tom the teacher).
-    Ex 2 — choose the correct words. Last lesson's grammar is the key — you already know how.
-    Then one <b>fresh drill run</b> — its first round now carries these verbs.</p>
+    <div class="no">Homework · the lesson's questions travel home</div>
+    <h2>📘 Workbook 9.6 — p. 108, ex. 1–4</h2>
+    <p class="hint"><b>Your printed Workbook.</b> Ex 1 — the question words (the same ones from the Speaking box).
+    Ex 2 — choose the right response. Ex 3 — the phrases from the airport dialogue. Ex 4 — <b>one word in each gap</b>;
+    if the audio won't play, write from your ear's memory — <b>we check it together at the lesson</b>.
+    Then one <b>fresh drill run</b> — its first round now carries these questions.</p>
+  </div>
+
+  <div class="card hwcard" id="test-card">
+    <div class="no">From the lesson · your test paper</div>
+    <h2>📄 Five clean lines + Test 3 waits</h2>
+    <p class="hint">✍️ On the <b>back of your test paper</b>, write the five Task-3 lines in their clean form —
+    <i>lived · have decided · mightiest · cried · was taken</i>. Write them from memory first, then check them against today's fixes.
+    <b>Test 3</b> stays printed and waiting — reading's comeback, and next time we photograph the answer sheet too.</p>
   </div>
 
   <div class="card hwcard" id="listen-card">
@@ -225,7 +236,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
 
   <div class="card hwcard" id="dict-card">
     <div class="no">For the next lesson · your dictionary</div>
-    <h2>Seven words from “Bright sparks!”</h2>
+    <h2>Eight words — write, then check</h2>
     <p class="hint">Write each word into your notebook: the translation in Russian or the meaning in English or one example.
     <b>Write first</b> — then click to check yourself.</p>
     <ol>
@@ -236,14 +247,17 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
       <li><b>improve</b><br><details><summary>check</summary><div class="hint">🇷🇺 улучшать(ся); становиться лучше · to become better or make something better<br><i>I want to improve my English.</i> · <i>Her results improved every year.</i></div></details></li>
       <li><b>improvements</b><br><details><summary>check</summary><div class="hint">🇷🇺 улучшения · the noun (improve → improvement): things that get better<br><i>We have made improvements in diets and health.</i> · <i>The school made three improvements this year.</i></div></details></li>
       <li><b>change</b><br><details><summary>check</summary><div class="hint">🇷🇺 менять(ся); изменение · to become or make different (verb and noun)<br><i>The tests changed — they became harder.</i> · <i>Test writers made changes every few years.</i></div></details></li>
+      <li><b>upset</b> <span class="tag">new — from the lesson</span><br><details><summary>check</summary><div class="hint">🇷🇺 расстроенный; огорчённый · sad or worried because something went wrong — <b>not angry exactly, hurt on the inside</b><br><i>There's nothing to be upset about.</i> · <i>She was upset when she lost her marks.</i></div></details></li>
     </ol>
   </div>
 
   <div class="card hwcard" id="repair-card">
-    <div class="no">Your run · September the 26th</div>
-    <h2>✍️ Your five sentences — repair them yourself</h2>
-    <p class="hint">Say the corrected sentence aloud first — then click to check. These five open your next lesson.</p>
+    <div class="no">Your run · September the 26th · the lesson of November the 11th</div>
+    <h2>✍️ Your sentences — repair them yourself</h2>
+    <p class="hint">Say the corrected sentence aloud first — then click to check. The two fresh ones open your next lesson.</p>
     <ol>
+      <li>🆕 “I have not seen your for ages.”<br><details><summary>check</summary><div class="hint">→ <b>I haven't seen you for ages.</b> — <i>your</i> → <b>you</b> (it's the person, not a thing); and friends say <b>haven't</b>, not <i>have not</i>.</div></details></li>
+      <li>🆕 “Enter hse school.”<br><details><summary>check</summary><div class="hint">→ <b>I study at the HSE Lyceum.</b> — a sentence needs <b>I</b> + the verb in its right form; the place takes an article: <b>the HSE Lyceum</b>. <span class="hint">(If you meant «поступила» — <i>I entered the HSE Lyceum</i>.)</span></div></details></li>
       <li>“I’m quite intelligent in literature.”<br><details><summary>check</summary><div class="hint">→ <b>I’m quite good at literature.</b> — <i>intelligent</i> describes a mind, not a school subject; subjects take <b>good at</b>.</div></details></li>
       <li>“I feel confident when I write some poems.”<br><details><summary>check</summary><div class="hint">→ <b>I feel confident when I write poems.</b> — a general habit, no <i>some</i>; and the full stop.</div></details></li>
       <li>“I’m hard working in revise Chinese.”<br><details><summary>check</summary><div class="hint">→ <b>I’m hard-working when I revise Chinese.</b> — no second verb after <i>in</i>; <i>when I revise</i> carries it.</div></details></li>
@@ -470,6 +484,36 @@ var POOL_WB94=[
   choices:["have never visited","never visited","has never visited"],key:["have never visited"],label:"9.4 ex 1 · never visit",type:"choice"}
 ];
 
+/* 📓 W · Workbook 9.6 (WB p. 108 — the assigned homework, set at the 11.11
+   lesson; the round mirrors ex. 1 + ex. 2 in full — the question words and
+   the Q↔R matching ARE the lesson's skill). Keys derived from the WB p. 108
+   render (high confidence; full keys in plan-010.md). Ex 3–4 = phrase work,
+   they check at the lesson — not mirrored. */
+var POOL_WB96=[
+ {q:'How have you <span class="gap">______</span>?',
+  choices:["been","was","are"],key:["been"],label:"9.6 ex 1 · have you been",type:"choice"},
+ {q:'What <span class="gap">______</span> you guys doing this evening?',
+  choices:["are","do","have"],key:["are"],label:"9.6 ex 1 · what are you doing",type:"choice"},
+ {q:'<span class="gap">______</span> you like it here?',
+  choices:["Do","Are","Have"],key:["Do"],label:"9.6 ex 1 · do you like it",type:"choice"},
+ {q:'How <span class="gap">______</span> your journey?',
+  choices:["was","are","been"],key:["was"],label:"9.6 ex 1 · how was it",type:"choice"},
+ {q:'<span class="gap">______</span> you been to the USA before?',
+  choices:["Have","Do","Was"],key:["Have"],label:"9.6 ex 1 · have you been to",type:"choice"},
+ {q:'<span class="gap">______</span> you like to join us?',
+  choices:["Would","Do","Are"],key:["Would"],label:"9.6 ex 1 · would you like",type:"choice"},
+ {q:'Have you been to London before?',
+  choices:["Yes, I did.","I didn’t go to London.","No, it’s my first time here."],key:["No, it’s my first time here."],label:"9.6 ex 2 · the first time",type:"choice"},
+ {q:'Would you like to come out with us?',
+  choices:["I’d love to.","No, I don’t, thanks.","Yes, I love it."],key:["I’d love to."],label:"9.6 ex 2 · I’d love to",type:"choice"},
+ {q:'What are you doing at the weekend?',
+  choices:["I didn’t enjoy it.","I’m fine, thanks.","I’m going to a party."],key:["I’m going to a party."],label:"9.6 ex 2 · the weekend plan",type:"choice"},
+ {q:'Do you like it here in New York?',
+  choices:["Thanks, that would be great.","Yes, it’s amazing.","I’d love to."],key:["Yes, it’s amazing."],label:"9.6 ex 2 · it’s amazing",type:"choice"},
+ {q:'How was your journey?',
+  choices:["It was fine.","Sure thing.","Not really."],key:["It was fine."],label:"9.6 ex 2 · it was fine",type:"choice"}
+];
+
 /* R1 · Fix it — the rr items from the 19.09 lesson + the usage fixes */
 var POOL_FIX=[
  {q:'Last week we <span class="gap">______</span> a robot for the science fair. <span class="base">(ASSEMBLE — spelling!)</span>',
@@ -498,7 +542,13 @@ var POOL_FIX=[
   key:["confident"],label:"Vocab C word, spelling",type:"type"},
  {q:'How do you get ready for a difficult exam? You <span class="gap">______</span> it for a week.',
   choices:["prepare for","prepare","prepare to"],key:["prepare for"],
-  label:"prepare FOR",type:"choice"}
+  label:"prepare FOR",type:"choice"},
+ {q:'A trip to London! The trip is <span class="gap">______</span>, and I am <span class="gap">______</span>. <span class="base">(EXCITE — two words)</span>',
+  choices:["exciting / excited","excited / exciting","exciting / exciting"],key:["exciting / excited"],
+  label:"-ed or -ing: the trip… I…",type:"choice"},
+ {q:'The film was so boring that the viewers were <span class="gap">______</span>.',
+  choices:["bored","boring"],key:["bored"],
+  label:"-ed or -ing: the viewers were…",type:"choice"}
 ];
 
 /* R1 booster · Gerund after prepositions (Elena, 27.09: she knows it —
@@ -639,7 +689,7 @@ var WRITE_PROMPTS=[
 ];
 
 var ROUNDS_META=[
- {id:"W",icon:"📓",name:"Workbook 9.4",sub:"the homework itself — WB p. 106 · ex. 1 + a 9.1 review",helper:"from your Workbook — it lives on this page",sec:0},
+ {id:"W",icon:"📓",name:"Workbook 9.6",sub:"the homework itself — WB p. 108 · ex. 1–2 + a review",helper:"from your Workbook — it lives on this page",sec:0},
  {id:"R1",icon:"🔧",name:"Fix it",sub:"repair the word or the sentence",helper:"type it or tap it",sec:0},
  {id:"R2",icon:"⚡",name:"Passive sprint",sub:"beat the clock — 10 s a question",helper:"one word in the gap",sec:10},
  {id:"R3",icon:"🧠",name:"Exam reflex",sub:"no clock — the HSE reflexes",helper:"tap the right one",sec:0},
@@ -669,7 +719,7 @@ function shuffleChoices(t){
 
 /* ---------- a fresh set per run ---------- */
 function buildRounds(){
-  var wb=POOL_WB94.map(function(t){return shuffleChoices(t);}).concat(pick(POOL_WB91,4).map(function(t){return shuffleChoices(t);}));
+  var wb=POOL_WB96.map(function(t){return shuffleChoices(t);}).concat(pick(POOL_WB91,2).concat(pick(POOL_WB94,2)).map(function(t){return shuffleChoices(t);}));
   var r1=pick(POOL_GR,1).concat(pick(POOL_FIX,Math.max(0,DEAL[0]-1))).map(function(t){return shuffleChoices(t);});
   var r2=pick(POOL_PASSIVE,DEAL[1]);
   var r3=pick(POOL_REFLEX,DEAL[2]).map(function(t){return shuffleChoices(t);});
