@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework · Lesson 15 · Alika</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A; --lavender:#C8B6FF;
+  --lavender-deep:#9a7fff; --cream:#FFF8F0; --ink:#2D3436; --ink-soft:#636e72;
+  --pink:#FF8FAB; --white:#ffffff; --blue:#2f7de5;
+  --shadow:0 10px 30px rgba(45,52,54,.12); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;padding:2.5vh 4vw 8vh}
+.wrap{max-width:760px;margin:0 auto}
+.eyebrow{font-family:'Fredoka';font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.68rem,1vw,.85rem);color:var(--lavender-deep);margin-bottom:.3em}
+h1{font-family:'Fredoka';font-weight:700;font-size:clamp(1.7rem,4.5vw,2.6rem);margin-bottom:.2em}
+.sub{color:var(--ink-soft);font-size:clamp(.95rem,1.6vw,1.15rem);margin-bottom:1.4em}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,2.4vw,1.6rem);margin-bottom:1.1em}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.card.pinkk{background:#ffe9f0}
+h2{font-family:'Fredoka';font-weight:600;font-size:clamp(1.15rem,2.4vw,1.6rem);margin-bottom:.45em}
+p{font-size:clamp(1rem,1.8vw,1.25rem);line-height:1.55}
+.model{font-family:'Fredoka';font-weight:600;font-size:clamp(1.02rem,2vw,1.3rem);padding:.45em .8em;border-radius:14px;background:var(--cream);box-shadow:0 4px 12px rgba(45,52,54,.08);margin-bottom:.45em;line-height:1.4}
+.model b{color:var(--blue)}
+.hintline{font-size:clamp(.85rem,1.4vw,1.05rem);color:var(--ink-soft);font-style:italic;margin-top:.5em}
+.biglink{display:inline-block;font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.9vw,1.3rem);color:var(--ink);text-decoration:none;background:linear-gradient(135deg,var(--mint),var(--lavender));border-radius:99px;padding:.6em 1.4em;box-shadow:0 8px 20px rgba(45,52,54,.16);margin-top:.6em;transition:transform .15s ease}
+.biglink:hover{transform:translateY(-2px)}
+/* done chips */
+.chips{display:flex;gap:.7em;flex-wrap:wrap;margin-top:.8em;align-items:center}
+.dchip{font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.6vw,1.2rem);border:none;cursor:pointer;border-radius:99px;padding:.5em 1.1em;background:var(--cream);box-shadow:0 5px 14px rgba(45,52,54,.12);color:var(--ink-soft);transition:all .2s ease}
+.dchip.done{background:linear-gradient(135deg,var(--mint),var(--lavender));color:var(--ink)}
+.dchip .fly{display:none;font-size:.8em;margin-left:.4em;color:var(--mint-deep);font-weight:800}
+.dchip.sent .fly{display:inline}
+/* the dictation prep stepper */
+.wordgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:.6em;margin-top:.7em}
+.wcard{position:relative;background:var(--cream);border-radius:16px;box-shadow:0 5px 14px rgba(45,52,54,.1);padding:.7em .5em;text-align:center;cursor:pointer;transition:transform .15s ease}
+.wcard:hover{transform:translateY(-3px)}
+.wcard .w{font-family:'Fredoka';font-weight:700;font-size:clamp(1.05rem,2vw,1.4rem);line-height:1.15}
+.wcard .ru{display:none;font-size:clamp(.8rem,1.4vw,1rem);color:var(--ink-soft);margin-top:.2em}
+.wcard.shown{background:linear-gradient(135deg,#eafbf6,#f1ecff)}
+.wcard.shown .ru{display:block}
+@media(max-width:640px){.wordgrid{grid-template-columns:repeat(2,1fr)}}
+/* the video rule toggle */
+.toggle{font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.7vw,1.15rem);border:none;cursor:pointer;border-radius:99px;padding:.5em 1.2em;background:var(--white);box-shadow:0 5px 14px rgba(45,52,54,.14);color:var(--ink);margin-top:.6em}
+.rule{display:none;margin-top:.6em;padding:.7em 1em;border-radius:14px;background:var(--cream);font-size:clamp(.95rem,1.7vw,1.15rem);line-height:1.5}
+.rule.shown{display:block}
+.rule b{color:var(--blue)}
+/* the hwdt drill */
+.drillstage{background:var(--cream);border-radius:18px;padding:1em;min-height:11em;display:flex;flex-direction:column;gap:.6em;justify-content:center;margin-top:.7em}
+.dcard{background:var(--white);border-radius:16px;box-shadow:0 6px 16px rgba(45,52,54,.1);padding:.9em 1.1em;font-family:'Fredoka';font-weight:600;font-size:clamp(1.1rem,2.2vw,1.45rem);line-height:1.4;text-align:center}
+.dcard .gap{display:inline-block;min-width:4.5em;border-bottom:3px solid var(--mint-deep);text-align:center;color:transparent}
+.dcard .gap.filled{color:var(--blue)}
+.drow{display:flex;gap:.5em;justify-content:center;align-items:center;flex-wrap:wrap}
+.drow input{border:2px solid #d8dee6;border-radius:12px;padding:.35em .7em;font-family:'Fredoka';font-size:clamp(1rem,1.9vw,1.25rem);width:9em;text-align:center}
+.drow input:focus{outline:none;border-color:var(--mint)}
+.drow button{border:none;border-radius:99px;padding:.4em 1.2em;cursor:pointer;font-family:'Fredoka';font-weight:600;background:var(--mint);color:var(--ink)}
+.timerbar{height:8px;border-radius:99px;background:rgba(200,182,255,.3);overflow:hidden}
+.timerbar i{display:block;height:100%;width:100%;background:var(--lavender)}
+.timerbar i.amber{background:var(--peach)}
+.dmeta{display:flex;gap:1em;justify-content:center;font-family:'Fredoka';font-weight:600;color:var(--ink-soft);font-size:clamp(.85rem,1.4vw,1rem);flex-wrap:wrap}
+.dend{display:none;text-align:center}
+.dend.show{display:block}
+.dend .big{font-family:'Fredoka';font-weight:700;font-size:clamp(1.4rem,3vw,2rem);color:var(--lavender-deep)}
+.dend .misses{font-size:clamp(.9rem,1.6vw,1.1rem);color:var(--ink-soft);margin:.4em 0}
+/* results */
+.results{background:linear-gradient(135deg,#eafbf6,#fff8db);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.1em 1.4em;text-align:center}
+#rep-line{font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.9vw,1.25rem)}
+.foot{color:var(--ink-soft);text-align:center;font-size:clamp(.85rem,1.4vw,1rem);margin-top:1.2em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Alika · English · Miss Elena</div>
+  <h1>📝 Homework · Lesson 15</h1>
+  <p class="sub">Сделал задание — нажми кнопку! Каждый клик сразу улетает Мисс Элене 📤</p>
+
+  <!-- TASK 1 · family sentences -->
+  <div class="card mint">
+    <h2>✍️ 1 · Моя семья — напиши правдивые предложения!</h2>
+    <p>Напиши в тетради <b>правдивые</b> предложения про свою семью — используй новые слова!</p>
+    <p class="hintline">Например, так:</p>
+    <div class="model">I've got <b>2 uncles</b> and <b>2 aunts</b>.</div>
+    <div class="model"><b>Alina</b> is my <b>aunt</b>.</div>
+    <div class="model"><b>Alisa</b> is <b>Alina's daughter</b>.</div>
+    <p class="hintline">is my… · …'s daughter / son · I've got… — твои слова! ✏️</p>
+    <div class="chips"><button class="dchip" data-k="family">Я написала предложения! <span class="fly">sent ✓</span></button></div>
+  </div>
+
+  <!-- TASK 1b · the hwdt drill -->
+  <div class="card lavender">
+    <h2>🧩 The Family Chips — дрейл слов!</h2>
+    <p>Одна карточка — одно слово. Пиши слово в окошко и жми <b>check</b> — успей до конца полоски! ⏳</p>
+    <div class="drillstage" id="dstage"><div id="dhold"></div></div>
+    <div class="dend" id="dend">
+      <div class="big" id="d-score"></div>
+      <div class="misses" id="d-misses"></div>
+      <button class="toggle" id="d-again">↺ Ещё раз!</button>
+    </div>
+    <div class="timerbar" id="dtimer" style="margin-top:.7em"><i id="dfill"></i></div>
+    <div class="dmeta"><span id="d-count">1 / 8</span><span id="d-acc"></span></div>
+    <div class="chips"><button class="dchip" data-k="drill" id="drill-chip">Дрейл пройден! <span class="fly">sent ✓</span></button></div>
+  </div>
+
+  <!-- TASK 2 · SB p. 11 -->
+  <div class="card peach">
+    <h2>📕 2 · SB, страница 11</h2>
+    <p>Открой учебник на <b>странице 11</b>. Послушай и почитай вслух ещё раз — мы учили это на уроке! 🎧📖</p>
+    <div class="chips"><button class="dchip" data-k="sb11">SB p. 11 — готово! <span class="fly">sent ✓</span></button></div>
+  </div>
+
+  <!-- TASK 3 · WB 1.1 -->
+  <div class="card">
+    <h2>📘 3 · WB 1.1</h2>
+    <p>Открой <b>Workbook, задание 1.1</b> и сделай его. На уроке проверим вместе! 💪</p>
+    <div class="chips"><button class="dchip" data-k="wb11">WB 1.1 — готово! <span class="fly">sent ✓</span></button></div>
+  </div>
+
+  <!-- TASK 4 · dictation prep -->
+  <div class="card pinkk">
+    <h2>✍️ 4 · Готовимся к диктанту — семейные слова!</h2>
+    <p>Посмотри слово → закрой → <b>напиши в тетрадь</b> → нажми карточку и проверь себя! Потом следующее слово. ⭐</p>
+    <div class="wordgrid">
+      <div class="wcard"><div class="w">aunt</div><div class="ru">тётя</div></div>
+      <div class="wcard"><div class="w">grandfather</div><div class="ru">дедушка</div></div>
+      <div class="wcard"><div class="w">daughter</div><div class="ru">дочь</div></div>
+      <div class="wcard"><div class="w">uncle</div><div class="ru">дядя</div></div>
+      <div class="wcard"><div class="w">grandmother</div><div class="ru">бабушка</div></div>
+      <div class="wcard"><div class="w">cousin</div><div class="ru">двоюродный брат / сестра</div></div>
+      <div class="wcard"><div class="w">son</div><div class="ru">сын</div></div>
+      <div class="wcard"><div class="w">parents</div><div class="ru">родители</div></div>
+    </div>
+    <p class="hintline">Скажи слова вслух маме — она проверит, как диктант! 🎤</p>
+    <div class="chips"><button class="dchip" data-k="dict">К диктанту готова! <span class="fly">sent ✓</span></button></div>
+  </div>
+
+  <!-- TASK 5 · the video -->
+  <div class="card mint">
+    <h2>📹 5 · Видео: My bag! 🎬</h2>
+    <p>Сними видео про свою школьную сумку и отправь его <b>Мисс Алёне</b>!</p>
+    <div class="model">This is my bag.<br>There is <b>a pencil case</b> …</div>
+    <p class="hintline">Что ещё в сумке? Скажи про каждое: one → <b>There is</b> · два и больше → <b>There are</b>! </p>
+    <button class="toggle" id="rule-btn">Сначала попробуй сама 😉</button>
+    <div class="rule" id="rule">Подсказка-рамка:<br>
+      This is my bag.<br>
+      There is <b>a pencil case</b> and <b>a ruler</b>.<br>
+      There are <b>two pens</b> and <b>three pencils</b>.<br>
+      There is <b>a rubber</b> too!
+    </div>
+    <div class="chips"><button class="dchip" data-k="video">Видео отправлено Мисс Алёне! <span class="fly">sent ✓</span></button></div>
+  </div>
+
+  <!-- TASK 6 · typing -->
+  <div class="card">
+    <h2>⌨️ 6 · Печатаем — F и J!</h2>
+    <p>Поиграй в игру про буквы <b>F</b> и <b>J</b> — пальчики ищут бугорки! 5 минут, не больше 😉</p>
+    <a class="biglink" href="https://elena777-code.github.io/decks/p/alika/touch-typing-01-fj.html">▶ Играть: Touch typing · F J</a>
+    <div class="chips"><button class="dchip" data-k="typing">Поиграла! <span class="fly">sent ✓</span></button></div>
+  </div>
+
+  <!-- results -->
+  <div class="results">
+    <div class="eyebrow">My results</div>
+    <div id="rep-line">Отметь галочками, что сделано! ⭐</div>
+  </div>
+  <p class="foot">🎨 Новое ДЗ всегда сверху — эта страница навсегда по одному адресу. Видео — администратору Мисс Алёне. 💌</p>
+</div>
+
+<iframe name="hw-form-target" style="display:none" title="hidden sender"></iframe>
+<script>
+(function(){
+  "use strict";
+  var PAGE='L15';
+  var DONE={};
+  try{ DONE=JSON.parse(localStorage.getItem('alika-hw-l015-done')||'{}'); }catch(e){}
+  function save(){ try{ localStorage.setItem('alika-hw-l015-done',JSON.stringify(DONE)); }catch(e){} report(); }
+  var NAMES={family:'Семейные предложения',drill:'The Family Chips (дрейл)',sb11:'SB p. 11',wb11:'WB 1.1',dict:'Диктант — готовность',video:'Видео My bag',typing:'Печатаем F J'};
+  var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSfmNW6SdbPWJA44jsChI9NJFfwOhzdSsSsIMLJSfvX1m_uJXA/formResponse";
+  var FORM_ENTRY="entry.790329667";
+  function post(text){
+    try{
+      var f=document.createElement('form');
+      f.method='POST';f.action=FORM_ACTION;f.target='hw-form-target';
+      var inp=document.createElement('input');inp.type='hidden';inp.name=FORM_ENTRY;
+      inp.value=text;
+      f.appendChild(inp);document.body.appendChild(f);f.submit();f.remove();
+    }catch(e){}
+  }
+  function stamp(){ return new Date().toLocaleString('en-GB'); }
+  function report(){
+    var keys=Object.keys(NAMES).filter(function(k){return DONE[k];});
+    var line=document.getElementById('rep-line');
+    line.textContent = keys.length
+      ? '⭐ Сделано: '+keys.length+' из 7 — '+keys.map(function(k){return NAMES[k];}).join(' · ')+(DRILL.done?' · 🧩 '+DRILL.score+'/8':'')
+      : 'Отметь галочками, что сделано! ⭐';
+  }
+  document.querySelectorAll('.dchip').forEach(function(ch){
+    if(DONE[ch.dataset.k]) ch.classList.add('done');
+    ch.addEventListener('click',function(){
+      var k=ch.dataset.k;
+      DONE[k]=!DONE[k];
+      ch.classList.toggle('done',!!DONE[k]);
+      save();
+      if(DONE[k]){
+        ch.classList.add('sent');
+        post('Alika · homework '+PAGE+' · '+NAMES[k]+' · done ✓ · '+stamp());
+        setTimeout(function(){ ch.classList.remove('sent'); },4000);
+      }
+    });
+  });
+
+  /* --- the dictation prep cards --- */
+  document.querySelectorAll('.wcard').forEach(function(w){
+    w.addEventListener('click',function(){ w.classList.toggle('shown'); });
+  });
+
+  /* --- the video rule toggle --- */
+  document.getElementById('rule-btn').addEventListener('click',function(){
+    document.getElementById('rule').classList.toggle('shown');
+  });
+
+  /* --- THE FAMILY CHIPS — the hwdt drill (one card = one item) --- */
+  var ITEMS=[
+    {q:"My mum's sister is my ___.", a:['aunt']},
+    {q:"My dad's brother is my ___.", a:['uncle']},
+    {q:"My aunt's son is my ___.", a:['cousin']},
+    {q:"My mother and my father are my ___.", a:['parents']},
+    {q:"My parents have got a daughter — me! I am their ___.", a:['daughter']},
+    {q:"My granny and my grandpa are my ___.", a:['grandparents']},
+    {q:"My sister is my mother's ___.", a:['daughter']},
+    {q:"My brother is my parents' ___.", a:['son']}
+  ];
+  var DRILL={score:0,done:false,idx:[],i:0,hit:0,miss:0,misses:[],t:null,t0:0};
+  var stage=document.getElementById('dhold'),dend=document.getElementById('dend');
+  var dfill=document.getElementById('dfill'),dcount=document.getElementById('d-count'),dacc=document.getElementById('d-acc');
+  function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+  function norm(s){ return (s||'').toLowerCase().replace(/[^a-z]/g,''); }
+  function start(){
+    DRILL.score=0;DRILL.done=false;DRILL.i=0;DRILL.hit=0;DRILL.miss=0;DRILL.misses=[];
+    DRILL.idx=shuffle(ITEMS.map(function(_,i){return i;}));
+    dend.classList.remove('show');
+    render();
+  }
+  function render(){
+    var it=ITEMS[DRILL.idx[DRILL.i]];
+    dcount.textContent=(DRILL.i+1)+' / '+ITEMS.length;
+    dacc.textContent='✓ '+DRILL.hit+' · ✗ '+DRILL.miss;
+    stage.innerHTML=''
+      +'<div class="dcard">'+it.q.replace('___','<span class="gap">___</span>')+'</div>'
+      +'<div class="drow"><input type="text" autocomplete="off" spellcheck="false" id="dinp"><button id="dchk">check</button></div>';
+    var inp=document.getElementById('dinp');
+    inp.focus();
+    function check(){
+      var v=norm(inp.value);
+      if(!v) return;
+      var ok=it.a.map(norm).indexOf(v)!==-1;
+      var gap=stage.querySelector('.gap');
+      if(ok){
+        gap.textContent=it.a[0];gap.classList.add('filled');
+        DRILL.hit++;DRILL.score++;
+      }else{
+        DRILL.miss++;DRILL.misses.push(it.a[0]+' ('+it.q.replace('___','—')+')');
+        inp.style.borderColor='#e88';
+        setTimeout(function(){ inp.style.borderColor='#d8dee6'; },400);
+        return;
+      }
+      DRILL.i++;
+      if(DRILL.i>=ITEMS.length) finish();
+      else setTimeout(render,650);
+    }
+    document.getElementById('dchk').addEventListener('click',check);
+    inp.addEventListener('keydown',function(e){ if(e.key==='Enter') check(); });
+    /* the loyal timer: 25 s per card, amber at the end */
+    var left=25;
+    dfill.style.width='100%';dfill.className='';
+    clearInterval(DRILL.t);
+    DRILL.t0=Date.now();
+    DRILL.t=setInterval(function(){
+      left=Math.max(0,25-Math.round((Date.now()-DRILL.t0)/1000));
+      dfill.style.width=(left/25*100)+'%';
+      if(left<=6) dfill.className='amber';
+      if(left===0){ clearInterval(DRILL.t); DRILL.miss++; DRILL.misses.push('time-up: '+it.a[0]); DRILL.i++; if(DRILL.i>=ITEMS.length) finish(); else render(); }
+    },250);
+  }
+  function finish(){
+    clearInterval(DRILL.t);
+    DRILL.done=true;
+    stage.innerHTML='';
+    dend.classList.add('show');
+    dcount.textContent=ITEMS.length+' / '+ITEMS.length;
+    dacc.textContent='✓ '+DRILL.hit+' · ✗ '+DRILL.miss;
+    document.getElementById('d-score').textContent='⭐ '+DRILL.score+' / '+ITEMS.length;
+    document.getElementById('d-misses').textContent=DRILL.misses.length?('Повтори: '+DRILL.misses.join(' · ')):'Ни одной ошибки! 🎉';
+    post('Alika · homework '+PAGE+' · The Family Chips · '+DRILL.score+'/'+ITEMS.length+(DRILL.misses.length?(' · повтори: '+DRILL.misses.map(function(m){return m.split(' ')[0];}).join(', ')):' · без ошибок')+' · '+stamp());
+    var dc=document.getElementById('drill-chip');
+    if(!DONE.drill){ DONE.drill=true; dc.classList.add('done'); save(); }
+    report();
+  }
+  document.getElementById('d-again').addEventListener('click',start);
+  start();
+  report();
+})();
+</script>
+</body>
+</html>
