@@ -95,7 +95,7 @@ p{font-size:clamp(1rem,1.8vw,1.25rem);line-height:1.55}
 
   <!-- TASK 1b · the hwdt drill -->
   <div class="card lavender">
-    <h2>🧩 The Family Chips — дрейл слов!</h2>
+    <h2>🧩 The Family Chips — let's drill!</h2>
     <p>Одна карточка — одно слово. Пиши слово в окошко и жми <b>check</b> — успей до конца полоски! ⏳</p>
     <div class="drillstage" id="dstage"><div id="dhold"></div></div>
     <div class="dend" id="dend">
@@ -105,7 +105,7 @@ p{font-size:clamp(1rem,1.8vw,1.25rem);line-height:1.55}
     </div>
     <div class="timerbar" id="dtimer" style="margin-top:.7em"><i id="dfill"></i></div>
     <div class="dmeta"><span id="d-count">1 / 8</span><span id="d-acc"></span></div>
-    <div class="chips"><button class="dchip" data-k="drill" id="drill-chip">Дрейл пройден! <span class="fly">sent ✓</span></button></div>
+    <div class="chips"><button class="dchip" data-k="drill" id="drill-chip">Тренировка пройдена! <span class="fly">sent ✓</span></button></div>
   </div>
 
   <!-- TASK 2 · SB p. 11 -->
@@ -180,7 +180,7 @@ p{font-size:clamp(1rem,1.8vw,1.25rem);line-height:1.55}
   var DONE={};
   try{ DONE=JSON.parse(localStorage.getItem('alika-hw-l015-done')||'{}'); }catch(e){}
   function save(){ try{ localStorage.setItem('alika-hw-l015-done',JSON.stringify(DONE)); }catch(e){} report(); }
-  var NAMES={family:'Семейные предложения',drill:'The Family Chips (дрейл)',sb11:'SB p. 11',wb11:'WB 1.1',dict:'Диктант — готовность',video:'Видео My bag',typing:'Печатаем F J'};
+  var NAMES={family:'Семейные предложения',drill:'The Family Chips (drill)',sb11:'SB p. 11',wb11:'WB 1.1',dict:'Диктант — готовность',video:'Видео My bag',typing:'Печатаем F J'};
   var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSfmNW6SdbPWJA44jsChI9NJFfwOhzdSsSsIMLJSfvX1m_uJXA/formResponse";
   var FORM_ENTRY="entry.790329667";
   function post(text){
