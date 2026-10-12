@@ -1028,6 +1028,78 @@ function finish(){
   }catch(e){}
   flushQueue();
 
+  $("report-sent").textContent=FORM_ACTION?("sent to Elena ✅"):"";
+  show("end-card");
+  window.scrollTo(0,0);
+}
+
+function sendViaForm(txt){
+  if(!FORM_ACTION)return;
+  var frame=document.createElement("iframe");
+  frame.name="hw-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);
+  /* no input name="submit" — it shadows f.submit and kills the flush
+     (the v9 lesson; fixed same night as Masha K.'s page) */
+  document.body.appendChild(f);
+  f.submit();
+  setTimeout(function(){f.remove();frame.remove();},15000);
+}
+window.sendViaForm = sendViaForm; /* the ct block (its own script) calls this */
+function flushQueue(){
+  if(!FORM_ACTION)return; /* no form yet — reports wait in the queue */
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("mashar-hw-queue")||"[]");}catch(e){}
+  if(!q.length)return;
+  q.forEach(sendViaForm);
+  try{localStorage.setItem("mashar-hw-queue","[]");}catch(e){}
+}
+flushQueue();
+
+/* ---------- best/runs on the start card ---------- */
+try{
+  var best=+localStorage.getItem("mashar-hw-best")||0;
+  var runs=+localStorage.getItem("mashar-hw-runs")||0;
+  if(runs)$("best-line").textContent="Runs: "+runs+(best?(" · best: "+best+"%"):"");
+}catch(e){}
+})();
+</script>
+<script>
+/* ---------- the plan card: checkboxes remember themselves (Sergey's
+   mechanic, MR keys). Box click = toggle; label click = scroll. ---------- */
+(function(){
+  var rows=Array.prototype.slice.call(document.querySelectorAll(".plan-row"));
+  var progress=document.getElementById("plan-progress");
+  function refresh(){
+    var done=rows.filter(function(r){return r.classList.contains("done");}).length;
+    progress.textContent=done+" of "+rows.length+" done"+(done===rows.length?" — beautiful! 🌟":"");
+  }
+  rows.forEach(function(row){
+    var key="mashar-plan-"+row.getAttribute("data-k");
+    try{ if(localStorage.getItem(key)==="1") row.classList.add("done"); }catch(e){}
+    row.querySelector(".pbox").addEventListener("click",function(){
+      row.classList.toggle("done");
+      try{ localStorage.setItem(key,row.classList.contains("done")?"1":"0"); }catch(e){}
+      refresh();
+    });
+    var label=row.querySelector(".plabel");
+    if(label&&label.getAttribute("data-to")){
+      label.addEventListener("click",function(){
+        var t=document.getElementById(label.getAttribute("data-to"));
+        if(t)t.scrollIntoView({behavior:"smooth",block:"start"});
+      });
+    }
+  });
+  refresh();
+})();
+</script>
+
+<script>
 /* ---------- 🧪 COMFORTABLE TESTING — the suffix machine (Elena's spec,
    12.10: tasks without answers · one button reveals + sends to the form ·
    ? explains mistakes · missed words return with new sentences · 7–9
@@ -1132,74 +1204,6 @@ function finish(){
     }
   });
   render();
-})();
-  $("report-sent").textContent=FORM_ACTION?("sent to Elena ✅"):"";
-  show("end-card");
-  window.scrollTo(0,0);
-}
-
-function sendViaForm(txt){
-  if(!FORM_ACTION)return;
-  var frame=document.createElement("iframe");
-  frame.name="hw-post-"+Date.now();
-  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
-  document.body.appendChild(frame);
-  var f=document.createElement("form");
-  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
-  var inp=document.createElement("input");
-  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
-  f.appendChild(inp);
-  /* no input name="submit" — it shadows f.submit and kills the flush
-     (the v9 lesson; fixed same night as Masha K.'s page) */
-  document.body.appendChild(f);
-  f.submit();
-  setTimeout(function(){f.remove();frame.remove();},15000);
-}
-function flushQueue(){
-  if(!FORM_ACTION)return; /* no form yet — reports wait in the queue */
-  var q=[];
-  try{q=JSON.parse(localStorage.getItem("mashar-hw-queue")||"[]");}catch(e){}
-  if(!q.length)return;
-  q.forEach(sendViaForm);
-  try{localStorage.setItem("mashar-hw-queue","[]");}catch(e){}
-}
-flushQueue();
-
-/* ---------- best/runs on the start card ---------- */
-try{
-  var best=+localStorage.getItem("mashar-hw-best")||0;
-  var runs=+localStorage.getItem("mashar-hw-runs")||0;
-  if(runs)$("best-line").textContent="Runs: "+runs+(best?(" · best: "+best+"%"):"");
-}catch(e){}
-})();
-</script>
-<script>
-/* ---------- the plan card: checkboxes remember themselves (Sergey's
-   mechanic, MR keys). Box click = toggle; label click = scroll. ---------- */
-(function(){
-  var rows=Array.prototype.slice.call(document.querySelectorAll(".plan-row"));
-  var progress=document.getElementById("plan-progress");
-  function refresh(){
-    var done=rows.filter(function(r){return r.classList.contains("done");}).length;
-    progress.textContent=done+" of "+rows.length+" done"+(done===rows.length?" — beautiful! 🌟":"");
-  }
-  rows.forEach(function(row){
-    var key="mashar-plan-"+row.getAttribute("data-k");
-    try{ if(localStorage.getItem(key)==="1") row.classList.add("done"); }catch(e){}
-    row.querySelector(".pbox").addEventListener("click",function(){
-      row.classList.toggle("done");
-      try{ localStorage.setItem(key,row.classList.contains("done")?"1":"0"); }catch(e){}
-      refresh();
-    });
-    var label=row.querySelector(".plabel");
-    if(label&&label.getAttribute("data-to")){
-      label.addEventListener("click",function(){
-        var t=document.getElementById(label.getAttribute("data-to"));
-        if(t)t.scrollIntoView({behavior:"smooth",block:"start"});
-      });
-    }
-  });
-  refresh();
 })();
 </script>
 </body>
