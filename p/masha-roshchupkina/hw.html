@@ -143,6 +143,8 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <div class="no">Start here</div>
     <h2>Tonight's plan</h2>
     <p class="hint">Tap the box when it's done — the page remembers, on this device.</p>
+    <div class="plan-row" data-k="ct"><button class="pbox" aria-label="mark done">✓</button>
+      <div class="plabel" data-to="ct-card">🧪 Comfortable testing — the suffix machine (7 words)</div></div>
     <div class="plan-row" data-k="wb"><button class="pbox" aria-label="mark done">✓</button>
       <div class="plabel" data-to="wb-card">📘 Workbook 9.6 — p. 108, ex. 1–4 (your printed book)</div></div>
     <div class="plan-row" data-k="listen"><button class="pbox" aria-label="mark done">✓</button>
@@ -175,6 +177,18 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
       <div class="name-hint" id="name-hint"></div>
     </div>
     <button class="start-btn" id="begin-btn">Start the drill</button>
+  </div>
+
+  <div class="card hwcard" id="ct-card">
+    <div class="no">Comfortable testing · the suffix machine · for Tuesday</div>
+    <h2>🧪 Seven words — no clock, no answers until you send</h2>
+    <p class="hint">Type the missing word into each line. When you are done, press the button:
+    the correct answers appear, every mistake gets a <b>?</b> with a simple explanation —
+    and the result flies to Elena. Missed words come back later with <b>new sentences</b>.</p>
+    <div id="ct-items"></div>
+    <button id="ct-send" style="margin-top:.8em;border:1.5px solid var(--accent);background:var(--accent);color:#fff;
+      border-radius:99px;padding:.5em 1.3em;font-family:'Inter',sans-serif;font-weight:700;font-size:1rem;cursor:pointer">📤 Send the answer to the teacher</button>
+    <div id="ct-after" class="hint" style="margin-top:.6em"></div>
   </div>
 
   <div class="card hidden" id="q-card">
@@ -974,6 +988,112 @@ function finish(){
     localStorage.setItem("mashar-hw-queue",JSON.stringify(q));
   }catch(e){}
   flushQueue();
+
+/* ---------- 🧪 COMFORTABLE TESTING — the suffix machine (Elena's spec,
+   12.10: tasks without answers · one button reveals + sends to the form ·
+   ? explains mistakes · missed words return with new sentences · 7–9
+   sentences · hwdt style). The stems = deck-010 slide 6 (the HSE Task-4
+   practice that was skipped for time). ---------- */
+(function(){
+  var ROUND1=[
+   {q:"…to travel ______",base:"international → (adverb)",a:"internationally",
+    ex:"The adjective + -ly makes the adverb: international → internationally."},
+   {q:"the most ______ spoken language",base:"wide → (adverb)",a:"widely",
+    ex:"Just add -ly: wide → widely. No letters fall out."},
+   {q:"the global language of ______",base:"communicate → (noun)",a:"communication",
+    ex:"The verb -ate becomes -ation for the noun: communicate → communication."},
+   {q:"______ research findings",base:"science → (adjective)",a:"scientific",
+    ex:"A special one: science loses -ce and takes -tific: science → scientific."},
+   {q:"available in English ______",base:"translate → (noun)",a:"translation",
+    ex:"Like communicate: translate → translation (-ate → -ation)."},
+   {q:"explore ______ cultures",base:"differ → (adjective)",a:"different",
+    ex:"The verb + -ent makes the adjective: differ → different."},
+   {q:"enhances ______ abilities",base:"speak → (the skill)",a:"speaking",
+    ex:"The skill is the -ing form: speak → speaking."}
+  ];
+  var REMAKES={
+   "internationally":{q:"It is an ______ known fact",base:"international → (adverb)"},
+   "widely":{q:"The app is ______ used in schools",base:"wide → (adverb)"},
+   "communication":{q:"Good ______ is the key to teamwork",base:"communicate → (noun)"},
+   "scientific":{q:"She loves ______ experiments",base:"science → (adjective)"},
+   "translation":{q:"The book's ______ took two years",base:"translate → (noun)"},
+   "different":{q:"Their opinions are ______ from ours",base:"differ → (adjective)"},
+   "speaking":{q:"Her ______ improved after the course",base:"speak → (the skill)"}
+  };
+  var NEWWORDS=[
+   {q:"a good ______ opens doors",base:"educate → (noun)",a:"education",
+    ex:"educate → education (-ate → -ation again)."},
+   {q:"a ______ solution to the problem",base:"create → (adjective)",a:"creative",
+    ex:"create → creative (-e drops, -ive joins)."},
+   {q:"a ______ of styles in one street",base:"mix → (noun)",a:"mixture",
+    ex:"mix → mixture (-ture for the noun)."},
+   {q:"a ______ app for learning words",base:"use → (adjective)",a:"useful",
+    ex:"use → useful (-ful = full of use)."},
+   {q:"a ______ driver checks the mirrors twice",base:"care → (adjective)",a:"careful",
+    ex:"care → careful (-ful again)."}
+  ];
+  var NEWIDX=0;
+  function norm(x){return (x||"").toString().trim().toLowerCase().replace(/\s+/g," ").replace(/[.!?]+$/,"");}
+  var box=document.getElementById("ct-items"),send=document.getElementById("ct-send"),
+      after=document.getElementById("ct-after"),queue=ROUND1.slice();
+  function render(){
+    box.innerHTML="";
+    queue.forEach(function(it,i){
+      var row=document.createElement("div");
+      row.className="item";row.style.flexWrap="wrap";
+      row.innerHTML='<span class="no">'+(i+1)+'</span><span>'+it.q+
+        ' <span style="color:var(--ink-soft)">('+it.base+')</span></span>'+
+        '<input data-i="'+i+'" autocomplete="off" autocapitalize="off" spellcheck="false" '+
+        'style="border:1.5px solid var(--line);border-radius:8px;padding:.15em .6em;'+
+        'font-family:Inter,sans-serif;font-size:.95em;min-width:150px">';
+      box.appendChild(row);
+    });
+  }
+  function grade(){
+    var inputs=box.querySelectorAll("input"),missed=[],score=0,lines=[];
+    inputs.forEach(function(inp){
+      var i=+inp.getAttribute("data-i"),it=queue[i],ok=norm(inp.value)===norm(it.a);
+      if(ok)score++;else missed.push(it);
+      lines.push((ok?"✓ ":"✗ ")+it.base+" → "+it.a+(ok?"":" (her answer: "+(inp.value||"—")+")"));
+      inp.style.borderColor=ok?"var(--accent)":"#C0392B";
+      inp.disabled=true;
+      if(!ok){
+        var fb=document.createElement("div");
+        fb.style.cssText="width:100%;font-size:.85em;color:var(--ink-soft);padding:.1em 0 .4em 2.1em";
+        fb.innerHTML='<span style="color:#C0392B;font-weight:700">✗ '+it.a+
+          '</span> <details style="display:inline-block"><summary style="cursor:pointer;font-weight:800">?</summary>'+
+          '<div class="hint" style="padding:.2em 0">'+it.ex+'</div></details>';
+        inp.parentElement.after(fb);
+      }
+    });
+    return {missed:missed,score:score,lines:lines};
+  }
+  send.addEventListener("click",function(){
+    if(send.disabled)return;
+    var r=grade();
+    var stamp=new Date().toLocaleDateString("en-GB");
+    sendViaForm("MR · Comfortable testing · suffix machine · "+stamp+" · "+r.score+" / "+queue.length+
+      (r.missed.length?" · missed: "+r.missed.map(function(m){return m.a;}).join(", "):" · all clean"));
+    after.innerHTML="Sent to Elena ✈️ — "+r.score+" of "+queue.length+"."+
+      (r.missed.length?" The missed "+r.missed.length+" come back below with new sentences.":" Nothing comes back — beautiful. 🌟");
+    send.disabled=true;
+    if(r.missed.length){
+      var next=r.missed.map(function(m){var k=REMAKES[m.a];
+        return {q:k.q,base:k.base,a:m.a,ex:m.ex};});
+      while(next.length<7 && NEWIDX<NEWWORDS.length){next.push(NEWWORDS[NEWIDX++]);}
+      queue=next;
+      var again=document.createElement("button");
+      again.textContent="🔁 The return round — "+queue.length+" words";
+      again.style.cssText="margin-top:.6em;border:1.5px solid var(--gold);background:var(--gold-soft);color:var(--gold);border-radius:99px;padding:.45em 1.2em;font-family:Inter,sans-serif;font-weight:700;cursor:pointer";
+      again.addEventListener("click",function(){
+        again.remove();render();
+        send.disabled=false;send.textContent="📤 Send the return round";
+      });
+      after.appendChild(again);
+    }
+  });
+  render();
+})();
   $("report-sent").textContent=FORM_ACTION?("sent to Elena ✅"):"";
   show("end-card");
   window.scrollTo(0,0);
