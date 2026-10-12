@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1 · To-do list — Autumn Party</title>
+<style>
+  :root{--ink:#2d2431;--muted:#7a6f80;--pump:#e8792b;--cream:#faf5ec;--card:#fff;--line:#e9dfd0;--leaf:#3e7d54}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#efe7d9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink);padding:30px 16px 60px}
+  .wrap{max-width:860px;margin:0 auto}
+  .head{background:linear-gradient(135deg,#4a2340,#e8792b 140%);color:#fff;border-radius:18px;padding:26px 30px;margin-bottom:18px}
+  .head .k{font-size:12.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;opacity:.85}
+  .head h1{font-size:32px;font-weight:900;margin:6px 0 4px}
+  .head p{font-size:15px;opacity:.9}
+  .progress{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;gap:14px}
+  .bar{flex:1;height:12px;background:#eee4d4;border-radius:8px;overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pump),#3e7d54);width:0%;transition:width .3s ease}
+  .pct{font-weight:900;font-size:18px;min-width:52px;text-align:right}
+  .reset{font-size:12.5px;font-weight:700;color:var(--muted);background:none;border:1px solid var(--line);border-radius:10px;padding:5px 10px;cursor:pointer;font-family:inherit}
+  h2{font-size:19px;font-weight:900;margin:22px 0 10px;display:flex;align-items:center;gap:10px}
+  h2 .tag{font-size:12px;font-weight:800;color:var(--pump);background:#f9e9ee;border-radius:10px;padding:2px 9px;letter-spacing:.04em}
+  .rows{display:flex;flex-direction:column;gap:7px}
+  .row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 15px;cursor:pointer;transition:opacity .15s}
+  .row:hover{border-color:var(--pump)}
+  .row .chk{flex:0 0 26px;height:26px;border-radius:50%;border:2px solid #cfc4b2;background:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;color:#fff}
+  .row.done .chk{background:var(--leaf);border-color:var(--leaf)}
+  .row.done .txt{text-decoration:line-through;color:var(--muted)}
+  .row .txt{flex:1;font-size:16px;line-height:1.4}
+  .row .txt b{font-weight:800}
+  .badge{flex:0 0 auto;font-size:12.5px;font-weight:800;border-radius:11px;padding:3px 10px;white-space:nowrap}
+  .elena{background:#eaf2fb;color:#2b6cb0}.alice{background:#fdeede;color:#c2661d}.vera{background:#f3e8fb;color:#7a3ba8}.ksenia{background:#e5f3e9;color:#2f7d46}.dina{background:#fdeaea;color:#c0392b}.all{background:#eceff1;color:#607078}.elena.alice{background:linear-gradient(90deg,#eaf2fb 50%,#fdeede 50%)}
+  .note{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+  .foot{margin-top:30px;text-align:center;font-size:12.5px;color:var(--muted)}
+</style>
+</head>
+<body><div class="wrap">
+  <div class="head">
+    <div class="k">Autumn Party · for Alice</div>
+    <h1>To-do list ✔️</h1>
+    <p>Tap a row to tick it off — everything saves in this browser. The badge on the right is the owner from the meeting.</p>
+  </div>
+  <div class="progress"><div class="bar"><i id="barFill"></i></div><div class="pct" id="pct">0%</div><button class="reset" onclick="if(confirm('Untick everything?')){resetAll()}">reset</button></div>
+  <div id="list"></div>
+  <div class="foot">Autumn Party · 30 October · built 12 Oct 2026 · the ticks live only in this browser</div>
+</div>
+<script>
+(function(){
+"use strict";
+var K='ap-todo-v1';
+var SEC=[
+ {t:'This week',tag:'12–18 Oct',rows:[
+   ['elena','<b>The programme talk with Дина</b> — activities, games, cooking, responsibilities written out (по плану: «нам надо прописать»)'],
+   ['alice','<b>Shortlist & book the venue</b> — food permission, sink, fridge, sockets, washable tables, cleaning window'],
+   ['elena','<b>Design the registration form</b> → hand it to Дина (deck 2 has it ready)'],
+   ['alice','<b>Budget draft</b> — the five lines: Д\'s % · shopping · 2 workers · 2 organisers · the headcount'],
+   ['dina','<b>Headcount + ages + allergy deadline</b> — one message to Дина'],
+   ['alice','<b>Confirm the food & safety adult</b> — Дина is the natural candidate (chemistry teacher)'],
+   ['dina','<b>What does «28 среда — до 17» lock?</b> — venue viewing? her availability? (Elena\'s note from the meeting)']
+ ]},
+ {t:'Name — done at the meeting',tag:'✓ already',rows:[
+   ['all','<b>«Autumn party»</b> — the working name, decided 12 Oct']
+ ]},
+ {t:'Test & invite week',tag:'19–25 Oct',rows:[
+   ['alice','<b>Test caramel apples</b> — need a hot plate (конфорка) and a pot; quantities on a card'],
+   ['alice','<b>Test the sealed density jar</b> — honey, coloured water, oil (from the smoothie plan, still a great 5 minutes)'],
+   ['alice','<b>Build the cards & handouts</b> — deck 5 has them; Вера prints'],
+   ['elena','<b>Invitations via Дина + registration opens</b> — deadline Thu 22 Oct (the Telegram post is in the launch kit)'],
+   ['all','<b>Full timed rehearsal</b> — Sat 24 or Sun 25; cut on the spot whatever delays it']
+ ]},
+ {t:'Lock & buy week',tag:'26–29 Oct',rows:[
+   ['elena','<b>Close registration</b> — final list + waitlist'],
+   ['alice','<b>Adapt ingredients to the allergies</b> — final list to the families'],
+   ['alice','<b>Confirm venue logistics</b> — access time, fridge, tables, sockets, helper arrival'],
+   ['alice','<b>Shop</b> — shelf-stable first, fresh fruit as close to Friday as it keeps'],
+   ['vera','<b>Print + laminate, label the boxes</b> — deck 5 has the handouts'],
+   ['ksenia','<b>Charge phones, clear storage, shot list ready</b>']
+ ]},
+ {t:'The day',tag:'Fri 30 Oct',rows:[
+   ['all','<b>Arrive 60 min early</b> · photo the clean setup · the 5-minute briefing: roles, allergies, no-photo kids, the stove owner'],
+   ['ksenia','<b>Timing</b> — the calls keep the 90 minutes honest'],
+   ['ksenia','<b>Filming</b> — the 10-shot list, faces only with consent'],
+   ['elena','<b>The programme</b> — story, quiz, games, tea talk'],
+   ['alice','<b>The cooking</b> — caramel apples station, food safety'],
+   ['all','<b>Teardown</b> — 30–45 minutes']
+ ]},
+ {t:'After',tag:'31 Oct →',rows:[
+   ['elena','<b>Thank-you post</b> — Дина, Вера, Ksenia by name (ask Д first about being named)'],
+   ['elena','<b>Parent feedback</b> — 2–3 short testimonials at the emotional peak'],
+   ['elena','<b>The evaluation numbers</b> — cost, timing, how many pitched/spoke — the price of the next party'],
+   ['ksenia','<b>The 20–35 s video</b> — consent-checked, then the channel']
+ ]}
+];
+var state={};
+try{state=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
+function save(){try{localStorage.setItem(K,JSON.stringify(state))}catch(e){}}
+var total=0,done=0;
+var list=document.getElementById('list');
+SEC.forEach(function(sec){
+  var h=document.createElement('h2');h.innerHTML=sec.t+' <span class="tag">'+sec.tag+'</span>';list.appendChild(h);
+  var box=document.createElement('div');box.className='rows';list.appendChild(box);
+  sec.rows.forEach(function(r){
+    total++;
+    var id=sec.tag+'|'+r[1].slice(0,40);
+    var el=document.createElement('div');el.className='row';
+    el.innerHTML='<span class="chk">✓</span><span class="txt">'+r[1]+'</span><span class="badge '+r[0]+'">'+r[0]+'</span>';
+    function paint(){var on=!!state[id];el.classList.toggle('done',on);}
+    el.addEventListener('click',function(){state[id]=!state[id];save();paint();tally();});
+    paint();
+    box.appendChild(el);
+  });
+});
+function tally(){done=0;for(var k in state)if(state[k])done++;
+  var p=total?Math.round(done*100/total):0;
+  document.getElementById('barFill').style.width=p+'%';
+  document.getElementById('pct').textContent=p+'%';}
+function resetAll(){state={};save();
+  [].forEach.call(document.querySelectorAll('.row'),function(el){el.classList.remove('done')});tally();}
+window.resetAll=resetAll;
+tally();
+})();
+</script>
+</body>
+</html>

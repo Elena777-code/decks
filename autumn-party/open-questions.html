@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4 · Open questions — Autumn Party</title>
+<style>
+  :root{--ink:#2d2431;--muted:#7a6f80;--pump:#e8792b;--card:#fff;--line:#e9dfd0;--leaf:#3e7d54;--plum:#4a2340}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#efe7d9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink);padding:30px 16px 60px}
+  .wrap{max-width:880px;margin:0 auto}
+  .head{background:linear-gradient(135deg,#b07d10,#e8792b 140%);color:#fff;border-radius:18px;padding:26px 30px;margin-bottom:20px}
+  .head .k{font-size:12.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;opacity:.85}
+  .head h1{font-size:31px;font-weight:900;margin:6px 0 4px}
+  .head p{font-size:15px;opacity:.92;line-height:1.5}
+  .tally{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 20px;margin-bottom:18px;font-size:15px;color:var(--muted)}
+  .tally b{color:var(--ink)}
+  .grid{display:flex;flex-direction:column;gap:9px}
+  .q{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 17px}
+  .q .tx{flex:1}
+  .q .q1{font-size:16.5px;font-weight:800;line-height:1.35}
+  .q .q2{font-size:13.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+  .who{flex:0 0 auto;font-size:12.5px;font-weight:800;border-radius:11px;padding:3px 10px;white-space:nowrap}
+  .dina{background:#fdeaea;color:#c0392b}.elena{background:#eaf2fb;color:#2b6cb0}.alice{background:#fdeede;color:#c2661d}.all{background:#eceff1;color:#607078}
+  .st{flex:0 0 108px;text-align:center;font-size:13.5px;font-weight:800;border-radius:15px;padding:6px 0;cursor:pointer;user-select:none;border:1px solid transparent;font-family:inherit}
+  .st.q{background:#eceff1;color:#607078}
+  .st.wait{background:#fdf6e0;color:#b07d10;border-color:#ecd9a0}
+  .st.done{background:#e5f3e9;color:#2f7d46;border-color:#bfe0c8}
+  .foot{margin-top:26px;text-align:center;font-size:12.5px;color:var(--muted);line-height:1.6}
+</style>
+</head>
+<body><div class="wrap">
+  <div class="head">
+    <div class="k">Autumn Party · deck 4 · for Alice</div>
+    <h1>Open questions ❓</h1>
+    <p>Everything still unanswered, one card each. The badge shows WHO answers it. Tap the status: ? → waiting → done ✓ (it saves in this browser).</p>
+  </div>
+  <div class="tally" id="tally"></div>
+  <div class="grid" id="grid"></div>
+  <div class="foot">Autumn Party · 30 October · built 12 Oct 2026 · statuses live in this browser only</div>
+</div>
+<script>
+(function(){
+"use strict";
+var K='ap-open-v1';
+var QS=[
+ ['dina','Where is the venue? What does Дина offer?','Walk her option against the checklist: food permission · sink · fridge · sockets · washable tables · 30–45 min cleaning.'],
+ ['dina','The time on Friday 30 October?','The evening starts and ends here — everything else schedules around it.'],
+ ['dina','Her pupils: how many, what ages, what English level?','Sizes the group (cap 12, 3 teams), the quiz level and the invitation text.'],
+ ['dina','Her son: age, English, what does SHE want him to get?','She asked for this workshop for him — her goal is the brief.'],
+ ['dina','Д\'s percentage — the number and what it covers','Budget line 1; the price per child cannot be set without it.'],
+ ['elena','What locks «28 среда — до 17»?','Elena\'s note from the meeting — a venue viewing? Дина\'s availability? Confirm and write it into the calendar.'],
+ ['elena','The registration form — who hands it to Дина and when?','The form is ready (deck 2): paper for Дина, or the digital copy-paste version.'],
+ ['dina','Photos: her stance + the parents\' consent route','Separate, optional: no photo / group only / full. Ksenia needs the consent list before filming.'],
+ ['dina','May the public posts name Дина and her studio?','The thank-you post after the party wants her name — ask first.'],
+ ['dina','Is Дина the food & safety adult?','Chemistry teacher = the natural owner of the stove, the caramel and the density demo. Confirm — the deck still says "to recruit".'],
+ ['alice','The sweets menu lock — which of the seven ideas make the cut?','Caramel apples + two or three more (тосты, червечки, бананы-приведения, мандаринки, ёжики, печеньки). Fewer = calmer.'],
+ ['alice','The equipment list','Конфорка + pot for the caramel; sealed jar for the demo; cups, spoons, boards; who owns what — borrow vs buy.'],
+ ['all','The price per child','After the budget: (Д\'s % + shopping + 2 workers + 2 organisers) ÷ headcount + margin; parents-join price slightly lower.'],
+ ['all','The full rehearsal date','Sat 24 or Sun 25 October — all helpers present, timed, everything cut that delays.']
+];
+var NAMES={dina:'Дина',elena:'Elena',alice:'Alice',all:'all of us'};
+var state={};
+try{state=JSON.parse(localStorage.getItem(K)||'{}')}catch(e){}
+function save(){try{localStorage.setItem(K,JSON.stringify(state))}catch(e){}}
+var CLS={q:'q',wait:'wait',done:'done'};
+var LBL={q:'? open',wait:'⏳ waiting',done:'✓ answered'};
+var grid=document.getElementById('grid');
+QS.forEach(function(q,i){
+  var id='q'+i;
+  var el=document.createElement('div');el.className='q';
+  el.innerHTML='<span class="tx"><span class="q1">'+q[1]+'</span><span class="q2" style="display:block">'+q[2]+'</span></span><span class="who '+q[0]+'">'+NAMES[q[0]]+'</span><button class="st q">'+LBL.q+'</button>';
+  var b=el.querySelector('.st');
+  function paint(){var v=state[id]||'q';b.className='st '+CLS[v];b.textContent=LBL[v];}
+  b.addEventListener('click',function(){
+    var v=state[id]||'q';
+    state[id]=v==='q'?'wait':v==='wait'?'done':'q';
+    save();paint();tally();
+  });
+  paint();grid.appendChild(el);
+});
+function tally(){
+  var w=0,d=0,o=0;
+  QS.forEach(function(_,i){var v=state['q'+i]||'q';if(v==='wait')w++;else if(v==='done')d++;else o++;});
+  document.getElementById('tally').innerHTML='answered <b>'+d+'</b> · waiting <b>'+w+'</b> · open <b>'+o+'</b> — of '+QS.length+' questions';
+}
+tally();
+})();
+</script>
+</body>
+</html>

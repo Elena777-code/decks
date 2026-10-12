@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5 · Handouts — Autumn Party</title>
+<style>
+  :root{--ink:#2d2431;--muted:#7a6f80;--pump:#e8792b;--cream:#faf5ec;--card:#fff;--line:#e9dfd0;--leaf:#3e7d54;--plum:#4a2340}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#efe7d9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink);padding:30px 16px 60px}
+  .wrap{max-width:900px;margin:0 auto}
+  .head{background:linear-gradient(135deg,#c0392b,#e8792b 150%);color:#fff;border-radius:18px;padding:26px 30px;margin-bottom:20px}
+  .head .k{font-size:12.5px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;opacity:.85}
+  .head h1{font-size:30px;font-weight:900;margin:6px 0 4px}
+  .head p{font-size:15px;opacity:.92;line-height:1.5}
+  .btn{display:inline-block;font-size:14.5px;font-weight:800;border:none;border-radius:11px;padding:10px 18px;cursor:pointer;font-family:inherit;background:#fff;color:var(--ink);margin-top:12px}
+  .btn:hover{filter:brightness(.97)}
+  .sheet{background:#fff;border:1px solid var(--line);border-radius:12px;padding:26px 30px;margin-bottom:20px;box-shadow:0 3px 14px rgba(50,40,30,.08)}
+  .sheet h2{font-size:14px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--pump);margin-bottom:14px}
+  .sheet h2 small{color:var(--muted);text-transform:none;letter-spacing:0;font-weight:600}
+  /* vocab cards */
+  .vcards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .vc{border:2px solid var(--plum);border-radius:12px;padding:12px 8px;text-align:center;background:#fffdf6}
+  .vc .e{font-size:34px;line-height:1}
+  .vc .w{font-size:17px;font-weight:900;color:var(--plum);margin-top:5px}
+  .vc .r{font-size:12.5px;color:var(--muted);margin-top:2px}
+  /* recipe */
+  .rec{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .rec h3{font-size:16px;font-weight:900;margin-bottom:6px}
+  .rec ul{list-style:none}
+  .rec li{font-size:14.5px;line-height:1.55;padding:2px 0 2px 18px;position:relative}
+  .rec li::before{content:"•";position:absolute;left:4px;color:var(--pump);font-weight:900}
+  .rec .stp{counter-reset:s}
+  .rec .stp li{counter-increment:s;padding-left:26px}
+  .rec .stp li::before{content:counter(s);background:var(--pump);color:#fff;border-radius:50%;width:18px;height:18px;font-size:11.5px;display:inline-flex;align-items:center;justify-content:center;left:0;top:5px}
+  .menu{margin-top:16px;border-top:1px dashed var(--line);padding-top:12px}
+  .menu .mi{display:inline-block;font-size:13.5px;font-weight:700;background:var(--cream);border:1px solid var(--line);border-radius:10px;padding:5px 11px;margin:3px 4px 0 0}
+  /* quiz + score */
+  .teamline{font-size:15px;margin-bottom:14px}
+  .teamline b{display:inline-block;border-bottom:1.5px solid #6b5f4c;min-width:320px}
+  .anslines .ln{border-bottom:1.5px solid #b9ad97;height:34px;display:flex;align-items:flex-end;padding-bottom:3px}
+  .anslines .ln span{font-size:13px;color:var(--muted);width:26px}
+  .score{width:100%;border-collapse:collapse;font-size:15px}
+  .score th,.score td{border:1.5px solid #6b5f4c;padding:9px 12px;text-align:left}
+  .score th{background:var(--cream);font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+  .score td.val{width:110px}
+  /* exit tickets */
+  .ticks{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .tick{border:2px dashed var(--pump);border-radius:12px;padding:13px 16px}
+  .tick h3{font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--pump);margin-bottom:8px}
+  .tick .ln{border-bottom:1.2px solid #b9ad97;height:26px;margin-bottom:9px}
+  /* certificate */
+  .cert{border:6px double var(--plum);border-radius:14px;padding:30px 34px;text-align:center;background:#fffdf6}
+  .cert .c1{font-size:15px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--pump)}
+  .cert .c2{font-size:34px;font-weight:900;color:var(--plum);margin:10px 0 4px}
+  .cert .name{font-size:26px;font-weight:800;border-bottom:2px solid #6b5f4c;display:inline-block;min-width:380px;padding:0 14px;height:42px;margin:14px 0 6px}
+  .cert .c3{font-size:15.5px;line-height:1.6;color:#4d4235;max-width:560px;margin:8px auto 0}
+  .cert .c4{margin-top:16px;font-size:13px;color:var(--muted)}
+  @media print{
+    body{background:#fff;padding:0}
+    .head,.noprint{display:none !important}
+    .sheet{border:none;box-shadow:none;border-radius:0;padding:6px 4px 0;margin:0 0 10px;page-break-after:always}
+    .sheet h2{display:none}
+    .cert{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body><div class="wrap">
+  <div class="head">
+    <div class="k">Autumn Party · deck 5 · for Alice</div>
+    <h1>Handouts 🖨</h1>
+    <p>Шесть листов для печати: карточки слов, рецепт и меню, бланк ответов квиза, табло команд, билетики на выходе и сертификаты храбрости. Печать — кнопкой или ⌘P; каждый лист — своя страница А4. Листы с пунктиром режем ножницами.</p>
+    <button class="btn" onclick="window.print()">🖨 Print all sheets</button>
+  </div>
+
+  <div class="sheet">
+    <h2>Sheet 1 · Word cards <small>· 12 карточек — вырезать по пунктиру</small></h2>
+    <div class="vcards">
+      <div class="vc"><div class="e">🎃</div><div class="w">pumpkin</div><div class="r">тыква</div></div>
+      <div class="vc"><div class="e">👻</div><div class="w">ghost</div><div class="r">привидение</div></div>
+      <div class="vc"><div class="e">🧙</div><div class="w">witch</div><div class="r">ведьма</div></div>
+      <div class="vc"><div class="e">🕷️</div><div class="w">spooky</div><div class="r">жуткий</div></div>
+      <div class="vc"><div class="e">🍬</div><div class="w">sweet</div><div class="r">сладкий</div></div>
+      <div class="vc"><div class="e">🍋</div><div class="w">sour</div><div class="r">кислый</div></div>
+      <div class="vc"><div class="e">🍏</div><div class="w">crunchy</div><div class="r">хрустящий</div></div>
+      <div class="vc"><div class="e">😋</div><div class="w">delicious</div><div class="r">очень вкусно</div></div>
+      <div class="vc"><div class="e">🍯</div><div class="w">caramel</div><div class="r">карамель</div></div>
+      <div class="vc"><div class="e">🍎</div><div class="w">apple</div><div class="r">яблоко</div></div>
+      <div class="vc"><div class="e">🍂</div><div class="w">autumn</div><div class="r">осень</div></div>
+      <div class="vc"><div class="e">🎉</div><div class="w">treat</div><div class="r">угощение</div></div>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <h2>Sheet 2 · Recipe & menu <small>· на стол каждой команде</small></h2>
+    <div class="rec">
+      <div>
+        <h3>🍏 Карамельные яблоки</h3>
+        <ul>
+          <li>яблоки — 2–3 на команду</li>
+          <li>карамель (конфеты) — 100 г</li>
+          <li>сливки — 2 ст. ложки</li>
+          <li>палочки, пергамент, тарелка</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Как готовим</h3>
+        <ul class="stp">
+          <li><b>Wash the apples.</b> Помой яблоко и вставь палочку.</li>
+          <li><b>Melt the caramel.</b> Растопи карамель со сливками (это делает взрослый!).</li>
+          <li><b>Dip the apple.</b> Окунули! Let's dip it!</li>
+          <li><b>Decorate.</b> Укрась: sprinkle, drizzle, add!</li>
+          <li><b>Wait &amp; taste.</b> Подожди 5 минут… and taste it!</li>
+        </ul>
+      </div>
+    </div>
+    <div class="menu">
+      <h3 style="font-size:14px;font-weight:900;margin-bottom:4px">Осеннее меню · что ещё на столе</h3>
+      <span class="mi">😈 бананы-приведения</span>
+      <span class="mi">🪱 червячки в земле</span>
+      <span class="mi">🍊 страшные мандаринки</span>
+      <span class="mi">🥖 страшные тосты</span>
+      <span class="mi">🦔 ёжики из кейк-попсов</span>
+      <span class="mi">🍪 печенье с глазурью — рисуй сам!</span>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <h2>Sheet 3 · Quiz answer sheet <small>· один лист на команду</small></h2>
+    <div class="teamline">Название команды: <b>&nbsp;</b></div>
+    <div class="anslines">
+      <div class="ln"><span>1.</span></div><div class="ln"><span>2.</span></div><div class="ln"><span>3.</span></div>
+      <div class="ln"><span>4.</span></div><div class="ln"><span>5.</span></div><div class="ln"><span>6.</span></div>
+      <div class="ln"><span>7.</span></div><div class="ln"><span>8.</span></div><div class="ln"><span>9.</span></div><div class="ln"><span>10.</span></div>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <h2>Sheet 4 · Team scorecard <small>· табло — можно на доску</small></h2>
+    <table class="score">
+      <tr><th>Раунд</th><th>Team 1</th><th>Team 2</th><th>Team 3</th></tr>
+      <tr><td>🎃 Квиз</td><td class="val"></td><td class="val"></td><td class="val"></td></tr>
+      <tr><td>🏃 Игры</td><td class="val"></td><td class="val"></td><td class="val"></td></tr>
+      <tr><td>🍏 Кухня</td><td class="val"></td><td class="val"></td><td class="val"></td></tr>
+      <tr><td>🎤 Презентация</td><td class="val"></td><td class="val"></td><td class="val"></td></tr>
+      <tr><td><b>Итого</b></td><td class="val"></td><td class="val"></td><td class="val"></td></tr>
+    </table>
+  </div>
+
+  <div class="sheet">
+    <h2>Sheet 5 · Exit tickets <small>· 4 билета — вырезать, выдать на выходе</small></h2>
+    <div class="ticks">
+      <div class="tick"><h3>🎃 Autumn Party · exit ticket</h3>
+        <div class="ln"></div><div style="font-size:11.5px;color:var(--muted);margin:-6px 0 8px">одно новое английское слово</div>
+        <div class="ln"></div><div style="font-size:11.5px;color:var(--muted);margin:-6px 0 8px">одна фраза, которую я сказал</div>
+        <div style="font-size:12.5px;margin-top:2px">Больше всего понравилось: квиз 🧠 · игры 🏃 · готовка 🍏 · чай 🍵</div>
+      </div>
+      <div class="tick"><h3>🎃 Autumn Party · exit ticket</h3>
+        <div class="ln"></div><div style="font-size:11.5px;color:var(--muted);margin:-6px 0 8px">одно новое английское слово</div>
+        <div class="ln"></div><div style="font-size:11.5px;color:var(--muted);margin:-6px 0 8px">одна фраза, которую я сказал</div>
+        <div style="font-size:12.5px;margin-top:2px">Больше всего понравилось: квиз 🧠 · игры 🏃 · готовка 🍏 · чай 🍵</div>
+      </div>
+      <div class="tick"><h3>🎃 Autumn Party · exit ticket</h3>
+        <div class="ln"></div><div style="font-size:11.5px;color:var(--muted);margin:-6px 0 8px">одно новое английское слово</div>
+        <div class="ln"></div><div style="font-size:11.5px;color:var(--muted);margin:-6px 0 8px">одна фраза, которую я сказал</div>
+        <div style="font-size:12.5px;margin-top:2px">Больше всего понравилось: квиз 🧠 · игры 🏃 · готовка 🍏 · чай 🍵</div>
+      </div>
+      <div class="tick"><h3>🎃 Autumn Party · exit ticket</h3>
+        <div class="ln"></div><div style="font-size:11.5px;color:var(--muted);margin:-6px 0 8px">одно новое английское слово</div>
+        <div class="ln"></div><div style="font-size:11.5px;color:var(--muted);margin:-6px 0 8px">одна фраза, которую я сказал</div>
+        <div style="font-size:12.5px;margin-top:2px">Больше всего понравилось: квиз 🧠 · игры 🏃 · готовка 🍏 · чай 🍵</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet">
+    <h2>Sheet 6 · Certificate of bravery <small>· каждому участнику</small></h2>
+    <div class="cert">
+      <div class="c1">Certificate of Bravery</div>
+      <div class="c2">Сертификат храбрости</div>
+      <div class="name">&nbsp;</div>
+      <div class="c3">говорил(а) по-английски весь вечер, разгадал(а) Хэллоуин-квиз<br>и сделал(а) собственное карамельное яблоко —<br><b>spooky, sweet and absolutely delicious!</b></div>
+      <div class="c4">Autumn Party · 30 октября · Елена и команда</div>
+    </div>
+  </div>
+</div></body>
+</html>

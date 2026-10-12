@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>3b · The English face — Autumn Party</title>
+<style>
+  :root{--ink:#1f2733;--muted:#68747f;--blue:#2b6cb0;--amber:#d97f28;--bg:#fdfdfb;--card:#fff;--line:#e4e8ec}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#dfe4e9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink)}
+  #viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  #stage{width:1280px;height:720px;background:var(--bg);position:relative;border-radius:6px;overflow:hidden;box-shadow:0 12px 44px rgba(30,40,55,.28)}
+  .slide{position:absolute;inset:0;padding:58px 76px;display:none;flex-direction:column}
+  .slide.on{display:flex;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .kicker{font-size:14px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+  h1{font-size:64px;font-weight:900;letter-spacing:-.025em;line-height:1.02}
+  h1 span{color:var(--amber)}
+  h2{font-size:38px;font-weight:900;letter-spacing:-.01em;margin-bottom:6px}
+  .sub{font-size:20px;color:var(--muted);margin-top:10px;line-height:1.5}
+  .rule{width:64px;height:5px;background:var(--amber);border-radius:3px;margin:18px 0 4px}
+  .back{position:absolute;top:22px;left:24px;font-size:14px;font-weight:800;color:var(--muted);background:none;border:1px solid var(--line);border-radius:18px;padding:5px 13px;cursor:pointer;font-family:inherit}
+  .steps{margin-top:20px;display:flex;flex-direction:column}
+  .step{display:flex;gap:0;align-items:stretch;border-bottom:1px solid var(--line);padding:10px 0}
+  .step .tm{flex:0 0 64px;font-weight:900;color:var(--amber);font-size:17px;display:flex;align-items:center}
+  .step .tx{font-size:18.5px;line-height:1.4;display:flex;align-items:center}
+  .step .tx small{color:var(--muted);margin-left:10px;font-size:14.5px}
+  .out{display:grid;grid-template-columns:1fr 1fr;gap:12px 26px;margin-top:22px}
+  .o{display:flex;gap:12px;align-items:flex-start}
+  .o .n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:15px}
+  .o p{font-size:17.5px;line-height:1.45}
+  .o p b{color:var(--blue)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px}
+  .card h3{font-size:15px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:6px}
+  .card p{font-size:16px;line-height:1.5}
+  .detail{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+  .pill{border:1.5px solid var(--ink);border-radius:38px;padding:11px 22px;font-size:17.5px;font-weight:700}
+  .pill b{color:var(--blue)}
+  .foot{position:absolute;bottom:18px;left:76px;right:76px;display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted)}
+  #dots{position:absolute;bottom:44px;left:0;right:0;display:flex;justify-content:center;gap:8px}
+  #dots .dt{width:9px;height:9px;border-radius:50%;background:#cfd6dc;cursor:pointer}
+  #dots .dt.on{background:var(--blue)}
+  .cta{margin-top:24px;font-size:20px;font-weight:800;color:#fff;background:var(--blue);border-radius:14px;padding:15px 26px;display:inline-block}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+  <section class="slide on">
+    <div class="kicker">an English workshop · 90 minutes</div>
+    <h1>The Autumn<br>Party <span>🎃</span></h1>
+    <div class="rule"></div>
+    <div class="sub">Children cook, guess and present — <b>in English, the whole evening.</b><br>
+    Friday 30 October · Moscow · for Grade 6–7 · up to 12 participants</div>
+    <div class="foot"><span>Autumn Party · presentation B — the English face</span><span>built 12 Oct 2026</span></div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <div class="kicker">the evening</div>
+    <h2>Ninety minutes, ten moves</h2>
+    <div class="rule"></div>
+    <div class="steps">
+      <div class="step"><span class="tm">0:00</span><span class="tx">Welcome &amp; teams <small>"We are Team…"</small></span></div>
+      <div class="step"><span class="tm">0:08</span><span class="tx">The spooky story <small>five minutes, lights low</small></span></div>
+      <div class="step"><span class="tm">0:15</span><span class="tx">The Halloween quiz <small>TRUE or SPOOKY? — with the real history</small></span></div>
+      <div class="step"><span class="tm">0:30</span><span class="tx">The words game <small>sweet · sour · spooky · crunchy</small></span></div>
+      <div class="step"><span class="tm">0:45</span><span class="tx">Caramel apples — cooking in teams <small>"Let's dip! It needs more!"</small></span></div>
+      <div class="step"><span class="tm">1:15</span><span class="tx">Tea &amp; the talk <small>"My favourite part was…"</small></span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <div class="kicker">what a child leaves with</div>
+    <h2>English they actually used</h2>
+    <div class="rule"></div>
+    <div class="out">
+      <div class="o"><span class="n">1</span><p><b>Five new words</b> — taste, food, Halloween — used out loud, not memorised</p></div>
+      <div class="o"><span class="n">2</span><p><b>A prediction</b> — "I think it will harden because…"</p></div>
+      <div class="o"><span class="n">3</span><p><b>Kitchen requests</b> — "Could you pass me…?", "How much do we add?"</p></div>
+      <div class="o"><span class="n">4</span><p><b>A 20–40 second pitch</b> — "First…, then…, finally…" about their team's apple</p></div>
+      <div class="o"><span class="n">5</span><p><b>One question asked</b> to another team — in English, on their own</p></div>
+      <div class="o"><span class="n">6</span><p><b>A certificate of bravery</b> — signed, taken home</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <div class="kicker">safe &amp; tidy</div>
+    <h2>The quiet part, done loudly well</h2>
+    <div class="rule"></div>
+    <div class="grid2">
+      <div class="card"><h3>food</h3><p>Allergies collected at registration; the full ingredient list goes to every family in advance; nobody is made to taste anything.</p></div>
+      <div class="card"><h3>kitchen</h3><p>One adult owns the stove and the hot caramel; children cut only soft fruit, supervised; individual cups and spoons for everyone.</p></div>
+      <div class="card"><h3>photos</h3><p>A separate, optional consent: no photos · group shots only · full permission. No consent — no camera. Surnames and schools never go public.</p></div>
+      <div class="card"><h3>time</h3><p>A dedicated timekeeper keeps the evening to 90 minutes; cleaning is planned in (30–45 minutes, team zones).</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <div class="kicker">practical</div>
+    <h2>The details</h2>
+    <div class="rule"></div>
+    <div class="detail">
+      <div class="pill">📅 <b>Friday, 30 October</b></div>
+      <div class="pill">🕡 `[time]`</div>
+      <div class="pill">📍 `[venue]`</div>
+      <div class="pill">👥 max 12 children</div>
+      <div class="pill">💳 `[price]`</div>
+    </div>
+    <div class="sub" style="margin-top:20px">Parents may join the cooking — at a slightly lower price; we just need to know in advance.<br>Registration closes on 22 October; every family then receives the final ingredient list.</div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <div class="kicker">join</div>
+    <h2>Twelve places. One spooky evening.</h2>
+    <div class="cta">Register: `[link or contact]`</div>
+    <div class="sub" style="margin-top:18px">Questions — same place, we answer fast 🎃</div>
+    <div class="foot"><span>Autumn Party · Elena · [contact]</span><span>presentation B</span></div>
+  </section>
+
+  <div id="dots"></div>
+</div></div>
+<script>
+(function(){
+"use strict";
+var stage=document.getElementById('stage');
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var cur=0;
+function fit(){var sc=Math.min(innerWidth/1280,innerHeight/720);stage.style.transform='scale('+sc+')';}
+addEventListener('resize',fit);fit();
+var dots=document.getElementById('dots');
+slides.forEach(function(_,i){var d=document.createElement('span');d.className='dt';d.addEventListener('click',function(){go(i);});dots.appendChild(d);});
+function go(n){cur=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,i){s.classList.toggle('on',i===cur);});
+  [].forEach.call(dots.children,function(d,i){d.classList.toggle('on',i===cur);});}
+window.go=go;
+document.addEventListener('keydown',function(e){
+  if(e.target.matches('INPUT,TEXTAREA'))return;
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')go(cur+1);
+  if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1);
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'){if(document.fullscreenElement){document.exitFullscreen();}else{document.documentElement.requestFullscreen().catch(function(){});}}
+});
+go(0);
+})();
+</script>
+</body>
+</html>

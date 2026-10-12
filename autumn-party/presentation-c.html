@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>3c · Kids' poster — Autumn Party</title>
+<style>
+  :root{--ink:#333;--leaf:#3e7d54;--pump:#e8792b;--plum:#6b2d4f;--bg:#fff8ec}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#e7ddc9;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink)}
+  #viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  #stage{width:1280px;height:720px;background:var(--bg);position:relative;border-radius:8px;overflow:hidden;box-shadow:0 12px 44px rgba(60,45,30,.3)}
+  .slide{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px}
+  .slide.on{display:flex;animation:pop .3s ease}
+  @keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+  .emo{font-size:130px;line-height:1;margin-bottom:24px}
+  h1{font-size:76px;font-weight:900;letter-spacing:-.02em;color:var(--plum);line-height:1.05}
+  h2{font-size:56px;font-weight:900;color:var(--leaf);margin-bottom:18px}
+  .big{font-size:34px;line-height:1.6;max-width:900px;font-weight:700}
+  .big .e{font-size:44px;vertical-align:-6px;margin-right:6px}
+  .small{font-size:24px;color:#8a7a5f;margin-top:26px;font-weight:600}
+  .chips{display:flex;gap:18px;margin-top:30px;flex-wrap:wrap;justify-content:center}
+  .chip{font-size:30px;font-weight:900;border-radius:22px;padding:16px 30px;color:#fff;box-shadow:0 6px 0 rgba(0,0,0,.12)}
+  .back{position:absolute;top:22px;left:24px;font-size:14px;font-weight:800;color:#8a7a5f;background:#fff;border:1px solid #e2d5ba;border-radius:18px;padding:5px 13px;cursor:pointer;font-family:inherit;z-index:5}
+  .foot{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:14px;color:#a89878;font-weight:700}
+  #dots{position:absolute;bottom:52px;left:0;right:0;display:flex;justify-content:center;gap:10px}
+  #dots .dt{width:12px;height:12px;border-radius:50%;background:#e2d5ba;cursor:pointer}
+  #dots .dt.on{background:var(--pump)}
+  .pic{margin-top:30px;border:3px dashed var(--pump);border-radius:18px;padding:14px 22px;max-width:760px;background:#fff}
+  .pic .pt{font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--pump)}
+  .pic .pp{font-size:13.5px;line-height:1.45;color:#6b5f4c;margin-top:6px;font-family:ui-monospace,Menlo,monospace}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+  <section class="slide on">
+    <div class="emo">🎃🍎👻</div>
+    <h1>Осенний праздник<br>на английском!</h1>
+    <div class="small">30 октября · пятница · 90 минут · [место]</div>
+    <div class="pic"><div class="pt">Here is your picture</div>
+      <div class="pp">Bright playful children's poster illustration: funny ghost bananas, a caramel apple and a smiling pumpkin dancing together, confetti, flat cartoon style, orange green and purple, white background, no text</div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <h2>Что будет?</h2>
+    <div class="big">
+      <span class="e">🕵️</span>страшная история<br>
+      <span class="e">🧠</span>квиз про Хэллоуин<br>
+      <span class="e">🏃</span>весёлые игры<br>
+      <span class="e">🍏</span>готовим карамельные яблоки!<br>
+      <span class="e">🍵</span>чай с командой
+    </div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <h2>Говорим по-английски<br>и даже не заметим!</h2>
+    <div class="chips">
+      <span class="chip" style="background:var(--pump)">sweet!</span>
+      <span class="chip" style="background:var(--leaf)">so spooky!</span>
+      <span class="chip" style="background:var(--plum)">delicious!!</span>
+    </div>
+    <div class="small">новые слова → сразу в деле: в играх и на кухне</div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <div class="emo">🍏🍬🎉</div>
+    <h2>12 мест — успей!</h2>
+    <div class="small">запись до 22 октября · [ссылка или контакт]<br>родители, хотите готовить вместе? скажите заранее 😉</div>
+  </section>
+
+  <div id="dots"></div>
+</div></div>
+<script>
+(function(){
+"use strict";
+var stage=document.getElementById('stage');
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var cur=0;
+function fit(){var sc=Math.min(innerWidth/1280,innerHeight/720);stage.style.transform='scale('+sc+')';}
+addEventListener('resize',fit);fit();
+var dots=document.getElementById('dots');
+slides.forEach(function(_,i){var d=document.createElement('span');d.className='dt';d.addEventListener('click',function(){go(i);});dots.appendChild(d);});
+function go(n){cur=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,i){s.classList.toggle('on',i===cur);});
+  [].forEach.call(dots.children,function(d,i){d.classList.toggle('on',i===cur);});}
+window.go=go;
+document.addEventListener('keydown',function(e){
+  if(e.target.matches('INPUT,TEXTAREA'))return;
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')go(cur+1);
+  if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1);
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'){if(document.fullscreenElement){document.exitFullscreen();}else{document.documentElement.requestFullscreen().catch(function(){});}}
+});
+go(0);
+})();
+</script>
+</body>
+</html>

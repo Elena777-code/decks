@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autumn Party — for Alice</title>
+<style>
+  :root{--ink:#2d2431;--muted:#7a6f80;--pump:#e8792b;--plum:#4a2340;--cream:#faf5ec;--card:#fff;--line:#e9dfd0;--leaf:#3e7d54}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#f1e8da;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:40px 16px}
+  .wrap{max-width:760px;width:100%}
+  .hero{background:linear-gradient(135deg,var(--plum) 0%,#6b2d4f 55%,var(--pump) 130%);border-radius:20px;padding:34px 36px;color:#fff;margin-bottom:22px;box-shadow:0 14px 40px rgba(74,35,64,.35)}
+  .hero .k{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+  .hero h1{font-size:40px;font-weight:900;letter-spacing:-.02em;margin:8px 0 6px}
+  .hero p{font-size:16.5px;line-height:1.5;opacity:.92}
+  .note{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;font-size:15px;line-height:1.55;color:var(--muted);margin-bottom:22px}
+  .note b{color:var(--ink)}
+  .grid{display:flex;flex-direction:column;gap:11px}
+  a.deck{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;text-decoration:none;color:var(--ink);transition:transform .12s ease,box-shadow .12s ease}
+  a.deck:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(74,35,64,.14)}
+  .n{flex:0 0 46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:19px;color:#fff}
+  .t{font-size:18px;font-weight:800}
+  .d{font-size:14.5px;color:var(--muted);margin-top:3px;line-height:1.4}
+  .arrow{margin-left:auto;color:var(--pump);font-weight:900;font-size:20px}
+  .sub{margin:6px 0 2px 62px;padding-left:14px;border-left:3px solid var(--line);display:flex;flex-direction:column;gap:8px}
+  .sub a.deck{padding:12px 16px}
+  .sub .n{flex-basis:38px;height:38px;font-size:15px;border-radius:10px}
+  .sub .t{font-size:15.5px}.sub .d{font-size:13px}
+  .foot{text-align:center;color:var(--muted);font-size:13px;margin-top:24px;line-height:1.6}
+</style>
+</head>
+<body><div class="wrap">
+  <div class="hero">
+    <div class="k">Для Алисы · ссылка не меняется</div>
+    <h1>Autumn Party 🎃</h1>
+    <p>Всё для организации праздника 30 октября — в одном месте. Смотри по порядку: сначала общая картина, потом задачи, форма, презентации и материалы для печати.</p>
+  </div>
+  <div class="note"><b>Что это?</b> Семь рабочих материалов: обзор, задачи с галочками, форма записи, три варианта презентации на выбор, список открытых вопросов и раздатки для печати. Галочки и статусы сохраняются в твоём браузере.</div>
+  <div class="grid">
+    <a class="deck" href="summary.html"><span class="n" style="background:var(--plum)">0</span><span><span class="t">The big picture</span><div class="d">Что за праздник, команда, роли, деньги, родители — вся картина на 6 слайдах</div></span><span class="arrow">→</span></a>
+    <a class="deck" href="todo.html"><span class="n" style="background:var(--pump)">1</span><span><span class="t">To-do list</span><div class="d">Задачи по неделям до 30 октября, у каждой — ответственный и галочка «готово»</div></span><span class="arrow">→</span></a>
+    <a class="deck" href="registration.html"><span class="n" style="background:var(--leaf)">2</span><span><span class="t">Invitation &amp; registration</span><div class="d">Текст приглашения для родителей + бланк записи (онлайн-заполнение и печатный вариант)</div></span><span class="arrow">→</span></a>
+    <a class="deck" href="presentation-a.html"><span class="n" style="background:#6b2d4f">3a</span><span><span class="t">Presentation · Pumpkin Night</span><div class="d">Тёмная эффектная, на русском — для Дины и родительского чата</div></span><span class="arrow">→</span></a>
+    <a class="deck" href="presentation-b.html"><span class="n" style="background:#2b6cb0">3b</span><span><span class="t">Presentation · The English face</span><div class="d">Светлая и чистая, на английском — показать продукт: праздник, где дети говорят по-английски</div></span><span class="arrow">→</span></a>
+    <a class="deck" href="presentation-c.html"><span class="n" style="background:#3e7d54">3c</span><span><span class="t">Presentation · Kids' poster</span><div class="d">Весёлая афиша для детей — крупные смайлы, мало текста</div></span><span class="arrow">→</span></a>
+    <a class="deck" href="open-questions.html"><span class="n" style="background:#b07d10">4</span><span><span class="t">Open questions</span><div class="d">Что ещё нужно решить: кто отвечает и статус каждого вопроса</div></span><span class="arrow">→</span></a>
+    <a class="deck" href="handouts.html"><span class="n" style="background:#c0392b">5</span><span><span class="t">Handouts</span><div class="d">Раздатки для печати: карточки слов, рецепты, бланки квиза, билетики и сертификаты храбрости</div></span><span class="arrow">→</span></a>
+  </div>
+  <div class="foot">сделано ассистентом Елены · ночь на 13 октября 2026 · каждый материал — одна страница, работает без интернета после открытия</div>
+</div></body>
+</html>

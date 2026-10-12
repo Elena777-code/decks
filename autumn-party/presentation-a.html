@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>3a · Pumpkin Night — Autumn Party</title>
+<style>
+  :root{--bg:#241430;--ink:#f5ead9;--muted:#b9a3c4;--pump:#ff8c2e;--card:#321c40;--line:#4d2f5e}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;background:#160b1e;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:var(--ink)}
+  #viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  #stage{width:1280px;height:720px;background:radial-gradient(120% 120% at 20% 0%,#3a1d4e 0%,var(--bg) 55%);position:relative;border-radius:6px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,.5)}
+  .slide{position:absolute;inset:0;padding:56px 72px;display:none;flex-direction:column}
+  .slide.on{display:flex;animation:fade .3s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .kicker{font-size:14px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--pump);margin-bottom:12px}
+  h1{font-size:72px;font-weight:900;letter-spacing:-.02em;line-height:1;color:var(--ink)}
+  h1 em{font-style:normal;color:var(--pump)}
+  h2{font-size:40px;font-weight:900;margin-bottom:8px}
+  h2 em{font-style:normal;color:var(--pump)}
+  .sub{font-size:21px;color:var(--muted);margin-top:10px;line-height:1.5}
+  .back{position:absolute;top:22px;left:24px;font-size:14px;font-weight:800;color:var(--muted);background:none;border:1px solid var(--line);border-radius:18px;padding:5px 13px;cursor:pointer;font-family:inherit}
+  .steps{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+  .step{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:13px;padding:12px 18px}
+  .step .tm{flex:0 0 58px;font-weight:900;color:var(--pump);font-size:18px}
+  .step .tx{font-size:19px;line-height:1.35}
+  .step .tx small{display:block;color:var(--muted);font-size:14.5px;margin-top:1px}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:17px 20px}
+  .card h3{font-size:17px;font-weight:900;color:var(--pump);margin-bottom:6px}
+  .card p{font-size:16.5px;line-height:1.5;color:var(--ink)}
+  .big{font-size:26px;line-height:1.55;margin-top:22px;max-width:980px}
+  .big b{color:var(--pump)}
+  .detail{display:flex;gap:14px;margin-top:22px;flex-wrap:wrap}
+  .pill{background:var(--card);border:1px solid var(--line);border-radius:40px;padding:12px 24px;font-size:18px}
+  .pill b{color:var(--pump)}
+  .pic{margin-top:24px;border:2px dashed var(--pump);border-radius:14px;padding:14px 18px;max-width:900px}
+  .pic .pt{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--pump)}
+  .pic .pp{font-size:14px;line-height:1.45;color:var(--muted);margin-top:7px;font-family:ui-monospace,Menlo,monospace}
+  .foot{position:absolute;bottom:18px;left:72px;right:72px;display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted)}
+  #dots{position:absolute;bottom:44px;left:0;right:0;display:flex;justify-content:center;gap:8px}
+  #dots .dt{width:9px;height:9px;border-radius:50%;background:#4d2f5e;cursor:pointer}
+  #dots .dt.on{background:var(--pump)}
+  .cta{margin-top:26px;background:var(--pump);color:#241430;font-weight:900;font-size:22px;border-radius:16px;padding:16px 26px;display:inline-block}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+  <section class="slide on">
+    <div class="kicker">мастер-класс на английском · 90 минут</div>
+    <h1>Тыквенный<br>вечер <em>🎃</em></h1>
+    <div class="sub">30 октября · пятница · [место] · для 6–7 классов<br>готовим, угадываем и говорим — всё по-английски, всё своими руками</div>
+    <div class="pic"><div class="pt">Here is your picture</div>
+      <div class="pp">Dark moody poster illustration: a glowing carved pumpkin on a table with caramel apples, purple night kitchen, warm candle light, deep plum and orange palette, cinematic, no text</div>
+    </div>
+    <div class="foot"><span>Autumn Party</span><span>презентация А · «Тыквенный вечер»</span></div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <div class="kicker">что будет</div>
+    <h2>90 минут — <em>ни одной скучной</em></h2>
+    <div class="steps">
+      <div class="step"><span class="tm">0:00</span><span class="tx">Знакомство и команды <small>"We are Team Pumpkin!" — делимся на три команды</small></span></div>
+      <div class="step"><span class="tm">0:08</span><span class="tx">Страшилка <small>5 минут — видео или история при свечах… ну, при выключенном верхнем свете</small></span></div>
+      <div class="step"><span class="tm">0:15</span><span class="tx">Хэллоуин-квиз <small>угадываем и узнаём, откуда праздник взялся — TRUE or SPOOKY?</small></span></div>
+      <div class="step"><span class="tm">0:30</span><span class="tx">Игра на слова <small>sweet · sour · spooky · crunchy — слова, которые сразу пригодятся на кухне</small></span></div>
+      <div class="step"><span class="tm">0:45</span><span class="tx">Карамельные яблоки 🍏 <small>готовим в командах: "Let's dip! It needs more caramel!"</small></span></div>
+      <div class="step"><span class="tm">1:15</span><span class="tx">Чаепитие и разговор <small>"My favourite part was…" — каждый говорит одну фразу по-английски</small></span></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <div class="kicker">что получит ребёнок</div>
+    <h2>За вечер — <em>настоящий английский</em></h2>
+    <div class="big">
+      К концу вечера каждый:<br>
+      — использует <b>не меньше пяти новых слов</b> — про вкус, еду и Хэллоуин<br>
+      — сделает <b>прогноз по-английски</b>: «I think it will…»<br>
+      — попросит и передаст <b>по-английски на кухне</b>: «Could you pass me…?»<br>
+      — скажет <b>20–40 секунд о своей командной работе</b>: «First… then… finally…»<br>
+      — задаст <b>хотя бы один вопрос</b> про яблоки другой команды
+    </div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <div class="kicker">еда и безопасность</div>
+    <h2>Вкусно — и <em>спокойно</em></h2>
+    <div class="cards">
+      <div class="card"><h3>аллергии — до праздника</h3><p>При записи спрашиваем про аллергии и ограничения; полный список ингредиентов отправляем заранее; пробовать ребёнок решает сам — принуждать никто не будет.</p></div>
+      <div class="card"><h3>кухня под присмотром</h3><p>Плитой и горячей карамелью управляет только взрослый; дети моют руки, режут мягкое — только под контролем; у каждой команды своё место.</p></div>
+      <div class="card"><h3>фото — только с согласия</h3><p>Отдельное согласие на фото/видео: «без фото», «только в группе» или «полное». Без подписи согласия — ребёнок вне кадра.</p></div>
+      <div class="card"><h3>чисто и после</h3><p>Уборка заложена в вечер: 30–45 минут, свои зоны у команд. Всё многоразовое — никакого одноразового пластика.</p></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <div class="kicker">детали</div>
+    <h2>Когда и где</h2>
+    <div class="detail">
+      <div class="pill">📅 <b>30 октября</b>, пятница</div>
+      <div class="pill">🕡 `[время]`</div>
+      <div class="pill">📍 `[место]`</div>
+      <div class="pill">👥 до 12 участников</div>
+      <div class="pill">💳 `[цена]`</div>
+    </div>
+    <div class="big" style="font-size:21px;color:var(--muted)">Родители могут присоединиться к готовке, если захотят — только скажите заранее, места на кухне ограничены.</div>
+  </section>
+
+  <section class="slide">
+    <button class="back" onclick="go(0)">◀</button>
+    <div class="kicker">запись</div>
+    <h2>Мест <em>12</em> — успейте</h2>
+    <div class="cta">Записаться: `[ссылка или контакт]`</div>
+    <div class="sub" style="margin-top:18px">регистрация до 22 октября · после неё — финальный список ингредиентов каждой семье<br>вопросы — здесь же, в ответах 🎃</div>
+    <div class="foot"><span>Autumn Party · Елена · [контакт]</span><span>презентация А</span></div>
+  </section>
+
+  <div id="dots"></div>
+</div></div>
+<script>
+(function(){
+"use strict";
+var stage=document.getElementById('stage');
+var slides=[].slice.call(document.querySelectorAll('.slide'));
+var cur=0;
+function fit(){var sc=Math.min(innerWidth/1280,innerHeight/720);stage.style.transform='scale('+sc+')';}
+addEventListener('resize',fit);fit();
+var dots=document.getElementById('dots');
+slides.forEach(function(_,i){var d=document.createElement('span');d.className='dt';d.addEventListener('click',function(){go(i);});dots.appendChild(d);});
+function go(n){cur=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach(function(s,i){s.classList.toggle('on',i===cur);});
+  [].forEach.call(dots.children,function(d,i){d.classList.toggle('on',i===cur);});}
+window.go=go;
+document.addEventListener('keydown',function(e){
+  if(e.target.matches('INPUT,TEXTAREA'))return;
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')go(cur+1);
+  if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1);
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'){if(document.fullscreenElement){document.exitFullscreen();}else{document.documentElement.requestFullscreen().catch(function(){});}}
+});
+go(0);
+})();
+</script>
+</body>
+</html>
