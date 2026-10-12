@@ -129,6 +129,18 @@ input.type-box:focus{border-color:var(--sage)}
 .archive-note{color:var(--sub);font-family:'Lora',serif;font-style:italic;
   font-size:.95rem;margin:2.2vh 0 1rem}
 footer{color:var(--sub);font-size:.78rem;font-weight:600;margin-top:4vh;text-align:center}
+
+/* ---------- the lesson archive: the done hides behind lesson buttons ---------- */
+details.lesson-arch{border:1.5px solid var(--line);border-radius:99px;background:#fff;
+  padding:.1em .2em;width:100%}
+details.lesson-arch summary{cursor:pointer;list-style:none;display:flex;align-items:center;
+  gap:.6em;padding:.5em 1em;font-weight:700;font-size:clamp(.95rem,1.6vw,1.2rem);color:var(--ink-soft)}
+details.lesson-arch summary::-webkit-details-marker{display:none}
+details.lesson-arch summary::after{content:"▸";margin-left:auto;color:var(--accent);font-size:1.1em}
+details.lesson-arch[open] summary::after{content:"▾"}
+details.lesson-arch[open]{border-radius:var(--radius)}
+details.lesson-arch[open] summary{color:var(--accent)}
+details.lesson-arch .arch-inner{display:flex;flex-direction:column;gap:1em;padding:.4em .8em 1em}
 </style>
 </head>
 <body>
@@ -138,6 +150,7 @@ footer{color:var(--sub);font-size:.78rem;font-weight:600;margin-top:4vh;text-ali
 The drill deals a <b>fresh set every run</b> — play it as often as you like.</p>
 <div class="rule"></div>
 
+<p class="hint" style="max-width:70ch">Only <b>today’s homework</b> is open. Everything finished hides in the lesson buttons further down.</p>
 <main>
   <div class="card plan hwcard" id="plan-card">
     <div class="no">Start here</div>
@@ -222,20 +235,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     <i>lived · have decided · mightiest · cried · was taken</i>. Write them from memory first, then check them against today's fixes.</p>
   </div>
 
-  <div class="card hwcard" id="listen-card">
-    <div class="no">Every homework · listen twice</div>
-    <h2>🎧 Listening — track 3.20</h2>
-    <p class="hint">Four students, four recent tests. The first time — just follow the story.
-    The second time — catch the details. Then:</p>
-    <ol>
-      <li>Say a <b>one-minute retell</b> — record it and send the voice message to Elena.</li>
-      <li>Write down <b>two new words</b> you heard — bring them to the lesson.</li>
-    </ol>
-    <div class="audio-row">
-      <audio controls preload="none" src="../../media/ww3-cd3-3_20.mp3"></audio>
-      <div class="hint">Track 3.20 · the four students talking about their recent tests</div>
-    </div>
-  </div>
+  
 
   <div class="card hwcard" id="wbl-card">
     <div class="no">The Workbook listening · the audio is here now</div>
@@ -258,7 +258,49 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     </div>
   </div>
 
-  <div class="card hwcard" id="dict-card">
+  
+
+  
+
+  
+
+  
+
+  <div class="card hwcard">
+    <div class="no">Lesson 5 · September the 19th</div>
+    <h2>Vocabulary: Education</h2>
+    <ol>
+      <li><b>Workbook 9.1 · pp. 102–103</b> (Think outside the box) — all seven exercises play in the machine’s first round 📓. Your Workbook lives on this page — nothing to fetch.</li>
+      <li>The three Vocabulary boxes — <b>A</b> school subjects · <b>B</b> learning &amp; assessment · <b>C</b> describing students. The <b>Word lab</b> 🔬 drills them in every run — a fast quiz at the next lesson.</li>
+      <li><b>Five sentences “Me as a student”</b> — write them in ✍️ Your turn. They travel to Elena inside the report.</li>
+      <li>Listen to track 3.20 and <b>retell it</b> — it has its own listening card now, every homework.</li>
+    </ol>
+  </div>
+
+  <details class="lesson-arch">
+    <summary>🎧 The standing listening · track 3.20, twice + a one-minute retell</summary>
+    <div class="arch-inner">
+<div class="card hwcard" id="listen-card">
+    <div class="no">Every homework · listen twice</div>
+    <h2>🎧 Listening — track 3.20</h2>
+    <p class="hint">Four students, four recent tests. The first time — just follow the story.
+    The second time — catch the details. Then:</p>
+    <ol>
+      <li>Say a <b>one-minute retell</b> — record it and send the voice message to Elena.</li>
+      <li>Write down <b>two new words</b> you heard — bring them to the lesson.</li>
+    </ol>
+    <div class="audio-row">
+      <audio controls preload="none" src="../../media/ww3-cd3-3_20.mp3"></audio>
+      <div class="hint">Track 3.20 · the four students talking about their recent tests</div>
+    </div>
+  </div>
+    </div>
+  </details>
+
+  <details class="lesson-arch">
+    <summary>📚 Lesson 7 · the dictionary words + your first five sentences</summary>
+    <div class="arch-inner">
+<div class="card hwcard" id="dict-card">
     <div class="no">For the next lesson · your dictionary</div>
     <h2>Eight words — write, then check</h2>
     <p class="hint">Write each word into your notebook: the translation in Russian or the meaning in English or one example.
@@ -274,8 +316,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
       <li><b>upset</b> <span class="tag">new — from the lesson</span><br><details><summary>check</summary><div class="hint">🇷🇺 расстроенный; огорчённый · sad or worried because something went wrong — <b>not angry exactly, hurt on the inside</b><br><i>There's nothing to be upset about.</i> · <i>She was upset when she lost her marks.</i></div></details></li>
     </ol>
   </div>
-
-  <div class="card hwcard" id="repair-card">
+<div class="card hwcard" id="repair-card">
     <div class="no">Your run · September the 26th · the lesson of November the 11th</div>
     <h2>✍️ Your sentences — repair them yourself</h2>
     <p class="hint">Say the corrected sentence aloud first — then click to check. The two fresh ones open your next lesson.</p>
@@ -289,15 +330,25 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
       <li>“I’m good at team working.”<br><details><summary>check</summary><div class="hint">→ <b>I’m good at teamwork.</b> — one word, the noun.</div></details></li>
     </ol>
   </div>
+    </div>
+  </details>
 
-  <div class="card hwcard" id="interview-card">
+  <details class="lesson-arch">
+    <summary>📋 The six interview questions — still owed from deck-008</summary>
+    <div class="arch-inner">
+<div class="card hwcard" id="interview-card">
     <div class="no">For the next lesson</div>
     <h2>📋 Your six interview questions</h2>
     <p class="hint"><b>Write them down this time</b> — six questions for Elena, and she answers… mostly honestly.
     Cover the four shapes: with <b>do</b> · with <b>be / have / will</b> · a <b>subject</b> question · a <b>Wh-</b> question.</p>
   </div>
+    </div>
+  </details>
 
-  <div class="card hwcard" id="learnt-card">
+  <details class="lesson-arch">
+    <summary>🌱 What you’ve learnt — Unit 9 so far</summary>
+    <div class="arch-inner">
+<div class="card hwcard" id="learnt-card">
     <div class="no">Your harvest · Unit 9 so far</div>
     <h2>🌱 What you've learnt</h2>
     <p class="proverb">«Revision is the mother of learning» — that's why the drill deals a fresh set every run.</p>
@@ -311,17 +362,8 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
       <li><b>Question shapes:</b> with do · with be / have / will · subject questions · Wh- questions</li>
     </ul>
   </div>
-
-  <div class="card hwcard">
-    <div class="no">Lesson 5 · September the 19th</div>
-    <h2>Vocabulary: Education</h2>
-    <ol>
-      <li><b>Workbook 9.1 · pp. 102–103</b> (Think outside the box) — all seven exercises play in the machine’s first round 📓. Your Workbook lives on this page — nothing to fetch.</li>
-      <li>The three Vocabulary boxes — <b>A</b> school subjects · <b>B</b> learning &amp; assessment · <b>C</b> describing students. The <b>Word lab</b> 🔬 drills them in every run — a fast quiz at the next lesson.</li>
-      <li><b>Five sentences “Me as a student”</b> — write them in ✍️ Your turn. They travel to Elena inside the report.</li>
-      <li>Listen to track 3.20 and <b>retell it</b> — it has its own listening card now, every homework.</li>
-    </ol>
-  </div>
+    </div>
+  </details>
 </main>
 
 <div class="archive-note">Older homework stays below as the list grows 📌</div>
