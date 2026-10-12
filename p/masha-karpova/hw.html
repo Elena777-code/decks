@@ -269,7 +269,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     No clock anywhere — think as long as you want.<br>
     Wrong answers come back with the fix.</p>
     <div class="icons">🔧 ❓ 🧠 ✍️</div>
-    <div class="meta">4 rounds · ~10 minutes</div>
+    <div class="meta" id="deal-line">…cards · …rounds · ~10 minutes</div>
     <div class="best" id="best-line"></div>
     <button class="start-btn" id="begin-btn">Start the drill</button>
   </div>
@@ -553,6 +553,10 @@ function buildRounds(){
 
 /* ---------- state ---------- */
 var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false,sentences=[];
+/* THE DEAL LINE (Elena, 12.10: every hwdt shows the cards and the rounds) */
+(function(){var t=0;rounds.forEach(function(r){t+=r.tasks.length;});
+  var m=document.getElementById("deal-line");
+  if(m)m.textContent=t+" cards · "+rounds.length+" rounds · ~10 minutes";})();
 
 /* ---------- flow ---------- */
 $("begin-btn").addEventListener("click",function(){ri=0;log=[];sentences=[];roundFlash();});

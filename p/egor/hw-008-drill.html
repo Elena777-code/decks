@@ -73,7 +73,7 @@ a.big{background:var(--ink-soft);color:#fff;font:600 clamp(1.1rem,4.2vw,1.35rem)
 <main>
   <div class="card" id="start-card">
     <div class="eyebrow" style="margin-bottom:.6em">ready?</div>
-    <p class="prompt">27 cards · 4 rounds</p>
+    <p class="prompt" id="deal-line">…cards · …rounds</p>
     <p class="helper">the turn family 8 · the four verbs 6 · grammar keys 7 · word formation 6</p>
     <div class="answer-row" style="margin-top:1.2em">
       <input class="type-box" id="name-box" autocomplete="off" autocapitalize="on" spellcheck="false" placeholder="your name">
@@ -410,6 +410,14 @@ function timeUp(){
 
 /* load-time flush goes LAST — every listener is attached before it, and it cannot throw */
 try{flushQueue();}catch(e){}
+</script>
+
+<script>
+/* THE DEAL LINE (Elena, 12.10: every hwdt shows the cards and the rounds —
+   computed from the real deal, never a static number that can drift) */
+(function(){var t=0,parts=[];rounds.forEach(function(r){t+=r.tasks.length;parts.push(r.meta.name+" "+r.tasks.length);});
+  var p=document.getElementById("deal-line");if(p)p.textContent=t+" cards · "+rounds.length+" rounds";
+  var h=document.querySelector(".helper");if(h)h.textContent=parts.join(" · ");})();
 </script>
 </body>
 </html>

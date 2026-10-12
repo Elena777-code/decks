@@ -282,7 +282,7 @@ function start(m){
   var n=(m==="drill")?10:12;
   for(var i=0;i<n;i++)queue.push(nextItem(null));
   document.body.classList.add("play");
-  $("modeBadge").textContent=(m==="drill"?"🎯 drill":"🧠 adaptive")+" · "+n+" items";
+  $("modeBadge").textContent=(m==="drill"?"🎯 drill":"🧠 adaptive")+" · "+n+" cards · 1 round";
   $("summary").style.display="none";
   showQ();
 }

@@ -171,7 +171,7 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
     ⚡ The sprint is <b>timed</b> — everywhere else: no clock, think as long as you want.<br>
     Wrong answers come back with the fix.</p>
     <div class="icons">📓 🔧 ⚡ 🧠 🔬 🧩 ✍️</div>
-    <div class="meta">7 rounds · Workbook 9.6 in full · ~15 minutes</div>
+    <div class="meta" id="deal-line">…cards · …rounds · ~15 minutes</div>
     <div class="best" id="best-line"></div>
     <div class="name-row">
       <input class="type-box" id="pupil-name" placeholder="Your name" autocomplete="off" autocapitalize="off" spellcheck="false">
@@ -841,6 +841,10 @@ function buildRounds(){
 
 /* ---------- state ---------- */
 var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false,sentences=[],who="";
+/* THE DEAL LINE (Elena, 12.10: every hwdt shows the cards and the rounds) */
+(function(){var t=0;rounds.forEach(function(r){t+=r.tasks.length;});
+  var m=document.getElementById("deal-line");
+  if(m)m.textContent=t+" cards · "+rounds.length+" rounds · ~15 minutes · Workbook 9.6 in full";})();
 
 /* ---------- the name gate — Elena reads the reports, so every report
    carries WHO played (born 2026-10-10: «I need the name to know who
