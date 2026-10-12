@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Been or gone? — the two Present Perfect journeys</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   BEEN OR GONE? — the universal Grammar deck (born 12.10 on
+   Elena's order: «a separate/universal deck to explain» have been
+   to / have gone — her own Procreate sketch is the hero picture:
+   the house = been (back home) · the palm = gone (still there)).
+   6 slides · the deck-010 engine verbatim · answers hide ·
+   Pardon top right · ✍️ bottom left · THE CORNERS.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --radius:14px;
+  --grad:linear-gradient(90deg,#2BD9E8,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);overflow:hidden;background:#EFECE5}
+
+#bar{position:fixed;top:0;left:0;height:5px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;background:rgba(25,22,30,.82);
+  backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25);
+  border-radius:99px;padding:8px 14px;font-size:clamp(.9rem,1.4vw,1.1rem);color:rgba(255,255,255,.9)}
+#nav button{border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:#2BD9E8}
+#nav button:disabled{opacity:.3;cursor:default}
+
+.slide{position:absolute;inset:0;padding:5.5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.8vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.07s}
+.slide.active .reveal:nth-child(3){animation-delay:.14s}
+.slide.active .reveal:nth-child(4){animation-delay:.21s}
+.slide.active .reveal:nth-child(5){animation-delay:.28s}
+.slide.active .reveal:nth-child(6){animation-delay:.35s}
+.slide.active .reveal:nth-child(7){animation-delay:.42s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.slide>*{flex-shrink:0}
+
+.eyebrow{font-size:clamp(.82rem,1.35vw,1.05rem);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.5rem,3vw,2.5rem);line-height:1.15;letter-spacing:-.01em}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+p.lead{font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.55;color:#4a463d;max-width:75ch}
+p.lead strong, p.lead b{color:var(--accent)}
+.task{font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.55;font-weight:500}
+.task strong{color:var(--accent)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.85rem,1.6vw,1.3rem)}
+.card.tint{background:var(--accent-soft);border-color:#d5e2dd}
+.card.gold{background:var(--gold-soft);border-color:#e8dcb8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.6vw,1.2rem)}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.45em 0;border-bottom:1px dashed var(--line);
+  font-size:clamp(1.05rem,1.85vw,1.4rem);line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .no{font-weight:800;color:var(--accent);min-width:1.4em}
+.flip{cursor:pointer;border-radius:8px;transition:background .2s}
+.flip:hover{background:var(--accent-soft)}
+.flip .back{color:var(--accent);opacity:0;transition:opacity .2s;font-weight:700;font-size:.92em}
+.flip.shown .back{opacity:1}
+/* THE TENSE COLOUR CODE: been and gone are both present perfect = purple */
+.pp{color:#7D3C98;font-weight:700}
+.ppbox{background:#F1E3F5;border:1.5px solid #7D3C98;border-radius:8px;padding:.1em .45em;font-weight:700;color:#7D3C98}
+.hint{font-size:clamp(.88rem,1.4vw,1.08rem);color:var(--ink-soft);font-style:italic}
+img.sketch{width:100%;max-width:900px;height:auto;border:1px solid var(--line);
+  border-radius:var(--radius);background:#fff;cursor:zoom-in}
+
+button.tn{align-self:flex-start;border:1.5px solid var(--line);background:var(--paper);
+  color:var(--ink-soft);font-family:'Inter',sans-serif;font-weight:600;
+  font-size:clamp(.8rem,1.25vw,.98rem);padding:.32em 1em;border-radius:99px;
+  cursor:pointer;transition:all .18s}
+button.tn:hover{border-color:var(--ink-soft);color:var(--ink)}
+button.tn.on{background:var(--ink-soft);color:#fff;border-color:var(--ink-soft)}
+.tnotes{display:none;font-size:clamp(.88rem,1.4vw,1.1rem);color:var(--ink-soft);
+  line-height:1.55;border-left:3px solid var(--line);padding:.15em 0 .15em 1em}
+.tnotes.open{display:block}
+
+#annoBtn{position:fixed;z-index:150;left:max(10px,1.6vw);bottom:calc(10px + .8vh);
+  border:1px solid rgba(255,255,255,.3);background:rgba(25,22,30,.82);color:#fff;
+  backdrop-filter:blur(10px);border-radius:99px;padding:.42em .95em;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(.9rem,1.4vw,1.05rem);
+  cursor:pointer;transition:transform .15s ease}
+#annoBtn:hover{transform:scale(1.06);border-color:#2BD9E8}
+#anno{position:fixed;z-index:210;top:8vh;right:max(10px,2vw);width:min(400px,92vw);
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 14px 40px rgba(35,39,46,.18);padding:1em;display:none;flex-direction:column;gap:.6em}
+#anno.on{display:flex}
+#anno .a-head{display:flex;align-items:center;gap:.6em;font-weight:800;
+  font-size:clamp(.9rem,1.3vw,1.05rem);color:var(--ink-soft)}
+#anno .a-head .a-sp{flex:1}
+#anno button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.3em .9em;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:clamp(.8rem,1.1vw,.92rem);color:var(--ink);cursor:pointer}
+#anno button:hover{border-color:var(--accent);color:var(--accent)}
+#anno #annoTick.on{background:var(--accent);border-color:var(--accent);color:#fff}
+#anno textarea{width:100%;min-height:96px;resize:vertical;border:1.5px solid var(--line);
+  border-radius:10px;padding:.6em;font-family:'Inter',sans-serif;font-size:.95rem;color:var(--ink)}
+#anno .a-foot{display:flex;gap:.6em;align-items:center}
+#anno .a-hint{font-size:.78rem;color:var(--ink-soft);font-style:italic}
+#annoRep{position:fixed;inset:0;z-index:220;background:rgba(35,39,46,.35);
+  display:none;align-items:center;justify-content:center;padding:4vh}
+#annoRep.on{display:flex}
+#annoRep .a-rep-card{background:#fff;border-radius:16px;padding:1.2em;width:min(560px,94vw);
+  display:flex;flex-direction:column;gap:.7em}
+#annoRep .a-head{display:flex;align-items:center;font-weight:800;color:var(--ink-soft)}
+#annoRep .a-head .a-sp{flex:1}
+#annoRep textarea{width:100%;min-height:220px;border:1.5px solid var(--line);border-radius:10px;
+  padding:.6em;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;color:var(--ink)}
+
+body.bigtext .eyebrow,body.bigtext h1,body.bigtext .rule,body.bigtext .lead,
+body.bigtext .task,body.bigtext .card,body.bigtext .hint,body.bigtext button.tn,
+body.bigtext .tnotes,body.bigtext .chips,body.bigtext img,body.bigtext #nav{display:none!important}
+body.bigtext .slide{padding:2vh 2vw;background:#fff}
+body.bigtext img.sketch{position:fixed!important;inset:0!important;margin:auto!important;
+  width:auto!important;height:auto!important;max-width:98vw!important;max-height:96vh!important;
+  border:none!important;border-radius:0!important;cursor:zoom-out}
+#fso{position:fixed;inset:0;z-index:200;background:var(--paper);display:none;
+  overflow:auto;padding:6vh 7vw 10vh}
+#fso.open{display:block}
+#fso .fsoinner{max-width:78ch;margin:0 auto;font-size:clamp(1.25rem,2.4vw,1.95rem);
+  line-height:1.65;color:var(--ink)}
+@media (max-width:900px){.grid2{grid-template-columns:1fr 1fr}}
+
+#pardonBtn{position:fixed;z-index:150;right:max(10px,1.6vw);top:calc(10px + .8vh);
+  border:1px solid rgba(255,255,255,.3);background:rgba(25,22,30,.82);color:#fff;
+  backdrop-filter:blur(10px);border-radius:99px;padding:.42em .6em;
+  font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(.9rem,1.4vw,1.05rem);
+  cursor:pointer;transition:transform .15s ease}
+#pardonBtn:hover{transform:scale(1.06);border-color:#2BD9E8}
+#pardon{position:fixed;z-index:210;top:8vh;right:max(10px,2vw);width:min(420px,92vw);
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 14px 40px rgba(35,39,46,.18);padding:.9em 1em;display:none;flex-direction:column;gap:.4em}
+#pardon.on{display:flex}
+#pardon .p-head{display:flex;align-items:center;gap:.6em;font-weight:800;
+  font-size:clamp(.9rem,1.3vw,1.05rem);color:var(--ink-soft)}
+#pardon .p-head .a-sp{flex:1}
+#pardon .p-head button{border:1px solid var(--line);background:#fff;border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#pardon .prow{display:flex;align-items:center;gap:.6em;font-size:clamp(1rem,1.8vw,1.2rem);
+  font-weight:600;color:var(--ink);padding:.3em .5em;border-radius:10px;line-height:1.35}
+#pardon .prow:hover{background:#eef7f9}
+#pardon .prow .pe{flex:0 0 1.6em;text-align:center;font-weight:400}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<!-- 1 · COVER -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Grammar · Present Perfect · been vs gone</div>
+  <h1 class="reveal">Been <em>or</em> gone? <span class="ppbox">been</span> <span class="ppbox">gone</span></h1>
+  <div class="rule reveal"></div>
+  <p class="lead reveal">Two little words that both fly with <strong class="pp">has / have</strong> — and they send the person to <strong>two different places</strong>.</p>
+  <div class="card tint reveal">
+    <p class="task" style="font-size:clamp(1rem,1.7vw,1.3rem)"><strong>Prepare ahead</strong></p>
+    <p class="lead" style="font-size:clamp(.98rem,1.6vw,1.25rem);margin-top:.3em">
+    Nothing to prepare — the picture, the rule and the game are all on the screen.</p>
+  </div>
+  <p class="hint reveal">2026-10-12 · v1</p>
+  <button class="tn reveal" onclick="tn(this)">Teacher’s notes ▾</button>
+  <div class="tnotes reveal">A universal Grammar deck (born on Elena's order 12.10: «a separate/universal deck to explain» have been to / have gone — the lesson-010 slide was «difficult and frustrating»). The hero picture is ELENA'S OWN Procreate sketch (Downloads/Untitled_Artwork 2.pdf) — the house = been, the palm = gone. For: MR first (the tracker row), then anyone. Teach-first: slides 2–3 teach, slide 4 asks.</div>
+</section>
+
+<!-- 2 · THE PICTURE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">The picture · drawn by the teacher</div>
+  <h1 class="reveal">One trip home. <em>One trip away.</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <img class="sketch" src="../media/elena-been-gone-sketch.png" alt="The house and the palm tree — been and gone">
+  </div>
+  <p class="lead reveal"><span class="ppbox">been</span> — <strong>She has been</strong> to the palm tree… and look, she’s <strong>back at the house</strong>.<br>
+  <span class="ppbox">gone</span> — <strong>She has gone</strong> to the palm tree… and she’s <strong>still there</strong>. The house is empty.</p>
+  <button class="tn reveal" onclick="tn(this)">Teacher’s notes ▾</button>
+  <div class="tnotes reveal">Let HER read the picture first: two arrows, two destinations. Ask: «Which person is at home now?» (the been one). Ask: «Can you visit the gone person at home?» (no — she’s away). The sketch is Elena's own — the hand-drawn labels stay.</div>
+</section>
+
+<!-- 3 · THE RULE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">The rule · two words, two places</div>
+  <h1 class="reveal">Been = round trip. <em>Gone = one way.</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card tint">
+      <p class="task"><span class="ppbox">has been</span> — went, <strong>and came back</strong></p>
+      <div class="item"><span class="no">🏠</span><span>The person is <strong>here now</strong>.</span></div>
+      <div class="item"><span class="no">✈️</span><span>«She <span class="pp">has been</span> to Turkey.» — the holiday is over, the photos are on the phone.</span></div>
+      <div class="item"><span class="no">🔁</span><span>Ask it about <strong>life experience</strong>: «Have you ever <span class="pp">been</span> to London?»</span></div>
+    </div>
+    <div class="card gold">
+      <p class="task"><span class="ppbox">has gone</span> — went, <strong>and is still there</strong></p>
+      <div class="item"><span class="no">🌴</span><span>The person is <strong>NOT here</strong>.</span></div>
+      <div class="item"><span class="no">🚪</span><span>«Mum <span class="pp">has gone</span> to the shop.» — the house is quiet.</span></div>
+      <div class="item"><span class="no">📍</span><span>You say it <strong>about now</strong>, when the empty chair matters.</span></div>
+    </div>
+  </div>
+  <div class="card gold reveal">
+    <p class="task reveal">🧠 Two true lines: <strong>both words are purple</strong> — both fly with <em>has/have</em>. Only <strong>one</strong> puts the person back at home. Which one? <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ been — the round trip. The house doors open for been, and stay empty for gone.</span></span></p>
+  </div>
+  <button class="tn reveal" onclick="tn(this)">Teacher’s notes ▾</button>
+  <div class="tnotes reveal">Teach step — the two cards say it all; the colours: both are present perfect (purple, the standing code) — the DIFFERENCE is geography, not grammar. The hook line: been = round trip, gone = one way. Say the hook twice.</div>
+</section>
+
+<!-- 4 · PRACTICE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Your turn · been or gone?</div>
+  <h1 class="reveal">Fill the gap — <em>say it before you click</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Mum isn’t here — she <span class="pp">______</span> to the shop. <span class="back">→ has gone (the house is empty)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>I <span class="pp">______</span> to London twice. <span class="back">→ have been (two round trips)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Where’s Dan? — He <span class="pp">______</span> to the football match, it’s on now. <span class="back">→ has gone (the match is now)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>She’s back from her holiday — she <span class="pp">______</span> to Turkey. <span class="back">→ has been (she’s home)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>My parents <span class="pp">______</span> to Italy — they come home on Sunday. <span class="back">→ have gone (still there)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>Have you ever <span class="pp">______</span> to New York? <span class="back">→ been (life experience)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">7</span><span>Ed isn’t at college today — he <span class="pp">______</span> home for the weekend. <span class="back">→ has gone (away till Sunday)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">8</span><span>Look, she’s making tea in the kitchen — she <span class="pp">______</span> to the beach. <span class="back">→ has been (she’s back — the tea proves it)</span></span></div>
+  </div>
+  <p class="hint reveal">The palm-tree test: can she be at home right now? Yes → been. No → gone.</p>
+  <button class="tn reveal" onclick="tn(this)">Teacher’s notes ▾</button>
+  <div class="tnotes reveal">Answers hide — she says the word, then clicks. The palm-tree test is the one-line crutch: at home right now = been; away = gone. Item 8 is the tricky one (tea = home = been even though the beach was the destination).</div>
+</section>
+
+<!-- 5 · TREASURE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Treasure task · read the clues</div>
+  <h1 class="reveal">Where is <em>Max?</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card gold reveal">
+    <p class="task reveal">Max’s bike is <strong>not in the yard</strong>. The front door is <strong>locked from the outside</strong>, and his mum is at work.</p>
+    <p class="task reveal">Question: <strong>Max has been to the skate park — or Max has gone to the skate park?</strong> <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ has GONE — nobody is home: the door locked from outside says the trip is one way, for now</span></span></p>
+  </div>
+  <p class="lead reveal">Two clues, one question — <strong>the empty house picks the word.</strong></p>
+  <button class="tn reveal" onclick="tn(this)">Teacher’s notes ▾</button>
+  <div class="tnotes reveal">THE TREASURE TASK (standing): two true statements + one question whose answer follows — and the answer is NOT in the statements (the deck-010 lesson: the answer on the screen = «I felt stupid»). Derivation: locked from outside + mum at work ⇒ the house is empty ⇒ Max is still out ⇒ has gone. She says it aloud before the click.</div>
+</section>
+
+<!-- 6 · END -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">One line to remember</div>
+  <h1 class="reveal">Been = round trip. <em>Gone = one way.</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item"><span class="no">🏠</span><span><span class="ppbox">been</span> — the person is home. Ask about life: <em>Have you ever been to…?</em></span></div>
+    <div class="item"><span class="no">🌴</span><span><span class="ppbox">gone</span> — the person is away. Say about now: <em>Mum has gone to the shop.</em></span></div>
+  </div>
+  <p class="lead reveal">Now — <em>go and use one of them before the day ends.</em></p>
+  <button class="tn reveal" onclick="tn(this)">Teacher’s notes ▾</button>
+  <div class="tnotes reveal">The two-line wrap mirrors the picture. The deck pairs with the WB 9.6 / SB 9.6 Speaking material (been/gone lives inside the dialogue) — order it before or after that lesson, any pupil.</div>
+</section>
+
+<button id="annoBtn" title="lesson log (N / C)">✍️</button>
+<button id="pardonBtn" title="Pardon? — class phrases (P)">🙋</button>
+
+<div id="pardon">
+  <div class="p-head"><span>say it in class</span><span class="a-sp"></span><button id="pardonX">✕</button></div>
+  <div class="prow"><span class="pe">🙋</span>Pardon?</div>
+  <div class="prow"><span class="pe">❓</span>What does <b>___</b> mean?</div>
+  <div class="prow"><span class="pe">🆘</span>Can you help me?</div>
+  <div class="prow"><span class="pe">🔁</span>Can you repeat, please?</div>
+  <div class="prow"><span class="pe">🇬🇧</span>How do you say <b>___</b> in English?</div>
+  <div class="prow"><span class="pe">🤷</span>I don't understand.</div>
+</div>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 6</span>
+  <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<div id="fso" onclick="this.classList.remove('open')"><div class="fsoinner" id="fsoinner"></div></div>
+
+<div id="anno">
+  <div class="a-head"><b>✍️ lesson log</b><span id="annoSlide"></span><span class="a-sp"></span><button id="annoClose">✕</button></div>
+  <div style="display:flex;gap:.4em;flex-wrap:wrap">
+    <button id="annoPrev" title="annotate the previous slide (the deck stays where it is)">‹</button>
+    <button id="annoNext" title="annotate the next slide (the deck stays where it is)">›</button>
+    <button id="annoTick" title="tick = the lesson ended here">✓ done</button>
+  </div>
+  <textarea id="annoText" placeholder="your note for this slide…"></textarea>
+  <div class="a-foot">
+    <button id="annoCopy">📋 report</button>
+    <span class="a-hint" id="annoHint">saves in this browser</span>
+  </div>
+</div>
+<div id="annoRep">
+  <div class="a-rep-card">
+    <div class="a-head"><b>lesson report</b><span class="a-sp"></span><button id="annoRepClose">✕</button></div>
+    <textarea id="annoRepText" readonly></textarea>
+    <div class="a-foot" style="display:flex;gap:.6em;align-items:center">
+      <button id="annoRepCopy">copy</button>
+      <button id="annoRepClear" title="delete all ticks and comments">🧹 clear</button>
+      <span id="annoSent" style="margin-left:auto;font-size:.78rem;color:var(--ink-soft);font-style:italic"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  history.replaceState(null,'','#'+(i+1));
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+function tn(b){const n=b.nextElementSibling;n.classList.toggle('open');b.classList.toggle('on');b.blur();}
+function openFs(id){document.getElementById('fsoinner').innerHTML=document.getElementById(id).innerHTML;document.getElementById('fso').classList.add('open');}
+document.addEventListener('keydown',e=>{
+  if(e.target.matches('INPUT,TEXTAREA,AUDIO,VIDEO'))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return;
+  if(document.getElementById('fso').classList.contains('open')){
+    if(e.key==='Escape')document.getElementById('fso').classList.remove('open');
+    return;
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+  if(e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С'||e.key==='n'||e.key==='N'||e.key==='т'||e.key==='Т')document.getElementById('annoBtn').click();
+  if(e.key==='p'||e.key==='P')pardonToggle();
+  if(e.key==='Escape'){document.body.classList.remove('bigtext');pardonToggle(false);}
+});
+let wt=0;document.addEventListener('wheel',e=>{if(document.body.classList.contains('bigtext')||document.getElementById('fso').classList.contains('open'))return;if(e.target.closest('.slide')&&e.target.closest('.slide').classList.contains('scroll'))return;const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+const CH='been-or-gone';
+const annoPanel=document.getElementById('anno'),annoSlideEl=document.getElementById('annoSlide'),
+annoText=document.getElementById('annoText'),annoTick=document.getElementById('annoTick'),
+annoHint=document.getElementById('annoHint'),annoSent=document.getElementById('annoSent');
+const CAN_SEND=(location.protocol==='http:');
+let annoIdx=i,annoData={};
+try{annoData=JSON.parse(localStorage.getItem(CH+'-anno')||'{}')}catch(e){annoData={}}
+function annoSave(){try{localStorage.setItem(CH+'-anno',JSON.stringify(annoData))}catch(e){}
+  annoSend()}
+function annoFill(){const a=annoData[annoIdx+1]||{};
+  annoSlideEl.textContent='· slide '+(annoIdx+1)+' / '+slides.length;
+  annoText.value=a.c||'';annoTick.classList.toggle('on',!!a.t)}
+function annoToggle(){annoPanel.classList.toggle('on');
+  if(annoPanel.classList.contains('on')){annoIdx=i;annoFill();annoText.focus()}}
+function annoSet(k,f){const a=annoData[k]||{};f(a);
+  if(!a.c&&!a.t)delete annoData[k];else annoData[k]=a;annoSave()}
+function annoReportText(){let out=CH+' · lesson notes · '+new Date().toLocaleString('en-GB')+'\n';
+  let any=false;
+  slides.forEach((s,k)=>{const a=annoData[k+1];if(!a||(!a.t&&!a.c))return;any=true;
+    out+=(k+1)+(a.t?' ✓':'')+(a.c?' — '+a.c:'')+'\n'});
+  if(!any)out+='(nothing ticked or noted yet)';
+  return out}
+let annoTimer=null;
+function annoSend(){if(!CAN_SEND)return;
+  clearTimeout(annoTimer);
+  annoTimer=setTimeout(()=>{
+    fetch('/report?deck='+encodeURIComponent(CH),{method:'POST',body:annoReportText()})
+      .then(()=>{annoSent.textContent='auto-sent to the Mac ✓'})
+      .catch(()=>{annoSent.textContent='not sent — use 📋 copy'})
+  },1200)}
+annoHint.textContent=CAN_SEND?'auto-sends to the Mac':'saves on this device';
+document.getElementById('annoBtn').onclick=()=>{pardonToggle(false);annoToggle();};
+const pardonPanel=document.getElementById('pardon');
+function pardonToggle(force){
+  const open=typeof force==='boolean'?force:!pardonPanel.classList.contains('on');
+  pardonPanel.classList.toggle('on',open);
+  if(open)annoPanel.classList.remove('on');
+}
+document.getElementById('pardonBtn').onclick=()=>pardonToggle();
+document.getElementById('pardonX').onclick=()=>pardonToggle(false);
+document.getElementById('annoClose').onclick=()=>annoPanel.classList.remove('on');
+document.getElementById('annoPrev').onclick=()=>{annoIdx=Math.max(0,annoIdx-1);annoFill()};
+document.getElementById('annoNext').onclick=()=>{annoIdx=Math.min(slides.length-1,annoIdx+1);annoFill()};
+annoTick.onclick=()=>{annoSet(annoIdx+1,a=>a.t=a.t?0:1);annoFill()};
+annoText.addEventListener('input',()=>annoSet(annoIdx+1,a=>a.c=annoText.value));
+const rep=document.getElementById('annoRep'),repText=document.getElementById('annoRepText');
+document.getElementById('annoCopy').onclick=()=>{repText.value=annoReportText();rep.classList.add('on')};
+document.getElementById('annoRepClose').onclick=()=>rep.classList.remove('on');
+rep.addEventListener('click',e=>{if(e.target===rep)rep.classList.remove('on')});
+document.getElementById('annoRepCopy').onclick=()=>{
+  repText.select();
+  try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(repText.value);
+  else document.execCommand('copy')}catch(e){}
+  const b=document.getElementById('annoRepCopy');b.textContent='copied ✓';
+  setTimeout(()=>b.textContent='copy',1200)};
+document.getElementById('annoRepClear').onclick=()=>{
+  if(confirm('Delete all ticks and comments?')){annoData={};annoSave();annoFill();rep.classList.remove('on')}};
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
