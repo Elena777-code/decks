@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SM 5.1 · U2 L1 — Rainforest life (Super Minds 5, SB p. 22)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   SM 5.1 — Unit 2 "In the rainforest", lesson 1 · Tue 13.10.
+   Elena's order: "a new deck for sm — they wrote test 1 with
+   Farida; let it be Unit 2 lesson 1; follow the TB very
+   strictly." The book's own numbering (TB cross-refs): Unit 1
+   = Around Pompeii (closed with Farida's Test 1, Thursday
+   08.10 — no note came), Unit 2 = In the rainforest, pp.
+   22–33. This deck = TB Lesson ONE, strictly: rainforest
+   vocabulary (SB p. 22) — warm-up, flashcards presentation,
+   🎧022 listen & say, the Big Question, 🎧023 read-listen-
+   answer, describe & guess, the memory game.
+   Elena's spare-time wish — "tell them about big numbers" =
+   TB Lesson TWO (SB p. 23, numbers 100–1,000,000) sits
+   BEHIND THE BUTTON on the last slide: three bonus slides,
+   opened only if there's time.
+   HW check = Elena's own ДЗ of 06.10 (Farida's Thursday note
+   never arrived → skip-if-done wording everywhere): the
+   plates dictation five · WB pp. 18–19 · the disaster
+   reports (rolled onto today by Elena's word).
+   The group HAS their books + ActiveTeach: this deck is the
+   task/question layer in between, no page reproduction.
+   Same engine as U2 L6 (06.10): ✍️ V2 window, corners V2,
+   the universal Pardon six, the hotkey guard, flex-shrink,
+   stamp, chime. English only. Answers behind clicks.
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.1rem);color:#fff}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cheese)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.4vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+/* flex-shrink guard: nothing on a slide may collapse — the slide scrolls */
+.slide>*{flex-shrink:0}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ---------- text & blocks ---------- */
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy);margin-bottom:.2em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin-bottom:.3em;
+  font-size:clamp(1.9rem,4.2vw,3.6rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp))}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(.9rem,1.6vw,1.35rem)}
+.card.sky{background:#E8F1FA}
+.card.cheese{background:var(--cheese-soft)}
+.card.stampc{background:var(--stamp-soft)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:.4em}
+.center{text-align:center}
+.mt{margin-top:.65em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink);background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem);align-self:flex-start}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.92rem,1.35vw,1.12rem);color:var(--ink-soft);font-style:italic}
+.stamp-box{font-family:'Fredoka',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  border:3px dashed var(--stamp);border-radius:16px;padding:.5em 1em;color:var(--stamp);
+  background:var(--white);box-shadow:var(--shadow);display:inline-block;font-size:clamp(1rem,1.7vw,1.4rem)}
+.bigq{font-family:'Fredoka',sans-serif;font-weight:600;color:#fff;background:var(--navy);
+  border-radius:99px;padding:.3em 1.1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.3rem);align-self:flex-start}
+.bigq::before{content:"❓ "}
+.bookchip{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy-deep);
+  background:#E8F1FA;border:2px solid var(--sky);border-radius:99px;
+  padding:.35em 1em;display:inline-block;font-size:clamp(.95rem,1.5vw,1.22rem);align-self:flex-start}
+.bookchip::before{content:"🖥 "}
+.stamp-box.big{font-size:clamp(1.3rem,2.6vw,2.2rem);padding:.6em 1.4em}
+
+/* the Wi-Fi attention signal (the class switch, taught 22.09) */
+.wifi-slide{justify-content:center;align-items:center;text-align:center}
+.wifi-ico{font-size:clamp(6rem,16vw,13rem);line-height:1;filter:drop-shadow(0 12px 24px rgba(34,48,63,.18))}
+.wifi-word{font-family:'Fredoka',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  font-size:clamp(2rem,5vw,3.6rem);color:var(--navy);margin-top:.2em}
+
+/* teacher-facing prepare-ahead list (slide 1, EN — standing rules) */
+.prep{display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;
+  background:var(--white);box-shadow:0 4px 12px rgba(34,48,63,.07);margin-bottom:.55em}
+.prep .ico{flex-shrink:0;font-size:clamp(1.3rem,2.2vw,1.8rem);line-height:1.3}
+.prep p{font-size:clamp(.98rem,1.55vw,1.25rem);line-height:1.45}
+.prep b{color:var(--navy)}
+
+/* teacher's notes — muted, small, click to unfold */
+button.tn{align-self:flex-start;border:1.5px solid #C9D8EA;background:var(--white);
+  color:var(--ink-soft);font-family:'Fredoka',sans-serif;font-weight:500;
+  font-size:clamp(.78rem,1.2vw,.95rem);padding:.3em 1em;border-radius:99px;
+  cursor:pointer;transition:all .18s}
+button.tn:hover{border-color:var(--ink-soft);color:var(--ink)}
+button.tn.on{background:var(--ink-soft);color:#fff;border-color:var(--ink-soft)}
+.tnotes{display:none;font-size:clamp(.86rem,1.35vw,1.06rem);color:var(--ink-soft);
+  line-height:1.5;border-left:3px solid var(--sky);padding:.15em 0 .15em 1em}
+.tnotes.open{display:block}
+.tnotes b{color:var(--navy)}
+
+/* numbered reveal items */
+.item{display:flex;gap:.7em;align-items:baseline;padding:.38em .2em;
+  border-bottom:2px dashed rgba(169,204,239,.7);cursor:pointer;border-radius:10px;
+  font-size:clamp(1.18rem,1.95vw,1.55rem);line-height:1.42;transition:background .2s ease;user-select:none}
+.item:last-child{border-bottom:none}
+.item:hover{background:#E8F1FA}
+.item .no{font-family:'Fredoka',sans-serif;font-weight:700;flex:none;color:var(--stamp);font-size:.85em}
+.item .agree{color:#fff;background:var(--navy);border-radius:99px;padding:.05em .55em;
+  font-weight:700;font-style:normal;opacity:0;transition:opacity .2s;white-space:nowrap}
+.item .agree.wrap{white-space:normal}
+.item.shown .agree{opacity:1}
+.item.shown{cursor:default}
+.item.shown:hover{background:transparent}
+.item s{color:var(--ink-soft)}
+
+/* the dictation rows (picture → word, the plates board) */
+.ditem{align-items:center}
+.ditem .dthumb{height:clamp(78px,11vh,118px);width:auto;border-radius:10px;
+  box-shadow:0 4px 12px rgba(34,48,63,.18);flex:none}
+.ditem .dword{font-family:'Fredoka',sans-serif;font-weight:700;white-space:normal;
+  font-size:clamp(1.25rem,2.3vw,1.85rem)}
+
+/* word chips (the presentation slide — new material shows) */
+.wordgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.45em}
+.wordgrid .wc{display:flex;gap:.5em;align-items:center;background:var(--white);
+  border:2px solid var(--sky);border-radius:12px;padding:.35em .6em;
+  font-family:'Fredoka',sans-serif;font-weight:600;line-height:1.25;
+  font-size:clamp(1rem,1.7vw,1.35rem)}
+.wordgrid .wc .no{color:var(--stamp);font-weight:700;font-size:.8em;flex:none}
+
+/* speaking frames */
+.frame{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink);
+  font-size:clamp(1.3rem,2.4vw,1.95rem);line-height:1.5;padding:.5em .9em;border-radius:16px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.frame .slot{color:var(--stamp)}
+.frame.small{font-size:clamp(1.1rem,1.9vw,1.55rem)}
+
+/* word bank strip */
+.bank{display:flex;flex-wrap:wrap;gap:.4em;justify-content:center}
+.bank span{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);
+  padding:.15em .7em;border-radius:99px;background:var(--cheese-soft);color:var(--navy)}
+
+/* project-style steps */
+.steps{counter-reset:step;display:flex;flex-direction:column;gap:.6em}
+.steps .step{display:flex;gap:.8em;align-items:center;padding:.7em 1em;border-radius:16px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08);
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem)}
+.steps .step .n{flex-shrink:0;width:1.9em;height:1.9em;border-radius:50%;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;color:#fff}
+
+/* homework */
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08);margin-bottom:.7em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;color:#fff}
+.hw-step p{font-size:clamp(1.02rem,1.62vw,1.32rem);line-height:1.5}
+.hw-step .en{font-family:'Fredoka',sans-serif;color:var(--navy);font-weight:600}
+
+/* THE BUTTON — the spare-time bonus lives behind it (last slide) */
+.bonus-btn{align-self:center;border:none;cursor:pointer;border-radius:99px;
+  padding:.55em 1.5em;font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.3rem,2.6vw,2.1rem);color:var(--navy-deep);
+  background:linear-gradient(135deg,var(--cheese),#FFD97A);
+  box-shadow:0 10px 26px rgba(255,197,61,.45);transition:transform .15s ease}
+.bonus-btn:hover{transform:scale(1.05)}
+.bonus-btn::after{content:" 🔢"}
+/* the jump chip on the bonus slides — back to the goodbye */
+button.jump{align-self:center;border:2px dashed var(--navy);background:var(--white);color:var(--navy);
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);
+  padding:.35em 1.2em;border-radius:99px;cursor:pointer;transition:all .18s}
+button.jump:hover{background:var(--navy);color:#fff}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#1E3A66;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav,body.presenter #annoBtn,body.presenter #pardonBtn{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1rem,1.6vw,1.3rem)}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:'Fredoka',sans-serif;font-size:.9em;cursor:pointer}
+#pv .head button:hover{background:rgba(255,255,255,.15)}
+#pv .head .cnt{margin-left:auto;background:rgba(255,255,255,.12);border-radius:99px;padding:.2em .9em}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(30,58,102,.85);color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:.8rem;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F5F3EE;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--cheese)}
+body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{display:none!important}
+
+/* ---------- 🙋 Pardon? — fullscreen overlay, pill top-LEFT (corners V2) ---------- */
+#pardonBtn{position:fixed;top:calc(10px + .8vh);left:max(10px,1.6vw);z-index:100;
+  width:2.5em;height:2.5em;border-radius:50%;border:1px solid rgba(255,255,255,.35);
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);color:#fff;font-size:1.1rem;
+  cursor:pointer;transition:transform .15s ease}
+#pardonBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#pardon{position:fixed;inset:0;z-index:220;background:rgba(246,248,251,.985);display:none;
+  flex-direction:column;align-items:center;justify-content:center;padding:4vh 6vw;overflow:auto}
+#pardon.open{display:flex}
+#pardon .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka',sans-serif;
+  font-weight:700;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
+#pardon .closer:hover{color:var(--ink)}
+#pardon .phead{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(1.4rem,2.6vw,2.1rem);margin-bottom:2vh}
+#pardon .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:.8em;max-width:920px}
+#pardon .pcard{background:var(--white);border:2px solid var(--sky);border-radius:16px;
+  padding:.9em 1.1em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.4;box-shadow:0 6px 16px rgba(34,48,63,.08)}
+#pardon .pcard .ico{font-size:1.15em;margin-right:.35em}
+
+/* ---------- ✍️ V2 lesson-log — the window top-RIGHT (corners V2):
+   the d: · //: rows + the 3-line free space + fix:, ⌘S = save + close.
+   Auto-sends over http (POST /report); on the iPad 📋 copy is the way. ---------- */
+#annoBtn{position:fixed;top:calc(10px + .8vh);right:max(10px,1.6vw);z-index:100;
+  width:2.5em;height:2.5em;border-radius:50%;border:1px solid rgba(255,255,255,.35);
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);color:#fff;font-size:1.1rem;
+  cursor:pointer;transition:transform .15s ease}
+#annoBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#anno{position:fixed;right:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(430px,92vw);
+  background:var(--white);border-radius:16px;box-shadow:var(--shadow-lg);padding:.8em .9em;
+  display:none;flex-direction:column;gap:.5em}
+#anno.on{display:flex;animation:rise .25s both}
+#anno .a-head{display:flex;align-items:center;gap:.45em;font-family:'Fredoka',sans-serif;
+  font-size:.92rem;color:var(--navy-deep)}
+#anno .a-sp{flex:1}
+#anno .a-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:'Fredoka',sans-serif;font-size:.85rem;color:var(--ink-soft)}
+#anno .a-head button:hover{border-color:var(--ink-soft);color:var(--ink)}
+#anno #annoTick{border:none;border-radius:99px;padding:.3em 1em;cursor:pointer;
+  font-family:'Fredoka',sans-serif;font-size:.9rem;font-weight:700;background:#eef1f5;color:var(--ink)}
+#anno #annoTick.on{background:var(--mint);color:#fff}
+#annoRows{display:flex;flex-direction:column;gap:.45em}
+.arow{display:flex;gap:.5em;align-items:center}
+.arow label{flex:0 0 3.1em;text-align:right;font-weight:800;font-size:.9rem;
+  color:var(--ink-soft);font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+.arow input{flex:1;min-width:0;border:2px solid #E1E9F4;border-radius:10px;
+  padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;color:var(--ink);background:var(--white)}
+.arow input:focus{outline:none;border-color:var(--sky)}
+.arow.free{margin-top:.2em}
+.arow.free textarea,.arow.fix textarea{flex:1;min-width:0;border:2px dashed #D8DEE6;border-radius:10px;
+  padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;color:var(--ink);
+  background:var(--white);resize:vertical;min-height:3.4em}
+.arow.free textarea:focus,.arow.fix textarea:focus{outline:none;border-color:var(--sky)}
+.arow.free textarea::placeholder,.arow.fix textarea::placeholder{color:#9AA7B3;font-style:italic}
+#anno .a-foot{display:flex;align-items:center;gap:.6em}
+#anno .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;
+  font-family:'Fredoka',sans-serif;font-size:.85rem;font-weight:600;background:#eef1f5;color:var(--ink)}
+#anno .a-foot button:hover{background:var(--navy);color:#fff}
+#anno .a-foot .a-hint{font-size:.74rem;color:var(--ink-soft);font-style:italic}
+#annoDone{font-weight:700}
+#annoRep{position:fixed;inset:0;z-index:260;background:rgba(34,48,63,.45);display:none;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+#annoRep.on{display:flex;animation:rise .25s both}
+#annoRep .a-rep-card{background:var(--white);border-radius:18px;box-shadow:var(--shadow-lg);
+  padding:1em 1.1em;width:min(560px,92vw);display:flex;flex-direction:column;gap:.6em}
+#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;
+  padding:.6em .7em;font-family:ui-monospace,Menlo,monospace;font-size:.88rem;color:var(--ink)}
+#annoRep .a-head b{font-family:'Fredoka',sans-serif;color:var(--navy-deep)}
+#annoRep .a-foot{display:flex;gap:.6em;align-items:center}
+#annoRep .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;
+  font-family:'Fredoka',sans-serif;font-size:.85rem;font-weight:600;background:#eef1f5;color:var(--ink)}
+#annoRep .a-foot button:hover{background:var(--navy);color:#fff}
+#annoRepCopy{background:var(--navy)!important;color:#fff!important}
+
+@media (max-width:900px){
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+  #pv .panes{grid-template-columns:1fr}
+}
+/* THE CORNERS V2 (Elena, 04.10): Pardon top-left · ✍️ top-right ·
+   emoji-only pills (names in tooltips). The SM5 inline notes buttons
+   stay — the rule governs the fixed corner pills. */
+.slide{padding-top:8.5vh}
+</style>
+</head>
+<body>
+
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · PREPARE-AHEAD (teacher-facing, EN — start the class from slide 2) -->
+  <section class="slide">
+    <div class="eyebrow reveal">SM 5.1 · tuesday 13 october · Super Minds 5 · unit 2 · SB p. 22</div>
+    <h1 class="title reveal">Prepare ahead 🧰</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:920px">
+      <div class="prep"><span class="ico">🖥</span><p><b>ActiveTeach open at SB p. 22</b> — the <b>rainforest flashcards</b> (slide 8) + the <b>map of South America</b> (slide 7) live there.</p></div>
+      <div class="prep"><span class="ico">📮</span><p><b>Farida's Thursday = Test 1 — and no note came.</b> So the check is <b>Elena's own homework of 06.10</b>, each skip-if-done: the <b>plates dictation five</b> (slide 3) · <b>WB pp. 18–19</b> (slides 4–5, keys ready) · the <b>disaster reports</b> (slide 6, rolled onto today).</p></div>
+      <div class="prep"><span class="ico">🎧</span><p><b>Test the sound:</b> track <b>022</b> (slide 9) · track <b>023</b> (slide 11).</p></div>
+      <div class="prep"><span class="ico">🔢</span><p><b>The big numbers live behind the BUTTON on the last slide</b> (three bonus slides, TB Lesson Two). <b>Test-click it before 17.15</b> — open it only if the lesson runs fast.</p></div>
+      <div class="prep"><span class="ico">✍️</span><p><b>Teach from THIS full copy</b> — the ✍️ notes auto-send only from here (the server running). The site copy ate the notes last time.</p></div>
+      <div class="prep"><span class="ico">⏱</span><p><b>Cut order:</b> the <b>memory game</b> (13) → the <b>colour round</b> (9) → the <b>describe game</b> round two (12). <b>Never cut:</b> the 🎧023 questions (11) + the homework slide.</p></div>
+    </div>
+    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2. &nbsp;·&nbsp; <b style="color:var(--navy)">build 13.10 · v1</b></p>
+  </section>
+
+  <!-- SLIDE 2 · WI-FI SWITCH -->
+  <section class="slide wifi-slide">
+    <div class="wifi-ico reveal">📶</div>
+    <div class="wifi-word reveal">Wi-Fi!</div>
+  </section>
+
+  <!-- SLIDE 3 · HW CHECK 1 — THE PLATES DICTATION FIVE (skip-if-done) -->
+  <section class="slide" style="gap:1vh">
+    <div class="eyebrow reveal">Homework check · the plates words · if not done on Thursday</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">Dictation 📝</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">Look at the picture — write the word. Then click — check your spelling!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%;padding:clamp(.6rem,1.1vw,.95rem)">
+      <div class="item ditem" data-k style="padding:.22em .2em"><span class="no">1</span><img class="dthumb" src="media/dict-magma.svg" alt="dictation picture 1" style="height:clamp(58px,8.6vh,88px)"><span class="dword agree">magma</span></div>
+      <div class="item ditem" data-k style="padding:.22em .2em"><span class="no">2</span><img class="dthumb" src="media/dict-continental.svg" alt="dictation picture 2" style="height:clamp(58px,8.6vh,88px)"><span class="dword agree">continental plate</span></div>
+      <div class="item ditem" data-k style="padding:.22em .2em"><span class="no">3</span><img class="dthumb" src="media/dict-boundary.svg" alt="dictation picture 3" style="height:clamp(58px,8.6vh,88px)"><span class="dword agree">boundary</span></div>
+      <div class="item ditem" data-k style="padding:.22em .2em"><span class="no">4</span><img class="dthumb" src="media/dict-oceanic.svg" alt="dictation picture 4" style="height:clamp(58px,8.6vh,88px)"><span class="dword agree">oceanic plate</span></div>
+      <div class="item ditem" data-k style="padding:.22em .2em"><span class="no">5</span><img class="dthumb" src="media/dict-plates.svg" alt="dictation picture 5" style="height:clamp(58px,8.6vh,88px)"><span class="dword agree">plate</span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 · HW CHECK 2 — WB p. 18 -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework check · WB p. 18 · ex. 1–3</div>
+    <h1 class="title reveal">Plate practice 📓</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch">
+      <div class="card" style="flex:1;min-width:340px">
+        <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">Ex. 1 · Look and complete — say your answers!</p>
+        <div class="item" data-k><span class="no">1</span><span>The boxed plate on the map — under land <i>and</i> water: <span class="agree">South American</span></span></div>
+        <div class="item" data-k><span class="no">2</span><span>The Pacific Plate is an… <span class="agree">oceanic</span> plate.</span></div>
+        <div class="item" data-k><span class="no">3</span><span>The Eurasian Plate is mostly a… <span class="agree">continental</span> plate.</span></div>
+        <div class="item" data-k><span class="no">4</span><span>Lots of … happen in the 'Ring of Fire'. <span class="agree">earthquakes</span></span></div>
+        <div class="item" data-k><span class="no">5</span><span>Where two plates meet, volcanoes can… <span class="agree">erupt</span></span></div>
+      </div>
+      <div class="col" style="flex:1;min-width:340px;gap:.8em">
+        <div class="card sky" style="width:100%">
+          <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">Ex. 2 · The Fiery Facts — where are these volcanoes?</p>
+          <div class="item" data-k><span class="no">1</span><span>Olympus Mons is on… <span class="agree">Io (Jupiter)</span></span></div>
+          <div class="item" data-k><span class="no">2</span><span>Mt Kilauea is in… <span class="agree">Hawaii</span></span></div>
+          <div class="item" data-k><span class="no">3</span><span>Eyjafjallajökull is in… <span class="agree">Iceland</span></span></div>
+        </div>
+        <div class="card cheese" style="width:100%">
+          <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">Ex. 3 · Why so many volcanoes in Iceland?</p>
+          <div class="item" data-k><span class="no">❓</span><span><span class="agree wrap">Iceland is on a plate boundary — and also a hot spot!</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5 · HW CHECK 3 — WB p. 19 -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework check · WB p. 19</div>
+    <h1 class="title reveal">Volcano sort 🌋</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch">
+      <div class="col" style="flex:1.15;min-width:360px;gap:.8em">
+        <div class="card" style="width:100%">
+          <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">Tick ✓ the true sentences — which did you tick at home?</p>
+          <div class="item" data-k><span class="no">✔</span><span>The true ones are… <span class="agree">2 and 5</span></span></div>
+        </div>
+        <div class="card sky" style="width:100%">
+          <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">Read and answer — why are the Andes where they are?</p>
+          <div class="item" data-k><span class="no">⛰</span><span><span class="agree wrap">They are on a tectonic plate boundary — two plates collided, the land moved up.</span></span></div>
+        </div>
+      </div>
+      <div class="card cheese" style="flex:1;min-width:360px">
+        <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">The phrases chart — what goes where?</p>
+        <div class="item" data-k><span class="no">💨</span><span>Things that come OUT of volcanoes: <span class="agree wrap">solid rocks · liquid rock (lava) · hot gas · hot ash</span></span></div>
+        <div class="item" data-k><span class="no">📍</span><span>Where volcanoes can erupt: <span class="agree wrap">under ice · under the sea · on land</span></span></div>
+        <div class="item" data-k><span class="no">💥</span><span>The damage volcanoes do: <span class="agree wrap">injure people · destroy buildings · make mud slides</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6 · HW CHECK 4 — THE DISASTER REPORTS (THE ROLL, SET FOR TODAY) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework check · the reports you finished at home</div>
+    <h1 class="title reveal">Your disaster reports 📰</h1>
+    <div class="accent-line reveal"></div>
+    <div class="frame small reveal">💬 This report is about <b class="slot">___</b> . Read it to us!</div>
+    <div class="card cheese reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy)">The report check — a good report names…</p>
+      <div class="item"><span class="no">1</span><span>the disaster <b>type</b></span></div>
+      <div class="item"><span class="no">2</span><span><b>where and when</b> it happened</span></div>
+      <div class="item"><span class="no">3</span><span>what it <b>can do</b></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 7 · WARM-UP (TB) — RAINFORESTS -->
+  <section class="slide">
+    <div class="eyebrow reveal">Warm-up · a new unit!</div>
+    <h1 class="title reveal">Rainforests 🌴</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:900px;margin:0 auto;width:100%;gap:.6em">
+      <div class="item"><span class="no">🌿</span><span>What do you know about rainforests?</span></div>
+      <div class="item"><span class="no">🧑‍🤝‍🧑</span><span>Do people live in rainforests, too? <span class="agree">yes!</span></span></div>
+    </div>
+    <div class="reveal"><span class="bookchip">The map of South America (ActiveTeach) — find the rainforest!</span></div>
+    <p class="hintline reveal" style="text-align:center">It's BIG — it crosses nine countries. We meet them today…</p>
+  </section>
+
+  <!-- SLIDE 8 · PRESENTATION (TB) — THE RAINFOREST FLASHCARDS -->
+  <section class="slide">
+    <div class="eyebrow reveal">New words · SB p. 22</div>
+    <h1 class="title reveal">Rainforest life 🦜</h1>
+    <div class="accent-line reveal"></div>
+    <div class="reveal"><span class="bookchip">ActiveTeach — the rainforest flashcards: I say, you repeat!</span></div>
+    <div class="wordgrid reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="wc"><span class="no">1</span>beak</div>
+      <div class="wc"><span class="no">2</span>toucan</div>
+      <div class="wc"><span class="no">3</span>creeper</div>
+      <div class="wc"><span class="no">4</span>sloth</div>
+      <div class="wc"><span class="no">5</span>branch</div>
+      <div class="wc"><span class="no">6</span>anaconda</div>
+      <div class="wc"><span class="no">7</span>jaguar</div>
+      <div class="wc"><span class="no">8</span>anteater</div>
+      <div class="wc"><span class="no">9</span>beetle</div>
+      <div class="wc"><span class="no">10</span>pool</div>
+      <div class="wc" style="border-color:var(--stamp)">☠️ <span>poisonous</span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 9 · SB p. 22 ex. 1 — TRACK 022 LISTEN & SAY -->
+  <section class="slide">
+    <div class="eyebrow reveal">Listening · SB p. 22 · ex. 1</div>
+    <h1 class="title reveal">Listen and say the words 🎧</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center reveal" style="display:flex;justify-content:center">
+      <audio controls preload="none" src="media/Track 022.mp3" style="width:min(480px,90%)"></audio>
+    </div>
+    <p class="task reveal">Listen — find the words in the big picture. Then check with your partner!</p>
+    <p class="hintline reveal" style="text-align:center">Then the colour round: find ANOTHER animal — tell your partner what colour it is. <i>(a frog — it's red!)</i></p>
+  </section>
+
+  <!-- SLIDE 10 · THE BIG QUESTION (TB) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Think · the Big Question</div>
+    <h1 class="title reveal" style="font-size:clamp(1.8rem,3.8vw,3.2rem)">Why is the rainforest important? 🤔</h1>
+    <div class="accent-line reveal"></div>
+    <div class="bigq reveal">Think in pairs — then tell the class!</div>
+    <div class="row reveal" style="justify-content:center;gap:.6em">
+      <span class="bookchip">🦜 the animals?</span>
+      <span class="bookchip">🌳 the trees?</span>
+      <span class="bookchip">💊 the plants?</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 11 · SB p. 22 ex. 3 — TRACK 023 READ, LISTEN AND ANSWER -->
+  <section class="slide">
+    <div class="eyebrow reveal">Listening · SB p. 22 · ex. 3</div>
+    <h1 class="title reveal">Read, listen and answer 🎧</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center reveal" style="display:flex;justify-content:center">
+      <audio controls preload="none" src="media/Track 023.mp3" style="width:min(480px,90%)"></audio>
+    </div>
+    <p class="task reveal">Read the questions in your book — listen to the story twice — answer!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">1</span><span>What animals can the children see? <span class="agree wrap">a jaguar, an anaconda, a sloth, a toucan and a frog</span></span></div>
+      <div class="item" data-k><span class="no">2</span><span>What's the difference between a tiger and a jaguar? <span class="agree wrap">a tiger has stripes — a jaguar has spots</span></span></div>
+      <div class="item" data-k><span class="no">3</span><span>What do sloths eat? <span class="agree wrap">leaves</span></span></div>
+      <div class="item" data-k><span class="no">4</span><span>Why does Phoebe tell Patrick not to touch the frog? <span class="agree wrap">because it's poisonous!</span></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 12 · SB p. 22 ex. 4 — DESCRIBE & GUESS + THE TREASURE -->
+  <section class="slide">
+    <div class="eyebrow reveal">Speaking · SB p. 22 · ex. 4</div>
+    <h1 class="title reveal">Describe it — your partner guesses! 🗣</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Choose a word from the picture. Describe it — your partner guesses!</p>
+    <div class="col reveal" style="max-width:860px;margin:0 auto;width:100%;gap:.5em">
+      <div class="frame small">It's a <b class="slot">big cat / bird / snake…</b> that…</div>
+      <div class="frame small">It's got <b class="slot">___</b> . &nbsp; It eats <b class="slot">___</b> .</div>
+      <div class="frame small">It lives <b class="slot">in the trees / on the ground…</b></div>
+    </div>
+    <div class="card stampc reveal" style="max-width:860px;margin:.4em auto 0;width:100%">
+      <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--stamp);margin-bottom:.2em">🧠 Detective time!</p>
+      <div class="item" data-k><span class="no">🔎</span><span>It's a big cat. It has spots, not stripes. A tiger has stripes. — Which cat is it? <span class="agree">a jaguar!</span></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 13 · ENDING THE LESSON (TB) — THE MEMORY GAME -->
+  <section class="slide">
+    <div class="eyebrow reveal">The memory game · books open → closed</div>
+    <h1 class="title reveal">Picture memory 🧠</h1>
+    <div class="accent-line reveal"></div>
+    <div class="steps reveal" style="max-width:860px;margin:0 auto;width:100%">
+      <div class="step"><span class="n">1</span><span>Look at the big picture — you have <b>2 minutes</b>! ⏱</span></div>
+      <div class="step"><span class="n">2</span><span><b>Books CLOSED!</b></span></div>
+      <div class="step"><span class="n">3</span><span>Answer from memory:</span></div>
+    </div>
+    <div class="col reveal" style="max-width:860px;margin:0 auto;width:100%;gap:.5em">
+      <div class="item"><span class="no">1</span><span>How many animals are in the trees?</span></div>
+      <div class="item"><span class="no">2</span><span>What colour is the frog?</span></div>
+      <div class="item"><span class="no">3</span><span>Where is the sloth — high or low?</span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 14 · HOMEWORK -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework · for Thursday</div>
+    <h1 class="title reveal">Homework 📌</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:900px;width:100%">
+      <div class="hw-step"><span class="n">1</span><p>✍️ <b>The new words</b> — written dictation on Thursday: <span class="en">beak · toucan · creeper · sloth · branch · anaconda · jaguar · anteater · beetle · pool · poisonous</span></p></div>
+      <div class="hw-step"><span class="n">2</span><p>📓 <b>WB p. 20</b> — the rainforest page: find the <b>countries</b> in the word search (they're the nine from SB p. 22!) · find <b>four more rainforest words</b> · write the words <b>in the correct columns</b>.</p></div>
+    </div>
+    <div class="center reveal"><div class="stamp-box big">rainforest explorers — great work today! 🌴</div></div>
+  </section>
+
+  <!-- SLIDE 15 · THE GOODBYE + THE BUTTON (the spare-time bonus lives behind it) -->
+  <section class="slide">
+    <div class="eyebrow reveal">The lesson is done · see you Thursday!</div>
+    <h1 class="title reveal">Well done! 🌴</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center reveal" style="display:flex;flex-direction:column;align-items:center;gap:1.2em;margin-top:2vh">
+      <button class="bonus-btn" onclick="go(15)">Big numbers — if time!</button>
+      <p class="hintline">Everything above was the lesson. This button hides Elena's spare-time treat —<br>three slides about BIG numbers. Tap it only if the clock is kind.</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 16 · BONUS 1 — HOW TO SAY BIG NUMBERS (TB LESSON TWO PRESENTATION) -->
+  <section class="slide" style="gap:.9vh">
+    <div class="eyebrow reveal">Spare time · big numbers · SB p. 23</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">How to SAY a big number 🔢</h1>
+    <div class="accent-line reveal"></div>
+    <button class="jump" onclick="go(14)">↩ back to the goodbye</button>
+    <div class="row reveal" style="justify-content:center;gap:.6em">
+      <span class="bookchip">100 = a hundred</span>
+      <span class="bookchip">1,000 = a thousand</span>
+      <span class="bookchip">1,000,000 = a million</span>
+    </div>
+    <p class="task reveal">Two rules: break the number at every comma · say <b>and</b> only after hundred!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="item" data-k><span class="no">500</span><span class="agree">five hundred</span></div>
+      <div class="item" data-k><span class="no">999</span><span class="agree">nine hundred and ninety-nine</span></div>
+      <div class="item" data-k><span class="no">25,000</span><span class="agree">twenty-five thousand</span></div>
+      <div class="item" data-k><span class="no">130,500</span><span class="agree">one hundred and thirty thousand, five hundred</span></div>
+      <div class="item" data-k><span class="no">250,000</span><span class="agree">two hundred and fifty thousand</span></div>
+    </div>
+    <p class="task reveal">Your turn: write a BIG number — give it to the other pair: they say it! <b>(also try 2,000 and 2,500)</b></p>
+  </section>
+
+  <!-- SLIDE 17 · BONUS 2 — THE AMAZON NUMBERS (SB p. 23 ex. 1) -->
+  <section class="slide" style="gap:.9vh">
+    <div class="eyebrow reveal">Spare time · big numbers · SB p. 23 · ex. 1</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">The Amazon in numbers 🌳</h1>
+    <div class="accent-line reveal"></div>
+    <button class="jump" onclick="go(14)">↩ back to the goodbye</button>
+    <div class="reveal"><span class="bookchip">Read about the Amazon rainforest in your book (p. 23) — match the numbers!</span></div>
+    <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">What does each number count? Say it — then click!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%;padding:clamp(.6rem,1.1vw,.95rem)">
+      <div class="item" data-k style="padding:.26em .2em"><span class="no">1</span><span>six thousand four hundred <span class="agree wrap">km of the river — 6,400 km!</span></span></div>
+      <div class="item" data-k style="padding:.26em .2em"><span class="no">2</span><span>two hundred and fifty thousand <span class="agree wrap">people live in the rainforest</span></span></div>
+      <div class="item" data-k style="padding:.26em .2em"><span class="no">3</span><span>forty thousand <span class="agree wrap">plants grow there</span></span></div>
+      <div class="item" data-k style="padding:.26em .2em"><span class="no">4</span><span>three thousand <span class="agree wrap">kinds of fruit</span></span></div>
+      <div class="item" data-k style="padding:.26em .2em"><span class="no">5</span><span>one thousand eight hundred <span class="agree wrap">kinds of butterflies</span></span></div>
+      <div class="item" data-k style="padding:.26em .2em"><span class="no">6</span><span>two hundred <span class="agree wrap">kinds of mosquitoes 🦟</span></span></div>
+    </div>
+    <p class="hintline reveal" style="text-align:center">Say every number aloud as you match — the <b>and</b> game!</p>
+  </section>
+
+  <!-- SLIDE 18 · BONUS 3 — NUMBER BINGO (THE TB EXTENSION) -->
+  <section class="slide">
+    <div class="eyebrow reveal">Spare time · big numbers · the game</div>
+    <h1 class="title reveal">NUMBER BINGO! 🎉</h1>
+    <div class="accent-line reveal"></div>
+    <button class="jump" onclick="go(14)">↩ back to the goodbye</button>
+    <div class="steps reveal" style="max-width:880px;margin:0 auto;width:100%">
+      <div class="step"><span class="n">1</span><span>Draw a <b>2 × 2 grid</b> in your notebook.</span></div>
+      <div class="step"><span class="n">2</span><span>Choose <b>FOUR</b> numbers from the board — one in each square.</span></div>
+      <div class="step"><span class="n">3</span><span>Listen! Cross out the numbers you hear. ❌</span></div>
+      <div class="step"><span class="n">4</span><span>All four crossed out — shout <b>"BINGO!"</b> — then SAY all four to win!</span></div>
+    </div>
+    <div class="bank reveal" style="max-width:980px;margin:.5em auto 0">
+      <span>500</span><span>999</span><span>25,000</span><span>130,500</span><span>250,000</span><span>6,400</span><span>3,000</span><span>1,800</span><span>200</span><span>2,500</span><span>40,000</span><span>1,000,000</span>
+    </div>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 18</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- 🙋 Pardon? pill — top LEFT (corners V2), emoji-only -->
+<button id="pardonBtn" title="Pardon? — class phrases (P)">🙋</button>
+<div id="pardon">
+  <span class="closer" onclick="togglePardon(false)">✕ close</span>
+  <p class="phead">🙋 Say it in English!</p>
+  <div class="pgrid">
+<div class="pcard"><span class="ico">🙋</span>Pardon?</div>
+<div class="pcard"><span class="ico">❓</span>What does <b>___</b> mean?</div>
+<div class="pcard"><span class="ico">🆘</span>Can you help me?</div>
+<div class="pcard"><span class="ico">🔁</span>Can you repeat, please?</div>
+<div class="pcard"><span class="ico">🇬🇧</span>How do you say <b>___</b> in English?</div>
+<div class="pcard"><span class="ico">🤷</span>I don't understand.</div>
+    </div>
+</div>
+
+<!-- presenter view shell (T / 🖥) -->
+<div id="pv">
+  <div class="head">
+    <b>SM 5.1 · U2 L1 — presenter</b>
+    <button id="pv-close">✕ close (T)</button>
+    <span class="cnt" id="pv-cnt">1 / 18</span>
+  </div>
+  <div class="panes">
+    <div class="pane"><span class="lbl">NOW — what the class sees</span><iframe id="pv-cur"></iframe></div>
+    <div class="pane"><span class="lbl">NEXT</span><iframe id="pv-next"></iframe></div>
+  </div>
+  <div class="notes" id="pv-notes">—</div>
+</div>
+
+<script>
+/* ============ core deck engine (the U2-L2 engine, 22.09 → upgraded) ============ */
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.querySelector('#bar i'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+
+/* every sync element gets a stable key; class to switch = data-on */
+const syncs=[...document.querySelectorAll('[data-k]')];
+syncs.forEach((el,k)=>{el.dataset.k=k;if(!el.dataset.on)el.dataset.on='shown'});
+function setSync(k,on){const el=syncs[k];if(!el)return;
+  if(el.classList.contains('yn')){el.classList.toggle('shown-yes',on&&el.dataset.on==='shown-yes');
+    el.classList.toggle('shown-no',on&&el.dataset.on==='shown-no');}
+  else el.classList.toggle(el.dataset.on,on);}
+
+const CH='sm5-u2-l1';
+const bc=('BroadcastChannel'in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get('embed')?'embed':(qs.get('presenter')?'presenter':'main');
+const open=new Set();
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==='hello'&&MODE==='main'){post({t:'state',i,open:[...open]});return}
+  if(m.t==='state'){if(MODE==='embed'){showEmbed(m.i)}applyOpen(m.open);if(MODE==='presenter')pvShow(m.i);return}
+  if(m.t==='go'){if(MODE==='embed')showEmbed(m.i);else{go(m.i,true)}applyOpen(m.open||[]);return}
+  if(m.t==='tap'){setSync(m.k,m.on);if(m.on)open.add(m.k);else open.delete(m.k);
+    if(MODE==='embed')post({t:'tap',k:m.k,on:m.on});}
+};
+function applyOpen(list){open.clear();(list||[]).forEach(k=>{open.add(k);setSync(k,true)})}
+function broadcastState(){post({t:'state',i,open:[...open]})}
+
+/* clicks on reveal elements — child answers first, click confirms */
+document.getElementById('deck').addEventListener('click',e=>{
+  const el=e.target.closest('[data-k]');if(!el)return;
+  const k=+el.dataset.k;
+  const nowOn=!el.classList.contains(el.dataset.on);
+  setSync(k,nowOn);if(nowOn)open.add(k);else open.delete(k);
+  post({t:'tap',k,on:nowOn});
+});
+
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(annoPanel&&annoPanel.classList.contains('on')){annoIdx=n;annoFill()}
+  if(!silent)post({t:'go',i,open:[...open]});
+  if(MODE==='presenter')pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+const fsBtn=document.getElementById('fs');
+if(fsBtn)fsBtn.onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* teacher's notes toggle (muted, small — click to unfold) */
+function tn(b){const n=b.nextElementSibling;n.classList.toggle('open');b.classList.toggle('on');b.blur();}
+
+/* 🙋 Pardon? overlay */
+function togglePardon(on){const p=document.getElementById('pardon');if(p)p.classList.toggle('open',on)}
+const pardonBtnEl=document.getElementById('pardonBtn');
+if(pardonBtnEl)pardonBtnEl.onclick=()=>togglePardon(!document.getElementById('pardon').classList.contains('open'));
+const pardonEl=document.getElementById('pardon');
+if(pardonEl)pardonEl.addEventListener('click',e=>{if(e.target.id==='pardon')togglePardon(false)});
+
+document.addEventListener('keydown',e=>{
+  /* ⌘S / Ctrl+S = save + close the ✍️ window — the ONE modifier combo the deck
+     owns, and only while the window is open; the browser save dialog never appears */
+  if((e.metaKey||e.ctrlKey)&&(e.key==='s'||e.key==='S')&&annoPanel&&annoPanel.classList.contains('on')){
+    e.preventDefault();annoDoneClose();return}
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){
+    const rep=document.getElementById('annoRep');
+    if(rep&&rep.classList.contains('on')){rep.classList.remove('on');return}
+    if(annoPanel&&annoPanel.classList.contains('on')){annoPanel.classList.remove('on');return}
+    togglePardon(false);return}
+  if(MODE==='embed')return;
+  /* AUDIO key-guard: SPACE pauses a playing track instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'){if(fsBtn)fsBtn.click();}
+  if(e.key==='t'||e.key==='T')togglePresenter();
+  if(e.key==='p'||e.key==='P'){togglePardon(!document.getElementById('pardon').classList.contains('open'));return}
+  if((e.key==='n'||e.key==='N'||e.key==='т'||e.key==='Т'||e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С')&&MODE==='main'&&annoPanel){
+    if(annoPanel.classList.contains('on'))annoDoneClose();
+    else annoToggle(true);
+    return}
+});
+/* the wheel never flips a scrolled slide — it scrolls it */
+let wt=0;document.addEventListener('wheel',e=>{if(MODE!=='main')return;
+  const sl=e.target.closest('.slide');if(sl&&sl.classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(MODE!=='main')return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ presenter view (T / 🖥) ============ */
+const pv=document.getElementById('pv');
+function togglePresenter(){
+  if(MODE==='embed')return;
+  if(!pv)return; /* the screen-only copy carries no presenter view */
+  if(MODE==='presenter'){window.close();return}
+  window.open(location.pathname+'?presenter=1','sm5-pv-l1','width=1180,height=820');
+}
+const pvtBtn=document.getElementById('pvt');
+if(pvtBtn)pvtBtn.onclick=togglePresenter;
+const pvCloseBtn=document.getElementById('pv-close');
+if(pvCloseBtn)pvCloseBtn.onclick=()=>window.close();
+const pvCur=document.getElementById('pv-cur'),pvNext=document.getElementById('pv-next'),
+pvNotes=document.getElementById('pv-notes'),pvCnt=document.getElementById('pv-cnt');
+if(MODE==='presenter'&&pv){
+  document.body.classList.add('presenter');
+  pvCur.src=location.pathname+'?embed=cur';pvNext.src=location.pathname+'?embed=next';
+}
+function pvShow(n){
+  if(MODE!=='presenter'||!pv)return;
+  pvCnt.textContent=(n+1)+' / '+slides.length;
+  pvNotes.innerHTML='';
+  const tnEl=slides[n].querySelector('.tnotes');
+  const note=tnEl?tnEl.textContent:slides[n].dataset.notes;
+  if(note){const p=document.createElement('p');p.textContent=note;pvNotes.appendChild(p)}
+  const nx=slides[n+1];
+  const nxTn=nx&&nx.querySelector('.tnotes');
+  const nxt=nx?(nxTn?nxTn.textContent:nx.dataset.notes):null;
+  if(nxt){const h=document.createElement('p');h.innerHTML='<b>next →</b> ';h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+/* embed panes: mirror the authoritative index, no chrome, no wheel-nav */
+let embedSlot=qs.get('embed');
+function showEmbed(n){
+  const target=embedSlot==='next'?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==='next')document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle('active',k===target);s.classList.remove('prev')});
+}
+
+/* ============ ✍️ V2 lesson log — the d: · //: column + the 3-line free
+   space + fix:, ⌘S = save + close; the live report AUTO-SENDS to the Mac
+   inbox over http (POST /report); on the iPad 📋 copy is the way ============ */
+const annoPanel=document.getElementById('anno'),annoSlideEl=document.getElementById('annoSlide'),
+annoFields=annoPanel?{
+  d:document.getElementById('annoD'),sl:document.getElementById('annoSL'),
+  free:document.getElementById('annoF'),fx:document.getElementById('annoFX')}:null,
+annoTick=document.getElementById('annoTick'),
+annoHint=document.getElementById('annoHint'),annoSent=document.getElementById('annoSent');
+const CAN_SEND=(location.protocol==='http:'&&MODE==='main');
+let annoIdx=i,annoData={};
+try{annoData=JSON.parse(localStorage.getItem(CH+'-anno-v2')||'{}')}catch(e){annoData={}}
+function annoSave(){try{localStorage.setItem(CH+'-anno-v2',JSON.stringify(annoData))}catch(e){}
+  annoSend()}
+function annoFill(){if(!annoPanel)return;const a=annoData[annoIdx+1]||{};
+  annoSlideEl.textContent='slide '+(annoIdx+1)+' / '+slides.length;
+  annoFields.d.value=a.d||'';annoFields.sl.value=a.sl||'';annoFields.free.value=a.free||'';annoFields.fx.value=a.fx||'';
+  annoTick.classList.toggle('on',!!a.t)}
+function annoToggle(open){if(!annoPanel)return;annoPanel.classList.toggle('on',open);
+  if(open){annoIdx=i;annoFill();
+    const firstEmpty=Object.values(annoFields).find(f=>!f.value)||annoFields.d;
+    firstEmpty.focus()}
+  else document.activeElement&&document.activeElement.blur()}
+function annoSet(k,f){const a=annoData[k]||{};f(a);
+  if(!a.t&&!a.d&&!a.sl&&!a.free&&!a.fx)delete annoData[k];else annoData[k]=a;annoSave()}
+function annoDoneClose(){annoSave();
+  if(annoHint){annoHint.textContent='saved ✓';
+    setTimeout(()=>annoHint.textContent=CAN_SEND
+      ?'auto-sends to the Mac · they see the screen while you type'
+      :'saves on this device · they see the screen while you type',1400)}
+  annoToggle(false)}
+function annoReportText(){let out=CH+' · lesson notes · '+new Date().toLocaleString('en-GB')+'\n';
+  let any=false;
+  slides.forEach((s,k)=>{const a=annoData[k+1];if(!a)return;
+    const rows=[];
+    if(a.d)rows.push('d: '+a.d);
+    if(a.sl)rows.push('//: '+a.sl);
+    if(a.free)rows.push(a.free);
+    if(a.fx)rows.push(('fix: '+a.fx).replace(/\n/g,'\n   '));
+    if(!a.t&&!rows.length)return;any=true;
+    out+=(k+1)+(a.t?' ✓':'')+'\n'+rows.map(r=>'   '+r).join('\n')+'\n'});
+  if(!any)out+='(nothing ticked or noted yet)';
+  return out}
+let annoTimer=null;
+function annoSend(){if(!CAN_SEND)return;
+  clearTimeout(annoTimer);
+  annoTimer=setTimeout(()=>{
+    fetch('/report?deck='+encodeURIComponent(CH),{method:'POST',body:annoReportText()})
+      .then(()=>{if(annoSent)annoSent.textContent='auto-sent to the Mac ✓'})
+      .catch(()=>{if(annoSent)annoSent.textContent='not sent — use 📋 copy'})
+  },1200)}
+if(annoHint)annoHint.textContent=CAN_SEND
+  ?'auto-sends to the Mac · they see the screen while you type'
+  :'saves on this device · they see the screen while you type';
+if(MODE==='main'&&annoPanel){
+  document.getElementById('annoBtn').onclick=()=>annoToggle(!annoPanel.classList.contains('on'));
+  document.getElementById('annoPrev').onclick=()=>{annoIdx=Math.max(0,annoIdx-1);annoFill()};
+  document.getElementById('annoNext').onclick=()=>{annoIdx=Math.min(slides.length-1,annoIdx+1);annoFill()};
+  document.getElementById('annoX').onclick=()=>annoToggle(false);
+  annoTick.onclick=()=>{annoSet(annoIdx+1,a=>a.t=a.t?0:1);annoFill()};
+  Object.entries(annoFields).forEach(([key,f])=>
+    f.addEventListener('input',()=>annoSet(annoIdx+1,a=>a[key]=f.value)));
+  document.getElementById('annoDone').onclick=annoDoneClose;
+  const rep=document.getElementById('annoRep'),repText=document.getElementById('annoRepText');
+  document.getElementById('annoCopy').onclick=()=>{
+    repText.value=annoReportText();rep.classList.add('on')};
+  document.getElementById('annoRepClose').onclick=()=>rep.classList.remove('on');
+  rep.addEventListener('click',e=>{if(e.target===rep)rep.classList.remove('on')});
+  document.getElementById('annoRepCopy').onclick=()=>{
+    repText.select();
+    try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(repText.value);
+    else document.execCommand('copy')}catch(e){}
+    const b=document.getElementById('annoRepCopy');b.textContent='copied ✓';
+    setTimeout(()=>b.textContent='copy',1200)};
+  document.getElementById('annoRepClear').onclick=()=>{
+    if(confirm('Delete all ticks and comments?')){annoData={};
+      try{localStorage.removeItem(CH+'-anno-v2')}catch(e){}
+      annoSave();annoFill();rep.classList.remove('on')}};
+}
+
+/* boot: hash → slide; main announces state, others say hello and catch up.
+   Only main may broadcast state — an embed/presenter never overrides it. */
+const h=parseInt(location.hash.slice(1));
+if(MODE==='main'){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true);broadcastState()}
+else post({t:'hello'});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=='main')return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();}catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
