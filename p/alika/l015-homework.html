@@ -161,6 +161,8 @@ p{font-size:clamp(1rem,1.8vw,1.25rem);line-height:1.55}
     <h2>⌨️ 6 · Печатаем — F и J!</h2>
     <p>Поиграй в игру про буквы <b>F</b> и <b>J</b> — пальчики ищут бугорки! 5 минут, не больше 😉</p>
     <a class="biglink" href="https://elena777-code.github.io/decks/p/alika/touch-typing-01-fj.html">▶ Играть: Touch typing · F J</a>
+    <p class="hintline">⚠️ Если игра не открывается или буквы не печатаются — <b>скопируй ссылку</b> и вставь её в браузер (лучше Safari)!</p>
+    <button class="toggle" id="copy-typing">📋 Скопировать ссылку на игру</button>
     <div class="chips"><button class="dchip" data-k="typing">Поиграла! <span class="fly">sent ✓</span></button></div>
   </div>
 
@@ -218,6 +220,22 @@ p{font-size:clamp(1rem,1.8vw,1.25rem);line-height:1.55}
   /* --- the dictation prep cards --- */
   document.querySelectorAll('.wcard').forEach(function(w){
     w.addEventListener('click',function(){ w.classList.toggle('shown'); });
+  });
+
+  /* --- the typing copy-the-link rescue --- */
+  var TYPING_URL='https://elena777-code.github.io/decks/p/alika/touch-typing-01-fj.html';
+  var copyBtn=document.getElementById('copy-typing');
+  if(copyBtn) copyBtn.addEventListener('click',function(){
+    var done=function(){ copyBtn.textContent='Скопировано ✓ — вставь в браузер!'; setTimeout(function(){ copyBtn.textContent='📋 Скопировать ссылку на игру'; },4000); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(TYPING_URL).then(done,function(){ fallback(); });
+    }else{ fallback(); }
+    function fallback(){
+      var ta=document.createElement('textarea'); ta.value=TYPING_URL;
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); done(); }catch(e){ copyBtn.textContent=TYPING_URL; }
+      ta.remove();
+    }
   });
 
   /* --- the video rule toggle --- */
