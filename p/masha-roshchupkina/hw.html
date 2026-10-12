@@ -757,25 +757,25 @@ var POOL_MT=[
    without a time»). Items A–G = the HSE task's own stems; 8–10 = new
    words, same rules (THE NEW WORDS SAME RULES). No clock. */
 var POOL_WF=[
- {q:'international → «…to travel <span class="gap">______</span>» <span class="base">(adverb)</span>',
-  key:["internationally"],label:"A · international → adverb",type:"type"},
- {q:'wide → «the most <span class="gap">______</span> spoken language» <span class="base">(adverb)</span>',
-  key:["widely"],label:"B · wide → adverb",type:"type"},
- {q:'communicate → «the global language of <span class="gap">______</span>» <span class="base">(noun)</span>',
-  key:["communication"],label:"C · communicate → noun",type:"type"},
- {q:'science → «<span class="gap">______</span> research findings» <span class="base">(adjective)</span>',
-  key:["scientific"],label:"D · science → adjective",type:"type"},
- {q:'translate → «available in English <span class="gap">______</span>» <span class="base">(noun)</span>',
-  key:["translation"],label:"E · translate → noun",type:"type"},
- {q:'differ → «explore <span class="gap">______</span> cultures» <span class="base">(adjective)</span>',
-  key:["different"],label:"F · differ → adjective",type:"type"},
- {q:'speak → «enhances <span class="gap">______</span> abilities» <span class="base">(the skill)</span>',
-  key:["speaking"],label:"G · speak → the skill",type:"type"},
- {q:'educate → «a good <span class="gap">______</span> opens doors» <span class="base">(noun)</span>',
+ {q:'This festival is <span class="gap">______</span> known — people come from fifty countries. <span class="base">(INTERNATIONAL)</span>',
+  key:["internationally"],label:"international → adverb",type:"type"},
+ {q:'English is <span class="gap">______</span> spoken in airports and hotels. <span class="base">(WIDE)</span>',
+  key:["widely"],label:"wide → adverb",type:"type"},
+ {q:'Good <span class="gap">______</span> makes a team strong. <span class="base">(COMMUNICATE)</span>',
+  key:["communication"],label:"communicate → noun",type:"type"},
+ {q:'The lab published a <span class="gap">______</span> report about the ocean. <span class="base">(SCIENCE)</span>',
+  key:["scientific"],label:"science → adjective",type:"type"},
+ {q:'The <span class="gap">______</span> of this book took two years. <span class="base">(TRANSLATE)</span>',
+  key:["translation"],label:"translate → noun",type:"type"},
+ {q:'My school is <span class="gap">______</span> from yours — we wear uniforms. <span class="base">(DIFFER)</span>',
+  key:["different"],label:"differ → adjective",type:"type"},
+ {q:'Listening, reading, writing and <span class="gap">______</span> — the four language skills. <span class="base">(SPEAK)</span>',
+  key:["speaking"],label:"speak → the skill",type:"type"},
+ {q:'A good <span class="gap">______</span> opens many doors. <span class="base">(EDUCATE)</span>',
   key:["education"],label:"new word · educate → noun",type:"type"},
- {q:'create → «a <span class="gap">______</span> solution to the problem» <span class="base">(adjective)</span>',
+ {q:'Come up with a <span class="gap">______</span> solution to the problem. <span class="base">(CREATE)</span>',
   key:["creative"],label:"new word · create → adjective",type:"type"},
- {q:'mix → «a <span class="gap">______</span> of cultures in one city» <span class="base">(noun)</span>',
+ {q:'The city is a <span class="gap">______</span> of old and new. <span class="base">(MIX)</span>',
   key:["mixture"],label:"new word · mix → noun",type:"type"}
 ];
 
@@ -1111,40 +1111,40 @@ try{
    practice that was skipped for time). ---------- */
 (function(){
   var ROUND1=[
-   {q:"…to travel ______",base:"international → (adverb)",a:"internationally",
-    ex:"The adjective + -ly makes the adverb: international → internationally."},
-   {q:"the most ______ spoken language",base:"wide → (adverb)",a:"widely",
-    ex:"Just add -ly: wide → widely. No letters fall out."},
-   {q:"the global language of ______",base:"communicate → (noun)",a:"communication",
+   {q:"This festival is ______ known — people come from fifty countries.",base:"INTERNATIONAL",a:"internationally",
+    ex:"The adjective + -ly makes the adverb: international → internationally known."},
+   {q:"English is ______ spoken in airports and hotels.",base:"WIDE",a:"widely",
+    ex:"Just add -ly: wide → widely spoken. No letters fall out."},
+   {q:"Good ______ makes a team strong.",base:"COMMUNICATE",a:"communication",
     ex:"The verb -ate becomes -ation for the noun: communicate → communication."},
-   {q:"______ research findings",base:"science → (adjective)",a:"scientific",
-    ex:"A special one: science loses -ce and takes -tific: science → scientific."},
-   {q:"available in English ______",base:"translate → (noun)",a:"translation",
+   {q:"The lab published a ______ report about the ocean.",base:"SCIENCE",a:"scientific",
+    ex:"A special one: science loses -ce and takes -tific: science → scientific report."},
+   {q:"The ______ of this book took two years.",base:"TRANSLATE",a:"translation",
     ex:"Like communicate: translate → translation (-ate → -ation)."},
-   {q:"explore ______ cultures",base:"differ → (adjective)",a:"different",
-    ex:"The verb + -ent makes the adjective: differ → different."},
-   {q:"enhances ______ abilities",base:"speak → (the skill)",a:"speaking",
+   {q:"My school is ______ from yours — we wear uniforms.",base:"DIFFER",a:"different",
+    ex:"The verb + -ent makes the adjective: differ → different from."},
+   {q:"Listening, reading, writing and ______ — the four language skills.",base:"SPEAK",a:"speaking",
     ex:"The skill is the -ing form: speak → speaking."}
   ];
   var REMAKES={
-   "internationally":{q:"It is an ______ known fact",base:"international → (adverb)"},
-   "widely":{q:"The app is ______ used in schools",base:"wide → (adverb)"},
-   "communication":{q:"Good ______ is the key to teamwork",base:"communicate → (noun)"},
-   "scientific":{q:"She loves ______ experiments",base:"science → (adjective)"},
-   "translation":{q:"The book's ______ took two years",base:"translate → (noun)"},
-   "different":{q:"Their opinions are ______ from ours",base:"differ → (adjective)"},
-   "speaking":{q:"Her ______ improved after the course",base:"speak → (the skill)"}
+   "internationally":{q:"The singer is ______ famous — her videos have millions of views.",base:"INTERNATIONAL"},
+   "widely":{q:"Mobile pay is ______ used in big cities.",base:"WIDE"},
+   "communication":{q:"The ______ between teachers and parents really matters.",base:"COMMUNICATE"},
+   "scientific":{q:"She explained her idea with ______ facts.",base:"SCIENCE"},
+   "translation":{q:"I read the poem in ______ — my Russian is stronger.",base:"TRANSLATE"},
+   "different":{q:"The results this year were ______ from last year's.",base:"DIFFER"},
+   "speaking":{q:"Public ______ is a skill for life.",base:"SPEAK"}
   };
   var NEWWORDS=[
-   {q:"a good ______ opens doors",base:"educate → (noun)",a:"education",
+   {q:"A good ______ opens many doors.",base:"EDUCATE",a:"education",
     ex:"educate → education (-ate → -ation again)."},
-   {q:"a ______ solution to the problem",base:"create → (adjective)",a:"creative",
+   {q:"Come up with a ______ solution to the problem.",base:"CREATE",a:"creative",
     ex:"create → creative (-e drops, -ive joins)."},
-   {q:"a ______ of styles in one street",base:"mix → (noun)",a:"mixture",
+   {q:"The city is a ______ of old and new.",base:"MIX",a:"mixture",
     ex:"mix → mixture (-ture for the noun)."},
-   {q:"a ______ app for learning words",base:"use → (adjective)",a:"useful",
+   {q:"This app is ______ for learning words.",base:"USE",a:"useful",
     ex:"use → useful (-ful = full of use)."},
-   {q:"a ______ driver checks the mirrors twice",base:"care → (adjective)",a:"careful",
+   {q:"A ______ driver checks the mirrors twice.",base:"CARE",a:"careful",
     ex:"care → careful (-ful again)."}
   ];
   var NEWIDX=0;
