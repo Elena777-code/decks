@@ -635,28 +635,37 @@ var POOL_GR=[
   choices:["flying","to fly","fly"],key:["flying"],label:"afraid of + -ing",type:"choice"}
 ];
 
-/* R2 · Passive sprint — timed. The U8 win stays warm; the found/founded twin lives here too */
+/* R2 · Passive sprint — timed. THE PASSIVE RULE (Elena, 12.10, for
+   everyone): the FULL form must be typed (was written — be + participle),
+   the verb to be NEVER shows in the sentence, and the tense comes from a
+   hint instead: every day → is/are, yesterday/in 1990 → was/were, or a
+   harder when-clause. Two clause-hint items included. The found/founded
+   twin (active, no be) stays. */
 var POOL_PASSIVE=[
- {q:'These cars are <span class="gap">______</span> in Japan. <span class="base">(MAKE)</span>',
-  key:["made"],label:"are ___ (MAKE)"},
- {q:'My phone was <span class="gap">______</span> last month. <span class="base">(STEAL)</span>',
-  key:["stolen"],label:"was ___ (STEAL)"},
- {q:'English is <span class="gap">______</span> here. <span class="base">(SPEAK)</span>',
-  key:["spoken"],label:"is ___ (SPEAK)"},
- {q:'The school was <span class="gap">______</span> in 1990. <span class="base">(BUILD)</span>',
-  key:["built"],label:"was ___ (BUILD)"},
- {q:'Harry Potter was <span class="gap">______</span> by J.K. Rowling. <span class="base">(WRITE)</span>',
-  key:["written"],label:"was ___ (WRITE)"},
- {q:'Pizza is <span class="gap">______</span> all over the world. <span class="base">(EAT)</span>',
-  key:["eaten"],label:"is ___ (EAT)"},
+ {q:'These cars <span class="gap">______</span> in Japan every day. <span class="base">(MAKE)</span>',
+  key:["are made"],label:"passive · every day (MAKE)"},
+ {q:'My phone <span class="gap">______</span> last month. <span class="base">(STEAL)</span>',
+  key:["was stolen"],label:"passive · last month (STEAL)"},
+ {q:'English <span class="gap">______</span> here every day. <span class="base">(SPEAK)</span>',
+  key:["is spoken"],label:"passive · every day (SPEAK)"},
+ {q:'The school <span class="gap">______</span> in 1990. <span class="base">(BUILD)</span>',
+  key:["was built"],label:"passive · in 1990 (BUILD)"},
+ {q:'Harry Potter <span class="gap">______</span> by J.K. Rowling in the 1990s. <span class="base">(WRITE)</span>',
+  key:["was written"],label:"passive · the 1990s (WRITE)"},
+ {q:'Pizza <span class="gap">______</span> all over the world every day. <span class="base">(EAT)</span>',
+  key:["is eaten"],label:"passive · every day (EAT)"},
  {q:'I <span class="gap">______</span> my keys yesterday. <span class="base">(FIND — no passive here!)</span>',
   key:["found"],label:"the twin: I ___ my keys"},
- {q:'The homework is <span class="gap">______</span> every day. <span class="base">(CHECK)</span>',
-  key:["checked"],label:"is ___ (CHECK)"},
- {q:'America was <span class="gap">______</span> in 1492. <span class="base">(DISCOVER)</span>',
-  key:["discovered"],label:"was ___ (DISCOVER)"},
- {q:'The thief was <span class="gap">______</span> by the police. <span class="base">(CATCH)</span>',
-  key:["caught"],label:"was ___ (CATCH)"}
+ {q:'The homework <span class="gap">______</span> every day. <span class="base">(CHECK)</span>',
+  key:["is checked"],label:"passive · every day (CHECK)"},
+ {q:'America <span class="gap">______</span> in 1492. <span class="base">(DISCOVER)</span>',
+  key:["was discovered"],label:"passive · in 1492 (DISCOVER)"},
+ {q:'The thief <span class="gap">______</span> by the police last night. <span class="base">(CATCH)</span>',
+  key:["was caught"],label:"passive · last night (CATCH)"},
+ {q:'Dan <span class="gap">______</span> extra maths when he texted in class. <span class="base">(GIVE)</span>',
+  key:["was given"],label:"passive · when-clause (GIVE)"},
+ {q:'The emails <span class="gap">______</span> every morning while the office is quiet. <span class="base">(SEND)</span>',
+  key:["are sent"],label:"passive · while-clause (SEND)"}
 ];
 
 /* R3 · Exam reflex — the HSE tracker items */
