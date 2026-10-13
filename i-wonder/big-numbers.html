@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- big numbers 10¹⁰⁰ · SITE COPY · v9 (the screen the lesson shares) · build 13.10 · the real video lives here by Elena's order 13.10 («I want the video with money, please») · the full deck with teacher notes stays in the AI repo >
+<!-- big numbers 10¹⁰⁰ · SITE COPY · v10 (the screen the lesson shares) · build 13.10 · the real video lives here by Elena's order 13.10 («I want the video with money, please») · the full deck with teacher notes stays in the AI repo >
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -123,16 +123,22 @@
   .opt.ok::after{content:" ✓"}
   .opt.shake{animation:shake .35s}
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
-  /* v9 · the seven-question game ladder */
-  .game7{width:min(960px,100%); display:flex; flex-direction:column; gap:8px}
-  .gq{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
-    background:var(--card); border:2px solid #0002; border-radius:12px; padding:8px 14px}
-  .gq .gnum{font-family:Georgia,serif; font-size:17px; text-align:left; color:var(--ink)}
+  /* v10 · the games — ONE question at a time (Elena's pair-deck pattern) */
+  .game7{width:min(880px,100%); display:flex; flex-direction:column; align-items:center; gap:20px}
+  .gprog{font-size:15px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); font-weight:700}
+  .gq{display:none; flex-direction:column; align-items:center; gap:26px}
+  .gq.on{display:flex; animation:gfade .18s ease}
+  .gq.answered .gopts{pointer-events:none}
+  @keyframes gfade{from{opacity:0}to{opacity:1}}
+  .gq .gnum{font-family:Georgia,serif; font-size:clamp(30px,4.5vw,46px); line-height:1.15; text-align:center; color:#FDF6E3}
   .gq .gnum b{color:var(--acc)}
-  .gopts{display:flex; gap:8px; flex-shrink:0; margin-left:auto}
-  .gopts .opt{font-size:15.5px; padding:7px 14px; border-radius:10px; box-shadow:0 3px 0 #0002}
-  .gopts .opt.ok{box-shadow:0 3px 0 var(--good)}
-  .gopts .opt.word{font-size:16px}
+  .gopts{display:flex; gap:16px; justify-content:center; flex-wrap:wrap}
+  .gopts .opt.word{font-family:Georgia,serif; font-size:25px}
+  .gdone{display:none; text-align:center; padding-top:6px}
+  .gdone.on{display:block; animation:gfade .18s ease}
+  .gpraise{font-family:Georgia,serif; font-size:30px; color:#FDF6E3; margin-bottom:16px}
+  .greplay{font-size:17px; font-weight:700; padding:11px 24px; border-radius:12px; cursor:pointer;
+    background:var(--card); border:2px solid #0002; color:var(--ink); box-shadow:0 4px 0 #0002}
   /* v9 · slide 7 compacted so all three drills fit one screen */
   #s7{gap:10px}
   #s7 h1{font-size:44px}
@@ -777,11 +783,12 @@ Worked examples (Elena's own): 3.5 billion = 3.5 × 10⁹, because a billion car
 </section>
 
 <!-- ───────────────────────── 22 · TASK 1 ───────────────────────── -->
-<section class="slide" id="s22" style="--acc:#F4845F" data-notes="Game 1 — name the giant, seven rungs. Read each number aloud together first (one — thousand — million …), then tap the word. Keys: 1 MILLION · 2 BILLION · 3 TRILLION · 4 QUADRILLION · 5 QUINTILLION · 6 SEXTILLION · 7 SEPTILLION. Wrong taps shake, the right one locks green. The ladder grows one 000-chip per row — let them feel the pattern.">
+<section class="slide" id="s22" style="--acc:#F4845F" data-notes="Game 1 — name the giant, ONE question at a time (Elena's pair-deck pattern, 13.10). Read the number aloud together, then tap the word. Keys in order: MILLION · BILLION · TRILLION · QUADRILLION · QUINTILLION · SEXTILLION · SEPTILLION. Right locks green and the next number comes in on its own; two misses show the answer and move on; ✓ 7 / 7 + play again. The ladder grows one 000-chip per row — let them feel the pattern.">
   <div class="kicker">💫 game 1 · name the giant</div>
   <h1>Which word is this?</h1>
   <div class="game7">
-    <div class="gq"><span class="gnum">1 000 000</span>
+    <span class="gprog">1 / 7</span>
+    <div class="gq on"><span class="gnum">1 000 000</span>
       <span class="gopts"><button class="opt word" data-ok="1">million</button><button class="opt word" data-ok="0">billion</button><button class="opt word" data-ok="0">trillion</button></span></div>
     <div class="gq"><span class="gnum">1 000 000 000</span>
       <span class="gopts"><button class="opt word" data-ok="0">million</button><button class="opt word" data-ok="1">billion</button><button class="opt word" data-ok="0">trillion</button></span></div>
@@ -795,15 +802,17 @@ Worked examples (Elena's own): 3.5 billion = 3.5 × 10⁹, because a billion car
       <span class="gopts"><button class="opt word" data-ok="0">quintillion</button><button class="opt word" data-ok="1">sextillion</button><button class="opt word" data-ok="0">septillion</button></span></div>
     <div class="gq"><span class="gnum">1 000 000 000 000 000 000 000 000</span>
       <span class="gopts"><button class="opt word" data-ok="1">septillion</button><button class="opt word" data-ok="0">sextillion</button><button class="opt word" data-ok="0">octillion</button></span></div>
+    <div class="gdone"><div class="gpraise">🎉 seven giants named!</div><button class="greplay">↺ play again</button></div>
   </div>
 </section>
 
 <!-- ───────────────────────── 23 · TASK 2 ───────────────────────── -->
-<section class="slide" id="s23" style="--acc:#A8C256" data-notes="Game 2 — the machine check, seven recipes (shuffled, not ladder order). Let them run the recipe aloud every time: number + 1, then chips of three. Keys: oct (8+1)×3 = 27 · tri (3+1)×3 = 12 · dec (10+1)×3 = 33 · quint (5+1)×3 = 18 · sept (7+1)×3 = 24 · quad (4+1)×3 = 15 · non (9+1)×3 = 30. Wrong taps shake, the right one locks green.">
+<section class="slide" id="s23" style="--acc:#A8C256" data-notes="Game 2 — the machine check, seven recipes (shuffled, not ladder order), ONE at a time. Let them run the recipe aloud every time: number + 1, then chips of three. Keys: oct (8+1)×3 = 27 · tri (3+1)×3 = 12 · dec (10+1)×3 = 33 · quint (5+1)×3 = 18 · sept (7+1)×3 = 24 · quad (4+1)×3 = 15 · non (9+1)×3 = 30. Right locks green and the next recipe comes in; two misses show the answer and move on.">
   <div class="kicker">⚙️ game 2 · the machine check</div>
   <h1>Use the recipe!</h1>
   <div class="game7">
-    <div class="gq"><span class="gnum"><b>oct</b> = 8 … so <b>octillion</b> has how many zeros?</span>
+    <span class="gprog">1 / 7</span>
+    <div class="gq on"><span class="gnum"><b>oct</b> = 8 … so <b>octillion</b> has how many zeros?</span>
       <span class="gopts"><button class="opt" data-ok="0">21</button><button class="opt" data-ok="0">24</button><button class="opt" data-ok="1">27</button></span></div>
     <div class="gq"><span class="gnum"><b>tri</b> = 3 … so <b>trillion</b> has how many zeros?</span>
       <span class="gopts"><button class="opt" data-ok="1">12</button><button class="opt" data-ok="0">15</button><button class="opt" data-ok="0">18</button></span></div>
@@ -817,28 +826,31 @@ Worked examples (Elena's own): 3.5 billion = 3.5 × 10⁹, because a billion car
       <span class="gopts"><button class="opt" data-ok="0">9</button><button class="opt" data-ok="1">15</button><button class="opt" data-ok="0">18</button></span></div>
     <div class="gq"><span class="gnum"><b>non</b> = 9 … so <b>nonillion</b> has how many zeros?</span>
       <span class="gopts"><button class="opt" data-ok="0">27</button><button class="opt" data-ok="1">30</button><button class="opt" data-ok="0">33</button></span></div>
+    <div class="gdone"><div class="gpraise">🎉 the machine is yours!</div><button class="greplay">↺ play again</button></div>
   </div>
 </section>
 
 <!-- ───────────────────────── 24 · TASK 3 ───────────────────────── -->
-<section class="slide" id="s24" style="--acc:#4895EF" data-notes="Game 3 — powers, seven short writes. If hesitation — send them back to the recipe card (slide 5/19), not to the answer. Keys: 5 million = 5×10⁶ · 2 billion = 2×10⁹ · 4 trillion = 4×10¹² · 1.5 quadrillion = 1.5×10¹⁵ · 3 quintillion = 3×10¹⁸ · 2.5 sextillion = 2.5×10²¹ · 7 septillion = 7×10²⁴. Wrong taps shake, the right one locks green.">
+<section class="slide" id="s24" style="--acc:#4895EF" data-notes="Game 3 — powers, seven short writes, ONE at a time. If hesitation — send them back to the recipe card (slide 5/19), not to the answer. Keys: 5 million = 5×10⁶ · 2 billion = 2×10⁹ · 4 trillion = 4×10¹² · 1.5 quadrillion = 1.5×10¹⁵ · 3 quintillion = 3×10¹⁸ · 2.5 sextillion = 2.5×10²¹ · 7 septillion = 7×10²⁴. Right locks green and the next number comes in; two misses show the answer and move on.">
   <div class="kicker">✍️ game 3 · write it short</div>
   <h1>What goes up high?</h1>
   <div class="game7">
-    <div class="gq"><span class="gnum"><b>5 million</b> = 5 × 10<sup style="font-size:19px">?</sup></span>
+    <span class="gprog">1 / 7</span>
+    <div class="gq on"><span class="gnum"><b>5 million</b> = 5 × 10<sup style="font-size:24px">?</sup></span>
       <span class="gopts"><button class="opt" data-ok="1">6</button><button class="opt" data-ok="0">9</button><button class="opt" data-ok="0">12</button></span></div>
-    <div class="gq"><span class="gnum"><b>2 billion</b> = 2 × 10<sup style="font-size:19px">?</sup></span>
+    <div class="gq"><span class="gnum"><b>2 billion</b> = 2 × 10<sup style="font-size:24px">?</sup></span>
       <span class="gopts"><button class="opt" data-ok="0">6</button><button class="opt" data-ok="1">9</button><button class="opt" data-ok="0">12</button></span></div>
-    <div class="gq"><span class="gnum"><b>4 trillion</b> = 4 × 10<sup style="font-size:19px">?</sup></span>
+    <div class="gq"><span class="gnum"><b>4 trillion</b> = 4 × 10<sup style="font-size:24px">?</sup></span>
       <span class="gopts"><button class="opt" data-ok="0">6</button><button class="opt" data-ok="0">9</button><button class="opt" data-ok="1">12</button></span></div>
-    <div class="gq"><span class="gnum"><b>1.5 quadrillion</b> = 1.5 × 10<sup style="font-size:19px">?</sup></span>
+    <div class="gq"><span class="gnum"><b>1.5 quadrillion</b> = 1.5 × 10<sup style="font-size:24px">?</sup></span>
       <span class="gopts"><button class="opt" data-ok="0">12</button><button class="opt" data-ok="1">15</button><button class="opt" data-ok="0">21</button></span></div>
-    <div class="gq"><span class="gnum"><b>3 quintillion</b> = 3 × 10<sup style="font-size:19px">?</sup></span>
+    <div class="gq"><span class="gnum"><b>3 quintillion</b> = 3 × 10<sup style="font-size:24px">?</sup></span>
       <span class="gopts"><button class="opt" data-ok="0">15</button><button class="opt" data-ok="1">18</button><button class="opt" data-ok="0">24</button></span></div>
-    <div class="gq"><span class="gnum"><b>2.5 sextillion</b> = 2.5 × 10<sup style="font-size:19px">?</sup></span>
+    <div class="gq"><span class="gnum"><b>2.5 sextillion</b> = 2.5 × 10<sup style="font-size:24px">?</sup></span>
       <span class="gopts"><button class="opt" data-ok="0">15</button><button class="opt" data-ok="0">18</button><button class="opt" data-ok="1">21</button></span></div>
-    <div class="gq"><span class="gnum"><b>7 septillion</b> = 7 × 10<sup style="font-size:19px">?</sup></span>
+    <div class="gq"><span class="gnum"><b>7 septillion</b> = 7 × 10<sup style="font-size:24px">?</sup></span>
       <span class="gopts"><button class="opt" data-ok="0">21</button><button class="opt" data-ok="1">24</button><button class="opt" data-ok="0">27</button></span></div>
+    <div class="gdone"><div class="gpraise">🎉 seven numbers, written short!</div><button class="greplay">↺ play again</button></div>
   </div>
 </section>
 
@@ -960,20 +972,58 @@ If opened directly (no lesson behind): just close the tab.">
     b.setAttribute('data-face', b.textContent === '▴ hide the secret' ? '🪄 the secret of the word' : b.textContent);
   });
 
-  /* task options: right locks green, wrong shakes */
-  Array.prototype.forEach.call(document.querySelectorAll('.opts .opt, .gopts .opt'), function(b){
-    b.onclick = function(){
-      if(b.dataset.ok === '1'){
-        b.classList.add('ok');
-        var r2 = b.closest('.slide').querySelector('.round2');
-        if(r2 && !r2.classList.contains('show')){ r2.classList.add('show');
-          var ra = b.closest('.slide').querySelectorAll('.round-a');
-          Array.prototype.forEach.call(ra, function(x){x.style.display='none'});
+  /* v10 · the games — one question at a time (Elena's pair-deck pattern):
+     right locks green and the next question comes in on its own;
+     two misses show the right chip and move on; ✓ 7 / 7 + play again */
+  Array.prototype.forEach.call(document.querySelectorAll('.game7'), function(game){
+    var rows = Array.prototype.slice.call(game.querySelectorAll('.gq'));
+    var prog = game.querySelector('.gprog');
+    var done = game.querySelector('.gdone');
+    var i = 0, tries = 0;
+    function show(n){
+      i = n; tries = 0;
+      Array.prototype.forEach.call(rows, function(r,k){ r.classList.toggle('on', k===n); });
+      if(prog) prog.textContent = (n+1)+' / '+rows.length;
+    }
+    function finish(){
+      Array.prototype.forEach.call(rows, function(r){ r.classList.remove('on'); });
+      if(done) done.classList.add('on');
+      if(prog) prog.textContent = '✓ '+rows.length+' / '+rows.length;
+    }
+    function advance(){
+      if(i >= rows.length-1){ finish(); } else { show(i+1); }
+    }
+    Array.prototype.forEach.call(game.querySelectorAll('.gopts .opt'), function(b){
+      b.onclick = function(){
+        var row = b.closest('.gq');
+        if(row.classList.contains('answered')) return;
+        if(b.dataset.ok === '1'){
+          row.classList.add('answered');
+          b.classList.add('ok');
+          setTimeout(advance, 650);
+        } else {
+          b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
+          setTimeout(function(){ b.classList.remove('shake'); }, 450);
+          tries++;
+          if(tries >= 2){
+            row.classList.add('answered');
+            var right = row.querySelector('.opt[data-ok="1"]');
+            right.classList.add('ok');
+            setTimeout(advance, 1200);
+          }
         }
-      } else {
-        b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake');
-      }
+      };
+    });
+    var replay = game.querySelector('.greplay');
+    if(replay) replay.onclick = function(){
+      done.classList.remove('on');
+      Array.prototype.forEach.call(game.querySelectorAll('.gopts .opt'), function(b){
+        b.classList.remove('ok','shake','missed');
+      });
+      Array.prototype.forEach.call(rows, function(r){ r.classList.remove('answered'); });
+      show(0);
     };
+    show(0);
   });
 
   /* drill peeks: one answer per line, tap to check */
