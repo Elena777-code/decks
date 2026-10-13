@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ирина · ДЗ · неделя на время</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sea:#2EC4B6; --sea-deep:#1B7A8C; --ink:#123B44; --ink-soft:#5b7a80;
+  --coral:#FF6B6B; --sun:#FFD166; --card:#ffffff; --bg:#EAF7F5;
+  --shadow:0 10px 30px rgba(18,59,68,.14); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--bg);
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:4vh 5vw 8vh;-webkit-font-smoothing:antialiased}
+header{max-width:680px;width:100%;text-align:center;margin-bottom:1em}
+.eyebrow{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;font-size:.72rem;color:var(--sea-deep)}
+h1{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.6rem,7vw,2.4rem);line-height:1.15;margin-top:.15em}
+main{max-width:680px;width:100%}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(1.3rem,4.5vw,2.2rem);text-align:center;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none}
+.rules{margin-top:1em;color:var(--ink-soft);font-weight:700;font-size:clamp(1rem,3.6vw,1.15rem);line-height:1.7}
+.meta{margin-top:.6em;color:var(--ink-soft);font-weight:700;font-size:.85rem}
+button{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;border:none;cursor:pointer;
+  border-radius:99px;transition:transform .12s ease,box-shadow .12s ease}
+button:active{transform:scale(.96)}
+.name-row{margin-bottom:.4em}
+input.type-box{font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1.2rem,5vw,1.6rem);
+  color:var(--ink);text-align:center;border:3px solid #cfe9e6;border-radius:16px;
+  padding:.45em .6em;width:min(300px,76vw);outline:none;background:#fbffff}
+input.type-box:focus{border-color:var(--sea)}
+input.type-box.need{border-color:var(--coral);animation:need .3s ease}
+@keyframes need{50%{transform:translateX(-4px)}}
+/* --- the day picker --- */
+.day-grid{display:flex;flex-wrap:wrap;gap:.6em;justify-content:center;margin-top:1.1em}
+.day-chip{background:#f0fafa;color:var(--ink);border-radius:18px;padding:.6em .5em .55em;
+  width:calc(33% - .5em);min-width:96px;box-shadow:0 4px 0 #cfe9e6;line-height:1.25}
+.day-chip .dnum{font-size:clamp(1.05rem,4.2vw,1.3rem);font-weight:700}
+.day-chip .ddate{display:block;font-size:.72rem;color:var(--ink-soft);font-weight:700;margin-top:.15em}
+.day-chip .dicons{display:block;font-size:.78rem;margin-top:.2em;letter-spacing:.06em}
+.day-chip.today{background:#FFF3D6;box-shadow:0 4px 0 #f0d998;outline:3px solid var(--sun)}
+.day-chip.locked{opacity:.45;filter:grayscale(.4)}
+.day-chip.wiggle{animation:need .3s ease}
+/* --- question card --- */
+.qcount{font-size:.85rem;font-weight:800;color:var(--sea-deep);letter-spacing:.06em;text-transform:uppercase}
+.timer-wrap{height:12px;background:#d8efec;border-radius:99px;overflow:hidden;margin:1em 0 .3em}
+.timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--sea),var(--sun));border-radius:99px}
+.timer-num{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;color:var(--sea-deep);font-size:.9rem}
+.timer-num.low{color:var(--coral)}
+.prompt{font-size:clamp(1.25rem,5vw,1.75rem);font-weight:800;line-height:1.5;margin-top:.4em}
+.prompt .gap{color:var(--coral);letter-spacing:.05em}
+.prompt .base{color:var(--sea-deep);font-family:'Fredoka','Nunito',sans-serif;font-weight:600}
+.helper{margin-top:.7em;font-size:.9rem;font-weight:700;color:var(--ink-soft)}
+.answer-row{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;margin-top:1em}
+.choice{background:#f0fafa;color:var(--ink);font-size:clamp(1.05rem,4.2vw,1.3rem);
+  padding:.5em 1.4em;box-shadow:0 4px 0 #cfe9e6;line-height:1.15}
+.choice:active{box-shadow:0 1px 0 #cfe9e6;transform:translateY(3px)}
+.flash{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6.5vw,2.2rem);
+  color:var(--coral);text-align:center;padding:2.6em 0;animation:pop .2s ease}
+.flash .sub{display:block;font-size:.55em;color:var(--ink-soft);margin-top:.6em}
+.flash.good{color:var(--sea)}
+/* --- end card --- */
+.stars{font-size:clamp(2rem,9vw,3rem);margin:.2em 0}
+.end-title{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw,2.2rem)}
+.one-line{margin:1em 0 .2em;font-weight:800;font-size:clamp(1.05rem,4vw,1.25rem);line-height:1.7}
+.miss-list{margin-top:.8em;text-align:left;background:#f2fbf9;border-radius:16px;padding:.9em 1.1em;
+  font-size:clamp(.95rem,3.6vw,1.1rem);font-weight:700;line-height:1.6;display:none}
+.miss-list .k{color:var(--sea-deep)}
+.again-btn{background:var(--sea);color:#fff;font-size:clamp(1rem,4vw,1.2rem);
+  padding:.7em 1.8em;margin-top:.9em;box-shadow:0 6px 0 #239d92}
+.home-btn{background:transparent;color:var(--sea-deep);font-size:1rem;
+  padding:.6em 1.4em;margin-top:.7em;border:2px solid #bfe3df;margin-left:.5em}
+.sent{margin-top:.6em;font-weight:700;color:var(--sea-deep)}
+footer{max-width:680px;width:100%;text-align:center;margin-top:1.6em;
+  color:var(--ink-soft);font-size:.78rem;font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Ирина · домашка ⏰ · неделя</div>
+  <h1>Неделя на время! 🗓</h1>
+</header>
+
+<main>
+  <div class="card" id="start-card">
+    <div class="name-row"><input class="type-box" id="who-box" placeholder="Кто играет?" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+    <p class="rules">Каждый день — одно новое задание.<br>
+    Вчерашние возвращаются <b>с часами ⏰</b>: успей нажать, пока бежит полоска!<br>
+    Время вышло — карточка улетела 🪁. Назад нельзя!</p>
+    <div class="day-grid" id="day-grid"></div>
+    <div class="meta">build 2026-10-13 · v1 · 9 игр · новое задание каждый день</div>
+  </div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div class="timer-wrap" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="flash hidden" id="flash"></div>
+
+  <div class="card hidden" id="end-card">
+    <div class="stars" id="end-stars"></div>
+    <div class="end-title">Молодец!</div>
+    <div class="one-line" id="end-rows"></div>
+    <div class="miss-list" id="miss-list"></div>
+    <div class="sent" id="sent-line">…</div>
+    <div><button class="again-btn" id="again-btn">🔁 Этот день ещё раз</button>
+         <button class="home-btn" id="home-btn">🏠 К дням</button></div>
+  </div>
+</main>
+
+<footer>одно новое задание каждый день · вчерашние — с часами ⏰</footer>
+
+<script>
+(function(){
+"use strict";
+/* auto-send → Elena's Google Form «Irina» (same form as verbs.html / hw.html) */
+var HW_FORM={action:"https://docs.google.com/forms/d/e/1FAIpQLScYuudgy8Zza0OF09fpnu43OsOehkkNQT5BtnF7QH7uVne9SA/formResponse",entryReport:"entry.1898990974"};
+
+/* ---------- the pools ----------
+   Every card is decidable on FORM and TIME MARKERS alone (the meaning wall:
+   no card asks for a content word's meaning — RU glosses only where the task
+   IS the word). Choices always carry correct forms. */
+var SORT=[
+  {q:"every day",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"every day"},
+  {q:"just now",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"just now"},
+  {q:"nearly always",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"nearly always"},
+  {q:"now",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"now"},
+  {q:"on Fridays",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"on Fridays"},
+  {q:"these days",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"these days"},
+  {q:"this afternoon",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"this afternoon"},
+  {q:"today",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"today"},
+  {q:"very often",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"very often"},
+  {q:"when I'm tired",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"when I'm tired"}
+];
+var SENT=[
+  {q:'We <span class="gap">______</span> football <span class="base">every Saturday</span>.',choices:["play","plays","are playing"],key:"play",label:"We … every Saturday"},
+  {q:'Mum <span class="gap">______</span> tea <span class="base">every morning</span>.',choices:["drink","drinks","is drinking"],key:"drinks",label:"Mum … every morning"},
+  {q:'<span class="base">Look!</span> The cat <span class="gap">______</span> the tree.',choices:["climb","climbs","is climbing"],key:"is climbing",label:"Look! the cat …"},
+  {q:'I <span class="gap">______</span> my homework <span class="base">every day</span>.',choices:["do","does","am doing"],key:"do",label:"I … every day"},
+  {q:'The children <span class="gap">______</span> to school <span class="base">now</span>.',choices:["go","goes","are going"],key:"are going",label:"the children … now"},
+  {q:'My brother <span class="gap">______</span> his bike <span class="base">on Fridays</span>.',choices:["ride","rides","is riding"],key:"rides",label:"my brother … on Fridays"},
+  {q:'<span class="base">Listen!</span> Dad <span class="gap">______</span> the guitar.',choices:["play","plays","is playing"],key:"is playing",label:"Listen! Dad …"},
+  {q:'They <span class="gap">______</span> coffee <span class="base">in the morning</span>.',choices:["like","likes","are liking"],key:"like",label:"they … in the morning"}
+];
+var VV=[
+  {q:"chases",choices:["always 📅","now ⏰"],key:"always 📅",label:"chases"},
+  {q:"is chasing",choices:["always 📅","now ⏰"],key:"now ⏰",label:"is chasing"},
+  {q:"play",choices:["always 📅","now ⏰"],key:"always 📅",label:"play"},
+  {q:"are playing",choices:["always 📅","now ⏰"],key:"now ⏰",label:"are playing"},
+  {q:"sleeps",choices:["always 📅","now ⏰"],key:"always 📅",label:"sleeps"},
+  {q:"is sleeping",choices:["always 📅","now ⏰"],key:"now ⏰",label:"is sleeping"},
+  {q:"write",choices:["always 📅","now ⏰"],key:"always 📅",label:"write"},
+  {q:"am writing",choices:["always 📅","now ⏰"],key:"now ⏰",label:"am writing"},
+  {q:"goes",choices:["always 📅","now ⏰"],key:"always 📅",label:"goes"},
+  {q:"are going",choices:["always 📅","now ⏰"],key:"now ⏰",label:"are going"}
+];
+var ADJ=[
+  {q:'<span class="base">big</span> → <span class="gap">______</span>',choices:["bigger","more bigger","biggest"],key:"bigger",label:"big →"},
+  {q:'<span class="base">small</span> → <span class="gap">______</span>',choices:["smaller","more smaller","smallest"],key:"smaller",label:"small →"},
+  {q:'<span class="base">funny</span> → <span class="gap">______</span>',choices:["funnier","funnyer","more funnier"],key:"funnier",label:"funny →"},
+  {q:'<span class="base">nice</span> → <span class="gap">______</span>',choices:["nicer","niceer","more nicer"],key:"nicer",label:"nice →"},
+  {q:'<span class="base">easy</span> → <span class="gap">______</span>',choices:["easier","easyer","more easier"],key:"easier",label:"easy →"},
+  {q:'<span class="base">hot</span> → <span class="gap">______</span>',choices:["hotter","hoter","more hot"],key:"hotter",label:"hot →"},
+  {q:'<span class="base">good</span> → <span class="gap">______</span>',choices:["better","gooder","more good"],key:"better",label:"good →"},
+  {q:'<span class="base">bad</span> → <span class="gap">______</span>',choices:["worse","badder","more bad"],key:"worse",label:"bad →"}
+];
+var NEG=[
+  {q:'This cat <span class="gap">______</span> chasing mice. 🐭',choices:["isn't","doesn't"],key:"isn't",label:"this cat … chasing"},
+  {q:'This cat <span class="gap">______</span> chase dogs. 🐕',choices:["isn't","doesn't"],key:"doesn't",label:"this cat … chase"},
+  {q:'This cow <span class="gap">______</span> eating grass. 🐄',choices:["isn't","doesn't"],key:"isn't",label:"this cow … eating"},
+  {q:'It <span class="gap">______</span> often rain here. ☔',choices:["isn't","doesn't"],key:"doesn't",label:"it … often rain"},
+  {q:'This shop <span class="gap">______</span> selling books now. 📚',choices:["isn't","doesn't"],key:"isn't",label:"the shop … selling"},
+  {q:'John <span class="gap">______</span> working today. 🧑‍💼',choices:["isn't","doesn't"],key:"isn't",label:"John … working"},
+  {q:'Ann <span class="gap">______</span> play tennis on Mondays. 🎾',choices:["isn't","doesn't"],key:"doesn't",label:"Ann … play"},
+  {q:'The dog <span class="gap">______</span> sleeping now. 🐶',choices:["isn't","doesn't"],key:"isn't",label:"the dog … sleeping"}
+];
+var MOD=[
+  {q:'A cheetah <span class="gap">______</span> run fast. 🐆',choices:["can","can't"],key:"can",label:"cheetah … run fast"},
+  {q:'A fish <span class="gap">______</span> fly. 🐟',choices:["can","can't"],key:"can't",label:"fish … fly"},
+  {q:'A baby <span class="gap">______</span> drive a car. 🚗',choices:["can","can't"],key:"can't",label:"baby … drive"},
+  {q:'A parrot <span class="gap">______</span> talk. 🦜',choices:["can","can't"],key:"can",label:"parrot … talk"},
+  {q:'A penguin <span class="gap">______</span> swim. 🐧',choices:["can","can't"],key:"can",label:"penguin … swim"},
+  {q:'A cat <span class="gap">______</span> climb trees. 🐱',choices:["can","can't"],key:"can",label:"cat … climb"}
+];
+var IRRV=[
+  {q:'<span class="base">buy</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["bought","buyed","buied"],key:"bought",label:"buy →"},
+  {q:'<span class="base">think</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["thinked","thought","thinkied"],key:"thought",label:"think →"},
+  {q:'<span class="base">sing</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["sanged","sang","singd"],key:"sang",label:"sing →"},
+  {q:'<span class="base">take</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["taked","took","tooked"],key:"took",label:"take →"},
+  {q:'<span class="base">feel</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["felt","feeled","feeld"],key:"felt",label:"feel →"},
+  {q:'<span class="base">clap</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["claped","clapped","clappd"],key:"clapped",label:"clap →"},
+  {q:'<span class="base">drink</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["drinked","drank","drunked"],key:"drank",label:"drink →"},
+  {q:'<span class="base">cut</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["cuted","cutted","cut"],key:"cut",label:"cut →"}
+];
+var FIND=[
+  {q:'bread 🍞',choices:["хлеб","мыло","лес"],key:"хлеб",label:"bread"},
+  {q:'weather ☁️',choices:["погода","погода и дождь","ветер"],key:"погода",label:"weather"},
+  {q:'kitchen 🍳',choices:["кухня","комната","коридор"],key:"кухня",label:"kitchen"},
+  {q:'a basket 🧺',choices:["корзина","кровать","карман"],key:"корзина",label:"a basket"},
+  {q:'boots 👢',choices:["ботинки","перчатки","шарф"],key:"ботинки",label:"boots"},
+  {q:'a newspaper 📰',choices:["газета","журнал мод","письмо"],key:"газета",label:"a newspaper"},
+  {q:'a pocket 🧥',choices:["карман","рукав","пуговица"],key:"карман",label:"a pocket"},
+  {q:'a garden 🌳',choices:["сад","лес","парк"],key:"сад",label:"a garden"}
+];
+var SL6=[
+  {q:'a theme park 🎡',choices:["парк аттракционов","зоопарк","кинотеатр"],key:"парк аттракционов",label:"a theme park"},
+  {q:'rides 🎠',choices:["аттракционы","игрушки","прогулки"],key:"аттракционы",label:"rides"},
+  {q:'crowded 👥',choices:["многолюдно","пусто","тихо"],key:"многолюдно",label:"crowded"},
+  {q:'exciting 🤩',choices:["увлекательный","скучный","простой"],key:"увлекательный",label:"exciting"},
+  {q:'expensive 💰',choices:["дорогой","дешёвый","бесплатный"],key:"дорогой",label:"expensive"},
+  {q:'a maze 🧩',choices:["лабиринт","загадка","игра"],key:"лабиринт",label:"a maze"},
+  {q:'a queue 🚶🚶🚶',choices:["очередь","толпа","линейка"],key:"очередь",label:"a queue"},
+  {q:'worth it 👍',choices:["стоит того","жалко","нельзя"],key:"стоит того",label:"worth it"}
+];
+
+var POOLS={
+  SORT:{icon:"🗂",name:"Рассортируй",helper:"Признак времени — выбери форму",cards:SORT},
+  SENT:{icon:"📝",name:"В предложении",helper:"Подсказка в предложении — выбери глагол",cards:SENT},
+  VV:{icon:"🔄",name:"Наоборот",helper:"Прочитай форму: это «always» или «now»?",cards:VV},
+  ADJ:{icon:"🐘",name:"Степени сравнения",helper:"Выбери вторую форму",cards:ADJ},
+  NEG:{icon:"🐱",name:"Это не так!",helper:"Выбери: isn't или doesn't",cards:NEG},
+  MOD:{icon:"🔑",name:"Могу / не могу",helper:"Выбери: can или can't",cards:MOD},
+  IRRV:{icon:"🔴",name:"Вчера",helper:"Вторая форма — выбери",cards:IRRV},
+  FIND:{icon:"🔍",name:"Найди слово",helper:"Найди перевод",cards:FIND},
+  SL6:{icon:"⭐",name:"Слова учебника",helper:"Starlight 6 — найди перевод",cards:SL6}
+};
+
+/* the week: each day = одно новое задание + вчерашние с часами.
+   [poolId, timed] — timed:0 = новое, без часов · timed:1 = с часами ⏰ */
+var DAYS=[
+  {n:1,date:"вт 13.10",tasks:[["SORT",0]]},
+  {n:2,date:"ср 14.10",tasks:[["SENT",0],["SORT",1]]},
+  {n:3,date:"чт 15.10",tasks:[["VV",0],["ADJ",0],["SORT",1],["SENT",1]]},
+  {n:4,date:"пт 16.10",tasks:[["NEG",0],["MOD",0],["SORT",1],["SENT",1],["VV",1],["ADJ",1]]},
+  {n:5,date:"сб 17.10",tasks:[["IRRV",0],["SORT",1],["SENT",1],["VV",1],["ADJ",1],["NEG",1],["MOD",1]]},
+  {n:6,date:"вс 18.10",tasks:[["FIND",0],["SORT",1],["SENT",1],["VV",1],["ADJ",1],["NEG",1],["MOD",1],["IRRV",1]]},
+  {n:7,date:"пн 19.10",tasks:[["SL6",0],["SORT",1],["SENT",1],["VV",1],["ADJ",1],["NEG",1],["MOD",1],["IRRV",1],["FIND",1]]}
+];
+var DAY0=new Date(2026,9,13);          /* День 1 = вторник 13.10.2026 */
+var SEC=16;                            /* часы ⏰ на карточку (выбор кнопкой, таймеры Ирины ×2) */
+var U_DEAL=6,T_DEAL=4;                 /* новое задание — 6 карточек, повтор с часами — 4 */
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function show(id){["start-card","q-card","flash","end-card"].forEach(function(c){
+  $(c).classList.add("hidden");});
+  if(id)$(id).classList.remove("hidden");}
+
+function unlockedCount(){
+  if(location.search.indexOf("all=1")!==-1)return DAYS.length;
+  var one=24*60*60*1000;
+  var today=new Date();today.setHours(0,0,0,0);
+  var diff=Math.floor((today-DAY0)/one)+1;
+  return Math.max(1,Math.min(DAYS.length,diff));
+}
+function buildDayPicker(){
+  var un=unlockedCount(),grid=$("day-grid");
+  grid.innerHTML="";
+  DAYS.forEach(function(d,i){
+    var b=document.createElement("button");
+    b.className="day-chip";
+    var todayChip=(i+1)===un;
+    if(todayChip)b.classList.add("today");
+    if(i+1>un){b.classList.add("locked");}
+    var icons=d.tasks.slice(0,6).map(function(t){return POOLS[t[0]].icon;}).join("");
+    b.innerHTML='<span class="dnum">День '+d.n+(todayChip?" · сегодня":"")+"</span>"+
+      '<span class="ddate">'+d.date+(i+1>un?" 🔒":"")+"</span>"+
+      '<span class="dicons">'+icons+(d.tasks.length>6?"…":"")+"</span>";
+    b.addEventListener("click",function(){
+      if(i+1>un){b.classList.remove("wiggle");void b.offsetWidth;b.classList.add("wiggle");
+        $("day-msg").textContent="День "+d.n+" откроется "+d.date+" 🔒";return;}
+      if(!WHO){needName();return;}
+      startDay(i);
+    });
+    grid.appendChild(b);
+  });
+  var msg=document.createElement("div");
+  msg.className="meta";msg.id="day-msg";msg.textContent="Нажми сегодняшний день";
+  grid.appendChild(msg);
+}
+function needName(){
+  var w=$("who-box");w.classList.add("need");
+  setTimeout(function(){w.classList.remove("need");},900);
+  w.focus();
+  $("day-msg").textContent="Сначала напиши своё имя 🙂";
+}
+
+/* ---------- state ---------- */
+var WHO="",day=null,rounds=[],log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false;
+try{$("who-box").value=(localStorage.getItem("irina-hw-who")||"").trim();WHO=$("who-box").value;}catch(e){}
+buildDayPicker();
+
+$("who-box").addEventListener("input",function(){
+  var v=$("who-box").value.trim();
+  if(v){try{localStorage.setItem("irina-hw-who",v);}catch(e){}WHO=v;}
+});
+
+function startDay(i){
+  day=DAYS[i];
+  rounds=day.tasks.map(function(t){
+    var p=POOLS[t[0]],timed=!!t[1];
+    return {pid:t[0],meta:p,timed:timed,sec:timed?SEC:0,
+      tasks:shuffle(p.cards).slice(0,timed?T_DEAL:U_DEAL)};
+  });
+  ri=0;log=[];
+  roundFlash();
+}
+$("again-btn").addEventListener("click",function(){
+  ri=0;log=[];rounds=buildRoundsAgain();roundFlash();
+});
+function buildRoundsAgain(){
+  return day.tasks.map(function(t){
+    var p=POOLS[t[0]],timed=!!t[1];
+    return {pid:t[0],meta:p,timed:timed,sec:timed?SEC:0,
+      tasks:shuffle(p.cards).slice(0,timed?T_DEAL:U_DEAL)};
+  });
+}
+$("home-btn").addEventListener("click",function(){
+  buildDayPicker();show("start-card");window.scrollTo(0,0);
+});
+
+function roundFlash(){
+  show("flash");
+  var r=rounds[ri];
+  $("flash").innerHTML=r.meta.icon+" "+r.meta.name+
+    '<span class="sub">'+(ri+1)+"-я из "+rounds.length+" игр · "+(r.timed?"с часами ⏰":"без часов")+"</span>";
+  setTimeout(function(){qi=0;ask();},1400);
+}
+
+function ask(){
+  answered=false;
+  var r=rounds[ri],t=r.tasks[qi];
+  $("q-count").textContent=r.meta.icon+" "+r.meta.name+" · "+(qi+1)+"/"+r.tasks.length+(r.timed?" ⏰":"");
+  var body='<div class="prompt">'+t.q+"</div>";
+  body+='<div class="helper">'+r.meta.helper+"</div>";
+  body+='<div class="answer-row" id="answer-row"></div>';
+  $("q-body").innerHTML=body;
+  var row=$("answer-row");
+  shuffle(t.choices).forEach(function(c){
+    var b=document.createElement("button");
+    b.className="choice";b.textContent=c;
+    b.addEventListener("click",function(){
+      if(answered)return;answered=true;stop();
+      advance(record(t,c,false));
+    });
+    row.appendChild(b);
+  });
+  show("q-card");
+  start(r.sec,function(){
+    if(answered)return;answered=true;
+    record(t,null,true);nextLate();
+  });
+}
+
+/* ---------- wall-clock timer ---------- */
+function start(sec,onOut){
+  if(!sec){$("timer-wrap").style.visibility="hidden";$("timer-num").textContent="";return;}
+  $("timer-wrap").style.visibility="visible";
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  num.textContent=sec+" с";num.className="timer-num";
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 с";
+      stop();onOut();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" с";
+    num.className="timer-num"+(s<=5?" low":"");
+  },100);
+}
+function stop(){if(timer){clearInterval(timer);timer=null;}}
+
+function record(t,given,late){
+  var ok=!late&&given!=null&&norm(given)===norm(t.key);
+  log.push({pid:rounds[ri].pid,label:t.label,
+    given:late?"ВРЕМЯ ВЫШЛО":given,key:t.key,ok:ok});
+  return ok;
+}
+function norm(s){return (s||"").toString().trim().toLowerCase();}
+function advance(wasOk){move(false,wasOk);}
+function nextLate(){move(true,false);}
+function move(late,wasOk){
+  var r=rounds[ri];
+  var lastOfRound=qi>=r.tasks.length-1;
+  var go=function(){
+    if(!lastOfRound){qi++;ask();}
+    else if(ri<rounds.length-1){ri++;roundFlash();}
+    else{finish();}
+  };
+  if(late){show("flash");$("flash").innerHTML="⏰ Время!";setTimeout(go,950);}
+  else if(wasOk){show("flash");$("flash").className="flash good";$("flash").innerHTML="✅";setTimeout(go,700);}
+  else{show("flash");$("flash").className="flash";$("flash").innerHTML="❌";setTimeout(go,900);}
+}
+
+/* ---------- end + report ---------- */
+function reportText(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  var lines=[(WHO||"IRINA")+" · IRINA WEEK · День "+day.n+" ("+day.date+") · "+new Date().toLocaleString(),
+    "Итог дня: "+ok+" / "+total];
+  day.tasks.forEach(function(t){
+    var p=POOLS[t[0]];
+    var rows=log.filter(function(l){return l.pid===t[0];});
+    if(rows.length)lines.push(p.icon+" "+p.name+(t[1]?" (⏰)":"")+": "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
+  });
+  var missed=log.filter(function(l){return !l.ok;});
+  if(missed.length){
+    lines.push("","Missed or too late ("+missed.length+"):");
+    missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+(l.given||"—")+" · key: "+l.key);});
+  }else{lines.push("","Missed or too late: none! 🎉");}
+  return lines.join("\n");
+}
+function finish(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/total*5)));
+  var bits=[];
+  day.tasks.forEach(function(t){
+    var p=POOLS[t[0]];
+    var rows=log.filter(function(l){return l.pid===t[0];});
+    if(rows.length)bits.push(p.icon+" "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length+(t[1]?"⏰":""));
+  });
+  $("end-rows").textContent=bits.join("  ·  ");
+  var missed=log.filter(function(l){return !l.ok;});
+  if(missed.length){
+    $("miss-list").style.display="block";
+    $("miss-list").innerHTML="<b>Для словарика:</b><br>"+missed.map(function(l){
+      return "· "+l.label+" → <span class='k'>"+l.key+"</span>";}).join("<br>");
+  }
+  var txt=reportText();
+  try{localStorage.setItem("irina-week-last",txt);}catch(e){}
+  sendReport(txt);
+  $("sent-line").textContent="…";
+  setTimeout(function(){
+    $("sent-line").textContent="✅ Результат уже у твоего учителя!";
+  },1400);
+  show("end-card");
+  window.scrollTo(0,0);
+}
+
+/* ---------- auto-send (fetch → iframe fallback → localStorage queue) ---------- */
+var QKEY="irina-hw-form-queue";
+function queueGet(){try{return JSON.parse(localStorage.getItem(QKEY)||"[]");}catch(e){return[];}}
+function queueAdd(txt){var q=queueGet();q.push(txt);try{localStorage.setItem(QKEY,JSON.stringify(q));}catch(e){}}
+function queueClear(){try{localStorage.setItem(QKEY,"[]");}catch(e){}}
+function postOne(txt,done){
+  var okFn=function(){done(true);},badFn=function(){done(false);};
+  try{
+    var body=new FormData();
+    body.append(HW_FORM.entryReport,txt);
+    fetch(HW_FORM.action,{method:"POST",mode:"no-cors",body:body})
+      .then(function(){okFn();}).catch(function(){iframePost(txt,okFn,badFn);});
+  }catch(e){iframePost(txt,okFn,badFn);}
+}
+function iframePost(txt,okFn,badFn){
+  try{
+    var frame=document.createElement("iframe");
+    frame.name="hf-"+Date.now();frame.style.display="none";
+    document.body.appendChild(frame);
+    var f=document.createElement("form");
+    f.method="POST";f.action=HW_FORM.action;f.target=frame.name;
+    var inp=document.createElement("input");
+    inp.type="hidden";inp.name=HW_FORM.entryReport;inp.value=txt;
+    f.appendChild(inp);
+    document.body.appendChild(f);f.submit();
+    setTimeout(function(){okFn();},1200);
+  }catch(e){badFn();}
+}
+function sendReport(txt){
+  postOne(txt,function(ok){
+    if(!ok){queueAdd(txt);return;}
+    /* a fresh send flushes everything queued before it */
+    var q=queueGet();
+    if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}
+  });
+}
+/* flush old queue on load — at the tail, after all listeners attach */
+(function(){var q=queueGet();if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}})();
+})();
+</script>
+</body>
+</html>
