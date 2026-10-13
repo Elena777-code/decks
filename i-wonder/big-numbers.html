@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- big numbers 10¹⁰⁰ · I wonder line · build 08.10 · v8 (v7 + the ✍️ input guard + the machine chips off-by-one fixed) -->
+<!-- big numbers 10¹⁰⁰ · SITE COPY · v9 (the screen the lesson shares) · build 13.10 · the real video lives here by Elena's order 13.10 («I want the video with money, please») · the full deck with teacher notes stays in the AI repo >
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -29,10 +29,13 @@
       radial-gradient(1.5px 1.5px at 22% 88%,#fff8 50%,#0000 51%),
       radial-gradient(1px 1px at 45% 38%,#fff4 50%,#0000 51%);
   }
-  .slide{display:none; position:relative; z-index:1; min-height:100vh; padding:64px 44px 84px;
-    flex-direction:column; align-items:center; justify-content:center; gap:14px; overflow:auto}
+  .slide{display:none; position:relative; z-index:1; height:100vh; padding:64px 44px 84px;
+    flex-direction:column; align-items:center; justify-content:flex-start; gap:14px; overflow-y:auto}
   .slide.on{display:flex}
   .slide>*{flex-shrink:0}
+  /* safe centring: short slides sit centred, tall slides scroll from the true top */
+  .slide.on>:first-child{margin-top:auto}
+  .slide.on>:last-child{margin-bottom:auto}
   .kicker{font-size:15px; letter-spacing:.22em; text-transform:uppercase; color:var(--gold);
     font-weight:700; text-align:center}
   .kicker .dot{color:#ffffff55}
@@ -120,6 +123,22 @@
   .opt.ok::after{content:" ✓"}
   .opt.shake{animation:shake .35s}
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+  /* v9 · the seven-question game ladder */
+  .game7{width:min(960px,100%); display:flex; flex-direction:column; gap:8px}
+  .gq{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    background:var(--card); border:2px solid #0002; border-radius:12px; padding:8px 14px}
+  .gq .gnum{font-family:Georgia,serif; font-size:17px; text-align:left; color:var(--ink)}
+  .gq .gnum b{color:var(--acc)}
+  .gopts{display:flex; gap:8px; flex-shrink:0; margin-left:auto}
+  .gopts .opt{font-size:15.5px; padding:7px 14px; border-radius:10px; box-shadow:0 3px 0 #0002}
+  .gopts .opt.ok{box-shadow:0 3px 0 var(--good)}
+  .gopts .opt.word{font-size:16px}
+  /* v9 · slide 7 compacted so all three drills fit one screen */
+  #s7{gap:10px}
+  #s7 h1{font-size:44px}
+  #s7 .drill{padding:10px 16px}
+  #s7 .drill h3{font-size:17px; margin-bottom:3px}
+  #s7 .drow{font-size:16.5px; padding:5px 0}
   .round2{display:none}
   .task-q.round2.show{display:block}
   .opts.round2.show{display:flex}
@@ -286,7 +305,8 @@ Ask: how many zeros can ONE small word hold? Collect guesses.">
   <div class="kicker">🎬 the movie</div>
   <h1>How much is a <span class="acc">million</span>?</h1>
   <div class="vidwrap">
-    <div class="note-card">🎬 The clip plays in the lesson — ask your teacher!<br><span style="font-size:15px;color:#8a7a2c">«How Much Is A Million?» — The Dr Binocs Show · Peekaboo Kidz · 2:00 (the wow part)</span></div>
+    <video controls preload="metadata" src="media/binocs-best-2min.mp4"></video>
+    <div class="vidcap">«How Much Is A Million?» — The Dr Binocs Show · Peekaboo Kidz · 2:00 (the wow part)</div>
   </div>
   <div class="sub">While you watch: <b>what surprising things can a million make?</b> 🤔</div>
 </section>
@@ -757,57 +777,68 @@ Worked examples (Elena's own): 3.5 billion = 3.5 × 10⁹, because a billion car
 </section>
 
 <!-- ───────────────────────── 22 · TASK 1 ───────────────────────── -->
-<section class="slide" id="s22" style="--acc:#F4845F" data-notes="Game 1 — name the giant. Read the digits together first (one — thousand — million — billion — trillion). Keys: round 1 = TRILLION, round 2 = BILLION. Wrong taps shake, the right one locks green.">
+<section class="slide" id="s22" style="--acc:#F4845F" data-notes="Game 1 — name the giant, seven rungs. Read each number aloud together first (one — thousand — million …), then tap the word. Keys: 1 MILLION · 2 BILLION · 3 TRILLION · 4 QUADRILLION · 5 QUINTILLION · 6 SEXTILLION · 7 SEPTILLION. Wrong taps shake, the right one locks green. The ladder grows one 000-chip per row — let them feel the pattern.">
   <div class="kicker">💫 game 1 · name the giant</div>
   <h1>Which word is this?</h1>
-  <div class="task-q round-a"><span class="task-num">1 000 000 000 000</span></div>
-  <div class="opts round-a">
-    <button class="opt word" data-ok="0">million</button>
-    <button class="opt word" data-ok="0">billion</button>
-    <button class="opt word" data-ok="1">trillion</button>
+  <div class="game7">
+    <div class="gq"><span class="gnum">1 000 000</span>
+      <span class="gopts"><button class="opt word" data-ok="1">million</button><button class="opt word" data-ok="0">billion</button><button class="opt word" data-ok="0">trillion</button></span></div>
+    <div class="gq"><span class="gnum">1 000 000 000</span>
+      <span class="gopts"><button class="opt word" data-ok="0">million</button><button class="opt word" data-ok="1">billion</button><button class="opt word" data-ok="0">trillion</button></span></div>
+    <div class="gq"><span class="gnum">1 000 000 000 000</span>
+      <span class="gopts"><button class="opt word" data-ok="0">billion</button><button class="opt word" data-ok="1">trillion</button><button class="opt word" data-ok="0">quadrillion</button></span></div>
+    <div class="gq"><span class="gnum">1 000 000 000 000 000</span>
+      <span class="gopts"><button class="opt word" data-ok="1">quadrillion</button><button class="opt word" data-ok="0">trillion</button><button class="opt word" data-ok="0">quintillion</button></span></div>
+    <div class="gq"><span class="gnum">1 000 000 000 000 000 000</span>
+      <span class="gopts"><button class="opt word" data-ok="0">quadrillion</button><button class="opt word" data-ok="0">sextillion</button><button class="opt word" data-ok="1">quintillion</button></span></div>
+    <div class="gq"><span class="gnum">1 000 000 000 000 000 000 000</span>
+      <span class="gopts"><button class="opt word" data-ok="0">quintillion</button><button class="opt word" data-ok="1">sextillion</button><button class="opt word" data-ok="0">septillion</button></span></div>
+    <div class="gq"><span class="gnum">1 000 000 000 000 000 000 000 000</span>
+      <span class="gopts"><button class="opt word" data-ok="1">septillion</button><button class="opt word" data-ok="0">sextillion</button><button class="opt word" data-ok="0">octillion</button></span></div>
   </div>
-  <div class="task-q round2"><span class="task-num">1 000 000 000</span></div>
-  <div class="opts round2">
-    <button class="opt word" data-ok="0">million</button>
-    <button class="opt word" data-ok="1">billion</button>
-    <button class="opt word" data-ok="0">trillion</button>
-  </div>
-  <div class="sub round2-hint" style="display:none"></div>
 </section>
 
 <!-- ───────────────────────── 23 · TASK 2 ───────────────────────── -->
-<section class="slide" id="s23" style="--acc:#A8C256" data-notes="Game 2 — the machine check. Keys: oct = 8 → (8+1)×3 = 27 zeros. quint = 5 → (5+1)×3 = 18 zeros. The moves were drilled on slide 6 — oct and quint stay fresh here. Let them run the recipe aloud: number + 1, then chips of three.">
+<section class="slide" id="s23" style="--acc:#A8C256" data-notes="Game 2 — the machine check, seven recipes (shuffled, not ladder order). Let them run the recipe aloud every time: number + 1, then chips of three. Keys: oct (8+1)×3 = 27 · tri (3+1)×3 = 12 · dec (10+1)×3 = 33 · quint (5+1)×3 = 18 · sept (7+1)×3 = 24 · quad (4+1)×3 = 15 · non (9+1)×3 = 30. Wrong taps shake, the right one locks green.">
   <div class="kicker">⚙️ game 2 · the machine check</div>
   <h1>Use the recipe!</h1>
-  <div class="task-q round-a">oct = 8 … so <b>octillion</b> has how many zeros?</div>
-  <div class="opts round-a">
-    <button class="opt" data-ok="0">24</button>
-    <button class="opt" data-ok="1">27</button>
-    <button class="opt" data-ok="0">30</button>
-  </div>
-  <div class="task-q round2">quint = 5 … so <b>quintillion</b> has how many zeros?</div>
-  <div class="opts round2">
-    <button class="opt" data-ok="0">12</button>
-    <button class="opt" data-ok="0">15</button>
-    <button class="opt" data-ok="1">18</button>
+  <div class="game7">
+    <div class="gq"><span class="gnum"><b>oct</b> = 8 … so <b>octillion</b> has how many zeros?</span>
+      <span class="gopts"><button class="opt" data-ok="0">21</button><button class="opt" data-ok="0">24</button><button class="opt" data-ok="1">27</button></span></div>
+    <div class="gq"><span class="gnum"><b>tri</b> = 3 … so <b>trillion</b> has how many zeros?</span>
+      <span class="gopts"><button class="opt" data-ok="1">12</button><button class="opt" data-ok="0">15</button><button class="opt" data-ok="0">18</button></span></div>
+    <div class="gq"><span class="gnum"><b>dec</b> = 10 … so <b>decillion</b> has how many zeros?</span>
+      <span class="gopts"><button class="opt" data-ok="0">30</button><button class="opt" data-ok="1">33</button><button class="opt" data-ok="0">36</button></span></div>
+    <div class="gq"><span class="gnum"><b>quint</b> = 5 … so <b>quintillion</b> has how many zeros?</span>
+      <span class="gopts"><button class="opt" data-ok="1">18</button><button class="opt" data-ok="0">21</button><button class="opt" data-ok="0">24</button></span></div>
+    <div class="gq"><span class="gnum"><b>sept</b> = 7 … so <b>septillion</b> has how many zeros?</span>
+      <span class="gopts"><button class="opt" data-ok="0">24</button><button class="opt" data-ok="1">27</button><button class="opt" data-ok="0">30</button></span></div>
+    <div class="gq"><span class="gnum"><b>quad</b> = 4 … so <b>quadrillion</b> has how many zeros?</span>
+      <span class="gopts"><button class="opt" data-ok="0">9</button><button class="opt" data-ok="1">15</button><button class="opt" data-ok="0">18</button></span></div>
+    <div class="gq"><span class="gnum"><b>non</b> = 9 … so <b>nonillion</b> has how many zeros?</span>
+      <span class="gopts"><button class="opt" data-ok="0">27</button><button class="opt" data-ok="1">30</button><button class="opt" data-ok="0">33</button></span></div>
   </div>
 </section>
 
 <!-- ───────────────────────── 24 · TASK 3 ───────────────────────── -->
-<section class="slide" id="s24" style="--acc:#4895EF" data-notes="Game 3 — powers. Keys: 4 trillion = 4 × 10¹² (twelve zeros); 2.5 million = 2.5 × 10⁶ (six zeros). If hesitation — send them back to the recipe card (slide 5/19), not to the answer.">
+<section class="slide" id="s24" style="--acc:#4895EF" data-notes="Game 3 — powers, seven short writes. If hesitation — send them back to the recipe card (slide 5/19), not to the answer. Keys: 5 million = 5×10⁶ · 2 billion = 2×10⁹ · 4 trillion = 4×10¹² · 1.5 quadrillion = 1.5×10¹⁵ · 3 quintillion = 3×10¹⁸ · 2.5 sextillion = 2.5×10²¹ · 7 septillion = 7×10²⁴. Wrong taps shake, the right one locks green.">
   <div class="kicker">✍️ game 3 · write it short</div>
   <h1>What goes up high?</h1>
-  <div class="task-q round-a"><b>4 trillion</b> = 4 × 10<sup style="font-size:30px">?</sup></div>
-  <div class="opts round-a">
-    <button class="opt" data-ok="0">9</button>
-    <button class="opt" data-ok="1">12</button>
-    <button class="opt" data-ok="0">15</button>
-  </div>
-  <div class="task-q round2"><b>2.5 million</b> = 2.5 × 10<sup style="font-size:30px">?</sup></div>
-  <div class="opts round2">
-    <button class="opt" data-ok="0">5</button>
-    <button class="opt" data-ok="1">6</button>
-    <button class="opt" data-ok="0">7</button>
+  <div class="game7">
+    <div class="gq"><span class="gnum"><b>5 million</b> = 5 × 10<sup style="font-size:19px">?</sup></span>
+      <span class="gopts"><button class="opt" data-ok="1">6</button><button class="opt" data-ok="0">9</button><button class="opt" data-ok="0">12</button></span></div>
+    <div class="gq"><span class="gnum"><b>2 billion</b> = 2 × 10<sup style="font-size:19px">?</sup></span>
+      <span class="gopts"><button class="opt" data-ok="0">6</button><button class="opt" data-ok="1">9</button><button class="opt" data-ok="0">12</button></span></div>
+    <div class="gq"><span class="gnum"><b>4 trillion</b> = 4 × 10<sup style="font-size:19px">?</sup></span>
+      <span class="gopts"><button class="opt" data-ok="0">6</button><button class="opt" data-ok="0">9</button><button class="opt" data-ok="1">12</button></span></div>
+    <div class="gq"><span class="gnum"><b>1.5 quadrillion</b> = 1.5 × 10<sup style="font-size:19px">?</sup></span>
+      <span class="gopts"><button class="opt" data-ok="0">12</button><button class="opt" data-ok="1">15</button><button class="opt" data-ok="0">21</button></span></div>
+    <div class="gq"><span class="gnum"><b>3 quintillion</b> = 3 × 10<sup style="font-size:19px">?</sup></span>
+      <span class="gopts"><button class="opt" data-ok="0">15</button><button class="opt" data-ok="1">18</button><button class="opt" data-ok="0">24</button></span></div>
+    <div class="gq"><span class="gnum"><b>2.5 sextillion</b> = 2.5 × 10<sup style="font-size:19px">?</sup></span>
+      <span class="gopts"><button class="opt" data-ok="0">15</button><button class="opt" data-ok="0">18</button><button class="opt" data-ok="1">21</button></span></div>
+    <div class="gq"><span class="gnum"><b>7 septillion</b> = 7 × 10<sup style="font-size:19px">?</sup></span>
+      <span class="gopts"><button class="opt" data-ok="0">21</button><button class="opt" data-ok="1">24</button><button class="opt" data-ok="0">27</button></span></div>
   </div>
 </section>
 
@@ -930,7 +961,7 @@ If opened directly (no lesson behind): just close the tab.">
   });
 
   /* task options: right locks green, wrong shakes */
-  Array.prototype.forEach.call(document.querySelectorAll('.opts .opt'), function(b){
+  Array.prototype.forEach.call(document.querySelectorAll('.opts .opt, .gopts .opt'), function(b){
     b.onclick = function(){
       if(b.dataset.ok === '1'){
         b.classList.add('ok');
