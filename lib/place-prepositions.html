@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where is it? — Prepositions of Place (Cambridge Starters)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WHERE IS IT? — prepositions of PLACE, a UNIVERSAL reference
+   deck (Bank-Pool rule: named by topic, living for everyone).
+   THE SET: the seven place prepositions of the Cambridge
+   Pre A1 Starters list — in · on · under · next to · between ·
+   behind · in front of (confirmed in the shelf's own answer
+   booklet: Library/Books/Starter/starters-answers.md).
+   THE SCHEMA: one square + one dot per preposition — the
+   classic "squares with dots" reference pictures.
+   Home: Library/Grammar/place-prepositions/ · the rhyme in this
+   folder is Elena's, verbatim (ElenaPlacePrepositionsRhyme.md,
+   born on Pasha L1, 06.09) — slide 9 chants it.
+   Engine: nav bottom-right + lane, progress bar, click-reveals,
+   ready-chime + #n hash, presenter view (T / 🖥) — cloned from
+   the weather-adjectives lib deck (the lib family format).
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --blue:#2E6FB7; --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.1rem);color:#fff}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cheese)}
+#nav button:disabled{opacity:.3;cursor:default}
+.slide{position:absolute;inset:0;padding:5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.2vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin-bottom:.3em;
+  font-size:clamp(1.9rem,4.2vw,3.6rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp))}
+.col{display:flex;flex-direction:column;gap:.4em}
+.center{text-align:center}
+.mt{margin-top:.65em}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink);background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem);align-self:flex-start}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.92rem,1.35vw,1.12rem);color:var(--ink-soft);font-style:italic}
+.stamp-line{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink-soft);
+  font-size:clamp(.78rem,1.1vw,.95rem);letter-spacing:.06em;margin-top:auto;opacity:.8}
+
+/* the square & the dot */
+.dia svg{width:100%;height:auto;display:block}
+.stage{display:flex;justify-content:center}
+.stage .dia{width:min(44vh,400px)}
+.stage svg{filter:drop-shadow(0 10px 24px rgba(34,48,63,.14))}
+.box{fill:var(--white);stroke:var(--navy);stroke-width:6}
+.ball{fill:var(--cheese);stroke:var(--navy);stroke-width:5}
+.wordline{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(2.4rem,5.6vw,4.4rem);line-height:1.1;text-align:center}
+.sentence{text-align:center;font-size:clamp(1.3rem,2.4vw,1.9rem);font-weight:600;color:var(--ink)}
+.sentence .is{color:var(--blue);font-weight:800}
+.sentence .prep{background:var(--cheese-soft);border-bottom:4px solid var(--cheese);
+  padding:0 .18em;border-radius:8px;font-weight:800;color:var(--navy-deep)}
+
+/* overview gallery (slide 1) */
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:clamp(.7rem,1.4vw,1.1rem)}
+.gal .w{background:var(--white);border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.1);
+  padding:.85em .6em .7em;text-align:center;transition:transform .15s ease}
+.gal .w:hover{transform:translateY(-4px)}
+.gal .dia{width:min(8.5vw,82px);margin:0 auto}
+.gal .nm{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1.15rem,2vw,1.55rem);margin-top:.2em}
+
+/* the rhyme (slide 9) */
+.rhyme{display:flex;flex-direction:column;gap:.45em;align-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(1.9rem,4.4vw,3.4rem);line-height:1.25}
+.rhyme .plus{font-size:.55em;color:var(--ink-soft);font-weight:600;margin-top:.3em}
+
+/* the click-quiz (slide 10) */
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:clamp(.6rem,1.2vw,1rem);
+  width:100%;max-width:1020px;margin:0 auto}
+.qcard{background:var(--white);border-radius:16px;box-shadow:0 6px 16px rgba(34,48,63,.1);
+  padding:.6em .4em .5em;text-align:center;cursor:pointer;user-select:none;
+  transition:transform .15s ease,border-color .15s ease,background .15s ease;border:3px solid transparent}
+.qcard:hover{transform:translateY(-4px)}
+.qcard .dia{width:min(9vw,88px);margin:0 auto}
+.qslot{display:grid;margin-top:.15em}
+.qslot .qmark,.qslot .qw{grid-area:1/1;display:grid;place-items:center;min-height:1.4em}
+.qslot .qmark{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--ink-soft);
+  font-size:clamp(1.1rem,1.9vw,1.45rem)}
+.qslot .qw{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(1.1rem,1.9vw,1.45rem);opacity:0;transform:scale(.5);
+  transition:all .25s cubic-bezier(.34,1.56,.64,1)}
+.qcard.open{border-color:var(--cheese);background:var(--cheese-soft)}
+.qcard.open .qmark{display:none}
+.qcard.open .qw{opacity:1;transform:none}
+
+/* the speaking words: anything with data-say is a tap-to-hear target */
+.said{animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+[data-say]{cursor:pointer}
+
+@media (max-width:900px){
+  .gal{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+  .qgrid{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#1E3A66;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1rem,1.6vw,1.3rem)}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:'Fredoka',sans-serif;font-size:.9em;cursor:pointer}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(30,58,102,.85);color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:.8rem;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F5F3EE;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--cheese)}
+body.embed #nav,body.embed #bar{display:none!important}
+</style>
+</head>
+<body>
+
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · OVERVIEW POSTER -->
+  <section class="slide">
+    <div class="eyebrow reveal">universal reference deck · Cambridge Starters</div>
+    <h1 class="title reveal">Where is it? 📦</h1>
+    <div class="accent-line reveal"></div>
+    <p class="reveal" style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1.05rem,1.7vw,1.4rem)">Seven prepositions of place — the square &amp; the dot say it all:</p>
+    <div class="gal reveal" style="margin:0 auto;width:100%">
+      <div class="w" data-say="on"><div class="dia" data-d="on"></div><div class="nm">on</div></div>
+      <div class="w" data-say="under"><div class="dia" data-d="under"></div><div class="nm">under</div></div>
+      <div class="w" data-say="in"><div class="dia" data-d="in"></div><div class="nm">in</div></div>
+      <div class="w" data-say="in front of"><div class="dia" data-d="infront"></div><div class="nm">in front of</div></div>
+      <div class="w" data-say="behind"><div class="dia" data-d="behind"></div><div class="nm">behind</div></div>
+      <div class="w" data-say="next to"><div class="dia" data-d="nextto"></div><div class="nm">next to</div></div>
+      <div class="w" data-say="between"><div class="dia" data-d="between"></div><div class="nm">between</div></div>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Where is the ball in each picture? Tap to hear! 🔊</p>
+    <div class="stamp-line reveal">prepositions of place · v3 · 11.10.2026 · speaks</div>
+  </section>
+
+  <!-- SLIDE 2 · ON -->
+  <section class="slide">
+    <div class="eyebrow reveal">1 / 7 · where is the ball?</div>
+    <div class="stage reveal" data-say="on. The ball is on the box."><div class="dia" data-d="on"></div></div>
+    <div class="wordline reveal" data-say="on">on</div>
+    <p class="sentence reveal">The ball <span class="is">is</span> <span class="prep">on</span> the box.</p>
+    <p class="task reveal mt" style="align-self:center">Say it ×3 — big voice, whisper, SUPER fast! · tap to hear 🔊</p>
+  </section>
+
+  <!-- SLIDE 3 · UNDER -->
+  <section class="slide">
+    <div class="eyebrow reveal">2 / 7 · where is the ball?</div>
+    <div class="stage reveal" data-say="under. The ball is under the box."><div class="dia" data-d="under"></div></div>
+    <div class="wordline reveal" data-say="under">under</div>
+    <p class="sentence reveal">The ball <span class="is">is</span> <span class="prep">under</span> the box.</p>
+    <p class="task reveal mt" style="align-self:center">Say it ×3 — big voice, whisper, SUPER fast! · tap to hear 🔊</p>
+  </section>
+
+  <!-- SLIDE 4 · IN -->
+  <section class="slide">
+    <div class="eyebrow reveal">3 / 7 · where is the ball?</div>
+    <div class="stage reveal" data-say="in. The ball is in the box."><div class="dia" data-d="in"></div></div>
+    <div class="wordline reveal" data-say="in">in</div>
+    <p class="sentence reveal">The ball <span class="is">is</span> <span class="prep">in</span> the box.</p>
+    <p class="task reveal mt" style="align-self:center">Say it ×3 — big voice, whisper, SUPER fast! · tap to hear 🔊</p>
+  </section>
+
+  <!-- SLIDE 5 · IN FRONT OF -->
+  <section class="slide">
+    <div class="eyebrow reveal">4 / 7 · where is the ball?</div>
+    <div class="stage reveal" data-say="in front of. The ball is in front of the box."><div class="dia" data-d="infront"></div></div>
+    <div class="wordline reveal" data-say="in front of">in front of</div>
+    <p class="sentence reveal">The ball <span class="is">is</span> <span class="prep">in front of</span> the box.</p>
+    <p class="task reveal mt" style="align-self:center">Say it ×3 — big voice, whisper, SUPER fast! · tap to hear 🔊</p>
+  </section>
+
+  <!-- SLIDE 6 · BEHIND -->
+  <section class="slide">
+    <div class="eyebrow reveal">5 / 7 · where is the ball?</div>
+    <div class="stage reveal" data-say="behind. The ball is behind the box."><div class="dia" data-d="behind"></div></div>
+    <div class="wordline reveal" data-say="behind">behind</div>
+    <p class="sentence reveal">The ball <span class="is">is</span> <span class="prep">behind</span> the box.</p>
+    <p class="task reveal mt" style="align-self:center">Say it ×3 — big voice, whisper, SUPER fast! · tap to hear 🔊</p>
+  </section>
+
+  <!-- SLIDE 7 · NEXT TO -->
+  <section class="slide">
+    <div class="eyebrow reveal">6 / 7 · where is the ball?</div>
+    <div class="stage reveal" data-say="next to. The ball is next to the box."><div class="dia" data-d="nextto"></div></div>
+    <div class="wordline reveal" data-say="next to">next to</div>
+    <p class="sentence reveal">The ball <span class="is">is</span> <span class="prep">next to</span> the box.</p>
+    <p class="task reveal mt" style="align-self:center">Say it ×3 — big voice, whisper, SUPER fast! · tap to hear 🔊</p>
+  </section>
+
+  <!-- SLIDE 8 · BETWEEN -->
+  <section class="slide">
+    <div class="eyebrow reveal">7 / 7 · where is the ball?</div>
+    <div class="stage reveal" data-say="between. The ball is between the boxes."><div class="dia" data-d="between"></div></div>
+    <div class="wordline reveal" data-say="between">between</div>
+    <p class="sentence reveal">The ball <span class="is">is</span> <span class="prep">between</span> the box<b>es</b>.</p>
+    <p class="task reveal mt" style="align-self:center">Say it ×3 — big voice, whisper, SUPER fast! · tap to hear 🔊</p>
+  </section>
+
+  <!-- SLIDE 9 · THE RHYME -->
+  <section class="slide">
+    <div class="eyebrow reveal">the rhyme · chant it</div>
+    <h1 class="title reveal">The rhyme 🎵</h1>
+    <div class="accent-line reveal"></div>
+    <div class="rhyme reveal">
+      <div data-say="on, under, in.">on · under · in</div>
+      <div data-say="in front of, behind, between.">in front of · behind · between</div>
+      <div class="plus" data-say="next to!">+ next to — the seventh friend!</div>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Chant it with the gestures — a move per word! Or tap a line to hear it 🔊</p>
+  </section>
+
+  <!-- SLIDE 10 · THE CLICK-QUIZ -->
+  <section class="slide">
+    <div class="eyebrow reveal">quiz · say it — then check</div>
+    <h1 class="title reveal">Say it — then click! 🎯</h1>
+    <div class="accent-line reveal"></div>
+    <div class="qgrid reveal">
+      <div class="qcard" data-k data-on="open"><span class="dia" data-d="behind"></span><span class="qslot"><span class="qmark">?</span><span class="qw">behind</span></span></div>
+      <div class="qcard" data-k data-on="open"><span class="dia" data-d="in"></span><span class="qslot"><span class="qmark">?</span><span class="qw">in</span></span></div>
+      <div class="qcard" data-k data-on="open"><span class="dia" data-d="between"></span><span class="qslot"><span class="qmark">?</span><span class="qw">between</span></span></div>
+      <div class="qcard" data-k data-on="open"><span class="dia" data-d="on"></span><span class="qslot"><span class="qmark">?</span><span class="qw">on</span></span></div>
+      <div class="qcard" data-k data-on="open"><span class="dia" data-d="nextto"></span><span class="qslot"><span class="qmark">?</span><span class="qw">next to</span></span></div>
+      <div class="qcard" data-k data-on="open"><span class="dia" data-d="under"></span><span class="qslot"><span class="qmark">?</span><span class="qw">under</span></span></div>
+      <div class="qcard" data-k data-on="open"><span class="dia" data-d="infront"></span><span class="qslot"><span class="qmark">?</span><span class="qw">in front of</span></span></div>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Name the picture — then click to check. Click again to hide — and hear it! 🔊</p>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 10</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- presenter view shell (T / 🖥) -->
+<div id="pv">
+  <div class="head">
+    <b>Prepositions of Place — presenter</b>
+    <button id="pv-close">✕ close (T)</button>
+    <span class="cnt" id="pv-cnt">1 / 10</span>
+  </div>
+  <div class="panes">
+    <div class="pane"><span class="lbl">NOW — what they see</span><iframe id="pv-cur"></iframe></div>
+    <div class="pane"><span class="lbl">NEXT</span><iframe id="pv-next"></iframe></div>
+  </div>
+  <div class="notes" id="pv-notes">—</div>
+</div>
+
+<script>
+/* ============ the square & the dot — one schema, drawn once ============ */
+const DIAG={
+on:`<svg viewBox="0 0 260 230" aria-label="ball on the box"><rect class="box" x="80" y="70" width="100" height="100" rx="14"/><circle class="ball" cx="130" cy="48" r="22"/></svg>`,
+under:`<svg viewBox="0 0 260 230" aria-label="ball under the box"><rect class="box" x="80" y="70" width="100" height="100" rx="14"/><circle class="ball" cx="130" cy="192" r="22"/></svg>`,
+in:`<svg viewBox="0 0 260 230" aria-label="ball in the box"><rect class="box" x="80" y="70" width="100" height="100" rx="14"/><circle class="ball" cx="130" cy="120" r="22"/></svg>`,
+infront:`<svg viewBox="0 0 260 230" aria-label="ball in front of the box"><rect class="box" x="80" y="70" width="100" height="100" rx="14"/><circle class="ball" cx="130" cy="160" r="26"/></svg>`,
+behind:`<svg viewBox="0 0 260 230" aria-label="ball behind the box"><circle class="ball" cx="130" cy="76" r="26"/><rect class="box" x="80" y="70" width="100" height="100" rx="14"/></svg>`,
+nextto:`<svg viewBox="0 0 260 230" aria-label="ball next to the box"><rect class="box" x="55" y="70" width="100" height="100" rx="14"/><circle class="ball" cx="185" cy="120" r="22"/></svg>`,
+between:`<svg viewBox="0 0 260 230" aria-label="ball between two boxes"><rect class="box" x="12" y="74" width="92" height="92" rx="14"/><rect class="box" x="156" y="74" width="92" height="92" rx="14"/><circle class="ball" cx="130" cy="120" r="19"/></svg>`
+};
+document.querySelectorAll('.dia').forEach(el=>{el.innerHTML=DIAG[el.dataset.d]||''});
+
+/* ============ the speaking words (TTS — the approved voice, ported from the phonics decks) ============ */
+let ttsVoice=null;
+function pickTTSVoice(){
+  if(!('speechSynthesis' in window))return;
+  const vs=speechSynthesis.getVoices();
+  ttsVoice=vs.find(v=>/en[-_]US/i.test(v.lang)&&/Samantha|Ava|Allison|Aria|Zira/i.test(v.name))
+      ||vs.find(v=>/^en/i.test(v.lang))||null;
+}
+if('speechSynthesis' in window){pickTTSVoice();speechSynthesis.onvoiceschanged=pickTTSVoice}
+function sayText(t){
+  if(!('speechSynthesis' in window)||!t)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t);
+  if(ttsVoice)u.voice=ttsVoice;
+  u.lang='en-US';u.rate=.8;u.pitch=1.05;
+  speechSynthesis.speak(u);
+}
+function ring(el){if(!el)return;el.classList.remove('said');void el.offsetWidth;el.classList.add('said')}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-say]');
+  if(t){ring(t);sayText(t.dataset.say);return}
+  const qc=e.target.closest('.qcard');
+  if(qc&&qc.classList.contains('open')){ring(qc);sayText(qc.querySelector('.qw').textContent)}
+});
+
+/* ============ core deck engine (spec §4–§7) ============ */
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.querySelector('#bar i'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+
+const syncs=[...document.querySelectorAll('[data-k]')];
+syncs.forEach((el,k)=>{el.dataset.k=k;if(!el.dataset.on)el.dataset.on='shown'});
+function setSync(k,on){const el=syncs[k];if(!el)return;
+  if(el.classList.contains('yn')){el.classList.toggle('shown-yes',on&&el.dataset.on==='shown-yes');
+    el.classList.toggle('shown-no',on&&el.dataset.on==='shown-no');}
+  else el.classList.toggle(el.dataset.on,on);}
+
+const CH='place-prepositions';
+const bc=('BroadcastChannel'in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get('embed')?'embed':(qs.get('presenter')?'presenter':'main');
+const open=new Set();
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==='hello'&&MODE==='main'){post({t:'state',i,open:[...open]});return}
+  if(m.t==='state'){if(MODE==='embed'){showEmbed(m.i)}applyOpen(m.open);if(MODE==='presenter')pvShow(m.i);return}
+  if(m.t==='go'){if(MODE==='embed')showEmbed(m.i);else{go(m.i,true)}applyOpen(m.open||[]);return}
+  if(m.t==='tap'){setSync(m.k,m.on);if(m.on)open.add(m.k);else open.delete(m.k);
+    if(MODE==='embed')post({t:'tap',k:m.k,on:m.on});}
+};
+function applyOpen(list){open.clear();(list||[]).forEach(k=>{open.add(k);setSync(k,true)})}
+function broadcastState(){post({t:'state',i,open:[...open]})}
+
+document.getElementById('deck').addEventListener('click',e=>{
+  const el=e.target.closest('[data-k]');if(!el)return;
+  const k=+el.dataset.k;
+  const nowOn=!el.classList.contains(el.dataset.on);
+  setSync(k,nowOn);if(nowOn)open.add(k);else open.delete(k);
+  post({t:'tap',k,on:nowOn});
+});
+
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(!silent)post({t:'go',i,open:[...open]});
+  if(MODE==='presenter')pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(MODE==='embed')return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+  if(e.key==='t'||e.key==='T')togglePresenter();
+});
+let wt=0;document.addEventListener('wheel',e=>{if(MODE!=='main')return;const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(MODE!=='main')return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ presenter view (spec §7) ============ */
+const pv=document.getElementById('pv');
+function togglePresenter(){
+  if(MODE==='embed')return;
+  if(MODE==='presenter'){window.close();return}
+  window.open(location.pathname+'?presenter=1','prepositions-pv','width=1180,height=820');
+}
+document.getElementById('pvt').onclick=togglePresenter;
+document.getElementById('pv-close').onclick=()=>window.close();
+const pvCur=document.getElementById('pv-cur'),pvNext=document.getElementById('pv-next'),
+pvNotes=document.getElementById('pv-notes'),pvCnt=document.getElementById('pv-cnt');
+if(MODE==='presenter'){
+  document.body.classList.add('presenter');
+  pvCur.src=location.pathname+'?embed=cur';pvNext.src=location.pathname+'?embed=next';
+}
+function pvShow(n){
+  if(MODE!=='presenter')return;
+  pvCnt.textContent=(n+1)+' / '+slides.length;
+  pvNotes.innerHTML='';
+  const note=slides[n].dataset.notes;
+  if(note){const p=document.createElement('p');p.textContent=note;pvNotes.appendChild(p)}
+  const nxt=slides[n+1]&&slides[n+1].dataset.notes;
+  if(nxt){const h=document.createElement('p');h.innerHTML='<b>next →</b> ';h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+let embedSlot=qs.get('embed');
+function showEmbed(n){
+  const target=embedSlot==='next'?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==='next')document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle('active',k===target);s.classList.remove('prev')});
+}
+const h=parseInt(location.hash.slice(1));
+if(MODE==='main'){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true);broadcastState()}
+else post({t:'hello'});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=='main')return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();}catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
