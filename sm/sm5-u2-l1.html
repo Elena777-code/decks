@@ -32,6 +32,18 @@
    Same engine as U2 L6 (06.10): ✍️ V2 window, corners V2,
    the universal Pardon six, the hotkey guard, flex-shrink,
    stamp, chime. English only. Answers behind clicks.
+   === v2 (Elena's ✍️ notes of 13.10 morning, verbatim in
+   plan-004): the HW block stays skip-if-done («I don't think
+   they had any hw» — start from the board slide); THE BOARD
+   RULE — the TB's "write rainforests on the board" now has
+   its own board slide (standing for SM/WW and every demo
+   deck); the word cards carry RU + meaning + example behind
+   clicks (Elena's explicit ask — her Russian permission for
+   this deck); the ex numbers fixed to HER printed book (the
+   story questions = ex. 2, describe = ex. 3); THE BIG
+   NUMBERS LEFT THE BUTTON — SB p. 23 in full right after
+   the homework (say → match → video + the p. 120 ladder →
+   write & say → BINGO with a drawn 2×2 grid), goodbye last.
    ============================================================ */
 :root{
   --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
@@ -197,19 +209,20 @@ button.tn.on{background:var(--ink-soft);color:#fff;border-color:var(--ink-soft)}
 .hw-step p{font-size:clamp(1.02rem,1.62vw,1.32rem);line-height:1.5}
 .hw-step .en{font-family:'Fredoka',sans-serif;color:var(--navy);font-weight:600}
 
-/* THE BUTTON — the spare-time bonus lives behind it (last slide) */
-.bonus-btn{align-self:center;border:none;cursor:pointer;border-radius:99px;
-  padding:.55em 1.5em;font-family:'Fredoka',sans-serif;font-weight:700;
-  font-size:clamp(1.3rem,2.6vw,2.1rem);color:var(--navy-deep);
-  background:linear-gradient(135deg,var(--cheese),#FFD97A);
-  box-shadow:0 10px 26px rgba(255,197,61,.45);transition:transform .15s ease}
-.bonus-btn:hover{transform:scale(1.05)}
-.bonus-btn::after{content:" 🔢"}
-/* the jump chip on the bonus slides — back to the goodbye */
+/* the jump chip on the numbers slides — skip forward to the goodbye */
 button.jump{align-self:center;border:2px dashed var(--navy);background:var(--white);color:var(--navy);
   font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);
   padding:.35em 1.2em;border-radius:99px;cursor:pointer;transition:all .18s}
 button.jump:hover{background:var(--navy);color:#fff}
+
+/* the board card — the TB's "write X on the board" becomes a slide (Elena's standing rule, 13.10) */
+.board-card{background:var(--navy-deep);border:10px solid var(--white);outline:4px solid var(--sky);
+  border-radius:18px;padding:clamp(1em,4vh,2em) clamp(1.4em,4vw,2.4em);box-shadow:var(--shadow-lg)}
+.board-word{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2.6rem,8vw,6.2rem);
+  color:#FDFDF8;letter-spacing:.02em}
+/* the bingo 2×2 grid — drawn, so nobody draws it blind */
+.bingo-grid{display:grid;grid-template-columns:1fr 1fr;gap:.35em;width:min(230px,38vw);align-self:center}
+.bingo-grid i{display:block;aspect-ratio:1;border:3px dashed var(--navy);border-radius:12px;background:var(--white)}
 
 /* presenter view (T / 🖥) */
 #pv{position:fixed;inset:0;z-index:300;background:#1E3A66;display:none;
@@ -316,6 +329,8 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
    stay — the rule governs the fixed corner pills. */
 .slide{padding-top:8.5vh}
 </style>
+<style>/* THE FILM CUE (standing, 2026-10-13): Elena films the group for the parents at this slide — placement taught gradually */
+.filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}</style>
 </head>
 <body>
 
@@ -330,13 +345,13 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
     <div class="accent-line reveal"></div>
     <div class="col reveal" style="max-width:920px">
       <div class="prep"><span class="ico">🖥</span><p><b>ActiveTeach open at SB p. 22</b> — the <b>rainforest flashcards</b> (slide 8) + the <b>map of South America</b> (slide 7) live there.</p></div>
-      <div class="prep"><span class="ico">📮</span><p><b>Farida's Thursday = Test 1 — and no note came.</b> So the check is <b>Elena's own homework of 06.10</b>, each skip-if-done: the <b>plates dictation five</b> (slide 3) · <b>WB pp. 18–19</b> (slides 4–5, keys ready) · the <b>disaster reports</b> (slide 6, rolled onto today).</p></div>
-      <div class="prep"><span class="ico">🎧</span><p><b>Test the sound:</b> track <b>022</b> (slide 9) · track <b>023</b> (slide 11).</p></div>
-      <div class="prep"><span class="ico">🔢</span><p><b>The big numbers live behind the BUTTON on the last slide</b> (three bonus slides, TB Lesson Two). <b>Test-click it before 17.15</b> — open it only if the lesson runs fast.</p></div>
+      <div class="prep"><span class="ico">📮</span><p><b>Farida's Thursday = Test 1 — and no note came.</b> The check (slides 3–6) is <b>skip-if-done</b> — Elena's morning word: «I don't think they had any hw» — if so, <b>start from slide 7 (the board)</b>.</p></div>
+      <div class="prep"><span class="ico">🎧</span><p><b>Test the sound:</b> track <b>022</b> (slide 11) · track <b>023</b> (slide 13) · track <b>024</b> — the Language focus audio (slide 19; if it's not the right track, ActiveTeach plays it).</p></div>
+      <div class="prep"><span class="ico">🔢</span><p><b>Big numbers = SB p. 23 in FULL, right after the homework (slides 17–21)</b> — Elena wants time for it. Say them → the Amazon match → the video + the ladder → write &amp; say → BINGO.</p></div>
       <div class="prep"><span class="ico">✍️</span><p><b>Teach from THIS full copy</b> — the ✍️ notes auto-send only from here (the server running). The site copy ate the notes last time.</p></div>
-      <div class="prep"><span class="ico">⏱</span><p><b>Cut order:</b> the <b>memory game</b> (13) → the <b>colour round</b> (9) → the <b>describe game</b> round two (12). <b>Never cut:</b> the 🎧023 questions (11) + the homework slide.</p></div>
+      <div class="prep"><span class="ico">⏱</span><p><b>Cut order:</b> the <b>describe game</b> round two (14) → the <b>colour round</b> (11) → the <b>memory game</b> (15). <b>Never cut:</b> the 🎧023 questions (13) · the homework (16) · the numbers presentation (17).</p></div>
     </div>
-    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2. &nbsp;·&nbsp; <b style="color:var(--navy)">build 13.10 · v1</b></p>
+    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2. &nbsp;·&nbsp; <b style="color:var(--navy)">build 13.10 · v3 · full</b></p>
   </section>
 
   <!-- SLIDE 2 · WI-FI SWITCH -->
@@ -428,7 +443,14 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
     </div>
   </section>
 
-  <!-- SLIDE 7 · WARM-UP (TB) — RAINFORESTS -->
+  <!-- SLIDE 7 · THE BOARD — the TB says "write rainforests on the board" (Elena's board rule: the deck shows it) -->
+  <section class="slide" style="justify-content:center;align-items:center;text-align:center;gap:2vh">
+    <div class="eyebrow reveal">The TB says: write it on the board — here it is</div>
+    <div class="board-card reveal"><div class="board-word">rainforests</div></div>
+    <p class="hintline reveal">What do you know? Do people live there, too?</p>
+  </section>
+
+  <!-- SLIDE 8 · WARM-UP (TB) — RAINFORESTS -->
   <section class="slide">
     <div class="eyebrow reveal">Warm-up · a new unit!</div>
     <h1 class="title reveal">Rainforests 🌴</h1>
@@ -441,28 +463,39 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
     <p class="hintline reveal" style="text-align:center">It's BIG — it crosses nine countries. We meet them today…</p>
   </section>
 
-  <!-- SLIDE 8 · PRESENTATION (TB) — THE RAINFOREST FLASHCARDS -->
-  <section class="slide">
+  <!-- SLIDE 9 · PRESENTATION (TB) — THE RAINFOREST WORDS 1–6 (RU · meaning · example behind clicks — Elena's ask) -->
+  <section class="slide" style="gap:.9vh">
     <div class="eyebrow reveal">New words · SB p. 22</div>
-    <h1 class="title reveal">Rainforest life 🦜</h1>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">Rainforest life 🦜</h1>
     <div class="accent-line reveal"></div>
-    <div class="reveal"><span class="bookchip">ActiveTeach — the rainforest flashcards: I say, you repeat!</span></div>
-    <div class="wordgrid reveal" style="max-width:960px;margin:0 auto;width:100%">
-      <div class="wc"><span class="no">1</span>beak</div>
-      <div class="wc"><span class="no">2</span>toucan</div>
-      <div class="wc"><span class="no">3</span>creeper</div>
-      <div class="wc"><span class="no">4</span>sloth</div>
-      <div class="wc"><span class="no">5</span>branch</div>
-      <div class="wc"><span class="no">6</span>anaconda</div>
-      <div class="wc"><span class="no">7</span>jaguar</div>
-      <div class="wc"><span class="no">8</span>anteater</div>
-      <div class="wc"><span class="no">9</span>beetle</div>
-      <div class="wc"><span class="no">10</span>pool</div>
-      <div class="wc" style="border-color:var(--stamp)">☠️ <span>poisonous</span></div>
+    <div class="reveal"><span class="bookchip">ActiveTeach — the flashcards show the pictures · I say, you repeat!</span></div>
+    <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">Click a word — Russian · meaning · example!</p>
+    <div class="card reveal" style="max-width:980px;margin:0 auto;width:100%;padding:clamp(.6rem,1.1vw,.95rem)">
+      <div class="item" data-k style="padding:.2em .2em"><span class="no">1</span><span><b>beak</b> <span class="agree wrap">клюв · the bird's mouth — The toucan has got a big yellow beak.</span></span></div>
+      <div class="item" data-k style="padding:.2em .2em"><span class="no">2</span><span><b>toucan</b> <span class="agree wrap">тукан · a bright bird with a huge beak — Look! A toucan is in the tree.</span></span></div>
+      <div class="item" data-k style="padding:.2em .2em"><span class="no">3</span><span><b>creeper</b> <span class="agree wrap">лиана · a plant that climbs up trees — The creeper grows up the big tree.</span></span></div>
+      <div class="item" data-k style="padding:.2em .2em"><span class="no">4</span><span><b>sloth</b> <span class="agree wrap">ленивец · a very slow animal that hangs in trees — The sloth sleeps all day.</span></span></div>
+      <div class="item" data-k style="padding:.2em .2em"><span class="no">5</span><span><b>branch</b> <span class="agree wrap">ветка · a part of a tree that grows from the trunk — The monkey sits on a branch.</span></span></div>
+      <div class="item" data-k style="padding:.2em .2em"><span class="no">6</span><span><b>anaconda</b> <span class="agree wrap">анаконда · a very big snake that swims — An anaconda can swim in the river.</span></span></div>
     </div>
   </section>
 
-  <!-- SLIDE 9 · SB p. 22 ex. 1 — TRACK 022 LISTEN & SAY -->
+  <!-- SLIDE 10 · PRESENTATION (TB) — THE RAINFOREST WORDS 7–10 + POISONOUS -->
+  <section class="slide" style="gap:.9vh">
+    <div class="eyebrow reveal">New words · SB p. 22 · continued</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">Rainforest life 🦜</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">Click a word — Russian · meaning · example!</p>
+    <div class="card reveal" style="max-width:980px;margin:0 auto;width:100%;padding:clamp(.6rem,1.1vw,.95rem)">
+      <div class="item" data-k style="padding:.24em .2em"><span class="no">7</span><span><b>jaguar</b> <span class="agree wrap">ягуар · a big cat with spots — A jaguar has spots, not stripes.</span></span></div>
+      <div class="item" data-k style="padding:.24em .2em"><span class="no">8</span><span><b>anteater</b> <span class="agree wrap">муравьед · an animal with a long nose that eats ants — The anteater eats ants for breakfast.</span></span></div>
+      <div class="item" data-k style="padding:.24em .2em"><span class="no">9</span><span><b>beetle</b> <span class="agree wrap">жук · a small insect with hard wings — A beetle is on the leaf.</span></span></div>
+      <div class="item" data-k style="padding:.24em .2em"><span class="no">10</span><span><b>pool</b> <span class="agree wrap">лесной пруд, лужа · a small lake in the forest — The animals drink at the pool.</span></span></div>
+      <div class="item" data-k style="padding:.24em .2em"><span class="no">☠️</span><span><b>poisonous</b> <span class="agree wrap">ядовитый · touch it and you get ill — Don't touch the frog — it's poisonous!</span></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 11 · SB p. 22 ex. 1 — TRACK 022 LISTEN & SAY -->
   <section class="slide">
     <div class="eyebrow reveal">Listening · SB p. 22 · ex. 1</div>
     <h1 class="title reveal">Listen and say the words 🎧</h1>
@@ -474,7 +507,7 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
     <p class="hintline reveal" style="text-align:center">Then the colour round: find ANOTHER animal — tell your partner what colour it is. <i>(a frog — it's red!)</i></p>
   </section>
 
-  <!-- SLIDE 10 · THE BIG QUESTION (TB) -->
+  <!-- SLIDE 12 · THE BIG QUESTION (TB) -->
   <section class="slide">
     <div class="eyebrow reveal">Think · the Big Question</div>
     <h1 class="title reveal" style="font-size:clamp(1.8rem,3.8vw,3.2rem)">Why is the rainforest important? 🤔</h1>
@@ -487,15 +520,15 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
     </div>
   </section>
 
-  <!-- SLIDE 11 · SB p. 22 ex. 3 — TRACK 023 READ, LISTEN AND ANSWER -->
+  <!-- SLIDE 13 · SB p. 22 ex. 2 — TRACK 023 READ, LISTEN AND ANSWER -->
   <section class="slide">
-    <div class="eyebrow reveal">Listening · SB p. 22 · ex. 3</div>
+    <div class="eyebrow reveal">Listening · SB p. 22 · ex. 2 (in your book)</div>
     <h1 class="title reveal">Read, listen and answer 🎧</h1>
     <div class="accent-line reveal"></div>
     <div class="center reveal" style="display:flex;justify-content:center">
       <audio controls preload="none" src="media/Track 023.mp3" style="width:min(480px,90%)"></audio>
     </div>
-    <p class="task reveal">Read the questions in your book — listen to the story twice — answer!</p>
+    <p class="task reveal">Read ex. 2 in your book — listen to the story twice — answer!</p>
     <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
       <div class="item" data-k><span class="no">1</span><span>What animals can the children see? <span class="agree wrap">a jaguar, an anaconda, a sloth, a toucan and a frog</span></span></div>
       <div class="item" data-k><span class="no">2</span><span>What's the difference between a tiger and a jaguar? <span class="agree wrap">a tiger has stripes — a jaguar has spots</span></span></div>
@@ -504,9 +537,9 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
     </div>
   </section>
 
-  <!-- SLIDE 12 · SB p. 22 ex. 4 — DESCRIBE & GUESS + THE TREASURE -->
+  <!-- SLIDE 14 · SB p. 22 ex. 3 — DESCRIBE & GUESS + THE TREASURE -->
   <section class="slide">
-    <div class="eyebrow reveal">Speaking · SB p. 22 · ex. 4</div>
+    <div class="eyebrow reveal">Speaking · SB p. 22 · ex. 3 (in your book)</div>
     <h1 class="title reveal">Describe it — your partner guesses! 🗣</h1>
     <div class="accent-line reveal"></div>
     <p class="task reveal">Choose a word from the picture. Describe it — your partner guesses!</p>
@@ -519,9 +552,10 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
       <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--stamp);margin-bottom:.2em">🧠 Detective time!</p>
       <div class="item" data-k><span class="no">🔎</span><span>It's a big cat. It has spots, not stripes. A tiger has stripes. — Which cat is it? <span class="agree">a jaguar!</span></span></div>
     </div>
-  </section>
+  <div class="filmchip" title="Lights, camera, action — film 30–60 s of the group for the parents; the clip goes to Miss Alyona">🎬 Lights, camera, action!</div>
+</section>
 
-  <!-- SLIDE 13 · ENDING THE LESSON (TB) — THE MEMORY GAME -->
+  <!-- SLIDE 15 · ENDING THE LESSON (TB) — THE MEMORY GAME -->
   <section class="slide">
     <div class="eyebrow reveal">The memory game · books open → closed</div>
     <h1 class="title reveal">Picture memory 🧠</h1>
@@ -538,7 +572,7 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
     </div>
   </section>
 
-  <!-- SLIDE 14 · HOMEWORK -->
+  <!-- SLIDE 16 · HOMEWORK -->
   <section class="slide">
     <div class="eyebrow reveal">Homework · for Thursday</div>
     <h1 class="title reveal">Homework 📌</h1>
@@ -550,45 +584,33 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
     <div class="center reveal"><div class="stamp-box big">rainforest explorers — great work today! 🌴</div></div>
   </section>
 
-  <!-- SLIDE 15 · THE GOODBYE + THE BUTTON (the spare-time bonus lives behind it) -->
-  <section class="slide">
-    <div class="eyebrow reveal">The lesson is done · see you Thursday!</div>
-    <h1 class="title reveal">Well done! 🌴</h1>
-    <div class="accent-line reveal"></div>
-    <div class="center reveal" style="display:flex;flex-direction:column;align-items:center;gap:1.2em;margin-top:2vh">
-      <button class="bonus-btn" onclick="go(15)">Big numbers — if time!</button>
-      <p class="hintline">Everything above was the lesson. This button hides Elena's spare-time treat —<br>three slides about BIG numbers. Tap it only if the clock is kind.</p>
-    </div>
-  </section>
-
-  <!-- SLIDE 16 · BONUS 1 — HOW TO SAY BIG NUMBERS (TB LESSON TWO PRESENTATION) -->
+  <!-- SLIDE 17 · BIG NUMBERS — HOW TO SAY THEM (SB p. 23, the TB presentation) -->
   <section class="slide" style="gap:.9vh">
-    <div class="eyebrow reveal">Spare time · big numbers · SB p. 23</div>
+    <div class="eyebrow reveal">Big numbers · SB p. 23 · the presentation</div>
     <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">How to SAY a big number 🔢</h1>
     <div class="accent-line reveal"></div>
-    <button class="jump" onclick="go(14)">↩ back to the goodbye</button>
+    <button class="jump" onclick="go(21)">↩ skip to the goodbye</button>
     <div class="row reveal" style="justify-content:center;gap:.6em">
       <span class="bookchip">100 = a hundred</span>
       <span class="bookchip">1,000 = a thousand</span>
       <span class="bookchip">1,000,000 = a million</span>
     </div>
-    <p class="task reveal">Two rules: break the number at every comma · say <b>and</b> only after hundred!</p>
-    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%">
-      <div class="item" data-k><span class="no">500</span><span class="agree">five hundred</span></div>
-      <div class="item" data-k><span class="no">999</span><span class="agree">nine hundred and ninety-nine</span></div>
-      <div class="item" data-k><span class="no">25,000</span><span class="agree">twenty-five thousand</span></div>
-      <div class="item" data-k><span class="no">130,500</span><span class="agree">one hundred and thirty thousand, five hundred</span></div>
-      <div class="item" data-k><span class="no">250,000</span><span class="agree">two hundred and fifty thousand</span></div>
+    <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">Two rules: break the number at every comma · say <b>and</b> only after hundred!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%;padding:clamp(.6rem,1.1vw,.95rem)">
+      <div class="item" data-k style="padding:.24em .2em"><span class="no">500</span><span class="agree">five hundred</span></div>
+      <div class="item" data-k style="padding:.24em .2em"><span class="no">999</span><span class="agree">nine hundred and ninety-nine</span></div>
+      <div class="item" data-k style="padding:.24em .2em"><span class="no">25,000</span><span class="agree">twenty-five thousand</span></div>
+      <div class="item" data-k style="padding:.24em .2em"><span class="no">130,500</span><span class="agree">one hundred and thirty thousand, five hundred</span></div>
+      <div class="item" data-k style="padding:.24em .2em"><span class="no">250,000</span><span class="agree">two hundred and fifty thousand</span></div>
     </div>
-    <p class="task reveal">Your turn: write a BIG number — give it to the other pair: they say it! <b>(also try 2,000 and 2,500)</b></p>
   </section>
 
-  <!-- SLIDE 17 · BONUS 2 — THE AMAZON NUMBERS (SB p. 23 ex. 1) -->
+  <!-- SLIDE 18 · SB p. 23 ex. 1 — THE AMAZON NUMBERS -->
   <section class="slide" style="gap:.9vh">
-    <div class="eyebrow reveal">Spare time · big numbers · SB p. 23 · ex. 1</div>
+    <div class="eyebrow reveal">Big numbers · SB p. 23 · ex. 1</div>
     <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">The Amazon in numbers 🌳</h1>
     <div class="accent-line reveal"></div>
-    <button class="jump" onclick="go(14)">↩ back to the goodbye</button>
+    <button class="jump" onclick="go(21)">↩ skip to the goodbye</button>
     <div class="reveal"><span class="bookchip">Read about the Amazon rainforest in your book (p. 23) — match the numbers!</span></div>
     <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">What does each number count? Say it — then click!</p>
     <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%;padding:clamp(.6rem,1.1vw,.95rem)">
@@ -602,28 +624,72 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
     <p class="hintline reveal" style="text-align:center">Say every number aloud as you match — the <b>and</b> game!</p>
   </section>
 
-  <!-- SLIDE 18 · BONUS 3 — NUMBER BINGO (THE TB EXTENSION) -->
-  <section class="slide">
-    <div class="eyebrow reveal">Spare time · big numbers · the game</div>
-    <h1 class="title reveal">NUMBER BINGO! 🎉</h1>
+  <!-- SLIDE 19 · SB p. 23 ex. 2 — WATCH, LISTEN AND SAY (THE VIDEO + THE P. 120 LADDER) -->
+  <section class="slide" style="gap:.9vh">
+    <div class="eyebrow reveal">Big numbers · SB p. 23 · ex. 2</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">Watch, listen and say 🎬</h1>
     <div class="accent-line reveal"></div>
-    <button class="jump" onclick="go(14)">↩ back to the goodbye</button>
-    <div class="steps reveal" style="max-width:880px;margin:0 auto;width:100%">
-      <div class="step"><span class="n">1</span><span>Draw a <b>2 × 2 grid</b> in your notebook.</span></div>
-      <div class="step"><span class="n">2</span><span>Choose <b>FOUR</b> numbers from the board — one in each square.</span></div>
-      <div class="step"><span class="n">3</span><span>Listen! Cross out the numbers you hear. ❌</span></div>
-      <div class="step"><span class="n">4</span><span>All four crossed out — shout <b>"BINGO!"</b> — then SAY all four to win!</span></div>
+    <button class="jump" onclick="go(21)">↩ skip to the goodbye</button>
+    <div class="reveal"><span class="bookchip">ActiveTeach — the Leo the leopard video · watch it TWICE</span></div>
+    <div class="reveal"><span class="bookchip">Then: Language focus, SB p. 120 — follow the ladder and join in 🎧</span></div>
+    <div class="center reveal" style="display:flex;justify-content:center">
+      <audio controls preload="none" src="media/Track 024.mp3" style="width:min(480px,90%)"></audio>
     </div>
-    <div class="bank reveal" style="max-width:980px;margin:.5em auto 0">
+    <div class="bank reveal" style="max-width:980px;margin:.2em auto 0">
+      <span>100 = one hundred</span><span>1,000 = a thousand</span><span>10,000 = ten thousand</span><span>100,000 = one hundred thousand</span><span>1,000,000 = one million</span><span>2,000,000 = two million</span>
+    </div>
+  </section>
+
+  <!-- SLIDE 20 · SB p. 23 ex. 3 — WRITE AND SAY -->
+  <section class="slide" style="gap:1.2vh">
+    <div class="eyebrow reveal">Big numbers · SB p. 23 · ex. 3</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">Write and say! ✍️</h1>
+    <div class="accent-line reveal"></div>
+    <button class="jump" onclick="go(21)">↩ skip to the goodbye</button>
+    <p class="task reveal">Work with a partner — write a BIG number, give it to the other pair: they say it!</p>
+    <div class="row reveal" style="justify-content:center;gap:.5em">
+      <div class="stamp-box">2,000</div>
+      <div class="stamp-box">2,500</div>
+      <div class="stamp-box">125,390</div>
+      <div class="stamp-box">15,025</div>
+      <div class="stamp-box">7,804</div>
+    </div>
+    <p class="hintline reveal" style="text-align:center">Warm-up numbers — say them altogether first, then in pairs.</p>
+  </section>
+
+  <!-- SLIDE 21 · NUMBER BINGO (THE TB EXTENSION) — with the drawn grid -->
+  <section class="slide" style="gap:.9vh">
+    <div class="eyebrow reveal">Big numbers · the game</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">NUMBER BINGO! 🎉</h1>
+    <div class="accent-line reveal"></div>
+    <button class="jump" onclick="go(21)">↩ skip to the goodbye</button>
+    <div class="row reveal" style="align-items:stretch;justify-content:center;gap:1.2em">
+      <div class="bingo-grid"><i></i><i></i><i></i><i></i></div>
+      <div class="steps" style="flex:1;min-width:340px;max-width:640px;margin:0 auto">
+        <div class="step" style="font-size:clamp(1.02rem,1.75vw,1.4rem)"><span class="n">1</span><span>Draw a <b>2 × 2 grid</b> — like this one!</span></div>
+        <div class="step" style="font-size:clamp(1.02rem,1.75vw,1.4rem)"><span class="n">2</span><span>Choose <b>FOUR</b> numbers from the board — one in each square.</span></div>
+        <div class="step" style="font-size:clamp(1.02rem,1.75vw,1.4rem)"><span class="n">3</span><span>Listen! Cross out the numbers you hear. ❌</span></div>
+        <div class="step" style="font-size:clamp(1.02rem,1.75vw,1.4rem)"><span class="n">4</span><span>All four crossed out — shout <b>"BINGO!"</b> — then SAY all four to win!</span></div>
+      </div>
+    </div>
+    <div class="bank reveal" style="max-width:980px;margin:.3em auto 0">
       <span>500</span><span>999</span><span>25,000</span><span>130,500</span><span>250,000</span><span>6,400</span><span>3,000</span><span>1,800</span><span>200</span><span>2,500</span><span>40,000</span><span>1,000,000</span>
     </div>
+  </section>
+
+  <!-- SLIDE 22 · THE GOODBYE -->
+  <section class="slide">
+    <div class="eyebrow reveal">The lesson is done · see you Thursday!</div>
+    <h1 class="title reveal">Well done! 🌴</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center reveal" style="margin-top:2vh"><div class="stamp-box big">rainforest explorers — great work today! 🌴</div></div>
   </section>
 
 </main>
 
 <div id="nav">
   <button id="prev" aria-label="previous">‹</button>
-  <span id="counter">1 / 18</span>
+  <span id="counter">1 / 22</span>
   <button id="next" aria-label="next">›</button>
   <button id="fs" aria-label="fullscreen">⛶</button>
   <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
@@ -649,7 +715,7 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
   <div class="head">
     <b>SM 5.1 · U2 L1 — presenter</b>
     <button id="pv-close">✕ close (T)</button>
-    <span class="cnt" id="pv-cnt">1 / 18</span>
+    <span class="cnt" id="pv-cnt">1 / 22</span>
   </div>
   <div class="panes">
     <div class="pane"><span class="lbl">NOW — what the class sees</span><iframe id="pv-cur"></iframe></div>
