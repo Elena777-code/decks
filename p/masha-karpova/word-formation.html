@@ -12,11 +12,11 @@
    Elena's order, approved in her click-test the same evening).
    The texts are VERBATIM from the FIPI ОГЭ open bank — never
    invented (Elena: «Take exactly what they offer»).
-   v2 (14.10, Elena's order): TWO texts this week —
-   №1 the Grand National AGAIN, now WITH A TIMER (the week-ramp
-   law: a returning activity returns timed), №2 Piranhas, NEW and
-   untimed. Check/Send per text; Send grades silently and flies
-   to HER OWN form «Mashulik».
+   v3 (14.10, Elena's correction): BOTH texts are NEW this week —
+   №1 Ballroom dancing, timed (3:00); №2 Piranhas, untimed. The
+   Grand National (week 1) is history — a new text every week.
+   Per-text Check/Send; Send grades silently and flies to HER OWN
+   form «Mashulik».
    ============================================================ */
 :root{
   --paper:#f6f2ea; --card:#fff; --ink:#37322a; --sub:#8b8578;
@@ -89,9 +89,9 @@ button.tbtn:hover{background:var(--sage-soft)}
   one word per gap, exactly as in the FIPI bank and on the exam.
   <strong>Send each result</strong> — it shows the right answers and gives your result to Elena.</p>
 
-  <!-- TEXT №1 — the Grand National, take two, WITH THE TIMER -->
+  <!-- TEXT №1 — Ballroom dancing, NEW, WITH THE TIMER -->
   <div class="card" id="card1">
-    <span class="week-chip">Text №1 · the Grand National (FIPI) — again, now with a timer</span>
+    <span class="week-chip">Text №1 · NEW · Ballroom dancing (FIPI) — with a timer</span>
     <p class="task">Прочитайте текст. Преобразуйте слова, напечатанные заглавными буквами, так, чтобы они грамматически и лексически соответствовали содержанию текста. Заполните пропуски полученными словами.</p>
     <div class="timerrow">
       <span class="timer" id="timer1">3:00</span>
@@ -99,21 +99,20 @@ button.tbtn:hover{background:var(--sage-soft)}
       <span class="tnote">the clock starts with your first letter — 3 minutes, like on the exam</span>
     </div>
     <div class="text">
-      <p>The Grand National is a horse race which is held every year in Liverpool.
-      This <span class="gap">(1) <input id="a1g1" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">COMPETE</span></span>
-      involves a four-mile race, during which the horses have to go over 30 fences.</p>
-      <p>The most <span class="gap">(2) <input id="a1g2" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">FAME</span></span>
-      horse in the Grand National was called ‘Red Rum’.
-      He was the <span class="gap">(3) <input id="a1g3" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">WIN</span></span>
-      of the race three times during the 1970s.</p>
-      <p>The race is not only a sporting event but a
-      <span class="gap">(4) <input id="a1g4" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">FASHION</span></span>
-      social event too. Men and women wear beautiful clothes, and the tickets to the race are very
-      <span class="gap">(5) <input id="a1g5" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">EXPENSE</span></span></p>
-      <p>The Grand National is broadcast all over the world and around 500 to 600 million people watch it.
-      However, though there are lots of horse racing fans, many people think it’s
-      <span class="gap">(6) <input id="a1g6" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">FAIR</span></span>
-      and cruel to make the animals race and jump for people’s entertainment.</p>
+      <p>Ballroom dancing in the UK is making a comeback. For the past five years the popularity of
+      ballroom dancing has grown thanks to the TV show 'Strictly Come Dancing'. In the show a professional
+      ballroom <span class="gap">(1) <input id="a1g1" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">DANCE</span></span>
+      has a celebrity for a partner. They learn
+      <span class="gap">(2) <input id="a1g2" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">DIFFER</span></span>
+      ballroom dances and perform them live on TV. Four judges and the public decide who stays in the
+      <span class="gap">(3) <input id="a1g3" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">COMPETE</span></span>
+      and who leaves. The show demonstrates how glamorous ballroom dancing is. The celebrities wear
+      <span class="gap">(4) <input id="a1g4" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">COLOUR</span></span>
+      dresses and suits and the show looks very
+      <span class="gap">(5) <input id="a1g5" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">IMPRESS</span></span>.
+      According to the ratings, the
+      <span class="gap">(6) <input id="a1g6" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">PERFORM</span></span>
+      is becoming more and more popular with TV audiences.</p>
       <div class="btnrow">
         <button class="act" id="send-btn-1" style="background:var(--sage-deep)">📤 Send the result to Elena</button>
         <span id="score1"></span>
@@ -152,7 +151,7 @@ button.tbtn:hover{background:var(--sage-soft)}
   </div>
 
   <p class="backline">← <a href="hw.html?v=10">back to my homework</a></p>
-  <span class="stamp">build 14.10 · v2 · two FIPI texts, verbatim — №1 timed, №2 untimed</span>
+  <span class="stamp">build 14.10 · v3 · two NEW FIPI texts, verbatim — №1 timed, №2 untimed</span>
 </main>
 <script>
 (function(){
@@ -165,9 +164,9 @@ function $(id){return document.getElementById(id);}
 
 /* ---------- the two texts (FIPI verbatim; keys derived, never invented) ---------- */
 var TEXTS={
-  1:{label:"Word formation (FIPI: Grand National — take two)",
-     keys:["competition","famous","winner","fashionable","expensive","unfair"],
-     stems:["COMPETE","FAME","WIN","FASHION","EXPENSE","FAIR"]},
+  1:{label:"Word formation (FIPI: Ballroom dancing)",
+     keys:["dancer","different","competition","colourful","impressive","performance"],
+     stems:["DANCE","DIFFER","COMPETE","COLOUR","IMPRESS","PERFORM"]},
   2:{label:"Word formation (FIPI: Piranhas)",
      keys:["dangerous","scientist","usually","disagree","impossible","useful"],
      stems:["DANGER","SCIENCE","USUAL","AGREE","POSSIBLE","USE"]}
