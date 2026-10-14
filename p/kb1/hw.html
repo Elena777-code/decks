@@ -56,6 +56,37 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
 /* the animated exclamation mark (Elena, 2026-09-29) */
 @keyframes exc{0%,100%{transform:translateY(0) scale(1)}30%{transform:translateY(-16%) scale(1.18)}55%{transform:translateY(0) scale(.96)}75%{transform:translateY(-7%) scale(1.06)}}
 .exc{display:inline-block;animation:exc 1.5s ease-in-out infinite;color:var(--pink)}
+/* ===== PASTE-css START — the done chips + the send + the treasure (first live install,
+   the 10.10 standing order; demo: pupils/kb1/hw-treasure-demo.html) ===== */
+.expl{background:#FFF3D6;border-radius:14px;padding:.7em 1em;font-size:clamp(.9rem,2.2vw,1.05rem)}
+.task{flex-wrap:wrap;align-items:center}
+.task .tt{flex:1;min-width:12em}
+.task .tt small{color:var(--ink-soft);font-size:.82em}
+.chip{flex:0 0 auto;border:2px solid var(--mint-deep);color:var(--mint-deep);background:#fff;border-radius:999px;padding:.3em .85em;font-family:'Nunito',sans-serif;font-size:clamp(.8rem,2vw,.95rem);font-weight:800;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--mint-deep);color:#fff}
+.progress{color:var(--ink-soft);font-size:clamp(.9rem,2.2vw,1.05rem);text-align:center}
+.who{display:flex;gap:.6em;align-items:center;justify-content:center;flex-wrap:wrap}
+.who input{font:inherit;font-size:clamp(1rem,2.4vw,1.15rem);padding:.4em .6em;border:2px solid var(--lavender);border-radius:12px;width:7.5em;text-align:center;outline:none}
+.who input#pupp-surn{width:2.2em}
+.who input#pupp-group{width:2.2em}
+.who .kprefix{font-weight:800;font-size:clamp(1rem,2.4vw,1.15rem)}
+.send{display:block;width:100%;border:0;background:var(--pink);color:#fff;font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,2.8vw,1.35rem);font-weight:700;border-radius:14px;padding:.75em;cursor:pointer;box-shadow:0 3px 0 #e06a8a}
+.send:active{transform:translateY(2px);box-shadow:0 1px 0 #e06a8a}
+.send.sent{background:var(--mint-deep);box-shadow:0 3px 0 #47a894}
+.hint{text-align:center;font-size:clamp(.85rem,2.2vw,1rem);color:#d45f85;min-height:1.4em}
+.boxwrap{display:none;text-align:center;margin-top:1vh}
+.boxwrap.show{display:block}
+.box{font-size:96px;cursor:pointer;display:inline-block;animation:wob 1.2s ease-in-out infinite}
+@keyframes wob{0%,100%{transform:rotate(-4deg) scale(1)}50%{transform:rotate(4deg) scale(1.06)}}
+.boxlabel{font-size:20px;font-weight:800;color:#d45f85}
+.cartoon{display:none;background:var(--white);border:2px dashed var(--peach);border-radius:16px;padding:18px;margin-top:14px}
+.cartoon.show{display:block;animation:pop .35s ease}
+@keyframes pop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.cartoon .pig{font-size:44px}
+.cartoon h3{margin:6px 0 2px;font-size:20px}
+.cartoon p{font-size:14.5px;color:var(--ink-soft);margin-bottom:12px}
+.play{display:block;text-align:center;background:var(--peach);color:var(--ink);text-decoration:none;font-family:'Fredoka',sans-serif;font-weight:700;font-size:18px;border-radius:12px;padding:14px}
+/* ===== PASTE-css END ===== */
 </style>
 </head>
 <body>
@@ -67,7 +98,55 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
   </header>
 
 <details class="hw-row" open>
-  <summary><span class="txt"><span class="nm">Урок 9 · Colours 🌈 <span class="new">✨ новое!</span></span><br><span class="dt">чтение — история про муравья · цвета на shkola.app · песенка про карандаш</span></span></summary>
+  <summary><span class="txt"><span class="nm">Урок 9 · Куклы и ABC-P 🎭 <span class="new">✨ новое!</span></span><br><span class="dt">чтение — смешные предложения · куклы 🧵 · AB стр. 14 · буква Pp · Дорисуй · игра ABC-P</span></span></summary>
+  <div class="card hw-body">
+    <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
+
+    <div class="item task"><span class="n">1</span><span class="tt"><b>Читаем смешные предложения!</b> 📖 <small>— пролистай всю историю про букву M и прочитай смешные предложения в конце!</small></span><button class="chip" id="pupp-chip-1" data-k="t-read" onclick="pupTog(this)">Готово</button></div>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-m.html" target="_blank">📖 Открыть истории про букву M</a>
+
+    <div class="item task"><span class="n">2</span><span class="tt"><b>Лист «Дорисуй»</b> 🎨 <small>— посчитай и дорисуй!</small></span><button class="chip" id="pupp-chip-2" data-k="t-dor" onclick="pupTog(this)">Готово</button></div>
+
+    <div class="item task"><span class="n">3</span><span class="tt"><b>Лист Pp</b> ✏️ <small>— обведи буквы! P p · p p</small></span><button class="chip" id="pupp-chip-3" data-k="t-pp" onclick="pupTog(this)">Готово</button></div>
+
+    <div class="item task"><span class="n">4</span><span class="tt"><b>AB стр. 14 — упр. 1 и 2</b> 📖 <small>— прочитай слова Маме и Папе!</small></span><button class="chip" id="pupp-chip-4" data-k="t-ab" onclick="pupTog(this)">Готово</button></div>
+    <img src="../../media/kb1-u2-ab14.png" alt="AB p. 14 — упр. 1 и 2" style="width:min(520px,100%);align-self:center;border-radius:14px;box-shadow:var(--shadow)">
+
+    <div class="item task"><span class="n">5</span><span class="tt"><b>Пальчиковые куклы — PB стр. 13</b> 🧵 <small>— вырежи, раскрась, сделай кукол! Лист в портфеле.</small></span><button class="chip" id="pupp-chip-5" data-k="t-pup" onclick="pupTog(this)">Готово</button></div>
+    <img src="../../media/kb1-u2-pb13.png" alt="PB p. 13 — пальчиковые куклы" style="width:min(520px,100%);align-self:center;border-radius:14px;box-shadow:var(--shadow)">
+    <small style="color:var(--ink-soft)">🎵 Песенка Mr Star — спой её своим куклам!</small>
+    <audio controls preload="none" src="../../media/kb1-u2-pb13-t19.mp3"></audio>
+
+    <div class="item task"><span class="n">6</span><span class="tt"><b>Игра Wordwall — ABC-P</b> 🎮 <small>— буква P и её слова!</small></span><button class="chip" id="pupp-chip-6" data-k="t-ww" onclick="pupTog(this)">Готово</button></div>
+    <a class="btn" href="https://wordwall.net/resource/73491297/wow-abc-p" target="_blank">▶ Играть — ABC-P</a>
+
+    <div class="progress" id="pupp-prog">Отмечено: 0 из 6</div>
+    <div class="who">
+      <input id="pupp-name" placeholder="Имя" autocomplete="off">
+      <input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
+      <span class="kprefix">KB 1.</span><input id="pupp-group" placeholder="?" maxlength="1" autocomplete="off" title="Твоя группа: 1, 2 или 3">
+    </div>
+    <button class="send" id="pupp-send" onclick="pupSend()">📤 Отправить Мисс Елене</button>
+    <div class="hint" id="pupp-hint"></div>
+
+    <div class="boxwrap" id="pupp-boxwrap">
+      <div class="box" onclick="document.getElementById('pupp-cartoon').classList.add('show')">🎁</div>
+      <div class="boxlabel">Твой подарок! Нажми!</div>
+      <div class="cartoon" id="pupp-cartoon">
+        <div class="pig">🐷✨</div>
+        <h3>Peppa Pig — «Охота за сокровищами»</h3>
+        <p>Ты молодец! Все задания сделаны. Смотри мультик!</p>
+        <a class="play" href="https://www.youtube.com/watch?v=MT-CWEMoQiY" target="_blank" rel="noopener">▶️ Смотреть подарок</a>
+      </div>
+    </div>
+
+    <div class="note">Если лист не нашёлся или что-то не получается — напишите администратору Мисс Алёне, поможем.</div>
+  </div>
+</details>
+
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 9 · Colours 🌈</span></span><br><span class="dt">чтение — история про муравья · цвета на shkola.app · песенка про карандаш</span></span></summary>
   <div class="card hw-body">
     <div class="item"><span class="n">1</span><span><b>Чтение — история про муравья и штамп!</b> 🐜</span></div>
     <div style="display:flex;flex-direction:column;gap:1vh;align-items:center">
@@ -337,6 +416,89 @@ function unscrCheck(){
   }
 }
 document.getElementById('unscr-in').addEventListener('keydown',e=>{if(e.key==='Enter')unscrCheck();});
+</script>
+<script>
+/* Урок 9 · Куклы и ABC-P — the done chips + send + treasure (per-device localStorage).
+   Send reuses the hub's unscrSend (the «Drill reports» form + its queue) when present. */
+var PUPP_KEY='kb1-u9b-', PUPP_N=6;
+function pupTog(el){
+  var k=PUPP_KEY+el.getAttribute('data-k');
+  localStorage.setItem(k, localStorage.getItem(k)==='1' ? '0' : '1');
+  pupPaint();
+}
+function pupAll(){
+  var d=0,c;
+  for(var i=1;i<=PUPP_N;i++){
+    c=document.getElementById('pupp-chip-'+i);
+    if(c && localStorage.getItem(PUPP_KEY+c.getAttribute('data-k'))==='1') d++;
+  }
+  return d;
+}
+function pupDate(){
+  var d=new Date();
+  return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear();
+}
+function pupQueue(text){
+  try{
+    var q=JSON.parse(localStorage.getItem('kb1-hw-report-queue')||'[]');
+    q.push(text);
+    localStorage.setItem('kb1-hw-report-queue',JSON.stringify(q));
+  }catch(e){}
+}
+function pupSend(){
+  var n=document.getElementById('pupp-name'),
+      s=document.getElementById('pupp-surn'),
+      g=document.getElementById('pupp-group'),
+      hint=document.getElementById('pupp-hint');
+  var name=n.value.trim(), surn=s.value.trim().toUpperCase(), grp=g.value.trim();
+  if(!name){hint.textContent='Сначала напиши имя!';n.focus();return;}
+  if(!surn){hint.textContent='Напиши первую букву фамилии!';s.focus();return;}
+  if('123'.indexOf(grp)<0){hint.textContent='Ты из группы 1, 2 или 3?';g.focus();return;}
+  s.value=surn; hint.textContent='';
+  try{
+    localStorage.setItem('kb1-hw-name',name);
+    localStorage.setItem('kb1-hw-surn',surn);
+    localStorage.setItem('kb1-hw-group',grp);
+  }catch(e){}
+  var txt='KB 1.'+grp+' · Урок 9 · Домашка: куклы и ABC-P · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+' · '+pupDate();
+  if(window.unscrSend){ unscrSend(txt); } else { pupQueue(txt); }
+  localStorage.setItem(PUPP_KEY+'sent','1');
+  pupPaint();
+}
+function pupPaint(){
+  var i,c,on;
+  for(i=1;i<=PUPP_N;i++){
+    c=document.getElementById('pupp-chip-'+i);
+    if(!c)continue;
+    on=localStorage.getItem(PUPP_KEY+c.getAttribute('data-k'))==='1';
+    c.classList.toggle('on',on);
+    c.textContent=on?'✓ Готово':'Готово';
+  }
+  var d=pupAll(), sent=localStorage.getItem(PUPP_KEY+'sent')==='1';
+  document.getElementById('pupp-prog').textContent='Отмечено: '+d+' из '+PUPP_N;
+  var b=document.getElementById('pupp-send');
+  if(sent){ b.classList.add('sent'); b.textContent='✓ Отправлено Мисс Елене'; }
+  var box=document.getElementById('pupp-boxwrap'), hint=document.getElementById('pupp-hint');
+  if(d===PUPP_N && sent){
+    box.classList.add('show'); hint.textContent='';
+  }else{
+    box.classList.remove('show');
+    document.getElementById('pupp-cartoon').classList.remove('show');
+    if(sent && d<PUPP_N){ hint.textContent='Отметь все задания — и откроется подарок! 🎁'; }
+    else if(!sent && d===PUPP_N){ hint.textContent='Всё готово! Осталось нажать кнопку отправки ✉️'; }
+  }
+}
+(function(){
+  try{
+    var n=localStorage.getItem('kb1-hw-name'),
+        s=localStorage.getItem('kb1-hw-surn'),
+        g=localStorage.getItem('kb1-hw-group');
+    if(n)document.getElementById('pupp-name').value=n;
+    if(s)document.getElementById('pupp-surn').value=s;
+    if(g)document.getElementById('pupp-group').value=g;
+  }catch(e){}
+  pupPaint();
+})();
 </script>
 </body>
 </html>
