@@ -3,17 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Masha K. · Word formation — the FIPI text</title>
+<title>Masha K. · Word formation — two FIPI texts</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    Masha K. — WORD FORMATION, the weekly FIPI page (born 07.10 on
    Elena's order, approved in her click-test the same evening).
-   The text is VERBATIM from the FIPI ОГЭ open bank — never
-   invented (Elena: «Take exactly what they offer»). One bank text
-   per weekly hw; new texts stack on top. Check reveals; Send
-   grades silently and flies to HER OWN form «Mashulik».
+   The texts are VERBATIM from the FIPI ОГЭ open bank — never
+   invented (Elena: «Take exactly what they offer»).
+   v2 (14.10, Elena's order): TWO texts this week —
+   №1 the Grand National AGAIN, now WITH A TIMER (the week-ramp
+   law: a returning activity returns timed), №2 Piranhas, NEW and
+   untimed. Check/Send per text; Send grades silently and flies
+   to HER OWN form «Mashulik».
    ============================================================ */
 :root{
   --paper:#f6f2ea; --card:#fff; --ink:#37322a; --sub:#8b8578;
@@ -32,6 +35,7 @@ h1 em{color:var(--sage-deep);font-style:normal}
 .week-chip{display:inline-block;background:var(--gold-soft);border:1.5px solid var(--sage-deep);
   color:var(--sage-deep);font-weight:800;font-size:.85rem;border-radius:99px;
   padding:.3em 1em;margin:.4em 0}
+.week-chip.new{background:var(--sage-soft)}
 .rule{width:64px;height:4px;border-radius:99px;background:var(--sage)}
 p.lead{font-size:clamp(1rem,2vw,1.15rem);line-height:1.55;color:#57503f}
 p.lead strong{color:var(--sage-deep)}
@@ -63,83 +67,113 @@ button.act:hover{filter:brightness(1.06)}
 .backline a{color:var(--sage-deep);font-weight:800;text-decoration:none;border-bottom:2px solid var(--sage-soft)}
 .backline a:hover{border-bottom-color:var(--sage)}
 .stamp{display:block;margin-top:.35em;font-size:.76rem;color:var(--sub);letter-spacing:.04em}
-@media print{ .btnrow{display:none} body{background:#fff} }
+/* the timer (text №1 only) — loyal: it never blocks, it just counts */
+.timerrow{display:flex;gap:.6em;align-items:center;margin-top:.7em;flex-wrap:wrap}
+.timer{font-weight:800;font-size:1.15rem;color:var(--sage-deep);background:var(--sage-soft);
+  border:1.5px solid var(--sage);border-radius:99px;padding:.25em .9em;font-variant-numeric:tabular-nums}
+.timer.amber{color:var(--terra-deep);background:var(--terra-soft);border-color:var(--terra-deep)}
+button.tbtn{border:1.5px solid var(--sage);background:#fff;color:var(--sage-deep);
+  border-radius:99px;padding:.3em 1em;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-weight:800;font-size:.9rem}
+button.tbtn:hover{background:var(--sage-soft)}
+.tnote{font-size:.85rem;color:var(--sub);font-style:italic}
+@media print{ .btnrow,.timerrow{display:none} body{background:#fff} }
 </style>
 </head>
 <body>
 <main>
   <p class="eyebrow">Masha K. · English · word formation · every week</p>
-  <h1>Word <em>formation</em></h1>
-  <span class="week-chip">This week · the Grand National (FIPI)</span>
+  <h1>Word <em>formation</em> — two texts</h1>
   <div class="rule"></div>
   <p class="lead"><strong>Read the text. Type the word in CAPITALS in a new form</strong> in each gap —
   one word per gap, exactly as in the FIPI bank and on the exam.
-  <strong>Send the result</strong> — it shows the right answers and gives your result to Elena.</p>
+  <strong>Send each result</strong> — it shows the right answers and gives your result to Elena.</p>
 
-  <div class="card">
+  <!-- TEXT №1 — the Grand National, take two, WITH THE TIMER -->
+  <div class="card" id="card1">
+    <span class="week-chip">Text №1 · the Grand National (FIPI) — again, now with a timer</span>
     <p class="task">Прочитайте текст. Преобразуйте слова, напечатанные заглавными буквами, так, чтобы они грамматически и лексически соответствовали содержанию текста. Заполните пропуски полученными словами.</p>
+    <div class="timerrow">
+      <span class="timer" id="timer1">3:00</span>
+      <button class="tbtn" id="trestart">↻ restart the clock</button>
+      <span class="tnote">the clock starts with your first letter — 3 minutes, like on the exam</span>
+    </div>
     <div class="text">
       <p>The Grand National is a horse race which is held every year in Liverpool.
-      This <span class="gap">(1) <input id="g1" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">COMPETE</span></span>
+      This <span class="gap">(1) <input id="a1g1" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">COMPETE</span></span>
       involves a four-mile race, during which the horses have to go over 30 fences.</p>
-      <p>The most <span class="gap">(2) <input id="g2" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">FAME</span></span>
+      <p>The most <span class="gap">(2) <input id="a1g2" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">FAME</span></span>
       horse in the Grand National was called ‘Red Rum’.
-      He was the <span class="gap">(3) <input id="g3" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">WIN</span></span>
+      He was the <span class="gap">(3) <input id="a1g3" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">WIN</span></span>
       of the race three times during the 1970s.</p>
       <p>The race is not only a sporting event but a
-      <span class="gap">(4) <input id="g4" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">FASHION</span></span>
+      <span class="gap">(4) <input id="a1g4" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">FASHION</span></span>
       social event too. Men and women wear beautiful clothes, and the tickets to the race are very
-      <span class="gap">(5) <input id="g5" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">EXPENSE</span></span></p>
+      <span class="gap">(5) <input id="a1g5" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">EXPENSE</span></span></p>
       <p>The Grand National is broadcast all over the world and around 500 to 600 million people watch it.
       However, though there are lots of horse racing fans, many people think it’s
-      <span class="gap">(6) <input id="g6" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">FAIR</span></span>
+      <span class="gap">(6) <input id="a1g6" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">FAIR</span></span>
       and cruel to make the animals race and jump for people’s entertainment.</p>
       <div class="btnrow">
-        <button class="act" id="send-btn" style="background:var(--sage-deep)">📤 Send the result to Elena</button>
-        <span id="score"></span>
-        <span class="sent" id="sent-line"></span>
+        <button class="act" id="send-btn-1" style="background:var(--sage-deep)">📤 Send the result to Elena</button>
+        <span id="score1"></span>
+        <span class="sent" id="sent-line-1"></span>
       </div>
     </div>
     <p class="src">Источник: открытый банк заданий ФИПИ, ОГЭ английский язык (oge.fipi.ru) — текст и задания без изменений.</p>
   </div>
 
-  <p class="backline">← <a href="hw.html?v=9">back to my homework</a></p>
-  <span class="stamp">build 07.10 · v1 · the FIPI text verbatim — a new text every week</span>
+  <!-- TEXT №2 — Piranhas, NEW, untimed -->
+  <div class="card" id="card2">
+    <span class="week-chip new">Text №2 · NEW · Piranhas (FIPI) — no timer, take your time</span>
+    <p class="task">Прочитайте текст. Преобразуйте слова, напечатанные заглавными буквами, так, чтобы они грамматически и лексически соответствовали содержанию текста. Заполните пропуски полученными словами.</p>
+    <div class="text">
+      <p>Piranhas are South American fish. There are lots of scary stories about them.
+      Most people think that piranhas are very <span class="gap">(1) <input id="a2g1" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">DANGER</span></span> creatures.
+      However, a <span class="gap">(2) <input id="a2g2" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">SCIENCE</span></span>
+      from St Andrews University, Anne Magurran, has recently announced that to call piranhas cruel killers is not fair.
+      They <span class="gap">(3) <input id="a2g3" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">USUAL</span></span>
+      eat fish, plants and insects. According to Professor Anne Magurran, piranhas attack people and animals
+      only when they want to defend themselves. However, most travellers strongly
+      <span class="gap">(4) <input id="a2g4" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">AGREE</span></span>
+      with this point of view. They recommend keeping away from the water where piranhas live.
+      When the fish attack in groups, it is practically
+      <span class="gap">(5) <input id="a2g5" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">POSSIBLE</span></span>
+      to survive. Whatever your opinion of piranhas, this is a
+      <span class="gap">(6) <input id="a2g6" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">USE</span></span>
+      piece of advice one should follow.</p>
+      <div class="btnrow">
+        <button class="act" id="send-btn-2" style="background:var(--sage-deep)">📤 Send the result to Elena</button>
+        <span id="score2"></span>
+        <span class="sent" id="sent-line-2"></span>
+      </div>
+    </div>
+    <p class="src">Источник: открытый банк заданий ФИПИ, ОГЭ английский язык (oge.fipi.ru) — текст и задания без изменений.</p>
+  </div>
+
+  <p class="backline">← <a href="hw.html?v=10">back to my homework</a></p>
+  <span class="stamp">build 14.10 · v2 · two FIPI texts, verbatim — №1 timed, №2 untimed</span>
 </main>
 <script>
 (function(){
 "use strict";
-/* ELENA: the result flies to HER OWN form «Mashulik» (wired 05.10, test-verified) */
+/* ELENA: the results fly to HER OWN form «Mashulik» (wired 05.10, test-verified) */
 var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSes5aESy1eVaZIKQljbhK1XKlpXhqmpmN3hprsv7o1tGEeZiA/formResponse";
 var FORM_ENTRY="entry.1570749775";
 function norm(s){return (s||"").trim().toLowerCase().replace(/\s+/g," ").replace(/[.!?,]+$/,"");}
 function $(id){return document.getElementById(id);}
-var KEYS={g1:"competition",g2:"famous",g3:"winner",g4:"fashionable",g5:"expensive",g6:"unfair"};
-var STEMS={g1:"COMPETE",g2:"FAME",g3:"WIN",g4:"FASHION",g5:"EXPENSE",g6:"FAIR"};
-var lastScore=null;
-function grade(reveal){
-  var ok=0,misses=[];
-  var lines=["MASHA K. · HW · Word formation (FIPI: Grand National) · "+new Date().toLocaleString()];
-  for(var i=1;i<=6;i++){
-    var inp=$("g"+i),fb=inp.parentNode.querySelector(".fb");
-    inp.classList.remove("right","wrong");
-    fb.className="fb";fb.textContent="";
-    if(norm(inp.value)===norm(KEYS["g"+i])){
-      ok++;inp.classList.add("right");fb.className="fb ok";fb.textContent="✓";
-    }else{
-      inp.classList.add("wrong");fb.className="fb no";
-      /* Check reveals the key; Send grades silently — no answers */
-      fb.textContent=reveal?(inp.value.trim()?("✗ → "+KEYS["g"+i]):("→ "+KEYS["g"+i])):"✗";
-      misses.push("  · "+STEMS["g"+i]+" — her: "+(inp.value.trim()||"—")+" · key: "+KEYS["g"+i]);
-    }
-  }
-  lines.push("Score: "+ok+" / 6");
-  if(misses.length){lines.push("Missed ("+misses.length+"):");lines=lines.concat(misses);}
-  lastScore=lines.join("\n");
-  $("score").textContent=(ok+" of 6 right"+(ok===6?" — beautiful! 🌟":""))
-    +(reveal?"":" — sent to Elena");
-  return lastScore;
-}
+
+/* ---------- the two texts (FIPI verbatim; keys derived, never invented) ---------- */
+var TEXTS={
+  1:{label:"Word formation (FIPI: Grand National — take two)",
+     keys:["competition","famous","winner","fashionable","expensive","unfair"],
+     stems:["COMPETE","FAME","WIN","FASHION","EXPENSE","FAIR"]},
+  2:{label:"Word formation (FIPI: Piranhas)",
+     keys:["dangerous","scientist","usually","disagree","impossible","useful"],
+     stems:["DANGER","SCIENCE","USUAL","AGREE","POSSIBLE","USE"]}
+};
+
+/* ---------- the send plumbing (the proven shape: queue + hidden-iframe POST) ---------- */
 function sendViaForm(txt){
   if(!FORM_ACTION)return;
   var frame=document.createElement("iframe");
@@ -166,21 +200,75 @@ function flushQueue(){
     localStorage.setItem("mashak-wf-queue",JSON.stringify(q));
   }catch(e){}
 }
-function sendFlow(){
-  var txt=grade(true);
-  try{
-    var q=JSON.parse(localStorage.getItem("mashak-wf-queue")||"[]");
-    q.push(txt);if(q.length>10)q=q.slice(-10);
-    localStorage.setItem("mashak-wf-queue",JSON.stringify(q));
-  }catch(e){}
-  flushQueue();
-  $("sent-line").textContent=FORM_ACTION?("sent to Elena ✅"):"";
+
+/* ---------- per-text grade + send ---------- */
+function makeText(n){
+  var cfg=TEXTS[n];
+  function grade(){
+    var ok=0,misses=[];
+    var lines=["MASHA K. · HW · "+cfg.label+" · "+new Date().toLocaleString()];
+    for(var i=1;i<=6;i++){
+      var inp=$("a"+n+"g"+i),fb=inp.parentNode.querySelector(".fb");
+      inp.classList.remove("right","wrong");
+      fb.className="fb";fb.textContent="";
+      if(norm(inp.value)===norm(cfg.keys[i-1])){
+        ok++;inp.classList.add("right");fb.className="fb ok";fb.textContent="✓";
+      }else{
+        inp.classList.add("wrong");fb.className="fb no";
+        fb.textContent=inp.value.trim()?("✗ → "+cfg.keys[i-1]):("→ "+cfg.keys[i-1]);
+        misses.push("  · "+cfg.stems[i-1]+" — her: "+(inp.value.trim()||"—")+" · key: "+cfg.keys[i-1]);
+      }
+    }
+    lines.push("Score: "+ok+" / 6");
+    if(misses.length){lines.push("Missed ("+misses.length+"):");lines=lines.concat(misses);}
+    $("score"+n).textContent=(ok+" of 6 right"+(ok===6?" — beautiful! 🌟":""));
+    return lines.join("\n");
+  }
+  function sendFlow(){
+    var txt=grade();
+    try{
+      var q=JSON.parse(localStorage.getItem("mashak-wf-queue")||"[]");
+      q.push(txt);if(q.length>10)q=q.slice(-10);
+      localStorage.setItem("mashak-wf-queue",JSON.stringify(q));
+    }catch(e){}
+    flushQueue();
+    $("sent-line-"+n).textContent=FORM_ACTION?("sent to Elena ✅"):"";
+  }
+  $("send-btn-"+n).addEventListener("click",sendFlow);
+  for(var i=1;i<=6;i++){
+    (function(inp){inp.addEventListener("keydown",function(e){
+      if(e.key==="Enter")sendFlow();});})($("a"+n+"g"+i));
+  }
 }
-$("send-btn").addEventListener("click",sendFlow);
+makeText(1);makeText(2);
+
+/* ---------- the timer — text №1 only (3:00; starts on the first letter;
+   it never blocks: at 0:00 she can still finish and Send) ---------- */
+var LEFT=180,started=false,done=false,tid=null;
+function paint(){
+  var m=Math.floor(LEFT/60),s=LEFT%60;
+  var el=$("timer1");
+  el.textContent=m+":"+(s<10?"0":"")+s;
+  el.className="timer"+(LEFT<=30?" amber":"");
+}
+function tick(){
+  LEFT--;
+  if(LEFT<=0){LEFT=0;done=true;clearInterval(tid);
+    $("timer1").textContent="0:00 — time's up! Finish and Send";
+    $("timer1").className="timer amber";return;}
+  paint();
+}
+function startClock(){
+  if(started||done)return;started=true;
+  tid=setInterval(tick,1000);
+}
 for(var i=1;i<=6;i++){
-  (function(n){$("g"+n).addEventListener("keydown",function(e){
-    if(e.key==="Enter")sendFlow();});})(i);
+  (function(inp){inp.addEventListener("input",startClock);})($("a1g"+i));
 }
+$("trestart").addEventListener("click",function(){
+  clearInterval(tid);LEFT=180;started=false;done=false;paint();
+});
+
 /* the load-time flush goes LAST — after all listeners attach (the v9 lesson) */
 flushQueue();
 })();
