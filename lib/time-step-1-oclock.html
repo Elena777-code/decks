@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Telling the time · Step 1 — o'clock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Masha K. — lesson 009 · Wednesday 14 October 2026 · WW3 U9:
+   9.3 Reading finished (Bright sparks! — from where the 07.10
+   lesson stopped: article part 2 → ex 2–6 + the puzzle game)
+   + 9.4 Grammar — Mixed tenses (Babar Ali, ex 1–7, TB order).
+   Same engine as deck-008 (frozen MK format): build stamp ·
+   ✍️ lesson log (key C, auto-sends over http) · 🙋 Pardon? pill
+   (key P) · the hotkey guard · quiz ✓/✗ marks · corners V2
+   (🙋 top-left · ✍️ top-right) · ⛶ read big · the tense colour
+   code. Photos cropped from the SB scan · Pearson copyright ·
+   LOCAL ONLY — classwork, never on the public site.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --blue:#1D5FBF; --blue-soft:#E8F0FC; --red:#C0392B; --red-soft:#FBEBE8;
+  --green:#1E7D32; --green-soft:#E9F4EA; --yellow:#B8860B; --yellow-soft:#FBF3D9;
+  --purple:#6B3FA0; --purple-soft:#F1EAF8;
+  --radius:14px;
+  --grad:linear-gradient(90deg,#2BD9E8,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);overflow:hidden;background:#EFECE5}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;height:5px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;background:rgba(25,22,30,.82);
+  backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25);
+  border-radius:99px;padding:8px 14px;font-size:clamp(.9rem,1.4vw,1.1rem);color:rgba(255,255,255,.9)}
+#nav button{border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:#2BD9E8}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides (flex-shrink guard) ---------- */
+.slide{position:absolute;inset:0;padding:max(5.5vh,58px) 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.8vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide>*{flex-shrink:0}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.07s}
+.slide.active .reveal:nth-child(3){animation-delay:.14s}
+.slide.active .reveal:nth-child(4){animation-delay:.21s}
+.slide.active .reveal:nth-child(5){animation-delay:.28s}
+.slide.active .reveal:nth-child(6){animation-delay:.35s}
+.slide.active .reveal:nth-child(7){animation-delay:.42s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ---------- sheet elements ---------- */
+.eyebrow{font-size:clamp(.82rem,1.35vw,1.05rem);font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.5rem,3vw,2.5rem);line-height:1.15;letter-spacing:-.01em}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+p.lead{font-size:clamp(1.1rem,1.9vw,1.45rem);line-height:1.55;color:#4a463d;max-width:75ch}
+p.lead strong, p.lead b{color:var(--accent)}
+.task{font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.55;font-weight:500}
+.task strong{color:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.8rem,1.3vw,1rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);border:1.5px solid var(--line);
+  border-radius:99px;padding:.18em .75em;background:#fff;white-space:nowrap}
+.stamp{font-size:clamp(.72rem,1.1vw,.85rem);color:var(--ink-soft);font-weight:600;
+  letter-spacing:.04em}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.85rem,1.6vw,1.3rem)}
+.card.tint{background:var(--accent-soft);border-color:#d5e2dd}
+.card.gold{background:var(--gold-soft);border-color:#e8dcb8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.6vw,1.2rem)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.6vw,1.2rem)}
+.chips{display:flex;flex-wrap:wrap;gap:.5em}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:.28em .8em;
+  font-size:clamp(.95rem,1.6vw,1.25rem);font-weight:600;background:#fff;user-select:none}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.45em 0;border-bottom:1px dashed var(--line);
+  font-size:clamp(1.05rem,1.85vw,1.4rem);line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .no{font-weight:800;color:var(--accent);min-width:1.4em}
+.flip{cursor:pointer;border-radius:8px;transition:background .2s}
+.flip:hover{background:var(--accent-soft)}
+/* hidden answers take NO space (running prose stays whole) — reveal = instant */
+.flip .back{display:none;color:var(--accent);font-weight:700;font-size:.92em}
+.flip.shown .back{display:inline}
+.vb{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.vb .vbh{background:var(--accent-soft);color:var(--accent);font-weight:800;
+  font-size:clamp(.85rem,1.4vw,1.05rem);letter-spacing:.06em;text-transform:uppercase;
+  padding:.35em .9em;border-bottom:1px solid var(--line)}
+.vb .vbb{padding:.5em .9em}
+audio{width:min(480px,90%);height:40px;vertical-align:middle}
+.hint{font-size:clamp(.88rem,1.4vw,1.08rem);color:var(--ink-soft);font-style:italic}
+.picgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.6rem,1.4vw,1rem)}
+.picgrid.p2{grid-template-columns:repeat(2,1fr)}
+.pic{width:100%;aspect-ratio:4/3.1;object-fit:cover;border-radius:10px;border:1px solid var(--line);
+  background:#fff;cursor:zoom-in;display:block}
+
+/* the tense colour code: present = blue · continuous now = green · past = red · future = yellow · present perfect = purple */
+.pres{color:var(--blue);font-weight:700;background:var(--blue-soft);
+  border-radius:.3em;padding:.04em .22em}
+.presc{color:var(--green);font-weight:700;background:var(--green-soft);
+  border-radius:.3em;padding:.04em .22em}
+.past{color:var(--red);font-weight:700;background:var(--red-soft);
+  border-radius:.3em;padding:.04em .22em}
+.fut{color:var(--yellow);font-weight:700;background:var(--yellow-soft);
+  border-radius:.3em;padding:.04em .22em}
+.perf{color:var(--purple);font-weight:700;background:var(--purple-soft);
+  border-radius:.3em;padding:.04em .22em}
+
+/* ✓/✗ word-check marks — tap right on the line */
+.mark{margin-left:auto;flex:0 0 auto;width:1.55em;height:1.55em;border-radius:50%;
+  border:1.5px solid var(--line);background:#fff;color:var(--ink-soft);
+  font-size:clamp(.8rem,1.2vw,1rem);font-weight:800;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;align-self:center;
+  transition:all .15s;user-select:none}
+.mark:hover{border-color:var(--ink-soft)}
+.mark.ok{background:var(--accent);border-color:var(--accent);color:#fff}
+.mark.no{background:#C0563F;border-color:#C0563F;color:#fff}
+
+/* ---------- teacher's notes (muted, small, on click) ---------- */
+button.tn{align-self:flex-start;border:1.5px solid var(--line);background:var(--paper);
+  color:var(--ink-soft);font-family:'Inter',sans-serif;font-weight:600;
+  font-size:clamp(.8rem,1.25vw,.98rem);padding:.32em 1em;border-radius:99px;
+  cursor:pointer;transition:all .18s}
+button.tn:hover{border-color:var(--ink-soft);color:var(--ink)}
+button.tn.on{background:var(--ink-soft);color:#fff;border-color:var(--ink-soft)}
+.tnotes{display:none;font-size:clamp(.88rem,1.4vw,1.1rem);color:var(--ink-soft);
+  line-height:1.55;border-left:3px solid var(--line);padding:.15em 0 .15em 1em}
+.tnotes.open{display:block}
+.tnotes b{color:#5a554a}
+@media (max-width:900px){.grid2,.grid3,.picgrid{grid-template-columns:1fr 1fr}}
+
+/* ---------- fullscreen photo zoom + fullscreen reading text ---------- */
+body.bigtext .eyebrow,body.bigtext h1,body.bigtext .rule,body.bigtext .lead,
+body.bigtext .task,body.bigtext .card,body.bigtext .picgrid,body.bigtext .vb,
+body.bigtext .hint,body.bigtext button.tn,body.bigtext .tnotes,body.bigtext .chips,
+body.bigtext audio,body.bigtext #nav{display:none!important}
+body.bigtext .slide{padding:2vh 2vw;background:#fff}
+body.bigtext img.pic{position:fixed!important;inset:0!important;margin:auto!important;
+  width:auto!important;height:auto!important;max-width:98vw!important;max-height:96vh!important;
+  border:none!important;border-radius:0!important;cursor:zoom-out}
+#fso{position:fixed;inset:0;z-index:200;background:var(--paper);display:none;
+  overflow:auto;padding:6vh 7vw 10vh}
+#fso.open{display:block}
+#fso .fsoinner{max-width:min(92vw,84ch);margin:0 auto;font-size:clamp(1.35rem,2.7vw,2.15rem);
+  line-height:1.7;color:var(--ink)}
+#fso .fsoinner h3{font-size:1.15em;margin-bottom:.5em}
+#fso .fsoinner .sp{margin-bottom:1em}
+
+/* ---------- ✍️ lesson log (teacher-only; pill TOP-RIGHT — corners V2) ---------- */
+#annoBtn{position:fixed;right:max(10px,1.6vw);top:calc(10px + .8vh);z-index:110;
+  width:2.4em;height:2.4em;border-radius:50%;border:1px solid rgba(255,255,255,.35);
+  background:rgba(35,39,46,.85);backdrop-filter:blur(10px);color:#fff;font-size:1.05rem;
+  cursor:pointer;transition:transform .15s ease}
+#annoBtn:hover{transform:scale(1.08);border-color:#2BD9E8}
+#anno{position:fixed;right:max(10px,1.6vw);top:calc(56px + 1.2vh);z-index:150;width:min(340px,86vw);
+  background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 44px rgba(30,30,40,.22);
+  padding:.7em .8em;display:none;flex-direction:column;gap:.5em}
+#anno.on{display:flex}
+#anno .a-head{display:flex;align-items:center;gap:.45em;font-size:.95rem;font-weight:800;color:var(--ink)}
+#anno .a-sp{flex:1}
+#anno .a-head button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:'Inter',sans-serif;font-size:.85rem;color:var(--ink-soft)}
+#anno .a-head button:hover{border-color:var(--ink-soft);color:var(--ink)}
+#anno #annoTick.on{background:var(--accent);border-color:var(--accent);color:#fff}
+#anno .arow{display:flex;gap:.5em;align-items:flex-start}
+#anno .arow label{font-size:.85rem;font-weight:800;color:var(--accent);min-width:2.1em;
+  padding-top:.4em;font-family:'Inter',sans-serif}
+#anno .arow input,#anno .arow textarea{flex:1;border:2px solid var(--line);border-radius:10px;
+  padding:.35em .5em;font-family:'Inter',sans-serif;font-size:.95rem;color:var(--ink);resize:vertical}
+#anno .arow input:focus,#anno .arow textarea:focus{outline:none;border-color:var(--accent)}
+#anno .arow.free textarea{min-height:64px}
+#anno .arow.fix textarea{min-height:64px}
+#anno .a-foot{display:flex;align-items:center;gap:.6em}
+#anno .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;
+  font-family:'Inter',sans-serif;font-size:.85rem;background:var(--accent);color:#fff}
+#anno .a-foot button:hover{filter:brightness(1.1)}
+#anno .a-foot .a-hint{font-size:.76rem;color:var(--ink-soft);font-style:italic}
+#annoRep{position:fixed;inset:0;z-index:260;background:rgba(34,48,63,.45);display:none;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+#annoRep.on{display:flex}
+#annoRep .a-rep-card{background:#fff;border-radius:18px;box-shadow:0 18px 44px rgba(30,30,40,.3);
+  padding:1em 1.1em;width:min(560px,92vw);display:flex;flex-direction:column;gap:.6em}
+#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid var(--line);border-radius:12px;
+  padding:.6em .7em;font-family:ui-monospace,Menlo,monospace;font-size:.88rem;color:var(--ink)}
+
+/* ---------- 🙋 Pardon? pill (pupil phrases; TOP-LEFT — corners V2) ---------- */
+#pardonBtn{position:fixed;left:max(10px,1.6vw);top:calc(10px + .8vh);z-index:110;
+  border:1px solid rgba(255,255,255,.35);background:rgba(20,101,90,.88);backdrop-filter:blur(10px);
+  color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:clamp(.8rem,1.2vw,.95rem);
+  padding:.4em 1em;border-radius:99px;cursor:pointer;transition:transform .15s ease}
+#pardonBtn:hover{transform:scale(1.06);border-color:#2BD9E8}
+#pardon{position:fixed;inset:0;z-index:250;background:rgba(34,48,63,.45);display:none;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+#pardon.on{display:flex}
+#pardon .p-card{background:#fff;border-radius:18px;box-shadow:0 18px 44px rgba(30,30,40,.3);
+  padding:1.2em 1.4em;width:min(520px,92vw);display:flex;flex-direction:column;gap:.55em}
+#pardon .p-card h3{font-size:1.1rem;color:var(--accent)}
+#pardon .p-card .ph{font-size:clamp(1.05rem,1.8vw,1.3rem);font-weight:600;line-height:1.5}
+#pardon .p-card .ph span{margin-right:.45em}
+#pardon .p-card .p-close{align-self:flex-end;border:1.5px solid var(--line);background:#fff;
+  border-radius:99px;padding:.2em .9em;cursor:pointer;font-family:'Inter',sans-serif;font-size:.9rem}
+
+/* ---------- the clock ladder additions ---------- */
+.ckwrap{display:flex;flex-wrap:wrap;gap:1.2vw 2vw;justify-content:center;align-items:center;margin:.6vh 0}
+.ck{flex-shrink:0;filter:drop-shadow(0 2px 5px rgba(30,58,102,.18))}
+.ckrow{display:flex;gap:1vw;align-items:center;flex-wrap:wrap}
+.spk{cursor:pointer;font-size:.9em;margin-left:.35em}
+.band{display:flex;flex-wrap:wrap;gap:.4em;justify-content:center;align-items:center;margin:.8vh 0}
+.band .b-step{border:2px solid var(--line);border-radius:12px;padding:.3em .7em;font-weight:700;font-size:clamp(.82rem,1.5vw,1.05rem);background:#fff}
+.band .b-step.on{background:var(--accent-soft);border-color:var(--accent)}
+.band .b-arrow{color:var(--ink-soft);font-weight:800}
+.filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}
+#annoBtn{display:none!important}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+<button id="pardonBtn" title="Pardon? — class phrases (P)">🙋</button>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 1</span>
+  <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<div id="fso" onclick="this.classList.remove('open')"><div class="fsoinner" id="fsoinner"></div></div>
+
+<!-- ✍️ lesson log panel — the V2 window (d: · //: · free · fix: · Done ⌘S) -->
+<div id="anno" style="display:none">
+  <div class="a-head"><span id="annoSlide">slide 1</span><span class="a-sp"></span>
+    <button id="annoPrev" title="previous slide">‹</button><button id="annoNext" title="next slide">›</button>
+    <button id="annoTick" title="tick = the slide the lesson ENDED on">✓ done</button></div>
+  <div class="arow"><label>d:</label><input id="annoD" type="text" autocomplete="off" spellcheck="false" placeholder="doesn't know the word…"></div>
+  <div class="arow"><label>//:</label><input id="annoSL" type="text" autocomplete="off" spellcheck="false" placeholder="can't pronounce…"></div>
+  <div class="arow free"><textarea id="annoF" rows="3" autocomplete="off" spellcheck="false" placeholder="anything else…"></textarea></div>
+  <div class="arow fix"><label>fix:</label><textarea id="annoFX" rows="3" autocomplete="off" spellcheck="false" placeholder="her sentences to fix…"></textarea></div>
+  <div class="a-foot"><button id="annoCopy">📋 report</button><span class="a-hint" id="annoHint"></span><span class="a-sp" style="flex:1"></span><span id="annoSent" style="font-size:.76rem;color:var(--accent)"></span><button id="annoDone" title="save + close (⌘S works too)">Done ⌘S</button></div>
+</div>
+<div id="annoRep" style="display:none"><div class="a-rep-card">
+  <b style="font-size:.95rem">The lesson report — copy and paste it to me</b>
+  <textarea id="annoRepText" readonly></textarea>
+  <div style="display:flex;gap:.6em;justify-content:flex-end">
+    <button id="annoRepClear" title="delete all ticks and comments" style="border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:.28em 1em;cursor:pointer;font-family:'Inter';font-size:.85rem">🧹 clear</button>
+    <button id="annoRepClose" style="border:1.5px solid var(--line);background:#fff;border-radius:99px;padding:.28em 1em;cursor:pointer;font-family:'Inter';font-size:.85rem">close</button>
+    <button id="annoRepCopy" style="border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;font-family:'Inter';font-size:.85rem;background:var(--accent);color:#fff">copy</button>
+  </div>
+</div></div>
+
+<!-- 🙋 Pardon? overlay — the one universal list -->
+<div id="pardon"><div class="p-card">
+  <button class="p-close" onclick="pardon(false)">✕ close</button>
+  <h3>Say it in English 🙋</h3>
+  <div class="ph"><span>🙋</span>Pardon?</div>
+  <div class="ph"><span>❓</span>What does <b>___</b> mean?</div>
+  <div class="ph"><span>🆘</span>Can you help me?</div>
+  <div class="ph"><span>🔁</span>Can you repeat, please?</div>
+  <div class="ph"><span>🇬🇧</span>How do you say <b>___</b> in English?</div>
+  <div class="ph"><span>🤷</span>I don't understand.</div></div></div>
+
+<!-- 1 · slide -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Telling the time · Step 1 of 4 · the universal clock line · any group, any pupil</div>
+  <h1 class="reveal">What’s the time?<br>— It’s <em>three o’clock</em>!</h1>
+  <div class="rule reveal"></div>
+  <p class="lead reveal">The clock ladder, step one: <strong>whole hours</strong>. Objectives: <strong>“I can ask: What’s the time?”</strong> + <strong>“I can say the whole hour on a clock face.”</strong> Nothing to print — everything is on the slides. <span class="stamp">· build 14.10 · v1</span></p>
+  <div class="card tint reveal">
+    <p class="task" style="font-size:clamp(1rem,1.7vw,1.3rem)"><strong>Prepare ahead</strong></p>
+    <p class="lead" style="font-size:clamp(.98rem,1.6vw,1.25rem);margin-top:.3em">🕐 <strong>A toy clock or a drawn clock face helps</strong> (nothing to print) · ✍️ the <b>notes pill</b> (top-right, key <b>C</b>): ticks + comments — over http they auto-send to the Mac · 🙋 the <b>Pardon pill</b> (top-left) — the class phrases · this deck is <b>universal</b>: no homework is pre-set, set it in the lesson.</p>
+  </div>
+</section>
+
+<!-- 2 · slide -->
+<section class="slide">
+  <div class="eyebrow reveal">Warm-up · the clock face</div>
+  <h1 class="reveal">Two hands — who is who?</h1>
+  <div class="rule reveal"></div>
+  <div class="ckwrap"><svg class="ck" viewBox="0 0 100 100" width="168" height="168" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="72.0" y2="50.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg></div>
+  <p class="task reveal">The <strong>short, thick</strong> hand <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ names the HOUR — it is the boss. <b class="spk" onclick="event.stopPropagation();say('names the HOUR — it is the boss.')">🔊</b></span></span> <br>
+  The <strong>long, thin</strong> hand <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ counts the MINUTES — it does the walking. <b class="spk" onclick="event.stopPropagation();say('counts the MINUTES — it does the walking.')">🔊</b></span></span></p>
+</section>
+
+<!-- 3 · slide -->
+<section class="slide">
+  <div class="eyebrow reveal">Teach · o’clock</div>
+  <h1 class="reveal">O’clock — exactly on the hour</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">When the <strong>long hand points to 12</strong>, we say <em>o’clock</em> — it is exactly that hour. No minutes more, no minutes less.</p>
+  <div class="ckwrap">
+    <div class="ckrow"><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="69.1" y2="39.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ It’s two o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s two o’clock.')">🔊</b></span></span></div>
+    <div class="ckrow"><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="39.0" y2="69.1" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ It’s seven o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s seven o’clock.')">🔊</b></span></span></div>
+    <div class="ckrow"><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="39.0" y2="30.9" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ It’s eleven o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s eleven o’clock.')">🔊</b></span></span></div>
+  </div>
+</section>
+
+<!-- 4 · slide -->
+<section class="slide scroll quiz">
+  <div class="eyebrow reveal">Drill · whole hours</div>
+  <h1 class="reveal">What’s the time? ⏰</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Round the class: point → say → click to check. The ✓ marks ride the report.</p>
+  <div class="card">
+      <div class="item"><span class="no">1</span><span><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="69.1" y2="61.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s four o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s four o’clock.')">🔊</b></span></span></span></div>      <div class="item"><span class="no">2</span><span><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="28.0" y2="50.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s nine o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s nine o’clock.')">🔊</b></span></span></span></div>      <div class="item"><span class="no">3</span><span><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="61.0" y2="30.9" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s one o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s one o’clock.')">🔊</b></span></span></span></div>      <div class="item"><span class="no">4</span><span><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="50.0" y2="72.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s six o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s six o’clock.')">🔊</b></span></span></span></div>      <div class="item"><span class="no">5</span><span><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="30.9" y2="39.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s ten o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s ten o’clock.')">🔊</b></span></span></span></div>      <div class="item"><span class="no">6</span><span><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="61.0" y2="69.1" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s five o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s five o’clock.')">🔊</b></span></span></span></div>
+  </div>
+</section>
+
+<!-- 5 · slide -->
+<section class="slide scroll quiz">
+  <div class="eyebrow reveal">Drill · two directions</div>
+  <h1 class="reveal">Digital ↔ words</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Read it both ways: digits → words, words → digits. Say first, then click.</p>
+  <div class="card">
+      <div class="item"><span class="no">1</span><span><b style="font-size:1.5em">7:00</b> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s seven o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s seven o’clock.')">🔊</b></span></span></span></div>      <div class="item"><span class="no">2</span><span>It’s twelve o’clock. <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ <b style="font-size:1.5em">12:00</b></span></span></span></div>      <div class="item"><span class="no">3</span><span><b style="font-size:1.5em">3:00</b> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s three o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s three o’clock.')">🔊</b></span></span></span></div>      <div class="item"><span class="no">4</span><span>It’s nine o’clock. <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ <b style="font-size:1.5em">9:00</b></span></span></span></div>      <div class="item"><span class="no">5</span><span><b style="font-size:1.5em">8:00</b> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s eight o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s eight o’clock.')">🔊</b></span></span></span></div>      <div class="item"><span class="no">6</span><span>It’s one o’clock. <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ <b style="font-size:1.5em">1:00</b></span></span></span></div>
+  </div>
+</section>
+
+<!-- 6 · slide -->
+<section class="slide">
+  <div class="eyebrow reveal">Use it · my day</div>
+  <h1 class="reveal">My day at o’clock</h1>
+  <div class="rule reveal"></div>
+  <div class="card">
+      <div class="item"><span class="no">1</span><span><svg class="ck" viewBox="0 0 100 100" width="72" height="72" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="39.0" y2="69.1" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> I get up at <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ seven o’clock. <b class="spk" onclick="event.stopPropagation();say('seven o’clock.')">🔊</b></span></span></span></div>
+      <div class="item"><span class="no">2</span><span><svg class="ck" viewBox="0 0 100 100" width="72" height="72" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="30.9" y2="61.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> I have breakfast at <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ eight o’clock. <b class="spk" onclick="event.stopPropagation();say('eight o’clock.')">🔊</b></span></span></span></div>
+      <div class="item"><span class="no">3</span><span><svg class="ck" viewBox="0 0 100 100" width="72" height="72" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="28.0" y2="50.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> School starts at <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ nine o’clock. <b class="spk" onclick="event.stopPropagation();say('nine o’clock.')">🔊</b></span></span></span></div>
+      <div class="item"><span class="no">4</span><span><svg class="ck" viewBox="0 0 100 100" width="72" height="72" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="61.0" y2="30.9" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> I have lunch at <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ one o’clock. <b class="spk" onclick="event.stopPropagation();say('one o’clock.')">🔊</b></span></span></span></div>
+      <div class="item"><span class="no">5</span><span><svg class="ck" viewBox="0 0 100 100" width="72" height="72" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="69.1" y2="61.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> I go home at <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ four o’clock. <b class="spk" onclick="event.stopPropagation();say('four o’clock.')">🔊</b></span></span></span></div>
+      <div class="item"><span class="no">6</span><span><svg class="ck" viewBox="0 0 100 100" width="72" height="72" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="30.9" y2="61.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> I go to bed at <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ eight o’clock. <b class="spk" onclick="event.stopPropagation();say('eight o’clock.')">🔊</b></span></span></span></div>
+  </div>
+  <p class="task reveal">Then it is YOUR turn: <strong>What time do you get up?</strong> — answer with … o’clock!</p>
+</section>
+
+<!-- 7 · slide -->
+<section class="slide">
+  <div class="eyebrow reveal">Treasure task 🗝</div>
+  <h1 class="reveal">Only clever clocks</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">School starts at <strong>nine o’clock</strong>. It is <strong>seven o’clock</strong> now.<br>How long is it before school starts? <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ Two whole hours! <b class="spk" onclick="event.stopPropagation();say('Two whole hours!')">🔊</b></span></span></p>
+  <p class="task reveal">The small hand is on <strong>5</strong>. The long hand is on <strong>12</strong>.<br>What’s the time? <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">… <span class="back">→ It’s five o’clock — the boss hand names the hour! <b class="spk" onclick="event.stopPropagation();say('It’s five o’clock — the boss hand names the hour!')">🔊</b></span></span></p>
+</section>
+
+<!-- 8 · slide -->
+<section class="slide scroll quiz">
+  <div class="eyebrow reveal">Picture dictation ✍️</div>
+  <h1 class="reveal">Write the times</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Look at the clocks. Write the times in your notebook. Nobody says them aloud — then we check: click!</p>
+  <div class="card">
+      <div class="item"><span class="no">1</span><span><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="30.9" y2="61.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s eight o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s eight o’clock.')">🔊</b></span></span></span></div>      <div class="item"><span class="no">2</span><span><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="69.1" y2="39.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s two o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s two o’clock.')">🔊</b></span></span></span></div>      <div class="item"><span class="no">3</span><span><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="39.0" y2="30.9" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s eleven o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s eleven o’clock.')">🔊</b></span></span></span></div>      <div class="item"><span class="no">4</span><span><svg class="ck" viewBox="0 0 100 100" width="104" height="104" role="img" aria-label="clock face"><circle cx="50" cy="50" r="46" fill="#FFFDF6" stroke="#1E3A66" stroke-width="2.5"/><line x1="50.0" y1="10.0" x2="50.0" y2="15.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="70.0" y1="15.4" x2="68.8" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="84.6" y1="30.0" x2="82.5" y2="31.3" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="90.0" y1="50.0" x2="84.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="84.6" y1="70.0" x2="82.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="70.0" y1="84.6" x2="68.8" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="50.0" y1="90.0" x2="50.0" y2="84.5" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="30.0" y1="84.6" x2="31.3" y2="82.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="15.4" y1="70.0" x2="17.5" y2="68.8" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="10.0" y1="50.0" x2="15.5" y2="50.0" stroke="#1E3A66" stroke-width="2.2" opacity="0.9"/><line x1="15.4" y1="30.0" x2="17.5" y2="31.2" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><line x1="30.0" y1="15.4" x2="31.2" y2="17.5" stroke="#1E3A66" stroke-width="1" opacity="0.4"/><text x="50.0" y="26.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">12</text><text x="77.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">3</text><text x="50.0" y="80.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">6</text><text x="23.0" y="53.6" font-size="10.5" font-weight="700" fill="#1E3A66" text-anchor="middle">9</text><line x1="50" y1="50" x2="50.0" y2="72.0" stroke="#E4572E" stroke-width="5.2" stroke-linecap="round"/><line x1="50" y1="50" x2="50.0" y2="14.0" stroke="#1E3A66" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="50" r="3.4" fill="#1E3A66"/></svg> <span class="flip" onclick="this.classList.toggle('shown')" style="cursor:pointer">🕐 say it <span class="back">→ It’s six o’clock. <b class="spk" onclick="event.stopPropagation();say('It’s six o’clock.')">🔊</b></span></span></span></div>
+  </div>
+</section>
+
+<!-- 9 · slide -->
+<section class="slide">
+  <div class="eyebrow reveal">Game time · the clock shelf</div>
+  <h1 class="reveal">The Rats’ <em>World Clock</em> 🌍🕐</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Today’s rounds: <strong>the <strong>O’CLOCK rounds</strong> — read the clocks, set the clocks.</strong></p>
+  <p class="lead reveal">Play it here: <a href="world-clock.html"><strong>🌍 The Rats’ World Clock</strong></a> — it opens in one click. </p>
+  <p class="lead reveal">The same game grows with you: Step 1 plays the hours, Step 4 plays the day-and-night rounds — the shelf game never changes, only your skill does.</p>
+</section>
+
+<!-- 10 · slide -->
+<section class="slide">
+  <div class="eyebrow reveal">Well done</div>
+  <h1 class="reveal">You can tell the time! 🏆</h1>
+  <div class="rule reveal"></div>
+  <p class="lead reveal">Next stop on the ladder: <strong>Step 2 · half past</strong> — the long hand learns to walk.</p>
+</section>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  history.replaceState(null,'','#'+(i+1));
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  if(annoPanel.classList.contains('on')){annoIdx=n;annoFill()}
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+/* teacher's notes toggle (muted, small — click to unfold) */
+function tn(b){const n=b.nextElementSibling;n.classList.toggle('open');b.classList.toggle('on');b.blur();}
+/* fullscreen reading text (inline font-sizes stripped on clone — fills the screen) */
+function openFs(id){
+  const clone=document.getElementById(id).cloneNode(true);
+  clone.removeAttribute('style');
+  clone.querySelectorAll('[style]').forEach(el=>el.removeAttribute('style'));
+  const inner=document.getElementById('fsoinner');
+  inner.innerHTML=clone.innerHTML;
+  document.getElementById('fso').classList.add('open');
+}
+document.addEventListener('keydown',e=>{
+  /* the one owned combo: ⌘S saves + closes the ✍️ log — even from a field */
+  if((e.metaKey||e.ctrlKey)&&(e.key==='s'||e.key==='S')){
+    if(annoPanel.classList.contains('on')){e.preventDefault();annoDoneClose()}
+    return}
+  if(e.target.matches&&e.target.matches('INPUT,TEXTAREA'))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){document.getElementById('fso').classList.remove('open');
+    document.getElementById('annoRep').classList.remove('on');
+    document.getElementById('pardon').classList.remove('on');
+    annoPanel.classList.remove('on');return}
+  if((e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С'||e.key==='n'||e.key==='N'||e.key==='т'||e.key==='Т')&&!document.getElementById('fso').classList.contains('open')){
+    if(e.target.closest('#anno,#annoRep,#pardon'))return;
+    annoToggle(!annoPanel.classList.contains('on'));return}
+  if(e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З'){pardon(true);return}
+  /* AUDIO key-guard: SPACE pauses a playing track instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
+});
+/* photo zoom: click a photo → fullscreen, click/Esc → back */
+document.addEventListener('click',e=>{
+  if(document.body.classList.contains('bigtext')){document.body.classList.remove('bigtext');return;}
+  if(e.target.closest('.pic'))document.body.classList.add('bigtext');
+});
+/* the wheel never flips a scrolled slide — it scrolls it */
+let wt=0;document.addEventListener('wheel',e=>{if(document.body.classList.contains('bigtext')||document.getElementById('fso').classList.contains('open'))return;if(e.target.closest('.slide')&&e.target.closest('.slide').classList.contains('scroll'))return;const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ 🙋 Pardon? overlay ============ */
+function pardon(on){document.getElementById('pardon').classList.toggle('on',on)}
+document.getElementById('pardonBtn').onclick=()=>pardon(true);
+document.getElementById('pardon').addEventListener('click',e=>{if(e.target.id==='pardon')pardon(false)});
+
+/* ============ 🔊 say a word (the browser voice — for monster words) ============ */
+function say(word){
+  try{const u=new SpeechSynthesisUtterance(word);
+    u.lang='en-GB';u.rate=.8;u.pitch=1;
+    const v=speechSynthesis.getVoices().find(v=>/^en(-|_)/i.test(v.lang));
+    if(v)u.voice=v;
+    speechSynthesis.cancel();speechSynthesis.speak(u);
+  }catch(e){}}
+
+/* ============ ✍️ lesson log — the V2 window (d: · //: · free · fix: · ⌘S); auto-sends over http ============ */
+const CH='time-step-1-oclock';
+const annoPanel=document.getElementById('anno'),annoSlideEl=document.getElementById('annoSlide'),
+annoHint=document.getElementById('annoHint'),annoSent=document.getElementById('annoSent'),
+annoD=document.getElementById('annoD'),annoSL=document.getElementById('annoSL'),
+annoF=document.getElementById('annoF'),annoFX=document.getElementById('annoFX'),
+annoTick=document.getElementById('annoTick');
+const CAN_SEND=(location.protocol==='http:');
+let annoIdx=i,annoData={};
+try{annoData=JSON.parse(localStorage.getItem(CH+'-anno')||'{}')}catch(e){annoData={}}
+
+/* ============ ✓/✗ word-check marks (the quiz slides) ============
+   Every line of a section.quiz gets a tap toggle: · → ✓ → ✗ → ·.
+   Marks persist in the browser and ride into the ✍️ report. */
+let marks={};
+try{marks=JSON.parse(localStorage.getItem(CH+'-marks')||'{}')}catch(e){marks={}}
+function mkSave(){try{localStorage.setItem(CH+'-marks',JSON.stringify(marks))}catch(e){}}
+function itemLabel(it){const c=it.cloneNode(true);
+  c.querySelectorAll('.back').forEach(b=>b.remove());
+  c.querySelectorAll('button').forEach(b=>b.remove());
+  const no=c.querySelector('.no');const n=no?no.textContent.trim():'';
+  if(no)no.remove();
+  return ((n?n+' ':'')+(c.textContent||'')).replace(/\s+/g,' ').trim().slice(0,60)}
+const quizSections=[...document.querySelectorAll('section.quiz')];
+quizSections.forEach((sec,qi)=>{
+  sec.querySelectorAll('.item').forEach((it,ii)=>{
+    const key=qi+':'+ii;
+    const b=document.createElement('button');
+    b.className='mark';b.title='✓ knows it / ✗ needs revision (tap to change)';
+    b.textContent='·';
+    b.onclick=e=>{e.stopPropagation();
+      const st=b.classList.contains('ok')?'no':(b.classList.contains('no')?'':'ok');
+      b.classList.remove('ok','no');
+      if(st){b.classList.add(st);b.textContent=st==='ok'?'✓':'✗';
+        marks[key]={s:qi,i:ii,t:itemLabel(it),v:st}}
+      else{b.textContent='·';delete marks[key]}
+      mkSave();annoSend()};
+    it.appendChild(b);
+    const m=marks[key];
+    if(m){b.classList.add(m.v);b.textContent=m.v==='ok'?'✓':'✗'}
+  });
+});
+function marksReport(){let out='';
+  quizSections.forEach((sec,qi)=>{
+    const items=[...sec.querySelectorAll('.item')];
+    let ok=0,no=0;const bad=[];
+    items.forEach((it,ii)=>{const m=marks[qi+':'+ii];if(!m)return;
+      if(m.v==='ok')ok++;else{no++;bad.push(m.t)}});
+    if(!ok&&!no)return;
+    const head=(sec.querySelector('.eyebrow')||{}).textContent||('quiz '+(qi+1));
+    out+='WORD CHECK · '+head.replace(/\s+/g,' ').trim()+': '+ok+' ✓ / '+no+' ✗'
+      +(bad.length?' — needs revision: '+bad.join(' · '):'')+'\n';
+  });
+  return out}
+function annoSave(){try{localStorage.setItem(CH+'-anno',JSON.stringify(annoData))}catch(e){}
+  annoSend()}
+function annoFill(){const a=annoData[annoIdx+1]||{};
+  annoSlideEl.textContent='slide '+(annoIdx+1)+' / '+slides.length;
+  annoD.value=a.d||'';annoSL.value=a.sl||'';annoF.value=a.free||'';annoFX.value=a.fx||'';
+  annoTick.classList.toggle('on',!!a.t)}
+function annoToggle(open){annoPanel.classList.toggle('on',open);
+  if(open){annoIdx=i;annoFill();annoD.focus()}else annoD.blur()}
+function annoDoneClose(){annoSave();
+  if(annoHint){annoHint.textContent='saved ✓';
+    setTimeout(()=>{annoHint.textContent=CAN_SEND
+      ?'auto-sends to the Mac · she sees the screen while you type'
+      :'saves on this device · she sees the screen while you type'},1400)}
+  annoPanel.classList.remove('on')}
+function annoReportText(){let out='✍️ '+CH+' · lesson log · '+new Date().toLocaleString('en-GB')+'\n';
+  let any=false;
+  slides.forEach((s,k)=>{const a=annoData[k+1];if(!a)return;
+    const rows=[];
+    if(a.d)rows.push('d: '+a.d);if(a.sl)rows.push('//: '+a.sl);
+    if(a.free)rows.push(a.free);
+    if(a.fx)rows.push(('fix: '+a.fx).replace(/\n/g,'\n   '));
+    if(!a.t&&!rows.length)return;any=true;
+    out+='· s'+(k+1)+(a.t?' ✓':'')+'\n'+(rows.length?rows.map(x=>'   '+x).join('\n')+'\n':'')});
+  const mr=marksReport();if(mr){out+='\n'+mr;any=true}
+  if(!any)out+='(nothing ticked or noted yet)\n';
+  return out}
+let annoTimer=null;
+function annoSend(){if(!CAN_SEND)return;
+  clearTimeout(annoTimer);
+  annoTimer=setTimeout(()=>{
+    fetch('/report?deck='+encodeURIComponent(CH),{method:'POST',body:annoReportText()})
+      .then(()=>{if(annoSent)annoSent.textContent='auto-sent to the Mac ✓'})
+      .catch(()=>{if(annoSent)annoSent.textContent='not sent — use 📋 copy'})
+  },1200)}
+if(annoHint)annoHint.textContent=CAN_SEND
+  ?'auto-sends to the Mac · she sees the screen while you type'
+  :'saves on this device · she sees the screen while you type';
+document.getElementById('annoBtn').onclick=()=>annoToggle(!annoPanel.classList.contains('on'));
+document.getElementById('annoPrev').onclick=()=>{annoIdx=Math.max(0,annoIdx-1);annoFill()};
+document.getElementById('annoNext').onclick=()=>{annoIdx=Math.min(slides.length-1,annoIdx+1);annoFill()};
+annoTick.onclick=()=>{const a=annoData[annoIdx+1]||{};a.t=a.t?0:1;
+  if(!a.t&&!a.d&&!a.sl&&!a.free&&!a.fx)delete annoData[annoIdx+1];else annoData[annoIdx+1]=a;
+  annoSave();annoFill()};
+[[annoD,'d'],[annoSL,'sl'],[annoF,'free'],[annoFX,'fx']].forEach(([el,k])=>{
+  el.addEventListener('input',()=>{const a=annoData[annoIdx+1]||{};a[k]=el.value;
+    if(!a.t&&!a.d&&!a.sl&&!a.free&&!a.fx)delete annoData[annoIdx+1];else annoData[annoIdx+1]=a;
+    annoSave()})});
+document.getElementById('annoDone').onclick=annoDoneClose;
+const rep=document.getElementById('annoRep'),repText=document.getElementById('annoRepText');
+document.getElementById('annoCopy').onclick=()=>{repText.value=annoReportText();rep.classList.add('on')};
+document.getElementById('annoRepClose').onclick=()=>rep.classList.remove('on');
+document.getElementById('annoRepClear').onclick=()=>{
+  try{localStorage.removeItem(CH+'-anno')}catch(e){}
+  annoData={};annoFill();rep.classList.remove('on')};
+rep.addEventListener('click',e=>{if(e.target===rep)rep.classList.remove('on')});
+document.getElementById('annoRepCopy').onclick=()=>{repText.select();
+  try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(repText.value);
+  else document.execCommand('copy')}catch(e){}};
+
+/* deep link: open the deck on slide #n */
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+
+/* READY-CHIME (standing rule): the open window chimes and reloads when
+   ZCode saves a new version; #n keeps the slide. http:// only. */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{        /* ding — dong */
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
