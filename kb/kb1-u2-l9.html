@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kid's Box 1 · Unit 2 · Lesson 9 — Who's that? · Nn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ "Minty Fresh" — ONE deck for the whole lesson ============
+   KB1 · Unit 2 · Lesson 9 (конспект L9: Who's that? + phonics Nn, the
+   finger puppets) + Elena's shape: Left-and-Right first song, the
+   Thursday phonics-d doorway, ONE PW1 lesson (U1 L3, protected), the
+   🎬 on the puppets. Same engine as KB 1 U2 L8 (THE DECK STAYS
+   FAMILIAR): board deck, Wi-Fi interstitial, reveal cards, ready-chime,
+   build stamp, the ✍️ V2 window with the corners v2: 🙋 Pardon
+   top-left · ✍️ top-right · 🗒 bottom-centre, the three-group log.
+   Every note: WHAT THIS IS first, then HOW TO RUN IT. */
+:root{
+  --mint:#95E1D3;         /* soft mint */
+  --mint-deep:#5ecbb8;    /* mint accent */
+  --peach:#FCE38A;        /* warm yellow */
+  --lavender:#C8B6FF;     /* lavender */
+  --lavender-deep:#9a7fff;/* lavender accent */
+  --cream:#FFF8F0;        /* page background */
+  --pink:#FF8FAB;         /* pink accent */
+  --ink:#2D3436;          /* main text */
+  --ink-soft:#636e72;     /* secondary text */
+  --white:#ffffff;
+  --radius:22px;
+  --shadow:0 10px 30px rgba(45,52,54,.12);
+  --shadow-lg:0 20px 50px rgba(45,52,54,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);overflow:hidden}
+.slide>*{flex-shrink:0}   /* THE FLEX-SHRINK RULE — nothing collapses; slides scroll */
+/* ============ chrome ============ */
+#progress-track{position:fixed;top:0;left:0;width:100vw;height:7px;background:rgba(200,182,255,.35);z-index:100}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--lavender),var(--pink));transition:width .4s cubic-bezier(.22,1,.36,1)}
+#nav{
+  position:fixed;bottom:14px;right:max(10px,1.6vw);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border-radius:99px;padding:8px 14px;box-shadow:var(--shadow);
+}
+#nav button{
+  width:44px;height:44px;border-radius:50%;border:none;
+  background:var(--white);color:var(--mint-deep);font-size:1.35rem;cursor:pointer;
+  box-shadow:0 2px 10px rgba(45,52,54,.10);
+  transition:transform .15s ease,opacity .15s ease;font-family:inherit;
+}
+#nav button:hover{transform:scale(1.08)}
+#nav button:disabled{opacity:.3;cursor:default;transform:none}
+#nav button.fs{width:auto;border-radius:99px;padding:0 16px;font-size:1.05rem}
+#counter{font-weight:800;color:var(--ink-soft);font-size:1rem;min-width:3.6em;text-align:center}
+#stamp{
+  position:fixed;top:12px;z-index:100;
+  font-size:clamp(.7rem,1vw,.9rem);font-weight:800;color:var(--ink-soft);
+  background:rgba(255,255,255,.85);border-radius:99px;padding:.3em .9em;box-shadow:var(--shadow);
+}
+/* ============ the pills (emoji-only row — the V2 standard, 04.10) ============ */
+.pill{
+  position:fixed;z-index:110;
+  font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(.95rem,1.4vw,1.2rem);border:none;cursor:pointer;
+  border-radius:99px;padding:.45em .95em;background:rgba(255,255,255,.9);
+  box-shadow:0 4px 12px rgba(45,52,54,.12);color:var(--ink-soft);
+  transition:transform .15s ease,color .15s ease;
+}
+.pill:hover{transform:scale(1.05);color:var(--ink)}
+/* THE CORNERS v2 (Elena, 04.10): Pardon → top-left · ✍️ log → top-right · 🗒 notes → bottom centre */
+#pardonbtn{top:2.4vh;left:max(10px,1.6vw);right:auto;bottom:auto}
+#stamp{top:12px;right:calc(max(10px,1.6vw) + 5.6em)}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(255,248,240,.985);display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
+.overlay.open{display:flex}
+.overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
+.overlay .closer:hover{color:var(--ink)}
+/* ============ slides ============ */
+.slide{
+  position:absolute;inset:0;
+  padding:8vh 5vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;gap:1.8vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),visibility .5s;
+  overflow:auto;
+}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0) scale(1)}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal-el{animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
+.slide.active .reveal-el:nth-child(2){animation-delay:.08s}
+.slide.active .reveal-el:nth-child(3){animation-delay:.16s}
+.slide.active .reveal-el:nth-child(4){animation-delay:.24s}
+.slide.active .reveal-el:nth-child(5){animation-delay:.32s}
+.slide.active .reveal-el:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+/* ============ the Wi-Fi interstitial ============ */
+.slide.wifi{justify-content:center;align-items:center;background:#fff}
+.wifi-ic{width:clamp(180px,32vw,380px);height:auto;animation:wifipulse 2.2s ease-in-out infinite}
+@keyframes wifipulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.045);opacity:1}}
+/* ============ content components ============ */
+.eyebrow{
+  font-size:clamp(1rem,1.8vw,1.4rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lavender-deep);
+}
+h1.title{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.1;color:var(--ink);
+}
+.accent-line{width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.card{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.2vh,24px) clamp(16px,2vw,28px);
+}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.card.pink{background:#ffe9f0}
+.card p,.card li{font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.4}
+.task{
+  background:var(--peach);border-radius:99px;align-self:flex-start;
+  padding:.45em 1.2em;font-size:clamp(1.2rem,2.1vw,1.7rem);font-weight:800;color:var(--ink);
+}
+.reveal-btn{
+  font-family:'Fredoka',sans-serif;font-size:clamp(1.15rem,2vw,1.6rem);font-weight:700;
+  color:var(--ink);background:var(--mint);border:none;border-radius:99px;
+  padding:.55em 1.5em;cursor:pointer;transition:transform .15s ease;align-self:flex-start;
+  box-shadow:var(--shadow);
+}
+.reveal-btn:hover{transform:scale(1.06)}
+.answer{
+  display:none;font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.7rem,3.4vw,3rem);color:var(--ink);
+  background:var(--mint);border-radius:var(--radius);padding:.4em 1em;align-self:flex-start;
+}
+.answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+.answer b{color:var(--pink)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+/* flashcard grids */
+.fc-grid{display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,20px);align-items:stretch;justify-content:center}
+.fc{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(8px,1.2vh,14px);cursor:pointer;user-select:none;
+  display:flex;flex-direction:column;align-items:center;gap:.4vh;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease;
+  flex:0 1 auto;min-width:0;
+}
+.fc img{height:clamp(90px,16vh,150px);border-radius:12px}
+.fc .fc-emoji{font-size:clamp(3.2rem,8vh,5.6rem);line-height:1.15;display:block}
+.fc .fc-name{
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.5rem);
+  color:var(--ink);min-height:1.3em;
+}
+.fc:hover{transform:translateY(-4px) scale(1.03)}
+.fc.picked{transform:scale(1.07);box-shadow:0 0 0 6px var(--mint),var(--shadow-lg)}
+.fc.gone{visibility:hidden}
+/* big left/right arrows (the goodbye song) */
+.lr-row{display:flex;gap:clamp(20px,4vw,60px);justify-content:center;align-items:center}
+.lr{display:flex;flex-direction:column;align-items:center;gap:1vh;cursor:pointer;user-select:none}
+.lr .arrow{font-size:clamp(4rem,11vh,8rem);line-height:1;animation:wifipulse 2s ease-in-out infinite}
+.lr .lr-word{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.8rem,4vw,3.2rem);background:var(--white);border-radius:18px;
+  padding:.15em .6em;box-shadow:var(--shadow);
+}
+.lr.left .arrow{color:#5ecbb8}
+.lr.right .arrow{color:#FF8FAB}
+audio{width:min(560px,100%);margin-top:.4vh}
+video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--shadow-lg)}
+img.sheet{width:min(640px,92%);border-radius:16px;display:block;box-shadow:var(--shadow-lg);background:#fff}
+img.sheet.small{width:min(430px,90%)}
+.linkcard{
+  display:inline-block;background:var(--lavender);color:var(--ink);text-decoration:none;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2.2vw,1.8rem);
+  border-radius:99px;padding:.6em 1.6em;box-shadow:var(--shadow);cursor:pointer;
+  transition:transform .15s ease;align-self:flex-start;
+}
+.linkcard:hover{transform:scale(1.05)}
+/* THE SIGHT-READING REVEAL — tap a picture → the word FULL SCREEN, huge */
+#bigword{z-index:300;cursor:pointer;align-items:center;justify-content:center;gap:0}
+#bigword .bw{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.05;text-align:center;color:var(--ink);animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+#bigword .bw .art{display:block;font-size:clamp(1.6rem,4vw,3.4rem);color:var(--mint-deep);margin-bottom:1.5vh}
+#bigword .bw .noun{display:block;font-size:clamp(4.5rem,17vh,11rem);letter-spacing:.02em}
+#bigword .tap-hint{position:absolute;bottom:6vh;left:0;right:0;text-align:center;font-size:clamp(.9rem,1.5vw,1.2rem);color:var(--ink-soft)}
+ (standing, 2026-10-13): Elena films the group for the parents at this slide — placement taught gradually */
+.filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}</style>
+<style>/* THE FILM CUE</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+<div id="stamp">KB 1 · U2 · L9 · build 15.10 · v1</div>
+
+<!-- 1 · WARM UP — HELLO SONG -->
+<section class="slide">
+  <div class="eyebrow reveal-el">🎵 Song time</div>
+  <h1 class="title reveal-el">Hello! How are you? 👋</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Sing and do the actions!</div>
+  <video class="reveal-el" controls preload="metadata" src="../media/kb1-u1-hello.mp4"></video>
+  <div class="card mint reveal-el"><p>💬 The circle: <b style="color:var(--mint-deep)">How are you? — I'm fine. I'm good.</b> ⭕</p></div>
+  <div class="card peach reveal-el" style="max-width:760px">
+    <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.35rem);color:var(--lavender-deep)">🧺 Prepare ahead</p>
+    <p style="font-size:clamp(.85rem,1.35vw,1.1rem);line-height:1.55">
+      🧵 <b>THE FINGER PUPPETS</b> — they bring them today! (made at home, PB p. 13) &nbsp;·&nbsp; 🃏 flashcards: <b>Simon · Suzy · Stella · Meera</b> + the rest of the family<br>
+      📄 worksheets: <b>«Who's that?» + the cut-out cards · «Nn»</b> &nbsp;·&nbsp; 🖼️ <b>poster 9</b> + the posters SMALL (they go home!) &nbsp;·&nbsp; 🖍️ pencils<br>
+      🎨 for the Playway lesson: <b>colour flashcards · real crayons</b> · 🧤 a hand puppet — it asks: «Give me red!»
+    </p>
+  </div>
+</section>
+
+<!-- 2 · FIRST SONG — LEFT AND RIGHT (lesson 3 of 3) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">🎵 Song time — you know it!</div>
+  <h1 class="title reveal-el">Left and right — YOU know it! 🎤</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Stand up — sing and DO!</div>
+  <div class="lr-row reveal-el">
+    <div class="lr left"><span class="arrow">⬅️</span><span class="lr-word">LEFT</span></div>
+    <div class="lr right"><span class="arrow">➡️</span><span class="lr-word">RIGHT</span></div>
+  </div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-ge-left-right.mp3"></audio>
+  <div class="card peach reveal-el"><p>👏 Lesson 3 with this song — <b style="color:var(--lavender-deep)">show me the EXPERT moves!</b></p></div>
+</section>
+
+<!-- 3 · HOMEWORK CHECK — THE УРОК 9 CARD -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Homework check ✋</div>
+  <h1 class="title reveal-el">Who did it? Hands up!</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="card mint reveal-el"><p>📖 The funny <b style="color:var(--mint-deep)">M sentences</b> — who read them? ✋</p></div>
+  <div class="card lavender reveal-el"><p>🎨 «Дорисуй»? ✋ &nbsp; ✏️ The <b style="color:var(--lavender-deep)">Pp tracing</b>? ✋ &nbsp; 📖 <b style="color:var(--lavender-deep)">AB p. 14</b> to Mum and Dad? ✋</p></div>
+  <div class="card mint reveal-el"><p>🎮 The <b style="color:var(--mint-deep)">ABC-P game</b>? ✋</p></div>
+  <div class="card peach reveal-el"><p>🧵 And NOW — <b style="color:var(--lavender-deep)">SHOW ME YOUR FINGER PUPPETS!</b> 🎭 👏</p></div>
+</section>
+
+<!-- 4 · GAME — CHINESE WHISPERS (the конспект warm-up) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Game time 🤫</div>
+  <h1 class="title reveal-el">Chinese whispers! 🤫</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Whisper it down the row — the last one SHOUTS it!</div>
+  <div class="card lavender reveal-el"><p>🤫 New word: <b style="color:var(--lavender-deep)">WHISPER</b> — a tiny little voice…</p></div>
+  <div class="card peach reveal-el"><p>👂 «<b style="color:var(--lavender-deep)">seven blue pens</b>» — ear to ear…</p></div>
+  <div class="card mint reveal-el"><p>📣 The last one says it <b style="color:var(--mint-deep)">LOUD</b> + shows it on fingers! 🖐️</p></div>
+</section>
+
+<!-- 5 · READING THURSDAY — THE PHONICS DECK (the doorway) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Reading · Thursday · brands 🔤</div>
+  <h1 class="title reveal-el">D d says d-d-d! 🏷️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Tongue-drum — d-d-d!</div>
+  <div class="card lavender reveal-el" style="text-align:center;align-self:stretch">
+    <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(4rem,13vh,9rem);line-height:1.1">D d</p>
+    <p style="font-size:clamp(1.2rem,2.2vw,1.8rem)">d-d-d… 🥁 a little drum on the tongue!</p>
+  </div>
+  <div class="card peach reveal-el"><p>🏷️ The <b style="color:var(--lavender-deep)">brands you know</b> — let's read them! ▶ <b style="color:var(--lavender-deep)">brand-phonics-d</b></p></div>
+</section>
+
+<!-- 6 · THE FINGER PUPPETS — THE SONG (PB p. 13) · THE FILMING MOMENT -->
+<section class="slide">
+  <div class="eyebrow reveal-el">🎵 Puppet time!</div>
+  <h1 class="title reveal-el">Mr Star, how are you? 🧵</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Wiggle the right finger on every name!</div>
+  <img class="sheet small reveal-el" src="../media/kb1-u2-pb13.png" alt="PB p. 13 — the Star family song">
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-pb13-t19.mp3"></audio>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-pb13-t20.mp3"></audio>
+  <div class="card mint reveal-el"><p>🧵 The order: <b style="color:var(--mint-deep)">Mr Star → Mrs Star → Stella → Simon → Suzy</b></p></div>
+  <div class="card lavender reveal-el"><p>👫 Role play: «<b style="color:var(--lavender-deep)">Who's that?</b>» — «<b style="color:var(--lavender-deep)">He is Simon. He's six!</b>»</p></div>
+<div class="filmchip" title="Lights, camera, action — today: film the puppet song, 30–60 s for the parents; the clip goes to Miss Alyona">🎬 Lights, camera, action!</div>
+</section>
+
+<!-- 7 · PRESENTATION — WHO'S THAT? -->
+<section class="slide">
+  <div class="eyebrow reveal-el">NEW WORDS!</div>
+  <h1 class="title reveal-el">Who's that? 🙋</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Half the card… guess… REVEAL!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><img src="../media/kb1-u1-fc-simon.png" alt="Simon"><div class="fc-name"><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em">He<b style="color:var(--mint-deep)">'s</b> Simon!</span></div></div>
+    <div class="fc"><img src="../media/kb1-u1-fc-stella.png" alt="Stella"><div class="fc-name"><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em;background:var(--pink);color:#fff">She's Stella!</span></div></div>
+    <div class="fc"><img src="../media/kb1-u1-fc-suzy.png" alt="Suzy"><div class="fc-name"><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em;background:var(--pink);color:#fff">She's Suzy!</span></div></div>
+    <div class="fc"><img src="../media/kb1-u1-fc-meera.png" alt="Meera"><div class="fc-name"><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em;background:var(--pink);color:#fff">She's Meera!</span></div></div>
+  </div>
+  <div class="card peach reveal-el"><p>✍️ On the board: <b style="color:var(--lavender-deep)">WHO</b> — clap it: «WHO'S <b style="color:var(--lavender-deep)">THAT?</b>» 👏👏</p></div>
+</section>
+
+<!-- 8 · PRACTICE 1 — PB p. 12 ex. 1 (LISTEN, DRILL, PAIRS) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">PB p. 12 · Practice</div>
+  <h1 class="title reveal-el">Who's that? — That's Alex! 🧑‍🤝‍🧑</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — point — then ASK your friend!</div>
+  <img class="sheet reveal-el" src="../media/kb1-u2-pb12.png" alt="PB p. 12 — the playground, Who's that?">
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-pb12-t17.mp3"></audio>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-pb12-t18.mp3"></audio>
+  <div class="card lavender reveal-el"><p>👏 Clap the rhythm: «<b style="color:var(--lavender-deep)">WHO'S that?</b>» — «<b style="color:var(--lavender-deep)">That's ALEX!</b>» — mind the <b style="color:var(--lavender-deep)">wh</b>! 🎯</p></div>
+</section>
+
+<!-- 9 · PRACTICE 2 — THE «WHO'S THAT?» WORKSHEET (oral) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Worksheet · speaking only 🗣️</div>
+  <h1 class="title reveal-el">Who's that? — look at the legs! 🦵</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 «He is Simon!» — say the FULL line!</div>
+  <img class="sheet reveal-el" src="../media/kb1-u2-ws-whosthat.png" alt="the Who's that? worksheet — eight boxes with legs">
+  <div class="card peach reveal-el"><p>🗣️ «<b style="color:var(--lavender-deep)">Who's that?</b>» — «<b style="color:var(--lavender-deep)">SHE is Stella!</b>» ✋ no pencils — TALK!</p></div>
+</section>
+
+<!-- 10 · PRODUCTION — PB p. 12 ex. 2 (HIDE A CHARACTER, PAIRS) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Your turn! 🗣️</div>
+  <h1 class="title reveal-el">Hide a character — guess! 🙈</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Cover — ask — guess — reveal!</div>
+  <img class="sheet small reveal-el" src="../media/kb1-u2-pb12.png" alt="PB p. 12 — hide a character">
+  <div class="fc-grid reveal-el">
+    <div class="fc"><img src="../media/kb1-u1-fc-simon.png" alt="Simon"><div class="fc-name">❓</div></div>
+    <div class="fc"><img src="../media/kb1-u1-fc-suzy.png" alt="Suzy"><div class="fc-name">❓</div></div>
+    <div class="fc"><img src="../media/kb1-u1-fc-stella.png" alt="Stella"><div class="fc-name">❓</div></div>
+    <div class="fc"><img src="../media/kb1-u1-fc-meera.png" alt="Meera"><div class="fc-name">❓</div></div>
+  </div>
+  <div class="card lavender reveal-el"><p>🙈 «<b style="color:var(--lavender-deep)">Who's that?</b>» — «<b style="color:var(--lavender-deep)">He's Maskman!</b>» 🦸</p></div>
+</section>
+
+<!-- 11 · WI-FI (pencil time) -->
+<section class="slide wifi">
+  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
+  </svg>
+</section>
+
+<!-- 12 · THE PENCIL SONG -->
+<section class="slide">
+  <div class="eyebrow reveal-el">🎵 Pencil time!</div>
+  <h1 class="title reveal-el">Hold your pencil up! ✏️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Sing — DO it with your pencil!</div>
+  <audio controls preload="none" class="reveal-el" src="../media/pab-1-6-hold-your-pencil-up.mp3"></audio>
+</section>
+
+<!-- 13 · AB p. 12 ex. 1 — LISTEN AND WRITE THE NUMBER -->
+<section class="slide">
+  <div class="eyebrow reveal-el">AB p. 12 · Listening ✏️</div>
+  <h1 class="title reveal-el">Listen and write the number! 1️⃣</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — write 1 · 2 · 3…</div>
+  <img class="sheet reveal-el" src="../media/kb1-u2-ab12.png" alt="AB p. 12 ex. 1 — listen and write the number">
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-ab12-t06.mp3"></audio>
+  <div class="card peach reveal-el"><p>🙋 ICQ: «What do you write?» — <b style="color:var(--lavender-deep)">A NUMBER!</b> 🔢</p></div>
+</section>
+
+<!-- 14 · AB p. 12 ex. 2 — THE MONSTERS LINE (if time) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">If time ⏱ · AB p. 12 · ex. 2</div>
+  <h1 class="title reveal-el">Follow the line! 🐲</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 «One. — He is 9.» — 2 minutes!</div>
+  <img class="sheet small reveal-el" src="../media/kb1-u2-ab12.png" alt="AB p. 12 ex. 2 — the monsters">
+  <div class="card mint reveal-el"><p>⏱ <b style="color:var(--mint-deep)">You have 2 minutes!</b> — follow the lines… say it ALL: «He is 9!»</p></div>
+</section>
+
+<!-- 15 · THE PLAYWAY LESSON 1/2 — THE GIVE-ME CHANT (PB p. 6, PROTECTED) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">The other coursebook · chant 🎨</div>
+  <h1 class="title reveal-el">Give me RED! — Here you are! 🖍️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — point — CHANT!</div>
+  <img class="sheet small reveal-el" src="../media/pw1-p6-ex4.png" alt="Playway PB p. 6 — the Give-me chant">
+  <audio controls preload="none" class="reveal-el" src="../media/pw1-cd1-7.mp3"></audio>
+  <audio controls preload="none" class="reveal-el" src="../media/pw1-cd1-8.mp3"></audio>
+  <div class="card lavender reveal-el"><p>🧤 The puppet asks: «<b style="color:var(--lavender-deep)">Give me RED!</b>» — you answer: «<b style="color:var(--lavender-deep)">Here you are!</b>» 🖐️</p></div>
+</section>
+
+<!-- 16 · THE PLAYWAY LESSON 2/2 — AB p. 6 + THE CRAYON GAME (PROTECTED) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">The other coursebook · AB + game 🖍️</div>
+  <h1 class="title reveal-el">Listen and colour! 🎨</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — colour — «Give me blue!»</div>
+  <img class="sheet small reveal-el" src="../media/pw1-ab-p6-ex3.png" alt="Playway AB p. 6 — listen and colour">
+  <audio controls preload="none" class="reveal-el" src="../media/pw1-cd1-10.mp3"></audio>
+  <div class="card mint reveal-el"><p>👫 The game: «<b style="color:var(--mint-deep)">Give me blue!</b>» — «<b style="color:var(--mint-deep)">Here you are!</b>» — now YOUR turn! 🖍️</p></div>
+</section>
+
+<!-- 17 · PHONICS Nn — NUT · NET · NEST · NOD -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Reading · NEW!</div>
+  <h1 class="title reveal-el">N n — nut, net, nest, nod! 🥜</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 N-n-nut! N-n-net! N-n-nest! N-n-nod!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">🥜</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">N-nut</span></div></div>
+    <div class="fc"><svg viewBox="0 0 100 100" style="height:clamp(90px,15vh,140px)"><line x1="26" y1="10" x2="47" y2="43" stroke="#2D3436" stroke-width="5" stroke-linecap="round"/><ellipse cx="60" cy="63" rx="30" ry="23" fill="#dff3ff" stroke="#2D3436" stroke-width="3.5"/><path d="M33 55 q26 -12 54 4" fill="none" stroke="#2D3436" stroke-width="2" opacity=".55"/><path d="M31 65 q28 -9 58 3" fill="none" stroke="#2D3436" stroke-width="2" opacity=".55"/><path d="M34 75 q24 -7 50 1" fill="none" stroke="#2D3436" stroke-width="2" opacity=".55"/><path d="M48 42 q-9 21 0 42" fill="none" stroke="#2D3436" stroke-width="2" opacity=".55"/><path d="M61 40 q-6 23 2 46" fill="none" stroke="#2D3436" stroke-width="2" opacity=".55"/><path d="M74 43 q-4 20 1 39" fill="none" stroke="#2D3436" stroke-width="2" opacity=".55"/></svg><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">N-net</span></div></div>
+    <div class="fc"><span class="fc-emoji">🪺</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">N-nest</span></div></div>
+    <div class="fc"><svg viewBox="0 0 100 100" style="height:clamp(90px,15vh,140px)"><path d="M18 90 q32 -20 64 0 z" fill="#C8B6FF" stroke="#2D3436" stroke-width="3"/><circle cx="50" cy="46" r="23" fill="#FFE0BD" stroke="#2D3436" stroke-width="3.5"/><path d="M28 40 q4 -16 22 -17 q18 1 22 17 q-10 -8 -22 -8 q-12 0 -22 8 z" fill="#8d5a2b" stroke="#2D3436" stroke-width="2.5"/><path d="M40 52 q3 3 6 0 M56 52 q3 3 6 0" fill="none" stroke="#2D3436" stroke-width="2.5" stroke-linecap="round"/><path d="M45 62 q5 4 10 0" fill="none" stroke="#2D3436" stroke-width="2.5" stroke-linecap="round"/><path d="M74 18 q14 10 10 26" fill="none" stroke="#5ecbb8" stroke-width="4" stroke-linecap="round"/><path d="M79 40 l5 -7 M84 33 l-7 3" fill="none" stroke="#5ecbb8" stroke-width="4" stroke-linecap="round"/></svg><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">N-nod</span></div></div>
+  </div>
+  <div class="card peach reveal-el"><p>👏 Clap it: <b style="color:var(--lavender-deep)">N-n-nut! N-n-net! N-n-nest! N-n-nod!</b> &nbsp; 🙂 And NOD — yes, yes, yes!</p></div>
+</section>
+
+<!-- 18 · GAME — WHAT'S MISSING (N-words + P-words) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Game time 👀</div>
+  <h1 class="title reveal-el">What's missing?!</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Close your eyes… OPEN — what's missing?</div>
+  <div class="fc-grid reveal-el" id="wmiss">
+    <div class="fc"><span class="fc-emoji">🥜</span></div>
+    <div class="fc"><svg viewBox="0 0 100 100" style="height:clamp(90px,15vh,140px)"><line x1="26" y1="10" x2="47" y2="43" stroke="#2D3436" stroke-width="5" stroke-linecap="round"/><ellipse cx="60" cy="63" rx="30" ry="23" fill="#dff3ff" stroke="#2D3436" stroke-width="3.5"/><path d="M33 55 q26 -12 54 4" fill="none" stroke="#2D3436" stroke-width="2" opacity=".55"/><path d="M31 65 q28 -9 58 3" fill="none" stroke="#2D3436" stroke-width="2" opacity=".55"/><path d="M34 75 q24 -7 50 1" fill="none" stroke="#2D3436" stroke-width="2" opacity=".55"/><path d="M48 42 q-9 21 0 42" fill="none" stroke="#2D3436" stroke-width="2" opacity=".55"/><path d="M61 40 q-6 23 2 46" fill="none" stroke="#2D3436" stroke-width="2" opacity=".55"/><path d="M74 43 q-4 20 1 39" fill="none" stroke="#2D3436" stroke-width="2" opacity=".55"/></svg></div>
+    <div class="fc"><span class="fc-emoji">🪺</span></div>
+    <div class="fc"><svg viewBox="0 0 100 100" style="height:clamp(90px,15vh,140px)"><path d="M18 90 q32 -20 64 0 z" fill="#C8B6FF" stroke="#2D3436" stroke-width="3"/><circle cx="50" cy="46" r="23" fill="#FFE0BD" stroke="#2D3436" stroke-width="3.5"/><path d="M28 40 q4 -16 22 -17 q18 1 22 17 q-10 -8 -22 -8 q-12 0 -22 8 z" fill="#8d5a2b" stroke="#2D3436" stroke-width="2.5"/><path d="M40 52 q3 3 6 0 M56 52 q3 3 6 0" fill="none" stroke="#2D3436" stroke-width="2.5" stroke-linecap="round"/><path d="M45 62 q5 4 10 0" fill="none" stroke="#2D3436" stroke-width="2.5" stroke-linecap="round"/><path d="M74 18 q14 10 10 26" fill="none" stroke="#5ecbb8" stroke-width="4" stroke-linecap="round"/><path d="M79 40 l5 -7 M84 33 l-7 3" fill="none" stroke="#5ecbb8" stroke-width="4" stroke-linecap="round"/></svg></div>
+    <div class="fc"><span class="fc-emoji">🐷</span></div>
+    <div class="fc"><img src="../media/kb1-u2-fc-pen.png" alt="a pen"></div>
+    <div class="fc"><svg viewBox="0 0 100 100" style="height:clamp(90px,15vh,140px)"><line x1="4" y1="24" x2="96" y2="24" stroke="#2D3436" stroke-width="3.5" stroke-linecap="round"/><path d="M26 24 h48 v40 q0 6 -6 6 h-36 q-6 0 -6 -6 z" fill="#7bc47f" stroke="#2D3436" stroke-width="3"/><path d="M26 30 q24 8 48 0 M32 62 v-20 M68 62 v-20" fill="none" stroke="#2D3436" stroke-width="2.2" stroke-linecap="round" opacity=".55"/><path d="M41 12 h18 v22 q0 5 -4.5 5 h-9 q-4.5 0 -4.5 -5 z" fill="#d9a05f" stroke="#2D3436" stroke-width="3"/><line x1="50" y1="12" x2="50" y2="33" stroke="#2D3436" stroke-width="2.5"/><rect x="43" y="17" width="14" height="5.5" rx="2.75" fill="#9aa7b3" stroke="#2D3436" stroke-width="2"/></svg></div>
+    <div class="fc"><svg viewBox="0 0 100 100" style="height:clamp(90px,15vh,140px)"><g transform="translate(0,14)"><ellipse cx="50" cy="34" rx="27" ry="6" fill="#7a3b2e" stroke="#2D3436" stroke-width="3"/><path d="M24 34 q1 30 26 30 q25 0 26 -30 z" fill="#a05238" stroke="#2D3436" stroke-width="3"/><path d="M24 40 q-11 1 -12 8 q1 7 12 8" fill="none" stroke="#2D3436" stroke-width="5" stroke-linecap="round"/><path d="M76 40 q11 1 12 8 q-1 7 -12 8" fill="none" stroke="#2D3436" stroke-width="5" stroke-linecap="round"/><ellipse cx="50" cy="34" rx="20" ry="4" fill="#5e2a20"/><line x1="63" y1="12" x2="55" y2="30" stroke="#2D3436" stroke-width="4" stroke-linecap="round"/><ellipse cx="65" cy="10" rx="6" ry="4.5" fill="#FCE38A" stroke="#2D3436" stroke-width="3"/><path d="M40 22 q3 -5 0 -9 M48 24 q3 -5 0 -9" fill="none" stroke="#9aa7b3" stroke-width="3" stroke-linecap="round"/></g></svg></div>
+  </div>
+  <button class="reveal-btn reveal-el" id="missbtn" onclick="missOne(this)">👀 Close your eyes!</button>
+</section>
+
+<!-- 19 · WORKSHEET «Nn» -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Worksheet</div>
+  <h1 class="title reveal-el">The Nn worksheet ✏️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Find every N n — NO tracing!</div>
+  <img class="sheet reveal-el" src="../media/kb1-u2-ws-nn.png" alt="the Nn worksheet — a net, a nut, a nest, nod">
+  <div class="card pink reveal-el"><p>⛔ Tracing? <b style="color:var(--pink)">At HOME!</b> 🏠 &nbsp; ⏱ the maze? — if the clock says so!</p></div>
+</section>
+
+<!-- 20 · READING — THE POSTERS 1 → 9 -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Reading · the whole line!</div>
+  <h1 class="title reveal-el">Read the posters: 1 → 9! 📖</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 ALL together → pairs → YOU alone!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><img src="../media/kb1-u2-poster-rhyme.png" alt="the rhyme — a bat sat on the mat, a rat sat on the mat" style="height:clamp(80px,13vh,120px)"><div class="fc-name" style="font-size:clamp(.9rem,1.5vw,1.2rem)">the rhyme 🎵</div></div>
+    <div class="fc"><img src="../media/kb1-u2-poster2.png" alt="poster 2" style="height:clamp(80px,13vh,120px)"><div class="fc-name" style="font-size:clamp(.9rem,1.5vw,1.2rem)">2</div></div>
+    <div class="fc"><img src="../media/kb1-u2-poster3.png" alt="poster 3" style="height:clamp(80px,13vh,120px)"><div class="fc-name" style="font-size:clamp(.9rem,1.5vw,1.2rem)">3</div></div>
+    <div class="fc"><img src="../media/kb1-u2-poster4.png" alt="poster 4" style="height:clamp(80px,13vh,120px)"><div class="fc-name" style="font-size:clamp(.9rem,1.5vw,1.2rem)">4</div></div>
+    <div class="fc"><img src="../media/kb1-u2-poster5.png" alt="poster 5" style="height:clamp(80px,13vh,120px)"><div class="fc-name" style="font-size:clamp(.9rem,1.5vw,1.2rem)">5</div></div>
+    <div class="fc"><img src="../media/kb1-u2-poster6.png" alt="poster 6" style="height:clamp(80px,13vh,120px)"><div class="fc-name" style="font-size:clamp(.9rem,1.5vw,1.2rem)">6</div></div>
+    <div class="fc"><img src="../media/kb1-u2-poster7.png" alt="poster 7" style="height:clamp(80px,13vh,120px)"><div class="fc-name" style="font-size:clamp(.9rem,1.5vw,1.2rem)">7</div></div>
+    <div class="fc"><img src="../media/kb1-u2-poster8.png" alt="poster 8 — pat, pat a rat" style="height:clamp(80px,13vh,120px)"><div class="fc-name" style="font-size:clamp(.9rem,1.5vw,1.2rem)">8</div></div>
+    <div class="fc picked"><img src="../media/kb1-u2-poster9.png" alt="poster 9 — nap, rat nap" style="height:clamp(80px,13vh,120px)"><div class="fc-name" style="font-size:clamp(.9rem,1.5vw,1.2rem)">9 ✨ today: <b style="color:var(--lavender-deep)">NAP!</b> 😴</div></div>
+  </div>
+  <div class="card mint reveal-el"><p>😴 n… a… p — <b style="color:var(--mint-deep)">NAP!</b> (sleep like the poster's rat!) &nbsp; 🎒 the small posters — <b style="color:var(--mint-deep)">into the bag, read at home!</b></p></div>
+</section>
+
+<!-- 21 · FEEDBACK GAME — WORDWALL ABC-N (if time) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">If time ⏱ · Game!</div>
+  <h1 class="title reveal-el">The ABC-N game! 🎮</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 N is for… NUT! 🥜</div>
+  <a class="linkcard reveal-el" href="https://wordwall.net/resource/73491516/wow-abc-n" target="_blank">▶ Wordwall: the ABC-N game</a>
+  <div class="card mint reveal-el"><p>🏆 One driver at a time — <b style="color:var(--mint-deep)">EVERYONE shouts the answers!</b></p></div>
+</section>
+
+<!-- 22 · FEEDBACK — FAVOURITE WORD + THE TREASURE -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Your turn! 💬</div>
+  <h1 class="title reveal-el">Your favourite word! 💛</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Say it loud and proud!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><div class="fc-name" style="font-size:clamp(1.6rem,3.4vw,2.6rem)">WHO 🙋</div></div>
+    <div class="fc"><div class="fc-name" style="font-size:clamp(1.6rem,3.4vw,2.6rem)">nut 🥜</div></div>
+    <div class="fc"><div class="fc-name" style="font-size:clamp(1.6rem,3.4vw,2.6rem)">net 🥅</div></div>
+    <div class="fc"><div class="fc-name" style="font-size:clamp(1.6rem,3.4vw,2.6rem)">nest 🪺</div></div>
+    <div class="fc"><div class="fc-name" style="font-size:clamp(1.6rem,3.4vw,2.6rem)">nod 🙂</div></div>
+    <div class="fc"><div class="fc-name" style="font-size:clamp(1.6rem,3.4vw,2.6rem)">nap 😴</div></div>
+  </div>
+  <div class="card peach reveal-el"><p>💎 The puppet song: Stella's finger is <b>before</b> Simon's. Simon's is <b>before</b> Suzy's.<br>🤔 <b>Who wiggles LAST?</b>
+  &nbsp;<button class="reveal-btn" style="font-size:.7em;padding:.15em .8em;vertical-align:middle" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.8em;padding:.1em .5em">Suzy! 🎉</span></p></div>
+  <div class="card peach reveal-el"><p>👏 Everyone says <b style="color:var(--lavender-deep)">ONE word!</b></p></div>
+</section>
+
+<!-- 23 · HOMEWORK -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Homework</div>
+  <h1 class="title reveal-el">At home! 🏠</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="card mint reveal-el"><p>🖼️ The posters — <b style="color:var(--mint-deep)">READ them at home!</b> (the small set is in your bag) — faster and faster! 📖</p></div>
+  <div class="card lavender reveal-el"><p>🧠 The new words — <b style="color:var(--lavender-deep)">nut · net · nest · nod (+ WHO!)</b> — teach them to Mum and Dad! 🥜</p></div>
+  <div class="card peach reveal-el"><p>📖 AB p. 15 — <b style="color:var(--lavender-deep)">stick the STICKERS!</b> ✨</p></div>
+  <img class="sheet small reveal-el" src="../media/kb1-u2-ab15.png" alt="AB p. 15 — the stickers page">
+  <div class="card reveal-el"><p style="font-size:clamp(1rem,1.7vw,1.4rem)">ДЗ: читать постеры (маленькие — в портфеле) · выучить новые слова: nut, net, nest, nod (+ who) · AB стр. 15 — наклеить наклейки.</p></div>
+</section>
+
+<!-- 24 · GOODBYE — LEFT AND RIGHT, THE SONG -->
+<section class="slide">
+  <div class="eyebrow reveal-el">🎵 One more time — sing along!</div>
+  <h1 class="title reveal-el">Left and right — sing along! 🎤</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Sing WITH the song — do the actions!</div>
+  <div class="lr-row reveal-el">
+    <div class="lr left"><span class="arrow">⬅️</span><span class="lr-word">LEFT</span></div>
+    <div class="lr right"><span class="arrow">➡️</span><span class="lr-word">RIGHT</span></div>
+  </div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-ge-left-right.mp3"></audio>
+  <div class="card peach reveal-el"><p>👋 Goodbye, everyone! <b style="color:var(--lavender-deep)">WHO… NUT… NAP — you know it all!</b> 🎉</p></div>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <div id="counter">1 / 24</div>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" class="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<button id="pardonbtn" class="pill" title="Pardon? — class phrases (P)">🙋</button>
+
+<div id="bigword" class="overlay" onclick="this.classList.remove('open')">
+  <div class="bw"><span class="art"></span><span class="noun"></span></div>
+  <div class="tap-hint">tap anywhere to close</div>
+</div>
+
+<div id="pardon" class="overlay">
+  <span class="closer" onclick="togglePardon(false)">✕ close</span>
+  <div class="eyebrow">🙋 Say it in English!</div>
+  <div id="tnbody-p"></div>
+  <div class="card mint" style="margin-top:2vh;max-width:640px"><p style="font-size:clamp(1.6rem,3vw,2.6rem);font-family:'Fredoka',sans-serif;font-weight:700">
+    🙋 Pardon?<br>
+    ❓ What does <b>___</b> mean?<br>
+    🆘 Can you help me?<br>
+    🔁 Can you repeat, please?<br>
+    🇬🇧 How do you say <b>___</b> in English?<br>
+    🤷 I don't understand.
+  </p></div>
+</div>
+
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const fill=document.getElementById('progress-fill'),
+      cnt=document.getElementById('counter'),
+      prev=document.getElementById('prev'),
+      next=document.getElementById('next');
+let showWatch;
+function show(n){
+  if(n<0||n>=slides.length)return;
+  slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
+  cur=n;
+  fill.style.width=((n+1)/slides.length*100)+'%';
+  cnt.textContent=(n+1)+' / '+slides.length;
+  prev.disabled=n===0;next.disabled=n===slides.length-1;
+  clearTimeout(showWatch);
+  showWatch=setTimeout(()=>{const a=slides[n];if(a)a.querySelectorAll('.reveal-el').forEach(el=>{el.style.animation='none';});},1500);
+}
+function go(n){
+  if(n<0||n>=slides.length)return;
+  if(document.querySelector('.overlay.open'))return;
+  show(n);
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  history.replaceState(null,'','#'+(n+1));
+}
+prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+function togglePardon(force){
+  const ov=document.getElementById('pardon');
+  const open=force===undefined?!ov.classList.contains('open'):force;
+  ov.classList.toggle('open',open);
+}
+document.getElementById('pardonbtn').onclick=()=>togglePardon();
+/* ============ WHAT'S MISSING ============ */
+function missOne(btn){
+  const cards=[...document.querySelectorAll('#wmiss .fc')];
+  const hidden=cards.filter(c=>c.classList.contains('gone'));
+  if(hidden.length){ hidden.forEach(c=>c.classList.remove('gone')); btn.textContent='👀 Close your eyes!'; return; }
+  const vis=cards.filter(c=>!c.classList.contains('gone'));
+  if(!vis.length) return;
+  vis[Math.floor(Math.random()*vis.length)].classList.add('gone');
+  btn.textContent='↺ Show it back';
+}
+/* ============ keys & gestures ============ */
+document.addEventListener('keydown',e=>{
+  /* ⌘S / Ctrl+S = save + close while the log window is open — the one combo we own */
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){togglePardon(false);document.getElementById('bigword').classList.remove('open');}
+  if((e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З')){e.preventDefault();togglePardon();}
+  if(document.querySelector('.overlay.open'))return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
+});
+let wl=0;
+document.addEventListener('wheel',e=>{
+  const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;
+  go(cur+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
+},{passive:true});
+function reveal(btn){
+  const a=btn.nextElementSibling;
+  if(a){a.classList.add('show');}
+  btn.style.display='none';
+}
+/* THE SIGHT-READING REVEAL: tap a picture → the word full screen (kept from the L6 engine) */
+function bigWord(art,noun){
+  const ov=document.getElementById('bigword');
+  ov.querySelector('.art').textContent=art;
+  ov.querySelector('.noun').textContent=noun;
+  ov.classList.add('open');
+}
+const h=parseInt(location.hash.slice(1));
+show(isNaN(h)?0:h-1);
+</script>
+
+<script>
+/* READY-CHIME: the open window chimes and reloads when a new version is saved. */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.pathname,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
