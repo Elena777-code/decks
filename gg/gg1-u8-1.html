@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Go Getter 1 · 8.1 — I like that! · Vocabulary: Sports ⚽ · screen</title>
+<title>Go Getter 1 · 8.1 — I like that! · Vocabulary: Sports ⚽</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -252,6 +252,19 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
 
 
 </style>
+<style>/* THE BOARD SLIDE RULE (standing, 2026-10-13): the TB's "write X on the board" = the chalkboard slide (the sm5 reference look) */
+.boardcard.board{background:#1E3A66;border:10px solid #fff;outline:4px solid #A9CCEF;box-shadow:var(--shadow-lg)}
+.boardcard.board .bc-t{color:#FDFDF8;font-size:clamp(2.6rem,8vw,6.2rem);letter-spacing:.02em}
+.boardcard.board .bc-s{color:#A9CCEF;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+/* the mime-game steps: tap a step when you run it — it lights up */
+.card.step{cursor:pointer;transition:background .2s,box-shadow .2s}
+.card.step.on{background:#eafbf6;outline:3px solid var(--mint-deep)}
+.card.step .ok{display:none;color:var(--mint-deep);font-weight:800}
+.card.step.on .ok{display:inline;animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+/* the self-assessment moods: tap to choose yours */
+.vchip.mood{cursor:pointer}
+.vchip.mood.on{background:var(--mint);border-color:var(--mint-deep)}
+</style>
 </head>
 <body>
 
@@ -262,105 +275,42 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   <div class="eyebrow reveal-el">Go Getter 1 · Unit 8 · 8.1 · GG2.1</div>
   <h1 class="title reveal-el">I like that! — Sports! ⚽🏀</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">I can…</b> ⭐ talk about sports! <span class="stamp">build 08.10 · v1</span></p></div>
+  <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">I can…</b> ⭐ talk about sports! <span class="stamp">build 15.10 · v1</span></p></div>
   <div class="card reveal-el" style="align-self:flex-start">
-    <p style="font-size:clamp(1.05rem,1.9vw,1.45rem)"><b style="color:var(--lavender-deep)">🧺 Prepare ahead:</b> SB pp. 94–95 + WB p. 69 on desks · 🎨 your project picture + notebook · sound check ⬇ · nothing to print</p>
+    <p style="font-size:clamp(1.05rem,1.9vw,1.45rem)"><b style="color:var(--lavender-deep)">🧺 Prepare ahead:</b> SB pp. 94–95 on desks · sound check ⬇ · nothing to print</p>
     <div style="display:grid;gap:.4vh;margin-top:.6vh">
       <div style="display:grid;grid-template-columns:auto 1fr;gap:1vw;align-items:center"><span class="stamp">3.37</span><audio controls preload="none" src="" data-tk="a337"></audio></div>
       <div style="display:grid;grid-template-columns:auto 1fr;gap:1vw;align-items:center"><span class="stamp">3.38</span><audio controls preload="none" src="" data-tk="a338"></audio></div>
     </div>
   </div>
-  <div class="card peach reveal-el" style="align-self:flex-start"><p style="font-size:clamp(1.05rem,1.9vw,1.5rem)">✅ Today we check: <b>the seven words</b> · <b>the -S rule</b> · <b>SB p. 91 ex. 6</b> · <b>WB p. 69</b> · 🎨 <b>your animal projects!</b></p></div>
+  <div class="card peach reveal-el" style="align-self:flex-start"><p style="font-size:clamp(1.05rem,1.9vw,1.5rem)">✅ Today: a quick rule round 💙 → then the NEW unit: <b>SPORTS!</b> ⚽🏀</p></div>
 </section>
 
-<!-- 2 · CHECK 1 — THE D: SEVEN WORDS -->
+<!-- 2 · REV 1 — THE DON'T/DOESN'T ROUND (the rr tracker: L11 = Rev 1) -->
 <section class="slide">
-  <div class="eyebrow reveal-el">Check · the seven words</div>
-  <h1 class="title reveal-el">Your dictionary words! 📒</h1>
+  <div class="eyebrow reveal-el">Warm-up round · the rule 💙</div>
+  <h1 class="title reveal-el">don't or doesn't? 🤔</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Read the meaning — say the word! Then tap and check.</div>
-  <div class="card mint reveal-el" style="align-self:stretch;display:flex;flex-wrap:wrap;gap:clamp(10px,1.4vw,18px);justify-content:center;align-content:center">
-    <span class="wchip" onclick="wTap(this)"><span class="wm">belonging to two or more people</span><span class="wa">their</span></span>
-    <span class="wchip" onclick="wTap(this)"><span class="wm">on Saturday and Sunday</span><span class="wa">at the weekend</span></span>
-    <span class="wchip" onclick="wTap(this)"><span class="wm">funny films made of drawings</span><span class="wa">cartoons</span></span>
-    <span class="wchip" onclick="wTap(this)"><span class="wm">to wish for something</span><span class="wa">want</span></span>
-    <span class="wchip" onclick="wTap(this)"><span class="wm">the people who live next to you</span><span class="wa">neighbours</span></span>
-    <span class="wchip" onclick="wTap(this)"><span class="wm">to spend free time together with people you like</span><span class="wa">hang out with their friends</span></span>
-    <span class="wchip" onclick="wTap(this)"><span class="wm">not the same</span><span class="wa">different</span></span>
-  </div>
-</section>
-
-<!-- 3 · CHECK 2 — THE -S RULE ROUND -->
-<section class="slide">
-  <div class="eyebrow reveal-el">Check · the rule</div>
-  <h1 class="title reveal-el">The -S rule! 💙</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="card lavender reveal-el"><p><b style="color:var(--blue)">it / he / she</b> + one thing → the verb takes <span class="sfx">-S</span>!</p></div>
-  <div class="task reveal-el">🎯 He… — say the form, then tap!</div>
-  <div class="vgrid reveal-el">
-    <span class="vchip" onclick="this.classList.toggle('open')">like <span class="vf">likes</span></span>
-    <span class="vchip" onclick="this.classList.toggle('open')">go <span class="vf">goes</span></span>
-    <span class="vchip" onclick="this.classList.toggle('open')">watch <span class="vf">watches</span></span>
-    <span class="vchip" onclick="this.classList.toggle('open')">have <span class="vf">has</span></span>
-    <span class="vchip" onclick="this.classList.toggle('open')">do <span class="vf">does</span></span>
-    <span class="vchip" onclick="this.classList.toggle('open')">play <span class="vf">plays</span></span>
-  </div>
-  <div class="card peach reveal-el"><p>💡 Routines and facts → <b style="color:var(--blue)">Present Simple</b> — today you will use it!</p></div>
-</section>
-
-<!-- 4 · CHECK 3 — SB P. 91 EX. 6 -->
-<section class="slide">
-  <div class="eyebrow reveal-el">Check · SB p. 91 ex. 6</div>
-  <h1 class="title reveal-el">Your questions! ❓</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Read your question + short answer — then tap and check!</div>
+  <div class="task reveal-el">🎯 Finish the fact — say the whole sentence! Then tap and check.</div>
   <div class="qa-row reveal-el">
-    <div class="qa" onclick="qaTap(this)"><span class="no">1</span><span>Jason / want / a rabbit → <b>Does Jason want a rabbit? — No, he doesn't.</b> ✏️ <span class="a">(the printed example)</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">2</span><span>their parents / want / an iguana? <span class="a">— Do their parents want an iguana? No, they don't.</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">3</span><span>they all / watch TV? <span class="a">— Do they all watch TV? Yes, they do.</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">4</span><span>What / Jackie / do / at the weekend? <span class="a">— What does Jackie do at the weekend? She hangs out with her best friend.</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">5</span><span>Where / Jason / go / at the weekend? <span class="a">— Where does Jason go at the weekend? He goes to the park with his friends.</span></span></div>
+    <div class="qa" onclick="qaTap(this)"><span class="no">1</span><span>🐢 A tortoise <b>______</b> run fast. <span class="a">— doesn't! (a tortoise = it)</span></span></div>
+    <div class="qa" onclick="qaTap(this)"><span class="no">2</span><span>🐟 Fish <b>______</b> ride a bike. <span class="a">— don't! (fish = they)</span></span></div>
+    <div class="qa" onclick="qaTap(this)"><span class="no">3</span><span>🦜 Parrots <b>______</b> swim. <span class="a">— don't! (parrots = they)</span></span></div>
+    <div class="qa" onclick="qaTap(this)"><span class="no">4</span><span>🐊 A crocodile <b>______</b> play tennis. <span class="a">— doesn't! (a crocodile = it)</span></span></div>
+    <div class="qa" onclick="qaTap(this)"><span class="no">5</span><span>🐘 An elephant <b>______</b> play hockey. <span class="a">— doesn't! (an elephant = it)</span></span></div>
+    <div class="qa" onclick="qaTap(this)"><span class="no">6</span><span>🐱 Cats <b>______</b> do taekwondo. <span class="a">— don't! (cats = they)</span></span></div>
   </div>
+  <button class="reveal-btn reveal-el" onclick="reveal(this)">🆘 The HELP button</button>
+  <span class="answer reveal-el" style="font-size:clamp(1.15rem,2.2vw,1.8rem)"><b style="color:var(--blue)">he / she / it</b> → <b>doesn't</b> · <b>I / you / we / they</b> → <b>don't</b></span>
+  <div class="card peach reveal-el"><p>👏 Agree with a fact — <b>clap</b>! · ✋ Disagree — <b>stand up</b>!</p></div>
 </section>
 
-<!-- 5 · CHECK 4 — WB P. 69 -->
-<section class="slide">
-  <div class="eyebrow reveal-el">Check · WB p. 69</div>
-  <h1 class="title reveal-el">Word blog: Animals! 🐹</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 One answer each — then tap and check!</div>
-  <div class="qa-row reveal-el">
-    <div class="qa" onclick="qaTap(this)"><span class="no">1</span><span>Ex 1 — the pet shop text: <span class="a">1 hamsters · 2 parrots · 3 dog · 4 birds</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">2</span><span>Ex 2 — My quiz, 8 answers: <span class="a">1 can't · 2 eat · 3 are · 4 are · 5 can · 6 can't · 7 are · 8 aren't</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">3</span><span>Ex 3 — the eating words + T/F: <span class="a">1 plants — F · 2 flies — T · 3 sweets — F · 4 leaves — T · 5 small fish — T</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">4</span><span>Fun Spot — the pond picture: <span class="a">free answers — name any eight animals you see!</span></span></div>
-  </div>
-  <div class="card peach reveal-el"><p>🤔 Which task was <b>hard</b>?</p></div>
-</section>
-
-<!-- 6 · CHECK 5 — THE PROJECT PRESENTATIONS -->
-<section class="slide">
-  <div class="eyebrow reveal-el">Check · the project 🎨</div>
-  <h1 class="title reveal-el">Your animals! 🐾</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Show your picture — tell us about your animal!</div>
-  <div class="gq reveal-el">
-    <div class="qcard">📍 Where does it live?</div>
-    <div class="qcard">🎨 What colour is it?</div>
-    <div class="qcard">🐾 What has it got?</div>
-    <div class="qcard">📏 Is it big, tall or small?</div>
-    <div class="qcard">🥕 What does it eat?</div>
-    <div class="qcard">💪 What can it do?</div>
-  </div>
-  <div class="card mint reveal-el"><p>⭐ After each animal — one star from the class: what was good?</p></div>
-</section>
-
-<!-- 7 · WI-FI SIGNAL -->
+<!-- 3 · WI-FI SIGNAL -->
 <section class="slide">
   <div class="wifi"><span class="icon">📶</span></div>
 </section>
 
-<!-- 8 · WARM-UP — GUESS THE CHARACTER (TB, books closed) -->
+<!-- 4 · WARM-UP — GUESS THE CHARACTER (TB, books closed) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Warm-up · books closed 🙈</div>
   <h1 class="title reveal-el">Who are you? 🕵️</h1>
@@ -368,10 +318,18 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   <div class="task reveal-el">🎯 You are a Unit 7 character. Your partner asks — and guesses!</div>
   <div class="card lavender reveal-el"><p>🙋 <b style="color:var(--lavender-deep)">Do you have piano lessons?</b> 😼 <b style="color:var(--pink)">No, I don't.</b></p></div>
   <div class="card lavender reveal-el"><p>🙋 <b style="color:var(--lavender-deep)">Are you Kit?</b> 😼 <b style="color:var(--pink)">Yes, I am!</b></p></div>
-  <div class="card peach reveal-el"><p>🤸 Watch the board — <b>I like that!</b> What is today's lesson about? Guess!</p></div>
 </section>
 
-<!-- 9 · AIM + ODD-ONE-OUT (TB) -->
+<!-- 5 · THE BOARD — the TB says: write "I like that!" on the board -->
+<section class="slide">
+  <div class="eyebrow reveal-el">On the board 👀</div>
+  <div class="boardcard board reveal-el" style="align-self:stretch;flex:1;min-height:34vh">
+    <span class="bc-t">I like that!</span>
+  </div>
+  <div class="task reveal-el">🎯 Watch the mime… What is today's lesson about? Guess!</div>
+</section>
+
+<!-- 6 · AIM + ODD-ONE-OUT (TB) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Today's aim 🎯</div>
   <h1 class="title reveal-el">I can talk about sports!</h1>
@@ -384,65 +342,60 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   </div>
 </section>
 
-<!-- 10 · LEAD-IN — BRAINSTORM (TB, books closed) -->
+<!-- 7 · LEAD-IN — THE BRAINSTORM BOARD (TB, books closed) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Lead-in · books closed 🙈</div>
   <h1 class="title reveal-el">Sports — how many do you know? 🤔</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="boardcard reveal-el">
-    <span class="bc-t">⚽ 🏀 🏊 🚴 ⛸</span>
+  <div class="boardcard board reveal-el" style="align-self:stretch;flex:1;min-height:30vh">
+    <span class="bc-t">SPORTS</span>
     <span class="bc-s">Call them out — every sport on the board!</span>
   </div>
+  <div class="card peach reveal-el"><p>🗣 We shout: — <b>football!</b> · — <b>swimming!</b> · — <b>taekwondo!</b></p></div>
+  <button class="reveal-btn reveal-el" onclick="reveal(this)">Need a spark?</button>
+  <span class="answer reveal-el" style="font-size:clamp(.95rem,1.7vw,1.35rem);line-height:1.6">badminton · basketball · cycling · football · hockey · ice-skating · roller skating · sailing · skateboarding · skiing · swimming · table tennis · taekwondo · tennis · volleyball · windsurfing</span>
 </section>
 
-<!-- 11 · EX 1 — READ THE WORDS (SB p. 94) -->
+<!-- 8 · EX 1 — pointer (SB p. 94) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Ex 1 · SB p. 94</div>
-  <h1 class="title reveal-el">Read these words — what do they mean? 👀</h1>
+  <h1 class="title reveal-el">Read the words — mime them! 👀</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="vb reveal-el">
-    <span class="vword">tennis</span><span class="vword">football</span><span class="vword">volleyball</span>
-    <span class="vword">basketball</span><span class="vword">swimming</span><span class="vword">skateboarding</span>
-  </div>
-  <div class="card mint reveal-el"><p>👍 Mime it and say: <b style="color:var(--lavender-deep)">I know that!</b> — now you try!</p></div>
+  <div class="card lavender reveal-el"><p>📖 <b style="color:var(--lavender-deep)">SB p. 94 · Ex 1</b> — the green box under the unit title.</p></div>
+  <div class="card mint reveal-el"><p>👍 Mime a word and say: <b style="color:var(--lavender-deep)">I know that!</b> — now you try!</p></div>
+  <div class="card peach reveal-el"><p>🗣 We say: — <b>football!</b> · — <b>I know that!</b> 👍</p></div>
 </section>
 
-<!-- 12 · EX 2 — LISTEN AND REPEAT (3.37) -->
+<!-- 9 · EX 2 — pointer + 3.37 (SB pp. 94–95) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Ex 2 · 3.37 · SB pp. 94–95</div>
   <h1 class="title reveal-el">Listen and repeat! 🎧</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Find the sports in the photos on page 94. One sport appears TWICE — what is it?</div>
+  <div class="card lavender reveal-el"><p>📖 <b style="color:var(--lavender-deep)">SB p. 95 · Ex 2</b> — find the sports in the photos on p. 94. One sport appears <b>TWICE</b> — what is it?</p></div>
   <audio controls preload="none" src="" data-tk="a337" class="reveal-el" style="align-self:flex-start"></audio>
+  <div class="card peach reveal-el"><p>🗣 We say: — <b>windsurfing!</b> · — photo <b>c!</b></p></div>
   <button class="reveal-btn reveal-el" onclick="reveal(this)">The sport that appears twice…</button>
   <span class="answer reveal-el">roller skating! 🛼 (photos f <b>and</b> i)</span>
 </section>
 
-<!-- 13 · EX 3 — EXAM SPOT: WRITE THE WORDS -->
+<!-- 10 · EX 3 — pointer, Exam Spot (SB p. 95) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Ex 3 · Exam Spot · SB p. 95</div>
   <h1 class="title reveal-el">Write the words! 🏁 <span class="examspot">Exam Spot</span></h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Pairs — race! Unjumble the sports. Tap to check.</div>
-  <div class="qa-row reveal-el">
-    <div class="qa" onclick="qaTap(this)"><span class="no">1</span><span>tekaodnwo → <span class="a">taekwondo</span> ✏️ <span class="a">(the printed example)</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">2</span><span>siilang → <span class="a">sailing</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">3</span><span>rloerl kasitng → <span class="a">roller skating</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">4</span><span>sktbraoadenig → <span class="a">skateboarding</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">5</span><span>siknig → <span class="a">skiing</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">6</span><span>hoecky → <span class="a">hockey</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">7</span><span>bsktbaelal → <span class="a">basketball</span></span></div>
-    <div class="qa" onclick="qaTap(this)"><span class="no">8</span><span>bdatinmon → <span class="a">badminton</span></span></div>
-  </div>
+  <div class="card lavender reveal-el"><p>📖 <b style="color:var(--lavender-deep)">SB p. 95 · Ex 3</b> — unjumble the sports. Pairs — race! First pair done — hands up! 🙌</p></div>
+  <div class="card peach reveal-el"><p>🗣 We say AND spell: — <b>sailing!</b> — S-A-I-L-I-N-G.</p></div>
+  <button class="reveal-btn reveal-el" onclick="reveal(this)">The keys…</button>
+  <span class="answer reveal-el" style="font-size:clamp(1.05rem,2vw,1.55rem);line-height:1.6">1 taekwondo ✏️ · 2 sailing · 3 roller skating · 4 skateboarding · 5 skiing · 6 hockey · 7 basketball · 8 badminton</span>
 </section>
 
-<!-- 14 · EX 4 — GROUP THE SPORTS -->
+<!-- 11 · EX 4 — pointer (SB p. 95) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Ex 4 · SB p. 95</div>
   <h1 class="title reveal-el">Put the sports in groups! 🗂</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Work in pairs. A sport can be in more than one group! Tap a group to check.</div>
-  <div class="card mint reveal-el" style="align-self:stretch"><p style="font-size:clamp(.95rem,1.7vw,1.35rem)"><b style="color:var(--lavender-deep)">📖 The Vocabulary box:</b> badminton · basketball · cycling · football · hockey · ice-skating · roller skating · sailing · skateboarding · skiing · swimming · table tennis · taekwondo · tennis · volleyball · windsurfing</p></div>
+  <div class="card lavender reveal-el"><p>📖 <b style="color:var(--lavender-deep)">SB p. 95 · Ex 4</b> — sports from the Vocabulary box → the groups. A sport can be in <b>more than one</b> group! Tap a group to check.</p></div>
+  <div class="card peach reveal-el"><p>🗣 We say: — <b>Swimming is indoor and water!</b></p></div>
   <div style="display:flex;flex-wrap:wrap;gap:clamp(8px,1.1vw,14px);align-self:stretch" class="reveal-el">
     <div class="gcol" onclick="this.classList.toggle('open')"><div class="gt">🏠 Indoor</div><div class="gb">badminton · ice-skating · swimming · table tennis · taekwondo · volleyball</div></div>
     <div class="gcol" onclick="this.classList.toggle('open')"><div class="gt">🌳 Outdoor</div><div class="gb">badminton · basketball · cycling · football · hockey · ice-skating · roller skating · sailing · skateboarding · skiing · swimming · tennis · volleyball · windsurfing</div></div>
@@ -452,7 +405,7 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   </div>
 </section>
 
-<!-- 15 · LOOK! — THE DO/GO/PLAY RULE -->
+<!-- 12 · LOOK! — THE DO/GO/PLAY RULE -->
 <section class="slide">
   <div class="eyebrow reveal-el">Look! · SB p. 95</div>
   <h1 class="title reveal-el">Can you see the rule? 💡</h1>
@@ -462,50 +415,32 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   <span class="answer reveal-el">I <b style="color:var(--blue)">do</b> taekwondo. · I <b style="color:var(--blue)">go</b> swimming. · I <b style="color:var(--blue)">play</b> tennis.</span>
 </section>
 
-<!-- 16 · EX 5 — WRITE GO OR PLAY (3.38) -->
+<!-- 13 · EX 5 — pointer + 3.38 (SB p. 95) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Ex 5 · 3.38 · SB p. 95</div>
   <h1 class="title reveal-el">Write go or play! ✏️</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Write — compare in pairs — then listen and check! (Tap a gap.)</div>
+  <div class="card lavender reveal-el"><p>📖 <b style="color:var(--lavender-deep)">SB p. 95 · Ex 5</b> — write <b>go</b> or <b>play</b>. Write — compare in pairs — then listen and check!</p></div>
   <audio controls preload="none" src="" data-tk="a338" class="reveal-el" style="align-self:flex-start"></audio>
-  <div class="card mint reveal-el" style="align-self:stretch">
-    <div class="pr-line"><span class="no">1</span><span class="gap done">go</span> cycling ✏️</div>
-    <div class="pr-line"><span class="no">2</span><span class="gap" data-a="play"></span> basketball</div>
-    <div class="pr-line"><span class="no">3</span><span class="gap" data-a="play"></span> hockey</div>
-    <div class="pr-line"><span class="no">4</span><span class="gap" data-a="go"></span> skiing</div>
-    <div class="pr-line"><span class="no">5</span><span class="gap" data-a="go"></span> skateboarding</div>
-    <div class="pr-line"><span class="no">6</span><span class="gap" data-a="go"></span> roller skating</div>
-    <div class="pr-line"><span class="no">7</span><span class="gap" data-a="go"></span> windsurfing</div>
-    <div class="pr-line"><span class="no">8</span><span class="gap" data-a="play"></span> badminton</div>
-    <div class="pr-line"><span class="no">9</span><span class="gap" data-a="play"></span> table tennis</div>
-    <div class="pr-line"><span class="no">10</span><span class="gap" data-a="go"></span> sailing</div>
-    <div class="pr-line"><span class="no">11</span><span class="gap" data-a="play"></span> football</div>
-    <div class="pr-line"><span class="no">12</span><span class="gap" data-a="go"></span> ice-skating</div>
-  </div>
+  <div class="card peach reveal-el"><p>🗣 We say: — <b>I go cycling.</b> · — <b>I play basketball.</b></p></div>
+  <button class="reveal-btn reveal-el" onclick="reveal(this)">The keys…</button>
+  <span class="answer reveal-el" style="font-size:clamp(1.05rem,2vw,1.55rem);line-height:1.6">1 go ✏️ · 2 play · 3 play · 4 go · 5 go · 6 go · 7 go · 8 play · 9 play · 10 go · 11 play · 12 go</span>
 </section>
 
-<!-- 17 · EX 6 — WHAT SPORTS DO THEY DO? -->
+<!-- 14 · EX 6 — pointer (SB p. 95) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Ex 6 · SB p. 95</div>
   <h1 class="title reveal-el">What sports do they do? 🧑‍🤝‍🧑</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Complete with <b>do, go</b> or <b>play</b> + the words in the box. (Tap a gap.)</div>
-  <div class="card peach reveal-el"><p style="font-size:clamp(.95rem,1.7vw,1.35rem)"><b style="color:var(--lavender-deep)">📦 The box:</b> badminton · hockey · roller skating · sailing · skiing · swimming · table tennis · taekwondo</p></div>
-  <div class="card reveal-el" style="align-self:stretch">
-    <div class="pr-line">🐱 <b>Mario</b> <span class="no">1</span><span class="gap done">plays badminton</span> at school.</div>
-    <div class="pr-line">He <span class="no">2</span><span class="gap" data-a="goes roller skating"></span> at the weekend.</div>
-    <div class="pr-line">🐭 <b>Sue</b> <span class="no">3</span><span class="gap" data-a="plays table tennis"></span> at school.</div>
-    <div class="pr-line">She also <span class="no">4</span><span class="gap" data-a="goes sailing"></span> with her dad.</div>
-    <div class="pr-line">🐻 <b>Peter</b> <span class="no">5</span><span class="gap" data-a="plays hockey"></span>.</div>
-    <div class="pr-line">He <span class="no">6</span><span class="gap" data-a="does taekwondo"></span> every week.</div>
-    <div class="pr-line">🦊 <b>Fran</b> <span class="no">7</span><span class="gap" data-a="goes skiing"></span> in winter.</div>
-    <div class="pr-line">She always <span class="no">8</span><span class="gap" data-a="goes swimming"></span> in the morning.</div>
-  </div>
-  <div class="card lavender reveal-el"><p>💙 it / he / she → the verb takes <span class="sfx">-S</span>: play<b style="color:var(--blue)">s</b> · go<b style="color:var(--blue)">es</b> · do<b style="color:var(--blue)">es</b></p></div>
+  <div class="card lavender reveal-el"><p>📖 <b style="color:var(--lavender-deep)">SB p. 95 · Ex 6</b> — complete with <b>do, go</b> or <b>play</b> + the sport. The photos carry the clues!</p></div>
+  <button class="reveal-btn reveal-el" onclick="reveal(this)">Hint ▾</button>
+  <span class="answer reveal-el" style="font-size:clamp(1.05rem,2vw,1.55rem)">💙 it / he / she → the verb takes <b style="color:var(--blue)">-S</b>: play<b style="color:var(--blue)">s</b> · go<b style="color:var(--blue)">es</b> · do<b style="color:var(--blue)">es</b></span>
+  <div class="card peach reveal-el"><p>🗣 We say AND justify: — <b>He goes roller skating — he + go-es!</b></p></div>
+  <button class="reveal-btn reveal-el" onclick="reveal(this)">The keys…</button>
+  <span class="answer reveal-el" style="font-size:clamp(1rem,1.9vw,1.45rem);line-height:1.6">1 plays badminton ✏️ · 2 goes roller skating · 3 plays table tennis · 4 goes sailing · 5 plays hockey · 6 does taekwondo · 7 goes skiing · 8 goes swimming</span>
 </section>
 
-<!-- 18 · THE TREASURE TASK -->
+<!-- 15 · THE TREASURE TASK -->
 <section class="slide">
   <div class="eyebrow reveal-el">Think about it! 🧩</div>
   <h1 class="title reveal-el">The detective question 🕵️</h1>
@@ -517,63 +452,57 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   <span class="answer reveal-el">Taekwondo! 🥋 Hockey is for winter — so taekwondo is for summer!</span>
 </section>
 
-<!-- 19 · EX 7 — ABOUT YOU -->
+<!-- 16 · EX 7 — pointer (SB p. 95) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Ex 7 · SB p. 95 · I remember that!</div>
   <h1 class="title reveal-el">Complete about YOU! 💬</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Add <b>do, go</b> or <b>play</b> where necessary — your sports!</div>
-  <div class="card reveal-el" style="align-self:stretch">
-    <div class="pr-line">I never <span class="gap"></span> .</div>
-    <div class="pr-line">I watch <span class="gap"></span> on TV.</div>
-    <div class="pr-line">I think <span class="gap"></span> is boring.</div>
-    <div class="pr-line">I think <span class="gap"></span> is great!</div>
-    <div class="pr-line">I <span class="gap"></span> with friends.</div>
-    <div class="pr-line">I <span class="gap"></span> every day.</div>
-    <div class="pr-line">I often <span class="gap"></span> at school.</div>
-  </div>
+  <div class="card lavender reveal-el"><p>📖 <b style="color:var(--lavender-deep)">SB p. 95 · Ex 7</b> — the sentences about you: add <b>do, go</b> or <b>play</b> + your sports!</p></div>
+  <div class="card peach reveal-el"><p>🗣 We say: — <b>I never go skiing.</b> · — <b>I play tennis every day.</b></p></div>
   <div class="card mint reveal-el"><p>🚫 These lines have NO printed answers — your own sports live here!</p></div>
 </section>
 
-<!-- 20 · EXTRA ACTIVITY — THE MIME GAME (TB) -->
+<!-- 17 · EXTRA ACTIVITY — THE MIME GAME (TB) + THE FILM CUE -->
 <section class="slide">
   <div class="eyebrow reveal-el">Extra activity · the mime game 🎭</div>
   <h1 class="title reveal-el">Guess my sport! 🤸</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="card reveal-el"><p><b style="color:var(--lavender-deep)">1.</b> Play in groups of four.</p></div>
-  <div class="card reveal-el"><p><b style="color:var(--lavender-deep)">2.</b> One player chooses a person from the photos on page 94 — <b>copy their pose!</b></p></div>
-  <div class="card reveal-el"><p><b style="color:var(--lavender-deep)">3.</b> The others guess the sport. First to guess — <b>1 point!</b> ⭐</p></div>
-  <div class="card reveal-el"><p><b style="color:var(--lavender-deep)">4.</b> The winner shows the next pose.</p></div>
-  <div class="card reveal-el"><p><b style="color:var(--lavender-deep)">5.</b> Play until all the photos are used! 🏁</p></div>
+  <div class="task reveal-el">🎯 Tap a step when you run it — it lights up!</div>
+  <div class="card peach reveal-el"><p>🗣 We shout: — <b>You're swimming!</b> — <b>Yes! One point!</b> ⭐</p></div>
+  <div class="card step reveal-el" onclick="this.classList.toggle('on')"><p><b style="color:var(--lavender-deep)">1.</b> Play in groups of four. <span class="ok">✓</span></p></div>
+  <div class="card step reveal-el" onclick="this.classList.toggle('on')"><p><b style="color:var(--lavender-deep)">2.</b> One player chooses a person from the photos on page 94 — <b>copy their pose!</b> <span class="ok">✓</span></p></div>
+  <div class="card step reveal-el" onclick="this.classList.toggle('on')"><p><b style="color:var(--lavender-deep)">3.</b> The others guess the sport. First to guess — <b>1 point!</b> ⭐ <span class="ok">✓</span></p></div>
+  <div class="card step reveal-el" onclick="this.classList.toggle('on')"><p><b style="color:var(--lavender-deep)">4.</b> The winner shows the next pose. <span class="ok">✓</span></p></div>
+  <div class="card step reveal-el" onclick="this.classList.toggle('on')"><p><b style="color:var(--lavender-deep)">5.</b> Play until all the photos are used! 🏁 <span class="ok">✓</span></p></div>
 </section>
 
-<!-- 21 · FINISHING — PREDICTIONS + SELF-ASSESSMENT (TB) -->
+<!-- 18 · FINISHING — PREDICTIONS + SELF-ASSESSMENT (TB) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Finishing · the TB</div>
   <h1 class="title reveal-el">Check your predictions! 🔮</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Circle in the Vocabulary box the words you guessed right!</div>
-  <div class="card peach reveal-el"><p>🤔 <b style="color:var(--lavender-deep)">Can you talk about sports?</b></p></div>
+  <div class="card peach reveal-el"><p>🤔 <b style="color:var(--lavender-deep)">Can you talk about sports?</b> — tap your chip!</p></div>
   <div class="vgrid reveal-el">
-    <span class="vchip" style="cursor:default">😀 yes, easily!</span>
-    <span class="vchip" style="cursor:default">😐 so-so</span>
-    <span class="vchip" style="cursor:default">☹️ not yet</span>
+    <span class="vchip mood" onclick="this.classList.toggle('on')">😀 yes, easily!</span>
+    <span class="vchip mood" onclick="this.classList.toggle('on')">😐 so-so</span>
+    <span class="vchip mood" onclick="this.classList.toggle('on')">☹️ not yet</span>
   </div>
   <div class="card mint reveal-el"><p>✏️ Copy the aim + draw your emoticon: <b style="color:var(--lavender-deep)">I can talk about sports.</b></p></div>
 </section>
 
-<!-- 22 · HOMEWORK -->
+<!-- 19 · HOMEWORK -->
 <section class="slide">
   <div class="eyebrow reveal-el">Homework · the TB's own 📘</div>
   <h1 class="title reveal-el">Homework! 🏠</h1>
   <div class="accent-line reveal-el"></div>
   <div class="card peach reveal-el"><p>📘 <b style="color:var(--lavender-deep)">WB p. 70</b> — the whole page, exercises 1–5!</p></div>
   <div class="card lavender reveal-el"><p>💡 The helper (it is printed in the book too): I <b style="color:var(--blue)">do</b> taekwondo. · I <b style="color:var(--blue)">go</b> swimming. · I <b style="color:var(--blue)">play</b> tennis.</p></div>
-  <div class="card mint reveal-el"><p>🎨 And bring your animal project star ⭐ — you earned it!</p></div>
+  <div class="card mint reveal-el"><p>⭐ Great lesson today — now you can talk about sports!</p></div>
 </section>
 
 <div id="nav">
-  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 22</span>
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 19</span>
   <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
 </div>
 
