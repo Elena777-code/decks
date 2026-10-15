@@ -82,6 +82,14 @@ p{font-size:clamp(1rem,2vw,1.25rem);line-height:1.55}
 .sendrow button:hover{background:#000}
 .sendstat{font-size:clamp(.85rem,1.6vw,1rem);color:var(--ink-soft);font-style:italic}
 .deal{font-weight:800;color:var(--gold);letter-spacing:.04em}
+.backlink{color:var(--ink-soft);font-weight:600;font-size:clamp(.92rem,1.8vw,1.08rem);
+  text-decoration:underline;text-underline-offset:.2em}
+.backlink:hover{color:var(--accent)}
+#pname{border:2px solid var(--line);border-radius:12px;padding:.5em .8em;
+  font-family:'Inter',sans-serif;font-size:clamp(1rem,2vw,1.25rem);color:var(--ink)}
+#pname:focus{outline:none;border-color:var(--accent)}
+#pname.missing{border-color:var(--rust)}
+#okname{padding:.5em 1.1em}
 </style>
 </head>
 <body>
@@ -99,8 +107,11 @@ p{font-size:clamp(1rem,2vw,1.25rem);line-height:1.55}
     answer, press <strong>Enter</strong>.</p>
     <p class="hint">Miss a card, and the chip goes back to the bank — with the right answer
     shown, for your notebook. The order shuffles every round (the four always lead).</p>
+    <div class="ans" style="max-width:320px"><input id="pname" autocomplete="off" spellcheck="false"
+      placeholder="your name — the results carry it…" style="flex:1"><button id="okname">OK</button></div>
+    <p class="hint" id="namehint" style="align-self:center">whoever plays — the teacher too — type the name first</p>
     <button class="big" id="play">Deal me in</button>
-    <p class="hint" style="align-self:center">the same drill works for the teacher — she plays too</p>
+    <p style="align-self:center"><a href="hw-003.html" class="backlink">⟵ back to the homework</a></p>
   </div>
 
   <!-- play screen -->
@@ -125,6 +136,7 @@ p{font-size:clamp(1rem,2vw,1.25rem);line-height:1.55}
       <span class="sendstat" id="sendstat"></span>
     </div>
     <button class="big" id="again">Play again — new order</button>
+    <p style="align-self:center"><a href="hw-003.html" class="backlink">⟵ back to the homework</a></p>
   </div>
 
 </div>
@@ -220,7 +232,8 @@ function finish(){
     :'<p><b>A clean sweep.</b> The bank is empty; the table is yours. 🎰</p>';
 }
 function resultsText(){
-  let out='Natalya · The Sixteen Chips · '+new Date().toLocaleString('en-GB')+'\n'+
+  const who=(pname.value||'').trim()||'no name given';
+  let out=who+' · The Sixteen Chips · '+new Date().toLocaleString('en-GB')+'\n'+
     'chips: '+won+'/'+deck.length+'\n';
   out+=misses.length?('misses: '+misses.map(x=>x.tag+' → '+x.key).join(' · ')):'no misses — clean sweep';
   return out;
@@ -234,7 +247,18 @@ document.getElementById('send').onclick=()=>{
   document.getElementById('sendstat').textContent='sent to Elena ✓';
 };
 document.getElementById('again').onclick=begin;
-document.getElementById('play').onclick=begin;
+/* the name ask (Elena, 15.10): whoever plays — the results carry the name */
+const pname=document.getElementById('pname');
+try{pname.value=localStorage.getItem('sixteen-chips-name')||''}catch(e){}
+function saveName(){try{localStorage.setItem('sixteen-chips-name',(pname.value||'').trim())}catch(e){}}
+pname.addEventListener('input',saveName);
+document.getElementById('okname').onclick=()=>{saveName();pname.classList.remove('missing');
+  document.getElementById('namehint').textContent=(pname.value||'').trim()
+    ?'the name is on the results ✓':'type the name — the results carry it'};
+document.getElementById('play').onclick=()=>{
+  if(!(pname.value||'').trim()){pname.classList.add('missing');pname.focus();
+    document.getElementById('namehint').textContent='the name first — the results carry it';return}
+  saveName();begin()};
 document.getElementById('deal').textContent=deckLine();
 function deckLine(){return (MISSES.length+MORE.length)+' cards · 1 round · the four that got away come first'}
 </script>
