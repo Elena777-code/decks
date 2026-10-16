@@ -88,6 +88,11 @@ h2{font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.4vw,1.8rem);m
 .clock-row svg{flex-shrink:0}
 .clock-row .city{font-family:'Fredoka';font-weight:700;color:var(--navy);min-width:6.2em}
 .subt{font-family:'Fredoka';font-weight:700;font-size:clamp(1.1rem,2vw,1.4rem);color:var(--navy);margin-top:.5em}
+.spk{font-family:'Fredoka';font-weight:700;font-size:.9em;border:none;background:var(--cheese);color:var(--navy);
+  border-radius:99px;padding:.15em .8em;cursor:pointer;box-shadow:0 3px 8px rgba(34,48,63,.12);transition:transform .15s}
+.spk:hover{transform:translateY(-2px)}
+.lq .ans{display:none;font-family:'Fredoka';font-weight:700}
+.lq.ok .ans,.lq.shown .ans{display:inline}
 .foot{text-align:center;color:var(--ink-soft);font-size:clamp(1rem,1.8vw,1.25rem);margin-top:2em;font-family:'Fredoka'}
 </style>
 </head>
@@ -101,15 +106,23 @@ h2{font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.4vw,1.8rem);m
 <!-- 14.10 SCAN READING -->
 <div class="card now">
   <h2>Урок 14.10 · Scan reading ✈️ — табло и часы</h2>
-  <p class="hint">Сегодня ты читал табло аэропорта по-английски и говорил время. Дома ты — диспетчер и капитан! Правило: <b>сначала скажи сам, потом проверяй кликом.</b> 🗣️</p>
+  <p class="hint">Сегодня ты читал табло аэропорта по-английски и говорил время. Дома ты — диспетчер! 🎧 Слушай номер → запиши цифрами → скажи вслух. И часики, конечно! ⏰</p>
 
-  <p class="subt">1 · Скажи номер рейса 👨‍✈️</p>
-  <p class="hint">Два способа: по цифрам — <b>one, four, three</b> · и целиком — <b>one hundred and forty-three</b>. Скажи оба — потом проверь!</p>
-  <div class="clock-row"><span class="city">✈️ Vienna</span><button class="rev">🔎 проверить</button><span class="ans">143 · one — four — three · one hundred and forty-three</span></div>
-  <div class="clock-row"><span class="city">✈️ Paris</span><button class="rev">🔎 проверить</button><span class="ans">37 · three — seven · thirty-seven</span></div>
-  <div class="clock-row"><span class="city">✈️ Boston</span><button class="rev">🔎 проверить</button><span class="ans">493 · four — nine — three · four hundred and ninety-three</span></div>
-  <div class="clock-row"><span class="city">✈️ Vancouver</span><button class="rev">🔎 проверить</button><span class="ans">906 · nine — oh — six · nine hundred and six</span></div>
-  <div class="clock-row"><span class="city">✈️ Rome</span><button class="rev">🔎 проверить</button><span class="ans">618 · six — one — eight · six hundred and eighteen</span></div>
+  <p class="subt">1 · Послушай и запиши номер рейса 🎧</p>
+  <p class="hint">Нажми <b>▶</b> — услышишь номер рейса. Запиши его <b>цифрами</b> в окошко и нажми «Проверить». Зелёный — прочитай номер вслух ещё раз: по цифрам и целиком!</p>
+  <div class="tripcard">
+    <div class="tc-title">✈️ THE FLIGHT BOARD</div>
+    <div class="lq flq" data-fk="vienna">✈️ <b>Vienna</b> <button class="spk" data-say="one hundred and forty-three">▶</button> <input type="text" autocomplete="off" inputmode="numeric" placeholder="цифры…"><span class="ans">· one hundred and forty-three</span></div>
+    <div class="lq flq" data-fk="paris">✈️ <b>Paris</b> <button class="spk" data-say="thirty-seven">▶</button> <input type="text" autocomplete="off" inputmode="numeric" placeholder="цифры…"><span class="ans">· thirty-seven</span></div>
+    <div class="lq flq" data-fk="boston">✈️ <b>Boston</b> <button class="spk" data-say="four hundred and ninety-three">▶</button> <input type="text" autocomplete="off" inputmode="numeric" placeholder="цифры…"><span class="ans">· four hundred and ninety-three</span></div>
+    <div class="lq flq" data-fk="vancouver">✈️ <b>Vancouver</b> <button class="spk" data-say="nine hundred and six">▶</button> <input type="text" autocomplete="off" inputmode="numeric" placeholder="цифры…"><span class="ans">· nine hundred and six</span></div>
+    <div class="lq flq" data-fk="rome">✈️ <b>Rome</b> <button class="spk" data-say="six hundred and eighteen">▶</button> <input type="text" autocomplete="off" inputmode="numeric" placeholder="цифры…"><span class="ans">· six hundred and eighteen</span></div>
+  </div>
+  <div class="lbtns">
+    <button id="flight-check" class="lbtn">Проверить ✓</button>
+    <button id="flight-reveal" class="lbtn ghost">Показать ▾</button>
+  </div>
+  <p id="flight-result"></p>
 
   <p class="subt">2 · Который час? ⏰</p>
   <p class="hint">Скажи время по-английски. Помни правило с урока: <b>30 минут = half past!</b></p>
@@ -392,6 +405,76 @@ flushQueue(); /* anything that failed to send last time goes now */
       var on = ans.classList.toggle('show');
       btn.textContent = on ? '🙈 спрятать' : '🔎 проверить';
     });
+  });
+})();
+</script>
+<script>
+/* ===== 14.10 · flight board v2 (Elena: «he can't remember the numbers» —
+   the page pronounces, Sergey writes the digits; the words show for
+   read-aloud after the attempt). TTS = the fleet pattern
+   (pronunciation/ph.html); check = the listening-card pattern.
+   Rows carry data-fk (NOT data-k — the listening checker sweeps
+   .lq[data-k] and must not sweep these). ===== */
+(function(){
+  if('speechSynthesis' in window){
+    var ttsVoice=null;
+    function pickTTSVoice(){
+      var vs=speechSynthesis.getVoices();
+      ttsVoice=vs.find(function(v){return /en[-_]US/i.test(v.lang)&&/Samantha|Ava|Allison|Aria|Zira/i.test(v.name)})
+        ||vs.find(function(v){return /^en/i.test(v.lang)})||null;
+    }
+    pickTTSVoice();speechSynthesis.onvoiceschanged=pickTTSVoice;
+    document.querySelectorAll('.spk').forEach(function(b){
+      b.addEventListener('click',function(){
+        speechSynthesis.cancel();
+        var u=new SpeechSynthesisUtterance(b.dataset.say);
+        if(ttsVoice)u.voice=ttsVoice;
+        u.lang='en-US';u.rate=.8;u.pitch=1.05;
+        speechSynthesis.speak(u);
+      });
+    });
+  }else{
+    document.querySelectorAll('.spk').forEach(function(b){b.style.display='none';});
+  }
+  var KEYS={
+    vienna:['143','one hundred and forty three','one hundred forty three','a hundred and forty three'],
+    paris:['37','thirty seven'],
+    boston:['493','four hundred and ninety three','four hundred ninety three'],
+    vancouver:['906','nine hundred and six','nine hundred six','nine oh six'],
+    rome:['618','six hundred and eighteen','six hundred eighteen']
+  };
+  function canon(s){
+    return (s||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim();
+  }
+  function isRight(k,v){
+    var c=canon(v);
+    return KEYS[k].some(function(key){return c===key;});
+  }
+  document.getElementById('flight-check').addEventListener('click',function(){
+    var right=0,total=0;
+    document.querySelectorAll('.flq').forEach(function(row){
+      var k=row.dataset.fk, inp=row.querySelector('input');
+      if(inp.disabled)return;
+      total++;
+      if(isRight(k,inp.value)){
+        right++;row.classList.remove('no','shown');row.classList.add('ok');inp.disabled=true;
+      }else{
+        row.classList.remove('ok');row.classList.add('no');
+        setTimeout(function(){row.classList.remove('no');},900);
+      }
+    });
+    document.getElementById('flight-result').textContent = right===total
+      ? '🎉 '+right+' из '+total+'! Все рейсы найдены! Скажи каждый номер вслух: по цифрам и целиком! ✈️'
+      : 'Правильно: '+right+' из '+total+'. Послушай оранжевые ещё раз! 🎧';
+  });
+  document.getElementById('flight-reveal').addEventListener('click',function(){
+    document.querySelectorAll('.flq').forEach(function(row){
+      var k=row.dataset.fk, inp=row.querySelector('input');
+      if(inp.disabled)return;
+      inp.value=KEYS[k][0];
+      row.classList.add('shown');inp.disabled=true;
+    });
+    document.getElementById('flight-result').textContent='Ответы на месте. Нажми ▶ и повтори каждый номер вслух! 😉';
   });
 })();
 </script>
