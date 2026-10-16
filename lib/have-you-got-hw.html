@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework · Have you got a milkshake? · FF2 Unit 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--mint:#eafbf6;--mint-deep:#5ecbb8;--lav:#f1ecff;--lav-deep:#9a7fff;--peach:#fff8db;--pink:#ffe9f0;--pink-deep:#ff8fab;--ink:#2D3436;--soft:#636e72;--blue:#1D5FBF;--ok:#2f9e44;--bad:#e03131}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:#f6f2ec;padding:1.2em;display:flex;justify-content:center}
+  main{width:100%;max-width:720px}
+  header{background:linear-gradient(135deg,#95E1D3 0%,#FCE38A 32%,#C8B6FF 66%,#FF8FAB 100%);border-radius:22px;padding:1.4em 1.5em;margin-bottom:1em;color:#fff;text-shadow:0 1px 6px rgba(45,52,54,.25)}
+  header .eb{font-family:'Fredoka';letter-spacing:.12em;text-transform:uppercase;font-size:.78em;font-weight:600}
+  header h1{font-family:'Fredoka';font-weight:600;font-size:clamp(1.5em,5vw,2.1em);line-height:1.1;margin-top:.15em}
+  header p{font-weight:700;margin-top:.3em;font-size:.95em}
+  .prog{position:sticky;top:.6em;z-index:5;background:rgba(255,255,255,.95);border-radius:99px;box-shadow:0 4px 14px rgba(45,52,54,.15);padding:.55em 1.1em;font-weight:800;display:flex;justify-content:space-between;align-items:center;gap:1em;margin-bottom:1em;font-size:.95em}
+  .prog .bar{flex:1;height:10px;background:#eee;border-radius:99px;overflow:hidden}
+  .prog .fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint-deep),var(--lav-deep),var(--pink-deep));transition:width .4s ease}
+  section{background:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(45,52,54,.09);padding:1.1em 1.2em;margin-bottom:1em}
+  section h2{font-family:'Fredoka';font-weight:600;font-size:1.15em;margin-bottom:.5em;display:flex;align-items:center;gap:.45em}
+  .task{font-size:1.02em;line-height:1.5;color:var(--ink)}
+  .chip{float:right;font-size:.75em;font-weight:800;border:2px solid var(--lav-deep);color:var(--lav-deep);background:#fff;border-radius:99px;padding:.28em .8em;cursor:pointer;user-select:none;transition:all .2s}
+  .chip.on{background:var(--mint-deep);border-color:var(--mint-deep);color:#fff}
+  .sent{font-size:1.06em;line-height:1.6;padding:.42em .2em;border-bottom:2px dotted rgba(200,182,255,.5);display:flex;align-items:center;gap:.4em;flex-wrap:wrap}
+  .sent .em{font-size:1.15em}
+  .gwrap{display:inline-flex;align-items:center;gap:.35em}
+  input.gap{width:5.2em;border:0;border-bottom:3px solid var(--mint-deep);font-family:'Fredoka';font-size:.95em;text-align:center;padding:.1em .1em;background:#f6fffc;outline:none}
+  input.gap:focus{background:#fff}
+  input.gap.good{color:var(--ok);border-color:var(--ok);background:#ebfbee}
+  input.gap.bad{color:var(--bad);border-color:var(--bad);background:#fff5f5}
+  button.mini{border:0;background:var(--lav);color:var(--lav-deep);font-family:'Fredoka';font-weight:600;font-size:.8em;border-radius:99px;padding:.35em .85em;cursor:pointer}
+  button.mini:active{transform:scale(.96)}
+  .mark{font-weight:800;width:1.2em;display:inline-block}
+  .twin{display:flex;gap:.5em;align-items:center;padding:.4em .2em;border-bottom:2px dotted rgba(200,182,255,.5);flex-wrap:wrap}
+  .twin b.dig{font-family:'Fredoka';font-size:1.5em;color:var(--blue);min-width:2.2em;text-align:center}
+  .twin .opt{border:2px solid var(--lav-deep);background:#fff;color:var(--ink);font-family:'Fredoka';font-weight:500;font-size:.95em;border-radius:12px;padding:.32em .8em;cursor:pointer}
+  .twin .opt.okpick{background:var(--ok);border-color:var(--ok);color:#fff}
+  .twin .opt.badpick{background:var(--bad);border-color:var(--bad);color:#fff;animation:shake .3s}
+  .twin.locked .opt{opacity:.45;pointer-events:none}
+  .twin.locked .opt.okpick{opacity:1}
+  @keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+  textarea.write{width:100%;min-height:2.6em;font-family:'Nunito';font-size:1em;border:2px dashed var(--lav-deep);border-radius:12px;padding:.5em .7em;resize:vertical;background:#fffdf7;outline:none;margin-top:.3em}
+  .hintline{font-size:.85em;color:var(--soft);margin-top:.5em}
+  footer{text-align:center;color:var(--soft);font-size:.85em;padding:.6em 0 1.4em;font-weight:700}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eb">Homework · Family and Friends 2 · Unit 4</div>
+    <h1>Have you got a milkshake? 🥤</h1>
+    <p>Food words · have got · questions and answers — see you next lesson! 🎒</p>
+  </header>
+
+  <div class="prog"><span>My homework: <b id="count">0</b>/4</span><span class="bar"><span class="fill" id="fill"></span></span></div>
+
+  <section>
+    <h2>1 · The words 🍕 <button class="chip" data-k="wb30">done ✓</button></h2>
+    <p class="task">Workbook <b>p. 30 · ex. 1 and 2</b> — number the picture, then the crossword. Write in your book.</p>
+  </section>
+
+  <section>
+    <h2>2 · Have you got…? ❓ <button class="chip" data-k="wb31">done ✓</button></h2>
+    <p class="task">Workbook <b>p. 31 · ex. 1 and 2</b> — write the short answers, then build the sentences.</p>
+    <p class="hintline">Careful — the short answer drops <b>got</b>: <i>Yes, I have.</i> ✔</p>
+  </section>
+
+  <section>
+    <h2>3 · The machine: have or has? 🤖 <button class="chip" data-k="trainA">done ✓</button></h2>
+    <p class="task">Type <b>have</b> or <b>has</b>, then press <b>check</b>. The machine answers only AFTER you try!</p>
+    <div id="trA"></div>
+    <p class="hintline" id="trA-hint"></p>
+  </section>
+
+  <section>
+    <h2>4 · My lunch box 🎨 <button class="chip" data-k="lunch">done ✓</button></h2>
+    <p class="task">Draw your lunch box in your notebook. Then write about it here — what have you got? What haven't you got?</p>
+    <textarea class="write" id="w1" placeholder="I've got a … and two … in my lunch box."></textarea>
+    <textarea class="write" id="w2" placeholder="I haven't got any … ."></textarea>
+    <p class="hintline">Two sentences are enough. Draw first — it's more fun! 🎨</p>
+  </section>
+
+  <footer>Great job — see you next lesson! 👋</footer>
+</main>
+<script>
+(function(){
+  "use strict";
+  var KEY='ff2u4-hw';
+  /* Elena: the page must be BLANK after reloading — the state lives in memory only */
+  var state={};
+  var chips=[].slice.call(document.querySelectorAll('.chip'));
+  function save(){ /* in-memory only — blank after reload */ }
+  function paint(){
+    var n=0;
+    chips.forEach(function(c){ var on=!!state[c.dataset.k]; c.classList.toggle('on',on); c.textContent=on?'done ✓':'done ✓'; if(on)n++; });
+    document.getElementById('count').textContent=n;
+    document.getElementById('fill').style.width=(n/4*100)+'%';
+  }
+  chips.forEach(function(c){
+    c.addEventListener('click',function(){
+      var k=c.dataset.k;
+      if(k==='trainA'&&trAleft()>0){ flash('trA-hint','Finish the machine first — it wants all six! 🤖'); return; }
+      state[k]=!state[k]; save(); paint();
+    });
+  });
+  function flash(id,msg){ var el=document.getElementById(id); el.textContent=msg; el.style.color='#e03131'; setTimeout(function(){el.style.color='';},1800); }
+
+  /* --- trainer A: have / has (feedback only after the attempt) --- */
+  var atr=document.getElementById('trA');
+  var rows=[
+    {em:'🥪',pre:'I ',post:' a cheese sandwich.',key:'have'},
+    {em:'🍟',pre:'She ',post:' fries.',key:'has'},
+    {em:'🍕',pre:'We ',post:' a big pizza.',key:'have'},
+    {em:'🥤',pre:'He ',post:' a milkshake.',key:'has'},
+    {em:'🍊',pre:'',post:' you got an orange?',key:'Have'},
+    {em:'🥗',pre:'',post:' she got a salad?',key:'Has'},
+    {em:'🍗',pre:'The boys ',post:' chicken.',key:'have'},
+    {em:'👧',pre:'Rosy ',post:' a sandwich.',key:'has'}
+  ];
+  rows.forEach(function(r,i){
+    var row=document.createElement('div'); row.className='sent';
+    row.innerHTML='<span class="mark" id="am'+i+'"></span><span class="em">'+r.em+'</span> <span>'+r.pre+'</span><span class="gwrap"><input class="gap" data-i="'+i+'" autocomplete="off" spellcheck="false"></span><span>'+r.post+'</span> <button class="mini" data-i="'+i+'">check</button>';
+    atr.appendChild(row);
+  });
+  function trAleft(){
+    var n=0; rows.forEach(function(r,i){ if(!(state['a'+i])) n++; }); return n;
+  }
+  atr.addEventListener('click',function(e){
+    var b=e.target.closest('.mini'); if(!b) return;
+    var i=+b.dataset.i, inp=atr.querySelector('input[data-i="'+i+'"]');
+    var v=(inp.value||'').toLowerCase().replace(/[^a-z']/g,'');
+    if(!v) return;
+    var ok=v===rows[i].key;
+    inp.classList.toggle('good',ok); inp.classList.toggle('bad',!ok);
+    document.getElementById('am'+i).textContent=ok?'✅':'❌';
+    if(ok){ state['a'+i]=true; save(); inp.disabled=true; b.textContent='✔'; b.disabled=true; paint(); }
+    else { setTimeout(function(){ inp.classList.remove('bad'); inp.focus(); inp.select(); },700); }
+    var left=trAleft();
+    document.getElementById('trA-hint').textContent=left?('Left: '+left+' — careful: I·you·we·they → HAVE · he·she·it → HAS'):('All six… all eight done! The machine is happy 🤖✅');
+  });
+
+  /* keep written text */
+  ['w1','w2'].forEach(function(id){
+    var el=document.getElementById(id);
+    el.value=state[id]||'';
+    el.addEventListener('input',function(){ state[id]=el.value; save(); });
+  });
+
+  /* restore trainer progress after a reload */
+  rows.forEach(function(r,i){
+    if(!state['a'+i]) return;
+    var inp=atr.querySelector('input[data-i="'+i+'"]');
+    inp.value=r.key; inp.classList.add('good'); inp.disabled=true;
+    document.getElementById('am'+i).textContent='✅';
+    var b=atr.querySelector('.mini[data-i="'+i+'"]'); b.textContent='✔'; b.disabled=true;
+  });
+
+  paint();
+})();
+</script>
+</body>
+</html>
