@@ -580,13 +580,13 @@ function pupPaint(){
 <script>
 /* МИНИ-ТЕСТ (Test 2, Part 2 — Yes/No counting): one question at a time, the key is Test 2's own */
 var MEDIA='../../media';
-function t2img(w,n){var s='';for(var k=0;k<n;k++)s+='<img src="file://'+MEDIA+'/kb1-u2-fc-'+w+'.png" alt="" style="height:52px;border-radius:8px">';return s}
+function t2img(w,n){var s='';for(var k=0;k<n;k++)s+='<img src="../../media/kb1-u2-fc-'+w+'.png" alt="" style="height:52px;border-radius:8px">';return s}
 function t2emo(e,n){var s='';for(var k=0;k<n;k++)s+='<span style="font-size:2.4rem">'+e+'</span>';return s}
 var T2=[
   {pics:t2img('table',3), txt:'3 tables', ans:true},
-  {pics:t2img('pencil',3), txt:'5 pencils', ans:false},
-  {pics:t2img('pen',4), txt:'4 pens', ans:true},
-  {pics:t2emo('👾',3), txt:'2 monsters', ans:false},
+  {pics:t2img('pencil',4), txt:'4 pens', ans:false},
+  {pics:t2img('chair',6), txt:'6 chairs', ans:true},
+  {pics:t2emo('👾',5), txt:'2 monsters', ans:false},
   {pics:t2img('book',2), txt:'2 books', ans:true}
 ];
 var t2i=0,t2score=0,t2lock=false;
