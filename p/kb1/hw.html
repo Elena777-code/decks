@@ -640,6 +640,10 @@ function t2Replay(){
   t2Show();
 }
 try{localStorage.removeItem('kb1-u10a-game')}catch(e){}
+/* preload every school-object picture so round 1 is instant */
+['table','pencil','chair','pen','book','eraser'].forEach(function(w){ var im = new Image(); im.src = '../../media/kb1-u2-fc-' + w + '.png'; });
+t2Show();
+window.addEventListener('load', function(){ if (typeof t2i !== 'undefined' && t2i === 0 && !t2lock) t2Show(); });
 </script>
 </body>
 </html>
