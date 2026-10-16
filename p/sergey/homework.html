@@ -414,10 +414,12 @@ flushQueue(); /* anything that failed to send last time goes now */
       if(KEYS[k].indexOf(digitsOnly(inp.value))>-1){
         right++;row.classList.remove('no','shown');row.classList.add('ok');inp.disabled=true;
       }else{
+        row.dataset.tries=(+(row.dataset.tries||0))+1;
         row.classList.remove('ok');row.classList.add('no');
         setTimeout(function(){row.classList.remove('no');},900);
       }
     });
+    if(total===0){document.getElementById('time-result').textContent='Уже готово! 🎉';return;}
     document.getElementById('time-result').textContent = right===total
       ? '🎉 '+right+' of '+total+'! Now say each time aloud in English! ⏰'
       : 'Right: '+right+' of '+total+'. Look at the orange clocks again! ⏰';
@@ -484,10 +486,12 @@ flushQueue(); /* anything that failed to send last time goes now */
       if(isRight(k,inp.value)){
         right++;row.classList.remove('no','shown');row.classList.add('ok');inp.disabled=true;
       }else{
+        row.dataset.tries=(+(row.dataset.tries||0))+1;
         row.classList.remove('ok');row.classList.add('no');
         setTimeout(function(){row.classList.remove('no');},900);
       }
     });
+    if(total===0){document.getElementById('flight-result').textContent='Уже готово! 🎉';return;}
     document.getElementById('flight-result').textContent = right===total
       ? '🎉 '+right+' из '+total+'! Все рейсы найдены! Скажи каждый номер вслух: по цифрам и целиком! ✈️'
       : 'Правильно: '+right+' из '+total+'. Послушай оранжевые ещё раз! 🎧';
@@ -500,6 +504,47 @@ flushQueue(); /* anything that failed to send last time goes now */
       row.classList.add('shown');inp.disabled=true;
     });
     document.getElementById('flight-result').textContent='Ответы на месте. Нажми ▶ и повтори каждый номер вслух! 😉';
+  });
+})();
+</script>
+<script>
+/* ===== 14.10 · the airport reporter — «Will I get his results?» (Elena).
+   Both new tasks report into the SAME machine as the drill: the run
+   (scores + tries) queues on the device and auto-sends the moment
+   HW_FORM gets Elena's form link — nothing for parents to press.
+   HW_FORM itself is wired in the first script block (empty = queued). */
+(function(){
+  var sent=false;
+  function sectionDone(sel){
+    var rows=document.querySelectorAll(sel);
+    return rows.length>0 && [].every.call(rows,function(r){return r.querySelector('input').disabled;});
+  }
+  function tries(sel){
+    var t=0;
+    document.querySelectorAll(sel).forEach(function(r){t+=+(r.dataset.tries||0);});
+    return t;
+  }
+  function maybeReport(){
+    if(sent)return;
+    if(!sectionDone('.flq')||!sectionDone('.tmq'))return;
+    sent=true;
+    var ft=tries('.flq'), tt=tries('.tmq');
+    var lines=['🐭 Sergey · homework — Урок 14.10 · Airport ✈️ + Time ⏰',
+      'Date: '+new Date().toLocaleString('ru-RU'),'',
+      'Flights: 5/5 · tries: '+ft,
+      'Time: 5/5 · tries: '+tt,'',
+      'Total tries: '+(ft+tt)];
+    var txt=lines.join('\n');
+    try{localStorage.setItem('sergey-hw-airport-last',txt);}catch(e){}
+    try{
+      var q=JSON.parse(localStorage.getItem('sergey-hw-queue')||'[]');
+      q.push(txt);if(q.length>10)q=q.slice(-10);
+      localStorage.setItem('sergey-hw-queue',JSON.stringify(q));
+    }catch(e){}
+    if(typeof flushQueue==='function')flushQueue();
+  }
+  ['flight-check','time-check'].forEach(function(id){
+    document.getElementById(id).addEventListener('click',function(){setTimeout(maybeReport,50);});
   });
 })();
 </script>
