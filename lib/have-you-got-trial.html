@@ -227,7 +227,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
 <body>
 
 <div id="progress-track"><div id="progress-fill"></div></div>
-<div id="stamp">build 16.10 · v2</div>
+<div id="stamp">build 16.10 · v5</div>
 
 <main id="deck">
 
@@ -1263,6 +1263,10 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   /* the thinking clouds: tap — the hint opens (Elena's own wording inside) */
   document.querySelectorAll('.cloud').forEach(function(c){
     c.addEventListener('click',function(e){ e.stopPropagation(); c.classList.toggle('open'); });
+  });
+  /* story cells: tap to show the frame (v5 — the handler was lost in the v2 rewrite) */
+  document.querySelectorAll('.scell').forEach(function(c){
+    c.addEventListener('click',function(){ c.classList.toggle('shown'); });
   });
   /* the brick game: tap a paper piece — it falls away; the word shows on the last one */
   document.querySelectorAll('.paper').forEach(function(p){
