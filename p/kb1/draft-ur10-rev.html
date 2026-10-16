@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[DRAFT — предпросмотр] Kid's Box 1 — домашние задания</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#95E1D3;--mint-deep:#5ecbb8;--peach:#FCE38A;--lavender:#C8B6FF;
+  --lavender-deep:#9a7fff;--cream:#FFF8F0;--pink:#FF8FAB;
+  --ink:#2D3436;--ink-soft:#636e72;--white:#fff;--radius:22px;
+  --shadow:0 10px 30px rgba(45,52,54,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;padding:4vh 4vw 8vh}
+.wrap{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:2.4vh}
+header{display:flex;flex-direction:column;gap:.8vh;align-items:flex-start}
+.eyebrow{font-size:.95rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--lavender-deep)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,5vw,2.6rem);line-height:1.15}
+.sub{color:var(--ink-soft);font-size:clamp(1rem,2.5vw,1.2rem)}
+.card{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(16px,3vh,26px) clamp(16px,4vw,28px);display:flex;flex-direction:column;gap:1.2vh;
+}
+.card .lesson{
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,3vw,1.6rem);
+}
+.item{display:flex;gap:.7em;align-items:flex-start;font-size:clamp(1.05rem,2.6vw,1.3rem);line-height:1.45}
+.item .n{
+  flex:0 0 auto;width:1.7em;height:1.7em;border-radius:50%;background:var(--peach);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95em;
+}
+.btn{
+  display:inline-block;background:var(--lavender);color:var(--ink);text-decoration:none;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.05rem,2.6vw,1.3rem);
+  border-radius:99px;padding:.6em 1.4em;box-shadow:var(--shadow);cursor:pointer;align-self:flex-start;
+}
+.btn.mint{background:var(--mint)}
+audio{width:100%}
+.song-title{font-weight:800;color:var(--mint-deep)}
+.note{color:var(--ink-soft);font-size:clamp(.9rem,2.2vw,1.05rem)}
+footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
+/* lesson rows — Alika-page look (Elena, 02.10: «I want the starting page to look like this. Check Alika's page») */
+.hw-row summary{display:flex;align-items:center;gap:.9em;background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:1em 1.2em;cursor:pointer;list-style:none;transition:transform .15s ease}
+.hw-row summary:hover{transform:translateY(-3px)}
+.hw-row summary::-webkit-details-marker{display:none}
+.hw-row summary:after{content:'▾';color:var(--ink-soft);font-size:1.25em;flex:0 0 auto}
+.hw-row[open] summary:after{content:'▴'}
+.hw-row summary .txt{flex:1;min-width:0}
+.hw-row summary .nm{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,2.6vw,1.4rem);line-height:1.25}
+.hw-row summary .dt{color:var(--ink-soft);font-size:.92rem;line-height:1.35}
+.hw-row .hw-body{margin-top:.8em}
+.hw-row .new{color:var(--pink);font-weight:800;font-size:.78em;letter-spacing:.04em;vertical-align:middle;margin-left:.5em}
+/* the animated exclamation mark (Elena, 2026-09-29) */
+@keyframes exc{0%,100%{transform:translateY(0) scale(1)}30%{transform:translateY(-16%) scale(1.18)}55%{transform:translateY(0) scale(.96)}75%{transform:translateY(-7%) scale(1.06)}}
+.exc{display:inline-block;animation:exc 1.5s ease-in-out infinite;color:var(--pink)}
+/* ===== PASTE-css START — the done chips + the send + the treasure (first live install,
+   the 10.10 standing order; demo: pupils/kb1/hw-treasure-demo.html) ===== */
+.expl{background:#FFF3D6;border-radius:14px;padding:.7em 1em;font-size:clamp(.9rem,2.2vw,1.05rem)}
+.task{flex-wrap:wrap;align-items:center}
+.task .tt{flex:1;min-width:12em}
+.task .tt small{color:var(--ink-soft);font-size:.82em}
+.chip{flex:0 0 auto;border:2px solid var(--mint-deep);color:var(--mint-deep);background:#fff;border-radius:999px;padding:.3em .85em;font-family:'Nunito',sans-serif;font-size:clamp(.8rem,2vw,.95rem);font-weight:800;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--mint-deep);color:#fff}
+.progress{color:var(--ink-soft);font-size:clamp(.9rem,2.2vw,1.05rem);text-align:center}
+.who{display:flex;gap:.6em;align-items:center;justify-content:center;flex-wrap:wrap}
+.who input{font:inherit;font-size:clamp(1rem,2.4vw,1.15rem);padding:.4em .6em;border:2px solid var(--lavender);border-radius:12px;width:7.5em;text-align:center;outline:none}
+.who input#pupp-surn{width:2.2em}
+.who input#pupp-group{width:2.2em}
+.who .kprefix{font-weight:800;font-size:clamp(1rem,2.4vw,1.15rem)}
+.send{display:block;width:100%;border:0;background:var(--pink);color:#fff;font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,2.8vw,1.35rem);font-weight:700;border-radius:14px;padding:.75em;cursor:pointer;box-shadow:0 3px 0 #e06a8a}
+.send:active{transform:translateY(2px);box-shadow:0 1px 0 #e06a8a}
+.send.sent{background:var(--mint-deep);box-shadow:0 3px 0 #47a894}
+.hint{text-align:center;font-size:clamp(.85rem,2.2vw,1rem);color:#d45f85;min-height:1.4em}
+.boxwrap{display:none;text-align:center;margin-top:1vh}
+.boxwrap.show{display:block}
+.box{font-size:96px;cursor:pointer;display:inline-block;animation:wob 1.2s ease-in-out infinite}
+@keyframes wob{0%,100%{transform:rotate(-4deg) scale(1)}50%{transform:rotate(4deg) scale(1.06)}}
+.boxlabel{font-size:20px;font-weight:800;color:#d45f85}
+.cartoon{display:none;background:var(--white);border:2px dashed var(--peach);border-radius:16px;padding:18px;margin-top:14px}
+.cartoon.show{display:block;animation:pop .35s ease}
+@keyframes pop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.cartoon .pig{font-size:44px}
+.cartoon h3{margin:6px 0 2px;font-size:20px}
+.cartoon p{font-size:14.5px;color:var(--ink-soft);margin-bottom:12px}
+.play{display:block;text-align:center;background:var(--peach);color:var(--ink);text-decoration:none;font-family:'Fredoka',sans-serif;font-weight:700;font-size:18px;border-radius:12px;padding:14px}
+/* ===== PASTE-css END ===== */
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">🎒 Kid's Box 1 · домашние задания</div>
+    <h1>Наше ДЗ</h1>
+    <div class="sub">Новое задание всегда сверху. Ссылка постоянная — сохраните её.</div>
+  </header>
+
+<details class="hw-row" open>
+  <summary><span class="txt"><span class="nm">Урок 10 · Мини-тест и чтение 📖 <span class="new">✨ новое!</span></span><br><span class="dt">читаем слова D · мини-тест · слушай и рисуй · AB стр. 12</span></span></summary>
+  <div class="card hw-body">
+    <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
+
+    <div class="item task"><span class="n">1</span><span class="tt"><b>Читаем слова про букву D!</b> 📖 <small>— только СЛОВА, историю пока не читаем!</small></span><button class="chip" id="pupp-chip-1" data-k="t-read" onclick="pupTog(this)">Готово</button></div>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-d.html#2" target="_blank">📖 Открыть слова — буква D</a>
+
+    <div class="item task"><span class="n">2</span><span class="tt"><b>Мини-тест: посчитай — Yes или No?</b> 🧮 <small>— посчитай картинки и нажми кнопку!</small></span><button class="chip" id="pupp-chip-2" data-k="t-test" onclick="pupTog(this)">Готово</button></div>
+    <div id="t2game" style="background:#f1ecff;border-radius:14px;padding:12px;margin:6px 0">
+      <div id="t2-count" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 5</div>
+      <div id="t2-pics" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:10px 0;min-height:60px"></div>
+      <div id="t2-label" style="text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.5rem;color:#2D3436"></div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:10px">
+        <button id="t2-yes" onclick="t2Ans(true)" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;border:none;border-radius:99px;padding:.5em 1.6em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">Yes 👍</button>
+        <button id="t2-no" onclick="t2Ans(false)" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;border:none;border-radius:99px;padding:.5em 1.6em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">No 👎</button>
+      </div>
+      <div id="t2-end" style="display:none;text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.4rem;color:#2D3436;margin-top:6px"></div>
+    </div>
+
+    <div class="item task"><span class="n">3</span><span class="tt"><b>Слушай и рисуй!</b> 🎨 <small>— включи и нарисуй монстрика Вилберта в тетради!</small></span><button class="chip" id="pupp-chip-3" data-k="t-draw" onclick="pupTog(this)">Готово</button></div>
+    <audio controls preload="none" src="../../media/kb1-u2-test-e2-p3.mp3"></audio>
+
+    <div class="item task"><span class="n">4</span><span class="tt"><b>Послушай и напиши возраст!</b> ✏️ <small>— слушай и пиши возраст в тетрадь: a, b, c, d, e!</small></span><button class="chip" id="pupp-chip-4" data-k="t-age" onclick="pupTog(this)">Готово</button></div>
+    <audio controls preload="none" src="../../media/kb1-u2-test-e2-p4.mp3"></audio>
+
+    <div class="item task"><span class="n">5</span><span class="tt"><b>AB стр. 12 — упр. 1 и 2</b> 📖 <small>— упр. 1: слушай и пиши номер в книжке! Упр. 2: веди пальцем по линиям!</small></span><button class="chip" id="pupp-chip-5" data-k="t-ab" onclick="pupTog(this)">Готово</button></div>
+    <img src="../../media/kb1-u2-ab12.png" alt="AB стр. 12" style="width:min(520px,100%);align-self:center;border-radius:14px;box-shadow:var(--shadow)">
+    <audio controls preload="none" src="../../media/kb1-u2-ab12-t06.mp3"></audio>
+
+    <div class="progress" id="pupp-prog">Отмечено: 0 из 5</div>
+    <div class="who">
+      <input id="pupp-name" placeholder="Имя" autocomplete="off">
+      <input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
+      <span class="kprefix">KB 1.</span><input id="pupp-group" placeholder="?" maxlength="1" autocomplete="off" title="Твоя группа: 1, 2 или 3">
+    </div>
+    <button class="send" id="pupp-send" onclick="pupSend()">📤 Отправить Мисс Елене</button>
+    <div class="hint" id="pupp-hint"></div>
+
+    <div class="boxwrap" id="pupp-boxwrap">
+      <div class="box" onclick="document.getElementById('pupp-cartoon').classList.add('show')">🎁</div>
+      <div class="boxlabel">Твой подарок! Нажми!</div>
+      <div class="cartoon" id="pupp-cartoon">
+        <div class="pig">🐷✨</div>
+        <h3>Peppa Pig — «Охота за сокровищами»</h3>
+        <p>Ты молодец! Все задания сделаны. Смотри мультик!</p>
+        <a class="play" href="https://www.youtube.com/watch?v=MT-CWEMoQiY" target="_blank" rel="noopener">▶️ Смотреть подарок</a>
+      </div>
+    </div>
+
+    <div class="note">Если что-то не получается — напишите администратору Мисс Алёне, поможем.</div>
+  </div>
+</details>
+
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 9 · Colours 🌈</span></span><br><span class="dt">чтение — история про муравья · цвета на shkola.app · песенка про карандаш</span></span></summary>
+  <div class="card hw-body">
+    <div class="item"><span class="n">1</span><span><b>Чтение — история про муравья и штамп!</b> 🐜</span></div>
+    <div style="display:flex;flex-direction:column;gap:1vh;align-items:center">
+      <img src="../../media/kb1-phonics-m-story.png" alt="Stamp! Stamp! Stamp! — Pat the ant, stamps the map" style="width:min(520px,100%);border-radius:14px;box-shadow:var(--shadow)">
+    </div>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-m.html#7" target="_blank">Открыть историю</a>
+    <div class="item"><span class="n">2</span><span><b>Цвета на shkola.app!</b> 🎨 Набор <b>«Colours»</b> — слушай слово и выбирай картинку 🎧</span></div>
+    <div class="note">Задание называется «Colours» и уже ждёт на платформе. Если вы ещё не пользовались shkola.app и вход не получается — напишите администратору Мисс Алёне, поможем.</div>
+    <div class="item"><span class="n">3</span><span><b>Песенка про карандаш — Hold your pencil up</b> ✏️ Слушай и делай движения с НАСТОЯЩИМ карандашом (up · down · on your hand…):</span></div>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/song/pab-1-6-hold-your-pencil-up.html" target="_blank">🎵 Открыть песенку — картинки поют слова!</a>
+    </div>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 8 · School things 🎒</span><br><span class="dt">задание на shkola.app — «School things» · речёвка (стр. 11) · Left and Right</span></span></summary>
+  <div class="card hw-body">
+    <div class="item"><span class="n">1</span><span><b>Новое на shkola.app!</b> 📱 Набор <b>«School things»</b> — школьные слова: a pencil · a book · an eraser · a pen · a table · a chair. Слушай слово и выбирай картинку 🎧</span></div>
+    <div class="note">shkola.app — учебная платформа школы. Задание называется «School things» и уже ждёт на платформе. Если вы ещё не пользовались shkola.app и вход не получается — напишите администратору Мисс Алёне, поможем.</div>
+    <div class="item"><span class="n">2</span><span><b>Речёвка!</b> 👆 Веди пальцем по словам и читай (учебник, стр. 11): <b>a pencil · a book · an eraser · a pen · a table · a chair</b>. Сначала послушай, потом читай сам — всё быстрее:</span></div>
+    <audio controls preload="none" src="../../media/kb1-u2-pb11-t15.mp3"></audio>
+    <div style="display:flex;flex-direction:column;gap:1vh;align-items:center">
+      <img src="../../media/kb1-u2-pb11.png" alt="PB стр. 11 — речёвка про школьные вещи" style="width:min(430px,100%);border-radius:14px;box-shadow:var(--shadow)">
+    </div>
+    <div class="item"><span class="n">3</span><span><b>Наша любимая песня — Left and Right</b> 🎵 Пусть звучит дома: дети показывают движения (sit down · stand up · turn left · turn right · jump):</span></div>
+    <audio controls preload="none" src="../../media/kb1-u2-ge-left-right.mp3"></audio>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 7 · Ss, Mm и первая скороговорка 🦇</span><br><span class="dt">Nn — читай историю! · скороговорка · листы Ss и Mm · AB стр. 11 · две игры · Left and Right · листы-подсказки</span></span></summary>
+  <div class="card hw-body">
+    <div class="item"><span class="n">1</span><span><b>Nn — читай историю!</b></span></div>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-n.html" target="_blank">▶ История про арбузные семечки</a>
+    <div class="item"><span class="n">2</span><span><b>Учимся читать скороговорку!</b> Прочитать родителям — быстрее и быстрее<span class="exc">!</span></span></div>
+    <div style="display:flex;flex-direction:column;gap:1vh;align-items:center">
+      <img src="../../media/kb1-u2-poster-rhyme.png" alt="a bat sat on the mat, a rat sat on the mat" style="width:min(430px,100%);border-radius:14px;box-shadow:var(--shadow)">
+    </div>
+    <div class="item"><span class="n">3</span><span><b>Листы Ss и Mm</b> — обвести и прописать буквы (заглавные и строчные), пройти букву-лабиринт.</span></div>
+    <div class="item"><span class="n">4</span><span><b>AB стр. 11</b> — упр. 1 (только первая строчка) и упр. 2 — нарисовать 3 любых предмета из предложенных.</span></div>
+    <div class="item"><span class="n">5</span><span><b>Игра</b> — буква S и её слова:</span></div>
+    <a class="btn" href="https://wordwall.net/resource/73492628/wow-abc-s" target="_blank">▶ Wordwall: ABC — S</a>
+    <div class="item"><span class="n">6</span><span><b>Игра — читаем слова M и R</b> (играли на уроке!) — сначала узнай слова:</span></div>
+    <div style="background:var(--cream);border-radius:14px;padding:12px 16px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.25rem,3.6vw,1.7rem);line-height:2;text-align:center">
+      <span style="color:#5ecbb8;font-size:1.25em">6</span> six · 😢 sad · <img src="../../media/kb1-elena-sit.png" alt="sit" style="height:clamp(1.7rem,4vw,2.6rem);vertical-align:middle"> sit · ☀️ sun<br>
+      👩 mum · 🧹 mop · <svg viewBox="0 0 100 100" style="height:clamp(1.7rem,4vw,2.6rem);vertical-align:middle"><path d="M27 30 h42 v34 a13 13 0 0 1 -13 13 h-16 a13 13 0 0 1 -13 -13 z" fill="#C8B6FF" stroke="#2D3436" stroke-width="3"/><path d="M69 38 a11 11 0 0 1 0 21" fill="none" stroke="#2D3436" stroke-width="4.5" stroke-linecap="round"/><ellipse cx="48" cy="30" rx="21" ry="5" fill="#FCE38A" stroke="#2D3436" stroke-width="3"/></svg> mug · 🗺️ map<br>
+      🐀 rat · 🔴 red · <img src="../../media/kb1-u1-fc-rug.png" alt="rug" style="height:clamp(1.7rem,4vw,2.6rem);vertical-align:middle;border-radius:6px"> rug · <img src="../../media/kb1-elena-rag.png" alt="rag" style="height:clamp(1.7rem,4vw,2.6rem);vertical-align:middle"> rag
+    </div>
+    <a class="btn" href="https://wordwall.net/resource/52174759/reading-m-r-phonics" target="_blank">▶ Wordwall: читаем слова M и R</a>
+    <div class="note">Листы-подсказки — те же слова (Ss · Mm · Rr). Для тех, кого не было на уроке, — можно распечатать:</div>
+    <div style="display:flex;gap:1vh;justify-content:center;flex-wrap:wrap">
+      <img src="../../media/kb1-u2-s.png" alt="лист Ss — sad, sit, sun, six" style="width:min(260px,46%);border-radius:14px;box-shadow:var(--shadow)">
+      <img src="../../media/kb1-u2-m.png" alt="лист Mm — mum, mop, mug, map" style="width:min(260px,46%);border-radius:14px;box-shadow:var(--shadow)">
+      <img src="../../media/kb1-u1-l5-rr.png" alt="лист Rr — a rat, red, a rug, a rag" style="width:min(260px,46%);border-radius:14px;box-shadow:var(--shadow)">
+    </div>
+  
+      <div class="item"><span class="n">7</span><span><b>Наша любимая песня — Left and Right</b> 🎵 Пусть звучит дома: дети показывают движения (sit down · stand up · turn left · turn right · jump):</span></div>
+    <audio controls preload="none" src="../../media/kb1-u2-ge-left-right.mp3"></audio>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 6 · My school — мой школьный класс ✏️</span><br><span class="dt">первые буквы, первые слова и первый рассказ! · лист Tt · AB стр. 10 · «Составь слово» · Wordwall · песня Left and Right</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>Учимся читать</b> — первые буквы, первые слова и первый рассказ:</span></div>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-s-i-t-p-a.html" target="_blank">▶ Первые буквы, первые слова и первый рассказ<span class="exc">!</span></a>
+    <div class="item"><span class="n">2</span><span><b>Лист Tt</b> — раскрасить кружочки с заглавными и строчными буквами, прописать, раскрасить дорожку из T и t кирпичиков.</span></div>
+    <div class="item"><span class="n">3</span><span><b>AB стр. 10, упр. 1 🎧</b> — послушать аудио и выполнить задание в тетради:</span></div>
+    <audio controls preload="none" src="../../media/kb1-u2-ab10-t05.mp3"></audio>
+    <div class="item"><span class="n">4</span><span><b>AB стр. 10, упр. 2</b> — нарисовать свой стол и школьные вещи на нём.</span></div>
+    <div class="item"><span class="n">5</span><span><b>Игра «Составь слово»</b> — буквы перепутались! Посмотри на картинку, составь слово и <b>напиши его</b>:</span></div>
+    <div id="unscr" style="display:flex;flex-direction:column;gap:1.2vh;align-items:center;background:var(--cream);border-radius:16px;padding:14px">
+      <div style="display:flex;gap:.6em;align-items:center;flex-wrap:wrap;justify-content:center">
+        <span style="font-weight:800">👤 Твоё имя:</span>
+        <input id="unscr-name" type="text" autocomplete="off" placeholder="имя…"
+          style="font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,4vw,1.4rem);text-align:center;padding:.3em .8em;border:3px solid var(--mint);border-radius:12px;width:min(180px,60%);outline:none">
+        <span style="font-weight:800">Первая буква фамилии:</span>
+        <input id="unscr-surn" type="text" autocomplete="off" maxlength="1" autocapitalize="characters" placeholder="К"
+          style="font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,4vw,1.4rem);text-align:center;text-transform:uppercase;padding:.3em .8em;border:3px solid var(--mint);border-radius:12px;width:2.4em;outline:none">
+        <span style="font-weight:800">Твоя группа:</span>
+        <span style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.1rem,4vw,1.4rem)">KB 1.</span>
+        <input id="unscr-group" type="text" inputmode="numeric" autocomplete="off" maxlength="1" placeholder="?"
+          style="font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,4vw,1.4rem);text-align:center;padding:.3em .8em;border:3px solid var(--mint);border-radius:12px;width:2.2em;outline:none">
+      </div>
+      <button id="unscr-start" class="btn mint" onclick="unscrStart()">▶ Играть</button>
+      <div id="unscr-game" style="display:none;flex-direction:column;gap:1.2vh;align-items:center;width:100%">
+        <div id="unscr-prog" style="font-weight:800;color:var(--ink-soft)"></div>
+        <img id="unscr-img" alt="" style="height:130px;border-radius:14px;background:#fff;box-shadow:var(--shadow)">
+        <div id="unscr-mix" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,7vw,2.8rem);letter-spacing:.18em;color:var(--lavender-deep)"></div>
+        <input id="unscr-in" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+          placeholder="слово…" style="font-family:'Fredoka',sans-serif;font-size:clamp(1.4rem,5vw,1.9rem);text-align:center;letter-spacing:.1em;padding:.35em .8em;border:3px solid var(--mint);border-radius:14px;width:min(280px,100%);outline:none">
+        <button class="btn mint" onclick="unscrCheck()">Проверить</button>
+        <div id="unscr-fb" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4vw,1.6rem);min-height:1.4em"></div>
+      </div>
+      <div id="unscr-end" style="display:none;flex-direction:column;gap:1vh;align-items:center">
+        <div id="unscr-score" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,5vw,2.1rem);color:var(--mint-deep)"></div>
+        <div id="unscr-sent" style="font-size:clamp(.9rem,2.4vw,1.1rem);color:var(--ink-soft)"></div>
+        <button class="btn" onclick="unscrStart()">Ещё раз 🔁</button>
+      </div>
+    </div>
+    <div class="item"><span class="n">6</span><span>🎮 Две игры с новыми словами:</span></div>
+    <a class="btn" href="https://wordwall.net/resource/86111229/kb1-unit-2-my-school" target="_blank">▶ Wordwall: карточки со словами</a>
+    <a class="btn" href="https://wordwall.net/resource/85402274" target="_blank">▶ Wordwall: True or False (как на уроке)</a>
+    <div class="item" style="margin-top:.6vh"><span class="n">🎵</span><span class="song-title">Наша новая песня — Left and Right</span></div>
+    <div class="note">Пусть звучит дома: дети показывают движения (sit down · stand up · turn left · turn right · jump).</div>
+    <audio controls preload="none" src="../../media/kb1-u2-ge-left-right.mp3"></audio>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 5 · Читаем Rr и цвета 🌈</span><br><span class="dt">AB стр. 8, упр. 2 — вписать r (red, rainbow) · прописать лист Rr</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>AB стр. 8, упр. 2</b> — вписать букву r в слова (red, rainbow) и нарисовать.</span></div>
+    <div class="item"><span class="n">2</span><span><b>Лист Rr</b> — прописать буквы в строчках до конца.</span></div>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 4 · Читаем Aa, Bb 🔤</span><br><span class="dt">дорешать лабиринт Аа · AB стр. 9 · видео в школьном приложении</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>Распечатка Аа</b> — дорешать лабиринт с буквой a.</span></div>
+    <div class="item"><span class="n">2</span><span><b>AB стр. 9</b> — задание в тетради.</span></div>
+    <div class="item"><span class="n">3</span><span><b>Видео для родителей</b> — в школьном приложении.</span></div>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 3 · Сколько тебе лет? 🎂</span><br><span class="dt">AB стр. 6, упр. 1 · видео «How old are you?» · раскраска — в приложении</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>AB стр. 6, упр. 1</b> — послушать и вписать.</span></div>
+    <div class="item"><span class="n">2</span><span><b>Видео «How old are you?»</b> — в школьном приложении.</span></div>
+    <div class="item"><span class="n">3</span><span><b>Раскраска AB стр. 7</b> — в школьном приложении.</span></div>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 2 · Новые друзья 🧸</span><br><span class="dt">игра Wordwall — новые слова урока</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>Игра</b> — повторить слова урока:</span></div>
+    <a class="btn" href="https://wordwall.net/resource/85538200" target="_blank">▶ Wordwall: новые слова</a>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 1 · Знакомство 👋</span><br><span class="dt">игра Wordwall — колесо слов</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>Игра</b> — колесо со словами первого урока:</span></div>
+    <a class="btn" href="https://wordwall.net/resource/75555558" target="_blank">▶ Wordwall: колесо слов</a>
+  </div>
+</details>
+
+<footer>Kid's Box 1 · группы школы · страница домашних заданий</footer>
+</div>
+<script>
+/* ===== the Unscramble typing game + the Google-Form report ===== */
+/* ELENA: when you create the form (the recipe in lesson-deck-prompt.md),
+   paste the two values here:
+   FORM_ACTION = everything before the "?" of the pre-fill link, with
+                 viewform changed to formResponse
+   FORM_ENTRY  = the number after "entry." in that link               */
+const FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSclA75beBw43_odq4MnKpQTyVZ8IAnaVGuJ2hYXPj5ZWGS3fg/formResponse";
+const FORM_ENTRY="entry.1388210654";
+const UNAME_KEY='kb1-hw-name', USURN_KEY='kb1-hw-surn', UGROUP_KEY='kb1-hw-group', UQUEUE_KEY='kb1-hw-report-queue';
+const UNSCR=[
+  {img:'../../media/kb1-u2-fc-chair.png', mix:'ricah',  ans:'chair'},
+  {img:'../../media/kb1-u2-fc-table.png', mix:'elbat',  ans:'table'},
+  {img:'../../media/kb1-u2-fc-eraser.png',mix:'resare', ans:'eraser'},
+  {img:'../../media/kb1-u2-fc-pencil.png',mix:'licpen', ans:'pencil'},
+  {img:'../../media/kb1-u2-fc-pen.png',   mix:'nep',    ans:'pen'},
+  {img:'../../media/kb1-u2-fc-book.png',  mix:'koob',   ans:'book'}
+];
+let uOrd=[],uI=0,uFirstTry=0,uTried=false;
+(function(){
+  const n=localStorage.getItem(UNAME_KEY);
+  if(n)document.getElementById('unscr-name').value=n;
+  const s=localStorage.getItem(USURN_KEY);
+  if(s)document.getElementById('unscr-surn').value=s;
+  const g=localStorage.getItem(UGROUP_KEY);
+  if(g)document.getElementById('unscr-group').value=g;
+})();
+function unscrShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function unscrSend(text){
+  if(!FORM_ACTION||!FORM_ENTRY){
+    try{const q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');q.push(text);localStorage.setItem(UQUEUE_KEY,JSON.stringify(q));}catch(e){}
+    return false;
+  }
+  try{
+    fetch(FORM_ACTION,{method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:FORM_ENTRY+'='+encodeURIComponent(text)});
+    return true;
+  }catch(e){
+    try{const q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');q.push(text);localStorage.setItem(UQUEUE_KEY,JSON.stringify(q));}catch(e2){}
+    return false;
+  }
+}
+function unscrFlushQueue(){
+  if(!FORM_ACTION||!FORM_ENTRY)return;
+  try{
+    const q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');
+    q.forEach(t=>{try{fetch(FORM_ACTION,{method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:FORM_ENTRY+'='+encodeURIComponent(t)});}catch(e){}});
+    localStorage.setItem(UQUEUE_KEY,'[]');
+  }catch(e){}
+}
+function unscrStart(){
+  const nameEl=document.getElementById('unscr-name');
+  const surnEl=document.getElementById('unscr-surn');
+  const groupEl=document.getElementById('unscr-group');
+  const name=nameEl.value.trim();
+  const surn=surnEl.value.trim().toUpperCase();
+  const group=groupEl.value.trim();
+  let bad=null;
+  if(!name)bad=[nameEl,'сначала имя!'];
+  else if(!surn)bad=[surnEl,'буква!'];
+  else if(!['1','2','3'].includes(group))bad=[groupEl,'1, 2 или 3!'];
+  if(bad){const el=bad[0];el.focus();el.placeholder=bad[1];el.style.borderColor='var(--pink)';return;}
+  nameEl.style.borderColor='var(--mint)';surnEl.style.borderColor='var(--mint)';groupEl.style.borderColor='var(--mint)';
+  surnEl.value=surn;
+  try{
+    localStorage.setItem(UNAME_KEY,name);
+    localStorage.setItem(USURN_KEY,surn);
+    localStorage.setItem(UGROUP_KEY,group);
+  }catch(e){}
+  uOrd=unscrShuffle([...UNSCR]);uI=0;uFirstTry=0;
+  document.getElementById('unscr-start').style.display='none';
+  document.getElementById('unscr-end').style.display='none';
+  document.getElementById('unscr-game').style.display='flex';
+  unscrShow();
+}
+function unscrShow(){
+  uTried=false;
+  const it=uOrd[uI];
+  document.getElementById('unscr-prog').textContent=(uI+1)+' / '+uOrd.length;
+  document.getElementById('unscr-img').src=it.img;
+  document.getElementById('unscr-mix').textContent=it.mix.split('').join(' ');
+  const in_=document.getElementById('unscr-in');
+  in_.value='';in_.disabled=false;in_.focus();
+  document.getElementById('unscr-fb').textContent='';
+}
+function unscrCheck(){
+  const it=uOrd[uI],in_=document.getElementById('unscr-in'),fb=document.getElementById('unscr-fb');
+  if(in_.value.trim().toLowerCase()===it.ans){
+    if(!uTried)uFirstTry++;
+    fb.textContent='✅ '+(it.ans.charAt(0).toUpperCase()+it.ans.slice(1))+'!';
+    fb.style.color='#2fa86b';in_.disabled=true;
+    setTimeout(()=>{
+      uI++;
+      if(uI<uOrd.length){unscrShow();}else{
+        document.getElementById('unscr-game').style.display='none';
+        document.getElementById('unscr-score').textContent='🌟 '+uFirstTry+' из '+uOrd.length+' с первой попытки!';
+        const who=(localStorage.getItem(UNAME_KEY)||'')+' '+(localStorage.getItem(USURN_KEY)||'');
+        const grp=localStorage.getItem(UGROUP_KEY)||'?';
+        const when=new Date().toLocaleDateString();
+        const report='KB 1.'+grp+' · Урок 6 · Составь слово · '+who+': '+uFirstTry+' из '+uOrd.length+' с первой попытки · '+when;
+        const sent=unscrSend(report);
+        unscrFlushQueue();
+        document.getElementById('unscr-sent').textContent=sent?'✉️ Результат отправлен Елене':'✨ Результат сохранён';
+        document.getElementById('unscr-end').style.display='flex';
+      }
+    },1100);
+  }else{
+    uTried=true;
+    fb.textContent='❌ Попробуй ещё раз';fb.style.color='var(--pink)';
+    in_.select();
+  }
+}
+document.getElementById('unscr-in').addEventListener('keydown',e=>{if(e.key==='Enter')unscrCheck();});
+</script>
+<script>
+/* Урок 9 · Куклы и ABC-P — the done chips + send + treasure (per-device localStorage).
+   Send reuses the hub's unscrSend (the «Drill reports» form + its queue) when present. */
+var PUPP_KEY='kb1-u10a-', PUPP_N=5;
+function pupTog(el){
+  var k=PUPP_KEY+el.getAttribute('data-k');
+  localStorage.setItem(k, localStorage.getItem(k)==='1' ? '0' : '1');
+  pupPaint();
+}
+function pupAll(){
+  var d=0,c;
+  for(var i=1;i<=PUPP_N;i++){
+    c=document.getElementById('pupp-chip-'+i);
+    if(c && localStorage.getItem(PUPP_KEY+c.getAttribute('data-k'))==='1') d++;
+  }
+  return d;
+}
+function pupDate(){
+  var d=new Date();
+  return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear();
+}
+function pupQueue(text){
+  try{
+    var q=JSON.parse(localStorage.getItem('kb1-hw-report-queue')||'[]');
+    q.push(text);
+    localStorage.setItem('kb1-hw-report-queue',JSON.stringify(q));
+  }catch(e){}
+}
+function pupSend(){
+  var n=document.getElementById('pupp-name'),
+      s=document.getElementById('pupp-surn'),
+      g=document.getElementById('pupp-group'),
+      hint=document.getElementById('pupp-hint');
+  var name=n.value.trim(), surn=s.value.trim().toUpperCase(), grp=g.value.trim();
+  if(!name){hint.textContent='Сначала напиши имя!';n.focus();return;}
+  if(!surn){hint.textContent='Напиши первую букву фамилии!';s.focus();return;}
+  if('123'.indexOf(grp)<0){hint.textContent='Ты из группы 1, 2 или 3?';g.focus();return;}
+  s.value=surn; hint.textContent='';
+  try{
+    localStorage.setItem('kb1-hw-name',name);
+    localStorage.setItem('kb1-hw-surn',surn);
+    localStorage.setItem('kb1-hw-group',grp);
+  }catch(e){}
+  var gs=null;try{gs=localStorage.getItem('kb1-u10a-game')}catch(e){}
+  var txt='KB 1.'+grp+' · Урок 10 · Домашка: мини-тест и чтение · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+(gs?' · Мини-тест: '+gs+' из 5':'')+' · '+pupDate();
+  if(window.unscrSend){ unscrSend(txt); } else { pupQueue(txt); }
+  localStorage.setItem(PUPP_KEY+'sent','1');
+  pupPaint();
+}
+function pupPaint(){
+  var i,c,on;
+  for(i=1;i<=PUPP_N;i++){
+    c=document.getElementById('pupp-chip-'+i);
+    if(!c)continue;
+    on=localStorage.getItem(PUPP_KEY+c.getAttribute('data-k'))==='1';
+    c.classList.toggle('on',on);
+    c.textContent=on?'✓ Готово':'Готово';
+  }
+  var d=pupAll(), sent=localStorage.getItem(PUPP_KEY+'sent')==='1';
+  document.getElementById('pupp-prog').textContent='Отмечено: '+d+' из '+PUPP_N;
+  var b=document.getElementById('pupp-send');
+  if(sent){ b.classList.add('sent'); b.textContent='✓ Отправлено Мисс Елене'; }
+  var box=document.getElementById('pupp-boxwrap'), hint=document.getElementById('pupp-hint');
+  if(d===PUPP_N && sent){
+    box.classList.add('show'); hint.textContent='';
+  }else{
+    box.classList.remove('show');
+    document.getElementById('pupp-cartoon').classList.remove('show');
+    if(sent && d<PUPP_N){ hint.textContent='Отметь все задания — и откроется подарок! 🎁'; }
+    else if(!sent && d===PUPP_N){ hint.textContent='Всё готово! Осталось нажать кнопку отправки ✉️'; }
+  }
+}
+(function(){
+  try{
+    var n=localStorage.getItem('kb1-hw-name'),
+        s=localStorage.getItem('kb1-hw-surn'),
+        g=localStorage.getItem('kb1-hw-group');
+    if(n)document.getElementById('pupp-name').value=n;
+    if(s)document.getElementById('pupp-surn').value=s;
+    if(g)document.getElementById('pupp-group').value=g;
+  }catch(e){}
+  pupPaint();
+})();
+</script>
+<script>
+/* МИНИ-ТЕСТ (Test 2, Part 2 — Yes/No counting): one question at a time, the key is Test 2's own */
+function t2img(w,n){var s='';for(var k=0;k<n;k++)s+='<img src="../../media/kb1-u2-fc-'+w+'.png" alt="" style="height:52px;border-radius:8px">';return s}
+var T2=[
+  {pics:t2img('table',3), txt:'3 tables', ans:true},
+  {pics:t2emo('🐵',5), txt:'4 monkeys', ans:false},
+  {pics:t2img('chair',6), txt:'6 chairs', ans:true},
+  {pics:t2emo('👾',3), txt:'2 monsters', ans:false},
+  {pics:t2img('eraser',6), txt:'7 erasers', ans:false}
+];
+function t2emo(e,n){var s='';for(var k=0;k<n;k++)s+='<span style="font-size:2.4rem">'+e+'</span>';return s}
+var t2i=0,t2score=0,t2lock=false;
+function t2Show(){
+  var q=T2[t2i];
+  document.getElementById('t2-pics').innerHTML=q.pics;
+  document.getElementById('t2-label').textContent=q.txt;
+  document.getElementById('t2-count').textContent=(t2i+1)+' / '+T2.length;
+  var y=document.getElementById('t2-yes'),n=document.getElementById('t2-no');
+  y.style.background='#fff';n.style.background='#fff';y.style.opacity=1;n.style.opacity=1;
+  t2lock=false;
+}
+function t2Ans(v){
+  if(t2lock)return;t2lock=true;
+  var q=T2[t2i],ok=(v===q.ans);
+  if(ok)t2score++;
+  var y=document.getElementById('t2-yes'),n=document.getElementById('t2-no');
+  var rb=q.ans?y:n,wb=q.ans?n:y;
+  rb.style.background='#95E1D3';
+  if(!ok){wb.style.opacity=.45}
+  setTimeout(function(){
+    t2i++;
+    if(t2i<T2.length){t2Show()}
+    else{
+      document.getElementById('t2-pics').innerHTML='';
+      document.getElementById('t2-label').textContent='';
+      document.getElementById('t2-count').textContent='';
+      y.style.display='none';n.style.display='none';
+      var e=document.getElementById('t2-end');
+      e.style.display='block';
+      e.textContent='Мини-тест: '+t2score+' из '+T2.length+'! '+(t2score===T2.length?'🌟':'Молодец! 🎉');
+      try{localStorage.setItem('kb1-u10a-game',String(t2score))}catch(err){}
+    }
+  },900);
+}
+try{localStorage.removeItem('kb1-u10a-game')}catch(e){}
+t2Show();
+</script>
+</body>
+</html>TYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kid's Box 1 — домашние задания</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#95E1D3;--mint-deep:#5ecbb8;--peach:#FCE38A;--lavender:#C8B6FF;
+  --lavender-deep:#9a7fff;--cream:#FFF8F0;--pink:#FF8FAB;
+  --ink:#2D3436;--ink-soft:#636e72;--white:#fff;--radius:22px;
+  --shadow:0 10px 30px rgba(45,52,54,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;padding:4vh 4vw 8vh}
+.wrap{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:2.4vh}
+header{display:flex;flex-direction:column;gap:.8vh;align-items:flex-start}
+.eyebrow{font-size:.95rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--lavender-deep)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,5vw,2.6rem);line-height:1.15}
+.sub{color:var(--ink-soft);font-size:clamp(1rem,2.5vw,1.2rem)}
+.card{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(16px,3vh,26px) clamp(16px,4vw,28px);display:flex;flex-direction:column;gap:1.2vh;
+}
+.card .lesson{
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,3vw,1.6rem);
+}
+.item{display:flex;gap:.7em;align-items:flex-start;font-size:clamp(1.05rem,2.6vw,1.3rem);line-height:1.45}
+.item .n{
+  flex:0 0 auto;width:1.7em;height:1.7em;border-radius:50%;background:var(--peach);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.95em;
+}
+.btn{
+  display:inline-block;background:var(--lavender);color:var(--ink);text-decoration:none;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.05rem,2.6vw,1.3rem);
+  border-radius:99px;padding:.6em 1.4em;box-shadow:var(--shadow);cursor:pointer;align-self:flex-start;
+}
+.btn.mint{background:var(--mint)}
+audio{width:100%}
+.song-title{font-weight:800;color:var(--mint-deep)}
+.note{color:var(--ink-soft);font-size:clamp(.9rem,2.2vw,1.05rem)}
+footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
+/* lesson rows — Alika-page look (Elena, 02.10: «I want the starting page to look like this. Check Alika's page») */
+.hw-row summary{display:flex;align-items:center;gap:.9em;background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:1em 1.2em;cursor:pointer;list-style:none;transition:transform .15s ease}
+.hw-row summary:hover{transform:translateY(-3px)}
+.hw-row summary::-webkit-details-marker{display:none}
+.hw-row summary:after{content:'▾';color:var(--ink-soft);font-size:1.25em;flex:0 0 auto}
+.hw-row[open] summary:after{content:'▴'}
+.hw-row summary .txt{flex:1;min-width:0}
+.hw-row summary .nm{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,2.6vw,1.4rem);line-height:1.25}
+.hw-row summary .dt{color:var(--ink-soft);font-size:.92rem;line-height:1.35}
+.hw-row .hw-body{margin-top:.8em}
+.hw-row .new{color:var(--pink);font-weight:800;font-size:.78em;letter-spacing:.04em;vertical-align:middle;margin-left:.5em}
+/* the animated exclamation mark (Elena, 2026-09-29) */
+@keyframes exc{0%,100%{transform:translateY(0) scale(1)}30%{transform:translateY(-16%) scale(1.18)}55%{transform:translateY(0) scale(.96)}75%{transform:translateY(-7%) scale(1.06)}}
+.exc{display:inline-block;animation:exc 1.5s ease-in-out infinite;color:var(--pink)}
+/* ===== PASTE-css START — the done chips + the send + the treasure (first live install,
+   the 10.10 standing order; demo: pupils/kb1/hw-treasure-demo.html) ===== */
+.expl{background:#FFF3D6;border-radius:14px;padding:.7em 1em;font-size:clamp(.9rem,2.2vw,1.05rem)}
+.task{flex-wrap:wrap;align-items:center}
+.task .tt{flex:1;min-width:12em}
+.task .tt small{color:var(--ink-soft);font-size:.82em}
+.chip{flex:0 0 auto;border:2px solid var(--mint-deep);color:var(--mint-deep);background:#fff;border-radius:999px;padding:.3em .85em;font-family:'Nunito',sans-serif;font-size:clamp(.8rem,2vw,.95rem);font-weight:800;cursor:pointer;white-space:nowrap}
+.chip.on{background:var(--mint-deep);color:#fff}
+.progress{color:var(--ink-soft);font-size:clamp(.9rem,2.2vw,1.05rem);text-align:center}
+.who{display:flex;gap:.6em;align-items:center;justify-content:center;flex-wrap:wrap}
+.who input{font:inherit;font-size:clamp(1rem,2.4vw,1.15rem);padding:.4em .6em;border:2px solid var(--lavender);border-radius:12px;width:7.5em;text-align:center;outline:none}
+.who input#pupp-surn{width:2.2em}
+.who input#pupp-group{width:2.2em}
+.who .kprefix{font-weight:800;font-size:clamp(1rem,2.4vw,1.15rem)}
+.send{display:block;width:100%;border:0;background:var(--pink);color:#fff;font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,2.8vw,1.35rem);font-weight:700;border-radius:14px;padding:.75em;cursor:pointer;box-shadow:0 3px 0 #e06a8a}
+.send:active{transform:translateY(2px);box-shadow:0 1px 0 #e06a8a}
+.send.sent{background:var(--mint-deep);box-shadow:0 3px 0 #47a894}
+.hint{text-align:center;font-size:clamp(.85rem,2.2vw,1rem);color:#d45f85;min-height:1.4em}
+.boxwrap{display:none;text-align:center;margin-top:1vh}
+.boxwrap.show{display:block}
+.box{font-size:96px;cursor:pointer;display:inline-block;animation:wob 1.2s ease-in-out infinite}
+@keyframes wob{0%,100%{transform:rotate(-4deg) scale(1)}50%{transform:rotate(4deg) scale(1.06)}}
+.boxlabel{font-size:20px;font-weight:800;color:#d45f85}
+.cartoon{display:none;background:var(--white);border:2px dashed var(--peach);border-radius:16px;padding:18px;margin-top:14px}
+.cartoon.show{display:block;animation:pop .35s ease}
+@keyframes pop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.cartoon .pig{font-size:44px}
+.cartoon h3{margin:6px 0 2px;font-size:20px}
+.cartoon p{font-size:14.5px;color:var(--ink-soft);margin-bottom:12px}
+.play{display:block;text-align:center;background:var(--peach);color:var(--ink);text-decoration:none;font-family:'Fredoka',sans-serif;font-weight:700;font-size:18px;border-radius:12px;padding:14px}
+/* ===== PASTE-css END ===== */
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">🎒 Kid's Box 1 · домашние задания</div>
+    <h1>Наше ДЗ</h1>
+    <div class="sub">Новое задание всегда сверху. Ссылка постоянная — сохраните её.</div>
+  </header>
+
+<details class="hw-row" open>
+  <summary><span class="txt"><span class="nm">Урок 10 · Мини-тест и чтение 📖 <span class="new">✨ новое!</span></span><br><span class="dt">читаем слова D · мини-тест · слушай и рисуй · AB стр. 12</span></span></summary>
+  <div class="card hw-body">
+    <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
+
+    <div class="item task"><span class="n">1</span><span class="tt"><b>Читаем слова про букву D!</b> 📖 <small>— только СЛОВА, историю пока не читаем!</small></span><button class="chip" id="pupp-chip-1" data-k="t-read" onclick="pupTog(this)">Готово</button></div>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-d.html#2" target="_blank">📖 Открыть слова — буква D</a>
+
+    <div class="item task"><span class="n">2</span><span class="tt"><b>Мини-тест: посчитай — Yes или No?</b> 🧮 <small>— посчитай картинки и нажми кнопку!</small></span><button class="chip" id="pupp-chip-2" data-k="t-test" onclick="pupTog(this)">Готово</button></div>
+    <div id="t2game" style="background:#f1ecff;border-radius:14px;padding:12px;margin:6px 0">
+      <div id="t2-count" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 5</div>
+      <div id="t2-pics" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:10px 0;min-height:60px"></div>
+      <div id="t2-label" style="text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.5rem;color:#2D3436"></div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:10px">
+        <button id="t2-yes" onclick="t2Ans(true)" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;border:none;border-radius:99px;padding:.5em 1.6em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">Yes 👍</button>
+        <button id="t2-no" onclick="t2Ans(false)" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;border:none;border-radius:99px;padding:.5em 1.6em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">No 👎</button>
+      </div>
+      <div id="t2-end" style="display:none;text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.4rem;color:#2D3436;margin-top:6px"></div>
+    </div>
+
+    <div class="item task"><span class="n">3</span><span class="tt"><b>Слушай и рисуй!</b> 🎨 <small>— включи и нарисуй монстрика Вилберта в тетради!</small></span><button class="chip" id="pupp-chip-3" data-k="t-draw" onclick="pupTog(this)">Готово</button></div>
+    <audio controls preload="none" src="../../media/kb1-u2-test-e2-p3.mp3"></audio>
+
+    <div class="item task"><span class="n">4</span><span class="tt"><b>Послушай и напиши возраст!</b> ✏️ <small>— слушай и пиши возраст в тетрадь: a, b, c, d, e!</small></span><button class="chip" id="pupp-chip-4" data-k="t-age" onclick="pupTog(this)">Готово</button></div>
+    <audio controls preload="none" src="../../media/kb1-u2-test-e2-p4.mp3"></audio>
+
+    <div class="item task"><span class="n">5</span><span class="tt"><b>AB стр. 12 — упр. 1 и 2</b> 📖 <small>— упр. 1: слушай и пиши номер в книжке! Упр. 2: веди пальцем по линиям!</small></span><button class="chip" id="pupp-chip-5" data-k="t-ab" onclick="pupTog(this)">Готово</button></div>
+    <img src="../../media/kb1-u2-ab12.png" alt="AB стр. 12" style="width:min(520px,100%);align-self:center;border-radius:14px;box-shadow:var(--shadow)">
+    <audio controls preload="none" src="../../media/kb1-u2-ab12-t06.mp3"></audio>
+
+    <div class="progress" id="pupp-prog">Отмечено: 0 из 5</div>
+    <div class="who">
+      <input id="pupp-name" placeholder="Имя" autocomplete="off">
+      <input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
+      <span class="kprefix">KB 1.</span><input id="pupp-group" placeholder="?" maxlength="1" autocomplete="off" title="Твоя группа: 1, 2 или 3">
+    </div>
+    <button class="send" id="pupp-send" onclick="pupSend()">📤 Отправить Мисс Елене</button>
+    <div class="hint" id="pupp-hint"></div>
+
+    <div class="boxwrap" id="pupp-boxwrap">
+      <div class="box" onclick="document.getElementById('pupp-cartoon').classList.add('show')">🎁</div>
+      <div class="boxlabel">Твой подарок! Нажми!</div>
+      <div class="cartoon" id="pupp-cartoon">
+        <div class="pig">🐷✨</div>
+        <h3>Peppa Pig — «Охота за сокровищами»</h3>
+        <p>Ты молодец! Все задания сделаны. Смотри мультик!</p>
+        <a class="play" href="https://www.youtube.com/watch?v=MT-CWEMoQiY" target="_blank" rel="noopener">▶️ Смотреть подарок</a>
+      </div>
+    </div>
+
+    <div class="note">Если что-то не получается — напишите администратору Мисс Алёне, поможем.</div>
+  </div>
+</details>
+
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 9 · Colours 🌈</span></span><br><span class="dt">чтение — история про муравья · цвета на shkola.app · песенка про карандаш</span></span></summary>
+  <div class="card hw-body">
+    <div class="item"><span class="n">1</span><span><b>Чтение — история про муравья и штамп!</b> 🐜</span></div>
+    <div style="display:flex;flex-direction:column;gap:1vh;align-items:center">
+      <img src="../../media/kb1-phonics-m-story.png" alt="Stamp! Stamp! Stamp! — Pat the ant, stamps the map" style="width:min(520px,100%);border-radius:14px;box-shadow:var(--shadow)">
+    </div>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-m.html#7" target="_blank">Открыть историю</a>
+    <div class="item"><span class="n">2</span><span><b>Цвета на shkola.app!</b> 🎨 Набор <b>«Colours»</b> — слушай слово и выбирай картинку 🎧</span></div>
+    <div class="note">Задание называется «Colours» и уже ждёт на платформе. Если вы ещё не пользовались shkola.app и вход не получается — напишите администратору Мисс Алёне, поможем.</div>
+    <div class="item"><span class="n">3</span><span><b>Песенка про карандаш — Hold your pencil up</b> ✏️ Слушай и делай движения с НАСТОЯЩИМ карандашом (up · down · on your hand…):</span></div>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/song/pab-1-6-hold-your-pencil-up.html" target="_blank">🎵 Открыть песенку — картинки поют слова!</a>
+    </div>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 8 · School things 🎒</span><br><span class="dt">задание на shkola.app — «School things» · речёвка (стр. 11) · Left and Right</span></span></summary>
+  <div class="card hw-body">
+    <div class="item"><span class="n">1</span><span><b>Новое на shkola.app!</b> 📱 Набор <b>«School things»</b> — школьные слова: a pencil · a book · an eraser · a pen · a table · a chair. Слушай слово и выбирай картинку 🎧</span></div>
+    <div class="note">shkola.app — учебная платформа школы. Задание называется «School things» и уже ждёт на платформе. Если вы ещё не пользовались shkola.app и вход не получается — напишите администратору Мисс Алёне, поможем.</div>
+    <div class="item"><span class="n">2</span><span><b>Речёвка!</b> 👆 Веди пальцем по словам и читай (учебник, стр. 11): <b>a pencil · a book · an eraser · a pen · a table · a chair</b>. Сначала послушай, потом читай сам — всё быстрее:</span></div>
+    <audio controls preload="none" src="../../media/kb1-u2-pb11-t15.mp3"></audio>
+    <div style="display:flex;flex-direction:column;gap:1vh;align-items:center">
+      <img src="../../media/kb1-u2-pb11.png" alt="PB стр. 11 — речёвка про школьные вещи" style="width:min(430px,100%);border-radius:14px;box-shadow:var(--shadow)">
+    </div>
+    <div class="item"><span class="n">3</span><span><b>Наша любимая песня — Left and Right</b> 🎵 Пусть звучит дома: дети показывают движения (sit down · stand up · turn left · turn right · jump):</span></div>
+    <audio controls preload="none" src="../../media/kb1-u2-ge-left-right.mp3"></audio>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 7 · Ss, Mm и первая скороговорка 🦇</span><br><span class="dt">Nn — читай историю! · скороговорка · листы Ss и Mm · AB стр. 11 · две игры · Left and Right · листы-подсказки</span></span></summary>
+  <div class="card hw-body">
+    <div class="item"><span class="n">1</span><span><b>Nn — читай историю!</b></span></div>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-n.html" target="_blank">▶ История про арбузные семечки</a>
+    <div class="item"><span class="n">2</span><span><b>Учимся читать скороговорку!</b> Прочитать родителям — быстрее и быстрее<span class="exc">!</span></span></div>
+    <div style="display:flex;flex-direction:column;gap:1vh;align-items:center">
+      <img src="../../media/kb1-u2-poster-rhyme.png" alt="a bat sat on the mat, a rat sat on the mat" style="width:min(430px,100%);border-radius:14px;box-shadow:var(--shadow)">
+    </div>
+    <div class="item"><span class="n">3</span><span><b>Листы Ss и Mm</b> — обвести и прописать буквы (заглавные и строчные), пройти букву-лабиринт.</span></div>
+    <div class="item"><span class="n">4</span><span><b>AB стр. 11</b> — упр. 1 (только первая строчка) и упр. 2 — нарисовать 3 любых предмета из предложенных.</span></div>
+    <div class="item"><span class="n">5</span><span><b>Игра</b> — буква S и её слова:</span></div>
+    <a class="btn" href="https://wordwall.net/resource/73492628/wow-abc-s" target="_blank">▶ Wordwall: ABC — S</a>
+    <div class="item"><span class="n">6</span><span><b>Игра — читаем слова M и R</b> (играли на уроке!) — сначала узнай слова:</span></div>
+    <div style="background:var(--cream);border-radius:14px;padding:12px 16px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.25rem,3.6vw,1.7rem);line-height:2;text-align:center">
+      <span style="color:#5ecbb8;font-size:1.25em">6</span> six · 😢 sad · <img src="../../media/kb1-elena-sit.png" alt="sit" style="height:clamp(1.7rem,4vw,2.6rem);vertical-align:middle"> sit · ☀️ sun<br>
+      👩 mum · 🧹 mop · <svg viewBox="0 0 100 100" style="height:clamp(1.7rem,4vw,2.6rem);vertical-align:middle"><path d="M27 30 h42 v34 a13 13 0 0 1 -13 13 h-16 a13 13 0 0 1 -13 -13 z" fill="#C8B6FF" stroke="#2D3436" stroke-width="3"/><path d="M69 38 a11 11 0 0 1 0 21" fill="none" stroke="#2D3436" stroke-width="4.5" stroke-linecap="round"/><ellipse cx="48" cy="30" rx="21" ry="5" fill="#FCE38A" stroke="#2D3436" stroke-width="3"/></svg> mug · 🗺️ map<br>
+      🐀 rat · 🔴 red · <img src="../../media/kb1-u1-fc-rug.png" alt="rug" style="height:clamp(1.7rem,4vw,2.6rem);vertical-align:middle;border-radius:6px"> rug · <img src="../../media/kb1-elena-rag.png" alt="rag" style="height:clamp(1.7rem,4vw,2.6rem);vertical-align:middle"> rag
+    </div>
+    <a class="btn" href="https://wordwall.net/resource/52174759/reading-m-r-phonics" target="_blank">▶ Wordwall: читаем слова M и R</a>
+    <div class="note">Листы-подсказки — те же слова (Ss · Mm · Rr). Для тех, кого не было на уроке, — можно распечатать:</div>
+    <div style="display:flex;gap:1vh;justify-content:center;flex-wrap:wrap">
+      <img src="../../media/kb1-u2-s.png" alt="лист Ss — sad, sit, sun, six" style="width:min(260px,46%);border-radius:14px;box-shadow:var(--shadow)">
+      <img src="../../media/kb1-u2-m.png" alt="лист Mm — mum, mop, mug, map" style="width:min(260px,46%);border-radius:14px;box-shadow:var(--shadow)">
+      <img src="../../media/kb1-u1-l5-rr.png" alt="лист Rr — a rat, red, a rug, a rag" style="width:min(260px,46%);border-radius:14px;box-shadow:var(--shadow)">
+    </div>
+  
+      <div class="item"><span class="n">7</span><span><b>Наша любимая песня — Left and Right</b> 🎵 Пусть звучит дома: дети показывают движения (sit down · stand up · turn left · turn right · jump):</span></div>
+    <audio controls preload="none" src="../../media/kb1-u2-ge-left-right.mp3"></audio>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 6 · My school — мой школьный класс ✏️</span><br><span class="dt">первые буквы, первые слова и первый рассказ! · лист Tt · AB стр. 10 · «Составь слово» · Wordwall · песня Left and Right</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>Учимся читать</b> — первые буквы, первые слова и первый рассказ:</span></div>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-s-i-t-p-a.html" target="_blank">▶ Первые буквы, первые слова и первый рассказ<span class="exc">!</span></a>
+    <div class="item"><span class="n">2</span><span><b>Лист Tt</b> — раскрасить кружочки с заглавными и строчными буквами, прописать, раскрасить дорожку из T и t кирпичиков.</span></div>
+    <div class="item"><span class="n">3</span><span><b>AB стр. 10, упр. 1 🎧</b> — послушать аудио и выполнить задание в тетради:</span></div>
+    <audio controls preload="none" src="../../media/kb1-u2-ab10-t05.mp3"></audio>
+    <div class="item"><span class="n">4</span><span><b>AB стр. 10, упр. 2</b> — нарисовать свой стол и школьные вещи на нём.</span></div>
+    <div class="item"><span class="n">5</span><span><b>Игра «Составь слово»</b> — буквы перепутались! Посмотри на картинку, составь слово и <b>напиши его</b>:</span></div>
+    <div id="unscr" style="display:flex;flex-direction:column;gap:1.2vh;align-items:center;background:var(--cream);border-radius:16px;padding:14px">
+      <div style="display:flex;gap:.6em;align-items:center;flex-wrap:wrap;justify-content:center">
+        <span style="font-weight:800">👤 Твоё имя:</span>
+        <input id="unscr-name" type="text" autocomplete="off" placeholder="имя…"
+          style="font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,4vw,1.4rem);text-align:center;padding:.3em .8em;border:3px solid var(--mint);border-radius:12px;width:min(180px,60%);outline:none">
+        <span style="font-weight:800">Первая буква фамилии:</span>
+        <input id="unscr-surn" type="text" autocomplete="off" maxlength="1" autocapitalize="characters" placeholder="К"
+          style="font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,4vw,1.4rem);text-align:center;text-transform:uppercase;padding:.3em .8em;border:3px solid var(--mint);border-radius:12px;width:2.4em;outline:none">
+        <span style="font-weight:800">Твоя группа:</span>
+        <span style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.1rem,4vw,1.4rem)">KB 1.</span>
+        <input id="unscr-group" type="text" inputmode="numeric" autocomplete="off" maxlength="1" placeholder="?"
+          style="font-family:'Fredoka',sans-serif;font-size:clamp(1.1rem,4vw,1.4rem);text-align:center;padding:.3em .8em;border:3px solid var(--mint);border-radius:12px;width:2.2em;outline:none">
+      </div>
+      <button id="unscr-start" class="btn mint" onclick="unscrStart()">▶ Играть</button>
+      <div id="unscr-game" style="display:none;flex-direction:column;gap:1.2vh;align-items:center;width:100%">
+        <div id="unscr-prog" style="font-weight:800;color:var(--ink-soft)"></div>
+        <img id="unscr-img" alt="" style="height:130px;border-radius:14px;background:#fff;box-shadow:var(--shadow)">
+        <div id="unscr-mix" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,7vw,2.8rem);letter-spacing:.18em;color:var(--lavender-deep)"></div>
+        <input id="unscr-in" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+          placeholder="слово…" style="font-family:'Fredoka',sans-serif;font-size:clamp(1.4rem,5vw,1.9rem);text-align:center;letter-spacing:.1em;padding:.35em .8em;border:3px solid var(--mint);border-radius:14px;width:min(280px,100%);outline:none">
+        <button class="btn mint" onclick="unscrCheck()">Проверить</button>
+        <div id="unscr-fb" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4vw,1.6rem);min-height:1.4em"></div>
+      </div>
+      <div id="unscr-end" style="display:none;flex-direction:column;gap:1vh;align-items:center">
+        <div id="unscr-score" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,5vw,2.1rem);color:var(--mint-deep)"></div>
+        <div id="unscr-sent" style="font-size:clamp(.9rem,2.4vw,1.1rem);color:var(--ink-soft)"></div>
+        <button class="btn" onclick="unscrStart()">Ещё раз 🔁</button>
+      </div>
+    </div>
+    <div class="item"><span class="n">6</span><span>🎮 Две игры с новыми словами:</span></div>
+    <a class="btn" href="https://wordwall.net/resource/86111229/kb1-unit-2-my-school" target="_blank">▶ Wordwall: карточки со словами</a>
+    <a class="btn" href="https://wordwall.net/resource/85402274" target="_blank">▶ Wordwall: True or False (как на уроке)</a>
+    <div class="item" style="margin-top:.6vh"><span class="n">🎵</span><span class="song-title">Наша новая песня — Left and Right</span></div>
+    <div class="note">Пусть звучит дома: дети показывают движения (sit down · stand up · turn left · turn right · jump).</div>
+    <audio controls preload="none" src="../../media/kb1-u2-ge-left-right.mp3"></audio>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 5 · Читаем Rr и цвета 🌈</span><br><span class="dt">AB стр. 8, упр. 2 — вписать r (red, rainbow) · прописать лист Rr</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>AB стр. 8, упр. 2</b> — вписать букву r в слова (red, rainbow) и нарисовать.</span></div>
+    <div class="item"><span class="n">2</span><span><b>Лист Rr</b> — прописать буквы в строчках до конца.</span></div>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 4 · Читаем Aa, Bb 🔤</span><br><span class="dt">дорешать лабиринт Аа · AB стр. 9 · видео в школьном приложении</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>Распечатка Аа</b> — дорешать лабиринт с буквой a.</span></div>
+    <div class="item"><span class="n">2</span><span><b>AB стр. 9</b> — задание в тетради.</span></div>
+    <div class="item"><span class="n">3</span><span><b>Видео для родителей</b> — в школьном приложении.</span></div>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 3 · Сколько тебе лет? 🎂</span><br><span class="dt">AB стр. 6, упр. 1 · видео «How old are you?» · раскраска — в приложении</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>AB стр. 6, упр. 1</b> — послушать и вписать.</span></div>
+    <div class="item"><span class="n">2</span><span><b>Видео «How old are you?»</b> — в школьном приложении.</span></div>
+    <div class="item"><span class="n">3</span><span><b>Раскраска AB стр. 7</b> — в школьном приложении.</span></div>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 2 · Новые друзья 🧸</span><br><span class="dt">игра Wordwall — новые слова урока</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>Игра</b> — повторить слова урока:</span></div>
+    <a class="btn" href="https://wordwall.net/resource/85538200" target="_blank">▶ Wordwall: новые слова</a>
+  </div>
+</details>
+
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 1 · Знакомство 👋</span><br><span class="dt">игра Wordwall — колесо слов</span></span></summary>
+  <div class="card hw-body">
+<div class="item"><span class="n">1</span><span><b>Игра</b> — колесо со словами первого урока:</span></div>
+    <a class="btn" href="https://wordwall.net/resource/75555558" target="_blank">▶ Wordwall: колесо слов</a>
+  </div>
+</details>
+
+<footer>Kid's Box 1 · группы школы · страница домашних заданий</footer>
+</div>
+<script>
+/* ===== the Unscramble typing game + the Google-Form report ===== */
+/* ELENA: when you create the form (the recipe in lesson-deck-prompt.md),
+   paste the two values here:
+   FORM_ACTION = everything before the "?" of the pre-fill link, with
+                 viewform changed to formResponse
+   FORM_ENTRY  = the number after "entry." in that link               */
+const FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSclA75beBw43_odq4MnKpQTyVZ8IAnaVGuJ2hYXPj5ZWGS3fg/formResponse";
+const FORM_ENTRY="entry.1388210654";
+const UNAME_KEY='kb1-hw-name', USURN_KEY='kb1-hw-surn', UGROUP_KEY='kb1-hw-group', UQUEUE_KEY='kb1-hw-report-queue';
+const UNSCR=[
+  {img:'../../media/kb1-u2-fc-chair.png', mix:'ricah',  ans:'chair'},
+  {img:'../../media/kb1-u2-fc-table.png', mix:'elbat',  ans:'table'},
+  {img:'../../media/kb1-u2-fc-eraser.png',mix:'resare', ans:'eraser'},
+  {img:'../../media/kb1-u2-fc-pencil.png',mix:'licpen', ans:'pencil'},
+  {img:'../../media/kb1-u2-fc-pen.png',   mix:'nep',    ans:'pen'},
+  {img:'../../media/kb1-u2-fc-book.png',  mix:'koob',   ans:'book'}
+];
+let uOrd=[],uI=0,uFirstTry=0,uTried=false;
+(function(){
+  const n=localStorage.getItem(UNAME_KEY);
+  if(n)document.getElementById('unscr-name').value=n;
+  const s=localStorage.getItem(USURN_KEY);
+  if(s)document.getElementById('unscr-surn').value=s;
+  const g=localStorage.getItem(UGROUP_KEY);
+  if(g)document.getElementById('unscr-group').value=g;
+})();
+function unscrShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function unscrSend(text){
+  if(!FORM_ACTION||!FORM_ENTRY){
+    try{const q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');q.push(text);localStorage.setItem(UQUEUE_KEY,JSON.stringify(q));}catch(e){}
+    return false;
+  }
+  try{
+    fetch(FORM_ACTION,{method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:FORM_ENTRY+'='+encodeURIComponent(text)});
+    return true;
+  }catch(e){
+    try{const q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');q.push(text);localStorage.setItem(UQUEUE_KEY,JSON.stringify(q));}catch(e2){}
+    return false;
+  }
+}
+function unscrFlushQueue(){
+  if(!FORM_ACTION||!FORM_ENTRY)return;
+  try{
+    const q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');
+    q.forEach(t=>{try{fetch(FORM_ACTION,{method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:FORM_ENTRY+'='+encodeURIComponent(t)});}catch(e){}});
+    localStorage.setItem(UQUEUE_KEY,'[]');
+  }catch(e){}
+}
+function unscrStart(){
+  const nameEl=document.getElementById('unscr-name');
+  const surnEl=document.getElementById('unscr-surn');
+  const groupEl=document.getElementById('unscr-group');
+  const name=nameEl.value.trim();
+  const surn=surnEl.value.trim().toUpperCase();
+  const group=groupEl.value.trim();
+  let bad=null;
+  if(!name)bad=[nameEl,'сначала имя!'];
+  else if(!surn)bad=[surnEl,'буква!'];
+  else if(!['1','2','3'].includes(group))bad=[groupEl,'1, 2 или 3!'];
+  if(bad){const el=bad[0];el.focus();el.placeholder=bad[1];el.style.borderColor='var(--pink)';return;}
+  nameEl.style.borderColor='var(--mint)';surnEl.style.borderColor='var(--mint)';groupEl.style.borderColor='var(--mint)';
+  surnEl.value=surn;
+  try{
+    localStorage.setItem(UNAME_KEY,name);
+    localStorage.setItem(USURN_KEY,surn);
+    localStorage.setItem(UGROUP_KEY,group);
+  }catch(e){}
+  uOrd=unscrShuffle([...UNSCR]);uI=0;uFirstTry=0;
+  document.getElementById('unscr-start').style.display='none';
+  document.getElementById('unscr-end').style.display='none';
+  document.getElementById('unscr-game').style.display='flex';
+  unscrShow();
+}
+function unscrShow(){
+  uTried=false;
+  const it=uOrd[uI];
+  document.getElementById('unscr-prog').textContent=(uI+1)+' / '+uOrd.length;
+  document.getElementById('unscr-img').src=it.img;
+  document.getElementById('unscr-mix').textContent=it.mix.split('').join(' ');
+  const in_=document.getElementById('unscr-in');
+  in_.value='';in_.disabled=false;in_.focus();
+  document.getElementById('unscr-fb').textContent='';
+}
+function unscrCheck(){
+  const it=uOrd[uI],in_=document.getElementById('unscr-in'),fb=document.getElementById('unscr-fb');
+  if(in_.value.trim().toLowerCase()===it.ans){
+    if(!uTried)uFirstTry++;
+    fb.textContent='✅ '+(it.ans.charAt(0).toUpperCase()+it.ans.slice(1))+'!';
+    fb.style.color='#2fa86b';in_.disabled=true;
+    setTimeout(()=>{
+      uI++;
+      if(uI<uOrd.length){unscrShow();}else{
+        document.getElementById('unscr-game').style.display='none';
+        document.getElementById('unscr-score').textContent='🌟 '+uFirstTry+' из '+uOrd.length+' с первой попытки!';
+        const who=(localStorage.getItem(UNAME_KEY)||'')+' '+(localStorage.getItem(USURN_KEY)||'');
+        const grp=localStorage.getItem(UGROUP_KEY)||'?';
+        const when=new Date().toLocaleDateString();
+        const report='KB 1.'+grp+' · Урок 6 · Составь слово · '+who+': '+uFirstTry+' из '+uOrd.length+' с первой попытки · '+when;
+        const sent=unscrSend(report);
+        unscrFlushQueue();
+        document.getElementById('unscr-sent').textContent=sent?'✉️ Результат отправлен Елене':'✨ Результат сохранён';
+        document.getElementById('unscr-end').style.display='flex';
+      }
+    },1100);
+  }else{
+    uTried=true;
+    fb.textContent='❌ Попробуй ещё раз';fb.style.color='var(--pink)';
+    in_.select();
+  }
+}
+document.getElementById('unscr-in').addEventListener('keydown',e=>{if(e.key==='Enter')unscrCheck();});
+</script>
+<script>
+/* Урок 9 · Куклы и ABC-P — the done chips + send + treasure (per-device localStorage).
+   Send reuses the hub's unscrSend (the «Drill reports» form + its queue) when present. */
+var PUPP_KEY='kb1-u10a-', PUPP_N=5;
+function pupTog(el){
+  var k=PUPP_KEY+el.getAttribute('data-k');
+  localStorage.setItem(k, localStorage.getItem(k)==='1' ? '0' : '1');
+  pupPaint();
+}
+function pupAll(){
+  var d=0,c;
+  for(var i=1;i<=PUPP_N;i++){
+    c=document.getElementById('pupp-chip-'+i);
+    if(c && localStorage.getItem(PUPP_KEY+c.getAttribute('data-k'))==='1') d++;
+  }
+  return d;
+}
+function pupDate(){
+  var d=new Date();
+  return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear();
+}
+function pupQueue(text){
+  try{
+    var q=JSON.parse(localStorage.getItem('kb1-hw-report-queue')||'[]');
+    q.push(text);
+    localStorage.setItem('kb1-hw-report-queue',JSON.stringify(q));
+  }catch(e){}
+}
+function pupSend(){
+  var n=document.getElementById('pupp-name'),
+      s=document.getElementById('pupp-surn'),
+      g=document.getElementById('pupp-group'),
+      hint=document.getElementById('pupp-hint');
+  var name=n.value.trim(), surn=s.value.trim().toUpperCase(), grp=g.value.trim();
+  if(!name){hint.textContent='Сначала напиши имя!';n.focus();return;}
+  if(!surn){hint.textContent='Напиши первую букву фамилии!';s.focus();return;}
+  if('123'.indexOf(grp)<0){hint.textContent='Ты из группы 1, 2 или 3?';g.focus();return;}
+  s.value=surn; hint.textContent='';
+  try{
+    localStorage.setItem('kb1-hw-name',name);
+    localStorage.setItem('kb1-hw-surn',surn);
+    localStorage.setItem('kb1-hw-group',grp);
+  }catch(e){}
+  var gs=null;try{gs=localStorage.getItem('kb1-u10a-game')}catch(e){}
+  var txt='KB 1.'+grp+' · Урок 10 · Домашка: мини-тест и чтение · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+(gs?' · Мини-тест: '+gs+' из 5':'')+' · '+pupDate();
+  if(window.unscrSend){ unscrSend(txt); } else { pupQueue(txt); }
+  localStorage.setItem(PUPP_KEY+'sent','1');
+  pupPaint();
+}
+function pupPaint(){
+  var i,c,on;
+  for(i=1;i<=PUPP_N;i++){
+    c=document.getElementById('pupp-chip-'+i);
+    if(!c)continue;
+    on=localStorage.getItem(PUPP_KEY+c.getAttribute('data-k'))==='1';
+    c.classList.toggle('on',on);
+    c.textContent=on?'✓ Готово':'Готово';
+  }
+  var d=pupAll(), sent=localStorage.getItem(PUPP_KEY+'sent')==='1';
+  document.getElementById('pupp-prog').textContent='Отмечено: '+d+' из '+PUPP_N;
+  var b=document.getElementById('pupp-send');
+  if(sent){ b.classList.add('sent'); b.textContent='✓ Отправлено Мисс Елене'; }
+  var box=document.getElementById('pupp-boxwrap'), hint=document.getElementById('pupp-hint');
+  if(d===PUPP_N && sent){
+    box.classList.add('show'); hint.textContent='';
+  }else{
+    box.classList.remove('show');
+    document.getElementById('pupp-cartoon').classList.remove('show');
+    if(sent && d<PUPP_N){ hint.textContent='Отметь все задания — и откроется подарок! 🎁'; }
+    else if(!sent && d===PUPP_N){ hint.textContent='Всё готово! Осталось нажать кнопку отправки ✉️'; }
+  }
+}
+(function(){
+  try{
+    var n=localStorage.getItem('kb1-hw-name'),
+        s=localStorage.getItem('kb1-hw-surn'),
+        g=localStorage.getItem('kb1-hw-group');
+    if(n)document.getElementById('pupp-name').value=n;
+    if(s)document.getElementById('pupp-surn').value=s;
+    if(g)document.getElementById('pupp-group').value=g;
+  }catch(e){}
+  pupPaint();
+})();
+</script>
+</body>
+</html>
