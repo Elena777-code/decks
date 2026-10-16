@@ -95,6 +95,8 @@ h2{font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.4vw,1.8rem);m
 <div class="accent-line"></div>
 <p class="lead">Это <b>твоя страница</b> — она всегда одна и та же. Запиши ссылку (или спроси у Елены ещё раз): <b>elena777-code.github.io/decks/p/sergey/homework.html</b><br>Тыкай на задания — и ставь галочки, когда сделал! ✅</p>
 
+<div class="lq"><span style="font-family:'Fredoka';font-weight:600">✏️ Кто сегодня делает задания?</span> <input id="hw-name" type="text" autocomplete="off" placeholder="напиши имя…" style="width:9em"></div>
+
 <!-- 14.10 SCAN READING -->
 <div class="card now">
   <h2>Урок 14.10 · Scan reading ✈️ — табло и часы</h2>
@@ -245,7 +247,7 @@ document.querySelectorAll('.opts').forEach((box,ri)=>{
   }));
 });
 function drillReport(){
-  const lines=['🐭 Sergey · homework drill — Lesson 10 (word harvest + countries)',
+  const lines=['🐭 '+(typeof hwName==='function'?hwName():'Sergey')+' · homework drill — Lesson 10 (word harvest + countries)',
     'Date: '+new Date().toLocaleString('ru-RU'),''];
   let total=0;
   document.querySelectorAll('.play-row').forEach((row,ri)=>{
@@ -304,6 +306,25 @@ function flushQueue(){
   try{localStorage.setItem('sergey-hw-queue','[]');}catch(e){}
 }
 flushQueue(); /* anything that failed to send last time goes now */
+</script>
+<script>
+/* ===== the name row (Elena, 16.10: «I need to write the name so you
+   know who fulfils the tasks») — the child types the name once, the
+   device remembers, every report line carries it (Sergey = fallback).
+   hwName() is global — the drill and the airport reporter both use it. */
+function hwName(){
+  var el=document.getElementById('hw-name');
+  var v=el?el.value.trim():'';
+  return v||'Sergey';
+}
+(function(){
+  var el=document.getElementById('hw-name');
+  if(!el)return;
+  try{el.value=localStorage.getItem('sergey-hw-name')||'';}catch(e){}
+  el.addEventListener('input',function(){
+    try{localStorage.setItem('sergey-hw-name',el.value);}catch(e){}
+  });
+})();
 </script>
 <script>
 /* ===== silly verbs: ate / bought / destroyed — own counters,
@@ -529,7 +550,7 @@ flushQueue(); /* anything that failed to send last time goes now */
     if(!sectionDone('.flq')||!sectionDone('.tmq'))return;
     sent=true;
     var ft=tries('.flq'), tt=tries('.tmq');
-    var lines=['🐭 Sergey · homework — Урок 14.10 · Airport ✈️ + Time ⏰',
+    var lines=['🐭 '+hwName()+' · homework — Урок 14.10 · Airport ✈️ + Time ⏰',
       'Date: '+new Date().toLocaleString('ru-RU'),'',
       'Flights: 5/5 · tries: '+ft,
       'Time: 5/5 · tries: '+tt,'',
