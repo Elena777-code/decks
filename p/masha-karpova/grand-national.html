@@ -46,6 +46,11 @@ p.lead strong{color:var(--sage-deep)}
 .icons{font-size:1.6rem;letter-spacing:.3em;margin:.3em 0}
 .meta{font-size:.85rem;font-weight:700;color:var(--sub);letter-spacing:.05em}
 .best{font-size:.95rem;font-weight:800;color:var(--sage-deep);margin:.5em 0 .2em;min-height:1.3em}
+.name-row{display:flex;flex-direction:column;gap:.4em;margin:1em 0}
+.name-row label{font-size:.85rem;font-weight:800;color:var(--sub);letter-spacing:.06em}
+#name-box{border:2px solid var(--line);border-radius:12px;background:#fff;
+  padding:.55em .8em;font-family:'Nunito',sans-serif;font-size:1.05rem;color:var(--ink)}
+#name-box:focus{outline:none;border-color:var(--sage)}
 .start-btn,.ok-btn,.again-btn{border:none;border-radius:99px;padding:.6em 1.5em;cursor:pointer;
   font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1rem,2vw,1.15rem);
   background:var(--sage);color:#fff;transition:transform .15s,filter .15s}
@@ -98,9 +103,13 @@ p.lead strong{color:var(--sage-deep)}
     <div class="icons">🐴 🏇 ⏱</div>
     <div class="meta">6 CARDS · 15 s EACH · ONE MINUTE AND A HALF IN TOTAL</div>
     <div class="best" id="best-line"></div>
+    <div class="name-row">
+      <label for="name-box">Your name</label>
+      <input id="name-box" autocomplete="off" spellcheck="false">
+    </div>
     <button class="start-btn" id="begin-btn">Start</button>
     <p class="hint backline">← <a href="word-formation.html?v=2">back to word formation</a> · <a href="hw.html?v=10">my homework</a></p>
-    <span class="stamp">build 2026-10-14 · v1 · hwdt: the text in cards, seconds on each — never one long block</span>
+    <span class="stamp">build 2026-10-14 · v2 · asks the name, remembers it (Elena's rule) · hwdt: cards, seconds on each</span>
   </div>
 
   <div class="card hidden" id="q-card">
@@ -174,10 +183,18 @@ function deal(){
 
 /* ---------- state ---------- */
 var tasks=deal(),log=[],qi=0,timer=null,t0=0,DUR=0,answered=false;
+var RUNNER="";
+try{RUNNER=localStorage.getItem("mashak-gn-name")||"";}catch(e){}
+$("name-box").value=RUNNER;
 (function(){var best=+localStorage.getItem("mashak-gn-best")||0;
   if(best)$("best-line").textContent="best: "+best+"%";})();
 
 $("begin-btn").addEventListener("click",function(){
+  var v=$("name-box").value.trim();
+  if(!v){$("name-box").style.borderColor="var(--terra-deep)";
+    $("name-box").placeholder="write your name first";return;}
+  RUNNER=v;
+  try{localStorage.setItem("mashak-gn-name",v);}catch(e){}
   tasks=deal();log=[];qi=0;ask();});
 $("again-btn").addEventListener("click",function(){
   tasks=deal();log=[];qi=0;ask();});
