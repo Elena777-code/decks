@@ -98,7 +98,83 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
   </header>
 
 <details class="hw-row" open>
-  <summary><span class="txt"><span class="nm">Урок 9 · Куклы и ABC-P 🎭 <span class="new">✨ новое!</span></span><br><span class="dt">чтение — смешные предложения · куклы 🧵 · AB стр. 14 · буква Pp · Дорисуй · игра ABC-P</span></span></summary>
+  <summary><span class="txt"><span class="nm">Урок 10 · Мини-тест и чтение 📖 <span class="new">✨ новое!</span></span><br><span class="dt">читаем слова Dd · мини-тест · d и b · He/She · песенка · Colours · AB 12, 15</span></span></summary>
+  <div class="card hw-body">
+    <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
+
+    <div class="item task"><span class="n">1</span><span class="tt"><b>Читаем слова c буквой D!</b> 📖</span><button class="chip" id="pupp-chip-1" data-k="t-read" onclick="pupTog(this)">Готово</button></div>
+    <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-d.html#2" target="_blank">📖 Открыть d</a>
+
+    <div class="item task"><span class="n">2</span><span class="tt"><b>Мини-тест: посчитай — Yes или No?</b> 🧮 <small>— посчитай картинки и нажми кнопку!</small></span><button class="chip" id="pupp-chip-2" data-k="t-test" onclick="pupTog(this)">Готово</button></div>
+    <div id="t2game" style="background:#f1ecff;border-radius:14px;padding:12px;margin:6px 0">
+      <div id="t2-count" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 5</div>
+      <div id="t2-pics" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:10px 0;min-height:60px"></div>
+      <div id="t2-label" style="text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.5rem;color:#2D3436"></div>
+      <div style="display:flex;gap:12px;justify-content:center;margin-top:10px">
+        <button id="t2-yes" onclick="t2Ans(true)" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;border:none;border-radius:99px;padding:.5em 1.6em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">Yes 👍</button>
+        <button id="t2-no" onclick="t2Ans(false)" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;border:none;border-radius:99px;padding:.5em 1.6em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">No 👎</button>
+      </div>
+      <div id="t2-end" style="display:none;text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.4rem;color:#2D3436;margin-top:6px"></div>
+    </div>
+
+    
+
+    
+
+        <div class="item task"><span class="n">3</span><span class="tt"><b>Буквы d и b</b> 🔍 <small>— какая это буква? Нажми правильную!</small></span><button class="chip" id="pupp-chip-3" data-k="t-db" onclick="pupTog(this)">Готово</button></div>
+    <a class="btn" href="https://wordwall.net/ru/resource/57005922/b-and-d" target="_blank">▶ Играть — b и d</a>
+
+    <div class="item task"><span class="n">4</span><span class="tt"><b>Игра: He или She?</b> 🎮 <small>— Peppa Pig, Шрек и все-все-все!</small></span><button class="chip" id="pupp-chip-4" data-k="t-heshe" onclick="pupTog(this)">Готово</button></div>
+    <a class="btn" href="https://wordwall.net/resource/85471862" target="_blank">▶ Играть — He или She?</a>
+
+    <div class="item task"><span class="n">5</span><span class="tt"><b>Песенка Give me red!</b> 🎵 <small>— слушай и подпевай!</small></span><button class="chip" id="pupp-chip-5" data-k="t-song" onclick="pupTog(this)">Готово</button></div>
+    <audio controls preload="none" src="../../media/pw1-cd1-7-song.mp3"></audio>
+    <button class="btn" onclick="var ly=document.getElementById('gmely');var hid=ly.style.display==='none';ly.style.display=hid?'block':'none';this.textContent=hid?'🙈 Скрыть слова':'👀 Посмотреть слова';">👀 Посмотреть слова</button>
+    <div id="gmely" style="display:none;background:#fff8db;border-radius:14px;padding:12px;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.15rem;color:#2D3436;line-height:1.8">
+      <div>Give me <b style="color:#e74c3c">red</b> 🔴, here you are!</div>
+      <div>Give me <b style="color:#d9a800">yellow</b> 🟡, here you are!</div>
+      <div>Give me <b style="color:#27ae60">green</b> 🟢, here you are!</div>
+      <div>Give me <b style="color:#3498db">blue</b> 🔵, here you are!</div>
+      <div>Give me <b style="color:#2D3436">black</b> ⚫, here you are!</div>
+      <div>Give me white ⚪ — yeah, all right!</div>
+    </div>
+
+    <div class="item task"><span class="n">6</span><span class="tt"><b>Игра Colours</b> 🎨 <small>— на shkola.app!</small></span><button class="chip" id="pupp-chip-6" data-k="t-colours" onclick="pupTog(this)">Готово</button></div>
+    <a class="btn mint" href="https://student.shkola.app/home/lesson/11954412/Flashcard?slug=AYv8BiQo&onlypreview=true" target="_blank">▶ Открыть — shkola.app</a>
+
+<div class="item task"><span class="n">7</span><span class="tt"><b>AB стр. 12 — упр. 1 и 2</b> 📖 <small>— упр. 1: слушай и пиши номер в книжке! Упр. 2: веди пальцем по линиям!</small></span><button class="chip" id="pupp-chip-7" data-k="t-ab" onclick="pupTog(this)">Готово</button></div>
+    <button class="btn" onclick="var im=document.getElementById('ab12img');var hid=im.style.display==='none';im.style.display=hid?'block':'none';this.textContent=hid?'🙈 Спрятать страничку':'📸 Покажи страничку';">📸 Покажи страничку</button>
+    <img id="ab12img" src="../../media/kb1-u2-ab12.png" alt="AB стр. 12" style="display:none;width:min(520px,100%);align-self:center;border-radius:14px;box-shadow:var(--shadow)">
+    <audio controls preload="none" src="../../media/kb1-u2-ab12-t06.mp3"></audio>
+    <div class="item task"><span class="n">8</span><span class="tt"><b>AB стр. 15 — наклейки!</b> ✨ <small>— найди наклейки и приклей на страницу!</small></span><button class="chip" id="pupp-chip-8" data-k="t-ab15" onclick="pupTog(this)">Готово</button></div>
+    <button class="btn" onclick="var im=document.getElementById('ab15img');var hid=im.style.display==='none';im.style.display=hid?'block':'none';this.textContent=hid?'🙈 Спрятать страничку':'📸 Покажи страничку';">📸 Покажи страничку</button>
+    <img id="ab15img" src="../../media/kb1-u2-ab15.png" alt="AB стр. 15 — наклейки" style="display:none;width:min(520px,100%);align-self:center;border-radius:14px;box-shadow:var(--shadow)">
+
+    <div class="progress" id="pupp-prog">Отмечено: 0 из 8</div>
+    <div class="who">
+      <input id="pupp-name" placeholder="Имя" autocomplete="off">
+      <input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
+      <span class="kprefix">KB 1.</span><input id="pupp-group" placeholder="?" maxlength="1" autocomplete="off" title="Твоя группа: 1, 2 или 3">
+    </div>
+    <button class="send" id="pupp-send" onclick="pupSend()">📤 Отправить Мисс Елене</button>
+    <div class="hint" id="pupp-hint"></div>
+
+    <div class="boxwrap" id="pupp-boxwrap">
+      <div class="box" onclick="document.getElementById('pupp-cartoon').classList.add('show')">🎁</div>
+      <div class="boxlabel">Твой подарок! Нажми!</div>
+      <div class="cartoon" id="pupp-cartoon">
+        <div class="pig">🐷✨</div>
+        <h3>Peppa Pig — Daddy Pig рисует! 🎨</h3>
+        <p>Ты молодец! Все задания сделаны. Смотри мультик!</p>
+        <video controls preload="none" playsinline src="../../media/kb1-u2-peppa-paint.mp4" style="width:100%;border-radius:12px"></video>
+      </div>
+    </div>
+
+    <div class="note">Если что-то не получается — напишите администратору Мисс Алёне, поможем.</div>
+  </div>
+</details>
+
+<details class="hw-row">  <summary><span class="txt"><span class="nm">Урок 9 · Куклы и ABC-P 🎭 ></span><br><span class="dt">чтение — смешные предложения · куклы 🧵 · AB стр. 14 · буква Pp · Дорисуй · игра ABC-P</span></span></summary>
   <div class="card hw-body">
     <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
 
@@ -420,7 +496,7 @@ document.getElementById('unscr-in').addEventListener('keydown',e=>{if(e.key==='E
 <script>
 /* Урок 9 · Куклы и ABC-P — the done chips + send + treasure (per-device localStorage).
    Send reuses the hub's unscrSend (the «Drill reports» form + its queue) when present. */
-var PUPP_KEY='kb1-u9b-', PUPP_N=6;
+var PUPP_KEY='kb1-u10a-', PUPP_N=8;
 function pupTog(el){
   var k=PUPP_KEY+el.getAttribute('data-k');
   localStorage.setItem(k, localStorage.getItem(k)==='1' ? '0' : '1');
@@ -460,7 +536,8 @@ function pupSend(){
     localStorage.setItem('kb1-hw-surn',surn);
     localStorage.setItem('kb1-hw-group',grp);
   }catch(e){}
-  var txt='KB 1.'+grp+' · Урок 9 · Домашка: куклы и ABC-P · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+' · '+pupDate();
+  var gs=null;try{gs=localStorage.getItem('kb1-u10a-game')}catch(e){}
+  var txt='KB 1.'+grp+' · Урок 10 · Домашка: мини-тест и чтение · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+(gs?' · Мини-тест: '+gs+' из 5':'')+' · '+pupDate();
   if(window.unscrSend){ unscrSend(txt); } else { pupQueue(txt); }
   localStorage.setItem(PUPP_KEY+'sent','1');
   pupPaint();
@@ -499,6 +576,54 @@ function pupPaint(){
   }catch(e){}
   pupPaint();
 })();
+</script>
+<script>
+/* МИНИ-ТЕСТ (Test 2, Part 2 — Yes/No counting): one question at a time, the key is Test 2's own */
+var MEDIA='../../media';
+function t2img(w,n){var s='';for(var k=0;k<n;k++)s+='<img src="file://'+MEDIA+'/kb1-u2-fc-'+w+'.png" alt="" style="height:52px;border-radius:8px">';return s}
+function t2emo(e,n){var s='';for(var k=0;k<n;k++)s+='<span style="font-size:2.4rem">'+e+'</span>';return s}
+var T2=[
+  {pics:t2img('table',3), txt:'3 tables', ans:true},
+  {pics:t2img('pencil',3), txt:'5 pencils', ans:false},
+  {pics:t2img('pen',4), txt:'4 pens', ans:true},
+  {pics:t2emo('👾',3), txt:'2 monsters', ans:false},
+  {pics:t2img('book',2), txt:'2 books', ans:true}
+];
+var t2i=0,t2score=0,t2lock=false;
+function t2Show(){
+  var q=T2[t2i];
+  document.getElementById('t2-pics').innerHTML=q.pics;
+  document.getElementById('t2-label').textContent=q.txt;
+  document.getElementById('t2-count').textContent=(t2i+1)+' / '+T2.length;
+  var y=document.getElementById('t2-yes'),n=document.getElementById('t2-no');
+  y.style.background='#fff';n.style.background='#fff';y.style.opacity=1;n.style.opacity=1;
+  t2lock=false;
+}
+function t2Ans(v){
+  if(t2lock)return;t2lock=true;
+  var q=T2[t2i],ok=(v===q.ans);
+  if(ok)t2score++;
+  var y=document.getElementById('t2-yes'),n=document.getElementById('t2-no');
+  var rb=q.ans?y:n,wb=q.ans?n:y;
+  rb.style.background='#95E1D3';
+  if(!ok){wb.style.opacity=.45}
+  setTimeout(function(){
+    t2i++;
+    if(t2i<T2.length){t2Show()}
+    else{
+      document.getElementById('t2-pics').innerHTML='';
+      document.getElementById('t2-label').textContent='';
+      document.getElementById('t2-count').textContent='';
+      y.style.display='none';n.style.display='none';
+      var e=document.getElementById('t2-end');
+      e.style.display='block';
+      e.textContent='Мини-тест: '+t2score+' из '+T2.length+'! '+(t2score===T2.length?'🌟':'Молодец! 🎉');
+      try{localStorage.setItem('kb1-u10a-game',String(t2score))}catch(err){}
+    }
+  },900);
+}
+try{localStorage.removeItem('kb1-u10a-game')}catch(e){}
+t2Show();
 </script>
 </body>
 </html>
