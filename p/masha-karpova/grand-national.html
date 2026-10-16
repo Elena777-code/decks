@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masha K. · The Grand National — against the clock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Masha K. — THE GRAND NATIONAL, AGAINST THE CLOCK · hwdt (the
+   timed drill test), born 2026-10-14 on Elena's order. THE RULE
+   (her words): «with a timer» means hwdt — the text divided into
+   separate cards, several seconds each; a 3-minute block is
+   enough time to ask the internet, a 15-second card is not.
+   The old friend (week 1's FIPI text) as six type-in cards.
+   Paper & sage, LIGHT ONLY. Reports → her OWN form «Mashulik».
+   The 03.10 rule: last run's missed cards re-enter FIRST.
+   Engine: the Ten Boxes clone (proven 07.10), type-in instead of
+   choices — the exam format.
+   ============================================================ */
+:root{
+  --paper:#f6f2ea; --card:#fff; --ink:#37322a; --sub:#8b8578;
+  --sage:#7f9c88; --sage-deep:#5e8169; --sage-soft:#edf2ec;
+  --terra:#c97a6d; --terra-deep:#b3564a; --terra-soft:#f9ede9;
+  --gold:#8a6d1d; --gold-soft:#f6efdc;
+  --line:#e8e1d3;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);
+  background:var(--paper);min-height:100vh;padding:clamp(1rem,4vw,2.5rem)}
+main{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
+.eyebrow{font-size:.82rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+h1{font-family:'Lora',Georgia,serif;font-weight:700;font-size:clamp(1.7rem,4.5vw,2.4rem);line-height:1.15}
+h1 em{color:var(--sage-deep);font-style:normal}
+.rule{width:64px;height:4px;border-radius:99px;background:var(--sage)}
+p.lead{font-size:clamp(1rem,2vw,1.2rem);line-height:1.55;color:#57503f}
+p.lead strong{color:var(--sage-deep)}
+.stamp{display:block;margin-top:.35em;font-size:.76rem;color:var(--sub);letter-spacing:.04em}
+.hint{font-size:clamp(.85rem,1.6vw,.98rem);color:var(--sub);font-style:italic;line-height:1.5}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:clamp(1rem,3vw,1.5rem);animation:pop .35s both}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rules{font-size:clamp(1rem,2vw,1.18rem);line-height:1.6}
+.icons{font-size:1.6rem;letter-spacing:.3em;margin:.3em 0}
+.meta{font-size:.85rem;font-weight:700;color:var(--sub);letter-spacing:.05em}
+.best{font-size:.95rem;font-weight:800;color:var(--sage-deep);margin:.5em 0 .2em;min-height:1.3em}
+.start-btn,.ok-btn,.again-btn{border:none;border-radius:99px;padding:.6em 1.5em;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1rem,2vw,1.15rem);
+  background:var(--sage);color:#fff;transition:transform .15s,filter .15s}
+.start-btn:hover,.ok-btn:hover,.again-btn:hover{transform:scale(1.04);filter:brightness(1.06)}
+.backline{margin-top:.7em}
+.backline a{color:var(--sage-deep);font-weight:800;text-decoration:none;border-bottom:2px solid var(--sage-soft)}
+.backline a:hover{border-bottom-color:var(--sage)}
+.hidden{display:none!important}
+.qcount{font-size:.9rem;font-weight:800;letter-spacing:.08em;color:var(--sage-deep);text-transform:uppercase}
+.prompt{font-size:clamp(1.15rem,2.6vw,1.45rem);font-weight:700;line-height:1.6;margin:.7em 0 .2em}
+.prompt .gap{color:var(--terra-deep);letter-spacing:.08em}
+.stem-chip{display:inline-block;background:var(--gold-soft);border:1.5px solid var(--gold);
+  color:var(--gold);font-weight:800;font-size:1rem;border-radius:99px;padding:.2em .9em;
+  letter-spacing:.12em;margin:.4em 0}
+.answer-row{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em;align-items:center}
+#answer-box{border:2px solid var(--line);border-radius:12px;background:#fff;
+  padding:.55em .8em;font-family:'Nunito',sans-serif;font-weight:800;font-size:1.15rem;
+  color:var(--ink);width:16ch;text-align:center}
+#answer-box:focus{outline:none;border-color:var(--sage)}
+.timer-wrap{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:1em}
+.timer-wrap.off{opacity:.25}
+.timer-bar{height:100%;width:100%;background:var(--sage)}
+.timer-num{font-size:.85rem;font-weight:800;color:var(--sub);margin-top:.3em;min-height:1.2em}
+.timer-num.low{color:var(--terra-deep)}
+.flash{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;
+  background:rgba(246,242,234,.92);font-size:clamp(2.2rem,7vw,3.6rem);font-weight:800;
+  flex-direction:column;gap:.3em;text-align:center;padding:4vh 4vw}
+.flash .sub{font-size:clamp(1.1rem,3vw,1.6rem);color:var(--ink)}
+.flash.fix .sub{color:var(--terra-deep)}
+.stars{font-size:1.7rem;letter-spacing:.15em}
+.end-title{font-family:'Lora',Georgia,serif;font-size:clamp(1.5rem,3.5vw,2rem);font-weight:700;margin:.2em 0}
+.one-line{font-size:clamp(1.05rem,2.2vw,1.3rem);font-weight:800;color:var(--sage-deep)}
+.remember{margin-top:1em;background:var(--terra-soft);border:1px dashed var(--terra);
+  border-radius:14px;padding:.8em 1em;font-size:clamp(.95rem,2vw,1.1rem);line-height:1.7;text-align:left}
+.remember b{color:var(--terra-deep)}
+.sent{font-size:.95rem;font-weight:800;color:var(--sage-deep);margin-top:.6em;min-height:1.3em}
+#end-btns{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em;justify-content:center}
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Masha K. · English · the drill test · the old friend</p>
+  <h1>The Grand National — <em>against the clock</em></h1>
+  <div class="rule"></div>
+
+  <div class="card" id="start-card">
+    <p class="rules">Six cards · <b>15 seconds</b> on each — too quick to ask the internet!<br>
+    Read the sentence, type the word from the CAPITALS, press Enter.
+    Missed cards come back first next time. 🏇</p>
+    <div class="icons">🐴 🏇 ⏱</div>
+    <div class="meta">6 CARDS · 15 s EACH · ONE MINUTE AND A HALF IN TOTAL</div>
+    <div class="best" id="best-line"></div>
+    <button class="start-btn" id="begin-btn">Start</button>
+    <p class="hint backline">← <a href="word-formation.html?v=2">back to word formation</a> · <a href="hw.html?v=10">my homework</a></p>
+    <span class="stamp">build 2026-10-14 · v1 · hwdt: the text in cards, seconds on each — never one long block</span>
+  </div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div class="prompt" id="q-prompt"></div>
+    <div style="text-align:center"><span class="stem-chip" id="q-stem"></span></div>
+    <div class="answer-row" style="justify-content:center">
+      <input id="answer-box" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="your word">
+      <button class="ok-btn" id="check-btn">✓</button>
+    </div>
+    <div class="timer-wrap" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+  </div>
+
+  <div class="flash hidden" id="flash"></div>
+
+  <div class="card hidden" id="end-card">
+    <div class="stars" id="end-stars"></div>
+    <div class="end-title">Done!</div>
+    <div class="one-line" id="end-rows"></div>
+    <div class="remember hidden" id="end-remember"></div>
+    <div class="sent" id="report-sent"></div>
+    <div id="end-btns">
+      <button class="again-btn" id="again-btn">🔁 Play again</button>
+      <button class="ok-btn" id="back-btn">← Back to my homework</button>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+"use strict";
+
+/* ELENA: the report flies to HER OWN form «Mashulik» (wired 05.10, test-verified) */
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSes5aESy1eVaZIKQljbhK1XKlpXhqmpmN3hprsv7o1tGEeZiA/formResponse";
+var FORM_ENTRY="entry.1570749775";
+
+/* ---------- the pool: the old friend, one card per gap (FIPI verbatim
+   sentences; the keys are the exam's own) ---------- */
+var POOL=[
+ {q:'The Grand National is a horse race which is held every year in Liverpool. This ______ involves a four-mile race, during which the horses have to go over 30 fences.',
+  stem:'COMPETE',key:"competition",label:"COMPETE → competition"},
+ {q:'The most ______ horse in the Grand National was called ‘Red Rum’.',
+  stem:'FAME',key:"famous",label:"FAME → famous"},
+ {q:'He was the ______ of the race three times during the 1970s.',
+  stem:'WIN',key:"winner",label:"WIN → winner"},
+ {q:'The race is not only a sporting event but a ______ social event too.',
+  stem:'FASHION',key:"fashionable",label:"FASHION → fashionable"},
+ {q:'Men and women wear beautiful clothes, and the tickets to the race are very ______.',
+  stem:'EXPENSE',key:"expensive",label:"EXPENSE → expensive"},
+ {q:'However, though there are lots of horse racing fans, many people think it’s ______ and cruel to make the animals race and jump for people’s entertainment.',
+  stem:'FAIR',key:"unfair",label:"FAIR → unfair"}
+];
+var SEC=15,ROUND={id:"gn",icon:"🐴",name:"The Grand National"};
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function norm(s){return (s||"").toString().trim().toLowerCase().replace(/\s+/g," ").replace(/[.!?]+$/,"");}
+
+/* ---------- a fresh deal — the misses lead it (03.10 rule) ---------- */
+function storedMisses(){
+  try{return JSON.parse(localStorage.getItem("mashak-gn-remiss")||"[]");}catch(e){return [];}}
+function deal(){
+  var st=storedMisses();
+  var first=POOL.filter(function(t){return st.indexOf(t.label)>=0;});
+  var rest=shuffle(POOL.filter(function(t){return st.indexOf(t.label)<0;}));
+  return shuffle(first.concat(rest));}
+
+/* ---------- state ---------- */
+var tasks=deal(),log=[],qi=0,timer=null,t0=0,DUR=0,answered=false;
+(function(){var best=+localStorage.getItem("mashak-gn-best")||0;
+  if(best)$("best-line").textContent="best: "+best+"%";})();
+
+$("begin-btn").addEventListener("click",function(){
+  tasks=deal();log=[];qi=0;ask();});
+$("again-btn").addEventListener("click",function(){
+  tasks=deal();log=[];qi=0;ask();});
+$("back-btn").addEventListener("click",function(){
+  location.href="hw.html?v=10";});
+
+function show(id){["start-card","q-card","end-card","flash"].forEach(function(c){
+  $(c).classList.add("hidden");});
+  if(id)$(id).classList.remove("hidden");
+  if(id)$(id).scrollIntoView({behavior:"smooth",block:id==="flash"?"center":"start"});}
+
+function ask(){
+  answered=false;
+  var t=tasks[qi];
+  $("q-count").textContent=ROUND.icon+" "+ROUND.name+" · "+(qi+1)+"/"+tasks.length;
+  $("q-prompt").innerHTML=esc(t.q).replace("______",'<span class="gap">______</span>');
+  $("q-stem").textContent=t.stem;
+  var box=$("answer-box");
+  box.value="";
+  show("q-card");
+  box.focus();
+  startTimer(SEC,function(){
+    if(answered)return;answered=true;
+    record(t,"TIME UP",true,false);move(false);});
+}
+function submit(){
+  if(answered)return;
+  var t=tasks[qi],given=$("answer-box").value;
+  if(!given.trim())return;
+  answered=true;stopTimer();
+  var ok=norm(given)===norm(t.key);
+  record(t,given,false,ok);
+  move(ok);
+}
+$("check-btn").addEventListener("click",submit);
+$("answer-box").addEventListener("keydown",function(e){
+  if(e.key==="Enter")submit();});
+
+function startTimer(sec,onOut){
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  bar.style.background="var(--sage)";
+  num.textContent=sec+" s";num.className="timer-num";
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 s";
+      clearInterval(timer);timer=null;onOut();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" s";
+    num.className="timer-num"+(s<=3?" low":"");
+    if(s<=3)bar.style.background="var(--terra-deep)";
+  },100);}
+function stopTimer(){if(timer){clearInterval(timer);timer=null;}}
+
+function record(t,given,late,ok){
+  log.push({label:t.label,given:late?"TIME UP":given,
+    key:t.key,ok:ok});}
+
+function move(ok){
+  var last=qi>=tasks.length-1;
+  if(ok){show("flash");$("flash").className="flash";
+    $("flash").innerHTML="✅";setTimeout(next,700);}
+  else{show("flash");$("flash").className="flash fix";
+    $("flash").innerHTML="✗"+' <span class="sub">→ '+esc(tasks[qi].key)+"</span>";
+    setTimeout(next,1500);}
+  function next(){
+    if(!last){qi++;ask();}
+    else{finish();}
+  }
+}
+
+/* ---------- end ---------- */
+function drillScore(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  return {total:total,ok:ok};}
+function reportText(){
+  var s=drillScore();
+  var lines=["MASHA K. · HW · Word formation hwdt (FIPI: Grand National) · "+new Date().toLocaleString(),
+    "Score: "+s.ok+" / "+s.total];
+  var missed=log.filter(function(l){return !l.ok;});
+  if(missed.length){
+    lines.push("","Missed ("+missed.length+"):");
+    missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+l.given+" · key: "+l.key);});
+  }else{lines.push("","Missed: none! 🎉");}
+  return lines.join("\n");}
+
+function finish(){
+  stopTimer();
+  var s=drillScore();
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(s.ok/Math.max(1,s.total)*5)));
+  $("end-rows").textContent="🐴 "+s.ok+"/"+s.total;
+  var missed=log.filter(function(l){return !l.ok;});
+  var rem=$("end-remember");
+  if(missed.length){
+    rem.className="remember";
+    rem.innerHTML="<b>To remember:</b><br>"+missed.map(function(l){
+      return "· "+esc(l.label)+" — you wrote: <b>"+esc(l.given)+"</b>";
+    }).join("<br>");
+  }else{rem.className="remember hidden";}
+  /* the 03.10 rule's store: this run's misses lead the next deal */
+  try{localStorage.setItem("mashak-gn-remiss",JSON.stringify(
+    log.filter(function(l){return !l.ok;}).map(function(l){return l.label;})));}catch(e){}
+  try{localStorage.setItem("mashak-gn-last",reportText());}catch(e){}
+  try{localStorage.setItem("mashak-gn-runs",String((+localStorage.getItem("mashak-gn-runs")||0)+1));}catch(e){}
+  try{
+    var best=+localStorage.getItem("mashak-gn-best")||0;
+    var pct=Math.round(s.ok/Math.max(1,s.total)*100);
+    if(pct>best){try{localStorage.setItem("mashak-gn-best",String(pct));}catch(e){}}
+  }catch(e){}
+  try{
+    var q=JSON.parse(localStorage.getItem("mashak-gn-queue")||"[]");
+    q.push(reportText());if(q.length>10)q=q.slice(-10);
+    localStorage.setItem("mashak-gn-queue",JSON.stringify(q));
+  }catch(e){}
+  flushQueue();
+  $("report-sent").textContent=FORM_ACTION?("sent to Elena ✅"):"";
+  show("end-card");}
+
+function sendViaForm(txt){
+  if(!FORM_ACTION)return;
+  var frame=document.createElement("iframe");
+  frame.name="gn-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);
+  document.body.appendChild(f);
+  try{f.submit();}catch(e){}
+  setTimeout(function(){document.body.removeChild(f);document.body.removeChild(frame);},4000);}
+
+function flushQueue(){
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("mashak-gn-queue")||"[]");}catch(e){}
+  if(!q.length||!FORM_ACTION)return;
+  var item=q[0];
+  try{
+    sendViaForm(item);
+    q.shift();
+    localStorage.setItem("mashak-gn-queue",JSON.stringify(q));
+  }catch(e){}
+}
+
+/* the load-time flush goes LAST — after all listeners attach (the v9 lesson) */
+flushQueue();
+})();
+</script>
+</body>
+</html>
