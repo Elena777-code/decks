@@ -43,7 +43,6 @@ input.type-box.need{border-color:var(--coral);animation:need .3s ease}
 .day-chip{background:#f0fafa;color:var(--ink);border-radius:18px;padding:.6em .5em .55em;
   width:calc(33% - .5em);min-width:96px;box-shadow:0 4px 0 #cfe9e6;line-height:1.25}
 .day-chip .dnum{font-size:clamp(1.05rem,4.2vw,1.3rem);font-weight:700}
-.day-chip .ddate{display:block;font-size:.72rem;color:var(--ink-soft);font-weight:700;margin-top:.15em}
 .day-chip .dicons{display:block;font-size:.78rem;margin-top:.2em;letter-spacing:.06em}
 .day-chip.today{background:#FFF3D6;box-shadow:0 4px 0 #f0d998;outline:3px solid var(--sun)}
 .day-chip.locked{opacity:.45;filter:grayscale(.4)}
@@ -91,11 +90,11 @@ footer{max-width:680px;width:100%;text-align:center;margin-top:1.6em;
 <main>
   <div class="card" id="start-card">
     <div class="name-row"><input class="type-box" id="who-box" placeholder="Кто играет?" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
-    <p class="rules">Каждый день — одно новое задание.<br>
-    Вчерашние возвращаются <b>с часами ⏰</b>: успей нажать, пока бежит полоска!<br>
+    <p class="rules">Закончи день — откроется следующий.<br>
+    Знакомые задания возвращаются <b>с часами ⏰</b>: успей нажать, пока бежит полоска!<br>
     Время вышло — карточка улетела 🪁. Назад нельзя!</p>
     <div class="day-grid" id="day-grid"></div>
-    <div class="meta">build 2026-10-13 · v1 · 9 игр · новое задание каждый день</div>
+    <div class="meta">build 2026-10-17 · v3 · 9 игр · закончи день — откроется следующий</div>
   </div>
 
   <div class="card hidden" id="q-card">
@@ -235,20 +234,25 @@ var POOLS={
   SL6:{icon:"⭐",name:"Слова учебника",helper:"Starlight 6 — найди перевод",cards:SL6}
 };
 
-/* the week: each day = одно новое задание + вчерашние с часами.
-   [poolId, timed] — timed:0 = новое, без часов · timed:1 = с часами ⏰ */
+/* the week: each day = одно новое задание + пройденные с часами.
+   [poolId, timed] — timed:0 = новое, без часов · timed:1 = с часами ⏰
+   v3: дней открыт ровно столько, сколько пройдено + 1 — следующий день
+   открывается, когда предыдущий закончен (Elena's word 17.10), без дат. */
 var DAYS=[
-  {n:1,date:"вт 13.10",tasks:[["SORT",0]]},
-  {n:2,date:"ср 14.10",tasks:[["SENT",0],["SORT",1]]},
-  {n:3,date:"чт 15.10",tasks:[["VV",0],["ADJ",0],["SORT",1],["SENT",1]]},
-  {n:4,date:"пт 16.10",tasks:[["NEG",0],["MOD",0],["SORT",1],["SENT",1],["VV",1],["ADJ",1]]},
-  {n:5,date:"сб 17.10",tasks:[["IRRV",0],["SORT",1],["SENT",1],["VV",1],["ADJ",1],["NEG",1],["MOD",1]]},
-  {n:6,date:"вс 18.10",tasks:[["FIND",0],["SORT",1],["SENT",1],["VV",1],["ADJ",1],["NEG",1],["MOD",1],["IRRV",1]]},
-  {n:7,date:"пн 19.10",tasks:[["SL6",0],["SORT",1],["SENT",1],["VV",1],["ADJ",1],["NEG",1],["MOD",1],["IRRV",1],["FIND",1]]}
+  {n:1,tasks:[["SORT",0]]},
+  {n:2,tasks:[["SENT",0],["SORT",1]]},
+  {n:3,tasks:[["VV",0],["ADJ",0],["SORT",1],["SENT",1]]},
+  {n:4,tasks:[["NEG",0],["MOD",0],["SORT",1],["SENT",1],["VV",1],["ADJ",1]]},
+  {n:5,tasks:[["IRRV",0],["SORT",1],["SENT",1],["VV",1],["ADJ",1],["NEG",1],["MOD",1]]},
+  {n:6,tasks:[["FIND",0],["SORT",1],["SENT",1],["VV",1],["ADJ",1],["NEG",1],["MOD",1],["IRRV",1]]},
+  {n:7,tasks:[["SL6",0],["SORT",1],["SENT",1],["VV",1],["ADJ",1],["NEG",1],["MOD",1],["IRRV",1],["FIND",1]]}
 ];
-var DAY0=new Date(2026,9,13);          /* День 1 = вторник 13.10.2026 */
 var SEC=16;                            /* часы ⏰ на карточку (выбор кнопкой, таймеры Ирины ×2) */
 var U_DEAL=6,T_DEAL=4;                 /* новое задание — 6 карточек, повтор с часами — 4 */
+
+/* ---------- progress: сколько дней пройдено (на устройстве Иры) ---------- */
+function getDone(){try{return parseInt(localStorage.getItem("irina-week-done")||"0",10)||0;}catch(e){return 0;}}
+function markDone(n){if(n>getDone()){try{localStorage.setItem("irina-week-done",String(n));}catch(e){}}}
 
 /* ---------- helpers ---------- */
 function $(id){return document.getElementById(id);}
@@ -260,27 +264,25 @@ function show(id){["start-card","q-card","flash","end-card"].forEach(function(c)
 
 function unlockedCount(){
   if(location.search.indexOf("all=1")!==-1)return DAYS.length;
-  var one=24*60*60*1000;
-  var today=new Date();today.setHours(0,0,0,0);
-  var diff=Math.floor((today-DAY0)/one)+1;
-  return Math.max(1,Math.min(DAYS.length,diff));
+  return Math.max(1,Math.min(DAYS.length,getDone()+1));
 }
 function buildDayPicker(){
-  var un=unlockedCount(),grid=$("day-grid");
+  var un=unlockedCount(),done=getDone(),grid=$("day-grid");
+  var allOpen=location.search.indexOf("all=1")!==-1;
+  var frontier=allOpen?Math.min(done+1,DAYS.length):un;   /* в ?all=1 подсветка = первый непройденный */
   grid.innerHTML="";
   DAYS.forEach(function(d,i){
     var b=document.createElement("button");
     b.className="day-chip";
-    var todayChip=(i+1)===un;
+    var todayChip=(i+1)===frontier;
     if(todayChip)b.classList.add("today");
     if(i+1>un){b.classList.add("locked");}
     var icons=d.tasks.slice(0,6).map(function(t){return POOLS[t[0]].icon;}).join("");
-    b.innerHTML='<span class="dnum">День '+d.n+(todayChip?" · сегодня":"")+"</span>"+
-      '<span class="ddate">'+d.date+(i+1>un?" 🔒":"")+"</span>"+
+    b.innerHTML='<span class="dnum">День '+d.n+(i+1<=done?" ✓":"")+(todayChip?" · сегодня":"")+(i+1>un?" 🔒":"")+"</span>"+
       '<span class="dicons">'+icons+(d.tasks.length>6?"…":"")+"</span>";
     b.addEventListener("click",function(){
       if(i+1>un){b.classList.remove("wiggle");void b.offsetWidth;b.classList.add("wiggle");
-        $("day-msg").textContent="День "+d.n+" откроется "+d.date+" 🔒";return;}
+        $("day-msg").textContent="День "+d.n+" откроется, когда закончишь День "+(i)+" 🔒";return;}
       if(!WHO){needName();return;}
       startDay(i);
     });
@@ -410,7 +412,7 @@ function move(late,wasOk){
 /* ---------- end + report ---------- */
 function reportText(){
   var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
-  var lines=[(WHO||"IRINA")+" · IRINA WEEK · День "+day.n+" ("+day.date+") · "+new Date().toLocaleString(),
+  var lines=[(WHO||"IRINA")+" · IRINA WEEK · День "+day.n+" · "+new Date().toLocaleString(),
     "Итог дня: "+ok+" / "+total];
   day.tasks.forEach(function(t){
     var p=POOLS[t[0]];
@@ -426,6 +428,7 @@ function reportText(){
 }
 function finish(){
   var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  markDone(day.n);
   $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/total*5)));
   var bits=[];
   day.tasks.forEach(function(t){
