@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MASHA R. — HSE workbook · Module 1 · the drill · one card, one clock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#F6F4EF; --card:#FFFFFF; --ink:#33312B; --ink-soft:#8B8678;
+  --teal:#3E8E7E; --teal-soft:rgba(62,142,126,.09);
+  --amber:#C99A3C; --amber-soft:rgba(201,154,60,.10);
+  --terra:#C4744D; --line:#E5E0D5; --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--wall);color:var(--ink);font-family:'Inter',system-ui,sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:4vh 5vw 8vh;-webkit-font-smoothing:antialiased}
+header{max-width:660px;width:100%;text-align:center;margin-bottom:1.2em}
+.eyebrow{color:var(--amber);letter-spacing:.18em;text-transform:uppercase;font-weight:600;font-size:.78rem}
+h1{font-weight:800;font-size:clamp(1.6rem,6vw,2.4rem);line-height:1.12;margin-top:.15em}
+h1 .calm{color:var(--teal)}
+.rules{margin-top:.7em;color:var(--ink-soft);font-weight:500;font-size:clamp(.95rem,3.4vw,1.1rem);line-height:1.65}
+main{max-width:660px;width:100%}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:0 10px 30px rgba(51,49,43,.10);padding:clamp(1.4rem,5vw,2.4rem);text-align:center;
+  animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none!important}
+.qcount{font-size:.82rem;font-weight:800;color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+.timer-wrap{height:12px;background:rgba(62,142,126,.14);border-radius:99px;overflow:hidden;margin:1.1em 0 .35em}
+.timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--teal),var(--amber));border-radius:99px}
+.timer-num{font-weight:800;color:var(--ink-soft);font-size:.95rem;font-variant-numeric:tabular-nums}
+.timer-num.low{color:var(--terra)}
+.prompt{font-size:clamp(1.35rem,5.5vw,1.9rem);font-weight:700;line-height:1.5;margin-top:.5em}
+.prompt .gap{color:var(--terra);letter-spacing:.04em}
+.helper{margin-top:.6em;color:var(--ink-soft);font-size:clamp(.85rem,3vw,1rem);font-weight:500}
+.answer-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:1.3em}
+.type-box{font:600 1.15rem 'Inter',sans-serif;color:var(--ink);background:var(--wall);
+  border:2px solid var(--line);border-radius:14px;padding:.65em 1em;width:min(230px,60vw);
+  text-align:center;outline:none;transition:.2s}
+.type-box:focus{border-color:var(--teal)}
+button{font-family:'Inter',sans-serif;font-weight:600;border:none;cursor:pointer;border-radius:99px;
+  transition:transform .12s ease,filter .12s ease}
+button:active{transform:scale(.96)}
+.ok-btn{background:var(--teal);color:#fff;font-size:1.05rem;padding:.7em 1.9em}
+.ok-btn:hover{filter:brightness(1.08)}
+.choice{background:var(--wall);border:2px solid var(--line);color:var(--ink);
+  font-size:clamp(.95rem,3.6vw,1.1rem);padding:.55em 1.2em}
+.choice:hover{border-color:var(--teal);color:var(--teal)}
+.flash{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;
+  background:rgba(246,244,239,.96);z-index:50;font-weight:800;font-size:clamp(1.6rem,7vw,2.6rem);text-align:center;padding:5vw}
+.flash .sub{font-size:.45em;color:var(--ink-soft);font-weight:500;margin-top:.4em}
+.flash.ok{color:var(--teal)} .flash.bad{color:var(--terra)} .flash.info{color:var(--amber)}
+button.big{background:var(--teal);color:#fff;font-size:clamp(1.1rem,4.2vw,1.35rem);padding:.7em 2.4em;margin-top:1.2em}
+a.big{background:var(--ink-soft);color:#fff;font:600 clamp(1.1rem,4.2vw,1.35rem) 'Inter',sans-serif;
+  padding:.7em 2.4em;margin-top:1.2em;text-decoration:none;display:inline-block}
+.score-line{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dotted var(--line);
+  padding:.55em 0;font-size:clamp(1rem,3.8vw,1.2rem);font-weight:600}
+.score-line b{color:var(--teal)}
+.miss{background:var(--amber-soft);border:1px dashed var(--amber);border-radius:12px;padding:.5em .9em;
+  margin:.45em 0;font-size:clamp(.9rem,3.2vw,1.05rem);font-weight:500;text-align:left}
+.miss .fix{color:var(--teal);font-weight:700}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">HSE workbook · module 1 · the drill · one card at a time</div>
+  <h1>One card — <span class="calm">one clock</span></h1>
+  <p class="rules">Every card sets its own timer. Type your answer (or tap it), press OK — Enter works too.
+  The card flips to the answer: green if you had it <b>before</b> the clock ran out. Misses come back at the end.</p>
+</header>
+<main>
+  <div class="card" id="start-card">
+    <div class="eyebrow" style="margin-bottom:.6em">ready?</div>
+    <p class="prompt">38 cards · 4 rounds</p>
+    <p class="helper">word formation 12 · for / since 8 · stative or action 8 · phrasal verbs &amp; shopping 10</p>
+    <p class="helper" style="margin-top:.5em">Every sentence is from your HSE workbook — Module 1.</p>
+    <div class="answer-row" style="margin-top:1.2em">
+      <input class="type-box" id="name-box" autocomplete="off" autocapitalize="on" spellcheck="false" placeholder="your name">
+    </div>
+    <button class="big" id="begin-btn">Begin</button>
+    <p class="helper">build 2026-10-17 · v1 <span style="opacity:.7">(if this line is missing, your browser kept an old copy — reload)</span></p>
+  </div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div class="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="card hidden" id="end-card">
+    <div class="eyebrow" style="margin-bottom:.6em">the score card</div>
+    <div id="end-body"></div>
+    <div class="answer-row" style="margin-top:1.4em">
+      <button class="big" id="send-btn" style="margin-top:0">📤 Send the result to your teacher</button>
+    </div>
+    <p class="helper" id="send-hint">Send → it lands in your teacher's form automatically.</p>
+    <div class="answer-row" style="margin-top:.4em">
+      <a class="big" href="hw.html" style="margin-top:0;background:var(--ink-soft)">← Back to my homework</a>
+      <button class="big" id="again-btn" style="margin-top:0">Play again</button>
+    </div>
+    <div id="misses-body"></div>
+  </div>
+</main>
+<div class="flash hidden" id="flash"></div>
+
+<script>
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function show(id){$(id).classList.remove('hidden');}
+function hide(id){$(id).classList.add('hidden');}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ---------- the rounds — every sentence from the HSE workbook, Module 1 ---------- */
+var R_WF=[
+ {pos:'Spain is a <span class="gap">______</span> country and I enjoyed my time there very much. (AMAZE — the adjective)',
+  ctx:'Spain is a <span class="gap">______</span> country and I enjoyed my time there very much. (AMAZE)',
+  a:['amazing'],why:'amaze → amazing'},
+ {pos:'Fresh air and sports can make any day feel <span class="gap">______</span>. (FANTASY — the adjective)',
+  ctx:'Fresh air and sports can make any day feel <span class="gap">______</span>. (FANTASY)',
+  a:['fantastic'],why:'fantasy → fantastic'},
+ {pos:'It seems they have discovered the secret of a long and <span class="gap">______</span> life. (HEALTH — the adjective)',
+  ctx:'It seems they have discovered the secret of a long and <span class="gap">______</span> life. (HEALTH)',
+  a:['healthy'],why:'health → healthy (the y stays)'},
+ {pos:'If you walk along its central streets, you will find a wide range of <span class="gap">______</span> shops, bars and restaurants. (DIFFER — the adjective)',
+  ctx:'If you walk along its central streets, you will find a wide range of <span class="gap">______</span> shops, bars and restaurants. (DIFFER)',
+  a:['different'],why:'differ → different — mind the double t'},
+ {pos:'The Internet supposes interaction, which makes it very <span class="gap">______</span> to people. (ATTRACT — the adjective)',
+  ctx:'The Internet supposes interaction, which makes it very <span class="gap">______</span> to people. (ATTRACT)',
+  a:['attractive'],why:'attract → attractive'},
+ {pos:'My dad has a factory, and he has a staff of 50 <span class="gap">______</span>. (WORK — the people)',
+  ctx:'My dad has a factory, and he has a staff of 50 <span class="gap">______</span>. (WORK)',
+  a:['workers'],why:'work → workers — 50 of them, so plural'},
+ {pos:'My brother Rivs is a famous fashion <span class="gap">______</span>. (DESIGN — the person)',
+  ctx:'My brother Rivs is a famous fashion <span class="gap">______</span>. (DESIGN)',
+  a:['designer'],why:'design → designer (-er = the person)'},
+ {pos:'My cousin Mark is studying at university because he wants to become a <span class="gap">______</span>. (LAW — the person)',
+  ctx:'My cousin Mark is studying at university because he wants to become a <span class="gap">______</span>. (LAW)',
+  a:['lawyer'],why:'law → lawyer (-yer here)'},
+ {pos:'Alice is a very <span class="gap">______</span> actress. (TALENT — the adjective)',
+  ctx:'Alice is a very <span class="gap">______</span> actress. (TALENT)',
+  a:['talented'],why:'talent → talented'},
+ {pos:'Everyone likes my friend Sam because he\u2019s so <span class="gap">______</span>. (HONESTY — the adjective)',
+  ctx:'Everyone likes my friend Sam because he\u2019s so <span class="gap">______</span>. (HONESTY)',
+  a:['honest'],why:'honesty → honest (the adjective is shorter!)'},
+ {pos:'He has a brilliant <span class="gap">______</span> of paintings of cats. (COLLECT — the noun)',
+  ctx:'He has a brilliant <span class="gap">______</span> of paintings of cats. (COLLECT)',
+  a:['collection'],why:'collect → collection'},
+ {pos:'There was a lot of <span class="gap">______</span> when a big new store opened in town. (EXCITED — the noun)',
+  ctx:'There was a lot of <span class="gap">______</span> when a big new store opened in town. (EXCITED)',
+  a:['excitement'],why:'excited → excitement (-ment)'}
+];
+var R_FS=[
+ {q:'I haven\u2019t eaten anything <span class="gap">______</span> two days.',a:['for'],why:'two days = a stretch of time → for'},
+ {q:'It\u2019s been sunny <span class="gap">______</span> early morning.',a:['since'],why:'early morning = the starting point → since'},
+ {q:'Michael has been Ann\u2019s husband <span class="gap">______</span> at least five years.',a:['for'],why:'five years → for'},
+ {q:'The rains have lasted <span class="gap">______</span> three months!',a:['for'],why:'three months → for'},
+ {q:'This problem has existed <span class="gap">______</span> the beginning of the century.',a:['since'],why:'the beginning = the start point → since'},
+ {q:'I\u2019ve known the news <span class="gap">______</span> he returned.',a:['since'],why:'he returned = a moment in time → since'},
+ {q:'Helen has changed a lot <span class="gap">______</span> that time.',a:['since'],why:'that time = the start point → since'},
+ {q:'Nothing interesting has happened <span class="gap">______</span> the last week.',a:['for'],why:'the last week = a stretch → for'}
+];
+var R_STAT=[
+ {q:'He <span class="gap">______</span> this book. It\u2019s interesting.',a:['likes'],
+  choices:['likes','is liking'],why:'like = a state (opinion) — never -ing'},
+ {q:'The boy <span class="gap">______</span> to play his new computer game now.',a:['wants'],
+  choices:['wants','is wanting'],why:'want = a state — simple form'},
+ {q:'Can you help me? I <span class="gap">______</span> this exercise.',a:['don\u2019t understand','do not understand'],
+  choices:['don\u2019t understand','\u2019m not understanding'],why:'understand = a state'},
+ {q:'<span class="gap">______</span> the answer to this question?',a:['do you know'],
+  choices:['Do you know','Are you knowing'],why:'know = a state — Do you know?'},
+ {q:'He <span class="gap">______</span> in ghosts.',a:['believes'],
+  choices:['believes','is believing'],why:'believe = a state (opinion)'},
+ {q:'I <span class="gap">______</span> it\u2019s a good idea.',a:['don\u2019t think','do not think'],
+  choices:['don\u2019t think','\u2019m not thinking'],why:'think = opinion here — a state'},
+ {q:'He can\u2019t talk to you now. He <span class="gap">______</span> a bath.',a:['is having','\u2019s having'],
+  choices:['is having','has'],why:'have a bath = an ACTION here — -ing!'},
+ {q:'Just a moment! I <span class="gap">______</span> a shower right now!',a:['am taking','\u2019m taking'],
+  choices:['am taking','take'],why:'right now → Present Continuous'}
+];
+var R_PHR=[
+ {q:'If you love animals, you could <span class="gap">______</span> horse riding.',a:['take up'],
+  helperTip:'начать заниматься (как хобби)',why:'take up = start as a hobby'},
+ {q:'Before you sign up for 20 or 30 lessons, be sure you won\u2019t <span class="gap">______</span> a couple of weeks later!',a:['give up'],
+  helperTip:'бросить, не закончив',why:'give up = stop before you finish'},
+ {q:'Cycling may be cheaper and you can start and <span class="gap">______</span> riding all day if you want.',a:['go on'],
+  helperTip:'продолжать',why:'go on = continue'},
+ {q:'Once you <span class="gap">______</span> which you like best, you\u2019ll probably never go off it.',a:['find out'],
+  helperTip:'узнать, выяснить',why:'find out = get information'},
+ {q:'That\u2019s something you can <span class="gap">______</span> doing whenever you have a spare moment.',a:['look forward to'],
+  helperTip:'ждать с нетерпением',why:'look forward to + -ing'},
+ {q:'I need to <span class="gap">______</span> on this shirt before I buy it.',a:['try'],
+  helperTip:'померить',why:'try on = померить'},
+ {q:'I\u2019m going to return this sweater and <span class="gap">______</span> a refund.',a:['get'],
+  helperTip:'получить деньги назад',why:'get a refund'},
+ {q:'Mum\u2019s going to the sales in town to <span class="gap">______</span> up some bargains.',a:['pick'],
+  helperTip:'выгодная покупка',why:'pick up a bargain'},
+ {q:'This charity aims to <span class="gap">______</span> poverty amongst city children.',a:['reduce'],
+  helperTip:'сократить бедность',why:'reduce poverty'},
+ {q:'When you buy something new, it\u2019s best to <span class="gap">______</span> the receipt.',a:['keep'],
+  helperTip:'сохранять чек',why:'keep the receipt'}
+];
+
+var ROUNDS_META=[
+ {id:'wf',icon:'①',name:'Word formation',sec:25,helper:'type the word'},
+ {id:'fs',icon:'②',name:'for / since',sec:8,helper:'tap for or since',choices:['for','since']},
+ {id:'stat',icon:'③',name:'Stative or action?',sec:8,helper:'tap the correct form'},
+ {id:'phr',icon:'④',name:'Phrasal verbs & shopping',sec:12,helper:'type the word (one or two words)'}
+];
+
+/* ---------- WORD FORMATION's two lives (Elena's rule): first pass names
+   the part of speech; every later pass = same words, stem only, no part
+   of speech. The deck remembers. ---------- */
+function wfSeen(){
+  try{return localStorage.getItem('mr-hse-wf')==='done';}catch(e){return false;}
+}
+function wfMark(){
+  try{localStorage.setItem('mr-hse-wf','done');}catch(e){}
+}
+function buildRounds(){
+  var wfMode=wfSeen()?'ctx':'pos';
+  var wf=shuffle(R_WF).map(function(t){
+    return {q:(wfMode==='ctx')?t.ctx:t.pos,a:t.a,why:t.why};
+  });
+  return [
+    {meta:ROUNDS_META[0],tasks:wf,wfMode:wfMode},
+    {meta:ROUNDS_META[1],tasks:shuffle(R_FS)},
+    {meta:ROUNDS_META[2],tasks:shuffle(R_STAT)},
+    {meta:ROUNDS_META[3],tasks:shuffle(R_PHR)}
+  ];
+}
+
+/* ---------- state ---------- */
+var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false;
+var RUNNER="Masha R.";
+try{RUNNER=localStorage.getItem("mr-hse-name")||"Masha R.";}catch(e){}
+$("name-box").value=RUNNER==="Masha R."?"":RUNNER;
+$("begin-btn").addEventListener("click",function(){
+  var v=$("name-box").value.trim();
+  if(!v){$("name-box").style.borderColor="var(--terra)";
+    $("name-box").placeholder="write your name first";return;}
+  RUNNER=v;
+  try{localStorage.setItem("mr-hse-name",v);}catch(e){}
+  ri=0;log=[];roundFlash();});
+$("again-btn").addEventListener("click",function(){rounds=buildRounds();ri=0;log=[];hide("end-card");roundFlash();});
+
+function roundFlash(){
+  hide("start-card");hide("end-card");hide("q-card");
+  var f=$("flash");show("flash");
+  f.className="flash info";
+  var m=rounds[ri].meta;
+  var sub='round '+(ri+1)+' of '+rounds.length;
+  if(rounds[ri].wfMode)sub+=rounds[ri].wfMode==='ctx'?' · stems only today':' · part of speech told today';
+  f.innerHTML=m.icon+" "+m.name+'<span class="sub">'+sub+'</span>';
+  setTimeout(function(){hide("flash");qi=0;ask();},1200);
+}
+function ask(){
+  answered=false;
+  var r=rounds[ri],t=r.tasks[qi];
+  $("q-count").textContent=r.meta.icon+" "+r.meta.name+" · card "+(qi+1)+" / "+r.tasks.length;
+  var body='<div class="prompt">'+t.q+'</div>';
+  var ch=t.choices||r.meta.choices;
+  if(ch){
+    body+='<div class="helper">'+r.meta.helper+'</div>';
+    body+='<div class="answer-row">'+ch.map(function(c){
+      return '<button class="choice" data-v="'+c+'">'+c+'</button>';}).join("")+"</div>";
+  }else{
+    body+='<div class="helper">'+(t.helperTip||r.meta.helper)+'</div>';
+    body+='<div class="answer-row"><input class="type-box" id="type-box" autocomplete="off" autocapitalize="off" spellcheck="false">'+
+      '<button class="ok-btn" id="ok-btn">OK</button></div>';
+  }
+  $("q-body").innerHTML=body;
+  show("q-card");
+  setTimeout(function(){try{$("q-card").scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}},60);
+  if(r.meta.choices){
+    Array.prototype.forEach.call(document.querySelectorAll(".choice"),function(b){
+      b.addEventListener("click",function(){if(answered)return;answered=true;stop();
+        judge(t,b.getAttribute("data-v"),false);});});
+  }else{
+    var box=$("type-box");
+    var submit=function(){if(answered)return;answered=true;stop();
+      judge(t,box.value,false);};
+    $("ok-btn").addEventListener("click",submit);
+    box.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
+    setTimeout(function(){box.focus();},60);
+  }
+  start(r.meta.sec);
+}
+function norm(s){return (s||"").trim().toLowerCase().replace(/[.,!?;:]/g,"").replace(/\u2019/g,"'");}
+function isOk(t,given){
+  var g=norm(given);
+  if(!g)return false;
+  return t.a.some(function(k){return norm(k)===g;});
+}
+function judge(t,given,late){
+  var ok=!late&&isOk(t,given);
+  log.push({rid:rounds[ri].meta.id,name:rounds[ri].meta.name,q:t.q.replace(/<[^>]+>/g," "),key:t.a[0],why:t.why||"",ok:ok,late:late});
+  var f=$("flash");show("flash");
+  f.className="flash "+(ok?"ok":"bad");
+  f.innerHTML=ok?"✓":"✗ "+'<span style="font-size:.55em">'+t.a[0]+'</span>'+
+    (t.why?'<span class="sub">'+t.why+'</span>':'');
+  setTimeout(function(){hide("flash");next();},ok?800:1600);
+}
+function next(){
+  qi++;
+  if(qi<rounds[ri].tasks.length){ask();return;}
+  if(rounds[ri].wfMode)wfMark();
+  ri++;
+  if(ri<rounds.length){roundFlash();return;}
+  theEnd();
+}
+function theEnd(){
+  hide("q-card");
+  var total=log.length,hits=log.filter(function(l){return l.ok;}).length;
+  var byRound={};
+  log.forEach(function(l){
+    byRound[l.name]=byRound[l.name]||{n:0,ok:0};
+    byRound[l.name].n++;if(l.ok)byRound[l.name].ok++;
+  });
+  var html='<div class="score-line"><span><b>'+hits+'</b> / '+total+' cards</span><span>'+
+    (hits>=total*0.9?"the module is yours 🏆":hits>=total*0.7?"strong 💪":"one more run needed →")+'</span></div>';
+  for(var k in byRound){html+='<div class="score-line"><span>'+k+'</span><span><b>'+byRound[k].ok+'</b> / '+byRound[k].n+'</span></div>';}
+  var misses=log.filter(function(l){return !l.ok;});
+  var mhtml="";
+  if(misses.length){
+    mhtml='<p class="helper" style="text-align:left;margin-top:1.4em">📋 into your notebook — and show Elena at the lesson:</p>';
+    misses.forEach(function(m){mhtml+='<div class="miss">'+m.q+' → <span class="fix">'+m.key+'</span>'+(m.why?' · '+m.why:'')+'</div>';});
+  }else{
+    mhtml='<p class="helper" style="margin-top:1.4em">Zero misses. Show the perfect score to Elena.</p>';
+  }
+  $("end-body").innerHTML=html;
+  $("misses-body").innerHTML=mhtml;
+  LAST_REPORT=reportText(hits,total,byRound,misses);
+  try{localStorage.setItem("mr-hse-last",LAST_REPORT);}catch(e){}
+  try{queueReport(LAST_REPORT);flushQueue();}catch(e){} /* plumbing must never kill the score card */
+  show("end-card");
+  setTimeout(function(){try{$("end-card").scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}},60);
+}
+
+/* ---------- the report: auto-send to Masha's own form «Maria R» ---------- */
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSePEkW0XFP-ZvMS8gSEIM2vGwc2KyRJ42Jm4f6E1XcciVpRzg/formResponse";
+var FORM_ENTRY="entry.416346957";
+
+var LAST_REPORT="";
+function reportText(hits,total,byRound,misses){
+  var d=new Date();
+  var pad=function(n){return (n<10?"0":"")+n;};
+  var lines=["DRILL REPORT · "+RUNNER+" · HSE workbook Module 1 · "+pad(d.getDate())+"/"+pad(d.getMonth()+1)+" "+pad(d.getHours())+":"+pad(d.getMinutes()),
+    "Score: "+hits+"/"+total];
+  for(var k in byRound){lines.push("· "+k+": "+byRound[k].ok+"/"+byRound[k].n);}
+  if(rounds[0]&&rounds[0].wfMode)lines.push("· word formation: "+(rounds[0].wfMode==="ctx"?"stems mode":"POS mode"));
+  if(misses.length){
+    lines.push("Misses ("+misses.length+"):");
+    misses.forEach(function(m){lines.push("  – "+m.q.replace(/\s+/g," ").trim()+" → "+m.key);});
+  }else{lines.push("Zero misses.");}
+  return lines.join("\n");
+}
+function sendViaForm(txt){
+  if(!FORM_ACTION)return false;
+  var frame=document.createElement("iframe");
+  frame.name="hw-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);
+  /* no input named "submit" — a named child shadows f.submit() and kills the run */
+  document.body.appendChild(f);
+  f.submit();
+  setTimeout(function(){f.remove();frame.remove();},15000);
+  return true;
+}
+function queueReport(txt){
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("mr-hse-queue")||"[]");}catch(e){}
+  q.push(txt);
+  if(q.length>20)q=q.slice(-20);
+  try{localStorage.setItem("mr-hse-queue",JSON.stringify(q));}catch(e){}
+}
+function flushQueue(){
+  if(!FORM_ACTION)return; /* reports wait in the queue */
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("mr-hse-queue")||"[]");}catch(e){}
+  if(!q.length)return;
+  /* send what sends, KEEP what fails — and never throw into the caller */
+  var rest=q.filter(function(t){try{return !sendViaForm(t);}catch(e){return true;}});
+  try{localStorage.setItem("mr-hse-queue",JSON.stringify(rest));}catch(e){}
+}
+$("send-btn").addEventListener("click",function(){
+  var txt=LAST_REPORT;
+  try{txt=localStorage.getItem("mr-hse-last")||txt;}catch(e){}
+  if(!txt)return;
+  var sent=false;
+  try{sent=sendViaForm(txt);}catch(e){}
+  if(sent){
+    try{localStorage.setItem("mr-hse-queue","[]");}catch(e){}
+    $("send-btn").textContent="sent to Elena ✅";
+    $("send-hint").textContent="It's in — Elena sees it before the lesson.";
+  }else{
+    $("send-hint").textContent="The send didn't go through — check the internet and tap again.";
+  }
+});
+
+/* ---------- the per-card timer — RUNS ON WALL TIME, deliberately:
+   leave the window to look something up and the card burns (Elena's rule) ---------- */
+var deadline=null;
+function start(sec){
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  num.textContent=sec+" s";num.className="timer-num";
+  if(deadline){clearTimeout(deadline);deadline=null;}
+  deadline=setTimeout(function(){if(!answered)timeUp();},DUR);
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 s";
+      stop();timeUp();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" s";
+    num.className="timer-num"+(s<=3?" low":"");
+  },100);
+}
+function stop(){
+  if(timer){clearInterval(timer);timer=null;}
+  if(deadline){clearTimeout(deadline);deadline=null;}
+}
+function timeUp(){
+  if(answered)return;
+  answered=true;
+  judge(rounds[ri].tasks[qi],null,true);
+}
+
+/* load-time flush goes LAST — every listener is attached before it, and it cannot throw */
+try{flushQueue();}catch(e){}
+</script>
+</body>
+</html>
