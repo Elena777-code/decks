@@ -1207,7 +1207,8 @@ If opened directly (no lesson behind): just close the tab.">
 
   var notesBody = document.getElementById('notesBody');
   slides[0].classList.add('on');
-  show(0);
+  var sjump = (location.search.match(/[?&]s=(\d+)/) || [])[1];
+  show(sjump ? Math.min(slides.length-1, Math.max(0, +sjump-1)) : 0);
 })();
 </script>
 </body>
