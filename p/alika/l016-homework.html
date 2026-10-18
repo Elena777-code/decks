@@ -262,9 +262,12 @@ audio{width:100%;margin-top:.5em}
     });
   });
 
-  /* --- the teach cards --- */
-  document.querySelectorAll('.wcard').forEach(function(w){
-    w.addEventListener('click',function(){ w.classList.toggle('shown'); });
+  /* --- the teach cards (DELEGATED — the D: cards render after this script
+         section; a direct binding ran too early and the cards were dead,
+         Elena 18.10: «unclickable») --- */
+  document.addEventListener('click',function(e){
+    var w=e.target.closest('.wcard');
+    if(w) w.classList.toggle('shown');
   });
   /* the D: word teach cards render here */
   var WORDS=[
