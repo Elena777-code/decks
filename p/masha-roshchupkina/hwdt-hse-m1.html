@@ -417,7 +417,7 @@ function reviewHtml(review,isFresh){
     mhtml='<p class="helper" style="text-align:left;margin-top:1.4em;font-weight:700">📋 Wrong answers — '+review.misses.length+
       ' to look at'+(isFresh?" — into your notebook, and show Elena at the lesson:":":")+'</p>';
     review.misses.forEach(function(m){
-      var fixed=m.q.replace(/<span class="gap">[\s\S]*?<\/span>/,'<span class="fix">'+m.key+'</span>');
+      var fixed=m.q.replace('______','<span class="fix">'+m.key+'</span>');
       mhtml+='<div class="miss">'+fixed+
         (m.why?'<br><span style="color:var(--ink-soft);font-weight:500">'+m.why+'</span>':'')+'</div>';
     });
