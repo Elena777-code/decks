@@ -173,7 +173,15 @@ img.sheet.small{width:min(560px,92%);height:min(30vh,280px);object-fit:cover;obj
 #bigword .bw .art{display:block;font-size:clamp(1.6rem,4vw,3.4rem);color:var(--gold);margin-bottom:1.5vh}
 #bigword .bw .noun{display:block;font-size:clamp(4.5rem,17vh,11rem);letter-spacing:.02em}
 #bigword .tap-hint{position:absolute;bottom:6vh;left:0;right:0;text-align:center;font-size:clamp(.9rem,1.5vw,1.2rem);color:var(--ivory);opacity:.7}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}</style>
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}/* the DOJO GLOW composition pieces (from the ChatGPT demo, verbatim spirit) */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr));gap:16px}
+.grid .card{text-align:center}
+.dialogue{background:var(--ivory);color:var(--ink);border-radius:28px;padding:clamp(24px,5vw,50px);font-size:clamp(1.6rem,4.4vw,3rem);font-weight:900;line-height:1.45;box-shadow:0 8px 0 var(--brick);text-align:center}
+.dialogue .reply{color:#087E69}
+.sword{font-size:clamp(2.6rem,6vh,4rem);letter-spacing:8px}
+.ritual{border-left:7px solid var(--gold);text-align:left}
+.closer-line{font-size:clamp(1.3rem,2.6vw,2rem);font-weight:900;color:var(--gold)}
+</style>
 <style>/* THE FILM CUE (standing, 2026-10-13): the group's filming moment for the parents — Alice records 30–60 s here */
 .filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}</style>
 </head>
@@ -182,90 +190,81 @@ img.sheet.small{width:min(560px,92%);height:min(30vh,280px);object-fit:cover;obj
 
 <div id="progress-track"><div id="progress-fill"></div></div>
 
-<!-- 1 · THE FIRST SONG — LET'S BE FRIENDS (SB p. 4, Track 1 + karaoke Track 2) -->
+<!-- 1 · THE FIRST SONG — the lesson opens on music -->
 <section class="slide">
   <div class="eyebrow reveal-el">🎵 Song time · 01</div>
-  <h1 class="title reveal-el">Hello, hello! Let's be friends! 🎵</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Listen — then sing along!</div>
+  <h1 class="title reveal-el">Hello, hello!<br>Let's be friends! 🎵</h1>
   <div class="cast reveal-el"><div class="hero"><i>👧</i>Misty</div><div class="hero"><i>👦</i>Whisper</div><div class="hero"><i>🥷</i><span class="blue">Jay · BLUE</span></div><div class="hero"><i>🥷</i><span class="green">Lloyd · GREEN</span></div><div class="hero"><i>🧙</i>Master Wu</div><div class="hero"><i>🥷</i>BLACK ninja</div></div>
-  <audio controls preload="none" class="reveal-el" src="../media/sm0-u0-t01-song.mp3"></audio>
-  <div class="card mint reveal-el"><p>🎤 In the song: <b style="color:var(--mint-deep)">Misty</b> 👧 asks — <b style="color:var(--lavender-deep)">Whisper</b> 👦 answers. <b>«Hey, let's be friends!»</b></p></div>
-  <div class="card lavender reveal-el"><p style="font-size:clamp(1.05rem,1.8vw,1.5rem)">💬 Misty: <b>Hello, hello! What's your name?</b> — Whisper: <b>I'm Whisper!</b><br>Misty: <b>I'm Misty!</b> — Whisper: <b>Hey Misty, let's be friends!</b></p></div>
-  <div class="card peach reveal-el" style="max-width:760px">
-    <p style="font-family:'Trebuchet MS',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.35rem);color:var(--lavender-deep)">🧺 Prepare ahead</p>
-    <p style="font-size:clamp(.85rem,1.35vw,1.1rem);line-height:1.55">
-      🔊 <b>test both audios</b> before the children join &nbsp;·&nbsp; 📝 <b>the children's names</b> on a card beside you<br>
-      🧸 a <b>soft toy</b> in frame (the wave game) &nbsp;·&nbsp; 📷 your <b>camera on/off switch</b> — it is the door in the goodbye game
-    </p>
+  <div class="card audio reveal-el" style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+    <audio controls preload="none" src="../media/sm0-u0-t01-song.mp3"></audio>
+    <div style="font-size:clamp(1.05rem,1.8vw,1.5rem);font-weight:900"><span class="goldc">Misty asks</span> — <span class="blue">Whisper answers</span> · «Hey, let's be friends!»</div>
+  </div>
+  <div class="card peach reveal-el" style="max-width:860px">
+    <p style="font-weight:900;color:var(--gold);font-size:clamp(1rem,1.7vw,1.35rem)">🍵 Prepare ahead</p>
+    <p style="font-size:clamp(.85rem,1.35vw,1.1rem);line-height:1.55">🔊 test both audios before the children join · 📝 the children's names on a card beside you · 🧸 a soft toy in frame · 📷 know your camera on/off switch — it is the door in the goodbye game</p>
   </div>
 </section>
 
 <!-- 2 · MEET THE TEAM — HELLO! I'M… -->
 <section class="slide">
-  <div class="eyebrow reveal-el">NEW FRIENDS! · 02</div>
+  <div class="eyebrow reveal-el">Meet the team · 02</div>
   <h1 class="title reveal-el">Hello! What's your name? 🥷</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Meet the team — say it back!</div>
-  <div class="fc-grid reveal-el">
-    <div class="fc" style="background:#f1ecff"><span class="fc-emoji">👧</span><div class="fc-name"><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em;background:var(--lavender)">I'm Misty!</span></div></div>
-    <div class="fc" style="background:#eafbf6"><span class="fc-emoji">👦</span><div class="fc-name"><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em">I'm Whisper!</span></div></div>
-    <div class="fc" style="background:#eaf4ff"><span class="fc-emoji">🥷</span><div class="fc-name"><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em;background:#bfe0ff">I'm Jay!</span></div></div>
-    <div class="fc" style="background:#edfbe7"><span class="fc-emoji">🥷</span><div class="fc-name"><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em;background:#c8f0b0">I'm Lloyd!</span></div></div>
-    <div class="fc" style="background:#fff8db"><span class="fc-emoji">🧙</span><div class="fc-name"><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em;background:var(--peach)">I'm Master Wu!</span></div></div>
+  <div class="grid reveal-el">
+    <div class="fc"><span class="fc-emoji">👧</span><div class="fc-name">Misty</div><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em">I'm Misty!</span></div>
+    <div class="fc"><span class="fc-emoji">👦</span><div class="fc-name">Whisper</div><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em">I'm Whisper!</span></div>
+    <div class="fc"><span class="fc-emoji">🥷</span><div class="fc-name blue">Jay · BLUE</div><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em">I'm Jay!</span></div>
+    <div class="fc"><span class="fc-emoji">🥷</span><div class="fc-name green">Lloyd · GREEN</div><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em">I'm Lloyd!</span></div>
+    <div class="fc"><span class="fc-emoji">🧙</span><div class="fc-name goldc">Master Wu</div><button class="reveal-btn" style="font-size:.8em;padding:.15em .9em" onclick="reveal(this)">?</button> <span class="answer" style="font-size:1.05em;padding:.1em .5em">I'm Master Wu!</span></div>
   </div>
-  <div class="card pink reveal-el"><p>🥷 Jay is <b style="color:#3f8fd2">BLUE</b> · Lloyd is <b style="color:#4a9e34">GREEN</b> · Master Wu is the <b>old master</b> 🧙</p></div>
   <img class="sheet small reveal-el" src="../media/ninja-team.jpg" alt="Our ninja team — the real figures">
 </section>
 
 <!-- 3 · ASK AND ANSWER — THE WAVE GAME · THE FILMING MOMENT -->
 <section class="slide">
-  <div class="eyebrow reveal-el">Ask and answer 🙋 · 03</div>
+  <div class="eyebrow reveal-el">Your turn · 03</div>
   <h1 class="title reveal-el">What's YOUR name? 🧸</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Answer — then pass the wave!</div>
   <div class="cast reveal-el"><div class="hero"><i>👧</i>Misty</div><div class="hero"><i>👦</i>Whisper</div><div class="hero"><i>🥷</i><span class="blue">Jay · BLUE</span></div><div class="hero"><i>🥷</i><span class="green">Lloyd · GREEN</span></div><div class="hero"><i>🧙</i>Master Wu</div><div class="hero"><i>🥷</i>BLACK ninja</div></div>
-  <div class="card mint reveal-el"><p>🧸 <b style="color:var(--mint-deep)">Hello! I'm Alice! What's your name?</b> — the toy flies to YOU: <b style="color:var(--lavender-deep)">I'm …!</b></p></div>
-  <div class="card lavender reveal-el"><p>👏 Clap it: <b style="color:var(--lavender-deep)">WHAT's</b> 👏 your <b style="color:var(--lavender-deep)">NAME?</b> 👏</p></div>
-  <div class="card peach reveal-el"><p>🥷 Then YOU ask a friend: <b style="color:var(--lavender-deep)">«What's YOUR name?»</b> — everyone answers!</p></div>
+  <div class="dialogue reveal-el">👋 Hello!<br>I'm Alice!<br>What's your name?<br><span class="reply">— I'm …!</span></div>
+  <div class="closer-line reveal-el">🌟 Wave to a friend — take turns around the group! 👏 WHAT's-your-NAME?</div>
 <div class="filmchip" title="Lights, camera, action — today: film every child's first English hello, 30–60 s, to the parents' chat">🎬 Lights, camera, action!</div>
 </section>
 
 <!-- 4 · THE TREASURE TASK — HOW MANY SWORDS? -->
 <section class="slide">
-  <div class="eyebrow reveal-el">🧠 Think like a ninja · 04</div>
+  <div class="eyebrow reveal-el">Think like a ninja · 04</div>
   <h1 class="title reveal-el">The swords count! 🗡️</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Two friends — how many together?</div>
-  <div class="cast reveal-el"><div class="hero"><i>👧</i>Misty</div><div class="hero"><i>👦</i>Whisper</div><div class="hero"><i>🥷</i><span class="blue">Jay · BLUE</span></div><div class="hero"><i>🥷</i><span class="green">Lloyd · GREEN</span></div><div class="hero"><i>🧙</i>Master Wu</div><div class="hero"><i>🥷</i>BLACK ninja</div></div>
-  <div class="card mint reveal-el"><p>🥷 Jay has <b style="color:var(--mint-deep)">ONE</b> sword. 🗡️</p></div>
-  <div class="card lavender reveal-el"><p>🥷 Lloyd has <b style="color:var(--lavender-deep)">TWO</b> swords. 🗡️🗡️</p></div>
-  <div class="card peach reveal-el"><p>❓ How many swords <b>together</b>?</p></div>
-  <button class="reveal-btn reveal-el" onclick="reveal(this)">💡 Think first — then look!</button>
-  <span class="answer">THREE! 🗡️🗡️🗡️</span>
+  <div class="grid reveal-el">
+    <div class="fc"><span class="fc-emoji">🥷</span><div class="fc-name blue">Jay has ONE sword</div><div class="sword">🗡️</div></div>
+    <div class="fc"><span class="fc-emoji">🥷</span><div class="fc-name green">Lloyd has TWO swords</div><div class="sword">🗡️🗡️</div></div>
+  </div>
+  <div class="dialogue reveal-el" style="font-size:clamp(1.4rem,3.4vw,2.6rem)">How many swords TOGETHER?<br>
+    <button class="reveal-btn reveal-el" style="font-size:.85em;margin-top:12px" onclick="reveal(this)">💡 Think first — then look!</button>
+    <span class="answer" style="font-size:.95em;background:transparent;border:none;color:var(--gold)">THREE! 🗡️🗡️🗡️</span>
+  </div>
 </section>
 
 <!-- 5 · KARAOKE — NOW YOU SING -->
 <section class="slide">
-  <div class="eyebrow reveal-el">🎵 Karaoke — your turn! · 05</div>
+  <div class="eyebrow reveal-el">Sing together · 05</div>
   <h1 class="title reveal-el">Now YOU sing! 🎤</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 No voices on the track — YOU are the voices!</div>
   <div class="cast reveal-el"><div class="hero"><i>👧</i>Misty</div><div class="hero"><i>👦</i>Whisper</div><div class="hero"><i>🥷</i><span class="blue">Jay · BLUE</span></div><div class="hero"><i>🥷</i><span class="green">Lloyd · GREEN</span></div><div class="hero"><i>🧙</i>Master Wu</div><div class="hero"><i>🥷</i>BLACK ninja</div></div>
-  <audio controls preload="none" class="reveal-el" src="../media/sm0-u0-t02-karaoke.mp3"></audio>
-  <div class="card mint reveal-el"><p>👧 One of you is <b style="color:var(--mint-deep)">Misty</b> — 👦 one is <b style="color:var(--lavender-deep)">Whisper</b>. Then SWAP!</p></div>
+  <div class="card reveal-el" style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+    <span class="fc-emoji">🎤</span>
+    <audio controls preload="none" src="../media/sm0-u0-t02-karaoke.mp3"></audio>
+    <div style="font-size:clamp(1.05rem,1.8vw,1.5rem);font-weight:900">No voices on the track — <span class="goldc">YOU are the voices!</span></div>
+  </div>
+  <div class="closer-line reveal-el">👧 One of you is Misty — 👦 one is Whisper. Then SWAP! Sing, clap, ninja moves!</div>
 </section>
 
 <!-- 6 · GOODBYE — THE CAMERA GAME -->
 <section class="slide">
-  <div class="eyebrow reveal-el">Goodbye time 👋 · 06</div>
+  <div class="eyebrow reveal-el">See you soon · 06</div>
   <h1 class="title reveal-el">Bye! Goodbye! 👋</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 The camera game: hello — goodbye!</div>
-  <div class="cast reveal-el"><div class="hero"><i>👧</i>Misty</div><div class="hero"><i>👦</i>Whisper</div><div class="hero"><i>🥷</i><span class="blue">Jay · BLUE</span></div><div class="hero"><i>🥷</i><span class="green">Lloyd · GREEN</span></div><div class="hero"><i>🧙</i>Master Wu</div><div class="hero"><i>🥷</i>BLACK ninja</div></div>
-  <div class="card mint reveal-el"><p>📷 Camera OFF — knock knock 🔔 — camera ON: <b style="color:var(--mint-deep)">Hello!</b></p></div>
-  <div class="card lavender reveal-el"><p>📷 Camera OFF again — the team says: <b style="color:var(--lavender-deep)">Goodbye!</b></p></div>
-  <div class="card peach reveal-el"><p>🥷 Faster… and FASTER! 😄</p></div>
+  <div class="grid reveal-el">
+    <div class="card ritual"><span class="fc-emoji">🚪</span><p><b class="goldc">Camera OFF</b><br>knock knock 🔔<br><b class="goldc">camera ON: Hello!</b></p></div>
+    <div class="card ritual"><span class="fc-emoji">👋</span><p><b class="goldc">Camera OFF again</b><br>the team says:<br><b>Goodbye!</b></p></div>
+  </div>
+  <div class="closer-line reveal-el">Faster… and FASTER! 😄 Master Wu says: wonderful work, ninjas!</div>
 </section>
 
 <div id="nav">
