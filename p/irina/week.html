@@ -72,6 +72,14 @@ input.type-box.need{border-color:var(--coral);animation:need .3s ease}
 .miss-list{margin-top:.8em;text-align:left;background:#f2fbf9;border-radius:16px;padding:.9em 1.1em;
   font-size:clamp(.95rem,3.6vw,1.1rem);font-weight:700;line-height:1.6;display:none}
 .miss-list .k{color:var(--sea-deep)}
+/* --- per-part review card (v4: что было не так + короткое объяснение) --- */
+.rmiss{margin-top:.7em}
+.rmiss .rline{font-weight:800;font-size:clamp(.95rem,3.6vw,1.1rem)}
+.rmiss .ryou{color:var(--coral);font-weight:800}
+.rmiss .rkey{color:var(--sea-deep);font-weight:800}
+.rmiss .rwhy{color:var(--ink-soft);font-weight:700;font-size:.9em;margin-top:.2em;line-height:1.5}
+.next-btn{background:var(--sun);color:var(--ink);font-size:clamp(1rem,4vw,1.2rem);
+  padding:.7em 1.8em;margin-top:1em;box-shadow:0 6px 0 #e3b95f}
 .again-btn{background:var(--sea);color:#fff;font-size:clamp(1rem,4vw,1.2rem);
   padding:.7em 1.8em;margin-top:.9em;box-shadow:0 6px 0 #239d92}
 .home-btn{background:transparent;color:var(--sea-deep);font-size:1rem;
@@ -92,9 +100,10 @@ footer{max-width:680px;width:100%;text-align:center;margin-top:1.6em;
     <div class="name-row"><input class="type-box" id="who-box" placeholder="Кто играет?" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
     <p class="rules">Закончи день — откроется следующий.<br>
     Знакомые задания возвращаются <b>с часами ⏰</b>: успей нажать, пока бежит полоска!<br>
-    Время вышло — карточка улетела 🪁. Назад нельзя!</p>
+    Время вышло — карточка улетела 🪁. Назад нельзя!<br>
+    После каждой части — разбор: что было не так и почему 💡</p>
     <div class="day-grid" id="day-grid"></div>
-    <div class="meta">build 2026-10-17 · v3 · 9 игр · закончи день — откроется следующий</div>
+    <div class="meta">build 2026-10-18 · v4 · 9 игр · разбор после каждой части · закончи день — откроется следующий</div>
   </div>
 
   <div class="card hidden" id="q-card">
@@ -105,6 +114,13 @@ footer{max-width:680px;width:100%;text-align:center;margin-top:1.6em;
   </div>
 
   <div class="flash hidden" id="flash"></div>
+
+  <div class="card hidden" id="round-card">
+    <div class="qcount" id="round-count"></div>
+    <div class="one-line" id="round-line"></div>
+    <div class="miss-list" id="round-miss"></div>
+    <div><button class="next-btn" id="next-btn">Дальше →</button></div>
+  </div>
 
   <div class="card hidden" id="end-card">
     <div class="stars" id="end-stars"></div>
@@ -130,96 +146,96 @@ var HW_FORM={action:"https://docs.google.com/forms/d/e/1FAIpQLScYuudgy8Zza0OF09f
    no card asks for a content word's meaning — RU glosses only where the task
    IS the word). Choices always carry correct forms. */
 var SORT=[
-  {q:"every day",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"every day"},
-  {q:"just now",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"just now"},
-  {q:"nearly always",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"nearly always"},
-  {q:"now",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"now"},
-  {q:"on Fridays",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"on Fridays"},
-  {q:"these days",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"these days"},
-  {q:"this afternoon",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"this afternoon"},
-  {q:"today",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"today"},
-  {q:"very often",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"very often"},
-  {q:"when I'm tired",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"when I'm tired"}
+  {q:"every day",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"every day",why:"каждый день = обычно → V + s"},
+  {q:"just now",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"just now",why:"just now = только что, прямо сейчас → is/am/are + V-ing"},
+  {q:"nearly always",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"nearly always",why:"почти всегда = обычно → V + s"},
+  {q:"now",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"now",why:"now = сейчас, в этот момент → is/am/are + V-ing"},
+  {q:"on Fridays",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"on Fridays",why:"по пятницам = каждую неделю, обычно → V + s"},
+  {q:"these days",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"these days",why:"эти дни = период, который идёт сейчас → is/am/are + V-ing"},
+  {q:"this afternoon",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"this afternoon",why:"сегодня после обеда — уже идёт → is/am/are + V-ing"},
+  {q:"today",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"is/am/are + V-ing",label:"today",why:"сегодня — этот день идёт сейчас → is/am/are + V-ing"},
+  {q:"very often",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"very often",why:"очень часто = обычно → V + s"},
+  {q:"when I'm tired",choices:["V + s (it/he/she)","is/am/are + V-ing"],key:"V + s (it/he/she)",label:"when I'm tired",why:"каждый раз, когда устаю = обычно → V + s"}
 ];
 var SENT=[
-  {q:'We <span class="gap">______</span> football <span class="base">every Saturday</span>.',choices:["play","plays","are playing"],key:"play",label:"We … every Saturday"},
-  {q:'Mum <span class="gap">______</span> tea <span class="base">every morning</span>.',choices:["drink","drinks","is drinking"],key:"drinks",label:"Mum … every morning"},
-  {q:'<span class="base">Look!</span> The cat <span class="gap">______</span> the tree.',choices:["climb","climbs","is climbing"],key:"is climbing",label:"Look! the cat …"},
-  {q:'I <span class="gap">______</span> my homework <span class="base">every day</span>.',choices:["do","does","am doing"],key:"do",label:"I … every day"},
-  {q:'The children <span class="gap">______</span> to school <span class="base">now</span>.',choices:["go","goes","are going"],key:"are going",label:"the children … now"},
-  {q:'My brother <span class="gap">______</span> his bike <span class="base">on Fridays</span>.',choices:["ride","rides","is riding"],key:"rides",label:"my brother … on Fridays"},
-  {q:'<span class="base">Listen!</span> Dad <span class="gap">______</span> the guitar.',choices:["play","plays","is playing"],key:"is playing",label:"Listen! Dad …"},
-  {q:'They <span class="gap">______</span> coffee <span class="base">in the morning</span>.',choices:["like","likes","are liking"],key:"like",label:"they … in the morning"}
+  {q:'We <span class="gap">______</span> football <span class="base">every Saturday</span>.',choices:["play","plays","are playing"],key:"play",label:"We … every Saturday",why:"every Saturday = обычно → present simple; с We — без -s: play"},
+  {q:'Mum <span class="gap">______</span> tea <span class="base">every morning</span>.',choices:["drink","drinks","is drinking"],key:"drinks",label:"Mum … every morning",why:"every morning = обычно; Mum = she → добавляем -s: drinks"},
+  {q:'<span class="base">Look!</span> The cat <span class="gap">______</span> the tree.',choices:["climb","climbs","is climbing"],key:"is climbing",label:"Look! the cat …",why:"Look! = смотри — происходит сейчас → is climbing"},
+  {q:'I <span class="gap">______</span> my homework <span class="base">every day</span>.',choices:["do","does","am doing"],key:"do",label:"I … every day",why:"every day = обычно → present simple: I do"},
+  {q:'The children <span class="gap">______</span> to school <span class="base">now</span>.',choices:["go","goes","are going"],key:"are going",label:"the children … now",why:"now = сейчас → are going"},
+  {q:'My brother <span class="gap">______</span> his bike <span class="base">on Fridays</span>.',choices:["ride","rides","is riding"],key:"rides",label:"my brother … on Fridays",why:"on Fridays = обычно; brother = he → rides"},
+  {q:'<span class="base">Listen!</span> Dad <span class="gap">______</span> the guitar.',choices:["play","plays","is playing"],key:"is playing",label:"Listen! Dad …",why:"Listen! = слушай — прямо сейчас → is playing"},
+  {q:'They <span class="gap">______</span> coffee <span class="base">in the morning</span>.',choices:["like","likes","are liking"],key:"like",label:"they … in the morning",why:"in the morning = обычно; like никогда не бывает с -ing → like"}
 ];
 var VV=[
-  {q:"chases",choices:["always 📅","now ⏰"],key:"always 📅",label:"chases"},
-  {q:"is chasing",choices:["always 📅","now ⏰"],key:"now ⏰",label:"is chasing"},
-  {q:"play",choices:["always 📅","now ⏰"],key:"always 📅",label:"play"},
-  {q:"are playing",choices:["always 📅","now ⏰"],key:"now ⏰",label:"are playing"},
-  {q:"sleeps",choices:["always 📅","now ⏰"],key:"always 📅",label:"sleeps"},
-  {q:"is sleeping",choices:["always 📅","now ⏰"],key:"now ⏰",label:"is sleeping"},
-  {q:"write",choices:["always 📅","now ⏰"],key:"always 📅",label:"write"},
-  {q:"am writing",choices:["always 📅","now ⏰"],key:"now ⏰",label:"am writing"},
-  {q:"goes",choices:["always 📅","now ⏰"],key:"always 📅",label:"goes"},
-  {q:"are going",choices:["always 📅","now ⏰"],key:"now ⏰",label:"are going"}
+  {q:"chases",choices:["always 📅","now ⏰"],key:"always 📅",label:"chases",why:"видишь -s? это «обычно» → always 📅"},
+  {q:"is chasing",choices:["always 📅","now ⏰"],key:"now ⏰",label:"is chasing",why:"is + -ing = происходит сейчас → now ⏰"},
+  {q:"play",choices:["always 📅","now ⏰"],key:"always 📅",label:"play",why:"форма без -s и без -ing = «обычно» → always 📅"},
+  {q:"are playing",choices:["always 📅","now ⏰"],key:"now ⏰",label:"are playing",why:"are + -ing = сейчас → now ⏰"},
+  {q:"sleeps",choices:["always 📅","now ⏰"],key:"always 📅",label:"sleeps",why:"видишь -s? это «обычно» → always 📅"},
+  {q:"is sleeping",choices:["always 📅","now ⏰"],key:"now ⏰",label:"is sleeping",why:"is + -ing = сейчас → now ⏰"},
+  {q:"write",choices:["always 📅","now ⏰"],key:"always 📅",label:"write",why:"базовая форма = «обычно» → always 📅"},
+  {q:"am writing",choices:["always 📅","now ⏰"],key:"now ⏰",label:"am writing",why:"am + -ing = сейчас → now ⏰"},
+  {q:"goes",choices:["always 📅","now ⏰"],key:"always 📅",label:"goes",why:"видишь -s (goes)? это «обычно» → always 📅"},
+  {q:"are going",choices:["always 📅","now ⏰"],key:"now ⏰",label:"are going",why:"are + -ing = сейчас → now ⏰"}
 ];
 var ADJ=[
-  {q:'<span class="base">big</span> → <span class="gap">______</span>',choices:["bigger","more bigger","biggest"],key:"bigger",label:"big →"},
-  {q:'<span class="base">small</span> → <span class="gap">______</span>',choices:["smaller","more smaller","smallest"],key:"smaller",label:"small →"},
-  {q:'<span class="base">funny</span> → <span class="gap">______</span>',choices:["funnier","funnyer","more funnier"],key:"funnier",label:"funny →"},
-  {q:'<span class="base">nice</span> → <span class="gap">______</span>',choices:["nicer","niceer","more nicer"],key:"nicer",label:"nice →"},
-  {q:'<span class="base">easy</span> → <span class="gap">______</span>',choices:["easier","easyer","more easier"],key:"easier",label:"easy →"},
-  {q:'<span class="base">hot</span> → <span class="gap">______</span>',choices:["hotter","hoter","more hot"],key:"hotter",label:"hot →"},
-  {q:'<span class="base">good</span> → <span class="gap">______</span>',choices:["better","gooder","more good"],key:"better",label:"good →"},
-  {q:'<span class="base">bad</span> → <span class="gap">______</span>',choices:["worse","badder","more bad"],key:"worse",label:"bad →"}
+  {q:'<span class="base">big</span> → <span class="gap">______</span>',choices:["bigger","more bigger","biggest"],key:"bigger",label:"big →",why:"короткое слово → просто + er: bigger"},
+  {q:'<span class="base">small</span> → <span class="gap">______</span>',choices:["smaller","more smaller","smallest"],key:"smaller",label:"small →",why:"короткое слово → просто + er: smaller"},
+  {q:'<span class="base">funny</span> → <span class="gap">______</span>',choices:["funnier","funnyer","more funnier"],key:"funnier",label:"funny →",why:"y в конце → y меняется на i + er: funnier"},
+  {q:'<span class="base">nice</span> → <span class="gap">______</span>',choices:["nicer","niceer","more nicer"],key:"nicer",label:"nice →",why:"e в конце → добавляем только r: nicer"},
+  {q:'<span class="base">easy</span> → <span class="gap">______</span>',choices:["easier","easyer","more easier"],key:"easier",label:"easy →",why:"y → i + er: easier"},
+  {q:'<span class="base">hot</span> → <span class="gap">______</span>',choices:["hotter","hoter","more hot"],key:"hotter",label:"hot →",why:"одна гласная + одна согласная в конце → согласная удваивается: hotter"},
+  {q:'<span class="base">good</span> → <span class="gap">______</span>',choices:["better","gooder","more good"],key:"better",label:"good →",why:"исключение: good — better — the best"},
+  {q:'<span class="base">bad</span> → <span class="gap">______</span>',choices:["worse","badder","more bad"],key:"worse",label:"bad →",why:"исключение: bad — worse — the worst"}
 ];
 var NEG=[
-  {q:'This cat <span class="gap">______</span> chasing mice. 🐭',choices:["isn't","doesn't"],key:"isn't",label:"this cat … chasing"},
-  {q:'This cat <span class="gap">______</span> chase dogs. 🐕',choices:["isn't","doesn't"],key:"doesn't",label:"this cat … chase"},
-  {q:'This cow <span class="gap">______</span> eating grass. 🐄',choices:["isn't","doesn't"],key:"isn't",label:"this cow … eating"},
-  {q:'It <span class="gap">______</span> often rain here. ☔',choices:["isn't","doesn't"],key:"doesn't",label:"it … often rain"},
-  {q:'This shop <span class="gap">______</span> selling books now. 📚',choices:["isn't","doesn't"],key:"isn't",label:"the shop … selling"},
-  {q:'John <span class="gap">______</span> working today. 🧑‍💼',choices:["isn't","doesn't"],key:"isn't",label:"John … working"},
-  {q:'Ann <span class="gap">______</span> play tennis on Mondays. 🎾',choices:["isn't","doesn't"],key:"doesn't",label:"Ann … play"},
-  {q:'The dog <span class="gap">______</span> sleeping now. 🐶',choices:["isn't","doesn't"],key:"isn't",label:"the dog … sleeping"}
+  {q:'This cat <span class="gap">______</span> chasing mice. 🐭',choices:["isn't","doesn't"],key:"isn't",label:"this cat … chasing",why:"видишь -ing? → is/am/are → isn't"},
+  {q:'This cat <span class="gap">______</span> chase dogs. 🐕',choices:["isn't","doesn't"],key:"doesn't",label:"this cat … chase",why:"форма без -ing (обычная) → doesn't"},
+  {q:'This cow <span class="gap">______</span> eating grass. 🐄',choices:["isn't","doesn't"],key:"isn't",label:"this cow … eating",why:"видишь -ing? → isn't"},
+  {q:'It <span class="gap">______</span> often rain here. ☔',choices:["isn't","doesn't"],key:"doesn't",label:"it … often rain",why:"обычная форма + often (обычно) → doesn't"},
+  {q:'This shop <span class="gap">______</span> selling books now. 📚',choices:["isn't","doesn't"],key:"isn't",label:"the shop … selling",why:"видишь -ing? → isn't"},
+  {q:'John <span class="gap">______</span> working today. 🧑‍💼',choices:["isn't","doesn't"],key:"isn't",label:"John … working",why:"видишь -ing? → isn't"},
+  {q:'Ann <span class="gap">______</span> play tennis on Mondays. 🎾',choices:["isn't","doesn't"],key:"doesn't",label:"Ann … play",why:"обычная форма, on Mondays = обычно → doesn't"},
+  {q:'The dog <span class="gap">______</span> sleeping now. 🐶',choices:["isn't","doesn't"],key:"isn't",label:"the dog … sleeping",why:"видишь -ing? → isn't"}
 ];
 var MOD=[
-  {q:'A cheetah <span class="gap">______</span> run fast. 🐆',choices:["can","can't"],key:"can",label:"cheetah … run fast"},
-  {q:'A fish <span class="gap">______</span> fly. 🐟',choices:["can","can't"],key:"can't",label:"fish … fly"},
-  {q:'A baby <span class="gap">______</span> drive a car. 🚗',choices:["can","can't"],key:"can't",label:"baby … drive"},
-  {q:'A parrot <span class="gap">______</span> talk. 🦜',choices:["can","can't"],key:"can",label:"parrot … talk"},
-  {q:'A penguin <span class="gap">______</span> swim. 🐧',choices:["can","can't"],key:"can",label:"penguin … swim"},
-  {q:'A cat <span class="gap">______</span> climb trees. 🐱',choices:["can","can't"],key:"can",label:"cat … climb"}
+  {q:'A cheetah <span class="gap">______</span> run fast. 🐆',choices:["can","can't"],key:"can",label:"cheetah … run fast",why:"гепард — самый быстрый бегун на земле"},
+  {q:'A fish <span class="gap">______</span> fly. 🐟',choices:["can","can't"],key:"can't",label:"fish … fly",why:"рыбы плавают, но не летают"},
+  {q:'A baby <span class="gap">______</span> drive a car. 🚗',choices:["can","can't"],key:"can't",label:"baby … drive",why:"малышам ещё нельзя за руль"},
+  {q:'A parrot <span class="gap">______</span> talk. 🦜',choices:["can","can't"],key:"can",label:"parrot … talk",why:"попугаи умеют повторять слова"},
+  {q:'A penguin <span class="gap">______</span> swim. 🐧',choices:["can","can't"],key:"can",label:"penguin … swim",why:"пингвины — отличные пловцы"},
+  {q:'A cat <span class="gap">______</span> climb trees. 🐱',choices:["can","can't"],key:"can",label:"cat … climb",why:"кошки отлично лазают по деревьям"}
 ];
 var IRRV=[
-  {q:'<span class="base">buy</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["bought","buyed","buied"],key:"bought",label:"buy →"},
-  {q:'<span class="base">think</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["thinked","thought","thinkied"],key:"thought",label:"think →"},
-  {q:'<span class="base">sing</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["sanged","sang","singd"],key:"sang",label:"sing →"},
-  {q:'<span class="base">take</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["taked","took","tooked"],key:"took",label:"take →"},
-  {q:'<span class="base">feel</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["felt","feeled","feeld"],key:"felt",label:"feel →"},
-  {q:'<span class="base">clap</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["claped","clapped","clappd"],key:"clapped",label:"clap →"},
-  {q:'<span class="base">drink</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["drinked","drank","drunked"],key:"drank",label:"drink →"},
-  {q:'<span class="base">cut</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["cuted","cutted","cut"],key:"cut",label:"cut →"}
+  {q:'<span class="base">buy</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["bought","buyed","buied"],key:"bought",label:"buy →",why:"пара наизусть: buy — bought"},
+  {q:'<span class="base">think</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["thinked","thought","thinkied"],key:"thought",label:"think →",why:"think — thought — рифмуется с bought"},
+  {q:'<span class="base">sing</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["sanged","sang","singd"],key:"sang",label:"sing →",why:"sing — sang, как drink — drank"},
+  {q:'<span class="base">take</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["taked","took","tooked"],key:"took",label:"take →",why:"take — took"},
+  {q:'<span class="base">feel</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["felt","feeled","feeld"],key:"felt",label:"feel →",why:"feel — felt"},
+  {q:'<span class="base">clap</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["claped","clapped","clappd"],key:"clapped",label:"clap →",why:"обычный глагол: p удваивается + ed → clapped"},
+  {q:'<span class="base">drink</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["drinked","drank","drunked"],key:"drank",label:"drink →",why:"drink — drank"},
+  {q:'<span class="base">cut</span> → <span class="gap">______</span> <span class="base">ВЧЕРА</span>',choices:["cuted","cutted","cut"],key:"cut",label:"cut →",why:"cut не меняется: cut — cut — cut"}
 ];
 var FIND=[
-  {q:'bread 🍞',choices:["хлеб","мыло","лес"],key:"хлеб",label:"bread"},
-  {q:'weather ☁️',choices:["погода","погода и дождь","ветер"],key:"погода",label:"weather"},
-  {q:'kitchen 🍳',choices:["кухня","комната","коридор"],key:"кухня",label:"kitchen"},
-  {q:'a basket 🧺',choices:["корзина","кровать","карман"],key:"корзина",label:"a basket"},
-  {q:'boots 👢',choices:["ботинки","перчатки","шарф"],key:"ботинки",label:"boots"},
-  {q:'a newspaper 📰',choices:["газета","журнал мод","письмо"],key:"газета",label:"a newspaper"},
-  {q:'a pocket 🧥',choices:["карман","рукав","пуговица"],key:"карман",label:"a pocket"},
-  {q:'a garden 🌳',choices:["сад","лес","парк"],key:"сад",label:"a garden"}
+  {q:'bread 🍞',choices:["хлеб","мыло","лес"],key:"хлеб",label:"bread",why:"bread = хлеб"},
+  {q:'weather ☁️',choices:["погода","погода и дождь","ветер"],key:"погода",label:"weather",why:"weather = погода"},
+  {q:'kitchen 🍳',choices:["кухня","комната","коридор"],key:"кухня",label:"kitchen",why:"kitchen = кухня"},
+  {q:'a basket 🧺',choices:["корзина","кровать","карман"],key:"корзина",label:"a basket",why:"a basket = корзина"},
+  {q:'boots 👢',choices:["ботинки","перчатки","шарф"],key:"ботинки",label:"boots",why:"boots = ботинки"},
+  {q:'a newspaper 📰',choices:["газета","журнал мод","письмо"],key:"газета",label:"a newspaper",why:"a newspaper = газета"},
+  {q:'a pocket 🧥',choices:["карман","рукав","пуговица"],key:"карман",label:"a pocket",why:"a pocket = карман"},
+  {q:'a garden 🌳',choices:["сад","лес","парк"],key:"сад",label:"a garden",why:"a garden = сад"}
 ];
 var SL6=[
-  {q:'a theme park 🎡',choices:["парк аттракционов","зоопарк","кинотеатр"],key:"парк аттракционов",label:"a theme park"},
-  {q:'rides 🎠',choices:["аттракционы","игрушки","прогулки"],key:"аттракционы",label:"rides"},
-  {q:'crowded 👥',choices:["многолюдно","пусто","тихо"],key:"многолюдно",label:"crowded"},
-  {q:'exciting 🤩',choices:["увлекательный","скучный","простой"],key:"увлекательный",label:"exciting"},
-  {q:'expensive 💰',choices:["дорогой","дешёвый","бесплатный"],key:"дорогой",label:"expensive"},
-  {q:'a maze 🧩',choices:["лабиринт","загадка","игра"],key:"лабиринт",label:"a maze"},
-  {q:'a queue 🚶🚶🚶',choices:["очередь","толпа","линейка"],key:"очередь",label:"a queue"},
-  {q:'worth it 👍',choices:["стоит того","жалко","нельзя"],key:"стоит того",label:"worth it"}
+  {q:'a theme park 🎡',choices:["парк аттракционов","зоопарк","кинотеатр"],key:"парк аттракционов",label:"a theme park",why:"a theme park = парк аттракционов"},
+  {q:'rides 🎠',choices:["аттракционы","игрушки","прогулки"],key:"аттракционы",label:"rides",why:"rides = аттракционы (горки, карусели)"},
+  {q:'crowded 👥',choices:["многолюдно","пусто","тихо"],key:"многолюдно",label:"crowded",why:"crowded = многолюдно (много людей)"},
+  {q:'exciting 🤩',choices:["увлекательный","скучный","простой"],key:"увлекательный",label:"exciting",why:"exciting = увлекательный"},
+  {q:'expensive 💰',choices:["дорогой","дешёвый","бесплатный"],key:"дорогой",label:"expensive",why:"expensive = дорогой"},
+  {q:'a maze 🧩',choices:["лабиринт","загадка","игра"],key:"лабиринт",label:"a maze",why:"a maze = лабиринт"},
+  {q:'a queue 🚶🚶🚶',choices:["очередь","толпа","линейка"],key:"очередь",label:"a queue",why:"a queue = очередь (стоят друг за другом)"},
+  {q:'worth it 👍',choices:["стоит того","жалко","нельзя"],key:"стоит того",label:"worth it",why:"worth it = стоит того"}
 ];
 
 var POOLS={
@@ -258,8 +274,8 @@ function markDone(n){if(n>getDone()){try{localStorage.setItem("irina-week-done",
 function $(id){return document.getElementById(id);}
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
   var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
-function show(id){["start-card","q-card","flash","end-card"].forEach(function(c){
-  $(c).classList.add("hidden");});
+function show(id){["start-card","q-card","flash","end-card","round-card"].forEach(function(c){
+    $(c).classList.add("hidden");});
   if(id)$(id).classList.remove("hidden");}
 
 function unlockedCount(){
@@ -390,7 +406,7 @@ function stop(){if(timer){clearInterval(timer);timer=null;}}
 function record(t,given,late){
   var ok=!late&&given!=null&&norm(given)===norm(t.key);
   log.push({pid:rounds[ri].pid,label:t.label,
-    given:late?"ВРЕМЯ ВЫШЛО":given,key:t.key,ok:ok});
+    given:late?"ВРЕМЯ ВЫШЛО":given,key:t.key,why:t.why,ok:ok});
   return ok;
 }
 function norm(s){return (s||"").toString().trim().toLowerCase();}
@@ -401,13 +417,36 @@ function move(late,wasOk){
   var lastOfRound=qi>=r.tasks.length-1;
   var go=function(){
     if(!lastOfRound){qi++;ask();}
-    else if(ri<rounds.length-1){ri++;roundFlash();}
-    else{finish();}
+    else{showRoundReview();}   /* v4: разбор после каждой части */
   };
   if(late){show("flash");$("flash").innerHTML="⏰ Время!";setTimeout(go,950);}
   else if(wasOk){show("flash");$("flash").className="flash good";$("flash").innerHTML="✅";setTimeout(go,700);}
   else{show("flash");$("flash").className="flash";$("flash").innerHTML="❌";setTimeout(go,900);}
 }
+
+/* ---------- v4: разбор части — что было не так + короткое объяснение ---------- */
+function showRoundReview(){
+  var r=rounds[ri];
+  var rows=log.filter(function(l){return l.pid===r.pid;});
+  var okN=rows.filter(function(l){return l.ok;}).length;
+  $("round-count").textContent=r.meta.icon+" "+r.meta.name+" · итог"+(r.timed?" ⏰":"");
+  $("round-line").textContent=okN+" / "+rows.length+(okN===rows.length?" — всё верно! 🎉":"");
+  var missed=rows.filter(function(l){return !l.ok;});
+  if(missed.length){
+    $("round-miss").style.display="block";
+    $("round-miss").innerHTML="<b>Разберём, что было не так:</b>"+missed.map(function(l){
+      return '<div class="rmiss"><div class="rline">❌ '+l.label+"</div>"+
+        '<div>ты: <span class="ryou">'+(l.given||"—")+'</span> → верно: <span class="rkey">'+l.key+"</span></div>"+
+        (l.why?'<div class="rwhy">💡 '+l.why+"</div>":"")+"</div>";
+    }).join("");
+  }else{$("round-miss").style.display="none";}
+  $("next-btn").textContent=(ri<rounds.length-1)?"Дальше →":"К итогам дня 🏁";
+  show("round-card");window.scrollTo(0,0);
+}
+$("next-btn").addEventListener("click",function(){
+  if(ri<rounds.length-1){ri++;roundFlash();}
+  else{finish();}
+});
 
 /* ---------- end + report ---------- */
 function reportText(){
