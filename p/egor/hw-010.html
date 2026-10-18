@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Egor · hw-010 · Russian culture — the dictation</title>
+<style>
+  :root{
+    --bg:#faf7f2; --card:#ffffff; --ink:#2d2a26; --sub:#7a746c;
+    --pv:#3E8E7E; --pv-bg:#eef5f2; --amber:#C99A3C; --amber-bg:#faf4e8;
+    --terra:#C4744D; --line:#eae4da; --bad:#b3452f;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    padding:32px 18px 80px; max-width:680px; margin-inline:auto; line-height:1.5}
+  h1{font-size:28px; margin:0 0 6px; letter-spacing:-.5px}
+  h1 em{color:var(--pv); font-style:normal}
+  h2{font-size:20px; margin:0 0 4px}
+  .hint{color:var(--sub); font-size:15px; margin:0 0 8px}
+  .rule{width:64px; height:4px; border-radius:99px; background:var(--pv); margin:14px 0 26px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:18px 20px; margin:0 0 16px}
+  .card.pv{border-left:4px solid var(--pv)}
+  .card.am{border-left:4px solid var(--amber); background:var(--amber-bg)}
+  .when{color:var(--pv); font-size:12px; font-weight:700; letter-spacing:.06em; text-transform:uppercase}
+  p{margin:.4em 0}
+  .muted{color:var(--sub); font-size:14px}
+  ol,ul{margin:.4em 0 .4em 1.2em; padding:0}
+  li{margin:.35em 0; font-size:15.5px}
+  b{font-weight:700}
+  .paintings{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0 4px}
+  .pcard{background:var(--bg); border:1px solid var(--line); border-radius:14px; overflow:hidden}
+  .pcard img{width:100%; height:150px; object-fit:cover; display:block}
+  .pcard .body{padding:10px 12px}
+  .rev{border-top:1px dashed var(--line); margin-top:8px; padding-top:8px; display:none; font-size:14.5px}
+  .rev.on{display:block}
+  .pbtn{background:var(--pv-bg); color:var(--pv); border:1px solid var(--pv);
+    border-radius:99px; padding:6px 14px; font-size:13px; font-weight:700; cursor:pointer; font-family:inherit}
+  .pbtn:active{transform:scale(.97)}
+  .dq{margin:18px 0 6px; font-weight:700; font-size:15.5px}
+  .dq img{width:100%; max-width:340px; border-radius:12px; display:block; margin:8px 0}
+  .row{display:flex; gap:8px; align-items:center; margin:6px 0; flex-wrap:wrap}
+  input[type=text]{flex:1 1 180px; border:1px solid var(--line); border-radius:10px;
+    padding:9px 12px; font-size:15px; font-family:inherit; background:#fff; color:var(--ink)}
+  input.ok{border-color:var(--pv); background:var(--pv-bg)}
+  input.no{border-color:var(--bad); background:#faeeea}
+  .fb{font-size:13.5px; font-weight:700; margin-left:4px}
+  .fb.good{color:var(--pv)} .fb.bad2{color:var(--bad)}
+  .score{background:var(--pv-bg); border:1px solid var(--line); border-radius:14px;
+    padding:14px 18px; margin:16px 0 0; font-size:15px; font-weight:600}
+  .chip{display:inline-block; border:1px solid var(--line); background:#fff;
+    border-radius:99px; padding:4px 12px; font-size:13.5px; margin:3px 4px 3px 0}
+  .done{float:right; display:flex; align-items:center; gap:6px; font-size:12.5px;
+    color:var(--sub); font-weight:700; cursor:pointer; border:1px solid var(--line);
+    background:#fff; border-radius:99px; padding:5px 12px; user-select:none}
+  .done.onx{background:var(--pv); color:#fff; border-color:var(--pv)}
+  .send{position:fixed; bottom:0; left:0; right:0; background:var(--card);
+    border-top:1px solid var(--line); padding:12px 18px; text-align:center;
+    box-shadow:0 -6px 18px rgba(45,42,38,.06)}
+  .send button{background:var(--pv); color:#fff; border:none; border-radius:12px;
+    padding:13px 26px; font-size:16px; font-weight:700; cursor:pointer; font-family:inherit}
+  .sent{color:var(--pv); font-weight:700; font-size:14px; margin-left:10px}
+</style>
+</head>
+<body>
+<h1>Russian <em>culture</em> — keep it</h1>
+<p class="hint">You walked through the whole unit today — writers, composers, painters, ballet and street music.
+Tonight: the dictation, two exam tasks, and your writing for tomorrow. <b>30–40 minutes, then rest.</b></p>
+<div class="rule"></div>
+
+<div class="card pv">
+  <span class="when">The plan · 5 jobs</span>
+  <ol>
+    <li>The dictation — 4 paintings + 11 words from today's texts <span class="muted">(below)</span></li>
+    <li>The Zetland composers essay — on paper, 200–250 words</li>
+    <li>«Two types of images» — prepare the speaking task aloud</li>
+    <li>The fix-three — one word repairs each sentence</li>
+    <li>Variant 28 — your writing task for tomorrow</li>
+  </ol>
+</div>
+
+<div class="card">
+  <span class="when">1 · meet them again</span>
+  <h2>The four paintings</h2>
+  <p class="muted">You saw them today. Uncover each card only after you remember the title, the Russian name and the painter.</p>
+  <div class="paintings">
+    <div class="pcard"><img src="../../media/u07-pineforest.jpg" alt="Morning in a Pine Forest">
+      <div class="body"><button class="pbtn" onclick="rv(this,'r1')">uncover</button>
+      <div class="rev" id="r1"><b>Morning in a Pine Forest</b> · «Утро в сосновом лесу»<br>by <b>Ivan Shishkin</b> — a landscape painter; his paintings are very realistic.</div></div></div>
+    <div class="pcard"><img src="../../media/u07-peaches.jpg" alt="The Girl with Peaches">
+      <div class="body"><button class="pbtn" onclick="rv(this,'r2')">uncover</button>
+      <div class="rev" id="r2"><b>The Girl with Peaches</b> · «Девочка с персиками»<br>by <b>Valentin Serov</b> — a masterpiece of Russian art.</div></div></div>
+    <div class="pcard"><img src="../../media/u07-blacksquare.jpg" alt="Black Square">
+      <div class="body"><button class="pbtn" onclick="rv(this,'r3')">uncover</button>
+      <div class="rev" id="r3"><b>Black Square</b> · «Чёрный квадрат»<br>by <b>Kazimir Malevich</b> — one of the first to paint abstract pictures; on a white background; worth over $60 million.</div></div></div>
+    <div class="pcard"><img src="../../media/u07-ninthwave.jpg" alt="The Ninth Wave">
+      <div class="body"><button class="pbtn" onclick="rv(this,'r4')">uncover</button>
+      <div class="rev" id="r4"><b>The Ninth Wave</b> · «Девятый вал»<br>by <b>Ivan Aivazovsky</b> — an expert at painting the sea; a realistic depiction of the sea.</div></div></div>
+  </div>
+  <p class="muted">These eleven expressions live inside the dictation below — meet them first:
+  <span class="chip">his paintings are very realistic</span><span class="chip">a portrait painter</span><span class="chip">to paint abstract pictures</span><span class="chip">the difficulties and everyday lives</span><span class="chip">on a white background</span><span class="chip">it was worth over $60 million</span><span class="chip">scenes from his life and his dreams</span><span class="chip">full of bright colours</span><span class="chip">a realistic depiction of the sea</span><span class="chip">gloomy and depressing</span><span class="chip">a masterpiece of Russian art</span></p>
+</div>
+
+<div class="card pv">
+  <span class="when">1 · the dictation</span>
+  <h2>Write the title, then the painter</h2>
+  <p class="muted">Type, check yourself, and only then move on. Articles («the») are optional; spelling is not.</p>
+
+  <div class="dq">№ 1 <img src="../../media/u07-pineforest.jpg" alt="">
+    <div class="row"><input type="text" id="t1a" placeholder="the English title"><button class="pbtn" onclick="ck('t1a',['morning in a pine forest'])">check</button><span class="fb" id="fb-t1a"></span></div>
+    <div class="row"><input type="text" id="t1b" placeholder="the painter"><button class="pbtn" onclick="ck('t1b',['shishkin'])">check</button><span class="fb" id="fb-t1b"></span></div></div>
+
+  <div class="dq">№ 2 <img src="../../media/u07-peaches.jpg" alt="">
+    <div class="row"><input type="text" id="t2a" placeholder="the English title"><button class="pbtn" onclick="ck('t2a',['the girl with peaches','girl with peaches'])">check</button><span class="fb" id="fb-t2a"></span></div>
+    <div class="row"><input type="text" id="t2b" placeholder="the painter"><button class="pbtn" onclick="ck('t2b',['serov'])">check</button><span class="fb" id="fb-t2b"></span></div></div>
+
+  <div class="dq">№ 3 <img src="../../media/u07-blacksquare.jpg" alt="" style="max-width:240px">
+    <div class="row"><input type="text" id="t3a" placeholder="the English title"><button class="pbtn" onclick="ck('t3a',['black square'])">check</button><span class="fb" id="fb-t3a"></span></div>
+    <div class="row"><input type="text" id="t3b" placeholder="the painter"><button class="pbtn" onclick="ck('t3b',['malevich'])">check</button><span class="fb" id="fb-t3b"></span></div></div>
+
+  <div class="dq">№ 4 <img src="../../media/u07-ninthwave.jpg" alt="">
+    <div class="row"><input type="text" id="t4a" placeholder="the English title"><button class="pbtn" onclick="ck('t4a',['the ninth wave','ninth wave'])">check</button><span class="fb" id="fb-t4a"></span></div>
+    <div class="row"><input type="text" id="t4b" placeholder="the painter"><button class="pbtn" onclick="ck('t4b',['aivazovsky'])">check</button><span class="fb" id="fb-t4b"></span></div></div>
+
+  <p class="muted" style="margin-top:14px">…and the words from today's texts — one word fills each gap:</p>
+  <div class="row"><span style="flex:1">1 · Shishkin's paintings are very r________.</span><input type="text" id="w1" style="flex:0 1 150px" placeholder="1 word"><button class="pbtn" onclick="ck('w1',['realistic'])">check</button><span class="fb" id="fb-w1"></span></div>
+  <div class="row"><span style="flex:1">2 · Repin was a portrait p________.</span><input type="text" id="w2" style="flex:0 1 150px" placeholder="1 word"><button class="pbtn" onclick="ck('w2',['painter'])">check</button><span class="fb" id="fb-w2"></span></div>
+  <div class="row"><span style="flex:1">3 · Malevich was one of the first to paint a________ pictures.</span><input type="text" id="w3" style="flex:0 1 150px" placeholder="1 word"><button class="pbtn" onclick="ck('w3',['abstract'])">check</button><span class="fb" id="fb-w3"></span></div>
+  <div class="row"><span style="flex:1">4 · …big historical and social paintings that show the difficulties and e________ lives.</span><input type="text" id="w4" style="flex:0 1 150px" placeholder="1 word"><button class="pbtn" onclick="ck('w4',['everyday'])">check</button><span class="fb" id="fb-w4"></span></div>
+  <div class="row"><span style="flex:1">5 · Black Square: a black square on a white b________.</span><input type="text" id="w5" style="flex:0 1 150px" placeholder="1 word"><button class="pbtn" onclick="ck('w5',['background'])">check</button><span class="fb" id="fb-w5"></span></div>
+  <div class="row"><span style="flex:1">6 · In 2013 it was w________ over $60 million.</span><input type="text" id="w6" style="flex:0 1 150px" placeholder="1 word"><button class="pbtn" onclick="ck('w6',['worth'])">check</button><span class="fb" id="fb-w6"></span></div>
+  <div class="row"><span style="flex:1">7 · Chagall painted s________ from his life and his dreams.</span><input type="text" id="w7" style="flex:0 1 150px" placeholder="1 word"><button class="pbtn" onclick="ck('w7',['scenes'])">check</button><span class="fb" id="fb-w7"></span></div>
+  <div class="row"><span style="flex:1">8 · His paintings are full of b________ colours.</span><input type="text" id="w8" style="flex:0 1 150px" placeholder="1 word"><button class="pbtn" onclick="ck('w8',['bright'])">check</button><span class="fb" id="fb-w8"></span></div>
+  <div class="row"><span style="flex:1">9 · A realistic d________ of the sea.</span><input type="text" id="w9" style="flex:0 1 150px" placeholder="1 word"><button class="pbtn" onclick="ck('w9',['depiction'])">check</button><span class="fb" id="fb-w9"></span></div>
+  <div class="row"><span style="flex:1">10 · Savrasov's «The Rooks Have Come Back» is g________ and depressing.</span><input type="text" id="w10" style="flex:0 1 150px" placeholder="1 word"><button class="pbtn" onclick="ck('w10',['gloomy'])">check</button><span class="fb" id="fb-w10"></span></div>
+  <div class="row"><span style="flex:1">11 · The Girl with Peaches is a m________ of Russian art.</span><input type="text" id="w11" style="flex:0 1 150px" placeholder="1 word"><button class="pbtn" onclick="ck('w11',['masterpiece'])">check</button><span class="fb" id="fb-w11"></span></div>
+
+  <div class="score" id="score">Dictation: <span id="sct">0</span> / 19 · every check counts once — be honest with yourself.</div>
+</div>
+
+<div class="card">
+  <button class="done" onclick="dn(this,'j1')"><span class="box">◻</span> done</button>
+  <span class="when">2 · writing · task 38 training</span>
+  <h2>The Zetland composers essay</h2>
+  <p><b>The project:</b> top Russian composers popular in Zetland. <b>The survey question:</b> <i>What is your favourite Russian composer?</i></p>
+  <p class="muted">Sergey Rachmaninov — 34 · Pyotr Chaikovsky — 26 · Igor Stravinsky — 22 · Dmitry Shostakovich — 11 · Modest Musorgsky — 7</p>
+  <p><b>The plan:</b> an opening statement · 2–3 facts · 1–2 comparisons + comments · a problem while <b>learning to play a musical instrument</b> + a solution · your opinion on <b>the importance of classical music in our lives</b>.</p>
+  <p class="muted">Write it on paper — <b>200–250 words</b>. You have the bricks: the opening you know, «the figure for … is higher than that for …», «It could be explained by the fact that…», «To solve this problem…».</p>
+</div>
+
+<div class="card">
+  <button class="done" onclick="dn(this,'j2')"><span class="box">◻</span> done</button>
+  <span class="when">3 · speaking · task 4 exam practice</span>
+  <h2>«Two types of images»</h2>
+  <p><b>The plan:</b> explain the choice of the photos (describe + differences) · advantages (1–2) of the two types of images · disadvantages (1–2) · which image you would like to hang in your bedroom, and why.</p>
+  <p class="muted">Prepare it <b>aloud</b> — 3 minutes, 12–15 sentences. Use today's frames: <i>The main difference between the photos is that they depict…</i> · <i>Speaking of…</i> · <i>As for…</i> · <i>The biggest drawback of…</i></p>
+</div>
+
+<div class="card">
+  <button class="done" onclick="dn(this,'j3')"><span class="box">◻</span> done</button>
+  <span class="when">4 · the fix-three · from today's lesson</span>
+  <h2>One word fixes each sentence</h2>
+  <p class="muted">You said these today. Find the one word that is wrong — type the correct one.</p>
+  <div class="row"><span style="flex:1">1 · «This <u>poem</u> is popular all over the world.» <span class="muted">(about The Master and Margarita)</span></span><input type="text" id="x1" style="flex:0 1 140px" placeholder="1 word"><button class="pbtn" onclick="ck('x1',['novel'])">check</button><span class="fb" id="fb-x1"></span></div>
+  <div class="row"><span style="flex:1">2 · «This game is very popular and <u>in</u> an influential amount of teenagers.»</span><input type="text" id="x2" style="flex:0 1 140px" placeholder="1 word"><button class="pbtn" onclick="ck('x2',['among'])">check</button><span class="fb" id="fb-x2"></span></div>
+  <div class="row"><span style="flex:1">3 · «…authors like Lev Tolstoy and <u>Mikhail</u> Dostoyevsky.»</span><input type="text" id="x3" style="flex:0 1 140px" placeholder="1 word"><button class="pbtn" onclick="ck('x3',['fyodor'])">check</button><span class="fb" id="fb-x3"></span></div>
+</div>
+
+<div class="card am">
+  <button class="done" onclick="dn(this,'j4')"><span class="box">◻</span> done</button>
+  <span class="when">5 · tomorrow · the supervised writing hour</span>
+  <h2>Variant 28 — the writing pair</h2>
+  <p><b>Task 37 — the email to Jill</b> (FROM: Jill@mail.uk · SUBJECT: My visit to Moscow). She asks: how to get to your apartment from the airport · the best means of transport (she'd prefer the one that isn't too expensive!) · the weather when she gets there. <b>You ask 3 questions about her plans.</b> 100–140 words.</p>
+  <p><b>Task 38.2 — the essay:</b> how long <b>Netland</b> teenagers sleep on weekdays. The survey «How long do you sleep on weekdays?»: 5–6 hours — 33% · 6–7 hours — 31% · 4–5 hours — 25% · 7–8 hours — 8% · 8–9 hours — 3%. The plan: opening · 2–3 facts · 1–2 comparisons · a problem from lack of sleep + a solution · your opinion on the importance of sleep for teenagers' health. 200–250 words.</p>
+  <p class="muted">Copy the invented name <b>exactly</b> — «Netland».</p>
+</div>
+
+<div class="send">
+  <button onclick="sendProgress()">📤 Send my progress</button><span class="sent" id="sentmsg"></span>
+  <div class="muted" id="progline" style="margin-top:4px">Done 0 / 5 · the dictation score rides with the report.</div>
+</div>
+
+<script>
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSeHQqLTCwsgpvG4T1T_bHHDVj8VyvB4BomKyjV7zmeIBEH6yA/formResponse";
+var FORM_ENTRY="entry.892008789";
+function rv(btn,id){var el=document.getElementById(id);el.classList.add('on');btn.style.display='none';}
+var scored={};
+function norm(s){return (s||'').toLowerCase().replace(/[«»„".,!?]/g,' ').replace(/\s+/g,' ').trim();}
+function ck(id,answers){
+  var el=document.getElementById(id), fb=document.getElementById('fb-'+id);
+  if(scored[id])return;
+  var v=norm(el.value), hit=answers.some(function(a){return v===norm(a);});
+  if(hit){el.className='ok';fb.textContent='✓';fb.className='fb good';scored[id]=true;bump();}
+  else{el.className='no';fb.textContent='✕ — try again';fb.className='fb bad2';
+    setTimeout(function(){el.className='';},1400);}
+}
+function bump(){document.getElementById('sct').textContent=Object.keys(scored).length;}
+function dn(btn,key){
+  btn.classList.toggle('onx');
+  var on=btn.classList.contains('onx');
+  btn.querySelector('.box').textContent=on?'✓':'◻';
+  try{var o=JSON.parse(localStorage.getItem('eghw10')||'{}');o[key]=on?'1':'';localStorage.setItem('eghw10',JSON.stringify(o));}catch(e){}
+  progline();
+}
+function progline(){
+  var n=document.querySelectorAll('.done.onx').length;
+  var sc=document.getElementById('sct').textContent;
+  document.getElementById('progline').textContent='Done '+n+' / 5 · the dictation: '+sc+' / 19.';
+}
+(function(){try{var o=JSON.parse(localStorage.getItem('eghw10')||'{}');
+  document.querySelectorAll('.done').forEach(function(b,i){var k='j'+(i+1);if(o[k]){b.classList.add('onx');b.querySelector('.box').textContent='✓';}});
+}catch(e){} progline();})();
+function sendProgress(){
+  var n=document.querySelectorAll('.done.onx').length;
+  var jobs=['dictation','Zetland essay','images speaking','fix-three','Variant 28'];
+  var doneL=[];document.querySelectorAll('.done').forEach(function(b,i){(b.classList.contains('onx')?doneL.push(jobs[i]):null);});
+  var txt='Egor · homework 010 · the culture dictation '+document.getElementById('sct').textContent+'/19 · Done ('+n+'/5): '+(doneL.join(', ')||'—')+' · '+new Date().toLocaleDateString('en-GB');
+  if(!FORM_ACTION){document.getElementById('sentmsg').textContent='copied — send it to Elena';return;}
+  var f=document.createElement('form');f.method='POST';f.action=FORM_ACTION;f.target='egfrm';
+  var inp=document.createElement('input');inp.type='hidden';inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);document.body.appendChild(f);
+  var fr=document.createElement('iframe');fr.name='egfrm';fr.style.display='none';document.body.appendChild(fr);
+  f.submit();
+  document.getElementById('sentmsg').textContent='sent to Elena ✓';
+}
+</script>
+</body>
+</html>
