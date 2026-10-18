@@ -120,15 +120,12 @@ audio{width:100%;margin-top:.5em}
 
   <!-- TASK 2 · His / Her -->
   <div class="card lavender">
-    <h2>🎁 2 · His или Her? — четыре слова-хамелеона</h2>
-    <p>Сначала выучи — нажми на карточку! 👇</p>
-    <div class="wordgrid">
-      <div class="wcard"><div class="w">I → <b>my</b></div><div class="ru">мой / моя / моё<br>🎒 <b>My</b> bag is here.</div></div>
-      <div class="wcard"><div class="w">you → <b>your</b></div><div class="ru">твой / твоя<br>⚽ Is this <b>your</b> ball?</div></div>
-      <div class="wcard"><div class="w">he → <b>his</b></div><div class="ru">его (у мальчика)<br>🪁 This is <b>his</b> kite.</div></div>
-      <div class="wcard"><div class="w">she → <b>her</b></div><div class="ru">её (у девочки)<br>🧸 This is <b>her</b> doll.</div></div>
-    </div>
-    <p class="hintline" style="margin-top:1em">А теперь игра — жми правильное слово! Никакого таймера 😉</p>
+    <h2>🎁 2 · my · your · his · her — найди хозяина! 🕵️</h2>
+    <div class="model">🗣 «I'm Sophie! <b>My</b> family is here.» — я говорю про СЕБЯ → my</div>
+    <div class="model">🗣 «Alika, here's <b>your</b> pencil case!» — я говорю С ТОБОЙ про твоё → your</div>
+    <div class="model">🗣 «This is Jen. <b>Her</b> brother is Jason.» — про девочку → her</div>
+    <div class="model">🗣 «This is Alex. <b>His</b> sister is Jen.» — про мальчика → his</div>
+    <p class="hintline">Прочитай, КТО говорит и про кого — и жми слово! Игра тасуется каждый раз 😉</p>
     <div id="hh-rows"></div>
     <div class="mmeta"><span id="hh-score"></span><button class="toggle" id="hh-again">↺ Ещё раз!</button></div>
     <div class="chips"><button class="dchip" data-k="hisher">His / Her — готово! <span class="fly">sent ✓</span></button></div>
@@ -335,12 +332,17 @@ audio{width:100%;margin-top:.5em}
     var host=document.getElementById(rowsId);
     var scoreEl=document.getElementById(scoreId);
     var state={};
+    var order=[];
     function render(){
       host.innerHTML='';
-      items.forEach(function(it,i){
+      order=items.map(function(_,i){return i;});
+      for(var s2=order.length-1;s2>0;s2--){ var j=Math.floor(Math.random()*(s2+1)); var t=order[s2];order[s2]=order[j];order[j]=t; }
+      order.forEach(function(itemIdx, pos){
+        var it=items[itemIdx];
+        var i=itemIdx;
         var row=document.createElement('div');row.className='brow';
         row.style.borderBottom='2px dotted rgba(200,182,255,.5)';
-        var html='<span class="no">'+(i+1)+'</span><span style="flex:1;min-width:200px">'+it.q+'</span><span class="pick">';
+        var html='<span class="no">'+(pos+1)+'</span><span style="flex:1;min-width:200px">'+it.q+'</span><span class="pick">';
         it.opts.forEach(function(o){
           html+='<button class="pk" data-i="'+i+'" data-good="'+(o===it.ok?1:0)+'">'+o+'</button>';
         });
@@ -378,14 +380,14 @@ audio{width:100%;margin-top:.5em}
     return {render:render, reset:function(){ state={}; render(); }};
   }
   var HH=[
-    {q:'This is my brother. 👦 ___ name is Max.',opts:['His','Her'],ok:'His',a:'His — мальчик!'},
-    {q:'This is my sister. 👧 ___ name is Kate.',opts:['His','Her'],ok:'Her',a:'Her — девочка!'},
-    {q:'This is my dad. 👨 ___ name is Sam.',opts:['His','Her'],ok:'His',a:'His!'},
-    {q:'This is my mum. 👩 ___ name is Anna.',opts:['His','Her'],ok:'Her',a:'Her!'},
-    {q:'This is my grandad. 👴 ___ name is Bill.',opts:['His','Her'],ok:'His',a:'His!'},
-    {q:'This is my granny. 👵 ___ name is May.',opts:['His','Her'],ok:'Her',a:'Her!'},
-    {q:'This is my cousin Tom. 🧒 ___ kite is cool.',opts:['His','Her'],ok:'His',a:'His!'},
-    {q:'This is my cousin Ann. 🧒 ___ doll is nice.',opts:['His','Her'],ok:'Her',a:'Her!'}
+    {q:'Mum: «Alika, here’s ___ school bag!»',opts:['my','your','his','her'],ok:'your',a:'Mum говорит С Аликой про её сумку → your!'},
+    {q:'This is Jen. 👧 ___ brother is Jason.',opts:['my','your','his','her'],ok:'her',a:'про Jen → her!'},
+    {q:'I’m Tom. 🧒 ___ sister is Kate.',opts:['my','your','his','her'],ok:'my',a:'Tom про СЕБЯ → my!'},
+    {q:'This is my dad. 👨 ___ name is Sam.',opts:['my','your','his','her'],ok:'his',a:'про папу → his!'},
+    {q:'Alika: «Granny, ___ present is in this box!»',opts:['My','Your','His','Her'],ok:'Your',a:'Alika говорит С бабушкой про ЕЁ подарок → Your!'},
+    {q:'This is my granny. 👵 ___ cake is a mess!',opts:['My','Your','His','Her'],ok:'Her',a:'про бабушку → Her!'},
+    {q:'Dad: «This is my mum. We are at ___ house.»',opts:['my','your','his','her'],ok:'her',a:'my mum = она → her!'},
+    {q:'I’m Alika. 🥰 ___ family is big!',opts:['My','Your','His','Her'],ok:'My',a:'Alika про СЕБЯ → My!'}
   ];
   var hh=pickGame('hh-rows',HH,'hh-score','hisher');
   hh.render();
