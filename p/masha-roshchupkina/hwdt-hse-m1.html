@@ -82,7 +82,7 @@ a.big{background:var(--ink-soft);color:#fff;font:600 clamp(1.1rem,4.2vw,1.35rem)
       <input class="type-box" id="name-box" autocomplete="off" autocapitalize="on" spellcheck="false" placeholder="your name">
     </div>
     <button class="big" id="begin-btn">Begin</button>
-    <p class="helper">build 2026-10-17 · v1 <span style="opacity:.7">(if this line is missing, your browser kept an old copy — reload)</span></p>
+    <p class="helper">build 2026-10-18 · v2 <span style="opacity:.7">(if this line is missing, your browser kept an old copy — reload)</span></p>
   </div>
 
   <div class="card hidden" id="q-card">
@@ -276,7 +276,9 @@ function ask(){
   $("q-body").innerHTML=body;
   show("q-card");
   setTimeout(function(){try{$("q-card").scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}},60);
-  if(r.meta.choices){
+  /* bind by what RENDERED (ch = t.choices || r.meta.choices) — the round-level
+     flag alone left round ③'s per-card choices with dead buttons (18.10) */
+  if(ch){
     Array.prototype.forEach.call(document.querySelectorAll(".choice"),function(b){
       b.addEventListener("click",function(){if(answered)return;answered=true;stop();
         judge(t,b.getAttribute("data-v"),false);});});
