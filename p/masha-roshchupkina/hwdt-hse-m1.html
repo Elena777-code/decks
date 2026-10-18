@@ -82,7 +82,10 @@ a.big{background:var(--ink-soft);color:#fff;font:600 clamp(1.1rem,4.2vw,1.35rem)
       <input class="type-box" id="name-box" autocomplete="off" autocapitalize="on" spellcheck="false" placeholder="your name">
     </div>
     <button class="big" id="begin-btn">Begin</button>
-    <p class="helper">build 2026-10-18 · v2 <span style="opacity:.7">(if this line is missing, your browser kept an old copy — reload)</span></p>
+    <div class="answer-row" id="recall-row" style="display:none;margin-top:.6em">
+      <button class="big" id="recall-btn" style="margin-top:0;background:var(--amber);font-size:clamp(.95rem,3.6vw,1.15rem);padding:.55em 1.6em">👀 Show the last result</button>
+    </div>
+    <p class="helper">build 2026-10-18 · v3 <span style="opacity:.7">(if this line is missing, your browser kept an old copy — reload)</span></p>
   </div>
 
   <div class="card hidden" id="q-card">
@@ -95,6 +98,7 @@ a.big{background:var(--ink-soft);color:#fff;font:600 clamp(1.1rem,4.2vw,1.35rem)
   <div class="card hidden" id="end-card">
     <div class="eyebrow" style="margin-bottom:.6em">the score card</div>
     <div id="end-body"></div>
+    <div id="review-body"></div>
     <div class="answer-row" style="margin-top:1.4em">
       <button class="big" id="send-btn" style="margin-top:0">📤 Send the result to your teacher</button>
     </div>
@@ -103,7 +107,6 @@ a.big{background:var(--ink-soft);color:#fff;font:600 clamp(1.1rem,4.2vw,1.35rem)
       <a class="big" href="hw.html" style="margin-top:0;background:var(--ink-soft)">← Back to my homework</a>
       <button class="big" id="again-btn" style="margin-top:0">Play again</button>
     </div>
-    <div id="misses-body"></div>
   </div>
 </main>
 <div class="flash hidden" id="flash"></div>
@@ -239,14 +242,21 @@ var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false;
 var RUNNER="Masha R.";
 try{RUNNER=localStorage.getItem("mr-hse-name")||"Masha R.";}catch(e){}
 $("name-box").value=RUNNER==="Masha R."?"":RUNNER;
+var runInFlight=false; /* one run at a time — a double-tap on Begin raced two
+   runs and the deck "finished abruptly" (Elena, 18.10) */
 $("begin-btn").addEventListener("click",function(){
+  if(runInFlight)return;
   var v=$("name-box").value.trim();
   if(!v){$("name-box").style.borderColor="var(--terra)";
     $("name-box").placeholder="write your name first";return;}
   RUNNER=v;
   try{localStorage.setItem("mr-hse-name",v);}catch(e){}
+  runInFlight=true;this.textContent="…the run is going";
   ri=0;log=[];roundFlash();});
-$("again-btn").addEventListener("click",function(){rounds=buildRounds();ri=0;log=[];hide("end-card");roundFlash();});
+$("again-btn").addEventListener("click",function(){
+  if(runInFlight)return;
+  runInFlight=true;this.textContent="…the run is going";
+  rounds=buildRounds();ri=0;log=[];hide("end-card");roundFlash();});
 
 function roundFlash(){
   hide("start-card");hide("end-card");hide("q-card");
@@ -323,19 +333,24 @@ function theEnd(){
     byRound[l.name]=byRound[l.name]||{n:0,ok:0};
     byRound[l.name].n++;if(l.ok)byRound[l.name].ok++;
   });
-  var html='<div class="score-line"><span><b>'+hits+'</b> / '+total+' cards</span><span>'+
-    (hits>=total*0.9?"the module is yours 🏆":hits>=total*0.7?"strong 💪":"one more run needed →")+'</span></div>';
+  var pct=Math.round(hits/Math.max(1,total)*100);
+  var html='<div class="score-line"><span><b>'+hits+'</b> / '+total+' cards · <b>'+pct+'%</b></span><span>'+
+    (pct>=90?"the module is yours 🏆":pct>=70?"strong 💪":"one more run needed →")+'</span></div>';
   for(var k in byRound){html+='<div class="score-line"><span>'+k+'</span><span><b>'+byRound[k].ok+'</b> / '+byRound[k].n+'</span></div>';}
   var misses=log.filter(function(l){return !l.ok;});
-  var mhtml="";
-  if(misses.length){
-    mhtml='<p class="helper" style="text-align:left;margin-top:1.4em">📋 into your notebook — and show Elena at the lesson:</p>';
-    misses.forEach(function(m){mhtml+='<div class="miss">'+m.q+' → <span class="fix">'+m.key+'</span>'+(m.why?' · '+m.why:'')+'</div>';});
-  }else{
-    mhtml='<p class="helper" style="margin-top:1.4em">Zero misses. Show the perfect score to Elena.</p>';
-  }
+  var review={when:new Date().toLocaleString("en-GB"),hits:hits,total:total,pct:pct,
+    rounds:Object.keys(byRound).map(function(k){return {name:k,ok:byRound[k].ok,n:byRound[k].n};}),
+    misses:misses.map(function(m){return {q:m.q,key:m.key,why:m.why};})};
+  try{localStorage.setItem("mr-hse-lastreview",JSON.stringify(review));}catch(e){}
+  var mhtml=reviewHtml(review,true);
   $("end-body").innerHTML=html;
-  $("misses-body").innerHTML=mhtml;
+  $("review-body").innerHTML=mhtml;
+  $("review-body").style.display="";
+  $("send-btn").style.display="";
+  $("send-hint").textContent="Send → it lands in your teacher's form automatically.";
+  runInFlight=false;
+  try{$("begin-btn").textContent="Begin";}catch(e){}
+  try{$("again-btn").textContent="Play again";}catch(e){}
   LAST_REPORT=reportText(hits,total,byRound,misses);
   try{localStorage.setItem("mr-hse-last",LAST_REPORT);}catch(e){}
   try{queueReport(LAST_REPORT);flushQueue();}catch(e){} /* plumbing must never kill the score card */
@@ -394,6 +409,44 @@ function flushQueue(){
   var rest=q.filter(function(t){try{return !sendViaForm(t);}catch(e){return true;}});
   try{localStorage.setItem("mr-hse-queue",JSON.stringify(rest));}catch(e){}
 }
+/* the review: every wrong answer shown and explained — the corrected sentence
+   with the answer filled into the gap, plus the why line */
+function reviewHtml(review,isFresh){
+  var mhtml="";
+  if(review.misses.length){
+    mhtml='<p class="helper" style="text-align:left;margin-top:1.4em;font-weight:700">📋 Wrong answers — '+review.misses.length+
+      ' to look at'+(isFresh?" — into your notebook, and show Elena at the lesson:":":")+'</p>';
+    review.misses.forEach(function(m){
+      var fixed=m.q.replace(/<span class="gap">[\s\S]*?<\/span>/,'<span class="fix">'+m.key+'</span>');
+      mhtml+='<div class="miss">'+fixed+
+        (m.why?'<br><span style="color:var(--ink-soft);font-weight:500">'+m.why+'</span>':'')+'</div>';
+    });
+  }else{
+    mhtml='<p class="helper" style="margin-top:1.4em">Zero misses. Show the perfect score to Elena.</p>';
+  }
+  return mhtml;
+}
+/* the recall: the last result reopens any time — no replay needed (Elena, 18.10) */
+(function(){
+  var saved=null;
+  try{saved=JSON.parse(localStorage.getItem("mr-hse-lastreview")||"null");}catch(e){}
+  if(!saved)return;
+  var row=$("recall-row");if(!row)return;
+  row.style.display="";
+  $("recall-btn").textContent="👀 The last result — "+saved.hits+" / "+saved.total+" ("+saved.pct+"%)";
+  $("recall-btn").addEventListener("click",function(){
+    hide("start-card");show("end-card");
+    var html='<div class="score-line"><span><b>'+saved.hits+'</b> / '+saved.total+' cards · <b>'+saved.pct+'%</b></span><span>'+
+      saved.when+'</span></div>';
+    saved.rounds.forEach(function(r){html+='<div class="score-line"><span>'+r.name+'</span><span><b>'+r.ok+'</b> / '+r.n+'</span></div>';});
+    $("end-body").innerHTML=html;
+    $("review-body").innerHTML=reviewHtml(saved,false);
+    $("review-body").style.display="";
+    $("send-btn").style.display="none";
+    $("send-hint").textContent="This run was already sent — the teacher has it.";
+    try{$("end-card").scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}
+  });
+})();
 $("send-btn").addEventListener("click",function(){
   var txt=LAST_REPORT;
   try{txt=localStorage.getItem("mr-hse-last")||txt;}catch(e){}
