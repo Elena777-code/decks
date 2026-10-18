@@ -4,81 +4,78 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Super Minds Starter · Unit 0 · Lesson 1 — Say Hello! · Ninja</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ============ "Minty Fresh" — the Ninja group's first deck ============
-   SM Starter · Unit 0 "Say Hello!" · Lesson 1 (TB TB4–TB5): greetings —
-   Hello! What's your name? I'm … · Let's be friends · Bye / Goodbye —
-   the "Let's be friends" song (Track 1 + karaoke Track 2). THE FIGHTING
-   THEME (Elena, 17.10): the syllabus rides on Misha's ninja world —
-   counting = swords, colours = masks. The recurring cast = his Ninjago
-   heroes (permission 17.10) beside the course's own Misty & Whisper.
-   Teacher = Alice (Elena supervising); no books — everything on the
-   slides. Same engine as KB 1 U2 L9: board deck, reveal cards,
-   ready-chime, the ✍️ V2 window (corners v2: 🙋 Pardon top-left · ✍️
-   top-right · 🗒 bottom-centre), single-group log. Every note: WHAT
-   THIS IS first, then HOW TO RUN IT. */
+/* ============ "DOJO GLOW" — the Ninja group's look ============
+   Elena's pick of the four ChatGPT directions (18.10): midnight navy
+   + lantern gold + hard brick shadows — married onto the KB-L9
+   engine. Palette: Midnight Navy #101B35 · Lantern Gold #FFD166 ·
+   Ninja Blue #42A5F5 · Jade Green #48C78E · Warm Ivory #FFF8E7.
+   Font-independent (Trebuchet/system) — offline-clean, no webfonts.
+   Same engine underneath: board deck, reveal cards, ready-chime,
+   the ✍️ V2 window (corners v2), single-group log, the media-keys
+   guard. Every note: WHAT THIS IS first, then HOW TO RUN IT. */
 :root{
-  --mint:#95E1D3;         /* soft mint */
-  --mint-deep:#5ecbb8;    /* mint accent */
-  --peach:#FCE38A;        /* warm yellow */
-  --lavender:#C8B6FF;     /* lavender */
-  --lavender-deep:#9a7fff;/* lavender accent */
-  --cream:#FFF8F0;        /* page background */
-  --pink:#FF8FAB;         /* pink accent */
-  --ink:#2D3436;          /* main text */
-  --ink-soft:#636e72;     /* secondary text */
-  --white:#ffffff;
+  --bg:#101B35;         /* midnight navy */
+  --panel:#1C2C4C;      /* dojo panel */
+  --gold:#FFD166;       /* lantern gold */
+  --gold-deep:#A87525;  /* gold shadow brick */
+  --blue:#42A5F5;       /* ninja blue (Jay) */
+  --blue-soft:#83C8FF;
+  --green:#48C78E;      /* jade green (Lloyd) */
+  --green-soft:#70EDB0;
+  --ivory:#FFF8E7;      /* warm ivory text + dialogue cards */
+  --ink:#17203A;        /* dark ink on gold/ivory */
+  --line:#ffffff22;     /* hairline on panels */
+  --brick:#080F22;      /* hard shadow */
   --radius:22px;
-  --shadow:0 10px 30px rgba(45,52,54,.12);
-  --shadow-lg:0 20px 50px rgba(45,52,54,.18);
+  --shadow:0 7px 0 var(--brick);
+  --shadow-lg:0 10px 0 var(--brick);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%}
-body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);overflow:hidden}
+body{font-family:'Trebuchet MS','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--ivory);overflow:hidden}
 .slide>*{flex-shrink:0}   /* THE FLEX-SHRINK RULE — nothing collapses; slides scroll */
 /* ============ chrome ============ */
-#progress-track{position:fixed;top:0;left:0;width:100vw;height:7px;background:rgba(200,182,255,.35);z-index:100}
-#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--lavender),var(--pink));transition:width .4s cubic-bezier(.22,1,.36,1)}
+#progress-track{position:fixed;top:0;left:0;width:100vw;height:7px;background:#35415A;z-index:100}
+#progress-fill{height:100%;width:0;background:var(--gold);transition:width .4s cubic-bezier(.22,1,.36,1)}
 #nav{
   position:fixed;bottom:14px;right:max(10px,1.6vw);z-index:100;
   display:flex;gap:8px;align-items:center;
-  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  background:var(--panel);border:1px solid var(--line);
   border-radius:99px;padding:8px 14px;box-shadow:var(--shadow);
 }
 #nav button{
   width:44px;height:44px;border-radius:50%;border:none;
-  background:var(--white);color:var(--mint-deep);font-size:1.35rem;cursor:pointer;
-  box-shadow:0 2px 10px rgba(45,52,54,.10);
-  transition:transform .15s ease,opacity .15s ease;font-family:inherit;
+  background:var(--gold);color:var(--ink);font-size:1.35rem;cursor:pointer;
+  box-shadow:0 3px 0 var(--gold-deep);
+  transition:transform .15s ease,opacity .15s ease;font-family:inherit;font-weight:900;
 }
 #nav button:hover{transform:scale(1.08)}
+#nav button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--gold-deep)}
 #nav button:disabled{opacity:.3;cursor:default;transform:none}
 #nav button.fs{width:auto;border-radius:99px;padding:0 16px;font-size:1.05rem}
-#counter{font-weight:800;color:var(--ink-soft);font-size:1rem;min-width:3.6em;text-align:center}
+#counter{font-weight:800;color:var(--ivory);font-size:1rem;min-width:3.6em;text-align:center}
 #stamp{
   position:fixed;top:12px;z-index:100;
-  font-size:clamp(.7rem,1vw,.9rem);font-weight:800;color:var(--ink-soft);
-  background:rgba(255,255,255,.85);border-radius:99px;padding:.3em .9em;box-shadow:var(--shadow);
+  font-size:clamp(.7rem,1vw,.9rem);font-weight:800;color:var(--ink);
+  background:var(--gold);border-radius:99px;padding:.3em .9em;box-shadow:0 3px 0 var(--gold-deep);
 }
 /* ============ the pills (emoji-only row — the V2 standard, 04.10) ============ */
 .pill{
   position:fixed;z-index:110;
-  font-family:'Fredoka',sans-serif;font-weight:600;
-  font-size:clamp(.95rem,1.4vw,1.2rem);border:none;cursor:pointer;
-  border-radius:99px;padding:.45em .95em;background:rgba(255,255,255,.9);
-  box-shadow:0 4px 12px rgba(45,52,54,.12);color:var(--ink-soft);
+  font-weight:900;font-size:clamp(.95rem,1.4vw,1.2rem);border:1px solid var(--line);cursor:pointer;
+  border-radius:99px;padding:.45em .95em;background:var(--panel);color:var(--ivory);
+  box-shadow:0 4px 0 var(--brick);
   transition:transform .15s ease,color .15s ease;
 }
-.pill:hover{transform:scale(1.05);color:var(--ink)}
+.pill:hover{transform:scale(1.05);color:var(--gold)}
 /* THE CORNERS v2 (Elena, 04.10): Pardon → top-left · ✍️ log → top-right · 🗒 notes → bottom centre */
 #pardonbtn{top:2.4vh;left:max(10px,1.6vw);right:auto;bottom:auto}
 #stamp{top:12px;right:calc(max(10px,1.6vw) + 5.6em)}
-.overlay{position:fixed;inset:0;z-index:200;background:rgba(255,248,240,.985);display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(16,27,53,.97);display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
 .overlay.open{display:flex}
-.overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
-.overlay .closer:hover{color:var(--ink)}
+.overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ivory);opacity:.8;cursor:pointer;font-weight:900}
+.overlay .closer:hover{color:var(--gold);opacity:1}
 /* ============ slides ============ */
 .slide{
   position:absolute;inset:0;
@@ -87,9 +84,13 @@ body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var
   opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
   transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),visibility .5s;
   overflow:auto;
+  background:radial-gradient(ellipse at 85% 12%,#354568 0,transparent 35%),var(--bg);
 }
+/* the dojo hairline frame — the DOJO GLOW signature */
+.slide:before{content:"";position:absolute;inset:12px;border:1px solid #FFD16655;border-radius:24px;pointer-events:none;z-index:1}
 .slide.active{opacity:1;visibility:visible;transform:translateX(0) scale(1)}
 .slide.prev{transform:translateX(-60px) scale(.985)}
+.slide>*{position:relative;z-index:2}
 .slide.active .reveal-el{animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
 .slide.active .reveal-el:nth-child(2){animation-delay:.08s}
 .slide.active .reveal-el:nth-child(3){animation-delay:.16s}
@@ -97,99 +98,102 @@ body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var
 .slide.active .reveal-el:nth-child(5){animation-delay:.32s}
 .slide.active .reveal-el:nth-child(6){animation-delay:.4s}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes pop{50%{transform:scale(1.06)}}
 /* ============ content components ============ */
 .eyebrow{
-  font-size:clamp(1rem,1.8vw,1.4rem);font-weight:800;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--lavender-deep);
+  font-size:clamp(1rem,1.8vw,1.4rem);font-weight:900;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold);
 }
 h1.title{
-  font-family:'Fredoka',sans-serif;font-weight:700;
-  font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.1;color:var(--ink);
+  font-weight:900;font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.1;color:var(--ivory);letter-spacing:-.5px;
 }
-.accent-line{width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.accent-line{width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--gold),var(--blue))}
 .card{
-  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  background:var(--panel);border:2px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);
   padding:clamp(14px,2.2vh,24px) clamp(16px,2vw,28px);
 }
-.card.mint{background:#eafbf6}
-.card.peach{background:#fff8db}
-.card.lavender{background:#f1ecff}
-.card.pink{background:#ffe9f0}
 .card p,.card li{font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.4}
+.card.mint{border-color:#48C78E55}
+.card.mint p b{color:var(--green-soft)}
+.card.lavender{border-color:#42A5F555}
+.card.lavender p b{color:var(--blue-soft)}
+.card.pink{background:var(--ivory);color:var(--ink)}
+.card.pink p{color:var(--ink)}
+.card.peach{border:2px dashed var(--gold);background:#FFD16618}
 .task{
-  background:var(--peach);border-radius:99px;align-self:flex-start;
-  padding:.45em 1.2em;font-size:clamp(1.2rem,2.1vw,1.7rem);font-weight:800;color:var(--ink);
+  background:var(--gold);border-radius:99px;align-self:flex-start;color:var(--ink);
+  padding:.45em 1.2em;font-size:clamp(1.2rem,2.1vw,1.7rem);font-weight:900;box-shadow:0 4px 0 var(--gold-deep);
 }
+/* the cast chips — the DOJO GLOW recurring strip */
+.cast{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.hero{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--panel);border-radius:16px;padding:6px 12px;font-size:clamp(.85rem,1.4vw,1.1rem);font-weight:900;box-shadow:0 3px 0 var(--brick)}
+.hero i{font-style:normal;font-size:1.4em}
+.blue{color:var(--blue-soft)} .green{color:var(--green-soft)} .goldc{color:var(--gold)}
 .reveal-btn{
-  font-family:'Fredoka',sans-serif;font-size:clamp(1.15rem,2vw,1.6rem);font-weight:700;
-  color:var(--ink);background:var(--mint);border:none;border-radius:99px;
+  font-size:clamp(1.15rem,2vw,1.6rem);font-weight:900;color:var(--ink);
+  background:var(--gold);border:none;border-radius:15px;
   padding:.55em 1.5em;cursor:pointer;transition:transform .15s ease;align-self:flex-start;
-  box-shadow:var(--shadow);
+  box-shadow:0 5px 0 var(--gold-deep);
 }
 .reveal-btn:hover{transform:scale(1.06)}
+.reveal-btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--gold-deep)}
 .answer{
-  display:none;font-family:'Fredoka',sans-serif;font-weight:700;
-  font-size:clamp(1.7rem,3.4vw,3rem);color:var(--ink);
-  background:var(--mint);border-radius:var(--radius);padding:.4em 1em;align-self:flex-start;
+  display:none;font-weight:900;
+  font-size:clamp(1.7rem,3.4vw,3rem);color:var(--gold);
+  background:var(--panel);border:2px solid var(--line);border-radius:var(--radius);padding:.4em 1em;align-self:flex-start;
 }
-.answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
-.answer b{color:var(--pink)}
-@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.answer.show{display:inline-block;animation:pop .35s ease}
+.answer b{color:var(--blue-soft)}
 /* flashcard grids */
 .fc-grid{display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,20px);align-items:stretch;justify-content:center}
 .fc{
-  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  background:var(--panel);border:2px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
   padding:clamp(8px,1.2vh,14px);cursor:pointer;user-select:none;
   display:flex;flex-direction:column;align-items:center;gap:.4vh;
-  transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease;
+  transition:transform .18s ease,box-shadow .18s ease;
   flex:0 1 auto;min-width:0;
 }
 .fc img{height:clamp(90px,16vh,150px);border-radius:12px}
 .fc .fc-emoji{font-size:clamp(3.2rem,8vh,5.6rem);line-height:1.15;display:block}
 .fc .fc-name{
-  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.5rem);
-  color:var(--ink);min-height:1.3em;
+  font-weight:900;font-size:clamp(1rem,1.7vw,1.5rem);
+  color:var(--ivory);min-height:1.3em;
 }
 .fc:hover{transform:translateY(-4px) scale(1.03)}
-.fc.picked{transform:scale(1.07);box-shadow:0 0 0 6px var(--mint),var(--shadow-lg)}
+.fc.picked{transform:scale(1.07);box-shadow:0 0 0 6px var(--gold),var(--shadow-lg)}
 .fc.gone{visibility:hidden}
-audio{width:min(560px,100%);margin-top:.4vh}
+audio{width:min(560px,100%);margin-top:.4vh;filter:invert(.92) hue-rotate(180deg) saturate(.75)}
 video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--shadow-lg)}
 img.sheet{width:min(640px,92%);border-radius:16px;display:block;box-shadow:var(--shadow-lg);background:#fff}
-img.sheet.small{width:min(560px,92%);height:min(30vh,280px);object-fit:cover;object-position:center 45%}
-.linkcard{
-  display:inline-block;background:var(--lavender);color:var(--ink);text-decoration:none;
-  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2.2vw,1.8rem);
-  border-radius:99px;padding:.6em 1.6em;box-shadow:var(--shadow);cursor:pointer;
-  transition:transform .15s ease;align-self:flex-start;
-}
-.linkcard:hover{transform:scale(1.05)}
+img.sheet.small{width:min(560px,92%);height:min(30vh,280px);object-fit:cover;object-position:center 45%;border:2px solid var(--line)}
 /* THE SIGHT-READING REVEAL — tap a picture → the word FULL SCREEN, huge */
 #bigword{z-index:300;cursor:pointer;align-items:center;justify-content:center;gap:0}
-#bigword .bw{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.05;text-align:center;color:var(--ink);animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
-#bigword .bw .art{display:block;font-size:clamp(1.6rem,4vw,3.4rem);color:var(--mint-deep);margin-bottom:1.5vh}
+#bigword .bw{font-weight:900;line-height:1.05;text-align:center;color:var(--ivory);animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+#bigword .bw .art{display:block;font-size:clamp(1.6rem,4vw,3.4rem);color:var(--gold);margin-bottom:1.5vh}
 #bigword .bw .noun{display:block;font-size:clamp(4.5rem,17vh,11rem);letter-spacing:.02em}
-#bigword .tap-hint{position:absolute;bottom:6vh;left:0;right:0;text-align:center;font-size:clamp(.9rem,1.5vw,1.2rem);color:var(--ink-soft)}
-</style>
+#bigword .tap-hint{position:absolute;bottom:6vh;left:0;right:0;text-align:center;font-size:clamp(.9rem,1.5vw,1.2rem);color:var(--ivory);opacity:.7}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}</style>
 <style>/* THE FILM CUE (standing, 2026-10-13): the group's filming moment for the parents — Alice records 30–60 s here */
 .filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}</style>
 </head>
 <body>
-<!-- ninja · sm0-u0-l1 · build 18.10 · v2 · site copy (v2: the media-keys guard) (screen only — teacher surfaces live in the AI-repo master) (THE FINAL VERSION SHIPS STAMP-LESS — the trail lives here) -->
+<!-- ninja · sm0-u0-l1 · build 18.10 · v3 · site copy (screen only — teacher surfaces live in the AI-repo master) (THE FINAL VERSION SHIPS STAMP-LESS — the trail lives here) · v2: the media-keys guard · v3: THE DOJO GLOW RE-SKIN — Elena's pick of the four ChatGPT directions, married onto the engine -->
 
 <div id="progress-track"><div id="progress-fill"></div></div>
 
 <!-- 1 · THE FIRST SONG — LET'S BE FRIENDS (SB p. 4, Track 1 + karaoke Track 2) -->
 <section class="slide">
-  <div class="eyebrow reveal-el">🎵 Song time</div>
+  <div class="eyebrow reveal-el">🎵 Song time · 01</div>
   <h1 class="title reveal-el">Hello, hello! Let's be friends! 🎵</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Listen — then sing along!</div>
+  <div class="cast reveal-el"><div class="hero"><i>👧</i>Misty</div><div class="hero"><i>👦</i>Whisper</div><div class="hero"><i>🥷</i><span class="blue">Jay · BLUE</span></div><div class="hero"><i>🥷</i><span class="green">Lloyd · GREEN</span></div><div class="hero"><i>🧙</i>Master Wu</div><div class="hero"><i>🥷</i>BLACK ninja</div></div>
   <audio controls preload="none" class="reveal-el" src="../media/sm0-u0-t01-song.mp3"></audio>
   <div class="card mint reveal-el"><p>🎤 In the song: <b style="color:var(--mint-deep)">Misty</b> 👧 asks — <b style="color:var(--lavender-deep)">Whisper</b> 👦 answers. <b>«Hey, let's be friends!»</b></p></div>
   <div class="card lavender reveal-el"><p style="font-size:clamp(1.05rem,1.8vw,1.5rem)">💬 Misty: <b>Hello, hello! What's your name?</b> — Whisper: <b>I'm Whisper!</b><br>Misty: <b>I'm Misty!</b> — Whisper: <b>Hey Misty, let's be friends!</b></p></div>
   <div class="card peach reveal-el" style="max-width:760px">
-    <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.35rem);color:var(--lavender-deep)">🧺 Prepare ahead</p>
+    <p style="font-family:'Trebuchet MS',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.35rem);color:var(--lavender-deep)">🧺 Prepare ahead</p>
     <p style="font-size:clamp(.85rem,1.35vw,1.1rem);line-height:1.55">
       🔊 <b>test both audios</b> before the children join &nbsp;·&nbsp; 📝 <b>the children's names</b> on a card beside you<br>
       🧸 a <b>soft toy</b> in frame (the wave game) &nbsp;·&nbsp; 📷 your <b>camera on/off switch</b> — it is the door in the goodbye game
@@ -199,7 +203,7 @@ img.sheet.small{width:min(560px,92%);height:min(30vh,280px);object-fit:cover;obj
 
 <!-- 2 · MEET THE TEAM — HELLO! I'M… -->
 <section class="slide">
-  <div class="eyebrow reveal-el">NEW FRIENDS!</div>
+  <div class="eyebrow reveal-el">NEW FRIENDS! · 02</div>
   <h1 class="title reveal-el">Hello! What's your name? 🥷</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Meet the team — say it back!</div>
@@ -216,10 +220,11 @@ img.sheet.small{width:min(560px,92%);height:min(30vh,280px);object-fit:cover;obj
 
 <!-- 3 · ASK AND ANSWER — THE WAVE GAME · THE FILMING MOMENT -->
 <section class="slide">
-  <div class="eyebrow reveal-el">Ask and answer 🙋</div>
+  <div class="eyebrow reveal-el">Ask and answer 🙋 · 03</div>
   <h1 class="title reveal-el">What's YOUR name? 🧸</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Answer — then pass the wave!</div>
+  <div class="cast reveal-el"><div class="hero"><i>👧</i>Misty</div><div class="hero"><i>👦</i>Whisper</div><div class="hero"><i>🥷</i><span class="blue">Jay · BLUE</span></div><div class="hero"><i>🥷</i><span class="green">Lloyd · GREEN</span></div><div class="hero"><i>🧙</i>Master Wu</div><div class="hero"><i>🥷</i>BLACK ninja</div></div>
   <div class="card mint reveal-el"><p>🧸 <b style="color:var(--mint-deep)">Hello! I'm Alice! What's your name?</b> — the toy flies to YOU: <b style="color:var(--lavender-deep)">I'm …!</b></p></div>
   <div class="card lavender reveal-el"><p>👏 Clap it: <b style="color:var(--lavender-deep)">WHAT's</b> 👏 your <b style="color:var(--lavender-deep)">NAME?</b> 👏</p></div>
   <div class="card peach reveal-el"><p>🥷 Then YOU ask a friend: <b style="color:var(--lavender-deep)">«What's YOUR name?»</b> — everyone answers!</p></div>
@@ -228,10 +233,11 @@ img.sheet.small{width:min(560px,92%);height:min(30vh,280px);object-fit:cover;obj
 
 <!-- 4 · THE TREASURE TASK — HOW MANY SWORDS? -->
 <section class="slide">
-  <div class="eyebrow reveal-el">🧠 Think!</div>
+  <div class="eyebrow reveal-el">🧠 Think like a ninja · 04</div>
   <h1 class="title reveal-el">The swords count! 🗡️</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Two friends — how many together?</div>
+  <div class="cast reveal-el"><div class="hero"><i>👧</i>Misty</div><div class="hero"><i>👦</i>Whisper</div><div class="hero"><i>🥷</i><span class="blue">Jay · BLUE</span></div><div class="hero"><i>🥷</i><span class="green">Lloyd · GREEN</span></div><div class="hero"><i>🧙</i>Master Wu</div><div class="hero"><i>🥷</i>BLACK ninja</div></div>
   <div class="card mint reveal-el"><p>🥷 Jay has <b style="color:var(--mint-deep)">ONE</b> sword. 🗡️</p></div>
   <div class="card lavender reveal-el"><p>🥷 Lloyd has <b style="color:var(--lavender-deep)">TWO</b> swords. 🗡️🗡️</p></div>
   <div class="card peach reveal-el"><p>❓ How many swords <b>together</b>?</p></div>
@@ -241,20 +247,22 @@ img.sheet.small{width:min(560px,92%);height:min(30vh,280px);object-fit:cover;obj
 
 <!-- 5 · KARAOKE — NOW YOU SING -->
 <section class="slide">
-  <div class="eyebrow reveal-el">🎵 Karaoke — your turn!</div>
+  <div class="eyebrow reveal-el">🎵 Karaoke — your turn! · 05</div>
   <h1 class="title reveal-el">Now YOU sing! 🎤</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 No voices on the track — YOU are the voices!</div>
+  <div class="cast reveal-el"><div class="hero"><i>👧</i>Misty</div><div class="hero"><i>👦</i>Whisper</div><div class="hero"><i>🥷</i><span class="blue">Jay · BLUE</span></div><div class="hero"><i>🥷</i><span class="green">Lloyd · GREEN</span></div><div class="hero"><i>🧙</i>Master Wu</div><div class="hero"><i>🥷</i>BLACK ninja</div></div>
   <audio controls preload="none" class="reveal-el" src="../media/sm0-u0-t02-karaoke.mp3"></audio>
   <div class="card mint reveal-el"><p>👧 One of you is <b style="color:var(--mint-deep)">Misty</b> — 👦 one is <b style="color:var(--lavender-deep)">Whisper</b>. Then SWAP!</p></div>
 </section>
 
 <!-- 6 · GOODBYE — THE CAMERA GAME -->
 <section class="slide">
-  <div class="eyebrow reveal-el">Goodbye time 👋</div>
+  <div class="eyebrow reveal-el">Goodbye time 👋 · 06</div>
   <h1 class="title reveal-el">Bye! Goodbye! 👋</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 The camera game: hello — goodbye!</div>
+  <div class="cast reveal-el"><div class="hero"><i>👧</i>Misty</div><div class="hero"><i>👦</i>Whisper</div><div class="hero"><i>🥷</i><span class="blue">Jay · BLUE</span></div><div class="hero"><i>🥷</i><span class="green">Lloyd · GREEN</span></div><div class="hero"><i>🧙</i>Master Wu</div><div class="hero"><i>🥷</i>BLACK ninja</div></div>
   <div class="card mint reveal-el"><p>📷 Camera OFF — knock knock 🔔 — camera ON: <b style="color:var(--mint-deep)">Hello!</b></p></div>
   <div class="card lavender reveal-el"><p>📷 Camera OFF again — the team says: <b style="color:var(--lavender-deep)">Goodbye!</b></p></div>
   <div class="card peach reveal-el"><p>🥷 Faster… and FASTER! 😄</p></div>
@@ -278,7 +286,7 @@ img.sheet.small{width:min(560px,92%);height:min(30vh,280px);object-fit:cover;obj
   <span class="closer" onclick="togglePardon(false)">✕ close</span>
   <div class="eyebrow">🙋 Say it in English!</div>
   <div id="tnbody-p"></div>
-  <div class="card mint" style="margin-top:2vh;max-width:640px"><p style="font-size:clamp(1.6rem,3vw,2.6rem);font-family:'Fredoka',sans-serif;font-weight:700">
+  <div class="card mint" style="margin-top:2vh;max-width:640px"><p style="font-size:clamp(1.6rem,3vw,2.6rem);font-family:'Trebuchet MS',sans-serif;font-weight:700">
     🙋 Pardon?<br>
     ❓ What does <b>___</b> mean?<br>
     🆘 Can you help me?<br>
@@ -323,7 +331,7 @@ function togglePardon(force){
 document.getElementById('pardonbtn').onclick=()=>togglePardon();
 /* ============ keys & gestures ============ */
 document.addEventListener('keydown',e=>{
-  if(/INPUT|TEXTAREA|AUDIO|VIDEO/.test(e.target.tagName))return; /* focused media owns its keys: space = play/pause, never the slide flip */
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
   if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
   if(e.key==='Escape'){togglePardon(false);document.getElementById('bigword').classList.remove('open');}
   if((e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З')){e.preventDefault();togglePardon();}
