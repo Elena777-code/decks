@@ -325,6 +325,9 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
         <div class="answer-row" id="hse-recall-row" style="display:none">
           <button class="ok-btn" id="hse-recall-btn" style="background:var(--gold)">👀 The last result</button>
         </div>
+        <div class="answer-row">
+          <button class="again-btn" id="hse-demo" style="margin-top:.2em">👀 Peek at the score card — demo, no tasks</button>
+        </div>
         <p class="meta" id="hse-build">build 2026-10-18 · v4</p>
       </div>
     </div>
@@ -1649,10 +1652,35 @@ $("hse-begin").addEventListener("click",function(){
   try{localStorage.setItem("mr-hse-name",v);}catch(e){}
   runInFlight=true;this.textContent="…the run is going";
   ri=0;log=[];roundFlash();});
+var demoOpen=false;
 $("hse-again").addEventListener("click",function(){
+  if(demoOpen){ /* the demo borrows this button as its close */
+    demoOpen=false;this.textContent="🔁 Play again";
+    $("hse-send").style.display="";$("hse-send-hint").textContent="Send → it lands in your teacher's form automatically.";
+    stage('hse-stage-start');refreshRecall();return;}
   if(runInFlight)return;
   runInFlight=true;this.textContent="…the run is going";
   rounds=buildRounds();ri=0;log=[];hide('hse-stage-end');roundFlash();});
+$("hse-demo").addEventListener("click",function(){
+  stage('hse-stage-end');
+  var sample={when:"DEMO — a sample, no run happened",hits:10,total:20,pct:50,
+    rounds:[{name:"Word formation",ok:3,n:6},{name:"for / since",ok:2,n:4},{name:"Stative or action?",ok:3,n:6},{name:"Phrasal verbs & shopping",ok:2,n:4}],
+    misses:[
+      {q:"Fresh air and sports can make any day feel ______ . (FANTASY — the adjective)",key:"fantastic",why:"fantasy → fantastic"},
+      {q:"He ______ this book. It's interesting.",key:"likes",why:"like = a state (opinion) — never -ing"},
+      {q:"I haven't eaten anything ______ two days.",key:"for",why:"two days = a stretch of time → for"}]};
+  var html='<div class="hse-score-line"><span><b>'+sample.hits+'</b> / '+sample.total+' cards · <b>'+sample.pct+'%</b></span><span>'+
+    sample.when+'</span></div>';
+  sample.rounds.forEach(function(r){html+='<div class="hse-score-line"><span>'+r.name+'</span><span><b>'+r.ok+'</b> / '+r.n+'</span></div>';});
+  $("hse-end-body").innerHTML=html;
+  $("hse-review-body").innerHTML=reviewHtml(sample,false);
+  $("hse-review-body").style.display="";
+  $("hse-send").style.display="none";
+  $("hse-send-hint").textContent="This is a demo view — nothing was played, nothing was sent.";
+  demoOpen=true;
+  $("hse-again").textContent="✕ Close the demo";
+  try{$("hse-card").scrollIntoView({behavior:"smooth",block:"start"});}catch(e){}
+});
 function roundFlash(){
   stage('hse-stage-flash');
   var f=$("hse-flash");f.className="hse-flashview info";
