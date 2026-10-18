@@ -226,7 +226,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
 #rec-copy{display:none;margin-top:.5em;font-family:'Fredoka',sans-serif;font-weight:600;font-size:1rem;border:none;border-radius:99px;padding:.5em 1.3em;background:var(--white);box-shadow:0 4px 10px rgba(45,52,54,.14);cursor:pointer}
 /* THE CORNERS v2 (Elena, 04.10): Pardon → top-left · ✍️ log → top-right · 🗒 notes → bottom centre — the last line under the slide */
 #pardon-bar{position:fixed;top:2.4vh;left:max(10px,1.6vw);z-index:90}
-#log-bar{position:fixed;top:2.4vh;left:auto;right:max(10px,1.6vw);transform:none}
+#log-bar{position:fixed;top:2.4vh;left:auto;right:max(10px,1.6vw);transform:none;z-index:120}
 #tnotes-btn{position:fixed;top:auto;bottom:2.4vh;left:50%;transform:translateX(-50%);z-index:95}
 #stamp{position:fixed;top:calc(2.4vh + .55em);right:calc(max(10px,1.6vw) + 5.6em);z-index:89;font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.72rem,1.1vw,.9rem);color:var(--ink-soft);background:rgba(255,255,255,.7);border-radius:99px;padding:.3em .8em;backdrop-filter:blur(8px)}
 /* --- the typing slot (the frozen lesson-1 engine, embedded) --- */
@@ -281,6 +281,11 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   .cloud svg{display:block;width:100%;height:auto}
   .cloud .hint{position:absolute;left:17%;right:17%;top:52%;text-align:center;font-weight:800;font-size:clamp(.68rem,1.2vw,1.02rem);line-height:1.3;color:var(--ink-soft);opacity:0;transform:translateY(10px);transition:opacity .25s ease,transform .25s ease}
   .cloud.open .hint{opacity:1;transform:none}
+  /* THE SAFARI FIXED-STACKING FIX: a fixed chrome WRAPPER must carry its
+     own z-index — WebKit traps the child button's z inside it, and the
+     slide (z:2) paints over the ✍️ pill (Elena, L15: the log was not
+     clickable). */
+  #log-bar{z-index:120}
   /* L15 · fit tweaks: s7 family tree + s15 silly game */
   #s7 svg{max-height:36vh}
   #s7 .glass{padding:.5em .8em}
