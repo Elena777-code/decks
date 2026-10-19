@@ -85,6 +85,8 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 .read-text{font-size:clamp(1.15rem,1.9vw,1.55rem);line-height:1.75}
 .read-text .key{color:var(--navy);font-weight:800}
 .wb-chip{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.4rem);padding:.25em .9em;border-radius:99px;background:var(--cheese-soft);color:var(--navy);margin:.3em .3em 0 0;box-shadow:0 4px 10px rgba(34,48,63,.06)}
+.wb-chip.tick-on{background:var(--mint);color:#fff}
+.wb-chip.tick-on::before{content:"✓ "}
 /* slide 1 · prepare ahead (teacher) */
 #s1 h1.title{margin-bottom:.3em}
 #s1 .accent-line{margin-bottom:.8em}
@@ -290,7 +292,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <!-- 1 · prepare ahead -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 06.10 · v19</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 1 · teacher's list · build 19.10 · v21</div>
     <h1 class="title reveal">The Most Popular Sports in the World ⚽</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
@@ -1715,7 +1717,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
   paintBoard(dealRound().board);
 
   /* the words shelf ticks */
-  document.querySelectorAll('#tickrow .wb-chip').forEach(ch=>{
+  document.querySelectorAll('#r12 .wb-chip').forEach(ch=>{
     ch.style.cursor='pointer';
     ch.addEventListener('click',()=>ch.classList.toggle('tick-on'));
   });
