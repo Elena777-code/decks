@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WW4 · Unit 9 · 9.7 Writing — A letter giving information</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WW4 (8th-grade group, Tue 15.45 Elena / Fri 15.30 Farida) —
+   Wider World 3, Unit 9 "Think outside the box", section 9.7
+   Writing — "A letter giving information" (SB p. 113, TB p.
+   212). Engine: the group's familiar 9.1 sheets, current
+   standard: THE CORNERS V2 (🙋 Pardon top-left · ✍️ top-right ·
+   🗒 bottom-centre — emoji-only pills), the ✍️ V2 window (d: ·
+   //: · free · fix:, ⌘S = save+close, auto-send over http), the
+   hotkey guard, flex-shrink guard, answers behind clicks, build
+   stamp. Opening: the homework checks — Friday's ex. 5 dialogues
+   (SB p. 112), WB p. 108 (all four exercises, track 31 rides on
+   the check), the shkola reading (who tried it). Then 9.7
+   straight from the TB — lead-in, ex. 1–7, the TB extra phone
+   call, the riddle, nothing omitted. English only. The tense
+   colour code on the ex. 5 reveals: blue present simple · green
+   present continuous · red past · yellow future.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --radius:14px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+  --tblue:#1450C8; --tgreen:#0E7A3D; --tred:#C0262E; --tyellow:#B8860B;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* flex-shrink guard: nothing on a slide may collapse — the slide scrolls */
+.slide>*{flex-shrink:0}
+.slide{position:absolute;inset:0;padding:8vh 5vw 12vh;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.6vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.8rem,1.25vw,1rem);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.3rem,2.5vw,2.05rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.stamp{display:inline-block;font-size:clamp(.72rem,1.05vw,.85rem);font-weight:700;
+  color:var(--ink-soft);border:1.5px solid var(--line);border-radius:99px;
+  padding:.14em .7em;background:#fff;letter-spacing:.04em}
+.task{font-size:clamp(1.02rem,1.65vw,1.3rem);line-height:1.5;font-weight:500}
+.task strong{color:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.78rem,1.2vw,.95rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.16em .7em;
+  background:#fff;margin-bottom:.1em;white-space:nowrap}
+.note{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);font-style:italic;line-height:1.48}
+audio{width:min(460px,92%);height:42px;vertical-align:middle}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.8rem,1.5vw,1.2rem)}
+.card.tint{background:var(--accent-soft);border-color:#d5e2dd}
+.card.gold{background:var(--gold-soft);border-color:#e8dcb8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.5vw,1.1rem)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.5vw,1.1rem)}
+.chips{display:flex;flex-wrap:wrap;gap:.5em}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:.26em .8em;
+  font-size:clamp(.92rem,1.5vw,1.2rem);font-weight:600;background:#fff;user-select:none}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.42em 0;
+  border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.7vw,1.32rem);line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .no{font-weight:800;color:var(--accent);min-width:1.4em}
+/* click-to-reveal answers — ANSWERS HIDE, ALWAYS */
+.flip{cursor:pointer;border-radius:8px;transition:background .2s}
+.flip:hover{background:var(--accent-soft)}
+.flip .back{color:var(--accent);opacity:0;transition:opacity .2s;font-weight:700;font-size:.94em;
+  display:inline-block;max-width:0;max-height:1.1em;overflow:hidden;white-space:nowrap;vertical-align:baseline}
+.flip.shown .back{opacity:1;max-width:none;max-height:none;white-space:normal}
+.vb{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.vb .vbh{background:var(--accent-soft);color:var(--accent);font-weight:800;
+  font-size:clamp(.85rem,1.4vw,1.05rem);letter-spacing:.06em;text-transform:uppercase;
+  padding:.35em .9em;border-bottom:1px solid var(--line)}
+.vb .vbb{padding:.5em .9em}
+.lead-sm{font-size:clamp(.95rem,1.5vw,1.18rem);line-height:1.5;color:#4a463d}
+.lead-sm strong{color:var(--accent)}
+.dlg{padding:.42em 0;border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.5}
+.dlg:last-child{border-bottom:none}
+.dlg b{color:var(--accent)}
+.letter{font-size:clamp(.98rem,1.6vw,1.24rem);line-height:1.6;color:#3a3f47}
+.letter .hi{color:var(--accent);font-weight:700}
+.letter .bye{color:var(--accent);font-style:italic}
+.letter .hl{background:#FFF3C4;border-radius:6px;padding:0 .18em;font-weight:600}
+
+/* ---------- THE CORNERS V2 — pinned emoji pills ---------- */
+.pill{position:fixed;z-index:150;border:2px solid var(--line);background:rgba(255,255,255,.95);
+  backdrop-filter:blur(8px);color:var(--ink);font-family:'Inter',sans-serif;
+  font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1;
+  padding:.42em .6em;border-radius:99px;cursor:pointer;
+  box-shadow:0 3px 10px rgba(35,39,46,.10);transition:transform .12s,border-color .12s}
+.pill:hover{transform:scale(1.08);border-color:var(--accent)}
+#pardonBtn{top:max(10px,1.6vh);left:max(10px,1.6vw)}
+#annoBtn{top:max(10px,1.6vh);right:max(10px,1.6vw)}
+
+/* ---------- 🙋 Pardon? — the one universal list (top-left popup) ---------- */
+#pq{position:fixed;left:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(420px,92vw);
+  background:#fff;border:2px solid var(--line);border-radius:16px;padding:.75em .9em .9em;
+  display:none;flex-direction:column;gap:.35em;box-shadow:0 16px 40px rgba(35,39,46,.22)}
+#pq.on{display:flex}
+#pq .pq-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft);padding:0 .2em .2em}
+#pq .a-sp{flex:1}
+#pq .pq-head button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#pq .pq-head button:hover{border-color:var(--ink-soft)}
+#pq .pqRow{display:flex;align-items:center;gap:.6em;font-size:clamp(1rem,1.9vw,1.2rem);
+  font-weight:600;color:var(--ink);padding:.3em .5em;border-radius:10px;line-height:1.35}
+#pq .pqRow:hover{background:var(--accent-soft)}
+#pq .pqRow .pqE{flex:0 0 1.6em;text-align:center;font-weight:400}
+
+
+
+/* ⛶ read big — fullscreen reading text */
+#fso{position:fixed;inset:0;z-index:190;background:var(--paper);display:none;
+  overflow:auto;padding:6vh 7vw 10vh}
+#fso.open{display:block}
+#fso .fsoinner{max-width:78ch;margin:0 auto;font-size:clamp(1.25rem,2.4vw,1.95rem);
+  line-height:1.65;color:var(--ink)}
+#fso .fsoinner .gp{display:inline-block;min-width:5.5ch;border-bottom:2px solid var(--accent);
+  text-align:center;padding:0 .3em}
+#fso .fsoinner .ex{color:var(--accent);font-weight:700}
+
+@media (max-width:900px){
+  .slide{padding:8vh 5vw 12vh}
+  .grid2,.grid3{grid-template-columns:1fr}
+}
+</style>
+<style>/* THE FILM CUE (standing, 2026-10-13): Elena films the group for the parents at this slide — placement taught gradually */
+.filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER + HOMEWORK CHECK ORDER + PREPARE AHEAD -->
+<section class="slide">
+  <div class="eyebrow reveal">Wider World 3 · Unit 9 “Think outside the box” · WW4 (8th grade) — Tue 15.45 Elena / Fri 15.30 Farida</div>
+  <h1 class="reveal">9.7 Writing — <em>A letter giving information</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Today:</strong> “I can write a letter giving information.”<!-- ww4-deck-005 · build 20.10 · v1 · full master lives in the AI repo (groups/ww4/lessons/005) --></p>
+  <p class="tag reveal">HOMEWORK CHECK — today’s order</p>
+  <div class="chips reveal">
+    <span class="chip">1 · SB p. 112 ex. 5 — your dialogues</span>
+    <span class="chip">2 · WB p. 108</span>
+    <span class="chip">3 · the shkola reading</span>
+  </div>
+  <div class="card tint reveal">
+    <p class="lead-sm"><strong>Prepare ahead</strong> — 🎧 <strong>test the one track</strong> (right here) · 📓 <strong>notebooks out</strong> (two letters get written today) · 📖 <strong>SB p. 113 open</strong> · nothing else.</p>
+    <div style="display:grid;gap:.4vh;margin-top:.6vh">
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1vw;align-items:center"><span class="tag">🎧 WB 31 · the check</span><audio controls preload="none" src="../media/ww3-wb-31.mp3"></audio></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · CHECK 1/3 — SB p. 112 ex. 5: THE DIALOGUES -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework check · SB p. 112 ex. 5 · your dialogues</div>
+  <h1 class="reveal">Show us your <em>dialogues</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Groups of three — <strong>perform</strong> the situation you prepared.
+  Everyone else: <strong>count the tenses you hear</strong>.</p>
+  <div class="chips reveal">
+    <span class="chip">🎉 at a party</span>
+    <span class="chip">🎬 at the cinema</span>
+    <span class="chip">⚽ in a sports club</span>
+  </div>
+  <div class="card tint reveal">
+    <p class="lead-sm">Every dialogue needs — <strong>at least one question about the <span style="color:var(--tred)">past</span></strong>,
+    <strong>one about the <span style="color:var(--tgreen)">present</span></strong>, and <strong>one about the <span style="color:var(--tyellow)">future</span></strong>.
+    Did they manage all three?</p>
+  </div>
+</section>
+
+<!-- 3 · CHECK 2/3 — WB p. 108 ex. 1–3 -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Homework check · WB p. 108 (9.6 Speaking) · 1/2</div>
+  <h1 class="reveal">WB p. 108 — <em>your answers</em> (1/2)</h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 1</strong> — complete with <em>are · been · do · have · was · would</em>:</p>
+      <div class="item"><span class="no">1</span><span>How have you <b style="color:var(--accent)">been</b>? <span class="note">(the example)</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>What ____ you guys doing this evening? <span class="back">→ are</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>____ you like it here? <span class="back">→ Do</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>How ____ your journey? <span class="back">→ was</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>____ you been to the USA before? <span class="back">→ Have</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>____ you like to join us? <span class="back">→ Would</span></span></div>
+    </div>
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 2</strong> — choose the correct response:</p>
+      <div class="item"><span class="no">1</span><span>Have you been to London before? → <b style="color:var(--accent)">c · No, it’s my first time here.</b> <span class="note">(the example)</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Would you like to come out with us? <span class="back">→ a · I’d love to.</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>What are you doing at the weekend? <span class="back">→ c · I’m going to a party.</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Do you like it here in New York? <span class="back">→ b · Yes, it’s amazing.</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>How was your journey? <span class="back">→ a · It was fine.</span></span></div>
+      <p class="lead-sm" style="margin:.4em 0 .2em"><strong>Ex. 3</strong> — complete with the phrases:</p>
+      <div class="item"><span class="no">1</span><span>That’s Liam. <b style="color:var(--accent)">Let me introduce you.</b> <span class="note">(the example)</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Hi, Matt. ____ You look well. <span class="back">→ Great to see you!</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>I’ve got loads of homework this week! — ____ <span class="back">→ Tell me about it!</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>The train was two hours late! ____ <span class="back">→ I’m shattered.</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · CHECK 3/3 — WB p. 108 ex. 4 (🎧 31) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Homework check · WB p. 108 · 2/2 — the long dialogues</div>
+  <h1 class="reveal">One word in each <em>gap</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Elsa, Rory — and later Tara. <strong>Listen and check</strong> your nine words:</p>
+  <p><span class="tag">🎧 AUDIO WB 31</span> <audio controls preload="none" src="../media/ww3-wb-31.mp3"></audio></p>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>Great to <b style="color:var(--accent)">see</b> you! Come in. <span class="note">(the example)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Oh, don’t worry about that. How ____ your journey? <span class="back">→ was</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>The train was really crowded, I ____ feeling really tired. <span class="back">→ ’m</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Your room’s nice. ____ you like it here? <span class="back">→ Do</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>How about you? ____ have you been? <span class="back">→ How</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>There’s Tara — a friend of mine. ____ me introduce you. <span class="back">→ Let</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">7</span><span>Nice to meet you, Elsa. ____ you been to Edinburgh before? <span class="back">→ Have</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">8</span><span>So, what are you guys ____ this evening? <span class="back">→ doing</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">9</span><span>We’re going for a pizza. ____ you like to join us? <span class="back">→ Would</span></span></div>
+  </div>
+  <div class="card gold reveal"><p class="lead-sm">All nine — <strong>yesterday’s Speaking box in action</strong>. The same questions carry a whole conversation.</p></div>
+</section>
+
+<!-- 5 · CHECK — THE SHKOLA READING -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework check · the shkola reading</div>
+  <h1 class="reveal">Who tried the <em>reading</em>?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">In the app you tried to read your piece of the dialogue — <strong>perfectly</strong>.
+  Tell us: <strong>which piece</strong>? <strong>How close</strong> are you?</p>
+  <div class="card tint reveal">
+    <p class="lead-sm"><strong>Two or three volunteers</strong> — read your piece aloud.
+    The class: name <strong>one moment that was word-perfect</strong>. 👂</p>
+  </div>
+</section>
+
+<!-- 6 · LEAD-IN — REVIEW OF EXCHANGING PERSONAL INFORMATION (TB p. 212) -->
+<section class="slide">
+  <div class="eyebrow reveal">Lead-in · TB p. 212 · exchanging personal information</div>
+  <h1 class="reveal">The <em>new student</em> game</h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>Groups of four. One of you is the <strong>new student</strong> — any school, any country, use your imagination.</span></div>
+    <div class="item"><span class="no">2</span><span>The other three <strong>interview</strong> the new student — yesterday’s questions all work.</span></div>
+    <div class="item"><span class="no">3</span><span><strong>Five minutes</strong> — then tell the class: what did you find out about each other?</span></div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm"><strong>Starters</strong> — <em>Where are you from? · Do you like it here? · What do you want to do in the future?</em></p></div>
+</section>
+
+<!-- 7 · SB EX. 1 — CLASS VOTE + THE SCHOOL EXCHANGE -->
+<section class="slide">
+  <div class="eyebrow reveal">Speaking · SB ex. 1 (p. 113) · CLASS VOTE</div>
+  <h1 class="reveal">An exchange partner is <em>coming</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">First — the key phrase. <strong>Click to check</strong>:</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">🤝</span><span>a <strong>school exchange partner</strong> is… <span class="back">→ a student from another country who comes to study at your school — and you visit their school too</span></span></div>
+  </div>
+  <p class="task reveal"><strong>Would you like to go</strong> to a school abroad for a few weeks? <strong>Why — or why not?</strong>
+  And what would you <strong>want to be told</strong> before you left?</p>
+  <div class="card gold reveal"><p class="task" style="font-size:clamp(1rem,1.7vw,1.3rem)"><strong>CLASS VOTE</strong> — what information would you <strong>give</strong> a school exchange partner who was coming to <strong>your</strong> school?</p></div>
+</section>
+
+<!-- 8 · SB EX. 2 — NADIA'S LETTER -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Reading · SB ex. 2 (p. 113) · Nadia’s letter</div>
+  <h1 class="reveal">What does Nadia <em>want to know</em>?</h1>
+  <div class="rule reveal"></div>
+  <div class="card letter reveal">
+    <p><span class="hi">Hi Kyla,</span></p>
+    <p>As you know, I’m arriving next Monday evening. I’m attaching a recent photo
+    so you can see what I look like! I know it will be term time, so please
+    tell me a few things about your school? Like, <span class="hl">is it big</span> and
+    <span class="hl">do you wear uniforms</span>? Also, <span class="hl">are you going to meet me
+    at the airport</span>, or shall I get a taxi?</p>
+    <p><span class="bye">See you soon,</span><br><span class="hi">Nadia</span></p>
+  </div>
+  <p class="task reveal">Read — then answer: <strong>what does she want to know?</strong></p>
+  <div class="grid2 reveal">
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>about her… <span class="back">→ the school — is it big? do they wear uniforms?</span></span></div></div>
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>and about the… <span class="back">→ airport — is Kyla going to meet her, or does she take a taxi?</span></span></div></div>
+  </div>
+</section>
+
+<!-- 9 · SB EX. 3 — KYLA'S REPLY -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Reading · SB ex. 3 (p. 113) · Kyla’s reply</div>
+  <h1 class="reveal">Does Kyla answer <em>everything</em>?</h1>
+  <div class="rule reveal"></div>
+  <div class="card letter reveal">
+    <p><span class="hi">Dear Nadia,</span></p>
+    <p>Thanks for your letter. <span class="hl">I’m looking forward to meeting you</span> as well.</p>
+    <p>You asked about my school. Well, there are about a thousand pupils, and the
+    teachers are friendly. We wear uniforms, but I can lend you a spare one
+    <span class="hl">if you like</span>. I have basketball club after school on Fridays, so
+    <span class="hl">you’re welcome to come along</span>.</p>
+    <p>Of course we’re going to meet you on Monday! I’ll be at the airport with my
+    parents. We’ll have a big card with your name on, but here’s a photo, too,
+    <span class="hl">just in case</span>! <span class="hl">Don’t worry about anything</span>, we’re going
+    to have fun!</p>
+    <p><span class="bye">Best wishes,</span><br><span class="hi">Kyla</span></p>
+  </div>
+  <div class="grid2 reveal">
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">?</span><span>Does she include all the information Nadia asked for? <span class="back">→ YES — the school (big? uniforms?) and the airport meeting: both answered</span></span></div></div>
+    <div class="card gold"><div class="item"><span class="no">💬</span><span><strong>Compare</strong> — Kyla’s school vs yours: <em>In our school there are … pupils. The teachers are … We have a … club.</em></span></div></div>
+  </div>
+</section>
+
+<!-- 10 · SB EX. 4 — THE PHRASES IN COLOUR -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Vocabulary · SB ex. 4 (p. 113) · the phrases in colour</div>
+  <h1 class="reveal">Five phrases from the <em>letter</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">What do they mean? <strong>Why does Kyla use them?</strong> Click each one:</p>
+  <div class="grid2 reveal">
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>I’m <strong>looking forward to</strong> meeting you <span class="back">→ she’s excited about it — a friendly letter ending: I’m looking forward to hearing more about…</span></span></div></div>
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>…a spare one, <strong>if you like</strong> <span class="back">→ “if that’s what you want” — often with an offer: I can help you if you like.</span></span></div></div>
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span><strong>you’re welcome to come along</strong> <span class="back">→ an invitation to something already arranged: I’m going to the cinema — you’re welcome to come along, too.</span></span></div></div>
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>here’s a photo, too, <strong>just in case</strong> <span class="back">→ to prevent problems: take an umbrella just in case it rains.</span></span></div></div>
+  </div>
+  <div class="card reveal"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span><strong>Don’t worry about anything</strong> <span class="back">→ everything is organised — it reassures someone doing something new: the airport, the family, the school — all ready.</span></span></div></div>
+</section>
+
+<!-- 11 · TB EXTRA ACTIVITY — THE WEEKEND PHONE CALL -->
+<section class="slide">
+  <div class="eyebrow reveal">Extra activity · TB p. 212 · a phone call</div>
+  <h1 class="reveal">The weekend <em>phone call</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <p class="lead-sm"><strong>The situation</strong> — pairs. One of you is going to visit the other
+    for the weekend. <strong>Phone up</strong> and find out:</p>
+    <div class="chips" style="margin-top:.3em">
+      <span class="chip">🚆 how will I get there?</span>
+      <span class="chip">🎒 what should I bring?</span>
+      <span class="chip">🛏 where will I sleep?</span>
+    </div>
+  </div>
+  <p class="task reveal"><strong>Write the dialogue</strong> — use Kyla’s coloured phrases.
+  Then <strong>act it out</strong> for the class.</p>
+  <div class="card gold reveal"><p class="lead-sm">All five phrases must survive the phone call — <em>looking forward to · if you like · you’re welcome to come along · just in case · don’t worry about</em>.</p></div>
+<div class="filmchip" title="Lights, camera, action — film 30–60 s of the group for the parents; the clip goes to Miss Alyona">🎬 Lights, camera, action!</div>
+</section>
+
+<!-- 12 · SB EX. 5 — NAME THE TENSES -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Grammar · SB ex. 5 (p. 113) · the tenses in Kyla’s letter</div>
+  <h1 class="reveal">Name the <em>tenses</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">First — from <strong>your</strong> life: a past event, a habit, a plan, a promise.
+  Then — <strong>Kyla’s letter</strong>: match each tense with its job. Click to check:</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>something happening now <span class="back">→ <b style="color:var(--tgreen)">Present Continuous</b> — I’m looking forward</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>a past event <span class="back">→ <b style="color:var(--tred)">Past Simple</b> — You asked about my school</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>regular habits (and facts) <span class="back">→ <b style="color:var(--tblue)">Present Simple</b> — there are · wear · I have basketball club</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>plans <span class="back">→ <b style="color:var(--tyellow)">be going to</b> — we’re going to meet · going to have fun</span></span></div>
+    </div>
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>a promise <span class="back">→ <b style="color:var(--tyellow)">will</b> — I’ll be at the airport</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">+</span><span>one verb that is not a tense <span class="back">→ can — I can lend you a spare one (a possibility or an offer)</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">★</span><span>bonus — which colour is missing? <span class="back">→ purple — present perfect: nothing in the letter joins past to present</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · SB EX. 6 — THE WRITING BOX -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Writing · SB ex. 6 (p. 113) · the Writing box</div>
+  <h1 class="reveal">A letter has <em>six stages</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Complete gaps <strong>a–d</strong> with sentences from <strong>Kyla’s letter</strong>:</p>
+  <div class="vb reveal">
+    <div class="vbh">Writing · A letter giving information</div>
+    <div class="vbb">
+      <div class="item"><span class="no">1</span><span><strong>Starting your letter</strong> — <em>Dear (name),… · It was good to hear from you.</em> → <strong>a</strong></span></div>
+      <div class="item"><span class="no">2</span><span><strong>Making it clear why you’re writing</strong> — <em>You asked for information about the school here.</em> → <strong>b</strong></span></div>
+      <div class="item"><span class="no">3</span><span><strong>Giving useful information</strong> — <em>There are about a thousand pupils. · I can lend you a uniform / PE kit / bag.</em> → <strong>c</strong></span></div>
+      <div class="item"><span class="no">4</span><span><strong>Making arrangements</strong> — <em>We’ll definitely meet you. · We’ll be there at 7.15 p.m.</em> → <strong>d</strong></span></div>
+      <div class="item"><span class="no">5</span><span><strong>Before you finish</strong> — <em>I’m really looking forward to seeing you (again). · We’re going to have a great time.</em></span></div>
+      <div class="item"><span class="no">6</span><span><strong>Ending your letter</strong> — <em>All the best, / See you soon,</em></span></div>
+    </div>
+  </div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">a</span><span><span class="back">→ Thanks for your letter.</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">b</span><span><span class="back">→ You asked about my school.</span></span></div>
+    </div>
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">c</span><span><span class="back">→ I have basketball club after school on Fridays.</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">d</span><span><span class="back">→ …so you’re welcome to come along.</span></span></div>
+    </div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm"><strong>Books closed!</strong> — How did she start? Why was she writing? What information? What arrangements? How did she finish?</p></div>
+</section>
+
+<!-- 14 · WRITING TIME — SB EX. 7: JACK'S LETTER -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Writing Time · SB ex. 7 (p. 113) · Jack’s letter</div>
+  <h1 class="reveal">Now <em>you</em> reply — to Jack</h1>
+  <div class="rule reveal"></div>
+  <div class="card letter reveal">
+    <p><span class="hi">Hi Bryan,</span></p>
+    <p>As you know, I’m arriving next week by train. What are the plans for meeting me?
+    Shall I phone you from the station, or take a taxi? Should I bring anything special
+    with me (e.g. warm clothes, sports equipment, hiking boots, etc.)? I’m not sure
+    about the weather, and your plans for the weekend. Please, let me know.</p>
+    <p><span class="hi">Jack</span></p>
+  </div>
+  <p class="task reveal"><strong>Books closed!</strong> In pairs, ask about the letter:
+  <em>Who is it from? · Who is it to? · When is Jack arriving? · How is he travelling? · What does he need to know?</em></p>
+  <div class="card tint reveal">
+    <p class="lead-sm" style="margin-bottom:.2em">Then write <strong>your reply</strong> — the three jobs:</p>
+    <div class="item"><span class="no">1</span><span>thank Jack for his letter and say <strong>why you’re writing</strong></span></div>
+    <div class="item"><span class="no">2</span><span>reply to <strong>ALL the questions</strong></span></div>
+    <div class="item"><span class="no">3</span><span>express your <strong>feelings</strong> about the visit</span></div>
+  </div>
+  <p class="note reveal">Your model: Kyla’s letter + the Writing box — six stages, every letter.</p>
+</section>
+
+<!-- 15 · ONE LAST RIDDLE — THE TREASURE SLOT -->
+<section class="slide">
+  <div class="eyebrow reveal">One last riddle · think in three steps</div>
+  <h1 class="reveal">The <em>basketball</em> timeline</h1>
+  <div class="rule reveal"></div>
+  <div class="card tint reveal">
+    <div class="item"><span class="no">1</span><span>Nadia arrives next <strong>Monday</strong> evening.</span></div>
+    <div class="item"><span class="no">2</span><span>Kyla has basketball club after school on <strong>Fridays</strong>.</span></div>
+    <div class="item"><span class="no">3</span><span>The club meets <strong>once a week</strong> — Fridays only.</span></div>
+  </div>
+  <p class="task reveal">So — does Kyla go to basketball club <strong>on the day Nadia arrives</strong>?</p>
+  <div class="card gold reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">?</span><span>the answer <span class="back">→ NO — the club is on Fridays, Nadia arrives on a Monday: different days</span></span></div>
+  </div>
+</section>
+
+<!-- 16 · HOMEWORK -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">Finish your <em>letters</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>📘 <b>Workbook p. 109</b> (9.7): <b>ex. 1</b> — complete Ana’s letter · <b>ex. 2</b> — match the sentences with their jobs · <b>ex. 3</b> — complete Fiona’s reply with the phrases · <b>ex. 4</b> — write <b>your</b> reply to Ana (Fiona’s letter is the model — follow the steps).</span></div>
+    <div class="item"><span class="no">2</span><span>✍️ <b>Finish your reply to Jack</b> (SB p. 113, ex. 7) — started in class, now write it out in full. All of Kyla’s phrases work in both letters.</span></div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm">The Writing box is your map — <strong>six stages, every letter</strong>.</p></div>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 16</span>
+  <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<!-- pinned pills — THE CORNERS V2: 🙋 top-left · ✍️ top-right · 🗒 bottom-centre -->
+<button id="pardonBtn" class="pill" title="Pardon? — class phrases (P)">🙋</button>
+
+
+<!-- 🙋 Pardon? — the one universal list -->
+<div id="pq">
+  <div class="pq-head"><span>say it in class</span><span class="a-sp"></span>
+    <button id="pqX" title="close (Esc / P)">✕</button></div>
+  <div class="pqRow"><span class="pqE">🙋</span>Pardon?</div>
+  <div class="pqRow"><span class="pqE">❓</span>What does <b>___</b> mean?</div>
+  <div class="pqRow"><span class="pqE">🆘</span>Can you help me?</div>
+  <div class="pqRow"><span class="pqE">🔁</span>Can you repeat, please?</div>
+  <div class="pqRow"><span class="pqE">🇬🇧</span>How do you say <b>___</b> in English?</div>
+  <div class="pqRow"><span class="pqE">🤷</span>I don't understand.</div>
+</div>
+
+
+<!-- ⛶ read big -->
+<div id="fso" onclick="this.classList.remove('open')"><div class="fsoinner" id="fsoinner"></div></div>
+
+<script>
+const CH='ww4-u9-l9.7';
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  document.querySelectorAll('audio').forEach(a=>{try{a.pause()}catch(e){}});
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  history.replaceState(null,'','#'+(i+1));
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  if(typeof annoFill==='function'&&document.getElementById('anno').classList.contains('on')){annoIdx=n;annoFill()}
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* ---------- ⛶ read big ---------- */
+function openFs(id){document.getElementById('fsoinner').innerHTML=document.getElementById(id).innerHTML;
+  document.getElementById('fso').classList.add('open');}
+
+/* ---------- 🙋 Pardon? (top-left pill, key P) — the one universal list ---------- */
+const pqPanel=document.getElementById('pq');
+function pqToggle(open){pqPanel.classList.toggle('on',open);
+  if(open){const a=document.getElementById('anno');if(a)a.classList.remove('on')}}
+function pqEsc(){if(pqPanel.classList.contains('on')){pqPanel.classList.remove('on');return true}return false}
+document.getElementById('pardonBtn').onclick=()=>pqToggle(!pqPanel.classList.contains('on'));
+document.getElementById('pqX').onclick=()=>pqToggle(false);
+
+/* ---------- keys (the guard first: ⌘/Ctrl/Alt never triggers deck keys) ---------- */
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){
+    if(typeof annoEsc==='function'&&annoEsc())return;
+    if(pqEsc())return;
+    if(typeof notesEsc==='function'&&notesEsc())return;
+    document.getElementById('fso').classList.remove('open');return}
+  if(document.getElementById('fso').classList.contains('open')){
+    if(e.key==='Escape')document.getElementById('fso').classList.remove('open');
+    return}
+  if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&typeof toggleNotes==='function'){e.preventDefault();toggleNotes();return}
+  if((e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З')){e.preventDefault();pqToggle(!pqPanel.classList.contains('on'));return}
+  if(pqPanel.classList.contains('on'))return; /* the list is open — other keys sleep */
+  /* AUDIO key-guard: SPACE pauses a playing track instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+
+
+
+/* ---------- wheel/touch: a .scroll slide scrolls, never flips ---------- */
+let wt=0;document.addEventListener('wheel',e=>{
+  if(document.getElementById('fso').classList.contains('open'))return;
+  if(e.target.closest('.slide')&&e.target.closest('.slide').classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ---------- boot: deep link #n ---------- */
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+
+/* ---------- ready-chime (http/https: chime + reload on save) ---------- */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
