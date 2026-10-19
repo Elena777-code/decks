@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>House &amp; Home — the dictation drill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HOUSE & HOME — THE DICTATION DRILL · hwdt (the timed drill),
+   born 2026-10-19 on Elena's order. Public, name-free drill for
+   her pupils outside Anglograd: the Russian word on the card,
+   the pupil types the English (spelling from Russian — the
+   dictation prep). 44 word pairs from Elena's own list; 10-card
+   runs, 15 seconds a card (the hwdt law: too quick to ask the
+   internet); the missed cards come back first next run.
+   Engine: the Grand National clone (the Ten Boxes line, proven
+   07.10/14.10), type-in. Paper & sage, LIGHT ONLY.
+   Reports → the shared «Drill reports» form (entry verified
+   19.10 by the Rule-2 parse); the report's first line carries
+   the pupil's typed name, so the sheet reads clean.
+   ============================================================ */
+:root{
+  --paper:#f6f2ea; --card:#fff; --ink:#37322a; --sub:#8b8578;
+  --sage:#7f9c88; --sage-deep:#5e8169; --sage-soft:#edf2ec;
+  --terra:#c97a6d; --terra-deep:#b3564a; --terra-soft:#f9ede9;
+  --gold:#8a6d1d; --gold-soft:#f6efdc;
+  --line:#e8e1d3;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);
+  background:var(--paper);min-height:100vh;padding:clamp(1rem,4vw,2.5rem)}
+main{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
+.eyebrow{font-size:.82rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+h1{font-family:'Lora',Georgia,serif;font-weight:700;font-size:clamp(1.7rem,4.5vw,2.4rem);line-height:1.15}
+h1 em{color:var(--sage-deep);font-style:normal}
+.rule{width:64px;height:4px;border-radius:99px;background:var(--sage)}
+p.lead{font-size:clamp(1rem,2vw,1.2rem);line-height:1.55;color:#57503f}
+p.lead strong{color:var(--sage-deep)}
+.stamp{display:block;margin-top:.35em;font-size:.76rem;color:var(--sub);letter-spacing:.04em}
+.hint{font-size:clamp(.85rem,1.6vw,.98rem);color:var(--sub);font-style:italic;line-height:1.5}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:clamp(1rem,3vw,1.5rem);animation:pop .35s both}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rules{font-size:clamp(1rem,2vw,1.18rem);line-height:1.6}
+.icons{font-size:1.6rem;letter-spacing:.3em;margin:.3em 0}
+.meta{font-size:.85rem;font-weight:700;color:var(--sub);letter-spacing:.05em}
+.best{font-size:.95rem;font-weight:800;color:var(--sage-deep);margin:.5em 0 .2em;min-height:1.3em}
+.name-row{display:flex;flex-direction:column;gap:.4em;margin:1em 0}
+.name-row label{font-size:.85rem;font-weight:800;color:var(--sub);letter-spacing:.06em}
+#name-box{border:2px solid var(--line);border-radius:12px;background:#fff;
+  padding:.55em .8em;font-family:'Nunito',sans-serif;font-size:1.05rem;color:var(--ink)}
+#name-box:focus{outline:none;border-color:var(--sage)}
+.start-btn,.ok-btn,.again-btn{border:none;border-radius:99px;padding:.6em 1.5em;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1rem,2vw,1.15rem);
+  background:var(--sage);color:#fff;transition:transform .15s,filter .15s}
+.start-btn:hover,.ok-btn:hover,.again-btn:hover{transform:scale(1.04);filter:brightness(1.06)}
+.hidden{display:none!important}
+.qcount{font-size:.9rem;font-weight:800;letter-spacing:.08em;color:var(--sage-deep);text-transform:uppercase}
+.prompt{font-size:clamp(1.3rem,3.2vw,1.8rem);font-weight:800;line-height:1.5;margin:.7em 0 .2em}
+.prompt .ru{color:var(--ink)}
+.task-line{font-size:clamp(.95rem,2vw,1.1rem);color:var(--sub);font-weight:700}
+.answer-row{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em;align-items:center;justify-content:center}
+#answer-box{border:2px solid var(--line);border-radius:12px;background:#fff;
+  padding:.55em .8em;font-family:'Nunito',sans-serif;font-weight:800;font-size:1.1rem;
+  color:var(--ink);width:24ch;text-align:center}
+#answer-box:focus{outline:none;border-color:var(--sage)}
+.timer-wrap{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:1em}
+.timer-wrap.off{opacity:.25}
+.timer-bar{height:100%;width:100%;background:var(--sage)}
+.timer-num{font-size:.85rem;font-weight:800;color:var(--sub);margin-top:.3em;min-height:1.2em;text-align:center}
+.timer-num.low{color:var(--terra-deep)}
+.flash{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;
+  background:rgba(246,242,234,.92);font-size:clamp(2.2rem,7vw,3.6rem);font-weight:800;
+  flex-direction:column;gap:.3em;text-align:center;padding:4vh 4vw}
+.flash .sub{font-size:clamp(1.1rem,3vw,1.6rem);color:var(--ink)}
+.flash.fix .sub{color:var(--terra-deep)}
+.stars{font-size:1.7rem;letter-spacing:.15em}
+.end-title{font-family:'Lora',Georgia,serif;font-size:clamp(1.5rem,3.5vw,2rem);font-weight:700;margin:.2em 0}
+.one-line{font-size:clamp(1.05rem,2.2vw,1.3rem);font-weight:800;color:var(--sage-deep)}
+.remember{margin-top:1em;background:var(--terra-soft);border:1px dashed var(--terra);
+  border-radius:14px;padding:.8em 1em;font-size:clamp(.95rem,2vw,1.1rem);line-height:1.7;text-align:left}
+.remember b{color:var(--terra-deep)}
+.sent{font-size:.95rem;font-weight:800;color:var(--sage-deep);margin-top:.6em;min-height:1.3em}
+#end-btns{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em;justify-content:center}
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">English · the dictation drill · house &amp; home</p>
+  <h1>House &amp; Home — <em>get ready for the dictation</em></h1>
+  <div class="rule"></div>
+
+  <div class="card" id="start-card">
+    <p class="rules">10 cards in a run · <b>15 seconds</b> on each — too quick to ask the internet!<br>
+    Read the <strong>Russian</strong> word, type the <strong>English</strong> one, press Enter.<br>
+    The words you missed come back first next time. 🏠</p>
+    <div class="icons">🏠 🛋 ⏱</div>
+    <div class="meta">44 WORDS IN THE TOPIC · 10 CARDS A RUN · 15 s EACH</div>
+    <div class="best" id="best-line"></div>
+    <div class="name-row">
+      <label for="name-box">Your name</label>
+      <input id="name-box" autocomplete="off" spellcheck="false">
+    </div>
+    <button class="start-btn" id="begin-btn">Start</button>
+    <span class="stamp">build 2026-10-19 · v1 · the dictation drill: Russian on the card, English typed</span>
+  </div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div class="prompt"><span class="ru" id="q-prompt"></span></div>
+    <div class="task-line">write it in English 👇</div>
+    <div class="answer-row">
+      <input id="answer-box" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="your word">
+      <button class="ok-btn" id="check-btn">✓</button>
+    </div>
+    <div class="timer-wrap" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+  </div>
+
+  <div class="flash hidden" id="flash"></div>
+
+  <div class="card hidden" id="end-card">
+    <div class="stars" id="end-stars"></div>
+    <div class="end-title">Done!</div>
+    <div class="one-line" id="end-rows"></div>
+    <div class="remember hidden" id="end-remember"></div>
+    <div class="sent" id="report-sent"></div>
+    <div id="end-btns">
+      <button class="again-btn" id="again-btn">🔁 Play again</button>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+"use strict";
+
+/* ELENA: the shared «Drill reports» form (the groups' inbox) — verified
+   19.10 by the Rule-2 parse (entry 1388210654, question «Report»).
+   Each report's first line carries the pupil's typed name, so the rows
+   self-label. When a girl gets her OWN form, rewire these two lines. */
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSclA75beBw43_odq4MnKpQTyVZ8IAnaVGuJ2hYXPj5ZWGS3fg/formResponse";
+var FORM_ENTRY="entry.1388210654";
+
+/* ---------- the pool: Elena's 44 pairs, Russian on the card,
+   the English word(s) typed. Two «Шкаф» cards exist on purpose —
+   the list has Wardrobe AND Cupboard; both keys are accepted on
+   both cards, and the reveal always teaches both. ---------- */
+var POOL=[
+ {q:"Полотенце",key:["towel"]},
+ {q:"Умывальник",key:["washbasin"]},
+ {q:"Ванная комната",key:["bathroom"]},
+ {q:"Спальня",key:["bedroom"]},
+ {q:"Подушка",key:["pillow"]},
+ {q:"Подсобное помещение",key:["utility room"]},
+ {q:"Столовая",key:["dining room"]},
+ {q:"Кухня",key:["kitchen"]},
+ {q:"Диван",key:["sofa"]},
+ {q:"Подушки",key:["cushions"]},
+ {q:"Ковер",key:["carpet"]},
+ {q:"Кресло",key:["armchair"]},
+ {q:"Гостиная",key:["living room"]},
+ {q:"Книжный шкаф",key:["bookcase"]},
+ {q:"Письменный стол",key:["desk"]},
+ {q:"Шкаф (для одежды)",key:["wardrobe"]},
+ {q:"Шкаф (кухонный)",key:["cupboard"]},
+ {q:"Кровать",key:["bed"]},
+ {q:"Дверь",key:["door"]},
+ {q:"Раковина",key:["sink"]},
+ {q:"Окно",key:["window"]},
+ {q:"Зеркало",key:["mirror"]},
+ {q:"Стол",key:["table"]},
+ {q:"Стул",key:["chair"]},
+ {q:"Лестница",key:["stairs"]},
+ {q:"Сад",key:["garden"]},
+ {q:"Пол",key:["floor"]},
+ {q:"Форма",key:["shape"]},
+ {q:"Морские ракушки",key:["seashells"]},
+ {q:"Молодая пара",key:["young couple"]},
+ {q:"Винтовая лестница",key:["spiral staircase"]},
+ {q:"Огромный",key:["huge"]},
+ {q:"Растение",key:["plant"]},
+ {q:"В каждой комнате",key:["every room"]},
+ {q:"Везде",key:["everywhere"]},
+ {q:"Яркий",key:["bright"]},
+ {q:"Травяной ковер",key:["grass carpet"]},
+ {q:"Ручей",key:["stream"]},
+ {q:"Деревья",key:["trees"]},
+ {q:"Сейсмостойкий",key:["earthquake-proof"]},
+ {q:"Экологически чистый",key:["friendly to the environment"]},
+ {q:"Вид",key:["view"]},
+ {q:"Горы",key:["mountain"]},
+ {q:"Нравится",key:["like"]}
+];
+var SEC=15,DEAL=10,ROUND={icon:"🏠",name:"House & Home"};
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function norm(s){return (s||"").toString().trim().toLowerCase().replace(/\s+/g," ").replace(/[.!?]+$/,"");}
+function label(t){return t.q+" → "+t.key.join(" / ");}
+
+/* ---------- a fresh deal — the misses lead it (03.10 rule) ---------- */
+function storedMisses(){
+  try{return JSON.parse(localStorage.getItem("hh-dict-remiss")||"[]");}catch(e){return [];}}
+function deal(){
+  var st=storedMisses();
+  var first=POOL.filter(function(t){return st.indexOf(label(t))>=0;}).slice(0,DEAL);
+  var rest=shuffle(POOL.filter(function(t){return st.indexOf(label(t))<0;})).slice(0,DEAL-first.length);
+  return shuffle(first.concat(rest));}
+
+/* ---------- state ---------- */
+var tasks=deal(),log=[],qi=0,timer=null,t0=0,DUR=0,answered=false;
+var RUNNER="";
+try{RUNNER=localStorage.getItem("hh-dict-name")||"";}catch(e){}
+$("name-box").value=RUNNER;
+(function(){
+  var parts=[];
+  var runs=+localStorage.getItem("hh-dict-runs")||0;
+  var best=+localStorage.getItem("hh-dict-best")||0;
+  if(runs)parts.push("runs done: "+runs);
+  if(best)parts.push("best: "+best+"%");
+  $("best-line").textContent=parts.join(" · ");
+})();
+
+$("begin-btn").addEventListener("click",function(){
+  var v=$("name-box").value.trim();
+  if(!v){$("name-box").style.borderColor="var(--terra-deep)";
+    $("name-box").placeholder="write your name first";return;}
+  RUNNER=v;
+  try{localStorage.setItem("hh-dict-name",v);}catch(e){}
+  tasks=deal();log=[];qi=0;ask();});
+$("again-btn").addEventListener("click",function(){
+  tasks=deal();log=[];qi=0;ask();});
+
+function show(id){["start-card","q-card","end-card","flash"].forEach(function(c){
+  $(c).classList.add("hidden");});
+  if(id)$(id).classList.remove("hidden");
+  if(id)$(id).scrollIntoView({behavior:"smooth",block:id==="flash"?"center":"start"});}
+
+function ask(){
+  answered=false;
+  var t=tasks[qi];
+  $("q-count").textContent=ROUND.icon+" "+ROUND.name+" · "+(qi+1)+"/"+tasks.length;
+  $("q-prompt").textContent=t.q;
+  var box=$("answer-box");
+  box.value="";
+  show("q-card");
+  box.focus();
+  startTimer(SEC,function(){
+    if(answered)return;answered=true;
+    record(t,"TIME UP",true,false);move(false);});
+}
+function submit(){
+  if(answered)return;
+  var t=tasks[qi],given=$("answer-box").value;
+  if(!given.trim())return;
+  answered=true;stopTimer();
+  var g=norm(given);
+  var ok=t.key.some(function(k){return norm(k)===g;});
+  record(t,given,false,ok);
+  move(ok);
+}
+$("check-btn").addEventListener("click",submit);
+$("answer-box").addEventListener("keydown",function(e){
+  if(e.key==="Enter")submit();});
+
+function startTimer(sec,onOut){
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  bar.style.background="var(--sage)";
+  num.textContent=sec+" s";num.className="timer-num";
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 s";
+      clearInterval(timer);timer=null;onOut();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" s";
+    num.className="timer-num"+(s<=3?" low":"");
+    if(s<=3)bar.style.background="var(--terra-deep)";
+  },100);}
+function stopTimer(){if(timer){clearInterval(timer);timer=null;}}
+
+function record(t,given,late,ok){
+  log.push({label:label(t),given:late?"TIME UP":given,
+    key:t.key.join(" / "),ok:ok});}
+
+function move(ok){
+  var last=qi>=tasks.length-1;
+  if(ok){show("flash");$("flash").className="flash";
+    $("flash").innerHTML="✅";setTimeout(next,700);}
+  else{show("flash");$("flash").className="flash fix";
+    $("flash").innerHTML="✗"+' <span class="sub">'+esc(tasks[qi].q+" → "+tasks[qi].key.join(" / "))+"</span>";
+    setTimeout(next,1500);}
+  function next(){
+    if(!last){qi++;ask();}
+    else{finish();}
+  }
+}
+
+/* ---------- end ---------- */
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function drillScore(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  return {total:total,ok:ok};}
+function reportText(){
+  var s=drillScore();
+  var lines=[RUNNER+" · HOUSE & HOME dictation drill · "+new Date().toLocaleString(),
+    "Score: "+s.ok+" / "+s.total];
+  var missed=log.filter(function(l){return !l.ok;});
+  if(missed.length){
+    lines.push("","Missed ("+missed.length+"):");
+    missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+l.given+" · key: "+l.key);});
+  }else{lines.push("","Missed: none! 🎉");}
+  return lines.join("\n");}
+
+function finish(){
+  stopTimer();
+  var s=drillScore();
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(s.ok/Math.max(1,s.total)*5)));
+  $("end-rows").textContent="🏠 "+s.ok+"/"+s.total;
+  var missed=log.filter(function(l){return !l.ok;});
+  var rem=$("end-remember");
+  if(missed.length){
+    rem.className="remember";
+    rem.innerHTML="<b>To remember:</b><br>"+missed.map(function(l){
+      return "· "+esc(l.label)+" — you wrote: <b>"+esc(l.given)+"</b>";
+    }).join("<br>");
+  }else{rem.className="remember hidden";}
+  /* the 03.10 rule's store: this run's misses lead the next deal */
+  try{localStorage.setItem("hh-dict-remiss",JSON.stringify(
+    log.filter(function(l){return !l.ok;}).map(function(l){return l.label;})));}catch(e){}
+  try{localStorage.setItem("hh-dict-last",reportText());}catch(e){}
+  try{localStorage.setItem("hh-dict-runs",String((+localStorage.getItem("hh-dict-runs")||0)+1));}catch(e){}
+  try{
+    var best=+localStorage.getItem("hh-dict-best")||0;
+    var pct=Math.round(s.ok/Math.max(1,s.total)*100);
+    if(pct>best){try{localStorage.setItem("hh-dict-best",String(pct));}catch(e){}}
+  }catch(e){}
+  try{
+    var q=JSON.parse(localStorage.getItem("hh-dict-queue")||"[]");
+    q.push(reportText());if(q.length>10)q=q.slice(-10);
+    localStorage.setItem("hh-dict-queue",JSON.stringify(q));
+  }catch(e){}
+  flushQueue();
+  $("report-sent").textContent=FORM_ACTION?("sent to Elena ✅"):"";
+  show("end-card");}
+
+function sendViaForm(txt){
+  if(!FORM_ACTION)return;
+  var frame=document.createElement("iframe");
+  frame.name="hh-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);
+  document.body.appendChild(f);
+  try{f.submit();}catch(e){}
+  setTimeout(function(){document.body.removeChild(f);document.body.removeChild(frame);},4000);}
+
+function flushQueue(){
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("hh-dict-queue")||"[]");}catch(e){}
+  if(!q.length||!FORM_ACTION)return;
+  var item=q[0];
+  try{
+    sendViaForm(item);
+    q.shift();
+    localStorage.setItem("hh-dict-queue",JSON.stringify(q));
+  }catch(e){}
+}
+
+/* the load-time flush goes LAST — after all listeners attach (the v9 lesson) */
+flushQueue();
+})();
+</script>
+</body>
+</html>
