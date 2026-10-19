@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ирина · Пробный тест · тренажёр</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sea:#2EC4B6; --sea-deep:#1B7A8C; --ink:#123B44; --ink-soft:#5b7a80;
+  --coral:#FF6B6B; --sun:#FFD166; --card:#ffffff; --bg:#EAF7F5;
+  --shadow:0 10px 30px rgba(18,59,68,.14); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--bg);
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:4vh 5vw 8vh;-webkit-font-smoothing:antialiased}
+header{max-width:680px;width:100%;text-align:center;margin-bottom:1em}
+.eyebrow{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;font-size:.72rem;color:var(--sea-deep)}
+h1{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.6rem,7vw,2.4rem);line-height:1.15;margin-top:.15em}
+main{max-width:680px;width:100%}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(1.3rem,4.5vw,2.2rem);text-align:center;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none}
+.rules{margin-top:1em;color:var(--ink-soft);font-weight:700;font-size:clamp(1rem,3.6vw,1.15rem);line-height:1.7}
+.icons{font-size:1.6rem;letter-spacing:.3em;margin-top:.9em}
+.meta{margin-top:.4em;color:var(--ink-soft);font-weight:700;font-size:.9rem}
+button{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;border:none;cursor:pointer;
+  border-radius:99px;transition:transform .12s ease,box-shadow .12s ease}
+button:active{transform:scale(.96)}
+.start-btn{background:var(--sea);color:#fff;font-size:clamp(1.2rem,4.6vw,1.5rem);
+  padding:.65em 2.6em;margin-top:1.3em;box-shadow:0 6px 0 #239d92}
+.start-btn:active{box-shadow:0 2px 0 #239d92;transform:translateY(4px)}
+.bank-btn{background:#f0fafa;color:var(--ink);font-size:clamp(1rem,4vw,1.15rem);
+  padding:.6em 1.6em;margin:.5em .3em 0;box-shadow:0 4px 0 #cfe9e6}
+.bank-btn.sel{background:#FFF3D6;box-shadow:0 4px 0 #f0d998;outline:3px solid var(--sun)}
+.mode-line{margin-top:1.1em;background:#E9F3FF;border-radius:16px;padding:.8em 1em;
+  font-size:clamp(.9rem,3.4vw,1.02rem);font-weight:800;line-height:1.5;color:#1B5E8C}
+.mode-line.blind{background:#FFF0F0;color:#B33A3A}
+.mode-line.end{background:#F3ECFF;color:#6B4FA1}
+.qcount{font-size:.85rem;font-weight:800;color:var(--sea-deep);letter-spacing:.06em;text-transform:uppercase}
+.task-title{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.15rem,4.6vw,1.5rem);margin-top:.35em}
+.task-instr{margin-top:.5em;color:var(--ink-soft);font-weight:700;font-size:clamp(.88rem,3.3vw,1rem);line-height:1.55}
+.prompt{font-size:clamp(1.15rem,4.6vw,1.5rem);font-weight:800;line-height:1.55;margin-top:.7em}
+.prompt .gap{color:var(--coral);letter-spacing:.05em}
+.prompt .base{color:var(--sea-deep);font-family:'Fredoka','Nunito',sans-serif;font-weight:600}
+.helper{margin-top:.7em;font-size:.9rem;font-weight:700;color:var(--ink-soft)}
+.answer-row{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;margin-top:1em}
+.choice{background:#f0fafa;color:var(--ink);font-size:clamp(1rem,4vw,1.25rem);
+  padding:.5em 1.3em;box-shadow:0 4px 0 #cfe9e6;line-height:1.25;text-align:left}
+.choice:active{box-shadow:0 1px 0 #cfe9e6;transform:translateY(3px)}
+.choice .n{color:var(--sea-deep);font-weight:800;margin-right:.35em}
+.choice.good{background:#D9F7EE;box-shadow:0 4px 0 #9adecd;cursor:default}
+.choice.bad{background:#FFE3E3;box-shadow:0 4px 0 #f3bcbc;animation:shake .3s ease;cursor:default}
+.choice.dim{opacity:.45;cursor:default}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.play-btn{background:var(--sun);color:var(--ink);font-size:clamp(1.1rem,4.4vw,1.35rem);
+  padding:.6em 1.8em;margin-top:.8em;box-shadow:0 5px 0 #e3b34f}
+.replay-btn{background:transparent;color:var(--sea-deep);font-size:.95rem;
+  padding:.5em 1.2em;margin-top:.7em;border:2px solid #bfe3df}
+.feedback{margin-top:1em;text-align:left;background:#FFF6E8;border-radius:16px;
+  padding:.9em 1.1em;font-size:clamp(.95rem,3.6vw,1.08rem);font-weight:700;line-height:1.6}
+.feedback .fb-head{color:#B33A3A;font-family:'Fredoka','Nunito',sans-serif;font-size:1.05em}
+.feedback .fb-key{color:var(--sea-deep)}
+.feedback .fb-quote{color:var(--ink-soft);font-style:italic;font-size:.92em;display:block;margin-top:.25em}
+.next-feed-btn{background:var(--sea-deep);color:#fff;font-size:1rem;
+  padding:.55em 1.6em;margin-top:.7em;box-shadow:0 4px 0 #145a67}
+details.src{margin-top:.9em;text-align:left;background:#f2fbf9;border-radius:16px;padding:.6em 1em;font-size:.95rem}
+details.src summary{cursor:pointer;font-weight:800;color:var(--sea-deep);list-style:none}
+details.src summary::-webkit-details-marker{display:none}
+details.src .src-body{margin-top:.6em;font-weight:600;line-height:1.65;color:var(--ink);
+  font-size:clamp(.92rem,3.4vw,1.02rem)}
+details.src .src-body p{margin:.5em 0}
+.skipline{margin-top:1em}
+.skip-btn{background:transparent;color:var(--ink-soft);font-size:.82rem;font-weight:700;
+  padding:.3em .8em;border:2px solid transparent;text-decoration:underline}
+.answer-table{margin:1em auto 0;border-collapse:collapse;font-size:clamp(1rem,4vw,1.25rem)}
+.answer-table td,.answer-table th{border:2px solid #cfe9e6;padding:.3em .7em;font-weight:800}
+.answer-table th{background:#f0fafa;color:var(--sea-deep)}
+.res-line{margin-top:.8em;font-weight:800;font-size:clamp(1.05rem,4vw,1.3rem)}
+.miss-list{margin-top:.8em;text-align:left;background:#f2fbf9;border-radius:16px;padding:.9em 1.1em;
+  font-size:clamp(.95rem,3.6vw,1.1rem);font-weight:700;line-height:1.6}
+.miss-list .k{color:var(--sea-deep)}
+.miss-list .fb-quote{display:block}
+.shaky-list{margin-top:.6em;text-align:left;background:#FFEFD6;border-radius:16px;padding:.9em 1.1em;
+  font-size:clamp(.92rem,3.5vw,1.05rem);font-weight:700;line-height:1.6}
+.next-btn{background:var(--sea-deep);color:#fff;font-size:clamp(1rem,4vw,1.2rem);
+  padding:.6em 1.8em;margin-top:1em;box-shadow:0 4px 0 #145a67}
+.repair-btn{background:transparent;color:var(--sea-deep);font-size:.95rem;
+  padding:.5em 1.3em;margin-top:.6em;border:2px solid #bfe3df}
+.letter-box{text-align:left;margin-top:.8em;background:#fbffff;border:3px solid #cfe9e6;border-radius:16px;padding:1em 1.1em}
+.letter-box .lq{background:#f2fbf9;border-radius:12px;padding:.7em .9em;font-weight:700;
+  line-height:1.6;font-size:clamp(.95rem,3.6vw,1.05rem);font-style:italic}
+.letter-box label{display:block;margin-top:.7em;font-size:.82rem;font-weight:800;color:var(--sea-deep);text-transform:uppercase;letter-spacing:.05em}
+.letter-box input,.letter-box textarea{font-family:'Nunito',sans-serif;font-weight:700;font-size:clamp(1rem,3.9vw,1.15rem);
+  color:var(--ink);border:3px solid #cfe9e6;border-radius:12px;padding:.45em .6em;width:100%;outline:none;background:#fff}
+.letter-box textarea{min-height:130px;line-height:1.55;resize:vertical}
+.letter-box .printed{margin:.5em 0;font-weight:700;color:var(--ink-soft);font-size:.95rem}
+.checklist{text-align:left;margin-top:.9em;font-weight:700;line-height:1.7;font-size:clamp(.95rem,3.6vw,1.05rem)}
+.checklist .row-no{color:#B33A3A}
+.checklist .row-ok{color:#1E9E6A}
+.checklist .hint{display:block;color:var(--ink-soft);font-weight:600;font-size:.9em}
+.stars{font-size:clamp(2rem,9vw,3rem);margin:.2em 0}
+.end-title{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw,2.2rem)}
+.one-line{margin:1em 0 .2em;font-weight:800;font-size:clamp(1.05rem,4vw,1.25rem)}
+.copy-btn{background:var(--sea);color:#fff;font-size:clamp(1rem,4vw,1.2rem);
+  padding:.7em 1.8em;margin-top:.9em;box-shadow:0 6px 0 #239d92}
+.again-btn{background:transparent;color:var(--sea-deep);font-size:1rem;
+  padding:.6em 1.4em;margin-top:.7em;border:2px solid #bfe3df}
+.sent{margin-top:.6em;font-weight:700;color:var(--sea-deep)}
+footer{max-width:680px;width:100%;text-align:center;margin-top:1.6em;
+  color:var(--ink-soft);font-size:.78rem;font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Ирина · тренажёр · тест в среду 🎯</div>
+  <h1>Пробный тест!</h1>
+</header>
+
+<main>
+  <div class="card" id="start-card">
+    <div class="name-row"><input class="type-box" id="who-box" placeholder="Кто тренируется?" autocomplete="off" autocapitalize="off" spellcheck="false"
+      style="font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1.2rem,5vw,1.6rem);color:var(--ink);text-align:center;border:3px solid #cfe9e6;border-radius:16px;padding:.45em .6em;width:min(300px,76vw);outline:none;background:#fbffff"></div>
+    <p class="rules">Тренажёр повторяет настоящий тест:<br>
+    задания — те же, по порядку, с номерами, как на контрольной.<br>
+    Ответы уходят мисс Елене — она увидит, как ты справилась 😉</p>
+    <div class="icons">🎧 📖 ✏️ 💌</div>
+    <div class="mode-line" id="mode-line"></div>
+    <div>
+      <button class="bank-btn sel" id="bank-v1">📝 Вариант 1 — пробный тест</button>
+      <button class="bank-btn" id="bank-v2">🎲 Вариант 2 — похожий, но другой</button>
+    </div>
+    <div><button class="start-btn" id="begin-btn">Начать →</button></div>
+    <div class="meta" id="start-meta">4 задания · Аудирование · Чтение · Грамматика · Письмо</div>
+  </div>
+
+  <div class="card hidden" id="flash"><div class="task-title" id="flash-text"></div>
+    <div class="task-instr" id="flash-instr"></div></div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="card hidden" id="res-card">
+    <div class="qcount" id="res-count"></div>
+    <div class="res-line" id="res-line"></div>
+    <div id="res-table"></div>
+    <div class="miss-list hidden" id="res-miss"></div>
+    <div class="shaky-list hidden" id="res-shaky"></div>
+    <div id="res-btns"></div>
+  </div>
+
+  <div class="card hidden" id="end-card">
+    <div class="stars" id="end-stars"></div>
+    <div class="end-title" id="end-title">Готово!</div>
+    <div class="one-line" id="end-rows"></div>
+    <div class="miss-list hidden" id="end-miss"></div>
+    <div><button class="copy-btn" id="copy-btn">📋 Результат — мисс Елене</button></div>
+    <div class="sent" id="sent-line">…</div>
+    <div><button class="again-btn" id="again-btn">🏠 В начало</button></div>
+  </div>
+</main>
+
+<footer>тренажёр к тесту · вариант 1 = пробный тест, вариант 2 = похожие задания · v1 · build 2026-10-19</footer>
+
+<script>
+(function(){
+"use strict";
+/* auto-send → Elena's Google Form «Irina» (same form as week.html / verbs.html) */
+var HW_FORM={action:"https://docs.google.com/forms/d/e/1FAIpQLScYuudgy8Zza0OF09fpnu43OsOehkkNQT5BtnF7QH7uVne9SA/formResponse",entryReport:"entry.1898990974"};
+
+/* ================= THE STAGES (Elena's ramp) =================
+   coach: today (≤ 19.10) — every answer checked at once, wrong → why + the same item comes back
+   end:   20.10 — no feedback while answering, results only at the end of each задание
+   blind: from 21.10 — like the real test: nothing shown, the result goes to Elena only
+   Elena's secret override: ?mode=coach / ?mode=end / ?mode=blind               */
+function stageToday(){
+  var d=new Date(),m=d.getMonth()+1,day=d.getDate();
+  if(m===10&&day<=19)return"coach";
+  if(m===10&&day===20)return"end";
+  return"blind";
+}
+var MODE=(function(){
+  var q=null;
+  try{q=new URLSearchParams(location.search).get("mode");}catch(e){
+    var mm=location.search.match(/[?&]mode=(coach|end|blind)/);if(mm)q=mm[1];}
+  return(q==="coach"||q==="end"||q==="blind")?q:stageToday();
+})();
+var MODE_TEXT={
+  coach:{cls:"",txt:"💪 Сегодня тренируемся с подсказками: ошибёшься — объясню и спрошу ещё раз, пока не получится!"},
+  end:{cls:"end",txt:"🤫 Сегодня подсказок нет: результат каждого задания покажу только в конце. Как настоящий тест!"},
+  blind:{cls:"blind",txt:"📕 Режим контрольной: никаких подсказок и оценок. Твой результат увидит только мисс Елена."}
+};
+
+/* ================= BANK 1 — the trial test itself (verbatim) =================
+   Раздел АУДИРОВАНИЕ: the real test plays a recording; the recording file never
+   reached us, so the message below is RECONSTRUCTED to fit the test's own A–E
+   statements. Keys belong to THIS script, not to the school's audio.           */
+var BANKS={
+v1:{
+ name:"Пробный тест",
+ listen:{
+  script:"Hi! My name is Vicky. I'm twenty, and I'm a student in Manchester. I live in a small flat with my flatmate Jess. We want to move to a bigger flat, but flats in our street are very expensive, so we can't afford it. Every Saturday we clean our flat together. I don't mind cooking, but I hate cleaning the bathroom, and Jess doesn't like it too — so we do it very fast. My brother Josh lives near us, in a house by the ring road. It is very noisy there! But in Josh's house everyone helps about the house: Josh takes out the rubbish, his sisters cook dinner, and Dad does the shopping.",
+  instr:"Вы услышите сообщение. Определите, какие из приведённых утверждений A–E соответствуют содержанию текста (True), какие не соответствуют (False). Вы услышите текст дважды.",
+  items:[
+   {l:"A",q:"Vicky can't afford a bigger flat.",key:1,
+    why:"Vicky: «flats in our street are very expensive, so we can't afford it» — у неё не хватает денег на квартиру больше."},
+   {l:"B",q:"She doesn't have a flatmate.",key:2,
+    why:"У Вики ЕСТЬ соседка по квартире: «I live in a small flat with my flatmate Jess»."},
+   {l:"C",q:"She enjoys doing all the chores.",key:2,
+    why:"СЛОВО-ЛОВУШКА «all»! Она любит готовить, но ненавидит мыть ванную: «I hate cleaning the bathroom». Значит — не ВСЕ дела."},
+   {l:"D",q:"Josh lives in a quiet house.",key:2,
+    why:"Джош живёт у оживлённой дороги: «a house by the ring road. It is very noisy there!» — там ШУМНО."},
+   {l:"E",q:"Everyone in Josh's family does chores..",key:1,
+    why:"«In Josh's house everyone helps about the house» — Джош выносит мусор, сёстры готовят, папа ходит за покупками."}
+  ]
+ },
+ read:{
+  title:"Living to learn",
+  instr:"Прочитайте текст. Для каждого предложения A–E выберите один правильный вариант ответа из предложенных списков.",
+  paras:[
+   "In the UK, most university students live alone in halls of residence during their first year. A hall is a large university building with many bedrooms for the students. Students usually share bathrooms and toilets with other students. Some bedrooms have their own private bathrooms, so students don’t have to share if they don’t want to.",
+   "Many halls also have kitchens where students can cook their own food. In some halls, students only sleep there and go to the university café to eat. These halls are good places to meet new friends.",
+   "In the second and third years of studying, most students move out of halls and rent their own flats or houses. They often share a flat or a house with other students to save money. Living in a shared house means everyone has their own bedroom, but they share the living room, kitchen, bathroom, and toilet.",
+   "Living in a student house or flat includes household chores. Students take turns doing cleaning, washing clothes, shopping for food, and cooking meals. Keeping the house tidy and clean is important so everyone can enjoy a comfortable home.",
+   "Overall, living away from home is an exciting experience. It helps students learn new skills."
+  ],
+  items:[
+   {l:"A",pre:"During their first year, most students live in ",post:".",
+    opts:["their parents’ house","university halls of residence","private apartments"],key:2,
+    why:"Абзац 1: «most university students live alone in halls of residence during their first year»."},
+   {l:"B",pre:"Some halls have ",post:" so students don’t have to share with others.",
+    opts:["their own bathroom","a personal desk","private study space"],key:1,
+    why:"Абзац 1: «Some bedrooms have their own private bathrooms, so students don’t have to share»."},
+   {l:"C",pre:"In the second and third years, students usually move into ",post:" to save money.",
+    opts:["their parents’ houses","a rented flat or house","university classrooms"],key:2,
+    why:"Абзац 3: «most students move out of halls and rent their own flats or houses … to save money»."},
+   {l:"D",pre:"Living in a shared house involves household chores such as ",post:".",
+    opts:["shopping, cleaning, and cooking","studying and going to classes","playing sports and relaxing"],key:1,
+    why:"Абзац 4: «Students take turns doing cleaning, washing clothes, shopping for food, and cooking meals»."},
+   {l:"E",pre:"Living away from home is…",post:"",
+    opts:["an exciting experience","not good for students","not an exciting experience"],key:1,
+    why:"Последний абзац: «living away from home is an exciting experience»."}
+  ]
+ },
+ gram:{
+  title:"Recycling City",
+  instr:"Прочитайте рассказ. Заполните пропуски, выбрав правильный ответ из выпадающих списков. Слова должны грамматически соответствовать содержанию текста.",
+  full:"Cairo, in the north of Egypt, is one of <b>the</b> (A) … (BIG) cities in Africa. <b>It</b> is the capital and (B) … (HAVE) a population of nearly eight million. Like any city, it creates tonnes of rubbish every day. But amazingly, <b>the city</b> (C) … (EMPLOY/NOT) anybody to collect rubbish. Instead, a <b>group</b> of (D) … (man) called the Zavvaleen collect it. The inhabi<b>tants</b> of Cairo (E) … (PAY) them a small amount of money for doing this. The Zabbaleen take the rubbish back to (F) … (THEY) town on the edge of Cairo. It is called Manshiyat Naser and has a population of about 60,000. There, the women and children sort the rubbish by hand. It seems a very slow system, but in fact <b>it</b> (G) … (WORK) very well. They recycle nearly 90% of the rubbish, which is far (H) … (GOOD) <b>than</b> recycling centres in most western countries. Manshiyat Neser certainly (I) … (BE/NOT) one of <b>the</b> (J) … (ATTRACTIVE) places in Egypt. But thanks to a 2009 film about it, <i>Garbage Dreams</i>, it is quite famous and quite popular with tourists.",
+  items:[
+   {l:"A",html:"Cairo, in the north of Egypt, is one of <b>the</b> <span class='gap'>______</span> <b>(BIG)</b> cities in Africa.",
+    opts:["bigger","biggest","most big"],key:2,
+    why:"«one of the …» + САМОЕ-САМОЕ: the biggest. «Одно из самых больших»."},
+   {l:"B",html:"<b>It</b> is the capital and <span class='gap'>______</span> <b>(HAVE)</b> a population of nearly eight million.",
+    opts:["has","is having","had"],key:1,
+    why:"«У города ЕСТЬ население» = has. Cairo = ОНО → has. «is having» так не говорят."},
+   {l:"C",html:"But amazingly, <b>the city</b> <span class='gap'>______</span> <b>(EMPLOY/NOT)</b> anybody to collect rubbish.",
+    opts:["don’t employ","doesn’t employ","employ"],key:2,
+    why:"the city = ОНО (один город!) → doesn’t. ОнО не нанимает: «the city doesn’t employ»."},
+   {l:"D",html:"Instead, a <b>group</b> of <span class='gap'>______</span> <b>(man)</b> called the Zavvaleen collect it.",
+    opts:["mans","man","men"],key:3,
+    why:"man — неправильное множественное число: мужчина → мужчины = MEN. Никаких «mans»!"},
+   {l:"E",html:"The inhabi<b>tants</b> of Cairo <span class='gap'>______</span> <b>(PAY)</b> them a small amount of money for doing this.",
+    opts:["pays","pay","is paying"],key:2,
+    why:"inhabitants = жители = ОНИ (много) → pay БЕЗ s. ОнИ платят: «inhabitants pay»."},
+   {l:"F",html:"The Zabbaleen take the rubbish back to <span class='gap'>______</span> <b>(THEY)</b> town on the edge of Cairo.",
+    opts:["theirs","they","their"],key:3,
+    why:"Перед СЛОВОМ (town) нужен «их» = THEIR. «Theirs» стоит само, без слова."},
+   {l:"G",html:"It seems a very slow system, but in fact <b>it</b> <span class='gap'>______</span> <b>(WORK)</b> very well.",
+    opts:["working","work","works"],key:3,
+    why:"it = ОНО → глагол с s: it works."},
+   {l:"H",html:"They recycle nearly 90% of the rubbish, which is far <span class='gap'>______</span> <b>(GOOD)</b> <b>than</b> recycling centres in most western countries.",
+    opts:["better","gooder","best"],key:1,
+    why:"Есть THAN — это сравнение! good → BETTER (хорошо → лучше). «Gooder» не существует."},
+   {l:"I",html:"Manshiyat Neser certainly <span class='gap'>______</span> <b>(BE/NOT)</b> one of the most beautiful places… — то есть <b>(BE/NOT)</b>!",
+    opts:["are not","does not","is not"],key:3,
+    why:"Manshiyat Neser = ОНО (один район) → is not. Глагол BE: it IS not."},
+   {l:"J",html:"…one of <b>the</b> <span class='gap'>______</span> <b>(ATTRACTIVE)</b> places in Egypt.",
+    opts:["attractive","most attractive","attractivest"],key:2,
+    why:"«one of the …» + the most attractive: «одно из самых привлекательных»."}
+  ]
+ },
+ letter:{
+  instr:"Вы получили электронное сообщение от Вашей подруги по переписке Алины из Великобритании. Прочитайте отрывок из письма и ответьте на ДВА её вопроса.",
+  from:"Alina",subject:"Sport",
+  excerpt:"…I really don’t like household chores. What chores do you have to do about the house? What chore do you think is the most difficult?",
+  printed1:"Thank you for your email. I want to answer your questions.",
+  printed2:"Write back soon.",
+  missLine:"В пропусках напишите обращение к другу по переписке, ответы на вопросы друга по переписке, завершающую фразу и подпись. Не пишите адрес и дату.",
+  greetHint:"Обращение — это первое слово-приветствие с запятой: «Dear Alina,»",
+  topicWords:["wash","clean","cook","tidy","dust","vacuum","rubbish","bin","dish","shopping","shop","floor","iron","feed","walk","clothes","water","chore","housework","bed"],
+  q2Markers:["difficult","hard","most","think","because"]
+ }
+},
+
+/* ================= BANK 2 — similar, but not the same =================
+   Same four formats, new content: the real test on Wednesday will keep the
+   format but change the texts — this bank trains the transfer.              */
+v2:{
+ name:"Вариант 2 (похожий)",
+ listen:{
+  script:"Hello! My name is Max. I've got a new flat in London. It is small, but I like it very much. My friend Sam lives with me and pays half of the rent, so the flat is not expensive for us. In my family home I never did any housework — my mum did everything! Now we share the chores: I cook dinner, Sam washes up, and we clean the flat at the weekend. My sister Amy still lives with our parents, in a quiet village by the sea. She has got a big dog, and walking it in the morning is her only job at home.",
+  instr:"Вы услышите сообщение. Определите, какие из приведённых утверждений A–E соответствуют содержанию текста (True), какие не соответствуют (False). Вы услышите текст дважды.",
+  items:[
+   {l:"A",q:"Max pays all the rent.",key:2,
+    why:"СЛОВО-ЛОВУШКА «all»! Сэм платит ПОЛОВИНУ: «Sam … pays half of the rent»."},
+   {l:"B",q:"His mum did the housework in his family home.",key:1,
+    why:"«In my family home I never did any housework — my mum did everything!»"},
+   {l:"C",q:"Now Max cooks dinner at home.",key:1,
+    why:"«Now we share the chores: I cook dinner»."},
+   {l:"D",q:"Amy lives in a noisy city.",key:2,
+    why:"Эми живёт в ТИХОЙ деревне у моря: «a quiet village by the sea»."},
+   {l:"E",q:"Walking the dog is Amy's only job at home.",key:1,
+    why:"«Walking it in the morning is her only job at home» — её единственная домашняя обязанность."}
+  ]
+ },
+ read:{
+  title:"A Home of Your Own",
+  instr:"Прочитайте текст. Для каждого предложения A–E выберите один правильный вариант ответа из предложенных списков.",
+  paras:[
+   "Nowadays, many young people in Britain leave their family home when they start working.",
+   "At first, they often rent a small flat with friends. Renting is not cheap, so sharing the rent makes life easier. In a shared flat everyone has their own bedroom, but the kitchen and the bathroom are for everybody.",
+   "Flatmates usually share the housework too: one cooks, another cleans, and everyone washes their own clothes. Taking out the rubbish is the least favourite job in most flats!",
+   "Some young people save money for many years because they want to buy a house of their own. A small house with a garden is a dream for many British families."
+  ],
+  items:[
+   {l:"A",pre:"Many young people leave their family home when they ",post:".",
+    opts:["start working","go to school","have children"],key:1,
+    why:"Абзац 1: «leave their family home when they start working»."},
+   {l:"B",pre:"Sharing the rent makes life ",post:".",
+    opts:["harder","easier","longer"],key:2,
+    why:"Абзац 2: «sharing the rent makes life easier»."},
+   {l:"C",pre:"In a shared flat, everyone has their own ",post:".",
+    opts:["kitchen","bathroom","bedroom"],key:3,
+    why:"Абзац 2: «everyone has their own bedroom, but the kitchen and the bathroom are for everybody»."},
+   {l:"D",pre:"Flatmates usually share ",post:".",
+    opts:["their clothes","the housework","their bedrooms"],key:2,
+    why:"Абзац 3: «Flatmates usually share the housework too»."},
+   {l:"E",pre:"A small house with a garden is…",post:"",
+    opts:["a dream for many families","very cheap","not popular"],key:1,
+    why:"Последний абзац: «A small house with a garden is a dream for many British families»."}
+  ]
+ },
+ gram:{
+  title:"The Cat Café",
+  instr:"Прочитайте рассказ. Заполните пропуски, выбрав правильный ответ из выпадающих списков. Слова должны грамматически соответствовать содержанию текста.",
+  full:"London is famous for its cafés, but one café is special. The Cat Café is one of <b>the</b> (A) … (POPULAR) cafés in the city. <b>It</b> (B) … (HAVE) fifteen cats and a lot of visitors every day. But amazingly, the café (C) … (OPEN/NOT) like other cafés: first you wash your hands! A <b>group</b> of (D) … (WOMAN) started it in 2014. Visitors (E) … (PAY) to play with the cats. The cats have (F) … (THEY) own room for sleeping. It seems strange, but in fact <b>it</b> (G) … (WORK) very well. The café cats are far (H) … (FRIENDLY) <b>than</b> street cats. The café certainly (I) … (BE/NOT) quiet, but it is one of <b>the</b> (J) … (HAPPY) places in London.",
+  items:[
+   {l:"A",html:"The Cat Café is one of <b>the</b> <span class='gap'>______</span> <b>(POPULAR)</b> cafés in the city.",
+    opts:["popularest","more popular","most popular"],key:3,
+    why:"«one of the …» + the most popular: «одно из самых популярных»."},
+   {l:"B",html:"<b>It</b> <span class='gap'>______</span> <b>(HAVE)</b> fifteen cats and a lot of visitors every day.",
+    opts:["have","has","is having"],key:2,
+    why:"«У кафе ЕСТЬ кошки» = has. It = ОНО → has."},
+   {l:"C",html:"But amazingly, the café <span class='gap'>______</span> <b>(OPEN/NOT)</b> like other cafés: first you wash your hands!",
+    opts:["doesn’t open","don’t open","not opens"],key:1,
+    why:"the café = ОНО → doesn’t open."},
+   {l:"D",html:"A <b>group</b> of <span class='gap'>______</span> <b>(WOMAN)</b> started it in 2014.",
+    opts:["womans","women","woman"],key:2,
+    why:"woman — неправильное множественное: женщина → женщины = WOMEN."},
+   {l:"E",html:"Visitors <span class='gap'>______</span> <b>(PAY)</b> to play with the cats.",
+    opts:["pays","pay","is paying"],key:2,
+    why:"visitors = ОНИ (много) → pay без s."},
+   {l:"F",html:"The cats have <span class='gap'>______</span> <b>(THEY)</b> own room for sleeping.",
+    opts:["theirs","they","their"],key:3,
+    why:"Перед СЛОВОМ (room) = THEIR."},
+   {l:"G",html:"It seems strange, but in fact <b>it</b> <span class='gap'>______</span> <b>(WORK)</b> very well.",
+    opts:["work","works","working"],key:2,
+    why:"it = ОНО → works."},
+   {l:"H",html:"The café cats are far <span class='gap'>______</span> <b>(FRIENDLY)</b> <b>than</b> street cats.",
+    opts:["friendlier","friendliest","more friendlier"],key:1,
+    why:"Есть THAN — сравнение: friendly → friendlier («более дружелюбные»)."},
+   {l:"I",html:"The café certainly <span class='gap'>______</span> <b>(BE/NOT)</b> quiet.",
+    opts:["is not","are not","does not"],key:1,
+    why:"the café = ОНО → is not. Глагол BE: it IS not."},
+   {l:"J",html:"…it is one of <b>the</b> <span class='gap'>______</span> <b>(HAPPY)</b> places in London.",
+    opts:["happier","happiest","most happy"],key:2,
+    why:"«one of the …» + the happiest: «одно из самых счастливых»."}
+  ]
+ },
+ letter:{
+  instr:"Вы получили электронное сообщение от Вашей подруги по переписке Кэти из Великобритании. Прочитайте отрывок из письма и ответьте на ДВА её вопроса.",
+  from:"Katie",subject:"Weekend",
+  excerpt:"…My family and I love sport. What sport do you like? Who do you play sport with?",
+  printed1:"Thank you for your email. I want to answer your questions.",
+  printed2:"Write back soon.",
+  missLine:"В пропусках напишите обращение к другу по переписке, ответы на вопросы друга по переписке, завершающую фразу и подпись. Не пишите адрес и дату.",
+  greetHint:"Обращение — это первое слово-приветствие с запятой: «Dear Katie,»",
+  topicWords:["sport","football","tennis","hockey","swim","swimming","run","running","dance","bike","volleyball","basketball","skate","ski","play","game","gym","cycle"],
+  q2Markers:["with","friend","dad","mum","brother","sister","family","team","coach","class","alone","after school"]
+ }
+}};
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function show(id){["start-card","flash","q-card","res-card","end-card"].forEach(function(c){
+  $(c).classList.add("hidden");});
+  if(id)$(id).classList.remove("hidden");}
+
+/* ---------- TTS (the listening voice) ---------- */
+var VOICE=null;
+function pickVoice(){
+  if(!window.speechSynthesis)return;
+  var vs=speechSynthesis.getVoices()||[];
+  VOICE=vs.filter(function(v){return /en-GB/i.test(v.lang)&&/daniel|serena|kate|oliver/i.test(v.name);})[0]
+      ||vs.filter(function(v){return /en-GB/i.test(v.lang);})[0]
+      ||vs.filter(function(v){return /^en/i.test(v.lang);})[0]||null;
+}
+if(window.speechSynthesis){speechSynthesis.onvoiceschanged=pickVoice;pickVoice();}
+function speak(txt,onend){
+  if(!window.speechSynthesis){if(onend)onend();return;}
+  try{
+    speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(txt);
+    if(VOICE)u.voice=VOICE;
+    u.lang=(VOICE&&VOICE.lang)||"en-GB";u.rate=0.92;
+    u.onend=function(){if(onend)onend();};
+    u.onerror=function(){if(onend)onend();};
+    speechSynthesis.speak(u);
+  }catch(e){if(onend)onend();}
+}
+
+/* ---------- state ---------- */
+var WHO="",BANK=null,BANK_ID="v1";
+var sec=null,secIdx=0,queue=[],qi=0,log=[],letter={},plays=0,REPAIR=false;
+var SECS=[
+ {id:"listen",icon:"🎧",name:"Аудирование",max:5},
+ {id:"read",icon:"📖",name:"Чтение",max:5},
+ {id:"gram",icon:"✏️",name:"Грамматика",max:10},
+ {id:"letter",icon:"💌",name:"Письмо",max:0}
+];
+
+try{$("who-box").value=(localStorage.getItem("irina-hw-who")||"").trim();}catch(e){}
+$("mode-line").className="mode-line "+MODE_TEXT[MODE].cls;
+$("mode-line").textContent=MODE_TEXT[MODE].txt;
+$("bank-v1").addEventListener("click",function(){pickBank("v1");});
+$("bank-v2").addEventListener("click",function(){pickBank("v2");});
+function pickBank(id){
+  BANK_ID=id;
+  $("bank-v1").classList.toggle("sel",id==="v1");
+  $("bank-v2").classList.toggle("sel",id==="v2");
+}
+$("who-box").addEventListener("keydown",function(e){if(e.key==="Enter")begin();});
+$("begin-btn").addEventListener("click",begin);
+function begin(){
+  var v=$("who-box").value.trim();
+  if(!v){$("who-box").style.borderColor="var(--coral)";
+    setTimeout(function(){$("who-box").style.borderColor="#cfe9e6";},900);
+    $("who-box").focus();return;}
+  try{localStorage.setItem("irina-hw-who",v);}catch(e){}
+  WHO=v;startBank();
+}
+function startBank(){
+  BANK=BANKS[BANK_ID];log=[];secIdx=0;
+  secFlash();
+}
+
+/* ---------- section intro ---------- */
+function secFlash(){
+  show("flash");
+  sec=SECS[secIdx];
+  var meta=BANK[sec.id];
+  $("flash-text").textContent=sec.icon+" Задание "+(secIdx+1)+" из "+SECS.length+" · "+sec.name+(sec.max?" · max. "+sec.max:"");
+  $("flash-instr").textContent=meta.instr;
+  setTimeout(function(){initSection();},1900);
+}
+
+/* ---------- section init → build the item queue ---------- */
+function initSection(){
+  qi=0;plays=0;REPAIR=false;
+  if(sec.id==="letter"){letter={greet:"",body:"",sign:"",checked:false,rows:null};renderLetter();show("q-card");return;}
+  queue=[];
+  BANK[sec.id].items.forEach(function(it,i){queue.push({i:i,attempt:1});});
+  renderAsk();show("q-card");
+}
+
+/* ---------- one item at a time ---------- */
+function renderAsk(){
+  var t=queue[qi],src=BANK[sec.id].items[t.i],body="",count=sec.icon+" "+sec.name;
+  if(sec.id!=="letter"){
+    var firsts=queue.filter(function(q){return q.attempt===1;}).length;
+    count+=" · "+(qi+1)+"/"+queue.length+(t.attempt>1?" · повтор "+t.attempt+" 🔁":"");
+  }
+  $("q-count").textContent=count;
+
+  if(sec.id==="listen"){
+    body+='<button class="play-btn" id="play-btn">🔊 '+(plays?"Ещё раз слушать":"Послушать сообщение")+'</button>';
+    body+='<div class="prompt">'+esc(src.q)+'</div>';
+    body+='<div class="answer-row">'+
+      '<button class="choice" data-k="1"><span class="n">1)</span> True</button>'+
+      '<button class="choice" data-k="2"><span class="n">2)</span> False</button></div>';
+    body+='<div class="helper">Слова-судьи (all · every · can’t · never) часто означают False — но ухо проверяй всегда! 👂</div>';
+    body+='<details class="src"><summary>🎧 Правила игры</summary><div class="src-body">'+
+      '1) True = соответствует тексту ✔<br>2) False = НЕ соответствует ✘<br>'+
+      'В настоящем тесте текст играет два раза — здесь можно слушать сколько нужно.'+"</div></details>";
+  }
+  else if(sec.id==="read"){
+    body+='<div class="prompt">'+esc(src.pre)+'<span class="gap">______</span>'+esc(src.post)+'</div>';
+    body+='<div class="answer-row">'+src.opts.map(function(o,i){
+      return '<button class="choice" data-k="'+(i+1)+'"><span class="n">'+(i+1)+")</span> "+esc(o)+"</button>";}).join("")+"</div>";
+    body+='<div class="helper">Найди это место в тексте — там и ответ 🔍</div>';
+    body+=srcDetails();
+  }
+  else if(sec.id==="gram"){
+    body+='<div class="prompt">'+src.html+'</div>';
+    body+='<div class="answer-row">'+src.opts.map(function(o,i){
+      return '<button class="choice" data-k="'+(i+1)+'"><span class="n">'+(i+1)+")</span> "+esc(o)+"</button>";}).join("")+"</div>";
+    body+='<div class="helper">Смотри, КТО делает действие: онО → -s / doesn’t, онИ → без s / don’t</div>';
+    body+='<details class="src"><summary>📖 весь рассказ</summary><div class="src-body">'+BANK.gram.full+"</div></details>";
+  }
+  body+='<div class="skipline"><button class="skip-btn" id="skip-btn">пропустить задание '+(secIdx+1)+' →</button></div>';
+  $("q-body").innerHTML=body;
+  bindAsk(src,t);
+}
+function srcDetails(){
+  return '<details class="src"><summary>📖 текст «'+BANK.read.title+'»</summary><div class="src-body">'+
+    BANK.read.paras.map(function(p){return "<p>"+esc(p)+"</p>";}).join("")+"</div></details>";
+}
+
+/* ---------- listening controls ---------- */
+function bindPlay(){
+  var b=$("play-btn");
+  if(!b)return;
+  b.addEventListener("click",function(){
+    plays++;
+    if(plays===1){
+      b.disabled=true;b.textContent="🔊 …слушай";
+      speak(BANK.listen.script,function(){
+        setTimeout(function(){
+          speak(BANK.listen.script,function(){listeningDone();});
+        },900);
+      });
+    }else{ b.disabled=true;b.textContent="🔊 …слушай";speak(BANK.listen.script,function(){listeningDone();}); }
+  });
+}
+function listeningDone(){
+  var b=$("play-btn");
+  if(b){b.disabled=false;b.textContent="🔊 Ещё раз слушать";}
+}
+
+/* ---------- answering ---------- */
+function bindAsk(src,t){
+  bindPlay();
+  Array.prototype.forEach.call(document.querySelectorAll("#q-body .choice"),function(el){
+    el.addEventListener("click",function(){
+      if(el.disabled)return;
+      answer(parseInt(el.getAttribute("data-k"),10),el,src,t);
+    });
+  });
+  $("skip-btn").addEventListener("click",skipSection);
+}
+function answer(k,el,src,t){
+  Array.prototype.forEach.call(document.querySelectorAll("#q-body .choice"),function(e){e.disabled=true;});
+  var ok=(k===src.key);
+  var firstTry=(t.attempt===1);
+  log.push({sec:sec.id,l:src.l,firstTry:firstTry,ok:ok,attempt:t.attempt,
+    given:k,key:src.key,why:src.why,
+    label:sec.id==="listen"?(src.l+". "+src.q):(sec.id==="gram"?("Грамматика "+src.l):("Чтение "+src.l))});
+  var coach=(MODE==="coach"||REPAIR);
+  if(coach){
+    if(ok){
+      el.classList.add("good");
+      setTimeout(nextItem,700);
+    }else{
+      el.classList.add("bad");
+      var fb=document.createElement("div");fb.className="feedback";
+      fb.innerHTML="<div class='fb-head'>✗ Не совсем</div>"+
+        "Правильный ответ: <span class='fb-key'>"+src.key+") "+
+        esc(sec.id==="listen"?(src.key===1?"True":"False"):src.opts[src.key-1])+"</span><br>"+src.why+
+        "<span class='fb-quote'>📓 Запиши в тетрадь — встретимся с этим ещё раз!</span>"+
+        "<div><button class='next-feed-btn' id='feed-next'>Понятно, дальше →</button></div>";
+      var sk=document.querySelector("#q-body .skipline");
+      if(sk)$("q-body").insertBefore(fb,sk);else $("q-body").appendChild(fb);
+      $("feed-next").addEventListener("click",function(){nextItem(true);});
+    }
+  }else if(MODE==="end"){
+    el.classList.add(ok?"good":"dim");
+    setTimeout(nextItem,350);
+  }else{ /* blind */
+    setTimeout(nextItem,250);
+  }
+}
+function nextItem(afterFeed){
+  /* coach: a missed item requeues twice more — «ask several times the same» */
+  var t=queue[qi];
+  if((MODE==="coach"||REPAIR)&&t.attempt<3){
+    var last=log[log.length-1];
+    if(last&&!last.ok){
+      queue.splice(Math.min(qi+2,queue.length),0,{i:t.i,attempt:t.attempt+1});
+    }
+  }
+  if(qi<queue.length-1){qi++;renderAsk();}
+  else sectionResult();
+}
+
+/* ---------- skip the whole задание ---------- */
+function skipSection(){
+  while(qi<queue.length){
+    var t=queue[qi];
+    log.push({sec:sec.id,l:BANK[sec.id].items[t.i].l,skipped:true,firstTry:t.attempt===1,ok:false,
+      key:BANK[sec.id].items[t.i].key,label:sec.id+" "+BANK[sec.id].items[t.i].l});
+    qi++;
+  }
+  if(MODE==="blind"){nextSection();}
+  else sectionResult();
+}
+function nextSection(){
+  if(secIdx<SECS.length-1){secIdx++;secFlash();}
+  else finish();
+}
+
+/* ---------- section results (coach + end modes) ---------- */
+function sectionResult(){
+  if(MODE==="blind"){nextSection();return;}
+  show("res-card");
+  var rows=log.filter(function(x){return x.sec===sec.id;});
+  var firsts=rows.filter(function(x){return x.firstTry&&!x.skipped;});
+  var rights=firsts.filter(function(x){return x.ok;});
+  var skipped=rows.filter(function(x){return x.skipped;}).length;
+  $("res-count").textContent=sec.icon+" "+sec.name+" · результат";
+  $("res-line").textContent=(sec.max?("⭐ "+rights.length+" из "+sec.max+" с первого раза!"):"Проверяем письмо…")+
+    (skipped?(" · пропущено: "+skipped):"");
+  /* the test's own answer table */
+  if(sec.id!=="letter"){
+    var tbl="<table class='answer-table'><tr>";
+    var letters=rows.filter(function(x){return x.firstTry;});
+    tbl+=letters.map(function(x){return "<th>"+x.l+"</th>";}).join("")+"</tr><tr>"+
+      letters.map(function(x){return "<td>"+(x.skipped?"–":x.given)+"</td>";}).join("")+"</tr></table>"+
+      "<div class='helper'>Как в настоящем тесте: запиши номера под буквами — ты это уже умеешь ✅</div>";
+    $("res-table").innerHTML=tbl;
+  }else{
+    $("res-table").innerHTML="";
+    renderLetterVerdict($("res-table"),letter.rows,true);
+  }
+  /* misses with keys + why */
+  var misses=firsts.filter(function(x){return !x.ok&&!x.skipped;});
+  var srcs=BANK[sec.id].items;
+  if(misses.length&&sec.id!=="letter"){
+    $("res-miss").classList.remove("hidden");
+    $("res-miss").innerHTML="<b>Разбор ошибок:</b><br>"+misses.map(function(x){
+      var s=srcs.filter(function(q){return q.l===x.l;})[0];
+      var keyTxt=sec.id==="listen"?(s.key===1?"1) True":"2) False"):(s.key+") "+s.opts[s.key-1]);
+      var stem=sec.id==="listen"?s.q:(sec.id==="read"?(s.pre+"______"+s.post):s.html.replace(/<[^>]+>/g," ").replace(/\s+/g," "));
+      return "· <b>"+x.l+".</b> "+esc(stem)+" → <span class='k'>"+keyTxt+"</span><span class='fb-quote'>"+s.why+"</span>";
+    }).join("<br>");
+  }else if(sec.id==="letter"&&letter.rows){
+    var bad=letter.rows.filter(function(r){return !r.ok;});
+    if(bad.length){
+      $("res-miss").classList.remove("hidden");
+      $("res-miss").innerHTML="<b>В письме поправь:</b><br>"+bad.map(function(r){
+        return "· "+r.name+" — <span class='k'>"+r.hint+"</span>";}).join("<br>");
+    }else{$("res-miss").classList.add("hidden");}
+  }else{$("res-miss").classList.add("hidden");}
+  /* shaky: still wrong on the 3rd ask */
+  var shaky=rows.filter(function(x){return x.attempt===3&&!x.ok;});
+  if(shaky.length){
+    $("res-shaky").classList.remove("hidden");
+    $("res-shaky").innerHTML="<b>😤 Упрямые:</b><br>"+shaky.map(function(x){
+      var s=srcs.filter(function(q){return q.l===x.l;})[0];
+      return "· "+x.l+" — ещё повторим на уроке";}).join("<br>");
+  }else{$("res-shaky").classList.add("hidden");}
+  /* buttons */
+  var btns="";
+  if(misses.length&&MODE!=="blind")btns+='<button class="repair-btn" id="repair-btn">🔁 Проработать ошибки</button> ';
+  btns+='<button class="next-btn" id="res-next">'+(secIdx<SECS.length-1?"Следующее задание →":"Закончить 🏁")+"</button>";
+  $("res-btns").innerHTML=btns;
+  $("res-next").addEventListener("click",function(){REPAIR=false;nextSection();});
+  if($("repair-btn")){
+    $("repair-btn").addEventListener("click",function(){
+      REPAIR=true;
+      queue=misses.map(function(x){return {i:srcs.map(function(q){return q.l;}).indexOf(x.l),attempt:2};});
+      qi=0;show("q-card");renderAsk();
+    });
+  }
+  window.scrollTo(0,0);
+}
+
+/* ---------- the letter ---------- */
+function renderLetter(){
+  var b=BANK.letter;
+  $("q-count").textContent="💌 Письмо";
+  $("q-body").innerHTML=
+   '<div class="task-instr" style="text-align:left">'+b.instr+"</div>"+
+   '<div class="letter-box">'+
+     '<div class="lq">'+esc(b.excerpt)+"</div>"+
+     '<label>Обращение (пропуск 1)</label><input id="lt-greet" autocomplete="off" placeholder="…">'+
+     '<div class="printed">'+esc(b.printed1)+"</div>"+
+     '<label>Ответы на два вопроса (пропуск 2)</label><textarea id="lt-body" placeholder="Пиши полными предложениями…"></textarea>'+
+     '<div class="printed">'+esc(b.printed2)+"</div>"+
+     '<label>Подпись (пропуск 3)</label><input id="lt-sign" autocomplete="off" placeholder="…">'+
+   "</div>"+
+   '<div class="skipline"><button class="skip-btn" id="skip-btn">пропустить задание 4 →</button></div>'+
+   '<div id="lt-check"></div>'+
+   '<div><button class="next-btn" id="lt-done">'+(MODE==="blind"?"Отправить →":"Проверить ✓")+"</button></div>";
+  $("lt-greet").value=letter.greet;$("lt-body").value=letter.body;$("lt-sign").value=letter.sign;
+  $("skip-btn").addEventListener("click",function(){
+    letter.skipped=true;letter.rows=null;
+    if(MODE==="blind"){nextSection();}else sectionResult();
+  });
+  var presses=0;
+  $("lt-done").addEventListener("click",function(){
+    letter.greet=$("lt-greet").value;letter.body=$("lt-body").value;letter.sign=$("lt-sign").value;
+    letter.rows=letterCheck();
+    if(MODE==="coach"){
+      var need=letter.rows.filter(function(r){return !r.ok;}).length;
+      presses++;
+      renderLetterVerdict($("lt-check"),letter.rows,true);
+      if(need===0){$("lt-done").textContent="Всё готово — отправить →";}
+      else if(presses===1){$("lt-done").textContent="Проверить ещё раз ✓";return;}
+      else{$("lt-done").textContent="Отправить как есть →";}
+    }
+    secIdx<SECS.length-1?nextSection():finish();
+  });
+  window.scrollTo(0,0);
+}
+function letterCheck(){
+  var b=BANK.letter;
+  var g=letter.greet.trim(),t=letter.body.toLowerCase(),s=letter.sign.trim();
+  var topic=b.topicWords.some(function(w){return t.indexOf(w)>=0;});
+  var q2=topic&&b.q2Markers.some(function(w){return t.indexOf(w)>=0;});
+  return [
+   {name:"Обращение",ok:g.length>1&&/dear|hi|hello/i.test(g)&&g.charAt(g.length-1)===",",
+    hint:b.greetHint},
+   {name:"Ответ на вопрос 1",ok:topic,
+    hint:"В ответе должно быть упомянуто само дело: wash the dishes, clean my room, take out the rubbish…"},
+   {name:"Ответ на вопрос 2",ok:q2,
+    hint:"Второй вопрос — «какое самое трудное / с кем»: напиши МНЕНИЕ (I think … because …)."},
+   {name:"Подпись",ok:s.length>1&&!new RegExp(b.from,"i").test(s),
+    hint:"Подпиши своё имя (не "+b.from+"!)"}
+  ];
+}
+function renderLetterVerdict(box,rows,withHints){
+  if(!rows){box.innerHTML="";return;}
+  box.innerHTML='<div class="checklist">'+rows.map(function(r){
+    return "<div class='"+(r.ok?"row-ok":"row-no")+"'>"+(r.ok?"✓":"✗")+" "+r.name+
+      (withHints&&!r.ok?"<span class='hint'>"+r.hint+"</span>":"")+"</div>";}).join("")+"</div>";
+}
+
+/* ---------- end + report ---------- */
+function reportText(){
+  var lines=[(WHO||"IRINA")+" · ПРОБНЫЙ ТЕСТ · "+BANKS[BANK_ID].name+" · режим "+MODE+" · "+new Date().toLocaleString()];
+  var secBits=[],missAll=[],shakyAll=[],skipAll=[];
+  SECS.forEach(function(s){
+    var rows=log.filter(function(x){return x.sec===s.id;});
+    if(!rows.length)return;
+    if(s.id==="letter"){
+      if(letter.skipped){secBits.push("💌 письмо: пропущено");skipAll.push("письмо");}
+      else if(letter.rows){
+        var v=letter.rows.map(function(r){return r.name+": "+(r.ok?"✓":"✗");}).join(" · ");
+        secBits.push("💌 "+v);
+      }
+      return;
+    }
+    var firsts=rows.filter(function(x){return x.firstTry&&!x.skipped;});
+    var rights=firsts.filter(function(x){return x.ok;}).length;
+    var skipped=rows.filter(function(x){return x.skipped;}).length;
+    secBits.push(s.icon+" "+s.name+": "+rights+"/"+s.max+(skipped?" (пропущено "+skipped+")":""));
+    firsts.filter(function(x){return !x.ok&&!x.skipped;}).forEach(function(x){
+      missAll.push(s.name+"-"+x.l+" (ответ "+(x.given||"—")+", ключ "+x.key+")");});
+    rows.filter(function(x){return x.attempt===3&&!x.ok&&!x.skipped;}).forEach(function(x){
+      shakyAll.push(s.name+"-"+x.l);});
+    if(skipped)skipAll.push(s.name);
+  });
+  lines.push(secBits.join(" · "));
+  if(missAll.length)lines.push("Ошибки с 1 раза: "+missAll.join("; "));
+  var retaught=log.filter(function(x){return x.attempt>1&&x.ok&&!x.skipped;});
+  if(retaught.length)lines.push("Переучено (решила после повтора): "+retaught.map(function(x){return x.sec+"-"+x.l;}).join(", "));
+  if(shakyAll.length)lines.push("Упрямые (3 попытки — мимо): "+shakyAll.join(", "));
+  if(skipAll.length)lines.push("Пропущено: "+skipAll.join(", "));
+  if(letter.body||letter.greet||letter.sign){
+    lines.push("ПИСЬМО: ["+letter.greet.trim()+"] "+BANK.letter.printed1+" "+
+      (letter.body||"(пусто)").slice(0,600)+" "+BANK.letter.printed2+" ["+letter.sign.trim()+"]");
+  }
+  return lines.join("\n");
+}
+function finish(){
+  show("end-card");
+  var blind=(MODE==="blind");
+  var firsts=log.filter(function(x){return x.firstTry&&!x.skipped&&x.sec!=="letter";});
+  var rights=firsts.filter(function(x){return x.ok;}).length;
+  if(blind){
+    $("end-stars").textContent="📨";
+    $("end-title").textContent="Готово!";
+    $("end-rows").textContent="Ты прошла весь тест. Результат уже летит к мисс Елене — ни подсказок, ни оценок, как в настоящей контрольной.";
+    $("end-miss").classList.add("hidden");
+    $("copy-btn").classList.add("hidden");
+  }else{
+    $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(rights/Math.max(1,firsts.length)*5)));
+    $("end-title").textContent="Молодец!";
+    $("end-rows").textContent="С первого раза: "+rights+" из "+firsts.length+(letter.rows?" · письмо проверено":"");
+    var rowsMiss=log.filter(function(x){return x.firstTry&&!x.ok&&!x.skipped&&x.sec!=="letter";});
+    if(rowsMiss.length){
+      $("end-miss").classList.remove("hidden");
+      $("end-miss").innerHTML="<b>Для словарика (ошибки с 1 раза):</b><br>"+rowsMiss.map(function(x){
+        return "· "+x.label;}).join("<br>");
+    }else{$("end-miss").classList.add("hidden");}
+    $("copy-btn").classList.remove("hidden");
+  }
+  var txt=reportText();
+  try{localStorage.setItem("irina-test-last",txt);}catch(e){}
+  sendReport(txt);
+  $("sent-line").textContent="…";
+  setTimeout(function(){$("sent-line").textContent="✅ Результат уже у мисс Елены!";},1400);
+  window.scrollTo(0,0);
+}
+$("copy-btn").addEventListener("click",function(){
+  var txt=reportText();
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){
+      var b=$("copy-btn");b.textContent="📋 Скопировано!";
+      setTimeout(function(){b.textContent="📋 Результат — мисс Елене";},1500);});
+  }
+});
+$("again-btn").addEventListener("click",function(){
+  show("start-card");window.scrollTo(0,0);
+});
+
+/* ---------- auto-send (fetch → iframe fallback → localStorage queue) ---------- */
+var QKEY="irina-test-form-queue";
+function queueGet(){try{return JSON.parse(localStorage.getItem(QKEY)||"[]");}catch(e){return[];}}
+function queueAdd(txt){var q=queueGet();q.push(txt);try{localStorage.setItem(QKEY,JSON.stringify(q));}catch(e){}}
+function queueClear(){try{localStorage.setItem(QKEY,"[]");}catch(e){}}
+function postOne(txt,done){
+  var okFn=function(){done(true);},badFn=function(){done(false);};
+  try{
+    var body=new FormData();
+    body.append(HW_FORM.entryReport,txt);
+    body.append("submit","Submit");
+    fetch(HW_FORM.action,{method:"POST",mode:"no-cors",body:body})
+      .then(function(){okFn();}).catch(function(){iframePost(txt,okFn,badFn);});
+  }catch(e){iframePost(txt,okFn,badFn);}
+}
+function iframePost(txt,okFn,badFn){
+  try{
+    var frame=document.createElement("iframe");
+    frame.name="hf-"+Date.now();frame.style.display="none";
+    document.body.appendChild(frame);
+    var f=document.createElement("form");
+    f.method="POST";f.action=HW_FORM.action;f.target=frame.name;
+    var inp=document.createElement("input");
+    inp.type="hidden";inp.name=HW_FORM.entryReport;inp.value=txt;
+    f.appendChild(inp);
+    var sub=document.createElement("input");
+    sub.type="hidden";sub.name="submit";sub.value="Submit";
+    f.appendChild(sub);
+    document.body.appendChild(f);f.submit();
+    setTimeout(function(){okFn();},1200);
+  }catch(e){badFn();}
+}
+function sendReport(txt){
+  postOne(txt,function(ok){
+    if(!ok){queueAdd(txt);return;}
+    var q=queueGet();
+    if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}
+  });
+}
+(function(){var q=queueGet();if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}})();
+
+/* selftest hook (driver uses it; harmless in production) */
+window.__test={state:function(){return {mode:MODE,bank:BANK_ID,sec:sec&&sec.id,qi:qi,qlen:queue.length,
+  log:log,letter:letter};},begin:begin,speak:speak};
+})();
+</script>
+</body>
+</html>
