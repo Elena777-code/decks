@@ -186,12 +186,17 @@ img.sheet.small{width:min(430px,90%)}
 #bigword .tap-hint{position:absolute;bottom:6vh;left:0;right:0;text-align:center;font-size:clamp(.9rem,1.5vw,1.2rem);color:var(--ink-soft)}
  (standing, 2026-10-13): Elena films the group for the parents at this slide — placement taught gradually */
 .filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}</style>
+<style>/* the give-me stepper (the picture-by-picture lyric walk, 19.10) */
+.giveverse{display:none;align-items:center;gap:clamp(.8em,1.6vw,1.6em);flex-wrap:wrap}
+.giveverse.open{display:flex;animation:rise .5s cubic-bezier(.22,1,.36,1)}
+.giveverse img{height:min(14vh,130px);width:auto;border-radius:14px;box-shadow:var(--shadow);background:#fff}
+.giveverse .glyric{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.15rem,2.2vw,1.9rem)}</style>
 <style>/* THE FILM CUE</style>
 </head>
 <body>
 
 <div id="progress-track"><div id="progress-fill"></div></div>
-<!-- build 19.10 · v7 -->
+<!-- build 19.10 · v8 -->
 
 <!-- 1 · WARM UP — HELLO SONG -->
 <section class="slide">
@@ -333,15 +338,21 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card lavender reveal-el"><p>🙈 «<b style="color:var(--lavender-deep)">Who's that?</b>» — «<b style="color:var(--lavender-deep)">He's Maskman!</b>» 🦸</p></div>
 </section>
 
-<!-- 11 · THE PLAYWAY LESSON 1/2 — THE GIVE-ME CHANT (PB p. 6, PROTECTED) -->
+<!-- 11 · THE PLAYWAY LESSON 1/2 — THE GIVE-ME CHANT (PB p. 6, PROTECTED) — the picture-by-picture lyric walk -->
 <section class="slide">
   <div class="eyebrow reveal-el">The other coursebook · chant 🎨</div>
   <h1 class="title reveal-el">Give me RED! — Here you are! 🖍️</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Listen — point — CHANT!</div>
-  <img class="sheet small reveal-el" src="../media/pw1-p6-ex4.png" alt="Playway PB p. 6 — the Give-me chant">
   <audio controls preload="none" class="reveal-el" src="../media/pw1-cd1-7.mp3"></audio>
   <audio controls preload="none" class="reveal-el" src="../media/pw1-cd1-8.mp3"></audio>
+  <button class="reveal-btn reveal-el" id="givebtn" onclick="giveStep()">▶ verse 1 of 6</button>
+  <div class="giveverse" id="gv1"><img src="../media/pw1-p6-v1-red.png" alt="Give me red — here you are"><div class="glyric">Give me <b style="color:#d64545">red</b>. — <b>Here you are!</b></div></div>
+  <div class="giveverse" id="gv2"><img src="../media/pw1-p6-v2-yellow.png" alt="Give me yellow — here you are"><div class="glyric">Give me <b style="color:#c99700">yellow</b>. — <b>Here you are!</b></div></div>
+  <div class="giveverse" id="gv3"><img src="../media/pw1-p6-v3-green.png" alt="Give me green — here you are"><div class="glyric">Give me <b style="color:#3e9b4f">green</b>. — <b>Here you are!</b></div></div>
+  <div class="giveverse" id="gv4"><img src="../media/pw1-p6-v4-purple.png" alt="Give me purple — here you are"><div class="glyric">Give me <b style="color:#4472c4">blue</b>. — <b>Here you are!</b></div></div>
+  <div class="giveverse" id="gv5"><img src="../media/pw1-p6-v5-black.png" alt="Give me black — here you are"><div class="glyric">Give me <b style="color:#2D3436">black</b>. — <b>Here you are!</b></div></div>
+  <div class="giveverse" id="gv6"><img src="../media/pw1-p6-v6-white.png" alt="Give me white — here you are"><div class="glyric">Give me <b style="color:#2D3436">white</b>. — <b>Yeah, all right!</b></div></div>
   <div class="card lavender reveal-el"><p>🧤 The puppet asks: «<b style="color:var(--lavender-deep)">Give me RED!</b>» — you answer: «<b style="color:var(--lavender-deep)">Here you are!</b>» 🖐️</p></div>
 </section>
 
@@ -632,6 +643,15 @@ function bigWord(art,noun){
   ov.querySelector('.art').textContent=art;
   ov.querySelector('.noun').textContent=noun;
   ov.classList.add('open');
+}
+
+/* THE GIVE-ME STEPPER — one click, one verse (the picture + its lyric line) */
+const GVV=[...document.querySelectorAll('.giveverse')];let gvI=0;
+function giveStep(){
+  const b=document.getElementById('givebtn');if(!b)return;
+  if(gvI>=GVV.length){GVV.forEach(v=>v.classList.remove('open'));gvI=0;b.textContent='▶ verse 1 of 6';return;}
+  GVV[gvI].classList.add('open');gvI++;
+  b.textContent=gvI<GVV.length?('▶ verse '+(gvI+1)+' of 6'):'↺ from the top';
 }
 const h=parseInt(location.hash.slice(1));
 show(isNaN(h)?0:h-1);
