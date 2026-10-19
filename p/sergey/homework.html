@@ -46,6 +46,9 @@ h2{font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.4vw,1.8rem);m
 .play-row{display:flex;flex-wrap:wrap;gap:.5em;align-items:center;margin:.7em 0;
   font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.6}
 .play-row .opts{display:flex;gap:.45em;flex-wrap:wrap}
+/* 19.10 revision rows — own classes so the old drill script never grabs them */
+.rrow{display:flex;flex-wrap:wrap;gap:.5em;align-items:center;margin:.7em 0}
+.rrow .ropts{display:flex;gap:.45em;flex-wrap:wrap}
 .opt{font-family:'Fredoka';font-weight:600;border:2.5px solid var(--sky);background:#fff;color:var(--navy);
   border-radius:99px;padding:.25em 1em;cursor:pointer;font-size:.95em;transition:all .15s}
 .opt:hover{transform:translateY(-2px);border-color:var(--navy)}
@@ -119,6 +122,46 @@ details.lesson-arch .arch-inner .card{margin-bottom:0}
   <div class="hw" data-k="srb-1"><div class="box">✓</div><div class="t">📓 <b>8 слов — в словарик!</b> Перепиши и запомни (перевод ИЛИ значение ИЛИ пример — на выбор):<br><span class="en">last</span> <span class="key">⏱ длиться</span> — <i>the game lasts 90 minutes</i> ⭐<br><span class="en">spectator</span> <span class="key">🪑 зритель</span> — <i>a person who watches the game</i><br><span class="en">percent</span> <span class="key">％ процент</span> — <i>20 percent = 20 из 100</i><br><span class="en">approximately</span> <span class="key">≈ примерно</span> — <i>Approximately 3.5 billion people play football.</i><br><span class="en">especially</span> <span class="key">⭐ особенно</span> — <i>I like sports, especially football.</i><br><span class="en">mainly · mostly</span> <span class="key">🌍 в основном</span> — <i>Cricket is mainly popular in India.</i><br><span class="en">outdoor</span> <span class="key">🌳 на улице, не в помещении</span> — <i>We play outdoor games in summer.</i></div></div>
 
   <div class="hw" data-k="srb-2"><div class="box">✓</div><div class="t">⭐ <b>Твоё слово-фаворит — LAST.</b> Напиши или скажи СВОЁ предложение с <span class="en">last</span>! Пример: <span class="en">The film lasts two hours.</span> 🎬 А теперь — твоё!</div></div>
+</div>
+
+<!-- 19.10 SR CH1 — REVISION -->
+<div class="card now">
+  <h2>Урок 19.10 · Повторение 🔁 — часики и слова</h2>
+  <p class="hint">Сначала часики — ты их уже знаешь! Потом слова из нашей книги: читай предложение и выбери слово. Зелёный — угадал! Оранжевый — попробуй ещё раз 😉</p>
+
+  <p class="subt">1 · What's the time? ⏰ — round 2</p>
+  <p class="hint">Новые часики! Напиши время цифрами — как в примере: <b>11:30</b>. Нажми «Проверить ✓». После зелёного — скажи каждое время вслух по-английски!</p>
+  <div class="tripcard">
+    <div class="tc-title">⏰ THE CLOCK TRAIN</div>
+    <div class="lq t2q" data-t2k="t230"><svg width="66" height="66" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#FFF3D6" stroke="#2C4E80" stroke-width="4"/><circle cx="50" cy="12" r="2.5" fill="#2C4E80"/><circle cx="88" cy="50" r="2.5" fill="#2C4E80"/><circle cx="50" cy="88" r="2.5" fill="#2C4E80"/><circle cx="12" cy="50" r="2.5" fill="#2C4E80"/><line x1="50" y1="50" x2="50" y2="30" stroke="#22303F" stroke-width="6" stroke-linecap="round" transform="rotate(75 50 50)"/><line x1="50" y1="50" x2="50" y2="20" stroke="#E4572E" stroke-width="4" stroke-linecap="round" transform="rotate(180 50 50)"/><circle cx="50" cy="50" r="4" fill="#2C4E80"/></svg> <input type="text" autocomplete="off" inputmode="numeric" placeholder="чч:мм"><span class="ans">· half past two</span></div>
+    <div class="lq t2q" data-t2k="t1015"><svg width="66" height="66" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#FFF3D6" stroke="#2C4E80" stroke-width="4"/><circle cx="50" cy="12" r="2.5" fill="#2C4E80"/><circle cx="88" cy="50" r="2.5" fill="#2C4E80"/><circle cx="50" cy="88" r="2.5" fill="#2C4E80"/><circle cx="12" cy="50" r="2.5" fill="#2C4E80"/><line x1="50" y1="50" x2="50" y2="30" stroke="#22303F" stroke-width="6" stroke-linecap="round" transform="rotate(307.5 50 50)"/><line x1="50" y1="50" x2="50" y2="20" stroke="#E4572E" stroke-width="4" stroke-linecap="round" transform="rotate(90 50 50)"/><circle cx="50" cy="50" r="4" fill="#2C4E80"/></svg> <input type="text" autocomplete="off" inputmode="numeric" placeholder="чч:мм"><span class="ans">· quarter past ten</span></div>
+    <div class="lq t2q" data-t2k="t500"><svg width="66" height="66" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#FFF3D6" stroke="#2C4E80" stroke-width="4"/><circle cx="50" cy="12" r="2.5" fill="#2C4E80"/><circle cx="88" cy="50" r="2.5" fill="#2C4E80"/><circle cx="50" cy="88" r="2.5" fill="#2C4E80"/><circle cx="12" cy="50" r="2.5" fill="#2C4E80"/><line x1="50" y1="50" x2="50" y2="30" stroke="#22303F" stroke-width="6" stroke-linecap="round" transform="rotate(150 50 50)"/><line x1="50" y1="50" x2="50" y2="20" stroke="#E4572E" stroke-width="4" stroke-linecap="round" transform="rotate(0 50 50)"/><circle cx="50" cy="50" r="4" fill="#2C4E80"/></svg> <input type="text" autocomplete="off" inputmode="numeric" placeholder="чч:мм"><span class="ans">· five o'clock</span></div>
+    <div class="lq t2q" data-t2k="t415"><svg width="66" height="66" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#FFF3D6" stroke="#2C4E80" stroke-width="4"/><circle cx="50" cy="12" r="2.5" fill="#2C4E80"/><circle cx="88" cy="50" r="2.5" fill="#2C4E80"/><circle cx="50" cy="88" r="2.5" fill="#2C4E80"/><circle cx="12" cy="50" r="2.5" fill="#2C4E80"/><line x1="50" y1="50" x2="50" y2="30" stroke="#22303F" stroke-width="6" stroke-linecap="round" transform="rotate(127.5 50 50)"/><line x1="50" y1="50" x2="50" y2="20" stroke="#E4572E" stroke-width="4" stroke-linecap="round" transform="rotate(90 50 50)"/><circle cx="50" cy="50" r="4" fill="#2C4E80"/></svg> <input type="text" autocomplete="off" inputmode="numeric" placeholder="чч:мм"><span class="ans">· quarter past four</span></div>
+    <div class="lq t2q" data-t2k="t830"><svg width="66" height="66" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#FFF3D6" stroke="#2C4E80" stroke-width="4"/><circle cx="50" cy="12" r="2.5" fill="#2C4E80"/><circle cx="88" cy="50" r="2.5" fill="#2C4E80"/><circle cx="50" cy="88" r="2.5" fill="#2C4E80"/><circle cx="12" cy="50" r="2.5" fill="#2C4E80"/><line x1="50" y1="50" x2="50" y2="30" stroke="#22303F" stroke-width="6" stroke-linecap="round" transform="rotate(255 50 50)"/><line x1="50" y1="50" x2="50" y2="20" stroke="#E4572E" stroke-width="4" stroke-linecap="round" transform="rotate(180 50 50)"/><circle cx="50" cy="50" r="4" fill="#2C4E80"/></svg> <input type="text" autocomplete="off" inputmode="numeric" placeholder="чч:мм"><span class="ans">· half past eight</span></div>
+  </div>
+  <div class="lbtns">
+    <button id="time2-check" class="lbtn">Проверить ✓</button>
+    <button id="time2-reveal" class="lbtn ghost">Показать ▾</button>
+  </div>
+
+  <p class="subt">2 · Слова из нашей книги 🔁</p>
+  <p class="hint">Сначала посмотри: 🖐️⚽🚫 <b>mustn't</b> = нельзя. Вратарю — <b>can</b> (можно!), игроку — <b>mustn't</b> (нельзя!). Как на уроке в правилах игры. Теперь выбери слово в каждом предложении — в одном из них живёт mustn't!</p>
+  <div class="rrow">🚫 You <span class="ropts" data-a="mustn't"><button class="opt">mustn't</button><button class="opt">can</button><button class="opt">must</button></span> run with a ball!</div>
+  <div class="rrow">🏀 In basketball you can't <span class="ropts" data-a="kick"><button class="opt">kick</button><button class="opt">hit</button><button class="opt">stick</button></span> the ball.</div>
+  <div class="rrow">🎾 In tennis you <span class="ropts" data-a="hit"><button class="opt">hit</button><button class="opt">kick</button><button class="opt">swim</button></span> the ball with a racket.</div>
+  <div class="rrow">🏑 Field hockey uses a <span class="ropts" data-a="stick"><button class="opt">stick</button><button class="opt">bat</button><button class="opt">ball</button></span>.</div>
+  <div class="rrow">📜 Football has <span class="ropts" data-a="rules"><button class="opt">rules</button><button class="opt">sticks</button><button class="opt">hours</button></span> — what you CAN and CAN'T do in the game.</div>
+  <div class="rrow">🏏 Cricket 🏏 and hockey 🏑 are <span class="ropts" data-a="different"><button class="opt">different</button><button class="opt">new</button><button class="opt">white</button></span> games.</div>
+  <div class="rrow">⭐ <span class="ropts" data-a="today"><button class="opt">today</button><button class="opt">tomorrow</button><button class="opt">yesterday</button></span> we have English — not tomorrow, NOW!</div>
+  <div class="rrow">💪 Homework is <span class="ropts" data-a="important"><button class="opt">important</button><button class="opt">outdoor</button><button class="opt">easy</button></span> — do it every day!</div>
+  <div class="rrow">🌍 There are <span class="ropts" data-a="about"><button class="opt">about</button><button class="opt">exactly</button><button class="opt">today</button></span> 3 billion players — not exactly, примерно!</div>
+  <p class="hint" id="rev-line"></p>
+
+  <div class="hw" data-k="srr-1"><div class="box">✓</div><div class="t">✅ Часики и слова сделаны — скажи все слова вслух ещё раз маме или бабушке!</div></div>
+
+  <p class="subt">3 · 🎓 Teach YOUR sport!</p>
+  <p class="hint">Выбери ЛЮБОЙ спорт — football? hockey? твой собственный! Узнай 3 факта: ① сколько людей играют ② в каких странах ③ один интересный или смешной факт. На следующем уроке ты — учитель: расскажешь мне, как крысе! 🐭</p>
+  <div class="hw" data-k="srr-2"><div class="box">✓</div><div class="t">🎓 Мой спорт: ______ · 3 факта готовы!</div></div>
 </div>
 
 <!-- 14.10 SCAN READING — спрятано за кнопкой -->
@@ -615,6 +658,102 @@ function hwName(){
   }
   ['flight-check','time-check'].forEach(function(id){
     document.getElementById(id).addEventListener('click',function(){setTimeout(maybeReport,50);});
+  });
+})();
+</script>
+<script>
+/* ===== 19.10 · the REVISION card — fresh clocks (round 2) + the words
+   game seeded with his own lesson sentences; mustn't is TAUGHT in the
+   hint above the game (the dnk rule: teach first, never cold). Own
+   classes (.t2q / .ropts) so the older machines (.opts drill, .tmq
+   airport sweep, .lq[data-k] listening) never touch these rows. Both
+   tasks report ONE run line through the same queue + HW_FORM machine.
+   The time formatter handles 4-digit keys (1015 → 10:15). ===== */
+(function(){
+  var KEYS={t230:['230'],t1015:['1015'],t500:['500'],t415:['415'],t830:['830']};
+  function digitsOnly(s){return (s||'').replace(/[^0-9]/g,'');}
+  function fmt(d){var v=parseInt(d,10);var h=Math.floor(v/100),m=v%100;return h+':'+(m<10?'0':'')+m;}
+  /* the word options shuffle fresh every open */
+  document.querySelectorAll('.ropts').forEach(function(box){
+    var btns=[].slice.call(box.querySelectorAll('.opt'));
+    for(var i=btns.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=btns[i];btns[i]=btns[j];btns[j]=t;}
+    btns.forEach(function(b){box.appendChild(b);});
+    box.dataset.tries=0;
+    btns.forEach(function(b){
+      b.addEventListener('click',function(){
+        if(b.classList.contains('good'))return;
+        box.dataset.tries=+(box.dataset.tries||0)+1;
+        if(b.textContent.trim()===box.dataset.a){
+          b.classList.add('good');
+          if(wordsDone()){
+            document.getElementById('rev-line').textContent='🎉 9 of 9! Say all the words aloud one more time! 🔁';
+            setTimeout(maybeReport,50);
+          }
+        }else{b.classList.add('bad');setTimeout(function(){b.classList.remove('bad');},700);}
+      });
+    });
+  });
+  function wordsDone(){
+    var rows=document.querySelectorAll('.ropts');
+    for(var i=0;i<rows.length;i++){if(!rows[i].querySelector('.opt.good'))return false;}
+    return true;
+  }
+  function t2Done(){
+    var rows=document.querySelectorAll('.t2q');
+    return rows.length>0 && [].every.call(rows,function(r){return r.querySelector('input').disabled;});
+  }
+  function triesOf(sel){var t=0;document.querySelectorAll(sel).forEach(function(r){t+=+(r.dataset.tries||0);});return t;}
+  var sent=false;
+  function maybeReport(){
+    if(sent)return;
+    if(!t2Done()||!wordsDone())return;
+    sent=true;
+    var tt=triesOf('.t2q'), wt=triesOf('.ropts');
+    var lines=['🐭 '+hwName()+' · homework — Урок 19.10 · Повторение 🔁',
+      'Date: '+new Date().toLocaleString('ru-RU'),'',
+      'Time: 5/5 · tries: '+tt,
+      'Words: 9/9 · tries: '+wt,'',
+      'Total tries: '+(tt+wt)];
+    var txt=lines.join('\n');
+    try{localStorage.setItem('sergey-hw-rev-last',txt);}catch(e){}
+    try{
+      var q=JSON.parse(localStorage.getItem('sergey-hw-queue')||'[]');
+      q.push(txt);if(q.length>10)q=q.slice(-10);
+      localStorage.setItem('sergey-hw-queue',JSON.stringify(q));
+    }catch(e){}
+    if(typeof flushQueue==='function')flushQueue();
+  }
+  document.getElementById('time2-check').addEventListener('click',function(){
+    var right=0,total=0;
+    document.querySelectorAll('.t2q').forEach(function(row){
+      var k=row.dataset.t2k, inp=row.querySelector('input');
+      if(inp.disabled)return;
+      total++;
+      if(KEYS[k].indexOf(digitsOnly(inp.value))>-1){
+        right++;row.classList.remove('no','shown');row.classList.add('ok');inp.disabled=true;
+      }else{
+        row.dataset.tries=(+(row.dataset.tries||0))+1;
+        row.classList.remove('ok');row.classList.add('no');
+        setTimeout(function(){row.classList.remove('no');},900);
+      }
+    });
+    if(total===0){document.getElementById('rev-line').textContent='Часики уже готовы! 🎉';}
+    else{
+      document.getElementById('rev-line').textContent = right===total
+        ? '🎉 '+right+' of '+total+'! Now say each time aloud in English! ⏰'
+        : 'Right: '+right+' of '+total+'. Look at the orange clocks again! ⏰';
+    }
+    setTimeout(maybeReport,50);
+  });
+  document.getElementById('time2-reveal').addEventListener('click',function(){
+    document.querySelectorAll('.t2q').forEach(function(row){
+      var k=row.dataset.t2k, inp=row.querySelector('input');
+      if(inp.disabled)return;
+      inp.value=fmt(KEYS[k][0]);
+      row.classList.add('shown');inp.disabled=true;
+    });
+    document.getElementById('rev-line').textContent='Ответы на месте. Скажи каждое время вслух! 😉';
+    setTimeout(maybeReport,50);
   });
 })();
 </script>
