@@ -36,6 +36,12 @@
    (no track — "No audio here — I say each word"); slide 11
    carries Elena's BY-EAR order — "books CLOSED, just listen"
    first, books open for the tick second. Slide 13: audio OK.
+   === v3 (Elena, 20.10 pre-lesson: "write in the slide"):
+   slide 3 carries HER SAY-LINES — each row shows the grey
+   definition clue (visible: it IS the dictation task), the
+   word itself still waits behind the click. Works both ways:
+   live dictation (she reads the clue) or a definition
+   dictation when the screen is shared.
    ============================================================ */
 :root{
   --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
@@ -156,6 +162,8 @@ button.tn.on{background:var(--ink-soft);color:#fff;border-color:var(--ink-soft)}
 .item.shown{cursor:default}
 .item.shown:hover{background:transparent}
 .item s{color:var(--ink-soft)}
+/* the dictation say-line: the clue shows (it IS the task), the word hides behind the click */
+.item .dclue{color:var(--ink-soft);font-style:italic;font-size:.72em}
 
 /* the tense colour code (standing rule): present = blue · past = red */
 .ftag{font-weight:800}
@@ -320,7 +328,7 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
 <body>
 
 <div id="bar"><i></i></div>
-<!-- sm5-u2-l4b · build 20.10 · v2 · full → screen copy (stamp-less; notes, the ✍️ pill, the presenter shell and the film cue stripped) -->
+<!-- sm5-u2-l4b · build 20.10 · v3 · full → screen copy (stamp-less; notes, the ✍️ pill, the presenter shell and the film cue stripped) -->
 
 <main id="deck">
 
@@ -352,18 +360,19 @@ body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{displa
     <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">Dictation 📝</h1>
     <div class="accent-line reveal"></div>
     <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">No audio here — I say each word, you write it down! Then click — check your spelling!</p>
+    <p class="hintline reveal">Read the grey clue — write the word!</p>
     <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%;padding:clamp(.6rem,1.1vw,.95rem)">
-      <div class="item" data-k style="padding:.16em .2em"><span class="no">1</span><span class="agree">jaguar</span></div>
-      <div class="item" data-k style="padding:.16em .2em"><span class="no">2</span><span class="agree">pool</span></div>
-      <div class="item" data-k style="padding:.16em .2em"><span class="no">3</span><span class="agree">beak</span></div>
-      <div class="item" data-k style="padding:.16em .2em"><span class="no">4</span><span class="agree">creeper</span></div>
-      <div class="item" data-k style="padding:.16em .2em"><span class="no">5</span><span class="agree">poisonous</span></div>
-      <div class="item" data-k style="padding:.16em .2em"><span class="no">6</span><span class="agree">branch</span></div>
-      <div class="item" data-k style="padding:.16em .2em"><span class="no">7</span><span class="agree">toucan</span></div>
-      <div class="item" data-k style="padding:.16em .2em"><span class="no">8</span><span class="agree">sloth</span></div>
-      <div class="item" data-k style="padding:.16em .2em"><span class="no">9</span><span class="agree">beetle</span></div>
-      <div class="item" data-k style="padding:.16em .2em"><span class="no">10</span><span class="agree">anaconda</span></div>
-      <div class="item" data-k style="padding:.16em .2em"><span class="no">11</span><span class="agree">anteater</span></div>
+      <div class="item" data-k style="padding:.16em .2em"><span class="no">1</span><span><span class="dclue">a big cat with spots</span> <span class="agree">jaguar</span></span></div>
+      <div class="item" data-k style="padding:.16em .2em"><span class="no">2</span><span><span class="dclue">a small lake in the forest</span> <span class="agree">pool</span></span></div>
+      <div class="item" data-k style="padding:.16em .2em"><span class="no">3</span><span><span class="dclue">the bird's mouth</span> <span class="agree">beak</span></span></div>
+      <div class="item" data-k style="padding:.16em .2em"><span class="no">4</span><span><span class="dclue">a plant that climbs up trees</span> <span class="agree">creeper</span></span></div>
+      <div class="item" data-k style="padding:.16em .2em"><span class="no">5</span><span><span class="dclue">touch it and you get ill</span> <span class="agree">poisonous</span></span></div>
+      <div class="item" data-k style="padding:.16em .2em"><span class="no">6</span><span><span class="dclue">a part of a tree that grows from the trunk</span> <span class="agree">branch</span></span></div>
+      <div class="item" data-k style="padding:.16em .2em"><span class="no">7</span><span><span class="dclue">a bright bird with a huge beak</span> <span class="agree">toucan</span></span></div>
+      <div class="item" data-k style="padding:.16em .2em"><span class="no">8</span><span><span class="dclue">a very slow animal that hangs in the trees</span> <span class="agree">sloth</span></span></div>
+      <div class="item" data-k style="padding:.16em .2em"><span class="no">9</span><span><span class="dclue">a small insect with hard wings</span> <span class="agree">beetle</span></span></div>
+      <div class="item" data-k style="padding:.16em .2em"><span class="no">10</span><span><span class="dclue">a very big snake that swims</span> <span class="agree">anaconda</span></span></div>
+      <div class="item" data-k style="padding:.16em .2em"><span class="no">11</span><span><span class="dclue">an animal with a long nose that eats ants</span> <span class="agree">anteater</span></span></div>
     </div>
   </section>
 
