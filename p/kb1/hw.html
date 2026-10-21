@@ -106,18 +106,18 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
 <div class="card hw-body">
 <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
 <div class="item task"><span class="n">1</span><span class="tt"><b>Читаем! 📖</b></span></div>
-<div class="item task" style="padding:.45em .7em"><span class="n">1</span><span class="tt"><b>🐢 Прочитай очень медленно</b></span><button class="chip" id="pupp-chip-1" data-k="t-read-slow" onclick="pupTog(this)">Готово</button></div>
-<div class="item task" style="padding:.45em .7em"><span class="n">2</span><span class="tt"><b>📢 Прочитай очень громко</b></span><button class="chip" id="pupp-chip-2" data-k="t-read-loud" onclick="pupTog(this)">Готово</button></div>
-<div class="item task" style="padding:.45em .7em"><span class="n">3</span><span class="tt"><b>🤫 Прочитай очень тихо</b></span><button class="chip" id="pupp-chip-3" data-k="t-read-quiet" onclick="pupTog(this)">Готово</button></div>
-<div class="item task" style="padding:.45em .7em"><span class="n">4</span><span class="tt"><b>🚀 Прочитай очень быстро</b></span><button class="chip" id="pupp-chip-4" data-k="t-read-fast" onclick="pupTog(this)">Готово</button></div>
+<div class="item task" style="padding:.45em .7em"><span class="n">1</span><span class="tt"><b>🐢 Прочитай очень медленно</b></span><button class="chip" id="pupp-chip-1" data-k="t-read-slow" onclick="pupTog(this)">done</button></div>
+<div class="item task" style="padding:.45em .7em"><span class="n">2</span><span class="tt"><b>📢 Прочитай очень громко</b></span><button class="chip" id="pupp-chip-2" data-k="t-read-loud" onclick="pupTog(this)">done</button></div>
+<div class="item task" style="padding:.45em .7em"><span class="n">3</span><span class="tt"><b>🤫 Прочитай очень тихо</b></span><button class="chip" id="pupp-chip-3" data-k="t-read-quiet" onclick="pupTog(this)">done</button></div>
+<div class="item task" style="padding:.45em .7em"><span class="n">4</span><span class="tt"><b>🚀 Прочитай очень быстро</b></span><button class="chip" id="pupp-chip-4" data-k="t-read-fast" onclick="pupTog(this)">done</button></div>
 <button class="btn" onclick="var g=document.getElementById('postergrid');var hid=g.style.display==='none';g.style.display=hid?'grid':'none';this.textContent=hid?'🙈 Спрятать постер':'🖼️ Покажи постер';">🖼️ Покажи постер</button>
 <div id="postergrid" style="display:none;margin:6px 0">
 <img src="../../media/kb1-u2-pat-ratbat-poster.png" alt="Pat the rat and the bat on the mat!" style="width:min(430px,100%);border-radius:10px;box-shadow:0 2px 8px rgba(45,52,54,.15)">
 </div>
 </div>
-<div class="item task"><span class="n">5</span><span class="tt"><b>Прочитай смешные предложения!</b> 📖 <small>— буква Dd. Нажми кнопку и читай!</small></span><button class="chip" id="pupp-chip-5" data-k="t-dd" onclick="pupTog(this)">Готово</button></div>
+<div class="item task"><span class="n">5</span><span class="tt"><b>Прочитай смешные предложения!</b> 📖 <small>— буква Dd. Нажми кнопку и читай!</small></span><button class="chip" id="pupp-chip-5" data-k="t-dd" onclick="pupTog(this)">done</button></div>
 <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-d.html#8" target="_blank">📖 Открыть Dd — смешные предложения</a>
-<div class="item task"><span class="n">6</span><span class="tt"><b>Выполни задания!</b> ✏️ <small>— обвести и дописать, листики в портфеле!</small></span><button class="chip" id="pupp-chip-6" data-k="t-sheets" onclick="pupTog(this)">Готово</button></div>
+<div class="item task"><span class="n">6</span><span class="tt"><b>Выполни задания!</b> ✏️ <small>— обвести и дописать, листики в портфеле!</small></span><button class="chip" id="pupp-chip-6" data-k="t-sheets" onclick="pupTog(this)">done</button></div>
 <div style="display:flex;flex-wrap:wrap;gap:6px;margin:6px 0;align-items:center">
 <button class="btn" onclick="showSheet('q',this)">Q</button>
 <button class="btn" onclick="showSheet('z',this)">Z</button>
@@ -128,13 +128,13 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
 <button class="btn" onclick="showSheet('who',this)">«Who's that?»</button>
 </div>
 <img id="sheetimg" alt="worksheet" style="display:none;width:min(520px,100%);align-self:center;border-radius:14px;box-shadow:var(--shadow)">
-<div class="item task"><span class="n">7</span><span class="tt"><b>Игра ABC-N</b> 🎮 <small>— N is for… NUT!</small></span><button class="chip" id="pupp-chip-7" data-k="t-wordwall" onclick="pupTog(this)">Готово</button></div>
+<div class="item task"><span class="n">7</span><span class="tt"><b>Игра ABC-N</b> 🎮 <small>— N is for… NUT!</small></span><button class="chip" id="pupp-chip-7" data-k="t-wordwall" onclick="pupTog(this)">done</button></div>
 <a class="btn" href="https://wordwall.net/resource/73491516/wow-abc-n" target="_blank">▶ Играть — ABC-N</a>
-<div class="item task"><span class="n">8</span><span class="tt"><b>Песенка — Mr Star, how are you?</b> 🎵 <small>— спой с кукольками!</small></span><button class="chip" id="pupp-chip-8" data-k="t-song" onclick="pupTog(this)">Готово</button></div>
+<div class="item task"><span class="n">8</span><span class="tt"><b>Песенка — Mr Star, how are you?</b> 🎵 <small>— спой с кукольками!</small></span><button class="chip" id="pupp-chip-8" data-k="t-song" onclick="pupTog(this)">done</button></div>
 <audio controls preload="none" src="../../media/kb1-u2-pb13-t19.mp3"></audio>
-<div class="item task"><span class="n">9</span><span class="tt"><b>Новая игра 8 Colours</b> 🎨 <small>— на shkola.app!</small></span><button class="chip" id="pupp-chip-9" data-k="t-colours" onclick="pupTog(this)">Готово</button></div>
+<div class="item task"><span class="n">9</span><span class="tt"><b>Новая игра 8 Colours</b> 🎨 <small>— на shkola.app!</small></span><button class="chip" id="pupp-chip-9" data-k="t-colours" onclick="pupTog(this)">done</button></div>
 <a class="btn mint" href="https://student.shkola.app/lesson/12118199/Remember?slug=BKQMf5nx&onlypreview=true" target="_blank">▶ Открыть — shkola.app</a>
-<div class="item task"><span class="n">10</span><span class="tt"><b>Цветная игра</b> 🎨 <small>— посмотри и посчитай: Yes или No?</small></span><button class="chip" id="pupp-chip-10" data-k="t-cgame" onclick="pupTog(this)">Готово</button></div>
+<div class="item task"><span class="n">10</span><span class="tt"><b>Цветная игра</b> 🎨 <small>— посмотри и посчитай: Yes или No?</small></span><button class="chip" id="pupp-chip-10" data-k="t-cgame" onclick="pupTog(this)">done</button></div>
 <div id="cgame" style="background:#eafbf6;border-radius:14px;padding:12px;margin:6px 0">
 <div id="cg-count" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 10</div>
 <div id="cg-caption" style="text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.45rem;color:#2D3436;min-height:2em;margin:8px 0"></div>
@@ -171,10 +171,10 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
   <div class="card hw-body">
     <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
 
-    <div class="item task"><span class="n">1</span><span class="tt"><b>Читаем слова c буквой D!</b> 📖</span><button class="chip" id="pupp-chip-1" data-k="t-read" onclick="pupTog(this)">Готово</button></div>
+    <div class="item task"><span class="n">1</span><span class="tt"><b>Читаем слова c буквой D!</b> 📖</span><button class="chip" id="pupp-chip-1" data-k="t-read" onclick="pupTog(this)">done</button></div>
     <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-d.html#2" target="_blank">📖 Открыть d</a>
 
-    <div class="item task"><span class="n">2</span><span class="tt"><b>Мини-тест: посчитай — Yes или No?</b> 🧮 <small>— посчитай картинки и нажми кнопку!</small></span><button class="chip" id="pupp-chip-2" data-k="t-test" onclick="pupTog(this)">Готово</button></div>
+    <div class="item task"><span class="n">2</span><span class="tt"><b>Мини-тест: посчитай — Yes или No?</b> 🧮 <small>— посчитай картинки и нажми кнопку!</small></span><button class="chip" id="pupp-chip-2" data-k="t-test" onclick="pupTog(this)">done</button></div>
     <div id="t2game" style="background:#f1ecff;border-radius:14px;padding:12px;margin:6px 0">
       <div id="t2-count" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 5</div>
       <div id="t2-pics" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:10px 0;min-height:60px"></div>
@@ -191,13 +191,13 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
 
     
 
-        <div class="item task"><span class="n">3</span><span class="tt"><b>Буквы d и b</b> 🔍 <small>— какая это буква? Нажми правильную!</small></span><button class="chip" id="pupp-chip-3" data-k="t-db" onclick="pupTog(this)">Готово</button></div>
+        <div class="item task"><span class="n">3</span><span class="tt"><b>Буквы d и b</b> 🔍 <small>— какая это буква? Нажми правильную!</small></span><button class="chip" id="pupp-chip-3" data-k="t-db" onclick="pupTog(this)">done</button></div>
     <a class="btn" href="https://wordwall.net/ru/resource/57005922/b-and-d" target="_blank">▶ Играть — b и d</a>
 
-    <div class="item task"><span class="n">4</span><span class="tt"><b>Игра: He или She?</b> 🎮 <small>— Peppa Pig, Шрек и все-все-все!</small></span><button class="chip" id="pupp-chip-4" data-k="t-heshe" onclick="pupTog(this)">Готово</button></div>
+    <div class="item task"><span class="n">4</span><span class="tt"><b>Игра: He или She?</b> 🎮 <small>— Peppa Pig, Шрек и все-все-все!</small></span><button class="chip" id="pupp-chip-4" data-k="t-heshe" onclick="pupTog(this)">done</button></div>
     <a class="btn" href="https://wordwall.net/resource/85471862" target="_blank">▶ Играть — He или She?</a>
 
-    <div class="item task"><span class="n">5</span><span class="tt"><b>Песенка Give me red!</b> 🎵 <small>— слушай и подпевай!</small></span><button class="chip" id="pupp-chip-5" data-k="t-song" onclick="pupTog(this)">Готово</button></div>
+    <div class="item task"><span class="n">5</span><span class="tt"><b>Песенка Give me red!</b> 🎵 <small>— слушай и подпевай!</small></span><button class="chip" id="pupp-chip-5" data-k="t-song" onclick="pupTog(this)">done</button></div>
     <audio controls preload="none" src="../../media/pw1-cd1-7-song.mp3"></audio>
     <button class="btn" onclick="var ly=document.getElementById('gmely');var hid=ly.style.display==='none';ly.style.display=hid?'block':'none';this.textContent=hid?'🙈 Скрыть слова':'👀 Посмотреть слова';">👀 Посмотреть слова</button>
     <div id="gmely" style="display:none;background:#fff8db;border-radius:14px;padding:12px;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.15rem;color:#2D3436;line-height:1.8">
@@ -209,14 +209,14 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
       <div>Give me white ⚪ — yeah, all right!</div>
     </div>
 
-    <div class="item task"><span class="n">6</span><span class="tt"><b>Игра Colours</b> 🎨 <small>— на shkola.app!</small></span><button class="chip" id="pupp-chip-6" data-k="t-colours" onclick="pupTog(this)">Готово</button></div>
+    <div class="item task"><span class="n">6</span><span class="tt"><b>Игра Colours</b> 🎨 <small>— на shkola.app!</small></span><button class="chip" id="pupp-chip-6" data-k="t-colours" onclick="pupTog(this)">done</button></div>
     <a class="btn mint" href="https://student.shkola.app/lesson/12118199/Remember?slug=BKQMf5nx&onlypreview=true" target="_blank">▶ Открыть — shkola.app</a>
 
-<div class="item task"><span class="n">7</span><span class="tt"><b>AB стр. 12 — упр. 1 и 2</b> 📖 <small>— упр. 1: слушай и пиши номер в книжке! Упр. 2: веди пальцем по линиям!</small></span><button class="chip" id="pupp-chip-7" data-k="t-ab" onclick="pupTog(this)">Готово</button></div>
+<div class="item task"><span class="n">7</span><span class="tt"><b>AB стр. 12 — упр. 1 и 2</b> 📖 <small>— упр. 1: слушай и пиши номер в книжке! Упр. 2: веди пальцем по линиям!</small></span><button class="chip" id="pupp-chip-7" data-k="t-ab" onclick="pupTog(this)">done</button></div>
     <button class="btn" onclick="var im=document.getElementById('ab12img');var hid=im.style.display==='none';im.style.display=hid?'block':'none';this.textContent=hid?'🙈 Спрятать страничку':'📸 Покажи страничку';">📸 Покажи страничку</button>
     <img id="ab12img" src="../../media/kb1-u2-ab12.png" alt="AB стр. 12" style="display:none;width:min(520px,100%);align-self:center;border-radius:14px;box-shadow:var(--shadow)">
     <audio controls preload="none" src="../../media/kb1-u2-ab12-t06.mp3"></audio>
-    <div class="item task"><span class="n">8</span><span class="tt"><b>AB стр. 15 — наклейки!</b> ✨ <small>— найди наклейки и приклей на страницу!</small></span><button class="chip" id="pupp-chip-8" data-k="t-ab15" onclick="pupTog(this)">Готово</button></div>
+    <div class="item task"><span class="n">8</span><span class="tt"><b>AB стр. 15 — наклейки!</b> ✨ <small>— найди наклейки и приклей на страницу!</small></span><button class="chip" id="pupp-chip-8" data-k="t-ab15" onclick="pupTog(this)">done</button></div>
     <button class="btn" onclick="var im=document.getElementById('ab15img');var hid=im.style.display==='none';im.style.display=hid?'block':'none';this.textContent=hid?'🙈 Спрятать страничку':'📸 Покажи страничку';">📸 Покажи страничку</button>
     <img id="ab15img" src="../../media/kb1-u2-ab15.png" alt="AB стр. 15 — наклейки" style="display:none;width:min(520px,100%);align-self:center;border-radius:14px;box-shadow:var(--shadow)">
 
@@ -248,22 +248,22 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
   <div class="card hw-body">
     <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
 
-    <div class="item task"><span class="n">1</span><span class="tt"><b>Читаем смешные предложения!</b> 📖 <small>— пролистай всю историю про букву M и прочитай смешные предложения в конце!</small></span><button class="chip" id="pupp-chip-1" data-k="t-read" onclick="pupTog(this)">Готово</button></div>
+    <div class="item task"><span class="n">1</span><span class="tt"><b>Читаем смешные предложения!</b> 📖 <small>— пролистай всю историю про букву M и прочитай смешные предложения в конце!</small></span><button class="chip" id="pupp-chip-1" data-k="t-read" onclick="pupTog(this)">done</button></div>
     <a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-m.html" target="_blank">📖 Открыть истории про букву M</a>
 
-    <div class="item task"><span class="n">2</span><span class="tt"><b>Лист «Дорисуй»</b> 🎨 <small>— посчитай и дорисуй!</small></span><button class="chip" id="pupp-chip-2" data-k="t-dor" onclick="pupTog(this)">Готово</button></div>
+    <div class="item task"><span class="n">2</span><span class="tt"><b>Лист «Дорисуй»</b> 🎨 <small>— посчитай и дорисуй!</small></span><button class="chip" id="pupp-chip-2" data-k="t-dor" onclick="pupTog(this)">done</button></div>
 
-    <div class="item task"><span class="n">3</span><span class="tt"><b>Лист Pp</b> ✏️ <small>— обведи буквы! P p · p p</small></span><button class="chip" id="pupp-chip-3" data-k="t-pp" onclick="pupTog(this)">Готово</button></div>
+    <div class="item task"><span class="n">3</span><span class="tt"><b>Лист Pp</b> ✏️ <small>— обведи буквы! P p · p p</small></span><button class="chip" id="pupp-chip-3" data-k="t-pp" onclick="pupTog(this)">done</button></div>
 
-    <div class="item task"><span class="n">4</span><span class="tt"><b>AB стр. 14 — упр. 1 и 2</b> 📖 <small>— прочитай слова Маме и Папе!</small></span><button class="chip" id="pupp-chip-4" data-k="t-ab" onclick="pupTog(this)">Готово</button></div>
+    <div class="item task"><span class="n">4</span><span class="tt"><b>AB стр. 14 — упр. 1 и 2</b> 📖 <small>— прочитай слова Маме и Папе!</small></span><button class="chip" id="pupp-chip-4" data-k="t-ab" onclick="pupTog(this)">done</button></div>
     <img src="../../media/kb1-u2-ab14.png" alt="AB p. 14 — упр. 1 и 2" style="width:min(520px,100%);align-self:center;border-radius:14px;box-shadow:var(--shadow)">
 
-    <div class="item task"><span class="n">5</span><span class="tt"><b>Пальчиковые куклы — PB стр. 13</b> 🧵 <small>— вырежи, раскрась, сделай кукол! Лист в портфеле.</small></span><button class="chip" id="pupp-chip-5" data-k="t-pup" onclick="pupTog(this)">Готово</button></div>
+    <div class="item task"><span class="n">5</span><span class="tt"><b>Пальчиковые куклы — PB стр. 13</b> 🧵 <small>— вырежи, раскрась, сделай кукол! Лист в портфеле.</small></span><button class="chip" id="pupp-chip-5" data-k="t-pup" onclick="pupTog(this)">done</button></div>
     <img src="../../media/kb1-u2-pb13.png" alt="PB p. 13 — пальчиковые куклы" style="width:min(520px,100%);align-self:center;border-radius:14px;box-shadow:var(--shadow)">
     <small style="color:var(--ink-soft)">🎵 Песенка Mr Star — спой её своим куклам!</small>
     <audio controls preload="none" src="../../media/kb1-u2-pb13-t19.mp3"></audio>
 
-    <div class="item task"><span class="n">6</span><span class="tt"><b>Игра Wordwall — ABC-P</b> 🎮 <small>— буква P и её слова!</small></span><button class="chip" id="pupp-chip-6" data-k="t-ww" onclick="pupTog(this)">Готово</button></div>
+    <div class="item task"><span class="n">6</span><span class="tt"><b>Игра Wordwall — ABC-P</b> 🎮 <small>— буква P и её слова!</small></span><button class="chip" id="pupp-chip-6" data-k="t-ww" onclick="pupTog(this)">done</button></div>
     <a class="btn" href="https://wordwall.net/resource/73491297/wow-abc-p" target="_blank">▶ Играть — ABC-P</a>
 
     <div class="progress" id="pupp-prog">Отмечено: 0 из 6</div>
@@ -620,7 +620,7 @@ function pupPaint(){
     if(!c)continue;
     on=localStorage.getItem(PUPP_KEY+c.getAttribute('data-k'))==='1';
     c.classList.toggle('on',on);
-    c.textContent=on?'✓ Готово':'Готово';
+    c.textContent=on?'✓ done':'done';
   }
   var d=pupAll(), sent=localStorage.getItem(PUPP_KEY+'sent')==='1';
   document.getElementById('pupp-prog').textContent='Отмечено: '+d+' из '+PUPP_N;
