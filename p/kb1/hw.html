@@ -102,7 +102,7 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
   </header>
 
 <details class="hw-row" open>
-<summary><span class="txt"><span class="nm">Урок 10 · Постеры и листики ✏️ <span class="new">✨ новое!</span></span><br><span class="dt">читаем · Dd — смешные предложения · листики · ABC-N · песенка · 8 Colours</span></span></summary>
+<summary><span class="txt"><span class="nm">Задания по буквам - последние буквы алфавита! <span class="new">✨ новое!</span></span><br><span class="dt">читаем · Dd — смешные предложения · листики · ABC-N · песенка · 8 Colours</span></span></summary>
 <div class="card hw-body">
 <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
 <div class="item task"><span class="n">1</span><span class="tt"><b>Читаем! 📖</b></span></div>
@@ -608,7 +608,7 @@ function pupSend(){
   }catch(e){}
   var gs=null;try{gs=localStorage.getItem('kb1-u10a-game')}catch(e){}
   var gc=null;try{gc=localStorage.getItem('kb1-u10b-game')}catch(e){}
-  var txt='KB 1.'+grp+' · Урок 10 · Постеры и листики · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+(gc?' · Цвет: '+gc+' из 10':'')+' · '+pupDate();
+  var txt='KB 1.'+grp+' · Задания по буквам - последние буквы алфавита! · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+(gc?' · Цвет: '+gc+' из 10':'')+' · '+pupDate();
   if(window.unscrSend){ unscrSend(txt); } else { pupQueue(txt); }
   localStorage.setItem(PUPP_KEY+'sent','1');
   pupPaint();
