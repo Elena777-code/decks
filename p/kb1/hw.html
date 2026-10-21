@@ -7,6 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
+@keyframes cgshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.cgwrong{animation:cgshake .4s}
+</style>
+<style>
 :root{
   --mint:#95E1D3;--mint-deep:#5ecbb8;--peach:#FCE38A;--lavender:#C8B6FF;
   --lavender-deep:#9a7fff;--cream:#FFF8F0;--pink:#FF8FAB;
@@ -727,9 +731,11 @@ function showSheet(n,btn){
    the captions are built FROM its truth: pick a group, tell it truthfully (Yes)
    or lie on ONE axis — count, colour or item (No). Random every run. */
 var CGT=[{n:3,c:'red',i:'pens'},{n:3,c:'blue',i:'books'},{n:3,c:'green',i:'pencils'},{n:3,c:'yellow',i:'chairs'},{n:2,c:'white',i:'tables'},{n:3,c:'black',i:'erasers'}];
-var cgI=0,cgScore=0,cgYes=false,cgPlan=[];
+var cgI=0,cgScore=0,cgYes=false,cgTried=false,cgPlan=[];
+function capReset(){var c=document.getElementById('cg-caption');c.style.color='';c.classList.remove('cgwrong');}
 function cgR(n){return Math.floor(Math.random()*n);}
 function cgRound(){
+  cgTried=false;capReset();
   cgYes=cgPlan[cgI];
   var g=CGT[cgR(CGT.length)],n=g.n,c=g.c,it=g.i;
   if(!cgYes){ var lie=cgR(3);
@@ -751,15 +757,27 @@ function cgStart(){
 }
 function cgAns(ans){
   if(cgI>=10)return;
-  if(ans===cgYes)cgScore++;
-  cgI++;
-  if(cgI<10){cgRound();return;}
-  try{localStorage.setItem('kb1-u10b-game',String(cgScore))}catch(e){}
-  document.getElementById('cg-caption').textContent='Ready? Look and count!';
-  document.getElementById('cg-end').style.display='block';
-  document.getElementById('cg-end').textContent=cgScore+' / 10 🌟 Great job!';
-  document.getElementById('cg-yes').style.display='none';document.getElementById('cg-no').style.display='none';
-  document.getElementById('cg-again').style.display='block';
+  var cap=document.getElementById('cg-caption');
+  if(ans===cgYes){
+    if(!cgTried)cgScore++;
+    cap.textContent='Правильно! 🌟';cap.style.color='#27ae60';
+    cgI++;
+    if(cgI<10){setTimeout(function(){capReset();cgRound();},800);}
+    else{
+      setTimeout(function(){
+        capReset();cap.textContent='Ready? Look and count!';
+        try{localStorage.setItem('kb1-u10b-game',String(cgScore))}catch(e){}
+        document.getElementById('cg-end').style.display='block';
+        document.getElementById('cg-end').textContent=cgScore+' из 10 с первого раза! 🌟 Great job!';
+        document.getElementById('cg-yes').style.display='none';document.getElementById('cg-no').style.display='none';
+        document.getElementById('cg-again').style.display='block';
+      },800);
+    }
+  }else{
+    cgTried=true;
+    cap.textContent='Попробуй ещё! 👀';cap.style.color='#e74c3c';
+    cap.classList.remove('cgwrong');void cap.offsetWidth;cap.classList.add('cgwrong');
+  }
 }
 cgStart();
 </script>
