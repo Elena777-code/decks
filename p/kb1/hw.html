@@ -726,19 +726,23 @@ function showSheet(n,btn){
    the captions are built FROM its truth: pick a group, tell it truthfully (Yes)
    or lie on ONE axis — count, colour or item (No). Random every run. */
 var CGT=[{n:3,c:'red',i:'pens'},{n:3,c:'blue',i:'books'},{n:3,c:'green',i:'pencils'},{n:3,c:'yellow',i:'chairs'},{n:2,c:'white',i:'tables'},{n:3,c:'black',i:'erasers'}];
-var cgI=0,cgScore=0,cgYes=false;
+var cgI=0,cgScore=0,cgYes=false,cgPlan=[];
 function cgR(n){return Math.floor(Math.random()*n);}
 function cgRound(){
-  var g=CGT[cgR(CGT.length)],n=g.n,c=g.c,it=g.i,lie=cgR(4);
-  if(lie===1){do{n=1+cgR(6);}while(n===g.n);}
-  if(lie===2){var oc=CGT.filter(function(x){return x.c!==g.c;});c=oc[cgR(oc.length)].c;}
-  if(lie===3){var oi=CGT.filter(function(x){return x.i!==g.i;});it=oi[cgR(oi.length)].i;}
-  cgYes=(n===g.n&&c===g.c&&it===g.i);
+  cgYes=cgPlan[cgI];
+  var g=CGT[cgR(CGT.length)],n=g.n,c=g.c,it=g.i;
+  if(!cgYes){ var lie=cgR(3);
+    if(lie===0){do{n=1+cgR(6);}while(n===g.n);}
+    if(lie===1){var oc=CGT.filter(function(x){return x.c!==g.c;});c=oc[cgR(oc.length)].c;}
+    if(lie===2){var oi=CGT.filter(function(x){return x.i!==g.i;});it=oi[cgR(oi.length)].i;}
+  }
   document.getElementById('cg-caption').textContent=n+' '+c+' '+it+' — Yes or No?';
   document.getElementById('cg-count').textContent=(cgI+1)+' / 10';
 }
 function cgStart(){
   cgI=0;cgScore=0;
+  cgPlan=[true,true,true,true,true,false,false,false,false,false];
+  for(var i=cgPlan.length-1;i>0;i--){var j=cgR(i+1);var t=cgPlan[i];cgPlan[i]=cgPlan[j];cgPlan[j]=t;}
   document.getElementById('cg-end').style.display='none';
   document.getElementById('cg-again').style.display='none';
   document.getElementById('cg-yes').style.display='';document.getElementById('cg-no').style.display='';
