@@ -98,7 +98,72 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
   </header>
 
 <details class="hw-row" open>
-  <summary><span class="txt"><span class="nm">Урок 10 · Мини-тест и чтение 📖 <span class="new">✨ новое!</span></span><br><span class="dt">читаем слова Dd · мини-тест · d и b · He/She · песенка · Colours · AB 12, 15</span></span></summary>
+<summary><span class="txt"><span class="nm">Урок 10 · Постеры и листики ✏️ <span class="new">✨ новое!</span></span><br><span class="dt">постеры · Dd — смешные предложения · листики · ABC-N · песенка · 8 Colours</span></span></summary>
+<div class="card hw-body">
+<div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
+<div class="item task"><span class="n">1</span><span class="tt"><b>Читаем постеры! 📖</b> <small>— маленькие постеры в портфеле. Четыре раза — каждый по-своему!</small></span></div>
+<div class="item task" style="padding:.45em .7em"><span class="n">1</span><span class="tt"><b>🐢 Прочитай очень медленно</b></span><button class="chip" id="pupp-chip-1" data-k="t-read-slow" onclick="pupTog(this)">Готово</button></div>
+<div class="item task" style="padding:.45em .7em"><span class="n">2</span><span class="tt"><b>📢 Прочитай очень громко</b></span><button class="chip" id="pupp-chip-2" data-k="t-read-loud" onclick="pupTog(this)">Готово</button></div>
+<div class="item task" style="padding:.45em .7em"><span class="n">3</span><span class="tt"><b>🤫 Прочитай очень тихо</b></span><button class="chip" id="pupp-chip-3" data-k="t-read-quiet" onclick="pupTog(this)">Готово</button></div>
+<div class="item task" style="padding:.45em .7em"><span class="n">4</span><span class="tt"><b>🚀 Прочитай очень быстро</b></span><button class="chip" id="pupp-chip-4" data-k="t-read-fast" onclick="pupTog(this)">Готово</button></div>
+<button class="btn" onclick="var g=document.getElementById('postergrid');var hid=g.style.display==='none';g.style.display=hid?'grid':'none';this.textContent=hid?'🙈 Спрятать постеры':'🖼️ Покажи постеры';">🖼️ Покажи постеры</button>
+<div id="postergrid" style="display:none;margin:6px 0">
+<img src="../../media/kb1-u2-pat-ratbat-poster.png" alt="Pat the rat and the bat on the mat!" style="width:min(430px,100%);border-radius:10px;box-shadow:0 2px 8px rgba(45,52,54,.15)">
+</div>
+</div>
+<div class="item task"><span class="n">5</span><span class="tt"><b>Прочитай смешные предложения!</b> 📖 <small>— буква Dd. Нажми кнопку и читай!</small></span><button class="chip" id="pupp-chip-5" data-k="t-dd" onclick="pupTog(this)">Готово</button></div>
+<a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-d.html#8" target="_blank">📖 Открыть Dd — смешные предложения</a>
+<div class="item task"><span class="n">6</span><span class="tt"><b>Выполни задания!</b> ✏️ <small>— обвести и дописать, листики в портфеле!</small></span><button class="chip" id="pupp-chip-6" data-k="t-sheets" onclick="pupTog(this)">Готово</button></div>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin:6px 0;align-items:center">
+<button class="btn" onclick="showSheet('q',this)">Q Z</button>
+<button class="btn" onclick="showSheet('x',this)">X</button>
+<button class="btn" onclick="showSheet('w',this)">W</button>
+<button class="btn" onclick="showSheet('y',this)">Y</button>
+<button class="btn" onclick="showSheet('nn',this)">Nn</button>
+<button class="btn" onclick="showSheet('who',this)">«Who's that?»</button>
+</div>
+<img id="sheetimg" alt="worksheet" style="display:none;width:min(520px,100%);align-self:center;border-radius:14px;box-shadow:var(--shadow)">
+<div class="item task"><span class="n">7</span><span class="tt"><b>Игра ABC-N</b> 🎮 <small>— N is for… NUT!</small></span><button class="chip" id="pupp-chip-7" data-k="t-wordwall" onclick="pupTog(this)">Готово</button></div>
+<a class="btn" href="https://wordwall.net/resource/73491516/wow-abc-n" target="_blank">▶ Играть — ABC-N</a>
+<div class="item task"><span class="n">8</span><span class="tt"><b>Песенка — Mr Star, how are you?</b> 🎵 <small>— спой с кукольками!</small></span><button class="chip" id="pupp-chip-8" data-k="t-song" onclick="pupTog(this)">Готово</button></div>
+<audio controls preload="none" src="../../media/kb1-u2-pb13-t19.mp3"></audio>
+<div class="item task"><span class="n">9</span><span class="tt"><b>Новая игра 8 Colours</b> 🎨 <small>— на shkola.app!</small></span><button class="chip" id="pupp-chip-9" data-k="t-colours" onclick="pupTog(this)">Готово</button></div>
+<a class="btn mint" href="https://student.shkola.app/lesson/12118199/Remember?slug=BKQMf5nx&onlypreview=true" target="_blank">▶ Открыть — shkola.app</a>
+<div class="item task"><span class="n">10</span><span class="tt"><b>Цветная игра</b> 🎨 <small>— посмотри и посчитай: Yes или No?</small></span><button class="chip" id="pupp-chip-10" data-k="t-cgame" onclick="pupTog(this)">Готово</button></div>
+<div id="cgame" style="background:#eafbf6;border-radius:14px;padding:12px;margin:6px 0">
+<div id="cg-count" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 10</div>
+<div id="cg-caption" style="text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.45rem;color:#2D3436;min-height:2em;margin:8px 0"></div>
+<img id="cg-scene" src="../../media/kb1-u2-cg-scene.png" alt="the school items scene" style="width:min(400px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:8px auto;display:block">
+<div style="display:flex;gap:12px;justify-content:center;margin-top:10px">
+<button id="cg-yes" onclick="cgAns(true)" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;border:none;border-radius:99px;padding:.5em 1.6em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">Yes 👍</button>
+<button id="cg-no" onclick="cgAns(false)" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;border:none;border-radius:99px;padding:.5em 1.6em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">No 👎</button>
+</div>
+<button id="cg-again" onclick="cgStart()" style="display:none;margin:8px auto 0;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.2rem;border:none;border-radius:99px;padding:.5em 1.5em;background:#95E1D3;color:#2D3436;cursor:pointer">▶ Играть ещё раз — новые задания!</button>
+<div id="cg-end" style="display:none;text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.4rem;color:#2D3436;margin-top:6px"></div>
+</div>
+<div class="progress" id="pupp-prog">Отмечено: 0 из 10</div>
+<div class="who">
+<input id="pupp-name" placeholder="Имя" autocomplete="off">
+<input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
+<span class="kprefix">KB 1.</span><input id="pupp-group" placeholder="?" maxlength="1" autocomplete="off" title="Твоя группа: 1, 2 или 3">
+</div>
+<button class="send" id="pupp-send" onclick="pupSend()">📤 Отправить Мисс Елене</button>
+<div class="hint" id="pupp-hint"></div>
+<div class="boxwrap" id="pupp-boxwrap">
+<div class="box" onclick="document.getElementById('pupp-cartoon').classList.add('show')">🎁</div>
+<div class="boxlabel">Твой подарок! Нажми!</div>
+<div class="cartoon" id="pupp-cartoon">
+<div class="pig">🐷✨</div>
+<h3>Peppa Pig — Daddy Pig рисует! 🎨</h3>
+<p>Ты молодец! Все задания сделаны. Смотри мультик!</p>
+<video controls preload="none" playsinline src="../../media/kb1-u2-peppa-paint.mp4" style="width:100%;border-radius:12px"></video>
+</div>
+</div>
+<div class="note">Если что-то не получается — напишите администратору Мисс Алёне, поможем.</div>
+</div>
+</details>
+<details class="hw-row">
+  <summary><span class="txt"><span class="nm">Урок 10 · Мини-тест и чтение 📖 </span><br><span class="dt">читаем слова Dd · мини-тест · d и b · He/She · песенка · Colours · AB 12, 15</span></span></summary>
   <div class="card hw-body">
     <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
 
@@ -497,7 +562,7 @@ document.getElementById('unscr-in').addEventListener('keydown',e=>{if(e.key==='E
 <script>
 /* Урок 9 · Куклы и ABC-P — the done chips + send + treasure (per-device localStorage).
    Send reuses the hub's unscrSend (the «Drill reports» form + its queue) when present. */
-var PUPP_KEY='kb1-u10a-', PUPP_N=8;
+var PUPP_KEY='kb1-u10b-', PUPP_N=10;
 function pupTog(el){
   var k=PUPP_KEY+el.getAttribute('data-k');
   localStorage.setItem(k, localStorage.getItem(k)==='1' ? '0' : '1');
@@ -538,7 +603,8 @@ function pupSend(){
     localStorage.setItem('kb1-hw-group',grp);
   }catch(e){}
   var gs=null;try{gs=localStorage.getItem('kb1-u10a-game')}catch(e){}
-  var txt='KB 1.'+grp+' · Урок 10 · Домашка: мини-тест и чтение · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+(gs?' · Мини-тест: '+gs+' из 10':'')+' · '+pupDate();
+  var gc=null;try{gc=localStorage.getItem('kb1-u10b-game')}catch(e){}
+  var txt='KB 1.'+grp+' · Урок 10 · Постеры и листики · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+(gc?' · Цвет: '+gc+' из 10':'')+' · '+pupDate();
   if(window.unscrSend){ unscrSend(txt); } else { pupQueue(txt); }
   localStorage.setItem(PUPP_KEY+'sent','1');
   pupPaint();
@@ -644,6 +710,53 @@ try{localStorage.removeItem('kb1-u10a-game')}catch(e){}
 ['table','pencil','chair','pen','book','eraser'].forEach(function(w){ var im = new Image(); im.src = '../../media/kb1-u2-fc-' + w + '.png'; });
 t2Show();
 window.addEventListener('load', function(){ if (typeof t2i !== 'undefined' && t2i === 0 && !t2lock) t2Show(); });
+</script>
+<script>
+var SHEETS={q:'../../media/kb1-read-l5-q.png',z:'../../media/kb1-read-l5-z.png',x:'../../media/kb1-read-l5-x.png',w:'../../media/kb1-read-l5-w.png',y:'../../media/kb1-read-l5-y.png',nn:'../../media/kb1-u2-ws-nn.png',who:'../../media/kb1-u2-ws-whosthat.png'};
+function showSheet(n,btn){
+  var im=document.getElementById('sheetimg');
+  im.src=SHEETS[n];im.style.display='block';
+  try{im.scrollIntoView({behavior:'smooth',block:'nearest'})}catch(e){}
+  var bs=btn.parentNode.querySelectorAll('.btn');for(var i=0;i<bs.length;i++){bs[i].style.background='';bs[i].style.color='';}
+  btn.style.background='#95E1D3';btn.style.color='#2D3436';
+}
+</script>
+<script>
+/* THE COLOUR GAME — one real scene (Elena's picture, counts verified by eye),
+   the captions are built FROM its truth: pick a group, tell it truthfully (Yes)
+   or lie on ONE axis — count, colour or item (No). Random every run. */
+var CGT=[{n:3,c:'red',i:'pens'},{n:3,c:'blue',i:'books'},{n:3,c:'green',i:'pencils'},{n:3,c:'yellow',i:'chairs'},{n:2,c:'white',i:'tables'},{n:3,c:'black',i:'erasers'}];
+var cgI=0,cgScore=0,cgYes=false;
+function cgR(n){return Math.floor(Math.random()*n);}
+function cgRound(){
+  var g=CGT[cgR(CGT.length)],n=g.n,c=g.c,it=g.i,lie=cgR(4);
+  if(lie===1){do{n=1+cgR(6);}while(n===g.n);}
+  if(lie===2){var oc=CGT.filter(function(x){return x.c!==g.c;});c=oc[cgR(oc.length)].c;}
+  if(lie===3){var oi=CGT.filter(function(x){return x.i!==g.i;});it=oi[cgR(oi.length)].i;}
+  cgYes=(n===g.n&&c===g.c&&it===g.i);
+  document.getElementById('cg-caption').textContent=n+' '+c+' '+it+' — Yes or No?';
+  document.getElementById('cg-count').textContent=(cgI+1)+' / 10';
+}
+function cgStart(){
+  cgI=0;cgScore=0;
+  document.getElementById('cg-end').style.display='none';
+  document.getElementById('cg-again').style.display='none';
+  document.getElementById('cg-yes').style.display='';document.getElementById('cg-no').style.display='';
+  cgRound();
+}
+function cgAns(ans){
+  if(cgI>=10)return;
+  if(ans===cgYes)cgScore++;
+  cgI++;
+  if(cgI<10){cgRound();return;}
+  try{localStorage.setItem('kb1-u10b-game',String(cgScore))}catch(e){}
+  document.getElementById('cg-caption').textContent='Ready? Look and count!';
+  document.getElementById('cg-end').style.display='block';
+  document.getElementById('cg-end').textContent=cgScore+' / 10 🌟 Great job!';
+  document.getElementById('cg-yes').style.display='none';document.getElementById('cg-no').style.display='none';
+  document.getElementById('cg-again').style.display='block';
+}
+cgStart();
 </script>
 </body>
 </html>
