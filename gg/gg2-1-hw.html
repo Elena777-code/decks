@@ -50,6 +50,10 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,6vw,2
 .arch a span{color:var(--ink-soft);font-weight:600;font-size:.85em}
 .warm{font-size:clamp(1.1rem,3.2vw,1.4rem);text-align:center}
 h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw,1.6rem)}
+.donechip{border:2px solid var(--line);background:#fff;border-radius:99px;padding:.22em .85em;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.95rem,2.8vw,1.15rem);
+  color:var(--ink-soft);cursor:pointer;transition:all .15s ease;margin-left:.4em;vertical-align:middle}
+.donechip.on{background:var(--mint);border-color:var(--mint-deep);color:var(--ink)}
 </style>
 </head>
 <body>
@@ -64,11 +68,7 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
 
 <div class="card now">
   <h2>Домашка · 22 октября</h2>
-  <p style="line-height:1.9">1) 📱 Слова спорта — <b>учи ещё раз</b> на shkola.app (с описаниями — как на уроке!)<br>2) 🧩 Упр. 4, WB стр. 70 — соедини на доске! Играй, впиши своё имя и нажми <b>📤 Send</b> — Мисс Елена получит твой результат</p>
-  <a class="bigbtn lav" href="https://student.shkola.app/lesson/12156096" target="_blank" rel="noopener">
-    <span class="ic">📱</span>
-    <span><span class="tt">1 · Слова спорта — учим ещё раз!</span><br><span class="sub">16 слов с описаниями — как на уроке</span></span>
-  </a>
+  <p style="line-height:1.9">1) 📱 Слова спорта — <b>учи ещё раз</b> на shkola.app (с описаниями — как на уроке!) <button class="donechip" id="doneWords" type="button">done</button><br>2) 🧩 Упр. 4, WB стр. 70 — соедини на доске! Играй, впиши своё имя и нажми <b>📤 Send</b> — Мисс Елена получит твой результат</p>
   <a class="bigbtn gold" href="gg2-1-ex4-match.html" target="_blank" rel="noopener">
     <span class="ic">🧩</span>
     <span><span class="tt">2 · Упр. 4 — матч на доске!</span><br><span class="sub">только упражнение · соедини 1–6 и a–f · отправь результат</span></span>
@@ -102,6 +102,20 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
 <div class="card mint">
   <p class="warm">Учите слова — и сыграйте матч! ⭐🧩⚽</p>
 </div>
+
+<script>
+/* the done chip: the words item — click when learned, remembers on this device */
+(function(){
+  var chip=document.getElementById('doneWords');
+  if(!chip)return;
+  var KEY='gg-hw-done-2210-words';
+  var on=false;
+  try{on=localStorage.getItem(KEY)==='1';}catch(e){}
+  function paint(){chip.textContent=on?'✓ done':'done';chip.classList.toggle('on',on);}
+  chip.addEventListener('click',function(){on=!on;try{localStorage.setItem(KEY,on?'1':'0');}catch(e){}paint();});
+  paint();
+})();
+</script>
 
 </body>
 </html>
