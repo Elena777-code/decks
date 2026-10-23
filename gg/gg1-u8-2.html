@@ -382,7 +382,13 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
       <div class="mtile" data-side="r" data-k="f"><span class="mno">f</span>taekwondo every Monday after school.<span class="mlink"></span></div>
     </div>
   </div>
-  <div class="card mint reveal-el" id="ex4done" style="display:none"><p>⭐ <b>6 / 6!</b> Every match is right — great job! <button class="reveal-btn" id="ex4again" style="font-size:clamp(.95rem,1.7vw,1.3rem);padding:.35em 1.1em;margin-left:.6em">↺ Play again</button></p></div>
+  <div class="card mint reveal-el" id="ex4done" style="display:none"><p>⭐ <b>6 / 6!</b> Every match is right — great job! <button class="reveal-btn" id="ex4again" style="font-size:clamp(.95rem,1.7vw,1.3rem);padding:.35em 1.1em;margin-left:.6em">↺ Play again</button></p>
+    <p style="margin-top:.6em;display:flex;gap:.5em;align-items:center;flex-wrap:wrap">
+      <input id="ex4name" placeholder="Your name" autocomplete="off" style="border:2px solid var(--line);border-radius:12px;padding:.35em .7em;font-family:inherit;font-size:clamp(1rem,1.8vw,1.35rem);font-weight:700;color:var(--ink);background:#fff">
+      <button class="reveal-btn" id="ex4send" style="font-size:clamp(1rem,1.8vw,1.35rem);padding:.35em 1.1em">📤 Send to Miss Elena</button>
+      <span id="ex4sent" style="font-weight:800;color:var(--mint-deep)"></span>
+    </p>
+  </div>
 </section>
 
 <!-- 5 · WI-FI SIGNAL -->
@@ -622,9 +628,8 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   <div class="eyebrow reveal-el">Homework 📘</div>
   <h1 class="title reveal-el">Homework! 🏠</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="card peach reveal-el"><p>1) 📖 <b style="color:var(--lavender-deep)">WB p. 71</b> — the whole page: <b>love/like/don't like/hate + -ing</b> and object pronouns. In the Workbook!</p></div>
-  <div class="card peach reveal-el"><p>2) 📱 The sports words — <b style="color:var(--lavender-deep)">learn them AGAIN</b> on shkola.app!</p></div>
-  <div class="card peach reveal-el"><p>3) 💻 <b style="color:var(--lavender-deep)">Extra Online Practice</b> — Unit 8, Video and Grammar.</p></div>
+  <div class="card peach reveal-el"><p>1) 📱 The sports words — <b style="color:var(--lavender-deep)">learn them AGAIN</b> on shkola.app! (the definitions pack — same clues as today)</p></div>
+  <div class="card peach reveal-el"><p>2) 🧩 <b style="color:var(--lavender-deep)">Ex 4 · WB p. 70</b> — play the board match again! Type your name and press <b>📤 Send</b> — Miss Elena gets your result.</p></div>
   <div class="card lavender reveal-el"><p>💙 The rule: <b style="color:var(--blue)">love · like · don't like · hate</b> + <b>-ing</b> — I love eat<b>ing</b>. · I hate cook<b>ing</b>. · Do you like cycl<b>ing</b>?</p></div>
   <div class="card mint reveal-el"><p>⭐ Great work today!</p></div>
 </section>
@@ -778,9 +783,11 @@ go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
 /* ============ Ex 4 board match (WB p. 70) — own block, own scope ============ */
 (function(){
   var KEY={a:'4',b:'5',c:'3',d:'1',e:'6',f:'2'};
+  var FORM_ACTION='https://docs.google.com/forms/d/e/1FAIpQLScFp8Gy4bW2_WNxSfX7yrR1nSg3agXexUAn4owNWzqRF00wgg/formResponse';
+  var FORM_ENTRY='entry.10697757';
   var board=document.getElementById('ex4match');
   if(!board)return;
-  var sel=null,done=0;
+  var sel=null,done=0,tries=0;
   var tiles=[].slice.call(board.querySelectorAll('.mtile'));
   function link(l,r){
     l.classList.add('locked');r.classList.add('locked');
@@ -789,10 +796,12 @@ go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
   }
   function reset(){
     tiles.forEach(function(t){t.classList.remove('locked','sel','shake');t.querySelector('.mlink').textContent='';});
-    sel=null;done=0;
+    sel=null;done=0;tries=0;
     link(tile('1'),tile('d'));
     var banner=document.getElementById('ex4done');
     if(banner)banner.style.display='none';
+    var sent=document.getElementById('ex4sent');
+    if(sent)sent.textContent='';
   }
   function tile(k){return tiles.filter(function(t){return t.dataset.k===k;})[0];}
   link(tile('1'),tile('d'));
@@ -808,6 +817,7 @@ go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
         link(l,r);done++;
         if(done===5){var b=document.getElementById('ex4done');if(b)b.style.display='';}
       }else{
+        tries++;
         [l,r].forEach(function(x){x.classList.add('shake');setTimeout(function(){x.classList.remove('shake');},480);});
       }
       sel.classList.remove('sel');sel=null;
@@ -815,6 +825,20 @@ go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
   });
   var again=document.getElementById('ex4again');
   if(again)again.addEventListener('click',function(e){e.stopPropagation();reset();});
+  var nameEl=document.getElementById('ex4name');
+  try{if(nameEl)nameEl.value=localStorage.getItem('gg-ex4-name')||'';}catch(e){}
+  var send=document.getElementById('ex4send');
+  if(send)send.addEventListener('click',function(){
+    if(!nameEl)return;
+    var name=nameEl.value.trim();
+    if(!name){nameEl.style.borderColor='var(--pink)';nameEl.placeholder='Type your name first!';return;}
+    try{localStorage.setItem('gg-ex4-name',name);}catch(e){}
+    var report='GG2.1 · WB p. 70 Ex 4 Match · '+name+' · done · tries: '+tries+' · '+new Date().toLocaleString('en-GB');
+    var fd=new FormData();fd.append(FORM_ENTRY,report);
+    try{fetch(FORM_ACTION,{method:'POST',mode:'no-cors',body:fd});}catch(e){}
+    var sent=document.getElementById('ex4sent');
+    if(sent)sent.textContent='sent ✓';
+  });
 })();
 </script>
 </body>
