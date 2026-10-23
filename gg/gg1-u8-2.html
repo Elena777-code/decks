@@ -269,6 +269,23 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
 .qa .dclue{color:var(--ink-soft);font-style:italic}
 .vid{width:min(680px,100%);border-radius:18px;box-shadow:var(--shadow);background:#000;align-self:center}
 </style>
+<style>/* Ex 4 board match (WB p. 70) — the click-match widget */
+.matchwrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.4vw,20px);align-self:stretch}
+@media (max-width:700px){.matchwrap{grid-template-columns:1fr}}
+.mcol{display:flex;flex-direction:column;gap:clamp(6px,1vh,10px)}
+.mtile{cursor:pointer;user-select:none;background:var(--white);border:2px solid var(--lavender);
+  border-radius:14px;box-shadow:var(--shadow);padding:.4em .7em;
+  font-size:clamp(1rem,1.9vw,1.5rem);font-weight:600;line-height:1.3;
+  transition:transform .15s ease,border-color .15s ease,background .2s}
+.mtile:hover{transform:translateY(-2px)}
+.mtile .mno{font-family:'Fredoka',sans-serif;font-weight:800;color:var(--lavender-deep);margin-right:.4em}
+.mtile .mlink{color:var(--mint-deep);font-weight:800;white-space:nowrap;margin-left:.4em}
+.mtile.sel{border-color:var(--pink);background:#ffe9f0;transform:translateY(-2px)}
+.mtile.locked{background:#eafbf6;border-color:var(--mint-deep);cursor:default}
+.mtile.locked:hover{transform:none}
+.mtile.shake{animation:mshake .45s}
+@keyframes mshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+</style>
 </head>
 <body>
 
@@ -280,7 +297,7 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   <div class="eyebrow reveal-el">Go Getter 1 · Unit 8 · 8.2 · GG2.1</div>
   <h1 class="title reveal-el">Let's go to summer camp! 🏕</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">I can…</b> ⭐ use <b>love / like / don't like / hate + -ing</b> and object pronouns! <span class="stamp">build 22.10 · v1</span></p></div>
+  <div class="card mint reveal-el"><p><b style="color:var(--lavender-deep)">I can…</b> ⭐ use <b>love / like / don't like / hate + -ing</b> and object pronouns! <span class="stamp">build 22.10 · v2</span></p></div>
   <div class="card reveal-el" style="align-self:flex-start">
     <p style="font-size:clamp(1.05rem,1.9vw,1.45rem)"><b style="color:var(--lavender-deep)">🧺 Prepare ahead:</b> SB pp. 96–97 on desks · sound check ⬇ · nothing to print</p>
     <div style="display:grid;gap:.4vh;margin-top:.6vh">
@@ -341,7 +358,34 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
   <div class="card peach reveal-el"><p>🗣 We say: — <b>In number 3 I circled <span style="color:var(--blue)">go</span>!</b> — <b>Me too!</b></p></div>
 </section>
 
-<!-- 4 · WI-FI SIGNAL -->
+<!-- 4 · EX 4 — THE BOARD MATCH (WB p. 70, interactive) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Ex 4 · WB p. 70 · the board 🧩</div>
+  <h1 class="title reveal-el">Match on the board! 🧩</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Tap the beginning — then its ending! 1 + d is done for you.</div>
+  <div class="matchwrap reveal-el" id="ex4match">
+    <div class="mcol" data-side="l">
+      <div class="mtile" data-side="l" data-k="1"><span class="mno">1</span>I sometimes play<span class="mlink"></span></div>
+      <div class="mtile" data-side="l" data-k="2"><span class="mno">2</span>George does<span class="mlink"></span></div>
+      <div class="mtile" data-side="l" data-k="3"><span class="mno">3</span>Do you go<span class="mlink"></span></div>
+      <div class="mtile" data-side="l" data-k="4"><span class="mno">4</span>My brother plays<span class="mlink"></span></div>
+      <div class="mtile" data-side="l" data-k="5"><span class="mno">5</span>Sandra never goes<span class="mlink"></span></div>
+      <div class="mtile" data-side="l" data-k="6"><span class="mno">6</span>Do you often play<span class="mlink"></span></div>
+    </div>
+    <div class="mcol" data-side="r">
+      <div class="mtile" data-side="r" data-k="a"><span class="mno">a</span>hockey with his friends.<span class="mlink"></span></div>
+      <div class="mtile" data-side="r" data-k="b"><span class="mno">b</span>ice-skating because she can't ice-skate.<span class="mlink"></span></div>
+      <div class="mtile" data-side="r" data-k="c"><span class="mno">c</span>skiing with your family?<span class="mlink"></span></div>
+      <div class="mtile" data-side="r" data-k="d"><span class="mno">d</span>badminton with my dad or my brother.<span class="mlink"></span></div>
+      <div class="mtile" data-side="r" data-k="e"><span class="mno">e</span>basketball at school?<span class="mlink"></span></div>
+      <div class="mtile" data-side="r" data-k="f"><span class="mno">f</span>taekwondo every Monday after school.<span class="mlink"></span></div>
+    </div>
+  </div>
+  <div class="card mint reveal-el" id="ex4done" style="display:none"><p>⭐ <b>6 / 6!</b> Every match is right — great job! <button class="reveal-btn" id="ex4again" style="font-size:clamp(.95rem,1.7vw,1.3rem);padding:.35em 1.1em;margin-left:.6em">↺ Play again</button></p></div>
+</section>
+
+<!-- 5 · WI-FI SIGNAL -->
 <section class="slide">
   <div class="wifi"><span class="icon">📶</span></div>
 </section>
@@ -586,7 +630,7 @@ audio{width:min(560px,100%);margin-top:.4vh;height:44px}
 </section>
 
 <div id="nav">
-  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 21</span>
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 22</span>
   <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
 </div>
 
@@ -728,6 +772,49 @@ go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
     }).catch(()=>{});
   }
   poll();setInterval(poll,1500);
+})();
+</script>
+<script>
+/* ============ Ex 4 board match (WB p. 70) — own block, own scope ============ */
+(function(){
+  var KEY={a:'4',b:'5',c:'3',d:'1',e:'6',f:'2'};
+  var board=document.getElementById('ex4match');
+  if(!board)return;
+  var sel=null,done=0;
+  var tiles=[].slice.call(board.querySelectorAll('.mtile'));
+  function link(l,r){
+    l.classList.add('locked');r.classList.add('locked');
+    l.querySelector('.mlink').textContent='→ '+r.dataset.k+' ✓';
+    r.querySelector('.mlink').textContent='→ '+l.dataset.k+' ✓';
+  }
+  function reset(){
+    tiles.forEach(function(t){t.classList.remove('locked','sel','shake');t.querySelector('.mlink').textContent='';});
+    sel=null;done=0;
+    link(tile('1'),tile('d'));
+    var banner=document.getElementById('ex4done');
+    if(banner)banner.style.display='none';
+  }
+  function tile(k){return tiles.filter(function(t){return t.dataset.k===k;})[0];}
+  link(tile('1'),tile('d'));
+  tiles.forEach(function(t){
+    t.addEventListener('click',function(){
+      if(t.classList.contains('locked'))return;
+      if(!sel){sel=t;t.classList.add('sel');return;}
+      if(sel===t){sel.classList.remove('sel');sel=null;return;}
+      if(sel.dataset.side===t.dataset.side){sel.classList.remove('sel');sel=t;t.classList.add('sel');return;}
+      var l=sel.dataset.side==='l'?sel:t;
+      var r=sel.dataset.side==='l'?t:sel;
+      if(KEY[r.dataset.k]===l.dataset.k){
+        link(l,r);done++;
+        if(done===5){var b=document.getElementById('ex4done');if(b)b.style.display='';}
+      }else{
+        [l,r].forEach(function(x){x.classList.add('shake');setTimeout(function(){x.classList.remove('shake');},480);});
+      }
+      sel.classList.remove('sel');sel=null;
+    });
+  });
+  var again=document.getElementById('ex4again');
+  if(again)again.addEventListener('click',function(e){e.stopPropagation();reset();});
 })();
 </script>
 </body>
