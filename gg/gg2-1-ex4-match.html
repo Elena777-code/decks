@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GG 2.1 — Упр. 4, WB стр. 70 — соедини!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ THE EX 4 DRILL — the exercise only, not the deck
+   (Elena: «give them the exercise only, as a drill» — the тренажёр/
+   Irina-sprint shape: one page, one mechanic, the result posts to the
+   GG form). WB p. 70 Ex 4: Match 1–6 to a–f. Phone-first, Russian
+   chrome, the exercise itself in English. NO answers on the page —
+   the feedback comes only after the pupil's own tap. ============ */
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A;
+  --lavender:#C8B6FF; --lavender-deep:#9a7fff; --cream:#FFF8F0;
+  --pink:#FF8FAB; --ink:#2D3436; --ink-soft:#636e72; --white:#fff;
+  --blue:#3a6ea5; --radius:22px; --shadow:0 10px 30px rgba(45,52,54,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);
+  min-height:100vh;padding:4vh 4vw 8vh;display:flex;flex-direction:column;gap:2vh;
+  align-items:stretch;max-width:640px;margin:0 auto}
+.eyebrow{font-size:clamp(.95rem,2.6vw,1.15rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lavender-deep)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,6vw,2.6rem);line-height:1.15}
+.accent-line{width:110px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.4vh,24px) clamp(16px,3vw,28px)}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card p{font-size:clamp(1.05rem,3.1vw,1.35rem);line-height:1.5}
+.b{color:var(--lavender-deep)}
+.task{background:var(--peach);border-radius:99px;align-self:flex-start;
+  padding:.45em 1.2em;font-size:clamp(1.05rem,2.9vw,1.4rem);font-weight:800;color:var(--ink)}
+.matchwrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.4vw,16px);align-self:stretch}
+@media (max-width:520px){.matchwrap{grid-template-columns:1fr}}
+.mcol{display:flex;flex-direction:column;gap:clamp(6px,1vh,10px)}
+.mtile{cursor:pointer;user-select:none;background:var(--white);border:2px solid var(--lavender);
+  border-radius:14px;box-shadow:var(--shadow);padding:.45em .7em;
+  font-size:clamp(1rem,3vw,1.35rem);font-weight:600;line-height:1.3;
+  transition:transform .15s ease,border-color .15s ease,background .2s;font-family:'Nunito',sans-serif}
+.mtile:hover{transform:translateY(-2px)}
+.mtile .mno{font-family:'Fredoka',sans-serif;font-weight:800;color:var(--lavender-deep);margin-right:.4em}
+.mtile .mlink{color:var(--mint-deep);font-weight:800;white-space:nowrap;margin-left:.4em}
+.mtile.sel{border-color:var(--pink);background:#ffe9f0;transform:translateY(-2px)}
+.mtile.locked{background:#eafbf6;border-color:var(--mint-deep);cursor:default}
+.mtile.locked:hover{transform:none}
+.mtile.shake{animation:mshake .45s}
+@keyframes mshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+.donebox{display:none}
+.nameinput{border:2px solid var(--line);border-radius:12px;padding:.4em .7em;font-family:inherit;
+  font-size:clamp(1rem,3vw,1.3rem);font-weight:700;color:var(--ink);background:#fff;flex:1;min-width:140px}
+.sendbtn{border:none;border-radius:99px;padding:.5em 1.2em;cursor:pointer;font-family:'Fredoka',sans-serif;
+  font-weight:700;font-size:clamp(1rem,3vw,1.3rem);color:var(--ink);background:var(--mint);
+  box-shadow:var(--shadow);transition:transform .15s ease}
+.sendbtn:hover{transform:scale(1.05)}
+.againbtn{border:none;border-radius:99px;padding:.35em 1em;cursor:pointer;font-family:'Fredoka',sans-serif;
+  font-weight:700;font-size:clamp(.95rem,2.8vw,1.2rem);color:var(--ink);background:var(--peach);
+  margin-left:.5em}
+.sent{font-weight:800;color:var(--mint-deep)}
+.foot{color:var(--ink-soft);font-size:clamp(.9rem,2.6vw,1.05rem);text-align:center}
+.safari{color:var(--ink-soft);font-size:clamp(.9rem,2.6vw,1.05rem)}
+</style>
+</head>
+<body>
+
+<div class="eyebrow">GG 2.1 · Go Getter 1 · WB стр. 70</div>
+<h1>Упр. 4 — соедини! 🧩</h1>
+<div class="accent-line"></div>
+
+<div class="task">🎯 Соедини начало (1–6) и конец (a–f)! Нажми две карточки. 1 + d — сделано для примера.</div>
+
+<div class="matchwrap" id="ex4match">
+  <div class="mcol" data-side="l">
+    <button class="mtile" data-side="l" data-k="1"><span class="mno">1</span>I sometimes play<span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="2"><span class="mno">2</span>George does<span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="3"><span class="mno">3</span>Do you go<span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="4"><span class="mno">4</span>My brother plays<span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="5"><span class="mno">5</span>Sandra never goes<span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="6"><span class="mno">6</span>Do you often play<span class="mlink"></span></button>
+  </div>
+  <div class="mcol" data-side="r">
+    <button class="mtile" data-side="r" data-k="a"><span class="mno">a</span>hockey with his friends.<span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="b"><span class="mno">b</span>ice-skating because she can't ice-skate.<span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="c"><span class="mno">c</span>skiing with your family?<span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="d"><span class="mno">d</span>badminton with my dad or my brother.<span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="e"><span class="mno">e</span>basketball at school?<span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="f"><span class="mno">f</span>taekwondo every Monday after school.<span class="mlink"></span></button>
+  </div>
+</div>
+
+<div class="card mint donebox" id="ex4done">
+  <p>⭐ <b>6 / 6!</b> Всё верно — отличная работа!</p>
+  <p style="margin-top:.6em;display:flex;gap:.5em;align-items:center;flex-wrap:wrap">
+    <input class="nameinput" id="ex4name" placeholder="Твоё имя" autocomplete="off">
+    <button class="sendbtn" id="ex4send">📤 Отправить Мисс Елене</button>
+    <span class="sent" id="ex4sent"></span>
+  </p>
+  <p style="margin-top:.5em"><button class="againbtn" id="ex4again">↺ Играть ещё раз</button></p>
+</div>
+
+<p class="safari">💡 Открой эту ссылку в <b>Safari</b> — скопируй её из сообщения и вставь в браузер.</p>
+
+<div class="card peach">
+  <p>📤 Результат (имя · готово · число попыток) уйдёт Мисс Елене — нажми кнопку после игры!</p>
+</div>
+
+<p class="foot">Good luck! ⭐🏕</p>
+
+<script>
+/* ============ THE EX 4 DRILL — the matching engine + the GG-form send.
+   The report line mirrors the deck's own: «GG2.1 · WB p. 70 Ex 4 Match ·
+   <name> · done · tries: N · <date>». ============ */
+(function(){
+  var KEY={a:'4',b:'5',c:'3',d:'1',e:'6',f:'2'};
+  var FORM_ACTION='https://docs.google.com/forms/d/e/1FAIpQLScFp8Gy4bW2_WNxSfX7yrR1nSg3agXexUAn4owNWzqRF00wgg/formResponse';
+  var FORM_ENTRY='entry.10697757';
+  var board=document.getElementById('ex4match');
+  if(!board)return;
+  var sel=null,done=0,tries=0;
+  var tiles=[].slice.call(board.querySelectorAll('.mtile'));
+  function tile(k){return tiles.filter(function(t){return t.dataset.k===k;})[0];}
+  function link(l,r){
+    l.classList.add('locked');r.classList.add('locked');
+    l.querySelector('.mlink').textContent='→ '+r.dataset.k+' ✓';
+    r.querySelector('.mlink').textContent='→ '+l.dataset.k+' ✓';
+  }
+  function reset(){
+    tiles.forEach(function(t){t.classList.remove('locked','sel','shake');t.querySelector('.mlink').textContent='';});
+    sel=null;done=0;tries=0;
+    link(tile('1'),tile('d'));
+    document.getElementById('ex4done').style.display='none';
+    document.getElementById('ex4sent').textContent='';
+  }
+  link(tile('1'),tile('d'));
+  tiles.forEach(function(t){
+    t.addEventListener('click',function(){
+      if(t.classList.contains('locked'))return;
+      if(!sel){sel=t;t.classList.add('sel');return;}
+      if(sel===t){sel.classList.remove('sel');sel=null;return;}
+      if(sel.dataset.side===t.dataset.side){sel.classList.remove('sel');sel=t;t.classList.add('sel');return;}
+      var l=sel.dataset.side==='l'?sel:t;
+      var r=sel.dataset.side==='l'?t:sel;
+      if(KEY[r.dataset.k]===l.dataset.k){
+        link(l,r);done++;
+        if(done===5)document.getElementById('ex4done').style.display='block';
+      }else{
+        tries++;
+        [l,r].forEach(function(x){x.classList.add('shake');setTimeout(function(){x.classList.remove('shake');},480);});
+      }
+      sel.classList.remove('sel');sel=null;
+    });
+  });
+  var nameEl=document.getElementById('ex4name');
+  try{if(nameEl)nameEl.value=localStorage.getItem('gg-ex4-name')||'';}catch(e){}
+  document.getElementById('ex4again').addEventListener('click',function(){reset();});
+  document.getElementById('ex4send').addEventListener('click',function(){
+    var name=nameEl.value.trim();
+    if(!name){nameEl.style.borderColor='var(--pink)';nameEl.placeholder='Впиши своё имя!';return;}
+    try{localStorage.setItem('gg-ex4-name',name);}catch(e){}
+    var report='GG2.1 · WB p. 70 Ex 4 Match · '+name+' · done · tries: '+tries+' · '+new Date().toLocaleString('en-GB');
+    var fd=new FormData();fd.append(FORM_ENTRY,report);
+    try{fetch(FORM_ACTION,{method:'POST',mode:'no-cors',body:fd});}catch(e){}
+    document.getElementById('ex4sent').textContent='отправлено ✓';
+  });
+})();
+</script>
+</body>
+</html>
