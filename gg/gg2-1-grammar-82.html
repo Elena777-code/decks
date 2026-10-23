@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GG 2.1 — Грамматика 8.2 — тренируйся к тесту!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ THE 8.2 GRAMMAR DRILL — the ladder's next rung (Elena:
+   «They need to practice Grammar»). WB p. 71 ex. 3 (love/like/don't
+   like/hate + -ing) + ex. 4 (object pronouns) — the same match mechanic
+   the kids know from the Ex 4 drill. Untimed first (the ladder: timer
+   comes later). Name on top from the start, remembered on the device.
+   The result posts to the GG form. NO answers on the page — feedback
+   only after the pupil's own tap. ============ */
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A;
+  --lavender:#C8B6FF; --lavender-deep:#9a7fff; --cream:#FFF8F0;
+  --pink:#FF8FAB; --ink:#2D3436; --ink-soft:#636e72; --white:#fff;
+  --blue:#3a6ea5; --radius:22px; --shadow:0 10px 30px rgba(45,52,54,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);
+  min-height:100vh;padding:4vh 4vw 8vh;display:flex;flex-direction:column;gap:2vh;
+  align-items:stretch;max-width:640px;margin:0 auto}
+.eyebrow{font-size:clamp(.95rem,2.6vw,1.15rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lavender-deep)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.6rem,5.6vw,2.4rem);line-height:1.15}
+.accent-line{width:110px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.4vh,24px) clamp(16px,3vw,28px)}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lav{background:#f1ecff}
+.card p{font-size:clamp(1.05rem,3.1vw,1.35rem);line-height:1.5}
+.b{color:var(--lavender-deep)}
+.en{color:var(--blue);font-weight:700}
+.namerow{display:flex;gap:.5em;align-items:center;flex-wrap:wrap}
+.namerow label{font-weight:800;font-size:clamp(1rem,3vw,1.25rem)}
+.nameinput{border:2px solid var(--line);border-radius:12px;padding:.4em .7em;font-family:inherit;
+  font-size:clamp(1rem,3vw,1.3rem);font-weight:700;color:var(--ink);background:#fff;flex:1;min-width:150px}
+.rtitle{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.25rem,4.4vw,1.7rem);line-height:1.2}
+.rsub{font-size:clamp(.95rem,2.8vw,1.1rem);color:var(--ink-soft);font-style:italic;margin-top:.2em}
+.matchwrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.4vw,16px);align-self:stretch}
+@media (max-width:520px){.matchwrap{grid-template-columns:1fr}}
+.mcol{display:flex;flex-direction:column;gap:clamp(6px,1vh,10px)}
+.mtile{cursor:pointer;user-select:none;background:var(--white);border:2px solid var(--lavender);
+  border-radius:14px;box-shadow:var(--shadow);padding:.45em .7em;text-align:left;
+  font-size:clamp(1rem,3vw,1.3rem);font-weight:600;line-height:1.35;
+  transition:transform .15s ease,border-color .15s ease,background .2s;font-family:'Nunito',sans-serif}
+.mtile:hover{transform:translateY(-2px)}
+.mtile .mno{font-family:'Fredoka',sans-serif;font-weight:800;color:var(--lavender-deep);margin-right:.4em}
+.mtile .mlink{color:var(--mint-deep);font-weight:800;white-space:nowrap;margin-left:.4em}
+.mtile.sel{border-color:var(--pink);background:#ffe9f0;transform:translateY(-2px)}
+.mtile.locked{background:#eafbf6;border-color:var(--mint-deep);cursor:default}
+.mtile.locked:hover{transform:none}
+.mtile.shake{animation:mshake .45s}
+@keyframes mshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+.mtxt.strike{text-decoration:line-through;opacity:.45}
+.donebox{display:none}
+.sendbtn{border:none;border-radius:99px;padding:.5em 1.2em;cursor:pointer;font-family:'Fredoka',sans-serif;
+  font-weight:700;font-size:clamp(1rem,3vw,1.3rem);color:var(--ink);background:var(--mint);
+  box-shadow:var(--shadow);transition:transform .15s ease}
+.sendbtn:hover{transform:scale(1.05)}
+.againbtn{border:none;border-radius:99px;padding:.35em 1em;cursor:pointer;font-family:'Fredoka',sans-serif;
+  font-weight:700;font-size:clamp(.95rem,2.8vw,1.2rem);color:var(--ink);background:var(--peach);
+  margin-left:.5em}
+.sent{font-weight:800;color:var(--mint-deep)}
+.foot{color:var(--ink-soft);font-size:clamp(.9rem,2.6vw,1.05rem);text-align:center}
+.safari{color:var(--ink-soft);font-size:clamp(.9rem,2.6vw,1.05rem)}
+</style>
+</head>
+<body>
+
+<div class="eyebrow">GG 2.1 · Go Getter 1 · к тесту — Unit 8</div>
+<h1>Грамматика 8.2 — тренируйся! 💙</h1>
+<div class="accent-line"></div>
+
+<div class="card lav namerow">
+  <label for="drillName">Твоё имя:</label>
+  <input class="nameinput" id="drillName" placeholder="Впиши один раз — запомним" autocomplete="off">
+</div>
+
+<div class="card peach">
+  <p>💙 Два задания из Workbook стр. 71 — как на тесте! Соедини карточки: нажми одну, потом вторую.</p>
+</div>
+
+<!-- ROUND 1 · WB p. 71 ex. 3 — love/like/don't like/hate -->
+<div class="card">
+  <div class="rtitle">Раунд 1 · love / like / don't like / hate</div>
+  <div class="rsub">соедини предложение с глаголом (1 — пример, он уже соединён)</div>
+</div>
+<div class="matchwrap" id="roundIng">
+  <div class="mcol" data-side="l">
+    <button class="mtile" data-side="l" data-k="1"><span class="mno">1</span><span class="mtxt">We 😟😟 ______ rock climbing.</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="2"><span class="mno">2</span><span class="mtxt">My parents 🙂 ______ skiing.</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="3"><span class="mno">3</span><span class="mtxt">Ann 😟😟 ______ playing football.</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="4"><span class="mno">4</span><span class="mtxt">My grandad 🙂🙂 ______ cooking.</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="5"><span class="mno">5</span><span class="mtxt">My friends 😟 ______ getting up early.</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="6"><span class="mno">6</span><span class="mtxt">I 🙂🙂 ______ cycling.</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="7"><span class="mno">7</span><span class="mtxt">Mark 🙂 ______ playing basketball.</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="8"><span class="mno">8</span><span class="mtxt">My cat 😟 ______ getting wet.</span><span class="mlink"></span></button>
+  </div>
+  <div class="mcol" data-side="r">
+    <button class="mtile" data-side="r" data-k="likes"><span class="mtxt">likes</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="don't like"><span class="mtxt">don't like</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="loves"><span class="mtxt">loves</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="hate"><span class="mtxt strike">hate</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="doesn't like"><span class="mtxt">doesn't like</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="like"><span class="mtxt">like</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="hates"><span class="mtxt">hates</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="love"><span class="mtxt">love</span><span class="mlink"></span></button>
+  </div>
+</div>
+
+<!-- ROUND 2 · WB p. 71 ex. 4 — object pronouns -->
+<div class="card">
+  <div class="rtitle">Раунд 2 · объектные местоимения</div>
+  <div class="rsub">me · you · him · her · it · us · them (1 — пример)</div>
+</div>
+<div class="matchwrap" id="roundPron">
+  <div class="mcol" data-side="l">
+    <button class="mtile" data-side="l" data-k="1"><span class="mno">1</span><span class="mtxt">Emma is nice. I like ______.</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="2"><span class="mno">2</span><span class="mtxt">Skating is fun. I love ______.</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="3"><span class="mno">3</span><span class="mtxt">You are great at football. I like watching ______.</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="4"><span class="mno">4</span><span class="mtxt">Amy and Tom are my best friends. I like ______.</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="5"><span class="mno">5</span><span class="mtxt">Tom is my baby brother. I love ______.</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="l" data-k="6"><span class="mno">6</span><span class="mtxt">We're good at dancing. Watch ______!</span><span class="mlink"></span></button>
+  </div>
+  <div class="mcol" data-side="r">
+    <button class="mtile" data-side="r" data-k="you"><span class="mtxt">you</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="him"><span class="mtxt">him</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="it"><span class="mtxt">it</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="us"><span class="mtxt">us</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="her"><span class="mtxt">her</span><span class="mlink"></span></button>
+    <button class="mtile" data-side="r" data-k="them"><span class="mtxt">them</span><span class="mlink"></span></button>
+  </div>
+</div>
+
+<div class="card mint donebox" id="drillDone">
+  <p>⭐ <b>13 / 13!</b> Грамматика твоя — отличная работа!</p>
+  <p style="margin-top:.6em"><button class="sendbtn" id="drillSend">📤 Отправить Мисс Елене</button>
+  <button class="againbtn" id="drillAgain">↺ Играть ещё раз</button>
+  <span class="sent" id="drillSent"></span></p>
+</div>
+
+<p class="safari">💡 Открой эту ссылку в <b>Safari</b> — скопируй её из сообщения и вставь в браузер.</p>
+
+<p class="foot">💙 love / like / don't like / hate + -ing · I love eat<b>ing</b>. · He likes skat<b>ing</b>.</p>
+
+<script>
+/* ============ THE 8.2 GRAMMAR DRILL — two match rounds, the GG-form send.
+   Report: «GG2.1 · Grammar drill 8.2 (WB p. 71) · <name> · done · tries: N · <date>».
+   tries = the wrong pairs across both rounds. ============ */
+(function(){
+  var KEY1={'like':'2','hates':'3','loves':'4','don\'t like':'5','love':'6','likes':'7','doesn\'t like':'8'};
+  var KEY2={'her':'1','it':'2','you':'3','them':'4','him':'5','us':'6'};
+  var FORM_ACTION='https://docs.google.com/forms/d/e/1FAIpQLScFp8Gy4bW2_WNxSfX7yrR1nSg3agXexUAn4owNWzqRF00wgg/formResponse';
+  var FORM_ENTRY='entry.10697757';
+  var TOTAL=12; /* the non-example pairs: 7 + 5 */
+  var nameEl=document.getElementById('drillName');
+  try{if(nameEl)nameEl.value=localStorage.getItem('gg-drill-name')||'';}catch(e){}
+  function makeRound(boardId,KEY,examplePair){
+    var board=document.getElementById(boardId);
+    if(!board)return {reset:function(){}};
+    var sel=null;
+    var tiles=[].slice.call(board.querySelectorAll('.mtile'));
+    function tile(k){return tiles.filter(function(t){return t.dataset.k===k;})[0];}
+    function link(l,r){
+      l.classList.add('locked');r.classList.add('locked');
+      l.querySelector('.mlink').textContent='→ '+r.dataset.k+' ✓';
+      r.querySelector('.mlink').textContent='→ '+l.dataset.k+' ✓';
+    }
+    link(tile(examplePair[0]),tile(examplePair[1]));
+    tiles.forEach(function(t){
+      t.addEventListener('click',function(){
+        if(t.classList.contains('locked'))return;
+        if(!sel){sel=t;t.classList.add('sel');return;}
+        if(sel===t){sel.classList.remove('sel');sel=null;return;}
+        if(sel.dataset.side===t.dataset.side){sel.classList.remove('sel');sel=t;t.classList.add('sel');return;}
+        var l=sel.dataset.side==='l'?sel:t;
+        var r=sel.dataset.side==='l'?t:sel;
+        if(KEY[r.dataset.k]===l.dataset.k){
+          link(l,r);doneCount++;
+          if(doneCount===TOTAL)finish();
+        }else{
+          tries++;
+          [l,r].forEach(function(x){x.classList.add('shake');setTimeout(function(){x.classList.remove('shake');},480);});
+        }
+        sel.classList.remove('sel');sel=null;
+      });
+    });
+    return {
+      reset:function(){
+        tiles.forEach(function(t){t.classList.remove('locked','sel','shake');t.querySelector('.mlink').textContent='';});
+        sel=null;
+        link(tile(examplePair[0]),tile(examplePair[1]));
+      }
+    };
+  }
+  var tries=0,doneCount=0;
+  var r1=makeRound('roundIng',KEY1,['1','hate']);
+  var r2=makeRound('roundPron',KEY2,['1','her']);
+  function finish(){
+    document.getElementById('drillDone').style.display='block';
+  }
+  document.getElementById('drillAgain').addEventListener('click',function(){
+    tries=0;doneCount=0;r1.reset();r2.reset();
+    document.getElementById('drillDone').style.display='none';
+    document.getElementById('drillSent').textContent='';
+  });
+  document.getElementById('drillSend').addEventListener('click',function(){
+    var name=nameEl.value.trim();
+    if(!name){nameEl.style.borderColor='var(--pink)';nameEl.placeholder='Впиши своё имя!';nameEl.focus();return;}
+    try{localStorage.setItem('gg-drill-name',name);}catch(e){}
+    var report='GG2.1 · Grammar drill 8.2 (WB p. 71) · '+name+' · done · tries: '+tries+' · '+new Date().toLocaleString('en-GB');
+    var fd=new FormData();fd.append(FORM_ENTRY,report);
+    try{fetch(FORM_ACTION,{method:'POST',mode:'no-cors',body:fd});}catch(e){}
+    document.getElementById('drillSent').textContent='отправлено ✓';
+  });
+})();
+</script>
+</body>
+</html>
