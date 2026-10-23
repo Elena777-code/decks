@@ -90,6 +90,10 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
 .cartoon h3{margin:6px 0 2px;font-size:20px}
 .cartoon p{font-size:14.5px;color:var(--ink-soft);margin-bottom:12px}
 .play{display:block;text-align:center;background:var(--peach);color:var(--ink);text-decoration:none;font-family:'Fredoka',sans-serif;font-weight:700;font-size:18px;border-radius:12px;padding:14px}
+/* the parents' note about typing (Elena's text, 22.10 — byte-true) */
+.pnote{background:#f1ecff;border-radius:14px;padding:.8em 1em;font-size:clamp(.88rem,2.2vw,1.02rem);line-height:1.5;color:var(--ink)}
+.pnote p{margin:.3em 0}
+.pnote b{color:var(--lavender-deep)}
 /* ===== PASTE-css END ===== */
 </style>
 </head>
@@ -101,8 +105,71 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
     <div class="sub">Новое задание всегда сверху. Ссылка постоянная — сохраните её.</div>
   </header>
 
+<!-- PASTE-card START -->
 <details class="hw-row" open>
-<summary><span class="txt"><span class="nm">Задания по буквам - последние буквы алфавита! <span class="new">✨ новое!</span></span><br><span class="dt">читаем · Dd — смешные предложения · листики · ABC-N · песенка · 8 Colours</span></span></summary>
+<summary><span class="txt"><span class="nm">Урок 11 · Печатаем и читаем! <span class="new">✨ новое!</span></span><br><span class="dt">печатание F и J · читаем Pat's in the pan! · shkola.app · цветная игра · песенка</span></span></summary>
+<div class="card hw-body">
+<div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
+
+<div class="item task"><span class="n">1</span><span class="tt"><b>Печатание — игра F и J!</b> ⌨️ <small>— руки на «домашние» клавиши!</small></span><button class="chip" id="pupp-chip-1" data-k="t-typing" onclick="pupTog(this)">done</button></div>
+<a class="btn" href="https://elena777-code.github.io/decks/typing/home-row-01-fj.html" target="_blank">▶ Открыть игру — F и J</a>
+<div class="pnote">
+<p style="margin:.0 0 .3em"><b>⌨️ Зачем детям учиться печатать?</b></p>
+<p>На уроке мы впервые потренировались печатать на клавиатуре — и у всех получилось! 🎉 Теперь нам очень пригодится ваша помощь.</p>
+<p>Почему это важно? Впереди у нас всё больше заданий на компьютере: дети будут печатать английские слова, составлять предложения, а со временем — писать собственные истории и сочинения. Чем увереннее ребёнок чувствует себя за клавиатурой, тем больше внимания он может уделять самому английскому языку, а не поиску нужных букв.</p>
+<p><b>Как можно помочь дома?</b></p>
+<p>Пожалуйста, предоставьте ребёнку доступ к компьютеру, ноутбуку или внешней клавиатуре для планшета.</p>
+<p>Начинаем с двух особенных клавиш — F и J. На них есть небольшие бугорки, которые помогают находить нужное положение пальцев, не глядя на клавиатуру. Это первый шаг к слепой печати — навыку, который пригодится детям на протяжении всей учёбы.</p>
+<p>Всего 3 минуты в день — уже хороший старт! Лучше понемногу, но регулярно, в игровой форме и без давления.</p>
+<p style="margin:.3em 0 0">Спасибо, что помогаете детям становиться увереннее и самостоятельнее! 💛</p>
+</div>
+
+<div class="item task"><span class="n">2</span><span class="tt"><b>Читаем историю «Pat's in the pan!»</b> 📖 <small>— ты знаешь эту историю — читай сам!</small></span><button class="chip" id="pupp-chip-2" data-k="t-read" onclick="pupTog(this)">done</button></div>
+<a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-d.html#6" target="_blank">📖 Открыть историю</a>
+
+<div class="item task"><span class="n">3</span><span class="tt"><b>Задание на shkola.app</b> 📱 <small>— school items (школьные вещи). Открой shkola.app и выполни!</small></span><button class="chip" id="pupp-chip-3" data-k="t-shkola" onclick="pupTog(this)">done</button></div>
+
+<div class="item task"><span class="n">4</span><span class="tt"><b>Цветная игра</b> 🎨 <small>— посмотри и посчитай: Yes или No? Вопросы новые!</small></span><button class="chip" id="pupp-chip-4" data-k="t-cgame" onclick="pupTog(this)">done</button></div>
+<div id="cgame" style="background:#eafbf6;border-radius:14px;padding:12px;margin:6px 0">
+<div id="cg-count" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 10</div>
+<div id="cg-caption" style="text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.45rem;color:#2D3436;min-height:2em;margin:8px 0"></div>
+<img id="cg-scene" src="../../media/kb1-u2-cg-scene.png" alt="the school items scene" style="width:min(400px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:8px auto;display:block">
+<div style="display:flex;gap:12px;justify-content:center;margin-top:10px">
+<button id="cg-yes" onclick="cgAns(true)" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;border:none;border-radius:99px;padding:.5em 1.6em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">Yes 👍</button>
+<button id="cg-no" onclick="cgAns(false)" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;border:none;border-radius:99px;padding:.5em 1.6em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">No 👎</button>
+</div>
+<button id="cg-again" onclick="cgStart()" style="display:none;margin:8px auto 0;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.2rem;border:none;border-radius:99px;padding:.5em 1.5em;background:#95E1D3;color:#2D3436;cursor:pointer">▶ Играть ещё раз — новые задания!</button>
+<div id="cg-end" style="display:none;text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.4rem;color:#2D3436;margin-top:6px"></div>
+</div>
+
+<div class="item task"><span class="n">5</span><span class="tt"><b>Песенка — Left and Right!</b> 🎵 <small>— пой и делай движения!</small></span><button class="chip" id="pupp-chip-5" data-k="t-song" onclick="pupTog(this)">done</button></div>
+<audio controls preload="none" src="../../media/kb1-u2-ge-left-right.mp3"></audio>
+
+<div class="progress" id="pupp-prog">Отмечено: 0 из 5</div>
+<div class="who">
+<input id="pupp-name" placeholder="Имя" autocomplete="off">
+<input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
+<span class="kprefix">KB 1.</span><input id="pupp-group" placeholder="?" maxlength="1" autocomplete="off" title="Твоя группа: 1, 2 или 3">
+</div>
+<button class="send" id="pupp-send" onclick="pupSend()">📤 Отправить Мисс Елене</button>
+<div class="hint" id="pupp-hint"></div>
+<div class="boxwrap" id="pupp-boxwrap">
+<div class="box" onclick="document.getElementById('pupp-cartoon').classList.add('show')">🎁</div>
+<div class="boxlabel">Твой подарок! Нажми!</div>
+<div class="cartoon" id="pupp-cartoon">
+<div class="pig">🐷✨</div>
+<h3>Peppa Pig — School Bus Trip! 🚌</h3>
+<p>Ты молодец! Все задания сделаны. Смотри мультик!</p>
+<video controls preload="none" playsinline src="../../media/kb1-u2-peppa-bus.mp4" style="width:100%;border-radius:12px"></video>
+</div>
+<div class="note">Если что-то не получается — напишите администратору Мисс Алёне, поможем.</div>
+</div>
+</div>
+</details>
+<!-- PASTE-card END -->
+
+<details class="hw-row">
+<summary><span class="txt"><span class="nm">Задания по буквам - последние буквы алфавита! </span><br><span class="dt">читаем · Dd — смешные предложения · листики · ABC-N · песенка · 8 Colours</span></span></summary>
 <div class="card hw-body">
 <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
 <div class="item task"><span class="n">1</span><span class="tt"><b>Читаем! 📖</b></span></div>
@@ -780,5 +847,166 @@ function cgAns(ans){
 }
 cgStart();
 </script>
+<!-- PASTE-script START -->
+<script>
+/* Урок 11 · Печатаем и читаем! — the done chips + send + treasure (per-device localStorage).
+   Send reuses the hub's unscrSend (the «Drill reports» form + its queue) when present. */
+var PUPP_KEY='kb1-u11-', PUPP_N=5;
+function pupTog(el){
+  var k=PUPP_KEY+el.getAttribute('data-k');
+  localStorage.setItem(k, localStorage.getItem(k)==='1' ? '0' : '1');
+  pupPaint();
+}
+function pupAll(){
+  var d=0,c;
+  for(var i=1;i<=PUPP_N;i++){
+    c=document.getElementById('pupp-chip-'+i);
+    if(c && localStorage.getItem(PUPP_KEY+c.getAttribute('data-k'))==='1') d++;
+  }
+  return d;
+}
+function pupDate(){
+  var d=new Date();
+  return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear();
+}
+function pupQueue(text){
+  try{
+    var q=JSON.parse(localStorage.getItem('kb1-hw-report-queue')||'[]');
+    q.push(text);
+    localStorage.setItem('kb1-hw-report-queue',JSON.stringify(q));
+  }catch(e){}
+}
+function pupSend(){
+  var n=document.getElementById('pupp-name'),
+      s=document.getElementById('pupp-surn'),
+      g=document.getElementById('pupp-group'),
+      hint=document.getElementById('pupp-hint');
+  var name=n.value.trim(), surn=s.value.trim().toUpperCase(), grp=g.value.trim();
+  if(!name){hint.textContent='Сначала напиши имя!';n.focus();return;}
+  if(!surn){hint.textContent='Напиши первую букву фамилии!';s.focus();return;}
+  if('123'.indexOf(grp)<0){hint.textContent='Ты из группы 1, 2 или 3?';g.focus();return;}
+  s.value=surn; hint.textContent='';
+  try{
+    localStorage.setItem('kb1-hw-name',name);
+    localStorage.setItem('kb1-hw-surn',surn);
+    localStorage.setItem('kb1-hw-group',grp);
+  }catch(e){}
+  var gc=null;try{gc=localStorage.getItem('kb1-u11-game')}catch(e){}
+  var txt='KB 1.'+grp+' · Урок 11 · Печатаем и читаем! · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+(gc?' · Цвет: '+gc+' из 10':'')+' · '+pupDate();
+  if(window.unscrSend){ unscrSend(txt); } else { pupQueue(txt); }
+  localStorage.setItem(PUPP_KEY+'sent','1');
+  pupPaint();
+}
+function pupPaint(){
+  var i,c,on;
+  for(i=1;i<=PUPP_N;i++){
+    c=document.getElementById('pupp-chip-'+i);
+    if(!c)continue;
+    on=localStorage.getItem(PUPP_KEY+c.getAttribute('data-k'))==='1';
+    c.classList.toggle('on',on);
+    c.textContent=on?'✓ done':'done';
+  }
+  var d=pupAll(), sent=localStorage.getItem(PUPP_KEY+'sent')==='1';
+  document.getElementById('pupp-prog').textContent='Отмечено: '+d+' из '+PUPP_N;
+  var b=document.getElementById('pupp-send');
+  if(sent){ b.classList.add('sent'); b.textContent='✓ Отправлено Мисс Елене'; }
+  var box=document.getElementById('pupp-boxwrap'), hint=document.getElementById('pupp-hint');
+  if(d===PUPP_N && sent){
+    box.classList.add('show'); hint.textContent='';
+  }else{
+    box.classList.remove('show');
+    document.getElementById('pupp-cartoon').classList.remove('show');
+    if(sent && d<PUPP_N){ hint.textContent='Отметь все задания — и откроется подарок! 🎁'; }
+    else if(!sent && d===PUPP_N){ hint.textContent='Всё готово! Осталось нажать кнопку отправки ✉️'; }
+  }
+}
+(function(){
+  try{
+    var n=localStorage.getItem('kb1-hw-name'),
+        s=localStorage.getItem('kb1-hw-surn'),
+        g=localStorage.getItem('kb1-hw-group');
+    if(n)document.getElementById('pupp-name').value=n;
+    if(s)document.getElementById('pupp-surn').value=s;
+    if(g)document.getElementById('pupp-group').value=g;
+  }catch(e){}
+  pupPaint();
+})();
+</script>
+<script>
+/* THE COLOUR GAME — the same scene (counts verified by eye), NEW SENTENCES
+   (Elena, 22.10: «the task from the previous hw '3 white tables' with new
+   sentences»): a speech frame rides in front of every question — Look! ·
+   Count! · And now! · One more! — the truth engine is unchanged: pick a
+   group, tell it truthfully (Yes) or lie on ONE axis — count, colour or
+   item (No). One right answer per round. Random every run.
+   THE PLAN (Elena's catch, 22.10: «yes-no-yes-no? No random again?»): the
+   Yes-count now VARIES (4–6 of 10), no three identical answers in a row,
+   and a strict alternation chain is redealt away — the game must FEEL
+   random, not just be random. */
+var CGT=[{n:3,c:'red',i:'pens'},{n:3,c:'blue',i:'books'},{n:3,c:'green',i:'pencils'},{n:3,c:'yellow',i:'chairs'},{n:2,c:'white',i:'tables'},{n:3,c:'black',i:'erasers'}];
+var CGF=['Look!','Count!','And now!','One more!',''];
+var cgI=0,cgScore=0,cgYes=false,cgTried=false,cgPlan=[];
+function capReset(){var c=document.getElementById('cg-caption');c.style.color='';c.classList.remove('cgwrong');}
+function cgR(n){return Math.floor(Math.random()*n);}
+function cgDeal(){
+  for(;;){
+    var t=4+cgR(3),p=[],k,i,j,tmp,bad=false,sw=0,run=1;
+    for(k=0;k<10;k++)p.push(k<t);
+    for(i=p.length-1;i>0;i--){j=cgR(i+1);tmp=p[i];p[i]=p[j];p[j]=tmp;}
+    for(k=1;k<10;k++){
+      if(p[k]===p[k-1]){run++;if(run>2){bad=true;break;}}
+      else{run=1;sw++;}
+    }
+    if(!bad&&sw<8)return p;
+  }
+}
+function cgRound(){
+  cgTried=false;capReset();
+  cgYes=cgPlan[cgI];
+  var g=CGT[cgR(CGT.length)],n=g.n,c=g.c,it=g.i;
+  if(!cgYes){ var lie=cgR(3);
+    if(lie===0){do{n=1+cgR(6);}while(n===g.n);}
+    if(lie===1){var oc=CGT.filter(function(x){return x.c!==g.c;});c=oc[cgR(oc.length)].c;}
+    if(lie===2){var oi=CGT.filter(function(x){return x.i!==g.i;});it=oi[cgR(oi.length)].i;}
+  }
+  var f=CGF[cgR(CGF.length)];
+  document.getElementById('cg-caption').textContent=(f?f+' ':'')+n+' '+c+' '+it+' — Yes or No?';
+  document.getElementById('cg-count').textContent=(cgI+1)+' / 10';
+}
+function cgStart(){
+  cgI=0;cgScore=0;
+  cgPlan=cgDeal();
+  document.getElementById('cg-end').style.display='none';
+  document.getElementById('cg-again').style.display='none';
+  document.getElementById('cg-yes').style.display='';document.getElementById('cg-no').style.display='';
+  cgRound();
+}
+function cgAns(ans){
+  if(cgI>=10)return;
+  var cap=document.getElementById('cg-caption');
+  if(ans===cgYes){
+    if(!cgTried)cgScore++;
+    cap.textContent='Правильно! 🌟';cap.style.color='#27ae60';
+    cgI++;
+    if(cgI<10){setTimeout(function(){capReset();cgRound();},800);}
+    else{
+      setTimeout(function(){
+        capReset();cap.textContent='Ready? Look and count!';
+        try{localStorage.setItem('kb1-u11-game',String(cgScore))}catch(e){}
+        document.getElementById('cg-end').style.display='block';
+        document.getElementById('cg-end').textContent=cgScore+' из 10 с первого раза! 🌟 Great job!';
+        document.getElementById('cg-yes').style.display='none';document.getElementById('cg-no').style.display='none';
+        document.getElementById('cg-again').style.display='block';
+      },800);
+    }
+  }else{
+    cgTried=true;
+    cap.textContent='Попробуй ещё! 👀';cap.style.color='#e74c3c';
+    cap.classList.remove('cgwrong');void cap.offsetWidth;cap.classList.add('cgwrong');
+  }
+}
+cgStart();
+</script>
+<!-- PASTE-script END -->
 </body>
 </html>
