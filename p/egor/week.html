@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGOR — the holiday week · one hour a day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#F6F4EF; --card:#FFFFFF; --ink:#33312B; --ink-soft:#8B8678;
+  --teal:#3E8E7E; --amber:#C99A3C; --amber-soft:rgba(201,154,60,.10);
+  --terra:#C4744D; --line:#E5E0D5; --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--wall);color:var(--ink);font-family:'Inter',system-ui,sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:4vh 5vw 8vh;-webkit-font-smoothing:antialiased}
+header{max-width:680px;width:100%;text-align:center;margin-bottom:1.2em}
+.eyebrow{color:var(--amber);letter-spacing:.18em;text-transform:uppercase;font-weight:600;font-size:.78rem}
+h1{font-weight:800;font-size:clamp(1.6rem,6vw,2.4rem);line-height:1.12;margin-top:.15em}
+h1 .calm{color:var(--teal)}
+.rules{margin-top:.7em;color:var(--ink-soft);font-weight:500;font-size:clamp(.95rem,3.4vw,1.1rem);line-height:1.65}
+main{max-width:680px;width:100%}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:0 10px 30px rgba(51,49,43,.10);padding:clamp(1.4rem,5vw,2.2rem);margin-bottom:1em;
+  animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none!important}
+.day-grid{display:flex;flex-wrap:wrap;gap:.6em;justify-content:center;margin-top:1.1em}
+.day-chip{background:#eef5f2;color:var(--ink);border-radius:18px;padding:.6em .5em .55em;
+  width:calc(33% - .5em);min-width:96px;box-shadow:0 4px 0 #d8e5df;line-height:1.25;
+  font-family:'Inter',sans-serif;font-weight:600;border:none;cursor:pointer}
+.day-chip .dnum{font-size:clamp(1.05rem,4.2vw,1.3rem);font-weight:800}
+.day-chip .dicons{display:block;font-size:.78rem;margin-top:.2em;letter-spacing:.06em}
+.day-chip.today{background:#FFF3D6;box-shadow:0 4px 0 #f0d998;outline:3px solid var(--amber)}
+.day-chip.locked{opacity:.45;filter:grayscale(.4)}
+@keyframes wiggle{50%{transform:translateX(-4px)}}
+.day-chip.wiggle{animation:wiggle .3s ease}
+.qcount{font-size:.82rem;font-weight:800;color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+.timer-wrap{height:12px;background:rgba(62,142,126,.14);border-radius:99px;overflow:hidden;margin:1.1em 0 .35em}
+.timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--teal),var(--amber));border-radius:99px}
+.timer-num{font-weight:800;color:var(--ink-soft);font-size:.95rem;font-variant-numeric:tabular-nums}
+.timer-num.low{color:var(--terra)}
+.prompt{font-size:clamp(1.25rem,5vw,1.8rem);font-weight:700;line-height:1.5;margin-top:.5em}
+.prompt .gap{color:var(--terra);letter-spacing:.04em}
+.prompt .base{color:var(--teal);font-weight:800}
+.teach{background:rgba(62,142,126,.06);border-radius:14px;padding:1em 1.2em;margin:.8em 0;
+  font-size:clamp(.95rem,3.4vw,1.05rem);font-weight:500;line-height:1.65;text-align:left}
+.teach b{color:var(--teal)}
+.helper{margin-top:.6em;color:var(--ink-soft);font-size:clamp(.85rem,3vw,1rem);font-weight:500}
+.answer-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:1.3em}
+.type-box{font:600 1.15rem 'Inter',sans-serif;color:var(--ink);background:var(--wall);
+  border:2px solid var(--line);border-radius:14px;padding:.65em 1em;width:min(230px,60vw);
+  text-align:center;outline:none;transition:.2s}
+.type-box:focus{border-color:var(--teal)}
+button{font-family:'Inter',sans-serif;font-weight:600;border:none;cursor:pointer;border-radius:99px;
+  transition:transform .12s ease,filter .12s ease}
+button:active{transform:scale(.96)}
+.ok-btn{background:var(--teal);color:#fff;font-size:1.05rem;padding:.7em 1.9em}
+.choice{background:var(--wall);border:2px solid var(--line);color:var(--ink);
+  font-size:clamp(.95rem,3.6vw,1.1rem);padding:.55em 1.2em}
+.choice:hover{border-color:var(--teal);color:var(--teal)}
+.pulse{animation:pulse .4s ease}
+@keyframes pulse{from{opacity:.3}to{opacity:1}}
+button.big{background:var(--teal);color:#fff;font-size:clamp(1.1rem,4.2vw,1.35rem);padding:.7em 2.4em;margin-top:1.2em}
+a.big{background:var(--ink-soft);color:#fff;font:600 clamp(1.1rem,4.2vw,1.35rem) 'Inter',sans-serif;
+  padding:.7em 2.4em;margin-top:1.2em;text-decoration:none;display:inline-block}
+.blockcard{text-align:left}
+.blockcard h2{font-size:clamp(1.15rem,4.5vw,1.5rem);font-weight:800;margin:.2em 0 .4em}
+.blockcard .btag{font-size:.75rem;font-weight:800;color:var(--amber);letter-spacing:.1em;text-transform:uppercase}
+.rt{background:var(--wall);border:1px solid var(--line);border-radius:12px;padding:.7em .9em;margin:.5em 0;
+  font-size:clamp(.92rem,3.3vw,1rem);line-height:1.6;text-align:left;display:flex;gap:.8em;align-items:flex-start}
+.rt .rtext{flex:1}
+.rt input{font:600 1.05rem 'Inter',sans-serif;width:64px;text-align:center;border:2px solid var(--line);
+  border-radius:10px;padding:.3em;outline:none;background:#fff}
+.rt input:focus{border-color:var(--teal)}
+.revline{border-bottom:1px dotted var(--line);padding:.5em 0;font-size:clamp(.9rem,3.3vw,1rem);
+  text-align:left;font-weight:500;line-height:1.55}
+.revline .mark{font-weight:800}
+.revline .mk-ok{color:var(--teal)} .revline .mk-bad{color:var(--terra)}
+.revline .key{color:var(--teal);font-weight:800}
+.revline .why{color:var(--ink-soft);font-size:.92em}
+.score-line{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dotted var(--line);
+  padding:.55em 0;font-size:clamp(1rem,3.8vw,1.2rem);font-weight:600}
+.score-line b{color:var(--teal)}
+audio{width:100%;margin:.8em 0}
+footer{max-width:680px;width:100%;text-align:center;margin-top:1.4em;color:var(--ink-soft);font-size:.78rem;font-weight:500}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">EGOR · the holiday week · one hour a day</div>
+  <h1>Seven days — <span class="calm">seven drills</span></h1>
+</header>
+<main>
+  <div class="card" id="start-card">
+    <p class="rules">Finish a day — the next one opens.<br>
+    Drills are on the clock ⏰ — your answers are <b>recorded silently</b> and stay hidden until you press
+    <b>Send to Elena</b> 📤 at the end of the day. Then you see every line: right or wrong.<br>
+    Reading and listening are <b>full exam tasks</b> — no timer, find the answers yourself.</p>
+    <div class="answer-row" style="margin-top:1em">
+      <input class="type-box" id="name-box" autocomplete="off" autocapitalize="on" spellcheck="false" placeholder="your name">
+    </div>
+    <div class="day-grid" id="day-grid"></div>
+    <p class="helper" id="day-msg">Tap today's day</p>
+    <p class="helper">build 2026-10-26 · v1 · 7 days · teach → practice → drill · full FIPI reading · results hidden until Send</p>
+  </div>
+
+  <div class="card hidden" id="run-card">
+    <div class="qcount" id="q-count"></div>
+    <div class="timer-wrap" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="card hidden" id="end-card">
+    <div class="eyebrow" style="margin-bottom:.6em" id="end-eyebrow">the day's results</div>
+    <div id="end-body"></div>
+    <div class="answer-row" style="margin-top:1.2em">
+      <a class="big" href="hw.html" style="margin-top:0;background:var(--ink-soft)">← Back to my homework</a>
+      <button class="big" id="home-btn" style="margin-top:0">To the days</button>
+    </div>
+  </div>
+</main>
+<footer>one hour a day · grammar · word formation · collocations · full reading · listening · Svetlana speaking</footer>
+
+<script>
+(function(){
+"use strict";
+/* Egor’s own form (the hw-012 wiring) */
+var HW_FORM={action:"https://docs.google.com/forms/d/e/1FAIpQLSeHQqLTCwsgpvG4T1T_bHHDVj8VyvB4BomKyjV7zmeIBEH6yA/formResponse",entry:"entry.892008789"};
+/* the listening mp3s land here as they arrive (decks/media/week/) — the map is the only edit needed */
+var AUDIO={1:"",2:"",3:"",4:"",5:"",6:"",7:""};
+
+/* ---------- teach/practice/drill pools. drill items are judged SILENTLY. ---------- */
+var G1={
+ name:"Grammar · used to / be used to",icon:"①",
+ teach:'<b>used to + verb</b> — a past habit, not now: «I <b>used to go</b> to the cinema, but now I don’t anymore.»<br>'+
+ '<b>be used to + -ing</b> — it is a habit now: «I <b>am not used to going</b> to the cinema.» (write: <b>a habit</b>)<br>'+
+ '<b>get used to + -ing</b> — the process: «You <b>will get used to speaking</b> English every day.»<br>'+
+ 'Negative: «I <b>didn’t use</b> to go» (no d after use!) · «If I <b>meet</b> him, I will ask…» — no <i>will</i> after <b>if</b>.',
+ practice:[
+  {q:'I <span class="gap">______</span> go to the cinema, but now I don’t.',choices:["use to","used to","am used to"],key:"used to",why:"a past habit → used to"},
+  {q:'I am not used <span class="gap">______</span> going to the cinema.',choices:["to","for","—"],key:"to",why:"be used TO + -ing"},
+  {q:'He didn’t <span class="gap">______</span> to play the guitar.',choices:["use","used","using"],key:"use",why:"after didn’t — the bare form: didn’t use to"}
+ ],
+ drill:[
+  {q:'She is used to <span class="gap">______</span> up early.',a:["getting"],why:"be used to + -ing"},
+  {q:'<span class="gap">______</span> used to be a cinema here.',a:["there"],why:"There used to be = it existed in the past"},
+  {q:'We got used to <span class="gap">______</span> English every day.',a:["speaking"],why:"get used to + -ing"},
+  {q:'<span class="base">If I ______ him, I will ask about the table.</span>',choices:["meet","will meet"],key:"meet",why:"no will after if — your own line, fixed"},
+  {q:'If he wins, he <span class="gap">______</span> the prize.',a:["will get"],why:"the result part takes will"},
+  {q:'<span class="base">Did you ______ like football?</span>',choices:["use to","used to"],key:"use to",why:"a question after Did — the bare form"}
+ ]};
+var W1={
+ name:"Word formation · the negatives",icon:"②",
+ teach:'Different parts of speech form negatives <b>in different ways</b> (your 25.10 rule):<br>'+
+ '<b>dis- + belief → disbelief</b> (the noun) · <b>mis- + belief → misbelief</b> (a wrong belief) · <b>un- + believable → unbelievable</b> (the adjective) · <b>dis- + believed → disbelieved</b> (the verb).',
+ practice:[
+  {q:'Demikhov transplanted a second head onto a dog, which was <span class="gap">______</span> at the time. (BELIEVE)',choices:["unbelievable","disbelief","misbelief"],key:"unbelievable",why:"an adjective after was → un- + believable"}
+ ],
+ drill:[
+  {q:'Many people <span class="gap">______</span> him and thought it was a hoax. (BELIEVE)',a:["disbelieved"],why:"a verb, past → disbelieved"},
+  {q:'He stared at the two-headed dog in <span class="gap">______</span>. (BELIEVE)',a:["disbelief"],why:"a noun after in → disbelief"},
+  {q:'That is a common <span class="gap">______</span> — people mix it up all the time. (BELIEVE)',a:["misbelief"],why:"a wrong belief → mis- + belief"},
+  {q:'The plot was completely <span class="gap">______</span> — I guessed the ending. (PREDICT)',a:["predictable"],why:"an adjective → predictable"},
+  {q:'The weather in England is famously <span class="gap">______</span>. (PREDICT)',a:["unpredictable"],why:"the negative adjective → unpredictable"},
+  {q:'His <span class="gap">______</span> in doctors made things worse. (BELIEVE)',a:["disbelief","misbelief"],why:"a noun → disbelief (or misbelief)"}
+ ]};
+var C1={
+ name:"Collocations · the lesson chunks",icon:"③",
+ teach:'Learn <b>chunks, not words</b>: write «<b>was awarded the Nobel Prize</b>», not «the Nobel Prize» — your own lesson rule.',
+ practice:[
+  {q:'Lomonosov <span class="gap">______</span> Moscow State University.',choices:["founded","found","invented"],key:"founded",why:"founded = established (found ≠ discovered here)"}
+ ],
+ drill:[
+  {q:'He founded a <span class="gap">______</span>.',a:["university"],why:"the chunk from 1.1"},
+  {q:'make a scientific <span class="gap">______</span>',a:["discovery"],why:"the chunk"},
+  {q:'He was <span class="gap">______</span> the Nobel Prize. (no preposition!)',a:["awarded"],why:"awarded — with no preposition, with THE"},
+  {q:'Moscow is famous <span class="gap">______</span> its architecture.',a:["for"],why:"famous FOR"},
+  {q:'I’m proud <span class="gap">______</span> my sister.',a:["of"],why:"proud OF — the Fo fix"},
+  {q:'<span class="gap">______</span> off the radio before you leave.',a:["turn"],why:"turn off — your classwork phrasal"},
+  {q:'This game is popular <span class="gap">______</span> teenagers.',a:["among"],why:"among — your own fix-three word"},
+  {q:'May I <span class="gap">______</span> you for a moment?',choices:["trouble","bother","annoy","worry"],key:"trouble",why:"the formal one — Set 1, your revision round"}
+ ]};
+var RD1={
+ name:"Reading · full FIPI task 10",icon:"④",untimed:true,
+ head:'<b>Match the texts A–G with the headings 1–8.</b> Each digit once; one heading is extra. Write the DIGIT next to each text — find the essence yourself.',
+ items:[
+  {l:"A",t:"The magnificent lion is the symbol of Africa. Powerful and beautiful, the king of the beasts has no natural enemies. Lions have strong, compact bodies and powerful forelegs, teeth, and jaws for pulling down their food. Their coats are yellow-gold, and adult males have manes that range in colour from blond, to reddish-brown and black. The length and the colour of a lion’s mane are likely determined by age, genetics, and hormones. Young lions have light spots on their coats that disappear as they grow.",a:["2"]},
+  {l:"B",t:"Lions are mammals and the most sociable of all big cats. They live in groups called prides, which usually consist of related females and their cubs. Males often fight to maintain dominance. Young females usually stay in their mothers' prides for life, unless food shortage forces them out. Young males are driven from their prides when they grow large enough to compete with the dominant males. This usually happens when young males are between the ages of 2 and 4.",a:["3"]},
+  {l:"C",t:"Today, lions are not at risk of extinction in Africa. However, three-quarters of their populations are in decline. The main threats to African lions are conflicts with people and the loss of living space, as well as climate change and wildlife trade. Some African lion populations have become small and isolated. Besides, the number of plant-eating animals they hunt for is being reduced. With around 23,000 African lions left in the wild, they are now officially classified as “vulnerable”.",a:["8"]},
+  {l:"D",t:"African lions are highly adaptable animals and can be found in a wide variety of habitats, including desert areas. They prefer open woodland and thick bush, as well as scrub and grasslands. Such environments help them to hunt and also to find shade to rest during the hottest part of the day. African lions used to be spread across most of the continent. But now they are only found in sub-Saharan Africa, with 80% in eastern or southern Africa. Three of the five largest populations are in Tanzania.",a:["5"]},
+  {l:"E",t:"Lions are top hunters in their environments, whether that is grassland, desert, or open woodland. It means they play an important role in keeping a healthy balance of numbers among other animals, especially plant-eating ones, like zebra and wildebeest. This influences the condition of grasslands and forests. By protecting a lion’s landscape, people are helping the whole area to grow and develop, which does not just benefit wildlife, but the people who rely on local natural resources, too.",a:["4"]},
+  {l:"F",t:"Lions do most of their hunting at night as their eyes have adapted to the dark. This gives them a huge advantage over the animals they hunt for. Interestingly, lions also hunt during storms. The noise, rain, and wind make it harder for other animals to see and hear lions, increasing their chances of a successful hunt. Females are the primary hunters, although males will sometimes join them during a hunt. When hunting, females have specific roles. Some chase the animal towards those in the centre.",a:["1"]},
+  {l:"G",t:"To save lions, new protected areas of habitat in east Africa are organised. There is a special conservation programme in Kenya that monitors and protects lions. The programme educates local people on lion conservation, too. This includes working with local communities, such as anti-poisoning actions. They also provide better fenced areas for farm animals in local villages. Taking school children on trips to see the wild animals they are saving is one more important action to support wildlife.",a:["6"]}
+ ],
+ opts:"1. Clever strategies for food · 2. Appearance matters · 3. Problems of family life · 4. Necessary for nature · 5. Lions' home · 6. Giving a helping hand · 7. Looking after their young · 8. Lions in danger",
+ keysNote:"Headings: 1 food strategies · 2 appearance · 3 family life · 4 for nature · 5 home · 6 helping hand · 7 young (extra) · 8 in danger"};
+var LS1={
+ name:"Listening · full FIPI task",icon:"⑤",untimed:true,
+ head:'<b>Listen and answer.</b> You hear the recording twice. Write your answers as digits.',
+ pending:true};
+var SV={
+ name:"Svetlana English · 4 parts",icon:"⑥",untimed:true,
+ head:'<b>Do one full speaking variant — all 4 tasks</b> on the Svetlana trainer. When you finish, copy your RESULT LINK and paste it here — Elena sees your attempt through it.',
+ link:"https://speaking.svetlanaenglishonline.ru"};
+
+var G2={
+ name:"Grammar · the first conditional",icon:"①",
+ teach:'<b>If + present, will + verb.</b> The if-part never takes will: «<b>If I meet</b> him, I <b>will ask</b> about the table.» — your own line from the lesson, fixed.',
+ practice:[
+  {q:'If it <span class="gap">______</span>, we will stay at home.',choices:["rains","will rain"],key:"rains",why:"the if-part = present"},
+  {q:'If she meets Mendeleev, she <span class="gap">______</span> lots of questions.',choices:["ask","will ask"],key:"will ask",why:"the result part = will"}
+ ],
+ drill:[
+  {q:'If I <span class="gap">______</span> time, I will read the whole text.',a:["have"],why:"if + present"},
+  {q:'If he studies hard, he <span class="gap">______</span> the exam.',a:["will pass"],why:"will in the result"},
+  {q:'We <span class="gap">______</span> the museum if we go to Moscow.',a:["will visit"],why:"the result part"},
+  {q:'If she <span class="gap">______</span> the prize, her parents will be proud.',a:["wins"],why:"if + present (even for he/she — no will)"},
+  {q:'If you turn off the phone, you <span class="gap">______</span> better.',a:["will sleep"],why:"the result"},
+  {q:'The teacher <span class="gap">______</span> happy if the homework is done.',a:["will be"],why:"will + be"}
+ ]};
+var W2={
+ name:"Word formation · -ist / -ian",icon:"②",
+ teach:'The suffix rule: <b>-ist / -ian → the person</b>. «Either -ist or -ian will be the hint.» The breakers: astronom<b>er</b>, pharmac<b>ist</b>, mathemat<b>ician</b>.',
+ practice:[
+  {q:'She studies the weather — she is a <span class="gap">______</span>. (METEOROLOGY)',choices:["meteorologist","meteorologyist","meteorologer"],key:"meteorologist",why:"meteorology → meteorologist"}
+ ],
+ drill:[
+  {q:'He studies rocks and the Earth’s surface — a <span class="gap">______</span>. (GEOLOGY)',a:["geologist"],why:"geology → geologist"},
+  {q:'She points telescopes at galaxies — an <span class="gap">______</span>. (ASTRONOMY)',a:["astronomer"],why:"the breaker: -er, not -ist!"},
+  {q:'He checks prescriptions — a <span class="gap">______</span>. (PHARMACY)',a:["pharmacist"],why:"pharmacy → pharmacist"},
+  {q:'Kolmogorov, who built probability theory — a <span class="gap">______</span>. (MATHEMATICS)',a:["mathematician"],why:"the breaker: -ician"},
+  {q:'Curie, who changed physics forever — a <span class="gap">______</span>. (SCIENCE)',a:["scientist"],why:"science → scientist"},
+  {q:'She spends the year in the field collecting plants — a <span class="gap">______</span>. (BIOLOGY)',a:["biologist"],why:"biology → biologist"}
+ ]};
+var C2={
+ name:"Collocations · the scientists' chunks",icon:"③",
+ teach:'The unit’s verb pairs: <b>conduct experiments · found a university · make a contribution · invent a device · predict the existence</b>.',
+ practice:[
+  {q:'Kapitsa <span class="gap">______</span> the Nobel Prize in Physics.',choices:["was awarded","awarded","was award"],key:"was awarded",why:"passive: he received it"}
+ ],
+ drill:[
+  {q:'Lomonosov <span class="gap">______</span> a university in Moscow.',a:["founded"],why:"found — founded"},
+  {q:'Scientists <span class="gap">______</span> experiments to discover new species.',a:["conduct","carry out"],why:"conduct experiments"},
+  {q:'Mendeleyev <span class="gap">______</span> the existence of some undiscovered elements.',a:["predicted"],why:"predict — predicted"},
+  {q:'Popov <span class="gap">______</span> a device for receiving radio signals.',a:["invented"],why:"invent — invented"},
+  {q:'Tsiolkovsky <span class="gap">______</span> many other rocket scientists.',a:["influenced"],why:"influence — the verb, no make"},
+  {q:'His work <span class="gap">______</span> still <span class="gap">______</span> in many forms.',a:["is used"],why:"the passive: is + the third form"},
+  {q:'This experiment <span class="gap">______</span> medicine.',a:["revolutionised","revolutionized"],why:"revolution → revolutionised"},
+  {q:'The discovery of a new planet <span class="gap">______</span> astronomers.',a:["surprised"],why:"past simple"}
+ ]};
+var RD2={
+ name:"Reading · full FIPI task 11",icon:"④",untimed:true,
+ head:'<b>Fill the gaps A–F with the parts of sentences 1–7.</b> One part is extra. Write the DIGIT.',
+ items:[
+  {l:"A",t:"The river covers parts of Russia, China, and Mongolia, A ______ China and south-east Russia.",a:["3"]},
+  {l:"B",t:"These are forests of a rather mild climate area B ______.",a:["4"]},
+  {l:"C",t:"The forests are home for not just rare animals, but trees like the Korean pine, and wild ginseng, C ______.",a:["5"]},
+  {l:"D",t:"Amur leopards are critically endangered D ______.",a:["7"]},
+  {l:"E",t:"Many of the forest areas in the Amur region remain largely unchanged, E ______ increasing development and the need for resources.",a:["2"]},
+  {l:"F",t:"So, people should be working globally and locally F ______ climate change.",a:["6"]}
+ ],
+ opts:"1. which is endangered and should be · 2. but they are coming under pressure from · 3. forming the border between north-east · 4. that receives rather heavy rainfall · 5. which is a traditional medicinal plant · 6. to deal with the causes and effects of · 7. as there may be about 120 left in the wild",
+ keysNote:"Amur River region — the texts live on the page as one story; the gaps carry their context."};
+var LS2={name:"Listening · full FIPI task",icon:"⑤",untimed:true,head:"<b>Listen and answer.</b> The recording plays twice.",pending:true};
+var SV2=SV;
+
+var G3={
+ name:"Grammar · the passive",icon:"①",
+ teach:'<b>be + the third form.</b> «He <b>was awarded</b> the Nobel Prize» · «His invention <b>is still used</b>» — the be-verb carries the time, the third form does the work.',
+ practice:[
+  {q:'The novel <span class="gap">______</span> into many languages.',choices:["was translated","translated"],key:"was translated",why:"the book receives the action → was + the third form"}
+ ],
+ drill:[
+  {q:'Kapitsa <span class="gap">______</span> the Nobel Prize in 1978.',a:["was awarded"],why:"passive past"},
+  {q:'His invention <span class="gap">______</span> still <span class="gap">______</span> today.',a:["is used"],why:"passive present"},
+  {q:'The trees <span class="gap">______</span> by the storm last night.',a:["were broken"],why:"plural → were"},
+  {q:'This photo <span class="gap">______</span> by my sister.',a:["was taken"],why:"take — took — taken"},
+  {q:'The homework <span class="gap">______</span> checked every week.',a:["is"],why:"passive present, it → is"},
+  {q:'The letters <span class="gap">______</span> tomorrow.',a:["will be sent"],why:"passive future: will be + the third form"}
+ ]};
+var W3={
+ name:"Word formation · -tion / -ment",icon:"②",
+ teach:'Verb → noun: inven<b>tion</b> · develop<b>ment</b> · contribu<b>tion</b> · predic<b>tion</b> · found<b>ation</b> (the odd one — not foundtion!) · discover<b>y</b>.',
+ practice:[
+  {q:'This <span class="gap">______</span> made it possible to listen to radio broadcasts. (INVENT)',choices:["invention","inventtion","inventment"],key:"invention",why:"invent → invention"}
+ ],
+ drill:[
+  {q:'a great <span class="gap">______</span> to the development of aviation. (CONTRIBUTE)',a:["contribution"],why:"contribute → contribution"},
+  {q:'the <span class="gap">______</span> of severe weather helps everyone. (PREDICT)',a:["prediction"],why:"predict → prediction"},
+  {q:'the <span class="gap">______</span> of modern chemistry (FOUND)',a:["foundation"],why:"found → foundation"},
+  {q:'the <span class="gap">______</span> of aviation (DEVELOP)',a:["development"],why:"develop → development"},
+  {q:'the <span class="gap">______</span> of a new planet (DISCOVER)',a:["discovery"],why:"discover → discovery"},
+  {q:'Kapitsa’s most important <span class="gap">______</span> (CONTRIBUTE)',a:["contributions"],why:"some of the most important → plural"}
+ ]};
+var C3={
+ name:"Collocations · technology phrases",icon:"③",
+ teach:'The unit’s §4 phrases: <b>access information · improve the quality of life · cause massive destructions · threaten global security · solve problems · have an impact on</b>.',
+ practice:[
+  {q:'The internet can be very helpful <span class="gap">______</span> answering your questions.',choices:["in","on","at"],key:"in",why:"helpful IN + -ing — the chart"}
+ ],
+ drill:[
+  {q:'With one click you <span class="gap">______</span> information from everywhere.',a:["access"],why:"access — the verb"},
+  {q:'Technology has improved the <span class="gap">______</span> of life.',a:["quality"],why:"the quality of life"},
+  {q:'Nuclear weapons have caused massive <span class="gap">______</span>.',a:["destructions","destruction"],why:"cause destructions"},
+  {q:'They also threaten global <span class="gap">______</span>.',a:["security"],why:"threaten security"},
+  {q:'New inventions can <span class="gap">______</span> climate change problems.',a:["solve"],why:"solve problems"},
+  {q:'Food of the future will <span class="gap">______</span> all essential vitamins.',a:["contain"],why:"contain vitamins"},
+  {q:'Robots do tasks <span class="gap">______</span> and faster.',a:["easier"],why:"easier and faster"},
+  {q:'The radio had the greatest <span class="gap">______</span> on people’s lives.',a:["impact"],why:"have an impact on"}
+ ]};
+var RD3={
+ name:"Reading · full FIPI tasks 12–18",icon:"④",untimed:true,
+ head:'<b>Read the text about AI in education. For questions 12–18 write the DIGIT 1, 2, 3 or 4.</b>',
+ items:[
+  {l:"12",t:"<i>The text:</i> «No matter what your occupation is, you have probably faced some uncertainty over the last few years as a result of innovative AI technology…»<br><b>What feeling does the spread of AI in education bring up?</b>",ch:["1. Opposition","2. Doubt","3. Excitement","4. Curiosity"],a:["2"]},
+  {l:"13",t:"«…this potent tool is also available to students who may use it to cheat and plagiarise work. Over the last several months, teachers… have been trying to address this growing problem.»<br><b>This growing problem in paragraph 2 refers to…</b>",ch:["1. AI’s productivity","2. shortage of teachers","3. academic dishonesty","4. students' access to AI"],a:["3"]},
+  {l:"14",t:"«While some software has claimed to be able to detect the presence of AI-generated content, none of these have fully cracked the code.»<br><b>What is the problem with the systems that spot the use of AI?</b>",ch:["1. They are quite unreliable.","2. They are rather expensive.","3. They are hard to work with.","4. They are difficult to access."],a:["1"]},
+  {l:"15",t:"<b>How can the use of AI in education be described, according to the text?</b>",ch:["1. Successful.","2. Controversial.","3. Unregulated.","4. Ineffective."],a:["2"]},
+  {l:"16",t:"«This means teachers can tweak their lessons to fit each student’s needs.»<br><b>Tweak in paragraph 5 most probably means…</b>",ch:["1. simplify.","2. replace.","3. upgrade.","4. adjust."],a:["4"]},
+  {l:"17",t:"<b>Which fact about AI in education is NOT mentioned in the text?</b>",ch:["1. AI impacts how students are assessed.","2. AI makes education more accessible.","3. AI makes students dependent on it.","4. AI helps make learning individualised."],a:["3"]},
+  {l:"18",t:"«The key will be learning how to use this technology wisely – as a tool to support learning, not replace it.»<br><b>The author concludes by suggesting that…</b>",ch:["1. students will be more productive with AI.","2. a balanced use of AI will benefit education.","3. education needs to regulate the use of AI.","4. teachers need to reconsider their methods."],a:["2"]}
+ ],
+ opts:"",keysNote:"The full AI text is on the FIPI demo (pp. 10–12); each question quotes its key paragraph."};
+var LS3={name:"Listening · full FIPI task",icon:"⑤",untimed:true,head:"<b>Listen and answer.</b> The recording plays twice.",pending:true};
+var SV3=SV;
+
+var G4={
+ name:"Grammar · THE with the one-and-only",icon:"①",
+ teach:'<b>THE</b> when there is only one: <b>the sun · the internet · the 1812 war · the French army · play the guitar</b>. And your lesson rule: «was awarded <b>the</b> Nobel Prize» — prize names take THE.',
+ practice:[
+  {q:'He was awarded <span class="gap">______</span> Nobel Prize.',choices:["the","—"],key:"the",why:"prize names take THE"}
+ ],
+ drill:[
+  {q:'<span class="gap">______</span> sun rises in the east.',a:["the"],why:"one and only → the"},
+  {q:'She plays <span class="gap">______</span> guitar every day.',a:["the"],why:"instruments take the"},
+  {q:'Kutuzov defeated <span class="gap">______</span> French army in 1812.',a:["the"],why:"a specific army → the"},
+  {q:'I found the information on <span class="gap">______</span> internet.',a:["the"],why:"the internet — always with the"},
+  {q:'<span class="gap">______</span> history of Russia is long.',a:["the"],why:"the history of — a specific one"},
+  {q:'We visited <span class="gap">______</span> Moscow State University. (THE or —)',a:["—","-","x","no article","no"],why:"universities named after a place/person take no the"}
+ ]};
+var W4={
+ name:"Word formation · mis- / over- / under-",icon:"②",
+ teach:'The prefix chart (Unit 4): <b>over-</b> = too much (overcook) · <b>under-</b> = not enough (underestimate) · <b>mis-</b> = wrongly (misunderstand, misbelieve).',
+ practice:[
+  {q:'Don’t <span class="gap">______</span> the time — the task takes longer than you think. (ESTIMATE)',choices:["underestimate","overestimate"],key:"underestimate",why:"not enough → under-"}
+ ],
+ drill:[
+  {q:'She <span class="gap">______</span> the question and answered the wrong thing. (UNDERSTAND)',a:["misunderstood"],why:"wrongly → mis- (past: misunderstood)"},
+  {q:'You <span class="gap">______</span> the pasta — it is too soft. (COOK)',a:["overcooked"],why:"too much → over-"},
+  {q:'He <span class="gap">______</span> the difficulty and failed. (ESTIMATE)',a:["underestimated"],why:"not enough → under-"},
+  {q:'That shop <span class="gap">______</span> tourists — everything costs double. (CHARGE)',a:["overcharges","overcharged"],why:"too much → over-"},
+  {q:'It is a common <span class="gap">______</span> that lions hunt in groups. (BELIEVE)',a:["misbelief"],why:"wrongly → mis-"},
+  {q:'They <span class="gap">______</span> the plan and had to start again. (DO)',a:["overdid"],why:"too much → over- (do — did — done)"}
+ ]};
+var C4={
+ name:"Collocations · the adjectives + phrasals",icon:"③",
+ teach:'Your lesson words in place: <b>prominent</b> scientists · <b>precise</b> facts · <b>severe</b> weather · the most <b>suitable</b> word · <b>turn to</b> a page.',
+ practice:[
+  {q:'One of the most <span class="gap">______</span> Russian scientists is Lomonosov.',choices:["prominent","precise","severe"],key:"prominent",why:"famous and important → prominent"}
+ ],
+ drill:[
+  {q:'Be <span class="gap">______</span> — check every fact twice.',a:["precise"],why:"precise = exact"},
+  {q:'<span class="gap">______</span> weather hit the coast — hurricanes and floods.',a:["severe"],why:"severe = very strong (not serious!)"},
+  {q:'<span class="gap">______</span> to page 40 and read the text.',a:["turn"],why:"turn to — the chronic one"},
+  {q:'This book is <span class="gap">______</span> reading — every page teaches you something.',a:["worth"],why:"worth + -ing — the tracker word"},
+  {q:'Stop <span class="gap">______</span> your brother while he studies.',choices:["bothering","annoying","troubling","worrying"],key:"bothering",why:"Set 1: stop + the -ing form"},
+  {q:'Don’t <span class="gap">______</span> about the result — the work is done.',choices:["worry","trouble","bother","annoy"],key:"worry",why:"Set 1: worry about — no object"},
+  {q:'raw, hard or sharp — the most <span class="gap">______</span> word here is raw.',a:["suitable"],why:"from your 25.10 synonyms moment"},
+  {q:'The film was <span class="gap">______</span> — I guessed the ending at once.',a:["predictable"],why:"the families come back"}
+ ]};
+var RD4={name:"Reading · full FIPI task",icon:"④",untimed:true,head:"<b>The full task lands with the next update.</b> Meanwhile: re-read one text from this week and find the sentence that proves each answer.",pending:true};
+var LS4={name:"Listening · full FIPI task",icon:"⑤",untimed:true,head:"<b>Listen and answer.</b> The recording plays twice.",pending:true};
+var SV4=SV;
+
+var G5={
+ name:"Grammar · used to — fix the mistake",icon:"①",
+ teach:'The spelling trap from your lesson: «I didn’t <b>use</b> to go» — after didn’t/did, the d disappears. «Did you <b>use</b> to…?»',
+ practice:[
+  {q:'I didn’t <span class="gap">______</span> to like coffee.',choices:["use","used"],key:"use",why:"after didn’t — no d"}
+ ],
+ drill:[
+  {q:'<span class="base">He didn’t used to play the guitar. → type the fix</span>',a:["didn’t use to play","use"],why:"after didn’t: use, not used"},
+  {q:'<span class="base">Did you used to live here? → type the fix</span>',a:["did you use to live","use"],why:"after did: use"},
+  {q:'I am not used <span class="gap">______</span> wake up early — I am a night person.',a:["to waking"],why:"be used to + -ing"},
+  {q:'She got used to <span class="gap">______</span> English every day.',a:["speaking"],why:"get used to + -ing"},
+  {q:'<span class="gap">______</span> used to be a factory here.',a:["there"],why:"There used to be"},
+  {q:'If I meet him, I <span class="gap">______</span> ask him.',a:["will"],why:"the conditional comes back"}
+ ]};
+var W5={
+ name:"Word formation · the families round two",icon:"②",
+ teach:'The same families, new sentences: chemist → chemistry → chemical · fame → famous · science → scientist → scientific → scientifically.',
+ practice:[
+  {q:'She studied <span class="gap">______</span> at university. (CHEMIST)',choices:["chemistry","chemical","chemist"],key:"chemistry",why:"the science = chemistry"}
+ ],
+ drill:[
+  {q:'Mendeleyev created the periodic table of <span class="gap">______</span> elements. (CHEMISTRY)',a:["chemical"],why:"the adjective"},
+  {q:'Novosibirsk is <span class="gap">______</span> for its academgorodok. (FAME)',a:["famous"],why:"fame → famous"},
+  {q:'___ progress depends on experiments. (SCIENCE) — type the word that opens the sentence',a:["scientific"],why:"the adjective"},
+  {q:'The hypothesis was <span class="gap">______</span> proven decades later. (SCIENCE)',a:["scientifically"],why:"the adverb"},
+  {q:'Popov was the <span class="gap">______</span> of the radio receiver. (INVENT)',a:["inventor"],why:"the person"},
+  {q:'Tsiolkovsky made a great contribution to the <span class="gap">______</span> of aviation. (DEVELOP)',a:["development"],why:"the noun"}
+ ]};
+var C5={
+ name:"Collocations · make / found / discover",icon:"③",
+ teach:'The trio from Friday’s lesson: <b>discover</b> = открыть (America) · <b>found</b> = основать (a university) · <b>invent</b> = invent what did not exist (a table, a bulb, a radio, a rocket).',
+ practice:[
+  {q:'Columbus <span class="gap">______</span> America.',choices:["discovered","founded","invented"],key:"discovered",why:"открыл то, что уже было → discovered"}
+ ],
+ drill:[
+  {q:'Mendeleev <span class="gap">______</span> the periodic table — it did not exist before him.',a:["invented"],why:"created something new → invented"},
+  {q:'Lomonosov <span class="gap">______</span> Moscow State University.',a:["founded"],why:"основал → founded"},
+  {q:'Scientists <span class="gap">______</span> a new species in the rainforest.',a:["discovered"],why:"found something that existed → discovered"},
+  {q:'Who <span class="gap">______</span> the light bulb?',a:["invented"],why:"a new thing → invented"},
+  {q:'They <span class="gap">______</span> the first radio receiver.',a:["invented"],why:"a new device → invented"},
+  {q:'The town <span class="gap">______</span> in 1147.',a:["was founded"],why:"passive + founded"}
+ ]};
+var RD5={name:"Reading · full FIPI task",icon:"④",untimed:true,head:"<b>The full task lands with the next update.</b> Meanwhile: re-read one text from this week and find the sentence that proves each answer.",pending:true};
+var LS5={name:"Listening · full FIPI task",icon:"⑤",untimed:true,head:"<b>Listen and answer.</b> The recording plays twice.",pending:true};
+var SV5=SV;
+
+var G6={
+ name:"Grammar · the week mixed",icon:"①",
+ teach:'Everything from the week in one round: used to · the conditional · the passive · THE. Read the marker, pick the form.',
+ practice:[
+  {q:'If the homework <span class="gap">______</span> done, the day opens.',choices:["is","will be"],key:"is",why:"the if-part takes the present (passive present here)"}
+ ],
+ drill:[
+  {q:'He <span class="gap">______</span> to hate reading, but now he loves it.',a:["used"],why:"used to — the past habit"},
+  {q:'The trees <span class="gap">______</span> planted last spring.',a:["were"],why:"passive past, plural"},
+  {q:'If it rains, the match <span class="gap">______</span> cancelled.',a:["will be"],why:"passive future in the result"},
+  {q:'She plays <span class="gap">______</span> piano beautifully.',a:["the"],why:"instruments take the"},
+  {q:'I am not used to <span class="gap">______</span> up so early.',a:["getting"],why:"be used to + -ing"},
+  {q:'If you <span class="gap">______</span> the phone off, you will sleep better.',a:["turn"],why:"if + present"}
+ ]};
+var W6={
+ name:"Word formation · everything mixed",icon:"②",
+ teach:'All the week’s families in one deal. Read the bracket, decide the part of speech, type the form.',
+ practice:[
+  {q:'His story was <span class="gap">______</span> — nobody believed a word. (BELIEVE)',choices:["unbelievable","disbelief"],key:"unbelievable",why:"after was — an adjective"}
+ ],
+ drill:[
+  {q:'a strong <span class="gap">______</span> in life after death (BELIEVE)',a:["belief"],why:"the noun"},
+  {q:'the <span class="gap">______</span> of a rare bird in the region (DISCOVER)',a:["discovery"],why:"the noun"},
+  {q:'an <span class="gap">______</span> who studies ancient cities (ARCHEOLOGY)',a:["archeologist","archaeologist"],why:"the person"},
+  {q:'a ___ of knowledge — a poetic <span class="gap">______</span> of facts (WEALTHY)',a:["wealth"],why:"wealthy → wealth"},
+  {q:'the most <span class="gap">______</span> invention of the century (SIGNIFICANCE)',a:["significant"],why:"the adjective"},
+  {q:'in <span class="gap">______</span>, technology is neither good nor bad (CONCLUDE)',a:["conclusion"],why:"the noun phrase in conclusion"}
+ ]};
+var C6={
+ name:"Collocations · everything mixed",icon:"③",
+ teach:'The week’s chunks in one deal — read the whole line, type the missing word.',
+ practice:[
+  {q:'Technology has given us the <span class="gap">______</span> to study from anywhere.',choices:["opportunity","occasion","possibility"],key:"opportunity",why:"the opportunity to do — the exam phrase"}
+ ],
+ drill:[
+  {q:'He was <span class="gap">______</span> the Nobel Prize for his work.',a:["awarded"],why:"no preposition, with THE"},
+  {q:'The two pictures <span class="gap">______</span> two different types of healthy lifestyle.',a:["depict"],why:"your Task 4 frame"},
+  {q:'free time you can spend <span class="gap">______</span> a hobby (V)',a:["on"],why:"spend time ON + -ing — the chart"},
+  {q:'Scientific progress depends <span class="gap">______</span> experiments and research.',a:["on"],why:"depend ON"},
+  {q:'The way we find information is different <span class="gap">______</span> the way our parents used to.',a:["from","to"],why:"different from/to"},
+  {q:'People like to interact <span class="gap">______</span> each other via messengers.',a:["with"],why:"interact with each other"}
+ ]};
+var RD6={name:"Reading · full FIPI task",icon:"④",untimed:true,head:"<b>The full task lands with the next update.</b> Meanwhile: re-read one text from this week and find the sentence that proves each answer.",pending:true};
+var LS6={name:"Listening · full FIPI task",icon:"⑤",untimed:true,head:"<b>Listen and answer.</b> The recording plays twice.",pending:true};
+var SV6=SV;
+
+var G7={
+ name:"Grammar · the star round",icon:"①",
+ teach:'The last day — everything, timed, no hints. Read the marker, trust the form.',
+ practice:[
+  {q:'His invention <span class="gap">______</span> in every remote control today.',choices:["is used","used"],key:"is used",why:"the passive is still alive"}
+ ],
+ drill:[
+  {q:'If Demikhov <span class="gap">______</span> today, he would see his legacy everywhere.',a:["returned","came back"],why:"if + present in the conditional pattern"},
+  {q:'The periodic table <span class="gap">______</span> by Mendeleyev in 1869.',a:["was created"],why:"passive past"},
+  {q:'There <span class="gap">______</span> to be a cinema on this corner.',a:["used"],why:"There used to be"},
+  {q:'He was awarded the Nobel Prize — no <span class="gap">______</span> after awarded.',a:["preposition","prep","of","for","with"],why:"your lesson rule"},
+  {q:'___ old professor founded the university — type THE or —',a:["the"],why:"a specific one → the"},
+  {q:'If she <span class="gap">______</span> the phone off, she will hear the recording twice.',a:["turns"],why:"if + present, he/she → -s"}
+ ]};
+var W7={
+ name:"Word formation · the star round",icon:"②",
+ teach:'The exam format: read the bracket, decide the part of speech, type the form. Everything from the week.',
+ practice:[
+  {q:'The hurricane was the most <span class="gap">______</span> storm of the decade. (SEVERITY)',choices:["severe","severely"],key:"severe",why:"after the most — an adjective"}
+ ],
+ drill:[
+  {q:'People stared in <span class="gap">______</span> at the two-headed dog. (BELIEVE)',a:["disbelief"],why:"the noun"},
+  {q:'He <span class="gap">______</span> the existence of undiscovered elements. (PREDICT)',a:["predicted"],why:"the verb, past"},
+  {q:'Kapitsa’s <span class="gap">______</span> changed low-temperature physics. (DISCOVER)',a:["discoveries"],why:"the plural noun"},
+  {q:'the ___ of the research institute — a <span class="gap">______</span> who founds things (FOUND)',a:["founder"],why:"the person"},
+  {q:'His <span class="gap">______</span> is still used in many forms. (INVENT)',a:["invention"],why:"the thing"},
+  {q:'Popov was famous <span class="gap">______</span> his studies in radio science. (preposition)',a:["for"],why:"famous FOR"}
+ ]};
+var C7={
+ name:"Collocations · the star round",icon:"③",
+ teach:'The last deal of the week — everything, including your old friends: the Set-1 family, worth, among, turn to.',
+ practice:[
+  {q:'The museum is well <span class="gap">______</span> visiting.',choices:["worth","worthy"],key:"worth",why:"worth + -ing — the tracker word"}
+ ],
+ drill:[
+  {q:'May I <span class="gap">______</span> you for a moment? — the formal one',a:["trouble"],why:"Set 1, meeting five"},
+  {q:'This game is very popular and <span class="gap">______</span> an influential amount of teenagers → type the fix',a:["among"],why:"your fix-three: among, not in"},
+  {q:'«This <span class="base">poem</span> is popular all over the world» → the wrong word is…',a:["poem","novel"],why:"your fix-three: The Master and Margarita is a novel"},
+  {q:'«authors like Lev Tolstoy and <span class="base">Mikhail</span> Dostoyevsky» → the wrong word is…',a:["mikhail","fyodor"],why:"your fix-three: Fyodor, not Mikhail"},
+  {q:'access <span class="gap">______</span> — two words for «получать доступ к информации»',a:["information"],why:"access information"},
+  {q:'the quality <span class="gap">______</span> life',a:["of"],why:"the quality of life"}
+ ]};
+var RD7={name:"Reading · the week’s texts, second pass",icon:"④",untimed:true,head:"<b>No new text today.</b> Re-read the week’s three texts (lions · the Amur region · AI) and say each one’s main idea in one sentence — out loud, in your own words. Type your three sentences here (one per text).",items:[
+  {l:"Lions",t:"One sentence — the main idea of the lions text:",a:[""],free:true},
+  {l:"The Amur region",t:"One sentence — the main idea of the Amur text:",a:[""],free:true},
+  {l:"AI",t:"One sentence — the main idea of the AI text:",a:[""],free:true}
+ ],opts:"",keysNote:"Free answers — Elena reads them in the report."};
+var LS7={name:"Listening · full FIPI task",icon:"⑤",untimed:true,head:"<b>Listen and answer.</b> The recording plays twice.",pending:true};
+var SV7=SV;
+
+var POOLS={G1:G1,W1:W1,C1:C1,RD1:RD1,LS1:LS1,SV:SV,G2:G2,W2:W2,C2:C2,RD2:RD2,LS2:LS2,G3:G3,W3:W3,C3:C3,RD3:RD3,LS3:LS3,G4:G4,W4:W4,C4:C4,RD4:RD4,LS4:LS4,G5:G5,W5:W5,C5:C5,RD5:RD5,LS5:LS5,G6:G6,W6:W6,C6:C6,RD6:RD6,LS6:LS6,G7:G7,W7:W7,C7:C7,RD7:RD7,LS7:LS7};
+
+/* the week: grammar · word formation · collocations every day, + reading · listening · Svetlana */
+var DAYS=[
+ {n:1,tasks:["G1","W1","C1","RD1","LS1","SV"]},
+ {n:2,tasks:["G2","W2","C2","RD2","LS2","SV"]},
+ {n:3,tasks:["G3","W3","C3","RD3","LS3","SV"]},
+ {n:4,tasks:["G4","W4","C4","RD4","LS4","SV"]},
+ {n:5,tasks:["G5","W5","C5","RD5","LS5","SV"]},
+ {n:6,tasks:["G6","W6","C6","RD6","LS6","SV"]},
+ {n:7,tasks:["G7","W7","C7","RD7","LS7","SV"]}
+];
+var SEC={G:20,W:25,C:15};      /* the drill clocks: choices 20 · word formation 25 · collocations 15 */
+
+/* ---------- progress: the completion chain ---------- */
+function getDone(){try{return parseInt(localStorage.getItem("egor-week-done")||"0",10)||0;}catch(e){return 0;}}
+function markDone(n){if(n>getDone()){try{localStorage.setItem("egor-week-done",String(n));}catch(e){}}}
+function unlockedCount(){
+  if(location.search.indexOf("all=1")!==-1)return DAYS.length;
+  return Math.max(1,Math.min(DAYS.length,getDone()+1));
+}
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function show(id){["start-card","run-card","end-card"].forEach(function(c){$(c).classList.add("hidden");});
+  if(id){$(id).classList.remove("hidden");window.scrollTo(0,0);}}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+var ICONS={G:"①",W:"②",C:"③",RD:"④",LS:"⑤",SV:"🗣"};
+function dayIcon(pid){return ICONS[String(pid).replace(/\d/g,"")]||"·";}
+
+function buildDayPicker(){
+  var un=unlockedCount(),done=getDone(),grid=$("day-grid");
+  var allOpen=location.search.indexOf("all=1")!==-1;
+  var frontier=allOpen?Math.min(done+1,DAYS.length):un;
+  grid.innerHTML="";
+  DAYS.forEach(function(d,i){
+    var b=document.createElement("button");
+    b.className="day-chip";
+    var todayChip=(i+1)===frontier;
+    if(todayChip)b.classList.add("today");
+    if(i+1>un)b.classList.add("locked");
+    var icons=d.tasks.map(dayIcon).join(" ");
+    b.innerHTML='<span class="dnum">Day '+d.n+(i+1<=done?" ✓":"")+(todayChip?" · today":"")+(i+1>un?" 🔒":"")+"</span>"+
+      '<span class="dicons">'+icons+"</span>";
+    b.addEventListener("click",function(){
+      if(i+1>un){b.classList.remove("wiggle");void b.offsetWidth;b.classList.add("wiggle");
+        $("day-msg").textContent="Day "+d.n+" opens when Day "+(i)+" is sent 🔒";return;}
+      if(!WHO){needName();return;}
+      startDay(i);
+    });
+    grid.appendChild(b);
+  });
+}
+function needName(){
+  var w=$("name-box");w.style.borderColor="var(--terra)";
+  setTimeout(function(){w.style.borderColor="";},900);w.focus();
+  $("day-msg").textContent="Write your name first";
+}
+
+/* ---------- state ---------- */
+var WHO="",day=null,dayIdx=0,lines=[],bi=0,timer=null,t0=0,DUR=0,answered=false;
+var mode="",queue=[],queuePos=0;
+try{$("name-box").value=(localStorage.getItem("egor-week-name")||"").trim();WHO=$("name-box").value;}catch(e){}
+buildDayPicker();
+$("name-box").addEventListener("input",function(){
+  var v=$("name-box").value.trim();
+  if(v){try{localStorage.setItem("egor-week-name",v);}catch(e){}WHO=v;}
+});
+
+function startDay(i){
+  day=DAYS[i];dayIdx=i;lines=[];bi=0;
+  runBlock();
+}
+$("home-btn").addEventListener("click",function(){buildDayPicker();show("start-card");});
+
+/* ---------- the block state machine ---------- */
+// (queue state declared with the other state vars above)
+function startDrill(p,kind){
+  mode="drill";
+  queue=shuffle(p.drill);queuePos=0;
+  nextDrillCard(p,kind);
+}
+function nextDrillCard(p,kind){
+  if(queuePos>=queue.length){endBlock();return;}
+  answered=false;
+  var t=queue[queuePos];
+  var sec=SEC[kind]||20;
+  $("q-count").textContent=p.icon+" "+p.name+" · "+(queuePos+1)+" / "+queue.length+" ⏰";
+  $("timer-wrap").style.visibility="visible";
+  var ch=t.ch||t.choices;
+  var body;
+  if(ch){
+    body='<div class="prompt">'+t.q+'</div><div class="helper">tap your answer — the result is recorded silently</div><div class="answer-row" id="arow"></div>';
+    $("q-body").innerHTML=body;
+    var row=$("arow");
+    shuffle(t.ch||t.choices).forEach(function(c){
+      var b=document.createElement("button");b.className="choice";b.textContent=c;
+      b.addEventListener("click",function(){
+        if(answered)return;answered=true;stopTimer();
+        recordLine(p,t,c,false);pulseNext();
+      });
+      row.appendChild(b);
+    });
+  }else{
+    body='<div class="prompt">'+t.q+'</div><div class="helper">type your answer — the result is recorded silently</div>'+
+      '<div class="answer-row"><input class="type-box" id="type-box" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="ok-btn" id="ok-btn">OK</button></div>';
+    $("q-body").innerHTML=body;
+    var box=$("type-box");
+    var submit=function(){if(answered)return;answered=true;stopTimer();
+      recordLine(p,t,box.value,false);pulseNext();};
+    $("ok-btn").addEventListener("click",submit);
+    box.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
+    setTimeout(function(){try{box.focus();}catch(e){}},60);
+  }
+  show("run-card");
+  startTimer(sec,function(){if(answered)return;answered=true;recordLine(p,t,null,true);pulseNext();});
+  queuePos++;
+}
+function pulseNext(){
+  $("q-body").classList.add("pulse");
+  setTimeout(function(){$("q-body").classList.remove("pulse");nextDrillCard(POOLS[day.tasks[bi]],String(day.tasks[bi]).replace(/\d/g,""));},350);
+}
+function recordLine(p,t,given,late){
+  var ok;
+  if(late){ok=false;}
+  else if(t.ch||t.choices){ok=norm(given)===norm(t.key);}
+  else{ok=!!String(given||"").trim()&&(t.a||[]).some(function(k){return norm(k)===norm(given);});}
+  lines.push({block:p.name,icon:p.icon,label:t.q.replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim(),
+    given:late?"⏰ time up":String(given||"—"),key:(t.ch||t.choices)?t.key:(t.a||[]).join(" / "),why:t.why||"",ok:ok,slow:false});
+}
+function norm(s){return String(s||"").trim().toLowerCase().replace(/[.,!?;:]/g,"").replace(/\s+/g," ");}
+
+/* ---------- the slow blocks: reading / listening / svetlana ---------- */
+function renderSlow(p,kind){
+  var h="";
+  if(kind==="RD"){
+    h+='<div class="teach">'+p.head;
+    if(p.opts)h+='<br><br><b>The options:</b><br>'+p.opts;
+    h+='</div>';
+    if(p.pending){h+='<p class="helper">⏳ This block’s material lands with the next update — continue with the next block.</p>';}
+    (p.items||[]).forEach(function(it,idx){
+      h+='<div class="rt"><b>'+esc(it.l)+'</b><div class="rtext">'+it.t+
+        (it.ch?'<br>'+it.ch.join(" · "):'')+
+        (it.free?'':'<br><input data-rt="'+idx+'" maxlength="12" placeholder="digit">')+'</div></div>';
+    });
+    if(p.keysNote)h+='<p class="helper" style="opacity:.75">'+p.keysNote+'</p>';
+  }else if(kind==="LS"){
+    var url=AUDIO[day.n]||"";
+    h+='<div class="teach">'+p.head+'</div>';
+    if(url){h+='<audio controls src="'+url+'"></audio>';}
+    else{h+='<p class="helper">⏳ The audio file hasn’t landed yet — Elena brings it with the next update. The task will wait for it here.</p>';}
+  }else{ /* SV */
+    h+='<div class="teach">'+p.head+'</div>'+
+      '<div class="answer-row" style="margin-top:.6em"><a class="big" href="'+p.link+'" target="_blank" rel="noopener" style="margin-top:0">Open the Svetlana trainer ↗</a></div>'+
+      '<p class="helper" style="margin-top:.8em">Paste your result link here (the platform gives it after the variant):</p>'+
+      '<div class="answer-row"><input class="type-box" id="sv-link" style="width:min(420px,86vw);text-align:left" placeholder="https://speaking.svetlanaenglishonline.ru/result/…"></div>';
+
+  }
+  return h;
+}
+function finishSlow(p,kind){
+  if(kind==="RD"){
+    var items=p.items||[];var any=false;
+    items.forEach(function(it,idx){
+      var el=document.querySelector('[data-rt="'+idx+'"]');
+      var given=el?el.value:"";
+      if(it.free){
+        lines.push({block:p.name,icon:p.icon,label:it.l+" — "+it.t.replace(/<[^>]+>/g," "),given:given||"—",key:"(Elena reads it)",why:"",ok:true,slow:true,free:true});
+      }else if(given.trim()!==""){
+        any=true;
+        var ok=(it.a||[]).some(function(k){return k!==""&&norm(k)===norm(given);});
+        lines.push({block:p.name,icon:p.icon,label:it.l+" — "+p.name,given:given,key:(it.a||[]).filter(Boolean).join(" / "),why:"",ok:ok,slow:true});
+      }
+    });
+    if(!any&&items.length&&!p.items[0].free){
+      lines.push({block:p.name,icon:p.icon,label:"the task was left unanswered",given:"—",key:"—",why:"",ok:false,slow:true});
+    }
+  }else if(kind==="LS"){
+    var url=AUDIO[day.n]||"";
+    lines.push({block:p.name,icon:p.icon,label:url?"the listening block was opened":"no audio yet",given:"—",key:"—",why:"",ok:true,slow:true,pending:!url});
+  }else{ /* SV */
+    var link="";try{link=($("sv-link")||{}).value||"";}catch(e){}
+    try{localStorage.setItem("egor-week-sv"+day.n,link||"");}catch(e){}
+    lines.push({block:p.name,icon:p.icon,label:"Svetlana variant · 4 parts",given:link||"no link pasted",key:"—",why:"",ok:!!link,slow:true,link:link});
+  }
+  bi++;
+  if(bi<day.tasks.length){runBlock();}else{dayEnd();}
+}
+
+/* ---------- block end + day send ---------- */
+function endBlock(){
+  bi++;
+  if(bi<day.tasks.length){runBlock();return;}
+  dayEnd();
+}
+function dayEnd(){
+  markDone(day.n);
+  var drill=lines.filter(function(l){return !l.slow;}),
+      slow=lines.filter(function(l){return l.slow&&!l.free&&!l.pending;});
+  var dOk=drill.filter(function(l){return l.ok;}).length;
+  var html='<div class="score-line"><span><b>'+dOk+'</b> / '+drill.length+' drill cards</span><span>'+(drill.length&&dOk===drill.length?"clean 🏆":drill.length&&dOk>=drill.length*0.7?"strong 💪":"the misses are listed below →")+'</span></div>';
+  var byBlock={};
+  lines.forEach(function(l){byBlock[l.block]=byBlock[l.block]||{n:0,ok:0};
+    if(!l.pending){byBlock[l.block].n++;if(l.ok)byBlock[l.block].ok++;}});
+  Object.keys(byBlock).forEach(function(k){
+    var b=byBlock[k];if(b.n)html+='<div class="score-line"><span>'+k+'</span><span><b>'+b.ok+'</b> / '+b.n+'</span></div>';
+  });
+  html+='<p class="helper" style="text-align:left;margin-top:1em;font-weight:700">Every line:</p>';
+  lines.forEach(function(l){
+    if(l.pending){html+='<div class="revline"><span class="mark">⏳</span> '+l.block+' — the audio hasn’t landed yet</div>';return;}
+    if(l.free){html+='<div class="revline"><span class="mark">✍️</span> <b>'+esc(l.label)+'</b><br>your line: '+esc(l.given)+'</div>';return;}
+    html+='<div class="revline"><span class="mark '+(l.ok?"mk-ok":"mk-bad")+'">'+(l.ok?"✓":"✗")+'</span> '+esc(l.label).slice(0,160)+
+      '<br>you: <b>'+esc(l.given)+'</b>'+(l.key&&l.key!=="—"?' → <span class="key">'+esc(l.key)+'</span>':'')+
+      (l.why?'<div class="why">💡 '+esc(l.why)+'</div>':'')+'</div>';
+  });
+  $("end-body").innerHTML=html;
+  $("end-eyebrow").textContent="Day "+day.n+" · the results (they went to Elena just now)";
+  show("end-card");
+  try{localStorage.setItem("egor-week-last",reportText());}catch(e){}
+  sendReport(reportText());
+}
+
+/* ---------- the report: every line ---------- */
+function reportText(){
+  var out=["EGOR WEEK · Day "+day.n+" · "+(WHO||"EGOR")+" · "+new Date().toLocaleString('en-GB')];
+  var byBlock={};
+  lines.forEach(function(l){byBlock[l.block]=byBlock[l.block]||{n:0,ok:0};
+    if(!l.pending&&!l.free){byBlock[l.block].n++;if(l.ok)byBlock[l.block].ok++;}});
+  Object.keys(byBlock).forEach(function(k){var b=byBlock[k];
+    if(b.n)out.push(k+": "+b.ok+"/"+b.n);});
+  out.push("--- every line ---");
+  lines.forEach(function(l){
+    if(l.pending){out.push("⏳ "+l.block+": the audio hasn’t landed yet");return;}
+    if(l.free){out.push("✍️ "+l.label+": "+l.given);return;}
+    out.push((l.ok?"✓":"✗")+" ["+l.block+"] "+l.label+" — you: "+l.given+(l.key&&l.key!=="—"?" · key: "+l.key:"")+(l.link?" · "+l.link:""));
+  });
+  return out.join("\n");
+}
+
+/* ---------- send machinery (the hw-012 pattern: fetch → iframe fallback → queue) ---------- */
+var QKEY="egor-week-form-queue";
+function queueGet(){try{return JSON.parse(localStorage.getItem(QKEY)||"[]");}catch(e){return[];}}
+function queueAdd(txt){var q=queueGet();q.push(txt);if(q.length>30)q=q.slice(-30);try{localStorage.setItem(QKEY,JSON.stringify(q));}catch(e){}}
+function queueClear(){try{localStorage.setItem(QKEY,"[]");}catch(e){}}
+function postOne(txt,done){
+  var okFn=function(){done(true);},badFn=function(){done(false);};
+  try{
+    var body=new FormData();
+    body.append(HW_FORM.entry,txt);
+    fetch(HW_FORM.action,{method:"POST",mode:"no-cors",body:body})
+      .then(function(){okFn();}).catch(function(){iframePost(txt,okFn,badFn);});
+  }catch(e){iframePost(txt,okFn,badFn);}
+}
+function iframePost(txt,okFn,badFn){
+  try{
+    var frame=document.createElement("iframe");
+    frame.name="hf-"+Date.now();frame.style.display="none";
+    document.body.appendChild(frame);
+    var f=document.createElement("form");
+    f.method="POST";f.action=HW_FORM.action;f.target=frame.name;
+    var inp=document.createElement("input");
+    inp.type="hidden";inp.name=HW_FORM.entry;inp.value=txt;
+    f.appendChild(inp);
+    document.body.appendChild(f);f.submit();
+    setTimeout(function(){okFn();},1200);
+  }catch(e){badFn();}
+}
+function sendReport(txt){
+  postOne(txt,function(ok){
+    if(!ok){queueAdd(txt);return;}
+    var q=queueGet();
+    if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}
+  });
+}
+(function(){var q=queueGet();if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}})();
+
+/* ---------- the wall-clock timer ---------- */
+function startTimer(sec,onOut){
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  num.textContent=sec+" s";num.className="timer-num";
+  if(timer){clearInterval(timer);timer=null;}
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 s";
+      if(timer){clearInterval(timer);timer=null;}onOut();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" s";
+    num.className="timer-num"+(s<=3?" low":"");
+  },100);
+}
+function stopTimer(){if(timer){clearInterval(timer);timer=null;}}
+
+/* ---------- the teach→practice→drill wiring (the real flow) ---------- */
+/* runBlock renders the teach card for drill blocks; its button starts practice:
+   practice = the practice queue WITH instant feedback; then the drill (silent). */
+function runBlock(){
+  var pid=day.tasks[bi],p=POOLS[pid],kind=String(pid).replace(/\d/g,"");
+  if(kind==="RD"||kind==="LS"||kind==="SV"){
+    var sbody='<div class="blockcard">';
+    sbody+='<div class="btag">'+p.icon+" "+p.name+'</div>'+renderSlow(p,kind)+'</div>';
+    sbody+='<div class="answer-row"><button class="big" id="block-done-btn" style="margin-top:.6em">'+(kind==="RD"?"Check & continue →":"Continue →")+'</button></div>';
+    $("q-count").textContent=p.icon+" "+p.name;
+    $("timer-wrap").style.visibility="hidden";$("timer-num").textContent="";
+    $("q-body").innerHTML=sbody;
+    show("run-card");
+    $("block-done-btn").addEventListener("click",function(){finishSlow(p,kind);});
+    try{var saved=localStorage.getItem("egor-week-sv"+day.n);var sv=$("sv-link");if(saved&&sv)sv.value=saved;}catch(e){}
+    return;
+  }
+  var body='<div class="blockcard">';
+  body+='<div class="btag">'+p.icon+" "+p.name+'</div>';
+  body+='<div class="teach">'+p.teach+'</div>';
+  body+='<p class="helper">Step 1 — read the teach card. Step 2 — a short practice with answers. Step 3 — the drill: timed, silent, recorded.</p></div>';
+  body+='<div class="answer-row"><button class="big" id="teach-btn" style="margin-top:.6em">Got it — practice →</button></div>';
+  $("q-count").textContent=p.icon+" "+p.name+" · step 1 · teach";
+  $("timer-wrap").style.visibility="hidden";$("timer-num").textContent="";
+  $("q-body").innerHTML=body;
+  show("run-card");
+  $("teach-btn").addEventListener("click",function(){
+    mode="practice";
+    var deck=shuffle(p.practice);var i=0;
+    var nextP=function(){
+      if(i>=deck.length){startDrill(p,kind);return;}
+      answered=false;var t=deck[i];
+      $("q-count").textContent=p.icon+" "+p.name+" · step 2 · practice "+(i+1)+"/"+deck.length;
+      $("timer-wrap").style.visibility="hidden";$("timer-num").textContent="";
+      var body='<div class="prompt">'+t.q+'</div><div class="helper">practice — the answer checks right away</div><div class="answer-row" id="arow"></div>';
+      $("q-body").innerHTML=body;
+      var row=$("arow");
+      shuffle(t.ch||t.choices).forEach(function(c){
+        var b=document.createElement("button");b.className="choice";b.textContent=c;
+        b.addEventListener("click",function(){
+          if(answered)return;answered=true;
+          var ok=norm(c)===norm(t.key);
+          row.querySelectorAll(".choice").forEach(function(x){x.disabled=true;});
+          b.style.borderColor=ok?"var(--teal)":"var(--terra)";
+          b.style.color=ok?"var(--teal)":"var(--terra)";
+          setTimeout(function(){i++;nextP();},ok?650:1350);
+        });
+        row.appendChild(b);
+      });
+      show("run-card");
+    };
+    nextP();
+  });
+}
+
+/* drive handle (test drives + future QA) */
+window.__W={startDay:startDay,dayEnd:dayEnd,lines:function(){return lines;},
+  state:function(){return {day:day?day.n:null,bi:bi,mode:mode,queuePos:queuePos};}};
+
+/* load-time queue flush already ran above; nothing after the handle */
+})();
+</script>
+</body>
+</html>
