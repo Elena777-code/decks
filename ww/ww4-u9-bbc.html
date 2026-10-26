@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WW4 · Unit 9 · BBC Culture — Can school be fun?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WW4 (8th-grade group, Tue 15.45 Elena / Fri 15.30 Farida) —
+   Wider World 3, Unit 9 "Think outside the box", BBC Culture
+   spread «Can school be fun? — Two very different schools»
+   (SB pp. 116–117, TB pp. 217–218). Engine: the group's familiar
+   9.1 sheets (deck-005 clone), current standard + the family's
+   25.10 additions (video.deck · .gap · .back .tq nowrap). THE
+   CORNERS V2 (🙋 top-left · ✍️ top-right · 🗒 bottom-centre),
+   the ✍️ V2 window (auto-send over http), the hotkey guard,
+   flex-shrink guard, answers behind clicks, build stamp.
+   Opening: the homework check — Friday's two items (Farida,
+   23.10): SB p. 115 ex. 4–5 (the Revision page) + WB pp. 110–111
+   (9.8 Self-assessment + 9.9 Self-check) — then the BBC lesson
+   strictly from the TB (the lead-in · Explore 1–3 · video 9.5 +
+   Explore More 4–5 · video 9.6 + Explore More 6–7 · the Culture
+   project 8 + the Extra role play), the test slide (Friday, with
+   Farida) and the homework. English only. The tense colour code
+   on the check reveals: blue present simple · green present
+   continuous · red past · yellow future · purple present perfect.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --radius:14px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+  --tblue:#1450C8; --tgreen:#0E7A3D; --tred:#C0262E; --tyellow:#B8860B; --tpurple:#7D3C98;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* flex-shrink guard: nothing on a slide may collapse — the slide scrolls */
+.slide>*{flex-shrink:0}
+.slide{position:absolute;inset:0;padding:8vh 5vw 12vh;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.6vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.8rem,1.25vw,1rem);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.3rem,2.5vw,2.05rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.stamp{display:inline-block;font-size:clamp(.72rem,1.05vw,.85rem);font-weight:700;
+  color:var(--ink-soft);border:1.5px solid var(--line);border-radius:99px;
+  padding:.14em .7em;background:#fff;letter-spacing:.04em}
+.task{font-size:clamp(1.02rem,1.65vw,1.3rem);line-height:1.5;font-weight:500}
+.task strong{color:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.78rem,1.2vw,.95rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.16em .7em;
+  background:#fff;margin-bottom:.1em;white-space:nowrap}
+.note{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);font-style:italic;line-height:1.48}
+audio{width:min(460px,92%);height:42px;vertical-align:middle}
+video.deck{width:min(680px,92%);height:auto;vertical-align:middle;border-radius:10px;
+  border:1px solid var(--line);background:#000}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.8rem,1.5vw,1.2rem)}
+.card.tint{background:var(--accent-soft);border-color:#d5e2dd}
+.card.gold{background:var(--gold-soft);border-color:#e8dcb8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.5vw,1.1rem)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.5vw,1.1rem)}
+.chips{display:flex;flex-wrap:wrap;gap:.5em}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:.26em .8em;
+  font-size:clamp(.92rem,1.5vw,1.2rem);font-weight:600;background:#fff;user-select:none}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.42em 0;
+  border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.7vw,1.32rem);line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .no{font-weight:800;color:var(--accent);min-width:1.4em}
+/* click-to-reveal answers — ANSWERS HIDE, ALWAYS */
+.flip{cursor:pointer;border-radius:8px;transition:background .2s}
+.flip:hover{background:var(--accent-soft)}
+.flip .back{color:var(--accent);opacity:0;transition:opacity .2s;font-weight:700;font-size:.94em;
+  display:inline-block;max-width:0;max-height:1.1em;overflow:hidden;white-space:nowrap;vertical-align:baseline}
+.flip.shown .back{opacity:1;max-width:none;max-height:none;white-space:normal}
+/* a key chip never breaks across a line wrap — it moves whole (the 25.10 drive) */
+.back .tq{white-space:nowrap}
+/* the tense colour chips (the standing code; purple = present perfect) */
+.tq{border-radius:8px;padding:.1em .45em;font-weight:700}
+.tq.pres{background:#E1EAF7;border:1.5px solid var(--tblue);color:var(--tblue)}
+.tq.cont{background:#E3F2E5;border:1.5px solid var(--tgreen);color:var(--tgreen)}
+.tq.past{background:#F9E4E1;border:1.5px solid var(--tred);color:var(--tred)}
+.tq.fut{background:#FCF3D5;border:1.5px solid var(--tyellow);color:var(--tyellow)}
+.tq.pp{background:#F1E3F5;border:1.5px solid var(--tpurple);color:var(--tpurple)}
+/* the gapped text (the book's own box, Explore More 6) */
+.gap{font-weight:700;color:var(--accent)}
+.gap .back{font-size:1em}
+.lead-sm{font-size:clamp(.95rem,1.5vw,1.18rem);line-height:1.5;color:#4a463d}
+.lead-sm strong{color:var(--accent)}
+.bigbtn{align-self:flex-start;border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.28em .9em;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:clamp(.85rem,1.3vw,1rem);color:var(--ink-soft);cursor:pointer}
+.bigbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- THE CORNERS V2 — pinned emoji pills ---------- */
+.pill{position:fixed;z-index:150;border:2px solid var(--line);background:rgba(255,255,255,.95);
+  backdrop-filter:blur(8px);color:var(--ink);font-family:'Inter',sans-serif;
+  font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1;
+  padding:.42em .6em;border-radius:99px;cursor:pointer;
+  box-shadow:0 3px 10px rgba(35,39,46,.10);transition:transform .12s,border-color .12s}
+.pill:hover{transform:scale(1.08);border-color:var(--accent)}
+#pardonBtn{top:max(10px,1.6vh);left:max(10px,1.6vw)}
+#annoBtn{top:max(10px,1.6vh);right:max(10px,1.6vw)}
+
+/* ---------- 🙋 Pardon? — the one universal list (top-left popup) ---------- */
+#pq{position:fixed;left:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(420px,92vw);
+  background:#fff;border:2px solid var(--line);border-radius:16px;padding:.75em .9em .9em;
+  display:none;flex-direction:column;gap:.35em;box-shadow:0 16px 40px rgba(35,39,46,.22)}
+#pq.on{display:flex}
+#pq .pq-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft);padding:0 .2em .2em}
+#pq .a-sp{flex:1}
+#pq .pq-head button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#pq .pq-head button:hover{border-color:var(--ink-soft)}
+#pq .pqRow{display:flex;align-items:center;gap:.6em;font-size:clamp(1rem,1.9vw,1.2rem);
+  font-weight:600;color:var(--ink);padding:.3em .5em;border-radius:10px;line-height:1.35}
+#pq .pqRow:hover{background:var(--accent-soft)}
+#pq .pqRow .pqE{flex:0 0 1.6em;text-align:center;font-weight:400}
+
+/*ANNO*//*STRIPANNO*//*/ANNO*/
+
+/*TNOTES*//*STRIPTNOTES*//*/TNOTES*/
+
+/* ⛶ read big — fullscreen reading text */
+#fso{position:fixed;inset:0;z-index:190;background:var(--paper);display:none;
+  overflow:auto;padding:6vh 7vw 10vh}
+#fso.open{display:block}
+#fso .fsoinner{max-width:78ch;margin:0 auto;font-size:clamp(1.25rem,2.4vw,1.95rem);
+  line-height:1.65;color:var(--ink)}
+#fso .fsoinner .gp{display:inline-block;min-width:5.5ch;border-bottom:2px solid var(--accent);
+  text-align:center;padding:0 .3em}
+#fso .fsoinner .ex{color:var(--accent);font-weight:700}
+
+@media (max-width:900px){
+  .slide{padding:8vh 5vw 12vh}
+  .grid2,.grid3{grid-template-columns:1fr}
+}
+</style>
+<style>/* THE FILM CUE (standing, 2026-10-13): Elena films the group for the parents at this slide — placement taught gradually */
+.filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER + THE PLAN + PREPARE AHEAD -->
+<section class="slide">
+  <div class="eyebrow reveal">Wider World 3 · Unit 9 “Think outside the box” · WW4 (8th grade) — Tue 15.45 Elena / Fri 15.30 Farida</div>
+  <h1 class="reveal">BBC Culture — <em>Can school be fun?</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Today:</strong> two very different schools — and <em>your</em> ideal school.</p>
+  <p class="tag reveal">HOMEWORK CHECK — today’s order</p>
+  <div class="chips reveal">
+    <span class="chip">1 · SB p. 115 ex. 4–5</span>
+    <span class="chip">2 · WB pp. 110–111</span>
+  </div>
+  <div class="card tint reveal">
+    <p class="lead-sm"><strong>Prepare ahead</strong> — 📓 <strong>notebooks out</strong> · 📖 <strong>SB open at pp. 116–117</strong> (the BBC Culture spread) · 🔊 <strong>sound check</strong>: the two video parts (slides 15–17) play right from the slides · nothing else.</p>
+  </div>
+  <div class="card gold reveal"><p class="lead-sm">🎯 <strong>Friday</strong> — the <strong>Unit 9 test</strong> (with Farida). We revise today.</p></div>
+</section>
+
+<!-- 2 · CHECK 1/2 — SB p. 115 ex. 4: THE NEWS · STORIES A + B -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework check · SB p. 115 ex. 4 · the Revision page · 1/2</div>
+  <h1 class="reveal">The latest news in education — <em>stories A + B</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Three short <strong>news stories</strong>. Complete with the <strong>correct form</strong> of the verbs in brackets:</p>
+  <div class="card reveal">
+    <p class="task" style="font-size:clamp(1rem,1.7vw,1.3rem)"><strong>A · Lunchbox thieves?</strong></p>
+    <div class="item"><span class="no">1</span><span>Recently, strange things <b>have happened</b> (happen) in the UK. <span class="note">(the example)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>At some schools, teachers ______ (take) food items out of pupils’ lunch boxes! <span class="back">→ <span class="tq pp">have taken</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>No, they ______ (put) unhealthy snacks in the bin! <span class="back">→ <span class="tq cont">are putting</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Pupils and their parents ______ (feel) shocked. <span class="back">→ <span class="tq cont">are feeling</span></span></span></div>
+    <p class="task" style="font-size:clamp(1rem,1.7vw,1.3rem);margin-top:.5em"><strong>B · Police to get pupils out of bed!</strong></p>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Another UK school says it is going to ______ (send) ex-police officers to get pupils out of bed! <span class="back">→ <span class="tq fut">send</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>Apparently the officers are going to ______ (take) lazy students to school by car. <span class="back">→ <span class="tq fut">take</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">7</span><span>This way, pupils won’t ______ (miss) any lessons… <span class="back">→ <span class="tq fut">miss</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">8</span><span>…so they will ______ (do) better in their exams… <span class="back">→ <span class="tq fut">do</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">9</span><span>…which ______ (start) in three months. <span class="back">→ <span class="tq pres">start</span> / <span class="tq cont">are starting</span></span></span></div>
+  </div>
+  <button class="bigbtn reveal" onclick="openFs('fs-news')">⛶ Read big — the whole text</button>
+</section>
+
+<!-- 3 · CHECK 2/2 — SB p. 115 ex. 4: THE NEWS · STORY C -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework check · SB p. 115 ex. 4 · the Revision page · 2/2</div>
+  <h1 class="reveal">The last story — <em>Parents must behave!</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Story <strong>C</strong> — the same exercise, the verbs in brackets:</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">10</span><span>Last week we ______ (read) an interesting report about a head teacher… <span class="back">→ <span class="tq past">read</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">11</span><span>…who was angry with parents who ______ (not come) to any parent-teacher evenings. <span class="back">→ <span class="tq past">didn’t come</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">12</span><span>He ______ (want) lazy parents to pay a fine. <span class="back">→ <span class="tq past">wanted</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">13</span><span>However, other people ______ (not like) his plan, so he was very unpopular! <span class="back">→ <span class="tq past">didn’t like</span></span></span></div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm"><strong>Which word</strong> told you the past? <em>— Last week…</em></p></div>
+</section>
+<div id="fs-news" style="display:none">
+  <h3>The latest news in education…</h3>
+  <div style="font-size:1em;line-height:1.75">
+    <p><b>A · Lunchbox thieves?</b> Recently, strange things have happened (happen) in the UK. At some schools, teachers ___ (take) food items out of pupils’ lunch boxes! Are teachers hungry? No, they ___ (put) unhealthy snacks in the bin! Pupils and their parents ___ (feel) shocked.</p>
+    <p><b>B · Police to get pupils out of bed!</b> Another UK school says it is going to ___ (send) ex-police officers to get pupils out of bed! Apparently the officers are going to ___ (take) lazy students to school by car. This way, pupils won’t ___ (miss) any lessons, so they will ___ (do) better in their exams, which ___ (start) in three months.</p>
+    <p><b>C · Parents must behave!</b> Last week we ___ (read) an interesting report about a head teacher who was angry with parents who ___ (not come) to any parent-teacher evenings. What was his idea? He ___ (want) lazy parents to pay a fine. However, other people ___ (not like) his plan, so he was very unpopular!</p>
+  </div>
+</div>
+
+<!-- 4 · CHECK — SB p. 115 ex. 5: MAKE THE QUESTIONS -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Homework check · SB p. 115 ex. 5 · make the questions</div>
+  <h1 class="reveal">Make the question — <em>word order is the game</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Make questions from the prompts — <strong>say the whole question</strong>, don’t read it. Then click and compare:</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>what / teachers / do / with unhealthy snacks? <span class="back">→ What are teachers doing with unhealthy snacks?</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>pupils and parents / feel / happy about this? <span class="back">→ Are pupils and parents feeling happy about this?</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>why / one school / send police officers / to get students / out of bed? <span class="back">→ Why did one school send police officers to get students out of bed?</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>this / help / students? <span class="back">→ Did this help students?</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>who / become / famous / last week? <span class="back">→ Who became famous last week?</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>he / popular? <span class="back">→ Was he popular?</span></span></div>
+  </div>
+  <p class="lead-sm reveal">Then answer two of them — <strong>your opinion</strong>: was the police idea good? would the fine work?</p>
+</section>
+
+<!-- 5 · CHECK — WB p. 110: 9.8 SELF-ASSESSMENT -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework check · WB p. 110 · 9.8 Self-assessment</div>
+  <h1 class="reveal">Your unit report card — <em>the honest ticks</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">You ticked the smiley faces. <strong>Hands up</strong> — which rows got a <strong>🙁</strong>? Be honest, it is our revision list:</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="item"><span class="no">9.1</span><span>I can talk about school life.</span></div>
+      <div class="item"><span class="no">9.2</span><span>I can make questions with the correct word order.</span></div>
+      <div class="item"><span class="no">9.3</span><span>I can find specific detail in an article.</span></div>
+      <div class="item"><span class="no">9.4</span><span>I can use a variety of tenses.</span></div>
+    </div>
+    <div class="card">
+      <div class="item"><span class="no">9.5</span><span>I can identify specific information in a dialogue.</span></div>
+      <div class="item"><span class="no">9.6</span><span>I can have a casual conversation.</span></div>
+      <div class="item"><span class="no">9.7</span><span>I can write a letter giving information.</span></div>
+    </div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm"><strong>Good news:</strong> the exercises on the next slide are the book’s own medicine — the Self-check’s «Now try» column points the weak rows exactly there.</p></div>
+</section>
+
+<!-- 6 · CHECK — WB p. 111 ex. 1–2: THE SELF-CHECK, WORDS -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework check · WB p. 111 · 9.9 Self-check · ex. 1–2</div>
+  <h1 class="reveal">The Self-check — <em>words</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 1</strong> — match with the definitions (<em>ICT · Literature · Maths · performance · practical exam · project</em>):</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>a school subject in which you learn about numbers <span class="back">→ Maths</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>a test in which you make something rather than answer questions <span class="back">→ practical exam</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>a school subject in which you learn about computers <span class="back">→ ICT</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>a situation in which you do something on a stage for other people to watch <span class="back">→ performance</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>a school subject in which you learn about novels, plays and poems <span class="back">→ Literature</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>a piece of work in which you study and write about a topic in detail <span class="back">→ project</span></span></div>
+    </div>
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 2</strong> — choose the correct option:</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>What’s the best way to <i>revise / memorise</i> for exams? <span class="back">→ revise</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>You must <i>memorise / study</i> this number so that you can remember it. <span class="back">→ memorise</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>We’re <i>studying / learning</i> about plants in Biology at the moment. <span class="back">→ learning</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>You won’t do well in your exams if you’re <i>lazy / creative</i>. <span class="back">→ lazy</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Come and <i>make / take</i> a look at this picture. <span class="back">→ take</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>You need to <i>fill in / calm down</i> this form. <span class="back">→ fill in</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · CHECK — WB p. 111 ex. 3: THE SELF-CHECK, WORD BUILDING -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework check · WB p. 111 · 9.9 Self-check · ex. 3</div>
+  <h1 class="reveal">The Self-check — <em>six words, two extras</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Complete with the words below — <strong>two are extra</strong>:</p>
+  <div class="chips reveal"><span class="chip">critical</span><span class="chip">general</span><span class="chip">mess</span><span class="chip">mistakes</span><span class="chip">photography</span><span class="chip">problem</span><span class="chip">talented</span><span class="chip">teamwork</span></div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Max is really good at ______ solving. <span class="back">→ problem</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Simon doesn’t like working on his own — he prefers ______. <span class="back">→ teamwork</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>No, I don’t know the capital of Hungary — my ______ knowledge isn’t very good. <span class="back">→ general</span></span></div>
+    </div>
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>We did some exercises to develop our ______ thinking skills. <span class="back">→ critical</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>I made a lot of ______ in my English test. <span class="back">→ mistakes</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>You won’t do well at school if you ______ around in class. <span class="back">→ mess</span></span></div>
+    </div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm">And the two that stayed in the box? <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ photography · talented</span></span></p></div>
+</section>
+
+<!-- 8 · CHECK — WB p. 111 ex. 4–5: THE SELF-CHECK, QUESTIONS -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework check · WB p. 111 · 9.9 Self-check · ex. 4–5</div>
+  <h1 class="reveal">The Self-check — <em>questions</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Complete the questions — then <strong>match the answers</strong>:</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 4</strong> — complete the questions with the correct form:</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>______ (your friends / go) shopping every weekend? <span class="back">→ Do your friends go</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>______ (you / finish) reading that book yet? <span class="back">→ Have you finished</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>______ (why / Carrie / be) upset today? <span class="back">→ Why is Carrie</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>______ (who / call) the police last night? <span class="back">→ Who called</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>______ (who / you / see) at the cinema yesterday? <span class="back">→ Who did you see</span></span></div>
+    </div>
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 5</strong> — match the answers with Ex. 4:</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">a</span><span>Because she failed her Chemistry exam. <span class="back">→ 3</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">b</span><span>I saw Tim and Mel. <span class="back">→ 5</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">c</span><span>Yes, I have. <span class="back">→ 2</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">d</span><span>Yes, they do. <span class="back">→ 1</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">e</span><span>Marty called them. <span class="back">→ 4</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · CHECK — WB p. 111 ex. 6–7: THE SELF-CHECK, TENSES + SPEAKING -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework check · WB p. 111 · 9.9 Self-check · ex. 6–7</div>
+  <h1 class="reveal">The Self-check — <em>tenses and dialogues</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 6</strong> — choose the correct option:</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>I <i>play / I’m playing</i> tennis every weekend. <span class="back">→ <span class="tq pres">I play</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Someone <i>stole / was stealing</i> my bike yesterday. <span class="back">→ <span class="tq past">stole</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>We <i>walked / were walking</i> home when we saw him. <span class="back">→ <span class="tq past">were walking</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>The school <i>became / has become</i> very popular over the last few years. <span class="back">→ <span class="tq pp">has become</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Do yoga. It <i>is helping / will help</i> you to stay flexible. <span class="back">→ <span class="tq fut">will help</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>The new term <i>starts / is going to start</i> in two weeks. <span class="back">→ <span class="tq pres">starts</span></span></span></div>
+    </div>
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 7</strong> — complete the dialogues (<i>do you like · have you been · how have · how was · would you like · what are</i>):</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Great to see you after so long! ______ you been? <span class="back">→ How have</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Your flat’s really nice. ______ it here? <span class="back">→ Do you like</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Hi, nice to see you. ______ your journey? <span class="back">→ How was</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Good. ______ to Manchester before? <span class="back">→ Have you been</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Hi. ______ you guys doing tonight? <span class="back">→ What are</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>______ to join us? <span class="back">→ Would you like</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · BBC CULTURE · LEAD-IN — THE GLOSSARY FIVE -->
+<section class="slide">
+  <div class="eyebrow reveal">BBC Culture · lead-in · the glossary (SB p. 116)</div>
+  <h1 class="reveal">Five words before we <em>read</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">In your groups — <strong>find each word in Adam’s text</strong> (SB p. 116) and say what it means there. Then click:</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span><b>achieve</b> (v) <span class="back">→ to succeed in doing something — «they help you achieve your potential»</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span><b>allergy</b> (n) <span class="back">→ a medical condition that makes you ill when you eat, touch or breathe something — «I gave a talk about modern-day allergies»</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span><b>clay</b> (n) <span class="back">→ a type of material that is used to make pots — «the teacher asked us to make clay models»</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span><b>discourage</b> (v) <span class="back">→ to try to make someone want to do something less often — «One thing that they discourage at my school is the computer»</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span><b>in turns</b> (phrase) <span class="back">→ one after another — «we took it in turns to give presentations»</span></span></div>
+  </div>
+  <div class="card tint reveal">
+    <p class="task" style="font-size:clamp(.98rem,1.65vw,1.3rem)">Now one sentence of <strong>yours</strong> with any word from the five. Example: <i>The teachers here help you to achieve your academic goals.</i></p>
+  </div>
+</section>
+
+<!-- 11 · EXPLORE 1 -->
+<section class="slide">
+  <div class="eyebrow reveal">BBC Culture · Explore · 1</div>
+  <h1 class="reveal">Fun or boring — <em>what makes a lesson?</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">In pairs, ask and answer:</p>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>Describe something you have learnt recently that was fun or interesting. Why was it a good learning experience?</span></div>
+    <div class="item"><span class="no">2</span><span>What makes a lesson interesting or boring for you? Give examples.</span></div>
+  </div>
+  <div class="card tint reveal">
+    <p class="task reveal">And how could a <strong>school subject</strong> be made more fun? Your idea first, then ours: <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ You could teach Maths using shopping role plays, where students have to work out how much they have spent and how much change they should get.</span></span></p>
+  </div>
+</section>
+
+<!-- 12 · THE ARTICLE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">BBC Culture · Another way to learn: a day in the life of a student at an alternative school</div>
+  <h1 class="reveal">A day at an <em>alternative school</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <p class="lead-sm" style="margin-bottom:.2em"><b>Adam</b></p>
+    <p class="lead-sm">‘I go to a Steiner school. It’s very different to the traditional schools that my friends go to. First of all, our learning is far more creative and interactive. We don’t sit in class and memorise facts; we get up and do practical stuff, which I think is really alternative.</p>
+    <p class="lead-sm" style="margin-top:.4em">For example, today we had a Biology lesson. As we were learning all about the body, the teacher asked us to make clay models and draw pictures of different body parts. It was much more fun than just reading information in a book. Also, we did this in a group, so we learnt from each other. Then we took it in turns to give presentations about a subject of our choice. I gave a talk about modern-day allergies. I researched this topic because I think it’s really fascinating.</p>
+    <p class="lead-sm" style="margin-top:.4em">Anyway, it’s great that we have the freedom to do that. And the other positive thing is that there are no tests – we just revise the material in our own time!</p>
+    <p class="lead-sm" style="margin-top:.4em">We also usually only have one academic subject per week. It’s just two or three hours in the morning, then the rest of the day we do gardening, arts and crafts. Today we did singing and dancing – my favourites! One thing that they discourage at my school is the computer. We aren’t allowed to sit in front of a screen for a long time. I don’t like this, but I understand the reasons – we can do that at home.</p>
+    <p class="lead-sm" style="margin-top:.4em">Here the teachers are very different too – they are your friends. They don’t just instruct you; they help you achieve your potential. I love that. I actually look forward to going to school!’</p>
+  </div>
+  <div class="chips reveal"><span class="chip">achieve</span><span class="chip">allergy</span><span class="chip">clay</span><span class="chip">discourage</span><span class="chip">in turns</span></div>
+  <button class="bigbtn reveal" onclick="openFs('fs-adam')">⛶ Read big</button>
+</section>
+<div id="fs-adam" style="display:none">
+  <h3>Can school be fun? — Adam</h3>
+  <div style="font-size:1em;line-height:1.75">
+    <p>‘I go to a Steiner school. It’s very different to the traditional schools that my friends go to. First of all, our learning is far more creative and interactive. We don’t sit in class and memorise facts; we get up and do practical stuff, which I think is really alternative.</p>
+    <p>For example, today we had a Biology lesson. As we were learning all about the body, the teacher asked us to make clay models and draw pictures of different body parts. It was much more fun than just reading information in a book. Also, we did this in a group, so we learnt from each other. Then we took it in turns to give presentations about a subject of our choice. I gave a talk about modern-day allergies. I researched this topic because I think it’s really fascinating.</p>
+    <p>Anyway, it’s great that we have the freedom to do that. And the other positive thing is that there are no tests – we just revise the material in our own time!</p>
+    <p>We also usually only have one academic subject per week. It’s just two or three hours in the morning, then the rest of the day we do gardening, arts and crafts. Today we did singing and dancing – my favourites! One thing that they discourage at my school is the computer. We aren’t allowed to sit in front of a screen for a long time. I don’t like this, but I understand the reasons – we can do that at home.</p>
+    <p>Here the teachers are very different too – they are your friends. They don’t just instruct you; they help you achieve your potential. I love that. I actually look forward to going to school!’</p>
+  </div>
+</div>
+
+<!-- 13 · EXPLORE 2 — TRUE OR FALSE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">BBC Culture · Explore · 2</div>
+  <h1 class="reveal">True or false? — <em>and the line that proves it</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Mark the sentences <strong>T</strong> or <strong>F</strong> — then find the words in the text that prove it. Click to check:</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Adam knows that his school is alternative. <span class="back">→ T — «It’s very different to the traditional schools that my friends go to»</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>He would like to read more in class. <span class="back">→ F — «It was much more fun than just reading information in a book»</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>He chose a subject he liked for his presentation. <span class="back">→ T — «I researched this topic because I think it’s really fascinating»</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>The students study academic subjects at the same time. <span class="back">→ T — «It’s just two or three hours in the morning»</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Adam would like to spend longer on the computer. <span class="back">→ T — «I don’t like this, but I understand the reasons»</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>He thinks that the teachers are similar to those in traditional schools. <span class="back">→ F — «Here the teachers are very different»</span></span></div>
+  </div>
+</section>
+
+<!-- 14 · EXPLORE 3 -->
+<section class="slide">
+  <div class="eyebrow reveal">BBC Culture · Explore · 3</div>
+  <h1 class="reveal">Read again — <em>surprising things, and your school</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Read the article again and <strong>make notes</strong>. Then in pairs, ask and answer:</p>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>What information in the text surprises you about this alternative school?</span></div>
+    <div class="item"><span class="no">2</span><span>How does the ‘day in the life’ compare to daily life at your school? Which do you prefer? Why?</span></div>
+  </div>
+  <div class="card tint reveal">
+    <p class="task reveal">Your notes — two kinds: <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ surprising – <i>no tests</i> · comparison – <i>they do more practical things than us</i></span></span></p>
+  </div>
+  <div class="card gold reveal">
+    <p class="task" style="font-size:clamp(.98rem,1.65vw,1.3rem)">💬 Class discussion: the <strong>advantages and disadvantages</strong> of this alternative school — and of traditional schools.</p>
+  </div>
+</section>
+
+<!-- 15 · EXPLORE MORE 4 — VIDEO PART 1 -->
+<section class="slide">
+  <div class="eyebrow reveal">BBC Culture · Explore More · 4 · video 9.5 — Part 1</div>
+  <h1 class="reveal">Two very different schools — <em>Part 1</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Watch Part 1 of the video. <strong>Which school would you prefer to go to? Why?</strong></p>
+  <video class="deck reveal" controls preload="none" src="../media/ww3-bbc-95-part1.mp4"></video>
+  <div class="card tint reveal">
+    <p class="task" style="font-size:clamp(.98rem,1.65vw,1.3rem)">Now imagine you are the <strong>parent</strong> of a teenager. Which school would you choose for them — the same, or a different one? Why?</p>
+  </div>
+</section>
+
+<!-- 16 · EXPLORE MORE 5 — WATCH AGAIN, CHOOSE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">BBC Culture · Explore More · 5 · video 9.5 again</div>
+  <h1 class="reveal">Watch again — <em>choose the correct option</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">First from memory — <strong>guess</strong>. Then watch Part 1 again and check:</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>At King’s School order and <i>creativity / discipline</i> is important. <span class="back">→ discipline</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Today’s class is a <i>Maths / Leadership</i> class. <span class="back">→ Leadership</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>The girl interviewed wants to be a <i>teacher / banker</i>. <span class="back">→ banker</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>The Steiner school is more <i>formal / informal</i> than King’s. <span class="back">→ informal</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>At the Steiner school academic studies start at <i>six / seven</i> years old. <span class="back">→ seven</span></span></div>
+    </div>
+    <div>
+      <video class="deck reveal" controls preload="none" src="../media/ww3-bbc-95-part1.mp4"></video>
+      <div class="card tint reveal" style="margin-top:1vh">
+        <p class="lead-sm">Which subjects did you hear at each school? <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ King’s School – Leadership, Latin, Public speaking, Mandarin, Computer science · the Steiner School – creative play, music, drama and dance</span></span></p>
+      </div>
+    </div>
+  </div>
+  <div class="card gold reveal">
+    <p class="task" style="font-size:clamp(.98rem,1.65vw,1.3rem)">💬 The girl at King’s wants to be an investment banker. What might the Steiner School students say about her plans — and why?</p>
+  </div>
+</section>
+
+<!-- 17 · EXPLORE MORE 6 + 7 — VIDEO PART 2 -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">BBC Culture · Explore More · 6–7 · video 9.6 — Part 2</div>
+  <h1 class="reveal">Part 2 — <em>a school for dyslexic children</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">What is <strong>dyslexia</strong>? Try the text first (two words are extra) — then watch Part 2 to check:</p>
+  <div class="chips reveal"><span class="chip">memory</span><span class="chip">movements</span><span class="chip">fourteen</span><span class="chip">words</span><span class="chip">alternative</span><span class="chip">English</span><span class="chip">forty</span><span class="chip">colours</span></div>
+  <div class="card reveal">
+    <p class="lead-sm">In the UK there are <span class="flip gap" onclick="this.classList.toggle('shown')">¹ <span class="back">fourteen</span></span> schools which specialise in teaching dyslexic children. Dyslexia affects reading and spelling, and your short-term <span class="flip gap" onclick="this.classList.toggle('shown')">² <span class="back">memory</span></span>. So, the students learn new <span class="flip gap" onclick="this.classList.toggle('shown')">³ <span class="back">words</span></span> with shapes and <span class="flip gap" onclick="this.classList.toggle('shown')">⁴ <span class="back">colours</span></span>. Kara attends an <span class="flip gap" onclick="this.classList.toggle('shown')">⁵ <span class="back">English</span></span> lesson. In the class the students spell out words with physical <span class="flip gap" onclick="this.classList.toggle('shown')">⁶ <span class="back">movements</span></span>.</p>
+  </div>
+  <video class="deck reveal" controls preload="none" src="../media/ww3-bbc-96-part2.mp4"></video>
+  <div class="card tint reveal">
+    <p class="lead-sm">Books closed — <strong>how does the school help dyslexic children?</strong> Say as much as you remember.</p>
+  </div>
+  <div class="card gold reveal">
+    <p class="task" style="font-size:clamp(.98rem,1.65vw,1.3rem)">💬 <strong>7</strong> What’s your opinion of the different schools from the video? <i>I think the school that specialises in helping dyslexic children is great.</i> — And what kinds of schools are there in your town?</p>
+  </div>
+</section>
+
+<!-- 18 · YOU EXPLORE 8 — THE CULTURE PROJECT + THE TB'S EXTRA ACTIVITY + TREASURE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">BBC Culture · You Explore · 8 · Culture project</div>
+  <h1 class="reveal">What would <em>your ideal school</em> be like?</h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <p class="task" style="font-size:clamp(.98rem,1.65vw,1.3rem)">In your groups — prepare a short <strong>presentation</strong>:</p>
+    <div class="item"><span class="no">1</span><span>Use the notes: practical tasks / academic tasks — <b>what’s the right balance?</b> · use of computers — <b>a lot or a little?</b> · <b>how much freedom of choice?</b> · discipline — <b>important or not?</b></span></div>
+    <div class="item"><span class="no">2</span><span>Each of you presents <strong>one aspect</strong> of the group’s ideal school.</span></div>
+    <div class="item"><span class="no">3</span><span>Give your presentation. Whose ideal school is the best? Why?</span></div>
+  </div>
+  <div class="card tint reveal">
+    <p class="task" style="font-size:clamp(.98rem,1.65vw,1.3rem)">🎭 <strong>A conversation to act out:</strong> a student who would like to go to an alternative school · the parents, who think a traditional education is better · the student’s friend, who already goes to an alternative school — and only talks when the others ask. Prepare, then act it out.</p>
+  </div>
+  <div class="card gold reveal">
+    <p class="task reveal">🧠 Two facts, one question. At King’s School the subjects include <strong>Latin</strong> and Mandarin. At the Steiner school, students don’t start academic studies until they are <strong>seven</strong>. — <strong>Can a six-year-old at the Steiner school study Latin there?</strong> <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ No — not yet. Latin is an academic subject, and at the Steiner school academic studies start at seven.</span></span></p>
+  </div>
+<div class="filmchip" title="Lights, camera, action — film 30–60 s of the group for the parents; the clip goes to Miss Alyona">🎬 Lights, camera, action!</div>
+</section>
+
+<!-- 19 · THE TEST — FRIDAY -->
+<section class="slide">
+  <div class="eyebrow reveal">Friday · the Unit 9 test · with Farida</div>
+  <h1 class="reveal">Friday — the <em>Unit 9 test</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">What it covers:</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="item"><span class="no">📖</span><span><strong>Vocabulary</strong> — the unit’s words (school life)</span></div>
+      <div class="item"><span class="no">✏️</span><span><strong>Grammar</strong> — question word order + the tenses</span></div>
+      <div class="item"><span class="no">🎧</span><span><strong>Listening</strong></span></div>
+    </div>
+    <div class="card">
+      <div class="item"><span class="no">📖</span><span><strong>Reading</strong></span></div>
+      <div class="item"><span class="no">✍️</span><span><strong>Dictation</strong></span></div>
+      <div class="item"><span class="no">💌</span><span><strong>Writing</strong> — a letter, like Kyla’s</span></div>
+    </div>
+  </div>
+  <p class="task reveal">Revise:</p>
+  <div class="chips reveal">
+    <span class="chip">📘 the Wordlist — SB p. 114</span>
+    <span class="chip">✏️ Grammar Time 9 — SB p. 126</span>
+    <span class="chip">✅ the Self-check — WB p. 111 (+ your 🙁 rows)</span>
+    <span class="chip">🔤 the shkola pack — Word Friends</span>
+  </div>
+</section>
+
+<!-- 20 · HOMEWORK -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">Two jobs before <em>Friday</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>📘 <b>Workbook pp. 112–113</b> — the video lesson’s own practice: <b>ex. 1</b> word friends · <b>ex. 2</b> the sentences · <b>ex. 3</b> the Adam text · <b>ex. 4</b> the photos · <b>ex. 5</b> the options · <b>ex. 6</b> the words · <b>ex. 7</b> the videoscript — <b>underline the words you don’t know</b>.</span></div>
+    <div class="item"><span class="no">2</span><span>🎯 <b>Revise for the test</b> — the Wordlist (SB p. 114) · Grammar Time 9 (SB p. 126) · the Self-check (WB p. 111) · the Word Friends pack.</span></div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm">Your <strong>🙁 rows</strong> from the Self-assessment are your personal revision list. 💪</p></div>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 20</span>
+  <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<!-- pinned pills — THE CORNERS V2: 🙋 top-left · ✍️ top-right · 🗒 bottom-centre -->
+<button id="pardonBtn" class="pill" title="Pardon? — class phrases (P)">🙋</button>
+<!--TNOTES--><!--/TNOTES-->
+
+<!--TNOTES--><!--/TNOTES-->
+
+<!-- 🙋 Pardon? — the one universal list -->
+<div id="pq">
+  <div class="pq-head"><span>say it in class</span><span class="a-sp"></span>
+    <button id="pqX" title="close (Esc / P)">✕</button></div>
+  <div class="pqRow"><span class="pqE">🙋</span>Pardon?</div>
+  <div class="pqRow"><span class="pqE">❓</span>What does <b>___</b> mean?</div>
+  <div class="pqRow"><span class="pqE">🆘</span>Can you help me?</div>
+  <div class="pqRow"><span class="pqE">🔁</span>Can you repeat, please?</div>
+  <div class="pqRow"><span class="pqE">🇬🇧</span>How do you say <b>___</b> in English?</div>
+  <div class="pqRow"><span class="pqE">🤷</span>I don't understand.</div>
+</div>
+
+<!--ANNO--><!--/ANNO-->
+
+<!-- ⛶ read big -->
+<div id="fso" onclick="this.classList.remove('open')"><div class="fsoinner" id="fsoinner"></div></div>
+
+<script>
+const CH='ww4-u9-bbc';
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  history.replaceState(null,'','#'+(i+1));
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  if(typeof annoFill==='function'&&document.getElementById('anno').classList.contains('on')){annoIdx=n;annoFill()}
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* ---------- ⛶ read big ---------- */
+function openFs(id){document.getElementById('fsoinner').innerHTML=document.getElementById(id).innerHTML;
+  document.getElementById('fso').classList.add('open');}
+
+/* ---------- 🙋 Pardon? (top-left pill, key P) — the one universal list ---------- */
+const pqPanel=document.getElementById('pq');
+function pqToggle(open){pqPanel.classList.toggle('on',open);
+  if(open){const a=document.getElementById('anno');if(a)a.classList.remove('on')}}
+function pqEsc(){if(pqPanel.classList.contains('on')){pqPanel.classList.remove('on');return true}return false}
+document.getElementById('pardonBtn').onclick=()=>pqToggle(!pqPanel.classList.contains('on'));
+document.getElementById('pqX').onclick=()=>pqToggle(false);
+
+/* ---------- keys (the guard first: ⌘/Ctrl/Alt never triggers deck keys) ---------- */
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){
+    if(typeof annoEsc==='function'&&annoEsc())return;
+    if(pqEsc())return;
+    if(typeof notesEsc==='function'&&notesEsc())return;
+    document.getElementById('fso').classList.remove('open');return}
+  if(document.getElementById('fso').classList.contains('open')){
+    if(e.key==='Escape')document.getElementById('fso').classList.remove('open');
+    return}
+  if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&typeof toggleNotes==='function'){e.preventDefault();toggleNotes();return}
+  if((e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З')){e.preventDefault();pqToggle(!pqPanel.classList.contains('on'));return}
+  if(pqPanel.classList.contains('on'))return; /* the list is open — other keys sleep */
+  /* MEDIA key-guard: SPACE pauses a playing track or video instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio,video')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+
+/*TNOTES*//*STRIPTNOTES*//*/TNOTES*/
+
+/*ANNO*//*STRIPANNO*//*/ANNO*/
+
+/* ---------- wheel/touch: a .scroll slide scrolls, never flips ---------- */
+let wt=0;document.addEventListener('wheel',e=>{
+  if(document.getElementById('fso').classList.contains('open'))return;
+  if(e.target.closest('.slide')&&e.target.closest('.slide').classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ---------- boot: deep link #n ---------- */
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+
+/* ---------- ready-chime (http/https: chime + reload on save) ---------- */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
