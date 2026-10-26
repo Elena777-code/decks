@@ -105,7 +105,7 @@ footer{max-width:680px;width:100%;text-align:center;margin-top:1.4em;color:var(-
     </div>
     <div class="day-grid" id="day-grid"></div>
     <p class="helper" id="day-msg">Tap today's day</p>
-    <p class="helper">build 2026-10-26 · v2 (the reading answers: meaning + the key block at the review's end; the extra-one leak removed) · 7 days · teach → practice → drill · full FIPI reading · results hidden until Send</p>
+    <p class="helper">build 2026-10-26 · v3 (Elena: the practice part is silent too — no checks, no colours, nothing shown before Send) · v2 (the reading answers: meaning + the key block at the review's end) · 7 days · teach → practice → drill · full FIPI reading · results hidden until Send</p>
   </div>
 
   <div class="card hidden" id="run-card">
@@ -849,7 +849,7 @@ function runBlock(){
   var body='<div class="blockcard">';
   body+='<div class="btag">'+p.icon+" "+p.name+'</div>';
   body+='<div class="teach">'+p.teach+'</div>';
-  body+='<p class="helper">Step 1 — read the teach card. Step 2 — a short practice with answers. Step 3 — the drill: timed, silent, recorded.</p></div>';
+  body+='<p class="helper">Step 1 — read the teach card. Step 2 — a short untimed practice. Step 3 — the drill: on the clock. Everything is recorded silently — nothing is shown until Send.</p></div>';
   body+='<div class="answer-row"><button class="big" id="teach-btn" style="margin-top:.6em">Got it — practice →</button></div>';
   $("q-count").textContent=p.icon+" "+p.name+" · step 1 · teach";
   $("timer-wrap").style.visibility="hidden";$("timer-num").textContent="";
@@ -863,18 +863,14 @@ function runBlock(){
       answered=false;var t=deck[i];
       $("q-count").textContent=p.icon+" "+p.name+" · step 2 · practice "+(i+1)+"/"+deck.length;
       $("timer-wrap").style.visibility="hidden";$("timer-num").textContent="";
-      var body='<div class="prompt">'+t.q+'</div><div class="helper">practice — the answer checks right away</div><div class="answer-row" id="arow"></div>';
+      var body='<div class="prompt">'+t.q+'</div><div class="helper">practice — untimed, recorded silently</div><div class="answer-row" id="arow"></div>';
       $("q-body").innerHTML=body;
       var row=$("arow");
       shuffle(t.ch||t.choices).forEach(function(c){
         var b=document.createElement("button");b.className="choice";b.textContent=c;
         b.addEventListener("click",function(){
           if(answered)return;answered=true;
-          var ok=norm(c)===norm(t.key);
-          row.querySelectorAll(".choice").forEach(function(x){x.disabled=true;});
-          b.style.borderColor=ok?"var(--teal)":"var(--terra)";
-          b.style.color=ok?"var(--teal)":"var(--terra)";
-          setTimeout(function(){i++;nextP();},ok?650:1350);
+          setTimeout(function(){i++;nextP();},420);
         });
         row.appendChild(b);
       });
