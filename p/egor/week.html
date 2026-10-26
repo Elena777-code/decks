@@ -105,7 +105,7 @@ footer{max-width:680px;width:100%;text-align:center;margin-top:1.4em;color:var(-
     </div>
     <div class="day-grid" id="day-grid"></div>
     <p class="helper" id="day-msg">Tap today's day</p>
-    <p class="helper">build 2026-10-26 · v1 · 7 days · teach → practice → drill · full FIPI reading · results hidden until Send</p>
+    <p class="helper">build 2026-10-26 · v2 (the reading answers: meaning + the key block at the review's end; the extra-one leak removed) · 7 days · teach → practice → drill · full FIPI reading · results hidden until Send</p>
   </div>
 
   <div class="card hidden" id="run-card">
@@ -189,16 +189,16 @@ var RD1={
  name:"Reading · full FIPI task 10",icon:"④",untimed:true,
  head:'<b>Match the texts A–G with the headings 1–8.</b> Each digit once; one heading is extra. Write the DIGIT next to each text — find the essence yourself.',
  items:[
-  {l:"A",t:"The magnificent lion is the symbol of Africa. Powerful and beautiful, the king of the beasts has no natural enemies. Lions have strong, compact bodies and powerful forelegs, teeth, and jaws for pulling down their food. Their coats are yellow-gold, and adult males have manes that range in colour from blond, to reddish-brown and black. The length and the colour of a lion’s mane are likely determined by age, genetics, and hormones. Young lions have light spots on their coats that disappear as they grow.",a:["2"]},
-  {l:"B",t:"Lions are mammals and the most sociable of all big cats. They live in groups called prides, which usually consist of related females and their cubs. Males often fight to maintain dominance. Young females usually stay in their mothers' prides for life, unless food shortage forces them out. Young males are driven from their prides when they grow large enough to compete with the dominant males. This usually happens when young males are between the ages of 2 and 4.",a:["3"]},
-  {l:"C",t:"Today, lions are not at risk of extinction in Africa. However, three-quarters of their populations are in decline. The main threats to African lions are conflicts with people and the loss of living space, as well as climate change and wildlife trade. Some African lion populations have become small and isolated. Besides, the number of plant-eating animals they hunt for is being reduced. With around 23,000 African lions left in the wild, they are now officially classified as “vulnerable”.",a:["8"]},
-  {l:"D",t:"African lions are highly adaptable animals and can be found in a wide variety of habitats, including desert areas. They prefer open woodland and thick bush, as well as scrub and grasslands. Such environments help them to hunt and also to find shade to rest during the hottest part of the day. African lions used to be spread across most of the continent. But now they are only found in sub-Saharan Africa, with 80% in eastern or southern Africa. Three of the five largest populations are in Tanzania.",a:["5"]},
-  {l:"E",t:"Lions are top hunters in their environments, whether that is grassland, desert, or open woodland. It means they play an important role in keeping a healthy balance of numbers among other animals, especially plant-eating ones, like zebra and wildebeest. This influences the condition of grasslands and forests. By protecting a lion’s landscape, people are helping the whole area to grow and develop, which does not just benefit wildlife, but the people who rely on local natural resources, too.",a:["4"]},
-  {l:"F",t:"Lions do most of their hunting at night as their eyes have adapted to the dark. This gives them a huge advantage over the animals they hunt for. Interestingly, lions also hunt during storms. The noise, rain, and wind make it harder for other animals to see and hear lions, increasing their chances of a successful hunt. Females are the primary hunters, although males will sometimes join them during a hunt. When hunting, females have specific roles. Some chase the animal towards those in the centre.",a:["1"]},
-  {l:"G",t:"To save lions, new protected areas of habitat in east Africa are organised. There is a special conservation programme in Kenya that monitors and protects lions. The programme educates local people on lion conservation, too. This includes working with local communities, such as anti-poisoning actions. They also provide better fenced areas for farm animals in local villages. Taking school children on trips to see the wild animals they are saving is one more important action to support wildlife.",a:["6"]}
+  {l:"A",t:"The magnificent lion is the symbol of Africa. Powerful and beautiful, the king of the beasts has no natural enemies. Lions have strong, compact bodies and powerful forelegs, teeth, and jaws for pulling down their food. Their coats are yellow-gold, and adult males have manes that range in colour from blond, to reddish-brown and black. The length and the colour of a lion’s mane are likely determined by age, genetics, and hormones. Young lions have light spots on their coats that disappear as they grow.",a:["2"], kt:"Appearance matters"},
+  {l:"B",t:"Lions are mammals and the most sociable of all big cats. They live in groups called prides, which usually consist of related females and their cubs. Males often fight to maintain dominance. Young females usually stay in their mothers' prides for life, unless food shortage forces them out. Young males are driven from their prides when they grow large enough to compete with the dominant males. This usually happens when young males are between the ages of 2 and 4.",a:["3"], kt:"Problems of family life"},
+  {l:"C",t:"Today, lions are not at risk of extinction in Africa. However, three-quarters of their populations are in decline. The main threats to African lions are conflicts with people and the loss of living space, as well as climate change and wildlife trade. Some African lion populations have become small and isolated. Besides, the number of plant-eating animals they hunt for is being reduced. With around 23,000 African lions left in the wild, they are now officially classified as “vulnerable”.",a:["8"], kt:"Lions in danger"},
+  {l:"D",t:"African lions are highly adaptable animals and can be found in a wide variety of habitats, including desert areas. They prefer open woodland and thick bush, as well as scrub and grasslands. Such environments help them to hunt and also to find shade to rest during the hottest part of the day. African lions used to be spread across most of the continent. But now they are only found in sub-Saharan Africa, with 80% in eastern or southern Africa. Three of the five largest populations are in Tanzania.",a:["5"], kt:"Lions’ home"},
+  {l:"E",t:"Lions are top hunters in their environments, whether that is grassland, desert, or open woodland. It means they play an important role in keeping a healthy balance of numbers among other animals, especially plant-eating ones, like zebra and wildebeest. This influences the condition of grasslands and forests. By protecting a lion’s landscape, people are helping the whole area to grow and develop, which does not just benefit wildlife, but the people who rely on local natural resources, too.",a:["4"], kt:"Necessary for nature"},
+  {l:"F",t:"Lions do most of their hunting at night as their eyes have adapted to the dark. This gives them a huge advantage over the animals they hunt for. Interestingly, lions also hunt during storms. The noise, rain, and wind make it harder for other animals to see and hear lions, increasing their chances of a successful hunt. Females are the primary hunters, although males will sometimes join them during a hunt. When hunting, females have specific roles. Some chase the animal towards those in the centre.",a:["1"], kt:"Clever strategies for food"},
+  {l:"G",t:"To save lions, new protected areas of habitat in east Africa are organised. There is a special conservation programme in Kenya that monitors and protects lions. The programme educates local people on lion conservation, too. This includes working with local communities, such as anti-poisoning actions. They also provide better fenced areas for farm animals in local villages. Taking school children on trips to see the wild animals they are saving is one more important action to support wildlife.",a:["6"], kt:"Giving a helping hand"}
  ],
  opts:"1. Clever strategies for food · 2. Appearance matters · 3. Problems of family life · 4. Necessary for nature · 5. Lions' home · 6. Giving a helping hand · 7. Looking after their young · 8. Lions in danger",
- keysNote:"Headings: 1 food strategies · 2 appearance · 3 family life · 4 for nature · 5 home · 6 helping hand · 7 young (extra) · 8 in danger"};
+ keys:"A2 · B3 · C8 · D5 · E4 · F1 · G6 · extra: 7"};
 var LS1={
  name:"Listening · full FIPI task",icon:"⑤",untimed:true,
  head:'<b>Listen and answer.</b> You hear the recording twice. Write your answers as digits.',
@@ -257,15 +257,15 @@ var RD2={
  name:"Reading · full FIPI task 11",icon:"④",untimed:true,
  head:'<b>Fill the gaps A–F with the parts of sentences 1–7.</b> One part is extra. Write the DIGIT.',
  items:[
-  {l:"A",t:"The river covers parts of Russia, China, and Mongolia, A ______ China and south-east Russia.",a:["3"]},
-  {l:"B",t:"These are forests of a rather mild climate area B ______.",a:["4"]},
-  {l:"C",t:"The forests are home for not just rare animals, but trees like the Korean pine, and wild ginseng, C ______.",a:["5"]},
-  {l:"D",t:"Amur leopards are critically endangered D ______.",a:["7"]},
-  {l:"E",t:"Many of the forest areas in the Amur region remain largely unchanged, E ______ increasing development and the need for resources.",a:["2"]},
-  {l:"F",t:"So, people should be working globally and locally F ______ climate change.",a:["6"]}
+  {l:"A",t:"The river covers parts of Russia, China, and Mongolia, A ______ China and south-east Russia.",a:["3"], kt:"forming the border between north-east"},
+  {l:"B",t:"These are forests of a rather mild climate area B ______.",a:["4"], kt:"that receives rather heavy rainfall"},
+  {l:"C",t:"The forests are home for not just rare animals, but trees like the Korean pine, and wild ginseng, C ______.",a:["5"], kt:"which is a traditional medicinal plant"},
+  {l:"D",t:"Amur leopards are critically endangered D ______.",a:["7"], kt:"as there may be about 120 left in the wild"},
+  {l:"E",t:"Many of the forest areas in the Amur region remain largely unchanged, E ______ increasing development and the need for resources.",a:["2"], kt:"but they are coming under pressure from"},
+  {l:"F",t:"So, people should be working globally and locally F ______ climate change.",a:["6"], kt:"to deal with the causes and effects of"}
  ],
  opts:"1. which is endangered and should be · 2. but they are coming under pressure from · 3. forming the border between north-east · 4. that receives rather heavy rainfall · 5. which is a traditional medicinal plant · 6. to deal with the causes and effects of · 7. as there may be about 120 left in the wild",
- keysNote:"Amur River region — the texts live on the page as one story; the gaps carry their context."};
+ keys:"A3 · B4 · C5 · D7 · E2 · F6 · extra: 1"};
 var LS2={name:"Listening · full FIPI task",icon:"⑤",untimed:true,head:"<b>Listen and answer.</b> The recording plays twice.",pending:true};
 var SV2=SV;
 
@@ -317,15 +317,15 @@ var RD3={
  name:"Reading · full FIPI tasks 12–18",icon:"④",untimed:true,
  head:'<b>Read the text about AI in education. For questions 12–18 write the DIGIT 1, 2, 3 or 4.</b>',
  items:[
-  {l:"12",t:"<i>The text:</i> «No matter what your occupation is, you have probably faced some uncertainty over the last few years as a result of innovative AI technology…»<br><b>What feeling does the spread of AI in education bring up?</b>",ch:["1. Opposition","2. Doubt","3. Excitement","4. Curiosity"],a:["2"]},
-  {l:"13",t:"«…this potent tool is also available to students who may use it to cheat and plagiarise work. Over the last several months, teachers… have been trying to address this growing problem.»<br><b>This growing problem in paragraph 2 refers to…</b>",ch:["1. AI’s productivity","2. shortage of teachers","3. academic dishonesty","4. students' access to AI"],a:["3"]},
-  {l:"14",t:"«While some software has claimed to be able to detect the presence of AI-generated content, none of these have fully cracked the code.»<br><b>What is the problem with the systems that spot the use of AI?</b>",ch:["1. They are quite unreliable.","2. They are rather expensive.","3. They are hard to work with.","4. They are difficult to access."],a:["1"]},
-  {l:"15",t:"<b>How can the use of AI in education be described, according to the text?</b>",ch:["1. Successful.","2. Controversial.","3. Unregulated.","4. Ineffective."],a:["2"]},
-  {l:"16",t:"«This means teachers can tweak their lessons to fit each student’s needs.»<br><b>Tweak in paragraph 5 most probably means…</b>",ch:["1. simplify.","2. replace.","3. upgrade.","4. adjust."],a:["4"]},
-  {l:"17",t:"<b>Which fact about AI in education is NOT mentioned in the text?</b>",ch:["1. AI impacts how students are assessed.","2. AI makes education more accessible.","3. AI makes students dependent on it.","4. AI helps make learning individualised."],a:["3"]},
-  {l:"18",t:"«The key will be learning how to use this technology wisely – as a tool to support learning, not replace it.»<br><b>The author concludes by suggesting that…</b>",ch:["1. students will be more productive with AI.","2. a balanced use of AI will benefit education.","3. education needs to regulate the use of AI.","4. teachers need to reconsider their methods."],a:["2"]}
+  {l:"12",t:"<i>The text:</i> «No matter what your occupation is, you have probably faced some uncertainty over the last few years as a result of innovative AI technology…»<br><b>What feeling does the spread of AI in education bring up?</b>",ch:["1. Opposition","2. Doubt","3. Excitement","4. Curiosity"],a:["2"], kt:"Doubt"},
+  {l:"13",t:"«…this potent tool is also available to students who may use it to cheat and plagiarise work. Over the last several months, teachers… have been trying to address this growing problem.»<br><b>This growing problem in paragraph 2 refers to…</b>",ch:["1. AI’s productivity","2. shortage of teachers","3. academic dishonesty","4. students' access to AI"],a:["3"], kt:"academic dishonesty"},
+  {l:"14",t:"«While some software has claimed to be able to detect the presence of AI-generated content, none of these have fully cracked the code.»<br><b>What is the problem with the systems that spot the use of AI?</b>",ch:["1. They are quite unreliable.","2. They are rather expensive.","3. They are hard to work with.","4. They are difficult to access."],a:["1"], kt:"They are quite unreliable"},
+  {l:"15",t:"<b>How can the use of AI in education be described, according to the text?</b>",ch:["1. Successful.","2. Controversial.","3. Unregulated.","4. Ineffective."],a:["2"], kt:"Controversial"},
+  {l:"16",t:"«This means teachers can tweak their lessons to fit each student’s needs.»<br><b>Tweak in paragraph 5 most probably means…</b>",ch:["1. simplify.","2. replace.","3. upgrade.","4. adjust."],a:["4"], kt:"adjust"},
+  {l:"17",t:"<b>Which fact about AI in education is NOT mentioned in the text?</b>",ch:["1. AI impacts how students are assessed.","2. AI makes education more accessible.","3. AI makes students dependent on it.","4. AI helps make learning individualised."],a:["3"], kt:"AI makes students dependent on it"},
+  {l:"18",t:"«The key will be learning how to use this technology wisely – as a tool to support learning, not replace it.»<br><b>The author concludes by suggesting that…</b>",ch:["1. students will be more productive with AI.","2. a balanced use of AI will benefit education.","3. education needs to regulate the use of AI.","4. teachers need to reconsider their methods."],a:["2"], kt:"a balanced use of AI will benefit education"}
  ],
- opts:"",keysNote:"The full AI text is on the FIPI demo (pp. 10–12); each question quotes its key paragraph."};
+ opts:"",keys:"12-2 · 13-3 · 14-1 · 15-2 · 16-4 · 17-3 · 18-2"};
 var LS3={name:"Listening · full FIPI task",icon:"⑤",untimed:true,head:"<b>Listen and answer.</b> The recording plays twice.",pending:true};
 var SV3=SV;
 
@@ -693,7 +693,8 @@ function finishSlow(p,kind){
       }else if(given.trim()!==""){
         any=true;
         var ok=(it.a||[]).some(function(k){return k!==""&&norm(k)===norm(given);});
-        lines.push({block:p.name,icon:p.icon,label:it.l+" — "+p.name,given:given,key:(it.a||[]).filter(Boolean).join(" / "),why:"",ok:ok,slow:true});
+        var kt=(it.a&&it.kt)?(it.a[0]+" — "+it.kt):((it.a||[]).filter(Boolean).join(" / "));
+        lines.push({block:p.name,icon:p.icon,label:it.l+" — "+p.name,given:given,key:kt,why:"",ok:ok,slow:true});
       }
     });
     if(!any&&items.length&&!p.items[0].free){
@@ -737,6 +738,16 @@ function dayEnd(){
       '<br>you: <b>'+esc(l.given)+'</b>'+(l.key&&l.key!=="—"?' → <span class="key">'+esc(l.key)+'</span>':'')+
       (l.why?'<div class="why">💡 '+esc(l.why)+'</div>':'')+'</div>';
   });
+  var dayKeys=[];
+  day.tasks.forEach(function(pid){
+    var p=POOLS[pid];
+    if(p&&p.items&&p.items[0]&&p.items[0].a&&p.items[0].a[0]&&String(pid).indexOf("RD")===0){
+      dayKeys.push('<div class="teach" style="margin-top:1em"><b>📌 Answer key — '+p.name+':</b> '+
+        p.items.map(function(it){return '<b>'+it.l+'</b> — '+(it.kt||it.a[0]);}).join(' · ')+
+        (p.keys&&p.keys.indexOf('extra: ')>-1?'<br>The extra one: '+p.keys.split('extra: ')[1]:'')+'</div>');
+    }
+  });
+  html+=dayKeys.join("");
   $("end-body").innerHTML=html;
   $("end-eyebrow").textContent="Day "+day.n+" · the results (they went to Elena just now)";
   show("end-card");
