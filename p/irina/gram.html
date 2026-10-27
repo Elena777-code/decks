@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ирина · ДЗ · тренажёр по грамматике</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sea:#2EC4B6; --sea-deep:#1B7A8C; --ink:#123B44; --ink-soft:#5b7a80;
+  --coral:#FF6B6B; --sun:#FFD166; --card:#ffffff; --bg:#EAF7F5;
+  --shadow:0 10px 30px rgba(18,59,68,.14); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--bg);
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:4vh 5vw 8vh;-webkit-font-smoothing:antialiased}
+header{max-width:680px;width:100%;text-align:center;margin-bottom:1em}
+.eyebrow{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;font-size:.72rem;color:var(--sea-deep)}
+h1{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.6rem,7vw,2.4rem);line-height:1.15;margin-top:.15em}
+main{max-width:680px;width:100%}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(1.3rem,4.5vw,2.2rem);text-align:center;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none}
+.rules{margin-top:1em;color:var(--ink-soft);font-weight:700;font-size:clamp(1rem,3.6vw,1.15rem);line-height:1.7}
+.meta{margin-top:.6em;color:var(--ink-soft);font-weight:700;font-size:.85rem}
+button{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;border:none;cursor:pointer;
+  border-radius:99px;transition:transform .12s ease,box-shadow .12s ease}
+button:active{transform:scale(.96)}
+.name-row{margin-bottom:.4em}
+input.type-box{font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1.2rem,5vw,1.6rem);
+  color:var(--ink);text-align:center;border:3px solid #cfe9e6;border-radius:16px;
+  padding:.45em .6em;width:min(300px,76vw);outline:none;background:#fbffff}
+input.type-box:focus{border-color:var(--sea)}
+input.type-box.need{border-color:var(--coral);animation:need .3s ease}
+@keyframes need{50%{transform:translateX(-4px)}}
+.start-btn{background:var(--sea);color:#fff;font-size:clamp(1.15rem,4.6vw,1.45rem);
+  padding:.75em 2.2em;margin-top:1.1em;box-shadow:0 6px 0 #239d92}
+.home-btn{background:transparent;color:var(--sea-deep);font-size:1rem;
+  padding:.6em 1.4em;margin-top:.7em;border:2px solid #bfe3df;margin-left:.5em}
+/* --- question card --- */
+.qcount{font-size:.85rem;font-weight:800;color:var(--sea-deep);letter-spacing:.06em;text-transform:uppercase}
+.timer-wrap{height:12px;background:#d8efec;border-radius:99px;overflow:hidden;margin:1em 0 .3em}
+.timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--sea),var(--sun));border-radius:99px}
+.timer-num{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;color:var(--sea-deep);font-size:.9rem}
+.timer-num.low{color:var(--coral)}
+.prompt{font-size:clamp(1.25rem,5vw,1.75rem);font-weight:800;line-height:1.5;margin-top:.4em}
+.prompt .gap{color:var(--coral);letter-spacing:.05em}
+.prompt .base{color:var(--sea-deep);font-family:'Fredoka','Nunito',sans-serif;font-weight:600}
+.helper{margin-top:.7em;font-size:.9rem;font-weight:700;color:var(--ink-soft)}
+.answer-row{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;margin-top:1em}
+.choice{background:#f0fafa;color:var(--ink);font-size:clamp(1.05rem,4.2vw,1.3rem);
+  padding:.5em 1.4em;box-shadow:0 4px 0 #cfe9e6;line-height:1.15}
+.choice:active{box-shadow:0 1px 0 #cfe9e6;transform:translateY(3px)}
+.flash{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6.5vw,2.2rem);
+  color:var(--coral);text-align:center;padding:2.6em 0;animation:pop .2s ease}
+.flash .sub{display:block;font-size:.55em;color:var(--ink-soft);margin-top:.6em}
+.flash.good{color:var(--sea)}
+/* --- per-part review card --- */
+.rmiss{margin-top:.7em}
+.rmiss .rline{font-weight:800;font-size:clamp(.95rem,3.6vw,1.1rem)}
+.rmiss .ryou{color:var(--coral);font-weight:800}
+.rmiss .rkey{color:var(--sea-deep);font-weight:800}
+.rmiss .rwhy{color:var(--ink-soft);font-weight:700;font-size:.9em;margin-top:.2em;line-height:1.5}
+.next-btn{background:var(--sun);color:var(--ink);font-size:clamp(1rem,4vw,1.2rem);
+  padding:.7em 1.8em;margin-top:1em;box-shadow:0 6px 0 #e3b95f}
+.again-btn{background:var(--sea);color:#fff;font-size:clamp(1rem,4vw,1.2rem);
+  padding:.7em 1.8em;margin-top:.9em;box-shadow:0 6px 0 #239d92}
+/* --- end card --- */
+.stars{font-size:clamp(2rem,9vw,3rem);margin:.2em 0}
+.end-title{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw,2.2rem)}
+.one-line{margin:1em 0 .2em;font-weight:800;font-size:clamp(1.05rem,4vw,1.25rem);line-height:1.7}
+.miss-list{margin-top:.8em;text-align:left;background:#f2fbf9;border-radius:16px;padding:.9em 1.1em;
+  font-size:clamp(.95rem,3.6vw,1.1rem);font-weight:700;line-height:1.6;display:none}
+.miss-list .k{color:var(--sea-deep)}
+.sent{margin-top:.6em;font-weight:700;color:var(--sea-deep)}
+footer{max-width:680px;width:100%;text-align:center;margin-top:1.6em;
+  color:var(--ink-soft);font-size:.78rem;font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Ирина · домашка 💪 · грамматика</div>
+  <h1>Большая тренировка! 🏋️</h1>
+</header>
+
+<main>
+  <div class="card" id="start-card">
+    <div class="name-row"><input class="type-box" id="who-box" placeholder="Кто играет?" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+    <p class="rules">Четыре игры — всё, что ты уже умеешь:<br>
+    🔑 модальные · 🐘 степени сравнения · 📝 present simple / continuous · 🔴 неправильные глаголы<br>
+    Каждая карточка — <b>с часами ⏰</b>: успей нажать, пока бежит полоска!<br>
+    Время вышло — карточка улетела 🪁. Назад нельзя!<br>
+    После каждой игры — разбор: что было не так и почему 💡</p>
+    <div><button class="start-btn" id="start-btn">Начать тренировку →</button></div>
+    <div><button class="home-btn" onclick="location.href='hw.html'">⟵ Мои задания</button></div>
+    <div class="meta">build 2026-10-27 · v1 · 4 игры · все с часами ⏰ · разбор после каждой части</div>
+  </div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div class="timer-wrap" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="flash hidden" id="flash"></div>
+
+  <div class="card hidden" id="round-card">
+    <div class="qcount" id="round-count"></div>
+    <div class="one-line" id="round-line"></div>
+    <div class="miss-list" id="round-miss"></div>
+    <div><button class="next-btn" id="next-btn">Дальше →</button></div>
+  </div>
+
+  <div class="card hidden" id="end-card">
+    <div class="stars" id="end-stars"></div>
+    <div class="end-title">Молодец!</div>
+    <div class="one-line" id="end-rows"></div>
+    <div class="miss-list" id="miss-list"></div>
+    <div class="sent" id="sent-line">…</div>
+    <div><button class="again-btn" id="again-btn">🔁 Тренировка ещё раз</button>
+         <button class="home-btn" id="home-btn">⟵ Мои задания</button></div>
+  </div>
+</main>
+
+<footer>повторение: модальные глаголы · степени сравнения · present simple / continuous · неправильные глаголы</footer>
+
+<script>
+(function(){
+"use strict";
+/* auto-send → Elena's Google Form «Irina» (same wire as week.html / hw.html / verbs.html) */
+var HW_FORM={action:"https://docs.google.com/forms/d/e/1FAIpQLScYuudgy8Zza0OF09fpnu43OsOehkkNQT5BtnF7QH7uVne9SA/formResponse",entryReport:"entry.1898990974"};
+
+/* ---------- the pools — every card from the DVIZH decks' own keyed exercises:
+   MOD: DVIZH_Starlight 6 Mod 1e (slides 14–22 + WB Ex 3) ·
+   ADJ: DVIZH_COMPARISONS (slides 5, 13, 14, 42–44, 60) ·
+   PCPS: DVIZH_Starlight 6 Mod 1b (Ex 5, 6, 7 + WB Ex 4) ·
+   IRR: DVIZH «Неправ глаг 101» parts 2/3/5/7 (Ex 8, 9).
+   Meaning-wall law: one decision per card, marker/form-anchored, RU gloss where the
+   decision needs it. */
+var MOD=[
+  {q:'A snake <span class="gap">______</span> run. 🐍',choices:["can","can't"],key:"can't",label:"a snake … run",why:"змеи не бегают — ползают → can't"},
+  {q:'A parrot <span class="gap">______</span> talk. 🦜',choices:["can","can't"],key:"can",label:"a parrot … talk",why:"попугаи повторяют слова → can"},
+  {q:'A penguin <span class="gap">______</span> fly. 🐧',choices:["can","can't"],key:"can't",label:"a penguin … fly",why:"пингвины плавают, но не летают → can't"},
+  {q:'She can <span class="gap">______</span> three languages. <span class="base">(speak)</span>',choices:["speak","speaks","to speak"],key:"speak",label:"she can … speak",why:"после can — голый глагол: без -s и без to"},
+  {q:'A cat can <span class="gap">______</span> trees. <span class="base">(climb)</span> 🐱',choices:["climb","climbs","climbing"],key:"climb",label:"a cat can … climb",why:"после can без -s: can climb"},
+  {q:'He can <span class="gap">______</span> a picture. <span class="base">(draw)</span> 🎨',choices:["draw","draws","drawing"],key:"draw",label:"he can … draw",why:"после can без -s: can draw"},
+  {q:'You <span class="gap">______</span> talk in the library. 📕 <span class="base">(запрет)</span>',choices:["must","mustn't"],key:"mustn't",label:"you … talk in the library",why:"запрет → mustn't"},
+  {q:'You <span class="gap">______</span> feed the animals in the zoo. 🦁 <span class="base">(запрет)</span>',choices:["must","mustn't"],key:"mustn't",label:"you … feed the animals",why:"запрещено → mustn't"},
+  {q:'It\'s the rule: you <span class="gap">______</span> stay on the path. 🌲 <span class="base">(правило)</span>',choices:["must","mustn't"],key:"must",label:"you … stay on the path",why:"правило / долг → must"},
+  {q:'It\'s necessary: you <span class="gap">______</span> wear boots. 🥾 <span class="base">(необходимо)</span>',choices:["have to","don't have to"],key:"have to",label:"you … wear boots",why:"необходимо → have to"},
+  {q:'You <span class="gap">______</span> come if you don\'t want to. 😊 <span class="base">(не нужно)</span>',choices:["don't have to","have to"],key:"don't have to",label:"you … come",why:"нет необходимости → don't have to"},
+  {q:'She <span class="gap">______</span> travel by ferry. ⛴ <span class="base">(ей не нужно)</span>',choices:["doesn't have to","has to"],key:"doesn't have to",label:"she … travel by ferry",why:"she + не нужно → doesn't have to"}
+];
+var ADJ=[
+  {q:'<span class="base">big</span> → <span class="gap">______</span> → the biggest',choices:["bigger","more bigger","biggest"],key:"bigger",label:"big →",why:"короткое слово + er: bigger"},
+  {q:'<span class="base">easy</span> → <span class="gap">______</span>',choices:["easier","easyer","more easy"],key:"easier",label:"easy →",why:"y → i + er: easier"},
+  {q:'<span class="base">slim</span> → <span class="gap">______</span>',choices:["slimmer","more slim","slimmest"],key:"slimmer",label:"slim →",why:"согласная удваивается: slimmer"},
+  {q:'<span class="base">happy</span> → <span class="gap">______</span>',choices:["happier","happyer","more happy"],key:"happier",label:"happy →",why:"y → i + er: happier"},
+  {q:'<span class="base">nice</span> → <span class="gap">______</span>',choices:["nicer","niceer","more nice"],key:"nicer",label:"nice →",why:"e на конце → просто + r: nicer"},
+  {q:'<span class="base">good</span> → <span class="gap">______</span>',choices:["better","gooder","more good"],key:"better",label:"good →",why:"исключение: good — better — the best"},
+  {q:'<span class="base">bad</span> → <span class="gap">______</span>',choices:["worse","badder","more bad"],key:"worse",label:"bad →",why:"исключение: bad — worse — the worst"},
+  {q:'<span class="base">many</span> → <span class="gap">______</span>',choices:["more","manyer","the most"],key:"more",label:"many →",why:"many / much → more"},
+  {q:'Superman is <span class="gap">______</span> than Batman. 🦸',choices:["stronger","strong","strongest"],key:"stronger",label:"Superman is … than Batman",why:"есть than → сравнение: strong + er"},
+  {q:'The weather in the UK is <span class="gap">______</span> than in Spain. 🌧',choices:["worse","bad","the worst"],key:"worse",label:"the weather … than in Spain",why:"bad — исключение: worse (+ than)"},
+  {q:'The cheetah is <span class="gap">______</span> animal in the world. 🐆',choices:["the fastest","faster","fast"],key:"the fastest",label:"the cheetah is … animal",why:"самый-самый → the fastest"},
+  {q:'Nastya is <span class="gap">______</span> girl in the class. <span class="base">(pretty)</span>',choices:["the prettiest","prettier","pretty"],key:"the prettiest",label:"Nastya is … girl",why:"y → i + est: the prettiest"}
+];
+var PCPS=[
+  {q:'<span class="gap">______</span> round the lake <span class="base">every Sunday</span>? <span class="base">(you/walk)</span> 🚶',choices:["Do you walk","Are you walking"],key:"Do you walk",label:"… round the lake every Sunday?",why:"every Sunday = обычно → Do you walk"},
+  {q:'I <span class="gap">______</span> for Ivan <span class="base">right now</span>. <span class="base">(wait)</span> ⏳',choices:["am waiting","wait","waits"],key:"am waiting",label:"I … for Ivan right now",why:"right now = сейчас → am waiting"},
+  {q:'<span class="gap">______</span> you want to go swimming? 🏊',choices:["Do","Are","Does"],key:"Do",label:"… you want to go swimming?",why:"want — stative, без -ing → Do you want"},
+  {q:'He <span class="gap">______</span> a film with his friends <span class="base">now</span>. <span class="base">(watch)</span> 🎬',choices:["is watching","watches","watch"],key:"is watching",label:"he … a film now",why:"now = сейчас → is watching"},
+  {q:'George <span class="base">never</span> <span class="gap">______</span> his room. <span class="base">(clean)</span> 🛏',choices:["cleans","is cleaning","clean"],key:"cleans",label:"George never … his room",why:"never = обычно; he → cleans"},
+  {q:'Tonya <span class="base">always</span> <span class="gap">______</span> dinner. <span class="base">(cook)</span> 🍲',choices:["cooks","is cooking","cook"],key:"cooks",label:"Tonya always … dinner",why:"always = обычно; she → cooks"},
+  {q:'But <span class="base">today</span> she <span class="gap">______</span> a friend. <span class="base">(visit)</span> 🚶‍♀️',choices:["is visiting","visits","visit"],key:"is visiting",label:"today she … a friend",why:"today = именно сейчас → is visiting"},
+  {q:'I <span class="gap">______</span> she is at the arcade. <span class="base">(think)</span> 💭',choices:["think","am thinking","thinks"],key:"think",label:"I … she is at the arcade",why:"think (= считаю) — stative: без -ing"},
+  {q:'She <span class="gap">______</span> well <span class="base">these days</span>. <span class="base">(not/sleep)</span> 😴',choices:["isn't sleeping","doesn't sleep","not sleeps"],key:"isn't sleeping",label:"she … well these days",why:"these days = период сейчас → isn't sleeping"},
+  {q:'<span class="base">catch</span> → <span class="gap">______</span>',choices:["catches","catchs"],key:"catches",label:"catch →",why:"после -ch добавляем -es: catches"},
+  {q:'<span class="base">study</span> → <span class="gap">______</span>',choices:["studies","studys"],key:"studies",label:"study →",why:"y → i + es: studies"},
+  {q:'<span class="base">have</span> → <span class="gap">______</span>',choices:["has","haves"],key:"has",label:"have →",why:"have — исключение: has"},
+  {q:'<span class="base">swim</span> → <span class="gap">______</span>ing',choices:["swimm","swim"],key:"swimm",label:"swim → …ing",why:"одна гласная + согласная → удваиваем: swimming"}
+];
+var IRR=[
+  {q:'<span class="base">buy</span> → <span class="gap">______</span>',choices:["bought","buyed","buied"],key:"bought",label:"buy →",why:"buy — bought — bought"},
+  {q:'<span class="base">take</span> → <span class="gap">______</span>',choices:["took","taked","tooked"],key:"took",label:"take →",why:"take — took — taken"},
+  {q:'<span class="base">ride</span> → <span class="gap">______</span>',choices:["rode","rided","roded"],key:"rode",label:"ride →",why:"ride — rode — ridden"},
+  {q:'<span class="base">give</span> — gave — <span class="gap">______</span>',choices:["given","gave","gived"],key:"given",label:"give — gave —",why:"третья форма: give — gave — given"},
+  {q:'<span class="base">wake</span> → <span class="gap">______</span>',choices:["woke","waked","woked"],key:"woke",label:"wake →",why:"wake — woke — woken"},
+  {q:'<span class="base">swim</span> → <span class="gap">______</span>',choices:["swam","swimed","swum"],key:"swam",label:"swim →",why:"вторая форма: swim — swam — swum"},
+  {q:'Mum <span class="gap">______</span> sandwiches in the morning. <span class="base">(make)</span> 🥪',choices:["made","maked","makes"],key:"made",label:"Mum … sandwiches",why:"прошлое: make — made"},
+  {q:'He <span class="gap">______</span> me a new coat. <span class="base">(buy)</span> 🧥',choices:["bought","buyed","buys"],key:"bought",label:"he … me a new coat",why:"прошлое: buy — bought"},
+  {q:'Lisa <span class="gap">______</span> a red dress. <span class="base">(choose)</span> 👗',choices:["chose","choosed","chooses"],key:"chose",label:"Lisa … a red dress",why:"прошлое: choose — chose"},
+  {q:'My friends <span class="gap">______</span> me a puppy. <span class="base">(give)</span> 🐶',choices:["gave","gived","gaved"],key:"gave",label:"my friends … me a puppy",why:"прошлое: give — gave"},
+  {q:'It <span class="gap">______</span> me 5 minutes. <span class="base">(take)</span> ⏱',choices:["took","taked","takes"],key:"took",label:"it … me 5 minutes",why:"прошлое: take — took"},
+  {q:'Tony <span class="gap">______</span> a five yesterday. <span class="base">(not/get)</span> 😅',choices:["didn't get","didn't got","not got"],key:"didn't get",label:"Tony … a five yesterday",why:"didn't + первая форма: didn't get"},
+  {q:'<span class="base">know</span> → <span class="gap">______</span>',choices:["knew","knowed","known"],key:"knew",label:"know →",why:"вторая форма: know — knew — known"}
+];
+
+var POOLS={
+  MOD:{icon:"🔑",name:"Модальные глаголы",helper:"can · must · have to — подсказка в скобках",cards:MOD},
+  ADJ:{icon:"🐘",name:"Степени сравнения",helper:"Выбери форму — подсказка в предложении",cards:ADJ},
+  PCPS:{icon:"📝",name:"Present Simple / Continuous",helper:"Подсказка времени — выбери глагол",cards:PCPS},
+  IRR:{icon:"🔴",name:"Неправильные глаголы",helper:"Скобка = прошлое — выбери форму",cards:IRR}
+};
+var ROUNDS=[["MOD",1],["ADJ",1],["PCPS",1],["IRR",1]];
+var SEC=16;                            /* часы ⏰ на карточку (та же цена времени, что на неделе) */
+var DEAL=8;                            /* карточек в игре */
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function show(id){["start-card","q-card","flash","end-card","round-card"].forEach(function(c){
+    $(c).classList.add("hidden");});
+  if(id)$(id).classList.remove("hidden");}
+
+/* ---------- state ---------- */
+var WHO="",rounds=[],log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false;
+try{$("who-box").value=(localStorage.getItem("irina-hw-who")||"").trim();WHO=$("who-box").value;}catch(e){}
+$("who-box").addEventListener("input",function(){
+  var v=$("who-box").value.trim();
+  if(v){try{localStorage.setItem("irina-hw-who",v);}catch(e){}WHO=v;}
+});
+
+function needName(){
+  var w=$("who-box");w.classList.add("need");
+  setTimeout(function(){w.classList.remove("need");},900);
+}
+$("start-btn").addEventListener("click",function(){
+  if(!WHO){needName();return;}
+  begin();
+});
+$("again-btn").addEventListener("click",function(){begin();});
+$("home-btn").addEventListener("click",function(){location.href="hw.html";});
+
+function begin(){
+  rounds=ROUNDS.map(function(r){
+    var p=POOLS[r[0]];
+    return {pid:r[0],meta:p,timed:!!r[1],sec:r[1]?SEC:0,
+      tasks:shuffle(p.cards).slice(0,DEAL)};
+  });
+  ri=0;log=[];
+  roundFlash();
+}
+
+function roundFlash(){
+  show("flash");
+  var r=rounds[ri];
+  $("flash").innerHTML=r.meta.icon+" "+r.meta.name+
+    '<span class="sub">'+(ri+1)+"-я из "+rounds.length+" игр · "+(r.timed?"с часами ⏰":"без часов")+"</span>";
+  setTimeout(function(){qi=0;ask();},1400);
+}
+
+function ask(){
+  answered=false;
+  var r=rounds[ri],t=r.tasks[qi];
+  $("q-count").textContent=r.meta.icon+" "+r.meta.name+" · "+(qi+1)+"/"+r.tasks.length+(r.timed?" ⏰":"");
+  var body='<div class="prompt">'+t.q+"</div>";
+  body+='<div class="helper">'+r.meta.helper+"</div>";
+  body+='<div class="answer-row" id="answer-row"></div>';
+  $("q-body").innerHTML=body;
+  var row=$("answer-row");
+  shuffle(t.choices).forEach(function(c){
+    var b=document.createElement("button");
+    b.className="choice";b.textContent=c;
+    b.addEventListener("click",function(){
+      if(answered)return;answered=true;stop();
+      advance(record(t,c,false));
+    });
+    row.appendChild(b);
+  });
+  show("q-card");
+  scrollIntoCard();
+  start(r.sec,function(){
+    if(answered)return;answered=true;
+    record(t,null,true);nextLate();
+  });
+}
+function scrollIntoCard(){try{$("q-card").scrollIntoView({behavior:"smooth",block:"center"});}catch(e){}}
+
+/* ---------- wall-clock timer ---------- */
+function start(sec,onOut){
+  if(!sec){$("timer-wrap").style.visibility="hidden";$("timer-num").textContent="";return;}
+  $("timer-wrap").style.visibility="visible";
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  num.textContent=sec+" с";num.className="timer-num";
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 с";
+      stop();onOut();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" с";
+    num.className="timer-num"+(s<=5?" low":"");
+  },100);
+}
+function stop(){if(timer){clearInterval(timer);timer=null;}}
+
+function record(t,given,late){
+  var ok=!late&&given!=null&&norm(given)===norm(t.key);
+  log.push({pid:rounds[ri].pid,label:t.label,
+    given:late?"ВРЕМЯ ВЫШЛО":given,key:t.key,why:t.why,ok:ok});
+  return ok;
+}
+function norm(s){return (s||"").toString().trim().toLowerCase();}
+function advance(wasOk){move(false,wasOk);}
+function nextLate(){move(true,false);}
+function move(late,wasOk){
+  var r=rounds[ri];
+  var lastOfRound=qi>=r.tasks.length-1;
+  var go=function(){
+    if(!lastOfRound){qi++;ask();}
+    else{showRoundReview();}
+  };
+  if(late){show("flash");$("flash").innerHTML="⏰ Время!";setTimeout(go,950);}
+  else if(wasOk){show("flash");$("flash").className="flash good";$("flash").innerHTML="✅";setTimeout(go,700);}
+  else{show("flash");$("flash").className="flash";$("flash").innerHTML="❌";setTimeout(go,900);}
+}
+
+/* ---------- разбор части: что было не так + короткое объяснение ---------- */
+function showRoundReview(){
+  var r=rounds[ri];
+  var rows=log.filter(function(l){return l.pid===r.pid;});
+  var okN=rows.filter(function(l){return l.ok;}).length;
+  $("round-count").textContent=r.meta.icon+" "+r.meta.name+" · итог"+(r.timed?" ⏰":"");
+  $("round-line").textContent=okN+" / "+rows.length+(okN===rows.length?" — всё верно! 🎉":"");
+  var missed=rows.filter(function(l){return !l.ok;});
+  if(missed.length){
+    $("round-miss").style.display="block";
+    $("round-miss").innerHTML="<b>Разберём, что было не так:</b>"+missed.map(function(l){
+      return '<div class="rmiss"><div class="rline">❌ '+l.label+"</div>"+
+        '<div>ты: <span class="ryou">'+(l.given||"—")+'</span> → верно: <span class="rkey">'+l.key+"</span></div>"+
+        (l.why?'<div class="rwhy">💡 '+l.why+"</div>":"")+"</div>";
+    }).join("");
+  }else{$("round-miss").style.display="none";}
+  $("next-btn").textContent=(ri<rounds.length-1)?"Дальше →":"К итогам тренировки 🏁";
+  show("round-card");window.scrollTo(0,0);
+}
+$("next-btn").addEventListener("click",function(){
+  if(ri<rounds.length-1){ri++;roundFlash();}
+  else{finish();}
+});
+
+/* ---------- end + report ---------- */
+function reportText(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  var lines=[(WHO||"IRINA")+" · IRINA GRAMMAR · "+new Date().toLocaleString(),
+    "Итог тренировки: "+ok+" / "+total];
+  ROUNDS.forEach(function(t){
+    var p=POOLS[t[0]];
+    var rows=log.filter(function(l){return l.pid===t[0];});
+    if(rows.length)lines.push(p.icon+" "+p.name+(t[1]?" (⏰)":"")+": "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
+  });
+  var missed=log.filter(function(l){return !l.ok;});
+  if(missed.length){
+    lines.push("","Missed or too late ("+missed.length+"):");
+    missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+(l.given||"—")+" · key: "+l.key);});
+  }else{lines.push("","Missed or too late: none! 🎉");}
+  return lines.join("\n");
+}
+function finish(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/total*5)));
+  var bits=[];
+  ROUNDS.forEach(function(t){
+    var p=POOLS[t[0]];
+    var rows=log.filter(function(l){return l.pid===t[0];});
+    if(rows.length)bits.push(p.icon+" "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length+(t[1]?"⏰":""));
+  });
+  $("end-rows").textContent=bits.join("  ·  ");
+  var missed=log.filter(function(l){return !l.ok;});
+  if(missed.length){
+    $("miss-list").style.display="block";
+    $("miss-list").innerHTML="<b>Для словарика:</b><br>"+missed.map(function(l){
+      return "· "+l.label+" → <span class='k'>"+l.key+"</span>";}).join("<br>");
+  }
+  var txt=reportText();
+  try{localStorage.setItem("irina-gram-last",txt);}catch(e){}
+  sendReport(txt);
+  $("sent-line").textContent="…";
+  setTimeout(function(){
+    $("sent-line").textContent="✅ Результат уже у твоего учителя!";
+  },1400);
+  show("end-card");
+  try{$("end-card").scrollIntoView({behavior:"smooth",block:"center"});}catch(e){}
+}
+
+/* ---------- auto-send (fetch → iframe fallback → localStorage queue) ---------- */
+var QKEY="irina-hw-form-queue";
+function queueGet(){try{return JSON.parse(localStorage.getItem(QKEY)||"[]");}catch(e){return[];}}
+function queueAdd(txt){var q=queueGet();q.push(txt);try{localStorage.setItem(QKEY,JSON.stringify(q));}catch(e){}}
+function queueClear(){try{localStorage.setItem(QKEY,"[]");}catch(e){}}
+function postOne(txt,done){
+  var okFn=function(){done(true);},badFn=function(){done(false);};
+  try{
+    var body=new FormData();
+    body.append(HW_FORM.entryReport,txt);
+    fetch(HW_FORM.action,{method:"POST",mode:"no-cors",body:body})
+      .then(function(){okFn();}).catch(function(){iframePost(txt,okFn,badFn);});
+  }catch(e){iframePost(txt,okFn,badFn);}
+}
+function iframePost(txt,okFn,badFn){
+  try{
+    var frame=document.createElement("iframe");
+    frame.name="hf-"+Date.now();frame.style.display="none";
+    document.body.appendChild(frame);
+    var f=document.createElement("form");
+    f.method="POST";f.action=HW_FORM.action;f.target=frame.name;
+    var inp=document.createElement("input");
+    inp.type="hidden";inp.name=HW_FORM.entryReport;inp.value=txt;
+    f.appendChild(inp);
+    document.body.appendChild(f);f.submit();
+    setTimeout(function(){okFn();},1200);
+  }catch(e){badFn();}
+}
+function sendReport(txt){
+  postOne(txt,function(ok){
+    if(!ok){queueAdd(txt);return;}
+    /* a fresh send flushes everything queued before it */
+    var q=queueGet();
+    if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}
+  });
+}
+/* flush old queue on load — at the tail, after all listeners attach */
+(function(){var q=queueGet();if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}})();
+})();
+</script>
+</body>
+</html>
