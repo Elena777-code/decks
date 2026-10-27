@@ -12,10 +12,14 @@
    order, act out — + phonics Cc: cat · cap · can · cab, the tic-tac-toe
    game, the school-bag speaking) + Elena's shape: the Dd story (the
    brand-phonics deck, the Thursday reading slot), Left-and-Right first
-   song (L2 of 3), the homework check with the STICKERS + the shkola.app
-   hero, the typing game F J (the link — no new build), ONE PW1 lesson
-   (U1 L4: PB p. 7 ex 5-6 + AB p. 7 ex 5-6, protected), the 🎬 on the
-   story act-out. Same engine as KB 1 U2 L9 (THE DECK STAYS FAMILIAR):
+   song (L2 of 3), the homework check = the live «Урок 11 · Печатаем и
+   читаем!» card with the STICKERS + the shkola.app hero, ONE PW1 lesson
+   (U1 L4: PB p. 7 ex 5-6 + AB p. 7 ex 5-6, protected — pictures swapped
+   + clickable 27.10, the announcements cut off the tracks), the 🎬 on
+   the story act-out, and the typing game (D K — the link) moved LAST as
+   the flex stage (Elena, 27.10) + the ⏱ 60-minute pacing timer on every
+   slide (the lesson is filmed for the parents — v2). Same engine as
+   KB 1 U2 L9 (THE DECK STAYS FAMILIAR):
    board deck, Wi-Fi interstitial, reveal cards, ready-chime,
    build stamp (invisible), the ✍️ V2 window with the corners v2:
    🙋 Pardon top-left · ✍️ top-right · 🗒 bottom-centre, the three-group
@@ -193,12 +197,50 @@ img.sheet.small{width:min(430px,90%)}
 .giveverse.open{display:flex;animation:rise .5s cubic-bezier(.22,1,.36,1)}
 .giveverse img{height:min(14vh,130px);width:auto;border-radius:14px;box-shadow:var(--shadow);background:#fff}
 .giveverse .glyric{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.15rem,2.2vw,1.9rem)}</style>
+<style>/* the 27.10 round: the ⏱ pacing timer · the .duo side-by-side rows · the clickable PW pictures · the matching-pairs game */
+#timerchip{
+  position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:105;
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.85rem,1.4vw,1.15rem);
+  background:rgba(255,255,255,.9);border-radius:99px;padding:.3em .95em;box-shadow:var(--shadow);
+  color:var(--ink-soft);white-space:nowrap;user-select:none;
+}
+#timerchip.over{background:#ffe1e8;color:#d64545}
+#timerchip .tmr-left{font-size:.78em;margin-left:.45em}
+.duo{display:flex;gap:clamp(12px,2vw,28px);align-items:flex-start;flex-wrap:wrap;justify-content:center;width:100%}
+.duo img.sheet{flex:0 1 auto}
+.duo video{flex:1 1 320px;width:auto;max-width:560px}
+.picwrap{position:relative;display:inline-block;align-self:flex-start;border-radius:16px}
+.picwrap img{cursor:pointer}
+.pbadge{
+  position:absolute;right:10px;bottom:10px;width:46px;height:46px;border-radius:50%;
+  background:var(--mint);color:var(--ink);display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;box-shadow:var(--shadow);pointer-events:none;
+}
+.mp-wrap{display:flex;flex-direction:column;gap:1vh;align-items:center;width:100%}
+.mp-grid{display:flex;flex-wrap:wrap;gap:clamp(8px,1.4vw,18px);justify-content:center}
+.mp-card{
+  width:clamp(84px,13vh,130px);height:clamp(84px,13vh,130px);border:none;border-radius:18px;cursor:pointer;
+  background:var(--mint);box-shadow:var(--shadow);padding:0;
+  font-family:'Fredoka',sans-serif;font-weight:700;color:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.12em;
+  font-size:clamp(2.1rem,6vh,3.8rem);line-height:1;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1),background .18s ease,box-shadow .18s ease;
+}
+.mp-card:hover{transform:translateY(-3px) scale(1.03)}
+.mp-card .mp-back{font-size:1.15em}
+.mp-card .mp-word{font-size:clamp(.85rem,1.6vw,1.15rem)}
+.mp-card.up{background:var(--white)}
+.mp-card.ok{background:var(--white);box-shadow:0 0 0 6px var(--mint),var(--shadow-lg);cursor:default}
+.mp-card.ok:hover{transform:none}
+.mp-card.no{background:#ffe1e8}
+.mp-status{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.1rem,2vw,1.6rem);color:var(--ink-soft);text-align:center;min-height:1.4em}
+</style>
 <style>/* THE FILM CUE</style>
 </head>
 <body>
 
 <div id="progress-track"><div id="progress-fill"></div></div>
-<!-- build 22.10 · v1 -->
+<!-- build 27.10 · v2 (the morning notes round: the hw check = the live «Урок 11» card · typing D K moved last as the flex stage · the T/F game = the standing every-lesson warm-up with her checkable sentences + bike/boat · the ⏱ 60-minute pacing timer on every slide · the bag Q&A right of the sheet · the story picture+video side by side · the PW pictures swapped + clickable, the «PB/AB Unit… ex…» announcements cut off the tracks · the matching pairs made clickable) -->
 
 <!-- 1 · WARM UP — HELLO SONG + PREP CARD -->
 <section class="slide">
@@ -245,33 +287,19 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>👏 Lesson 2 with this song — <b style="color:var(--lavender-deep)">show me the moves!</b></p></div>
 </section>
 
-<!-- 4 · HOMEWORK CHECK — THE «ЗАДАНИЯ ПО БУКВАМ» CARD + STICKERS + THE SHKOLA HERO -->
+<!-- 4 · HOMEWORK CHECK — THE «УРОК 11 · ПЕЧАТАЕМ И ЧИТАЕМ!» CARD + STICKERS + THE SHKOLA HERO -->
 <section class="slide">
   <div class="eyebrow reveal-el">Homework check ✋</div>
   <h1 class="title reveal-el">Who did the homework? Hands up!</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="card mint reveal-el"><p>📖 The <b style="color:var(--mint-deep)">poster</b> — 4 readings? ✋ &nbsp; 🤪 The <b style="color:var(--mint-deep)">Dd sentences</b>? ✋ &nbsp; ✏️ The <b style="color:var(--mint-deep)">worksheets</b>? ✋</p></div>
-  <div class="card lavender reveal-el"><p>🎮 <b style="color:var(--lavender-deep)">ABC-N</b>? ✋ &nbsp; 🎵 <b style="color:var(--lavender-deep)">Mr Star</b>? ✋ &nbsp; 🖍️ The <b style="color:var(--lavender-deep)">colour game</b>? ✋</p></div>
-  <div class="card peach reveal-el"><p>📱 <b style="color:var(--lavender-deep)">shkola.app</b> — the 8 Colours? ✋</p></div>
+  <div class="card mint reveal-el"><p>⌨️ The <b style="color:var(--mint-deep)">typing game</b> — F and J? ✋ &nbsp; 📖 <b style="color:var(--mint-deep)">«Pat's in the pan!»</b> — you read it! ✋</p></div>
+  <div class="card lavender reveal-el"><p>📱 <b style="color:var(--lavender-deep)">shkola.app</b> — school things? ✋ &nbsp; 🎨 The <b style="color:var(--lavender-deep)">colour game</b>? ✋</p></div>
+  <div class="card peach reveal-el"><p>🎵 <b style="color:var(--lavender-deep)">Left and Right</b> — sing a line! ✋</p></div>
   <div class="card mint reveal-el"><p>🌟 <b style="color:var(--mint-deep)">STICKERS for your homework</b> — come and get it! 🙌</p></div>
   <div class="card lavender reveal-el"><p>🏆 And the <b style="color:var(--lavender-deep)">shkola.app HERO</b> is… 👏👏👏</p></div>
 </section>
 
-<!-- 5 · TYPING — F J (the link — no new build) -->
-<section class="slide">
-  <div class="eyebrow reveal-el">⌨️ Typing time</div>
-  <h1 class="title reveal-el">F and J! ⌨️</h1>
-  <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Find the bumps — no looking!</div>
-  <div class="card lavender reveal-el" style="text-align:center;align-self:stretch">
-    <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(3.2rem,10vh,7rem);line-height:1.15">F&nbsp;·&nbsp;J</p>
-    <p style="font-size:clamp(1.2rem,2.2vw,1.8rem)">👈 left hand lives on F · right hand lives on J 👉</p>
-  </div>
-  <a class="linkcard reveal-el" href="https://elena777-code.github.io/decks/typing/home-row-01-fj.html" target="_blank">▶ The typing game — F J</a>
-  <div class="card mint reveal-el"><p>🙌 Hands on the keys — <b style="color:var(--mint-deep)">GO!</b></p></div>
-</section>
-
-<!-- 6 · WARM UP — TRUE / FALSE (the конспект) -->
+<!-- 5 · WARM UP — TRUE / FALSE (the конспект — now the standing every-lesson game, Elena 27.10) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Game time 👍👎</div>
   <h1 class="title reveal-el">True or FALSE?!</h1>
@@ -280,11 +308,13 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el" style="text-align:center;align-self:stretch">
     <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2.2rem,6vh,4.2rem);line-height:1.3">👍 TRUE! YES! &nbsp;·&nbsp; 👎 FALSE! NO!</p>
   </div>
-  <div class="card lavender reveal-el"><p>💬 «<b style="color:var(--lavender-deep)">I like green!</b>» — true! 😄 &nbsp; «<b style="color:var(--lavender-deep)">I like books!</b>» — true or false?</p></div>
-  <div class="card peach reveal-el"><p>🙋 Your turn — say <b style="color:var(--lavender-deep)">YOUR</b> line!</p></div>
+  <div class="card lavender reveal-el"><p>💬 «<b style="color:var(--lavender-deep)">I've got 3 noses!</b>» 👃 — FALSE! 😄 &nbsp; «<b style="color:var(--lavender-deep)">I've got 2 green erasers!</b>» ✋ — true or false?</p></div>
+  <div class="card lavender reveal-el"><p>💬 «<b style="color:var(--lavender-deep)">Who's that? — He's Simon!</b>» 👦 &nbsp; «<b style="color:var(--lavender-deep)">This is a blue pencil!</b>» 🖊️</p></div>
+  <div class="card pink reveal-el"><p>🆕 NEW! «<b style="color:var(--pink)">This is a yellow bike!</b>» 🚲 &nbsp; «<b style="color:var(--pink)">I've got a boat!</b>» ⛵</p></div>
+  <div class="card peach reveal-el"><p>🙋 Your turn — say <b style="color:var(--lavender-deep)">YOUR</b> line — we CHECK it!</p></div>
 </section>
 
-<!-- 7 · WI-FI (pencil time) -->
+<!-- 6 · WI-FI (pencil time) -->
 <section class="slide wifi">
   <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
     <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
@@ -296,7 +326,7 @@ img.sheet.small{width:min(430px,90%)}
   </svg>
 </section>
 
-<!-- 8 · THE PENCIL SONG -->
+<!-- 7 · THE PENCIL SONG -->
 <section class="slide">
   <div class="eyebrow reveal-el">🎵 Pencil time!</div>
   <h1 class="title reveal-el">Hold your pencil up! ✏️</h1>
@@ -305,7 +335,7 @@ img.sheet.small{width:min(430px,90%)}
   <audio controls preload="none" class="reveal-el" src="../media/pab-1-6-hold-your-pencil-up.mp3"></audio>
 </section>
 
-<!-- 9 · LEAD-IN — SCHOOL MIND MAP + TIC-TAC-TOE (the конспект) -->
+<!-- 8 · LEAD-IN — SCHOOL MIND MAP + TIC-TAC-TOE (the конспект) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Board + game ✏️</div>
   <h1 class="title reveal-el">Tic-tac-toe! ❌⭕</h1>
@@ -319,7 +349,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card lavender reveal-el"><p>👫 Pairs — «<b style="color:var(--lavender-deep)">X!</b>» «<b style="color:var(--lavender-deep)">O!</b>» — say it as you write!</p></div>
 </section>
 
-<!-- 10 · REVISION GAME — WORDWALL (the конспект lead-in) -->
+<!-- 9 · REVISION GAME — WORDWALL (the конспект lead-in) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Game time 🎮</div>
   <h1 class="title reveal-el">The unit game! 🎮</h1>
@@ -329,29 +359,37 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>🏆 One driver at a time — <b style="color:var(--mint-deep)">EVERYONE shouts the answers!</b></p></div>
 </section>
 
-<!-- 11 · SPEAKING — THE SCHOOL BAG (the конспект) -->
+<!-- 10 · SPEAKING — THE SCHOOL BAG (the конспект; the Q&A on the right, Elena 27.10) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Speaking 🗣️</div>
   <h1 class="title reveal-el">My school bag! 🎒</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Draw — colour — SAY!</div>
-  <img class="sheet small reveal-el" src="../media/kb1-u2-ws-bag.png" alt="the school bag worksheet — draw your school things, colour, say">
-  <div class="card mint reveal-el"><p>💬 What <b style="color:var(--mint-deep)">colour</b> is your bag? <b style="color:var(--mint-deep)">Big or small?</b> 🤔</p></div>
-  <div class="card lavender reveal-el"><p>⭐ «I've got <b style="color:var(--lavender-deep)">a pen</b>!» — YOUR line!</p></div>
+  <div class="duo reveal-el">
+    <img class="sheet small" src="../media/kb1-u2-ws-bag.png" alt="the school bag worksheet — draw your school things, colour, say">
+    <div class="card lavender" style="flex:1 1 340px">
+      <p style="font-size:clamp(1.05rem,1.9vw,1.6rem);line-height:1.7">❓ <b>What colour is your bag?</b> — <b style="color:var(--mint-deep)">It's red!</b><br>
+      ❓ <b>Is your bag big or small?</b> — <b style="color:var(--mint-deep)">It's big!</b><br>
+      ❓ <b>Do you like your bag?</b> — <b style="color:var(--mint-deep)">Yes, I do!</b><br>
+      ❓ <b>What have you got in your bag?</b> — <b style="color:var(--mint-deep)">I've got a pen!</b></p>
+    </div>
+  </div>
 </section>
 
-<!-- 12 · STORY 1 — PB p. 15: WATCH THE VIDEO (the конспект) -->
+<!-- 11 · STORY 1 — PB p. 15: WATCH THE VIDEO (the конспект) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Story time 📖</div>
   <h1 class="title reveal-el">The toy box story! ✨</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Watch — listen — POINT!</div>
-  <img class="sheet small reveal-el" src="../media/kb1-u2-pb15.png" alt="PB p. 15 — the story, six numbered pictures">
-  <video class="reveal-el" controls preload="metadata" src="../media/kb1-u2-story.mp4"></video>
+  <div class="duo reveal-el">
+    <img class="sheet small" src="../media/kb1-u2-pb15.png" alt="the story page — six numbered pictures">
+    <video controls preload="metadata" src="../media/kb1-u2-story.mp4"></video>
+  </div>
   <div class="card lavender reveal-el"><p>👉 Point to <b style="color:var(--lavender-deep)">Monty</b>! <b style="color:var(--lavender-deep)">Maskman</b>! <b style="color:var(--lavender-deep)">Marie</b>! — They are TOYS! 🧸</p></div>
 </section>
 
-<!-- 13 · STORY 2 — LISTEN AND ORDER (the конспект) -->
+<!-- 12 · STORY 2 — LISTEN AND ORDER (the конспект) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Story time 📖</div>
   <h1 class="title reveal-el">Listen — order the pictures! 🔢</h1>
@@ -362,7 +400,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>✏️ Your numbers! &nbsp;<button class="reveal-btn" style="font-size:.7em;padding:.15em .8em;vertical-align:middle" onclick="reveal(this)">key ▾</button> <span class="answer" style="font-size:.62em;padding:.1em .5em">1 · 2 · 3 · <b style="color:var(--lavender-deep)">5</b> · <b style="color:var(--lavender-deep)">4</b> · 6 — the eraser and the comic SWAP!</span></p></div>
 </section>
 
-<!-- 14 · STORY 3 — ACT OUT (the конспект) · THE FILMING MOMENT -->
+<!-- 13 · STORY 3 — ACT OUT (the конспект) · THE FILMING MOMENT -->
 <section class="slide">
   <div class="eyebrow reveal-el">Your turn! 🎭</div>
   <h1 class="title reveal-el">Act out the story!</h1>
@@ -374,31 +412,31 @@ img.sheet.small{width:min(430px,90%)}
 <div class="filmchip" title="Lights, camera, action — today: film the story role play, 30–60 s for the parents; the clip goes to Miss Alyona">🎬 Lights, camera, action!</div>
 </section>
 
-<!-- 15 · THE PLAYWAY LESSON 1/2 — PB p. 7 ex 5-6 (PROTECTED) -->
+<!-- 14 · THE PLAYWAY LESSON 1/2 — PB p. 7 ex 5-6 (PROTECTED) -->
 <section class="slide">
   <div class="eyebrow reveal-el">The other coursebook · p. 7 🎨</div>
   <h1 class="title reveal-el">Listen and point! 🎨</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Ears and fingers — seven colours!</div>
-  <img class="sheet small reveal-el" src="../media/pw1-p7.png" alt="Playway PB p. 7 — listen and point (the paint splotches), look and say">
-  <audio controls preload="none" class="reveal-el" src="../media/pw1-cd1-9.mp3"></audio>
+  <span class="picwrap reveal-el"><img class="sheet small" id="pwpic1" src="../media/pw1-p7.png" alt="seven paint splotches and seven paint pots — listen and point" onclick="picPlay('pwaud1')" title="Click the picture — the audio plays!"><span class="pbadge" id="pwbadge1">▶</span></span>
+  <audio id="pwaud1" controls preload="none" class="reveal-el" src="../media/pw1-cd1-9.mp3"></audio>
   <div class="card peach reveal-el"><p>🎨 The order! &nbsp;<button class="reveal-btn" style="font-size:.7em;padding:.15em .8em;vertical-align:middle" onclick="reveal(this)">show ▾</button> <span class="answer" style="font-size:.62em;padding:.1em .5em">blue · red · green · yellow · white · black · brown</span></p></div>
-  <div class="card mint reveal-el"><p>👫 Ex. 6 — look and SAY: «<b style="color:var(--mint-deep)">blue!</b>» «<b style="color:var(--mint-deep)">red!</b>» — the bank is under the photos!</p></div>
+  <div class="card mint reveal-el"><p>👆 Click the picture — <b style="color:var(--mint-deep)">the audio plays!</b> &nbsp; 👫 Ex. 6 — look and SAY: «<b style="color:var(--mint-deep)">blue!</b>» «<b style="color:var(--mint-deep)">red!</b>»</p></div>
 </section>
 
-<!-- 16 · THE PLAYWAY LESSON 2/2 — AB p. 7 ex 5-6 (PROTECTED) -->
+<!-- 15 · THE PLAYWAY LESSON 2/2 — AB p. 7 ex 5-6 (PROTECTED) -->
 <section class="slide">
   <div class="eyebrow reveal-el">The other coursebook · AB 🖍️</div>
   <h1 class="title reveal-el">Listen and colour! 🚤</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Four boats — listen twice!</div>
-  <img class="sheet small reveal-el" src="../media/pw1-ab-p7.png" alt="Playway AB p. 7 — listen and colour (the boats), look and colour, say">
-  <audio controls preload="none" class="reveal-el" src="../media/pw1-cd1-13.mp3"></audio>
+  <span class="picwrap reveal-el"><img class="sheet small" id="pwpic2" src="../media/pw1-ab-p7.png" alt="four white boats and four paint pots — listen and colour" onclick="picPlay('pwaud2')" title="Click the picture — the audio plays!"><span class="pbadge" id="pwbadge2">▶</span></span>
+  <audio id="pwaud2" controls preload="none" class="reveal-el" src="../media/pw1-cd1-13.mp3"></audio>
   <div class="card peach reveal-el"><p>🚤 The key! &nbsp;<button class="reveal-btn" style="font-size:.7em;padding:.15em .8em;vertical-align:middle" onclick="reveal(this)">show ▾</button> <span class="answer" style="font-size:.62em;padding:.1em .5em">1 <b style="color:#d64545">red</b> · 2 <b style="color:#3e9b4f">green</b> · 3 <b style="color:#4472c4">blue</b> · 4 <b style="color:#c99700">yellow</b></span></p></div>
-  <div class="card mint reveal-el"><p>🔺 Ex. 6 — continue the pattern: «<b style="color:var(--mint-deep)">blue, yellow, blue…!</b>» SAY it!</p></div>
+  <div class="card mint reveal-el"><p>👆 Click the picture — <b style="color:var(--mint-deep)">the audio plays!</b> &nbsp; 🔺 Ex. 6 — continue the pattern: «<b style="color:var(--mint-deep)">blue, yellow, blue…!</b>» SAY it!</p></div>
 </section>
 
-<!-- 17 · READING — FIND THE LETTER (the конспект) -->
+<!-- 16 · READING — FIND THE LETTER (the конспект) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Reading · game 🔍</div>
   <h1 class="title reveal-el">Find the letter! 🔍</h1>
@@ -409,7 +447,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>🏆 Teams — <b style="color:var(--lavender-deep)">a point per grab!</b></p></div>
 </section>
 
-<!-- 18 · PHONICS Cc — CAT · CAP · CAN · CAB -->
+<!-- 17 · PHONICS Cc — CAT · CAP · CAN · CAB -->
 <section class="slide">
   <div class="eyebrow reveal-el">Reading · NEW!</div>
   <h1 class="title reveal-el">C c — cat, cap, can, cab! 🐱</h1>
@@ -424,7 +462,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>👏 Clap it: <b style="color:var(--lavender-deep)">C-c-cat! C-c-cap! C-c-can! C-c-cab!</b> &nbsp; 🥤 And COCA-COLA — can you hear the C?</p></div>
 </section>
 
-<!-- 19 · GAME — MATCHING PAIRS (the конспект) -->
+<!-- 18 · GAME — MATCHING PAIRS (the конспект) — CLICKABLE, Elena 27.10 -->
 <section class="slide">
   <div class="eyebrow reveal-el">Game time 🃏</div>
   <h1 class="title reveal-el">Matching pairs!</h1>
@@ -433,11 +471,14 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el" style="text-align:center;align-self:stretch">
     <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5.5vh,3.8rem);line-height:1.3">SAME! 🙂 &nbsp;·&nbsp; DIFFERENT! 🙃</p>
   </div>
-  <div class="card lavender reveal-el"><p>🃏 Face down… flip two… <b style="color:var(--lavender-deep)">a pair STAYS up!</b></p></div>
-  <div class="card peach reveal-el"><p>🔢 Count your pairs — <b style="color:var(--lavender-deep)">name them!</b></p></div>
+  <div class="mp-wrap reveal-el">
+    <div class="mp-grid" id="mpgrid"></div>
+    <div class="mp-status" id="mpstatus"></div>
+    <button class="reveal-btn" id="mpagain" style="display:none" onclick="mpDeal()">↺ Play again</button>
+  </div>
 </section>
 
-<!-- 20 · WORKSHEET «Cc» -->
+<!-- 19 · WORKSHEET «Cc» -->
 <section class="slide">
   <div class="eyebrow reveal-el">Worksheet</div>
   <h1 class="title reveal-el">The Cc worksheet ✏️</h1>
@@ -447,17 +488,17 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card pink reveal-el"><p>⛔ Tracing? <b style="color:var(--pink)">At HOME!</b> 🏠 &nbsp; ⏱ the maze? — if the clock says so!</p></div>
 </section>
 
-<!-- 21 · READING — POSTER 10 -->
+<!-- 20 · READING — POSTER 10 -->
 <section class="slide">
   <img class="sheet reveal-el" src="../media/kb1-u2-poster10.png" alt="poster 10 — a can, a cat, a cap" style="align-self:center;height:min(72vh,54vw);width:auto">
 </section>
 
-<!-- 22 · READING — POSTER 11 -->
+<!-- 21 · READING — POSTER 11 -->
 <section class="slide">
   <img class="sheet reveal-el" src="../media/kb1-u2-poster11.png" alt="poster 11 — nap, cat · nap, rat" style="align-self:center;height:min(72vh,54vw);width:auto">
 </section>
 
-<!-- 23 · FEEDBACK — FAVOURITE TASK + THE TREASURE -->
+<!-- 22 · FEEDBACK — FAVOURITE TASK + THE TREASURE -->
 <section class="slide">
   <div class="eyebrow reveal-el">Your turn! 💬</div>
   <h1 class="title reveal-el">Your favourite task! 💛</h1>
@@ -473,7 +514,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>👏 Everyone says <b style="color:var(--lavender-deep)">ONE task!</b></p></div>
 </section>
 
-<!-- 24 · HOMEWORK -->
+<!-- 23 · HOMEWORK -->
 <section class="slide">
   <div class="eyebrow reveal-el">Homework</div>
   <h1 class="title reveal-el">At home! 🏠</h1>
@@ -484,7 +525,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card reveal-el"><p style="font-size:clamp(1rem,1.7vw,1.4rem)">ДЗ: листик ABCRT — читаем лесенку и обводим: a cat, a bat, a rat · новые слова: a cat, a cap, a can, a cab — рассказать маме и папе · поиграть в Wordwall · соединить половинки слов (листик в портфеле).</p></div>
 </section>
 
-<!-- 25 · GOODBYE — LEFT AND RIGHT, THE SONG -->
+<!-- 24 · GOODBYE — LEFT AND RIGHT, THE SONG -->
 <section class="slide">
   <div class="eyebrow reveal-el">🎵 One more time — sing along!</div>
   <h1 class="title reveal-el">Left and right — sing along! 🎤</h1>
@@ -498,6 +539,20 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>👋 Goodbye, everyone! <b style="color:var(--lavender-deep)">CAT… CAP… CAN — you know it all!</b> 🎉</p></div>
 </section>
 
+<!-- 25 · TYPING — D K (the flex stage — the LAST slide, Elena 27.10: «we'll try typing if we have spare time») -->
+<section class="slide">
+  <div class="eyebrow reveal-el">⌨️ Typing — if the clock allows!</div>
+  <h1 class="title reveal-el">D and K! ⌨️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Find the bumps — no looking!</div>
+  <div class="card lavender reveal-el" style="text-align:center;align-self:stretch">
+    <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(3.2rem,10vh,7rem);line-height:1.15">D&nbsp;·&nbsp;K</p>
+    <p style="font-size:clamp(1.2rem,2.2vw,1.8rem)">👈 left hand reaches D · right hand reaches K 👉</p>
+  </div>
+  <a class="linkcard reveal-el" href="https://elena777-code.github.io/decks/typing/home-row-02-dk.html" target="_blank">▶ The typing game — D K</a>
+  <div class="card mint reveal-el"><p>🙌 Spare time? <b style="color:var(--mint-deep)">Hands on the keys — GO!</b></p></div>
+</section>
+
 <div id="nav">
   <button id="prev" aria-label="previous">‹</button>
   <div id="counter">1 / 25</div>
@@ -506,6 +561,7 @@ img.sheet.small{width:min(430px,90%)}
 </div>
 
 <button id="pardonbtn" class="pill" title="Pardon? — class phrases (P)">🙋</button>
+<div id="timerchip" title="The 60-minute pacing timer — each slide's budget counts down; red = overtime. Typing (the last slide) = the flex stage."><span id="tmr-cur">⏱ ready</span><span class="tmr-left" id="tmr-left"></span></div>
 
 <div id="bigword" class="overlay" onclick="this.classList.remove('open')">
   <div class="bw"><span class="art"></span><span class="noun"></span></div>
@@ -652,6 +708,98 @@ show(isNaN(h)?0:h-1);
   }
   poll();setInterval(poll,1500);
 })();
+</script>
+
+<script>
+/* THE 27.10 ROUND — own block, own scope (the engine law): the ⏱ pacing timer ·
+   the clickable PW pictures · the matching-pairs game. */
+/* ---- the timer: 60 minutes over the deck, per-slide budgets; typing (the last slide) = flex ---- */
+const PBUD=[2,3,2,4,3,1,1,4,2,4,3,4,3,3,3,2,3,3,3,1,1,2,2,1,0];
+let tmrArmed=false,tmrT0=Date.now();
+const tmrFmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function tmrTick(){
+  const c=document.getElementById('tmr-cur'),l=document.getElementById('tmr-left');
+  if(!c)return;
+  if(!tmrArmed){c.textContent='⏱ ready';l.textContent='';return;}
+  const b=(PBUD[cur]||0)*60,el=(Date.now()-tmrT0)/1000,left=b-el;
+  const tail=PBUD.slice(cur+1).reduce((a,x)=>a+x,0)*60;
+  const tot=tail+Math.max(0,left);
+  if(b===0){c.textContent='⏱ flex';c.parentElement.classList.remove('over');}
+  else if(left>=0){c.textContent='⏱ '+tmrFmt(left);c.parentElement.classList.remove('over');}
+  else{c.textContent='⏱ +'+tmrFmt(-left);c.parentElement.classList.add('over');}
+  l.textContent='· '+tmrFmt(tot)+' left';
+}
+function tmrSlide(){tmrT0=Date.now();}
+(function(){
+  const arm=()=>{if(!tmrArmed){tmrArmed=true;tmrSlide();}};
+  addEventListener('pointerdown',arm);addEventListener('keydown',arm);
+  const _tmrShow=show;
+  show=function(n){_tmrShow(n);tmrSlide();};
+  setInterval(tmrTick,500);tmrTick();
+})();
+/* ---- the PW pictures are buttons: click = play/pause; the badge mirrors the state ---- */
+function picPlay(aid){
+  const a=document.getElementById(aid);
+  if(!a)return;
+  if(a.paused){document.querySelectorAll('audio,video').forEach(x=>{try{x.pause()}catch(e){}});a.play();}
+  else a.pause();
+}
+(function(){
+  [['pwaud1','pwbadge1'],['pwaud2','pwbadge2']].forEach(([aid,bid])=>{
+    const a=document.getElementById(aid),b=document.getElementById(bid);
+    if(!a||!b)return;
+    a.addEventListener('play',()=>{b.textContent='⏸'});
+    a.addEventListener('pause',()=>{b.textContent='▶'});
+    a.addEventListener('ended',()=>{b.textContent='▶'});
+  });
+})();
+/* ---- the matching-pairs game: flip two — SAME or DIFFERENT ---- */
+const MPAIRS=[['🐱','a cat'],['🧢','a cap'],['🥫','a can'],['🚕','a cab']];
+let mpA=null,mpLock=false,mpFound=0,mpTries=0;
+function mpDeal(){
+  const g=document.getElementById('mpgrid');if(!g)return;
+  const deck=[...MPAIRS,...MPAIRS].map(p=>({w:p[0],n:p[1],r:Math.random()}))
+    .sort((a,b)=>a.r-b.r);
+  g.innerHTML='';
+  deck.forEach(c=>{
+    const b=document.createElement('button');b.className='mp-card';b.type='button';
+    b.innerHTML='<span class="mp-back">❓</span>';
+    b.dataset.w=c.w;b.dataset.n=c.n;
+    b.onclick=()=>mpFlip(b);
+    g.appendChild(b);
+  });
+  mpA=null;mpLock=false;mpFound=0;mpTries=0;
+  const s=document.getElementById('mpstatus');if(s)s.textContent='Click two cards — SAME or DIFFERENT?';
+  const ag=document.getElementById('mpagain');if(ag)ag.style.display='none';
+}
+function mpFlip(card){
+  if(mpLock||card.classList.contains('up')||card.classList.contains('ok'))return;
+  card.classList.add('up');
+  card.innerHTML=card.dataset.w+'<span class="mp-word">'+card.dataset.n+'</span>';
+  const s=document.getElementById('mpstatus');
+  if(!mpA){mpA=card;return;}
+  mpTries++;
+  if(mpA.dataset.w===card.dataset.w){
+    mpA.classList.remove('up');mpA.classList.add('ok');
+    card.classList.remove('up');card.classList.add('ok');
+    mpFound++;mpA=null;
+    if(mpFound===4){
+      if(s)s.textContent='SAME! 🙂 4 / 4 — '+mpTries+' tries! Now name them all: a cat, a cap, a can, a cab! 🎉';
+      const ag=document.getElementById('mpagain');if(ag)ag.style.display='';
+    }else{
+      if(s)s.textContent='SAME! 🙂 '+mpFound+' / 4';
+    }
+  }else{
+    mpLock=true;const first=mpA;mpA=null;
+    if(s)s.textContent='DIFFERENT! 🙃 — look and remember!';
+    setTimeout(()=>{
+      first.classList.remove('up');first.innerHTML='<span class="mp-back">❓</span>';
+      card.classList.remove('up');card.innerHTML='<span class="mp-back">❓</span>';
+      mpLock=false;
+    },950);
+  }
+}
+mpDeal();
 </script>
 </body>
 </html>
