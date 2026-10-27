@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reported Passive — It is said that… (Advanced Grammar in Use, Unit 25)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   REPORTED PASSIVE — a UNIVERSAL reference deck (lib family,
+   Library/Grammar/reported-passive/ · named by topic, no pupil).
+   THE SOURCE — strictly Advanced Grammar in Use, 4th ed 2023
+   (Hewings), Unit 25 "Reporting with passives; It is said that…"
+   (book pp. 50–51), exercises 25.1–25.3 + the key (p. 256).
+   Every sentence, verb bank and exercise item is the book's own.
+   THE TENSE COLOUR CODE: present simple blue · past red ·
+   present perfect purple (the code colours the passive's be-form).
+   Engine: cloned from the place-prepositions lib deck (the lib
+   family format): nav bottom-right + lane, progress bar,
+   click-reveals, ready-chime + #n hash, presenter view (T / 🖥),
+   tap-to-hear (data-say). No pupil pills — the lib family shape.
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --mint-deep:#2E8B64; --ink:#22303F; --ink-soft:#5D6B7A;
+  --blue:#2E6FB7; --red:#C0392B; --purple:#7D3C98; --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.1rem);color:#fff}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cheese)}
+#nav button:disabled{opacity:.3;cursor:default}
+.slide{position:absolute;inset:0;padding:5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.2vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide>*{flex-shrink:0}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes pop{0%{transform:scale(.6);opacity:0}100%{transform:scale(1);opacity:1}}
+
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin-bottom:.3em;
+  font-size:clamp(1.9rem,4.2vw,3.6rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp))}
+.mt{margin-top:.65em}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink);background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem);align-self:flex-start}
+.task::before{content:"🎯 "}
+.note{font-size:clamp(.95rem,1.45vw,1.2rem);color:var(--ink-soft);line-height:1.45;max-width:1050px}
+.stamp-line{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink-soft);
+  font-size:clamp(.78rem,1.1vw,.95rem);letter-spacing:.06em;margin-top:auto;opacity:.8}
+
+/* the pattern formula */
+.formula{display:flex;flex-wrap:wrap;gap:.35em;align-items:center;font-family:'Fredoka',sans-serif;
+  font-weight:600;font-size:clamp(1.15rem,2.1vw,1.7rem);color:var(--ink)}
+.formula .fx{background:var(--navy);color:#fff;border-radius:10px;padding:.1em .45em}
+.formula .fg{background:var(--cheese-soft);border:2px dashed var(--cheese);border-radius:10px;padding:.1em .45em;color:var(--navy-deep)}
+
+/* example sentences + the tense colour code */
+.exs{display:flex;flex-direction:column;gap:.5em;width:100%;max-width:1050px}
+.ex{background:var(--white);border-radius:14px;box-shadow:0 6px 16px rgba(34,48,63,.08);padding:.6em .9em;
+  font-size:clamp(1.05rem,1.8vw,1.45rem);line-height:1.45}
+.ex .pp{font-weight:800}
+.ex .mk{background:var(--cheese-soft);border-bottom:3px solid var(--cheese);border-radius:6px;padding:0 .15em;font-style:italic}
+.ex .alt{display:block;font-size:.78em;color:var(--ink-soft);margin-top:.15em}
+.ex .neg{color:var(--red);font-weight:700}
+.ex .strike{text-decoration:line-through;text-decoration-color:var(--stamp)}
+.ex .ok{color:var(--mint-deep);font-weight:700}
+.tp{color:var(--blue)}
+.tpa{color:var(--red)}
+.tpp{color:var(--purple)}
+.legend{display:flex;flex-wrap:wrap;gap:.3em 1.1em;font-family:'Fredoka',sans-serif;font-weight:500;
+  font-size:clamp(.8rem,1.2vw,1rem);color:var(--ink-soft)}
+.legend b{font-weight:700}
+.vs{text-align:center;font-family:'Fredoka',sans-serif;color:var(--stamp);font-weight:700;
+  font-size:clamp(1.1rem,1.9vw,1.5rem);line-height:1}
+
+/* verb banks */
+.bank{display:flex;flex-wrap:wrap;gap:.4em .45em;align-items:center;width:100%;max-width:1050px;
+  background:var(--white);border-radius:14px;padding:.6em .8em;box-shadow:0 6px 16px rgba(34,48,63,.08);
+  font-size:clamp(.95rem,1.45vw,1.2rem)}
+.bank .bl{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink-soft);font-size:.82em;margin-right:.2em}
+.bank b{background:var(--cheese-soft);color:var(--navy-deep);border-radius:99px;padding:.12em .6em;
+  font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.82rem,1.25vw,1rem)}
+
+/* overview pattern cards */
+.pats{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:clamp(.6rem,1.2vw,1rem);width:100%}
+.pat{background:var(--white);border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.1);
+  padding:.8em .7em;text-align:center;transition:transform .15s ease;cursor:pointer}
+.pat:hover{transform:translateY(-4px)}
+.pat .pl{font-family:'Fredoka',sans-serif;font-weight:700;color:#fff;background:var(--navy);
+  width:1.7em;height:1.7em;border-radius:50%;display:grid;place-items:center;margin:0 auto .35em;
+  font-size:clamp(.95rem,1.5vw,1.2rem)}
+.pat .pf{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy-deep);
+  font-size:clamp(.85rem,1.35vw,1.05rem);line-height:1.25}
+.pat .px{font-size:clamp(.78rem,1.18vw,.98rem);color:var(--ink-soft);margin-top:.35em;font-style:italic;line-height:1.3}
+
+/* exercise rows (25.1 · 25.3) */
+.rows{display:flex;flex-direction:column;gap:.45em;width:100%;max-width:1080px}
+.rowx{background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);
+  padding:.5em .8em;display:flex;gap:.55em;align-items:baseline;cursor:pointer;user-select:none;
+  border:3px solid transparent;transition:border-color .15s ease,background .15s ease;flex-wrap:wrap}
+.rowx:hover{transform:translateY(-2px)}
+.rowx .num{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--ink-soft);min-width:1.3em}
+.rowx .sent{font-size:clamp(.98rem,1.6vw,1.3rem);line-height:1.4}
+.rowx .vp{font-style:italic;color:var(--ink-soft);font-size:clamp(.85rem,1.3vw,1.05rem)}
+.rowx .rvt{display:none;background:var(--cheese-soft);border-bottom:3px solid var(--mint);
+  border-radius:8px;padding:0 .3em;font-weight:800;color:var(--navy-deep);
+  font-size:clamp(.98rem,1.6vw,1.3rem)}
+.rowx .why{display:none;width:100%;font-size:clamp(.85rem,1.3vw,1.05rem);color:var(--ink-soft);line-height:1.35}
+.rowx.open{border-color:var(--mint);background:#F2FBF7}
+.rowx.open .rvt{display:inline;animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+.rowx.open .why{display:block;animation:rise .4s both}
+
+/* the newspaper browser (25.2) */
+.browser{background:#E9EEF5;border-radius:16px;padding:.9em 1.1em 1.1em;width:100%;max-width:1050px;
+  box-shadow:var(--shadow)}
+.bdots{display:flex;gap:6px;margin:0 0 .7em .2em}
+.bdots i{width:11px;height:11px;border-radius:50%}
+.bdots i:nth-child(1){background:#FF5F57}.bdots i:nth-child(2){background:#FEBC2E}.bdots i:nth-child(3){background:#28C840}
+.hl{background:var(--white);border-radius:10px;padding:.4em .7em;margin-bottom:.45em;cursor:pointer;user-select:none;
+  border:2px solid transparent;transition:border-color .15s ease}
+.hl:hover{border-color:var(--sky)}
+.hl .hd{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink);
+  font-size:clamp(.9rem,1.5vw,1.25rem);letter-spacing:.01em}
+.hl .rv{display:none;padding-top:.25em;font-size:clamp(.9rem,1.42vw,1.15rem);line-height:1.4}
+.hl .rv .hand{font-style:italic;color:var(--mint-deep)}
+.hl .no{color:var(--red);font-weight:800}
+.hl.open{border-color:var(--mint);background:#F2FBF7}
+.hl.open .rv{display:block;animation:rise .35s both}
+
+/* the interview bubble (25.3) */
+.bub{position:relative;background:var(--white);border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.1);
+  padding:.9em 1.2em;max-width:1080px;width:100%;font-size:clamp(.95rem,1.5vw,1.22rem);line-height:1.5}
+.bub::after{content:"";position:absolute;left:2.2em;bottom:-11px;border:11px solid transparent;
+  border-top-color:var(--white);border-bottom:0}
+.bub .bn{font-weight:800;color:var(--navy)}
+
+/* the click-quiz (which pattern?) */
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(.6rem,1.2vw,1rem);
+  width:100%;max-width:1080px;margin:0 auto}
+.qcard{background:var(--white);border-radius:16px;box-shadow:0 6px 16px rgba(34,48,63,.1);
+  padding:.65em .8em .55em;cursor:pointer;user-select:none;text-align:left;
+  transition:transform .15s ease,border-color .15s ease,background .15s ease;border:3px solid transparent}
+.qcard:hover{transform:translateY(-4px)}
+.qcard .qs{font-size:clamp(.95rem,1.55vw,1.2rem);line-height:1.4;font-weight:600;color:var(--ink)}
+.qslot{display:grid;margin-top:.2em}
+.qslot .qmark,.qslot .qw{grid-area:1/1;display:grid;place-items:start;min-height:1.5em}
+.qslot .qmark{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--ink-soft);
+  font-size:clamp(1.05rem,1.8vw,1.4rem)}
+.qslot .qw{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy-deep);
+  font-size:clamp(.9rem,1.4vw,1.12rem);line-height:1.3;opacity:0;transform:scale(.5);
+  transition:all .25s cubic-bezier(.34,1.56,.64,1)}
+.qcard.open{border-color:var(--cheese);background:var(--cheese-soft)}
+.qcard.open .qmark{display:none}
+.qcard.open .qw{opacity:1;transform:none}
+.qcard .qw .pl{font-weight:700;color:var(--stamp)}
+
+/* the speaking words: anything with data-say is a tap-to-hear target */
+.said{animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+[data-say]{cursor:pointer}
+
+@media (max-width:900px){
+  .pats{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+  .qgrid{grid-template-columns:1fr}
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#1E3A66;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1rem,1.6vw,1.3rem)}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:'Fredoka',sans-serif;font-size:.9em;cursor:pointer}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(30,58,102,.85);color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:.8rem;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F5F3EE;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--cheese)}
+body.embed #nav,body.embed #bar{display:none!important}
+</style>
+</head>
+<body>
+
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · OVERVIEW -->
+  <section class="slide">
+    <div class="eyebrow reveal">universal reference deck · Advanced Grammar in Use · Unit 25</div>
+    <h1 class="title reveal">Reported Passive 🗞</h1>
+    <div class="accent-line reveal"></div>
+    <p class="note reveal">Reporting with passives — <b>It is said that…</b> Five ways to report what people say, think or believe, when <b>who said it is not important</b>.</p>
+    <div class="pats reveal">
+      <div class="pat" data-say="Everyone was asked to bring some food to the party.">
+        <div class="pl">A</div><div class="pf">a passive to report</div>
+        <div class="px">Everyone <span class="pp tpa">was asked</span> to…</div>
+      </div>
+      <div class="pat" data-say="It is reported that the damage is extensive.">
+        <div class="pl">B</div><div class="pf">it + passive + that-clause</div>
+        <div class="px"><span class="pp tp">It is reported</span> <span class="mk">that</span>…</div>
+      </div>
+      <div class="pat" data-say="The damage is reported to be extensive.">
+        <div class="pl">C</div><div class="pf">subject + passive + to-infinitive</div>
+        <div class="px">The damage <span class="pp tp">is reported</span> <span class="mk">to be</span>…</div>
+      </div>
+      <div class="pat" data-say="It has now been revealed who was responsible for the accident.">
+        <div class="pl">D</div><div class="pf">it + passive + wh-clause</div>
+        <div class="px"><span class="pp tpp">It has been revealed</span> <span class="mk">who</span>…</div>
+      </div>
+      <div class="pat" data-say="There are thought to be too many obstacles to peace.">
+        <div class="pl">E</div><div class="pf">there + passive + to be</div>
+        <div class="px"><span class="pp tp">There are thought to be</span>…</div>
+      </div>
+    </div>
+    <div class="legend reveal"><span>the tense colours:</span><b class="tp">present — blue</b><b class="tpa">past — red</b><b class="tpp">present perfect — purple</b></div>
+    <p class="task reveal mt" style="align-self:center">Tap a card to hear it 🔊 · then slides 2–7 = one pattern each · 25.1–25.3 = the exercises</p>
+  </section>
+
+  <!-- SLIDE 2 · A -->
+  <section class="slide">
+    <div class="eyebrow reveal">A · a passive to report</div>
+    <h1 class="title reveal">Say it with a passive</h1>
+    <div class="accent-line reveal"></div>
+    <div class="formula reveal"><span class="fs">we report an action —</span><span class="fg">be + participle</span><span class="fs">— and the reporter stays unnamed</span></div>
+    <div class="exs reveal">
+      <div class="ex" data-say="People in the area have been told that they should stay indoors.">People in the area <span class="pp tpp">have been told</span> <span class="mk">that</span> they should stay indoors.</div>
+      <div class="ex" data-say="Everyone was asked to bring some food to the party.">Everyone <span class="pp tpa">was asked</span> to bring some food to the party.</div>
+    </div>
+    <p class="note reveal">Use a passive to report what people <b>say, think</b>, etc. — particularly when it is not important to mention <b>who</b> is being reported.</p>
+    <p class="task reveal mt" style="align-self:center">Tap a sentence to hear it 🔊</p>
+  </section>
+
+  <!-- SLIDE 3 · B -->
+  <section class="slide">
+    <div class="eyebrow reveal">B · it + passive verb + that-clause</div>
+    <h1 class="title reveal">It is said that…</h1>
+    <div class="accent-line reveal"></div>
+    <div class="formula reveal"><span class="fx">It</span><span class="fs">+</span><span class="fg">passive verb</span><span class="fs">+</span><span class="fx">that</span><span class="fs">+ clause — the news goes to the END</span></div>
+    <div class="exs reveal">
+      <div class="ex" data-say="It is reported that the damage is extensive."><span class="pp tp">It is reported</span> <span class="mk">that</span> the damage is extensive.<span class="alt">compare: The damage is extensive, according to government sources.</span></div>
+      <div class="ex" data-say="It was decided that the meeting should be cancelled."><span class="pp tpa">It was decided</span> <span class="mk">that</span> the meeting should be cancelled.<span class="alt">or: It was decided to cancel the meeting.</span></div>
+    </div>
+    <div class="bank reveal"><span class="bl">also:</span><b>allege</b><b>announce</b><b>assume</b><b>believe</b><b>calculate</b><b>claim</b><b>consider</b><b>demonstrate</b><b>discover</b><b>establish</b><b>estimate</b><b>expect</b><b>feel</b><b>find</b><b>know</b><b>mention</b><b>recommend</b><b>reveal</b><b>say</b><b>show</b><b>suggest</b><b>suppose</b><b>think</b><b>understand</b></div>
+    <div class="bank reveal"><span class="bl">these also take a to-infinitive clause:</span><b>agree</b><b>decide</b><b>hope</b><b>intend</b><b>plan</b><b>propose</b></div>
+    <p class="task reveal mt" style="align-self:center">Tap a sentence to hear it 🔊</p>
+  </section>
+
+  <!-- SLIDE 4 · B — the note -->
+  <section class="slide">
+    <div class="eyebrow reveal">B · the verbs that refuse it</div>
+    <h1 class="title reveal">Not every verb takes it</h1>
+    <div class="accent-line reveal"></div>
+    <div class="exs reveal">
+      <div class="ex" data-say="We have been informed that we have to leave."><span class="ok">✓</span> We <span class="pp tpp">have been informed</span> <span class="mk">that</span> we have to leave.<span class="alt"><span class="neg">✗</span> <span class="strike">It has informed us that…</span></span></div>
+    </div>
+    <div class="bank reveal"><span class="bl">also (pattern A, never it):</span><b>encourage</b><b>persuade</b><b>reassure</b><b>remind</b><b>tell</b><b>warn</b></div>
+    <p class="note reveal">These verbs need a <b>personal object</b> before the that-clause in an active form — <i>They have informed <b>us</b> that…</i></p>
+    <p class="task reveal mt" style="align-self:center">Tap the sentence to hear it 🔊</p>
+  </section>
+
+  <!-- SLIDE 5 · C -->
+  <section class="slide">
+    <div class="eyebrow reveal">C · subject + passive verb + to-infinitive</div>
+    <h1 class="title reveal">Put the subject first</h1>
+    <div class="accent-line reveal"></div>
+    <div class="formula reveal"><span class="fs">the subject becomes the topic:</span><span class="fg">subject</span><span class="fs">+</span><span class="fg">passive verb</span><span class="fs">+</span><span class="fg">to-infinitive</span></div>
+    <div class="exs reveal">
+      <div class="ex" data-say="It is reported that the damage is extensive. And. The damage is reported to be extensive."><span class="pp tp">It is reported</span> <span class="mk">that</span> the damage is extensive.</div>
+      <div class="vs reveal">⇄ and</div>
+      <div class="ex" data-say="The damage is reported to be extensive.">The damage <span class="pp tp">is reported</span> <span class="mk">to be</span> extensive.</div>
+    </div>
+    <div class="bank reveal"><span class="bl">not in this pattern:</span><b>announce</b><b>decide</b><b>mention</b><b>propose</b><b>recommend</b><b>suggest</b></div>
+    <div class="exs reveal">
+      <div class="ex" data-say="I was told to go with them to the railway station."><span class="ok">✓</span> I <span class="pp tpa">was told</span> (= ordered) <span class="mk">to go</span> with them to the railway station.<span class="alt"><span class="neg">✗</span> <span class="strike">The accident was told to have happened just after midnight.</span></span></div>
+    </div>
+    <p class="note reveal">We can only use <b>tell</b> in this pattern when it means <b>order</b>.</p>
+    <p class="task reveal mt" style="align-self:center">Tap a sentence to hear it 🔊</p>
+  </section>
+
+  <!-- SLIDE 6 · D -->
+  <section class="slide">
+    <div class="eyebrow reveal">D · it + passive verb + wh-clause</div>
+    <h1 class="title reveal">Report what was found out</h1>
+    <div class="accent-line reveal"></div>
+    <div class="formula reveal"><span class="fx">It</span><span class="fs">+</span><span class="fg">passive verb</span><span class="fs">+</span><span class="fx">who · whether · how …</span></div>
+    <div class="exs reveal">
+      <div class="ex" data-say="It has now been revealed who was responsible for the accident."><span class="pp tpp">It has now been revealed</span> <span class="mk">who</span> was responsible for the accident.</div>
+      <div class="ex" data-say="The decision to build the bridge was taken before it was established whether it was actually needed.">The decision to build the bridge <span class="pp tpa">was taken</span> before <span class="pp tpa">it was established</span> <span class="mk">whether</span> it was actually needed.</div>
+    </div>
+    <div class="bank reveal"><span class="bl">also:</span><b>discover</b><b>explain</b><b>find</b><b>know</b><b>reveal</b><b>show</b><b>understand</b></div>
+    <p class="task reveal mt" style="align-self:center">Tap a sentence to hear it 🔊</p>
+  </section>
+
+  <!-- SLIDE 7 · E -->
+  <section class="slide">
+    <div class="eyebrow reveal">E · there + passive verb + to be</div>
+    <h1 class="title reveal">There is said to be…</h1>
+    <div class="accent-line reveal"></div>
+    <div class="formula reveal"><span class="fs">that + there …</span><span class="fs">→</span><span class="fg">there + passive + to be / to have been</span></div>
+    <div class="exs reveal">
+      <div class="ex" data-say="It is thought that there are or were too many obstacles to peace."><span class="pp tp">It is thought</span> (<span class="mk">that</span>) there are / were too many obstacles to peace.</div>
+      <div class="vs reveal">⇄ and</div>
+      <div class="ex" data-say="There are thought to be or to have been too many obstacles to peace.">There <span class="pp tp">are thought</span> <span class="mk">to be</span> / <span class="mk tpa">to have been</span> too many obstacles to peace.</div>
+    </div>
+    <p class="note reveal"><span class="mk">to be</span> = present · <span class="mk">to have been</span> = past. The same verbs as pattern <b>C</b>.</p>
+    <p class="task reveal mt" style="align-self:center">Tap a sentence to hear it 🔊</p>
+  </section>
+
+  <!-- SLIDE 8 · EXERCISE 25.1 -->
+  <section class="slide">
+    <div class="eyebrow reveal">exercises · 25.1 (B &amp; D)</div>
+    <h1 class="title reveal">One or both? ✏️</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Which of the verbs in brackets can complete the sentence? Underline one or both.</p>
+    <div class="rows reveal">
+      <div class="rowx" data-k data-on="open"><span class="num">1</span><span class="sent">It was <span class="rvt">agreed</span> to hold new negotiations next month.</span><span class="vp">(agreed / announced)</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">2</span><span class="sent">It has been <span class="rvt">proposed / shown</span> that the crash was the result of pilot error.</span><span class="vp">(proposed / shown)</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">3</span><span class="sent">It was <span class="rvt">hoped / explained</span> that Mrs Ho would chair the meeting.</span><span class="vp">(hoped / explained)</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">4</span><span class="sent">It has been <span class="rvt">decided</span> to appoint Dr Ahmadi as head teacher.</span><span class="vp">(decided / suggested)</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">5</span><span class="sent">It has not yet been <span class="rvt">explained</span> who was responsible for the error.</span><span class="vp">(claimed / explained)</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">6</span><span class="sent">It has now been <span class="rvt">established / revealed</span> that half of cancer cases are lifestyle-related.</span><span class="vp">(established / revealed)</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">7</span><span class="sent">It is <span class="rvt">intended</span> to create 500 more jobs in the factory.</span><span class="vp">(expected / intended)</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">8</span><span class="sent">It is <span class="rvt">planned</span> to close the library permanently from next April.</span><span class="vp">(planned / recommended)</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">9</span><span class="sent">It is <span class="rvt">assumed / thought</span> that another moon landing will take place next year.</span><span class="vp">(assumed / thought)</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">10</span><span class="sent">It has been <span class="rvt">discovered</span> how spiders are able to travel across the sea.</span><span class="vp">(discovered / said)</span></div>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Say your answer — then click the row to check. Click again to hide.</p>
+  </section>
+
+  <!-- SLIDE 9 · EXERCISE 25.2 -->
+  <section class="slide">
+    <div class="eyebrow reveal">exercises · 25.2 (A &amp; B)</div>
+    <h1 class="title reveal">Headlines → it-passives 📰</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">If possible, rewrite these newspaper headlines as passive sentences with <b>it</b>. If not, write ✗.</p>
+    <div class="browser reveal">
+      <div class="bdots"><i></i><i></i><i></i></div>
+      <div class="hl open" data-k data-on="open"><div class="hd">1 · AGREEMENT THAT UN WILL SEND IN TROOPS</div>
+        <div class="rv"><span class="hand">It has been agreed that the UN will send in troops.</span></div></div>
+      <div class="hl" data-k data-on="open"><div class="hd">2 · PATIENTS REASSURED ABOUT HOSPITAL SAFETY</div>
+        <div class="rv"><span class="no">✗</span> <span class="why" style="display:inline;color:var(--ink-soft)"><b>reassure</b> needs a personal object — it reports as in A, never with it.</span></div></div>
+      <div class="hl" data-k data-on="open"><div class="hd">3 · WATER DISCOVERED ON MARS</div>
+        <div class="rv">It <span class="pp tpp">has been discovered</span> <span class="mk">that</span> there is water on Mars.</div></div>
+      <div class="hl" data-k data-on="open"><div class="hd">4 · <i>TERRORISTS BELIEVED TO BE OPERATING IN BERLIN</i></div>
+        <div class="rv">It <span class="pp tp">is believed</span> <span class="mk">that</span> terrorists are operating in Berlin.</div></div>
+      <div class="hl" data-k data-on="open"><div class="hd">5 · MOON ASTRONAUTS EXPECTED TO RETURN TODAY</div>
+        <div class="rv">It <span class="pp tp">is expected</span> <span class="mk">that</span> the moon astronauts will return (to Earth) today.</div></div>
+      <div class="hl" data-k data-on="open"><div class="hd">6 · EX-PRESIDENT JULIUS REVEALED AS SPY</div>
+        <div class="rv">It <span class="pp tpp">has been revealed</span> <span class="mk">that</span> ex-President Julius is / was a spy.</div></div>
+      <div class="hl" data-k data-on="open"><div class="hd">7 · WARNING GIVEN ABOUT COMPUTER VIRUS</div>
+        <div class="rv"><span class="no">✗</span> <span class="why" style="display:inline;color:var(--ink-soft)"><b>warn</b> needs a personal object — it reports as in A, never with it.</span></div></div>
+      <div class="hl" data-k data-on="open"><div class="hd">8 · KING SAID TO BE MAKING GOOD RECOVERY</div>
+        <div class="rv">It <span class="pp tp">is said</span> <span class="mk">that</span> the King is making a good recovery.</div></div>
+      <div class="hl" data-k data-on="open"><div class="hd">9 · RESTAURANT ESTABLISHED AS SOURCE OF FOOD POISONING OUTBREAK</div>
+        <div class="rv">It <span class="pp tpp">has been established</span> <span class="mk">that</span> a restaurant is / was the source of a food poisoning outbreak.</div></div>
+      <div class="hl" data-k data-on="open"><div class="hd">10 · POLICE TOLD TO WORK LONGER HOURS</div>
+        <div class="rv"><span class="no">✗</span> <span class="why" style="display:inline;color:var(--ink-soft)"><b>tell</b> needs a personal object — it reports as in A, never with it.</span></div></div>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Say the sentence — then click the headline to check. Click again to hide.</p>
+  </section>
+
+  <!-- SLIDE 10 · EXERCISE 25.3 -->
+  <section class="slide">
+    <div class="eyebrow reveal">exercises · 25.3 (C)</div>
+    <h1 class="title reveal">The interview 🎙</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Write two new sentences for each: <b>it + passive verb + that-clause</b> in one, <b>subject + passive verb + to-infinitive</b> in the other. <i>(The second pattern may not always be possible.)</i></p>
+    <div class="bub reveal" data-say="We have discovered that a mechanical fault caused the problem. We don't think that the fault is serious. We expect that it will take several weeks to correct the fault. We have decided to postpone the next rocket launch, and we suggest that the next launch should take place in May.">
+      <span class="bn">(1)</span> We have discovered that a mechanical fault caused the problem.
+      <span class="bn">(2)</span> We don't think that the fault is serious.
+      <span class="bn">(3)</span> We expect that it will take several weeks to correct the fault.
+      <span class="bn">(4)</span> We have decided to postpone the next rocket launch, and
+      <span class="bn">(5)</span> we suggest that the next launch should take place in May.
+    </div>
+    <div class="rows reveal">
+      <div class="rowx open" data-k data-on="open"><span class="num">1</span><span class="rvt">It has been discovered that a mechanical fault caused the problem. / A mechanical fault was discovered to have caused the problem.</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">2</span><span class="rvt">It is not thought that the fault is serious. <i>(or It is thought that the fault is not serious.)</i> / The fault is not thought to be serious.</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">3</span><span class="rvt">It is expected that it will take several weeks to correct the fault. <i>(or …that the fault will take several weeks to correct.)</i> / The fault is expected to take several weeks to correct.</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">4</span><span class="rvt">It has been decided to postpone the next rocket launch.</span><span class="why">no second pattern — <b>decide</b> is a pattern-C exception</span></div>
+      <div class="rowx" data-k data-on="open"><span class="num">5</span><span class="rvt">It is suggested that the next launch should take place in May.</span><span class="why">no second pattern — <b>suggest</b> is a pattern-C exception</span></div>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Say both sentences — then click to check. Item 1 is the book's own example.</p>
+  </section>
+
+  <!-- SLIDE 11 · THE PATTERN QUIZ -->
+  <section class="slide">
+    <div class="eyebrow reveal">quiz · which pattern is it?</div>
+    <h1 class="title reveal">Name the pattern 🎯</h1>
+    <div class="accent-line reveal"></div>
+    <div class="qgrid reveal">
+      <div class="qcard" data-k data-on="open"><div class="qs">The damage is reported to be extensive.</div><span class="qslot"><span class="qmark">?</span><span class="qw"><span class="pl">C</span> · subject + passive + to-infinitive</span></span></div>
+      <div class="qcard" data-k data-on="open"><div class="qs">Everyone was asked to bring some food to the party.</div><span class="qslot"><span class="qmark">?</span><span class="qw"><span class="pl">A</span> · a passive to report</span></span></div>
+      <div class="qcard" data-k data-on="open"><div class="qs">There are thought to be too many obstacles to peace.</div><span class="qslot"><span class="qmark">?</span><span class="qw"><span class="pl">E</span> · there + passive + to be</span></span></div>
+      <div class="qcard" data-k data-on="open"><div class="qs">It was decided that the meeting should be cancelled.</div><span class="qslot"><span class="qmark">?</span><span class="qw"><span class="pl">B</span> · it + passive + that-clause</span></span></div>
+      <div class="qcard" data-k data-on="open"><div class="qs">We have been informed that we have to leave.</div><span class="qslot"><span class="qmark">?</span><span class="qw"><span class="pl">A</span> — <b>not B</b>: <b>informed</b> never takes it</span></span></div>
+      <div class="qcard" data-k data-on="open"><div class="qs">It has now been revealed who was responsible for the accident.</div><span class="qslot"><span class="qmark">?</span><span class="qw"><span class="pl">D</span> · it + passive + wh-clause</span></span></div>
+    </div>
+    <p class="task reveal mt" style="align-self:center">Say the pattern — then click to check. Click again to hide — and hear it! 🔊</p>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 11</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- presenter view shell (T / 🖥) -->
+<div id="pv">
+  <div class="head">
+    <b>Reported Passive — presenter</b>
+    <button id="pv-close">✕ close (T)</button>
+    <span class="cnt" id="pv-cnt">1 / 11</span>
+  </div>
+  <div class="panes">
+    <div class="pane"><span class="lbl">NOW — what they see</span><iframe id="pv-cur"></iframe></div>
+    <div class="pane"><span class="lbl">NEXT</span><iframe id="pv-next"></iframe></div>
+  </div>
+  <div class="notes" id="pv-notes">—</div>
+</div>
+
+<script>
+/* ============ the speaking words (TTS — the approved voice, ported from the lib family) ============ */
+let ttsVoice=null;
+function pickTTSVoice(){
+  if(!('speechSynthesis' in window))return;
+  const vs=speechSynthesis.getVoices();
+  ttsVoice=vs.find(v=>/en[-_]US/i.test(v.lang)&&/Samantha|Ava|Allison|Aria|Zira/i.test(v.name))
+      ||vs.find(v=>/^en/i.test(v.lang))||null;
+}
+if('speechSynthesis' in window){pickTTSVoice();speechSynthesis.onvoiceschanged=pickTTSVoice}
+function sayText(t){
+  if(!('speechSynthesis' in window)||!t)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t);
+  if(ttsVoice)u.voice=ttsVoice;
+  u.lang='en-US';u.rate=.8;u.pitch=1.05;
+  speechSynthesis.speak(u);
+}
+function ring(el){if(!el)return;el.classList.remove('said');void el.offsetWidth;el.classList.add('said')}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-say]');
+  if(t){ring(t);sayText(t.dataset.say);return}
+  const qc=e.target.closest('.qcard,.rowx');
+  if(qc&&qc.classList.contains('open')){ring(qc);const w=qc.querySelector('.qw,.rvt');if(w)sayText(w.textContent)}
+});
+
+/* ============ core deck engine (spec §4–§7, the lib family) ============ */
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.querySelector('#bar i'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+
+const syncs=[...document.querySelectorAll('[data-k]')];
+syncs.forEach((el,k)=>{el.dataset.k=k;if(!el.dataset.on)el.dataset.on='shown'});
+function setSync(k,on){const el=syncs[k];if(!el)return;
+  if(el.classList.contains('yn')){el.classList.toggle('shown-yes',on&&el.dataset.on==='shown-yes');
+    el.classList.toggle('shown-no',on&&el.dataset.on==='shown-no');}
+  else el.classList.toggle(el.dataset.on,on);}
+
+const CH='reported-passive';
+const bc=('BroadcastChannel'in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get('embed')?'embed':(qs.get('presenter')?'presenter':'main');
+const open=new Set();
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==='hello'&&MODE==='main'){post({t:'state',i,open:[...open]});return}
+  if(m.t==='state'){if(MODE==='embed'){showEmbed(m.i)}applyOpen(m.open);if(MODE==='presenter')pvShow(m.i);return}
+  if(m.t==='go'){if(MODE==='embed')showEmbed(m.i);else{go(m.i,true)}applyOpen(m.open||[]);return}
+  if(m.t==='tap'){setSync(m.k,m.on);if(m.on)open.add(m.k);else open.delete(m.k);
+    if(MODE==='embed')post({t:'tap',k:m.k,on:m.on});}
+};
+function applyOpen(list){open.clear();(list||[]).forEach(k=>{open.add(k);setSync(k,true)})}
+function broadcastState(){post({t:'state',i,open:[...open]})}
+
+document.getElementById('deck').addEventListener('click',e=>{
+  const el=e.target.closest('[data-k]');if(!el)return;
+  const k=+el.dataset.k;
+  const nowOn=!el.classList.contains(el.dataset.on);
+  setSync(k,nowOn);if(nowOn)open.add(k);else open.delete(k);
+  post({t:'tap',k,on:nowOn});
+});
+
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(!silent)post({t:'go',i,open:[...open]});
+  if(MODE==='presenter')pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(MODE==='embed')return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'||e.key==='а')document.getElementById('fs').click();
+  if(e.key==='t'||e.key==='T'||e.key==='е')togglePresenter();
+});
+let wt=0;document.addEventListener('wheel',e=>{if(MODE!=='main')return;const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(MODE!=='main')return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ presenter view (spec §7) ============ */
+const pv=document.getElementById('pv');
+function togglePresenter(){
+  if(MODE==='embed')return;
+  if(MODE==='presenter'){window.close();return}
+  window.open(location.pathname+'?presenter=1','reported-passive-pv','width=1180,height=820');
+}
+document.getElementById('pvt').onclick=togglePresenter;
+document.getElementById('pv-close').onclick=()=>window.close();
+const pvCur=document.getElementById('pv-cur'),pvNext=document.getElementById('pv-next'),
+pvNotes=document.getElementById('pv-notes'),pvCnt=document.getElementById('pv-cnt');
+if(MODE==='presenter'){
+  document.body.classList.add('presenter');
+  pvCur.src=location.pathname+'?embed=cur';pvNext.src=location.pathname+'?embed=next';
+}
+function pvShow(n){
+  if(MODE!=='presenter')return;
+  pvCnt.textContent=(n+1)+' / '+slides.length;
+  pvNotes.innerHTML='';
+  const note=slides[n].dataset.notes;
+  if(note){const p=document.createElement('p');p.textContent=note;pvNotes.appendChild(p)}
+  const nxt=slides[n+1]&&slides[n+1].dataset.notes;
+  if(nxt){const h=document.createElement('p');h.innerHTML='<b>next →</b> ';h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+let embedSlot=qs.get('embed');
+function showEmbed(n){
+  const target=embedSlot==='next'?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==='next')document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle('active',k===target);s.classList.remove('prev')});
+}
+const h=parseInt(location.hash.slice(1));
+if(MODE==='main'){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true);broadcastState()}
+else post({t:'hello'});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=='main')return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();}catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
