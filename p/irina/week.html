@@ -104,7 +104,7 @@ footer{max-width:680px;width:100%;text-align:center;margin-top:1.6em;
     После каждой части — разбор: что было не так и почему 💡</p>
     <div class="day-grid" id="day-grid"></div>
     <div><button class="home-btn" onclick="location.href='test-drill.html'">🎯 Пробный тест в среду — тренажёр</button></div>
-    <div class="meta">build 2026-10-18 · v4 · 9 игр · разбор после каждой части · закончи день — откроется следующий</div>
+    <div class="meta">build 2026-10-26 · v5 · 9 игр · разбор после каждой части · закончи день — откроется следующий</div>
   </div>
 
   <div class="card hidden" id="q-card">
@@ -198,7 +198,10 @@ var NEG=[
   {q:'This shop <span class="gap">______</span> selling books now. 📚',choices:["isn't","doesn't"],key:"isn't",label:"the shop … selling",why:"видишь -ing? → isn't"},
   {q:'John <span class="gap">______</span> working today. 🧑‍💼',choices:["isn't","doesn't"],key:"isn't",label:"John … working",why:"видишь -ing? → isn't"},
   {q:'Ann <span class="gap">______</span> play tennis on Mondays. 🎾',choices:["isn't","doesn't"],key:"doesn't",label:"Ann … play",why:"обычная форма, on Mondays = обычно → doesn't"},
-  {q:'The dog <span class="gap">______</span> sleeping now. 🐶',choices:["isn't","doesn't"],key:"isn't",label:"the dog … sleeping",why:"видишь -ing? → isn't"}
+  {q:'The dog <span class="gap">______</span> sleeping now. 🐶',choices:["isn't","doesn't"],key:"isn't",label:"the dog … sleeping",why:"видишь -ing? → isn't"},
+  {q:'I <span class="gap">______</span> drink milk in the morning. 🥛',choices:["don't","doesn't"],key:"don't",label:"I … drink",why:"I → don't (после I всегда don't)"},
+  {q:'My mum <span class="gap">______</span> drink coffee. ☕',choices:["don't","doesn't"],key:"doesn't",label:"mum … drink",why:"mum = she → doesn't; после doesn't глагол без -s: drink"},
+  {q:'Cats <span class="gap">______</span> like dogs. 🐕',choices:["don't","doesn't"],key:"don't",label:"cats … like",why:"cats = они, много → don't"}
 ];
 var MOD=[
   {q:'A cheetah <span class="gap">______</span> run fast. 🐆',choices:["can","can't"],key:"can",label:"cheetah … run fast",why:"гепард — самый быстрый бегун на земле"},
@@ -244,7 +247,7 @@ var POOLS={
   SENT:{icon:"📝",name:"В предложении",helper:"Подсказка в предложении — выбери глагол",cards:SENT},
   VV:{icon:"🔄",name:"Наоборот",helper:"Прочитай форму: это «always» или «now»?",cards:VV},
   ADJ:{icon:"🐘",name:"Степени сравнения",helper:"Выбери вторую форму",cards:ADJ},
-  NEG:{icon:"🐱",name:"Это не так!",helper:"Выбери: isn't или doesn't",cards:NEG},
+  NEG:{icon:"🐱",name:"Это не так!",helper:"Выбери: isn't / doesn't / don't",cards:NEG},
   MOD:{icon:"🔑",name:"Могу / не могу",helper:"Выбери: can или can't",cards:MOD},
   IRRV:{icon:"🔴",name:"Вчера",helper:"Вторая форма — выбери",cards:IRRV},
   FIND:{icon:"🔍",name:"Найди слово",helper:"Найди перевод",cards:FIND},
