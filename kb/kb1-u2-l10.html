@@ -235,12 +235,52 @@ img.sheet.small{width:min(430px,90%)}
 .mp-card.no{background:#ffe1e8}
 .mp-status{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.1rem,2vw,1.6rem);color:var(--ink-soft);text-align:center;min-height:1.4em}
 </style>
+<style>/* the 09:04 round: the pictures go FULL SCREEN + the clickable coursebook pictures */
+.picbox{position:relative;display:inline-block;font-size:0;max-width:100%}
+.picbox img{max-width:100%}
+.picwrap:fullscreen{display:flex;align-items:center;justify-content:center;background:#fff;width:100%;height:100%}
+.picwrap:fullscreen .picbox{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.picwrap:fullscreen .picbox img{width:min(100vw,calc(100vh * var(--ar,1.33)));height:auto;max-width:none}
+.fsbtn{
+  position:absolute;top:10px;right:10px;width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(255,255,255,.95);color:var(--ink);font-size:1.25rem;box-shadow:var(--shadow);
+  display:flex;align-items:center;justify-content:center;z-index:6;padding:0;
+}
+.fsbtn:hover{transform:scale(1.08)}
+.spot{
+  position:absolute;transform:translate(-50%,-50%);aspect-ratio:1/1;border-radius:50%;
+  border:none;background:transparent;padding:0;cursor:pointer;z-index:5;
+}
+.spot:focus{outline:none}
+.spot.sel{box-shadow:0 0 0 5px #fff,0 0 0 9px var(--lavender-deep);background:rgba(255,255,255,.28)}
+.spot.ok{background:#fff;border:.5vmin solid #9aa7b3;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;cursor:default}
+.spot.ok span{font-family:'Fredoka',sans-serif;font-weight:800;font-size:clamp(1.2rem,4.2vmin,3.2rem)}
+.spot.no{animation:spotno .65s ease}
+@keyframes spotno{0%,100%{box-shadow:none;background:transparent}30%{box-shadow:0 0 0 6px #e01212;background:rgba(224,18,18,.3)}}
+.boatnum{
+  position:absolute;transform:translate(-50%,-50%);width:8.5%;aspect-ratio:1/1;border-radius:50%;
+  background:#fff;border:.4vmin solid #1e6fd6;color:#1e6fd6;pointer-events:none;z-index:4;
+  font-family:'Fredoka',sans-serif;font-weight:800;font-size:clamp(1rem,3.6vmin,2.8rem);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(45,52,54,.3);
+  transition:background .2s ease,color .2s ease,border-color .2s ease;
+}
+.cl-row{display:flex;gap:1em;align-items:center;justify-content:center;width:100%;flex-wrap:wrap}
+.cl-row .mp-status{width:auto}
+.thumbrow{display:flex;gap:clamp(10px,1.6vw,22px);justify-content:center;flex-wrap:wrap}
+.thumb{position:relative;display:flex;flex-direction:column;align-items:center;gap:.35em;cursor:pointer}
+.thumb img{height:min(19vh,15vw);width:auto;border-radius:10px;box-shadow:var(--shadow);background:#fff}
+.thumb i{font-style:normal;font-weight:800;font-size:clamp(.78rem,1.35vw,1.05rem);color:var(--ink-soft)}
+.thumb.new img{box-shadow:0 0 0 5px var(--mint),var(--shadow)}
+.thumb:fullscreen{display:flex;align-items:center;justify-content:center;background:#fff;width:100%;height:100%}
+.thumb:fullscreen img{width:min(100vw,75vh);height:auto}
+.thumb:fullscreen i{display:none}
+</style>
 <style>/* THE FILM CUE</style>
 </head>
 <body>
 
 <div id="progress-track"><div id="progress-fill"></div></div>
-<!-- build 27.10 · v2 (the morning notes round: the hw check = the live «Урок 11» card · typing D K moved last as the flex stage · the T/F game = the standing every-lesson warm-up with her checkable sentences + bike/boat · the ⏱ 60-minute pacing timer on every slide · the bag Q&A right of the sheet · the story picture+video side by side · the PW pictures swapped + clickable, the «PB/AB Unit… ex…» announcements cut off the tracks · the matching pairs made clickable) -->
+<!-- build 27.10 · v3 (the second notes round 09:04: the PW pictures go FULL SCREEN (⛶) and clickable — s14 the seven splotches clicked in the track's order (numbers stamp 1–7, wrong flashes red), s15 the boats carry numbers 1–4 + the boat→pot check game; s16 the poster revision SKIPPED today; s20 our hw-reading poster series added (Pat the bat · rat · rat+bat · 🆕 Pat the cat — the series grows with today's word) -->
 
 <!-- 1 · WARM UP — HELLO SONG + PREP CARD -->
 <section class="slide">
@@ -418,10 +458,11 @@ img.sheet.small{width:min(430px,90%)}
   <h1 class="title reveal-el">Listen and point! 🎨</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Ears and fingers — seven colours!</div>
-  <span class="picwrap reveal-el"><img class="sheet small" id="pwpic1" src="../media/pw1-p7.png" alt="seven paint splotches and seven paint pots — listen and point" onclick="picPlay('pwaud1')" title="Click the picture — the audio plays!"><span class="pbadge" id="pwbadge1">▶</span></span>
+  <span class="picwrap reveal-el" style="--ar:1.3187"><span class="picbox"><img class="sheet small" id="pwpic1" src="../media/pw1-p7.png" alt="seven paint splotches and seven paint pots — listen and point" onclick="picPlay('pwaud1')" title="Click the picture — the audio plays!"><span class="pbadge" id="pwbadge1">▶</span><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button><button class="spot" data-c="blue" style="left:76.3%;top:38.4%;width:15%" onclick="clClick(this)"></button><button class="spot" data-c="red" style="left:24.3%;top:60.6%;width:15%" onclick="clClick(this)"></button><button class="spot" data-c="green" style="left:79.7%;top:62.8%;width:15%" onclick="clClick(this)"></button><button class="spot" data-c="yellow" style="left:44.9%;top:18.2%;width:15%" onclick="clClick(this)"></button><button class="spot" data-c="white" style="left:18.9%;top:25.6%;width:15%" onclick="clClick(this)"></button><button class="spot" data-c="black" style="left:61.9%;top:26.7%;width:15%" onclick="clClick(this)"></button><button class="spot" data-c="brown" style="left:26.3%;top:40.5%;width:15%" onclick="clClick(this)"></button></span></span>
+  <div class="cl-row reveal-el"><span class="mp-status" id="cl-status"></span><button class="reveal-btn" id="cl-again" style="display:none" onclick="clDeal()">↺ Again</button></div>
   <audio id="pwaud1" controls preload="none" class="reveal-el" src="../media/pw1-cd1-9.mp3"></audio>
   <div class="card peach reveal-el"><p>🎨 The order! &nbsp;<button class="reveal-btn" style="font-size:.7em;padding:.15em .8em;vertical-align:middle" onclick="reveal(this)">show ▾</button> <span class="answer" style="font-size:.62em;padding:.1em .5em">blue · red · green · yellow · white · black · brown</span></p></div>
-  <div class="card mint reveal-el"><p>👆 Click the picture — <b style="color:var(--mint-deep)">the audio plays!</b> &nbsp; 👫 Ex. 6 — look and SAY: «<b style="color:var(--mint-deep)">blue!</b>» «<b style="color:var(--mint-deep)">red!</b>»</p></div>
+  <div class="card mint reveal-el"><p>👆 Click the picture — <b style="color:var(--mint-deep)">the audio plays!</b> &nbsp; 🖱️ Click the colours <b style="color:var(--mint-deep)">in order!</b> &nbsp; ⛶ <b style="color:var(--mint-deep)">full screen!</b></p></div>
 </section>
 
 <!-- 15 · THE PLAYWAY LESSON 2/2 — AB p. 7 ex 5-6 (PROTECTED) -->
@@ -430,19 +471,19 @@ img.sheet.small{width:min(430px,90%)}
   <h1 class="title reveal-el">Listen and colour! 🚤</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Four boats — listen twice!</div>
-  <span class="picwrap reveal-el"><img class="sheet small" id="pwpic2" src="../media/pw1-ab-p7.png" alt="four white boats and four paint pots — listen and colour" onclick="picPlay('pwaud2')" title="Click the picture — the audio plays!"><span class="pbadge" id="pwbadge2">▶</span></span>
+  <span class="picwrap reveal-el" style="--ar:1.3333"><span class="picbox"><img class="sheet small" id="pwpic2" src="../media/pw1-ab-p7.png" alt="four white boats and four paint pots — listen and colour" onclick="picPlay('pwaud2')" title="Click the picture — the audio plays!"><span class="pbadge" id="pwbadge2">▶</span><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button><span class="boatnum" id="btnum1" style="left:28.5%;top:38%">1</span><span class="boatnum" id="btnum2" style="left:74%;top:42.5%">2</span><span class="boatnum" id="btnum3" style="left:21.5%;top:64.5%">3</span><span class="boatnum" id="btnum4" style="left:67.5%;top:70.5%">4</span><button class="spot" data-boat="1" style="left:26%;top:33%;width:16%" onclick="btBoat(this)"></button><button class="spot" data-boat="2" style="left:76%;top:40%;width:16%" onclick="btBoat(this)"></button><button class="spot" data-boat="3" style="left:21%;top:56%;width:16%" onclick="btBoat(this)"></button><button class="spot" data-boat="4" style="left:70%;top:63%;width:16%" onclick="btBoat(this)"></button><button class="spot" data-pot="yellow" style="left:28.5%;top:87%;width:9%" onclick="btPot(this)"></button><button class="spot" data-pot="blue" style="left:45.5%;top:87%;width:9%" onclick="btPot(this)"></button><button class="spot" data-pot="red" style="left:62.5%;top:87%;width:9%" onclick="btPot(this)"></button><button class="spot" data-pot="green" style="left:80.5%;top:87%;width:9%" onclick="btPot(this)"></button></span></span>
+  <div class="cl-row reveal-el"><span class="mp-status" id="bt-status"></span><button class="reveal-btn" id="bt-again" style="display:none" onclick="btDeal()">↺ Again</button></div>
   <audio id="pwaud2" controls preload="none" class="reveal-el" src="../media/pw1-cd1-13.mp3"></audio>
   <div class="card peach reveal-el"><p>🚤 The key! &nbsp;<button class="reveal-btn" style="font-size:.7em;padding:.15em .8em;vertical-align:middle" onclick="reveal(this)">show ▾</button> <span class="answer" style="font-size:.62em;padding:.1em .5em">1 <b style="color:#d64545">red</b> · 2 <b style="color:#3e9b4f">green</b> · 3 <b style="color:#4472c4">blue</b> · 4 <b style="color:#c99700">yellow</b></span></p></div>
-  <div class="card mint reveal-el"><p>👆 Click the picture — <b style="color:var(--mint-deep)">the audio plays!</b> &nbsp; 🔺 Ex. 6 — continue the pattern: «<b style="color:var(--mint-deep)">blue, yellow, blue…!</b>» SAY it!</p></div>
+  <div class="card mint reveal-el"><p>👆 Click the picture — <b style="color:var(--mint-deep)">the audio plays!</b> &nbsp; 🖱️ Click a <b style="color:var(--mint-deep)">boat</b>, then its <b style="color:var(--mint-deep)">colour!</b></p></div>
 </section>
 
-<!-- 16 · READING — FIND THE LETTER (the конспект) -->
+<!-- 16 · READING — FIND THE LETTER (the конспект; the poster revision SKIPPED today, Elena 27.10) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Reading · game 🔍</div>
   <h1 class="title reveal-el">Find the letter! 🔍</h1>
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Find it FIRST — grab it!</div>
-  <div class="card mint reveal-el"><p>🖼️ First — the posters: «<b style="color:var(--mint-deep)">Show me NAP!</b>» ✋</p></div>
   <div class="card lavender reveal-el"><p>🃏 All the ABC pics — «<b style="color:var(--lavender-deep)">Find Bb!</b>» «<b style="color:var(--lavender-deep)">Find Pp!</b>» … «<b style="color:var(--lavender-deep)">FIND Cc!</b>»</p></div>
   <div class="card peach reveal-el"><p>🏆 Teams — <b style="color:var(--lavender-deep)">a point per grab!</b></p></div>
 </section>
@@ -488,9 +529,15 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card pink reveal-el"><p>⛔ Tracing? <b style="color:var(--pink)">At HOME!</b> 🏠 &nbsp; ⏱ the maze? — if the clock says so!</p></div>
 </section>
 
-<!-- 20 · READING — POSTER 10 -->
+<!-- 20 · READING — POSTER 10 + OUR HW-READING POSTER SERIES (Elena, 27.10) -->
 <section class="slide">
-  <img class="sheet reveal-el" src="../media/kb1-u2-poster10.png" alt="poster 10 — a can, a cat, a cap" style="align-self:center;height:min(72vh,54vw);width:auto">
+  <img class="sheet reveal-el" src="../media/kb1-u2-poster10.png" alt="poster 10 — a can, a cat, a cap" style="align-self:center;height:min(56vh,42vw);width:auto">
+  <div class="thumbrow reveal-el">
+    <span class="thumb"><img src="../media/kb1-u2-pat-bat-poster.png" alt="Pat the bat on the mat!" onclick="fsPic(this)"><i>Pat the bat</i></span>
+    <span class="thumb"><img src="../media/kb1-u2-pat-rat-poster.png" alt="Pat the rat on the mat!" onclick="fsPic(this)"><i>Pat the rat</i></span>
+    <span class="thumb"><img src="../media/kb1-u2-pat-ratbat-poster.png" alt="Pat the rat and the bat on the mat!" onclick="fsPic(this)"><i>Pat the rat and the bat</i></span>
+    <span class="thumb new"><img src="../media/kb1-u2-pat-cat-poster.png" alt="Pat the cat on the mat! — NEW!" onclick="fsPic(this)"><i>🆕 Pat the cat!</i></span>
+  </div>
 </section>
 
 <!-- 21 · READING — POSTER 11 -->
@@ -800,6 +847,101 @@ function mpFlip(card){
   }
 }
 mpDeal();
+</script>
+
+<script>
+/* THE 09:04 ROUND (Elena, 27.10) — own block: ⛶ full screen for the pictures ·
+   the splotch order game (track 9's key) · the boat-and-pot check game (track 13's key). */
+/* ---- full screen: the ⛶ button toggles its picture's fullscreen ---- */
+function fsPic(el){
+  const w = el.closest('.picwrap') || el.closest('.thumb') || el;
+  try{
+    if(document.fullscreenElement){ document.exitFullscreen(); return; }
+    if(w.requestFullscreen) w.requestFullscreen();
+    else if(w.webkitRequestFullscreen) w.webkitRequestFullscreen();
+    else document.documentElement.requestFullscreen();
+  }catch(e){}
+}
+/* ---- s14: click the seven colours in the correct order ---- */
+const CLKEY=['blue','red','green','yellow','white','black','brown'];
+const CLCOL={blue:'#056fe3',red:'#d64545',green:'#0eb512',yellow:'#d9a400',white:'#fff',black:'#1e1919',brown:'#93401b'};
+let clI=0;
+function clSpotReset(){
+  document.querySelectorAll('.picwrap .spot[data-c]').forEach(function(s){
+    s.classList.remove('ok','no'); s.innerHTML=''; s.style.borderColor='';
+  });
+}
+function clDeal(){
+  clI=0; clSpotReset();
+  const st=document.getElementById('cl-status'); if(st)st.textContent='Click the colours in the correct order!';
+  const ag=document.getElementById('cl-again'); if(ag)ag.style.display='none';
+}
+function clClick(btn){
+  if(btn.classList.contains('ok'))return;
+  const got=btn.dataset.c, want=CLKEY[clI];
+  const st=document.getElementById('cl-status');
+  if(got===want){
+    clI++;
+    btn.classList.add('ok');
+    btn.style.borderColor = got==='white' ? '#c3ccd6' : CLCOL[got];
+    btn.style.color = (got==='white'||got==='yellow') ? '#8a94a0' : CLCOL[got];
+    btn.innerHTML='<span>'+clI+'</span>';
+    if(clI<7){ if(st)st.textContent=got.toUpperCase()+' ✓  '+clI+' / 7 — next?'; }
+    else{
+      if(st)st.textContent='✓ 7 / 7 — blue, red, green, yellow, white, black, brown! 🎉';
+      const ag=document.getElementById('cl-again'); if(ag)ag.style.display='';
+    }
+  }else{
+    btn.classList.add('no');
+    setTimeout(function(){ btn.classList.remove('no'); },700);
+    if(st)st.textContent='Oops — not '+got.toUpperCase()+'! Listen again… 🎧';
+  }
+}
+clDeal();
+/* ---- s15: click a boat, then its colour pot (the track's key: 1 red · 2 green · 3 blue · 4 yellow) ---- */
+const BTKEY={'1':'red','2':'green','3':'blue','4':'yellow'};
+const BTCOL={red:'#d64545',green:'#0eb512',blue:'#056fe3',yellow:'#d9a400'};
+let btSel=null, btFound=0, btDone={};
+function btDeal(){
+  btSel=null; btFound=0; btDone={};
+  document.querySelectorAll('.picwrap .spot[data-boat]').forEach(function(s){ s.classList.remove('sel','no'); });
+  document.querySelectorAll('.picwrap .spot[data-pot]').forEach(function(s){ s.classList.remove('no'); });
+  for(let n=1;n<=4;n++){ const b=document.getElementById('btnum'+n); if(b){ b.style.background='#fff'; b.style.color='#1e6fd6'; b.style.borderColor='#1e6fd6'; } }
+  const st=document.getElementById('bt-status'); if(st)st.textContent='Click a BOAT, then its colour!';
+  const ag=document.getElementById('bt-again'); if(ag)ag.style.display='none';
+}
+function btBoat(btn){
+  const n=btn.dataset.boat;
+  if(btDone[n])return;
+  document.querySelectorAll('.picwrap .spot[data-boat]').forEach(function(s){ s.classList.remove('sel'); });
+  btn.classList.add('sel');
+  btSel=n;
+  const st=document.getElementById('bt-status'); if(st)st.textContent='Boat '+n+' — which colour?';
+}
+function btPot(btn){
+  const c=btn.dataset.pot;
+  const st=document.getElementById('bt-status');
+  if(!btSel){ if(st)st.textContent='First click a BOAT!'; return; }
+  if(btDone[btSel])return;
+  if(c===BTKEY[btSel]){
+    btFound++; btDone[btSel]=c;
+    const num=document.getElementById('btnum'+btSel);
+    if(num){ num.style.background=BTCOL[c]; num.style.color='#fff'; num.style.borderColor=BTCOL[c]; }
+    document.querySelectorAll('.picwrap .spot[data-boat]').forEach(function(s){ if(s.dataset.boat===btSel) s.classList.remove('sel'); });
+    if(btFound===4){
+      if(st)st.textContent='✓ 4 / 4 — boat 1 red, boat 2 green, boat 3 blue, boat 4 yellow! 🎉';
+      const ag=document.getElementById('bt-again'); if(ag)ag.style.display='';
+    }else{
+      if(st)st.textContent='Boat '+btSel+' is '+c.toUpperCase()+' ✓  '+btFound+' / 4';
+    }
+    btSel=null;
+  }else{
+    btn.classList.add('no');
+    setTimeout(function(){ btn.classList.remove('no'); },700);
+    if(st)st.textContent='Try again — not '+c.toUpperCase()+'!';
+  }
+}
+btDeal();
 </script>
 </body>
 </html>
