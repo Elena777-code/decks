@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GG 2.1 — Вопросы 8.2 — тренируйся!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ THE QUESTIONS DRILL — the ladder's next rung (the new
+   grammar entered: Do you like…? + the short answers). The one-at-a-time
+   standard: a counter, right locks green, the next question comes in;
+   two misses glow the right tile; tries counted. Untimed first (the
+   ladder: the timer comes later). Name on top from the start, remembered
+   on the device (the shared gg-drill-name key). The result posts to the
+   GG form. NO answers on the page — feedback only after the pupil's own
+   tap. ============ */
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A;
+  --lavender:#C8B6FF; --lavender-deep:#9a7fff; --cream:#FFF8F0;
+  --pink:#FF8FAB; --ink:#2D3436; --ink-soft:#636e72; --white:#fff;
+  --blue:#3a6ea5; --radius:22px; --shadow:0 10px 30px rgba(45,52,54,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);
+  min-height:100vh;padding:4vh 4vw 8vh;display:flex;flex-direction:column;gap:2vh;
+  align-items:stretch;max-width:640px;margin:0 auto}
+.eyebrow{font-size:clamp(.95rem,2.6vw,1.15rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lavender-deep)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.6rem,5.6vw,2.4rem);line-height:1.15}
+.accent-line{width:110px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.4vh,24px) clamp(16px,3vw,28px)}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lav{background:#f1ecff}
+.card p{font-size:clamp(1.05rem,3.1vw,1.35rem);line-height:1.5}
+.b{color:var(--lavender-deep)}
+.en{color:var(--blue);font-weight:700}
+.namerow{display:flex;gap:.5em;align-items:center;flex-wrap:wrap}
+.namerow label{font-weight:800;font-size:clamp(1rem,3vw,1.25rem)}
+.nameinput{border:2px solid #e7e0d8;border-radius:12px;padding:.4em .7em;font-family:inherit;
+  font-size:clamp(1rem,3vw,1.3rem);font-weight:700;color:var(--ink);background:#fff;flex:1;min-width:150px}
+.rtitle{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.25rem,4.4vw,1.7rem);line-height:1.2}
+.rsub{font-size:clamp(.95rem,2.8vw,1.1rem);color:var(--ink-soft);font-style:italic;margin-top:.2em}
+.qcount{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:700;color:var(--ink-soft);
+  border:2px solid #e7e0d8;border-radius:99px;padding:.1em .7em;background:#fff;font-size:clamp(.9rem,2.6vw,1.1rem)}
+.qface{font-size:clamp(1.7rem,5vw,2.3rem);line-height:1}
+.qline{display:flex;gap:.4em;flex-wrap:wrap;min-height:2.4em;margin:.5em 0;align-items:center}
+.qword{background:var(--white);border:2px solid var(--mint-deep);border-radius:99px;
+  padding:.22em .8em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.05rem,3vw,1.4rem);box-shadow:var(--shadow)}
+.qword.qmark{color:var(--blue)}
+.qtiles{display:flex;gap:.5em;flex-wrap:wrap}
+.qtile{cursor:pointer;user-select:none;background:var(--white);border:2px solid var(--lavender);
+  border-radius:14px;box-shadow:var(--shadow);padding:.45em .8em;text-align:left;
+  font-size:clamp(1rem,3vw,1.3rem);font-weight:600;line-height:1.35;
+  transition:transform .15s ease,border-color .15s ease,background .2s;font-family:'Nunito',sans-serif}
+.qtile:hover{transform:translateY(-2px)}
+.qtile.sel{border-color:var(--mint-deep);background:#eafbf6;transform:translateY(-2px)}
+.qtile.locked{background:#eafbf6;border-color:var(--mint-deep);cursor:default;opacity:.55}
+.qtile.locked:hover{transform:none}
+.qtile.shake{animation:mshake .45s}
+@keyframes mshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+.qans{display:flex;gap:.6em;flex-wrap:wrap;margin-top:.7em}
+.qchip{border:2px solid var(--lavender);border-radius:99px;padding:.3em 1em;cursor:pointer;
+  user-select:none;background:var(--white);box-shadow:var(--shadow);
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,3vw,1.4rem);
+  color:var(--ink);transition:transform .15s ease}
+.qchip:hover{transform:scale(1.05)}
+.qchip.sel{border-color:var(--mint-deep);background:#eafbf6}
+.qchip.locked{background:#eafbf6;border-color:var(--mint-deep);cursor:default}
+.qchip.shake{animation:mshake .45s}
+.misses{color:var(--ink-soft);font-weight:800;font-size:clamp(.9rem,2.6vw,1.05rem)}
+.donebox{display:none}
+.sendbtn{border:none;border-radius:99px;padding:.5em 1.2em;cursor:pointer;font-family:'Fredoka',sans-serif;
+  font-weight:700;font-size:clamp(1rem,3vw,1.3rem);color:var(--ink);background:var(--mint);
+  box-shadow:var(--shadow);transition:transform .15s ease}
+.sendbtn:hover{transform:scale(1.05)}
+.againbtn{border:none;border-radius:99px;padding:.35em 1em;cursor:pointer;font-family:'Fredoka',sans-serif;
+  font-weight:700;font-size:clamp(.95rem,2.8vw,1.2rem);color:var(--ink);background:var(--peach);
+  margin-left:.5em}
+.sent{font-weight:800;color:var(--mint-deep)}
+.foot{color:var(--ink-soft);font-size:clamp(.9rem,2.6vw,1.05rem);text-align:center}
+.safari{color:var(--ink-soft);font-size:clamp(.9rem,2.6vw,1.05rem)}
+</style>
+</head>
+<body>
+
+<div class="eyebrow">GG 2.1 · Go Getter 1 · Unit 8 · вопросы</div>
+<h1>Вопросы 8.2 — тренируйся! 💙</h1>
+<div class="accent-line"></div>
+
+<div class="card lav namerow">
+  <label for="drillName">Твоё имя:</label>
+  <input class="nameinput" id="drillName" placeholder="Впиши один раз — запомним" autocomplete="off">
+</div>
+
+<div class="card peach">
+  <p>💙 <b>Do you like…?</b> — собери вопрос по слову, потом выбери короткий ответ!
+  Смотри на смайлик — он говорит правду: 😀 = <span class="en">Yes, I do.</span> · 🙁 = <span class="en">No, I don't.</span></p>
+</div>
+
+<div class="card">
+  <div style="display:flex;gap:.6em;align-items:center;flex-wrap:wrap">
+    <span class="qcount" id="qCount">1 / 8</span>
+    <span class="qface" id="qFace">😀</span>
+    <span class="misses" id="qMiss">ошибок: 0</span>
+  </div>
+  <div class="qline" id="qLine"></div>
+  <div class="qtiles" id="qTiles"></div>
+  <div class="qans" id="qAns"></div>
+</div>
+
+<div class="card mint donebox" id="drillDone">
+  <p>⭐ <b>8 / 8!</b> Вопросы твои — отличная работа! (<span id="finalMiss">0</span> ошибок)</p>
+  <p style="margin-top:.6em"><button class="sendbtn" id="drillSend">📤 Отправить Мисс Елене</button>
+  <button class="againbtn" id="drillAgain">↺ Играть ещё раз</button>
+  <span class="sent" id="drillSent"></span></p>
+</div>
+
+<p class="safari">💡 Открой эту ссылку в <b>Safari</b> — скопируй её из сообщения и вставь в браузер.</p>
+
+<p class="foot">💙 Do you like swi<b>mm</b>ing? — Yes, I do. · Do you like ge<b>tt</b>ing up early? — No, I don't.</p>
+
+<script>
+/* ============ THE QUESTIONS DRILL — 8 questions one at a time.
+   Report: «GG2.1 · Questions drill 8.2 · <name> · done · tries: N · <date>».
+   tries = wrong taps across all questions. ============ */
+(function(){
+  var QS=[
+    {a:'swimming',yes:true},
+    {a:'getting up early',yes:false},
+    {a:'playing computer games',yes:true},
+    {a:'ice-skating',yes:true},
+    {a:'doing homework',yes:false},
+    {a:'cooking',yes:false},
+    {a:'cycling',yes:true},
+    {a:'getting wet',yes:false}
+  ];
+  var FORM_ACTION='https://docs.google.com/forms/d/e/1FAIpQLScFp8Gy4bW2_WNxSfX7yrR1nSg3agXexUAn4owNWzqRF00wgg/formResponse';
+  var FORM_ENTRY='entry.10697757';
+  var nameEl=document.getElementById('drillName');
+  try{if(nameEl)nameEl.value=localStorage.getItem('gg-drill-name')||'';}catch(e){}
+  var countEl=document.getElementById('qCount'),faceEl=document.getElementById('qFace'),
+      missEl=document.getElementById('qMiss'),lineEl=document.getElementById('qLine'),
+      tilesEl=document.getElementById('qTiles'),ansEl=document.getElementById('qAns'),
+      doneEl=document.getElementById('drillDone'),finalEl=document.getElementById('finalMiss'),
+      again=document.getElementById('drillAgain'),send=document.getElementById('drillSend'),
+      sentEl=document.getElementById('drillSent');
+  var qi=0,step=0,tries=0,missStep=0,tileEls=[];
+  function shuffle(a){for(var j=a.length-1;j>0;j--){var k=Math.floor(Math.random()*(j+1));var t=a[j];a[j]=a[k];a[k]=t;}return a;}
+  function miss(){
+    tries++;missStep++;
+    missEl.textContent='ошибок: '+tries;
+  }
+  function glow(){
+    ansEl.querySelectorAll('.qchip').forEach(function(x){
+      if(x.dataset.ok&&!x.classList.contains('locked'))x.classList.add('sel');
+    });
+  }
+  function render(){
+    var q=QS[qi];
+    countEl.textContent=(qi+1)+' / '+QS.length;
+    faceEl.textContent=q.yes?'😀':'🙁';
+    lineEl.innerHTML='';tilesEl.innerHTML='';ansEl.innerHTML='';
+    step=0;missStep=0;
+    tileEls=[];
+    var words=['Do','you','like',q.a,'?'];
+    shuffle(words.slice()).forEach(function(w){
+      var b=document.createElement('button');
+      b.className='qtile';b.textContent=w;
+      b.addEventListener('click',function(){tapTile(b,w);});
+      tilesEl.appendChild(b);
+      tileEls.push({el:b,w:w});
+    });
+  }
+  function tapTile(b,w){
+    if(b.classList.contains('locked'))return;
+    var q=QS[qi];
+    var need=['Do','you','like',q.a,'?'][step];
+    if(w===need){
+      b.classList.remove('sel','shake');b.classList.add('locked');
+      var s=document.createElement('span');
+      s.className='qword'+(w==='?'?' qmark':'');
+      s.textContent=w;
+      lineEl.appendChild(s);
+      step++;missStep=0;
+      if(step===5)askPhase(q);
+    }else{
+      miss();
+      b.classList.add('shake');
+      setTimeout(function(){b.classList.remove('shake');},480);
+      if(missStep>=2){
+        tileEls.forEach(function(t){
+          if(t.w===need&&!t.el.classList.contains('locked'))t.el.classList.add('sel');
+        });
+      }
+    }
+  }
+  function askPhase(q){
+    var opts=[
+      {t:'Yes, I do.',ok:q.yes},
+      {t:'No, I don\u2019t.',ok:!q.yes}
+    ];
+    shuffle(opts).forEach(function(o){
+      var c=document.createElement('button');c.className='qchip';c.textContent=o.t;
+      if(o.ok)c.dataset.ok='1';
+      c.addEventListener('click',function(){
+        if(c.classList.contains('locked'))return;
+        if(o.ok){
+          c.classList.remove('sel','shake');c.classList.add('locked');
+          c.textContent=o.t+' ✓';
+          next();
+        }else{
+          miss();
+          c.classList.add('shake');
+          setTimeout(function(){c.classList.remove('shake');},480);
+          if(missStep>=2)glow();
+        }
+      });
+      ansEl.appendChild(c);
+    });
+  }
+  function next(){
+    if(qi<QS.length-1){qi++;render();return;}
+    countEl.textContent=QS.length+' / '+QS.length;
+    finalEl.textContent=tries;
+    doneEl.style.display='block';
+  }
+  if(again)again.addEventListener('click',function(){
+    qi=0;tries=0;missEl.textContent='ошибок: 0';
+    doneEl.style.display='none';sentEl.textContent='';
+    render();
+  });
+  if(send)send.addEventListener('click',function(){
+    var name=nameEl.value.trim();
+    if(!name){nameEl.style.borderColor='var(--pink)';nameEl.placeholder='Впиши своё имя!';nameEl.focus();return;}
+    try{localStorage.setItem('gg-drill-name',name);}catch(e){}
+    var report='GG2.1 · Questions drill 8.2 · '+name+' · done · tries: '+tries+' · '+new Date().toLocaleString('en-GB');
+    var fd=new FormData();fd.append(FORM_ENTRY,report);
+    try{fetch(FORM_ACTION,{method:'POST',mode:'no-cors',body:fd});}catch(e){}
+    sentEl.textContent='отправлено ✓';
+  });
+  render();
+})();
+</script>
+</body>
+</html>
