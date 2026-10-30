@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matching pairs</title>
+<meta property="og:title" content="Matching pairs">
+<meta property="og:description" content="Flip two cards — SAME or DIFFERENT? A memory and comparing game.">
+<style>
+:root{
+  --mint:#95E1D3;--mint-deep:#5ecbb8;--peach:#FCE38A;--lavender:#C8B6FF;
+  --lavender-deep:#9a7fff;--cream:#FFF8F0;--pink:#FF8FAB;--ink:#2D3436;
+  --ink-soft:#636e72;--white:#ffffff;--radius:22px;
+  --shadow:0 10px 30px rgba(45,52,54,.12);--shadow-lg:0 20px 50px rgba(45,52,54,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:2vh;padding:5vh 4vw 8vh}
+.eyebrow{font-size:clamp(1rem,1.8vw,1.4rem);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--lavender-deep)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6rem);line-height:1.1}
+.accent-line{width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.task{background:var(--peach);border-radius:99px;padding:.45em 1.2em;font-size:clamp(1.2rem,2.1vw,1.7rem);font-weight:800}
+.setrow{display:flex;gap:.6em;flex-wrap:wrap;justify-content:center}
+.setchip{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.8vw,1.4rem);border:2px solid #d8dee6;background:#fff;color:var(--ink-soft);cursor:pointer;border-radius:99px;padding:.35em 1em;transition:all .15s ease}
+.setchip.on{background:var(--lavender);border-color:var(--lavender-deep);color:#fff}
+.magic{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(10px,1.6vh,18px) clamp(16px,2vw,28px);text-align:center;width:100%}
+.magic p{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.6rem,4.5vh,3.2rem);line-height:1.3}
+.mp-grid{display:flex;flex-wrap:wrap;gap:clamp(8px,1.4vw,18px);justify-content:center;width:100%}
+.mp-card{
+  width:clamp(84px,15vh,140px);height:clamp(84px,15vh,140px);border:none;border-radius:18px;cursor:pointer;
+  background:var(--mint);box-shadow:var(--shadow);padding:0;
+  font-family:'Fredoka',sans-serif;font-weight:700;color:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.12em;
+  font-size:clamp(2.1rem,7vh,4rem);line-height:1;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1),background .18s ease,box-shadow .18s ease;
+}
+.mp-card:hover{transform:translateY(-3px) scale(1.03)}
+.mp-card .mp-back{font-size:1.1em}
+.mp-card .mp-word{font-size:clamp(.85rem,1.6vw,1.15rem)}
+.mp-card.up{background:var(--white)}
+.mp-card.ok{background:var(--white);box-shadow:0 0 0 6px var(--mint),var(--shadow-lg);cursor:default}
+.mp-card.ok:hover{transform:none}
+.mp-card.no{background:#ffe1e8}
+.mp-status{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.1rem,2vw,1.6rem);color:var(--ink-soft);text-align:center;min-height:1.4em}
+.reveal-btn{font-family:'Fredoka',sans-serif;font-size:clamp(1.15rem,2vw,1.6rem);font-weight:700;color:var(--ink);background:var(--mint);border:none;border-radius:99px;padding:.55em 1.5em;cursor:pointer;transition:transform .15s ease;box-shadow:var(--shadow)}
+.reveal-btn:hover{transform:scale(1.06)}
+</style>
+</head>
+<body>
+<div class="eyebrow">Game time 🃏</div>
+<h1>Matching pairs!</h1>
+<div class="accent-line"></div>
+<div class="task">🎯 Flip two — SAME or DIFFERENT?</div>
+<div class="setrow" id="setrow"></div>
+<div class="magic"><p>SAME! 🙂 &nbsp;·&nbsp; DIFFERENT! 🙃</p></div>
+<div class="mp-grid" id="mpgrid"></div>
+<div class="mp-status" id="mpstatus"></div>
+<button class="reveal-btn" id="mpagain" style="display:none" onclick="mpDeal()">↺ Play again</button>
+
+<script>
+/* MATCHING PAIRS — the shelf game (born inside KB 1 U2 L11, Elena's word
+   30.10: "This game is awesome… Move it to the appropriate folder").
+   Flip two cards: a matching pair locks green — SAME!; a miss flips back —
+   DIFFERENT! Tries are counted, not punished. Three swappable word sets;
+   every deal reshuffles. Name-free by the shelf law. */
+const SETS=[
+  {name:'Animals 🐾', pairs:[['🐱','a cat'],['🐶','a dog'],['🐭','a mouse'],['🐰','a rabbit']]},
+  {name:'School ✏️', pairs:[['✏️','a pencil'],['📚','a book'],['🎒','a bag'],['✂️','scissors']]},
+  {name:'Food 🍎', pairs:[['🍎','an apple'],['🍌','a banana'],['🥕','a carrot'],['🍇','grapes']]}
+];
+let curSet=0,mpA=null,mpLock=false,mpFound=0,mpTries=0;
+function renderSets(){
+  const row=document.getElementById('setrow');row.innerHTML='';
+  SETS.forEach(function(s,i){
+    const b=document.createElement('button');b.className='setchip'+(i===curSet?' on':'');b.type='button';
+    b.textContent=s.name;b.onclick=function(){curSet=i;renderSets();mpDeal();};
+    row.appendChild(b);
+  });
+}
+function mpDeal(){
+  const g=document.getElementById('mpgrid');if(!g)return;
+  const P=SETS[curSet].pairs;
+  const deck=[...P,...P].map(function(p){return {w:p[0],n:p[1],r:Math.random()};}).sort(function(a,b){return a.r-b.r;});
+  g.innerHTML='';
+  deck.forEach(function(c){
+    const b=document.createElement('button');b.className='mp-card';b.type='button';
+    b.innerHTML='<span class="mp-back">❓</span>';
+    b.dataset.w=c.w;b.dataset.n=c.n;
+    b.onclick=function(){mpFlip(b);};
+    g.appendChild(b);
+  });
+  mpA=null;mpLock=false;mpFound=0;mpTries=0;
+  const s=document.getElementById('mpstatus');if(s)s.textContent='Click two cards — SAME or DIFFERENT?';
+  const ag=document.getElementById('mpagain');if(ag)ag.style.display='none';
+}
+function mpFlip(card){
+  if(mpLock||card.classList.contains('up')||card.classList.contains('ok'))return;
+  card.classList.add('up');
+  card.innerHTML=card.dataset.w+'<span class="mp-word">'+card.dataset.n+'</span>';
+  const s=document.getElementById('mpstatus');
+  if(!mpA){mpA=card;return;}
+  mpTries++;
+  if(mpA.dataset.w===card.dataset.w){
+    mpA.classList.remove('up');mpA.classList.add('ok');
+    card.classList.remove('up');card.classList.add('ok');
+    mpFound++;mpA=null;
+    if(mpFound===4){
+      if(s)s.textContent='SAME! 🙂 4 / 4 — '+mpTries+' tries! Now name them all: '+SETS[curSet].pairs.map(function(p){return p[1];}).join(', ')+'! 🎉';
+      const ag=document.getElementById('mpagain');if(ag)ag.style.display='';
+    }else{
+      if(s)s.textContent='SAME! 🙂 '+mpFound+' / 4';
+    }
+  }else{
+    mpLock=true;const first=mpA;mpA=null;
+    if(s)s.textContent='DIFFERENT! 🙃 — look and remember!';
+    setTimeout(function(){
+      first.classList.remove('up');first.innerHTML='<span class="mp-back">❓</span>';
+      card.classList.remove('up');card.innerHTML='<span class="mp-back">❓</span>';
+      mpLock=false;
+    },950);
+  }
+}
+renderSets();
+mpDeal();
+</script>
+</body>
+</html>
