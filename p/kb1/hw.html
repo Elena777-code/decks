@@ -105,7 +105,79 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
     <div class="sub">Новое задание всегда сверху. Ссылка постоянная — сохраните её.</div>
   </header>
 <details class="hw-row" open>
-<summary><span class="txt"><span class="nm">Урок 12 · Читаем и говорим! <span class="new">✨ новое!</span></span><br><span class="dt">читаем для спектакля · печатание D и K · yes/no с новой картинкой · Wordwall · слушаем историю · видео Мисс Алёне</span></span></summary>
+<summary><span class="txt"><span class="nm">Урок 13 · Читаем и играем! <span class="new">✨ новое!</span></span><br><span class="dt">читаем лесенку · видео-история · лодочки · листик Cc · цветная задача · Wordwall · песенка · shkola.app</span></span></summary>
+<div class="card hw-body">
+<div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
+
+<div class="item task"><span class="n">1</span><span class="tt"><b>Читаем лесенку!</b> 📖 <small>— Веди пальцем по словам и читай. Всё быстрее!</small></span><button class="chip" id="pupp-chip-1" data-k="u13-read" onclick="pupTog(this)">done</button></div>
+<div class="pnote">
+<p style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;line-height:1.75;margin:0">
+The cat.<br>
+On the mat.<br>
+Sat on the mat.<br>
+The cat sat on the mat.<br>
+The cat in a cap sat on the mat.<br>
+The bat and the cat in a cap nap on the mat.<br>
+Pat, the bat and the cat in a cap on the mat.<br>
+Pat, the bat in a can and the cat in a cap and the rat on the mat.
+</p>
+</div>
+<img src="../../media/kb1-u2-reading-pat.jpg" alt="Pat, the bat in a can and the cat in a cap and the rat on the mat" style="width:min(360px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+
+<div class="item task"><span class="n">2</span><span class="tt"><b>Запиши видео!</b> 🎬 <small>— прочитай историю «Pat's in the pan!» на камеру, с выражением! Отправь видео администратору Мисс Алёне 🌟</small></span><button class="chip" id="pupp-chip-2" data-k="u13-video" onclick="pupTog(this)">done</button></div>
+<a class="btn mint" href="https://elena777-code.github.io/decks/phonics/brand-phonics-d.html#6" target="_blank">📖 Открыть историю</a>
+
+<div class="item task"><span class="n">3</span><span class="tt"><b>Раскрась лодочки!</b> 🚤 <small>— AB стр. 7, упр. 5: слушай и раскрашивай. Каждая лодочка — два раза!</small></span><button class="chip" id="pupp-chip-3" data-k="u13-boats" onclick="pupTog(this)">done</button></div>
+<audio controls preload="none" src="../../media/pw1-cd1-13.mp3"></audio>
+
+<div class="item task"><span class="n">4</span><span class="tt"><b>Листик «Cc»</b> 🃏 <small>— допиши дома: обводим буквы и лабиринт! Листик в портфеле.</small></span><button class="chip" id="pupp-chip-4" data-k="u13-cc" onclick="pupTog(this)">done</button></div>
+
+<div class="item task"><span class="n">5</span><span class="tt"><b>Цветная задача!</b> 🎨 <small>— нажми на слово — увидишь цвет. Выбери ответ — и проверь!</small></span><button class="chip" id="pupp-chip-5" data-k="u13-mix" onclick="pupTog(this)">done</button></div>
+<div id="mixgame" style="background:#eafbf6;border-radius:14px;padding:14px;margin:6px 0">
+<div id="mix-count" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 5</div>
+<div id="mix-eq" style="text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.6rem;color:#2D3436;margin:10px 0;min-height:2.2em"></div>
+<div id="mix-choices" style="display:flex;gap:12px;justify-content:center;margin-top:8px"></div>
+<button id="mix-again" onclick="mixDeal()" style="display:none;margin:10px auto 0;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.2rem;border:none;border-radius:99px;padding:.5em 1.5em;background:#95E1D3;color:#2D3436;cursor:pointer">▶ Играть ещё раз — новые задания!</button>
+<div id="mix-end" style="display:none;text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.4rem;color:#2D3436;margin-top:6px"></div>
+<div style="text-align:center;font-size:.8rem;color:#9aa7b3;margin-top:8px">Нажми на слово — увидишь его цвет!</div>
+</div>
+
+<div class="item task"><span class="n">6</span><span class="tt"><b>Wordwall — игра из урока!</b> 🧩 <small>— поиграй дома!</small></span><button class="chip" id="pupp-chip-6" data-k="u13-ww" onclick="pupTog(this)">done</button></div>
+<a class="btn" href="https://wordwall.net/resource/85485425" target="_blank">▶ Играть — Wordwall</a>
+
+<div class="item task"><span class="n">7</span><span class="tt"><b>Песенка — Left and Right!</b> 🎵 <small>— пой и делай движения!</small></span><button class="chip" id="pupp-chip-7" data-k="u13-song" onclick="pupTog(this)">done</button></div>
+<audio controls preload="none" src="../../media/kb1-u2-ge-left-right.mp3"></audio>
+
+<div class="item task"><span class="n">8</span><span class="tt"><b>Задание на shkola.app</b> 📱 <small>— открой shkola.app и выполни!</small></span><button class="chip" id="pupp-chip-8" data-k="u13-shkola" onclick="pupTog(this)">done</button></div>
+
+<div class="progress" id="pupp-prog">Отмечено: 0 из 8</div>
+<div class="who">
+<input id="pupp-name" placeholder="Имя" autocomplete="off">
+<input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
+<span class="kprefix">KB 1.</span><input id="pupp-group" placeholder="?" maxlength="1" autocomplete="off" title="Твоя группа: 1, 2 или 3">
+</div>
+<button class="send" id="pupp-send" onclick="pupSend()">📤 Отправить Мисс Елене</button>
+<div class="hint" id="pupp-hint"></div>
+<div class="boxwrap" id="pupp-boxwrap">
+<div class="box" onclick="document.getElementById('pupp-cartoon').classList.add('show')">🎁</div>
+<div class="boxlabel">Твой подарок! Нажми!</div>
+<div class="cartoon" id="pupp-cartoon">
+<div class="pig">🐷✨</div>
+<h3>Peppa Pig — Rainbow Day! 🌈</h3>
+<p>Ты молодец! Все задания сделаны. Смотри мультик!</p>
+<video controls preload="none" playsinline src="../../media/kb1-u2-peppa-rainbow.mp4" style="width:100%;border-radius:12px"></video>
+</div>
+<!-- THE CARTOON (her «done» 30.10 on the link): Peppa Pig Enjoys Chasing
+     Rainbows on a Rainy Day (official channel) — pulled avc1+aac 5:16.
+     NOTE: this episode's ceiling is 360p (no 720p served). The backup is
+     already pulled at 720p: kb1-u2-learn-colours.mp4 (Learn Colours with
+     Peppa Pig, 2:46, official) — swap title+src on her word. -->
+<div class="note">Если что-то не получается — напишите администратору Мисс Алёны, поможем.</div>
+</div>
+</div>
+</details>
+<details class="hw-row">
+<summary><span class="txt"><span class="nm">Урок 12 · Читаем и говорим! </span><br><span class="dt">читаем для спектакля · печатание D и K · yes/no с новой картинкой · Wordwall · слушаем историю · видео Мисс Алёне</span></span></summary>
 <div class="card hw-body">
 <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
 
@@ -1231,6 +1303,125 @@ function cgAns(ans){
   }
 }
 cgStart();
+</script>
+<script>
+/* THE COLOUR MIX — the homework task Elena dictated 30.10 (deck-011 s18+s20):
+   «make them read: 'red + white = ....' Let them choose the words.
+   But let them see the colours by clicking the word.»
+   Every word is clickable — it fills with ITS OWN colour (click again to
+   clear). The child reads the equation, chooses the answer word, and the
+   pick reveals: right locks with ✓, wrong shakes — the colour itself is
+   the lesson. First-try rights make the score (rides the report as
+   «Микс: X из 5»). The choice order reshuffles every run. */
+var MIXC={red:'#d64545',white:'#f3f4f6',pink:'#ff8fab',grey:'#8a94a0',blue:'#056fe3',yellow:'#d9a400',green:'#0eb512',orange:'#e07800',purple:'#7a4fd6',black:'#2d3436'};
+var MIXES=[
+  {a:'red',b:'white',right:'pink',wrong:'grey'},
+  {a:'blue',b:'yellow',right:'green',wrong:'orange'},
+  {a:'yellow',b:'red',right:'orange',wrong:'purple'},
+  {a:'red',b:'blue',right:'purple',wrong:'green'},
+  {a:'black',b:'white',right:'grey',wrong:'pink'}
+];
+var mixI=0,mixScore=0,mixTried=false,mixLock=false;
+function mixPaint(el,c){
+  el.style.background=MIXC[c];
+  el.style.color=(c==='white'||c==='yellow'||c==='pink')?'#2d3436':'#fff';
+  el.style.borderColor=c==='white'?'#c3ccd6':MIXC[c];
+}
+function mixClear(el){
+  el.style.background='#fff';el.style.color='#2D3436';el.style.borderColor='#d8dee6';
+}
+function mixWordBtn(c,onclick){
+  var b=document.createElement('button');b.type='button';
+  b.textContent=c;b.dataset.c=c;
+  b.style.fontFamily='Fredoka,sans-serif';b.style.fontWeight='700';b.style.fontSize='1.35rem';
+  b.style.border='2px solid #d8dee6';b.style.borderRadius='99px';b.style.padding='.35em 1em';
+  b.style.background='#fff';b.style.color='#2D3436';b.style.cursor='pointer';
+  b.style.transition='transform .15s ease, background .2s ease';
+  b.onclick=onclick;
+  return b;
+}
+function mixDeal(){
+  mixI=0;mixScore=0;mixLock=false;
+  var ag=document.getElementById('mix-again');if(ag)ag.style.display='none';
+  var en=document.getElementById('mix-end');if(en)en.style.display='none';
+  mixRound();
+}
+function mixRound(){
+  mixTried=false;mixLock=false;
+  var m=MIXES[mixI];
+  var cnt=document.getElementById('mix-count');if(cnt)cnt.textContent=(mixI+1)+' / 5';
+  var eq=document.getElementById('mix-eq');eq.innerHTML='';
+  var eqLine=document.createElement('div');
+  eqLine.appendChild(mixWordBtn(m.a,function(){ this.dataset.on? (mixClear(this),delete this.dataset.on) : (mixPaint(this,this.dataset.c),this.dataset.on='1'); }));
+  var plus=document.createElement('span');plus.textContent=' + ';eqLine.appendChild(plus);
+  eqLine.appendChild(mixWordBtn(m.b,function(){ this.dataset.on? (mixClear(this),delete this.dataset.on) : (mixPaint(this,this.dataset.c),this.dataset.on='1'); }));
+  var eqs=document.createElement('span');eqs.textContent=' = ';eqLine.appendChild(eqs);
+  var q=document.createElement('span');q.textContent='…';q.style.color='#9aa7b3';eqLine.appendChild(q);
+  eq.appendChild(eqLine);
+  var ch=document.getElementById('mix-choices');ch.innerHTML='';
+  var words=[m.right,m.wrong];
+  if(Math.random()<0.5)words.reverse();
+  var w1=mixWordBtn(words[0],function(){mixPick(this,words[0]===m.right);});
+  var w2=mixWordBtn(words[1],function(){mixPick(this,words[1]===m.right);});
+  w1.style.minWidth='5.2em';w2.style.minWidth='5.2em';
+  ch.appendChild(w1);ch.appendChild(w2);
+}
+function mixPick(btn,isRight){
+  if(mixLock)return;
+  mixPaint(btn,btn.dataset.c);
+  if(isRight){
+    if(!mixTried)mixScore++;
+    mixLock=true;
+    btn.textContent=btn.dataset.c+' ✓';
+    var eq=document.getElementById('mix-eq');
+    var q=eq.querySelector('span:last-child');
+    var m=MIXES[mixI];
+    q.textContent=m.a+' + '+m.b+' = '+m.right.toUpperCase()+'!';
+    setTimeout(function(){
+      mixI++;
+      if(mixI>=MIXES.length){
+        var cnt=document.getElementById('mix-count');if(cnt)cnt.textContent='5 / 5';
+        var en=document.getElementById('mix-end');en.style.display='block';
+        en.textContent='🎉 Готово! '+mixScore+' из 5 с первого раза!';
+        var ag=document.getElementById('mix-again');if(ag)ag.style.display='block';
+        try{localStorage.setItem('kb1-u13-game',mixScore+'/5');}catch(e){}
+      }else{ mixRound(); }
+    },1100);
+  }else{
+    mixTried=true;
+    btn.style.transform='scale(1.06)';
+    setTimeout(function(){btn.style.transform='none';},450);
+  }
+}
+mixDeal();
+</script>
+<script>
+/* Урок 13 · Читаем и играем! — the DRAFT card's own pup* override (last-wins).
+   THE TITLE LIVES HERE TOO (the rename map): pupSend quotes the card title —
+   change both or the 📤 texts carry the old name. */
+var PUPP_KEY='kb1-u13-', PUPP_N=8;
+function pupSend(){
+  var n=document.getElementById('pupp-name'),
+      s=document.getElementById('pupp-surn'),
+      g=document.getElementById('pupp-group'),
+      hint=document.getElementById('pupp-hint');
+  var name=n.value.trim(), surn=s.value.trim().toUpperCase(), grp=g.value.trim();
+  if(!name){hint.textContent='Сначала напиши имя!';n.focus();return;}
+  if(!surn){hint.textContent='Напиши первую букву фамилии!';s.focus();return;}
+  if('123'.indexOf(grp)<0){hint.textContent='Ты из группы 1, 2 или 3?';g.focus();return;}
+  s.value=surn; hint.textContent='';
+  try{
+    localStorage.setItem('kb1-hw-name',name);
+    localStorage.setItem('kb1-hw-surn',surn);
+    localStorage.setItem('kb1-hw-group',grp);
+  }catch(e){}
+  var mg=null;try{mg=localStorage.getItem('kb1-u13-game')}catch(e){}
+  var txt='KB 1.'+grp+' · Урок 13 · Читаем и играем! · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+(mg?' · Микс: '+mg:'')+' · '+pupDate();
+  if(window.unscrSend){ unscrSend(txt); } else { pupQueue(txt); }
+  localStorage.setItem(PUPP_KEY+'sent','1');
+  pupPaint();
+}
+pupPaint();
 </script>
 <!-- PASTE-script END -->
 </body>
