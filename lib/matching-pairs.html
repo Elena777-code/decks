@@ -44,6 +44,14 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
 .mp-status{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.1rem,2vw,1.6rem);color:var(--ink-soft);text-align:center;min-height:1.4em}
 .reveal-btn{font-family:'Fredoka',sans-serif;font-size:clamp(1.15rem,2vw,1.6rem);font-weight:700;color:var(--ink);background:var(--mint);border:none;border-radius:99px;padding:.55em 1.5em;cursor:pointer;transition:transform .15s ease;box-shadow:var(--shadow)}
 .reveal-btn:hover{transform:scale(1.06)}
+.secret{display:flex;flex-direction:column;align-items:center;gap:1.2vh;animation:secpop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes secpop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+.secret-card{font-family:'Fredoka',sans-serif;font-weight:700;width:clamp(150px,26vh,230px);height:clamp(150px,26vh,230px);border:none;border-radius:26px;background:var(--lavender);box-shadow:var(--shadow-lg);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.08em;color:#fff;transition:transform .18s cubic-bezier(.34,1.56,.64,1)}
+.secret-card:hover{transform:translateY(-3px) scale(1.03)}
+.secret-card .sec-pic{font-size:clamp(4rem,12vh,7rem);line-height:1}
+.secret-card .sec-word{font-size:clamp(1.1rem,2vw,1.5rem)}
+.secret-hint{font-size:clamp(.95rem,1.6vw,1.2rem);color:var(--ink-soft);font-weight:700}
+.secret-label{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2.2vw,1.8rem);color:var(--lavender-deep);text-align:center}
 </style>
 </head>
 <body>
@@ -56,6 +64,11 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
 <div class="magic"><p>SAME! 🙂 &nbsp;·&nbsp; DIFFERENT! 🙃</p></div>
 <div class="mp-grid" id="mpgrid"></div>
 <div class="mp-status" id="mpstatus"></div>
+<div class="secret" id="mpsecret" style="display:none">
+  <div class="secret-label">🤫 Psst… a SECRET WORD! Tell it to the teacher — the first team wins! 🏆</div>
+  <button class="secret-card" id="secretcard" type="button"></button>
+  <div class="secret-hint">🔑 the teacher taps the card to check the word</div>
+</div>
 <button class="reveal-btn" id="mpagain" style="display:none" onclick="mpDeal()">↺ Play again</button>
 
 <script>
@@ -67,7 +80,11 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
    TWO PLAY OPTIONS PER TOPIC (Elena's ask 31.10): 🖼️+🔤 on the card —
    every card shows the picture and the word, match the twins (the classic);
    🖼️ ↔ 🔤 apart — the picture is one card, the word is another, match
-   the pair. Same SAME/DIFFERENT rules in both. */
+   the pair. Same SAME/DIFFERENT rules in both.
+   THE FINISH (Elena's ask 31.10, the team race): 4 / 4 solved → a SECRET
+   WORD card pops — one random item of the set, picture only. The team
+   tells the teacher the word = finished; the first team wins. The teacher
+   taps the card to check (the word is the key). */
 const SETS=[
   {name:'Animals 🐾', pairs:[['🐱','a cat'],['🐶','a dog'],['🐭','a mouse'],['🐰','a rabbit']]},
   {name:'School ✏️', pairs:[['✏️','a pencil'],['📚','a book'],['🎒','a bag'],['✂️','scissors']]},
@@ -77,7 +94,7 @@ const MODES=[
   {name:'🖼️+🔤 on the card',apart:false},
   {name:'🖼️ ↔ 🔤 apart',apart:true}
 ];
-let curSet=0,curMode=0,mpA=null,mpLock=false,mpFound=0,mpTries=0;
+let curSet=0,curMode=0,mpA=null,mpLock=false,mpFound=0,mpTries=0,mpSecret=null;
 function renderModes(){
   const row=document.getElementById('moderow');if(!row)return;row.innerHTML='';
   MODES.forEach(function(m,i){
@@ -116,7 +133,8 @@ function mpDeal(){
     b.onclick=function(){mpFlip(b);};
     g.appendChild(b);
   });
-  mpA=null;mpLock=false;mpFound=0;mpTries=0;
+  mpA=null;mpLock=false;mpFound=0;mpTries=0;mpSecret=null;
+  const sec=document.getElementById('mpsecret');if(sec)sec.style.display='none';
   const s=document.getElementById('mpstatus');
   if(s)s.textContent=MODES[curMode].apart?'Find each picture and its word!':'Click two cards — SAME or DIFFERENT?';
   const ag=document.getElementById('mpagain');if(ag)ag.style.display='none';
@@ -135,7 +153,14 @@ function mpFlip(card){
     card.classList.remove('up');card.classList.add('ok');
     mpFound++;mpA=null;
     if(mpFound===4){
-      if(s)s.textContent='SAME! 🙂 4 / 4 — '+mpTries+' tries! Now name them all: '+SETS[curSet].pairs.map(function(p){return p[1];}).join(', ')+'! 🎉';
+      mpSecret=SETS[curSet].pairs[Math.floor(Math.random()*SETS[curSet].pairs.length)];
+      if(s)s.textContent='SAME! 🙂 4 / 4 — '+mpTries+' tries! You solved the puzzle! 🎉';
+      const sec=document.getElementById('mpsecret');
+      if(sec){
+        sec.style.display='';
+        const sc=document.getElementById('secretcard');
+        if(sc){sc.classList.remove('open');sc.innerHTML='<span class="sec-pic">'+mpSecret[0]+'</span>';}
+      }
       const ag=document.getElementById('mpagain');if(ag)ag.style.display='';
     }else{
       if(s)s.textContent='SAME! 🙂 '+mpFound+' / 4';
@@ -150,6 +175,12 @@ function mpFlip(card){
     },950);
   }
 }
+const secretCard=document.getElementById('secretcard');
+if(secretCard)secretCard.onclick=function(){
+  if(!mpSecret)return;
+  const open=this.classList.toggle('open');
+  this.innerHTML='<span class="sec-pic">'+mpSecret[0]+'</span>'+(open?'<span class="sec-word">'+mpSecret[1]+'</span>':'');
+};
 renderSets();
 renderModes();
 mpDeal();
