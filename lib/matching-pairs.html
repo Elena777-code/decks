@@ -134,6 +134,7 @@ function mpDeal(){
     g.appendChild(b);
   });
   mpA=null;mpLock=false;mpFound=0;mpTries=0;mpSecret=null;
+  g.style.display='';
   const sec=document.getElementById('mpsecret');if(sec)sec.style.display='none';
   const s=document.getElementById('mpstatus');
   if(s)s.textContent=MODES[curMode].apart?'Find each picture and its word!':'Click two cards — SAME or DIFFERENT?';
@@ -155,12 +156,16 @@ function mpFlip(card){
     if(mpFound===4){
       mpSecret=SETS[curSet].pairs[Math.floor(Math.random()*SETS[curSet].pairs.length)];
       if(s)s.textContent='SAME! 🙂 4 / 4 — '+mpTries+' tries! You solved the puzzle! 🎉';
+      /* the board transforms into the secret — the grid steps aside so the
+         finale fits on screen with NO page scroll (this webview never
+         scrolls programmatically; the deck's own transform-the-board law) */
+      const g=document.getElementById('mpgrid');if(g)g.style.display='none';
       const sec=document.getElementById('mpsecret');
       if(sec){
         sec.style.display='';
         const sc=document.getElementById('secretcard');
         if(sc){sc.classList.remove('open');sc.innerHTML='<span class="sec-pic">'+mpSecret[0]+'</span>';}
-        sec.scrollIntoView({behavior:'smooth',block:'center'});
+        setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'center'});},550);
       }
       const ag=document.getElementById('mpagain');if(ag)ag.style.display='';
     }else{
