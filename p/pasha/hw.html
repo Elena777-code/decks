@@ -10,11 +10,21 @@
 <style>
 /* ============================================================
    Pasha's homework hub — ONE permanent link.
-   Pattern: MR's page (plan card with done-boxes · drill ·
-   dictionary · send-to-teacher at the end) in Pasha's own
-   palette (paper · navy · cheese — his decks' look).
-   Homework 2: from the lesson of Saturday 25.10 (deck 006 finished) → check at the next lesson.
-   (Homework 1 — 03.10: the words / WB / dictation / ⭐ rotated off; the test + the game stayed.)
+   Pattern: MR's page (plan card with done-boxes · trainers ·
+   send-to-teacher at the end) in Pasha's own palette (paper ·
+   navy · cheese — his decks' look).
+   Homework 3: set LIVE by Miss Elena at the end of the lesson of
+   Friday 31.10 (the deck-007 day), three items, nothing added:
+     ① SB p. 8 — The Explosion (the old text): re-read at home
+        + its exercises 1–4;
+     ② WB pp. 8–9 — the Disaster crossword + the past-continuous
+        page;
+     ③ Practice Book pp. 6–7, exercises 1–2 — the did-formula
+        (Did + who + the initial form) and was/were.
+   (Homework 2 — 25.10: the eight words / the four verbs / fixes /
+   WB p. 7 / ⭐ read-aloud rotated off — git history keeps it.
+   The standing science test + the game stayed; the test's misses
+   re-enter via 'pasha-hw-misses' — the key is NOT bumped.)
    The timed test follows THE HWDT RULE: one card = one item,
    a loyal timer per card, shuffle every attempt, misses
    re-enter the next attempt, «Include to the report» at the end.
@@ -63,34 +73,62 @@ button.big.stamp{background:linear-gradient(135deg,var(--stamp),var(--cheese))}
 .plan .p-row.done p{text-decoration:line-through;color:var(--ink-soft)}
 .plan .p-row p b{color:var(--navy)}
 
-/* word cards (teach: everything shows — meaning + 2 examples) */
-.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.9em}
-.wcard{background:#fff;border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.09);padding:.9em 1em;
-  border-top:6px solid var(--cheese)}
-.wcard .head{display:flex;align-items:baseline;gap:.5em;flex-wrap:wrap}
-.wcard .w{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2vw,1.5rem);color:var(--navy)}
-.wcard{cursor:pointer}
-.wcard .ru{display:none;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.9rem,1.3vw,1.05rem);color:var(--stamp);background:var(--stamp-soft);border-radius:99px;padding:.05em .6em}
-.wcard.open .ru{display:inline-block}
-.wcard .peek{font-size:clamp(.8rem,1.2vw,.95rem);color:var(--ink-soft);font-style:italic;margin-top:.3em}
-.wcard .m{font-size:clamp(.95rem,1.4vw,1.12rem);color:var(--ink);margin:.25em 0}
-.wcard .ex{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);line-height:1.45}
-.wcard .ex b{color:var(--navy)}
+/* story paragraphs (SB p. 8–9, verbatim) */
+.storyp{background:#fff;border-left:6px solid var(--cheese);border-radius:14px;
+  box-shadow:0 5px 14px rgba(34,48,63,.07);padding:.7em 1em;
+  font-size:clamp(.98rem,1.5vw,1.2rem);line-height:1.55}
 
-/* picture→word cards (the dictation ten) */
-.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.7em}
-.gal .g{background:#fff;border-radius:16px;box-shadow:0 6px 16px rgba(34,48,63,.08);
-  padding:.7em .4em;text-align:center;cursor:pointer;user-select:none;border:3px solid transparent;
-  transition:transform .15s ease}
-.gal .g:hover{transform:translateY(-3px)}
-.gal .g .ico{font-size:clamp(2rem,4vw,3rem);line-height:1.2}
-.gal .g .nm{display:none;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
-  font-size:clamp(1rem,1.7vw,1.25rem);margin-top:.1em}
-.gal .g.rev{border-color:var(--cheese);background:var(--cheese-soft)}
-.gal .g.rev .nm{display:block}
-.gal .g img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:12px;display:block}
+/* the book's exercises, verbatim briefs */
+.exl{display:flex;flex-direction:column;gap:.45em;margin-top:.5em}
+.exl .exi{background:#fff;border-radius:12px;padding:.5em .7em;box-shadow:0 4px 10px rgba(34,48,63,.06);
+  font-size:clamp(.95rem,1.45vw,1.12rem);line-height:1.5}
+.exl .exi b{color:var(--navy)}
+.rulecard{background:#fff;border-radius:14px;border-left:6px solid var(--sky);padding:.7em 1em;
+  font-size:clamp(.98rem,1.5vw,1.18rem);line-height:1.55}
+.rulecard b{color:var(--navy)}
 
-/* ---------- the timed test (hwdt) ---------- */
+/* ---------- the trainers (crossword · SPB check · poem) ---------- */
+.xrow{display:flex;gap:.6em;align-items:center;background:#fff;border-radius:12px;padding:.5em .7em;
+  box-shadow:0 4px 10px rgba(34,48,63,.06);flex-wrap:wrap}
+.xrow .xno{flex-shrink:0;min-width:2.2em;text-align:center;background:var(--navy);color:#fff;
+  border-radius:99px;padding:.15em .5em;font-family:'Fredoka',sans-serif;font-weight:600;font-size:.9em}
+.xrow .xq{flex:1;font-size:clamp(.98rem,1.5vw,1.15rem);line-height:1.45;min-width:12em}
+.xrow .xin{flex-shrink:0;border:2.5px solid var(--sky);border-radius:10px;padding:.3em .6em;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1rem,1.6vw,1.2rem);width:min(11em,42%)}
+.xrow .xin:focus{outline:none;border-color:var(--cheese)}
+.xrow .xgo{flex-shrink:0;font-family:'Fredoka',sans-serif;font-weight:600;border:2.5px solid var(--sky);
+  background:#fff;color:var(--navy);border-radius:10px;padding:.25em .6em;cursor:pointer}
+.xmark{flex-shrink:0;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.1em;min-width:1.3em;text-align:center}
+.xrow.ok{background:var(--mint-soft)} .xrow.ok .xin{border-color:var(--mint)}
+.xrow.no{background:var(--stamp-soft)} .xrow.no .xin{border-color:var(--stamp)}
+.xrow.shake{animation:shk .3s}
+@keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.gbtn{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.95rem,1.5vw,1.12rem);
+  border:2.5px solid var(--sky);background:#fff;color:var(--ink);border-radius:10px;
+  padding:.25em .7em;cursor:pointer;transition:all .12s ease}
+.gbtn:hover{border-color:var(--cheese)}
+.gbtn.right{border-color:var(--mint);background:var(--mint-soft)}
+.gbtn.wrong{border-color:var(--stamp);background:var(--stamp-soft)}
+.gbtn:disabled{cursor:default}
+.xres{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);min-height:1.4em;margin-top:.5em}
+
+/* WB p. 9 poem */
+.poemline{display:flex;gap:.5em;align-items:center;flex-wrap:wrap;background:#fff;border-radius:12px;
+  padding:.5em .7em;box-shadow:0 4px 10px rgba(34,48,63,.06);font-size:clamp(1rem,1.55vw,1.2rem);line-height:1.5}
+.poemline .who{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy)}
+.poemline.shake{animation:shk .3s}
+
+/* report */
+#rep-text{width:100%;min-height:150px;border:3px solid var(--sky);border-radius:14px;padding:.7em;
+  font-family:ui-monospace,Menlo,monospace;font-size:.92rem;color:var(--ink);resize:vertical;background:#fff}
+#rep-text:focus{outline:none;border-color:var(--cheese)}
+#rep-note{width:100%;min-height:70px;border:3px solid #E1E9F4;border-radius:14px;padding:.6em;
+  font-family:'Nunito',sans-serif;font-size:1rem;color:var(--ink);resize:vertical}
+#rep-note:focus{outline:none;border-color:var(--sky)}
+.sent{font-family:'Fredoka',sans-serif;color:var(--mint);font-weight:600}
+iframe.hide{display:none}
+
+/* the timed test (hwdt) */
 #test{display:flex;flex-direction:column;gap:1em}
 #t-stage{display:none;flex-direction:column;gap:.9em;align-items:center;
   background:#fff;border-radius:22px;box-shadow:var(--shadow-lg);padding:clamp(1.2rem,2.4vw,2rem);
@@ -127,34 +165,18 @@ button.big.stamp{background:linear-gradient(135deg,var(--stamp),var(--cheese))}
   background:var(--cheese-soft);color:var(--navy-deep);font-size:clamp(.95rem,1.4vw,1.15rem)}
 .chip.miss{background:var(--stamp-soft);color:var(--stamp)}
 
-/* report */
-#rep-text{width:100%;min-height:150px;border:3px solid var(--sky);border-radius:14px;padding:.7em;
-  font-family:ui-monospace,Menlo,monospace;font-size:.92rem;color:var(--ink);resize:vertical;background:#fff}
-#rep-text:focus{outline:none;border-color:var(--cheese)}
-#rep-note{width:100%;min-height:70px;border:3px solid #E1E9F4;border-radius:14px;padding:.6em;
-  font-family:'Nunito',sans-serif;font-size:1rem;color:var(--ink);resize:vertical}
-#rep-note:focus{outline:none;border-color:var(--sky)}
-.sent{font-family:'Fredoka',sans-serif;color:var(--mint);font-weight:600}
-iframe.hide{display:none}
-
-/* WB card — the minimal evening's upgrade transplanted: per-task rows + embedded tracks */
-.wbpg{margin-top:.9em;display:flex;flex-direction:column;gap:.45em}
-.wbph{display:flex;align-items:center;gap:.6em;font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1rem,1.6vw,1.2rem)}
-.wbph .n{background:var(--navy);color:#fff;border-radius:99px;padding:.12em .8em;font-size:.9em}
-.wbtask{display:flex;gap:.6em;align-items:flex-start;background:#fff;border-radius:12px;padding:.45em .7em;box-shadow:0 4px 10px rgba(34,48,63,.06)}
-.wbtask .wbtn{flex-shrink:0;width:1.5em;height:1.5em;border-radius:50%;background:var(--cheese-soft);color:var(--navy);display:grid;place-items:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:.95rem;margin-top:.12em}
-.wbtask .wbask{font-size:clamp(.98rem,1.5vw,1.18rem);line-height:1.45}
+/* WB card — per-task rows + embedded tracks */
 .wbtrack{margin-top:.4em}
 .wbtrack .wbtl{font-size:clamp(.85rem,1.25vw,1rem);color:var(--ink-soft);font-style:italic;margin-bottom:.15em}
 .wbtrack audio{width:min(430px,100%);height:38px}
-@media (max-width:700px){ .words{grid-template-columns:1fr 1fr} }
+@media (max-width:700px){ .xrow .xin{width:100%} }
 </style>
 </head>
 <body>
 
 <div class="eyebrow">Pasha · homework · this link never changes — new homework lands here</div>
 <h1>Homework 🔬</h1>
-<p class="hintline">from Saturday’s lesson (25 October) · for the next lesson — tick the boxes as you finish, then send it all to Miss Elena</p>
+<p class="hintline">from Friday’s lesson (31 October) · for the next lesson — tick the boxes as you finish, then send it all to Miss Elena</p>
 
 <!-- ============ THE PLAN CARD (done boxes) ============ -->
 <div class="card cheese">
@@ -162,61 +184,69 @@ iframe.hide{display:none}
   <div class="plan mt" id="plan"></div>
 </div>
 
-<!-- ============ 1 · THE EIGHT NEW WORDS ============ -->
+<!-- ============ 1 · SB p. 8 — THE EXPLOSION ============ -->
 <div class="card">
-  <h2>1 · Eight new words 📖 — to your dictionary</h2>
-  <p class="task mt">These eight hid inside our story! Copy all eight into your dictionary — <b>the Russian + the English + one example</b> each. Say the Russian to yourself first — <b>click the card</b> to check it!</p>
-  <div class="words mt" id="words8"></div>
-  <p class="hintline mt">The 💊 line is your example — choose your own for the dictionary if you like it better. 😉</p>
+  <h2>1 · SB p. 8 — The Explosion 📖 — read it again!</h2>
+  <p class="task mt">Open your <b>Pupil’s Book, page 8</b> — you know this story! Read it again at home (all five parts are here too) and do the exercises.</p>
+  <div class="mt" style="display:flex;flex-direction:column;gap:.6em">
+    <div class="storyp">Alex read out the instructions for the next experiment. ‘Add one spoon of yellow powder to the blue liquid,’ he read. Phoebe followed the instruction. ‘It’s turned green!’ she said. Patrick was not very impressed. ‘Yellow and blue make green,’ he said, ‘everyone knows that!’ ‘Wait!’ said Alex. ‘There are more instructions. Now take some of the liquid and drop it on the brick.’ Phoebe did this and the brick turned purple. ‘Wow!’ she said. ‘That’s amazing!’ ‘It’s boring,’ said Patrick. ‘Can we do the next experiment?’</div>
+    <div class="storyp">For the next experiment, Patrick read and Alex followed his instructions. He put two spoons of white powder and one spoon of red powder into a test tube. Then he added some pink liquid. It quickly turned orange. ‘Now pour some of the orange liquid onto the brick,’ said Patrick. Alex did this and amazingly the brick started to get bigger. ‘Wow!’ said Alex. ‘That’s fantastic!’ Mr Davis came to look at their experiment. ‘Good work,’ he said, ‘but don’t forget to read the instructions carefully for your next experiment.’ ‘That wasn’t very interesting,’ said Patrick. ‘Let’s do the next one.’</div>
+    <div class="storyp">‘OK, it’s your turn to do it,’ said Phoebe. She read the instructions. ‘OK, we need some blue powder, some green powder, some orange powder and some green liquid.’ While Patrick was getting all the things together, he knocked over a small cup of water. The water went all over the instructions. ‘Careful Patrick!’ said Phoebe. ‘Oh no! There’s water on the instructions now and I can’t read a thing.’ ‘Let’s ask Mr Davis for some more instructions,’ said Alex. ‘Don’t be silly,’ said Patrick. ‘I’ve got everything here. We just need to mix it together and put it on the brick.’</div>
+    <div class="storyp">‘But we don’t know how many spoons of each powder we need,’ said Alex. ‘Don’t worry,’ said Patrick, ‘let’s experiment.’ Patrick poured all the blue powder into the orange and green powder. Then he added all the green liquid. Suddenly there was a big explosion and a bright red flash. ‘Wow!’ said Patrick. ‘Now that was amazing. I think I added a bit too much liquid,’ he laughed. Alex and Phoebe didn’t think it was funny.</div>
+    <div class="storyp">‘What’s that?’ said Alex. He was pointing to a strange, glowing light. It was yellow and it looked like a kind of gate. ‘It’s really strange!’ said Phoebe. The children walked towards the light and stepped into it. They were gone in a flash.</div>
+  </div>
+  <div class="exl">
+    <div class="exi"><b>Exercise 1</b> — Write down words that come to your mind. Try to make a story out of the words.</div>
+    <div class="exi"><b>Exercise 2</b> — Read and listen to the story to find out if it is similar to or different from your story.
+      <div class="wbtrack mt">
+        <div class="wbtl">🎧 track 008 — the story, read to you</div>
+        <audio controls preload="none" src="media/track-008-the-explosion.mp3"></audio>
+      </div>
+    </div>
+    <div class="exi"><b>Exercise 3</b> — Read and answer the questions. Which experiment (1, 2 or 3) … <b>1</b> does Alex do? · <b>2</b> does Phoebe read the instructions for? · <b>3</b> makes a yellow light? · <b>4</b> changes the colour of the brick? · <b>5</b> makes the brick bigger? · <b>6</b> goes wrong?</div>
+    <div class="exi"><b>Exercise 4</b> — What do you need for each experiment? Write <b>1st, 2nd or 3rd</b> next to the pictures: the powders — red · yellow · orange · blue · white · green — and the test tubes — blue · green · pink.</div>
+  </div>
+  <p class="hintline mt">Write your answers in your book — Miss Elena checks them with you.</p>
 </div>
 
-<!-- ============ 2 · THE FOUR TRICKY VERBS ============ -->
+<!-- ============ 2 · WB pp. 8–9 — CROSSWORD + PAST CONTINUOUS ============ -->
 <div class="card mintc">
-  <h2>2 · The four tricky verbs 🧩 — do · make · be · have</h2>
-  <p class="task mt">In Russian some of them look the same — but in English they are <b>four different verbs</b>! Read each card, click for the Russian, then copy the four into your dictionary <b>with one example each</b>.</p>
-  <div class="words mt" id="verbs4"></div>
-  <p class="hintline mt">Miss Elena’s favourites: <b>do</b> your homework — <b>make</b> a cake — <b>be</b> careful — <b>have</b> fun!</p>
-</div>
-
-<!-- ============ 3 · FIX YOUR OWN SENTENCES ============ -->
-<div class="card">
-  <h2>3 · Fix your own sentences 🔧</h2>
-  <p class="task mt">These are <b>your sentences from the lesson</b> — each one has one little slip. Say how to fix it, then <b>click</b> to check!</p>
-  <div class="col mt" id="fixes" style="gap:.6em"></div>
-</div>
-
-<!-- ============ 4 · WORKBOOK P. 7 ============ -->
-<div class="card">
-  <h2>4 · Workbook p. 7 🧪 — the Chemistry sums</h2>
-  <p class="task mt">Open your <b>Workbook, page 7</b> — do the Chemistry sums like a real scientist: <b>write the colours, draw and colour</b> the results!</p>
-  <p class="mt" style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1.05rem,1.8vw,1.35rem)">The colours you need:</p>
-  <div class="chips mt">
-    <span class="chip">yellow</span><span class="chip">blue</span><span class="chip">red</span>
-    <span class="chip">white</span><span class="chip">orange</span><span class="chip">green</span>
-    <span class="chip">pink</span><span class="chip">brown</span><span class="chip">purple</span>
-  </div>
-  <p class="hintline mt">Think of Patrick’s experiments — what happens when the colours mix? 😉 Write in your Workbook — we check it together.</p>
-</div>
-
-<!-- ============ 5 · READ IT ALOUD ============ -->
-<div class="card">
-  <h2>5 · ⭐ Read it aloud — and film it! 🎥</h2>
-  <p class="task mt">Choose your <b>favourite part of the story</b> (pages 8–9). Read it <b>aloud three times</b> — louder each time! — then <b>record a video</b> and send it to Miss Elena.</p>
-  <div class="row mt">
-    <button class="big" id="story-btn">📖 show the whole story</button>
-    <span class="hintline">read slowly — every word to the end, no guessing!</span>
-  </div>
-  <div id="story-text" style="display:none">
-    <div class="card sky mt" style="font-size:clamp(.98rem,1.5vw,1.2rem);line-height:1.55">Alex read out the instructions for the next experiment. ‘Add one spoon of yellow powder to the blue liquid,’ he read. Phoebe followed the instruction. ‘It’s turned green!’ she said. Patrick was not very impressed. ‘Yellow and blue make green,’ he said, ‘everyone knows that!’ ‘Wait!’ said Alex. ‘There are more instructions. Now take some of the liquid and drop it on the brick.’ Phoebe did this and the brick turned purple. ‘Wow!’ she said. ‘That’s amazing!’ ‘It’s boring,’ said Patrick. ‘Can we do the next experiment?’</div>
-    <div class="card sky mt" style="font-size:clamp(.98rem,1.5vw,1.2rem);line-height:1.55">For the next experiment, Patrick read and Alex followed his instructions. He put two spoons of white powder and one spoon of red powder into a test tube. Then he added some pink liquid. It quickly turned orange. ‘Now pour some of the orange liquid onto the brick,’ said Patrick. Alex did this and amazingly the brick started to get bigger. ‘Wow!’ said Alex. ‘That’s fantastic!’ Mr Davis came to look at their experiment. ‘Good work,’ he said, ‘but don’t forget to read the instructions carefully for your next experiment.’ ‘That wasn’t very interesting,’ said Patrick. ‘Let’s do the next one.’ ‘OK, it’s your turn to do it,’ said Phoebe. She read the instructions. ‘OK, we need some blue powder, some green powder, some orange powder and some green liquid.’ While Patrick was getting all the things together, he knocked over a small cup of water. The water went all over the instructions. ‘Careful, Patrick!’ said Phoebe. ‘Oh no! There’s water on the instructions now and I can’t read a thing.’ ‘Let’s ask Mr Davis for some more instructions,’ said Alex. ‘Don’t be silly,’ said Patrick. ‘I’ve got everything here. We just need to mix it together and put it on the brick.’</div>
-    <div class="card sky mt" style="font-size:clamp(.98rem,1.5vw,1.2rem);line-height:1.55">‘But we don’t know how many spoons of each powder we need,’ said Alex. ‘Don’t worry,’ said Patrick, ‘let’s experiment.’ Patrick poured all the blue powder into the orange and green powder. Then he added all the green liquid. Suddenly there was a big explosion and a bright red flash. ‘Wow!’ said Patrick. ‘Now that was amazing. I think I added a bit too much liquid,’ he laughed. Alex and Phoebe didn’t think it was funny.</div>
-    <div class="card sky mt" style="font-size:clamp(.98rem,1.5vw,1.2rem);line-height:1.55">‘What’s that?’ said Alex. He was pointing to a strange, glowing light. It was yellow and it looked like a kind of gate. ‘It’s really strange!’ said Phoebe. The children walked towards the light and stepped into it. They were gone in a flash.</div>
+  <h2>2 · WB pp. 8–9 — Disaster! 🌋</h2>
+  <p class="task mt">Open your <b>Workbook, pages 8 and 9</b>.</p>
+  <h3 class="mt">WB p. 8 — the crossword 🔎</h3>
+  <p class="hintline mt">Write the words in your book first — then type each one here to check yourself!</p>
+  <div class="mt" id="xw" style="display:flex;flex-direction:column;gap:.45em"></div>
+  <div class="xres" id="xw-out"></div>
+  <h3 class="mt">WB p. 9 — the past continuous 🕐</h3>
+  <p class="task mt"><b>was / were + -ing</b> — what was happening?</p>
+  <p class="hintline mt">Read and complete — tap the words:</p>
+  <div class="mt" id="poem" style="display:flex;flex-direction:column;gap:.45em"></div>
+  <div class="xres" id="poem-out"></div>
+  <div class="exl">
+    <div class="exi"><b>In your book</b> — write what the family was doing when there was an earthquake: <b>read · cook · play · do · listen · watch</b>. Number 1 is done for you: <b>Dad and Mum were cooking</b>.</div>
+    <div class="exi"><b>In your book</b> — What were <b>you</b> doing at the weekend? Write sentences: <b>1</b> On Saturday morning at 10 o’clock, I … · <b>2</b> At lunchtime, … · <b>3</b> At 3 o’clock, … · <b>4</b> At 6 o’clock, … · <b>5</b> On Sunday morning at 11.30, … · <b>6</b> At 2 o’clock, … · <b>7</b> At 5 o’clock, …</div>
+    <div class="exi"><b>In your book</b> — write more lines for the poem: <i>When the earthquake shook the tree, …</i></div>
   </div>
 </div>
 
-<!-- ============ 6 · THE TIMED TEST ============ -->
+<!-- ============ 3 · PRACTICE BOOK pp. 6–7 — EXERCISES 1–2 ============ -->
+<div class="card">
+  <h2>3 · Practice Book pp. 6–7 — exercises 1–2 ✏️</h2>
+  <p class="task mt">Open your <b>Practice Book, pages 6 and 7</b> — the formula you learned with Miss Elena!</p>
+  <div class="rulecard mt">Questions in the past: <b>Did + who + the initial form</b> — <i>Did you have a good weekend?</i> — Yes, <b>I did</b>. Question words — <b>why, when, where</b> … — go <b>before did</b>: <i>Where did you go at the weekend?</i> — We went to the theatre. The verb <b>to be is special — it’s on its own</b>: <i>Were you at home yesterday?</i> (not “Did you was…”!)</div>
+  <h3 class="mt">Ex. 1 · Correct the questions ✏️</h3>
+  <p class="hintline mt">Each question has one slip. Write it correctly in your book — then type it here! Number 1 is done in the book: <b>How was your Science class today?</b></p>
+  <div class="mt" id="spb1" style="display:flex;flex-direction:column;gap:.45em"></div>
+  <div class="xres" id="spb1-out"></div>
+  <h3 class="mt">Ex. 2 · did, was or were? 🤔</h3>
+  <p class="hintline mt">Tap the right word for each gap. Number 1 is done in the book: <b>What did you do at the weekend?</b></p>
+  <div class="mt" id="spb2" style="display:flex;flex-direction:column;gap:.45em"></div>
+  <div class="xres" id="spb2-out"></div>
+</div>
+
+<!-- ============ THE STANDING SCIENCE TEST ============ -->
 <div class="card mintc">
-  <h2>6 · The science test ⏱</h2>
+  <h2>The science test ⏱</h2>
   <p class="task mt">Small test, kind timer — the words change every game. Play it at least twice!</p>
   <div class="mt" id="test">
     <div id="t-idle" class="row">
@@ -245,16 +275,16 @@ iframe.hide{display:none}
   </div>
 </div>
 
-<!-- ============ 7 · THE GAME ============ -->
+<!-- ============ THE STANDING GAME ============ -->
 <div class="card cheese">
-  <h2>7 · Play and say it! 🔬</h2>
+  <h2>Play and say it! 🔬</h2>
   <p class="task mt"><a href="../../lib/science-or-nonsense.html" style="color:var(--navy);text-decoration:none">▶ Science — or nonsense?</a> — the detective game. Say every word out loud, three times!</p>
 </div>
 
 <!-- ============ THE REPORT ============ -->
 <div class="card" id="report">
   <h2>📤 Send it to Miss Elena</h2>
-  <p class="hintline mt">Your boxes, your test scores and your words — one tap.</p>
+  <p class="hintline mt">Your boxes, your scores and your words — one tap.</p>
   <textarea id="rep-text" class="mt" readonly></textarea>
   <textarea id="rep-note" class="mt" placeholder="Anything you want to tell Miss Elena? (optional)"></textarea>
   <div class="row mt">
@@ -270,19 +300,16 @@ iframe.hide{display:none}
 const FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLScITCfSxKdkzbRtYe372gGTpYnYCAODSDqJMiGLXVhfq8ZdHA/formResponse";
 const FORM_ENTRY="entry.1138986010";
 
-const LS={plan:'pasha-hw2-plan',miss:'pasha-hw-misses',inc:'pasha-hw2-included',note:'pasha-hw2-note'};
+/* hw3: fresh ticks for the new homework — the test's misses key is NOT bumped */
+const LS={plan:'pasha-hw3-plan',miss:'pasha-hw-misses',inc:'pasha-hw3-included',note:'pasha-hw3-note'};
 const store=(k,v)=>{try{v===undefined?localStorage.removeItem(k):localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
 
 /* ====== the plan card (done boxes) ====== */
 const PLAN=[
- {id:'words', t:'The eight new words — copy them into your dictionary'},
- {id:'verbs', t:'The four tricky verbs — do · make · be · have — into your dictionary'},
- {id:'fix', t:'Fix your own sentences — click and check'},
- {id:'wb', t:'WB p. 7 — the Chemistry sums: write, draw and colour'},
- {id:'read', t:'⭐ Read your favourite part of the story aloud — record a video'},
- {id:'test', t:'The science test — play it at least twice'},
- {id:'game', t:'🔬 Play Science or nonsense — and say the words!'}
+ {id:'sb', t:'SB p. 8 — The Explosion: read the story again + exercises 1–4'},
+ {id:'wb', t:'WB pp. 8–9 — the Disaster crossword + the past-continuous page'},
+ {id:'spb', t:'Practice Book pp. 6–7 — exercises 1–2: did questions + was/were'}
 ];
 const planEl=document.getElementById('plan');
 let done=load(LS.plan,{});
@@ -294,62 +321,153 @@ PLAN.forEach(p=>{
   planEl.appendChild(d);
 });
 
-/* ====== the eight new words (the story's harvest — RU behind a click, the d: rule) ====== */
-const WORDS8=[
- {w:'need',ru:'\u043d\u0443\u0436\u0434\u0430\u0442\u044c\u0441\u044f, \u0431\u044b\u0442\u044c \u043d\u0443\u0436\u043d\u044b\u043c',m:'to require something; to not have enough',e:['I need a pencil.','What do you need for the experiment?']},
- {w:'wrong',ru:'\u043d\u0435\u043f\u0440\u0430\u0432\u0438\u043b\u044c\u043d\u044b\u0439, \u043d\u0435 \u0442\u043e\u0442',m:'not right; not correct',e:['My answer is wrong.','Which experiment goes wrong?']},
- {w:'forget',ru:'\u0437\u0430\u0431\u044b\u0432\u0430\u0442\u044c',m:'to not remember',e:['Don\u2019t forget your goggles!','I forget this word.']},
- {w:'follow',ru:'\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u044c (\u0437\u0430 \u043a\u0435\u043c-\u0442\u043e)',m:'to go after; to do what the instructions say',e:['Follow the instructions!','Alex followed Patrick.']},
- {w:'put',ru:'\u043a\u043b\u0430\u0441\u0442\u044c, \u0441\u0442\u0430\u0432\u0438\u0442\u044c',m:'to move something to a place',e:['Put the powder in the tube.','Where did you put your goggles?']},
- {w:'pour',ru:'\u043d\u0430\u043b\u0438\u0432\u0430\u0442\u044c',m:'to make a liquid flow somewhere',e:['Pour the liquid onto the brick.','Mum pours the tea.']},
- {w:'spoon',ru:'\u043b\u043e\u0436\u043a\u0430',m:'a tool for eating and mixing; you eat soup with it',e:['Add one spoon of yellow powder.','We eat soup with a spoon.']},
- {w:'loudly',ru:'\u0433\u0440\u043e\u043c\u043a\u043e',m:'with a loud sound',e:['The baby cried loudly.','Please don\u2019t talk so loudly.']}
+/* ====== a trainer's score line joins the report (prefix-replaceable) ====== */
+function hwLine(prefix,line){
+  store(LS.inc,[...load(LS.inc,[]).filter(l=>!l.startsWith(prefix)),line].slice(-8));
+  buildReport();
+}
+const norm=s=>s.toLowerCase().replace(/\s+/g,' ').trim();
+const xnorm=s=>s.toLowerCase().replace(/[?.,!\u2018\u2019'"-]/g,'').replace(/\s+/g,' ').trim();
+
+/* ====== WB p. 8 — the crossword (clues verbatim from the book; keys as harvested in deck 008) ====== */
+const XWORDS=[
+ {no:'D1',clue:'They work for other people.',a:'servants'},
+ {no:'D2',clue:'You get it when you make a fire.',a:'smoke'},
+ {no:'D3',clue:'People go there to see a play.',a:'theatre'},
+ {no:'D4',clue:'A tall stone post.',a:'column'},
+ {no:'D5',clue:'Horses pull it.',a:'cart'},
+ {no:'D6',clue:'The house of a god or gods.',a:'temple'},
+ {no:'A7',clue:'A mountain with a large hole at the top.',a:'volcano'},
+ {no:'A8',clue:'You put flowers and water in it.',a:'vase'},
+ {no:'A9',clue:'Water is pushed up into the air from it.',a:'fountain'}
 ];
-const w13=document.getElementById('words8');
-WORDS8.forEach(x=>{
-  const d=document.createElement('div');d.className='wcard';
-  d.innerHTML='<div class="head"><span class="w">'+x.w+'</span><span class="ru">'+x.ru+'</span></div>'
-   +'<p class="m">'+x.m+'</p>'
-   +'<p class="ex">💊 <b>'+x.e[0]+'</b></p><p class="ex">💬 <b>'+x.e[1]+'</b></p>'
-   +'<p class="peek">translation — click the card 👀</p>';
-  d.onclick=()=>d.classList.toggle('open');
-  w13.appendChild(d);
+const xwBox=document.getElementById('xw'),xwOut=document.getElementById('xw-out');
+let xwFirst=0,xwDone=0;
+XWORDS.forEach(x=>{
+  const d=document.createElement('div');d.className='xrow';
+  d.innerHTML='<span class="xno">'+x.no+'</span><span class="xq">'+x.clue+' <span style="color:var(--ink-soft)">('+x.a.length+' letters)</span></span>'
+   +'<input class="xin" autocomplete="off" placeholder="the word…"><button class="xgo" type="button">✓</button><span class="xmark"></span>';
+  const inp=d.querySelector('.xin'),mark=d.querySelector('.xmark'),go=d.querySelector('.xgo');
+  let tries=0;
+  const judge=()=>{
+    if(d.classList.contains('ok'))return;
+    if(norm(inp.value)===norm(x.a)){
+      d.classList.remove('no');d.classList.add('ok');inp.disabled=true;go.disabled=true;
+      mark.textContent='✓';mark.style.color='var(--mint)';
+      if(!tries)xwFirst++;xwDone++;
+      if(xwDone===XWORDS.length){xwOut.textContent='🧩 the crossword: '+xwFirst+' / '+XWORDS.length+' (first try) 🌟';
+        hwLine('🧩 crossword:','🧩 crossword: '+xwFirst+'/'+XWORDS.length+' (first try)')}
+    }else{
+      tries++;d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');
+      if(tries>=2){d.classList.add('no');inp.value=x.a;inp.disabled=true;go.disabled=true;
+        mark.textContent='•';mark.style.color='var(--stamp)';xwDone++;
+        if(xwDone===XWORDS.length){xwOut.textContent='🧩 the crossword: '+xwFirst+' / '+XWORDS.length+' (first try)';
+          hwLine('🧩 crossword:','🧩 crossword: '+xwFirst+'/'+XWORDS.length+' (first try)')}}
+      else{mark.textContent='✗';mark.style.color='var(--stamp)';inp.value='';inp.focus()}
+    }
+  };
+  go.onclick=judge;
+  inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();judge()}};
+  xwBox.appendChild(d);
 });
 
-/* ====== the four tricky verbs (Miss Elena's Russian, verbatim) ====== */
-const VERBS4=[
- {w:'do',ru:'\u0434\u0435\u043b\u0430\u0442\u044c',m:'to do an action, an activity',e:['Do your homework!','What did you do at school?']},
- {w:'make',ru:'\u0434\u0435\u043b\u0430\u0442\u044c (\u0441\u043e\u0437\u0434\u0430\u0432\u0430\u0442\u044c)',m:'to create something new',e:['Make a cake!','Patrick made a big explosion.']},
- {w:'be',ru:'\u0431\u044b\u0442\u044c',m:'to exist; to be somewhere or someone',e:['Don\u2019t be silly!','Be careful, Patrick!']},
- {w:'have',ru:'\u0438\u043c\u0435\u0442\u044c',m:'to own; to have got',e:['I have got a sister.','Did you have fun?']}
+/* ====== WB p. 9 — the poem (read and complete: were · reading · playing · was) ====== */
+const POEM=[
+ {who:'Leo',a1:'was',a2:'reading',tail:'quietly.'},
+ {who:'The monkeys',a1:'were',a2:'playing',tail:'hide and seek.'}
 ];
-const v4=document.getElementById('verbs4');
-VERBS4.forEach(x=>{
-  const d=document.createElement('div');d.className='wcard';
-  d.innerHTML='<div class="head"><span class="w">'+x.w+'</span><span class="ru">'+x.ru+'</span></div>'
-   +'<p class="m">'+x.m+'</p>'
-   +'<p class="ex">💊 <b>'+x.e[0]+'</b></p><p class="ex">💬 <b>'+x.e[1]+'</b></p>'
-   +'<p class="peek">translation — click the card 👀</p>';
-  d.onclick=()=>d.classList.toggle('open');
-  v4.appendChild(d);
+const poemBox=document.getElementById('poem'),poemOut=document.getElementById('poem-out');
+let pmFirst=0,pmDone=0,pmTotal=POEM.length*2;
+POEM.forEach(p=>{
+  const d=document.createElement('div');d.className='poemline';
+  d.innerHTML='<span class="who">'+p.who+'</span><span class="g1"></span><span class="g2"></span><span>'+p.tail+'</span>';
+  const mk=(slot,opts,a)=>{
+    opts.forEach(o=>{
+      const b=document.createElement('button');b.className='gbtn';b.type='button';b.textContent=o;
+      b.onclick=()=>{
+        if(b.classList.contains('right')||slot.dataset.done)return;
+        if(o===a){b.classList.add('right');slot.dataset.done='1';if(!slot.dataset.missed)pmFirst++;pmDone++;
+          [...slot.children].forEach(x=>{if(x!==b)x.disabled=true});
+          if(pmDone===pmTotal){poemOut.textContent='🖋 the poem: '+pmFirst+' / '+pmTotal+' (first try)';
+            hwLine('🖋 poem:','🖋 poem: '+pmFirst+'/'+pmTotal+' (first try)')}
+        }else{slot.dataset.missed='1';b.classList.add('wrong');d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');
+          setTimeout(()=>b.classList.remove('wrong'),700)}
+      };
+      slot.appendChild(b);
+    });
+  };
+  mk(d.querySelector('.g1'),['was','were'],p.a1);
+  mk(d.querySelector('.g2'),['reading','playing'],p.a2);
+  poemBox.appendChild(d);
 });
 
-/* ====== fix your own — his lines from the lesson (the fix + the one-line why behind a click) ====== */
-const FIXES=[
- {his:'I make a homework every day.',fix:'I <b style="color:var(--mint)">do</b> my homework every day.',why:'homework is something you <b>DO</b> — make is for creating things, like <i>make a cake</i>.'},
- {his:'I have none.',fix:'I <b style="color:var(--mint)">had</b> none.',why:'yesterday = the past — <b>had</b>.'},
- {his:'She doesn’t want to wait.',fix:'She <b style="color:var(--mint)">didn’t</b> want to wait.',why:'the story is in the past — <b>didn’t</b>, not doesn’t.'},
- {his:'We don’t now hold many spoons.',fix:'We don’t <b style="color:var(--mint)">know how</b> many spoons (we need).',why:'<b>know</b>, not hold — and <b>how</b> many!'}
+/* ====== SPB p. 6 ex. 1 — correct the questions (p. 6, ex. 1; item 1 = the book's own example) ====== */
+const SPB1=[
+ {bad:'Did you watched the football match last night?',a:'Did you watch the football match last night?'},
+ {bad:'Where you went last Sunday?',a:'Where did you go last Sunday?'},
+ {bad:'What present did you got for your sister\u2019s birthday?',a:'What present did you get for your sister\u2019s birthday?'},
+ {bad:'Was you tired this morning?',a:'Were you tired this morning?'},
+ {bad:'Do you went on holiday last year?',a:'Did you go on holiday last year?'}
 ];
-const fx=document.getElementById('fixes');
-FIXES.forEach(x=>{
-  const d=document.createElement('div');
-  d.style.cssText='background:#fff;border-radius:16px;box-shadow:0 6px 16px rgba(34,48,63,.08);padding:.6em 1em;cursor:pointer;user-select:none;border:3px solid transparent';
-  d.innerHTML='<p style="font-family:\'Fredoka\',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.7vw,1.35rem);color:var(--navy)">“'+x.his+'”</p>'
-   +'<div class="fx" style="display:none"><p style="font-size:clamp(1.05rem,1.7vw,1.35rem);line-height:1.5">'+x.fix+'</p>'
-   +'<p class="hintline" style="margin-top:.2em">'+x.why+'</p></div>';
-  d.onclick=()=>{const f=d.querySelector('.fx');const on=f.style.display==='none';f.style.display=on?'block':'none';d.style.borderColor=on?'var(--cheese)':'transparent'};
-  fx.appendChild(d);
+const s1Box=document.getElementById('spb1'),s1Out=document.getElementById('spb1-out');
+let s1First=0,s1Done=0;
+SPB1.forEach((x,i)=>{
+  const d=document.createElement('div');d.className='xrow';
+  d.innerHTML='<span class="xno">'+(i+2)+'</span><span class="xq">“'+x.bad+'”</span>'
+   +'<input class="xin" autocomplete="off" placeholder="the right question…"><button class="xgo" type="button">✓</button><span class="xmark"></span>';
+  const inp=d.querySelector('.xin'),mark=d.querySelector('.xmark'),go=d.querySelector('.xgo');
+  let tries=0;
+  const judge=()=>{
+    if(d.classList.contains('ok'))return;
+    if(xnorm(inp.value)===xnorm(x.a)){
+      d.classList.remove('no');d.classList.add('ok');inp.disabled=true;go.disabled=true;
+      mark.textContent='✓';mark.style.color='var(--mint)';
+      if(!tries)s1First++;s1Done++;
+      if(s1Done===SPB1.length){s1Out.textContent='✏️ ex. 1: '+s1First+' / '+SPB1.length+' (first try)';
+        hwLine('📕 SPB ex. 1:','📕 SPB ex. 1: '+s1First+'/'+SPB1.length+' (first try)')}
+    }else{
+      tries++;d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');
+      if(tries>=2){d.classList.add('no');inp.value=x.a;inp.disabled=true;go.disabled=true;
+        mark.textContent='•';mark.style.color='var(--stamp)';s1Done++;
+        if(s1Done===SPB1.length){s1Out.textContent='✏️ ex. 1: '+s1First+' / '+SPB1.length+' (first try)';
+          hwLine('📕 SPB ex. 1:','📕 SPB ex. 1: '+s1First+'/'+SPB1.length+' (first try)')}}
+      else{mark.textContent='✗';mark.style.color='var(--stamp)';inp.value='';inp.focus()}
+    }
+  };
+  go.onclick=judge;
+  inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();judge()}};
+  s1Box.appendChild(d);
+});
+
+/* ====== SPB p. 7 ex. 2 — complete with did, was or were (item 1 = the book's own example) ====== */
+const SPB2=[
+ {q:'Where ___ you go on your last family holiday?',a:'did'},
+ {q:'___ you watch a film last night?',a:'did'},
+ {q:'What ___ the last book you read?',a:'was'},
+ {q:'___ you do any homework yesterday?',a:'did'},
+ {q:'___ all your friends at school on Monday?',a:'were'}
+];
+const s2Box=document.getElementById('spb2'),s2Out=document.getElementById('spb2-out');
+let s2First=0,s2Done=0;
+SPB2.forEach((x,i)=>{
+  const d=document.createElement('div');d.className='xrow';
+  d.innerHTML='<span class="xno">'+(i+2)+'</span><span class="xq">'+x.q.replace('___','<b style="color:var(--stamp)">___</b>')+'</span><span class="g3"></span><span class="xmark"></span>';
+  const slot=d.querySelector('.g3'),mark=d.querySelector('.xmark');
+  ['did','was','were'].forEach(o=>{
+    const b=document.createElement('button');b.className='gbtn';b.type='button';b.textContent=o;
+    b.onclick=()=>{
+      if(b.classList.contains('right')||d.dataset.done)return;
+      if(o===x.a){b.classList.add('right');d.dataset.done='1';mark.textContent='✓';mark.style.color='var(--mint)';
+        [...slot.children].forEach(x2=>{if(x2!==b)x2.disabled=true});
+        if(!d.dataset.missed)s2First++;s2Done++;
+        if(s2Done===SPB2.length){s2Out.textContent='🤔 ex. 2: '+s2First+' / '+SPB2.length+' (first try)';
+          hwLine('📕 SPB ex. 2:','📕 SPB ex. 2: '+s2First+'/'+SPB2.length+' (first try)')}
+      }else{d.dataset.missed='1';b.classList.add('wrong');d.classList.remove('shake');void d.offsetWidth;d.classList.add('shake');
+        setTimeout(()=>b.classList.remove('wrong'),700)}
+    };
+    slot.appendChild(b);
+  });
+  s2Box.appendChild(d);
 });
 
 /* ====== the timed test data (kept: his standing science test) ====== */
@@ -401,7 +519,6 @@ const R_GRAM=[...SOMEANY,...ORDER].map(g=>({k:'c',cue:g.cue,ch:g.ch,a:g.a,t:18})
 
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a};
 const pick=(a,n)=>shuffle(a).slice(0,n);
-const norm=s=>s.toLowerCase().replace(/\s+/g,' ').trim();
 
 const stage=document.getElementById('t-stage'),idle=document.getElementById('t-idle'),
 endEl=document.getElementById('t-end'),flash=document.getElementById('t-flash'),
@@ -492,14 +609,6 @@ document.getElementById('t-include').onclick=()=>{
   const b=document.getElementById('t-include');b.textContent='✅ in the report!';
   setTimeout(()=>b.textContent='\u{1F4CB} Include to the report',1600);
   buildReport();
-};
-
-/* ====== the story toggle (card 5) ====== */
-document.getElementById('story-btn').onclick=()=>{
-  const box=document.getElementById('story-text');
-  const on=box.style.display==='none';
-  box.style.display=on?'block':'none';
-  document.getElementById('story-btn').textContent=on?'📖 hide the story':'📖 show the whole story';
 };
 
 /* ====== the report + send ====== */
