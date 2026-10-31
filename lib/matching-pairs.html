@@ -160,6 +160,7 @@ function mpFlip(card){
         sec.style.display='';
         const sc=document.getElementById('secretcard');
         if(sc){sc.classList.remove('open');sc.innerHTML='<span class="sec-pic">'+mpSecret[0]+'</span>';}
+        sec.scrollIntoView({behavior:'smooth',block:'center'});
       }
       const ag=document.getElementById('mpagain');if(ag)ag.style.display='';
     }else{
