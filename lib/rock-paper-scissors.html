@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rock · Paper · Scissors — play it online!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  min-height:100vh;padding:4vh 4vw 6vh;display:flex;flex-direction:column;gap:1.6vh;align-items:center;
+  -webkit-font-smoothing:antialiased}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  font-size:clamp(.72rem,1.15vw,.95rem);color:var(--navy)}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,3.8vw,3rem);line-height:1.1;text-align:center}
+.hintline{font-size:clamp(.92rem,1.35vw,1.12rem);color:var(--ink-soft);font-style:italic;text-align:center}
+#score{display:flex;gap:.8em;align-items:center;font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.15rem,2.2vw,1.8rem)}
+#score .pill{background:#fff;border-radius:99px;padding:.25em 1em;box-shadow:var(--shadow)}
+#score .pill.you{color:var(--navy)} #score .pill.me{color:var(--stamp)}
+#score .pill span{font-size:1.25em}
+#stage{background:#fff;border-radius:24px;box-shadow:var(--shadow-lg);padding:clamp(1.2rem,3vw,2.2rem);
+  width:min(720px,94vw);display:flex;flex-direction:column;gap:1.2em;align-items:center}
+#hands{display:flex;gap:1.5em;align-items:center;justify-content:center;width:100%}
+#hands .side{flex:1;display:flex;flex-direction:column;align-items:center;gap:.2em}
+#hands .hand{font-size:clamp(3.4rem,11vw,6.5rem);line-height:1.15;min-height:1.2em}
+#hands .who{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.6vw,1.25rem);color:var(--ink-soft)}
+#hands .vs{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.3rem,3vw,2.2rem);color:var(--cheese)}
+#hands .hand.shake{animation:shake .55s ease-in-out 3}
+@keyframes shake{0%,100%{transform:rotate(0)}25%{transform:rotate(-24deg) translateY(-12px)}75%{transform:rotate(24deg) translateY(-12px)}}
+#call{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.15rem,2.4vw,1.9rem);
+  color:var(--navy);min-height:1.4em;text-align:center}
+#result{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.1rem,2.2vw,1.7rem);
+  min-height:1.4em;text-align:center}
+#result.you{color:var(--mint)} #result.me{color:var(--stamp)} #result.draw{color:var(--ink-soft)}
+#picks{display:flex;gap:1em;justify-content:center;flex-wrap:wrap;width:100%}
+#picks button{font-family:'Fredoka',sans-serif;font-weight:600;cursor:pointer;border:none;
+  border-radius:20px;padding:.6em 1em;background:var(--cheese-soft);color:var(--navy);
+  box-shadow:var(--shadow);transition:transform .15s ease;display:flex;flex-direction:column;align-items:center;gap:.1em}
+#picks button:hover{transform:scale(1.06)}
+#picks button:disabled{opacity:.45;cursor:default;transform:none}
+#picks .h{font-size:clamp(2.2rem,6vw,3.4rem);line-height:1.1}
+#picks .w{font-size:clamp(1rem,1.7vw,1.3rem)}
+#again{display:none}
+button.big{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem);
+  padding:.5em 1.5em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:var(--shadow-lg);
+  transition:transform .15s ease}
+button.big:hover{transform:scale(1.05)}
+#finish{display:none;flex-direction:column;gap:.6em;align-items:center;text-align:center}
+#finish .line{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.3rem,2.6vw,2rem)}
+.confetti{font-size:clamp(1.6rem,3.5vw,2.6rem)}
+</style>
+</head>
+<body>
+
+<div class="eyebrow">Rock · Paper · Scissors</div>
+<h1>Play it online! ✊✋✌</h1>
+<p class="hintline">First to <b>3</b> wins! Say the words out loud: <b>rock — paper — scissors — shoot!</b></p>
+
+<div id="score">
+  <span class="pill you">You <span id="s-you">0</span></span>
+  <span class="hintline">first to three 🏁</span>
+  <span class="pill me">Miss Elena's computer <span id="s-me">0</span></span>
+</div>
+
+<div id="stage">
+  <div id="hands">
+    <div class="side"><div class="hand" id="h-you">🤛</div><div class="who">you</div></div>
+    <div class="vs">VS</div>
+    <div class="side"><div class="hand" id="h-me">🤜</div><div class="who">the computer</div></div>
+  </div>
+  <div id="call">Choose your hand — rock, paper or scissors!</div>
+  <div id="result"></div>
+  <div id="picks">
+    <button id="p-rock"><span class="h">✊</span><span class="w">rock</span></button>
+    <button id="p-paper"><span class="h">✋</span><span class="w">paper</span></button>
+    <button id="p-scissors"><span class="h">✌</span><span class="w">scissors</span></button>
+  </div>
+  <button class="big" id="again">🎲 play again</button>
+  <div id="finish">
+    <div class="confetti">🎉</div>
+    <div class="line" id="fin-line"></div>
+    <button class="big" id="fin-again">🎲 play again</button>
+  </div>
+</div>
+
+<script>
+/* Rock · Paper · Scissors — the lesson game: he plays vs the screen,
+   the English calls are spoken aloud (the offline browser voice),
+   the score goes to three. Name-free shelf game. */
+const H = {rock:'✊', paper:'✋', scissors:'✌'};
+const NAMES = ['rock','paper','scissors'];
+const BEATS = {rock:'scissors', paper:'rock', scissors:'paper'};
+const WINS_LINE = {
+  rock:['Rock crushes scissors!','Rock smashes scissors!'],
+  paper:['Paper covers rock!','Paper wraps rock up!'],
+  scissors:['Scissors cut paper!','Scissors snip the paper!']
+};
+let you = 0, me = 0, busy = false;
+const $ = id => document.getElementById(id);
+let voices = [];
+function warm(){try{voices = speechSynthesis.getVoices()}catch(e){}}
+warm();try{speechSynthesis.onvoiceschanged = warm}catch(e){}
+function say(text){
+  try{
+    const u = new SpeechSynthesisUtterance(text);
+    const v = voices.find(v => v.lang && v.lang.startsWith('en'));
+    if(v) u.voice = v;
+    u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+function setHand(el, name){ el.textContent = name ? H[name] : (el.id === 'h-me' ? '🤜' : '🤛'); }
+function score(){
+  $('s-you').textContent = you; $('s-me').textContent = me;
+}
+function lock(on){ ['p-rock','p-paper','p-scissors'].forEach(id => $(id).disabled = on); }
+function play(pick){
+  if(busy) return;
+  busy = true; lock(true);
+  $('result').textContent = ''; $('result').className = '';
+  $('finish').style.display = 'none'; $('picks').style.display = 'flex'; $('again').style.display = 'none';
+  const mine = NAMES[Math.floor(Math.random() * 3)];
+  const seq = ['rock','paper','scissors','Shoot!'];
+  let i = 0;
+  $('h-you').classList.add('shake'); $('h-me').classList.add('shake');
+  $('call').textContent = seq[0] + '…'; say(seq[0]);
+  const tick = setInterval(() => {
+    i++;
+    if(i < seq.length){
+      $('call').textContent = seq[i] + '…';
+      if(seq[i] !== 'Shoot!') say(seq[i]);
+      return;
+    }
+    clearInterval(tick);
+    $('h-you').classList.remove('shake'); $('h-me').classList.remove('shake');
+    setHand($('h-you'), pick); setHand($('h-me'), mine);
+    const beat = BEATS[pick] === mine;
+    const loses = BEATS[mine] === pick;
+    let line, cls;
+    if(pick === mine){ line = 'A draw! Both chose ' + pick + '.'; cls = 'draw'; }
+    else if(beat){
+      you++; line = WINS_LINE[pick][Math.floor(Math.random() * 2)] + ' — you win this round!'; cls = 'you';
+    } else {
+      me++; line = WINS_LINE[mine][Math.floor(Math.random() * 2)] + ' — the computer wins this round!'; cls = 'me';
+    }
+    score();
+    $('result').textContent = line; $('result').className = cls;
+    say(line);
+    if(you >= 3 || me >= 3){
+      const won = you >= 3;
+      $('fin-line').textContent = won
+        ? '🎉 You win ' + you + ' : ' + me + ' — champion!'
+        : '🤖 The computer wins ' + me + ' : ' + you + ' — rematch?';
+      if(won) say('You are the champion! Well done!');
+      else say('The computer wins! Rematch?');
+      $('picks').style.display = 'none';
+      $('finish').style.display = 'flex';
+    } else {
+      busy = false; lock(false);
+    }
+  }, 700);
+}
+function reset(){
+  you = 0; me = 0; busy = false;
+  score(); setHand($('h-you'), null); setHand($('h-me'), null);
+  $('call').textContent = 'Choose your hand — rock, paper or scissors!';
+  $('result').textContent = ''; $('result').className = '';
+  $('finish').style.display = 'none'; $('picks').style.display = 'flex'; $('again').style.display = 'none';
+  lock(false);
+}
+$('p-rock').onclick = () => play('rock');
+$('p-paper').onclick = () => play('paper');
+$('p-scissors').onclick = () => play('scissors');
+$('again').onclick = reset;
+$('fin-again').onclick = reset;
+score();
+</script>
+</body>
+</html>
