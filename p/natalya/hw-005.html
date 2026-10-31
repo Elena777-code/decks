@@ -65,6 +65,8 @@ details .body .ru{color:var(--rust);font-weight:700}
 .closing{background:var(--gold-soft);border:1px solid #e8dcb8;border-radius:var(--radius);
   padding:1em 1.4em;font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55}
 a{color:var(--blue);font-weight:600}
+.lisn .lt{font-weight:800;color:var(--accent);margin-top:.6em}
+audio{width:100%;display:block}
 </style>
 </head>
 <body>
@@ -73,42 +75,37 @@ a{color:var(--blue);font-weight:600}
 <div>
   <h1>Your grammar course <em>opens</em></h1>
   <div class="rule"></div>
-  <p style="margin-top:.6em;color:var(--ink-soft);font-weight:600">Homework after Thursday's lesson ·
-  Unit 4 · the placement's last two questions · three fixes · two words</p>
+  <p style="margin-top:.6em;color:var(--ink-soft);font-weight:600">Homework for our next lesson ·
+  four situations to hear the difference · three fixes · two words</p>
 </div>
 
 <div class="step blue">
   <button class="dchip" data-k="job1" type="button">done</button>
   <span class="no">1</span>
-  <p><strong>📖 Unit 4 · Past continuous and past simple — your first sitting.</strong></p>
-  <p><strong>▶ First — the video.</strong> Six minutes, real examples, the whole unit's idea in one go —
-  BBC's <em>6 Minute Grammar</em>.</p>
-  <p><a href="https://www.youtube.com/watch?v=uTB5I8V9Eog" target="_blank" rel="noopener">▶ Past simple and past continuous — watch on YouTube</a>
-  <span class="how">— opens without a VPN</span></p>
-  <p><strong>While you watch:</strong> catch <strong>one sentence with a long action + a short action</strong> —
-  bring it with you to the lesson.</p>
-  <p>Then the book. <strong>Advanced Grammar in Use, pages 8–9</strong> — one unit, three moves:</p>
-  <p><strong>Read</strong> the explanation (the left page) → <strong>do</strong> the exercises
-  (the right page, write them) → <strong>check</strong> yourself in the
-  <em>Key to Exercises</em> (p. 250) — only after you've written.</p>
-  <p class="how">You already own the key idea from Thursday: <em>long action — short action</em>.
-  The unit turns that one phrase into a habit.</p>
-  <p class="how">Your placement pointed here first — this family came up more than any other.
-  That makes it the richest ground, not a verdict.</p>
-</div>
-
-<div class="step">
-  <button class="dchip" data-k="job2" type="button">done</button>
-  <span class="no">2</span>
-  <p><strong>🧭 The placement — the last two questions.</strong></p>
-  <p>The Study Planner, questions <strong>1.14</strong> and <strong>1.15</strong>
-  (pp. xii–xiii of the same book). Then check on <strong>p. 249</strong>.</p>
-  <p class="how">Two minutes — and the whole first block is done, your course map complete.</p>
+  <p><strong>🎧 Four situations — hear the difference.</strong></p>
+  <p>Four short conversations. In each one something is <strong>in progress</strong> — the long
+  action — and something <strong>happens</strong> — the short event. That is the whole unit:
+  <em>was doing</em> vs <em>did</em>.</p>
+  <p><strong>While you listen:</strong> catch <strong>one long action + one short event</strong> from
+  every situation — four pairs. Say them to Miss Elena at the lesson.</p>
+  <div class="lisn">
+    <p class="lt">1 · Last night</p>
+    <audio controls preload="none" src="../../media/natalya/b2-11/last-night.mp3"></audio>
+    <p class="lt">2 · The message</p>
+    <audio controls preload="none" src="../../media/natalya/b2-11/message.mp3"></audio>
+    <p class="lt">3 · The game</p>
+    <audio controls preload="none" src="../../media/natalya/b2-11/game.mp3"></audio>
+    <p class="lt">4 · The vacation</p>
+    <audio controls preload="none" src="../../media/natalya/b2-11/vacation.mp3"></audio>
+  </div>
+  <p class="how">Your ears know the forms — now put them to work: listen for
+  <em>was / were + …ing</em>, and ask what happened.</p>
+  <p class="how" style="font-size:clamp(.72rem,1.3vw,.82rem)">audio · elllo.org</p>
 </div>
 
 <div class="step rust">
-  <button class="dchip" data-k="job3" type="button">done</button>
-  <span class="no">3</span>
+  <button class="dchip" data-k="job2" type="button">done</button>
+  <span class="no">2</span>
   <p><strong>🪞 Repair your sentences — three from your own talk on Thursday.</strong></p>
   <p class="how">Say your fix out loud first — then open the check.</p>
   <div class="sent">“But more sentences was not clear.”
@@ -120,8 +117,8 @@ a{color:var(--blue);font-weight:600}
 </div>
 
 <div class="step">
-  <button class="dchip" data-k="job4" type="button">done</button>
-  <span class="no">4</span>
+  <button class="dchip" data-k="job3" type="button">done</button>
+  <span class="no">3</span>
   <p><strong>🔑 Two words from the lesson — into your dictionary.</strong></p>
   <p class="how">Write each into your notebook — the translation in Russian, or the meaning in English,
   or one example (your choice). Write first, then open the check. Open it again to hide.</p>
@@ -146,8 +143,8 @@ a{color:var(--blue);font-weight:600}
 </div>
 
 <div class="closing">
-  One unit — read, do, check — and the progress is yours to feel.
-  See you at our next lesson. 💬
+  The course opens at our next lesson — Unit 4 first.
+  Until then: listen, fix, and take the two words in. 💬
 </div>
 
 </div>
@@ -157,10 +154,9 @@ a{color:var(--blue);font-weight:600}
 /* ── the done chips + the progress send (the standing shape, 09.10). */
 (function(){
 "use strict";
-var NAMES={job1:'1 · Unit 4 — Past continuous and past simple (pp. 8–9)',
-  job2:'2 · the placement\u2019s last two (planner 1.14\u20131.15)',
-  job3:'3 · repair your sentences (\u00d73)',
-  job4:'4 · the dictionary (humble \u00b7 modest)'};
+var NAMES={job1:'1 · four situations — hear the difference (was doing vs did)',
+  job2:'2 · repair your sentences (\u00d73)',
+  job3:'3 · the dictionary (humble \u00b7 modest)'};
 var DONE={};
 try{DONE=JSON.parse(localStorage.getItem('natalya-hw-005-done')||'{}')}catch(e){}
 function save(){try{localStorage.setItem('natalya-hw-005-done',JSON.stringify(DONE))}catch(e){}report()}
@@ -182,7 +178,7 @@ function state(){
 function report(){
   var s=state();
   document.getElementById('rep-line').textContent=s.done.length
-    ?'Ticked '+s.done.length+' of 4 — '+s.done.map(function(k){return NAMES[k]}).join(' · ')
+    ?'Ticked '+s.done.length+' of 3 — '+s.done.map(function(k){return NAMES[k]}).join(' · ')
     :'Tick «done» on each job as you finish it!';
 }
 var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSd7B6GMpuy9fSRl7clE7BGHL43qyxEE2baPO725kN6QlJatjw/formResponse";
@@ -191,11 +187,11 @@ document.getElementById('send-btn').addEventListener('click',function(){
   var s=state();
   var txt='Natalya · homework L5 · '+new Date().toLocaleDateString('en-GB')+'\n'
     +(s.done.length
-      ?'Done ('+s.done.length+'/4):\n• '+s.done.map(function(k){return NAMES[k]}).join('\n• ')+'\n'
+      ?'Done ('+s.done.length+'/3):\n• '+s.done.map(function(k){return NAMES[k]}).join('\n• ')+'\n'
       :'Nothing ticked yet\n')
     +(s.yet.length
       ?'Not yet: '+s.yet.map(function(k){return NAMES[k]}).join(' · ')
-      :'All four ticked — clean sweep!');
+      :'All three ticked — clean sweep!');
   var f=document.createElement('form');
   f.method='POST';f.action=FORM_ACTION;f.target='hw-form-target';
   var inp=document.createElement('input');inp.type='hidden';inp.name=FORM_ENTRY;inp.value=txt;
