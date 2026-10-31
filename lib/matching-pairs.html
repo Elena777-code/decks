@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Matching pairs</title>
 <meta property="og:title" content="Matching pairs">
-<meta property="og:description" content="Flip two cards — SAME or DIFFERENT? A memory and comparing game.">
+<meta property="og:description" content="Flip two cards — SAME or DIFFERENT? Word+picture on the card, or picture ↔ word apart. A memory and comparing game.">
 <style>
 :root{
   --mint:#95E1D3;--mint-deep:#5ecbb8;--peach:#FCE38A;--lavender:#C8B6FF;
@@ -22,6 +22,7 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
 .setrow{display:flex;gap:.6em;flex-wrap:wrap;justify-content:center}
 .setchip{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.8vw,1.4rem);border:2px solid #d8dee6;background:#fff;color:var(--ink-soft);cursor:pointer;border-radius:99px;padding:.35em 1em;transition:all .15s ease}
 .setchip.on{background:var(--lavender);border-color:var(--lavender-deep);color:#fff}
+.modechip.on{background:var(--pink);border-color:var(--pink);color:#fff}
 .magic{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(10px,1.6vh,18px) clamp(16px,2vw,28px);text-align:center;width:100%}
 .magic p{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.6rem,4.5vh,3.2rem);line-height:1.3}
 .mp-grid{display:flex;flex-wrap:wrap;gap:clamp(8px,1.4vw,18px);justify-content:center;width:100%}
@@ -51,6 +52,7 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
 <div class="accent-line"></div>
 <div class="task">🎯 Flip two — SAME or DIFFERENT?</div>
 <div class="setrow" id="setrow"></div>
+<div class="setrow" id="moderow"></div>
 <div class="magic"><p>SAME! 🙂 &nbsp;·&nbsp; DIFFERENT! 🙃</p></div>
 <div class="mp-grid" id="mpgrid"></div>
 <div class="mp-status" id="mpstatus"></div>
@@ -61,13 +63,29 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
    30.10: "This game is awesome… Move it to the appropriate folder").
    Flip two cards: a matching pair locks green — SAME!; a miss flips back —
    DIFFERENT! Tries are counted, not punished. Three swappable word sets;
-   every deal reshuffles. Name-free by the shelf law. */
+   every deal reshuffles. Name-free by the shelf law.
+   TWO PLAY OPTIONS PER TOPIC (Elena's ask 31.10): 🖼️+🔤 on the card —
+   every card shows the picture and the word, match the twins (the classic);
+   🖼️ ↔ 🔤 apart — the picture is one card, the word is another, match
+   the pair. Same SAME/DIFFERENT rules in both. */
 const SETS=[
   {name:'Animals 🐾', pairs:[['🐱','a cat'],['🐶','a dog'],['🐭','a mouse'],['🐰','a rabbit']]},
   {name:'School ✏️', pairs:[['✏️','a pencil'],['📚','a book'],['🎒','a bag'],['✂️','scissors']]},
   {name:'Food 🍎', pairs:[['🍎','an apple'],['🍌','a banana'],['🥕','a carrot'],['🍇','grapes']]}
 ];
-let curSet=0,mpA=null,mpLock=false,mpFound=0,mpTries=0;
+const MODES=[
+  {name:'🖼️+🔤 on the card',apart:false},
+  {name:'🖼️ ↔ 🔤 apart',apart:true}
+];
+let curSet=0,curMode=0,mpA=null,mpLock=false,mpFound=0,mpTries=0;
+function renderModes(){
+  const row=document.getElementById('moderow');if(!row)return;row.innerHTML='';
+  MODES.forEach(function(m,i){
+    const b=document.createElement('button');b.className='setchip modechip'+(i===curMode?' on':'');b.type='button';
+    b.textContent=m.name;b.onclick=function(){curMode=i;renderModes();mpDeal();};
+    row.appendChild(b);
+  });
+}
 function renderSets(){
   const row=document.getElementById('setrow');row.innerHTML='';
   SETS.forEach(function(s,i){
@@ -79,7 +97,17 @@ function renderSets(){
 function mpDeal(){
   const g=document.getElementById('mpgrid');if(!g)return;
   const P=SETS[curSet].pairs;
-  const deck=[...P,...P].map(function(p){return {w:p[0],n:p[1],r:Math.random()};}).sort(function(a,b){return a.r-b.r;});
+  let deck;
+  if(MODES[curMode].apart){
+    deck=[];
+    P.forEach(function(p){
+      deck.push({w:p[0],n:'',r:Math.random()});
+      deck.push({w:p[0],n:p[1],r:Math.random()});
+    });
+    deck.sort(function(a,b){return a.r-b.r;});
+  }else{
+    deck=[...P,...P].map(function(p){return {w:p[0],n:p[1],r:Math.random()};}).sort(function(a,b){return a.r-b.r;});
+  }
   g.innerHTML='';
   deck.forEach(function(c){
     const b=document.createElement('button');b.className='mp-card';b.type='button';
@@ -89,13 +117,16 @@ function mpDeal(){
     g.appendChild(b);
   });
   mpA=null;mpLock=false;mpFound=0;mpTries=0;
-  const s=document.getElementById('mpstatus');if(s)s.textContent='Click two cards — SAME or DIFFERENT?';
+  const s=document.getElementById('mpstatus');
+  if(s)s.textContent=MODES[curMode].apart?'Find each picture and its word!':'Click two cards — SAME or DIFFERENT?';
   const ag=document.getElementById('mpagain');if(ag)ag.style.display='none';
 }
 function mpFlip(card){
   if(mpLock||card.classList.contains('up')||card.classList.contains('ok'))return;
   card.classList.add('up');
-  card.innerHTML=card.dataset.w+'<span class="mp-word">'+card.dataset.n+'</span>';
+  card.innerHTML=MODES[curMode].apart
+    ?(card.dataset.n?'<span class="mp-word">'+card.dataset.n+'</span>':'<span class="mp-back">'+card.dataset.w+'</span>')
+    :card.dataset.w+'<span class="mp-word">'+card.dataset.n+'</span>';
   const s=document.getElementById('mpstatus');
   if(!mpA){mpA=card;return;}
   mpTries++;
@@ -120,6 +151,7 @@ function mpFlip(card){
   }
 }
 renderSets();
+renderModes();
 mpDeal();
 </script>
 </body>
