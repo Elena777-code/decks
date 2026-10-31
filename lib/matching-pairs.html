@@ -52,6 +52,15 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
 .secret-card .sec-word{font-size:clamp(1.1rem,2vw,1.5rem)}
 .secret-hint{font-size:clamp(.95rem,1.6vw,1.2rem);color:var(--ink-soft);font-weight:700}
 .secret-label{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2.2vw,1.8rem);color:var(--lavender-deep);text-align:center}
+.fs{position:fixed;inset:0;z-index:99;background:rgba(45,52,54,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3vh;cursor:pointer;animation:fsin .18s ease}
+@keyframes fsin{from{opacity:0}to{opacity:1}}
+.fs-x{position:absolute;top:2.5vh;right:2.5vw;font-family:'Fredoka',sans-serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:700;color:#fff;background:rgba(255,255,255,.14);border:none;border-radius:99px;width:2.2em;height:2.2em;cursor:pointer}
+.fs-face{display:flex;flex-direction:column;align-items:center;gap:1.5vh}
+.fs-pic{font-size:min(56vh,56vw);line-height:1.05}
+.fs-pic.duo{font-size:min(38vh,38vw)}
+.fs-word{font-family:'Fredoka',sans-serif;font-weight:700;font-size:min(15vh,15vw);color:#fff}
+.fs-key{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.1rem,2vw,1.6rem);color:var(--ink);background:var(--peach);border:none;border-radius:99px;padding:.5em 1.4em;cursor:pointer;box-shadow:var(--shadow)}
+.fs-hint{color:rgba(255,255,255,.72);font-weight:800;font-size:clamp(1rem,1.8vw,1.4rem)}
 </style>
 </head>
 <body>
@@ -67,9 +76,15 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
 <div class="secret" id="mpsecret" style="display:none">
   <div class="secret-label">🤫 Psst… a SECRET WORD! Tell it to the teacher — the first team wins! 🏆</div>
   <button class="secret-card" id="secretcard" type="button"></button>
-  <div class="secret-hint">🔑 the teacher taps the card to check the word</div>
+  <div class="secret-hint">👆 tap the card — big for the whole class</div>
 </div>
 <button class="reveal-btn" id="mpagain" style="display:none" onclick="mpDeal()">↺ Play again</button>
+<div class="fs" id="fsbox" style="display:none">
+  <button class="fs-x" id="fsx" type="button">✕</button>
+  <div class="fs-face" id="fsface"></div>
+  <button class="fs-key" id="fskey" type="button" style="display:none">🔑 show the word</button>
+  <div class="fs-hint">tap anywhere to close 👆</div>
+</div>
 
 <script>
 /* MATCHING PAIRS — the shelf game (born inside KB 1 U2 L11, Elena's word
@@ -84,7 +99,12 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
    THE FINISH (Elena's ask 31.10, the team race): 4 / 4 solved → a SECRET
    WORD card pops — one random item of the set, picture only. The team
    tells the teacher the word = finished; the first team wins. The teacher
-   taps the card to check (the word is the key). */
+   taps the card to check (the word is the key).
+   THE BIG REVEAL (Elena's ask 31.10, the projector): the child at the
+   board covers the cards, so EVERY flip opens the face FULL SCREEN —
+   tap anywhere to close. The pair resolves only after the second big
+   look, so the class sees both faces before SAME/DIFFERENT. The secret
+   card opens fullscreen too — 🔑 shows the word (the teacher's key). */
 const SETS=[
   {name:'Animals 🐾', pairs:[['🐱','a cat'],['🐶','a dog'],['🐭','a mouse'],['🐰','a rabbit']]},
   {name:'School ✏️', pairs:[['✏️','a pencil'],['📚','a book'],['🎒','a bag'],['✂️','scissors']]},
@@ -94,7 +114,7 @@ const MODES=[
   {name:'🖼️+🔤 on the card',apart:false},
   {name:'🖼️ ↔ 🔤 apart',apart:true}
 ];
-let curSet=0,curMode=0,mpA=null,mpLock=false,mpFound=0,mpTries=0,mpSecret=null;
+let curSet=0,curMode=0,mpA=null,mpLock=false,mpFound=0,mpTries=0,mpSecret=null,mpPending=null;
 function renderModes(){
   const row=document.getElementById('moderow');if(!row)return;row.innerHTML='';
   MODES.forEach(function(m,i){
@@ -146,13 +166,26 @@ function mpFlip(card){
   card.innerHTML=MODES[curMode].apart
     ?(card.dataset.n?'<span class="mp-word">'+card.dataset.n+'</span>':'<span class="mp-back">'+card.dataset.w+'</span>')
     :card.dataset.w+'<span class="mp-word">'+card.dataset.n+'</span>';
-  const s=document.getElementById('mpstatus');
-  if(!mpA){mpA=card;return;}
+  if(!mpA){
+    mpA=card;
+    mpShowFs(card);
+    return;
+  }
+  mpLock=true;
+  mpPending={first:mpA,second:card};
+  mpA=null;
+  mpShowFs(card);
+}
+function mpResolve(){
+  const first=mpPending.first,card=mpPending.second;
+  mpPending=null;
   mpTries++;
-  if(mpA.dataset.w===card.dataset.w){
-    mpA.classList.remove('up');mpA.classList.add('ok');
+  const s=document.getElementById('mpstatus');
+  if(first.dataset.w===card.dataset.w){
+    mpLock=false;
+    first.classList.remove('up');first.classList.add('ok');
     card.classList.remove('up');card.classList.add('ok');
-    mpFound++;mpA=null;
+    mpFound++;
     if(mpFound===4){
       mpSecret=SETS[curSet].pairs[Math.floor(Math.random()*SETS[curSet].pairs.length)];
       if(s)s.textContent='SAME! 🙂 4 / 4 — '+mpTries+' tries! You solved the puzzle! 🎉';
@@ -164,7 +197,7 @@ function mpFlip(card){
       if(sec){
         sec.style.display='';
         const sc=document.getElementById('secretcard');
-        if(sc){sc.classList.remove('open');sc.innerHTML='<span class="sec-pic">'+mpSecret[0]+'</span>';}
+        if(sc)sc.innerHTML='<span class="sec-pic">'+mpSecret[0]+'</span>';
         setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'center'});},550);
       }
       const ag=document.getElementById('mpagain');if(ag)ag.style.display='';
@@ -172,7 +205,6 @@ function mpFlip(card){
       if(s)s.textContent='SAME! 🙂 '+mpFound+' / 4';
     }
   }else{
-    mpLock=true;const first=mpA;mpA=null;
     if(s)s.textContent='DIFFERENT! 🙃 — look and remember!';
     setTimeout(function(){
       first.classList.remove('up');first.innerHTML='<span class="mp-back">❓</span>';
@@ -181,11 +213,41 @@ function mpFlip(card){
     },950);
   }
 }
+function mpShowFs(card){
+  const box=document.getElementById('fsbox'),face=document.getElementById('fsface'),key=document.getElementById('fskey');
+  if(!box||!face)return;
+  if(key)key.style.display='none';
+  face.innerHTML=MODES[curMode].apart
+    ?(card.dataset.n
+       ?'<span class="fs-word">'+card.dataset.n+'</span>'
+       :'<span class="fs-pic">'+card.dataset.w+'</span>')
+    :'<span class="fs-pic duo">'+card.dataset.w+'</span><span class="fs-word">'+card.dataset.n+'</span>';
+  box.style.display='';
+}
+function mpShowSecretFs(){
+  const box=document.getElementById('fsbox'),face=document.getElementById('fsface'),key=document.getElementById('fskey');
+  if(!box||!face||!mpSecret)return;
+  face.innerHTML='<span class="fs-pic">'+mpSecret[0]+'</span><span class="fs-word" id="fssecretword" style="display:none">'+mpSecret[1]+'</span>';
+  if(key){key.style.display='';key.textContent='🔑 show the word';}
+  box.style.display='';
+}
+function mpCloseFs(){
+  const box=document.getElementById('fsbox');
+  if(box)box.style.display='none';
+  if(mpPending)mpResolve();
+}
 const secretCard=document.getElementById('secretcard');
-if(secretCard)secretCard.onclick=function(){
-  if(!mpSecret)return;
-  const open=this.classList.toggle('open');
-  this.innerHTML='<span class="sec-pic">'+mpSecret[0]+'</span>'+(open?'<span class="sec-word">'+mpSecret[1]+'</span>':'');
+if(secretCard)secretCard.onclick=mpShowSecretFs;
+const fsbox=document.getElementById('fsbox');
+if(fsbox)fsbox.onclick=mpCloseFs;
+const fskey=document.getElementById('fskey');
+if(fskey)fskey.onclick=function(e){
+  e.stopPropagation();
+  const w=document.getElementById('fssecretword');
+  if(!w)return;
+  const show=w.style.display==='none';
+  w.style.display=show?'':'none';
+  this.textContent=show?'🙈 hide the word':'🔑 show the word';
 };
 renderSets();
 renderModes();
