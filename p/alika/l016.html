@@ -310,7 +310,7 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
 <body>
 
 <div id="progress-track"><div id="progress-fill"></div></div>
-<div id="stamp">build 31.10 · v3</div>
+<div id="stamp">build 01.11 · v4</div>
 
 <main id="deck">
 
@@ -444,15 +444,15 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
   <!-- SLIDE 6 · PRACTICE: COMPLETE THE SENTENCES -->
   <section class="slide" id="s6">
 <div class="eyebrow reveal">The detective game 🕵️</div>
-    <h1 class="title reveal">Right sentence — or nonsense?</h1>
+    <h1 class="title reveal">Right or wrong? 🕵️</h1>
     <div class="accent-line reveal"></div>
     <div class="judges reveal" style="flex:1;align-content:center">
-      <div class="model-line judge" data-a="no" data-q="This is my sister. His name is Kate."><span class="badge">?</span><b class="key">This is</b> my sister. <b class="key">His</b> name is Kate. 👧<span class="ans-btns"><button class="ans" data-v="ok">🙂 right</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix">Sister is a girl — HER name is Kate!</span></div>
-      <div class="model-line judge" data-a="ok" data-q="I've got two cousins."><span class="badge">?</span><b class="key">I've got</b> two cousins. 🧒🧒<span class="ans-btns"><button class="ans" data-v="ok">🙂 right</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix"></span></div>
-      <div class="model-line judge" data-a="no" data-q="Jen and Alex is at home."><span class="badge">?</span><b class="key">Jen and Alex is</b> at home. 🏠<span class="ans-btns"><button class="ans" data-v="ok">🙂 right</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix">Two people = THEY → Jen and Alex ARE at home!</span></div>
-      <div class="model-line judge" data-a="no" data-q="My granny have got a dog."><span class="badge">?</span><b class="key">My granny have got</b> a dog. 👵🐶<span class="ans-btns"><button class="ans" data-v="ok">🙂 right</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix">Granny = she → HAS got! My granny HAS got a dog.</span></div>
-      <div class="model-line judge" data-a="ok" data-q="My dad's brother is my uncle."><span class="badge">?</span><b class="key">My dad's brother</b> is my <b class="key">uncle</b>. 🧔<span class="ans-btns"><button class="ans" data-v="ok">🙂 right</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix"></span></div>
-      <div class="model-line judge" data-a="ok" data-q="We have got a big family."><span class="badge">?</span><b class="key">We have got</b> a big family. 👨‍👩‍👧<span class="ans-btns"><button class="ans" data-v="ok">🙂 right</button><button class="ans" data-v="no">🤪 nonsense</button></span><span class="fix"></span></div>
+      <div class="model-line judge" data-a="no" data-q="This is my sister. His name is Kate."><span class="badge">?</span><b class="key">This is</b> my sister. <b class="key">His</b> name is Kate. 👧<span class="ans-btns"><button class="ans" data-v="ok">🙂 right</button><button class="ans" data-v="no">🤪 wrong</button></span><span class="fix">Sister is a girl — HER name is Kate!</span></div>
+      <div class="model-line judge" data-a="ok" data-q="I've got two cousins."><span class="badge">?</span><b class="key">I've got</b> two cousins. 🧒🧒<span class="ans-btns"><button class="ans" data-v="ok">🙂 right</button><button class="ans" data-v="no">🤪 wrong</button></span><span class="fix"></span></div>
+      <div class="model-line judge" data-a="no" data-q="Jen and Alex is at home."><span class="badge">?</span><b class="key">Jen and Alex is</b> at home. 🏠<span class="ans-btns"><button class="ans" data-v="ok">🙂 right</button><button class="ans" data-v="no">🤪 wrong</button></span><span class="fix">Two people = THEY → Jen and Alex ARE at home!</span></div>
+      <div class="model-line judge" data-a="no" data-q="My granny have got a dog."><span class="badge">?</span><b class="key">My granny have got</b> a dog. 👵🐶<span class="ans-btns"><button class="ans" data-v="ok">🙂 right</button><button class="ans" data-v="no">🤪 wrong</button></span><span class="fix">Granny = she → HAS got! My granny HAS got a dog.</span></div>
+      <div class="model-line judge" data-a="ok" data-q="My dad's brother is my uncle."><span class="badge">?</span><b class="key">My dad's brother</b> is my <b class="key">uncle</b>. 🧔<span class="ans-btns"><button class="ans" data-v="ok">🙂 right</button><button class="ans" data-v="no">🤪 wrong</button></span><span class="fix"></span></div>
+      <div class="model-line judge" data-a="ok" data-q="We have got a big family."><span class="badge">?</span><b class="key">We have got</b> a big family. 👨‍👩‍👧<span class="ans-btns"><button class="ans" data-v="ok">🙂 right</button><button class="ans" data-v="no">🤪 wrong</button></span><span class="fix"></span></div>
     </div>
     <p class="task reveal" style="display:block;text-align:center">What do YOU think? Tap 🙂 or 🤪 first — then check! 🕵️</p>
   </section>
@@ -1218,8 +1218,8 @@ p{font-size:clamp(1.1rem,1.8vw,1.5rem);line-height:1.5}
         j.dataset.done='1';
         const truth = j.dataset.a;
         const good = btn.dataset.v===truth;
-        rec('Detective', j.dataset.q, btn.dataset.v==='ok'?'right':'nonsense',
-            truth==='ok'?'right':'nonsense', good);
+        rec('Detective', j.dataset.q, btn.dataset.v==='ok'?'right':'wrong',
+            truth==='ok'?'right':'wrong', good);
         j.classList.remove('shown-ok','shown-no','wrong');
         j.classList.add(truth==='ok' ? 'shown-ok' : 'shown-no');
         if(truth!=='ok') j.classList.add('wrong');
