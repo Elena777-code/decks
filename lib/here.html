@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where is ___? — Here! (the speaking game)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WHERE IS ___? — HERE! — a UNIVERSAL speaking game (lib family,
+   Library/Bank-Pool/Here/ · named by topic, no pupil names).
+   Born 02.11 (Elena's concept): every round asks «Where is ___?»
+   — the child says Here! (or At school / At home) WITH a reason,
+   clicks, and the FULL sentence appears to say aloud.
+   Three rounds: 1 · the room hunt (the five place-prepositions
+   from the place-prepositions lib deck), 2 · the world map (her
+   USA example verbatim), 3 · three places judge (her L16 spec:
+   white chairs → Here! · my bedroom → At home!). The answers
+   SHUFFLE every play — no predictable runs (the no-sequence law).
+   The here-always trap: the deals mix Here / At school / At home,
+   so Here! stays a real decision.
+   Engine: cloned from the reported-passive lib deck (the lib
+   family format, the newest): nav bottom-right + lane, progress
+   bar, click-reveals, ready-chime + #n hash, presenter view
+   (T / 🖥), tap-to-hear (data-say), hotkey guard. No pupil pills
+   — the lib family shape. Teacher notes ride data-notes on EVERY
+   slide (the master only; the published lib copy strips them).
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --mint-deep:#2E8B64; --ink:#22303F; --ink-soft:#5D6B7A;
+  --blue:#2E6FB7; --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.1rem);color:#fff}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cheese)}
+#nav button:disabled{opacity:.3;cursor:default}
+.slide{position:absolute;inset:0;padding:5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.2vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide>*{flex-shrink:0}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin-bottom:.3em;
+  font-size:clamp(1.9rem,4.2vw,3.6rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp))}
+.center{text-align:center}
+.mt{margin-top:.65em}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink);background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem);align-self:flex-start}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.92rem,1.35vw,1.12rem);color:var(--ink-soft);font-style:italic}
+.stamp-line{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink-soft);
+  font-size:clamp(.78rem,1.1vw,.95rem);letter-spacing:.06em;margin-top:auto;opacity:.8}
+
+/* the speaking words: anything with data-say is a tap-to-hear target */
+.said{animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+[data-say]{cursor:pointer}
+@keyframes pop{from{transform:scale(.55)}to{transform:scale(1)}}
+
+/* ============ the three place chips (Elena's set) ============ */
+.pchips{display:flex;gap:.7em;flex-wrap:wrap}
+.pchip{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.15rem,2.2vw,1.6rem);
+  border:none;border-radius:18px;padding:.4em .9em;cursor:pointer;
+  box-shadow:0 6px 16px rgba(34,48,63,.1);transition:transform .12s ease;text-align:left}
+.pchip:hover{transform:translateY(-4px)}
+.pchip .sub{display:block;font-family:'Nunito',sans-serif;font-weight:600;font-size:.58em;color:var(--ink-soft)}
+.pchip.here{background:#EAF6EE;color:var(--mint-deep)}
+.pchip.school{background:#E8F1FA;color:var(--navy-deep)}
+.pchip.home{background:var(--cheese-soft);color:#7a5c00}
+
+/* ============ how-to steps ============ */
+.steps{display:flex;flex-direction:column;gap:.45em;max-width:760px}
+.steps .st{display:flex;gap:.7em;align-items:baseline;font-size:clamp(1.15rem,2vw,1.55rem);font-weight:600}
+.steps .st b{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy)}
+.steps .n{font-family:'Fredoka',sans-serif;font-weight:700;color:#fff;background:var(--navy);
+  border-radius:50%;width:1.5em;height:1.5em;display:inline-flex;align-items:center;justify-content:center;
+  font-size:.85em;flex-shrink:0;align-self:center}
+.steps .here-w{color:var(--mint-deep);font-weight:800}
+
+/* ============ game slides (rounds 1–3) ============ */
+.gtop{display:flex;align-items:center;gap:.9em;flex-wrap:wrap}
+.gtitle{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy-deep);
+  font-size:clamp(1.35rem,2.7vw,2.15rem);line-height:1.1}
+.gcnt{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.8vw,1.35rem);
+  background:var(--cheese-soft);color:#7a5c00;border-radius:99px;padding:.22em .85em}
+.again{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.6vw,1.2rem);
+  border:none;border-radius:99px;padding:.35em 1.1em;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:var(--shadow);
+  transition:transform .15s ease}
+.again:hover{transform:scale(1.05)}
+.gwrap{display:flex;gap:1.4em;flex-wrap:wrap;align-items:flex-start}
+.scenebox{flex:1 1 500px;min-width:290px;max-width:660px}
+.scenebox svg{width:100%;height:auto;display:block;border-radius:16px;box-shadow:var(--shadow);background:#fff}
+.mapbox{flex:1 1 500px;min-width:290px;max-width:660px}
+.mapbox svg{width:100%;height:auto;display:block;border-radius:16px;box-shadow:var(--shadow)}
+.sidecol{flex:1 1 280px;min-width:250px;max-width:420px;display:flex;flex-direction:column;gap:1em}
+.jcol{width:100%;max-width:860px;display:flex;flex-direction:column;gap:1.1em}
+.qline{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.35rem,2.8vw,2.1rem);
+  color:var(--navy-deep);line-height:1.2}
+.prompt{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.3rem);
+  background:var(--cheese-soft);border-radius:14px;padding:.45em .9em;display:inline-block;align-self:flex-start}
+.saybox{display:none;align-items:flex-start;gap:.6em;flex-wrap:wrap;background:#fff;
+  border:3px dashed var(--mint);border-radius:16px;padding:.7em .95em;
+  font-size:clamp(1.15rem,2.2vw,1.6rem);font-weight:700;color:var(--ink);line-height:1.35}
+.saybox.on{display:flex;animation:rise .35s both}
+.saybox .phr{color:var(--navy-deep);background:var(--cheese-soft);border-bottom:5px solid var(--cheese);
+  padding:0 .18em;border-radius:8px}
+.hear{border:none;background:var(--navy);color:#fff;border-radius:99px;cursor:pointer;
+  font-size:.9em;padding:.2em .7em;font-family:'Nunito',sans-serif}
+.nextpill{display:none;font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.25rem);
+  border:none;border-radius:99px;padding:.4em 1.2em;cursor:pointer;align-self:flex-end;
+  color:#fff;background:var(--navy);box-shadow:var(--shadow);transition:transform .12s ease}
+.nextpill:hover{transform:scale(1.06)}
+.nextpill.on{display:inline-block;animation:pop .35s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+
+/* room hunt */
+.hot{fill:transparent;cursor:pointer}
+.hot.found{pointer-events:none}
+.hot.nope{animation:shake .4s}
+.ring{fill:none;stroke:var(--mint-deep);stroke-width:6;opacity:0;
+  transform-box:fill-box;transform-origin:center}
+.ring.on{animation:ringpulse 1s ease-out both}
+@keyframes ringpulse{0%{transform:scale(.35);opacity:1}100%{transform:scale(1.7);opacity:0}}
+.badge{opacity:0;transform-box:fill-box;transform-origin:center}
+.badge.on{opacity:1;animation:pop .4s cubic-bezier(.34,1.56,.64,1) both}
+
+/* map */
+.cont{fill:#C4E3BD;stroke:#8FB98A;stroke-width:2.5}
+.cn{fill:#C4E3BD;stroke:none;cursor:pointer}
+.cn.found{fill:var(--cheese);stroke:var(--navy);stroke-width:4}
+#mapSvg.nope{animation:shake .35s}
+.mlbl{font-family:'Fredoka',sans-serif;font-weight:700;fill:var(--navy-deep);font-size:25px;
+  opacity:0;paint-order:stroke;stroke:#fff;stroke-width:7;stroke-linejoin:round;pointer-events:none}
+.mlbl.on{opacity:1;animation:rise .45s both}
+
+/* judge */
+.jcard{background:#fff;border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.09);
+  padding:.9em 1.2em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.4rem,3vw,2.2rem);color:var(--ink);line-height:1.3}
+.jchips{display:flex;gap:.8em;flex-wrap:wrap}
+.jchips .pchip{font-size:clamp(1.2rem,2.4vw,1.7rem)}
+.jchips .pchip.right{background:var(--mint);color:#fff;outline:4px solid var(--mint-deep)}
+.jchips .pchip.right .sub{color:#eafbf6}
+.jchips .pchip.wrong{animation:shake .4s;outline:4px solid var(--stamp)}
+.jchips .pchip.reveal{animation:goldpulse 1s ease-in-out infinite;outline:4px solid var(--cheese)}
+@keyframes goldpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+/* the word bonus */
+.bigword{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.05}
+.ipa{font-size:clamp(1.3rem,2.6vw,2rem);color:var(--ink-soft);font-weight:600}
+.pair{display:flex;gap:.7em;align-items:center;flex-wrap:wrap;font-size:clamp(1.2rem,2.3vw,1.75rem);font-weight:700}
+.pair .ok{color:var(--mint-deep)}
+.pair .no{color:var(--stamp)}
+
+@media (max-width:900px){
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+  .sidecol{max-width:100%}
+}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#1E3A66;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1rem,1.6vw,1.3rem)}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:'Fredoka',sans-serif;font-size:.9em;cursor:pointer}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(30,58,102,.85);color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:.8rem;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F5F3EE;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--cheese)}
+body.embed #nav,body.embed #bar{display:none!important}
+</style>
+</head>
+<body>
+
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · TITLE + THE THREE CHIPS + HOW TO PLAY -->
+  <section class="slide">
+    <div class="eyebrow reveal">the speaking game · say Here! with a reason</div>
+    <h1 class="title reveal">Where is ___? — Here! 📍</h1>
+    <div class="accent-line reveal"></div>
+    <div class="pchips reveal mt">
+      <button class="pchip here" data-say="Here!">📍 Here!<span class="sub">in this room</span></button>
+      <button class="pchip school" data-say="At school.">🏫 At school<span class="sub">the school, not this room</span></button>
+      <button class="pchip home" data-say="At home.">🏠 At home<span class="sub">in your home</span></button>
+    </div>
+    <div class="steps reveal mt">
+      <div class="st"><span class="n">1</span><span>🎧 Listen: <b>Where is the pen?</b></span></div>
+      <div class="st"><span class="n">2</span><span>👀 Find it — say: <span class="here-w">Here!</span></span></div>
+      <div class="st"><span class="n">3</span><span>🖱️ Click it — say the sentence: <b>The pen is under the table!</b></span></div>
+    </div>
+    <p class="task reveal mt">Three games inside: the room 🛏️ · the map 🗺️ · three places 🧑‍⚖️</p>
+    <div class="stamp-line reveal">here · build 02.11 · v1 · speaks</div>
+  </section>
+
+  <!-- SLIDE 2 · ROUND 1 · THE ROOM HUNT -->
+  <section class="slide">
+    <div class="eyebrow reveal">round 1 · the room hunt</div>
+    <div class="gtop reveal">
+      <div class="gtitle">Find it in the room! 🛏️</div>
+      <span class="gcnt" id="roomCnt">1 / 5</span>
+      <button class="again" onclick="roomDeal()">↺ play again</button>
+    </div>
+    <div class="gwrap reveal">
+      <div class="scenebox">
+        <svg id="roomScene" viewBox="0 0 900 560" aria-label="a room with hidden objects">
+          <!-- wall + floor -->
+          <rect x="0" y="0" width="900" height="420" fill="#FFF6E7"/>
+          <rect x="0" y="420" width="900" height="140" fill="#F2E3CB"/>
+          <line x1="0" y1="465" x2="900" y2="465" stroke="#E7D2AF" stroke-width="3"/>
+          <line x1="0" y1="510" x2="900" y2="510" stroke="#E7D2AF" stroke-width="3"/>
+          <rect x="0" y="412" width="900" height="10" fill="#E7D2AF"/>
+          <!-- rug -->
+          <ellipse cx="170" cy="470" rx="130" ry="30" fill="#EAF6EE" stroke="#5FBFA0" stroke-width="4"/>
+          <!-- window -->
+          <rect x="52" y="52" width="170" height="150" rx="10" fill="#AEE0FF" stroke="#2C4E80" stroke-width="6"/>
+          <line x1="137" y1="52" x2="137" y2="202" stroke="#2C4E80" stroke-width="5"/>
+          <line x1="52" y1="127" x2="222" y2="127" stroke="#2C4E80" stroke-width="5"/>
+          <circle cx="95" cy="95" r="16" fill="#FFC53D"/>
+          <ellipse cx="180" cy="165" rx="26" ry="10" fill="#fff"/>
+          <ellipse cx="160" cy="172" rx="18" ry="8" fill="#fff"/>
+          <!-- board -->
+          <rect x="300" y="62" width="230" height="130" rx="10" fill="#2C4E80" stroke="#8B6B43" stroke-width="10"/>
+          <path d="M330,100 q30,-14 60,0 t60,0" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+          <path d="M330,130 q40,12 80,0 t50,8" fill="none" stroke="#5FBFA0" stroke-width="4" stroke-linecap="round"/>
+          <rect x="330" y="158" width="90" height="8" rx="4" fill="#FFC53D" opacity=".85"/>
+          <rect x="315" y="192" width="200" height="10" rx="4" fill="#C9A26B"/>
+          <!-- ruler next to the board (leaning on the wall) -->
+          <g transform="rotate(7 566 420)">
+            <rect x="560" y="208" width="14" height="212" rx="4" fill="#FFC53D" stroke="#2C4E80" stroke-width="4"/>
+            <line x1="560" y1="235" x2="568" y2="235" stroke="#2C4E80" stroke-width="3"/>
+            <line x1="560" y1="260" x2="566" y2="260" stroke="#2C4E80" stroke-width="3"/>
+            <line x1="560" y1="285" x2="568" y2="285" stroke="#2C4E80" stroke-width="3"/>
+            <line x1="560" y1="310" x2="566" y2="310" stroke="#2C4E80" stroke-width="3"/>
+            <line x1="560" y1="335" x2="568" y2="335" stroke="#2C4E80" stroke-width="3"/>
+            <line x1="560" y1="360" x2="566" y2="360" stroke="#2C4E80" stroke-width="3"/>
+            <line x1="560" y1="385" x2="568" y2="385" stroke="#2C4E80" stroke-width="3"/>
+          </g>
+          <!-- door (ajar, dark gap on the left) -->
+          <rect x="706" y="46" width="128" height="384" rx="6" fill="#C9A26B"/>
+          <rect x="710" y="52" width="30" height="372" fill="#6b4d2a"/>
+          <!-- ball behind the door (peeks from the gap) -->
+          <circle cx="727" cy="396" r="24" fill="#E4572E" stroke="#2C4E80" stroke-width="5"/>
+          <!-- door panel covers the right half of the ball -->
+          <rect x="740" y="52" width="88" height="372" rx="4" fill="#F7EBD3" stroke="#2C4E80" stroke-width="5"/>
+          <circle cx="752" cy="250" r="6" fill="#2C4E80"/>
+          <rect x="758" y="90" width="52" height="110" rx="6" fill="none" stroke="#C9A26B" stroke-width="4"/>
+          <!-- table -->
+          <rect x="256" y="326" width="14" height="100" rx="4" fill="#A87F4F" stroke="#2C4E80" stroke-width="4"/>
+          <rect x="430" y="326" width="14" height="100" rx="4" fill="#A87F4F" stroke="#2C4E80" stroke-width="4"/>
+          <!-- pen under the table -->
+          <rect x="318" y="396" width="46" height="11" rx="5.5" fill="#2E6FB7" stroke="#2C4E80" stroke-width="3"/>
+          <polygon points="364,396 380,401.5 364,407" fill="#F6C945" stroke="#2C4E80" stroke-width="3"/>
+          <rect x="240" y="306" width="220" height="18" rx="8" fill="#C9A26B" stroke="#2C4E80" stroke-width="5"/>
+          <!-- chair -->
+          <rect x="500" y="346" width="10" height="80" rx="3" fill="#2E8B64" stroke="#2C4E80" stroke-width="3"/>
+          <rect x="560" y="346" width="10" height="80" rx="3" fill="#2E8B64" stroke="#2C4E80" stroke-width="3"/>
+          <!-- book on the chair (stacked, under the seat top edge) -->
+          <rect x="506" y="318" width="58" height="12" rx="3" fill="#E4572E" stroke="#2C4E80" stroke-width="3"/>
+          <rect x="511" y="306" width="48" height="12" rx="3" fill="#FFC53D" stroke="#2C4E80" stroke-width="3"/>
+          <rect x="492" y="330" width="86" height="16" rx="6" fill="#5FBFA0" stroke="#2C4E80" stroke-width="5"/>
+          <rect x="562" y="238" width="14" height="108" rx="6" fill="#5FBFA0" stroke="#2C4E80" stroke-width="5"/>
+          <!-- bag with the apple peeking out -->
+          <circle cx="122" cy="330" r="17" fill="#E4572E" stroke="#2C4E80" stroke-width="4"/>
+          <rect x="118" y="306" width="4" height="10" rx="2" fill="#7A5A33"/>
+          <ellipse cx="131" cy="310" rx="9" ry="5" fill="#5FBFA0" transform="rotate(-24 131 310)"/>
+          <rect x="70" y="336" width="104" height="92" rx="14" fill="#B39DFF" stroke="#2C4E80" stroke-width="5"/>
+          <rect x="58" y="318" width="62" height="16" rx="8" fill="#9a7fff" stroke="#2C4E80" stroke-width="4" transform="rotate(-16 88 326)"/>
+          <!-- pulse rings -->
+          <circle id="ring-pen" class="ring" cx="348" cy="402" r="34"/>
+          <circle id="ring-book" class="ring" cx="534" cy="312" r="40"/>
+          <circle id="ring-apple" class="ring" cx="122" cy="330" r="34"/>
+          <circle id="ring-ball" class="ring" cx="727" cy="396" r="34"/>
+          <circle id="ring-ruler" class="ring" cx="578" cy="300" r="40"/>
+          <!-- found badges -->
+          <g id="badge-pen" class="badge"><circle cx="348" cy="360" r="15" fill="#2E8B64"/><path d="M341,360 l5,5 l9,-10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+          <g id="badge-book" class="badge"><circle cx="534" cy="272" r="15" fill="#2E8B64"/><path d="M527,272 l5,5 l9,-10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+          <g id="badge-apple" class="badge"><circle cx="122" cy="292" r="15" fill="#2E8B64"/><path d="M115,292 l5,5 l9,-10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+          <g id="badge-ball" class="badge"><circle cx="716" cy="348" r="15" fill="#2E8B64"/><path d="M709,348 l5,5 l9,-10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+          <g id="badge-ruler" class="badge"><circle cx="600" cy="230" r="15" fill="#2E8B64"/><path d="M593,230 l5,5 l9,-10" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g>
+          <!-- hotspots (invisible, generous) -->
+          <rect class="hot" data-item="pen" x="295" y="382" width="105" height="38"/>
+          <rect class="hot" data-item="book" x="494" y="290" width="84" height="50"/>
+          <rect class="hot" data-item="apple" x="92" y="302" width="66" height="52"/>
+          <rect class="hot" data-item="ball" x="698" y="360" width="62" height="60"/>
+          <rect class="hot" data-item="ruler" x="545" y="200" width="70" height="225"/>
+        </svg>
+      </div>
+      <div class="sidecol">
+        <div class="qline" id="roomQ">🖊️ Where is the pen?</div>
+        <div class="prompt" id="roomPrompt">Find it → say <b>Here!</b> → click it! 👇</div>
+        <div class="saybox" id="roomSay"></div>
+        <button class="nextpill" id="roomNext" onclick="roomShow()">next ➜</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3 · ROUND 2 · THE MAP -->
+  <section class="slide">
+    <div class="eyebrow reveal">round 2 · the world map</div>
+    <div class="gtop reveal">
+      <div class="gtitle">Find the country! 🗺️</div>
+      <span class="gcnt" id="mapCnt">1 / 6</span>
+      <button class="again" onclick="mapDeal()">↺ play again</button>
+    </div>
+    <div class="gwrap reveal">
+      <div class="mapbox">
+        <svg id="mapSvg" viewBox="0 0 1000 520" aria-label="a simple world map">
+          <rect x="0" y="0" width="1000" height="520" rx="18" fill="#CFE9FA"/>
+          <!-- continents -->
+          <path class="cont" d="M56,110 C90,62 180,44 260,60 C310,72 330,100 318,136 C310,158 296,168 286,178 C296,190 288,204 276,210 C268,222 262,236 250,248 C240,262 226,262 222,276 C216,292 204,306 194,298 C188,288 194,274 190,262 C170,262 148,250 140,232 C112,234 88,216 78,192 C62,170 50,140 56,110 Z"/>
+          <path class="cont" d="M338,42 q44,-16 70,6 q10,26 -14,40 q-44,12 -60,-12 q-8,-22 4,-34 Z"/>
+          <path class="cont" d="M240,312 C268,296 306,300 324,320 C342,342 346,374 334,406 C324,440 308,470 290,484 C276,494 262,484 264,466 C252,448 248,420 254,392 C246,368 236,338 240,312 Z"/>
+          <path class="cont" d="M470,192 C500,170 548,168 578,186 C598,198 602,222 594,246 C588,270 576,290 568,312 C560,338 548,364 530,380 C512,394 492,388 482,368 C472,346 464,316 462,288 C454,260 456,216 470,192 Z"/>
+          <ellipse class="cont" cx="612" cy="368" rx="12" ry="24"/>
+          <path class="cont" d="M470,140 C482,116 510,102 540,106 C562,110 572,124 566,140 C558,156 538,164 520,170 C500,178 478,174 466,160 Z"/>
+          <path class="cont" d="M560,140 C600,94 680,70 770,68 C862,68 942,92 948,122 C954,148 922,160 892,162 C872,174 852,188 838,204 C822,222 802,230 782,224 C762,234 738,232 724,218 C702,210 682,198 670,182 C642,180 612,172 594,160 C580,154 566,150 560,140 Z"/>
+          <path class="cont" d="M688,222 C700,242 708,266 702,288 C696,302 682,302 676,288 C668,264 670,240 678,224 Z"/>
+          <path class="cont" d="M790,300 C806,296 820,304 818,318 C816,330 802,336 790,330 C780,324 780,306 790,300 Z"/>
+          <!-- countries (invisible on the land until found) -->
+          <path id="c-usa" class="cn" d="M95,150 L285,142 C298,146 300,158 292,166 L240,172 C232,190 216,196 208,208 L200,224 C196,232 188,232 184,224 L178,206 C150,204 128,196 112,184 C100,176 92,162 95,150 Z"/>
+          <path id="c-russia" class="cn" d="M470,84 C560,56 700,48 820,60 C900,70 936,84 930,104 C920,122 870,124 820,122 C760,128 700,126 650,120 C600,124 560,118 520,112 C490,108 468,98 470,84 Z"/>
+          <path id="c-china" class="cn" d="M700,150 C740,138 790,140 820,152 C840,164 838,182 820,192 C800,204 770,208 745,202 C725,198 705,188 700,172 Z"/>
+          <path id="c-brazil" class="cn" d="M282,368 C310,352 348,354 368,372 C382,392 380,416 364,432 C348,450 322,456 302,446 C284,436 274,416 276,396 C276,384 278,374 282,368 Z"/>
+          <path id="c-egypt" class="cn" d="M520,208 L568,204 C574,214 572,228 566,238 L522,242 C516,232 516,218 520,208 Z"/>
+          <path id="c-australia" class="cn" d="M800,382 C828,362 872,362 898,382 C912,398 908,420 890,432 C864,446 828,444 808,428 C794,414 792,396 800,382 Z"/>
+          <!-- labels -->
+          <text id="l-usa" class="mlbl" x="150" y="132">the USA</text>
+          <text id="l-russia" class="mlbl" x="620" y="80">Russia</text>
+          <text id="l-china" class="mlbl" x="722" y="180">China</text>
+          <text id="l-brazil" class="mlbl" x="300" y="408">Brazil</text>
+          <text id="l-egypt" class="mlbl" x="440" y="252">Egypt</text>
+          <text id="l-australia" class="mlbl" x="812" y="470">Australia</text>
+          <text x="40" y="46" class="mlbl on" style="font-size:22px;opacity:.75">N ⬆</text>
+        </svg>
+      </div>
+      <div class="sidecol">
+        <div class="qline" id="mapQ">🗺️ Where is the USA?</div>
+        <div class="prompt" id="mapPrompt">Find the country on the map → say <b>Here!</b> → click! 👇</div>
+        <div class="saybox" id="mapSay"></div>
+        <button class="nextpill" id="mapNext" onclick="mapShow()">next ➜</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 · ROUND 3 · THREE PLACES JUDGE -->
+  <section class="slide">
+    <div class="eyebrow reveal">round 3 · three places judge</div>
+    <div class="gtop reveal">
+      <div class="gtitle">Here, at school or at home? 🧑‍⚖️</div>
+      <span class="gcnt" id="jCnt">1 / 11</span>
+      <button class="again" onclick="judgeDeal()">↺ play again</button>
+    </div>
+    <div class="jcol reveal">
+      <div class="jcard" id="jQ">There are a lot of white chairs.</div>
+      <div class="jchips" id="jChips">
+        <button class="pchip here" data-chip="here">📍 Here!</button>
+        <button class="pchip school" data-chip="school">🏫 At school</button>
+        <button class="pchip home" data-chip="home">🏠 At home</button>
+      </div>
+      <div class="prompt">Click the chip — then <b>SAY the sentence!</b> 🗣️</div>
+      <div class="saybox" id="jSay"></div>
+      <button class="nextpill" id="jNext" onclick="judgeNext()">next ➜</button>
+    </div>
+  </section>
+
+  <!-- SLIDE 5 · WORD BONUS · here /hɪə/ + GOODBYE -->
+  <section class="slide">
+    <div class="eyebrow reveal">word bonus · say it beautifully</div>
+    <h1 class="title reveal" data-say="Here.">here · /hɪə/ 🔊</h1>
+    <div class="accent-line reveal"></div>
+    <div class="pair reveal mt" data-say="Here. Hear. Here and hear sound the same!"><span class="ok">✅</span><span>hear = here — same sound!</span></div>
+    <div class="pair reveal" data-say="Hair. Here. Hair. Here and hair sound different!"><span class="no">❌</span><span>hair ≠ here — different!</span></div>
+    <p class="task reveal mt">Tap the lines to hear them. Now the last one…</p>
+    <div class="qline reveal" data-say="Where are the players? Here! Great game!" style="font-size:clamp(1.5rem,3.2vw,2.4rem)">Where are the players? — <span style="color:var(--mint-deep)">HERE!</span> 🎉</div>
+    <div class="stamp-line reveal">great game — play again any lesson · here · build 02.11 · v1</div>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 5</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- presenter view shell (T / 🖥) -->
+<div id="pv">
+  <div class="head">
+    <b>Where is ___? — Here! — presenter</b>
+    <button id="pv-close">✕ close (T)</button>
+    <span class="cnt" id="pv-cnt">1 / 5</span>
+  </div>
+  <div class="panes">
+    <div class="pane"><span class="lbl">NOW — what they see</span><iframe id="pv-cur"></iframe></div>
+    <div class="pane"><span class="lbl">NEXT</span><iframe id="pv-next"></iframe></div>
+  </div>
+  <div class="notes" id="pv-notes">—</div>
+</div>
+
+<script>
+/* ============ the speaking words (TTS — the approved voice, ported from the lib family) ============ */
+let ttsVoice=null;
+function pickTTSVoice(){
+  if(!('speechSynthesis' in window))return;
+  const vs=speechSynthesis.getVoices();
+  ttsVoice=vs.find(v=>/en[-_]US/i.test(v.lang)&&/Samantha|Ava|Allison|Aria|Zira/i.test(v.name))
+      ||vs.find(v=>/^en/i.test(v.lang))||null;
+}
+if('speechSynthesis' in window){pickTTSVoice();speechSynthesis.onvoiceschanged=pickTTSVoice}
+function sayText(t){
+  if(!('speechSynthesis' in window)||!t)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t);
+  if(ttsVoice)u.voice=ttsVoice;
+  u.lang='en-US';u.rate=.8;u.pitch=1.05;
+  speechSynthesis.speak(u);
+}
+function ring(el){if(!el)return;el.classList.remove('said');void el.offsetWidth;el.classList.add('said')}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-say]');
+  if(t){ring(t);sayText(t.dataset.say);return}
+});
+
+/* ============ core deck engine (spec §4–§7, the lib family) ============ */
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.querySelector('#bar i'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+
+const CH='here';
+const bc=('BroadcastChannel'in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get('embed')?'embed':(qs.get('presenter')?'presenter':'main');
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==='hello'&&MODE==='main'){post({t:'state',i});return}
+  if(m.t==='state'){if(MODE==='embed'){showEmbed(m.i)}if(MODE==='presenter')pvShow(m.i);return}
+  if(m.t==='go'){if(MODE==='embed')showEmbed(m.i);else{go(m.i,true)}}
+};
+
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(!silent)post({t:'go',i});
+  if(MODE==='presenter')pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(MODE==='embed')return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'||e.key==='а')document.getElementById('fs').click();
+  if(e.key==='t'||e.key==='T'||e.key==='е')togglePresenter();
+});
+let wt=0;document.addEventListener('wheel',e=>{if(MODE!=='main')return;const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(MODE!=='main')return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ presenter view (spec §7) ============ */
+const pv=document.getElementById('pv');
+function togglePresenter(){
+  if(MODE==='embed')return;
+  if(MODE==='presenter'){window.close();return}
+  window.open(location.pathname+'?presenter=1','here-pv','width=1180,height=820');
+}
+document.getElementById('pvt').onclick=togglePresenter;
+document.getElementById('pv-close').onclick=()=>window.close();
+const pvCur=document.getElementById('pv-cur'),pvNext=document.getElementById('pv-next'),
+pvNotes=document.getElementById('pv-notes'),pvCnt=document.getElementById('pv-cnt');
+if(MODE==='presenter'){
+  document.body.classList.add('presenter');
+  pvCur.src=location.pathname+'?embed=cur';pvNext.src=location.pathname+'?embed=next';
+}
+function pvShow(n){
+  if(MODE!=='presenter')return;
+  pvCnt.textContent=(n+1)+' / '+slides.length;
+  pvNotes.innerHTML='';
+  const note=slides[n].dataset.notes;
+  if(note){const p=document.createElement('p');p.textContent=note;pvNotes.appendChild(p)}
+  const nxt=slides[n+1]&&slides[n+1].dataset.notes;
+  if(nxt){const h=document.createElement('p');h.innerHTML='<b>next →</b> ';h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+let embedSlot=qs.get('embed');
+function showEmbed(n){
+  const target=embedSlot==='next'?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==='next')document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle('active',k===target);s.classList.remove('prev')});
+}
+const h=parseInt(location.hash.slice(1));
+if(MODE==='main'){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true);post({t:'state',i})}
+else post({t:'hello'});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=='main')return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();}catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+
+<script>
+/* ============ HERE! — the game machinery (own script block, the own-block law) ============ */
+const SHUF=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
+function dealNoRuns(pool,keyfn){
+  for(let t=0;t<40;t++){const d=SHUF(pool);let ok=true;
+    for(let n=2;n<d.length;n++){if(keyfn(d[n])===keyfn(d[n-1])&&keyfn(d[n])===keyfn(d[n-2])){ok=false;break}}
+    if(ok)return d}
+  return SHUF(pool);
+}
+function revealSay(boxId,html,speak){
+  const say=document.getElementById(boxId);
+  say.innerHTML='✨ '+html+' <button class="hear" data-say="'+speak+'">🔊</button>';
+  say.classList.add('on');
+  say.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function reflow(el){if(el&&el.getBoundingClientRect)el.getBoundingClientRect()}
+
+/* ---------- round 1 · the room hunt ---------- */
+const ROOM=[
+ {w:'pen',em:'🖊️',key:'pen',phr:'Under the table.',say:'The pen is under the table.'},
+ {w:'book',em:'📖',key:'book',phr:'On the chair.',say:'The book is on the chair.'},
+ {w:'apple',em:'🍎',key:'apple',phr:'In the bag.',say:'The apple is in the bag.'},
+ {w:'ball',em:'⚽',key:'ball',phr:'Behind the door.',say:'The ball is behind the door.'},
+ {w:'ruler',em:'📏',key:'ruler',phr:'Next to the board.',say:'The ruler is next to the board.'}
+];
+let rOrder=[],rIdx=0;
+function roomDeal(){
+  rOrder=SHUF(ROOM);rIdx=0;
+  document.querySelectorAll('#roomScene .hot').forEach(el=>el.classList.remove('found','nope'));
+  document.querySelectorAll('#roomScene .ring').forEach(el=>el.classList.remove('on'));
+  document.querySelectorAll('#roomScene .badge').forEach(el=>el.classList.remove('on'));
+  roomShow();
+}
+function roomShow(){
+  const it=rOrder[rIdx];
+  document.getElementById('roomQ').innerHTML=it.em+' Where is the '+it.w+'?';
+  document.getElementById('roomCnt').textContent=(rIdx+1)+' / '+ROOM.length;
+  document.getElementById('roomSay').classList.remove('on');
+  document.getElementById('roomNext').classList.remove('on');
+  document.getElementById('roomPrompt').style.display='inline-block';
+}
+function roomPick(el){
+  if(el.classList.contains('found'))return;
+  const it=rOrder[rIdx];
+  if(el.dataset.item!==it.key){
+    el.classList.remove('nope');reflow(el);el.classList.add('nope');return;
+  }
+  el.classList.add('found');
+  const ring=document.getElementById('ring-'+it.key);if(ring)ring.classList.add('on');
+  const badge=document.getElementById('badge-'+it.key);if(badge)badge.classList.add('on');
+  rIdx++;
+  revealSay('roomSay','<span class="phr">'+it.phr+'</span> '+it.say,it.phr+' '+it.say);
+  document.getElementById('roomPrompt').style.display='none';
+  if(rIdx<ROOM.length){document.getElementById('roomNext').classList.add('on')}
+  else{
+    document.getElementById('roomQ').textContent='🎉 You found all '+ROOM.length+'!';
+    document.getElementById('roomCnt').textContent='✓ '+ROOM.length+' / '+ROOM.length;
+  }
+}
+document.querySelectorAll('#roomScene .hot').forEach(el=>{el.addEventListener('click',ev=>{ev.stopPropagation();roomPick(el)})});
+
+/* ---------- round 2 · the map ---------- */
+const MAPS=[
+ {w:'the USA',key:'usa',q:'Where is the USA?',phr:'In North America, between Canada and Mexico.',say:'The USA is in North America, between Canada and Mexico.'},
+ {w:'Russia',key:'russia',q:'Where is Russia?',phr:'Between Europe and Asia.',say:'Russia is between Europe and Asia. It is very, very big!'},
+ {w:'China',key:'china',q:'Where is China?',phr:'In Asia.',say:'China is in Asia.'},
+ {w:'Brazil',key:'brazil',q:'Where is Brazil?',phr:'In South America.',say:'Brazil is in South America.'},
+ {w:'Egypt',key:'egypt',q:'Where is Egypt?',phr:'In Africa.',say:'Egypt is in Africa.'},
+ {w:'Australia',key:'australia',q:'Where is Australia?',phr:'In Oceania.',say:'Australia is in Oceania. It is an island!'}
+];
+let mOrder=[],mIdx=0;
+function mapDeal(){
+  mOrder=dealNoRuns(MAPS,it=>it.key);mIdx=0;
+  document.querySelectorAll('#mapSvg .cn').forEach(el=>el.classList.remove('found'));
+  document.querySelectorAll('#mapSvg .mlbl').forEach(el=>{if(el.id.startsWith('l-'))el.classList.remove('on')});
+  mapShow();
+}
+function mapShow(){
+  const it=mOrder[mIdx];
+  document.getElementById('mapQ').textContent='🗺️ '+it.q;
+  document.getElementById('mapCnt').textContent=(mIdx+1)+' / '+MAPS.length;
+  document.getElementById('mapSay').classList.remove('on');
+  document.getElementById('mapNext').classList.remove('on');
+  document.getElementById('mapPrompt').style.display='inline-block';
+}
+function mapPick(el){
+  if(el.classList.contains('found'))return;
+  const it=mOrder[mIdx];
+  if(el.id!=='c-'+it.key){
+    const svg=document.getElementById('mapSvg');
+    svg.classList.remove('nope');reflow(svg);svg.classList.add('nope');return;
+  }
+  el.classList.add('found');
+  const lbl=document.getElementById('l-'+it.key);if(lbl)lbl.classList.add('on');
+  mIdx++;
+  revealSay('mapSay','<span class="phr">'+it.phr+'</span> '+it.say,it.phr+' '+it.say);
+  document.getElementById('mapPrompt').style.display='none';
+  if(mIdx<MAPS.length){document.getElementById('mapNext').classList.add('on')}
+  else{
+    document.getElementById('mapQ').textContent='🎉 You found all '+MAPS.length+' countries!';
+    document.getElementById('mapCnt').textContent='✓ '+MAPS.length+' / '+MAPS.length;
+  }
+}
+document.querySelectorAll('#mapSvg .cn').forEach(el=>{el.addEventListener('click',ev=>{ev.stopPropagation();mapPick(el)})});
+document.getElementById('mapSvg').addEventListener('click',()=>{
+  const svg=document.getElementById('mapSvg');
+  svg.classList.remove('nope');reflow(svg);svg.classList.add('nope');
+});
+
+/* ---------- round 3 · three places judge ---------- */
+const JUDGE=[
+ {q:'There are a lot of white chairs.',key:'here',say:'There are a lot of white chairs here, in this room!'},
+ {q:'There is a big screen.',key:'here',say:'There is a big screen here, in this room!'},
+ {q:'There is a teacher in the room.',key:'here',say:'There is a teacher here, in this room!'},
+ {q:'There is a playground.',key:'school',say:'There is a playground at school.'},
+ {q:'There is a dining room.',key:'school',say:'There is a dining room at school.'},
+ {q:'There is a sports hall.',key:'school',say:'There is a sports hall at school.'},
+ {q:'There are a lot of classrooms.',key:'school',say:'There are a lot of classrooms at school.'},
+ {q:'There is my bedroom.',key:'home',say:'There is my bedroom. My bedroom is at home!'},
+ {q:'There is a shower.',key:'home',say:'There is a shower at home.'},
+ {q:'There is a sofa.',key:'home',say:'There is a sofa at home.'},
+ {q:'There is a bed.',key:'home',say:'There is a bed at home.'}
+];
+const JKEY={here:'📍 Here!',school:'🏫 At school',home:'🏠 At home'};
+let jOrder=[],jIdx=0,jTries=0,jLocked=false;
+function judgeDeal(){
+  jOrder=dealNoRuns(JUDGE,it=>it.key);jIdx=0;
+  judgeShow();
+}
+function judgeShow(){
+  const it=jOrder[jIdx];jTries=0;jLocked=false;
+  document.getElementById('jQ').textContent=it.q;
+  document.getElementById('jCnt').textContent=(jIdx+1)+' / '+JUDGE.length;
+  document.getElementById('jSay').classList.remove('on');
+  document.getElementById('jNext').classList.remove('on');
+  document.querySelectorAll('#jChips .pchip').forEach(b=>b.classList.remove('right','wrong','reveal'));
+}
+function judgeNext(){jIdx++;judgeShow()}
+document.querySelectorAll('#jChips .pchip').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    if(jLocked)return;
+    const it=jOrder[jIdx];
+    if(btn.dataset.chip===it.key){
+      jLocked=true;btn.classList.add('right');
+      revealSay('jSay','<b>'+JKEY[it.key]+'</b> '+it.say,it.say);
+      if(jIdx<jOrder.length-1){document.getElementById('jNext').classList.add('on')}
+      else{
+        document.getElementById('jQ').textContent='🎉 All clear — great thinking!';
+        document.getElementById('jCnt').textContent='✓ '+JUDGE.length+' / '+JUDGE.length;
+      }
+    }else{
+      jTries++;
+      btn.classList.remove('wrong');void btn.offsetWidth;btn.classList.add('wrong');
+      if(jTries>=2){
+        jLocked=true;
+        const right=document.querySelector('#jChips .pchip[data-chip="'+it.key+'"]');
+        right.classList.add('reveal');
+        revealSay('jSay','👀 <b>'+JKEY[it.key]+'</b> '+it.say,it.say);
+        if(jIdx<jOrder.length-1){document.getElementById('jNext').classList.add('on')}
+        else{
+          document.getElementById('jQ').textContent='🎉 All clear — great thinking!';
+          document.getElementById('jCnt').textContent='✓ '+JUDGE.length+' / '+JUDGE.length;
+        }
+      }
+    }
+  });
+});
+
+/* boot the two hunt rounds so a deep link never opens an empty game */
+roomDeal();mapDeal();judgeDeal();
+</script>
+</body>
+</html>
