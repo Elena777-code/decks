@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Readings · Elementary · Chapter 3 · Dream Homes · the universal reading deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+#progress-track{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));transition:width .45s cubic-bezier(.22,1,.36,1)}
+#deck{position:relative;width:100vw;height:100vh;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding:4.2vh 5vw calc(74px + 4.2vh);opacity:0;transform:translateX(60px) scale(.985);transition:opacity .5s ease, transform .55s cubic-bezier(.22,1,.36,1);pointer-events:none;overflow:auto}
+/* THE FLEX-SHRINK ENGINE RULE: nothing ever shrinks — the slide scrolls instead */
+.slide>*{flex-shrink:0}
+.slide.active{opacity:1;transform:none;pointer-events:auto;z-index:2}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.40s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.7rem,1.1vw,.95rem);color:var(--navy);margin-bottom:.4em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.05;margin-bottom:.5em}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:1.1em}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,2vw,1.8rem)}
+.card.sky{background:#E8F1FA}
+.card.cheese{background:var(--cheese-soft)}
+.card.stampc{background:var(--stamp-soft)}
+.sent{font-size:clamp(1.15rem,2vw,1.7rem);line-height:1.6;padding:.5em .2em;border-bottom:2px dotted rgba(169,204,239,.7)}
+.gap{display:inline-block;min-width:3.2em;border-bottom:4px solid var(--sky);text-align:center;font-family:'Fredoka';font-weight:600;color:transparent;cursor:pointer;transition:all .2s ease;padding:0 .15em;border-radius:4px 4px 0 0}
+.gap:hover{background:#E8F1FA}
+.gap.filled{color:var(--navy);border-color:var(--cheese);background:var(--cheese-soft)}
+.yn{display:flex;align-items:center;gap:.6em;cursor:pointer;padding:.5em .9em;border-radius:12px;background:var(--white);box-shadow:0 4px 10px rgba(34,48,63,.06);font-size:clamp(1.05rem,1.8vw,1.45rem)}
+.yn .badge{flex-shrink:0;width:1.7em;height:1.7em;border-radius:50%;display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:.85em;background:#eee;color:transparent;transition:all .2s}
+.yn.shown-yes .badge{background:var(--mint);color:#fff}
+.yn.shown-no .badge{background:var(--stamp);color:#fff}
+/* the t/f key appears ONLY when the badge is revealed (ANSWERS HIDE, ALWAYS) */
+.yn .tfkey{display:none}
+.yn.shown-yes .tfkey,.yn.shown-no .tfkey{display:inline}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.shake{animation:shake .45s ease}
+.gift-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.7rem);padding:.7em 1.8em;border:none;border-radius:99px;cursor:pointer;color:#fff;background:linear-gradient(135deg,var(--stamp),var(--cheese));box-shadow:var(--shadow-lg);transition:transform .15s ease}
+.gift-btn:hover{transform:scale(1.05)}
+.gift-btn:disabled{opacity:.55;cursor:default;transform:none}
+.secret{opacity:0;transform:scale(.94);transition:all .5s ease;pointer-events:none}
+.secret.show{opacity:1;transform:none;pointer-events:auto}
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08);margin-bottom:.7em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;font-family:'Fredoka';font-weight:700;color:#fff}
+.hw-step .en{font-family:'Fredoka';color:var(--navy);font-weight:600}
+#nav{position:fixed;bottom:2.4vh;right:max(10px,1.6vw);z-index:90;display:flex;align-items:center;gap:1em;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);padding:.5em 1em;border-radius:99px;box-shadow:var(--shadow-lg)}
+.nav-btn{width:3em;height:3em;border-radius:50%;border:none;cursor:pointer;background:linear-gradient(135deg,var(--navy),var(--sky));display:grid;place-items:center;color:#fff;font-size:1.2rem;box-shadow:0 6px 16px rgba(44,78,128,.3);transition:transform .15s ease;font-family:'Fredoka'}
+.nav-btn:hover{transform:scale(1.08)}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+#counter{font-family:'Fredoka';font-weight:600;font-size:1.1rem;min-width:3.5em;text-align:center}
+#counter .now{color:var(--navy)}
+#fs-btn{width:2.6em;height:2.6em;border-radius:50%;border:none;cursor:pointer;background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.1);font-size:1rem;transition:transform .15s ease}
+#fs-btn:hover{transform:scale(1.08)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:1em}
+.center{text-align:center}
+.mt{margin-top:1em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka';font-weight:500;color:var(--ink);background:var(--cheese-soft);border-radius:14px;padding:.6em 1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.35rem)}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.9rem,1.3vw,1.1rem);color:var(--ink-soft);font-style:italic}
+.model-line{font-size:clamp(1.15rem,2vw,1.6rem);padding:.55em 1em;border-radius:14px;background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.model-line .key{color:var(--navy);font-weight:800}
+.read-text{font-size:clamp(1.15rem,1.9vw,1.55rem);line-height:1.75}
+.read-text .key{color:var(--navy);font-weight:800}
+.wb-chip{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.4rem);padding:.25em .9em;border-radius:99px;background:var(--cheese-soft);color:var(--navy);margin:.3em .3em 0 0;box-shadow:0 4px 10px rgba(34,48,63,.06)}
+.wb-chip.tick-on{background:var(--mint);color:#fff}
+.wb-chip.tick-on::before{content:"✓ "}
+/* slide 1 · prepare ahead (teacher) */
+#s1 h1.title{margin-bottom:.3em}
+#s1 .accent-line{margin-bottom:.8em}
+#s1 .prep li{padding:.3em .2em;border-bottom:2px dotted rgba(169,204,239,.7);font-size:clamp(.95rem,1.45vw,1.25rem)}
+#s1 .hintline{margin-top:.5em}
+.trk-btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);padding:.45em 1.2em;border:none;border-radius:99px;cursor:pointer;background:var(--navy);color:#fff;box-shadow:0 6px 16px rgba(44,78,128,.25);transition:transform .15s ease}
+.trk-btn:hover{transform:scale(1.05)}
+.trk-btn.playing{background:var(--mint)}
+.tn-btn{font-family:'Fredoka',sans-serif;font-weight:500;font-size:clamp(.8rem,1.25vw,1rem);padding:.35em 1.1em;border:2px dashed rgba(44,78,128,.35);border-radius:99px;background:transparent;color:var(--ink-soft);cursor:pointer}
+.tn-btn:hover{color:var(--navy)}
+.pick{font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.7vw,1.4rem);border:2.5px solid var(--sky);background:var(--white);color:var(--navy);border-radius:99px;padding:.12em .8em;cursor:pointer;transition:all .15s ease;margin:0 .15em}
+.pick:hover{transform:translateY(-2px);border-color:var(--navy)}
+.pick.good{border-color:var(--mint);background:var(--mint);color:#fff;pointer-events:none}
+.pick.bad{border-color:var(--stamp);background:var(--stamp-soft);color:var(--stamp)}
+/* the home grid — tap a card → the word appears */
+.subjgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6em;max-width:1020px;margin:0 auto;width:100%}
+.subj{background:var(--white);border-radius:16px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.6em .45em;cursor:pointer;text-align:center;transition:transform .15s ease}
+.subj:hover{transform:translateY(-3px)}
+.subj .se{font-size:clamp(2.6rem,5vw,4rem);line-height:1.1;display:block}
+.subj .sw{display:none;font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(1rem,1.7vw,1.35rem);padding-top:.3em}
+.subj.on .sw{display:block}
+/* the guess picks — a prediction, no verdict */
+.guess{display:flex;align-items:center;gap:.7em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.55em .9em;margin-bottom:.55em}
+.guess .gs{flex:1;font-size:clamp(1.05rem,1.8vw,1.45rem);line-height:1.45}
+.gpick{font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);border:2.5px solid var(--sky);background:var(--white);color:var(--ink-soft);border-radius:99px;padding:.15em .85em;cursor:pointer;transition:all .15s ease;margin-left:.25em}
+.gpick:hover{transform:translateY(-2px)}
+.gpick.t.sel{background:var(--navy);border-color:var(--navy);color:#fff}
+.gpick.f.sel{background:var(--stamp);border-color:var(--stamp);color:#fff}
+/* the notes chart */
+.chart{max-width:1060px;margin:0 auto;width:100%;border-collapse:collapse;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.chart th{font-family:'Fredoka';font-weight:600;font-size:clamp(.85rem,1.3vw,1.05rem);background:var(--navy);color:#fff;padding:.5em .6em;text-align:left}
+.chart td{font-size:clamp(.9rem,1.45vw,1.2rem);padding:.45em .6em;border-bottom:2px dotted rgba(169,204,239,.7);vertical-align:top;line-height:1.4}
+.chart td.sp{font-family:'Fredoka';font-weight:600;color:var(--navy);white-space:nowrap}
+.chart .gap{min-width:2.4em;font-size:clamp(.9rem,1.45vw,1.2rem)}
+.chart tr.ex td{background:#F0F7EE}
+/* hangman */
+#s7 .accent-line{margin-bottom:.7em}
+#s7 .card.cheese{padding:.5em 1.1em}
+#s7 .wordrow{display:flex;gap:.35em;justify-content:center;margin:.5em 0}
+#s7 .slot{width:1.6em;height:2em;border-bottom:4px solid var(--navy);display:grid;place-items:center;font-family:'Fredoka';font-weight:700;font-size:clamp(1.6rem,3vw,2.6rem);color:var(--navy)}
+#s7 .slot.empty{color:transparent}
+#s7 .keys{display:flex;flex-wrap:wrap;gap:.3em;justify-content:center;max-width:820px;margin:.5em auto 0;width:100%}
+#s7 .key{font-family:'Fredoka';font-weight:600;width:2.1em;height:2.1em;border:none;border-radius:10px;background:var(--white);color:var(--navy);box-shadow:0 4px 10px rgba(34,48,63,.1);cursor:pointer;font-size:clamp(1rem,1.7vw,1.4rem);transition:transform .12s ease}
+#s7 .key:hover{transform:translateY(-3px)}
+#s7 .key.hit{background:var(--mint);color:#fff;pointer-events:none}
+#s7 .key.miss{background:var(--stamp-soft);color:var(--stamp);pointer-events:none}
+#s7 .key:disabled{opacity:.4;cursor:default}
+#s7 .catline{font-family:'Fredoka';font-weight:600;font-size:clamp(1.3rem,2.4vw,1.9rem);text-align:center;letter-spacing:.06em}
+#s7 .factcard{background:var(--stamp-soft);border-radius:16px;padding:.6em 1em;margin:.6em auto 0;max-width:760px;width:100%;box-shadow:var(--shadow)}
+#s7 .factcard b{color:var(--stamp)}
+/* clocks */
+#s8 .clockrow{display:flex;gap:1em;justify-content:center;flex-wrap:wrap}
+#s8 .clockcard{background:var(--white);border-radius:18px;box-shadow:var(--shadow);padding:.6em;cursor:pointer;transition:transform .15s ease,border-color .2s ease;border:4px solid transparent}
+#s8 .clockcard:hover{transform:translateY(-4px)}
+#s8 .clockcard.right{border-color:var(--mint)}
+#s8 .roundlabel{font-family:'Fredoka';font-weight:600;font-size:clamp(1.35rem,2.4vw,2rem);color:var(--navy);text-align:center}
+.hud-chip{font-family:'Fredoka';font-weight:600;color:var(--navy);background:var(--white);border-radius:99px;padding:.3em 1em;box-shadow:0 6px 16px rgba(34,48,63,.08)}
+.reset-btn{font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);padding:.45em 1.2em;border:none;border-radius:99px;cursor:pointer;background:var(--white);color:var(--navy);box-shadow:0 6px 16px rgba(34,48,63,.1);transition:transform .15s ease}
+.reset-btn:hover{transform:scale(1.06)}
+/* mime */
+#mime-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:.45em;max-width:1000px;margin:0 auto;width:100%}
+.mime-row{display:flex;align-items:center;gap:.7em;background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.32em .8em}
+.mime-row .mq{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);font-size:clamp(1.2rem,2vw,1.6rem)}
+.mime-row .mh{margin-left:auto;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);font-style:italic;text-align:right}
+/* silly game + HELP */
+#silly-board{display:flex;gap:.5em;justify-content:center;flex-wrap:wrap}
+#silly-board .wb-chip{cursor:default}
+#qlist{display:none;grid-template-columns:1fr 1fr;gap:.3em 1.4em;max-width:1000px;margin:0 auto;width:100%}
+#qlist.dealt{display:grid}
+.deal-q{font-size:clamp(1.15rem,2vw,1.55rem);line-height:1.5;padding:.18em 0}
+.deal-q::before{content:"🎙 "}
+#help-btn{position:absolute;top:1vh;left:1.2vw;font-family:'Fredoka';font-weight:700;font-size:clamp(1.1rem,2vw,1.6rem);width:1.9em;height:1.9em;border-radius:50%;border:3px solid var(--navy);background:var(--cheese);color:var(--navy);cursor:pointer;box-shadow:var(--shadow);z-index:5}
+#help-card{position:absolute;top:6vh;left:1.2vw;max-width:420px;width:88%;z-index:6;padding:.8em 1em}
+.hl{display:flex;gap:.6em;align-items:baseline;font-size:clamp(.95rem,1.5vw,1.25rem);padding:.12em 0}
+.qw{font-family:'Fredoka';font-weight:700;color:var(--navy);min-width:4.2em}
+@media(max-width:900px){ #qlist{grid-template-columns:1fr} }
+/* the fullscreen text (the standing ⛶ read-big extra) */
+#fsstory{position:fixed;inset:0;z-index:220;background:rgba(34,48,63,.55);display:none;align-items:center;justify-content:center;padding:4vh 4vw;cursor:pointer}
+#fsstory.on{display:flex}
+#fsstory .fs-card{background:var(--white);border-radius:22px;box-shadow:var(--shadow-lg);padding:1.2em 1.6em;max-width:900px;width:100%;max-height:86vh;overflow:auto}
+#fsstory .fs-card h2{margin-bottom:.4em}
+#fsstory .frm{font-size:clamp(1.1rem,1.9vw,1.6rem);line-height:1.65;padding:.4em 0;border-bottom:2px dotted rgba(169,204,239,.7)}
+#fsstory .frm b{color:var(--navy)}
+#fsstory .frm .ff{font-style:italic;color:var(--stamp);font-size:.92em;display:block}
+#fsstory .tag{position:sticky;top:0;float:right;font-size:.85rem;color:var(--ink-soft);font-style:italic}
+/* the audio player bar (pause + scroll the audio) */
+#abar{position:fixed;bottom:2.4vh;left:50%;transform:translateX(-50%) translateY(140%);transition:transform .35s cubic-bezier(.22,1,.36,1);z-index:95;display:flex;align-items:center;gap:.6em;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-radius:99px;box-shadow:var(--shadow-lg);padding:.4em .9em;max-width:min(560px,46vw)}
+#abar.on{transform:translateX(-50%) translateY(0)}
+#abar .ab-name{font-family:'Fredoka';font-weight:600;font-size:clamp(.8rem,1.3vw,1rem);color:var(--navy);white-space:nowrap;max-width:9em;overflow:hidden;text-overflow:ellipsis}
+#ab-toggle{width:2.2em;height:2.2em;border-radius:50%;border:none;cursor:pointer;flex-shrink:0;background:linear-gradient(135deg,var(--navy),var(--sky));color:#fff;font-size:.9rem;display:grid;place-items:center}
+#ab-toggle:hover{transform:scale(1.07)}
+#ab-seek{flex:1;min-width:8em;accent-color:var(--navy);cursor:pointer}
+#abar .ab-time{font-family:'Fredoka';font-weight:600;font-size:clamp(.72rem,1.2vw,.9rem);color:var(--ink-soft);white-space:nowrap}
+/* ===== ✍️ v2 — the notes window, top right + the d: · //: rows + ⌘S ===== */
+#annoBtn{position:fixed;right:max(10px,1.6vw);top:calc(10px + .8vh);z-index:110;
+  border:2px solid rgba(255,255,255,.4);background:rgba(30,58,102,.85);border-radius:99px;font-size:1.25rem;
+  padding:.3em .55em;cursor:pointer;box-shadow:0 3px 10px rgba(30,30,40,.12);transition:transform .12s}
+#annoBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#anno{position:fixed;right:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(430px,92vw);
+  background:var(--white);border:2px solid var(--line,#d8dee6);border-radius:16px;padding:.8em .9em;display:none;
+  flex-direction:column;gap:.5em;box-shadow:0 16px 40px rgba(30,30,40,.22)}
+#anno.on{display:flex;animation:rise .25s both}
+#anno .a-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft)}
+#anno .a-sp{flex:1}
+#anno .a-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#anno .a-head button:hover{border-color:var(--ink-soft)}
+#anno #annoTick{border:none;border-radius:99px;padding:.3em 1em;cursor:pointer;font-family:inherit;
+  font-size:.9rem;font-weight:700;background:#eef1f5}
+#anno #annoTick.on{background:var(--mint);color:#fff}
+#annoRows{display:flex;flex-direction:column;gap:.45em}
+.arow{display:flex;gap:.5em;align-items:center}
+.arow label{flex:0 0 3.1em;text-align:right;font-weight:800;font-size:.9rem;
+  color:var(--ink-soft);font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+.arow input{flex:1;min-width:0;border:2px solid #E1E9F4;border-radius:10px;
+  padding:.34em .55em;font-family:inherit;font-size:.95rem;color:var(--ink);background:#fff}
+.arow input:focus{outline:none;border-color:var(--sky)}
+.arow.free{margin-top:.2em}
+.arow.free textarea,.arow.fix textarea{flex:1;min-width:0;border:2px dashed #E1E9F4;border-radius:10px;padding:.34em .55em;font-family:inherit;font-size:.95rem;background:#fff;resize:vertical;min-height:3.4em}
+.arow.free textarea:focus,.arow.fix textarea:focus{outline:none;border-color:var(--sky)}
+.arow.free textarea::placeholder,.arow.fix textarea::placeholder{color:#9aa7b3;font-style:italic}
+#anno .a-foot{display:flex;align-items:center;gap:.6em}
+#anno .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;font-family:inherit;
+  font-size:.85rem;font-weight:600;background:var(--navy);color:#fff}
+#anno .a-foot button:hover{background:var(--navy-deep)}
+#anno .a-foot .a-hint{font-size:.74rem;color:var(--ink-soft);font-style:italic}
+#annoRep{position:fixed;inset:0;z-index:260;background:rgba(34,48,63,.45);display:none;
+  align-items:center;justify-content:center;padding:4vw}
+#annoRep.on{display:flex;animation:rise .25s both}
+#annoRep .a-rep-card{background:var(--white);border-radius:18px;box-shadow:var(--shadow-lg);
+  padding:1.1em 1.2em;display:flex;flex-direction:column;gap:.7em;width:min(560px,92vw)}
+#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;
+  padding:.5em .65em;font-family:ui-monospace,Menlo,monospace;font-size:.85rem}
+#annoRep .a-head b{color:var(--ink)}
+#annoRep .a-foot{display:flex;gap:.6em;align-items:center}
+#annoRep .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;
+  font-family:inherit;font-size:.85rem;font-weight:600;background:var(--navy);color:#fff}
+#annoRep .a-foot button:hover{background:var(--navy-deep)}
+#annoRepCopy{background:var(--mint)!important;color:#fff!important}
+/* ===== 🙋 Pardon — emoji-only pill top left; click / P opens the phrase list ===== */
+#pqBtn{position:fixed;left:max(10px,1.6vw);top:calc(10px + .8vh);z-index:110;
+  border:2px solid rgba(255,255,255,.4);background:rgba(30,58,102,.85);border-radius:99px;font-size:1.25rem;
+  padding:.3em .55em;cursor:pointer;box-shadow:0 3px 10px rgba(30,30,40,.12);transition:transform .12s}
+#pqBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#pq{position:fixed;left:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(420px,92vw);
+  background:var(--white);border:2px solid #E1E9F4;border-radius:16px;padding:.75em .9em .9em;display:none;
+  flex-direction:column;gap:.35em;box-shadow:0 16px 40px rgba(30,30,40,.22)}
+#pq.on{display:flex;animation:rise .25s both}
+#pq .pq-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft);padding:0 .2em .2em}
+#pq .a-sp{flex:1}
+#pq .pq-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#pq .pq-head button:hover{border-color:var(--ink-soft)}
+#pq .pqRow{display:flex;align-items:center;gap:.6em;font-size:clamp(1rem,1.9vw,1.2rem);
+  font-weight:600;color:var(--ink);padding:.3em .5em;border-radius:10px;line-height:1.35}
+#pq .pqRow:hover{background:#E8F1FA}
+#pq .pqRow .pqE{flex:0 0 1.6em;text-align:center;font-weight:400}
+/* ===== the real maps + the invisible hotspots ===== */
+.mapwrap{position:relative;max-width:620px;margin:0 auto;width:100%}
+.mapwrap img{width:100%;height:auto;display:block;border-radius:12px;border:3px solid var(--sky)}
+.mapwrap.map-africa img{max-height:52vh;width:auto;margin:0 auto}
+.hot{position:absolute;border:2.5px dashed transparent;border-radius:12px;cursor:pointer;transition:all .15s ease}
+.hot:hover{border-color:rgba(44,78,128,.3)}
+.hot .tag{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.72rem,1.15vw,.95rem);color:transparent;white-space:nowrap;pointer-events:none;background:rgba(255,255,255,.9);border-radius:99px;padding:.08em .55em;opacity:0;transition:all .2s ease;box-shadow:0 3px 8px rgba(34,48,63,.15)}
+.hot.on{border-color:var(--mint);background:rgba(95,191,160,.16)}
+.hot.on .tag{opacity:1;color:var(--navy)}
+.hot.pale.on{border-color:#B9CADB;background:rgba(185,202,219,.2)}
+.hot.pale.on .tag{color:var(--ink-soft)}
+.hot.target{border-color:var(--cheese)}
+.hot.gold{border-color:var(--cheese)}
+.hot.gold:hover{border-color:var(--stamp)}
+/* ===== the type-ins + the click-to-fill name slots ===== */
+.tin{font-family:'Fredoka';font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem);color:var(--navy);border:3px solid var(--sky);border-radius:12px;padding:.15em .4em;text-align:center;background:var(--white);outline:none;min-width:2.4em}
+.tin:focus{border-color:var(--navy)}
+.tin.good{border-color:var(--mint);background:#EAF6F1;color:var(--navy)}
+.tin.bad{border-color:var(--stamp);background:var(--stamp-soft)}
+.cfill{display:inline-block;min-width:4.6em;border-bottom:4px dotted var(--stamp);color:transparent;text-align:center;font-family:'Fredoka';font-weight:600;padding:0 .25em;border-radius:4px 4px 0 0;transition:all .25s ease}
+.cfill.on{color:var(--navy);border-bottom-color:var(--mint);background:#EAF6F1}
+/* ===== the speed bars + the word wall ===== */
+.speedbar{display:flex;align-items:center;gap:.5em;margin:.25em 0}
+.speedbar span{flex-shrink:0;width:8.2em;font-size:clamp(.85rem,1.3vw,1.05rem);font-family:'Fredoka';color:var(--ink-soft)}
+.speedbar .sb{height:1em;border-radius:99px;background:linear-gradient(90deg,var(--sky),var(--navy))}
+.speedbar .sb-ball{background:linear-gradient(90deg,var(--cheese),var(--stamp))}
+.speedbar b{font-family:'Fredoka';font-size:clamp(.85rem,1.3vw,1.05rem);color:var(--navy)}
+.wordcard{background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.5em .7em;text-align:center;min-width:120px}
+.wordcard img{width:100%;max-width:150px;height:auto;border-radius:8px;display:block}
+.wordcard .wc-e{font-size:clamp(1.6rem,2.6vw,2.2rem);line-height:1.2;padding:.2em 0}
+.wordcard .wc-w{font-family:'Fredoka';font-weight:700;color:var(--navy);font-size:clamp(.95rem,1.5vw,1.2rem);margin:.25em 0 .1em}
+.wordcard .wc-t{font-size:clamp(1rem,1.6vw,1.3rem)}
+/* ===== the ranking slots (the interview) ===== */
+.rankrow{display:flex;align-items:center;gap:.6em;background:var(--white);border-radius:12px;box-shadow:0 4px 10px rgba(34,48,63,.07);padding:.3em .8em;margin:.4em 0;font-size:clamp(1rem,1.6vw,1.3rem)}
+.rslot .rn{font-family:'Fredoka';font-weight:700;color:var(--stamp)}
+.rslot .rs-fill{font-family:'Fredoka';font-weight:600;color:var(--navy)}
+.rslot.filled{background:#EAF6F1}
+.rankbank{display:flex;flex-wrap:wrap;gap:.3em;margin:.2em 0}
+.rpick{font-family:'Fredoka';font-weight:600;font-size:clamp(.9rem,1.5vw,1.2rem);border:2.5px solid var(--sky);background:var(--white);color:var(--navy);border-radius:99px;padding:.2em .8em;cursor:pointer;margin:.15em .1em;transition:all .15s ease}
+.rpick:hover{transform:translateY(-2px);border-color:var(--navy)}
+.rpick.used{opacity:.35}
+.pos-h{font-family:'Fredoka';font-weight:600;color:var(--ink-soft);font-size:clamp(.85rem,1.3vw,1.05rem);margin:.5em 0 .1em;text-transform:uppercase;letter-spacing:.06em}
+.leg{display:flex;gap:1em;justify-content:center;flex-wrap:wrap;font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1.1rem,1.9vw,1.5rem)}
+/* ===== ch3 · the comprehension / interview question rows ===== */
+.qrow{display:flex;align-items:center;gap:.45em;flex-wrap:wrap;padding:.34em .2em;border-bottom:2px dotted rgba(169,204,239,.7);font-size:clamp(1.02rem,1.75vw,1.42rem);line-height:1.5}
+/* ===== ch3 signature · the dream-home BUILDER ===== */
+.dz-chip{font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);border:2.5px solid var(--sky);background:var(--white);color:var(--navy);border-radius:99px;padding:.25em .9em;cursor:pointer;transition:all .15s ease;margin:.25em}
+.dz-chip:hover{transform:translateY(-2px);border-color:var(--navy)}
+.dz-chip.used{background:var(--mint);border-color:var(--mint);color:#fff}
+.dz-chip.used::after{content:" ✓"}
+.dz-item{font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1.05rem,1.8vw,1.45rem);padding:.28em .9em;border-radius:12px;background:var(--cheese-soft);margin:.3em 0;box-shadow:0 4px 10px rgba(34,48,63,.06)}
+/* ===== ch3 signature · the SIZE SHOW ===== */
+.sz-stage{display:flex;gap:2em;align-items:flex-end;justify-content:center;flex-wrap:wrap}
+.sz-block{cursor:pointer;text-align:center;transition:transform .15s ease}
+.sz-block:hover{transform:translateY(-4px)}
+.sz-tower{width:clamp(120px,14vw,190px);height:clamp(300px,38vh,420px);margin:0 auto;border-radius:14px 14px 6px 6px;background:repeating-linear-gradient(180deg,#F4D8B8 0 12px,#c98d5a 12px 15px);border:4px solid #a56a3a;box-shadow:var(--shadow-lg);position:relative}
+.sz-cabin{width:clamp(26px,3vw,40px);height:clamp(18px,2.2vw,28px);margin:0 auto;background:#caa36a;border:3px solid #7c5a30;border-radius:4px 4px 2px 2px;box-shadow:var(--shadow)}
+.sz-lab{font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1rem,1.7vw,1.35rem);margin-top:.4em}
+.dict-card{background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.08);padding:.7em 1em;font-size:clamp(.92rem,1.5vw,1.22rem);line-height:1.5}
+.dict-card .dhw{font-family:'Fredoka';font-weight:700;color:var(--stamp)}
+.dict-card ol{padding-left:1.4em}
+.dict-card li{margin:.2em 0}
+.dict-card i{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+
+<main id="deck">
+
+<!-- 1 · prepare ahead -->
+<section class="slide" id="s1">
+    <div class="eyebrow reveal">select readings · elementary · chapter 3 · teacher's list · build 02.11 · v1</div>
+    <h1 class="title reveal">Dream Homes 🏠</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
+      <ol class="prep">
+        <li>🌍 <b>A UNIVERSAL READING DECK</b> — one chapter of Select Readings Elementary, the book's own order, any pupil. The flow: the dream-home talk (the vocabulary strip · <b>build your dream home</b> · the mission) → LISTEN FIRST: the whole text over the three homes → four deep-listens (the intro · <b>Ambani's 27 stories</b> · <b>Thoreau's one room</b> · <b>Mutombo's hospital</b>) → <b>THE SIZE SHOW</b> → the reading → scan → the notes chart → comprehension → what do you think? → word forms → the dictionary → the words shelf → the games → the interview + write → homework.</li>
+        <li>🎬 <b>THE TWO VIDEO SLOTS ARE NOTE CARDS TODAY</b> — the clips could not download (the bot wall). The slots (slides 7 and 9) show «the clip plays in the lesson — ask your teacher!» cards; the clip files drop in later and the players come alive by themselves.</li>
+        <li>🎧 <b>ONE AUDIO TRACK</b> (2:56) + <b>four paragraph cuts</b> (0:22 · 0:56 · 0:41 · 0:50) — test the whole track once before the lesson. Pause + scroll in the bottom bar.</li>
+        <li>🎒 <b>Open with YOUR pupil's homework check first</b> (2–3 minutes, your own material). Then slide 2.</li>
+        <li>👂 <b>LISTEN FIRST (Elena's route):</b> slide 5 = the whole text as AUDIO over the three home pictures (no text!) → the four deep-listens, each with its own audio cut, the typed numbers and the map → <b>only then the text arrives</b> (slide 11 — the deck is the book, ⛶ shows it BIG).</li>
+        <li>💎 <b>THE TREASURE TASK</b> rides the clocks slide: Ambani's floors deduction — let the pupil DERIVE it, help only at the edges.</li>
+        <li>⏱️ <b>Time-your-reading card</b> (on the reading slide): 340 words — the book's own fluency check.</li>
+        <li>📐 <b>THE SIZE SHOW</b> (slide 10): Ambani's tower vs Thoreau's 3 × 4.5 m room — tap-compare. New mechanic — click it through once before the lesson.</li>
+        <li>✍️ <b>The lesson-log pill</b> (top right / key N): tick + notes per slide; over http it auto-sends to the Mac inbox. <b>No race — where you stop is where the next lesson starts.</b></li>
+      </ol>
+    </div>
+    <p class="hintline reveal mt center">THE BOOK'S ART IS IN: the vocabulary strip + all five photos — straight from the book 📸 · the map close-ups: the book's own Asia &amp; Africa pages</p>
+  </section>
+
+<!-- 2 · vocabulary preview — the book's six photos -->
+<section class="slide" id="r2">
+    <div class="eyebrow reveal">before you read · vocabulary preview · book p. 14</div>
+    <h1 class="title reveal">What does your dream home have? 🏠</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:760px;margin:0 auto .7em;width:100%;padding:.5em .6em">
+      <img src="media/ch3-vocab-strip.jpg?v=1" alt="the book's six photos — a view of a lake, lots of room, two stories, a garden, a swimming pool, a gym" style="width:100%;height:auto;display:block;border-radius:12px">
+      <p class="hintline center" style="margin-top:.3em">the book's own page — study the pictures, read the six words! 📖</p>
+    </div>
+    <div class="subjgrid reveal">
+      <div class="subj" data-w="a view of a lake 🌊"><span class="se">🏞️</span><div class="sw"></div></div>
+      <div class="subj" data-w="lots of room 🏰"><span class="se">🛋️</span><div class="sw"></div></div>
+      <div class="subj" data-w="two stories 🏠"><span class="se">🏠</span><div class="sw"></div></div>
+      <div class="subj" data-w="a garden 🌷"><span class="se">🌷</span><div class="sw"></div></div>
+      <div class="subj" data-w="a swimming pool 🏊"><span class="se">🏊</span><div class="sw"></div></div>
+      <div class="subj" data-w="a gym 🏋️"><span class="se">🏋️</span><div class="sw"></div></div>
+    </div>
+    <p class="hintline reveal mt center">now close your eyes 🙈 — tap a card and say the word! · then check ✓ the things YOUR dream home has (the book's question A)</p>
+  </section>
+
+<!-- 3 · BUILD YOUR DREAM HOME — the signature -->
+<section class="slide" id="r2b">
+    <div class="eyebrow reveal">before you read · build it! · your dream home</div>
+    <h1 class="title reveal">Build your dream home! 🏗️</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Tap the things you want → then SAY it!</p>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="card" style="flex:1.1;min-width:290px;padding:.8em 1em">
+        <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">🧰 THE FEATURE SHOP</h2>
+        <p class="hintline" style="margin:.2em 0 .4em">tap a feature → it moves into your home</p>
+        <div>
+          <button class="dz-chip" data-w="a view of a lake">🌊 a view of a lake</button>
+          <button class="dz-chip" data-w="lots of room">🛋️ lots of room</button>
+          <button class="dz-chip" data-w="two stories">🏠 two stories</button>
+          <button class="dz-chip" data-w="a garden">🌷 a garden</button>
+          <button class="dz-chip" data-w="a swimming pool">🏊 a swimming pool</button>
+          <button class="dz-chip" data-w="a gym">🏋️ a gym</button>
+          <button class="dz-chip" data-w="a movie theater">🎬 a movie theater</button>
+          <button class="dz-chip" data-w="a garage for six cars">🚗 a garage for six cars</button>
+        </div>
+        <div class="center mt"><button class="reset-btn" id="dz-reset">🔄 build again</button></div>
+      </div>
+      <div class="card sky" style="flex:1;min-width:290px;padding:.8em 1em">
+        <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">🏠 MY DREAM HOME</h2>
+        <div id="dz-has" style="min-height:3em;margin-top:.4em"></div>
+        <div class="model-line mt" style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🗣 <b id="dz-sent">Tap the things you want — then say it!</b></div>
+        <p class="hintline mt">say it in a full sentence: «My dream home has … and …!»</p>
+      </div>
+    </div>
+    <div class="card stampc reveal mt center" style="max-width:900px;margin:1em auto 0;width:100%;padding:.6em 1.2em">
+      <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)"><b>And the two questions 🗣</b> — <b>Where</b> is your dream home: in a city, in the country, or on the beach? · <b>How big</b> is it: small, medium, or large?</p>
+    </div>
+  </section>
+
+<!-- 4 · the mission — the book's B + C -->
+<section class="slide" id="r4">
+    <div class="eyebrow reveal">before you read · your mission · book p. 14</div>
+    <h1 class="title reveal">Your mission 🕵️</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Three questions — listen for the answers, then SCAN the text for them!</p>
+    <div class="col reveal mt" style="max-width:960px;margin:1em auto 0;width:100%">
+      <div class="guess"><span class="gs"><b>1.</b> How many dream homes are in the article?</span><button class="gpick t">📝 after the listening</button></div>
+      <div class="guess"><span class="gs"><b>2.</b> Where is each dream home?</span><button class="gpick t">🗺️ after the listening</button></div>
+      <div class="guess"><span class="gs"><b>3.</b> How similar do the dream homes look?</span><button class="gpick t">👀 after the reading</button></div>
+    </div>
+    <div class="row reveal mt" style="align-items:stretch;gap:1.2em;max-width:900px;margin:.8em auto 0;width:100%">
+      <div class="card center" style="flex:1;min-width:150px;padding:.7em .5em"><p style="font-size:clamp(2rem,3.6vw,3rem)">🏢</p><p class="hintline">a tower?<br>for ONE family?</p></div>
+      <div class="card center" style="flex:1;min-width:150px;padding:.7em .5em"><p style="font-size:clamp(2rem,3.6vw,3rem)">🛖</p><p class="hintline">a tiny house?<br>in the woods?</p></div>
+      <div class="card center" style="flex:1;min-width:150px;padding:.7em .5em"><p style="font-size:clamp(2rem,3.6vw,3rem)">🏥</p><p class="hintline">a hospital…<br>a DREAM home?</p></div>
+    </div>
+    <p class="hintline reveal mt center">the book's question C: which dream home will be the most interesting to YOU? — you'll know in five minutes 😉</p>
+  </section>
+
+<!-- 5 · the whole-text LISTEN — pictures only -->
+<section class="slide" id="r5a">
+    <div class="eyebrow reveal">the listening · the whole text · 2:56</div>
+    <h1 class="title reveal">Just listen! 👂</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;justify-content:center;gap:1em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="card" style="flex:1;min-width:180px;padding:.4em"><img src="media/ch3-antilia.jpg?v=1" alt="the 27-story tower in Mumbai" style="width:100%;height:auto;display:block;border-radius:12px"><p class="hintline center" style="margin-top:.2em">home 1?</p></div>
+      <div class="card" style="flex:1;min-width:180px;padding:.4em"><img src="media/ch3-cabin.jpg?v=1" alt="the tiny cabin in the woods" style="width:100%;height:auto;display:block;border-radius:12px"><p class="hintline center" style="margin-top:.2em">home 2?</p></div>
+      <div class="card" style="flex:1;min-width:180px;padding:.4em"><img src="media/ch3-hospital.jpg?v=1" alt="the hospital ward with beds" style="width:100%;height:auto;display:block;border-radius:12px"><p class="hintline center" style="margin-top:.2em">home 3?</p></div>
+    </div>
+    <div class="center reveal mt"><button class="trk-btn" data-audio="full" style="font-size:clamp(1.15rem,2vw,1.6rem);padding:.6em 2em">🎧 listen to the whole text (2:56)</button></div>
+    <p class="hintline reveal mt center">no reading yet — the pictures tell the story · pause and scroll in the bottom bar · listen as many times as you need!</p>
+  </section>
+
+<!-- 6 · the INTRO — the two poles -->
+<section class="slide" id="r5i">
+    <div class="eyebrow reveal">the listening · part 1 · the intro · 0:22</div>
+    <h1 class="title reveal">Two kinds of dream 🏠</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center reveal"><button class="trk-btn" data-audio="intro">🎧 the intro (0:22) — play it again!</button></div>
+    <div class="row reveal mt" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:.8em auto 0;width:100%">
+      <div class="card cheese" style="flex:1;min-width:270px;padding:.8em 1em;text-align:center">
+        <p style="font-size:clamp(2.2rem,4vw,3.2rem)">🛖🌲</p>
+        <p style="font-size:clamp(1.2rem,2vw,1.6rem)"><b>SIMPLE</b> house</p>
+        <p class="hintline">in a SPECIAL place — the woods, a lake, the quiet</p>
+      </div>
+      <div class="card stampc" style="flex:1;min-width:270px;padding:.8em 1em;text-align:center">
+        <p style="font-size:clamp(2.2rem,4vw,3.2rem)">🏢🚗🎬</p>
+        <p style="font-size:clamp(1.2rem,2vw,1.6rem)"><b>LARGE</b> house</p>
+        <p class="hintline">with EVERY <span class="gap" style="min-width:7em">convenience!</span>¹</p>
+      </div>
+    </div>
+    <div class="row reveal mt" style="align-items:stretch;gap:1.2em;max-width:1060px;margin:.8em auto 0;width:100%">
+      <div class="card" style="flex:1;min-width:270px;padding:.7em 1em">
+        <h2 style="font-size:clamp(1rem,1.7vw,1.4rem)">📸 NEW WORD — what is it in RUSSIAN?</h2>
+        <p style="font-size:clamp(1.1rem,1.8vw,1.5rem)" class="mt">a <b>CONVENIENCE</b>¹ = <span class="gap" style="min-width:8em">удобство!</span></p>
+        <p class="hintline mt">anything that makes life easy: hot water 💧, a lift 🛗, the internet 🌐, a pool in the basement… — say the Russian, then click!</p>
+      </div>
+      <div class="card sky" style="flex:1;min-width:270px;padding:.7em 1em">
+        <h2 style="font-size:clamp(1rem,1.7vw,1.4rem)">🗣 YOUR turn</h2>
+        <p class="mt" style="font-size:clamp(1.05rem,1.75vw,1.4rem)">Which pole is YOUR dream home — <b>simple</b> 🛖 or <b>large</b> 🏢?</p>
+        <p class="mt" style="font-size:clamp(1.05rem,1.75vw,1.4rem)">«My dream home is … — it has …»</p>
+      </div>
+    </div>
+  </section>
+
+<!-- 7 · AMBANI — listen and do -->
+<section class="slide" id="r5am">
+    <div class="eyebrow reveal">the listening · part 2 · Ambani's tower · 0:56</div>
+    <h1 class="title reveal">Mukesh Ambani's tower 🏢</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
+      <div class="card vidcard" style="flex:1.05;min-width:270px;padding:.6em">
+                <div class="vidnote card stampc" style="padding:.8em 1em;text-align:center"><p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🎬 <b>The clip plays in the lesson — ask your teacher!</b></p><p class="hintline mt">«Inside Antilia — the 27-story house in Mumbai» · the file drops in later and plays right here</p></div>
+        <p class="hintline center" style="margin-top:.3em">Antilia, Mumbai — the tower with ONE family inside 🏢</p>
+      </div>
+      <div class="col" style="flex:1.3;min-width:290px;gap:.7em">
+        <div class="card sky" style="padding:.7em 1em">
+          <p style="font-size:clamp(1.05rem,1.75vw,1.42rem)"><b>Mukesh Ambani</b>, a businessman in <span class="cfill" data-want="INDIA">…</span>, owns the most expensive house in the world. — click the country on the map! 🗺️</p>
+          <p class="hintline">then listen again and TYPE the numbers 👇 (Enter ↵ checks)</p>
+          <div class="row" style="gap:.7em;margin-top:.4em;flex-wrap:wrap">
+            <span style="font-size:clamp(1rem,1.65vw,1.35rem)"><input class="tin" data-ok="27" size="3" placeholder="…"> <b>stories</b> high</span>
+            <span style="font-size:clamp(1rem,1.65vw,1.35rem)"><input class="tin" data-ok="6" size="3" placeholder="…"> floors for <b>cars</b> 🚗</span>
+            <span style="font-size:clamp(1rem,1.65vw,1.35rem)">seats for <input class="tin" data-ok="50" size="3" placeholder="…"> in the <b>movie theater</b> 🎬</span>
+            <span style="font-size:clamp(1rem,1.65vw,1.35rem)"><input class="tin" data-ok="2" size="3" placeholder="…"> floors for the <b>health center</b> 🏊🏋️</span>
+            <span style="font-size:clamp(1rem,1.65vw,1.35rem)"><input class="tin" data-ok="4" size="3" placeholder="…"> floors at the top for the <b>family</b> 👨‍👩‍👧‍👦</span>
+          </div>
+        </div>
+        <div class="center"><button class="trk-btn" data-audio="ambani">🎧 the Ambani part (0:56) — play it again!</button></div>
+      </div>
+    </div>
+    <div class="row reveal mt" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:.8em auto 0;width:100%">
+      <div class="card" style="flex:1;min-width:280px;padding:.6em .8em">
+        <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">🗺️ Click INDIA — the name lands in the sentence!</h2>
+        <div class="mapwrap" id="worldmap"><img src="media/map-world.jpg?v=1" alt="the world map — find India!"></div>
+        <p class="hintline center">the golden dot is the peninsula south of the Himalayas · other countries just name themselves</p>
+      </div>
+      <div class="card stampc" style="flex:1;min-width:280px;padding:.7em 1em">
+        <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">💰 GUESS! How much does it cost?</h2>
+        <p style="font-size:clamp(1.05rem,1.7vw,1.4rem)">My guess: about <input class="tin guessin" size="6" placeholder="…?" style="border-color:var(--cheese)"> dollars! (any guess is a GOOD guess 🎯)</p>
+        <div class="center mt"><button class="show-btn" data-show="price-reveal" style="font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);border:none;border-radius:99px;padding:.35em 1.2em;cursor:pointer;background:var(--stamp);color:#fff">💸 the real price!</button></div>
+        <div class="secret" id="price-reveal">
+          <p class="mt" style="font-size:clamp(1.15rem,1.9vw,1.55rem);font-family:'Fredoka';color:var(--navy)">About <b>ONE BILLION</b> dollars — 1,000,000,000! 🤯</p>
+          <div class="speedbar"><span>🏢 Antilia</span><div class="sb sb-ball" style="width:100%"></div><b>1,000,000,000</b></div>
+          <div class="speedbar"><span> flats — 1,000 of them!</span><div class="sb" style="width:10%"></div><b>1,000,000</b></div>
+          <div class="speedbar"><span>🚗 a very good car</span><div class="sb" style="width:2%"></div><b>100,000</b></div>
+          <p class="hintline center" style="margin-top:.3em">a very good flat in Moscow ≈ one million → Antilia ≈ ONE THOUSAND of those!</p>
+        </div>
+        <div class="secret" id="mumbai-reveal" style="margin-top:.6em">
+          <div class="model-line">🌊 From the top floors the family has a view of the <b>Arabian Sea</b> — the tower stands in <b>Mumbai</b>, right on the water!</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- 8 · THOREAU — listen and do -->
+<section class="slide" id="r5th">
+    <div class="eyebrow reveal">the listening · part 3 · Thoreau's cabin · 0:41</div>
+    <h1 class="title reveal">Henry David Thoreau's cabin 🛖</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
+      <div class="col" style="flex:1.3;min-width:290px;gap:.7em">
+        <div class="card sky" style="padding:.7em 1em">
+          <p style="font-size:clamp(1.05rem,1.75vw,1.42rem)"><b>Henry David Thoreau</b>, an American writer, lived from <input class="tin" data-ok="1817" size="5" placeholder="…"> to <input class="tin" data-ok="1862" size="5" placeholder="…">. At the age of <input class="tin" data-ok="28" size="3" placeholder="…">, he built his perfect house.</p>
+          <p style="font-size:clamp(1rem,1.65vw,1.35rem)" class="mt">It was <b>10 feet by 15 feet</b> — <input class="tin" data-ok="3" size="3" placeholder="…"> m by <input class="tin" data-ok="4.5|4,5" size="4" placeholder="…"> m. Inside: just <input class="tin" data-ok="3" size="3" placeholder="…"> chairs, a bed, a table, and a small desk.</p>
+          <p class="hintline mt">feet or metres? BOTH — the audio says the pair! (10 feet ≈ 3 m — a foot ≈ 30 cm)</p>
+        </div>
+        <div class="card stampc" style="padding:.7em 1em">
+          <h2 style="font-size:clamp(1rem,1.7vw,1.4rem)">📸 NEW WORD — what is it in RUSSIAN?</h2>
+          <div class="row mt" style="align-items:center;gap:.8em">
+            <img src="media/ch3-cabin.jpg?v=1" alt="the tiny cabin standing in the woods" style="flex-shrink:0;width:clamp(110px,15vw,170px);height:auto;border-radius:10px;border:3px solid var(--cheese)">
+            <div>
+              <p style="font-size:clamp(1.15rem,1.9vw,1.5rem);font-family:'Fredoka';color:var(--navy)">THE WOODS 🌲 = <span class="gap" style="min-width:5em">лес!</span></p>
+              <p class="hintline">where does the cabin stand? — say the Russian, then click!</p>
+              <p class="hintline">(many trees together = the woods · the REAL replica of his cabin at Walden Pond!)</p>
+            </div>
+          </div>
+        </div>
+        <div class="center"><button class="trk-btn" data-audio="thoreau">🎧 the Thoreau part (0:41) — play it again!</button></div>
+      </div>
+      <div class="card" style="flex:1;min-width:280px;padding:.6em .8em">
+        <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">🗺️ Click THE USA — his country!</h2>
+        <div class="mapwrap" id="worldmap2"><img src="media/map-world.jpg?v=1" alt="the world map — find the United States!"></div>
+        <p class="hintline center">the golden dot in North America — click and see what's hidden there 🎁</p>
+        <div class="secret" id="walden-reveal" style="margin-top:.6em">
+          <div class="model-line">📍 <b>Concord, Massachusetts — Walden Pond.</b> The woods and the lake are REAL — people visit his cabin replica today! The location was very important to Thoreau.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- 9 · MUTOMBO — listen and do -->
+<section class="slide" id="r5mu">
+    <div class="eyebrow reveal">the listening · part 4 · Mutombo's hospital · 0:50</div>
+    <h1 class="title reveal">Dikembe Mutombo's hospital 🏥</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
+      <div class="card vidcard" style="flex:1.05;min-width:270px;padding:.6em">
+                <div class="vidnote card stampc" style="padding:.8em 1em;text-align:center"><p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🎬 <b>The clip plays in the lesson — ask your teacher!</b></p><p class="hintline mt">«Mutombo's block and the famous finger wag!» ☝ — the file drops in later and plays right here</p></div>
+        <p class="hintline center" style="margin-top:.3em">the basketball player — 2.18 m tall! 🏀</p>
+      </div>
+      <div class="col" style="flex:1.3;min-width:290px;gap:.7em">
+        <div class="card sky" style="padding:.7em 1em">
+          <p style="font-size:clamp(1.05rem,1.75vw,1.42rem)"><b>Dikembe Mutombo</b> grew up in the Democratic Republic of the <span class="cfill" data-want="CONGO">…</span>, but he moved to the United States to study. — click his country on the map! 🗺️</p>
+          <p class="hintline">then listen again and TYPE the numbers 👇</p>
+          <div class="row" style="gap:.7em;margin-top:.4em;flex-wrap:wrap">
+            <span style="font-size:clamp(1rem,1.65vw,1.35rem)">beds for <input class="tin" data-ok="150" size="4" placeholder="…"> <b>people</b> 🛏️</span>
+            <span style="font-size:clamp(1rem,1.65vw,1.35rem)">he wanted to be a <b>doctor</b> — but became a famous <input class="tin" data-ok="basketball player|basketball" size="12" placeholder="…"> 🏀</span>
+          </div>
+        </div>
+        <div class="card cheese" style="padding:.7em 1em">
+          <p style="font-size:clamp(1.05rem,1.75vw,1.45rem)">⚡ THE WOW: Mutombo didn't build his dream home <b>for himself</b>. He built it for the people in his <b>native country</b> 📍❤️ — his dream home is a <span class="gap" style="min-width:6em">HOSPITAL!</span></p>
+          <p class="hintline mt">an <b>emergency room</b>³ = the place in a hospital where you go when you need help quickly 🚑 (the book's own gloss — the photo IS the ward with the 150 beds)</p>
+        </div>
+        <div class="center"><button class="trk-btn" data-audio="mutombo">🎧 the Mutombo part (0:50) — play it again!</button></div>
+      </div>
+    </div>
+    <div class="row reveal mt" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:.8em auto 0;width:100%">
+      <div class="card" style="flex:1;min-width:280px;padding:.6em .8em">
+        <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">🗺️ Click CONGO — then find it on the book's map!</h2>
+        <div class="mapwrap" id="worldmap3"><img src="media/map-world.jpg?v=1" alt="the world map — find the DR Congo!"></div>
+        <p class="hintline center">the golden dot in the middle of Africa — the heart of the continent ❤️</p>
+      </div>
+      <div class="card" style="flex:1;min-width:280px;padding:.6em .8em">
+        <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">📖 the book's own map — read and point!</h2>
+        <div class="mapwrap map-africa"><img src="media/map-africa.jpg?v=1" alt="the book's map of Africa — DR Congo printed"></div>
+        <p class="hintline center">the book's map page: point at the DEMOCRATIC REPUBLIC OF THE CONGO — and at Egypt, from chapter 1! 😉</p>
+      </div>
+    </div>
+    <div class="card reveal mt" style="max-width:1080px;margin:1em auto 0;width:100%;padding:.6em 1em">
+      <p style="font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1rem,1.6vw,1.3rem);margin-bottom:.3em">📸 THE DIFFICULT WORDS — the picture wall (click for the Russian!)</p>
+      <div class="row" style="gap:.8em;flex-wrap:wrap">
+        <div class="wordcard"><div class="wc-e">🛋️✨</div><div class="wc-w">CONVENIENCE</div><div class="wc-t gap" style="min-width:6em">удобство</div></div>
+        <div class="wordcard"><div class="wc-e">🛏️🤝</div><div class="wc-w">GUESTS</div><div class="wc-t gap" style="min-width:6em">гости</div></div>
+        <div class="wordcard"><img src="media/ch3-cabin.jpg?v=1" alt="the woods"><div class="wc-w">THE WOODS</div><div class="wc-t gap" style="min-width:4.5em">лес</div></div>
+        <div class="wordcard"><div class="wc-e">🚑🏥</div><div class="wc-w">EMERGENCY ROOM</div><div class="wc-t gap" style="min-width:8em">отделение скорой помощи</div></div>
+        <div class="wordcard"><div class="wc-e">📍❤️</div><div class="wc-w">NATIVE COUNTRY</div><div class="wc-t gap" style="min-width:8em">родная страна</div></div>
+      </div>
+      <p class="hintline" style="margin-top:.3em">these five ride the Words shelf too (slide 18) — a ✓ there feeds the homework list</p>
+    </div>
+  </section>
+
+<!-- 10 · THE SIZE SHOW — the signature -->
+<section class="slide" id="r5sz">
+    <div class="eyebrow reveal">the size show · big vs small · tap and compare!</div>
+    <h1 class="title reveal">The SIZE show 📐</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Look at the two homes — then tap each one for its numbers!</p>
+    <div class="sz-stage reveal mt">
+      <div class="sz-block" id="sz-tower-block">
+        <div class="sz-tower"></div>
+        <div class="sz-lab">🏢 AMBANI'S HOME</div>
+        <div class="hintline">a tower in the sky</div>
+      </div>
+      <div class="sz-block" id="sz-cabin-block">
+        <div class="sz-cabin"></div>
+        <div class="sz-lab">🛖 THOREAU'S HOME</div>
+        <div class="hintline">one tiny room</div>
+      </div>
+    </div>
+    <div class="row reveal mt" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:1em auto 0;width:100%">
+      <div class="secret card cheese" id="sz-tower-card" style="flex:1;min-width:270px;padding:.7em 1em">
+        <h2 style="font-size:clamp(1rem,1.7vw,1.4rem)">🏢 The tower</h2>
+        <p class="mt" style="font-size:clamp(1.05rem,1.75vw,1.4rem)"><b>27 stories</b> — like a 27-floor building! About <b>90 metres</b> tall.</p>
+        <p class="mt" style="font-size:clamp(1.05rem,1.75vw,1.4rem)">Inside: 6 car floors 🚗 · a movie theater 🎬 · a gym + a pool 🏊 · a guest floor 🛏️ · the family's 4 floors at the top.</p>
+      </div>
+      <div class="secret card sky" id="sz-cabin-card" style="flex:1;min-width:270px;padding:.7em 1em">
+        <h2 style="font-size:clamp(1rem,1.7vw,1.4rem)">🛖 The cabin</h2>
+        <p class="mt" style="font-size:clamp(1.05rem,1.75vw,1.4rem)"><b>3 m × 4.5 m</b> — ONE room. The box on the screen is the real size!</p>
+        <p class="mt" style="font-size:clamp(1.05rem,1.75vw,1.4rem)">Inside: 3 chairs 🪑 · a bed 🛏️ · a table · a small desk. That's ALL.</p>
+      </div>
+    </div>
+    <div class="card stampc reveal mt center" style="max-width:960px;margin:1em auto 0;width:100%;padding:.6em 1.2em">
+      <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🤯 Thoreau's WHOLE house fits on <b>ONE floor</b> of Ambani's tower — <b>27 times</b>!<br><span class="hintline">and the question the chapter asks: whose dream is «better»? — there is no right answer 😉</span></p>
+    </div>
+  </section>
+
+<!-- 11 · the reading -->
+<section class="slide" id="r5">
+    <div class="eyebrow reveal">the reading · book p. 15 · 340 words</div>
+    <h1 class="title reveal">The reading 📖</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card cheese reveal" style="max-width:1020px;margin:0 auto .6em;width:100%;padding:.5em 1.1em">
+      <div class="center"><button class="trk-btn" data-audio="full">🎧 listen to the text</button> <button class="reset-btn" id="fsstory-btn" style="margin-left:.6em">⛶ the whole text — big!</button> <span class="hintline" style="margin-left:.6em">read first, then listen · or listen and read together</span></div>
+    </div>
+    <div class="card reveal read-text" style="max-width:1020px;margin:0 auto;width:100%;max-height:52vh;overflow:auto">
+      <p>People have very different ideas for their dream home—their perfect house or apartment. Some people dream of a simple house in a special place. Others want a large house with every <span class="key">convenience</span>.¹ Is your dream home similar to any of the dream homes below?</p>
+      <p class="mt"><b>1 🏢 Mukesh Ambani</b>, a businessman in India, is the owner of the most expensive house in the world. Ambani's dream house is 27 stories high, so it has room for everything his family needs and wants. Mr. Ambani owns a lot of cars, so the first six floors of his house are just for cars. Another floor of the house has a movie theater with seats for 50 people. Two floors of the house are for a health center with a gym and a swimming pool. Another floor is for <span class="key">guests</span>² of the Ambani family. The four floors at the top of the building are just for the Ambani family. From there, they have a view of the Arabian Sea.</p>
+      <p class="mt"><b>2 🛖 Henry David Thoreau</b>, an American writer, lived from 1817 to 1862. At the age of 28, he built his perfect house. It was a very small house—just 10 feet by 15 feet (3 m by 4.5 m). Inside there were just three chairs, a bed, a table, and a small desk. The location of his house was very important to Thoreau. He built his house in the woods close to a beautiful lake.</p>
+      <p class="mt"><b>3 🏥 Dikembe Mutombo</b>, a professional basketball player, built a very different type of dream home. Mutombo grew up in the Democratic Republic of the Congo, but he moved to the United States to study. He wanted to be a doctor, but instead he became a famous basketball player. Mutombo's dream home is in the Congo, and it has beds for 150 people. It also has an <span class="key">emergency room</span>,³ many exam rooms, and some beautiful gardens. Mutombo didn't build his dream home for himself. Instead, he built it for the people in his native country. Mutombo's dream home is a hospital.</p>
+    </div>
+    <div class="row reveal mt" style="justify-content:center;gap:1em">
+      <div class="card" style="padding:.5em 1em"><span class="hintline">tap a gloss 👇</span></div>
+      <div class="yn" style="cursor:pointer;padding:.4em .9em"><span style="font-size:clamp(1rem,1.6vw,1.3rem)">¹ convenience</span>&nbsp;<span class="tfkey" style="color:var(--navy);font-weight:800">= a thing that makes life easy</span></div>
+      <div class="yn" style="cursor:pointer;padding:.4em .9em"><span style="font-size:clamp(1rem,1.6vw,1.3rem)">² guests</span>&nbsp;<span class="tfkey" style="color:var(--navy);font-weight:800">= people you ask to visit your house</span></div>
+      <div class="yn" style="cursor:pointer;padding:.4em .9em"><span style="font-size:clamp(1rem,1.6vw,1.3rem)">³ emergency room</span>&nbsp;<span class="tfkey" style="color:var(--navy);font-weight:800">= the place in a hospital where you go when you need help quickly</span></div>
+    </div>
+    <div class="row reveal" style="justify-content:center;gap:1em;margin-top:.7em">
+      <div class="card stampc" style="padding:.55em 1.1em;font-size:clamp(1rem,1.6vw,1.3rem)">⏱️ <b>Time your reading!</b> This passage has <b>340 words</b>. My time: <span class="cslot">…</span> · My WPM: <span class="cslot" style="min-width:3.2em">…</span></div>
+    </div>
+  </section>
+
+<!-- 12 · the scanning round -->
+<section class="slide" id="r5b">
+    <div class="eyebrow reveal">reading skill · scanning · the mission answers</div>
+    <h1 class="title reveal">Scan for the answers! 🔎</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card cheese reveal" style="max-width:960px;margin:0 auto .8em;width:100%;padding:.6em 1.1em">
+      <p style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🔎 <b>SCAN</b> = look <b>QUICKLY</b> for one piece of information — a name, a number, a place. <b>Don't read every word!</b> Your eyes run like a search engine 🏎️</p>
+    </div>
+    <div class="card reveal" style="max-width:900px;margin:0 auto;width:100%;padding:.7em 1em">
+      <h2 style="font-size:clamp(1.1rem,1.8vw,1.5rem)">🕵️ YOUR mission — the book's questions</h2>
+      <div class="sent">1 How many dream homes are in the article? — <span class="gap">three!</span></div>
+      <div class="sent">2 Where is each dream home? — <span class="gap" style="min-width:12em">India · the USA (the woods) · the Congo!</span></div>
+      <div class="sent" style="border-bottom:none">3 How similar do the dream homes look? — <span class="gap" style="min-width:10em">not similar at all!</span></div>
+    </div>
+    <p class="hintline reveal mt center">say it first — then click to check! · the ⛶ button on the reading slide shows the whole text · time the scan: ten seconds a question is the record ⏱️</p>
+  </section>
+
+<!-- 13 · taking notes -->
+<section class="slide" id="r7">
+    <div class="eyebrow reveal">after you read · reading skill: taking notes · book p. 16</div>
+    <h1 class="title reveal">Take notes! 📝</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Scan the text and complete the chart — click a box to check yourself. <button class="reset-btn" id="fsstory3-btn" style="margin-left:.4em">📖 look at the text</button></p>
+    <table class="chart reveal mt">
+      <tr><th>Ambani's dream home 🏢</th><th>Thoreau's dream home 🛖</th><th>Mutombo's dream home 🏥</th></tr>
+      <tr class="ex"><td>1. very tall — 27 stories</td><td>1. close to a lake</td><td>1. <span class="gap" style="min-width:8em">beds for 150 people</span></td></tr>
+      <tr><td>2. <span class="gap" style="min-width:9em">six floors for cars</span></td><td>2. <span class="gap" style="min-width:9em">very small — 3 m × 4.5 m</span></td><td>2. <span class="gap" style="min-width:9em">an emergency room + exam rooms</span></td></tr>
+      <tr><td>3. <span class="gap" style="min-width:9em">a movie theater — 50 seats</span></td><td>3. <span class="gap" style="min-width:9em">three chairs, a bed, a table, a desk</span></td><td>3. <span class="gap" style="min-width:9em">it's a hospital — for his people!</span></td></tr>
+    </table>
+    <p class="hintline reveal mt center">notes are SHORT — three to five words per box, not sentences! · the book fills the two examples (the green row)</p>
+  </section>
+
+<!-- 14 · comprehension — the book's six -->
+<section class="slide" id="r8">
+    <div class="eyebrow reveal">after you read · comprehension · book p. 16</div>
+    <h1 class="title reveal">Choose the answer! ✅</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Tap the answer — green locks, orange shakes back!</p>
+    <div class="col reveal mt" style="max-width:1000px;margin:1em auto 0;width:100%">
+      <div class="qrow"><b>1.</b>&nbsp;Mukesh Ambani's home is very ___.<button class="pick">simple</button><button class="pick" data-ok="1">big</button><button class="pick">small</button></div>
+      <div class="qrow"><b>2.</b>&nbsp;Henry David Thoreau's home was ___ than Ambani's home.<button class="pick">taller</button><button class="pick" data-ok="1">much smaller</button><button class="pick">more expensive</button></div>
+      <div class="qrow"><b>3.</b>&nbsp;Thoreau's house did not have ___.<button class="pick" data-ok="1">beds for guests</button><button class="pick">room for a bed</button><button class="pick">a view of the woods</button></div>
+      <div class="qrow"><b>4.</b>&nbsp;Dikembe Mutombo ___ his dream home.<button class="pick">doesn't like</button><button class="pick" data-ok="1">didn't build</button><button class="pick">doesn't live in</button></div>
+      <div class="qrow"><b>5.</b>&nbsp;Both Ambani's and Mutombo's homes ___.<button class="pick" data-ok="1">were expensive to build</button><button class="pick">have a movie theater</button><button class="pick">have a view of water</button></div>
+      <div class="qrow" style="border-bottom:none"><b>6.</b>&nbsp;Each of the dream homes is ___ in a different way.<button class="pick">simple</button><button class="pick">expensive</button><button class="pick" data-ok="1">special</button></div>
+    </div>
+  </section>
+
+<!-- 15 · what do you think? -->
+<section class="slide" id="r9">
+    <div class="eyebrow reveal">after you read · what do you think? · book p. 16</div>
+    <h1 class="title reveal">What do YOU think? 💭</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:960px;margin:0 auto;width:100%">
+      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">1</span><span class="gs">🏢 What do you like about each dream home? What do you dislike?</span></div>
+      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">2</span><span class="gs">🧑 What does each dream house tell you about its owner?</span></div>
+      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">3</span><span class="gs">🔗 What is similar about the three dream homes?</span></div>
+      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">4</span><span class="gs">❓ What else do you want to know about each dream home?</span></div>
+      <div class="yn" style="cursor:default"><span class="badge" style="background:var(--cheese);color:var(--navy)">5</span><span class="gs">🏆 Which dream home do you like best? Why?</span></div>
+    </div>
+    <p class="hintline reveal mt center">no keys here — these answers are YOURS 🗣 · pick 2–3, not all five</p>
+  </section>
+
+<!-- 16 · word forms -->
+<section class="slide" id="r10">
+    <div class="eyebrow reveal">vocabulary skill · learning word forms · book p. 17</div>
+    <h1 class="title reveal">Word families 🌳</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal" style="max-width:900px;margin:0 auto .7em;width:100%;padding:.6em 1em">
+      <p class="hintline" style="margin-bottom:.3em">one family — many jobs! The word CHANGES its form for its new job:</p>
+      <table class="chart">
+        <tr><th>Noun <span class="hintline">(a thing/person)</span></th><th>Verb <span class="hintline">(an action)</span></th><th>Adjective</th></tr>
+        <tr><td>owner</td><td>own</td><td>—</td></tr>
+        <tr><td>building</td><td>build</td><td>—</td></tr>
+        <tr><td>beauty</td><td>—</td><td>beautiful</td></tr>
+        <tr><td>difference</td><td>differ</td><td>different</td></tr>
+      </table>
+      <p class="hintline mt">Mr. Ambani <b>owns</b> a lot of cars — he is the <b>owner</b>. He <b>built</b>… no — he OWNS a big <b>building</b>!</p>
+    </div>
+    <div class="card reveal" style="max-width:1000px;margin:0 auto;width:100%;padding:.7em 1.1em">
+      <h2 style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🧩 Now YOU — choose the correct word!</h2>
+      <div class="qrow"><b>1.</b>&nbsp;Mr. Ambani <sup>①</sup> ___ a big company. He and his brother are both <sup>②</sup> ___ of the company. &nbsp;①<button class="pick" data-ok="1">owns</button><button class="pick">owners</button> ②<button class="pick" data-ok="1">owners</button><button class="pick">owns</button></div>
+      <div class="qrow"><b>2.</b>&nbsp;Thoreau's house is a very small <sup>①</sup> ___. He <sup>②</sup> ___ it by himself. &nbsp;①<button class="pick" data-ok="1">building</button><button class="pick">built</button> ②<button class="pick" data-ok="1">built</button><button class="pick">building</button></div>
+      <div class="qrow"><b>3.</b>&nbsp;The woods are a ___ place for a home.<button class="pick" data-ok="1">beautiful</button><button class="pick">beauty</button></div>
+      <div class="qrow" style="border-bottom:none"><b>4.</b>&nbsp;Thoreau's house and Ambani's house are very <sup>①</sup> ___. One important <sup>②</sup> ___ is the size. &nbsp;①<button class="pick" data-ok="1">different</button><button class="pick">difference</button> ②<button class="pick" data-ok="1">difference</button><button class="pick">different</button></div>
+    </div>
+  </section>
+
+<!-- 17 · using a dictionary -->
+<section class="slide" id="r11">
+    <div class="eyebrow reveal">vocabulary skill · using a dictionary · book p. 17</div>
+    <h1 class="title reveal">One word — many meanings 📖</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch;gap:1em;max-width:1060px;margin:0 auto;width:100%">
+      <div class="dict-card" style="flex:1;min-width:290px">
+        <span class="dhw">sto·ry</span> <i>/ˈstɔːri/</i> <b>noun</b>
+        <ol>
+          <li>words that tell you about people and things that are not real: <i>He has written many stories for children.</i></li>
+          <li>words that tell you about things that really happened: <i>My grandmother told me stories about when she was a child.</i></li>
+          <li>one level in a building: <i>The building has four stories.</i></li>
+        </ol>
+      </div>
+      <div class="dict-card" style="flex:1;min-width:290px">
+        <span class="dhw">just</span> <i>/dʒʌst/</i> <b>adverb</b>
+        <ol>
+          <li>exactly: <i>This jacket is just my size.</i></li>
+          <li>a very short time before: <i>I just heard the news.</i></li>
+          <li>at this or that moment; now or very soon: <i>I'm just going to make some coffee.</i></li>
+          <li>a word that makes what you say stronger: <i>Just look at that funny dog!</i></li>
+          <li>only: <i>It's just a small gift.</i></li>
+        </ol>
+      </div>
+    </div>
+    <div class="card reveal mt" style="max-width:1000px;margin:.8em auto 0;width:100%;padding:.7em 1.1em">
+      <h2 style="font-size:clamp(1.05rem,1.8vw,1.45rem)">🔎 Which definition number? — type the NUMBER (Enter ↵ checks)</h2>
+      <div class="qrow"><b>1.</b>&nbsp;My parents like to tell <b>stories</b> about their children. — <input class="tin good" value="2" data-ok="2" size="3" style="max-width:2.2em"> <span class="hintline">(the example!)</span></div>
+      <div class="qrow"><b>2.</b>&nbsp;Someday I want to live on the top floor of a building with twenty <b>stories</b>. — <input class="tin" data-ok="3" size="3" placeholder="…"></div>
+      <div class="qrow"><b>3.</b>&nbsp;I read a great <b>story</b> about a man who can fly. — <input class="tin" data-ok="1" size="3" placeholder="…"></div>
+      <div class="qrow"><b>4.</b>&nbsp;I usually eat something <b>just</b> before I go to bed. — <input class="tin" data-ok="2" size="3" placeholder="…"></div>
+      <div class="qrow"><b>5.</b>&nbsp;There is <b>just</b> a bed in my room—nothing else. — <input class="tin" data-ok="5" size="3" placeholder="…"></div>
+      <div class="qrow" style="border-bottom:none"><b>6.</b>&nbsp;I want a house <b>just</b> like Thoreau's house. — <input class="tin" data-ok="1" size="3" placeholder="…"></div>
+    </div>
+    <p class="hintline reveal mt center">from the Oxford Basic American Dictionary for learners of English — the book's own page · say WHY before you type!</p>
+  </section>
+
+<!-- 18 · words to remember -->
+<section class="slide" id="r12">
+    <div class="eyebrow reveal">words to remember · book p. 18</div>
+    <h1 class="title reveal">Words to remember 📚</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Point — say the meaning (or the Russian) — tap the word when you know it!</p>
+    <div class="card reveal mt" style="max-width:1000px;margin:1em auto 0;width:100%">
+      <div class="pos-h">nouns</div>
+      <div id="tickrow"><span class="wb-chip">building</span><span class="wb-chip">floor</span><span class="wb-chip">garden</span><span class="wb-chip">guest</span><span class="wb-chip">lake</span><span class="wb-chip">place</span><span class="wb-chip">seat</span><span class="wb-chip">type</span><span class="wb-chip">view</span></div>
+      <div class="pos-h">verbs</div>
+      <div><span class="wb-chip">build</span><span class="wb-chip">own</span></div>
+      <div class="pos-h">adjectives</div>
+      <div><span class="wb-chip">beautiful</span><span class="wb-chip">expensive</span><span class="wb-chip">simple</span><span class="wb-chip">special</span></div>
+      <div class="pos-h">adverbs</div>
+      <div><span class="wb-chip">close</span></div>
+    </div>
+    <p class="hintline reveal mt center">a word you don't know? Say it — it goes to your homework 📓</p>
+  </section>
+
+<!-- 19 · hangman — the chapter's words -->
+<section class="slide" id="s7">
+    <div class="eyebrow reveal">hangman · the chapter's words 🐭</div>
+    <h1 class="title reveal">Save the mouse! 🐭</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center mt"><span class="hud-chip" id="hang-count">word 1 / 4</span></div>
+    <div class="catline mt" id="catline"></div>
+    <div class="wordrow" id="wordrow"></div>
+    <p class="center hintline" id="hang-hint">guess the word!</p>
+    <div class="keys" id="keys"></div>
+    <div class="factcard secret" id="factcard"><span id="fact-text"></span></div>
+    <div class="center mt"><button class="gift-btn" id="hang-next" style="display:none;font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1.4em">next word →</button></div>
+  </section>
+
+<!-- 20 · clocks + treasure -->
+<section class="slide" id="s8">
+    <div class="eyebrow reveal">the clock game · home day 🕒</div>
+    <h1 class="title reveal">Home-day clocks 🕒</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Tap the clock you hear!</p>
+    <div class="card cheese reveal" style="max-width:920px;margin:.8em auto 0;width:100%;padding:.5em 1.1em">
+      <p class="center" style="font-size:clamp(1rem,1.6vw,1.3rem)">⏰ The clock family: <b>o'clock · half past · quarter past · quarter to</b> — which one is NEW for your pupil? Teach it here first, then play!</p>
+    </div>
+    <div class="row reveal mt" style="justify-content:center"><span class="hud-chip" id="clock-count">round 1 / 6</span><button class="reset-btn" id="clock-reset">🔄 again</button></div>
+    <div class="roundlabel mt" id="round-label">…</div>
+    <div class="clockrow mt" id="clockrow"></div>
+    <div class="card stampc treasure reveal" style="padding:.8em 1.2em">
+      <div class="center" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,1.6vw,1.3rem);color:var(--stamp)">💎 THE TREASURE TASK</div>
+      <p class="sent" style="border-bottom:none;text-align:center">Ambani's house has <b>27</b> stories. The first <b>6</b> are for the cars. <b>2</b> more are for the health club.</p>
+      <p class="t-q center" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1.25rem,2.2vw,1.75rem);color:var(--navy)">How many stories are left — for the movie theater, the guests and the family? 🤔</p>
+      <div class="center mt"><span class="gap" style="min-width:5em">19 stories!</span></div>
+    </div>
+  </section>
+
+<!-- 21 · mime -->
+<section class="slide" id="s9">
+    <div class="eyebrow reveal">the mime game · home edition 🎭</div>
+    <h1 class="title reveal">Mime it! 🎭</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">You mime — I say. Then swap! (the answer shows on the right)</p>
+    <div class="center mt"><button class="gift-btn" id="mime-deal" style="font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1.4em">🎬 deal 10!</button></div>
+    <div id="mime-grid" class="mt"></div>
+  </section>
+
+<!-- 22 · the silly game -->
+<section class="slide" id="s11">
+    <button id="help-btn" title="question words + their answers">?</button>
+    <div class="card sky" id="help-card">
+      <div class="hl"><span class="qw">Who?</span><span>a person</span></div>
+      <div class="hl"><span class="qw">What?</span><span>a thing</span></div>
+      <div class="hl"><span class="qw">Where?</span><span>a place</span></div>
+      <div class="hl"><span class="qw">When?</span><span>a time</span></div>
+      <div class="hl"><span class="qw">How many?</span><span>a number</span></div>
+    </div>
+    <div class="eyebrow reveal">the silly game · answers on the screen 🃏</div>
+    <h1 class="title reveal">The silly game 🃏</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center reveal"><button class="gift-btn" id="silly-deal" style="font-size:clamp(1rem,1.7vw,1.35rem);padding:.5em 1.4em">🃏 deal the questions!</button></div>
+    <div class="card reveal mt" style="max-width:1020px;margin:.8em auto 0;width:100%;padding:.8em 1em">
+      <p class="center" style="font-family:'Fredoka';font-weight:600;color:var(--navy);font-size:clamp(1.05rem,1.7vw,1.4rem);margin-bottom:.4em">THE ANSWERS 👀</p>
+      <div id="silly-board"></div>
+    </div>
+    <div id="qlist" class="mt"></div>
+    <p class="hintline reveal center">the questions hide until you deal — then read them, answer with THE chip on the screen! · tap the questions to clear</p>
+  </section>
+
+<!-- 23 · the interview + write -->
+<section class="slide" id="r13">
+    <div class="eyebrow reveal">discussion &amp; writing · interview · book p. 18</div>
+    <h1 class="title reveal">Interview your teacher! 🎤</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Ask the questions — tap the answers you hear!</p>
+    <div class="row reveal" style="align-items:stretch;gap:1.2em;max-width:1080px;margin:0 auto;width:100%">
+      <div class="card" style="flex:1.2;min-width:300px;padding:.8em 1em">
+        <div class="guess"><span class="gs"><b>a.</b> Where is your dream home?</span><button class="gpick t">in the city</button><button class="gpick t">in the country</button><button class="gpick t">on the beach</button></div>
+        <div class="guess"><span class="gs"><b>b.</b> How many floors or stories does it have?</span><button class="gpick t">one</button><button class="gpick t">two</button><button class="gpick t">three</button></div>
+        <div class="guess"><span class="gs"><b>c.</b> How big is your dream home?</span><button class="gpick t">small</button><button class="gpick t">medium-sized</button><button class="gpick t">large</button></div>
+        <p class="hintline" style="margin:.5em 0 .2em"><b>d.</b> What is special about it? — choose FOUR things:</p>
+        <div class="rankbank">
+          <button class="rpick" data-s="🌊 a view of a lake">🌊 a view of a lake</button>
+          <button class="rpick" data-s="🌷 a garden">🌷 a garden</button>
+          <button class="rpick" data-s="🏊 a swimming pool">🏊 a swimming pool</button>
+          <button class="rpick" data-s="🏋️ a gym">🏋️ a gym</button>
+          <button class="rpick" data-s="🛋️ lots of room">🛋️ lots of room</button>
+          <button class="rpick" data-s="🎬 a movie theater">🎬 a movie theater</button>
+        </div>
+        <div class="rankrow rslot" data-n="1"><span class="rn">1</span><span class="rs-fill">…</span></div>
+        <div class="rankrow rslot" data-n="2"><span class="rn">2</span><span class="rs-fill">…</span></div>
+        <div class="rankrow rslot" data-n="3"><span class="rn">3</span><span class="rs-fill">…</span></div>
+        <div class="rankrow rslot" data-n="4"><span class="rn">4</span><span class="rs-fill">…</span></div>
+      </div>
+      <div class="card cheese" style="flex:1;min-width:290px;padding:.8em 1em">
+        <h2 style="font-size:clamp(1.05rem,1.8vw,1.5rem)">✍️ Now WRITE about it!</h2>
+        <p class="hintline" style="margin:.2em 0 .4em">the book's example — read it together first:</p>
+        <div class="model-line" style="font-size:clamp(1rem,1.7vw,1.35rem);line-height:1.55"><i>«My partner's dream home is on the beach. It's a small house with two stories and lots of windows. It has a great view of the ocean. It also has a beautiful garden and lots of trees.»</i></div>
+        <p class="mt" style="font-size:clamp(1.05rem,1.75vw,1.4rem)">Your turn — <b>3 sentences</b> about YOUR teacher's dream home: where · how big · one special thing! 📝</p>
+        <p class="hintline mt">say it first, then write — the four slots above are your notes!</p>
+      </div>
+    </div>
+  </section>
+
+<!-- 24 · homework -->
+<section class="slide" id="r17">
+    <div class="eyebrow reveal">homework · three small things 🏡</div>
+    <h1 class="title reveal">Your homework 🏡</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:880px;margin:0 auto;width:100%">
+      <div class="hw-step"><span class="n">1</span><div><span class="en">📖 READ THE TEXT ALOUD</span> — one time, all three dream homes. Read it to someone at home — or to your favourite plant! 🪴😄</div></div>
+      <div class="hw-step"><span class="n">2</span><div><span class="en">📚 FIVE WORDS → YOUR DICTIONARY</span> — the words we did NOT tick today. For each word write the translation OR one example — your choice!</div></div>
+      <div class="hw-step"><span class="n">3</span><div style="flex:1"><span class="en">🕵️ RESEARCH A PERSON</span> — Mukesh Ambani 🏢 · Henry David Thoreau 🛖 · Dikembe Mutombo 🏀 — pick ONE. Find three facts about them (the internet helps!). Bring the facts — you are the teacher! 🎓</div><img src="media/ch3-antilia.jpg?v=1" alt="Antilia — the 27-story tower" style="flex-shrink:0;width:clamp(90px,12vw,140px);height:auto;border-radius:10px;border:3px solid var(--sky);align-self:center"></div>
+    </div>
+    <p class="hintline reveal mt center">the words live on slide 18 (Words to remember) — the deck remembers where you stopped</p>
+  </section>
+
+<!-- 25 · goodbye -->
+<section class="slide" id="r18">
+    <div class="eyebrow reveal">the end of chapter 3</div>
+    <h1 class="title reveal" style="font-size:clamp(2.2rem,5vw,4.2rem)">«Where we love is home.» 🏡</h1>
+    <div class="accent-line reveal"></div>
+    <div class="card reveal center" style="max-width:760px;margin:0 auto;width:100%;padding:1.2em 1.6em">
+      <p style="font-size:clamp(1.3rem,2.3vw,1.9rem);line-height:1.6">— <b>Oliver Wendell Holmes</b>, the writer on the chapter's first page.<br>You read a whole chapter today — a tower, a cabin and a hospital. 🏢🛖🏥</p>
+      <p class="mt" style="font-size:clamp(1.2rem,2vw,1.7rem)">See you next time! 👋</p>
+    </div>
+    <div class="leg reveal mt center"><span>🏢 27 stories</span><span>🛖 one room</span><span>🏥 150 beds</span></div>
+  </section>
+
+<!-- the fullscreen text (the ⛶ read-big extra — also the scanning source) -->
+<div id="fsstory">
+  <div class="fs-card">
+    <span class="tag">tap anywhere to close</span>
+    <h2>Dream Homes</h2>
+    <div class="frm">People have very different ideas for their dream home—their perfect house or apartment. Some people dream of a simple house in a special place. Others want a large house with every convenience.¹ Is your dream home similar to any of the dream homes below?</div>
+    <div class="frm"><b>1 🏢 Mukesh Ambani</b>, a businessman in India, is the owner of the most expensive house in the world. Ambani's dream house is 27 stories high, so it has room for everything his family needs and wants. Mr. Ambani owns a lot of cars, so the first six floors of his house are just for cars. Another floor of the house has a movie theater with seats for 50 people. Two floors of the house are for a health center with a gym and a swimming pool. Another floor is for guests² of the Ambani family. The four floors at the top of the building are just for the Ambani family. From there, they have a view of the Arabian Sea.</div>
+    <div class="frm"><b>2 🛖 Henry David Thoreau</b>, an American writer, lived from 1817 to 1862. At the age of 28, he built his perfect house. It was a very small house—just 10 feet by 15 feet (3 m by 4.5 m). Inside there were just three chairs, a bed, a table, and a small desk. The location of his house was very important to Thoreau. He built his house in the woods close to a beautiful lake.</div>
+    <div class="frm"><b>3 🏥 Dikembe Mutombo</b>, a professional basketball player, built a very different type of dream home. Mutombo grew up in the Democratic Republic of the Congo, but he moved to the United States to study. He wanted to be a doctor, but instead he became a famous basketball player. Mutombo's dream home is in the Congo, and it has beds for 150 people. It also has an emergency room,³ many exam rooms, and some beautiful gardens. Mutombo didn't build his dream home for himself. Instead, he built it for the people in his native country. Mutombo's dream home is a hospital.</div>
+  </div>
+</div>
+
+</main>
+
+<div id="pq">
+  <div class="pq-head"><span>say it in class</span><span class="a-sp"></span>
+    <button id="pqX" title="close (Esc / P)">✕</button></div>
+  <div class="pqRow"><span class="pqE">🙋</span>Pardon?</div>
+  <div class="pqRow"><span class="pqE">❓</span>What does ___ mean?</div>
+  <div class="pqRow"><span class="pqE">🆘</span>Can you help me?</div>
+  <div class="pqRow"><span class="pqE">🔁</span>Can you repeat, please?</div>
+  <div class="pqRow"><span class="pqE">🇬🇧</span>How do you say ___ in English?</div>
+  <div class="pqRow"><span class="pqE">🤷</span>I don't understand.</div>
+</div>
+
+<!-- the audio player bar — pause + scroll (appears when the track plays) -->
+<div id="abar">
+  <button id="ab-toggle" title="play / pause">⏸</button>
+  <span class="ab-name" id="ab-name">…</span>
+  <input type="range" id="ab-seek" min="0" max="100" step="0.1" value="0">
+  <span class="ab-time" id="ab-time">0:00</span>
+</div>
+
+<!-- lesson annotations — teacher-only: the ✍️ pill or key N -->
+<button id="annoBtn" title="lesson notes — tick + comments (N)">✍️</button>
+<button id="pqBtn" title="Pardon? — the class phrases (P)">🙋</button>
+
+<div id="anno">
+  <div class="a-head">
+    <span id="annoSlide">slide 1</span><span class="a-sp"></span>
+    <button id="annoPrev" title="annotate the previous slide (the deck stays where it is)">‹</button>
+    <button id="annoNext" title="annotate the next slide (the deck stays where it is)">›</button>
+    <button id="annoTick" title="tick = this slide was done">✓ done</button>
+    <button id="annoX" title="close (Esc / N)">✕</button>
+  </div>
+  <div id="annoRows">
+    <div class="arow"><label>d:</label><input id="annoD" type="text" autocomplete="off" spellcheck="false"></div>
+    <div class="arow"><label>//:</label><input id="annoSL" type="text" autocomplete="off" spellcheck="false"></div>
+    <div class="arow free"><textarea id="annoF" rows="3" autocomplete="off" spellcheck="false" placeholder="anything else…"></textarea></div>
+    <div class="arow fix"><label>fix:</label><textarea id="annoFX" rows="3" autocomplete="off" spellcheck="false" placeholder="sentences to fix…"></textarea></div>
+  </div>
+  <div class="a-foot">
+    <button id="annoCopy">📋 report</button>
+    <span class="a-hint" id="annoHint">saves in this browser · he sees the screen while you type</span>
+    <span class="a-sp"></span>
+    <button id="annoDone" title="save and close (⌘S)">Done ⌘S</button>
+  </div>
+</div>
+
+<div id="annoRep">
+  <div class="a-rep-card">
+    <div class="a-head"><b>lesson report</b><span class="a-sp"></span><button id="annoRepClose">✕</button></div>
+    <textarea id="annoRepText" readonly></textarea>
+    <div class="a-foot">
+      <button id="annoRepCopy">copy</button>
+      <button id="annoRepClear" title="delete all ticks and comments">🧹 clear</button>
+      <span id="annoSent" style="margin-left:auto;font-size:.78rem;color:var(--ink-soft);font-style:italic"></span>
+    </div>
+  </div>
+</div>
+
+<div id="nav">
+  <button class="nav-btn" id="prevBtn" title="Previous (←)">‹</button>
+  <div id="counter"><span class="now">1</span> / 25</div>
+  <button class="nav-btn" id="nextBtn" title="Next (→ / Space)">›</button>
+  <button id="fs-btn" title="Fullscreen (F)">⛶</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let current = 0;
+  const fill = document.getElementById('progress-fill');
+  const counter = document.getElementById('counter').querySelector('.now');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const fsBtn = document.getElementById('fs-btn');
+  function render(){
+    slides.forEach((s,i)=>{ s.classList.toggle('active', i===current); s.classList.toggle('prev', i<current); });
+    document.querySelectorAll('audio').forEach(a=>{ try{a.pause()}catch(e){} });
+    document.querySelectorAll('.trk-btn.playing').forEach(b=>{ b.classList.remove('playing'); b.textContent=b.dataset.label; });
+    counter.textContent = current+1;
+    fill.style.width = ((current+1)/total*100) + '%';
+    prevBtn.disabled = current===0;
+    nextBtn.disabled = current===total-1;
+    try{sessionStorage.setItem('sr-elem-ch3-slide', current+1)}catch(e){}
+  }
+  function go(n){ current = Math.max(0, Math.min(total-1, n)); render();
+    if(annoReady && annoPanel.classList.contains('on')){ annoIdx = current; annoFill(); }
+  }
+  const next = ()=>go(current+1);
+  const prev = ()=>go(current-1);
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+  document.addEventListener('keydown', e=>{
+    /* ⌘S / Ctrl+S = save + close — ONLY while the notes window is open; it must
+       work WHILE TYPING in the d: rows, so it sits BEFORE the input guard */
+    if((e.metaKey||e.ctrlKey)&&(e.key==='s'||e.key==='S')&&annoReady&&annoPanel.classList.contains('on')){
+      e.preventDefault(); annoDoneClose(); return; }
+    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
+    if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+    const scr = slides[current];
+    const canScroll = scr.scrollHeight > scr.clientHeight + 2;
+    if(e.key==='Escape'){
+      if(annoRep.classList.contains('on')){annoRep.classList.remove('on');return}
+      if(annoPanel.classList.contains('on')){annoToggle(false);return}
+      pqPanel.classList.remove('on');return}
+    if(e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З'){pqToggle(!pqPanel.classList.contains('on'));return}
+    if(e.key==='n'||e.key==='N'||e.key==='т'||e.key==='Т'){
+      if(annoPanel.classList.contains('on'))annoDoneClose();
+      else annoToggle(true);
+      return}
+    if(e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С'){annoToggle(true);return}
+    switch(e.key){
+      case 'ArrowRight': e.preventDefault(); next(); break;
+      case 'ArrowDown':
+        e.preventDefault();
+        if(canScroll && scr.scrollTop + scr.clientHeight < scr.scrollHeight - 2){ scr.scrollBy({top:120}); break; }
+        next(); break;
+      case 'ArrowLeft': e.preventDefault(); prev(); break;
+      case 'ArrowUp':
+        e.preventDefault();
+        if(canScroll && scr.scrollTop > 2){ scr.scrollBy({top:-120}); break; }
+        prev(); break;
+      case ' ': e.preventDefault(); if(window.currentTrkAudio && !window.currentTrkAudio.paused){ window.currentTrkAudio.pause(); break; } next(); break;
+      case 'Home': e.preventDefault(); go(0); break;
+      case 'End': e.preventDefault(); go(total-1); break;
+      case 'f': case 'F': case 'а': case 'А': toggleFs(); break;
+    }
+  });
+  let wheelLock = false;
+  document.getElementById('deck').addEventListener('wheel', e=>{
+    if(wheelLock) return;
+    const scr = slides[current];
+    if(scr.scrollHeight > scr.clientHeight + 2) return;
+    if(Math.abs(e.deltaY) < 25) return;
+    wheelLock = true;
+    (e.deltaY>0 ? next() : prev());
+    setTimeout(()=>wheelLock=false, 650);
+  }, {passive:true});
+  let touchX=null;
+  document.addEventListener('touchstart', e=>{touchX=e.changedTouches[0].clientX},{passive:true});
+  document.addEventListener('touchend', e=>{
+    if(touchX===null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx)>60){ dx<0 ? next() : prev(); }
+    touchX=null;
+  },{passive:true});
+  function toggleFs(){
+    if(!document.fullscreenElement){ document.documentElement.requestFullscreen?.(); }
+    else { document.exitFullscreen?.(); }
+  }
+  fsBtn.addEventListener('click', toggleFs);
+  function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+  /* gaps + yes/no + picks */
+  document.querySelectorAll('.gap').forEach(g=>{
+    g.addEventListener('click', ()=> g.classList.toggle('filled'));
+  });
+  document.querySelectorAll('.yn[data-a]').forEach(yn=>{
+    yn.addEventListener('click', ()=>{
+      const a = yn.dataset.a;
+      yn.classList.remove('shown-yes','shown-no');
+      yn.classList.add(a==='yes' ? 'shown-yes' : 'shown-no');
+      yn.querySelector('.badge').textContent = a==='yes' ? '✓' : '✗';
+    });
+  });
+  /* the gloss rows (not answers — the same reveal shape) */
+  document.querySelectorAll('#r5 .yn:not([data-a])').forEach(yn=>{
+    yn.addEventListener('click', ()=>{
+      yn.classList.add('shown-yes');
+      const b=yn.querySelector('.badge'); if(b) b.textContent='✓';
+    });
+  });
+  /* the guess picks — a prediction, no verdict */
+  document.querySelectorAll('.guess').forEach(gz=>{
+    gz.querySelectorAll('.gpick').forEach(p=>{
+      p.addEventListener('click', ()=>{
+        gz.querySelectorAll('.gpick').forEach(q=>q.classList.remove('sel'));
+        p.classList.add('sel');
+      });
+    });
+  });
+  /* the synonym-style picks: green locks, orange shakes back */
+  document.querySelectorAll('.pick').forEach(p=>{
+    p.addEventListener('click',()=>{
+      if(p.dataset.ok){
+        p.classList.add('good'); /* the right form shines — the wrong ones stay quiet (THE WRONG WORDS NEVER SHINE) */
+      } else {
+        p.classList.remove('shake'); void p.offsetWidth; p.classList.add('shake');
+        p.classList.add('bad');
+        setTimeout(()=>p.classList.remove('bad'),700);
+      }
+    });
+  });
+  /* the home grid · tap a card → the word appears */
+  document.querySelectorAll('.subj').forEach(s=>{
+    s.addEventListener('click',()=>{
+      s.classList.toggle('on');
+      const w=s.querySelector('.sw');
+      if(s.classList.contains('on')) w.textContent=s.dataset.w;
+    });
+  });
+
+  /* ===== the chapter audio — the full track + the four paragraph cuts.
+     Space pauses the track, not the slide; the slide change pauses the audio. ===== */
+  window.currentTrkAudio=null; let currentTrkBtn=null;
+  const AUDIO_URL='media/sr_elem_ch03.mp3';
+  const INTRO_URL='media/ch3-intro.m4a';
+  const AMBANI_URL='media/ch3-ambani.m4a';
+  const THOREAU_URL='media/ch3-thoreau.m4a';
+  const MUTOMBO_URL='media/ch3-mutombo.m4a';
+  const CUTS={intro:INTRO_URL,ambani:AMBANI_URL,thoreau:THOREAU_URL,mutombo:MUTOMBO_URL};
+  function trkReset(b){ b.classList.remove('playing'); b.textContent=b.dataset.label; }
+  /* the player bar — pause + scroll */
+  const abar=document.getElementById('abar'),abToggle=document.getElementById('ab-toggle'),
+        abSeek=document.getElementById('ab-seek'),abName=document.getElementById('ab-name'),
+        abTime=document.getElementById('ab-time');
+  const fmt=s=>isFinite(s)?Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'):'0:00';
+  function abBind(a,name){
+    abName.textContent=name; abar.classList.add('on');
+    abSeek.value=0; abTime.textContent='0:00'; abToggle.textContent='⏸';
+    abSeek.oninput=()=>{ if(isFinite(a.duration)) a.currentTime=abSeek.value/100*a.duration; };
+    abToggle.onclick=()=>{ a.paused ? a.play().catch(()=>{}) : a.pause(); };
+    a.ontimeupdate=()=>{ if(!isFinite(a.duration))return;
+      if(document.activeElement!==abSeek) abSeek.value=a.currentTime/a.duration*100;
+      abTime.textContent=fmt(a.currentTime)+' / '+fmt(a.duration); };
+    a.onplay=()=>abToggle.textContent='⏸';
+    a.onpause=()=>abToggle.textContent='▶';
+    a.onended=()=>{ abToggle.textContent='▶'; abSeek.value=100; };
+  }
+  document.querySelectorAll('.trk-btn').forEach(b=>{
+    b.dataset.label=b.textContent;
+    b.addEventListener('click',()=>{
+      if(currentTrkBtn===b && window.currentTrkAudio && !window.currentTrkAudio.paused){
+        window.currentTrkAudio.pause(); trkReset(b); return;
+      }
+      if(window.currentTrkAudio){ window.currentTrkAudio.pause(); }
+      if(currentTrkBtn && currentTrkBtn!==b){ trkReset(currentTrkBtn); }
+      const a=new Audio(CUTS[b.dataset.audio] || AUDIO_URL);
+      a.style.display='none'; document.body.appendChild(a);
+      window.currentTrkAudio=a; currentTrkBtn=b;
+      b.classList.add('playing'); b.textContent='⏸ '+b.dataset.label.replace('🎧 ','');
+      a.addEventListener('ended',()=>{ if(currentTrkBtn===b) trkReset(b); });
+      abBind(a,b.dataset.label.replace('🎧 ','').replace('⏸ ',''));
+      a.play().catch(()=>{});
+    });
+  });
+
+  /* teacher's notes toggles */
+  document.querySelectorAll('.tn-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const c=document.getElementById(b.dataset.tn);
+      c.classList.toggle('show');
+      b.textContent=c.classList.contains('show') ? '🗒 hide the notes' : '🗒 teacher\u0027s notes';
+    });
+  });
+
+  /* the ⛶ fullscreen text (from the reading slide and the chart slide) */
+  const fsStory=document.getElementById('fsstory');
+  const fsOpenBtns=['fsstory-btn','fsstory2-btn','fsstory3-btn'].map(i=>document.getElementById(i));
+  fsOpenBtns.forEach(b=>{ if(b) b.addEventListener('click',()=> fsStory.classList.add('on')); });
+  fsStory.addEventListener('click',()=> fsStory.classList.remove('on'));
+
+  /* hangman — the chapter's words */
+  const WORDS=[
+    {w:'GARDEN', hint:'flowers and trees grow here 🌷',
+     fact:'Fun fact: Mutombo\u2019s hospital has some beautiful gardens!'},
+    {w:'EXPENSIVE', hint:'it costs a LOT of money 💰',
+     fact:'Fun fact: Ambani\u2019s tower is the most expensive house in the world — about ONE BILLION dollars!'},
+    {w:'HOSPITAL', hint:'beds, doctors, an emergency room 🏥',
+     fact:'Fun fact: Mutombo\u2019s dream home has beds for 150 people!'},
+    {w:'SIMPLE', hint:'not big, not difficult — just what you need 🛖',
+     fact:'Fun fact: Thoreau\u2019s house had just three chairs, a bed, a table and a desk!'}
+  ];
+  const MAXWRONG=6;
+  let wIdx=0, word='', guessed=null, wrong=0, solved=0;
+  const wordrow=document.getElementById('wordrow');
+  const keysBox=document.getElementById('keys');
+  const catline=document.getElementById('catline');
+  const hangHint=document.getElementById('hang-hint');
+  const hangCount=document.getElementById('hang-count');
+  const hangNext=document.getElementById('hang-next');
+  const factcard=document.getElementById('factcard');
+  const factText=document.getElementById('fact-text');
+  function drawCat(){
+    const left=MAXWRONG-wrong;
+    catline.textContent='🐭 '+' ─ '.repeat(Math.max(left,0))+' 🐈‍⬛';
+  }
+  function paintWord(){
+    wordrow.innerHTML='';
+    for(const ch of word){
+      const s=document.createElement('div');
+      s.className='slot'+(guessed.has(ch)?'':' empty');
+      s.textContent=guessed.has(ch)?ch:'•';
+      wordrow.appendChild(s);
+    }
+  }
+  function winCheck(){
+    for(const ch of word){ if(!guessed.has(ch)) return false; }
+    return true;
+  }
+  function hangReset(){
+    word=WORDS[wIdx].w; guessed=new Set(); wrong=0;
+    hangCount.textContent='word '+(wIdx+1)+' / 4';
+    hangHint.textContent='guess the word!';
+    hangNext.style.display='none';
+    factcard.classList.remove('show');
+    drawCat(); paintWord();
+    keysBox.innerHTML='';
+    for(let i=0;i<26;i++){
+      const L=String.fromCharCode(65+i);
+      const b=document.createElement('button');
+      b.className='key'; b.textContent=L;
+      b.addEventListener('click',()=>{
+        if(word.includes(L)){
+          b.classList.add('hit');
+          guessed.add(L); paintWord();
+          if(winCheck()){
+            hangHint.textContent='✅ '+WORDS[wIdx].hint;
+            factText.innerHTML=WORDS[wIdx].fact;
+            factcard.classList.add('show');
+            solved++;
+            hangNext.style.display='inline-block';
+            hangNext.textContent = wIdx<WORDS.length-1 ? 'next word →' : '⭐ finish!';
+            [...keysBox.children].forEach(k=>k.disabled=true);
+          }
+        } else {
+          b.classList.add('miss');
+          wrong++;
+          drawCat();
+          catline.classList.remove('shake'); void catline.offsetWidth; catline.classList.add('shake');
+          if(wrong>=MAXWRONG){
+            hangHint.textContent='🙈 the cat got it — the word was '+word+'!';
+            [...keysBox.children].forEach(k=>k.disabled=true);
+            hangNext.style.display='inline-block';
+            hangNext.textContent = wIdx<WORDS.length-1 ? 'next word →' : '⭐ finish!';
+          }
+        }
+      });
+      keysBox.appendChild(b);
+    }
+  }
+  hangNext.addEventListener('click',()=>{
+    if(wIdx<WORDS.length-1){ wIdx++; hangReset(); }
+    else {
+      hangHint.textContent='⭐ WORD MASTER — all from YOUR reading! '+solved+' / 4 saved the mouse!';
+      hangNext.style.display='none';
+    }
+  });
+  hangReset();
+
+  /* clocks — home day (the four steps mixed) */
+  const SVGNS='http://www.w3.org/2000/svg';
+  function drawClock(h,m){
+    const svg=document.createElementNS(SVGNS,'svg');
+    svg.setAttribute('viewBox','0 0 100 100');
+    svg.setAttribute('width','clamp(84px,10vw,120px)');
+    svg.setAttribute('height','clamp(84px,10vw,120px)');
+    const face=document.createElementNS(SVGNS,'circle');
+    face.setAttribute('cx',50);face.setAttribute('cy',50);face.setAttribute('r',46);
+    face.setAttribute('fill','#fff');face.setAttribute('stroke','#2C4E80');face.setAttribute('stroke-width',4);
+    svg.appendChild(face);
+    for(let t=0;t<12;t++){
+      const a=t*30*Math.PI/180;
+      const tick=document.createElementNS(SVGNS,'line');
+      const r1=t%3===0?36:40;
+      tick.setAttribute('x1',50+r1*Math.sin(a));tick.setAttribute('y1',50-r1*Math.cos(a));
+      tick.setAttribute('x2',50+43*Math.sin(a));tick.setAttribute('y2',50-43*Math.cos(a));
+      tick.setAttribute('stroke',t%3===0?'#2C4E80':'#A9CCEF');
+      tick.setAttribute('stroke-width',t%3===0?3.5:2);
+      tick.setAttribute('stroke-linecap','round');
+      svg.appendChild(tick);
+    }
+    const ha=((h%12)*30+m*.5)*Math.PI/180;
+    const hour=document.createElementNS(SVGNS,'line');
+    hour.setAttribute('x1',50);hour.setAttribute('y1',50);
+    hour.setAttribute('x2',50+24*Math.sin(ha));hour.setAttribute('y2',50-24*Math.cos(ha));
+    hour.setAttribute('stroke','#2C4E80');hour.setAttribute('stroke-width',5);hour.setAttribute('stroke-linecap','round');
+    svg.appendChild(hour);
+    const ma=m*6*Math.PI/180;
+    const min=document.createElementNS(SVGNS,'line');
+    min.setAttribute('x1',50);min.setAttribute('y1',50);
+    min.setAttribute('x2',50+36*Math.sin(ma));min.setAttribute('y2',50-36*Math.cos(ma));
+    min.setAttribute('stroke','#E4572E');min.setAttribute('stroke-width',4);min.setAttribute('stroke-linecap','round');
+    svg.appendChild(min);
+    const pin=document.createElementNS(SVGNS,'circle');
+    pin.setAttribute('cx',50);pin.setAttribute('cy',50);pin.setAttribute('r',3.5);
+    pin.setAttribute('fill','#2C4E80');
+    svg.appendChild(pin);
+    return svg;
+  }
+  const ROUNDS=[
+    {label:'The moving truck comes — eight o\u0027clock! 🚚', h:8, m:0},
+    {label:'Swim time in the new pool — half past four! 🏊', h:4, m:30},
+    {label:'The housewarming party starts — quarter past seven! 🎉', h:7, m:15},
+    {label:'Quiet time in the reading corner — quarter to nine! 📚', h:9, m:45},
+    {label:'Dinner with the guests — six o\u0027clock! 🍽️', h:6, m:0},
+    {label:'The gym opens in the basement — quarter to five! 🏋️', h:5, m:45}
+  ];
+  const HOURS=[1,2,3,10,11,12];
+  let rIdx=0, clockTarget=8, clockMin=0;
+  const clockrow=document.getElementById('clockrow');
+  const roundLabel=document.getElementById('round-label');
+  const clockCount=document.getElementById('clock-count');
+  function clockRound(){
+    const round=ROUNDS[rIdx];
+    clockTarget=round.h; clockMin=round.m;
+    roundLabel.textContent=round.label;
+    clockCount.textContent='round '+(rIdx+1)+' / '+ROUNDS.length;
+    clockrow.innerHTML='';
+    const others=HOURS.filter(h=>h!==clockTarget);
+    shuffle(others.slice()).slice(0,3).concat([clockTarget]).sort(()=>Math.random()-.5).forEach(h=>{
+      const card=document.createElement('div');
+      card.className='clockcard';
+      card.appendChild(drawClock(h,clockMin));
+      card.addEventListener('click',()=>{
+        if(h===clockTarget){
+          card.classList.add('right');
+          if(rIdx<ROUNDS.length-1){ rIdx++; clockRound(); }
+          else { roundLabel.textContent='✅ what a home day! 🏅'; }
+        } else {
+          card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+        }
+      });
+      clockrow.appendChild(card);
+    });
+  }
+  document.getElementById('clock-reset').addEventListener('click',()=>{ rIdx=0; clockRound(); });
+  clockRound();
+
+  /* ===== the real maps + the invisible hotspots =====
+     ONE coordinate table for the world map; click: the hotspot glows +
+     its name appears; data-fill lands the name in the slide's gap;
+     data-reveal opens a secret card. */
+  const WORLD_HOTS = [
+    {n:'ASIA',          x:55, y:3,  w:41, h:50},
+    {n:'NORTH AMERICA', x:3,  y:5,  w:30, h:36},
+    {n:'SOUTH AMERICA', x:21, y:45, w:17, h:43},
+    {n:'EUROPE',        x:46, y:11, w:17, h:23},
+    {n:'AFRICA',        x:45, y:32, w:22, h:46},
+    {n:'OCEANIA',       x:77, y:59, w:20, h:27, pale:1},
+    {n:'INDIA',         x:65, y:37, w:10, h:18},
+    {n:'PAKISTAN',      x:61, y:36, w:5,  h:9},
+    {n:'CHINA',         x:72, y:20, w:17, h:21},
+    {n:'JAPAN',         x:91, y:17, w:5,  h:13},
+    {n:'THE UK',        x:44, y:20, w:6,  h:8},
+    {n:'FRANCE',        x:47, y:24, w:6,  h:7},
+    {n:'THE USA',       x:6,  y:21, w:21, h:17},
+    {n:'EGYPT',         x:54, y:32, w:8,  h:10},
+    {n:'CONGO',         x:51, y:52, w:10, h:11},
+    {n:'AUSTRALIA',     x:80, y:62, w:15, h:19},
+    {n:'NEW ZEALAND',   x:93, y:79, w:5,  h:10},
+    {n:'THE CARIBBEAN', x:28, y:41, w:11, h:6},
+    {n:'KOREA',         x:88, y:26, w:4,  h:8},
+    {n:'SINGAPORE',     x:78, y:55, w:4,  h:5}
+  ];
+  function labelFor(n){
+    if(n==='THE USA' || n==='USA') return 'the United States';
+    if(n==='THE UK') return 'the UK';
+    if(n==='THE CARIBBEAN') return 'the Caribbean';
+    if(n==='CONGO') return 'the Congo';
+    /* every word keeps its capital — North America, not North america */
+    return n.split(' ').map(w=>w.charAt(0)+w.slice(1).toLowerCase()).join(' ');
+  }
+  function buildMap(id, hots){
+    const wrap = document.getElementById(id);
+    if(!wrap) return;
+    hots.forEach(h=>{
+      const d=document.createElement('div');
+      d.className='hot' + (h.pale?' pale':'') + (h.target?' target':'') + (h.gold?' gold':'');
+      d.style.left=h.x+'%'; d.style.top=h.y+'%'; d.style.width=h.w+'%'; d.style.height=h.h+'%';
+      d.dataset.n=h.n;
+      if(h.fill) d.dataset.fill=h.fill;
+      if(h.reveal) d.dataset.reveal=h.reveal;
+      if(h.gap) d.dataset.gap=h.gap;
+      const t=document.createElement('span');
+      t.className='tag'; t.textContent=labelFor(h.n);
+      d.appendChild(t);
+      d.addEventListener('click',()=>{
+        d.classList.add('on');
+        if(d.dataset.fill){
+          const scope=d.closest('.slide')||document;
+          const slot=scope.querySelector('.cfill[data-want="'+d.dataset.fill+'"]');
+          if(slot){ slot.textContent=labelFor(d.dataset.fill); slot.classList.add('on'); }
+        }
+        if(d.dataset.reveal){
+          const sec=document.getElementById(d.dataset.reveal);
+          if(sec) sec.classList.add('show');
+        }
+        if(d.dataset.gap){
+          const scope=d.closest('.slide')||document;
+          const g=scope.querySelector(d.dataset.gap);
+          if(g) g.classList.add('filled');
+        }
+      });
+      wrap.appendChild(d);
+    });
+  }
+  /* slide 7 · Ambani: INDIA fills the sentence + the Mumbai card */
+  buildMap('worldmap', WORLD_HOTS.filter(h=>['INDIA','PAKISTAN','CHINA','THE UK','THE USA','AFRICA'].includes(h.n)).map(h=>{
+    const c=Object.assign({}, h);
+    if(h.n==='INDIA'){ c.fill='INDIA'; c.gold=1; c.reveal='mumbai-reveal'; }
+    return c;
+  }));
+  /* slide 8 · Thoreau: THE USA opens the Walden card */
+  buildMap('worldmap2', WORLD_HOTS.filter(h=>['THE USA','THE UK','FRANCE','ASIA','AUSTRALIA'].includes(h.n)).map(h=>{
+    const c=Object.assign({}, h);
+    if(h.n==='THE USA'){ c.reveal='walden-reveal'; c.gold=1; }
+    return c;
+  }));
+  /* slide 9 · Mutombo: CONGO fills the sentence */
+  buildMap('worldmap3', WORLD_HOTS.filter(h=>['CONGO','EGYPT','THE USA','THE UK','ASIA'].includes(h.n)).map(h=>{
+    const c=Object.assign({}, h);
+    if(h.n==='CONGO'){ c.fill='CONGO'; c.gold=1; }
+    return c;
+  }));
+  document.querySelectorAll('.show-btn').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const c=document.getElementById(b.dataset.show);
+      if(c){ c.classList.add('show'); b.style.display='none'; }
+    });
+  });
+  /* the SIZE SHOW — tap a home, its numbers open */
+  const szT=document.getElementById('sz-tower-block'), szC=document.getElementById('sz-cabin-block');
+  if(szT) szT.addEventListener('click',()=>document.getElementById('sz-tower-card').classList.toggle('show'));
+  if(szC) szC.addEventListener('click',()=>document.getElementById('sz-cabin-card').classList.toggle('show'));
+
+  /* the dream-home BUILDER — tap a feature in, tap again to take it out */
+  const dzList=[];
+  const dzHas=document.getElementById('dz-has');
+  const dzSent=document.getElementById('dz-sent');
+  function dzPaint(){
+    if(dzHas){ dzHas.innerHTML='';
+      dzList.forEach(x=>{ const d=document.createElement('div'); d.className='dz-item'; d.textContent=x; dzHas.appendChild(d); });
+    }
+    if(dzSent){
+      if(!dzList.length){ dzSent.textContent='Tap the things you want — then say it!'; }
+      else {
+        const parts=dzList.slice();
+        const last=parts.pop();
+        const phrase = parts.length ? parts.join(', ')+' and '+last : last;
+        dzSent.textContent='My dream home has '+phrase+'!';
+      }
+    }
+  }
+  document.querySelectorAll('.dz-chip').forEach(ch=>{
+    ch.addEventListener('click',()=>{
+      const w=ch.dataset.w;
+      const i=dzList.indexOf(w);
+      if(i>=0){ dzList.splice(i,1); ch.classList.remove('used'); }
+      else { dzList.push(w); ch.classList.add('used'); }
+      dzPaint();
+    });
+  });
+  const dzReset=document.getElementById('dz-reset');
+  if(dzReset) dzReset.addEventListener('click',()=>{
+    dzList.length=0;
+    document.querySelectorAll('.dz-chip.used').forEach(c=>c.classList.remove('used'));
+    dzPaint();
+  });
+
+  /* mime bank: home actions, deal 10 at random */
+  const MIME=[
+    ['Cook dinner! 🍳','you are cooking dinner!'],
+    ['Water the plants! 🌱','you are watering the plants!'],
+    ['Swim — your own pool! 🏊','you are swimming!'],
+    ['Lift weights — the home gym! 🏋️','you are lifting weights!'],
+    ['Sleep — your big bed! 😴','you are sleeping!'],
+    ['Watch a movie — the home theater! 🎬','you are watching a movie!'],
+    ['Park the car — six floors of cars! 🚗','you are parking the car!'],
+    ['Look out of the window — the lake! 🌊','you are looking at the lake!'],
+    ['Clean the floor! 🧹','you are cleaning the floor!'],
+    ['Open the door — welcome, guests! 🚪','you are opening the door!'],
+    ['Sit at the desk and write! ✍️','you are writing at the desk!'],
+    ['Climb the stairs — 27 floors! 🪜','you are climbing the stairs!']
+  ];
+  const mimeGrid=document.getElementById('mime-grid');
+  function dealMime(){
+    mimeGrid.innerHTML='';
+    shuffle(MIME.slice()).slice(0,10).forEach(([q,h])=>{
+      const r=document.createElement('div');
+      r.className='mime-row';
+      r.innerHTML='<span class="mq"></span><span class="mh"></span>';
+      r.querySelector('.mq').textContent=q;
+      r.querySelector('.mh').textContent=h;
+      mimeGrid.appendChild(r);
+    });
+  }
+  document.getElementById('mime-deal').addEventListener('click', dealMime);
+  dealMime();
+
+  /* silly game HELP button */
+  const helpBtn=document.getElementById('help-btn');
+  const helpCard=document.getElementById('help-card');
+  helpBtn.addEventListener('click',()=>helpCard.classList.toggle('show'));
+
+  /* the silly game — the frozen dealer (one answer per category) */
+  const POOL=[
+    {a:"in the woods", t:"where", q:["Where does the bear keep his homework?","Where does the fox build her tiny bed?"]},
+    {a:"27", t:"howmany", q:["How many stories does Ambani's house have?","How many floors of cars can fit under the cinema floor?"]},
+    {a:"a hospital", t:"what", q:["What is Mutombo's dream home — really?","What has beds for 150 people and an emergency room?"]},
+    {a:"in India", t:"where2", q:["Where does the elephant park his six floors of cars?","Where is the most expensive house in the world?"]},
+    {a:"a basketball player", t:"who", q:["Who built a hospital for his native country?","Who wanted to be a doctor but became an NBA star?"]},
+    {a:"Yes!", t:"yesno", q:["Is Antilia in India?","Does Thoreau's house have a view of a lake?"]},
+    {a:"No!", t:"yesno2", q:["Did Thoreau build a big house?","Does Ambani live in a small flat?"]},
+    {a:"rainy", t:"weather", q:["What's the weather like in the frog's swimming pool?","What's the weather like during the duck's housewarming party?"]},
+    {a:"It's hot!", t:"weather2", q:["What's the weather like in the camel's desert home?","What's the weather like at the crocodile's pool party?"]},
+    {a:"150", t:"howmany2", q:["How many beds are in Mutombo's hospital?","How many people can sleep in Mutombo's dream home?"]},
+    {a:"a lake", t:"what2", q:["What does Thoreau see from his window, next to the woods?","What is full of water and sits close to Thoreau's house?"]},
+    {a:"in the Congo", t:"where3", q:["Where does the hippo keep his toothbrush?","Where does the crocodile go to see a doctor?"]},
+    {a:"a garden", t:"what3", q:["What grows flowers in front of the hospital?","What do roses and tulips grow in?"]}
+  ];
+  const sillyBoard=document.getElementById('silly-board');
+  const dealList=document.getElementById('qlist');
+  function paintBoard(answers){
+    sillyBoard.innerHTML='';
+    answers.forEach(a=>{
+      const chip=document.createElement('span');
+      chip.className='wb-chip';
+      chip.textContent=a;
+      sillyBoard.appendChild(chip);
+    });
+  }
+  function dealRound(){
+    /* THE ONE-FITS RULE, per category: one yes/no, one weather, and 4
+       answers of FOUR DIFFERENT categories — two same-category answers on
+       one board break the game. */
+    const yn = Math.random() < .5 ? "Yes!" : "No!";
+    const weather = Math.random() < .5 ? "rainy" : "It's hot!";
+    const chosen=[yn,weather]; const used=new Set(["yesno","yesno2","weather","weather2"]);
+    const ynT = yn==="Yes!" ? "yesno" : "yesno2";
+    const wT = weather==="rainy" ? "weather" : "weather2";
+    used.delete(ynT); used.delete(wT); used.add(ynT); used.add(wT);
+    for(const g of shuffle(POOL.filter(x=>!used.has(x.t)))){
+      if(chosen.length>=6) break;
+      if(used.has(g.t)) continue;
+      chosen.push(g.a); used.add(g.t);
+    }
+    const groups = shuffle(chosen).map(a => POOL.find(g => g.a === a));
+    const qs = [];
+    let pass = 0;
+    while(qs.length < 10 && pass < 3){
+      for(const g of groups){
+        if(qs.length >= 10) break;
+        const cand = g.q.filter(q => !qs.includes(q));
+        if(cand.length) qs.push(cand[Math.floor(Math.random()*cand.length)]);
+      }
+      pass++;
+    }
+    return {questions: shuffle(qs), board: shuffle(groups.map(g => g.a))};
+  }
+  document.getElementById('silly-deal').addEventListener('click',()=>{
+    const round=dealRound();
+    dealList.innerHTML='';
+    round.questions.forEach(q=>{
+      const d=document.createElement('div');
+      d.className='deal-q'; d.textContent=q;
+      dealList.appendChild(d);
+    });
+    dealList.classList.add('dealt');
+    paintBoard(round.board);
+  });
+  dealList.addEventListener('click',()=>{ dealList.classList.remove('dealt'); dealList.innerHTML=''; });
+  paintBoard(dealRound().board);
+
+  /* the words shelf ticks — every row of the shelf */
+  document.querySelectorAll('#r12 .wb-chip').forEach(ch=>{
+    ch.style.cursor='pointer';
+    ch.addEventListener('click',()=>ch.classList.toggle('tick-on'));
+  });
+
+  /* the chart slots are editable */
+  document.querySelectorAll('.cslot').forEach(el=>{el.contentEditable='true';el.spellcheck=false;});
+
+  /* the interview: tap a feature → the next free slot; tap a slot → give it back */
+  document.querySelectorAll('.rpick').forEach(b=>{
+    b.addEventListener('click',()=>{
+      if(b.classList.contains('used')){ b.classList.remove('used');
+        const s=Array.from(document.querySelectorAll('.rslot')).find(x=>x.classList.contains('filled') && x.querySelector('.rs-fill').textContent===b.dataset.s);
+        if(s){ s.querySelector('.rs-fill').textContent='…'; s.classList.remove('filled'); }
+        return;
+      }
+      const free=Array.from(document.querySelectorAll('.rslot')).find(s=>!s.classList.contains('filled'));
+      if(!free) return;
+      free.querySelector('.rs-fill').textContent=b.dataset.s;
+      free.classList.add('filled');
+      b.classList.add('used');
+    });
+  });
+  document.querySelectorAll('.rslot').forEach(s=>{
+    s.addEventListener('click',()=>{
+      if(!s.classList.contains('filled')) return;
+      const name=s.querySelector('.rs-fill').textContent;
+      const b=Array.from(document.querySelectorAll('.rpick')).find(x=>x.dataset.s===name);
+      if(b) b.classList.remove('used');
+      s.querySelector('.rs-fill').textContent='…';
+      s.classList.remove('filled');
+    });
+  });
+
+  /* ===== ✍️ v2 lesson log — top right, the d: · //: rows, ⌘S = save + close;
+     auto-sends over http ===== */
+  const annoPanel=document.getElementById('anno'),annoSlideEl=document.getElementById('annoSlide'),
+  annoFields={d:document.getElementById('annoD'),sl:document.getElementById('annoSL'),free:document.getElementById('annoF'),fx:document.getElementById('annoFX')},
+  annoTick=document.getElementById('annoTick'),
+  annoHint=document.getElementById('annoHint'),annoSent=document.getElementById('annoSent');
+  const annoRep=document.getElementById('annoRep'),annoRepText=document.getElementById('annoRepText');
+  const CAN_SEND=(location.protocol==='http:');
+  let annoIdx=current,annoData={},annoReady=false;
+  try{annoData=JSON.parse(localStorage.getItem('sr-elem-ch3-anno-v7')||'{}')}catch(e){annoData={}}
+  function annoSave(){try{localStorage.setItem('sr-elem-ch3-anno-v7',JSON.stringify(annoData))}catch(e){}
+    annoSend()}
+  function annoFill(){const a=annoData[annoIdx+1]||{};
+    annoSlideEl.textContent='slide '+(annoIdx+1)+' / '+slides.length;
+    annoFields.d.value=a.d||'';annoFields.sl.value=a.sl||'';annoFields.free.value=a.free||'';annoFields.fx.value=a.fx||'';
+    annoTick.classList.toggle('on',!!a.t)}
+  function annoToggle(open){annoPanel.classList.toggle('on',open);
+    if(open){pqPanel.classList.remove('on');annoIdx=current;annoFill();
+      const firstEmpty=Object.values(annoFields).find(f=>!f.value)||annoFields.d;
+      firstEmpty.focus()}
+    else document.activeElement&&document.activeElement.blur()}
+  function annoSet(k,f){const a=annoData[k]||{};f(a);
+    if(!a.c&&!a.t&&!a.d&&!a.sl&&!a.free&&!a.fx)delete annoData[k];else annoData[k]=a;annoSave()}
+  function annoDoneClose(){annoSave();
+    annoHint.textContent='saved ✓';
+    setTimeout(()=>annoHint.textContent=CAN_SEND
+      ?'auto-sends to the Mac · he sees the screen while you type'
+      :'saves on this device · he sees the screen while you type',1400);
+    annoToggle(false)}
+  function annoReportText(){let out='sr-elem-ch3 · lesson notes · '+new Date().toLocaleString('en-GB')+'\n';
+    let any=false;
+    slides.forEach((s,k)=>{const a=annoData[k+1];if(!a)return;
+      const rows=[];
+      if(a.d)rows.push('d: '+a.d);
+      if(a.sl)rows.push('//: '+a.sl);
+      if(a.free)rows.push(a.free);
+      if(a.fx)rows.push(('fix: '+a.fx).replace(/\n/g,'\n   '));
+      if(!a.t&&!rows.length)return;any=true;
+      out+=(k+1)+(a.t?' ✓':'')+'\n'+rows.map(r=>'   '+r).join('\n')+'\n'});
+    if(!any)out+='(nothing ticked or noted yet)';
+    return out}
+  let annoTimer=null;
+  function annoSend(){if(!CAN_SEND)return;
+    clearTimeout(annoTimer);
+    annoTimer=setTimeout(()=>{
+      fetch('/report?deck=sr-elem-ch3',{method:'POST',body:annoReportText()})
+        .then(()=>{annoSent.textContent='auto-sent to the Mac ✓'})
+        .catch(()=>{annoSent.textContent='not sent — use 📋 copy'})
+    },1200)}
+  annoHint.textContent=CAN_SEND
+    ?'auto-sends to the Mac · he sees the screen while you type'
+    :'saves on this device · he sees the screen while you type';
+  document.getElementById('annoBtn').onclick=()=>annoToggle(!annoPanel.classList.contains('on'));
+  document.getElementById('annoPrev').onclick=()=>{annoIdx=Math.max(0,annoIdx-1);annoFill()};
+  document.getElementById('annoNext').onclick=()=>{annoIdx=Math.min(slides.length-1,annoIdx+1);annoFill()};
+  document.getElementById('annoX').onclick=()=>annoToggle(false);
+  annoTick.onclick=()=>{annoSet(annoIdx+1,a=>a.t=a.t?0:1);annoFill()};
+  Object.entries(annoFields).forEach(([key,f])=>
+    f.addEventListener('input',()=>annoSet(annoIdx+1,a=>a[key]=f.value)));
+  document.getElementById('annoDone').onclick=annoDoneClose;
+  document.getElementById('annoCopy').onclick=()=>{annoRepText.value=annoReportText();annoRep.classList.add('on')};
+  document.getElementById('annoRepClose').onclick=()=>annoRep.classList.remove('on');
+  annoRep.addEventListener('click',e=>{if(e.target===annoRep)annoRep.classList.remove('on')});
+  document.getElementById('annoRepCopy').onclick=()=>{annoRepText.select();
+    try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(annoRepText.value);
+    else document.execCommand('copy')}catch(e){}};
+  document.getElementById('annoRepClear').onclick=()=>{
+    annoData={};try{localStorage.removeItem('sr-elem-ch3-anno-v7')}catch(e){}
+    annoFill();annoRep.classList.remove('on');annoRepText.value=''};
+
+  /* ===== 🙋 Pardon — emoji-only on the slide; click / P opens the six lines ===== */
+  const pqPanel=document.getElementById('pq');
+  function pqToggle(open){pqPanel.classList.toggle('on',open);
+    if(open)annoPanel.classList.remove('on')}
+  document.getElementById('pqBtn').onclick=()=>pqToggle(!pqPanel.classList.contains('on'));
+  document.getElementById('pqX').onclick=()=>pqToggle(false);
+  annoReady=true;
+
+  /* the tin type-ins — Enter checks; strip spaces/commas when data-strip is set */
+  document.querySelectorAll('.tin[data-ok]').forEach(inp=>{
+    function check(){
+      const want=String(inp.dataset.ok).split('|');
+      let v=inp.value.trim();
+      if(inp.dataset.strip){ v=v.replace(/[\s,]/g,''); }
+      const hit = want.some(w=>{ let ww=w; if(inp.dataset.strip){ ww=w.replace(/[\s,]/g,''); } return v!=='' && v===ww; });
+      inp.classList.toggle('good',hit);
+      inp.classList.toggle('bad',!hit && v!=='');
+    }
+    inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); check(); } });
+    inp.addEventListener('change',check);
+  });
+
+  /* deep-link: #n opens slide n; without a hash, resume where it was last open */
+  const h=parseInt(location.hash.slice(1));
+  if(isNaN(h)){
+    const saved=parseInt(sessionStorage.getItem('sr-elem-ch3-slide')||'1');
+    current = Math.max(0,Math.min(total-1,saved-1));
+  } else {
+    current = Math.max(0,Math.min(total-1,h-1));
+  }
+  annoIdx = current;
+
+  /* READY-CHIME: when a new version of this deck is saved, the OPEN window
+     chimes and reloads itself. Needs http://; on file:// it stays quiet. */
+  (function(){
+    if(!/^https?:$/.test(location.protocol))return;
+    let last=null,ctx=null;
+    const unlock=()=>{try{
+      ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+      if(ctx.state==='suspended')ctx.resume();
+    }catch(e){}};
+    addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+    function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+      [880,1174.7].forEach((f,n)=>{
+        const o=ctx.createOscillator(),g=ctx.createGain();
+        o.type='sine';o.frequency.value=f;
+        g.gain.setValueAtTime(0,t+n*.18);
+        g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+        g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+        o.connect(g);g.connect(ctx.destination);
+        o.start(t+n*.18);o.stop(t+n*.18+1);
+      });
+    }catch(e){}}
+    function poll(){
+      fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+        const m=r.headers.get('last-modified');
+        if(!m)return;
+        if(last===null){last=m;return}
+        if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+      }).catch(()=>{});
+    }
+    poll();setInterval(poll,1500);
+  })();
+
+  render();
+})();
+</script>
+</body>
+</html>
