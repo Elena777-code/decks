@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WW4 · Unit 0 · Starter 0.1 Catching up with Bea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WW4 (8th-grade group, Tue 15.45 Elena / Fri 15.30 Farida) —
+   WIDER WORLD 4, SECOND EDITION — Unit 0 «Good friends»,
+   Starter lesson 0.1 «Catching up with Bea» (SB pp. 6–7),
+   strictly the 2e TB (teaching notes TB p. 156; the keys = the
+   TB's SB-pages-with-answer-key pages, verbatim). First lesson
+   in the new book: the Lead-in → the lesson-goals board slide
+   (the TB's «Setting lesson goals», the underlines on the board)
+   → Exercises 1–11 in the book's order (audio 0.1–0.4 + the
+   Unit 0 video play from the slides) → FINISHED EARLY → the
+   exit-ticket card (the TB's «Reviewing lesson goals») →
+   homework WB p. 2 (the SB's own rail). Engine: the group's
+   familiar sheets (deck-006 clone) + the chalkboard board-card
+   from the SM5 reference. THE CORNERS V2 (🙋 top-left · ✍️
+   top-right · 🗒 bottom-centre), the ✍️ V2 window (auto-send
+   over http), the hotkey guard, flex-shrink guard, answers
+   behind clicks, build stamp. The tense colour code on the
+   keys: blue present simple (this lesson's tense).
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --radius:14px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+  --tblue:#1450C8; --tgreen:#0E7A3D; --tred:#C0262E; --tyellow:#B8860B; --tpurple:#7D3C98;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* flex-shrink guard: nothing on a slide may collapse — the slide scrolls */
+.slide>*{flex-shrink:0}
+.slide{position:absolute;inset:0;padding:8vh 5vw 12vh;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.6vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.8rem,1.25vw,1rem);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.3rem,2.5vw,2.05rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.stamp{display:inline-block;font-size:clamp(.72rem,1.05vw,.85rem);font-weight:700;
+  color:var(--ink-soft);border:1.5px solid var(--line);border-radius:99px;
+  padding:.14em .7em;background:#fff;letter-spacing:.04em}
+.task{font-size:clamp(1.02rem,1.65vw,1.3rem);line-height:1.5;font-weight:500}
+.task strong{color:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.78rem,1.2vw,.95rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.16em .7em;
+  background:#fff;margin-bottom:.1em;white-space:nowrap}
+.note{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);font-style:italic;line-height:1.48}
+audio{width:min(460px,92%);height:42px;vertical-align:middle}
+video.deck{width:min(680px,92%);height:auto;vertical-align:middle;border-radius:10px;
+  border:1px solid var(--line);background:#000}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.8rem,1.5vw,1.2rem)}
+.card.tint{background:var(--accent-soft);border-color:#d5e2dd}
+.card.gold{background:var(--gold-soft);border-color:#e8dcb8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.5vw,1.1rem)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.5vw,1.1rem)}
+.chips{display:flex;flex-wrap:wrap;gap:.5em}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:.26em .8em;
+  font-size:clamp(.92rem,1.5vw,1.2rem);font-weight:600;background:#fff;user-select:none}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.42em 0;
+  border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.7vw,1.32rem);line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .no{font-weight:800;color:var(--accent);min-width:1.4em}
+/* click-to-reveal answers — ANSWERS HIDE, ALWAYS */
+.flip{cursor:pointer;border-radius:8px;transition:background .2s}
+.flip:hover{background:var(--accent-soft)}
+.flip .back{color:var(--accent);opacity:0;transition:opacity .2s;font-weight:700;font-size:.94em;
+  display:inline-block;max-width:0;max-height:1.1em;overflow:hidden;white-space:nowrap;vertical-align:baseline}
+.flip.shown .back{opacity:1;max-width:none;max-height:none;white-space:normal}
+/* a key chip never breaks across a line wrap — it moves whole */
+.back .tq{white-space:nowrap}
+/* the tense colour chips (the standing code; this lesson = the present simple, blue) */
+.tq{border-radius:8px;padding:.1em .45em;font-weight:700}
+.tq.pres{background:#E1EAF7;border:1.5px solid var(--tblue);color:var(--tblue)}
+.tq.cont{background:#E3F2E5;border:1.5px solid var(--tgreen);color:var(--tgreen)}
+.tq.past{background:#F9E4E1;border:1.5px solid var(--tred);color:var(--tred)}
+.tq.fut{background:#FCF3D5;border:1.5px solid var(--tyellow);color:var(--tyellow)}
+.tq.pp{background:#F1E3F5;border:1.5px solid var(--tpurple);color:var(--tpurple)}
+/* the book's own grammar-focus highlight (the SB's blue wash) */
+.hl{background:#E1EAF7;border-radius:4px;padding:0 .18em;font-weight:700;color:#123a7a}
+.lead-sm{font-size:clamp(.95rem,1.5vw,1.18rem);line-height:1.5;color:#4a463d}
+.lead-sm strong{color:var(--accent)}
+.bigbtn{align-self:flex-start;border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.28em .9em;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:clamp(.85rem,1.3vw,1rem);color:var(--ink-soft);cursor:pointer}
+.bigbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- the chalkboard (the TB's «Setting lesson goals» board slide) ---------- */
+.board-card{background:#1E3A66;border:10px solid #fff;outline:4px solid #A9CCEF;
+  border-radius:18px;padding:clamp(1.2em,4vh,2em) clamp(1.4em,4vw,2.4em);
+  box-shadow:0 20px 50px rgba(30,58,102,.35)}
+.board-line{font-family:'Fredoka',sans-serif;font-weight:500;
+  font-size:clamp(1.25rem,3vw,2.2rem);color:#FDFDF8;line-height:1.5;margin-bottom:.55em}
+.board-line u{text-decoration:none;border-bottom:5px solid #FDFDF8;padding-bottom:.06em}
+.board-line u.tblue{border-bottom-color:#7EB3FF}
+.board-line .tblue{color:#7EB3FF}
+
+/* ---------- THE CORNERS V2 — pinned emoji pills ---------- */
+.pill{position:fixed;z-index:150;border:2px solid var(--line);background:rgba(255,255,255,.95);
+  backdrop-filter:blur(8px);color:var(--ink);font-family:'Inter',sans-serif;
+  font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1;
+  padding:.42em .6em;border-radius:99px;cursor:pointer;
+  box-shadow:0 3px 10px rgba(35,39,46,.10);transition:transform .12s,border-color .12s}
+.pill:hover{transform:scale(1.08);border-color:var(--accent)}
+#pardonBtn{top:max(10px,1.6vh);left:max(10px,1.6vw)}
+#annoBtn{top:max(10px,1.6vh);right:max(10px,1.6vw)}
+
+/* ---------- 🙋 Pardon? — the one universal list (top-left popup) ---------- */
+#pq{position:fixed;left:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(420px,92vw);
+  background:#fff;border:2px solid var(--line);border-radius:16px;padding:.75em .9em .9em;
+  display:none;flex-direction:column;gap:.35em;box-shadow:0 16px 40px rgba(35,39,46,.22)}
+#pq.on{display:flex}
+#pq .pq-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft);padding:0 .2em .2em}
+#pq .a-sp{flex:1}
+#pq .pq-head button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#pq .pq-head button:hover{border-color:var(--ink-soft)}
+#pq .pqRow{display:flex;align-items:center;gap:.6em;font-size:clamp(1rem,1.9vw,1.2rem);
+  font-weight:600;color:var(--ink);padding:.3em .5em;border-radius:10px;line-height:1.35}
+#pq .pqRow:hover{background:var(--accent-soft)}
+#pq .pqRow .pqE{flex:0 0 1.6em;text-align:center;font-weight:400}
+
+/*ANNO*//*STRIPANNO*//*/ANNO*/
+
+/*TNOTES*//*STRIPTNOTES*//*/TNOTES*/
+
+/* ⛶ read big — fullscreen reading text */
+#fso{position:fixed;inset:0;z-index:190;background:var(--paper);display:none;
+  overflow:auto;padding:6vh 7vw 10vh}
+#fso.open{display:block}
+#fso .fsoinner{max-width:78ch;margin:0 auto;font-size:clamp(1.25rem,2.4vw,1.95rem);
+  line-height:1.65;color:var(--ink)}
+#fso .fsoinner .gp{display:inline-block;min-width:5.5ch;border-bottom:2px solid var(--accent);
+  text-align:center;padding:0 .3em}
+#fso .fsoinner .ex{color:var(--accent);font-weight:700}
+
+@media (max-width:900px){
+  .slide{padding:8vh 5vw 12vh}
+  .grid2,.grid3{grid-template-columns:1fr}
+}
+</style>
+<style>/* THE FILM CUE (standing): Elena films the group for the parents at this slide */
+.filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER + THE PLAN + PREPARE AHEAD -->
+<section class="slide">
+  <div class="eyebrow reveal">Wider World 4 · Second Edition · Unit 0 “Good friends” · Starter · WW4 (8th grade) — Tue 15.45 Elena / Fri 15.30 Farida</div>
+  <h1 class="reveal">0.1 Catching up with <em>Bea</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Today:</strong> a new book! Meet Bea and her friends — family, school, and the Present Simple. <!-- ww4-deck-007 · build 03.11 · v1 · master: groups/ww4/lessons/007/ww4-deck-007.html --></p>
+  <p class="tag reveal">BEFORE WE START — today’s order</p>
+  <div class="chips reveal">
+    <span class="chip">1 · the Culture project — if not done on Friday</span>
+    <span class="chip">2 · Starter 0.1 — Bea &amp; friends</span>
+  </div>
+  <div class="card tint reveal">
+    <p class="lead-sm"><strong>Prepare ahead</strong> — 📖 <strong>SB open at pp. 6–7</strong> · 📓 <strong>notebooks out</strong> · 🔊 <strong>sound check</strong>: the video + four audio tracks play right from the slides (slides 5, 7, 11, 12) · the printed 0.1 worksheet pack is optional (the deck runs the TB on its own).</p>
+  </div>
+</section>
+
+<!-- 2 · CHECK — THE CULTURE PROJECT (skip-if-done) -->
+<section class="slide">
+  <div class="eyebrow reveal">Before we start · the Culture project</div>
+  <h1 class="reveal">Your ideal school — <em>presentations</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">If Farida heard your projects on <strong>Friday</strong> — we go straight on to the new book.</p>
+  <div class="card tint reveal">
+    <p class="lead-sm">If not — <strong>each group presents now</strong>: every member presents <strong>their own part</strong> 🎤</p>
+  </div>
+</section>
+
+<!-- 3 · LEAD-IN (TB) -->
+<section class="slide">
+  <div class="eyebrow reveal">Lead-in · meet each other</div>
+  <h1 class="reveal">Introduce yourself — <em>then your partner</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>You say — four things:</strong></p>
+      <div class="item"><span class="no">1</span><span>My name is …</span></div>
+      <div class="item"><span class="no">2</span><span>I’m from …</span></div>
+      <div class="item"><span class="no">3</span><span>I live in …</span></div>
+      <div class="item"><span class="no">4</span><span>My family: … — my mother, my cousin …</span></div>
+    </div>
+    <div class="card tint">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Then in pairs</strong> — exchange the same four:</p>
+      <div class="item"><span class="no">→</span><span><em>His</em> name is … · <em>She’s</em> from …</span></div>
+      <div class="item"><span class="no">→</span><span><em>He</em> lives in …</span></div>
+      <div class="item"><span class="no">→</span><span><em>Her</em> family: …</span></div>
+    </div>
+  </div>
+  <p class="note reveal">Then: two volunteers present their partner to the class — <em>This is Dana. She is from Moscow…</em></p>
+</section>
+
+<!-- 4 · THE BOARD — SETTING LESSON GOALS (TB verbatim) -->
+<section class="slide">
+  <div class="eyebrow reveal">On the board · this lesson’s language</div>
+  <h1 class="reveal">Four sentences — <em>watch the underlines</em></h1>
+  <div class="rule reveal"></div>
+  <div class="board-card reveal">
+    <p class="board-line">I <span class="tblue"><u>watch</u></span> TV in the evening.</p>
+    <p class="board-line">She <span class="tblue"><u>always drives</u></span> her car to school.</p>
+    <p class="board-line"><u>Where do you live</u>?</p>
+    <p class="board-line">The USA is <u>bigger</u> than the UK, but <u>the biggest</u> country in the world is Russia.</p>
+  </div>
+  <p class="note reveal">By the end of the lesson you will be able to use every underlined point.</p>
+</section>
+
+<!-- 5 · EX. 1 — WATCH OR LISTEN (video 0.1 + audio 0.1) -->
+<section class="slide">
+  <div class="eyebrow reveal">SB p. 6 · ex. 1 · video 1 + track 0.1</div>
+  <h1 class="reveal">Watch or listen — <em>Bea and her friends</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">🎬 Watch (or 🎧 listen). <strong>What hobbies and interests do Bea and her friends have?</strong> Do you share any of the same interests?</p>
+  <video class="deck reveal" controls preload="none" src="../media/ww4-2e-video-newpark-0-1.mp4"></video>
+  <audio class="deck reveal" controls preload="none" src="../media/ww4-2e-track-0-1.mp3"></audio>
+  <div class="card reveal"><p class="task"><strong>Who likes what?</strong> <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ Abe: photography, baking, hiking, cycling · Eren: tennis, cycling · Carla: acting, art, first aid · Bea: gardening, programming · All four: playing frisbee</span></span></p></div>
+</section>
+
+<!-- 6 · EX. 2 — THE TEXT + TRUE/FALSE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">SB p. 6 · ex. 2 · read again — true or false?</div>
+  <h1 class="reveal">The text — <em>true or false?</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card" style="font-size:clamp(.9rem,1.5vw,1.12rem);line-height:1.55">
+      <p><strong>Bea Baxter is sixteen.</strong> Bea and her cousin Abe Kerr live in New Park, near London. They usually get on really well and spend a lot of time together.</p>
+      <p style="margin-top:.5em">Abe’s good at photography and his new hobby is baking. He likes hiking and cycling. His friend Eren King loves tennis and enjoys cycling with Abe although he sometimes has problems with his bike.</p>
+      <p style="margin-top:.5em">Bea and her best friend Carla Silva are classmates. They aren’t neighbours, but Carla lives in the next street, so they often see each other. Carla likes acting and art. She has First Aid classes every week too. Bea doesn’t do First Aid classes — she prefers to do gardening and programming in her free time.</p>
+      <p style="margin-top:.5em">Bea and Carla sometimes play frisbee with Abe and Eren in a local park. They usually have fun. The park’s a great place to relax and they all like hanging out there.</p>
+    </div>
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Bea and her cousin live in the same town. <span class="back">→ T</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Abe and Bea often argue. <span class="back">→ F — they usually get on really well</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Eren and Abe don’t enjoy any of the same things. <span class="back">→ F — they both enjoy cycling</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Carla lives near Bea. <span class="back">→ T</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Carla and Bea have similar interests. <span class="back">→ F — acting and art vs gardening and programming</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>All the friends enjoy spending time in the park. <span class="back">→ T</span></span></div>
+    </div>
+  </div>
+  <button class="bigbtn reveal" onclick="openFs('fs-text')">⛶ Read big — the whole text</button>
+</section>
+<div id="fs-text" style="display:none">
+  <h3>Bea and her friends</h3>
+  <div style="font-size:1em;line-height:1.75">
+    <p><b>Bea Baxter is sixteen.</b> Bea and her cousin Abe Kerr live in New Park, near London. They usually get on really well and spend a lot of time together.</p>
+    <p>Abe’s good at photography and his new hobby is baking. He likes hiking and cycling. His friend Eren King loves tennis and enjoys cycling with Abe although he sometimes has problems with his bike.</p>
+    <p>Bea and her best friend Carla Silva are classmates. They aren’t neighbours, but Carla lives in the next street, so they often see each other. Carla likes acting and art. She has First Aid classes every week too. Bea doesn’t do First Aid classes — she prefers to do gardening and programming in her free time.</p>
+    <p>Bea and Carla sometimes play frisbee with Abe and Eren in a local park. They usually have fun. The park’s a great place to relax and they all like hanging out there.</p>
+  </div>
+</div>
+
+<!-- 7 · EX. 3 — VOCABULARY A: RELATIONSHIPS (audio 0.2) -->
+<section class="slide">
+  <div class="eyebrow reveal">SB p. 6 · ex. 3 · track 0.2 · Vocabulary A</div>
+  <h1 class="reveal">Relationships — <em>which words are in the text?</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">🎧 <strong>0.2</strong> Study <strong>Vocabulary box A</strong>. Which of the words can you find in the text?</p>
+  <audio class="deck reveal" controls preload="none" src="../media/ww4-2e-track-0-2.mp3"></audio>
+  <div class="chips reveal">
+    <span class="chip">aunt</span><span class="chip">best friend</span><span class="chip">classmate</span><span class="chip">cousin</span><span class="chip">grandmother</span><span class="chip">great-grandfather</span><span class="chip">half-sister</span><span class="chip">neighbour</span><span class="chip">parents</span><span class="chip">relative</span><span class="chip">stepbrother</span><span class="chip">stepfather</span>
+  </div>
+  <div class="card tint reveal"><p class="task"><strong>In the text:</strong> <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ cousin · best friend · classmate · neighbour</span></span></p></div>
+</section>
+
+<!-- 8 · EX. 4 — I KNOW! MORE RELATIONSHIPS WORDS -->
+<section class="slide">
+  <div class="eyebrow reveal">SB p. 6 · ex. 4 · I KNOW!</div>
+  <h1 class="reveal">Add more words — <em>three minutes!</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>I KNOW!</strong> In pairs, add more words to <strong>Vocabulary box A</strong>. You have <strong>three minutes</strong>! Then compare your answers with another pair.</p>
+  <div class="card gold reveal"><p class="task">⏱ Three minutes — go!</p></div>
+  <div class="card reveal"><p class="task"><strong>Possible answers:</strong> <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ brother · children · father · grandfather · great-grandmother · half-brother · mother · sister · stepmother · uncle</span></span></p></div>
+</section>
+
+<!-- 9 · EX. 5 — GRAMMAR A: PRESENT SIMPLE (find examples) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">SB p. 7 · ex. 5 · Grammar box A</div>
+  <h1 class="reveal">Grammar A — <em>the Present Simple</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Study <strong>Grammar box A</strong>. Find more examples of the <strong>Present Simple</strong> in the text.</p>
+  <div class="card reveal">
+    <p class="lead-sm" style="margin-bottom:.3em"><strong>GRAMMAR A · Present Simple, adverbs of frequency, wh- questions</strong></p>
+    <div class="grid2">
+      <div>
+        <p class="lead-sm" style="margin:.2em 0"><strong>Present Simple</strong></p>
+        <div class="item"><span class="no">+</span><span>I <span class="hl">live</span> in London. &nbsp;·&nbsp; She <span class="hl">likes</span> acting.</span></div>
+        <div class="item"><span class="no">−</span><span>I <span class="hl">don’t like</span> doing sports. &nbsp;·&nbsp; She <span class="hl">doesn’t do</span> First Aid classes.</span></div>
+        <div class="item"><span class="no">?</span><span><span class="hl">Do</span> you <span class="hl">live</span> near your cousins? — Yes, I do./No, I don’t. &nbsp;·&nbsp; <span class="hl">Does</span> she <span class="hl">go</span> to your school? — Yes, she does./No, she doesn’t.</span></div>
+        <div class="item"><span class="no">adv</span><span><span class="hl">always</span>, <span class="hl">never</span>, <span class="hl">usually</span>, <span class="hl">often</span>, <span class="hl">rarely</span>, <span class="hl">sometimes</span></span></div>
+      </div>
+      <div>
+        <p class="lead-sm" style="margin:.2em 0"><strong>Wh- questions</strong></p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 1.1em">
+          <p class="item"><span class="no">1</span><span><span class="hl">Where do</span> you <span class="hl">live</span>?</span></p>
+          <p class="item"><span class="no">2</span><span><span class="hl">When do</span> you <span class="hl">see</span> friends?</span></p>
+          <p class="item"><span class="no">3</span><span><span class="hl">Who do</span> you <span class="hl">hang out with</span>?</span></p>
+          <p class="item"><span class="no">4</span><span><span class="hl">Which school do</span> you <span class="hl">go to</span>?</span></p>
+          <p class="item"><span class="no">5</span><span><span class="hl">Why do</span> you <span class="hl">like</span> your home?</span></p>
+          <p class="item"><span class="no">6</span><span><span class="hl">What sports do</span> you <span class="hl">play</span>?</span></p>
+          <p class="item" style="grid-column:1/-1"><span class="no">7</span><span><span class="hl">How often do</span> you <span class="hl">visit</span> your relatives?</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="note reveal">Hunt in the text: say the WHOLE sentence, not just the verb.</p>
+</section>
+
+<!-- 10 · EX. 6 — COMPLETE THE QUESTIONS -->
+<section class="slide">
+  <div class="eyebrow reveal">SB p. 7 · ex. 6 · Present Simple questions</div>
+  <h1 class="reveal">Complete the questions — <em>then answer them</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Complete the questions with the <strong>Present Simple</strong> form of the verbs in brackets. Then write answers that are <strong>true for you</strong>:</p>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span><span class="hl">Where do you relax</span> (where/you/relax)? <span class="note">(the example)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>__________ (what/you/usually/do) in your free time? <span class="back">→ <span class="tq pres">What do you usually do</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>__________ (you/think) it’s better to live in a city or a small town? <span class="back">→ <span class="tq pres">Do you think</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>__________ (who/you/often/meet) at the weekend? <span class="back">→ <span class="tq pres">Who do you often meet</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>__________ (you/spend) a lot of time online? <span class="back">→ <span class="tq pres">Do you spend</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>__________ (you/see) your neighbours every day? <span class="back">→ <span class="tq pres">Do you see</span></span></span></div>
+  </div>
+</section>
+
+<!-- 11 · EX. 7 — THE DIALOGUE (audio 0.3) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">SB p. 7 · ex. 7 · track 0.3 · the dialogue</div>
+  <h1 class="reveal">The timetable — <em>like or dislike?</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">🎧 <strong>0.3</strong> Read the dialogue. <strong>What subjects and classes do Abe and Bea like/dislike?</strong></p>
+  <audio class="deck reveal" controls preload="none" src="../media/ww4-2e-track-0-3.mp3"></audio>
+  <div class="grid2 reveal">
+    <div class="card" style="font-size:clamp(.9rem,1.5vw,1.12rem);line-height:1.6">
+      <p><strong>Abe:</strong> Have you got your timetable for this term yet?</p>
+      <p><strong>Bea:</strong> Yes, I’m actually looking forward to Monday mornings! I have Biology first and then Information Technology.</p>
+      <p><strong>Abe:</strong> Why do you like Biology so much? It’s <span class="hl">the worst</span> science subject!</p>
+      <p><strong>Bea:</strong> Biology’s fun — and it’s easy. I have to say IT is <span class="hl">the best</span>, though. I’d love to do some more programming. I might do a science discovery project this year too.</p>
+      <p><strong>Abe:</strong> Sometimes I just don’t understand you!</p>
+      <p><strong>Bea:</strong> Well, that’s because you’re really good at Art and creative subjects.</p>
+      <p><strong>Abe:</strong> True. Hey, do you want to try some after-school classes?</p>
+      <p><strong>Bea:</strong> Yeah, why not? Let’s have a look at the list.</p>
+      <p><strong>Abe:</strong> What about First Aid?</p>
+      <p><strong>Bea:</strong> You’re joking! I need to do something <span class="hl">more relaxing</span> after school.</p>
+      <p><strong>Abe:</strong> We can join Drama Club.</p>
+      <p><strong>Bea:</strong> Hmm … I guess it’s <span class="hl">better</span> than chess or football.</p>
+    </div>
+    <div>
+      <div class="card">
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">Abe</span><span>likes … / dislikes … <span class="back">→ likes: Art, creative subjects, Drama · dislikes: Biology</span></span></div>
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">Bea</span><span>likes … / dislikes … <span class="back">→ likes: Biology and IT · dislikes: chess and football</span></span></div>
+      </div>
+      <button class="bigbtn" onclick="openFs('fs-dlg')" style="margin-top:.6em">⛶ Read big — the dialogue</button>
+    </div>
+  </div>
+</section>
+<div id="fs-dlg" style="display:none">
+  <h3>After-school classes</h3>
+  <div style="font-size:1em;line-height:1.8">
+    <p><b>Abe:</b> Have you got your timetable for this term yet?<br>
+    <b>Bea:</b> Yes, I’m actually looking forward to Monday mornings! I have Biology first and then Information Technology.<br>
+    <b>Abe:</b> Why do you like Biology so much? It’s the worst science subject!<br>
+    <b>Bea:</b> Biology’s fun — and it’s easy. I have to say IT is the best, though. I’d love to do some more programming. I might do a science discovery project this year too.<br>
+    <b>Abe:</b> Sometimes I just don’t understand you!<br>
+    <b>Bea:</b> Well, that’s because you’re really good at Art and creative subjects.<br>
+    <b>Abe:</b> True. Hey, do you want to try some after-school classes?<br>
+    <b>Bea:</b> Yeah, why not? Let’s have a look at the list.<br>
+    <b>Abe:</b> What about First Aid?<br>
+    <b>Bea:</b> You’re joking! I need to do something more relaxing after school.<br>
+    <b>Abe:</b> We can join Drama Club.<br>
+    <b>Bea:</b> Hmm … I guess it’s better than chess or football.</p>
+  </div>
+</div>
+
+<!-- 12 · EX. 8 — VOCABULARY B: SCHOOL (audio 0.4) -->
+<section class="slide">
+  <div class="eyebrow reveal">SB p. 7 · ex. 8 · track 0.4 · Vocabulary B</div>
+  <h1 class="reveal">School — <em>add more words to each group</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">🎧 <strong>0.4</strong> <strong>I KNOW!</strong> Study <strong>Vocabulary box B</strong>. In pairs, add more words to each group. You have <strong>three minutes</strong>! Then compare your answers with another pair.</p>
+  <audio class="deck reveal" controls preload="none" src="../media/ww4-2e-track-0-4.mp3"></audio>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>VOCABULARY B · School</strong></p>
+      <div class="item"><span class="no">subj</span><span><strong>School subjects:</strong> History · Information Technology (IT) · Physics</span></div>
+      <div class="item"><span class="no">plc</span><span><strong>Places at school:</strong> canteen · library</span></div>
+    </div>
+    <div class="card">
+      <div class="item"><span class="no">asm</span><span><strong>Types of assessment:</strong> practical exam · project</span></div>
+      <div class="item"><span class="no">vrb</span><span><strong>Verbs:</strong> learn · revise · take exams</span></div>
+    </div>
+  </div>
+  <div class="card reveal"><p class="task"><strong>Possible answers:</strong> <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ subjects: Chemistry, Economics, English, Geography, Maths, Music, PE · places: computer room, corridor, classroom, science lab, sports hall, staff room · assessment: exam, multiple choice test, online test, performance, presentation · verbs: do exercises, give presentations, hand in, look up, make notes, make progress, study, take a break, take a test, write essays</span></span></p></div>
+</section>
+
+<!-- 13 · EX. 9 — GRAMMAR B: COMPARATIVES AND SUPERLATIVES -->
+<section class="slide">
+  <div class="eyebrow reveal">SB p. 7 · ex. 9 · Grammar box B</div>
+  <h1 class="reveal">Grammar B — <em>comparatives and superlatives</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Study <strong>Grammar box B</strong>. Find examples of <strong>comparative and superlative forms</strong> in the dialogue in Exercise 7.</p>
+  <div class="card reveal">
+    <p class="lead-sm" style="margin-bottom:.3em"><strong>GRAMMAR B · Comparatives and superlatives</strong></p>
+    <p class="lead-sm" style="margin:.2em 0"><strong>Comparatives</strong></p>
+    <div class="item"><span class="no">1</span><span>The new library is <span class="hl">bigger than</span> the old one.</span></div>
+    <div class="item"><span class="no">2</span><span>Art is <span class="hl">more interesting than</span> Science.</span></div>
+    <div class="item"><span class="no">3</span><span>Practical exams are <span class="hl">better/worse than</span> written exams.</span></div>
+    <p class="lead-sm" style="margin:.4em 0 .2em"><strong>Superlatives</strong></p>
+    <div class="item"><span class="no">4</span><span>The classrooms have <span class="hl">the latest</span> technology.</span></div>
+    <div class="item"><span class="no">5</span><span>The first day back at school is <span class="hl">the most difficult</span>.</span></div>
+    <div class="item"><span class="no">6</span><span>It’s <span class="hl">the best/worst</span> school in the area.</span></div>
+  </div>
+  <div class="card tint reveal"><p class="task"><strong>In the dialogue:</strong> <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ It’s the worst science subject · IT is the best · I need to do something more relaxing · it’s better than chess or football</span></span></p></div>
+</section>
+
+<!-- 14 · EX. 10 — COMPLETE: COMPARATIVE OR SUPERLATIVE -->
+<section class="slide">
+  <div class="eyebrow reveal">SB p. 7 · ex. 10 · comparative or superlative?</div>
+  <h1 class="reveal">Complete the sentences — <em>compare or top?</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Complete the sentences with the <strong>comparative or superlative</strong> form of the adjectives in brackets:</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Abe thinks their school is __________ (friendly) in the area. <span class="back">→ the friendliest</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Bea is __________ (excited) about her timetable than Abe. <span class="back">→ more excited</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>New Park Secondary is __________ (big) school in the area. <span class="back">→ the biggest</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>This year’s after-school classes are __________ (interesting) than last year’s classes. <span class="back">→ more interesting</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Abe is __________ (good) at creative subjects than science subjects. <span class="back">→ better</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>Bea thinks Biology is __________ (easy) than other subjects. <span class="back">→ easier</span></span></div>
+  </div>
+  <p class="note reveal">Two things + <em>than</em> → comparative · the top one in the group → superlative.</p>
+</section>
+
+<!-- 15 · EX. 11 — YOUR WORLD + THE FILM CUE -->
+<section class="slide">
+  <div class="eyebrow reveal">SB p. 7 · ex. 11 · Your World</div>
+  <h1 class="reveal">Your world — <em>compare the schools</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card tint reveal">
+    <p class="task"><strong>In pairs, compare</strong> different schools, school subjects and after-school classes.</p>
+    <p class="task" style="margin-top:.4em"><em>“History is more boring than Science.”</em> <span class="note">— the book’s model</span></p>
+  </div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Compare — three each:</strong></p>
+      <div class="item"><span class="no">1</span><span>two subjects: <em>___ is more ___ than ___</em></span></div>
+      <div class="item"><span class="no">2</span><span>two places at school: <em>___ is bigger than ___</em></span></div>
+      <div class="item"><span class="no">3</span><span>two classes: <em>___ is the ___ of all</em></span></div>
+    </div>
+    <div class="card gold">
+      <p class="lead-sm"><strong>Finished early?</strong> Write your comparative sentences from this exercise — full sentences, on paper.</p>
+    </div>
+  </div>
+  <div class="filmchip" title="Lights, camera, action — film 30–60 s of the group for the parents; the clip goes to Miss Alyona">🎬 Lights, camera, action!</div>
+</section>
+
+<!-- 16 · EXIT TICKET — REVIEWING LESSON GOALS (TB verbatim) -->
+<section class="slide">
+  <div class="eyebrow reveal">Before you leave · the exit ticket</div>
+  <h1 class="reveal">On your desk before you go — <em>six things</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Write on your paper:</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="item"><span class="no">1</span><span><strong>two Relationships</strong> words</span></div>
+      <div class="item"><span class="no">2</span><span>an example of a <strong>Wh- question</strong></span></div>
+      <div class="item"><span class="no">3</span><span>a sentence containing an <strong>adverb of frequency</strong></span></div>
+    </div>
+    <div class="card">
+      <div class="item"><span class="no">4</span><span><strong>three School</strong> words</span></div>
+      <div class="item"><span class="no">5</span><span>a <strong>comparative</strong> sentence</span></div>
+      <div class="item"><span class="no">6</span><span>a <strong>superlative</strong> sentence</span></div>
+    </div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm">Leave the paper <strong>on the desk</strong> as you leave. 👋</p></div>
+</section>
+
+<!-- 17 · HOMEWORK — WB p. 2 -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework · Workbook p. 2 · lesson 0.1</div>
+  <h1 class="reveal">Homework — <em>WB p. 2</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>WB p. 2 <strong>ex. 1</strong> — write the words for the definitions (relationships)</span></div>
+    <div class="item"><span class="no">2</span><span>WB p. 2 <strong>ex. 2</strong> — complete the dialogue with the <strong>Present Simple</strong></span></div>
+    <div class="item"><span class="no">3</span><span>WB p. 2 <strong>ex. 3</strong> — choose the correct option (school words)</span></div>
+    <div class="item"><span class="no">4</span><span>WB p. 2 <strong>ex. 4</strong> — <strong>comparative or superlative</strong></span></div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm">Next time — <strong>0.2 Catching up with Eren</strong> (Present Continuous · everyday technology). Bring your <strong>Workbook</strong>!</p></div>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 17</span>
+  <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<!-- pinned pills — THE CORNERS V2: 🙋 top-left · ✍️ top-right · 🗒 bottom-centre -->
+<button id="pardonBtn" class="pill" title="Pardon? — class phrases (P)">🙋</button>
+<!--TNOTES--><!--/TNOTES-->
+
+<!--TNOTES--><!--/TNOTES-->
+
+<!-- 🙋 Pardon? — the one universal list -->
+<div id="pq">
+  <div class="pq-head"><span>say it in class</span><span class="a-sp"></span>
+    <button id="pqX" title="close (Esc / P)">✕</button></div>
+  <div class="pqRow"><span class="pqE">🙋</span>Pardon?</div>
+  <div class="pqRow"><span class="pqE">❓</span>What does <b>___</b> mean?</div>
+  <div class="pqRow"><span class="pqE">🆘</span>Can you help me?</div>
+  <div class="pqRow"><span class="pqE">🔁</span>Can you repeat, please?</div>
+  <div class="pqRow"><span class="pqE">🇬🇧</span>How do you say <b>___</b> in English?</div>
+  <div class="pqRow"><span class="pqE">🤷</span>I don't understand.</div>
+</div>
+
+<!--ANNO--><!--/ANNO-->
+
+<!-- ⛶ read big -->
+<div id="fso" onclick="this.classList.remove('open')"><div class="fsoinner" id="fsoinner"></div></div>
+
+<script>
+const CH='ww4-u0-l1';
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  history.replaceState(null,'','#'+(i+1));
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  if(typeof annoFill==='function'&&document.getElementById('anno').classList.contains('on')){annoIdx=n;annoFill()}
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* ---------- ⛶ read big ---------- */
+function openFs(id){document.getElementById('fsoinner').innerHTML=document.getElementById(id).innerHTML;
+  document.getElementById('fso').classList.add('open');}
+
+/* ---------- 🙋 Pardon? (top-left pill, key P) — the one universal list ---------- */
+const pqPanel=document.getElementById('pq');
+function pqToggle(open){pqPanel.classList.toggle('on',open);
+  if(open){const a=document.getElementById('anno');if(a)a.classList.remove('on')}}
+function pqEsc(){if(pqPanel.classList.contains('on')){pqPanel.classList.remove('on');return true}return false}
+document.getElementById('pardonBtn').onclick=()=>pqToggle(!pqPanel.classList.contains('on'));
+document.getElementById('pqX').onclick=()=>pqToggle(false);
+
+/* ---------- keys (the guard first: ⌘/Ctrl/Alt never triggers deck keys) ---------- */
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){
+    if(typeof annoEsc==='function'&&annoEsc())return;
+    if(pqEsc())return;
+    if(typeof notesEsc==='function'&&notesEsc())return;
+    document.getElementById('fso').classList.remove('open');return}
+  if(document.getElementById('fso').classList.contains('open')){
+    if(e.key==='Escape')document.getElementById('fso').classList.remove('open');
+    return}
+  if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&typeof toggleNotes==='function'){e.preventDefault();toggleNotes();return}
+  if((e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З')){e.preventDefault();pqToggle(!pqPanel.classList.contains('on'));return}
+  if(pqPanel.classList.contains('on'))return; /* the list is open — other keys sleep */
+  /* MEDIA key-guard: SPACE pauses a playing track or video instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio,video')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+
+/*TNOTES*//*STRIPTNOTES*//*/TNOTES*/
+
+/*ANNO*//*STRIPANNO*//*/ANNO*/
+
+/* ---------- wheel/touch: a .scroll slide scrolls, never flips ---------- */
+let wt=0;document.addEventListener('wheel',e=>{
+  if(document.getElementById('fso').classList.contains('open'))return;
+  if(e.target.closest('.slide')&&e.target.closest('.slide').classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ---------- boot: deep link #n ---------- */
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+
+/* ---------- ready-chime (http/https: chime + reload on save) ---------- */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
