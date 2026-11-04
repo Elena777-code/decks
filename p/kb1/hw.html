@@ -105,7 +105,79 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
     <div class="sub">Новое задание всегда сверху. Ссылка постоянная — сохраните её.</div>
   </header>
 <details class="hw-row" open>
-<summary><span class="txt"><span class="nm">Урок 13 · Читаем и играем! <span class="new">✨ новое!</span></span><br><span class="dt">читаем лесенку · видео-история · лодочки · листик Cc · цветная задача · Wordwall · песенка · shkola.app</span></span></summary>
+<summary><span class="txt"><span class="nm">Урок 14 · Игрушки и видео! <span class="new">✨ новое!</span></span><br><span class="dt">видео-лесенка · слушаем и показываем · печатаем D F J K · shkola «7 Toys» · листики 1–2 · песенка</span></span></summary>
+<div class="card hw-body">
+<div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
+
+<div class="item task"><span class="n">1</span><span class="tt"><b>Читаем лесенку — и записываем видео!</b> 📖🎬 <small>— веди пальцем по словам и читай, всё быстрее! Запиши видео, как ты читаешь, и отправь его администратору Мисс Алёне 🌟</small></span><button class="chip" id="pupp-chip-1" data-k="u14-read" onclick="pupTog(this)">done</button></div>
+<div class="pnote">
+<p style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;line-height:1.75;margin:0">
+The cat.<br>
+On the mat.<br>
+Sat on the mat.<br>
+The cat sat on the mat.<br>
+The cat in a cap sat on the mat.<br>
+The bat and the cat in a cap nap on the mat.<br>
+Pat, the bat and the cat in a cap on the mat.<br>
+Pat, the bat in a can and the cat in a cap and the rat on the mat.
+</p>
+</div>
+<div style="background:#fff3f6;border:2px dashed #FF8FAB;border-radius:14px;padding:10px 14px;margin:8px 0;text-align:center">
+<p style="margin:0;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.15rem;color:#2D3436">😁 Слово <span style="color:#d64545">the</span> — покажи голливудскую улыбку!<br>Ветерок на язычок между зубами!</p>
+</div>
+<img src="../../media/kb1-u2-reading-pat.jpg" alt="Pat, the bat in a can and the cat in a cap and the rat on the mat" style="width:min(360px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+
+<div class="item task"><span class="n">2</span><span class="tt"><b>Слушай и показывай!</b> 🎧 <small>— включи трек и изображай игрушки, которые услышишь: a computer 💻 a bike 🚲 a car 🚗 a ball ⚽ a train 🚂!</small></span><button class="chip" id="pupp-chip-2" data-k="u14-listen" onclick="pupTog(this)">done</button></div>
+<!-- her cut 04.11: the first 10 s (the rubric announcement) OFF — the track starts straight at the toys; the full track stays on the deck slide -->
+<audio controls preload="none" src="../../media/kb1-u3-pb18-t26-mime.mp3"></audio>
+
+<div class="item task"><span class="n">3</span><span class="tt"><b>Печатаем — D F J K!</b> ⌨️ <small>— все четыре клавиши вместе! Руки на «домашние», не подглядывай!</small></span><button class="chip" id="pupp-chip-3" data-k="u14-typing" onclick="pupTog(this)">done</button></div>
+<a class="btn" href="https://elena777-code.github.io/decks/typing/home-row-03-dfjk.html" target="_blank">▶ Открыть игру — D F J K</a>
+
+<div class="item task"><span class="n">4</span><span class="tt"><b>Задание на shkola.app</b> 📱 <small>— открой shkola.app и выполни набор «7 Toys»!</small></span><button class="chip" id="pupp-chip-4" data-k="u14-shkola" onclick="pupTog(this)">done</button></div>
+
+<div class="item task"><span class="n">5</span><span class="tt"><b>Листики — страницы 1 и 2!</b> 📄 <small>— сделай все задания на 1-й и 2-й страницах распечатки (она в портфеле) и вклей в тетрадь!</small></span><button class="chip" id="pupp-chip-5" data-k="u14-sheets" onclick="pupTog(this)">done</button></div>
+<button onclick="var s=document.getElementById('u14-sheetspic');var off=s.style.display==='none';s.style.display=off?'block':'none';this.textContent=off?'📕 Спрятать распечатку':'🖼️ Покажи распечатку'" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.05rem;border:none;border-radius:99px;padding:.55em 1.4em;background:#95E1D3;color:#2D3436;cursor:pointer">🖼️ Покажи распечатку</button>
+<div id="u14-sheetspic" style="display:none;margin:10px 0">
+<img src="../../media/kb1-u3-print-p1.png" alt="страница 1 — Complete и Correct" style="width:min(480px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-print-p2.png" alt="страница 2 — Favourite toys и Match" style="width:min(480px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+</div>
+
+<!-- her cut 04.11: «I don't want the song» — the Action Song item is OFF this card (the standing song rule waits for her word on the next card) -->
+
+<div class="progress" id="pupp-prog">Отмечено: 0 из 5</div>
+<div class="who">
+<input id="pupp-name" placeholder="Имя" autocomplete="off">
+<input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
+<span class="kprefix">KB 1.</span><input id="pupp-group" placeholder="?" maxlength="1" autocomplete="off" title="Твоя группа: 1, 2 или 3">
+</div>
+<button class="send" id="pupp-send" onclick="pupSend()">📤 Отправить Мисс Елене</button>
+<div class="hint" id="pupp-hint"></div>
+<div class="boxwrap" id="pupp-boxwrap">
+<div class="box" onclick="document.getElementById('pupp-cartoon').classList.add('show')">🎁</div>
+<div class="boxlabel">Твой подарок! Нажми!</div>
+<div class="cartoon" id="pupp-cartoon">
+<div class="pig">🐷✨</div>
+<!-- THE CARTOON — PULLED (her Firefox run 04.11 = the «done»; no bank
+     destination named → this card's treasure): «Peppa's New Toy Cupboard»,
+     avc1 720p + aac — HER TRIM 04.11: «Just show the first 4 minutes 33
+     seconds. Don't change the cartoon.» — the file plays the FIRST 4:33
+     only (273.04 s, stream-copied, no quality loss; the full 13:55 stays
+     in git history, commit e7afb50).
+     The two earlier candidates were BANKED on her word, not consumed:
+     Mr. Dinosaur Is Lost → U11 (kb1-u11-peppa-dinosaur.mp4, 0b586e6) ·
+     Teddy's Playgroup Pirate Party → U12 (kb1-u12-peppa-party.mp4,
+     0397d33). The card publishes only on her word after the lesson. -->
+<h3>Peppa Pig — New Toy Cupboard! 🐻</h3>
+<p>Ты молодец! Все задания сделаны. Смотри мультик про игрушки!</p>
+<video controls preload="none" playsinline src="../../media/kb1-u3-peppa-toys.mp4" style="width:100%;border-radius:12px"></video>
+</div>
+<div class="note">Если что-то не получается — напишите администратору Мисс Алёны, поможем.</div>
+</div>
+</div>
+</details>
+<details class="hw-row">
+<summary><span class="txt"><span class="nm">Урок 13 · Читаем и играем! </span></span><br><span class="dt">читаем лесенку · видео-история · лодочки · листик Cc · цветная задача · Wordwall · песенка · shkola.app</span></span></summary>
 <div class="card hw-body">
 <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
 
@@ -1422,6 +1494,43 @@ function pupSend(){
   pupPaint();
 }
 pupPaint();
+</script>
+<script>
+/* Урок 14 · Игрушки и видео! — the DRAFT card's own pup* override (last-wins).
+   THE TITLE LIVES HERE TOO (the rename map): pupSend quotes the card title —
+   change both or the 📤 texts carry the old name. */
+var PUPP_KEY='kb1-u14-', PUPP_N=5;
+function pupSend(){
+  var n=document.getElementById('pupp-name'),
+      s=document.getElementById('pupp-surn'),
+      g=document.getElementById('pupp-group'),
+      hint=document.getElementById('pupp-hint');
+  var name=n.value.trim(), surn=s.value.trim().toUpperCase(), grp=g.value.trim();
+  if(!name){hint.textContent='Сначала напиши имя!';n.focus();return;}
+  if(!surn){hint.textContent='Напиши первую букву фамилии!';s.focus();return;}
+  if('123'.indexOf(grp)<0){hint.textContent='Ты из группы 1, 2 или 3?';g.focus();return;}
+  s.value=surn; hint.textContent='';
+  try{
+    localStorage.setItem('kb1-hw-name',name);
+    localStorage.setItem('kb1-hw-surn',surn);
+    localStorage.setItem('kb1-hw-group',grp);
+  }catch(e){}
+  var txt='KB 1.'+grp+' · Урок 14 · Игрушки и видео! · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+' · '+pupDate();
+  /* the send that never loses a row: fetch() rejects ASYNC on a network
+     failure — the sync try/catch never catches it (the drive proved the row
+     died silently). Queue on ANY failure; flush on the next page open. */
+  localStorage.setItem(PUPP_KEY+'sent','1');
+  pupPaint();
+  var finish=function(){};
+  try{
+    fetch(FORM_ACTION,{method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:FORM_ENTRY+'='+encodeURIComponent(txt)})
+      .catch(function(){ pupQueue(txt); });
+  }catch(e){ pupQueue(txt); }
+}
+pupPaint();
+try{ if(window.unscrFlushQueue) unscrFlushQueue(); }catch(e){}
 </script>
 <!-- PASTE-script END -->
 </body>
