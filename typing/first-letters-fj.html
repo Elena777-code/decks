@@ -136,7 +136,7 @@ p{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.5;text-align:center}
   <div class="eyebrow reveal">first letters · f and j</div>
   <h1 class="title sticker reveal">The Paw Game<br>🐾</h1>
   <p class="reveal" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1.15rem,2.3vw,1.9rem);color:#fff;text-shadow:0 2px 8px rgba(45,52,54,.35)">Read the word — type its first letter.<br>A star per letter · a paw per round · a letter of the secret word per round!</p>
-  <div class="task reveal">Homework question: What colour is the fox? 🦊</div>
+  <div class="task reveal">Homework question: How do you say «цвет» in English? 🇬🇧</div>
   <div class="namerow reveal">
     <input id="player-name" placeholder="Who is playing?" autocomplete="off" maxlength="24">
     <button class="pill" id="start-btn">Start ▶</button>
@@ -167,7 +167,7 @@ p{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.5;text-align:center}
 <section class="slide bright">
   <div class="eyebrow reveal">all rounds complete</div>
   <h1 class="title sticker reveal">Paws collected! 🐾</h1>
-  <div class="reveal" style="font-family:'Fredoka';font-weight:700;font-size:clamp(1.6rem,3.4vw,2.8rem);color:#fff;text-shadow:0 2px 8px rgba(45,52,54,.35)">What colour is the fox? 🦊 — <span id="fin-word">……</span></div>
+  <div class="reveal" style="font-family:'Fredoka';font-weight:700;font-size:clamp(1.6rem,3.4vw,2.8rem);color:#fff;text-shadow:0 2px 8px rgba(45,52,54,.35)">How do you say «цвет» in English? 🇬🇧 — <span id="fin-word">……</span></div>
   <div class="finstat reveal">
     <div class="fincard"><div class="big" id="fin-paws">0 🐾</div><div class="lbl">paws — one per round</div></div>
     <div class="fincard"><div class="big" id="fin-stars">0 ⭐</div><div class="lbl">stars — every right letter</div></div>
@@ -180,7 +180,7 @@ p{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.5;text-align:center}
 
 <!-- corners -->
 <button class="pill" id="pardon-btn" title="Pardon? — class phrases (P)">🙋</button>
-<div id="stamp">paw game · first letters f j · 06.11 · v6 · collect ORANGE</div>
+<div id="stamp">paw game · first letters f j · 07.11 · v7 · spell COLOUR</div>
 
 <!-- overlays -->
 <div class="overlay" id="pardon-ov">
@@ -293,8 +293,8 @@ var SPEC=[
 function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 /* THE HOMEWORK QUESTION (Elena, 07.11 — re-dealable): one round = one letter,
    the whole game spells the answer */
-var WORD='orange';
-var QUESTION='What colour is the fox?';
+var WORD='colour';
+var QUESTION='How do you say «цвет» in English?';
 
 var S={stars:0,paws:0,round:0,name:''};
 var G={items:[],i:0,timers:[]};
@@ -341,7 +341,17 @@ function showCard(){
   var it=G.items[G.i];
   stage.innerHTML='';
   var card=document.createElement('div');card.className='fcard';
-  var w=it.w,html='';
+  var html='';
+  if(it.mode==='seq'){
+    var w=it.seq;
+    html='<div class="typeline" id="seq-line"></div>';
+    card.innerHTML=html;
+    stage.appendChild(card);
+    paintSeq(w,0);
+    litKey(w.charAt(0));
+    return;
+  }
+  var w=it.w;
   var first='<span class="first-hl">'+w.charAt(0)+'</span>';
   var gap='<span class="gw-gap" data-gap="1">?</span>';
   if(it.mode==='pw')html='<div class="fpic">'+PICS[w]+'</div><div class="fword">'+first+w.slice(1)+'</div>';
@@ -352,12 +362,29 @@ function showCard(){
   stage.appendChild(card);
   litKey(w.charAt(0));
 }
+function genSeq(){
+  var s='';
+  for(var i=0;i<5;i++)s+=(Math.random()<0.5?'f':'j');
+  return s;
+}
+function paintSeq(w,pos){
+  var line=document.getElementById('seq-line');
+  if(!line)return;
+  line.innerHTML='';
+  for(var i=0;i<w.length;i++){
+    var c=document.createElement('span');
+    c.className='tchip'+(i<pos?' done':(i===pos?' cur':''));
+    c.textContent=w.charAt(i);
+    line.appendChild(c);
+  }
+}
 function dealRound(){
   var sp=SPEC[S.round-1];
-  roundChip.textContent=sp.h+' · '+(sp.set==='A'?runSets.A.length:sp.set==='B'?runSets.B.length:POOL.length)+' words';
   var ws=sp.set==='A'?runSets.A.slice():sp.set==='B'?runSets.B.slice():shuffle(POOL.slice());
   G.items=ws.map(function(w){return {w:w,mode:sp.mode};});
-  G.i=0;
+  G.items.push({mode:'seq',seq:genSeq()});
+  roundChip.textContent=sp.h+' · '+G.items.length+' cards';
+  G.i=0;G.sp=0;
   showCard();
 }
 function bannerRound(){
@@ -392,7 +419,7 @@ function endRound(){
   if(S.round>=SPEC.length){finishRun();return;}
   var sp=SPEC[S.round-1];
   bannerH.textContent=sp.h+' done!';
-  bannerNew.textContent='⭐ +'+roundSizeNow()+' stars · 🐾 +1 paw · you collected the letter '+got+'!';
+  bannerNew.textContent='⭐ +'+G.items.length+' stars · 🐾 +1 paw · you collected the letter '+got+'!';
   bannerPaws.textContent=SPEC[S.round].h+' is coming…';
   banner.classList.add('show');
   later(1400,function(){
@@ -400,10 +427,6 @@ function endRound(){
     S.round++;
     bannerRound();
   });
-}
-function roundSizeNow(){
-  var sp=SPEC[S.round-1];
-  return sp.set==='A'?runSets.A.length:sp.set==='B'?runSets.B.length:POOL.length;
 }
 function finishRun(){
   document.getElementById('fin-paws').textContent=S.paws+' 🐾';
@@ -417,6 +440,28 @@ function finishRun(){
 function press(ch){
   var it=G.items[G.i];
   if(!it)return;
+  if(it.mode==='seq'){
+    var want=it.seq.charAt(G.sp);
+    if(ch===want){
+      G.sp++;
+      paintSeq(it.seq,G.sp);
+      var kk=document.querySelector('#kb1 .key[data-k="'+ch+'"]');
+      if(kk){kk.classList.add('hit');later(180,function(){kk.classList.remove('hit');});}
+      litKey(it.seq.charAt(G.sp)||null);
+      if(G.sp>=it.seq.length){
+        S.stars++;paintHud(false);saveRun();
+        var card=stage.querySelector('.fcard');if(card)card.classList.add('pop');
+        nextItem();
+      }
+    }else{
+      var c3=document.querySelector('#seq-line .tchip.cur');
+      if(c3){c3.classList.add('bad');setTimeout(function(){c3.classList.remove('bad');},320);}
+      var w3=document.querySelector('#kb1 .key.lit');
+      if(w3){w3.classList.add('miss');setTimeout(function(){w3.classList.remove('miss');},320);}
+      paintSeq(it.seq,G.sp);
+    }
+    return;
+  }
   var want=it.w.charAt(0);
   if(ch===want){
     S.stars++;paintHud(false);saveRun();
