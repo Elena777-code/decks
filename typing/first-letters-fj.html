@@ -172,7 +172,7 @@ p{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.5;text-align:center}
 
 <!-- corners -->
 <button class="pill" id="pardon-btn" title="Pardon? — class phrases (P)">🙋</button>
-<div id="stamp">paw game · first letters f j · 06.11 · v4</div>
+<div id="stamp">paw game · first letters f j · 06.11 · v5</div>
 
 <!-- overlays -->
 <div class="overlay" id="pardon-ov">
@@ -201,6 +201,7 @@ p{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.5;text-align:center}
 const FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSclA75beBw43_odq4MnKpQTyVZ8IAnaVGuJ2hYXPj5ZWGS3fg/formResponse";
 const FORM_ENTRY="entry.1388210654";
 const QUEUE_KEY="pawgame-queue";
+const SAVE_KEY="pawgame-run";
 
 /* ---------- slides ---------- */
 var slides=[].slice.call(document.querySelectorAll('.slide'));
@@ -368,7 +369,7 @@ function nextItem(){
 }
 function endRound(){
   litKey(null);stage.innerHTML='';
-  S.paws++;stampPaw();paintHud(true);
+  S.paws++;stampPaw();paintHud(true);saveRun();
   if(S.round>=SPEC.length){finishRun();return;}
   var sp=SPEC[S.round-1];
   bannerH.textContent=sp.h+' done!';
@@ -389,6 +390,7 @@ function finishRun(){
   document.getElementById('fin-paws').textContent=S.paws+' 🐾';
   document.getElementById('fin-stars').textContent=S.stars+' ⭐';
   go(2);
+  consumeRun();
   sendReport();
 }
 
@@ -397,7 +399,7 @@ function press(ch){
   if(!it)return;
   var want=it.w.charAt(0);
   if(ch===want){
-    S.stars++;paintHud(false);
+    S.stars++;paintHud(false);saveRun();
     var kk=document.querySelector('#kb1 .key[data-k="'+ch+'"]');
     if(kk){kk.classList.add('hit');later(180,function(){kk.classList.remove('hit');});}
     var card=stage.querySelector('.fcard');if(card)card.classList.add('pop');
@@ -410,10 +412,28 @@ function press(ch){
 }
 
 /* ---------- the report (loss-proof: queue on failure, flush on boot) ---------- */
+function fmtDate(ms){
+  var d=new Date(ms);
+  return String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+d.getFullYear()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
 function reportLine(){
-  var d=new Date();
-  var dd=String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+d.getFullYear()+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
-  return 'Paw game · first letters F J · '+S.name+' · 🐾 '+S.paws+' paws · ⭐ '+S.stars+' stars · '+dd;
+  return 'Paw game · first letters F J · '+S.name+' · 🐾 '+S.paws+' paws · ⭐ '+S.stars+' stars · '+fmtDate(Date.now());
+}
+/* the run saves itself after every letter and every round —
+   an UNFINISHED run reports on the next open (⏸), a finished one at the finish */
+function saveRun(){
+  try{localStorage.setItem(SAVE_KEY,JSON.stringify({name:S.name,paws:S.paws,stars:S.stars,round:S.round,t:Date.now()}));}catch(e){}
+}
+function consumeRun(){try{localStorage.removeItem(SAVE_KEY);}catch(e){}}
+function sendPartial(){
+  var raw;
+  try{raw=localStorage.getItem(SAVE_KEY);}catch(e){return;}
+  if(!raw)return;
+  var run;
+  try{run=JSON.parse(raw);}catch(e){consumeRun();return;}
+  if(!run||!run.name){consumeRun();return;}
+  var line='Paw game · first letters F J · '+run.name+' · ⏸ stopped at round '+run.round+'/6 · 🐾 '+run.paws+' paws · ⭐ '+run.stars+' stars · '+fmtDate(run.t);
+  sendNow(line).then(consumeRun).catch(function(){/* the save stays — retried on the next open */});
 }
 function sendNow(line){
   var body={};body[FORM_ENTRY]=line;
@@ -446,6 +466,7 @@ function sendReport(){
   });
 }
 flushQueue();
+sendPartial();
 
 /* ---------- start / again / name ---------- */
 function tryStart(){
