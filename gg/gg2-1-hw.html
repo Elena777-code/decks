@@ -43,6 +43,14 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,6vw,2
 .bigbtn .tt{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.05rem,3.2vw,1.3rem);color:var(--ink)}
 .bigbtn .sub{font-size:clamp(.9rem,2.6vw,1.05rem);color:var(--ink-soft)}
 .bigbtn.gold{background:var(--peach)}
+.bigbtn.lav{background:var(--lavender)}
+.bigbtn.pink{background:var(--pink)}
+.panel{display:none;margin-top:.4em}
+.panel.open{display:block}
+.pagebtn{border:2px solid var(--mint-deep);background:#fff;border-radius:99px;padding:.3em 1em;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,2.9vw,1.2rem);cursor:pointer}
+.pagebtn.on{background:var(--mint)}
+#wbOval{cursor:pointer}
 .bigbtn.lav{background:#e5dbff}
 .arch{margin-top:.4em}
 .arch a{display:block;text-decoration:none;color:var(--ink);font-weight:700;
@@ -74,9 +82,17 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
 
 <div class="card now">
   <h2>Домашка · 5 ноября</h2>
-  <p style="line-height:1.9">1) 📖 WB стр. 73, упр. 1–6 <button class="donechip" id="doneWb73" type="button">done</button><br>2) 📱 shkola.app — на диктант<br>3) 🧩 Упр. 4 — соедини!<br>4) 🧪 Подготовка к тесту</p>
-  <audio controls preload="none" src="../media/gg1-wb-tk20.mp3" style="width:100%;margin-top:.2em"></audio>
-  <img src="../media/gg1-wb73.jpg" alt="WB стр. 73" style="width:100%;border-radius:14px;margin-top:.5em">
+  <div class="bigbtn lav" id="wbOval" role="button" tabindex="0" style="margin-top:.4em">
+    <span class="ic">📖</span>
+    <span><span class="tt">1 · WB стр. 73, упр. 1–6</span></span>
+    <button class="donechip" id="doneWb73" type="button">done</button>
+  </div>
+  <div class="panel" id="wbPanel">
+    <p style="font-weight:800;margin:.2em 0">🎧 Аудио 20</p>
+    <audio controls preload="none" src="../media/gg1-wb-tk20.mp3" style="width:100%"></audio>
+    <button class="pagebtn" id="pageToggle" type="button" style="margin-top:.5em">show the page</button>
+    <img id="wbPage" src="../media/gg1-wb73.jpg" alt="WB стр. 73" hidden style="width:100%;border-radius:14px;margin-top:.5em">
+  </div>
   <a class="bigbtn" href="https://student.shkola.app/lesson/12156096" target="_blank" rel="noopener" style="margin-top:.6em">
     <span class="ic">📱</span>
     <span><span class="tt">2 · shkola.app — на диктант</span></span>
@@ -85,7 +101,7 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
     <span class="ic">🧩</span>
     <span><span class="tt">3 · Упр. 4 — соедини!</span></span>
   </a>
-  <a class="bigbtn" href="gg2-1-questions-82.html" target="_blank" rel="noopener">
+  <a class="bigbtn pink" href="gg2-1-questions-82.html" target="_blank" rel="noopener">
     <span class="ic">🧪</span>
     <span><span class="tt">4 · Подготовка к тесту</span></span>
   </a>
@@ -110,8 +126,23 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
   var on=false;
   try{on=localStorage.getItem(KEY)==='1';}catch(e){}
   function paint(){chip.textContent=on?'✓ done':'done';chip.classList.toggle('on',on);}
-  chip.addEventListener('click',function(){on=!on;try{localStorage.setItem(KEY,on?'1':'0');}catch(e){}paint();});
+  chip.addEventListener('click',function(e){e.stopPropagation();on=!on;try{localStorage.setItem(KEY,on?'1':'0');}catch(e){}paint();});
   paint();
+})();
+/* oval 1: tap opens the panel (audio + show the page) */
+(function(){
+  var oval=document.getElementById('wbOval'),panel=document.getElementById('wbPanel');
+  if(!oval||!panel)return;
+  function flip(){panel.classList.toggle('open');}
+  oval.addEventListener('click',flip);
+  oval.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}});
+  var pt=document.getElementById('pageToggle'),img=document.getElementById('wbPage');
+  if(pt&&img)pt.addEventListener('click',function(){
+    var show=img.hidden;
+    img.hidden=!show;
+    pt.textContent=show?'hide the page':'show the page';
+    pt.classList.toggle('on',show);
+  });
 })();
 </script>
 
