@@ -72,6 +72,9 @@ p{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.5;text-align:center}
 @keyframes popout{to{transform:scale(1.16);opacity:0}}
 .fword{font-family:'Fredoka';font-weight:700;font-size:clamp(1.9rem,4vw,3.4rem);color:var(--ink);letter-spacing:.02em}
 .fword .first-hl{color:var(--lavender-deep);border-bottom:6px solid var(--mint-deep);border-radius:4px;padding:0 .06em}
+.fword .gw-gap{display:inline-block;min-width:1.05em;text-align:center;color:var(--lavender-deep);border-bottom:6px solid var(--mint-deep);border-radius:4px;padding:0 .06em}
+.fword .gw-gap.filled{color:var(--ink);background:#eafbf6}
+.fpic svg{width:clamp(100px,15vh,150px);height:auto;display:block;margin:0 auto}
 /* --- the paw game hud --- */
 .hud{display:flex;gap:.8em;align-items:center;justify-content:center;flex-wrap:wrap}
 .roundchip{font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.5vw,1.25rem);background:var(--white);border-radius:99px;padding:.4em 1.1em;box-shadow:0 4px 12px rgba(45,52,54,.1);color:var(--ink)}
@@ -169,7 +172,7 @@ p{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.5;text-align:center}
 
 <!-- corners -->
 <button class="pill" id="pardon-btn" title="Pardon? — class phrases (P)">🙋</button>
-<div id="stamp">paw game · first letters f j · 06.11 · v1</div>
+<div id="stamp">paw game · first letters f j · 06.11 · v2</div>
 
 <!-- overlays -->
 <div class="overlay" id="pardon-ov">
@@ -248,23 +251,48 @@ buildKB(document.getElementById('kb1'),['f','j']);
 /* ---------- the paw game ---------- */
 var PAW='<svg viewBox="0 0 120 120"><ellipse cx="60" cy="76" rx="26" ry="21" fill="#FFC48C" stroke="#E8A63C" stroke-width="3"/><ellipse cx="30" cy="46" rx="11" ry="13" fill="#FFC48C" stroke="#E8A63C" stroke-width="3" transform="rotate(-20 30 46)"/><ellipse cx="51" cy="33" rx="11" ry="13" fill="#FFC48C" stroke="#E8A63C" stroke-width="3" transform="rotate(-7 51 33)"/><ellipse cx="72" cy="33" rx="11" ry="13" fill="#FFC48C" stroke="#E8A63C" stroke-width="3" transform="rotate(7 72 33)"/><ellipse cx="93" cy="46" rx="11" ry="13" fill="#FFC48C" stroke="#E8A63C" stroke-width="3" transform="rotate(20 93 46)"/></svg>';
 
-/* Elena's f/j first-letter lists (06.11), grouped in threes —
-   each group of three JOINS the deal one round later */
-var JOIN=[
-  ['jet','jam','four'],
-  ['jug','five','jelly'],
-  ['jump','family','fan'],
-  ['jar','friend','fox'],
-  ['jellyfish','fingers','fun'],
-  ['friends','favourite','fig'],
-  ['flying','forward','fix']
+/* ---------- the picture bank (21 icons: 7 banked + 14 drawn for v2) ---------- */
+var PICS={};
+(function(){
+  function stars(n,color){var pos=[[30,36],[76,26],[24,82],[70,74],[96,46],[52,52]];var s='<svg viewBox="0 0 120 120">';for(var i=0;i<n;i++){var p=pos[i];s+='<path transform="translate('+p[0]+','+p[1]+') scale(1.7)" d="M0,-9 L2.6,-2.8 L9,-2.8 L4,1.4 L5.6,7.9 L0,4.3 L-5.6,7.9 L-4,1.4 L-9,-2.8 L-2.6,-2.8 Z" fill="'+color+'" stroke="rgba(45,52,54,.15)"/>';}return s+'</svg>';}
+  PICS.jelly='<svg viewBox="0 0 120 120"><ellipse cx="60" cy="102" rx="44" ry="7" fill="#95E1D3"/><path d="M22 100 Q18 58 40 42 Q60 28 80 42 Q102 58 98 100 Z" fill="#FF8FAB"/><path d="M38 62 Q44 50 56 48 L50 64 Q43 64 38 62 Z" fill="#fff" opacity=".5"/><path d="M14 72 q4 3 8 0 M98 78 q4 3 8 0 M12 86 q4 3 8 0" stroke="#FF8FAB" stroke-width="3" fill="none" stroke-linecap="round"/></svg>';
+  PICS.jar='<svg viewBox="0 0 120 120"><rect x="34" y="40" width="52" height="68" rx="10" fill="#EAF6FF" stroke="#A0C4FF" stroke-width="3"/><rect x="38" y="24" width="44" height="16" rx="6" fill="#FFC48C"/><rect x="42" y="54" width="36" height="26" rx="6" fill="#FF8FAB"/><circle cx="52" cy="64" r="3" fill="#fff" opacity=".6"/></svg>';
+  PICS.jellyfish='<svg viewBox="0 0 120 120"><path d="M24 62 Q24 26 60 26 Q96 26 96 62 Q84 70 76 62 Q68 70 60 62 Q52 70 44 62 Q36 70 24 62 Z" fill="#C8B6FF"/><path d="M34 70 Q32 84 38 96" stroke="#C8B6FF" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M50 72 Q50 88 46 102" stroke="#C8B6FF" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M66 72 Q68 88 74 100" stroke="#C8B6FF" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M84 70 Q88 84 84 94" stroke="#C8B6FF" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="48" cy="50" r="4" fill="#2D3436"/><circle cx="72" cy="50" r="4" fill="#2D3436"/><path d="M52 58 Q60 64 68 58" stroke="#2D3436" stroke-width="3" fill="none" stroke-linecap="round"/></svg>';
+  PICS.family='<svg viewBox="0 0 120 120"><circle cx="30" cy="36" r="11" fill="#FFC48C"/><circle cx="60" cy="40" r="10" fill="#FFD9B8"/><circle cx="90" cy="44" r="8" fill="#FFE3CF"/><path d="M19 98 L21 58 Q21 52 27 52 L33 52 Q39 52 39 58 L41 98" stroke="#5ECBB8" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M50 100 L52 62 Q52 57 57 57 L63 57 Q68 57 68 62 L70 100" stroke="#FF8FAB" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M83 100 L84 70 Q84 66 88 66 L92 66 Q96 66 96 70 L97 100" stroke="#C8B6FF" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M39 72 L48 78 L57 81 L70 81 L80 75" stroke="#2D3436" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="27" cy="35" r="1.7" fill="#2D3436"/><circle cx="33" cy="35" r="1.7" fill="#2D3436"/><circle cx="57" cy="39" r="1.7" fill="#2D3436"/><circle cx="63" cy="39" r="1.7" fill="#2D3436"/><circle cx="88" cy="43" r="1.7" fill="#2D3436"/><circle cx="92" cy="43" r="1.7" fill="#2D3436"/><path d="M26 41 q4 3 8 0 M56 44 q4 3 8 0 M86 48 q3 2 6 0" stroke="#2D3436" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
+  PICS.friend='<svg viewBox="0 0 120 120"><circle cx="42" cy="36" r="11" fill="#FFD9B8"/><circle cx="78" cy="36" r="11" fill="#FFC48C"/><path d="M31 98 L33 58 Q33 52 39 52 L45 52 Q51 52 51 58 L53 98" stroke="#5ECBB8" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M67 98 L69 58 Q69 52 75 52 L81 52 Q87 52 87 58 L89 98" stroke="#FF8FAB" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M51 74 Q60 80 69 74" stroke="#2D3436" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="38" cy="34" r="1.7" fill="#2D3436"/><circle cx="46" cy="34" r="1.7" fill="#2D3436"/><circle cx="74" cy="34" r="1.7" fill="#2D3436"/><circle cx="82" cy="34" r="1.7" fill="#2D3436"/><path d="M37 41 q5 4 10 0 M73 41 q5 4 10 0" stroke="#2D3436" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
+  PICS.four=stars(4,'#FCE38A');
+  PICS.five=stars(5,'#95E1D3');
+  PICS.jet='<svg viewBox="0 0 120 120"><ellipse cx="58" cy="60" rx="40" ry="13" fill="#A0C4FF"/><path d="M92 54 Q106 58 106 62 Q106 66 92 68 Z" fill="#7FA8E8"/><path d="M92 52 L104 30 L110 32 L100 58 Z" fill="#7FA8E8"/><path d="M46 66 L28 92 L44 92 L64 70 Z" fill="#7FA8E8"/><path d="M60 66 L46 90 L58 90 L74 70 Z" fill="#5E8ACF"/><circle cx="88" cy="58" r="4" fill="#EAF6FF"/><circle cx="74" cy="58" r="4" fill="#EAF6FF"/><circle cx="60" cy="58" r="4" fill="#EAF6FF"/><path d="M14 54 L4 54 M16 64 L8 64" stroke="#C8C8D8" stroke-width="3" stroke-linecap="round"/></svg>';
+  PICS.jam='<svg viewBox="0 0 120 120"><path d="M34 28 Q56 16 78 28 L78 40 L34 40 Z" fill="#FF8FAB"/><rect x="30" y="38" width="52" height="8" rx="4" fill="#C8C8D8"/><path d="M32 46 L80 46 L76 100 Q56 106 36 100 Z" fill="#D94848"/><path d="M32 46 L80 46 L79 58 L33 58 Z" fill="#E86060"/><rect x="42" y="64" width="26" height="20" rx="4" fill="#FFF8F0"/><path d="M88 84 Q104 80 108 70" stroke="#C8C8D8" stroke-width="5" stroke-linecap="round"/><ellipse cx="108" cy="66" rx="9" ry="7" fill="#D94848"/></svg>';
+  PICS.jump='<svg viewBox="0 0 120 120"><circle cx="60" cy="30" r="13" fill="#FFD9B8"/><path d="M48 26 Q46 14 58 16 Q70 12 72 24 Q66 20 60 22 Q52 20 48 26 Z" fill="#B5733F"/><path d="M52 44 L68 44 L72 66 L48 66 Z" fill="#FF8FAB"/><path d="M52 46 Q38 40 36 30" stroke="#FFD9B8" stroke-width="7" stroke-linecap="round"/><path d="M68 46 Q82 40 84 30" stroke="#FFD9B8" stroke-width="7" stroke-linecap="round"/><path d="M52 66 Q44 78 40 84" stroke="#2D3436" stroke-width="6" stroke-linecap="round"/><path d="M68 66 Q76 76 80 82" stroke="#2D3436" stroke-width="6" stroke-linecap="round"/><circle cx="55" cy="29" r="2.4" fill="#2D3436"/><circle cx="65" cy="29" r="2.4" fill="#2D3436"/><path d="M55 35 Q60 38 65 35" stroke="#2D3436" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M30 102 Q60 92 90 102" stroke="#C8B6FF" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M38 110 Q60 102 82 110" stroke="#C8B6FF" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/></svg>';
+  PICS.jug='<svg viewBox="0 0 120 120"><path d="M42 30 L42 42 Q30 58 32 82 Q34 100 60 100 Q86 100 88 82 Q90 58 78 42 L78 30 Z" fill="#95E1D3" stroke="#3AA493" stroke-width="3"/><path d="M42 30 L30 40 L42 44 Z" fill="#5ECBB8"/><path d="M78 40 Q98 42 96 62 Q94 74 84 76" fill="none" stroke="#3AA493" stroke-width="6" stroke-linecap="round"/><path d="M40 62 L80 62" stroke="#3AA493" stroke-width="2.5" opacity=".5"/><ellipse cx="60" cy="106" rx="30" ry="5" fill="#95E1D3" opacity=".5"/></svg>';
+  PICS.fingers='<svg viewBox="0 0 120 120"><rect x="44" y="58" width="34" height="40" rx="12" fill="#FFD9B8"/><rect x="44" y="26" width="9" height="38" rx="4.5" fill="#FFD9B8"/><rect x="55" y="18" width="9" height="46" rx="4.5" fill="#FFD9B8"/><rect x="66" y="22" width="9" height="42" rx="4.5" fill="#FFD9B8"/><rect x="77" y="30" width="9" height="34" rx="4.5" fill="#FFD9B8"/><path d="M44 74 Q30 72 28 62 Q27 56 33 56 Q38 57 40 64" fill="#FFD9B8"/></svg>';
+  PICS.friends='<svg viewBox="0 0 120 120"><circle cx="42" cy="34" r="13" fill="#FFD9B8"/><path d="M31 30 Q30 20 42 20 Q54 20 53 30 Q48 25 42 26 Q36 25 31 30 Z" fill="#B5733F"/><path d="M30 48 Q42 42 54 48 L56 84 L28 84 Z" fill="#A0C4FF"/><circle cx="78" cy="34" r="13" fill="#E8C39E"/><path d="M67 30 Q66 18 78 18 Q90 18 89 32 L89 44 Q84 38 78 39 Q72 38 67 42 Z" fill="#2D3436"/><path d="M66 48 Q78 42 90 48 L92 84 L64 84 Z" fill="#FF8FAB"/><path d="M52 52 Q60 50 66 52" stroke="#A0C4FF" stroke-width="6" stroke-linecap="round"/><circle cx="38" cy="34" r="2.2" fill="#2D3436"/><circle cx="46" cy="34" r="2.2" fill="#2D3436"/><path d="M38 40 Q42 43 46 40" stroke="#2D3436" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="74" cy="34" r="2.2" fill="#2D3436"/><circle cx="82" cy="34" r="2.2" fill="#2D3436"/><path d="M74 40 Q78 43 82 40" stroke="#2D3436" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>';
+  PICS.favourite='<svg viewBox="0 0 120 120"><path d="M60 16 L71 44 L101 46 L78 65 L86 94 L60 76 L34 94 L42 65 L19 46 L49 44 Z" fill="#F2C94C" stroke="#E8B84B" stroke-width="3" stroke-linejoin="round"/><path d="M56 30 L60 42" stroke="#FFE066" stroke-width="4" stroke-linecap="round"/><circle cx="24" cy="26" r="3" fill="#F2C94C"/><circle cx="98" cy="24" r="3.5" fill="#F2C94C"/><circle cx="106" cy="78" r="3" fill="#F2C94C"/><path d="M18 80 L24 80 M21 77 L21 83" stroke="#F2C94C" stroke-width="2" stroke-linecap="round"/></svg>';
+  PICS.flying='<svg viewBox="0 0 120 120"><path d="M34 44 Q22 34 24 24 Q36 26 42 38 Z" fill="#C8B6FF"/><path d="M86 44 Q98 34 96 24 Q84 26 78 38 Z" fill="#C8B6FF"/><circle cx="60" cy="58" r="26" fill="#7CBF6A"/><circle cx="52" cy="52" r="6" fill="#5EA85A"/><circle cx="68" cy="62" r="5" fill="#5EA85A"/><circle cx="60" cy="70" r="3.5" fill="#5EA85A"/><circle cx="52" cy="54" r="2.4" fill="#fff"/><circle cx="68" cy="54" r="2.4" fill="#fff"/><circle cx="52" cy="54" r="1.2" fill="#2D3436"/><circle cx="68" cy="54" r="1.2" fill="#2D3436"/><path d="M54 66 Q60 70 66 66" stroke="#2D3436" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M14 44 L22 40 M12 58 L20 56 M106 44 L98 40 M108 58 L100 56" stroke="#C8C8D8" stroke-width="2.5" stroke-linecap="round"/></svg>';
+  PICS.forward='<svg viewBox="0 0 120 120"><path d="M30 66 L74 66 L74 82 L100 58 L74 34 L74 50 L30 50 Z" fill="#FFC48C" stroke="#E8A63C" stroke-width="3" stroke-linejoin="round"/><path d="M14 46 L24 46 M12 58 L26 58 M14 70 L24 70" stroke="#E8A63C" stroke-width="3.5" stroke-linecap="round"/></svg>';
+  PICS.fun='<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="30" fill="#FCE38A" stroke="#F2C94C" stroke-width="3"/><path d="M44 52 Q48 46 52 52 M68 52 Q72 46 76 52" stroke="#2D3436" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M46 66 Q60 82 74 66 Z" fill="#2D3436"/><circle cx="24" cy="34" r="3" fill="#FF8FAB"/><circle cx="94" cy="30" r="3" fill="#95E1D3"/><circle cx="102" cy="66" r="3" fill="#A0C4FF"/><circle cx="16" cy="70" r="3" fill="#C8B6FF"/><path d="M30 22 L36 22 M33 19 L33 25" stroke="#FF8FAB" stroke-width="2" stroke-linecap="round"/><path d="M86 88 L92 88 M89 85 L89 91" stroke="#95E1D3" stroke-width="2" stroke-linecap="round"/></svg>';
+  PICS.fix='<svg viewBox="0 0 120 120"><g transform="rotate(45 60 60)"><rect x="55" y="24" width="10" height="56" rx="3" fill="#B8C0CC"/><path d="M52 24 L52 12 Q52 6 60 6 Q68 6 68 12 L68 24 L64 27 L56 27 Z" fill="#8A94A4"/><rect x="54" y="80" width="12" height="20" rx="4" fill="#FF6B6B"/></g><g transform="rotate(-45 60 60)"><rect x="56" y="24" width="8" height="52" rx="2" fill="#C8C8D8"/><path d="M52 76 L68 76 L66 92 L54 92 Z" fill="#F2C94C"/><rect x="55" y="92" width="10" height="16" rx="4" fill="#FF6B6B"/></g></svg>';
+  PICS.fig='<svg viewBox="0 0 120 120"><path d="M60 34 Q34 40 32 66 Q30 92 60 98 Q90 92 88 66 Q86 40 60 34 Z" fill="#9B59B6" stroke="#7D3FA0" stroke-width="3"/><path d="M60 34 Q58 24 62 16" stroke="#7D3FA0" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M62 24 Q74 16 82 22 Q74 30 62 24 Z" fill="#7CBF6A"/><path d="M52 52 Q50 72 58 86" stroke="#C9A0DC" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>';
+  PICS.fan='<svg viewBox="0 0 120 120"><circle cx="60" cy="48" r="30" fill="#EAF6FF" stroke="#7FA8E8" stroke-width="4"/><g transform="translate(60 48)"><ellipse cx="0" cy="-14" rx="8" ry="14" fill="#7FA8E8"/><ellipse cx="0" cy="14" rx="8" ry="14" fill="#7FA8E8"/><ellipse cx="-14" cy="0" rx="14" ry="8" fill="#7FA8E8"/><ellipse cx="14" cy="0" rx="14" ry="8" fill="#7FA8E8"/><circle r="7" fill="#5E8ACF"/></g><rect x="56" y="78" width="8" height="22" fill="#7FA8E8"/><rect x="44" y="100" width="32" height="8" rx="4" fill="#5E8ACF"/></svg>';
+  PICS.fox='<svg viewBox="0 0 120 120"><path d="M30 26 L44 44 L28 50 Z" fill="#E8783C"/><path d="M90 26 L76 44 L92 50 Z" fill="#E8783C"/><path d="M33 30 L41 40 L33 44 Z" fill="#2D3436"/><path d="M87 30 L79 40 L87 44 Z" fill="#2D3436"/><path d="M28 44 Q60 30 92 44 Q100 62 84 78 Q72 92 60 92 Q48 92 36 78 Q20 62 28 44 Z" fill="#E8783C"/><path d="M28 48 Q40 56 48 74 Q40 84 32 76 Q22 64 28 48 Z" fill="#FFF8F0"/><path d="M92 48 Q80 56 72 74 Q80 84 88 76 Q98 64 92 48 Z" fill="#FFF8F0"/><ellipse cx="60" cy="80" rx="12" ry="9" fill="#FFF8F0"/><circle cx="60" cy="76" r="5" fill="#2D3436"/><path d="M60 81 L60 86 M56 87 Q60 90 64 87" stroke="#2D3436" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="46" cy="58" r="3" fill="#2D3436"/><circle cx="74" cy="58" r="3" fill="#2D3436"/></svg>';
+})();
+
+/* ---------- Elena's f/j first-letter lists (06.11) + her six-round spec ---------- */
+var POOL=['jet','jam','jump','jug','jelly','jar','jellyfish','four','five','family','friend','fingers','friends','favourite','flying','forward','fun','fix','fig','fan','fox'];
+var SPEC=[
+  {h:'Round 1',sub:'10 cards · word + picture',set:'A',mode:'pw'},
+  {h:'Round 2',sub:'the same cards — the first letter ran away!',set:'A',mode:'pg'},
+  {h:'Round 3',sub:'11 fresh cards · word + picture',set:'B',mode:'pw'},
+  {h:'Round 4',sub:'the same cards — the first letter ran away!',set:'B',mode:'pg'},
+  {h:'Round 5',sub:'pictures only — think of the word!',set:'ALL',mode:'p'},
+  {h:'Round 6',sub:'words only — the first letter is missing!',set:'ALL',mode:'wg'}
 ];
-var ROUNDS=JOIN.length;              /* 7 rounds */
-function roundSize(r){return 3*r;}   /* 3,6,9,12,15,18,21 */
 function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 
 var S={paws:0,f:0,j:0,round:0,name:''};
 var G={items:[],i:0,timers:[]};
+var runSets={A:[],B:[]};
 var stage=document.getElementById('stage');
 var trail=document.getElementById('trail');
 var banner=document.getElementById('banner');
@@ -293,33 +321,42 @@ function showCard(){
   var it=G.items[G.i];
   stage.innerHTML='';
   var card=document.createElement('div');card.className='fcard';
-  var w=it.w;
-  card.innerHTML='<div class="fword"><span class="first-hl">'+w.charAt(0)+'</span>'+w.slice(1)+'</div>';
+  var w=it.w,html='';
+  var first='<span class="first-hl">'+w.charAt(0)+'</span>';
+  var gap='<span class="gw-gap" data-gap="1">?</span>';
+  if(it.mode==='pw')html='<div class="fpic">'+PICS[w]+'</div><div class="fword">'+first+w.slice(1)+'</div>';
+  else if(it.mode==='pg')html='<div class="fpic">'+PICS[w]+'</div><div class="fword">'+gap+w.slice(1)+'</div>';
+  else if(it.mode==='p')html='<div class="fpic">'+PICS[w]+'</div>';
+  else html='<div class="fword">'+gap+w.slice(1)+'</div>';
+  card.innerHTML=html;
   stage.appendChild(card);
   litKey(w.charAt(0));
 }
 function dealRound(){
-  roundChip.textContent='Round '+S.round+' · '+roundSize(S.round)+' words';
-  var pool=[];
-  for(var r=1;r<=S.round;r++)pool=pool.concat(JOIN[r-1]);
-  G.items=shuffle(pool).map(function(w){return {w:w};});
+  var sp=SPEC[S.round-1];
+  roundChip.textContent=sp.h+' · '+(sp.set==='A'?runSets.A.length:sp.set==='B'?runSets.B.length:POOL.length)+' words';
+  var ws=sp.set==='A'?runSets.A.slice():sp.set==='B'?runSets.B.slice():shuffle(POOL.slice());
+  G.items=ws.map(function(w){return {w:w,mode:sp.mode};});
   G.i=0;
   showCard();
 }
 function bannerRound(){
   stage.innerHTML='';litKey(null);
-  var isNew=(S.round===1);
-  bannerH.textContent=isNew?'Round 1':'Round '+S.round;
-  bannerNew.textContent=isNew?'3 new words: '+JOIN[0].join(' · '):'+3 new: '+JOIN[S.round-1].join(' · ');
-  bannerPaws.textContent=isNew?'Type the first letter — collect paws!':'Now '+roundSize(S.round)+' words — the old ones came back!';
+  var sp=SPEC[S.round-1];
+  bannerH.textContent=sp.h;
+  bannerNew.textContent=sp.sub;
+  bannerPaws.textContent=sp.set==='ALL'&&S.round===SPEC.length-1?'All '+POOL.length+' words — one more time!':'';
   banner.classList.add('show');
   later(1600,function(){banner.classList.remove('show');dealRound();});
 }
 function startRun(){
   clearTimers();
+  var all=shuffle(POOL.slice());
+  runSets.A=all.slice(0,10);
+  runSets.B=all.slice(10);
   S={paws:0,f:0,j:0,round:1,name:S.name};
   trail.innerHTML='';paintPaws();pawChip.classList.remove('bump');
-  S.round=1;bannerRound();
+  bannerRound();
 }
 function nextItem(){
   G.i++;
@@ -328,10 +365,11 @@ function nextItem(){
 }
 function endRound(){
   litKey(null);stage.innerHTML='';
-  if(S.round>=ROUNDS){finishRun();return;}
-  bannerH.textContent='Round '+S.round+' done!';
-  bannerNew.textContent='🐾 +'+roundSize(S.round)+' paws';
-  bannerPaws.textContent='Round '+(S.round+1)+' is coming…';
+  if(S.round>=SPEC.length){finishRun();return;}
+  var sp=SPEC[S.round-1];
+  bannerH.textContent=sp.h+' done!';
+  bannerNew.textContent='🐾 paws so far: '+S.paws;
+  bannerPaws.textContent=SPEC[S.round].h+' is coming…';
   banner.classList.add('show');
   later(1400,function(){
     banner.classList.remove('show');
@@ -346,6 +384,7 @@ function finishRun(){
   go(2);
   sendReport();
 }
+
 function press(ch){
   var it=G.items[G.i];
   if(!it)return;
