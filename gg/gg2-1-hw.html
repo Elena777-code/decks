@@ -51,6 +51,9 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,6vw,2
   font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,2.9vw,1.2rem);cursor:pointer}
 .pagebtn.on{background:var(--mint)}
 #wbOval{cursor:pointer}
+.nrow{display:flex;align-items:center;gap:.5em;margin:.2em 0 .7em;font-weight:800;font-size:clamp(1rem,3vw,1.25rem)}
+.nrow input{flex:1;min-width:0;border:2px solid #e3ddd2;border-radius:14px;padding:.45em .8em;font:inherit;font-weight:700;background:#fff;color:var(--ink)}
+.nrow input.err{border-color:#e05a4e}
 .bigbtn.lav{background:#e5dbff}
 .arch{margin-top:.4em}
 .arch a{display:block;text-decoration:none;color:var(--ink);font-weight:700;
@@ -82,6 +85,7 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
 
 <div class="card now">
   <h2>Домашка · 5 ноября</h2>
+  <div class="nrow"><span>✏️ Твоё имя:</span><input id="hwName" maxlength="30" autocomplete="off"></div>
   <div class="bigbtn lav" id="wbOval" role="button" tabindex="0" style="margin-top:.4em">
     <span class="ic">📖</span>
     <span><span class="tt">1 · WB стр. 73, упр. 1–6</span></span>
@@ -93,10 +97,13 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
     <button class="pagebtn" id="pageToggle" type="button" style="margin-top:.5em">show the page</button>
     <img id="wbPage" src="../media/gg1-wb73.jpg" alt="WB стр. 73" hidden style="width:100%;border-radius:14px;margin-top:.5em">
   </div>
-  <a class="bigbtn" href="https://student.shkola.app/lesson/12156096" target="_blank" rel="noopener" style="margin-top:.6em">
-    <span class="ic">📱</span>
-    <span><span class="tt">2 · shkola.app — на диктант</span></span>
-  </a>
+  <div class="bigbtn" style="margin-top:.6em">
+    <a href="https://student.shkola.app/lesson/12156096" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:.8em;flex:1;text-decoration:none">
+      <span class="ic">📱</span>
+      <span><span class="tt">2 · shkola.app — на диктант</span></span>
+    </a>
+    <button class="donechip" id="doneShkola" type="button">done</button>
+  </div>
   <a class="bigbtn gold" href="gg2-1-ex4-match.html" target="_blank" rel="noopener">
     <span class="ic">🧩</span>
     <span><span class="tt">3 · Упр. 4 — соедини!</span></span>
@@ -118,16 +125,79 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
 </details>
 
 <script>
-/* the done chip: the WB p. 73 item — click when done, remembers on this device */
+/* the name row + the per-tap reports — the ticks reach Elena (her order:
+   «they click 'done' for WB and shkola.app… don't forget to ask their name»).
+   THE LOSS-PROOF SEND: a failed POST queues the row; the queue flushes on
+   the next page open. */
 (function(){
-  var chip=document.getElementById('doneWb73');
-  if(!chip)return;
-  var KEY='gg-hw-done-0511-wb73';
-  var on=false;
-  try{on=localStorage.getItem(KEY)==='1';}catch(e){}
-  function paint(){chip.textContent=on?'✓ done':'done';chip.classList.toggle('on',on);}
-  chip.addEventListener('click',function(e){e.stopPropagation();on=!on;try{localStorage.setItem(KEY,on?'1':'0');}catch(e){}paint();});
-  paint();
+  var FORM='https://docs.google.com/forms/d/e/1FAIpQLScFp8Gy4bW2_WNxSfX7yrR1nSg3agXexUAn4owNWzqRF00wgg/formResponse';
+  var ENTRY='entry.10697757';
+  var QKEY='gg-hw-queue-0511';
+  var nameInput=document.getElementById('hwName');
+  if(nameInput){
+    try{nameInput.value=localStorage.getItem('gg-drill-name')||'';}catch(e){}
+    nameInput.addEventListener('input',function(){
+      try{localStorage.setItem('gg-drill-name',nameInput.value.trim());}catch(e){}
+      nameInput.classList.remove('err');
+    });
+  }
+  function hwName(){try{return (localStorage.getItem('gg-drill-name')||'').trim();}catch(e){return '';}}
+  function flushQueue(){
+    var raw=null;try{raw=localStorage.getItem(QKEY);}catch(e){}
+    if(!raw)return;
+    var q;try{q=JSON.parse(raw);}catch(e){q=[];}
+    if(!q.length)return;
+    var fd=new FormData();fd.append(ENTRY,q[0]);
+    fetch(FORM,{method:'POST',mode:'no-cors',body:fd}).then(function(){
+      q.shift();
+      try{localStorage.setItem(QKEY,JSON.stringify(q));}catch(e){}
+      if(q.length)setTimeout(flushQueue,1500);
+    }).catch(function(){});
+  }
+  function send(row){
+    var fd=new FormData();fd.append(ENTRY,row);
+    fetch(FORM,{method:'POST',mode:'no-cors',body:fd}).catch(function(){
+      try{
+        var q=JSON.parse(localStorage.getItem(QKEY)||'[]');
+        q.push(row);
+        localStorage.setItem(QKEY,JSON.stringify(q));
+      }catch(e){}
+    });
+  }
+  function wireChip(id,key,label){
+    var chip=document.getElementById(id);
+    if(!chip)return;
+    var on=false;
+    try{on=localStorage.getItem(key)==='1';}catch(e){}
+    function paint(){chip.textContent=on?'✓ done':'done';chip.classList.toggle('on',on);}
+    chip.addEventListener('click',function(e){
+      e.stopPropagation();
+      if(!on){
+        var name=hwName();
+        if(!name){
+          if(nameInput){nameInput.classList.add('err');nameInput.focus();}
+          chip.textContent='имя!';setTimeout(paint,1200);
+          return;
+        }
+        var d=new Date();
+        var pad=function(n){return (n<10?'0':'')+n;};
+        var stamp=pad(d.getDate())+'.'+pad(d.getMonth()+1)+' '+pad(d.getHours())+':'+pad(d.getMinutes());
+        send('GG2.1 · homework 8.4 · '+label+' · '+name+' · done ✓ · '+stamp);
+        on=true;
+        try{localStorage.setItem(key,'1');}catch(e){}
+        chip.textContent='sent ✓';chip.classList.add('on');
+        setTimeout(paint,4000);
+        return;
+      }
+      on=false;
+      try{localStorage.setItem(key,'0');}catch(e){}
+      paint();
+    });
+    paint();
+  }
+  wireChip('doneWb73','gg-hw-done-0511-wb73','WB стр. 73');
+  wireChip('doneShkola','gg-hw-done-0511-shkola','shkola.app — на диктант');
+  flushQueue();
 })();
 /* oval 1: tap opens the panel (audio + show the page) */
 (function(){
