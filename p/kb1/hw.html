@@ -105,7 +105,49 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
     <div class="sub">Новое задание всегда сверху. Ссылка постоянная — сохраните её.</div>
   </header>
 <details class="hw-row" open>
-<summary><span class="txt"><span class="nm">Урок 14 · Игрушки и видео! <span class="new">✨ новое!</span></span><br><span class="dt">видео-лесенка · слушаем и показываем · печатаем D F J K · shkola «7 Toys» · листики 1–2 · песенка</span></span></summary>
+<summary><span class="txt"><span class="nm">Урок 15 · Читаем, играем, поём! 🐱🎤 <span class="new">✨ новое!</span></span><br><span class="dt">читаем лесенку The Fat Cat · листики · карточки Ff · история Three Spotty Monsters · лапки F и J · shkola «11 colours» · чант наизусть</span></span></summary>
+<div class="card hw-body">
+<div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене»! ✉️</div>
+
+<div class="item task"><span class="n">1</span><span class="tt"><b>Читаем лесенку — The Fat Cat Reading Adventure!</b> 🐱📖 <small>— веди пальцем по словам и читай, всё быстрее!</small></span><button class="chip" id="pupp-chip-1" data-k="u15-fatcat" onclick="pupTog(this)">done</button></div>
+<img src="../../media/kb1-u15-fatcat.png" alt="The Fat Cat Reading Adventure — лесенка: The cat. The fat cat. The fat cat sat on the mat…" style="width:min(520px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+
+<div class="item task"><span class="n">2</span><span class="tt"><b>Доделай листики!</b> 📄 <small>— сделай все задания на трёх листиках: Match the halves · New colors · Ff!</small></span><button class="chip" id="pupp-chip-2" data-k="u15-sheets" onclick="pupTog(this)">done</button></div>
+<button onclick="var s=document.getElementById('u15-sheetspic');var off=s.style.display==='none';s.style.display=off?'block':'none';this.textContent=off?'📕 Спрятать листики':'🖼️ Покажи листики'" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.05rem;border:none;border-radius:99px;padding:.55em 1.4em;background:#95E1D3;color:#2D3436;cursor:pointer">🖼️ Покажи листики</button>
+<div id="u15-sheetspic" style="display:none;margin:10px 0">
+<img src="../../media/kb1-u3-ws-matchhalves.png" alt="листик Match the halves" style="width:min(360px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-ws-newcolors.png" alt="листик New colors" style="width:min(360px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-ws-ff.jpg" alt="листик Ff" style="width:min(360px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+</div>
+
+<div class="item task"><span class="n">3</span><span class="tt"><b>Сделай карточки!</b> ✂️ <small>— вырежи четыре карточки с листика Ff: a fan · a fox · a fig · fun — и играй, как на уроке!</small></span><button class="chip" id="pupp-chip-3" data-k="u15-cards" onclick="pupTog(this)">done</button></div>
+<img src="../../media/kb1-u15-ff-cards.png" alt="четыре карточки: a fan, a fox, a fig, fun" style="width:min(300px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+
+<div class="item task"><span class="n">4</span><span class="tt"><b>Storytime — Three Spotty Monsters!</b> 🐲 <small>— пройди историю-игру и собери секретное слово!</small></span><button class="chip" id="pupp-chip-4" data-k="u15-story" onclick="pupTog(this)">done</button></div>
+<a class="btn" href="https://elena777-code.github.io/decks/lib/three-spotty-monsters.html" target="_blank">▶ Открыть историю</a>
+
+<div class="item task"><span class="n">5</span><span class="tt"><b>Печатаем — первые буквы F и J!</b> ⌨️🐾 <small>— читай слово и нажимай его первую букву — собери лапки!</small></span><button class="chip" id="pupp-chip-5" data-k="u15-typing" onclick="pupTog(this)">done</button></div>
+<a class="btn" href="https://elena777-code.github.io/decks/typing/first-letters-fj.html" target="_blank">▶ Открыть игру — F и J</a>
+
+<div class="item task"><span class="n">6</span><span class="tt"><b>Задание на shkola.app</b> 📱 <small>— открой shkola.app и выполни набор «11 colours»!</small></span><button class="chip" id="pupp-chip-6" data-k="u15-shkola" onclick="pupTog(this)">done</button></div>
+
+<div class="item task"><span class="n">7</span><span class="tt"><b>Выучи чант наизусть!</b> 🎤 <small>— «Black, brown, white, grey. Look, listen, point and say.» — слушай и повторяй, пока не выучишь!</small></span><button class="chip" id="pupp-chip-7" data-k="u15-chant" onclick="pupTog(this)">done</button></div>
+<audio controls preload="none" src="../../media/kb1-u3-pb19-t28.mp3"></audio>
+<img src="../../media/kb1-u3-pb19.png" alt="Pupil's book стр. 19 — чант про цвета" style="width:min(300px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+
+<div class="progress" id="pupp-prog">Отмечено: 0 из 7</div>
+<div class="who">
+<input id="pupp-name" placeholder="Имя" autocomplete="off">
+<input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
+<span class="kprefix">KB 1.</span><input id="pupp-group" placeholder="?" maxlength="1" autocomplete="off" title="Твоя группа: 1, 2 или 3">
+</div>
+<button class="send" id="pupp-send" onclick="pupSend()">📤 Отправить Мисс Елене</button>
+<div class="hint" id="pupp-hint"></div>
+<div class="note">Если что-то не получается — напишите администратору Мисс Алёны, поможем.</div>
+</div>
+</details>
+<details class="hw-row">
+<summary><span class="txt"><span class="nm">Урок 14 · Игрушки и видео! </span></span></summary>
 <div class="card hw-body">
 <div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁</div>
 
@@ -1529,6 +1571,107 @@ function pupSend(){
       .catch(function(){ pupQueue(txt); });
   }catch(e){ pupQueue(txt); }
 }
+pupPaint();
+try{ if(window.unscrFlushQueue) unscrFlushQueue(); }catch(e){}
+</script>
+<script>
+/* Урок 15 · Читаем, играем, поём! — the card's own pup* override (last-wins).
+   THE TITLE LIVES HERE TOO (the rename map): pupSend quotes the card title —
+   change both or the 📤 texts carry the old name.
+   THIS WEEK WITHOUT THE CARTOON (Elena: «publish without a cartoon. We'll add
+   a cartoon later.») — no boxwrap/🎁 block; pupPaint null-guards the box.
+   When the cartoon lands: paste the boxwrap into the card, drop the guards,
+   restore the 🎁 expl line + the hints. */
+var PUPP_KEY='kb1-u15-', PUPP_N=7;
+function pupTog(el){
+  var k=PUPP_KEY+el.getAttribute('data-k');
+  localStorage.setItem(k, localStorage.getItem(k)==='1' ? '0' : '1');
+  pupPaint();
+}
+function pupAll(){
+  var d=0,c;
+  for(var i=1;i<=PUPP_N;i++){
+    c=document.getElementById('pupp-chip-'+i);
+    if(c && localStorage.getItem(PUPP_KEY+c.getAttribute('data-k'))==='1') d++;
+  }
+  return d;
+}
+function pupDate(){
+  var d=new Date();
+  return ('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear();
+}
+function pupQueue(text){
+  try{
+    var q=JSON.parse(localStorage.getItem('kb1-hw-report-queue')||'[]');
+    q.push(text);
+    localStorage.setItem('kb1-hw-report-queue',JSON.stringify(q));
+  }catch(e){}
+}
+function pupSend(){
+  var n=document.getElementById('pupp-name'),
+      s=document.getElementById('pupp-surn'),
+      g=document.getElementById('pupp-group'),
+      hint=document.getElementById('pupp-hint');
+  var name=n.value.trim(), surn=s.value.trim().toUpperCase(), grp=g.value.trim();
+  if(!name){hint.textContent='Сначала напиши имя!';n.focus();return;}
+  if(!surn){hint.textContent='Напиши первую букву фамилии!';s.focus();return;}
+  if('123'.indexOf(grp)<0){hint.textContent='Ты из группы 1, 2 или 3?';g.focus();return;}
+  s.value=surn; hint.textContent='';
+  try{
+    localStorage.setItem('kb1-hw-name',name);
+    localStorage.setItem('kb1-hw-surn',surn);
+    localStorage.setItem('kb1-hw-group',grp);
+  }catch(e){}
+  var txt='KB 1.'+grp+' · Урок 15 · Читаем, играем, поём! · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+' · '+pupDate();
+  /* the send that never loses a row: fetch() rejects ASYNC on a network
+     failure — the sync try/catch never catches it. Queue on ANY failure;
+     flush on the next page open. */
+  localStorage.setItem(PUPP_KEY+'sent','1');
+  pupPaint();
+  try{
+    fetch(FORM_ACTION,{method:'POST',mode:'no-cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:FORM_ENTRY+'='+encodeURIComponent(txt)})
+      .catch(function(){ pupQueue(txt); });
+  }catch(e){ pupQueue(txt); }
+}
+function pupPaint(){
+  var i,c,on;
+  for(i=1;i<=PUPP_N;i++){
+    c=document.getElementById('pupp-chip-'+i);
+    if(!c)continue;
+    on=localStorage.getItem(PUPP_KEY+c.getAttribute('data-k'))==='1';
+    c.classList.toggle('on',on);
+    c.textContent=on?'✓ done':'done';
+  }
+  var d=pupAll(), sent=localStorage.getItem(PUPP_KEY+'sent')==='1';
+  document.getElementById('pupp-prog').textContent='Отмечено: '+d+' из '+PUPP_N;
+  var b=document.getElementById('pupp-send');
+  if(sent){ b.classList.add('sent'); b.textContent='✓ Отправлено Мисс Елене'; }
+  var box=document.getElementById('pupp-boxwrap'), hint=document.getElementById('pupp-hint');
+  if(d===PUPP_N && sent){
+    if(box)box.classList.add('show');
+    hint.textContent='';
+  }else{
+    if(box){
+      box.classList.remove('show');
+      var cart=document.getElementById('pupp-cartoon'); if(cart)cart.classList.remove('show');
+    }
+    if(sent && d<PUPP_N){ hint.textContent='Отметь все задания — и жми отправку! ✉️'; }
+    else if(!sent && d===PUPP_N){ hint.textContent='Всё готово! Осталось нажать кнопку отправки ✉️'; }
+  }
+}
+(function(){
+  try{
+    var n=localStorage.getItem('kb1-hw-name'),
+        s=localStorage.getItem('kb1-hw-surn'),
+        g=localStorage.getItem('kb1-hw-group');
+    if(n)document.getElementById('pupp-name').value=n;
+    if(s)document.getElementById('pupp-surn').value=s;
+    if(g)document.getElementById('pupp-group').value=g;
+  }catch(e){}
+  pupPaint();
+})();
 pupPaint();
 try{ if(window.unscrFlushQueue) unscrFlushQueue(); }catch(e){}
 </script>
