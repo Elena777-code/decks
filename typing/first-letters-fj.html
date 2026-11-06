@@ -81,6 +81,11 @@ p{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.5;text-align:center}
 .pawchip{font-family:'Fredoka';font-weight:700;font-size:clamp(1.1rem,1.9vw,1.5rem);background:linear-gradient(135deg,#fff8db,#ffe9f0);border-radius:99px;padding:.4em 1.1em;box-shadow:0 4px 12px rgba(45,52,54,.1);color:var(--ink)}
 .pawchip.bump{animation:pawbump .4s ease}
 @keyframes pawbump{40%{transform:scale(1.22)}}
+/* --- the secret-word strip --- */
+.wordstrip{display:flex;gap:.45em;justify-content:center;align-items:center;min-height:2.2em;flex-wrap:wrap}
+.wslot{font-family:'Fredoka';font-weight:700;font-size:clamp(1.5rem,2.8vw,2.3rem);width:1.5em;text-align:center;padding:.08em 0;border-radius:14px;background:var(--white);box-shadow:0 4px 12px rgba(45,52,54,.1);color:var(--ink-soft)}
+.wslot.got{background:linear-gradient(135deg,var(--mint),var(--lavender));color:var(--ink);animation:pawin .5s cubic-bezier(.25,1.4,.4,1) both}
+.wslot.next{outline:4px solid var(--peach);animation:currchip 1s ease-in-out infinite alternate}
 /* --- name row --- */
 .namerow{display:flex;gap:.6em;align-items:center;flex-wrap:wrap;justify-content:center}
 #player-name{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.15rem,2vw,1.6rem);border:none;border-radius:99px;padding:.5em 1.3em;background:var(--white);box-shadow:0 6px 16px rgba(45,52,54,.14);color:var(--ink);outline:none;min-width:min(60vw,340px);text-align:center}
@@ -130,7 +135,8 @@ p{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.5;text-align:center}
 <section class="slide bright">
   <div class="eyebrow reveal">first letters · f and j</div>
   <h1 class="title sticker reveal">The Paw Game<br>🐾</h1>
-  <p class="reveal" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1.15rem,2.3vw,1.9rem);color:#fff;text-shadow:0 2px 8px rgba(45,52,54,.35)">Read the word — type its first letter.<br>A star per letter · a paw per round!</p>
+  <p class="reveal" style="font-family:'Fredoka';font-weight:600;font-size:clamp(1.15rem,2.3vw,1.9rem);color:#fff;text-shadow:0 2px 8px rgba(45,52,54,.35)">Read the word — type its first letter.<br>A star per letter · a paw per round · a letter of the secret word per round!</p>
+  <div class="task reveal">Homework question: What colour is the fox? 🦊</div>
   <div class="namerow reveal">
     <input id="player-name" placeholder="Who is playing?" autocomplete="off" maxlength="24">
     <button class="pill" id="start-btn">Start ▶</button>
@@ -145,6 +151,7 @@ p{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.5;text-align:center}
     <span class="pawchip" id="paw-chip">🐾 0</span>
     <span class="pawchip" id="star-chip">⭐ 0</span>
   </div>
+  <div class="wordstrip reveal" id="word-strip"></div>
   <div class="banner" id="banner">
     <div class="bigh" id="banner-h">Round 1</div>
     <div class="newh" id="banner-new"></div>
@@ -160,6 +167,7 @@ p{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.5;text-align:center}
 <section class="slide bright">
   <div class="eyebrow reveal">all rounds complete</div>
   <h1 class="title sticker reveal">Paws collected! 🐾</h1>
+  <div class="reveal" style="font-family:'Fredoka';font-weight:700;font-size:clamp(1.6rem,3.4vw,2.8rem);color:#fff;text-shadow:0 2px 8px rgba(45,52,54,.35)">What colour is the fox? 🦊 — <span id="fin-word">……</span></div>
   <div class="finstat reveal">
     <div class="fincard"><div class="big" id="fin-paws">0 🐾</div><div class="lbl">paws — one per round</div></div>
     <div class="fincard"><div class="big" id="fin-stars">0 ⭐</div><div class="lbl">stars — every right letter</div></div>
@@ -172,7 +180,7 @@ p{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.5;text-align:center}
 
 <!-- corners -->
 <button class="pill" id="pardon-btn" title="Pardon? — class phrases (P)">🙋</button>
-<div id="stamp">paw game · first letters f j · 06.11 · v5</div>
+<div id="stamp">paw game · first letters f j · 06.11 · v6 · collect ORANGE</div>
 
 <!-- overlays -->
 <div class="overlay" id="pardon-ov">
@@ -259,19 +267,12 @@ var PICS={};
   PICS.jelly='<svg viewBox="0 0 120 120"><ellipse cx="60" cy="102" rx="44" ry="7" fill="#95E1D3"/><path d="M22 100 Q18 58 40 42 Q60 28 80 42 Q102 58 98 100 Z" fill="#FF8FAB"/><path d="M38 62 Q44 50 56 48 L50 64 Q43 64 38 62 Z" fill="#fff" opacity=".5"/><path d="M14 72 q4 3 8 0 M98 78 q4 3 8 0 M12 86 q4 3 8 0" stroke="#FF8FAB" stroke-width="3" fill="none" stroke-linecap="round"/></svg>';
   PICS.jar='<svg viewBox="0 0 120 120"><rect x="34" y="40" width="52" height="68" rx="10" fill="#EAF6FF" stroke="#A0C4FF" stroke-width="3"/><rect x="38" y="24" width="44" height="16" rx="6" fill="#FFC48C"/><rect x="42" y="54" width="36" height="26" rx="6" fill="#FF8FAB"/><circle cx="52" cy="64" r="3" fill="#fff" opacity=".6"/></svg>';
   PICS.jellyfish='<svg viewBox="0 0 120 120"><path d="M24 62 Q24 26 60 26 Q96 26 96 62 Q84 70 76 62 Q68 70 60 62 Q52 70 44 62 Q36 70 24 62 Z" fill="#C8B6FF"/><path d="M34 70 Q32 84 38 96" stroke="#C8B6FF" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M50 72 Q50 88 46 102" stroke="#C8B6FF" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M66 72 Q68 88 74 100" stroke="#C8B6FF" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M84 70 Q88 84 84 94" stroke="#C8B6FF" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="48" cy="50" r="4" fill="#2D3436"/><circle cx="72" cy="50" r="4" fill="#2D3436"/><path d="M52 58 Q60 64 68 58" stroke="#2D3436" stroke-width="3" fill="none" stroke-linecap="round"/></svg>';
-  PICS.family='<svg viewBox="0 0 120 120"><circle cx="30" cy="36" r="11" fill="#FFC48C"/><circle cx="60" cy="40" r="10" fill="#FFD9B8"/><circle cx="90" cy="44" r="8" fill="#FFE3CF"/><path d="M19 98 L21 58 Q21 52 27 52 L33 52 Q39 52 39 58 L41 98" stroke="#5ECBB8" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M50 100 L52 62 Q52 57 57 57 L63 57 Q68 57 68 62 L70 100" stroke="#FF8FAB" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M83 100 L84 70 Q84 66 88 66 L92 66 Q96 66 96 70 L97 100" stroke="#C8B6FF" stroke-width="9" fill="none" stroke-linecap="round"/><path d="M39 72 L48 78 L57 81 L70 81 L80 75" stroke="#2D3436" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="27" cy="35" r="1.7" fill="#2D3436"/><circle cx="33" cy="35" r="1.7" fill="#2D3436"/><circle cx="57" cy="39" r="1.7" fill="#2D3436"/><circle cx="63" cy="39" r="1.7" fill="#2D3436"/><circle cx="88" cy="43" r="1.7" fill="#2D3436"/><circle cx="92" cy="43" r="1.7" fill="#2D3436"/><path d="M26 41 q4 3 8 0 M56 44 q4 3 8 0 M86 48 q3 2 6 0" stroke="#2D3436" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
-  PICS.friend='<svg viewBox="0 0 120 120"><circle cx="42" cy="36" r="11" fill="#FFD9B8"/><circle cx="78" cy="36" r="11" fill="#FFC48C"/><path d="M31 98 L33 58 Q33 52 39 52 L45 52 Q51 52 51 58 L53 98" stroke="#5ECBB8" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M67 98 L69 58 Q69 52 75 52 L81 52 Q87 52 87 58 L89 98" stroke="#FF8FAB" stroke-width="11" fill="none" stroke-linecap="round"/><path d="M51 74 Q60 80 69 74" stroke="#2D3436" stroke-width="4" fill="none" stroke-linecap="round"/><circle cx="38" cy="34" r="1.7" fill="#2D3436"/><circle cx="46" cy="34" r="1.7" fill="#2D3436"/><circle cx="74" cy="34" r="1.7" fill="#2D3436"/><circle cx="82" cy="34" r="1.7" fill="#2D3436"/><path d="M37 41 q5 4 10 0 M73 41 q5 4 10 0" stroke="#2D3436" stroke-width="2" fill="none" stroke-linecap="round"/></svg>';
   PICS.four=stars(4,'#FCE38A');
   PICS.five=stars(5,'#95E1D3');
   PICS.jet='<svg viewBox="0 0 120 120"><ellipse cx="58" cy="60" rx="40" ry="13" fill="#A0C4FF"/><path d="M92 54 Q106 58 106 62 Q106 66 92 68 Z" fill="#7FA8E8"/><path d="M92 52 L104 30 L110 32 L100 58 Z" fill="#7FA8E8"/><path d="M46 66 L28 92 L44 92 L64 70 Z" fill="#7FA8E8"/><path d="M60 66 L46 90 L58 90 L74 70 Z" fill="#5E8ACF"/><circle cx="88" cy="58" r="4" fill="#EAF6FF"/><circle cx="74" cy="58" r="4" fill="#EAF6FF"/><circle cx="60" cy="58" r="4" fill="#EAF6FF"/><path d="M14 54 L4 54 M16 64 L8 64" stroke="#C8C8D8" stroke-width="3" stroke-linecap="round"/></svg>';
   PICS.jam='<svg viewBox="0 0 120 120"><path d="M34 28 Q56 16 78 28 L78 40 L34 40 Z" fill="#FF8FAB"/><rect x="30" y="38" width="52" height="8" rx="4" fill="#C8C8D8"/><path d="M32 46 L80 46 L76 100 Q56 106 36 100 Z" fill="#D94848"/><path d="M32 46 L80 46 L79 58 L33 58 Z" fill="#E86060"/><rect x="42" y="64" width="26" height="20" rx="4" fill="#FFF8F0"/><path d="M88 84 Q104 80 108 70" stroke="#C8C8D8" stroke-width="5" stroke-linecap="round"/><ellipse cx="108" cy="66" rx="9" ry="7" fill="#D94848"/></svg>';
   PICS.jump='<svg viewBox="0 0 120 120"><circle cx="60" cy="30" r="13" fill="#FFD9B8"/><path d="M48 26 Q46 14 58 16 Q70 12 72 24 Q66 20 60 22 Q52 20 48 26 Z" fill="#B5733F"/><path d="M52 44 L68 44 L72 66 L48 66 Z" fill="#FF8FAB"/><path d="M52 46 Q38 40 36 30" stroke="#FFD9B8" stroke-width="7" stroke-linecap="round"/><path d="M68 46 Q82 40 84 30" stroke="#FFD9B8" stroke-width="7" stroke-linecap="round"/><path d="M52 66 Q44 78 40 84" stroke="#2D3436" stroke-width="6" stroke-linecap="round"/><path d="M68 66 Q76 76 80 82" stroke="#2D3436" stroke-width="6" stroke-linecap="round"/><circle cx="55" cy="29" r="2.4" fill="#2D3436"/><circle cx="65" cy="29" r="2.4" fill="#2D3436"/><path d="M55 35 Q60 38 65 35" stroke="#2D3436" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M30 102 Q60 92 90 102" stroke="#C8B6FF" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M38 110 Q60 102 82 110" stroke="#C8B6FF" stroke-width="3" fill="none" stroke-linecap="round" opacity=".6"/></svg>';
   PICS.jug='<svg viewBox="0 0 120 120"><path d="M42 30 L42 42 Q30 58 32 82 Q34 100 60 100 Q86 100 88 82 Q90 58 78 42 L78 30 Z" fill="#95E1D3" stroke="#3AA493" stroke-width="3"/><path d="M42 30 L30 40 L42 44 Z" fill="#5ECBB8"/><path d="M78 40 Q98 42 96 62 Q94 74 84 76" fill="none" stroke="#3AA493" stroke-width="6" stroke-linecap="round"/><path d="M40 62 L80 62" stroke="#3AA493" stroke-width="2.5" opacity=".5"/><ellipse cx="60" cy="106" rx="30" ry="5" fill="#95E1D3" opacity=".5"/></svg>';
-  PICS.fingers='<svg viewBox="0 0 120 120"><rect x="44" y="58" width="34" height="40" rx="12" fill="#FFD9B8"/><rect x="44" y="26" width="9" height="38" rx="4.5" fill="#FFD9B8"/><rect x="55" y="18" width="9" height="46" rx="4.5" fill="#FFD9B8"/><rect x="66" y="22" width="9" height="42" rx="4.5" fill="#FFD9B8"/><rect x="77" y="30" width="9" height="34" rx="4.5" fill="#FFD9B8"/><path d="M44 74 Q30 72 28 62 Q27 56 33 56 Q38 57 40 64" fill="#FFD9B8"/></svg>';
-  PICS.friends='<svg viewBox="0 0 120 120"><circle cx="42" cy="34" r="13" fill="#FFD9B8"/><path d="M31 30 Q30 20 42 20 Q54 20 53 30 Q48 25 42 26 Q36 25 31 30 Z" fill="#B5733F"/><path d="M30 48 Q42 42 54 48 L56 84 L28 84 Z" fill="#A0C4FF"/><circle cx="78" cy="34" r="13" fill="#E8C39E"/><path d="M67 30 Q66 18 78 18 Q90 18 89 32 L89 44 Q84 38 78 39 Q72 38 67 42 Z" fill="#2D3436"/><path d="M66 48 Q78 42 90 48 L92 84 L64 84 Z" fill="#FF8FAB"/><path d="M52 52 Q60 50 66 52" stroke="#A0C4FF" stroke-width="6" stroke-linecap="round"/><circle cx="38" cy="34" r="2.2" fill="#2D3436"/><circle cx="46" cy="34" r="2.2" fill="#2D3436"/><path d="M38 40 Q42 43 46 40" stroke="#2D3436" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="74" cy="34" r="2.2" fill="#2D3436"/><circle cx="82" cy="34" r="2.2" fill="#2D3436"/><path d="M74 40 Q78 43 82 40" stroke="#2D3436" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>';
-  PICS.favourite='<svg viewBox="0 0 120 120"><path d="M60 16 L71 44 L101 46 L78 65 L86 94 L60 76 L34 94 L42 65 L19 46 L49 44 Z" fill="#F2C94C" stroke="#E8B84B" stroke-width="3" stroke-linejoin="round"/><path d="M56 30 L60 42" stroke="#FFE066" stroke-width="4" stroke-linecap="round"/><circle cx="24" cy="26" r="3" fill="#F2C94C"/><circle cx="98" cy="24" r="3.5" fill="#F2C94C"/><circle cx="106" cy="78" r="3" fill="#F2C94C"/><path d="M18 80 L24 80 M21 77 L21 83" stroke="#F2C94C" stroke-width="2" stroke-linecap="round"/></svg>';
-  PICS.flying='<svg viewBox="0 0 120 120"><path d="M48 56 Q30 48 14 54 Q26 60 30 70 Q38 66 48 68 Z" fill="#E0708F"/><circle cx="86" cy="52" r="12" fill="#FFD9B8"/><path d="M76 46 Q75 38 85 40 Q95 40 96 48 Q90 44 84 46 Z" fill="#B5733F"/><circle cx="82" cy="50" r="2.2" fill="#2D3436"/><circle cx="90" cy="50" r="2.2" fill="#2D3436"/><path d="M82 57 Q86 60 90 57" stroke="#2D3436" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M48 56 L76 58 L74 70 L46 68 Z" fill="#FF8FAB"/><path d="M74 58 Q88 54 98 48" stroke="#FFD9B8" stroke-width="6" stroke-linecap="round"/><path d="M48 62 Q40 72 44 84" stroke="#2D3436" stroke-width="6" stroke-linecap="round"/><path d="M52 68 Q48 78 54 88" stroke="#2D3436" stroke-width="6" stroke-linecap="round"/><path d="M6 58 L16 58 M4 68 L14 68" stroke="#C8C8D8" stroke-width="3" stroke-linecap="round"/></svg>';
-  PICS.forward='<svg viewBox="0 0 120 120"><path d="M52 36 L68 36 L94 106 L26 106 Z" fill="#FFE9C8" stroke="#E8A63C" stroke-width="2.5" stroke-linejoin="round"/><path d="M60 46 L60 98" stroke="#fff" stroke-width="4" stroke-dasharray="9 9" stroke-linecap="round"/><path d="M60 12 L60 34" stroke="#A9744F" stroke-width="3.5" stroke-linecap="round"/><path d="M60 13 L80 19 L60 25 Z" fill="#FF6B6B"/><circle cx="60" cy="64" r="11" fill="#B5733F"/><path d="M49 76 L71 76 L75 98 L45 98 Z" fill="#A0C4FF"/><path d="M51 98 L46 108" stroke="#2D3436" stroke-width="5" stroke-linecap="round"/><path d="M69 98 L76 102" stroke="#2D3436" stroke-width="5" stroke-linecap="round"/><path d="M48 78 Q42 86 46 94" stroke="#FFD9B8" stroke-width="5" stroke-linecap="round"/><path d="M72 78 Q78 86 74 94" stroke="#FFD9B8" stroke-width="5" stroke-linecap="round"/></svg>';
   PICS.fun='<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="30" fill="#FCE38A" stroke="#F2C94C" stroke-width="3"/><path d="M44 52 Q48 46 52 52 M68 52 Q72 46 76 52" stroke="#2D3436" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M46 66 Q60 82 74 66 Z" fill="#2D3436"/><circle cx="24" cy="34" r="3" fill="#FF8FAB"/><circle cx="94" cy="30" r="3" fill="#95E1D3"/><circle cx="102" cy="66" r="3" fill="#A0C4FF"/><circle cx="16" cy="70" r="3" fill="#C8B6FF"/><path d="M30 22 L36 22 M33 19 L33 25" stroke="#FF8FAB" stroke-width="2" stroke-linecap="round"/><path d="M86 88 L92 88 M89 85 L89 91" stroke="#95E1D3" stroke-width="2" stroke-linecap="round"/></svg>';
   PICS.fix='<svg viewBox="0 0 120 120"><g transform="rotate(45 60 60)"><rect x="55" y="24" width="10" height="56" rx="3" fill="#B8C0CC"/><path d="M52 24 L52 12 Q52 6 60 6 Q68 6 68 12 L68 24 L64 27 L56 27 Z" fill="#8A94A4"/><rect x="54" y="80" width="12" height="20" rx="4" fill="#FF6B6B"/></g><g transform="rotate(-45 60 60)"><rect x="56" y="24" width="8" height="52" rx="2" fill="#C8C8D8"/><path d="M52 76 L68 76 L66 92 L54 92 Z" fill="#F2C94C"/><rect x="55" y="92" width="10" height="16" rx="4" fill="#FF6B6B"/></g></svg>';
   PICS.fig='<svg viewBox="0 0 120 120"><path d="M44 30 Q22 38 20 62 Q18 88 44 94 Q68 88 66 62 Q64 38 44 30 Z" fill="#9B59B6" stroke="#7D3FA0" stroke-width="3"/><path d="M74 34 Q96 42 98 64 Q100 88 76 94 Q70 80 72 64 Q74 46 74 34 Z" fill="#9B59B6" stroke="#7D3FA0" stroke-width="3"/><path d="M78 44 Q92 50 93 64 Q94 82 78 88 Q74 74 75 62 Q76 50 78 44 Z" fill="#FF8FA0"/><circle cx="82" cy="56" r="1.8" fill="#FFF8F0"/><circle cx="88" cy="64" r="1.8" fill="#FFF8F0"/><circle cx="84" cy="72" r="1.8" fill="#FFF8F0"/><circle cx="87" cy="79" r="1.8" fill="#FFF8F0"/><circle cx="81" cy="66" r="1.8" fill="#FFF8F0"/><path d="M44 30 Q42 22 48 16" stroke="#7D3FA0" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M48 18 Q60 10 70 16 Q62 26 48 18 Z" fill="#7CBF6A"/></svg>';
@@ -280,7 +281,7 @@ var PICS={};
 })();
 
 /* ---------- Elena's f/j first-letter lists (06.11) + her six-round spec ---------- */
-var POOL=['jet','jam','jump','jug','jelly','jar','jellyfish','four','five','family','friend','fingers','friends','favourite','flying','forward','fun','fix','fig','fan','fox'];
+var POOL=['jet','jam','jump','jug','jelly','jar','jellyfish','four','five','fun','fix','fig','fan','fox'];
 var SPEC=[
   {h:'Round 1',sub:'10 cards · word + picture',set:'A',mode:'pw'},
   {h:'Round 2',sub:'the same cards — the first letter ran away!',set:'A',mode:'pg'},
@@ -290,6 +291,10 @@ var SPEC=[
   {h:'Round 6',sub:'words only — the first letter is missing!',set:'ALL',mode:'wg'}
 ];
 function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+/* THE HOMEWORK QUESTION (Elena, 07.11 — re-dealable): one round = one letter,
+   the whole game spells the answer */
+var WORD='orange';
+var QUESTION='What colour is the fox?';
 
 var S={stars:0,paws:0,round:0,name:''};
 var G={items:[],i:0,timers:[]};
@@ -315,6 +320,17 @@ function paintHud(pawBump){
   starChip.textContent='⭐ '+S.stars;
   var el=pawBump?pawChip:starChip;
   el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');
+}
+function paintWord(){
+  var strip=document.getElementById('word-strip');
+  strip.innerHTML='';
+  for(var i=0;i<WORD.length;i++){
+    var s=document.createElement('span');
+    var done=i<S.round-1;
+    s.className='wslot'+(done?' got':(i===S.round-1?' next':''));
+    s.textContent=done?WORD.charAt(i).toUpperCase():'·';
+    strip.appendChild(s);
+  }
 }
 function stampPaw(){
   var w=document.createElement('span');w.className='pawstamp';w.innerHTML=PAW;
@@ -350,16 +366,17 @@ function bannerRound(){
   bannerH.textContent=sp.h;
   bannerNew.textContent=sp.sub;
   bannerPaws.textContent=sp.set==='ALL'&&S.round===SPEC.length-1?'All '+POOL.length+' words — one more time!':'';
+  paintWord();
   banner.classList.add('show');
   later(1600,function(){banner.classList.remove('show');dealRound();});
 }
 function startRun(){
   clearTimers();
   var all=shuffle(POOL.slice());
-  runSets.A=all.slice(0,10);
-  runSets.B=all.slice(10);
+  runSets.A=all.slice(0,7);
+  runSets.B=all.slice(7);
   S={stars:0,paws:0,round:1,name:S.name};
-  trail.innerHTML='';paintHud(false);
+  trail.innerHTML='';paintHud(false);paintWord();
   bannerRound();
 }
 function nextItem(){
@@ -370,10 +387,12 @@ function nextItem(){
 function endRound(){
   litKey(null);stage.innerHTML='';
   S.paws++;stampPaw();paintHud(true);saveRun();
+  var got=WORD.charAt(S.round-1).toUpperCase();
+  paintWord();
   if(S.round>=SPEC.length){finishRun();return;}
   var sp=SPEC[S.round-1];
   bannerH.textContent=sp.h+' done!';
-  bannerNew.textContent='⭐ +'+roundSizeNow()+' stars · 🐾 +1 paw';
+  bannerNew.textContent='⭐ +'+roundSizeNow()+' stars · 🐾 +1 paw · you collected the letter '+got+'!';
   bannerPaws.textContent=SPEC[S.round].h+' is coming…';
   banner.classList.add('show');
   later(1400,function(){
@@ -389,6 +408,7 @@ function roundSizeNow(){
 function finishRun(){
   document.getElementById('fin-paws').textContent=S.paws+' 🐾';
   document.getElementById('fin-stars').textContent=S.stars+' ⭐';
+  document.getElementById('fin-word').textContent=WORD.toUpperCase()+'!';
   go(2);
   consumeRun();
   sendReport();
