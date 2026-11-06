@@ -94,6 +94,19 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
 .pnote{background:#f1ecff;border-radius:14px;padding:.8em 1em;font-size:clamp(.88rem,2.2vw,1.02rem);line-height:1.5;color:var(--ink)}
 .pnote p{margin:.3em 0}
 .pnote b{color:var(--lavender-deep)}
+/* ===== the word collection (07.11, her spec: words in tasks, the letters in the
+   paw game's rounds, the question at the end — read aloud) ===== */
+.wchip{display:none;flex:0 0 auto;font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(.85rem,2.2vw,1.05rem);background:var(--lavender);color:var(--ink);border-radius:999px;padding:.28em .8em;white-space:nowrap}
+.wchip.on{display:inline-block;animation:pop .35s ease}
+.crow{display:flex;gap:.4em;flex-wrap:wrap;justify-content:center;margin:8px 0 2px}
+.crow span{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.05rem,3vw,1.5rem);background:#fff;border:2px dashed var(--lavender);color:transparent;border-radius:999px;padding:.22em .7em}
+.crow span.on{border-style:solid;border-color:var(--mint-deep);color:var(--ink);animation:pop .35s ease}
+.cnote{text-align:center;font-size:clamp(.8rem,2vw,.95rem);color:var(--ink-soft);margin:2px 0 4px}
+.question{display:none;text-align:center;background:var(--mint);border-radius:16px;padding:.8em 1em;margin:8px 0}
+.question.show{display:block;animation:pop .4s ease}
+.question .q{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.5rem,4.6vw,2.2rem);color:var(--ink)}
+.question audio{width:100%;margin-top:8px}
+.question .ans{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.25rem,3.8vw,1.8rem);color:var(--pink);margin-top:6px}
 /* ===== PASTE-css END ===== */
 </style>
 </head>
@@ -107,12 +120,12 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
 <details class="hw-row" open>
 <summary><span class="txt"><span class="nm">Урок 15 · Читаем, играем, поём! 🐱🎤 <span class="new">✨ новое!</span></span><br><span class="dt">читаем лесенку The Fat Cat · листики · карточки Ff · история Three Spotty Monsters · лапки F и J · shkola «11 colours» · чант наизусть</span></span></summary>
 <div class="card hw-body">
-<div class="expl">Сделай все задания и отметь их галочкой. Потом нажми «Отправить Мисс Елене»! ✉️</div>
+<div class="expl">Сделай все задания и отметь их галочкой — за каждое ты получишь слово! Собери вопрос, ответь на него и нажми «Отправить Мисс Елене»! ✉️</div>
 
-<div class="item task"><span class="n">1</span><span class="tt"><b>Читаем лесенку — The Fat Cat Reading Adventure!</b> 🐱📖 <small>— запиши видео, как ты читаешь, и отправь его администратору Мисс Алёне</small></span><button class="chip" id="pupp-chip-1" data-k="u15-fatcat" onclick="pupTog(this)">done</button></div>
+<div class="item task"><span class="n">1</span><span class="tt"><b>Читаем лесенку — The Fat Cat Reading Adventure!</b> 🐱📖 <small>— запиши видео, как ты читаешь, и отправь его администратору Мисс Алёне</small></span><button class="chip" id="pupp-chip-1" data-k="u15-fatcat" onclick="pupTog(this)">done</button><span class="wchip" id="pupp-word-1" data-w="1">What</span></div>
 <img src="../../media/kb1-u15-fatcat.png" alt="The Fat Cat Reading Adventure — лесенка: The cat. The fat cat. The fat cat sat on the mat…" style="width:min(520px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
 
-<div class="item task"><span class="n">2</span><span class="tt"><b>Доделай листики!</b> 📄 <small>— сделай все задания на трёх листиках: Match the halves · New colors · Ff — и вклей в тетрадь!</small></span><button class="chip" id="pupp-chip-2" data-k="u15-sheets" onclick="pupTog(this)">done</button></div>
+<div class="item task"><span class="n">2</span><span class="tt"><b>Доделай листики!</b> 📄 <small>— сделай все задания на трёх листиках: Match the halves · New colors · Ff — и вклей в тетрадь!</small></span><button class="chip" id="pupp-chip-2" data-k="u15-sheets" onclick="pupTog(this)">done</button><span class="wchip" id="pupp-word-2" data-w="2">colour</span></div>
 <button onclick="var s=document.getElementById('u15-sheetspic');var off=s.style.display==='none';s.style.display=off?'block':'none';this.textContent=off?'📕 Спрятать листики':'🖼️ Покажи листики'" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.05rem;border:none;border-radius:99px;padding:.55em 1.4em;background:#95E1D3;color:#2D3436;cursor:pointer">🖼️ Покажи листики</button>
 <div id="u15-sheetspic" style="display:none;margin:10px 0">
 <img src="../../media/kb1-u3-ws-matchhalves.png" alt="листик Match the halves" style="width:min(360px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
@@ -120,21 +133,28 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
 <img src="../../media/kb1-u3-ws-ff.jpg" alt="листик Ff" style="width:min(360px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
 </div>
 
-<div class="item task"><span class="n">3</span><span class="tt"><b>Сделай карточки!</b> ✂️ <small>— наклей на картон и вырежи! Будем играть! (Matching pairs game. KB 1 Lesson 13.)</small></span><button class="chip" id="pupp-chip-3" data-k="u15-cards" onclick="pupTog(this)">done</button></div>
+<div class="item task"><span class="n">3</span><span class="tt"><b>Сделай карточки!</b> ✂️ <small>— наклей на картон и вырежи! Будем играть! (Matching pairs game. KB 1 Lesson 13.)</small></span><button class="chip" id="pupp-chip-3" data-k="u15-cards" onclick="pupTog(this)">done</button><span class="wchip" id="pupp-word-3" data-w="3">is</span></div>
 <img src="../../media/kb1-u3-ws-matchingpairs.png" alt="Matching pairs game — 6 карточек: два мяча, две машины, две куклы" style="width:min(300px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
 
-<div class="item task"><span class="n">4</span><span class="tt"><b>Storytime — Three Spotty Monsters!</b> 🐲 <small>— пройди историю-игру и собери секретное слово!</small></span><button class="chip" id="pupp-chip-4" data-k="u15-story" onclick="pupTog(this)">done</button></div>
+<div class="item task"><span class="n">4</span><span class="tt"><b>Storytime — Three Spotty Monsters!</b> 🐲 <small>— пройди историю-игру и собери секретное слово!</small></span><button class="chip" id="pupp-chip-4" data-k="u15-story" onclick="pupTog(this)">done</button><span class="wchip" id="pupp-word-4" data-w="4">your</span></div>
 <a class="btn" href="https://elena777-code.github.io/decks/lib/three-spotty-monsters.html" target="_blank">▶ Открыть историю</a>
 
-<div class="item task"><span class="n">5</span><span class="tt"><b>Печатаем — первые буквы F и J!</b> ⌨️🐾 <small>— читай слово и нажимай его первую букву — собери лапки!</small></span><button class="chip" id="pupp-chip-5" data-k="u15-typing" onclick="pupTog(this)">done</button></div>
+<div class="item task"><span class="n">5</span><span class="tt"><b>Печатаем — первые буквы F и J!</b> ⌨️🐾 <small>— читай слово и нажимай его первую букву — собери лапки!</small></span><button class="chip" id="pupp-chip-5" data-k="u15-typing" onclick="pupTog(this)">done</button><span class="wchip" id="pupp-word-5" data-w="5">ball?</span></div>
 <a class="btn" href="https://elena777-code.github.io/decks/typing/first-letters-fj.html" target="_blank">▶ Открыть игру — F и J</a>
 
-<div class="item task"><span class="n">6</span><span class="tt"><b>Задание на shkola.app</b> 📱 <small>— открой shkola.app и выполни набор «11 colours»!</small></span><button class="chip" id="pupp-chip-6" data-k="u15-shkola" onclick="pupTog(this)">done</button></div>
+<div class="item task"><span class="n">6</span><span class="tt"><b>Задание на shkola.app</b> 📱 <small>— открой shkola.app и выполни набор «11 colours»!</small></span><button class="chip" id="pupp-chip-6" data-k="u15-shkola" onclick="pupTog(this)">done</button><span class="wchip" id="pupp-word-6" data-w="6">It’s</span></div>
 
-<div class="item task"><span class="n">7</span><span class="tt"><b>Запомни считалочку</b> 🎤 <small>— «Black, brown, white, grey. Look, listen, point and say.» — слушай и повторяй, пока не выучишь!</small></span><button class="chip" id="pupp-chip-7" data-k="u15-chant" onclick="pupTog(this)">done</button></div>
+<div class="item task"><span class="n">7</span><span class="tt"><b>Запомни считалочку</b> 🎤 <small>— «Black, brown, white, grey. Look, listen, point and say.» — слушай и повторяй, пока не выучишь!</small></span><button class="chip" id="pupp-chip-7" data-k="u15-chant" onclick="pupTog(this)">done</button><span class="wchip" id="pupp-word-7" data-w="7">🔊</span></div>
 <audio controls preload="none" src="../../media/kb1-u3-pb19-t28.mp3"></audio>
 <img src="../../media/kb1-u3-pb19.png" alt="Pupil's book стр. 19 — чант про цвета" style="width:min(300px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
 
+<div class="crow" id="pupp-crow"><span>What</span><span>colour</span><span>is</span><span>your</span><span>ball?</span><span>It’s</span><span>🔊</span></div>
+<div class="cnote">…и буквы собери в игре с лапками — там тоже секретное слово!</div>
+<div class="question" id="pupp-question">
+<div class="q">— What colour is your ball? 🎨</div>
+<audio id="pupp-qaudio" controls preload="none" src="../../media/kb1-u15-question.m4a"></audio>
+<div class="ans">— It’s …!</div>
+</div>
 <div class="progress" id="pupp-prog">Отмечено: 0 из 7</div>
 <div class="who">
 <input id="pupp-name" placeholder="Имя" autocomplete="off">
@@ -1643,21 +1663,34 @@ function pupPaint(){
     on=localStorage.getItem(PUPP_KEY+c.getAttribute('data-k'))==='1';
     c.classList.toggle('on',on);
     c.textContent=on?'✓ done':'done';
+    /* the word collection (07.11): a word per task — beside the chip and in the row */
+    var w=document.getElementById('pupp-word-'+i);
+    if(w)w.classList.toggle('on',on);
+    var slot=(document.getElementById('pupp-crow')||{children:[]}).children[i-1];
+    if(slot)slot.classList.toggle('on',on);
   }
   var d=pupAll(), sent=localStorage.getItem(PUPP_KEY+'sent')==='1';
   document.getElementById('pupp-prog').textContent='Отмечено: '+d+' из '+PUPP_N;
   var b=document.getElementById('pupp-send');
   if(sent){ b.classList.add('sent'); b.textContent='✓ Отправлено Мисс Елене'; }
   var box=document.getElementById('pupp-boxwrap'), hint=document.getElementById('pupp-hint');
-  if(d===PUPP_N && sent){
+  var q=document.getElementById('pupp-question'), qa=document.getElementById('pupp-qaudio');
+  if(d===PUPP_N){
+    if(q && !q.classList.contains('show')){
+      q.classList.add('show');
+      /* READ THE QUESTION FOR THEM (her order): auto-play once — the tick is the gesture */
+      if(qa){ try{ if(qa.paused && !qa.dataset.played){ qa.dataset.played='1'; qa.play(); } }catch(e){} }
+    }
     if(box)box.classList.add('show');
-    hint.textContent='';
+    if(d===PUPP_N && sent){ hint.textContent=''; }
+    else{ hint.textContent='Послушай 🔊 и ответь, какого цвета твой мяч! Потом нажми «Отправить»!'; }
   }else{
+    if(q)q.classList.remove('show');
     if(box){
       box.classList.remove('show');
       var cart=document.getElementById('pupp-cartoon'); if(cart)cart.classList.remove('show');
     }
-    if(sent && d<PUPP_N){ hint.textContent='Отметь все задания — и жми отправку! ✉️'; }
+    if(sent && d<PUPP_N){ hint.textContent='Отметь все задания — собери вопрос! ✉️'; }
     else if(!sent && d===PUPP_N){ hint.textContent='Всё готово! Осталось нажать кнопку отправки ✉️'; }
   }
 }
