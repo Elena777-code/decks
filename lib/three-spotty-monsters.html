@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Three Spotty Monsters — play!</title>
 <!-- three-spotty-monsters v1 (2026-11-06) · a practice game for the Cambridge Storybooks reader 'Three Spotty Monsters' (Juliet Partridge) · runs offline · ?mute=1 = silent mode · ?game=N = direct boot -->
 <style>
@@ -17,7 +17,9 @@
 html,body{height:100%}
 body{font-family:'Trebuchet MS',Verdana,Arial,sans-serif;color:var(--ink);
   background:linear-gradient(180deg,var(--sky1),var(--sky2) 70%);min-height:100svh;
-  display:flex;flex-direction:column;align-items:center;padding:2vh 3vw 3vh;gap:1.4vh;overflow:hidden}
+  display:flex;flex-direction:column;align-items:center;padding:2vh 3vw 3vh;gap:1.4vh;
+  
+  padding-bottom:calc(2vh + env(safe-area-inset-bottom))}
 .eyebrow{font-size:clamp(.85rem,1.6vw,1.15rem);font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mint-deep)}
 h1{font-size:clamp(1.7rem,4.6vh,3.1rem);line-height:1.08;text-align:center;color:#1d5d8a;
    text-shadow:0 2px 0 #fff}
@@ -93,7 +95,15 @@ h1{font-size:clamp(1.7rem,4.6vh,3.1rem);line-height:1.08;text-align:center;color
   padding:.6em 1.4em;margin:.25em;cursor:pointer;color:#fff;background:var(--mint-deep);box-shadow:0 5px 0 #1d7a66}
 .banner button.alt{background:#7db4d6;box-shadow:0 5px 0 #5a8ca8}
 .banner button:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.2)}
-@media (max-width:700px){ .piccard img{width:min(26vw,15vh);height:min(26vw,15vh)} .monsvg{width:min(24vh,40vw)} }
+@media (max-width:700px){
+  .piccard img{width:min(26vw,15vh);height:min(26vw,15vh)}
+  .monsvg{width:min(24vh,40vw)}
+  
+  body.ingame .eyebrow,body.ingame h1,body.ingame .accent-line{display:none}
+  body.ingame #game .hud{order:-1;margin-bottom:.2vh}
+  body.ingame #game{gap:.9vh}
+  #titlepic{width:min(30vh,72vw)}
+}
 
 #collect{width:min(980px,100%);display:none;flex-direction:column;align-items:center;gap:1vh;
   background:var(--cream);border-radius:var(--radius);box-shadow:var(--shadow);
@@ -336,14 +346,18 @@ function showMenu(){
   el("menu").style.display="";
   el("game").style.display="none";
   el("banner").classList.remove("on");
+  document.body.classList.remove("ingame");
   renderCollect();
 }
 function startBlock(b){
   curBlock=b;game=null;rounds=makeRounds(b);idx=0;tries=0;busy=false;
   lives=MAX_LIVES;renderLives(false);
   el("menu").style.display="none";
+  el("collect").style.display="none"; 
   el("game").style.display="flex";
   el("banner").classList.remove("on");
+  document.body.classList.add("ingame");
+  window.scrollTo(0,0);
   
   el("speak").style.display=(b===0||b===4)?"none":"";
   
