@@ -173,7 +173,25 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
 <div class="rule"></div>
 
 <main>
-  <details class="hwk" id="hw-oct14" open>
+  <details class="hwk" id="hw-nov4" open>
+    <summary>
+      <span class="t">Homework · 4 November 📚</span>
+      <span class="s">the seven words · one drill run · the workbook · your video story · the school tests</span>
+    </summary>
+    <div class="body">
+      <div class="trow"><span class="no">1</span><span>📚 <b>The seven words from the lesson</b> — license, neighbourhood, intention, pity, embarrassed, humiliating, warm up. Meet them on the cards, then check yourself. No clock.</span>
+        <a class="mbtn" href="words-0411.html">Open ▸</a></div>
+      <div class="trow"><span class="no">2</span><span>🔧 <b>One run of the drill</b> — a fresh set, with new cards from our last two lessons: <i>if I had…, I would…</i> · <i>will</i> or <i>going to</i>.</span>
+        <a class="mbtn" href="#drill-deck" onclick="document.getElementById('older-hw').open=true;document.getElementById('drill-deck').open=true;setTimeout(function(){document.getElementById('start-card').scrollIntoView({behavior:'smooth'})},50);return false">Open ▸</a></div>
+      <div class="trow"><span class="no">3</span><span>📝 <b>The workbook exercises</b> — Elena will send them to you.</span></div>
+      <div class="trow"><span class="no">4</span><span>🎥 <b>Your video story</b> — record a short video for Elena: your first school, your first teacher, your classroom — or a bright moment from your primary school. Your choice!</span></div>
+      <div class="trow"><span class="no">5</span><span>🏫 <b>Your school tests</b> — prepare well. Good luck!</span></div>
+    </div>
+  </details>
+
+  <details class="deck" id="older-hw">
+    <summary>📌 Older homework</summary>
+  <details class="hwk" id="hw-oct14">
     <summary>
       <span class="t">Homework · 14 October 📖</span>
       <span class="s">word formation ×2 (the old one — with the clock) · the article · your three words</span>
@@ -213,9 +231,6 @@ The drill deals a <b>fresh set every run</b> — play it as often as you like.</
   </div>
     </div>
   </details>
-
-  <details class="deck" id="older-hw">
-    <summary>📌 Older homework</summary>
   <details class="hwk" id="hw-oct7">
     <summary>
       <span class="t">Homework · word formation ✍️</span>
@@ -470,7 +485,21 @@ var POOL_FIX_MK=[
  {q:'The Chinese writing system uses ______ .',
   choices:["hieroglyphs","Chinese characters"],key:["chinese characters"],label:"the word for Chinese writing",type:"choice"},
  {q:'Children wanted to learn ______ languages.',
-  choices:["other","others","another"],key:["other"],label:"other + noun",type:"choice"}
+  choices:["other","others","another"],key:["other"],label:"other + noun",type:"choice"},
+ /* + 07.11: the 21.10 + 04.11 lesson grammar — the second conditional
+    (born on tape 21.10), will vs going to, going to + passive, PS vs PC */
+ {q:'If you ______ back to 1910, you would have an IQ of 130.',
+  choices:["went","will go","would go"],key:["went"],label:"second conditional: if + past",type:"choice"},
+ {q:'If I ______ a time machine, I would visit 1910.',
+  choices:["had","would have","will have"],key:["had"],label:"second conditional: if + past",type:"choice"},
+ {q:'“Any plans for Saturday?” “I ______ visit my grandma — I decided yesterday.”',
+  choices:["am going to","will"],key:["am going to"],label:"be going to = a plan",type:"choice"},
+ {q:'“The phone is ringing!” “OK, I ______ answer it.”',
+  choices:["will","am going to"],key:["will"],label:"will = a decision right now",type:"choice"},
+ {q:'The old bridge is going to ______ next year.',
+  choices:["be rebuilt","rebuild","rebuilt"],key:["be rebuilt"],label:"going to + passive infinitive",type:"choice"},
+ {q:'I ______ TV when the phone suddenly rang, so I missed the end of the film.',
+  choices:["was watching","watched","am watching"],key:["was watching"],label:"past continuous: the long action",type:"choice"}
 ];
 
 /* R2 · Word check — the fear family + the school words */
