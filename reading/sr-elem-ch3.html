@@ -317,7 +317,7 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
 
 <!-- 1 · prepare ahead -->
 <section class="slide" id="s1">
-    <div class="eyebrow reveal">select readings · elementary · chapter 3 · teacher's list · build 02.11 · v1</div>
+    <div class="eyebrow reveal">select readings · elementary · chapter 3 · teacher's list · build 07.11 · v2</div>
     <h1 class="title reveal">Dream Homes 🏠</h1>
     <div class="accent-line reveal"></div>
     <div class="card reveal" style="max-width:1040px;margin:0 auto;width:100%;padding:clamp(.8rem,1.5vw,1.3rem)">
@@ -1381,7 +1381,8 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     {n:'JAPAN',         x:91, y:17, w:5,  h:13},
     {n:'THE UK',        x:44, y:20, w:6,  h:8},
     {n:'FRANCE',        x:47, y:24, w:6,  h:7},
-    {n:'THE USA',       x:6,  y:21, w:21, h:17},
+    {n:'THE USA',       x:6,  y:33, w:22, h:16},
+    {n:'CANADA',        x:6,  y:11, w:22, h:21},
     {n:'EGYPT',         x:54, y:32, w:8,  h:10},
     {n:'CONGO',         x:51, y:52, w:10, h:11},
     {n:'AUSTRALIA',     x:80, y:62, w:15, h:19},
@@ -1433,19 +1434,19 @@ p,li{font-size:clamp(1.05rem,1.7vw,1.45rem);line-height:1.45}
     });
   }
   /* slide 7 · Ambani: INDIA fills the sentence + the Mumbai card */
-  buildMap('worldmap', WORLD_HOTS.filter(h=>['INDIA','PAKISTAN','CHINA','THE UK','THE USA','AFRICA'].includes(h.n)).map(h=>{
+  buildMap('worldmap', WORLD_HOTS.filter(h=>['INDIA','PAKISTAN','CHINA','THE UK','THE USA','CANADA','AFRICA'].includes(h.n)).map(h=>{
     const c=Object.assign({}, h);
     if(h.n==='INDIA'){ c.fill='INDIA'; c.gold=1; c.reveal='mumbai-reveal'; }
     return c;
   }));
   /* slide 8 · Thoreau: THE USA opens the Walden card */
-  buildMap('worldmap2', WORLD_HOTS.filter(h=>['THE USA','THE UK','FRANCE','ASIA','AUSTRALIA'].includes(h.n)).map(h=>{
+  buildMap('worldmap2', WORLD_HOTS.filter(h=>['THE USA','CANADA','THE UK','FRANCE','ASIA','AUSTRALIA'].includes(h.n)).map(h=>{
     const c=Object.assign({}, h);
     if(h.n==='THE USA'){ c.reveal='walden-reveal'; c.gold=1; }
     return c;
   }));
   /* slide 9 · Mutombo: CONGO fills the sentence */
-  buildMap('worldmap3', WORLD_HOTS.filter(h=>['CONGO','EGYPT','THE USA','THE UK','ASIA'].includes(h.n)).map(h=>{
+  buildMap('worldmap3', WORLD_HOTS.filter(h=>['CONGO','EGYPT','THE USA','CANADA','THE UK','ASIA'].includes(h.n)).map(h=>{
     const c=Object.assign({}, h);
     if(h.n==='CONGO'){ c.fill='CONGO'; c.gold=1; }
     return c;
