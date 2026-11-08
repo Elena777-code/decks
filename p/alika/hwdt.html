@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тренажёр · грамматика · Alika</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mint:#95E1D3; --mint-deep:#5ecbb8; --peach:#FCE38A; --lavender:#C8B6FF;
+  --lavender-deep:#9a7fff; --cream:#FFF8F0; --ink:#2D3436; --ink-soft:#636e72;
+  --pink:#FF8FAB; --white:#ffffff; --blue:#2f7de5;
+  --shadow:0 10px 30px rgba(45,52,54,.12); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--cream);-webkit-font-smoothing:antialiased;padding:2.5vh 4vw 8vh}
+.wrap{max-width:680px;margin:0 auto}
+.eyebrow{font-family:'Fredoka';font-weight:500;letter-spacing:.12em;text-transform:uppercase;font-size:clamp(.68rem,1vw,.85rem);color:var(--lavender-deep);margin-bottom:.3em}
+h1{font-family:'Fredoka';font-weight:700;font-size:clamp(1.7rem,4.5vw,2.6rem);margin-bottom:.2em}
+.sub{color:var(--ink-soft);font-size:clamp(.95rem,1.6vw,1.15rem);margin-bottom:1.4em}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,2.4vw,1.6rem);margin-bottom:1.1em}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.card.pinkk{background:#ffe9f0}
+h2{font-family:'Fredoka';font-weight:600;font-size:clamp(1.15rem,2.4vw,1.6rem);margin-bottom:.45em}
+p{font-size:clamp(1rem,1.8vw,1.25rem);line-height:1.55}
+.model{font-family:'Fredoka';font-weight:600;font-size:clamp(1.02rem,2vw,1.3rem);padding:.45em .8em;border-radius:14px;background:var(--cream);box-shadow:0 4px 12px rgba(45,52,54,.08);margin-bottom:.45em;line-height:1.4}
+.model b{color:var(--blue)}
+.hintline{font-size:clamp(.85rem,1.4vw,1.05rem);color:var(--ink-soft);font-style:italic;margin-top:.5em}
+.bigbtn{display:inline-block;font-family:'Fredoka';font-weight:700;font-size:clamp(1.1rem,2.2vw,1.5rem);color:var(--ink);border:none;cursor:pointer;background:linear-gradient(135deg,var(--mint),var(--lavender));border-radius:99px;padding:.65em 1.8em;box-shadow:0 8px 20px rgba(45,52,54,.16);margin-top:.6em;transition:transform .15s ease}
+.bigbtn:hover{transform:translateY(-2px)}
+#name-in{border:2px solid #d8dee6;border-radius:14px;padding:.45em .8em;font-family:'Fredoka';font-size:clamp(1rem,1.9vw,1.25rem);width:min(280px,100%);text-align:center}
+#name-in:focus{outline:none;border-color:var(--mint)}
+#name-in.bad{border-color:#e88;background:#fff5f5}
+.nudge{color:#e05d5d;font-weight:700;font-size:clamp(.9rem,1.6vw,1.05rem);margin-top:.4em;display:none}
+.nudge.show{display:block}
+.deal{font-family:'Fredoka';font-weight:600;color:var(--ink-soft);font-size:clamp(.9rem,1.7vw,1.1rem);margin-top:.5em}
+/* the run view */
+.qhead{display:flex;justify-content:space-between;align-items:center;gap:.6em;margin-bottom:.5em;font-family:'Fredoka';font-weight:700;font-size:clamp(1rem,1.9vw,1.25rem)}
+.qcount{color:var(--lavender-deep)}
+.qtimer{color:var(--ink-soft);min-width:3.2em;text-align:right}
+.qtimer.low{color:#e05d5d}
+.tbar{height:8px;border-radius:99px;background:#eee;overflow:hidden;margin-bottom:.9em}
+.tbar>div{height:100%;width:100%;background:linear-gradient(90deg,var(--mint),var(--lavender));transition:width .95s linear}
+.qq{font-family:'Fredoka';font-weight:600;font-size:clamp(1.15rem,2.6vw,1.6rem);line-height:1.45;margin-bottom:.9em}
+.qq span.gap{color:var(--lavender-deep);letter-spacing:.08em}
+.opts{display:flex;gap:.6em;flex-wrap:wrap}
+.opt{font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,2vw,1.3rem);border:none;cursor:pointer;border-radius:99px;padding:.55em 1.3em;background:var(--cream);box-shadow:0 4px 12px rgba(45,52,54,.12);color:var(--ink);transition:all .15s ease}
+.opt.good{background:var(--mint)}
+.opt.nooot{background:#ffd9de}
+.opt:disabled{cursor:default;opacity:.9}
+.opt.shake{animation:shk .3s ease}
+@keyframes shk{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.verdict{margin-top:.7em;font-family:'Fredoka';font-weight:600;font-size:clamp(.95rem,1.8vw,1.15rem);display:none}
+.verdict.show{display:block}
+.verdict.ok{color:var(--mint-deep)}
+.verdict.no{color:#e05d5d}
+/* the end card */
+.score{font-family:'Fredoka';font-weight:700;font-size:clamp(1.6rem,4vw,2.4rem);text-align:center;margin:.2em 0 .4em}
+.misslist{text-align:center;color:var(--ink-soft);font-size:clamp(.95rem,1.7vw,1.15rem);line-height:1.5}
+.btnrow{display:flex;gap:.8em;justify-content:center;flex-wrap:wrap;margin-top:1em}
+.send{font-family:'Fredoka';font-weight:700;font-size:clamp(1rem,2vw,1.3rem);border:none;cursor:pointer;border-radius:99px;padding:.6em 1.5em;background:linear-gradient(135deg,var(--peach),var(--pink));color:var(--ink);box-shadow:0 8px 20px rgba(45,52,54,.16)}
+.send.sent{background:linear-gradient(135deg,var(--mint),var(--lavender));cursor:default}
+.again{font-family:'Fredoka';font-weight:600;font-size:clamp(1rem,2vw,1.3rem);border:none;cursor:pointer;border-radius:99px;padding:.6em 1.5em;background:var(--white);box-shadow:0 5px 14px rgba(45,52,54,.14);color:var(--ink)}
+.foot{color:var(--ink-soft);text-align:center;font-size:clamp(.85rem,1.4vw,1rem);margin-top:1.2em}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="eyebrow">Alika · English · Miss Elena</div>
+  <h1>🎯 Грамматический тренажёр</h1>
+  <p class="sub">Один заход — 7 вопросов по всей грамматике! Таймер добрый — успеешь 😉</p>
+
+  <!-- the who gate + start -->
+  <div class="card mint" id="start-card">
+    <h2>✏️ Кто сегодня играет?</h2>
+    <input type="text" id="name-in" autocomplete="off" spellcheck="false">
+    <div class="nudge" id="name-nudge">Сначала напиши имя! ✏️</div>
+    <div class="deal" id="deal-line"></div>
+    <div class="btnrow"><button class="bigbtn" id="start-btn">▶ Начать!</button></div>
+    <p class="hintline">⏰ 30 секунд на вопрос — но это совсем не страшно 😉 · Ошиблась — покажем правильный ответ, и он запомнится: в следующий раз его спросят первым!</p>
+  </div>
+
+  <!-- the run -->
+  <div class="card hidden" id="run-card">
+    <div class="qhead"><span class="qcount" id="q-count"></span><span class="qtimer" id="q-timer">⏰ 30</span></div>
+    <div class="tbar"><div id="t-fill"></div></div>
+    <div class="qq" id="q-text"></div>
+    <div class="opts" id="q-opts"></div>
+    <div class="verdict" id="q-verdict"></div>
+  </div>
+
+  <!-- the end -->
+  <div class="card hidden" id="end-card">
+    <div class="score" id="score-line"></div>
+    <div class="misslist" id="miss-line"></div>
+    <div class="btnrow">
+      <button class="send" id="send-btn">📤 Отправить результат Мисс Элене!</button>
+      <button class="again" id="again-btn">↺ Ещё раз!</button>
+    </div>
+    <p class="hintline" style="text-align:center">Отправила — и играем ещё: вопросы тасуются каждый раз! 😉</p>
+  </div>
+
+  <p class="foot">🎨 Один адрес — навсегда. Результат улетает Мисс Элене 📤</p>
+</div>
+
+<iframe name="hwdt-form-target" style="display:none" title="hidden sender"></iframe>
+<script>
+(function(){
+  "use strict";
+  /* ---- the pool: every grammar family she has practiced so far ---- */
+  var POOL=[
+    {f:'have/has', q:'I ___ two cousins.', opts:['have','has'], ok:'have', expl:'I → have!'},
+    {f:'have/has', q:'My dad ___ a sister.', opts:['have','has'], ok:'has', expl:'dad = he → has!'},
+    {f:'have/has', q:'The dog ___ a ball.', opts:['have','has'], ok:'has', expl:'the dog = it → has!'},
+    {f:'have/has', q:'Mum and I ___ a cat. 🐱', opts:['have','has'], ok:'have', expl:'Mum and I = МЫ → have!'},
+    {f:'am/is/are', q:'The bag ___ blue.', opts:['am','is','are'], ok:'is', expl:'the bag = it → is!'},
+    {f:'am/is/are', q:'I ___ in my classroom.', opts:['am','is','are'], ok:'am', expl:'I → am!'},
+    {f:'am/is/are', q:'We ___ cool!', opts:['am','is','are'], ok:'are', expl:'we → are!'},
+    {f:'am/is/are', q:'Tom ___ ten today. 🎂', opts:['am','is','are'], ok:'is', expl:'Tom = he → is!'},
+    {f:'isn’t/aren’t', q:'Dug ___ French. (is not → ?)', opts:['isn’t','aren’t'], ok:'isn’t', expl:'is not → isn’t!'},
+    {f:'isn’t/aren’t', q:'They ___ big. (are not → ?)', opts:['isn’t','aren’t'], ok:'aren’t', expl:'are not → aren’t!'},
+    {f:'isn’t/aren’t', q:'I ___ hungry. (am not → ?)', opts:['’m not','isn’t'], ok:'’m not', expl:'am not → ’m not!'},
+    {f:'his/her', q:'This is my brother. ___ name is Alex.', opts:['His','Her'], ok:'His', expl:'brother = he → His!'},
+    {f:'his/her', q:'This is Anna. ___ room is nice.', opts:['His','Her'], ok:'Her', expl:'Anna = she → Her!'},
+    {f:'there is/are', q:'___ a bed in my room.', opts:['There is','There are'], ok:'There is', expl:'one thing → There is!'},
+    {f:'there is/are', q:'___ two chairs in the room.', opts:['There is','There are'], ok:'There are', expl:'two things → There are!'},
+    {f:'present continuous', q:'I ___ holding the pen right now.', opts:['am','is','are'], ok:'am', expl:'I → am + -ing!'},
+    {f:'present continuous', q:'She ___ wearing a red T-shirt.', opts:['am','is','are'], ok:'is', expl:'she → is + -ing!'}
+  ];
+  var DEAL_N=7, TIME=30;
+  var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSfmNW6SdbPWJA44jsChI9NJFfwOhzdSsSsIMLJSfvX1m_uJXA/formResponse";
+  var FORM_ENTRY="entry.790329667";
+
+  var nameIn=document.getElementById('name-in');
+  try{ nameIn.value=localStorage.getItem('alika-hwdt-name')||''; }catch(e){}
+  nameIn.addEventListener('input',function(){ try{ localStorage.setItem('alika-hwdt-name',nameIn.value.trim()); }catch(e){} });
+
+  function shuffle(a){ for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i];a[i]=a[j];a[j]=t; } return a; }
+
+  /* ---- the deal: stored misses lead, fresh cards fill ---- */
+  var remiss=[];
+  try{ remiss=JSON.parse(localStorage.getItem('alika-hwdt-remiss')||'[]'); }catch(e){}
+  var missed=POOL.filter(function(c){ return remiss.indexOf(c.f)>=0; });
+  var fresh=POOL.filter(function(c){ return remiss.indexOf(c.f)<0; });
+  var dealt=shuffle(missed).concat(shuffle(fresh)).slice(0,DEAL_N);
+  document.getElementById('deal-line').textContent='В колоде: '+POOL.length+' карт · каждый запуск — '+dealt.length+' вопросов · 1 раунд';
+
+  var startCard=document.getElementById('start-card'), runCard=document.getElementById('run-card'), endCard=document.getElementById('end-card');
+  var qText=document.getElementById('q-text'), qOpts=document.getElementById('q-opts'), qVerdict=document.getElementById('q-verdict');
+  var qCount=document.getElementById('q-count'), qTimerEl=document.getElementById('q-timer'), tFill=document.getElementById('t-fill');
+  var idx=0, firstTryOk=0, misses=[], tHandle=null, tLeft=TIME, sent=false;
+
+  function show(which){
+    startCard.classList.add('hidden'); runCard.classList.add('hidden'); endCard.classList.add('hidden');
+    which.classList.remove('hidden');
+  }
+
+  function startRun(){
+    var nm=nameIn.value.trim();
+    if(!nm){
+      nameIn.classList.add('bad');
+      document.getElementById('name-nudge').classList.add('show');
+      setTimeout(function(){ nameIn.classList.remove('bad'); },700);
+      return;
+    }
+    document.getElementById('name-nudge').classList.remove('show');
+    idx=0; firstTryOk=0; misses=[]; sent=false;
+    var sb=document.getElementById('send-btn');
+    sb.classList.remove('sent'); sb.disabled=false; sb.textContent='📤 Отправить результат Мисс Элене!';
+    show(runCard);
+    renderQ();
+  }
+
+  function stopTimer(){ if(tHandle){ clearInterval(tHandle); tHandle=null; } }
+
+  function renderQ(){
+    if(idx>=dealt.length){ finish(); return; }
+    var c=dealt[idx];
+    qCount.textContent='Вопрос '+(idx+1)+' / '+dealt.length;
+    qText.innerHTML=c.q.replace('___','<span class="gap">___</span>');
+    qVerdict.className='verdict'; qVerdict.textContent='';
+    qOpts.innerHTML='';
+    var opts=shuffle(c.opts.slice());
+    opts.forEach(function(o){
+      var b=document.createElement('button');
+      b.className='opt'; b.textContent=o; b.dataset.ok=(o===c.ok)?'1':'0';
+      b.addEventListener('click',function(){ pick(b,c); });
+      qOpts.appendChild(b);
+    });
+    tLeft=TIME; paintTimer();
+    stopTimer();
+    tHandle=setInterval(function(){
+      tLeft--;
+      paintTimer();
+      if(tLeft<=0){ stopTimer(); timeUp(c); }
+    },1000);
+  }
+
+  function paintTimer(){
+    qTimerEl.textContent='⏰ '+tLeft;
+    qTimerEl.classList.toggle('low',tLeft<=10);
+    tFill.style.width=Math.max(0,(tLeft/TIME*100))+'%';
+  }
+
+  function pick(btn,c){
+    if(btn.disabled) return;
+    var first=!qOpts.querySelectorAll('.opt:disabled').length;
+    var right=btn.dataset.ok==='1';
+    qOpts.querySelectorAll('.opt').forEach(function(x){
+      x.disabled=true;
+      if(x.dataset.ok==='1') x.classList.add('good');
+    });
+    if(right){
+      if(first) firstTryOk++;
+      qVerdict.className='verdict ok show';
+      qVerdict.textContent='Правильно! ⭐';
+      nextSoon();
+    }else{
+      btn.classList.add('nooot','shake');
+      recordMiss(c);
+      qVerdict.className='verdict no show';
+      qVerdict.textContent='Не́та ✗ — '+c.expl;
+      nextSoon();
+    }
+  }
+
+  function timeUp(c){
+    qOpts.querySelectorAll('.opt').forEach(function(x){
+      x.disabled=true;
+      if(x.dataset.ok==='1') x.classList.add('good');
+    });
+    recordMiss(c);
+    qVerdict.className='verdict no show';
+    qVerdict.textContent='⏰ Время вышло! '+c.expl;
+    nextSoon();
+  }
+
+  function recordMiss(c){
+    for(var i=0;i<misses.length;i++){ if(misses[i]===c.f) return; }
+    misses.push(c.f);
+  }
+
+  function nextSoon(){ setTimeout(function(){ idx++; renderQ(); },1700); }
+
+  function finish(){
+    stopTimer();
+    try{ localStorage.setItem('alika-hwdt-remiss',JSON.stringify(misses)); }catch(e){}
+    var sc=document.getElementById('score-line');
+    sc.textContent='⭐ '+firstTryOk+' из '+dealt.length;
+    var ml=document.getElementById('miss-line');
+    if(misses.length){
+      var fams={};
+      misses.forEach(function(f){ fams[f]=(fams[f]||0)+1; });
+      ml.innerHTML='Повтори: <b>'+Object.keys(fams).join(' · ')+'</b><br>(эти спросят первыми в следующий раз!)';
+    }else{
+      ml.innerHTML='Без промахов — чисто! 🎉';
+    }
+    show(endCard);
+  }
+
+  document.getElementById('start-btn').addEventListener('click',startRun);
+  nameIn.addEventListener('keydown',function(e){ if(e.key==='Enter') startRun(); });
+  document.getElementById('again-btn').addEventListener('click',function(){
+    /* a fresh deal from the same pool */
+    var nm=nameIn.value.trim(); if(!nm){ show(startCard); return; }
+    var missed2=POOL.filter(function(c){ return misses.indexOf(c.f)>=0; });
+    var fresh2=POOL.filter(function(c){ return misses.indexOf(c.f)<0; });
+    dealt=shuffle(missed2).concat(shuffle(fresh2)).slice(0,DEAL_N);
+    idx=0; firstTryOk=0; misses=[]; sent=false;
+    var sb=document.getElementById('send-btn');
+    sb.classList.remove('sent'); sb.disabled=false; sb.textContent='📤 Отправить результат Мисс Элене!';
+    show(runCard); renderQ();
+  });
+
+  document.getElementById('send-btn').addEventListener('click',function(){
+    if(sent) return;
+    var nm=nameIn.value.trim()||'Alika';
+    var line='Alika · hwdt · '+nm+' · Score: '+firstTryOk+'/'+dealt.length+' · misses: '+(misses.length?misses.join(', '):'—')+' · '+new Date().toLocaleString('en-GB');
+    try{
+      var f=document.createElement('form');
+      f.method='POST'; f.action=FORM_ACTION; f.target='hwdt-form-target';
+      var inp=document.createElement('input'); inp.type='hidden'; inp.name=FORM_ENTRY;
+      inp.value=line;
+      f.appendChild(inp); document.body.appendChild(f); f.submit(); f.remove();
+    }catch(e){}
+    sent=true;
+    var sb=document.getElementById('send-btn');
+    sb.classList.add('sent'); sb.disabled=true; sb.textContent='Отправлено Мисс Элене ✓';
+  });
+})();
+</script>
+</body>
+</html>
