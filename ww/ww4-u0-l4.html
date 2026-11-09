@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WW4 · Unit 0 · Starter 0.4 Catching up with Abe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WW4 (8th-grade group, Tue 15.45 Elena / Fri 15.30 Farida) —
+   WIDER WORLD 4, SECOND EDITION — Unit 0 «Good friends»,
+   Starter lesson 0.4 «Catching up with Abe» (SB p. 10),
+   ACCORDING TO THE КОНСПЕКТ (Planning Unit 0, LESSON 3) —
+   Elena's order (07.11): the WW lessons follow the school's
+   конспекты. The конспект's spine: warm-up → lead-in → the
+   text + True/False + the project facts → hobbies vs free-time
+   (board table + team race + mind map) → ex. 3 pairs →
+   test-teach-test (ex. 5 → the board sentence → the Rule sheet
+   → Complete the sentences) → the irregular-verbs wheel +
+   Correct the mistakes → ex. 6 questions → the Questions cards
+   (production) → wrap-up → homework (WB p. 5 + the projects).
+   The SB p. 10 texts, boxes and exercises sit on the slides
+   verbatim; the конспект's ICQs and procedures live in the
+   notes. Keys: TB 0.4 key spread (TB pdf 24) + the TB's WB
+   answer key (Starter = TB pdf 266). Derived keys are flagged.
+   Engine: the group's deck-007 clone (the WW4 2e standard) —
+   THE CORNERS V2 (🙋 top-left · ✍️ top-right · 🗒 bottom-centre),
+   the ✍️ V2 window (auto-send over http), the hotkey guard,
+   flex-shrink guard, answers behind clicks, build stamp.
+   The tense colour code: this lesson = the PRESENT PERFECT —
+   purple chips on the keys; the board slides carry purple chalk.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --radius:14px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+  --tblue:#1450C8; --tgreen:#0E7A3D; --tred:#C0262E; --tyellow:#B8860B; --tpurple:#7D3C98;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* flex-shrink guard: nothing on a slide may collapse — the slide scrolls */
+.slide>*{flex-shrink:0}
+.slide{position:absolute;inset:0;padding:8vh 5vw 12vh;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.6vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.8rem,1.25vw,1rem);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.3rem,2.5vw,2.05rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.stamp{display:inline-block;font-size:clamp(.72rem,1.05vw,.85rem);font-weight:700;
+  color:var(--ink-soft);border:1.5px solid var(--line);border-radius:99px;
+  padding:.14em .7em;background:#fff;letter-spacing:.04em}
+.task{font-size:clamp(1.02rem,1.65vw,1.3rem);line-height:1.5;font-weight:500}
+.task strong{color:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.78rem,1.2vw,.95rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.16em .7em;
+  background:#fff;margin-bottom:.1em;white-space:nowrap}
+.note{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);font-style:italic;line-height:1.48}
+audio{width:min(460px,92%);height:42px;vertical-align:middle}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.8rem,1.5vw,1.2rem)}
+.card.tint{background:var(--accent-soft);border-color:#d5e2dd}
+.card.gold{background:var(--gold-soft);border-color:#e8dcb8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.5vw,1.1rem)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.5vw,1.1rem)}
+.chips{display:flex;flex-wrap:wrap;gap:.5em}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:.26em .8em;
+  font-size:clamp(.92rem,1.5vw,1.2rem);font-weight:600;background:#fff;user-select:none}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.42em 0;
+  border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.7vw,1.32rem);line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .no{font-weight:800;color:var(--accent);min-width:1.4em}
+/* click-to-reveal answers — ANSWERS HIDE, ALWAYS */
+.flip{cursor:pointer;border-radius:8px;transition:background .2s}
+.flip:hover{background:var(--accent-soft)}
+.flip .back{color:var(--accent);opacity:0;transition:opacity .2s;font-weight:700;font-size:.94em;
+  display:inline-block;max-width:0;max-height:1.1em;overflow:hidden;white-space:nowrap;vertical-align:baseline}
+.flip.shown .back{opacity:1;max-width:none;max-height:none;white-space:normal}
+/* a key chip never breaks across a line wrap — it moves whole */
+.back .tq{white-space:nowrap}
+/* the tense colour chips (the standing code; this lesson = the present perfect, purple) */
+.tq{border-radius:8px;padding:.1em .45em;font-weight:700}
+.tq.pres{background:#E1EAF7;border:1.5px solid var(--tblue);color:var(--tblue)}
+.tq.cont{background:#E3F2E5;border:1.5px solid var(--tgreen);color:var(--tgreen)}
+.tq.past{background:#F9E4E1;border:1.5px solid var(--tred);color:var(--tred)}
+.tq.fut{background:#FCF3D5;border:1.5px solid var(--tyellow);color:var(--tyellow)}
+.tq.pp{background:#F1E3F5;border:1.5px solid var(--tpurple);color:var(--tpurple)}
+/* the book's own grammar-focus highlight (the SB's wash) — this lesson in the code's purple */
+.hl{background:#E1EAF7;border-radius:4px;padding:0 .18em;font-weight:700;color:#123a7a}
+.hlp{background:#F1E3F5;border-radius:4px;padding:0 .18em;font-weight:700;color:#5b2470}
+.lead-sm{font-size:clamp(.95rem,1.5vw,1.18rem);line-height:1.5;color:#4a463d}
+.lead-sm strong{color:var(--accent)}
+.bigbtn{align-self:flex-start;border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.28em .9em;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:clamp(.85rem,1.3vw,1rem);color:var(--ink-soft);cursor:pointer}
+.bigbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- the chalkboard (the конспект's board moments) ---------- */
+.board-card{background:#1E3A66;border:10px solid #fff;outline:4px solid #A9CCEF;
+  border-radius:18px;padding:clamp(1.2em,4vh,2em) clamp(1.4em,4vw,2.4em);
+  box-shadow:0 20px 50px rgba(30,58,102,.35)}
+.board-line{font-family:'Fredoka',sans-serif;font-weight:500;
+  font-size:clamp(1.25rem,3vw,2.2rem);color:#FDFDF8;line-height:1.5;margin-bottom:.55em}
+.board-line u{text-decoration:none;border-bottom:5px solid #FDFDF8;padding-bottom:.06em}
+.board-line u.tblue{border-bottom-color:#7EB3FF}
+.board-line .tblue{color:#7EB3FF}
+.board-line u.tpurple{border-bottom-color:#D8A8E8}
+.board-line .tpurple{color:#D8A8E8}
+.board-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 2em;
+  font-family:'Fredoka',sans-serif;font-weight:500;color:#FDFDF8}
+.board-cols .bcol{border-top:4px solid rgba(253,253,248,.55);padding-top:.35em}
+.board-cols .bcol h4{font-size:clamp(1.05rem,2.2vw,1.6rem);letter-spacing:.03em;margin-bottom:.3em}
+
+/* ---------- THE CORNERS V2 — pinned emoji pills ---------- */
+.pill{position:fixed;z-index:150;border:2px solid var(--line);background:rgba(255,255,255,.95);
+  backdrop-filter:blur(8px);color:var(--ink);font-family:'Inter',sans-serif;
+  font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1;
+  padding:.42em .6em;border-radius:99px;cursor:pointer;
+  box-shadow:0 3px 10px rgba(35,39,46,.10);transition:transform .12s,border-color .12s}
+.pill:hover{transform:scale(1.08);border-color:var(--accent)}
+#pardonBtn{top:max(10px,1.6vh);left:max(10px,1.6vw)}
+#annoBtn{top:max(10px,1.6vh);right:max(10px,1.6vw)}
+
+/* ---------- 🙋 Pardon? — the one universal list (top-left popup) ---------- */
+#pq{position:fixed;left:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(420px,92vw);
+  background:#fff;border:2px solid var(--line);border-radius:16px;padding:.75em .9em .9em;
+  display:none;flex-direction:column;gap:.35em;box-shadow:0 16px 40px rgba(35,39,46,.22)}
+#pq.on{display:flex}
+#pq .pq-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft);padding:0 .2em .2em}
+#pq .a-sp{flex:1}
+#pq .pq-head button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#pq .pq-head button:hover{border-color:var(--ink-soft)}
+#pq .pqRow{display:flex;align-items:center;gap:.6em;font-size:clamp(1rem,1.9vw,1.2rem);
+  font-weight:600;color:var(--ink);padding:.3em .5em;border-radius:10px;line-height:1.35}
+#pq .pqRow:hover{background:var(--accent-soft)}
+#pq .pqRow .pqE{flex:0 0 1.6em;text-align:center;font-weight:400}
+
+/*ANNO*//*STRIPANNO*//*/ANNO*/
+
+/*TNOTES*//*STRIPTNOTES*//*/TNOTES*/
+
+/* ⛶ read big — fullscreen reading text */
+#fso{position:fixed;inset:0;z-index:190;background:var(--paper);display:none;
+  overflow:auto;padding:6vh 7vw 10vh}
+#fso.open{display:block}
+#fso .fsoinner{max-width:78ch;margin:0 auto;font-size:clamp(1.25rem,2.4vw,1.95rem);
+  line-height:1.65;color:var(--ink)}
+#fso .fsoinner .gp{display:inline-block;min-width:5.5ch;border-bottom:2px solid var(--accent);
+  text-align:center;padding:0 .3em}
+#fso .fsoinner .ex{color:var(--accent);font-weight:700}
+
+@media (max-width:900px){
+  .slide{padding:8vh 5vw 12vh}
+  .grid2,.grid3{grid-template-columns:1fr}
+}
+</style>
+<style>/* THE FILM CUE (standing): Elena films the group for the parents at this slide */
+.filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER + THE PLAN + PREPARE AHEAD -->
+<section class="slide">
+  <div class="eyebrow reveal">Wider World 4 · Second Edition · Unit 0 “Good friends” · Starter · WW4 (8th grade) — Tue 15.45 Elena / Fri 15.30 Farida</div>
+  <h1 class="reveal">0.4 Catching up with <em>Abe</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Today:</strong> meet Abe — the last of the four friends — hobbies and free time, and the Present Perfect. <!-- ww4-deck-008 · build 07.11 · v1 · master: groups/ww4/lessons/008/ww4-deck-008.html --></p>
+  <p class="tag reveal">BEFORE WE START — today’s order</p>
+  <div class="chips reveal">
+    <span class="chip">1 · homework check — WB pp. 3–4</span>
+    <span class="chip">2 · Starter 0.4 — Abe &amp; the Present Perfect</span>
+  </div>
+  <div class="card tint reveal">
+    <p class="lead-sm"><strong>Prepare ahead</strong> — 📖 <strong>SB open at p. 10</strong> · 📓 <strong>notebooks out</strong> · 📋 <strong>the projects</strong> (A3) on the desk · 🔊 <strong>sound check</strong>: two tracks play right from the slides (slides 5 and 10) · the printed worksheet set is optional (Rule Present Perfect · Correct the mistakes · Mind map · the Questions cards — cut the cards out before the lesson).</p>
+  </div>
+</section>
+
+<!-- 2 · CHECK — WB pp. 3–4 -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Before we start · the homework check</div>
+  <h1 class="reveal">WB pp. 3–4 — <em>swap and check</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Swap workbooks with your partner. Check <strong>ex. by ex.</strong> — the keys appear on a click.</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>WB p. 3 · 0.2 Present Continuous</strong></p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Choose the correct option <span class="back">→ <span class="tq cont">1 Are … I’m not · 2 right … I’m not · 3 studying … We’re · 4 Are … talking</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Complete the sentences <span class="back">→ <span class="tq cont">1 am/’m having · 2 are Jo and Ian watching · 3 isn’t looking forward to · 4 are/’re studying · 5 are you calling · 6 Is your sister enjoying</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>WORD FRIENDS — label the pictures <span class="back">→ 1 make a video · 2 write a blog · 3 text someone · 4 chat with people · 5 post on social media · 6 download an app</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Complete the words <span class="back">→ 1 write · 2 messaging · 3 go · 4 film · 5 download · 6 upload</span></span></div>
+    </div>
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>WB p. 4 · 0.3 Past Simple</strong></p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>H / T / A / Ac — match the types <span class="back">→ 1 H, city break · 2 T, ferry · 3 Ac, hiking · 4 T, coach · 5 A, campsite</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Write the Past Simple forms <span class="back">→ <span class="tq past">1 came · 2 left · 3 hired · 4 went · 5 had · 6 spent · 7 stayed · 8 met · 9 travelled · 10 made</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Complete «My last holiday» <span class="back">→ <span class="tq past">1 went · 2 stayed · 3 didn’t do · 4 read · 5 was · 6 made · 7 hung out · 8 didn’t meet · 9 didn’t come · 10 did you go · 11 told · 12 weren’t · 13 drew</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Match the two halves <span class="back">→ 1b · 2e · 3a · 4f · 5d · 6c</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · WARM-UP -->
+<section class="slide">
+  <div class="eyebrow reveal">Warm-up · 3 minutes</div>
+  <h1 class="reveal">Name <em>3 activities</em> you did yesterday</h1>
+  <div class="rule reveal"></div>
+  <div class="card tint reveal"><p class="task">🎒 Yesterday I … <em>(three things, full sentences!)</em></p></div>
+</section>
+
+<!-- 4 · LEAD-IN -->
+<section class="slide">
+  <div class="eyebrow reveal">Lead-in · recall the three friends</div>
+  <h1 class="reveal">What hobbies do <em>they</em> have? And <em>you</em>?</h1>
+  <div class="rule reveal"></div>
+  <div class="grid3 reveal">
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">Bea</span><span>hobbies … <span class="back">→ gardening, programming</span></span></div>
+    </div>
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">Eren</span><span>hobbies … <span class="back">→ tennis, cycling</span></span></div>
+    </div>
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">Carla</span><span>hobbies … <span class="back">→ acting, art, first aid</span></span></div>
+    </div>
+  </div>
+  <div class="card tint reveal">
+    <p class="task"><strong>And you?</strong> Have you got the same hobbies? What are your hobbies?</p>
+  </div>
+</section>
+
+<!-- 5 · EX. 1 — THE TEXT + TRUE/FALSE (track 0.12) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">SB p. 10 · ex. 1 · track 0.12</div>
+  <h1 class="reveal">The text — <em>true or false?</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">🎧 <strong>0.12</strong> Read the text and mark the sentences <strong>T (true)</strong> or <strong>F (false)</strong>. First — <strong>predict in pairs</strong> (2 min), then read and mark <strong>alone</strong> (2 min).</p>
+  <audio class="deck reveal" controls preload="none" src="../media/ww4-2e-track-0-12.mp3"></audio>
+  <div class="grid2 reveal">
+    <div class="card" style="font-size:clamp(.88rem,1.45vw,1.1rem);line-height:1.55">
+      <p><strong>This is Abe Kerr.</strong> His mum is American and his dad is English. Before, they lived in the US, but then they moved to New Park. Abe and his dad have been here for a year now. His mum hasn’t been here for so long – only since April.</p>
+      <p style="margin-top:.5em">At first, Abe found England boring compared to the US and he didn’t think much of the food. But since then, he’s discovered some amazing new places and met some lovely people, and now he thinks it’s a cool place to live.</p>
+      <p style="margin-top:.5em">Abe has done a lot of exciting things this year. He’s taken some awesome photos and recently he’s taken up a new hobby: film-making. He’s already directed a film. He’s also run a 5K race, but he hasn’t taken part in any longer races yet.</p>
+      <p style="margin-top:.5em">Since he arrived, he’s spent a lot of time hanging out with his cousin Bea and he’s made some great new friends, especially Eren and Carla. They’ve had a lot of fun together.</p>
+    </div>
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Abe’s dad is English. <span class="back">→ T</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Abe doesn’t like England. <span class="back">→ F — he thinks it’s a cool place</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>He’s into photography and film-making. <span class="back">→ T</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>He’s not into sport. <span class="back">→ F — he ran a 5K race</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>His cousin’s name is Carla. <span class="back">→ F — his cousin is Bea; Carla is a friend</span></span></div>
+    </div>
+  </div>
+  <button class="bigbtn reveal" onclick="openFs('fs-text')">⛶ Read big — the whole text</button>
+</section>
+<div id="fs-text" style="display:none">
+  <h3>Catching up with Abe</h3>
+  <div style="font-size:1em;line-height:1.75">
+    <p><b>This is Abe Kerr.</b> His mum is American and his dad is English. Before, they lived in the US, but then they moved to New Park. Abe and his dad have been here for a year now. His mum hasn’t been here for so long – only since April.</p>
+    <p>At first, Abe found England boring compared to the US and he didn’t think much of the food. But since then, he’s discovered some amazing new places and met some lovely people, and now he thinks it’s a cool place to live.</p>
+    <p>Abe has done a lot of exciting things this year. He’s taken some awesome photos and recently he’s taken up a new hobby: film-making. He’s already directed a film. He’s also run a 5K race, but he hasn’t taken part in any longer races yet.</p>
+    <p>Since he arrived, he’s spent a lot of time hanging out with his cousin Bea and he’s made some great new friends, especially Eren and Carla. They’ve had a lot of fun together.</p>
+  </div>
+</div>
+
+<!-- 6 · ABE FACTS — INTO THE PROJECT -->
+<section class="slide">
+  <div class="eyebrow reveal">Revision and project · the last character</div>
+  <h1 class="reveal">Facts about Abe — <em>into the project</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal"><p class="task">Name <strong>a fact you remember about Abe</strong> — one fact each, no repeats!</p></div>
+  <div class="card tint reveal">
+    <p class="task">✍️ Write <strong>3–5 facts about Abe</strong> into your project — <strong>5 minutes</strong>.</p>
+  </div>
+  <div class="chips reveal">
+    <span class="chip">Bea ✓</span><span class="chip">Eren ✓</span><span class="chip">Carla ✓</span><span class="chip">Abe → today</span>
+  </div>
+</section>
+
+<!-- 7 · THE BOARD — HOBBIES vs FREE-TIME ACTIVITIES -->
+<section class="slide">
+  <div class="eyebrow reveal">On the board · two columns</div>
+  <h1 class="reveal">Hobby or <em>free-time activity?</em></h1>
+  <div class="rule reveal"></div>
+  <div class="board-card reveal">
+    <div class="board-cols">
+      <div class="bcol"><h4>HOBBIES</h4><p class="board-line" style="font-size:clamp(.95rem,1.8vw,1.3rem)">…</p></div>
+      <div class="bcol"><h4>FREE-TIME ACTIVITIES</h4><p class="board-line" style="font-size:clamp(.95rem,1.8vw,1.3rem)">…</p></div>
+    </div>
+    <p class="board-line" style="margin-top:.6em">Is watching TV a <span class="tpurple">hobby</span> or a <span class="tpurple">free-time activity</span>? Why?</p>
+  </div>
+</section>
+
+<!-- 8 · THE WORD RACE (teams) -->
+<section class="slide">
+  <div class="eyebrow reveal">Team challenge · 1 minute</div>
+  <h1 class="reveal">Run to the board — <em>one word each!</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card"><p class="task"><strong>Team 1</strong> — hobbies &amp; free-time words 🏃</p></div>
+    <div class="card"><p class="task"><strong>Team 2</strong> — hobbies &amp; free-time words 🏃</p></div>
+  </div>
+  <div class="card gold reveal"><p class="task">One student = one word or collocation · no repeats · <strong>1 minute</strong> — then: tick the correct ✅, cross the wrong ❌, count the points!</p></div>
+</section>
+
+<!-- 9 · THE MIND MAP (worksheet) -->
+<section class="slide">
+  <div class="eyebrow reveal">Worksheet · Mind map · 2 + 3 minutes</div>
+  <h1 class="reveal">Mind map — <em>hobbies &amp; free time</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Stick the worksheet in your copybook. <strong>Complete the map</strong> with the words from the board — <strong>2 minutes</strong>. Then find <strong>more hobby words in the text</strong> (SB p. 10) and add them — <strong>3 minutes</strong>. Highlight the new words <strong>yellow</strong>.</p>
+  <div class="card tint reveal"><p class="task">🗺 In the text: <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ film-making · take photos · take up a (new) hobby · direct a film · run a race · take part in a race · discover new places · hang out with friends · have fun together</span></span></p></div>
+</section>
+
+<!-- 10 · EX. 2–3 — THE PHRASES + PAIR QUESTIONS (track 0.13) -->
+<section class="slide">
+  <div class="eyebrow reveal">SB p. 10 · ex. 2–3 · track 0.13</div>
+  <h1 class="reveal">WORD FRIENDS — <em>then ask and answer</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">🎧 <strong>0.13</strong> <strong>WORD FRIENDS</strong> Study the phrases. Can you add more phrases for hobbies and free time activities?</p>
+  <audio class="deck reveal" controls preload="none" src="../media/ww4-2e-track-0-13.mp3"></audio>
+  <div class="chips reveal">
+    <span class="chip">direct a film</span><span class="chip">discover new places</span><span class="chip">hang out with friends</span><span class="chip">run a race</span><span class="chip">take a photo</span><span class="chip">take part in a marathon</span><span class="chip">take up a hobby</span>
+  </div>
+  <div class="card tint reveal">
+    <p class="task"><strong>In pairs, ask and answer</strong> questions using the phrases. <em>“Would you like to take part in a marathon?”</em> — 3 minutes.</p>
+  </div>
+  <div class="card reveal">
+    <p class="lead-sm" style="margin-bottom:.25em"><strong>On the board — more prompts:</strong></p>
+    <div class="chips">
+      <span class="chip">fly</span><span class="chip">sail</span><span class="chip">travel</span><span class="chip">chat with</span><span class="chip">text</span><span class="chip">upload</span><span class="chip">send</span><span class="chip">classmate</span><span class="chip">best friend</span><span class="chip">relative</span>
+    </div>
+  </div>
+</section>
+
+<!-- 11 · TEST — EX. 5 (Present Perfect drill) -->
+<section class="slide">
+  <div class="eyebrow reveal">SB p. 10 · ex. 5 · TEST</div>
+  <h1 class="reveal">Complete the sentences — <em>the Present Perfect</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Complete the sentences with the <strong>Present Perfect</strong> form of the verbs in brackets. Alone — <strong>4 minutes</strong>.</p>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>We <span class="hlp">haven’t lived</span> (not live) here very long. <span class="note">(the example)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>The film __________ (not start/yet). <span class="back">→ <span class="tq pp">hasn’t started</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>__________ (you/ever/have) a pet dog? <span class="back">→ <span class="tq pp">Have you ever had</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Oscar __________ (not eat) lunch today. <span class="back">→ <span class="tq pp">hasn’t eaten</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Ella __________ (always/like) Art. <span class="back">→ <span class="tq pp">has always liked</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>I __________ (not see) Jo since May. <span class="back">→ <span class="tq pp">haven’t seen</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">7</span><span>Ali __________ (be) my friend for years. <span class="back">→ <span class="tq pp">has been / ’s been</span></span></span></div>
+  </div>
+</section>
+
+<!-- 12 · TEACH — THE GRAMMAR BOX + THE HUNT (ex. 4) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">SB p. 10 · ex. 4 · Grammar</div>
+  <h1 class="reveal">Grammar — <em>find it in the text</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Study the <strong>Grammar box</strong>. Find more examples of the <strong>Present Perfect</strong> in the text — underline them. <strong>2 minutes</strong>: how many sentences have you found?</p>
+  <div class="card reveal">
+    <p class="lead-sm" style="margin-bottom:.3em"><strong>GRAMMAR · Present Perfect</strong></p>
+    <p class="lead-sm" style="margin:.2em 0 0"><strong>Affirmative</strong></p>
+    <div class="item"><span class="no">+</span><span>He <span class="hlp">has</span> (just/already) <span class="hlp">directed</span> a film. &nbsp;·&nbsp; They <span class="hlp">have moved</span> to England.</span></div>
+    <p class="lead-sm" style="margin:.3em 0 0"><strong>Negative</strong></p>
+    <div class="item"><span class="no">−</span><span>I <span class="hlp">haven’t</span> (ever)/I <span class="hlp">have never lived</span> in the US. &nbsp;·&nbsp; He <span class="hlp">hasn’t taken part</span> in a marathon (yet).</span></div>
+    <p class="lead-sm" style="margin:.3em 0 0"><strong>Questions</strong></p>
+    <div class="item"><span class="no">?</span><span><span class="hlp">Have</span> you (ever) <span class="hlp">visited</span> the US? — Yes, I <span class="hlp">have</span>./No, I <span class="hlp">haven’t</span>. &nbsp;·&nbsp; <span class="hlp">Has</span> she (ever) <span class="hlp">run</span> a 5K race? — Yes, she <span class="hlp">has</span>./No, she <span class="hlp">hasn’t</span>.</span></div>
+    <p class="lead-sm" style="margin:.3em 0 0"><strong>For and since</strong></p>
+    <div class="item"><span class="no">⏱</span><span>They’ve lived in England <span class="hlp">for</span> a year. <em>(a period of time)</em> &nbsp;·&nbsp; She’s been here <span class="hlp">since</span> April. <em>(a point in time)</em></span></div>
+  </div>
+  <div class="card tint reveal"><p class="task"><strong>In the text:</strong> <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ have been here (for a year now) · hasn’t been here (for so long) · he’s discovered … and met … · Abe has done a lot … · He’s taken some awesome photos · he’s taken up a new hobby: film-making · He’s already directed a film · He’s also run a 5K race · he hasn’t taken part in any longer races yet · he’s spent a lot of time hanging out … · he’s made some great new friends · They’ve had a lot of fun together</span></span></p></div>
+</section>
+
+<!-- 13 · THE BOARD — HE’S RUN A 5K RACE -->
+<section class="slide">
+  <div class="eyebrow reveal">On the board · teach the form</div>
+  <h1 class="reveal"><em>He’s run a 5K race.</em> — now change it</h1>
+  <div class="rule reveal"></div>
+  <div class="board-card reveal">
+    <p class="board-line">He’<span class="tpurple"><u>s run</u></span> a 5K race.</p>
+  </div>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">−</span><span>Make it negative <span class="back">→ <span class="tq pp">He hasn’t run a 5K race.</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">?</span><span>Make it a question <span class="back">→ <span class="tq pp">Has he run a 5K race? — Yes, he has./No, he hasn’t.</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">she</span><span>Say it about SHE <span class="back">→ <span class="tq pp">She has run a 5K race.</span> — why “has”? (he/she/it → has)</span></span></div>
+  </div>
+</section>
+
+<!-- 14 · RULE — THE WORKSHEET (move) -->
+<section class="slide">
+  <div class="eyebrow reveal">Worksheet · Rule Present Perfect</div>
+  <h1 class="reveal">The rule — <em>complete it with “move”</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Stick the worksheet in your copybook. Complete the rule with the correct form of the verb <strong>move</strong>. Then explain the form.</p>
+  <div class="card reveal">
+    <div class="item"><span class="no">+</span><span>I / you / we / they <span class="flip" onclick="event.stopPropagation();this.classList.toggle('shown')"><span class="front">________ (already/just) ________</span><span class="back">→ <span class="tq pp">have moved</span></span></span> to England.</span></div>
+    <div class="item"><span class="no">+</span><span>He / she / it <span class="flip" onclick="event.stopPropagation();this.classList.toggle('shown')"><span class="front">________ (already/just) ________</span><span class="back">→ <span class="tq pp">has moved</span></span></span> to England.</span></div>
+    <div class="item"><span class="no">−</span><span>I / you / we / they <span class="flip" onclick="event.stopPropagation();this.classList.toggle('shown')"><span class="front">________ (ever) ________ (yet)</span><span class="back">→ <span class="tq pp">haven’t moved</span></span></span> to England.</span></div>
+    <div class="item"><span class="no">−</span><span>He / she / it <span class="flip" onclick="event.stopPropagation();this.classList.toggle('shown')"><span class="front">________ (ever) ________ (yet)</span><span class="back">→ <span class="tq pp">hasn’t moved</span></span></span> to England.</span></div>
+    <div class="item"><span class="no">?</span><span><span class="flip" onclick="event.stopPropagation();this.classList.toggle('shown')"><span class="front">________</span><span class="back">→ <span class="tq pp">Have</span></span></span> I / you / we / they (ever) <span class="flip" onclick="event.stopPropagation();this.classList.toggle('shown')"><span class="front">________</span><span class="back">→ <span class="tq pp">moved</span></span></span> to England?</span></div>
+    <div class="item"><span class="no">?</span><span><span class="flip" onclick="event.stopPropagation();this.classList.toggle('shown')"><span class="front">________</span><span class="back">→ <span class="tq pp">Has</span></span></span> he / she / it (ever) <span class="flip" onclick="event.stopPropagation();this.classList.toggle('shown')"><span class="front">________</span><span class="back">→ <span class="tq pp">moved</span></span></span> to England?</span></div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm">The Present Perfect = <strong>have/has + the 3rd form</strong> (the past participle). <em>move → moved</em> (regular).</p></div>
+</section>
+
+<!-- 15 · COMPLETE THE SENTENCES (the worksheet’s task) -->
+<section class="slide">
+  <div class="eyebrow reveal">Worksheet · Complete the sentences · 3 minutes</div>
+  <h1 class="reveal">Complete the sentences — <em>yes or no?</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Complete the sentences with the correct form of the verbs. Alone — <strong>3 minutes</strong>. Then we check: <strong>Yes or No?</strong></p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>She _________ never _________ (try) street food in another country. <span class="back">→ <span class="tq pp">has never tried</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>They _________ _________ (not finish) the report yet. <span class="back">→ <span class="tq pp">haven’t finished</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Why _________ you _________ (change) your opinion? <span class="back">→ <span class="tq pp">have … changed</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>I _________ _________ (live) in this city for more than five years. <span class="back">→ <span class="tq pp">have lived</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>_________ they _________ (know) each other since primary school? <span class="back">→ <span class="tq pp">Have … known</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>Daniel _________ _________ (not travel) abroad for several years. <span class="back">→ <span class="tq pp">hasn’t travelled</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">7</span><span>My stepmother _________ _________ (work) in this school since the 1990s. <span class="back">→ <span class="tq pp">has worked</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">8</span><span>We _________ _________ (not eat) fish and chips since last Monday. <span class="back">→ <span class="tq pp">haven’t eaten</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">9</span><span>How long _________ Vanessa _________ (study) English for? She’s really good at it! <span class="back">→ <span class="tq pp">has Vanessa studied</span></span></span></div>
+  </div>
+</section>
+
+<!-- 16 · IRREGULAR VERBS — THE WORDWALL WHEEL -->
+<section class="slide">
+  <div class="eyebrow reveal">Irregular verbs · the wheel</div>
+  <h1 class="reveal">Spin the wheel — <em>say three forms</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card tint reveal">
+    <p class="task">🎡 <strong><a href="https://wordwall.net/resource/107168056" target="_blank">wordwall.net/resource/107168056</a></strong> — open and spin!</p>
+  </div>
+  <div class="card reveal"><p class="task">One spin = one pupil = <strong>three forms aloud</strong> (go → went → gone).</p></div>
+  <div class="card gold reveal"><p class="task">⭐ EXTRA: make a <strong>Present Perfect sentence</strong> with the verb you get!</p></div>
+</section>
+
+<!-- 17 · CORRECT THE MISTAKES (worksheet) -->
+<section class="slide">
+  <div class="eyebrow reveal">Worksheet · Correct the mistakes · 5 minutes</div>
+  <h1 class="reveal">Correct the mistakes — <em>if there are any!</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Correct the mistakes. <strong>Be attentive — there are correct sentences as well.</strong> Correct only where it’s necessary. Alone — <strong>5 minutes</strong>.</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>I have lived in this city since five years. <span class="back">→ <span class="tq pp">for</span> five years</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>She hasn’t finished the project yet. <span class="back">→ ✓ correct</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>We’ve known each other for a very long time. <span class="back">→ ✓ correct</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>I didn’t see her since last summer. <span class="back">→ I <span class="tq pp">haven’t seen</span> her since last summer.</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Has you ever been to South America? <span class="back">→ <span class="tq pp">Have</span> you ever been to South America?</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>They work together for five years. <span class="back">→ They <span class="tq pp">have worked</span> together for five years.</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">7</span><span>She just returned home from her trip. <span class="back">→ She <span class="tq pp">has just returned</span> home from her trip.</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">8</span><span>Jess has never run a race. <span class="back">→ ✓ correct</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">9</span><span>What have you do to your hair? <span class="back">→ What have you <span class="tq pp">done</span> to your hair?</span></span></div>
+  </div>
+  <div class="card gold reveal"><p class="lead-sm"><strong>Finished early?</strong> Re-write two sentences and make them <strong>true about yourself</strong>.</p></div>
+</section>
+
+<!-- 18 · TEST 2 — EX. 6 (make the questions) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">SB p. 10 · ex. 6 · TEST</div>
+  <h1 class="reveal">Make the questions — <em>then answer your partner’s</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Write the questions in the <strong>Present Perfect</strong> in your copybook — <strong>3 minutes</strong>. Then swap copybooks: <strong>answer your partner’s questions in writing</strong> (about Abe!) — <strong>3 minutes</strong>.</p>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>how long / Abe and his dad / live / in New Park /? <span class="note">(the example)</span> <span class="flip" onclick="event.stopPropagation();this.classList.toggle('shown')"><span class="back">→ <span class="tq pp">How long have Abe and his dad lived in New Park?</span> — They’ve lived in New Park for a year.</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Abe’s mum / be / in England / for a year /? <span class="back">→ <span class="tq pp">Has Abe’s mum been in England for a year?</span> — No, she hasn’t. She’s only been in England since April.</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>why / Abe / change / his opinion of England /? <span class="back">→ <span class="tq pp">Why has Abe changed his opinion of England?</span> — Because he’s visited some amazing places and met some lovely people.</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>what hobby / he / recently / take up /? <span class="back">→ <span class="tq pp">What hobby has he recently taken up?</span> — He’s recently taken up baking. <span class="note">(the TB’s key; the text itself says film-making — accept it)</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Abe / ever / run / a marathon /? <span class="back">→ <span class="tq pp">Has Abe ever run a marathon?</span> — No, he hasn’t, but he has run a 5K race.</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>who / Abe / spend / a lot of time with since / he / arrive /? <span class="back">→ <span class="tq pp">Who has Abe spent a lot of time with since he arrived?</span> — He’s spent a lot of time with his cousin Bea.</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">7</span><span>he / make / any friends /? <span class="back">→ <span class="tq pp">Has he made any friends?</span> — Yes, he has. He’s made two great new friends, Eren and Carla.</span></span></div>
+  </div>
+</section>
+
+<!-- 19 · PRODUCTION — THE QUESTIONS CARDS + THE FILM CUE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Production · Speaking · Cards “Questions”</div>
+  <h1 class="reveal">Pick a card — <em>ask and answer!</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Work in pairs. Pick a card, <strong>ask your partner</strong> — use the <strong>Present Perfect</strong>. Give <strong>full answers</strong>, immediately — no preparation. <strong>6 minutes</strong>.</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="item"><span class="no">1</span><span>How long / your family / live / here?</span></div>
+      <div class="item"><span class="no">2</span><span>What / your best friend / never / …?</span></div>
+      <div class="item"><span class="no">3</span><span>How long / you / be / at this school?</span></div>
+      <div class="item"><span class="no">4</span><span>Which countries / you / visit / …?</span></div>
+      <div class="item"><span class="no">5</span><span>How long / you / like / (band / singer)?</span></div>
+      <div class="item"><span class="no">6</span><span>Where / your family / travel?</span></div>
+      <div class="item"><span class="no">7</span><span>Whose advice / help / you?</span></div>
+      <div class="item"><span class="no">8</span><span>How many / family traditions / you / keep / since childhood?</span></div>
+    </div>
+    <div class="card">
+      <div class="item"><span class="no">9</span><span>What hobby / you / never / try?</span></div>
+      <div class="item"><span class="no">10</span><span>Why / you / change / your mind on …?</span></div>
+      <div class="item"><span class="no">11</span><span>Where / your (dad / mom, etc) / just …?</span></div>
+      <div class="item"><span class="no">12</span><span>What app / your best friend / use / to …?</span></div>
+      <div class="item"><span class="no">13</span><span>How long / you / follow / your favourite blogger or channel?</span></div>
+      <div class="item"><span class="no">14</span><span>How long / you / do / your hobby?</span></div>
+      <div class="item"><span class="no">15</span><span>What / your mom / never / …?</span></div>
+      <div class="item"><span class="no">16</span><span>You / ever … / on holidays?</span></div>
+    </div>
+  </div>
+  <div class="filmchip" title="Lights, camera, action — film 30–60 s of the group for the parents; the clip goes to Miss Alyona">🎬 Lights, camera, action!</div>
+</section>
+
+<!-- 20 · WRAP-UP — FEEDBACK -->
+<section class="slide">
+  <div class="eyebrow reveal">Wrap-up · 3 minutes</div>
+  <h1 class="reveal">How did it <em>feel?</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>Was it difficult to speak <strong>immediately</strong>?</span></div>
+    <div class="item"><span class="no">2</span><span>What was easier: to <strong>ask</strong> questions or <strong>answer</strong> them? Why?</span></div>
+    <div class="item"><span class="no">3</span><span>Was it easy to use the <strong>Present Perfect</strong>? Did you need time to think?</span></div>
+    <div class="item"><span class="no">4</span><span>What do you need to do to have <strong>better results</strong> next time?</span></div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm">More <strong>speaking</strong> or more <strong>writing</strong>? Learn the <strong>rule</strong> better? The <strong>irregular verbs</strong>? 🤔</p></div>
+</section>
+
+<!-- 21 · HOMEWORK — WB p. 5 + THE PROJECTS -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework · Workbook p. 5 · lesson 0.4</div>
+  <h1 class="reveal">Homework — <em>WB p. 5 + your project</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>WB p. 5 <strong>ex. 1</strong> — WORD FRIENDS: complete with the verbs (direct · discover · hang out · run · take ×3)</span></div>
+    <div class="item"><span class="no">2</span><span>WB p. 5 <strong>ex. 2</strong> — <strong>for</strong> or <strong>since</strong></span></div>
+    <div class="item"><span class="no">3</span><span>WB p. 5 <strong>ex. 3</strong> — make <strong>Present Perfect</strong> sentences from the prompts</span></div>
+    <div class="item"><span class="no">4</span><span>WB p. 5 <strong>ex. 4</strong> — complete the second sentence (the bold word, ≤3 words)</span></div>
+    <div class="item"><span class="no">📋</span><span><strong>Check your project</strong> — complete the missing facts about the four characters</span></div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm">Next time — <strong>0.5 Revision</strong> (SB p. 11). Bring your <strong>Workbook</strong> and <strong>project</strong>!</p></div>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 21</span>
+  <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<!-- pinned pills — THE CORNERS V2: 🙋 top-left · ✍️ top-right · 🗒 bottom-centre -->
+<button id="pardonBtn" class="pill" title="Pardon? — class phrases (P)">🙋</button>
+<!--TNOTES--><!--/TNOTES-->
+
+<!--TNOTES--><!--/TNOTES-->
+
+<!-- 🙋 Pardon? — the one universal list -->
+<div id="pq">
+  <div class="pq-head"><span>say it in class</span><span class="a-sp"></span>
+    <button id="pqX" title="close (Esc / P)">✕</button></div>
+  <div class="pqRow"><span class="pqE">🙋</span>Pardon?</div>
+  <div class="pqRow"><span class="pqE">❓</span>What does <b>___</b> mean?</div>
+  <div class="pqRow"><span class="pqE">🆘</span>Can you help me?</div>
+  <div class="pqRow"><span class="pqE">🔁</span>Can you repeat, please?</div>
+  <div class="pqRow"><span class="pqE">🇬🇧</span>How do you say <b>___</b> in English?</div>
+  <div class="pqRow"><span class="pqE">🤷</span>I don't understand.</div>
+</div>
+
+<!--ANNO--><!--/ANNO-->
+
+<!-- ⛶ read big -->
+<div id="fso" onclick="this.classList.remove('open')"><div class="fsoinner" id="fsoinner"></div></div>
+
+<script>
+const CH='ww4-u0-l4';
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  history.replaceState(null,'','#'+(i+1));
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  if(typeof annoFill==='function'&&document.getElementById('anno').classList.contains('on')){annoIdx=n;annoFill()}
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* ---------- ⛶ read big ---------- */
+function openFs(id){document.getElementById('fsoinner').innerHTML=document.getElementById(id).innerHTML;
+  document.getElementById('fso').classList.add('open');}
+
+/* ---------- 🙋 Pardon? (top-left pill, key P) — the one universal list ---------- */
+const pqPanel=document.getElementById('pq');
+function pqToggle(open){pqPanel.classList.toggle('on',open);
+  if(open){const a=document.getElementById('anno');if(a)a.classList.remove('on')}}
+function pqEsc(){if(pqPanel.classList.contains('on')){pqPanel.classList.remove('on');return true}return false}
+document.getElementById('pardonBtn').onclick=()=>pqToggle(!pqPanel.classList.contains('on'));
+document.getElementById('pqX').onclick=()=>pqToggle(false);
+
+/* ---------- keys (the guard first: ⌘/Ctrl/Alt never triggers deck keys) ---------- */
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){
+    if(typeof annoEsc==='function'&&annoEsc())return;
+    if(pqEsc())return;
+    if(typeof notesEsc==='function'&&notesEsc())return;
+    document.getElementById('fso').classList.remove('open');return}
+  if(document.getElementById('fso').classList.contains('open')){
+    if(e.key==='Escape')document.getElementById('fso').classList.remove('open');
+    return}
+  if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&typeof toggleNotes==='function'){e.preventDefault();toggleNotes();return}
+  if((e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З')){e.preventDefault();pqToggle(!pqPanel.classList.contains('on'));return}
+  if(pqPanel.classList.contains('on'))return; /* the list is open — other keys sleep */
+  /* MEDIA key-guard: SPACE pauses a playing track or video instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio,video')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+
+/*TNOTES*//*STRIPTNOTES*//*/TNOTES*/
+
+/*ANNO*//*STRIPANNO*//*/ANNO*/
+
+/* ---------- wheel/touch: a .scroll slide scrolls, never flips ---------- */
+let wt=0;document.addEventListener('wheel',e=>{
+  if(document.getElementById('fso').classList.contains('open'))return;
+  if(e.target.closest('.slide')&&e.target.closest('.slide').classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ---------- boot: deep link #n ---------- */
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+
+/* ---------- ready-chime (http/https: chime + reload on save) ---------- */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
