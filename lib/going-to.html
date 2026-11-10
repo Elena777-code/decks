@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What are you going to do? — be going to (The going to song)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WHAT ARE YOU GOING TO DO? — be going to, a UNIVERSAL lib deck
+   (Bank-Pool rule: named by topic, living for everyone).
+   THE SPINE: the real coursebook song "The going to song" (the
+   kit lives in Library/Songs/Grammar Songs & Raps/ — never named
+   on the pupil-facing slides) + Elena's own 2016 lesson plan arc,
+   rebuilt: vocabulary (the book's 12 actions, redrawn) → grammar
+   (yellow = future, the tense colour code) → listen & tick →
+   lyrics → sing → match → practice.
+   AUDIO: media/ — cut from the kit's CD1 track 20, CBR 192k
+   (full · v1–v4 · chorus). No karaoke track exists in the kit
+   (checked 10.11 — track 21 is the CD's copyright note).
+   Home: Library/Grammar/going-to/ · Engine: cloned from the
+   place-prepositions lib deck (the lib family format).
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --mint-soft:#E3F4EE; --ink:#22303F; --ink-soft:#5D6B7A;
+  --blue:#2E6FB7; --white:#ffffff;
+  --fut:#FFD84D; --fut-soft:#FFF7DC; --fut-deep:#8A6D00;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.1rem);color:#fff}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cheese)}
+#nav button:disabled{opacity:.3;cursor:default}
+.slide{position:absolute;inset:0;padding:5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.2vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide>*{flex-shrink:0}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin-bottom:.3em;
+  font-size:clamp(1.9rem,4.2vw,3.6rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp))}
+.col{display:flex;flex-direction:column;gap:.4em}
+.center{text-align:center}
+.mt{margin-top:.65em}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink);background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem);align-self:flex-start}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.92rem,1.35vw,1.12rem);color:var(--ink-soft);font-style:italic}
+.stamp-line{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink-soft);
+  font-size:clamp(.78rem,1.1vw,.95rem);letter-spacing:.06em;margin-top:auto;opacity:.8}
+
+/* THE FUTURE IS YELLOW (the tense colour code) */
+.fut{background:var(--fut);color:var(--ink);font-weight:800;
+  padding:0 .18em;border-radius:8px;box-shadow:inset 0 -3px 0 var(--fut-deep)}
+.fut-soft{background:var(--fut-soft);color:var(--ink);font-weight:800;
+  padding:0 .18em;border-radius:8px;box-shadow:inset 0 -3px 0 var(--fut)}
+
+/* the action pictograms — the book's own flashcards (pdf/14.pdf) */
+.dia img{width:100%;height:auto;display:block}
+.stage{display:flex;justify-content:center}
+.stage .dia{width:min(30vh,260px)}
+.stage img{filter:drop-shadow(0 10px 24px rgba(34,48,63,.18))}
+
+/* overview gallery (slide 3) */
+.gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:clamp(.7rem,1.4vw,1.1rem)}
+.gal .w{background:var(--white);border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.1);
+  padding:.85em .6em .7em;text-align:center;transition:transform .15s ease}
+.gal .w:hover{transform:translateY(-4px)}
+.gal .dia{width:min(7.5vw,74px);margin:0 auto}
+.gal .slot{display:grid;margin-top:.2em;min-height:2.4em;place-items:center}
+.gal .slot .qmark,.gal .slot .ph{grid-area:1/1}
+.gal .qmark{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--ink-soft);
+  font-size:clamp(1.2rem,2vw,1.5rem)}
+.gal .ph{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(.98rem,1.55vw,1.28rem);opacity:0;transform:scale(.5);
+  transition:all .25s cubic-bezier(.34,1.56,.64,1)}
+.w.open{border-color:var(--cheese);background:var(--cheese-soft)}
+.w.open .qmark{display:none}
+.w.open .ph{opacity:1;transform:none}
+
+/* the mime carousel (slide 4) */
+.mime{display:flex;align-items:center;justify-content:center;gap:clamp(.8rem,2vw,2rem);width:100%}
+.mime .arrow{border:2px solid var(--navy);background:var(--white);color:var(--navy);
+  width:2.6em;height:2.6em;border-radius:50%;font-size:clamp(1.2rem,2vw,1.7rem);cursor:pointer;
+  font-family:'Fredoka',sans-serif;flex-shrink:0;transition:transform .15s ease}
+.mime .arrow:hover{transform:scale(1.1);border-color:var(--cheese)}
+.mime-frame{background:var(--white);border-radius:24px;box-shadow:var(--shadow-lg);
+  padding:clamp(1em,2.4vw,2em) clamp(1.4em,3vw,3em);text-align:center;
+  width:min(58vh,560px);position:relative}
+.mime-frame .dia{width:min(30vh,270px);margin:0 auto}
+.mime-item{display:none}
+.mime-item.on{display:block}
+.mime-word{margin-top:.45em;font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.3rem,2.6vw,2.1rem);color:var(--navy);min-height:2.2em;
+  display:grid;place-items:center;cursor:pointer}
+.mime-word .qmark{color:var(--ink-soft);font-size:1.4em}
+.mime-word .full{display:none;line-height:1.2}
+.mime-word.open .qmark{display:none}
+.mime-word.open .full{display:block}
+.mime-count{font-family:'Fredoka',sans-serif;color:var(--ink-soft);text-align:center;margin-top:.4em;
+  font-size:clamp(.9rem,1.4vw,1.1rem)}
+
+/* what's missing (slide 5) */
+.wm-bar{display:flex;gap:.8em;align-items:center;flex-wrap:wrap}
+.wm-bar button{border:2px solid var(--navy);background:var(--white);color:var(--navy);
+  border-radius:99px;padding:.45em 1.1em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1rem,1.6vw,1.3rem);cursor:pointer;transition:transform .15s ease}
+.wm-bar button:hover{transform:scale(1.05);border-color:var(--cheese)}
+.wm-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(.5rem,1vw,.9rem);width:100%}
+.wm-card{background:var(--white);border-radius:14px;box-shadow:0 6px 16px rgba(34,48,63,.1);
+  padding:.5em .3em;text-align:center;transition:all .25s ease}
+.wm-card .dia{width:min(5.5vw,56px);margin:0 auto}
+.wm-card .nm{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(.8rem,1.25vw,1.05rem);margin-top:.15em;line-height:1.15}
+.wm-card.gone{background:var(--cheese-soft);border:3px dashed var(--cheese);cursor:pointer}
+.wm-card.gone .dia,.wm-card.gone .nm{visibility:hidden}
+.wm-card{position:relative}
+.wm-card.gone::after{content:"❓";font-size:clamp(1.6rem,3vw,2.6rem);
+  position:absolute;inset:0;display:grid;place-items:center}
+.wm-card.shake{animation:shake .4s}
+
+/* grammar tables (slides 6–8) */
+.gram{background:var(--white);border-radius:22px;box-shadow:var(--shadow);
+  padding:clamp(1em,2vw,1.6em) clamp(1.2em,2.4vw,2em);width:100%;max-width:1000px}
+.grow{display:flex;align-items:center;gap:.5em;padding:.28em 0;
+  font-size:clamp(1.15rem,2.3vw,1.85rem);font-weight:700;flex-wrap:wrap}
+.grow .who{color:var(--navy);min-width:7.2em;font-family:'Fredoka',sans-serif}
+.grow .be{color:var(--ink);background:var(--fut);border-radius:8px;padding:0 .3em;font-weight:800}
+.grow .gt{color:var(--ink);background:var(--fut);border-radius:8px;padding:0 .3em;font-weight:800}
+.grow .vb{color:var(--ink);background:var(--fut-soft);border-radius:8px;padding:0 .3em;font-weight:700;
+  box-shadow:inset 0 -3px 0 var(--fut)}
+.grow .not{color:var(--stamp);font-weight:800}
+.formula{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink);
+  font-size:clamp(1.05rem,2vw,1.6rem);margin-bottom:.5em;display:flex;gap:.4em;align-items:center;flex-wrap:wrap}
+.formula .chip{border-radius:10px;padding:.08em .45em;font-weight:700}
+.formula .c1{background:var(--sky)}
+.formula .c2{background:var(--fut)}
+.formula .c3{background:var(--fut-soft);box-shadow:inset 0 -3px 0 var(--fut)}
+.exline{display:flex;align-items:center;gap:.6em;padding:.3em 0;
+  font-size:clamp(1.1rem,2.2vw,1.7rem);font-weight:700;cursor:pointer;border-radius:12px}
+.exline:hover{background:var(--cheese-soft)}
+.exline .dia{width:min(4.6vw,48px);flex-shrink:0}
+.exline .slot{display:grid;flex:1}
+.exline .qmark,.exline .full{grid-area:1/1}
+.exline .qmark{color:var(--ink-soft);font-family:'Fredoka',sans-serif}
+.exline .full{opacity:0;transform:translateY(6px);transition:all .25s ease;line-height:1.25}
+.exline.open .qmark{display:none}
+.exline.open .full{opacity:1;transform:none}
+
+/* the person drill (slide 9) */
+.drill{display:flex;flex-direction:column;gap:.3em;width:100%;max-width:980px}
+.drow{display:flex;align-items:center;gap:.6em;background:var(--white);border-radius:14px;
+  box-shadow:0 4px 12px rgba(34,48,63,.08);padding:.3em .9em;cursor:pointer;
+  font-size:clamp(1.05rem,2.1vw,1.6rem);transition:all .2s ease}
+.drow:hover{transform:translateX(6px)}
+.drow .who{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);min-width:3.4em}
+.drow .slot{display:grid;flex:1}
+.drow .qmark,.drow .full{grid-area:1/1}
+.drow .qmark{color:var(--ink-soft)}
+.drow .full{opacity:0;transform:translateX(-8px);transition:all .25s ease}
+.drow.open .qmark{display:none}
+.drow.open .full{opacity:1;transform:none}
+.drow.open{background:var(--fut-soft)}
+
+/* audio players */
+.player{display:flex;align-items:center;gap:.6em;background:var(--white);border-radius:99px;
+  box-shadow:0 4px 12px rgba(34,48,63,.1);padding:.3em .9em .3em .5em}
+.player audio{height:34px;max-width:270px}
+.player .lbl{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(.85rem,1.3vw,1.05rem);white-space:nowrap}
+.players-row{display:flex;gap:.7em;flex-wrap:wrap;align-items:center}
+
+/* listen & tick (slide 10) */
+.tickgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(.5rem,1vw,.9rem);width:100%}
+.tickcard{background:var(--white);border-radius:14px;box-shadow:0 6px 16px rgba(34,48,63,.1);
+  padding:.5em .3em .4em;text-align:center;cursor:pointer;user-select:none;
+  transition:all .2s ease;border:3px solid transparent}
+.tickcard:hover{transform:translateY(-3px)}
+.tickcard .dia{width:min(5.5vw,56px);margin:0 auto}
+.tickcard .nm{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(.78rem,1.2vw,1rem);margin-top:.15em;line-height:1.15}
+.tickcard .tk{min-height:1.3em;font-family:'Fredoka',sans-serif;font-weight:700;
+  color:var(--mint);font-size:clamp(1rem,1.6vw,1.3rem)}
+.tickcard.ticked{border-color:var(--mint);background:var(--mint-soft)}
+
+/* lyrics (slides 11–13) */
+.verses{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,1.6vw,1.4rem);width:100%;align-items:start}
+.vblock{background:var(--white);border-radius:18px;box-shadow:0 6px 16px rgba(34,48,63,.1);
+  padding:.8em 1em;display:flex;flex-direction:column;gap:.35em}
+.vblock .players-row{margin-bottom:.2em}
+.lline{display:grid;cursor:pointer;border-radius:10px;padding:.12em .4em}
+.lline:hover{background:var(--cheese-soft)}
+.lline .qmark,.lline .full{grid-area:1/1;align-self:center}
+.lline .qmark{color:var(--ink-soft);font-family:'Fredoka',sans-serif}
+.lline .full{opacity:0;transform:translateY(4px);transition:all .22s ease;
+  font-weight:700;color:var(--ink);font-size:clamp(.92rem,1.6vw,1.25rem);line-height:1.3}
+.lline.open .qmark{display:none}
+.lline.open .full{opacity:1;transform:none}
+.lline .mini{width:1.6em;vertical-align:-.5em;display:inline-block;margin-right:.25em;text-align:center}
+.lline .mini img{max-height:1.9em;width:auto;max-width:100%;display:inline-block;vertical-align:middle}
+.chorusline .full{color:var(--navy-deep);font-style:italic}
+.sheetline{display:flex;align-items:center;gap:.35em;font-weight:700;color:var(--ink);
+  font-size:clamp(.85rem,1.5vw,1.18rem);line-height:1.3;padding:.1em 0}
+.sheetline .mini{width:1.7em;height:2em;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center}
+.sheetline .mini img{max-height:2em;width:auto;max-width:100%}
+.sheetline em{color:var(--navy-deep)}
+
+/* match game (slide 14) */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.8rem,2vw,2rem);width:100%;max-width:1060px}
+.mpool{display:flex;flex-direction:column;gap:clamp(.4rem,.9vw,.8rem)}
+.mcard{background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.1);
+  padding:.45em .7em;display:flex;align-items:center;gap:.6em;cursor:pointer;user-select:none;
+  border:3px solid transparent;transition:all .18s ease;
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.7vw,1.3rem);color:var(--ink)}
+.mcard:hover{transform:translateY(-3px)}
+.mcard .dia{width:min(3.2vw,36px);flex-shrink:0}
+.mcard.sel{border-color:var(--cheese);background:var(--cheese-soft)}
+.mcard.lock{border-color:var(--mint);background:var(--mint-soft);pointer-events:none}
+.mcard.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.mbanner{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(1.2rem,2.4vw,2rem);text-align:center;min-height:1.4em}
+
+/* practice slides (15–17) */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.6rem,1.3vw,1.1rem);width:100%;max-width:1100px}
+.pcard{background:var(--white);border-radius:16px;box-shadow:0 5px 14px rgba(34,48,63,.1);
+  padding:.6em .9em;cursor:pointer;font-size:clamp(.98rem,1.8vw,1.4rem)}
+.pcard .cue{font-weight:800;color:var(--navy)}
+.pcard .slot{display:grid;margin-top:.15em}
+.pcard .qmark,.pcard .full{grid-area:1/1}
+.pcard .qmark{color:var(--ink-soft);font-family:'Fredoka',sans-serif}
+.pcard .full{opacity:0;transform:translateY(4px);transition:all .25s ease;font-weight:700;line-height:1.3}
+.pcard.open{background:var(--fut-soft)}
+.pcard.open .qmark{display:none}
+.pcard.open .full{opacity:1;transform:none}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:clamp(.4rem,.9vw,.8rem);width:100%}
+.daycard{background:var(--white);border-radius:14px;box-shadow:0 5px 14px rgba(34,48,63,.1);
+  padding:.5em .4em;text-align:center;cursor:pointer;transition:all .2s ease;border:3px solid transparent}
+.daycard:hover{transform:translateY(-3px)}
+.daycard .dn{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(.85rem,1.4vw,1.15rem)}
+.daycard .slot{display:grid;min-height:3.6em;place-items:center}
+.daycard .qmark,.daycard .full{grid-area:1/1;align-self:center}
+.daycard .qmark{color:var(--ink-soft)}
+.daycard .full{opacity:0;transform:scale(.6);transition:all .25s cubic-bezier(.34,1.56,.64,1);
+  font-weight:700;color:var(--ink);font-size:clamp(.78rem,1.3vw,1.05rem);line-height:1.25}
+.daycard.open{border-color:var(--cheese);background:var(--cheese-soft)}
+.daycard.open .qmark{display:none}
+.daycard.open .full{opacity:1;transform:none}
+
+/* the speaking words */
+.said{animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+[data-say]{cursor:pointer}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.04)}100%{transform:scale(1)}}
+
+@media (max-width:900px){
+  .gal{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+  .tickgrid{grid-template-columns:repeat(4,1fr)}
+  .wm-grid{grid-template-columns:repeat(4,1fr)}
+  .verses{grid-template-columns:1fr}
+  .week{grid-template-columns:repeat(4,1fr)}
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#1E3A66;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1rem,1.6vw,1.3rem)}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:'Fredoka',sans-serif;font-size:.9em;cursor:pointer}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(30,58,102,.85);color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:.8rem;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F5F3EE;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--cheese)}
+body.embed #nav,body.embed #bar{display:none!important}
+</style>
+</head>
+<body>
+
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · TITLE -->
+  <section class="slide">
+    <div class="eyebrow reveal">plans for the future · be going to</div>
+    <h1 class="title reveal">What are you <span class="fut">going to</span> do? 🌞</h1>
+    <div class="accent-line reveal"></div>
+    <div class="stage reveal mt"><div class="dia" data-d="pony"></div></div>
+    <p class="task reveal mt">Today: the song “The going to song” 🎵 + summer plans</p>
+    <div class="stamp-line reveal">be going to · build 10.11 · v3 · book pictures</div>
+  </section>
+
+  <!-- SLIDE 2 · LEAD-IN -->
+  <section class="slide">
+    <div class="eyebrow reveal">let's talk · the future</div>
+    <h1 class="title reveal">When? ⏰</h1>
+    <div class="accent-line reveal"></div>
+    <div class="gal reveal" style="grid-template-columns:repeat(5,1fr)">
+      <div class="w"><div class="nm" style="margin-top:.2em">this evening</div></div>
+      <div class="w"><div class="nm" style="margin-top:.2em">tomorrow</div></div>
+      <div class="w"><div class="nm" style="margin-top:.2em">next week</div></div>
+      <div class="w"><div class="nm" style="margin-top:.2em">on Sunday</div></div>
+      <div class="w"><div class="nm" style="margin-top:.2em">in the summer ☀️</div></div>
+    </div>
+    <div class="col mt">
+      <div class="exline reveal" data-k data-on="open" data-say="What are you going to do tomorrow?"><span class="qmark">1 · click</span><span class="full">❓ What are you <span class="fut">going to</span> do tomorrow?</span></div>
+      <div class="exline reveal" data-k data-on="open" data-say="What are you going to do on Sunday?"><span class="qmark">2 · click</span><span class="full">❓ What are you <span class="fut">going to</span> do on Sunday?</span></div>
+      <div class="exline reveal" data-k data-on="open" data-say="What are you going to do in the summer?"><span class="qmark">3 · click</span><span class="full">❓ What are you <span class="fut">going to</span> do in the summer?</span></div>
+    </div>
+    <p class="hintline reveal">Ask the question — the class answers in full sentences: “I’m going to …”</p>
+  </section>
+
+  <!-- SLIDE 3 · VOCABULARY -->
+  <section class="slide">
+    <div class="eyebrow reveal">words · say it — then click</div>
+    <h1 class="title reveal">Twelve things to do 🏃</h1>
+    <div class="accent-line reveal"></div>
+    <div class="gal reveal">
+      <div class="w" data-k data-on="open" data-say="climb a tree"><div class="dia" data-d="climb"></div><div class="slot"><span class="qmark">?</span><span class="ph">climb a tree</span></div></div>
+      <div class="w" data-k data-on="open" data-say="play football"><div class="dia" data-d="football"></div><div class="slot"><span class="qmark">?</span><span class="ph">play football</span></div></div>
+      <div class="w" data-k data-on="open" data-say="play tennis"><div class="dia" data-d="tennis"></div><div class="slot"><span class="qmark">?</span><span class="ph">play tennis</span></div></div>
+      <div class="w" data-k data-on="open" data-say="skateboard"><div class="dia" data-d="skateboard"></div><div class="slot"><span class="qmark">?</span><span class="ph">skateboard</span></div></div>
+      <div class="w" data-k data-on="open" data-say="build a sandcastle"><div class="dia" data-d="castle"></div><div class="slot"><span class="qmark">?</span><span class="ph">build a sandcastle</span></div></div>
+      <div class="w" data-k data-on="open" data-say="watch TV"><div class="dia" data-d="tv"></div><div class="slot"><span class="qmark">?</span><span class="ph">watch TV</span></div></div>
+      <div class="w" data-k data-on="open" data-say="buy something"><div class="dia" data-d="buy"></div><div class="slot"><span class="qmark">?</span><span class="ph">buy something</span></div></div>
+      <div class="w" data-k data-on="open" data-say="skate"><div class="dia" data-d="skate"></div><div class="slot"><span class="qmark">?</span><span class="ph">skate</span></div></div>
+      <div class="w" data-k data-on="open" data-say="ride a pony"><div class="dia" data-d="pony"></div><div class="slot"><span class="qmark">?</span><span class="ph">ride a pony</span></div></div>
+      <div class="w" data-k data-on="open" data-say="swim"><div class="dia" data-d="swim"></div><div class="slot"><span class="qmark">?</span><span class="ph">swim</span></div></div>
+      <div class="w" data-k data-on="open" data-say="read a book"><div class="dia" data-d="read"></div><div class="slot"><span class="qmark">?</span><span class="ph">read a book</span></div></div>
+      <div class="w" data-k data-on="open" data-say="meet friends"><div class="dia" data-d="friends"></div><div class="slot"><span class="qmark">?</span><span class="ph">meet friends</span></div></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 · MIME GAME -->
+  <section class="slide">
+    <div class="eyebrow reveal">game · mime it</div>
+    <h1 class="title reveal">What am I <span class="fut">going to</span> do? 🎭</h1>
+    <div class="accent-line reveal"></div>
+    <div class="mime reveal mt">
+      <button class="arrow" id="mime-prev" aria-label="previous">‹</button>
+      <div class="mime-frame">
+        <div class="mime-item on" data-mime="0">
+          <div class="dia" data-d="climb"></div>
+          <div class="mime-word" data-k data-on="open" data-say="I'm going to climb a tree"><span class="qmark">❓</span><span class="full">I’m <span class="fut">going to</span> climb a tree.</span></div>
+        </div>
+        <div class="mime-item" data-mime="1">
+          <div class="dia" data-d="football"></div>
+          <div class="mime-word" data-k data-on="open" data-say="I'm going to play football"><span class="qmark">❓</span><span class="full">I’m <span class="fut">going to</span> play football.</span></div>
+        </div>
+        <div class="mime-item" data-mime="2">
+          <div class="dia" data-d="tennis"></div>
+          <div class="mime-word" data-k data-on="open" data-say="I'm going to play tennis"><span class="qmark">❓</span><span class="full">I’m <span class="fut">going to</span> play tennis.</span></div>
+        </div>
+        <div class="mime-item" data-mime="3">
+          <div class="dia" data-d="skateboard"></div>
+          <div class="mime-word" data-k data-on="open" data-say="I'm going to skateboard"><span class="qmark">❓</span><span class="full">I’m <span class="fut">going to</span> skateboard.</span></div>
+        </div>
+        <div class="mime-item" data-mime="4">
+          <div class="dia" data-d="castle"></div>
+          <div class="mime-word" data-k data-on="open" data-say="I'm going to build a sandcastle"><span class="qmark">❓</span><span class="full">I’m <span class="fut">going to</span> build a sandcastle.</span></div>
+        </div>
+        <div class="mime-item" data-mime="5">
+          <div class="dia" data-d="tv"></div>
+          <div class="mime-word" data-k data-on="open" data-say="I'm going to watch TV"><span class="qmark">❓</span><span class="full">I’m <span class="fut">going to</span> watch TV.</span></div>
+        </div>
+        <div class="mime-item" data-mime="6">
+          <div class="dia" data-d="buy"></div>
+          <div class="mime-word" data-k data-on="open" data-say="I'm going to buy something"><span class="qmark">❓</span><span class="full">I’m <span class="fut">going to</span> buy something.</span></div>
+        </div>
+        <div class="mime-item" data-mime="7">
+          <div class="dia" data-d="skate"></div>
+          <div class="mime-word" data-k data-on="open" data-say="I'm going to skate"><span class="qmark">❓</span><span class="full">I’m <span class="fut">going to</span> skate.</span></div>
+        </div>
+        <div class="mime-item" data-mime="8">
+          <div class="dia" data-d="pony"></div>
+          <div class="mime-word" data-k data-on="open" data-say="I'm going to ride a pony"><span class="qmark">❓</span><span class="full">I’m <span class="fut">going to</span> ride a pony.</span></div>
+        </div>
+        <div class="mime-item" data-mime="9">
+          <div class="dia" data-d="swim"></div>
+          <div class="mime-word" data-k data-on="open" data-say="I'm going to swim"><span class="qmark">❓</span><span class="full">I’m <span class="fut">going to</span> swim.</span></div>
+        </div>
+        <div class="mime-item" data-mime="10">
+          <div class="dia" data-d="read"></div>
+          <div class="mime-word" data-k data-on="open" data-say="I'm going to read a book"><span class="qmark">❓</span><span class="full">I’m <span class="fut">going to</span> read a book.</span></div>
+        </div>
+        <div class="mime-item" data-mime="11">
+          <div class="dia" data-d="friends"></div>
+          <div class="mime-word" data-k data-on="open" data-say="I'm going to meet my friends"><span class="qmark">❓</span><span class="full">I’m <span class="fut">going to</span> meet my friends.</span></div>
+        </div>
+      </div>
+      <button class="arrow" id="mime-next" aria-label="next">›</button>
+    </div>
+    <div class="mime-count reveal"><span id="mime-n">1</span> / 12</div>
+  </section>
+
+  <!-- SLIDE 5 · WHAT'S MISSING -->
+  <section class="slide">
+    <div class="eyebrow reveal">game · what's missing?</div>
+    <h1 class="title reveal">What’s missing? 👀</h1>
+    <div class="accent-line reveal"></div>
+    <div class="wm-bar reveal mt">
+      <button id="wm-hide">🙈 Close your eyes!</button>
+      <button id="wm-reset">↺ again</button>
+      <span class="hintline" style="font-style:normal">🙈 hides one card → name it → click the ❓</span>
+    </div>
+    <div class="wm-grid reveal mt" id="wm-grid">
+      <div class="wm-card" data-wm="climb"><div class="dia" data-d="climb"></div><div class="nm">climb a tree</div></div>
+      <div class="wm-card" data-wm="football"><div class="dia" data-d="football"></div><div class="nm">play football</div></div>
+      <div class="wm-card" data-wm="tennis"><div class="dia" data-d="tennis"></div><div class="nm">play tennis</div></div>
+      <div class="wm-card" data-wm="skateboard"><div class="dia" data-d="skateboard"></div><div class="nm">skateboard</div></div>
+      <div class="wm-card" data-wm="castle"><div class="dia" data-d="castle"></div><div class="nm">build a sandcastle</div></div>
+      <div class="wm-card" data-wm="tv"><div class="dia" data-d="tv"></div><div class="nm">watch TV</div></div>
+      <div class="wm-card" data-wm="buy"><div class="dia" data-d="buy"></div><div class="nm">buy something</div></div>
+      <div class="wm-card" data-wm="skate"><div class="dia" data-d="skate"></div><div class="nm">skate</div></div>
+      <div class="wm-card" data-wm="pony"><div class="dia" data-d="pony"></div><div class="nm">ride a pony</div></div>
+      <div class="wm-card" data-wm="swim"><div class="dia" data-d="swim"></div><div class="nm">swim</div></div>
+      <div class="wm-card" data-wm="read"><div class="dia" data-d="read"></div><div class="nm">read a book</div></div>
+      <div class="wm-card" data-wm="friends"><div class="dia" data-d="friends"></div><div class="nm">meet friends</div></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6 · GRAMMAR: AFFIRMATIVE -->
+  <section class="slide">
+    <div class="eyebrow reveal">grammar · the box</div>
+    <h1 class="title reveal"><span class="fut">be going to</span> — plans 📌</h1>
+    <div class="accent-line reveal"></div>
+    <div class="gram reveal mt">
+      <div class="formula"><span class="chip c1">who</span> + <span class="chip c2">am / is / are</span> + <span class="chip c2">going to</span> + <span class="chip c3">verb</span></div>
+      <div class="grow"><span class="who">I</span> <span class="be">am</span> <span class="gt">going to</span> <span class="vb">swim</span> .</div>
+      <div class="grow"><span class="who">You · We · They</span> <span class="be">are</span> <span class="gt">going to</span> <span class="vb">play football</span> .</div>
+      <div class="grow"><span class="who">He · She · It</span> <span class="be">is</span> <span class="gt">going to</span> <span class="vb">ride a pony</span> .</div>
+    </div>
+    <div class="col mt">
+      <div class="exline reveal" data-k data-on="open" data-say="She is going to ride a pony in the summer"><div class="dia" data-d="pony"></div><span class="qmark">click</span><span class="full">She <span class="fut">is going to ride</span> a pony in the summer.</span></div>
+      <div class="exline reveal" data-k data-on="open" data-say="They are going to swim in the sea"><div class="dia" data-d="swim"></div><span class="qmark">click</span><span class="full">They <span class="fut">are going to swim</span> in the sea.</span></div>
+    </div>
+    <p class="hintline reveal">⚠️ the verb never changes: he is going to <b>ride</b> — no -s!</p>
+  </section>
+
+  <!-- SLIDE 7 · NEGATIVE -->
+  <section class="slide">
+    <div class="eyebrow reveal">grammar · negative</div>
+    <h1 class="title reveal">➖ not <span class="fut">going to</span></h1>
+    <div class="accent-line reveal"></div>
+    <div class="gram reveal mt">
+      <div class="grow"><span class="who">I</span> <span class="be">am</span> <span class="not">not</span> <span class="gt">going to</span> <span class="vb">play tennis</span> .</div>
+      <div class="grow"><span class="who">He · She · It</span> <span class="be">is</span> <span class="not">not</span> (isn’t) <span class="gt">going to</span> <span class="vb">cry</span> .</div>
+      <div class="grow"><span class="who">You · We · They</span> <span class="be">are</span> <span class="not">not</span> (aren’t) <span class="gt">going to</span> <span class="vb">climb a tree</span> .</div>
+    </div>
+    <div class="col mt">
+      <div class="exline reveal" data-k data-on="open" data-say="The boy isn't going to cry"><div class="dia" data-d="read"></div><span class="qmark">click</span><span class="full">The boy <span class="fut">isn’t going to</span> cry. 😢</span></div>
+      <div class="exline reveal" data-k data-on="open" data-say="They aren't going to climb a tree"><div class="dia" data-d="climb"></div><span class="qmark">click</span><span class="full">They <span class="fut">aren’t going to</span> climb a tree. 🌳</span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 8 · QUESTIONS -->
+  <section class="slide">
+    <div class="eyebrow reveal">grammar · questions</div>
+    <h1 class="title reveal">❓ Am / Is / Are … ?</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col mt">
+      <div class="exline reveal" data-k data-on="open" data-say="Are you going to swim in the sea? Yes, I am"><span class="qmark">1 · click</span><span class="full"><span class="fut">Are</span> you <span class="fut">going to</span> swim in the sea? — Yes, I <span class="fut">am</span>. / No, I’<span class="fut">m not</span>.</span></div>
+      <div class="exline reveal" data-k data-on="open" data-say="Is she going to ride a pony? Yes, she is"><span class="qmark">2 · click</span><span class="full"><span class="fut">Is</span> she <span class="fut">going to</span> ride a pony? — Yes, she <span class="fut">is</span>. / No, she <span class="fut">isn’t</span>.</span></div>
+      <div class="exline reveal" data-k data-on="open" data-say="What are you going to do? I'm going to watch TV"><span class="qmark">3 · click</span><span class="full">❓ What <span class="fut">are</span> you <span class="fut">going to</span> do? — I’<span class="fut">m going to</span> watch TV.</span></div>
+      <div class="exline reveal chorusline" data-k data-on="open" data-say="But what am I going to do in the summer without you"><span class="qmark">4 · click</span><span class="full">🎵 But what <span class="fut">am</span> I <span class="fut">going to</span> do in the summer, without you?</span></div>
+    </div>
+    <p class="hintline reveal">Line 4 is from the song — sing it! 🎶</p>
+  </section>
+
+  <!-- SLIDE 9 · THE PERSON DRILL -->
+  <section class="slide">
+    <div class="eyebrow reveal">drill · one sentence, seven persons</div>
+    <h1 class="title reveal">Look out of the window 🪟</h1>
+    <div class="accent-line reveal"></div>
+    <div class="drill reveal mt">
+      <div class="drow" data-k data-on="open" data-say="I'm going to look out of the window"><span class="who">I</span><span class="qmark">click</span><span class="full">I’<span class="fut">m going to look</span> out of the window.</span></div>
+      <div class="drow" data-k data-on="open" data-say="You're going to look out of the window"><span class="who">You</span><span class="qmark">click</span><span class="full">You’<span class="fut">re going to look</span> out of the window.</span></div>
+      <div class="drow" data-k data-on="open" data-say="He's going to look out of the window"><span class="who">He</span><span class="qmark">click</span><span class="full">He’<span class="fut">s going to look</span> out of the window.</span></div>
+      <div class="drow" data-k data-on="open" data-say="She's going to look out of the window"><span class="who">She</span><span class="qmark">click</span><span class="full">She’<span class="fut">s going to look</span> out of the window.</span></div>
+      <div class="drow" data-k data-on="open" data-say="It's going to look out of the window"><span class="who">It</span><span class="qmark">click</span><span class="full">It’<span class="fut">s going to look</span> out of the window.</span></div>
+      <div class="drow" data-k data-on="open" data-say="We're going to look out of the window"><span class="who">We</span><span class="qmark">click</span><span class="full">We’<span class="fut">re going to look</span> out of the window.</span></div>
+      <div class="drow" data-k data-on="open" data-say="They're going to look out of the window"><span class="who">They</span><span class="qmark">click</span><span class="full">They’<span class="fut">re going to look</span> out of the window.</span></div>
+    </div>
+    <p class="hintline reveal">Then the chain: each pupil changes ONE word — “He’s going to eat a sandwich.” → “She’s going to eat a sandwich.” → “She’s going to eat an apple.” 🍎</p>
+  </section>
+
+  <!-- SLIDE 10 · SONG: LISTEN & TICK -->
+  <section class="slide">
+    <div class="eyebrow reveal">the song · part 1 — listen</div>
+    <h1 class="title reveal">🎧 Listen and tick ✅</h1>
+    <div class="accent-line reveal"></div>
+    <div class="players-row reveal mt">
+      <div class="player"><span class="lbl">🎵 The going to song</span><audio controls preload="none" src="media/going-to-full.mp3"></audio></div>
+    </div>
+    <div class="tickgrid reveal mt">
+      <div class="tickcard" data-tick><div class="dia" data-d="climb"></div><div class="nm">climb a tree</div><div class="tk"></div></div>
+      <div class="tickcard" data-tick><div class="dia" data-d="football"></div><div class="nm">play football</div><div class="tk"></div></div>
+      <div class="tickcard" data-tick><div class="dia" data-d="tennis"></div><div class="nm">play tennis</div><div class="tk"></div></div>
+      <div class="tickcard" data-tick><div class="dia" data-d="skateboard"></div><div class="nm">skateboard</div><div class="tk"></div></div>
+      <div class="tickcard" data-tick><div class="dia" data-d="castle"></div><div class="nm">build a sandcastle</div><div class="tk"></div></div>
+      <div class="tickcard" data-tick><div class="dia" data-d="tv"></div><div class="nm">watch TV</div><div class="tk"></div></div>
+      <div class="tickcard" data-tick><div class="dia" data-d="buy"></div><div class="nm">buy something</div><div class="tk"></div></div>
+      <div class="tickcard" data-tick><div class="dia" data-d="skate"></div><div class="nm">skate</div><div class="tk"></div></div>
+      <div class="tickcard" data-tick><div class="dia" data-d="pony"></div><div class="nm">ride a pony</div><div class="tk"></div></div>
+      <div class="tickcard" data-tick><div class="dia" data-d="swim"></div><div class="nm">swim</div><div class="tk"></div></div>
+      <div class="tickcard" data-tick><div class="dia" data-d="read"></div><div class="nm">read a book</div><div class="tk"></div></div>
+      <div class="tickcard" data-tick><div class="dia" data-d="friends"></div><div class="nm">meet friends</div><div class="tk"></div></div>
+    </div>
+    <p class="task reveal mt">You are going to hear a song. Listen — which actions can you hear? Click to tick.</p>
+  </section>
+
+  <!-- SLIDE 11 · SONG: THE LYRICS -->
+  <section class="slide">
+    <div class="eyebrow reveal">the song · part 2 — the lyrics</div>
+    <h1 class="title reveal">The going to song 🎵</h1>
+    <div class="accent-line reveal"></div>
+    <div class="verses reveal mt">
+      <div class="vblock">
+        <div class="players-row"><div class="player"><span class="lbl">v1</span><audio controls preload="none" src="media/going-to-v1.mp3"></audio></div></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full"><span class="mini" data-dm="football"></span>You’re <span class="fut-soft">going to</span> play football in the summer,</span></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full"><span class="mini" data-dm="tv"></span>You’re <span class="fut-soft">going to</span> watch some TV,</span></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full"><span class="mini" data-dm="pony"></span>You’re <span class="fut-soft">going to</span> ride on a pony,</span></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full"><span class="mini" data-dm="swim"></span>You’re <span class="fut-soft">going to</span> swim in the sea.</span></div>
+        <div class="lline chorusline" data-k data-on="open"><span class="qmark">click</span><span class="full">But what <span class="fut-soft">am I going to</span> do in the summer, without you?</span></div>
+      </div>
+      <div class="vblock">
+        <div class="players-row"><div class="player"><span class="lbl">v2</span><audio controls preload="none" src="media/going-to-v2.mp3"></audio></div></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full">✈️ You’re <span class="fut-soft">going to</span> Rome in the summer,</span></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full">✈️ You’re <span class="fut-soft">going to</span> stay in Madrid,</span></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full">✈️ You’re <span class="fut-soft">going to</span> San Francisco,</span></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full">✈️ You’re <span class="fut-soft">going to</span> do that — that’s it.</span></div>
+        <div class="lline chorusline" data-k data-on="open"><span class="qmark">click</span><span class="full">But what <span class="fut-soft">am I going to</span> do in the summer, without you?</span></div>
+      </div>
+      <div class="vblock">
+        <div class="players-row"><div class="player"><span class="lbl">v3</span><audio controls preload="none" src="media/going-to-v3.mp3"></audio></div></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full"><span class="mini" data-dm="read"></span>I’<span class="fut-soft">m going to</span> read lots of books,</span></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full">⭐ I’<span class="fut-soft">m going to</span> have lots of fun,</span></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full"><span class="mini" data-dm="friends"></span>I’<span class="fut-soft">m going to</span> meet with my friends,</span></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full">☀️ In the summer, in the sun!</span></div>
+      </div>
+      <div class="vblock">
+        <div class="players-row"><div class="player"><span class="lbl">v4</span><audio controls preload="none" src="media/going-to-v4.mp3"></audio><span class="lbl" style="margin-left:.6em">🎵 chorus</span><audio controls preload="none" src="media/going-to-chorus.mp3"></audio></div></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full"><span class="mini" data-dm="buy"></span>I’<span class="fut-soft">m going to</span> buy roller skates,</span></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full"><span class="mini" data-dm="skate"></span>We’<span class="fut-soft">re going to</span> skate in the sun.</span></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full"><span class="mini" data-dm="friends"></span>I’<span class="fut-soft">m going to</span> meet all my mates,</span></div>
+        <div class="lline" data-k data-on="open"><span class="qmark">click</span><span class="full">⭐ We’<span class="fut-soft">re going to</span> have so much fun.</span></div>
+        <div class="lline chorusline" data-k data-on="open"><span class="qmark">click</span><span class="full"><em>mates</em> = friends 😉</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 12 · SONG: SING ALONG -->
+  <section class="slide">
+    <div class="eyebrow reveal">the song · part 3 — sing along</div>
+    <h1 class="title reveal">Sing along! 🎤</h1>
+    <div class="accent-line reveal"></div>
+    <div class="players-row reveal mt">
+      <div class="player"><span class="lbl">🎵 play the song</span><audio controls preload="none" src="media/going-to-full.mp3"></audio></div>
+    </div>
+    <div class="gram reveal mt" style="max-width:900px">
+      <div class="rhyme">
+        <div>You’re <span class="fut">going to</span> play football in the summer,</div>
+        <div>You’re <span class="fut">going to</span> watch some TV,</div>
+        <div>You’re <span class="fut">going to</span> ride on a pony,</div>
+        <div>You’re <span class="fut">going to</span> swim in the sea.</div>
+        <div class="plus">But what am I <span class="fut">going to</span> do in the summer, without you? 🎶</div>
+      </div>
+    </div>
+    <p class="hintline reveal">First verse 1 with the words — then the chorus from memory!</p>
+  </section>
+
+  <!-- SLIDE 13 · SONG: THE WHOLE SONG -->
+  <section class="slide">
+    <div class="eyebrow reveal">the song · part 4 — the whole song</div>
+    <h1 class="title reveal">Sing the whole song! 🌞</h1>
+    <div class="accent-line reveal"></div>
+    <div class="players-row reveal mt">
+      <div class="player"><span class="lbl">🎵 The going to song</span><audio controls preload="none" src="media/going-to-full.mp3"></audio></div>
+    </div>
+    <div class="verses reveal mt">
+      <div class="vblock">
+        <div class="sheetline"><span class="mini" data-dm="football"></span><span>You’re <em>going to</em> play football in the summer,</span></div>
+        <div class="sheetline"><span class="mini" data-dm="tv"></span><span>You’re <em>going to</em> watch some TV,</span></div>
+        <div class="sheetline"><span class="mini" data-dm="pony"></span><span>You’re <em>going to</em> ride on a pony,</span></div>
+        <div class="sheetline"><span class="mini" data-dm="swim"></span><span>You’re <em>going to</em> swim in the sea.</span></div>
+        <div class="sheetline"><span>⭐ But what <em>am I going to</em> do in the summer, without you?</span></div>
+        <div class="sheetline"><span>✈️ You’re <em>going to</em> Rome in the summer,</span></div>
+        <div class="sheetline"><span>✈️ You’re <em>going to</em> stay in Madrid,</span></div>
+        <div class="sheetline"><span>✈️ You’re <em>going to</em> San Francisco,</span></div>
+        <div class="sheetline"><span>✈️ You’re <em>going to</em> do that — that’s it.</span></div>
+        <div class="sheetline"><span>⭐ But what <em>am I going to</em> do in the summer, without you?</span></div>
+      </div>
+      <div class="vblock">
+        <div class="sheetline"><span class="mini" data-dm="read"></span><span>I’<em>m going to</em> read lots of books,</span></div>
+        <div class="sheetline"><span>⭐ I’<em>m going to</em> have lots of fun,</span></div>
+        <div class="sheetline"><span class="mini" data-dm="friends"></span><span>I’<em>m going to</em> meet with my friends,</span></div>
+        <div class="sheetline"><span>☀️ In the summer, in the sun!</span></div>
+        <div class="sheetline"><span class="mini" data-dm="buy"></span><span>I’<em>m going to</em> buy roller skates,</span></div>
+        <div class="sheetline"><span class="mini" data-dm="skate"></span><span>We’<em>re going to</em> skate in the sun.</span></div>
+        <div class="sheetline"><span class="mini" data-dm="friends"></span><span>I’<em>m going to</em> meet all my mates,</span></div>
+        <div class="sheetline"><span>⭐ We’<em>re going to</em> have so much fun.</span></div>
+        <div class="sheetline"><span>🎶 And that’s what I’<em>m going to</em> do in the summer, without you!</span></div>
+        <div class="sheetline"><span style="color:var(--ink-soft)"><em>mates</em> = friends 😉</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 14 · GAME: MATCH -->
+  <section class="slide">
+    <div class="eyebrow reveal">game · match</div>
+    <h1 class="title reveal">Match the pairs 🧩</h1>
+    <div class="accent-line reveal"></div>
+    <div class="match reveal mt" id="match">
+      <div class="mpool" id="match-pics"></div>
+      <div class="mpool" id="match-words"></div>
+    </div>
+    <div class="mbanner reveal mt" id="match-banner"></div>
+    <div class="players-row reveal"><button id="match-again" class="wm-bar" style="border:2px solid var(--navy);background:var(--white);color:var(--navy);border-radius:99px;padding:.45em 1.1em;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.6vw,1.3rem);cursor:pointer">🔄 Play again</button></div>
+  </section>
+
+  <!-- SLIDE 15 · PRACTICE: MAKE SENTENCES -->
+  <section class="slide">
+    <div class="eyebrow reveal">practice · make sentences</div>
+    <h1 class="title reveal">Make sentences ✍️</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Say what each person is going to do — or ask!</p>
+    <div class="pgrid reveal mt">
+      <div class="pcard" data-k data-on="open" data-say="Anton is going to play soccer"><span class="cue">1 · Anton / play soccer ➕</span><span class="slot"><span class="qmark">click</span><span class="full">Anton <span class="fut">is going to</span> play soccer.</span></span></div>
+      <div class="pcard" data-k data-on="open" data-say="Is Bella going to watch a film"><span class="cue">2 · Bella / watch a film ❓</span><span class="slot"><span class="qmark">click</span><span class="full"><span class="fut">Is</span> Bella <span class="fut">going to</span> watch a film?</span></span></div>
+      <div class="pcard" data-k data-on="open" data-say="Dina and Varya aren't going to go to the park"><span class="cue">3 · Dina and Varya / go to the park ➖</span><span class="slot"><span class="qmark">click</span><span class="full">Dina and Varya <span class="fut">aren’t going to</span> go to the park.</span></span></div>
+      <div class="pcard" data-k data-on="open" data-say="Alex is going to ride a bike"><span class="cue">4 · Alex / ride a bike ➕</span><span class="slot"><span class="qmark">click</span><span class="full">Alex <span class="fut">is going to</span> ride a bike.</span></span></div>
+      <div class="pcard" data-k data-on="open" data-say="Is Liza going to cook dinner"><span class="cue">5 · Liza / cook dinner ❓</span><span class="slot"><span class="qmark">click</span><span class="full"><span class="fut">Is</span> Liza <span class="fut">going to</span> cook dinner?</span></span></div>
+      <div class="pcard" data-k data-on="open" data-say="Danya and Sveta aren't going to visit their uncle"><span class="cue">6 · Danya and Sveta / visit their uncle ➖</span><span class="slot"><span class="qmark">click</span><span class="full">Danya and Sveta <span class="fut">aren’t going to</span> visit their uncle.</span></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 16 · PRACTICE: RITA'S WEEK -->
+  <section class="slide">
+    <div class="eyebrow reveal">practice · a week of plans</div>
+    <h1 class="title reveal">Rita’s week 📅</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal">Tell me about Rita’s plan — click a day!</p>
+    <div class="week reveal mt">
+      <div class="daycard" data-k data-on="open" data-say="On Monday Rita is going to play volleyball"><div class="dn">Mon</div><div class="slot"><span class="qmark">?</span><span class="full">play volleyball 🏐</span></div></div>
+      <div class="daycard" data-k data-on="open" data-say="On Tuesday Rita is going to write a letter to Jane"><div class="dn">Tue</div><div class="slot"><span class="qmark">?</span><span class="full">write a letter to Jane ✉️</span></div></div>
+      <div class="daycard" data-k data-on="open" data-say="On Wednesday Rita is going to go to the post office"><div class="dn">Wed</div><div class="slot"><span class="qmark">?</span><span class="full">go to the post office 🏤</span></div></div>
+      <div class="daycard" data-k data-on="open" data-say="On Thursday Rita is going to visit Aunt Galya"><div class="dn">Thu</div><div class="slot"><span class="qmark">?</span><span class="full">visit Aunt Galya 👵</span></div></div>
+      <div class="daycard" data-k data-on="open" data-say="On Friday Rita is going to meet Mum after work"><div class="dn">Fri</div><div class="slot"><span class="qmark">?</span><span class="full">meet Mum after work 👩</span></div></div>
+      <div class="daycard" data-k data-on="open" data-say="On Saturday Rita is going to buy tickets to the theatre"><div class="dn">Sat</div><div class="slot"><span class="qmark">?</span><span class="full">buy tickets to the theatre 🎭</span></div></div>
+      <div class="daycard" data-k data-on="open" data-say="On Sunday Rita is going to stay at home"><div class="dn">Sun</div><div class="slot"><span class="qmark">?</span><span class="full">stay at home 🏠</span></div></div>
+    </div>
+    <div class="gram reveal mt" style="max-width:820px">
+      <div class="exline" data-k data-on="open" data-say="On Monday Rita is going to play volleyball"><span class="qmark">click</span><span class="full">On Monday Rita <span class="fut">is going to</span> play volleyball.</span></div>
+    </div>
+    <p class="task reveal mt">Now YOUR week: “On Monday I <span class="fut">am going to</span> …” 🙋</p>
+  </section>
+
+  <!-- SLIDE 17 · EXIT: ASK & ANSWER -->
+  <section class="slide">
+    <div class="eyebrow reveal">exit · ask and answer</div>
+    <h1 class="title reveal">Ask and answer 💬</h1>
+    <div class="accent-line reveal"></div>
+    <div class="pgrid reveal mt">
+      <div class="pcard" data-k data-on="open" data-say="What is Lera going to do on Sunday? She is going to watch TV"><span class="cue">1 · Lera / watch TV</span><span class="slot"><span class="qmark">click</span><span class="full">— What <span class="fut">is</span> Lera <span class="fut">going to</span> do on Sunday?<br>— She <span class="fut">is going to</span> watch TV.</span></span></div>
+      <div class="pcard" data-k data-on="open" data-say="What is Paco going to do on Sunday? He is going to write emails"><span class="cue">2 · Paco / write emails</span><span class="slot"><span class="qmark">click</span><span class="full">— What <span class="fut">is</span> Paco <span class="fut">going to</span> do on Sunday?<br>— He <span class="fut">is going to</span> write emails.</span></span></div>
+      <div class="pcard" data-k data-on="open" data-say="What is Maya going to do on Sunday? She is going to read stories"><span class="cue">3 · Maya / read stories</span><span class="slot"><span class="qmark">click</span><span class="full">— What <span class="fut">is</span> Maya <span class="fut">going to</span> do on Sunday?<br>— She <span class="fut">is going to</span> read stories.</span></span></div>
+      <div class="pcard" data-k data-on="open" data-say="What are your friends going to do on Sunday? They are going to go to the cinema"><span class="cue">4 · your friends / go to the cinema</span><span class="slot"><span class="qmark">click</span><span class="full">— What <span class="fut">are</span> your friends <span class="fut">going to</span> do on Sunday?<br>— They <span class="fut">are going to</span> go to the cinema.</span></span></div>
+    </div>
+    <div class="gram reveal mt" style="max-width:820px;border:3px dashed var(--cheese)">
+      <div class="grow" style="font-size:clamp(1.2rem,2.5vw,2rem)"><span class="who" style="min-width:auto">You 🙋</span> — What <span class="fut">are</span> <b>you</b> <span class="fut">going to</span> do tomorrow?</div>
+    </div>
+    <div class="stamp-line reveal">be going to · build 10.11 · v3 · book pictures</div>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 17</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- presenter view shell (T / 🖥) -->
+<div id="pv">
+  <div class="head">
+    <b>be going to — presenter</b>
+    <button id="pv-close">✕ close (T)</button>
+    <span class="cnt" id="pv-cnt">1 / 17</span>
+  </div>
+  <div class="panes">
+    <div class="pane"><span class="lbl">NOW — what they see</span><iframe id="pv-cur"></iframe></div>
+    <div class="pane"><span class="lbl">NEXT</span><iframe id="pv-next"></iframe></div>
+  </div>
+  <div class="notes" id="pv-notes">—</div>
+</div>
+
+<script>
+/* ============ the 12 action pictures ============ */
+/* THE BOOK'S OWN FLASHCARDS (pdf/14.pdf, cropped 10.11) — no invented pictures.
+   Files: media/pics/<name>.png — LOCAL ONLY (the copyright note keeps book scans off the public site). */
+function pic(d){return d?`<img src="media/pics/${d}.png" alt="">`:''}
+document.querySelectorAll('.dia').forEach(el=>{el.innerHTML=pic(el.dataset.d)});
+/* the tiny inline pictos for the lyric lines / song sheet */
+document.querySelectorAll('.mini').forEach(el=>{el.innerHTML=pic(el.dataset.dm)});
+
+/* ============ the speaking words (TTS — the approved voice, ported from the phonics decks) ============ */
+let ttsVoice=null;
+function pickTTSVoice(){
+  if(!('speechSynthesis' in window))return;
+  const vs=speechSynthesis.getVoices();
+  ttsVoice=vs.find(v=>/en[-_]US/i.test(v.lang)&&/Samantha|Ava|Allison|Aria|Zira/i.test(v.name))
+      ||vs.find(v=>/^en/i.test(v.lang))||null;
+}
+if('speechSynthesis' in window){pickTTSVoice();speechSynthesis.onvoiceschanged=pickTTSVoice}
+function sayText(t){
+  if(!('speechSynthesis' in window)||!t)return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(t);
+  if(ttsVoice)u.voice=ttsVoice;
+  u.lang='en-US';u.rate=.8;u.pitch=1.05;
+  speechSynthesis.speak(u);
+}
+function ring(el){if(!el)return;el.classList.remove('said');void el.offsetWidth;el.classList.add('said')}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-say]');
+  if(t){ring(t);sayText(t.dataset.say);return}
+});
+
+/* ============ core deck engine (spec §4–§7) ============ */
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.querySelector('#bar i'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+
+const syncs=[...document.querySelectorAll('[data-k]')];
+syncs.forEach((el,k)=>{el.dataset.k=k;if(!el.dataset.on)el.dataset.on='shown'});
+function setSync(k,on){const el=syncs[k];if(!el)return;
+  if(el.classList.contains('yn')){el.classList.toggle('shown-yes',on&&el.dataset.on==='shown-yes');
+    el.classList.toggle('shown-no',on&&el.dataset.on==='shown-no');}
+  else el.classList.toggle(el.dataset.on,on);}
+
+const CH='going-to';
+const bc=('BroadcastChannel'in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get('embed')?'embed':(qs.get('presenter')?'presenter':'main');
+const open=new Set();
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==='hello'&&MODE==='main'){post({t:'state',i,open:[...open]});return}
+  if(m.t==='state'){if(MODE==='embed'){showEmbed(m.i)}applyOpen(m.open);if(MODE==='presenter')pvShow(m.i);return}
+  if(m.t==='go'){if(MODE==='embed')showEmbed(m.i);else{go(m.i,true)}applyOpen(m.open||[]);return}
+  if(m.t==='tap'){setSync(m.k,m.on);if(m.on)open.add(m.k);else open.delete(m.k);
+    if(MODE==='embed')post({t:'tap',k:m.k,on:m.on});}
+};
+function applyOpen(list){open.clear();(list||[]).forEach(k=>{open.add(k);setSync(k,true)})}
+function broadcastState(){post({t:'state',i,open:[...open]})}
+
+document.getElementById('deck').addEventListener('click',e=>{
+  const el=e.target.closest('[data-k]');if(!el)return;
+  const k=+el.dataset.k;
+  const nowOn=!el.classList.contains(el.dataset.on);
+  setSync(k,nowOn);if(nowOn)open.add(k);else open.delete(k);
+  post({t:'tap',k,on:nowOn});
+});
+
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(!silent)post({t:'go',i,open:[...open]});
+  if(MODE==='presenter')pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(MODE==='embed')return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+  if(e.key==='t'||e.key==='T')togglePresenter();
+});
+let wt=0;document.addEventListener('wheel',e=>{if(MODE!=='main')return;const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(MODE!=='main')return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ presenter view (spec §7) ============ */
+const pv=document.getElementById('pv');
+function togglePresenter(){
+  if(MODE==='embed')return;
+  if(MODE==='presenter'){window.close();return}
+  window.open(location.pathname+'?presenter=1','going-to-pv','width=1180,height=820');
+}
+document.getElementById('pvt').onclick=togglePresenter;
+document.getElementById('pv-close').onclick=()=>window.close();
+const pvCur=document.getElementById('pv-cur'),pvNext=document.getElementById('pv-next'),
+pvNotes=document.getElementById('pv-notes'),pvCnt=document.getElementById('pv-cnt');
+if(MODE==='presenter'){
+  document.body.classList.add('presenter');
+  pvCur.src=location.pathname+'?embed=cur';pvNext.src=location.pathname+'?embed=next';
+}
+function pvShow(n){
+  if(MODE!=='presenter')return;
+  pvCnt.textContent=(n+1)+' / '+slides.length;
+  pvNotes.innerHTML='';
+  const note=slides[n].dataset.notes;
+  if(note){const p=document.createElement('p');p.textContent=note;pvNotes.appendChild(p)}
+  const nxt=slides[n+1]&&slides[n+1].dataset.notes;
+  if(nxt){const h=document.createElement('p');h.innerHTML='<b>next →</b> ';h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+let embedSlot=qs.get('embed');
+function showEmbed(n){
+  const target=embedSlot==='next'?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==='next')document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle('active',k===target);s.classList.remove('prev')});
+}
+const h=parseInt(location.hash.slice(1));
+if(MODE==='main'){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true);broadcastState()}
+else post({t:'hello'});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=='main')return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();}catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+
+<script>
+/* ============ SLIDE 4 · the mime carousel — OWN BLOCK, own scope ============ */
+(function(){
+  const items=[...document.querySelectorAll('.mime-item')];
+  const nEl=document.getElementById('mime-n');
+  if(items.length&&nEl){
+    let mi=0;
+    function mimeShow(n){
+      mi=(n+items.length)%items.length;
+      items.forEach((it,k)=>it.classList.toggle('on',k===mi));
+      nEl.textContent=mi+1;
+    }
+    document.getElementById('mime-prev').addEventListener('click',()=>mimeShow(mi-1));
+    document.getElementById('mime-next').addEventListener('click',()=>mimeShow(mi+1));
+  }
+})();
+</script>
+
+<script>
+/* ============ SLIDE 5 · what's missing — OWN BLOCK, own scope ============ */
+(function(){
+  const grid=document.getElementById('wm-grid');
+  const cards=[...grid.querySelectorAll('.wm-card')];
+  let hidden=null;
+  document.getElementById('wm-hide').addEventListener('click',()=>{
+    cards.forEach(c=>{c.classList.remove('gone')});
+    const pick=cards[Math.floor(Math.random()*cards.length)];
+    pick.classList.add('gone');hidden=pick;
+  });
+  document.getElementById('wm-reset').addEventListener('click',()=>{
+    cards.forEach(c=>c.classList.remove('gone'));hidden=null;
+  });
+  grid.addEventListener('click',e=>{
+    const c=e.target.closest('.wm-card');
+    if(c&&c.classList.contains('gone')){
+      c.classList.remove('gone');
+      c.classList.add('shake');
+      setTimeout(()=>c.classList.remove('shake'),450);
+      const nm=c.querySelector('.nm').textContent;
+      sayText(nm);hidden=null;
+    }
+  });
+})();
+</script>
+
+<script>
+/* ============ SLIDE 10 · listen & tick — OWN BLOCK, own scope ============ */
+(function(){
+  document.querySelectorAll('[data-tick]').forEach(tc=>{
+    tc.addEventListener('click',()=>{
+      const on=tc.classList.toggle('ticked');
+      tc.querySelector('.tk').textContent=on?'✓':'';
+    });
+  });
+})();
+</script>
+
+<script>
+/* ============ SLIDE 14 · the match game — OWN BLOCK, own scope (delegated binds) ============ */
+(function(){
+  const PAIRS=[
+    {d:'football',w:'play football'},
+    {d:'tv',w:'watch TV'},
+    {d:'pony',w:'ride a pony'},
+    {d:'swim',w:'swim in the sea'},
+    {d:'read',w:'read a book'},
+    {d:'friends',w:'meet friends'}
+  ];
+  const picsEl=document.getElementById('match-pics');
+  const wordsEl=document.getElementById('match-words');
+  const banner=document.getElementById('match-banner');
+  let selPic=null,solved=0;
+  function shuffle(a){for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a}
+  function build(){
+    selPic=null;solved=0;banner.textContent='';
+    picsEl.innerHTML='';wordsEl.innerHTML='';
+    shuffle(PAIRS.slice()).forEach(p=>{
+      const c=document.createElement('div');c.className='mcard';c.dataset.mw=p.w;
+      c.innerHTML='<span class="dia">'+pic(p.d)+'</span>';
+      picsEl.appendChild(c);
+    });
+    shuffle(PAIRS.slice()).forEach(p=>{
+      const c=document.createElement('div');c.className='mcard';c.dataset.mw=p.w;
+      c.textContent=p.w;
+      wordsEl.appendChild(c);
+    });
+  }
+  function pick(card,pool){
+    if(card.classList.contains('lock'))return;
+    if(pool==='pic'){
+      picsEl.querySelectorAll('.mcard').forEach(c=>c.classList.remove('sel'));
+      card.classList.add('sel');selPic=card;return;
+    }
+    if(!selPic)return;
+    const pic=selPic;
+    if(pic.dataset.mw===card.dataset.mw){
+      pic.classList.remove('sel');pic.classList.add('lock');card.classList.add('lock');
+      sayText(card.dataset.mw);
+      solved++;selPic=null;
+      if(solved===PAIRS.length){banner.textContent='⭐ 6 / 6 — great job!'}
+    }else{
+      pic.classList.add('shake');card.classList.add('shake');
+      setTimeout(()=>{pic.classList.remove('shake');card.classList.remove('shake')},450);
+    }
+  }
+  document.getElementById('match').addEventListener('click',e=>{
+    const card=e.target.closest('.mcard');if(!card)return;
+    pick(card,picsEl.contains(card)?'pic':'word');
+  });
+  document.getElementById('match-again').addEventListener('click',build);
+  build();
+})();
+</script>
+
+</body>
+</html>
