@@ -200,6 +200,7 @@ img.sheet.small{width:min(430px,90%)}
 #bigword .bw{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.05;text-align:center;color:var(--ink);animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
 #bigword .bw .art{display:block;font-size:clamp(1.6rem,4vw,3.4rem);color:var(--mint-deep);margin-bottom:1.5vh}
 #bigword .bw .noun{display:block;font-size:clamp(4.5rem,17vh,11rem);letter-spacing:.02em}
+#bigword .bwimg{display:none;max-width:92vw;max-height:84vh;border-radius:18px;box-shadow:var(--shadow-lg);background:#fff}
 #bigword .tap-hint{position:absolute;bottom:6vh;left:0;right:0;text-align:center;font-size:clamp(.9rem,1.5vw,1.2rem);color:var(--ink-soft)}
  (standing, 2026-10-13): Elena films the group for the parents at this slide — placement taught gradually */
 .filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}</style>
@@ -587,14 +588,14 @@ img.sheet.small{width:min(430px,90%)}
   <div class="accent-line reveal-el"></div>
   <div class="task reveal-el">🎯 Look — say the WHOLE sentence!</div>
   <div class="thumbrow reveal-el">
-    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-cat-on-chair.jpg" alt="a cat on a chair" style="height:min(13vh,16vw)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>1 · on a chair?</i></span>
-    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-cat-under-bike.jpg" alt="a cat under a bike" style="height:min(13vh,16vw)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>2 · under a bike?</i></span>
-    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-dog-on-bed.jpg" alt="a dog on a bed — the plush husky!" style="height:min(13vh,16vw)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>3 · on a bed — a DOG!</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-cat-on-chair.jpg" alt="a cat on a chair" style="height:min(13vh,16vw);cursor:pointer" onclick="bigWord('','',this.src)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>1 · on a chair?</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-cat-under-bike.jpg" alt="a cat under a bike" style="height:min(13vh,16vw);cursor:pointer" onclick="bigWord('','',this.src)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>2 · under a bike?</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-dog-on-bed.jpg" alt="a dog on a bed — the plush husky!" style="height:min(13vh,16vw);cursor:pointer" onclick="bigWord('','',this.src)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>3 · on a bed — a DOG!</i></span>
   </div>
   <div class="thumbrow reveal-el">
-    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-cat-in-sun.jpg" alt="a cat in the sun" style="height:min(13vh,16vw)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>4 · in the sun?</i></span>
-    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-cats-in-park.jpg" alt="the cats in the park" style="height:min(13vh,16vw)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>5 · in the park?</i></span>
-    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-cats-playground.jpg" alt="the cats next to the playground" style="height:min(13vh,16vw)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>6 · next to the playground?</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-cat-in-sun.jpg" alt="a cat in the sun" style="height:min(13vh,16vw);cursor:pointer" onclick="bigWord('','',this.src)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>4 · in the sun?</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-cats-in-park.jpg" alt="the cats in the park" style="height:min(13vh,16vw);cursor:pointer" onclick="bigWord('','',this.src)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>5 · in the park?</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-cats-playground.jpg" alt="the cats next to the playground" style="height:min(13vh,16vw);cursor:pointer" onclick="bigWord('','',this.src)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>6 · next to the playground?</i></span>
   </div>
   <div class="card mint reveal-el"><p>🔑 The key! <button class="reveal-btn" style="font-size:.7em;padding:.15em .8em;vertical-align:middle" onclick="reveal(this)">show ▾</button> <span class="answer" style="font-size:.62em;padding:.1em .5em">1 <b>ON</b> the chair 🪑 · 2 <b>UNDER</b> the bike 🚲 · 3 the <b>DOG</b> is on the bed 🐶 · 4 <b>IN</b> the sun 🌞 · 5 <b>IN</b> the park 🌳 · 6 <b>NEXT TO</b> the playground 🛝</span></p></div>
   <div class="card peach reveal-el"><p>😱 «<b style="color:var(--pink)">Is the CAT on the bed?</b>» — NO! It's a <b style="color:var(--pink)">DOG!</b> 🐶</p></div>
@@ -710,6 +711,7 @@ img.sheet.small{width:min(430px,90%)}
 
 <div id="bigword" class="overlay" onclick="this.classList.remove('open')">
   <div class="bw"><span class="art"></span><span class="noun"></span></div>
+  <img class="bwimg" alt="">
   <div class="tap-hint">tap anywhere to close</div>
 </div>
 
@@ -803,8 +805,11 @@ function reveal(btn){
   btn.style.display='none';
 }
 /* THE SIGHT-READING REVEAL: tap a picture → the word full screen (kept from the L6 engine) */
-function bigWord(art,noun){
+function bigWord(art,noun,img){
   const ov=document.getElementById('bigword');
+  const bw=ov.querySelector('.bw'), im=ov.querySelector('.bwimg');
+  if(img){ im.src=img; im.style.display='inline-block'; bw.style.display='none'; }
+  else { im.style.display='none'; bw.style.display='block'; }
   ov.querySelector('.art').textContent=art;
   ov.querySelector('.noun').textContent=noun;
   ov.classList.add('open');
