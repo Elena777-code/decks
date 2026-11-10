@@ -36,6 +36,9 @@ button:active{transform:scale(.96)}
   padding:.65em 2.6em;margin-top:1.3em;box-shadow:0 6px 0 #239d92}
 .start-btn:active{box-shadow:0 2px 0 #239d92;transform:translateY(4px)}
 .qcount{font-size:.85rem;font-weight:800;color:var(--sea-deep);letter-spacing:.06em;text-transform:uppercase}
+.qrow{display:flex;justify-content:space-between;align-items:center;gap:.5em}
+.skip-btn{background:transparent;color:var(--ink-soft);font-size:.78rem;font-weight:600;
+  padding:.25em .8em;border:1px dashed #bfe3df;border-radius:99px;white-space:nowrap}
 .timer-wrap{height:12px;background:#d8efec;border-radius:99px;overflow:hidden;margin:1em 0 .3em}
 .timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--sea),var(--sun));border-radius:99px}
 .timer-num{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;color:var(--sea-deep);font-size:.9rem}
@@ -106,7 +109,7 @@ footer{max-width:680px;width:100%;text-align:center;margin-top:1.6em;
   </div>
 
   <div class="card hidden" id="q-card">
-    <div class="qcount" id="q-count"></div>
+    <div class="qrow"><div class="qcount" id="q-count"></div><button class="skip-btn" id="skip-btn" type="button">⤼ Пропустить →</button></div>
     <div class="timer-wrap" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
     <div class="timer-num" id="timer-num"></div>
     <div id="q-body"></div>
@@ -353,6 +356,36 @@ function start(sec,onOut){
 }
 function stop(){if(timer){clearInterval(timer);timer=null;}}
 
+/* ---------- THE SKIP CONTROL (Elena's quick-check route) ---------- */
+var skipLock=false;
+$("skip-btn").addEventListener("click",function(){
+  if(answered||skipLock)return;skipLock=true;
+  setTimeout(function(){skipLock=false;},800);
+  var r=rounds[ri];
+  if(r.meta.mode==="match"){
+    mPairs.forEach(function(p){
+      if(!p.done)log.push({rid:"R6",label:p.s+" ↔ "+p.o+" "+p.ol,
+        given:"⤼",key:"ok",ok:false,skipped:true});
+    });
+  }else{
+    answered=true;stop();
+    var t=r.tasks[qi];
+    log.push({rid:r.meta.id,label:t.label,given:"⤼",key:t.key||"—",ok:false,skipped:true});
+  }
+  moveSkip();
+});
+function moveSkip(){
+  var r=rounds[ri];
+  var lastOfRound=r.meta.mode==="match"||qi>=r.tasks.length-1;
+  var go=function(){
+    if(!lastOfRound){qi++;ask();}
+    else if(ri<rounds.length-1){ri++;roundFlash();}
+    else{finish();}
+  };
+  show("flash");$("flash").innerHTML="⤼";
+  setTimeout(go,350);
+}
+
 function record(t,given,late){
   var ok=!late&&given!=null&&isOk(t,given);
   log.push({rid:rounds[ri].meta.id,label:t.label,
@@ -380,14 +413,25 @@ function move(late,wasOk){
 /* ---------- end + reports ---------- */
 var ICONS={R1:"📖",R2:"🔴",R3:"🇷🇺",R4:"🕰",R5:"📧",R6:"🧩"};
 function reportText(){
-  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  var scored=log.filter(function(l){return !l.skipped;});
+  var total=scored.length,ok=scored.filter(function(l){return l.ok;}).length;
+  var skippedN=log.length-scored.length;
   var lines=[(WHO||"IRINA")+" · VERBS L9 · футбольная пятёрка (take·think·sing·clap·feel) · "+new Date().toLocaleString(),
-    "Beat the clock: "+ok+" / "+total];
+    "Beat the clock: "+ok+" / "+total+(skippedN?" · ⤼ пропущено: "+skippedN:"")];
   ROUNDS_META.forEach(function(m){
     var rows=log.filter(function(l){return l.rid===m.id;});
-    if(rows.length)lines.push(m.icon+" "+m.id+" "+m.name+": "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
+    if(rows.length){
+      var sc=rows.filter(function(l){return !l.skipped;});
+      var sk=rows.length-sc.length;
+      lines.push(m.icon+" "+m.id+" "+m.name+": "+(sc.length?sc.filter(function(l){return l.ok;}).length+"/"+sc.length:"—")+(sk?" (⤼ "+sk+" skipped)":""));
+    }
   });
-  var missed=log.filter(function(l){return !l.ok;});
+  var skipped=log.filter(function(l){return l.skipped;});
+  if(skipped.length){
+    lines.push("","Skipped ("+skipped.length+"):");
+    skipped.forEach(function(l){lines.push("  · ⤼ skipped by "+(WHO||"IRINA")+": "+l.label+" · key: "+l.key);});
+  }
+  var missed=scored.filter(function(l){return !l.ok;});
   if(missed.length){
     lines.push("","Missed or too late ("+missed.length+"):");
     missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+(l.given||"—")+" · key: "+l.key);});
@@ -395,15 +439,20 @@ function reportText(){
   return lines.join("\n");
 }
 function finish(){
-  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
-  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/total*5)));
+  var scored=log.filter(function(l){return !l.skipped;});
+  var total=scored.length,ok=scored.filter(function(l){return l.ok;}).length;
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/Math.max(1,total)*5)));
   var bits=[];
   ROUNDS_META.forEach(function(m){
     var r=log.filter(function(l){return l.rid===m.id;});
-    if(r.length)bits.push(m.icon+" "+r.filter(function(l){return l.ok;}).length+"/"+r.length);
+    if(r.length){
+      var sc=r.filter(function(l){return !l.skipped;});
+      var sk=r.length-sc.length;
+      bits.push(m.icon+" "+(sc.length?sc.filter(function(l){return l.ok;}).length+"/"+sc.length:"⤼")+(sk?"⤼×"+sk:""));
+    }
   });
   $("end-rows").textContent=bits.join("  ·  ");
-  var missed=log.filter(function(l){return !l.ok;});
+  var missed=scored.filter(function(l){return !l.ok;});
   if(missed.length){
     $("miss-list").style.display="block";
     $("miss-list").innerHTML="<b>Для словарика:</b><br>"+missed.map(function(l){

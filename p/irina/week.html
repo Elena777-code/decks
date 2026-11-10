@@ -49,6 +49,9 @@ input.type-box.need{border-color:var(--coral);animation:need .3s ease}
 .day-chip.wiggle{animation:need .3s ease}
 /* --- question card --- */
 .qcount{font-size:.85rem;font-weight:800;color:var(--sea-deep);letter-spacing:.06em;text-transform:uppercase}
+.qrow{display:flex;justify-content:space-between;align-items:center;gap:.5em}
+.skip-btn{background:transparent;color:var(--ink-soft);font-size:.78rem;font-weight:600;
+  padding:.25em .8em;border:1px dashed #bfe3df;border-radius:99px;white-space:nowrap}
 .timer-wrap{height:12px;background:#d8efec;border-radius:99px;overflow:hidden;margin:1em 0 .3em}
 .timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--sea),var(--sun));border-radius:99px}
 .timer-num{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;color:var(--sea-deep);font-size:.9rem}
@@ -104,11 +107,11 @@ footer{max-width:680px;width:100%;text-align:center;margin-top:1.6em;
     После каждой части — разбор: что было не так и почему 💡</p>
     <div class="day-grid" id="day-grid"></div>
     <div><button class="home-btn" onclick="location.href='test-drill.html'">🎯 Пробный тест в среду — тренажёр</button></div>
-    <div class="meta">build 2026-10-27 · v6 · 9 игр · разбор после каждой части · закончи день — откроется следующий</div>
+    <div class="meta">build 2026-11-10 · v7 · 9 игр · ⤼ Пропустить на каждом задании · разбор после каждой части · закончи день — откроется следующий</div>
   </div>
 
   <div class="card hidden" id="q-card">
-    <div class="qcount" id="q-count"></div>
+    <div class="qrow"><div class="qcount" id="q-count"></div><button class="skip-btn" id="skip-btn" type="button">⤼ Пропустить →</button></div>
     <div class="timer-wrap" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
     <div class="timer-num" id="timer-num"></div>
     <div id="q-body"></div>
@@ -406,6 +409,24 @@ function start(sec,onOut){
 }
 function stop(){if(timer){clearInterval(timer);timer=null;}}
 
+/* ---------- THE SKIP CONTROL (Elena's quick-check route) ---------- */
+$("skip-btn").addEventListener("click",function(){
+  if(answered)return;answered=true;stop();
+  var r=rounds[ri],t=r.tasks[qi];
+  log.push({pid:r.pid,label:t.label,given:"⤼",key:t.key,why:t.why,ok:false,skipped:true});
+  moveSkip();
+});
+function moveSkip(){
+  var r=rounds[ri];
+  var lastOfRound=qi>=r.tasks.length-1;
+  var go=function(){
+    if(!lastOfRound){qi++;ask();}
+    else{showRoundReview();}
+  };
+  show("flash");$("flash").className="flash";$("flash").innerHTML="⤼";
+  setTimeout(go,350);
+}
+
 function record(t,given,late){
   var ok=!late&&given!=null&&norm(given)===norm(t.key);
   log.push({pid:rounds[ri].pid,label:t.label,
@@ -431,18 +452,27 @@ function move(late,wasOk){
 function showRoundReview(){
   var r=rounds[ri];
   var rows=log.filter(function(l){return l.pid===r.pid;});
-  var okN=rows.filter(function(l){return l.ok;}).length;
+  var scored=rows.filter(function(l){return !l.skipped;});
+  var skipped=rows.filter(function(l){return l.skipped;});
+  var okN=scored.filter(function(l){return l.ok;}).length;
   $("round-count").textContent=r.meta.icon+" "+r.meta.name+" · итог"+(r.timed?" ⏰":"");
-  $("round-line").textContent=okN+" / "+rows.length+(okN===rows.length?" — всё верно! 🎉":"");
-  var missed=rows.filter(function(l){return !l.ok;});
+  $("round-line").textContent=scored.length?(okN+" / "+scored.length+(okN===scored.length?" — всё верно! 🎉":"")):"всё пропущено ⤼";
+  var missed=scored.filter(function(l){return !l.ok;});
+  var html="";
   if(missed.length){
-    $("round-miss").style.display="block";
-    $("round-miss").innerHTML="<b>Разберём, что было не так:</b>"+missed.map(function(l){
+    html+="<b>Разберём, что было не так:</b>"+missed.map(function(l){
       return '<div class="rmiss"><div class="rline">❌ '+l.label+"</div>"+
         '<div>ты: <span class="ryou">'+(l.given||"—")+'</span> → верно: <span class="rkey">'+l.key+"</span></div>"+
         (l.why?'<div class="rwhy">💡 '+l.why+"</div>":"")+"</div>";
     }).join("");
-  }else{$("round-miss").style.display="none";}
+  }
+  if(skipped.length){
+    html+='<div style="margin-top:.6em"><b>⤼ Пропущено ('+skipped.length+'):</b>'+skipped.map(function(l){
+      return '<div class="rmiss">⤼ '+l.label+' → верно: <span class="rkey">'+l.key+"</span></div>";
+    }).join("")+"</div>";
+  }
+  if(html){$("round-miss").style.display="block";$("round-miss").innerHTML=html;}
+  else{$("round-miss").style.display="none";}
   $("next-btn").textContent=(ri<rounds.length-1)?"Дальше →":"К итогам дня 🏁";
   show("round-card");window.scrollTo(0,0);
 }
@@ -453,15 +483,26 @@ $("next-btn").addEventListener("click",function(){
 
 /* ---------- end + report ---------- */
 function reportText(){
-  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  var scored=log.filter(function(l){return !l.skipped;});
+  var total=scored.length,ok=scored.filter(function(l){return l.ok;}).length;
+  var skippedN=log.length-scored.length;
   var lines=[(WHO||"IRINA")+" · IRINA WEEK · День "+day.n+" · "+new Date().toLocaleString(),
-    "Итог дня: "+ok+" / "+total];
+    "Итог дня: "+ok+" / "+total+(skippedN?" · ⤼ пропущено: "+skippedN:"")];
   day.tasks.forEach(function(t){
     var p=POOLS[t[0]];
     var rows=log.filter(function(l){return l.pid===t[0];});
-    if(rows.length)lines.push(p.icon+" "+p.name+(t[1]?" (⏰)":"")+": "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
+    if(rows.length){
+      var sc=rows.filter(function(l){return !l.skipped;});
+      var sk=rows.length-sc.length;
+      lines.push(p.icon+" "+p.name+(t[1]?" (⏰)":"")+": "+(sc.length?sc.filter(function(l){return l.ok;}).length+"/"+sc.length:"—")+(sk?" (⤼ "+sk+" skipped)":""));
+    }
   });
-  var missed=log.filter(function(l){return !l.ok;});
+  var skipped=log.filter(function(l){return l.skipped;});
+  if(skipped.length){
+    lines.push("","Skipped ("+skipped.length+"):");
+    skipped.forEach(function(l){lines.push("  · ⤼ skipped by "+(WHO||"IRINA")+": "+l.label+" · key: "+l.key);});
+  }
+  var missed=scored.filter(function(l){return !l.ok;});
   if(missed.length){
     lines.push("","Missed or too late ("+missed.length+"):");
     missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+(l.given||"—")+" · key: "+l.key);});
@@ -469,17 +510,22 @@ function reportText(){
   return lines.join("\n");
 }
 function finish(){
-  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  var scored=log.filter(function(l){return !l.skipped;});
+  var total=scored.length,ok=scored.filter(function(l){return l.ok;}).length;
   markDone(day.n);
-  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/total*5)));
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/Math.max(1,total)*5)));
   var bits=[];
   day.tasks.forEach(function(t){
     var p=POOLS[t[0]];
     var rows=log.filter(function(l){return l.pid===t[0];});
-    if(rows.length)bits.push(p.icon+" "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length+(t[1]?"⏰":""));
+    if(rows.length){
+      var sc=rows.filter(function(l){return !l.skipped;});
+      var sk=rows.length-sc.length;
+      bits.push(p.icon+" "+(sc.length?sc.filter(function(l){return l.ok;}).length+"/"+sc.length:"⤼")+(t[1]?"⏰":"")+(sk?"⤼×"+sk:""));
+    }
   });
   $("end-rows").textContent=bits.join("  ·  ");
-  var missed=log.filter(function(l){return !l.ok;});
+  var missed=scored.filter(function(l){return !l.ok;});
   if(missed.length){
     $("miss-list").style.display="block";
     $("miss-list").innerHTML="<b>Для словарика:</b><br>"+missed.map(function(l){
