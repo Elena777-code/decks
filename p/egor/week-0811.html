@@ -38,6 +38,9 @@ main{max-width:680px;width:100%}
 .day-chip.locked{opacity:.45;filter:grayscale(.4)}
 @keyframes wiggle{50%{transform:translateX(-4px)}}
 .day-chip.wiggle{animation:wiggle .3s ease}
+.qrow{display:flex;justify-content:space-between;align-items:center;gap:.5em}
+.skip-btn{background:transparent;color:var(--ink-soft);font-size:.78rem;font-weight:600;
+  padding:.25em .8em;border:1px dashed #d6d2c6;border-radius:99px;white-space:nowrap}
 .qcount{font-size:.82rem;font-weight:800;color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
 .prompt{font-size:clamp(1.25rem,5vw,1.8rem);font-weight:700;line-height:1.5;margin-top:.5em}
 .prompt .gap{color:var(--terra);letter-spacing:.04em}
@@ -140,7 +143,7 @@ footer{max-width:680px;width:100%;text-align:center;margin-top:1.4em;color:var(-
   </div>
 
   <div class="card hidden" id="run-card">
-    <div class="qcount" id="q-count"></div>
+    <div class="qrow"><div class="qcount" id="q-count"></div><button class="skip-btn" id="skip-btn" type="button">⤼ Пропустить →</button></div>
     <div class="timer-wrap hidden" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
     <div class="timer-num" id="timer-num"></div>
     <div id="q-body"></div>
@@ -795,6 +798,25 @@ function judge(it,given){
   return !!String(given||"").trim()&&(it.a||[]).some(function(k){return norm(k)===norm(given);});
 }
 function itemKey(it){return (it.a||[]).join(" / ");}
+
+/* ---------- THE SKIP CONTROL (Elena's quick-check route) ---------- */
+function skipLine(p,it,phaseTag){
+  var label=(phaseTag?phaseTag+" — ":"")+String(it&&it.q||"").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+  lines.push({block:p.name,icon:p.icon,label:label.slice(0,170),given:"⤼ skipped",
+    key:it?itemKey(it):"—",why:(it&&it.why)||"",ok:false,slow:false,skipped:true,phase:"· skipped"});
+}
+function skipSheetAll(p){
+  (p.items||[]).forEach(function(it){skipLine(p,it);});
+  nextBlock();
+}
+function skipCycleItem(p,it,stepName){
+  lines.push({block:p.name,icon:p.icon,label:("· "+stepName+" — "+String(it.q||"").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim()).slice(0,170),
+    given:"⤼ skipped",key:itemKey(it),why:it.why||"",ok:false,slow:false,skipped:true,phase:"· skipped"});
+  pulsePhase(p);
+}
+$("skip-btn").addEventListener("click",function(){
+  if(typeof window.__skipNext==="function"){var f=window.__skipNext;window.__skipNext=null;f();}
+});
 function recordLine(pool,it,given,phaseTag,forcedOk,forcedKey,forcedWhy){
   var ok=(typeof forcedOk==="boolean")?forcedOk:judge(it,given);
   var key=(typeof forcedKey==="string")?forcedKey:itemKey(it);
@@ -826,6 +848,7 @@ function runSheet(p){
   $("timer-wrap").classList.add("hidden");$("timer-num").textContent="";
   $("q-body").innerHTML=h;
   show("run-card");
+  window.__skipNext=function(){skipSheetAll(p);};
   $("sheet-btn").addEventListener("click",function(){
     (p.items||[]).forEach(function(it,idx){
       var el=document.querySelector('[data-si="'+idx+'"]');
@@ -851,6 +874,7 @@ function renderPhase(p){
     $("q-count").textContent=p.icon+" "+p.name+" · explain";
     $("timer-wrap").classList.add("hidden");$("timer-num").textContent="";
     $("q-body").innerHTML=h;show("run-card");
+    window.__skipNext=function(){nextBlock();};
     $("ph-btn").addEventListener("click",function(){phase="practice";cycleQueue=shuffle(p.practice);cyclePos=0;renderPhase(p);});
     return;
   }
@@ -891,6 +915,7 @@ function renderPhase(p){
     box.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
     setTimeout(function(){try{box.focus();}catch(e){}},60);
   }
+  window.__skipNext=function(){if(answered)return;answered=true;stopTimer();skipCycleItem(p,it,stepName);};
   show("run-card");
   if(timed){$("timer-wrap").classList.remove("hidden");startTimer(p.sec||15,function(){if(answered)return;answered=true;recordLine(p,it,null,"· timed out");pulsePhase(p);});}
   else{$("timer-wrap").classList.add("hidden");$("timer-num").textContent="";}
@@ -913,6 +938,11 @@ function runAI(p){
   $("q-count").textContent=p.icon+" "+p.name;
   $("timer-wrap").classList.add("hidden");$("timer-num").textContent="";
   $("q-body").innerHTML=h;show("run-card");
+  window.__skipNext=function(){
+    lines.push({block:curPool.name,icon:curPool.icon,label:"the one-minute monologue (no support)",
+      given:"⤼ skipped",key:"—",why:"",ok:false,slow:false,free:true,skipped:true,phase:"monologue"});
+    nextBlock();
+  };
 }
 /* the AI bindings (copy + monologue refusal) attach here, once per render */
 function bindAI(){
@@ -954,6 +984,10 @@ function runSV(p){
   $("timer-wrap").classList.add("hidden");$("timer-num").textContent="";
   $("q-body").innerHTML=h;show("run-card");
   try{var saved=localStorage.getItem("egor-week2-sv"+day.n);var sv=$("sv-link");if(saved&&sv)sv.value=saved;}catch(e){}
+  window.__skipNext=function(){
+    lines.push({block:p.name,icon:p.icon,label:"Svetlana variant · result link",given:"⤼ skipped",key:"—",why:"",ok:false,slow:true,skipped:true,link:""});
+    nextBlock();
+  };
   $("sv-btn").addEventListener("click",function(){
     var link="";try{link=($("sv-link")||{}).value||"";}catch(e){}
     try{localStorage.setItem("egor-week2-sv"+day.n,link||"");}catch(e){}
@@ -981,18 +1015,21 @@ function nextBlock(){
 /* ---------- day end + the review + the send ---------- */
 function dayEnd(){
   markDone(day.n);
-  var scored=lines.filter(function(l){return !l.slow&&!l.free;}),
+  var scored=lines.filter(function(l){return !l.slow&&!l.free&&!l.skipped;}),
       info=lines.filter(function(l){return l.slow||l.free;});
+  var skipN=lines.filter(function(l){return l.skipped&&!l.free;}).length;
   var dOk=scored.filter(function(l){return l.ok;}).length;
-  var html='<div class="score-line"><span><b>'+dOk+'</b> / '+scored.length+' answer lines</span><span>'+(scored.length&&dOk===scored.length?"clean 🏆":scored.length&&dOk>=scored.length*0.7?"strong 💪":"the misses are listed below →")+'</span></div>';
+  var html='<div class="score-line"><span><b>'+dOk+'</b> / '+scored.length+' answer lines'+(skipN?" · ⤼ "+skipN+" skipped":"")+'</span><span>'+(scored.length&&dOk===scored.length?"clean 🏆":scored.length&&dOk>=scored.length*0.7?"strong 💪":scored.length?"the misses are listed below →":"everything skipped ⤼")+'</span></div>';
   var byBlock={};
-  lines.forEach(function(l){byBlock[l.block]=byBlock[l.block]||{n:0,ok:0};
-    if(!l.free){byBlock[l.block].n++;if(l.ok)byBlock[l.block].ok++;}});
+  lines.forEach(function(l){byBlock[l.block]=byBlock[l.block]||{n:0,ok:0,sk:0};
+    if(!l.free&&!l.skipped){byBlock[l.block].n++;if(l.ok)byBlock[l.block].ok++;}
+    else if(l.skipped&&!l.free){byBlock[l.block].sk++;}});
   Object.keys(byBlock).forEach(function(k){
-    var b=byBlock[k];if(b.n)html+='<div class="score-line"><span>'+k+'</span><span><b>'+b.ok+'</b> / '+b.n+'</span></div>';
+    var b=byBlock[k];if(b.n||b.sk)html+='<div class="score-line"><span>'+k+'</span><span><b>'+b.ok+'</b> / '+b.n+(b.sk?" (⤼ "+b.sk+" skipped)":"")+'</span></div>';
   });
   html+='<p class="helper" style="text-align:left;margin-top:1em;font-weight:700">Every line:</p>';
   lines.forEach(function(l){
+    if(l.skipped){html+='<div class="revline"><span class="mark">⤼</span> '+esc(l.label)+'<br>skipped by <b>'+esc(WHO||"EGOR")+'</b></div>';return;}
     if(l.free){html+='<div class="revline"><span class="mark">✍️</span> <b>'+esc(l.label)+'</b><br>your monologue: '+esc(l.given).slice(0,400)+'</div>';return;}
     html+='<div class="revline"><span class="mark '+(l.ok?"mk-ok":"mk-bad")+'">'+(l.ok?"✓":"✗")+'</span> '+esc(l.label)+
       '<br>you: <b>'+esc(l.given)+'</b>'+(l.key&&l.key!=="—"?' → <span class="key">'+esc(l.key)+'</span>':'')+
@@ -1009,12 +1046,14 @@ function dayEnd(){
 function reportText(){
   var out=["EGOR WEEK NOV 8-14 · Day "+day.n+" · "+(WHO||"EGOR")+" · "+new Date().toLocaleString('en-GB')];
   var byBlock={};
-  lines.forEach(function(l){byBlock[l.block]=byBlock[l.block]||{n:0,ok:0};
-    if(!l.free){byBlock[l.block].n++;if(l.ok)byBlock[l.block].ok++;}});
+  lines.forEach(function(l){byBlock[l.block]=byBlock[l.block]||{n:0,ok:0,sk:0};
+    if(!l.free&&!l.skipped){byBlock[l.block].n++;if(l.ok)byBlock[l.block].ok++;}
+    else if(l.skipped&&!l.free){byBlock[l.block].sk++;}});
   Object.keys(byBlock).forEach(function(k){var b=byBlock[k];
-    if(b.n)out.push(k+": "+b.ok+"/"+b.n);});
+    if(b.n||b.sk)out.push(k+": "+b.ok+"/"+b.n+(b.sk?" (⤼ "+b.sk+" skipped)":""));});
   out.push("--- every line ---");
   lines.forEach(function(l){
+    if(l.skipped){out.push("⤼ ["+l.block+"] "+l.label+" — skipped by "+(WHO||"EGOR"));return;}
     if(l.free){out.push("✍️ "+l.label+": "+l.given);return;}
     out.push((l.ok?"✓":"✗")+" ["+l.block+(l.phase?" · "+l.phase:"")+"] "+l.label+" — you: "+l.given+(l.key&&l.key!=="—"?" · key: "+l.key:"")+(l.link?" · "+l.link:""));
   });
