@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natalya's homework · the words in action · the brag · Unit 4, exercise 4.2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --blue:#1F5FA8; --blue-soft:#E8F0FA;
+  --rust:#A2402F; --rust-soft:#F7EAE6;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#EFECE5;
+  padding:4vh 4vw;display:flex;justify-content:center}
+.page{background:var(--paper);border-radius:18px;max-width:780px;width:100%;
+  padding:clamp(1.4rem,4vw,3rem);display:flex;flex-direction:column;gap:1.4rem}
+h1{font-size:clamp(1.5rem,3.6vw,2.3rem);line-height:1.15;letter-spacing:-.01em}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.9rem,2vw,1.4rem)}
+.step .no{display:inline-flex;width:2em;height:2em;border-radius:50%;
+  background:var(--accent);color:#fff;font-weight:800;align-items:center;
+  justify-content:center;margin-bottom:.5em}
+.step.rust .no{background:var(--rust)} .step.blue .no{background:var(--blue)}
+.step.gold .no{background:var(--gold)}
+.step p{font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55;margin:.25em 0}
+.step p.how{color:var(--ink-soft);font-style:italic;font-size:clamp(.9rem,1.8vw,1.05rem)}
+.dchip{float:right;border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.3em .85em;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:clamp(.75rem,1.5vw,.92rem);color:var(--ink-soft);cursor:pointer;
+  transition:all .15s;margin:0 0 .4em .6em}
+.dchip:hover{border-color:var(--accent);color:var(--accent)}
+.dchip.done{background:var(--accent);border-color:var(--accent);color:#fff}
+#send-btn{border:none;border-radius:14px;padding:.7em 1.6em;background:var(--accent);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(1rem,2vw,1.25rem);
+  cursor:pointer;margin-top:.5em}
+#send-btn:hover{transform:scale(1.03)}
+#send-btn[disabled]{opacity:.75;cursor:default;transform:none}
+details{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);
+  margin-top:.7em;overflow:hidden}
+details summary{cursor:pointer;padding:.5em .9em;font-weight:700;color:var(--ink-soft);
+  font-size:clamp(.9rem,1.8vw,1.05rem);list-style:none}
+details summary::before{content:"▸ ";color:var(--accent)}
+details[open] summary::before{content:"▾ "}
+details summary:hover{color:var(--ink)}
+details .body{padding:.4em .95em .8em;border-top:1px dashed var(--line);
+  font-size:clamp(1rem,2vw,1.22rem);line-height:1.55}
+details .body b{color:var(--accent)}
+details .body .ru{color:var(--rust);font-weight:700}
+.wrow{padding:.5em 0;border-bottom:1px dashed var(--line);font-size:clamp(1rem,2vw,1.25rem)}
+.wrow:last-child{border-bottom:none}
+.wrow .ru{font-weight:700}
+.model{background:var(--blue-soft);border:1px solid #cfdff0;border-radius:12px;
+  padding:.7em .9em;font-size:clamp(1.02rem,2vw,1.25rem);line-height:1.7;margin:.5em 0}
+.model b{color:var(--rust)}
+.closing{background:var(--gold-soft);border:1px solid #e8dcb8;border-radius:var(--radius);
+  padding:1em 1.4em;font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55}
+a{color:var(--blue);font-weight:600}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div>
+  <h1>Your words, <em>in action</em></h1>
+  <div class="rule"></div>
+  <p style="margin-top:.6em;color:var(--ink-soft);font-weight:600">Homework for our next lesson ·
+  your ten questions, alive · the brag, all four ways · Unit 4, exercise 4.2 · the old homework, once more</p>
+</div>
+
+<div class="step blue">
+  <button class="dchip" data-k="job1" type="button">done</button>
+  <span class="no">1</span>
+  <p><strong>🗝 Your ten questions — alive this week.</strong>
+  Choose <strong>two</strong> and use them <strong>several times</strong> — with Маруся, with Алиса (the AI!), with your husband,
+  at work. <strong>Write your sentences down and send them to me</strong> (any messenger).</p>
+  <p class="how">Say your guess aloud first — then open the check. Open it again to hide.</p>
+  <div class="wrow"><span class="ru">Как жизнь? — Жизнь есть жизнь</span>
+    <details><summary>check yourself</summary><div class="body">→ <b>How's life? — Life is life.</b> <i>How's life? — Life is life. Not bad — and yours?</i></div></details></div>
+  <div class="wrow"><span class="ru">мы каждое лето плаваем на теплоходе (в круизе)</span>
+    <details><summary>check yourself</summary><div class="body">→ <b>a river cruise</b> / <b>a cruise ship</b>. <i>Every summer we go on a river cruise.</i></div></details></div>
+  <div class="wrow"><span class="ru">печка</span>
+    <details><summary>check yourself</summary><div class="body">→ <b>a stove</b> — the Russian stove (+ <b>to heat</b>). <i>My husband was heating the Russian stove.</i></div></details></div>
+  <div class="wrow"><span class="ru">пропуск (на работе)</span>
+    <details><summary>check yourself</summary><div class="body">→ <b>a pass</b>. <i>I show my pass at the entrance.</i></div></details></div>
+  <div class="wrow"><span class="ru">приставать с просьбами</span>
+    <details><summary>check yourself</summary><div class="body">→ <b>to pester</b> / <b>to nag</b>. <i>I kept pestering him until he said yes.</i></div></details></div>
+  <div class="wrow"><span class="ru">я его замучила / надоела ему</span>
+    <details><summary>check yourself</summary><div class="body">→ <b>I annoyed him</b> / <b>I bothered him</b> — one finished act, never “I was annoying”.</div></details></div>
+  <div class="wrow"><span class="ru">получить второе образование</span>
+    <details><summary>check yourself</summary><div class="body">→ <b>to get a second education</b> / <b>to go back to school</b>. <i>I went back to school to get a second education.</i></div></details></div>
+  <div class="wrow"><span class="ru">чтобы не сидеть дома</span>
+    <details><summary>check yourself</summary><div class="body">→ <b>so I wouldn't stay at home</b> / <b>to get me out of the house</b>. <i>He created a business for me so that I wouldn't stay at home.</i></div></details></div>
+  <div class="wrow"><span class="ru">заставить / уговорить</span>
+    <details><summary>check yourself</summary><div class="body">→ <b>to force</b> / <b>to persuade</b>. <i>You can't force her — you have to persuade her.</i></div></details></div>
+  <div class="wrow"><span class="ru">трястись от злости</span>
+    <details><summary>check yourself</summary><div class="body">→ <b>to shake with anger</b>. <i>She was shaking with anger as she left the hotel.</i></div></details></div>
+</div>
+
+<div class="step gold">
+  <button class="dchip" data-k="job2" type="button">done</button>
+  <span class="no">2</span>
+  <p><strong>💛 Your brag — one easy thing + one difficult thing, all four ways.</strong></p>
+  <p class="how">The four ways from our lesson:</p>
+  <div class="model">
+    1 · <b>Stand in it</b> — say it like it's simply true (don't laugh it away).<br>
+    2 · <b>Add because</b> — “I'm worth it — <b>because</b>…”<br>
+    3 · <b>Pick ONE thing, with purpose</b> — know your intention.<br>
+    4 · <b>Send the shine</b> — praise others too; it comes back to you.
+  </div>
+  <p>The <strong>easy</strong> one is ready: <em>“My roses were growing so big and beautiful…”</em> — say it, all four ways.</p>
+  <p>The <strong>difficult</strong> one: your work. You are an <strong>awesome boss</strong> — think about
+  your achievements this year and <strong>brag about one</strong>. I want you to talk about it.</p>
+  <p class="how">Say both aloud — to Маруся, to Алиса, to the mirror. Several times. Bring them to the lesson.</p>
+</div>
+
+<div class="step rust">
+  <button class="dchip" data-k="job3" type="button">done</button>
+  <span class="no">3</span>
+  <p><strong>📗 Grammar — your book, Unit 4, exercise <b>4.2</b>.</strong></p>
+  <p class="how">Your book, pages 8–9. Do it in writing or aloud — then check yourself below.</p>
+  <div class="sent"><strong>4.2</strong> Look again at numbers 1, 4, 7 and 11 in 4.1. Which of these sentences could have
+  both verbs in the past simple? What difference in meaning, if any, would there be?</div>
+  <details><summary>check yourself — the key (p. 250)</summary><div class="body">
+    <b>1</b> “was getting” and “got” are both possible. The past simple suggests that one event followed the other:
+    I got in and then the lights went off. The past continuous suggests that the lights went off as I was in the
+    process of getting ready to get into the bath.<br><br>
+    <b>4</b> “was checking in” or “checked in” are both possible with a similar meaning. Using the past continuous
+    presents “checking in” as the background event which was going on as the couple started to chat to him.<br><br>
+    <b>7</b> “was playing” and “played” are both possible. The past continuous suggests that this was a temporary
+    rather than a regular arrangement.<br><br>
+    <b>11</b> “didn't watch” and “dreamt” are also possible. However, the past continuous emphasises that
+    “not watching” and “dreaming” went on at the same time and seems more likely here.
+  </div></details>
+</div>
+
+<div class="step">
+  <button class="dchip" data-k="job4" type="button">done</button>
+  <span class="no">4</span>
+  <p><strong>🔁 The old homework — once more.</strong>
+  Your previous page is back: <a href="hw-005.html">hw-005 — the four situations, the repairs, the two words</a>.
+  Run it once more — it was a clean sweep, keep it clean. The drill is here too:
+  <a href="sixteen-chips.html">the Sixteen Chips</a> — if you want the chips.</p>
+</div>
+
+<div class="step" style="border-top:4px solid var(--accent)">
+  <p><strong>📮 Your progress — one button for Miss Elena.</strong></p>
+  <p class="how">Tick <em>done</em> on each job as you finish it. Then press the button —
+  Miss Elena sees what is done and what is still waiting, before the lesson.</p>
+  <p id="rep-line" style="font-weight:700;color:var(--accent)"></p>
+  <button id="send-btn" type="button">📤 Send my progress</button>
+</div>
+
+<div class="closing">📚 Your ten words are waiting to be <em>used</em> — not learnt, used.
+Two of them, several times, out loud. That's when they become yours.</div>
+
+</div>
+
+<script>
+/* ── the done chips + the progress send (the standing shape, 09.10). */
+(function(){
+"use strict";
+var NAMES={job1:'1 · your ten words — two of them alive, sentences sent',
+ job2:'2 · the brag — one easy + one difficult, all four ways',
+ job3:'3 · grammar — Unit 4, exercise 4.2 (the key checked)',
+ job4:'4 · the old homework — once more (hw-005 + the chips)'};
+var DONE={};
+try{DONE=JSON.parse(localStorage.getItem('natalya-hw-006-done')||'{}')}catch(e){}
+function save(){try{localStorage.setItem('natalya-hw-006-done',JSON.stringify(DONE))}catch(e){}report()}
+document.querySelectorAll('.dchip').forEach(function(ch){
+  var k=ch.dataset.k;
+  if(DONE[k]){ch.classList.add('done');ch.textContent='✓ done'}
+  ch.addEventListener('click',function(){
+    DONE[k]=!DONE[k];
+    ch.classList.toggle('done',!!DONE[k]);
+    ch.textContent=DONE[k]?'✓ done':'done';
+    save();
+  });
+});
+function state(){
+  return Object.keys(NAMES).reduce(function(acc,k){
+    (DONE[k]?acc.done:acc.yet).push(k);return acc;
+  },{done:[],yet:[]});
+}
+function report(){
+  var s=state();
+  document.getElementById('rep-line').textContent=s.done.length
+    ?'Ticked '+s.done.length+' of 4 — '+s.done.map(function(k){return NAMES[k]}).join(' · ')
+    :'Tick «done» on each job as you finish it!';
+}
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSd7B6GMpuy9fSRl7clE7BGHL43qyxEE2baPO725kN6QlJatjw/formResponse";
+var FORM_ENTRY="entry.1917651123";
+document.getElementById('send-btn').addEventListener('click',function(){
+  var s=state();
+  var txt='Natalya · homework L6 · '+new Date().toLocaleDateString('en-GB')
+    +' Done ('+s.done.length+'/4):';
+  s.done.forEach(function(k){txt+='\n• '+NAMES[k]});
+  if(s.yet.length){txt+='\nNot yet:';s.yet.forEach(function(k){txt+='\n• '+NAMES[k]})}
+  var body=new FormData();
+  body.append(FORM_ENTRY,txt);
+  var btn=document.getElementById('send-btn');
+  btn.disabled=true;btn.textContent='Sending…';
+  fetch(FORM_ACTION,{method:'POST',mode:'no-cors',body:body})
+    .then(function(){btn.textContent='Sent to Elena ✓';report()})
+    .catch(function(){btn.disabled=false;btn.textContent='📤 Send my progress'});
+});
+report();
+})();
+</script>
+</body>
+</html>
