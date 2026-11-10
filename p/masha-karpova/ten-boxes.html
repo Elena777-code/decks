@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masha K. · The Ten Boxes — the drill test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Masha K. — THE TEN BOXES · hwdt (the timed drill test), born
+   2026-10-07 on Elena's order: «Slide 3 is difficult for her.
+   Can you create a matching exercise for her. Then ask the same
+   in a hwdt?» — slide 3 of ww4-u9-l9.3 (the three Vocabulary
+   boxes, checked that day, found difficult) + the seven d: words
+   of the same lesson as a RU→EN recognition round (the d: ladder,
+   step 1: recognition first). Paper & sage, LIGHT ONLY (the
+   two-Mashas family skin). Reports → her OWN form «Mashulik».
+   The 03.10 rule: last run's missed cards re-enter FIRST.
+   ============================================================ */
+:root{
+  --paper:#f6f2ea; --card:#fff; --ink:#37322a; --sub:#8b8578;
+  --sage:#7f9c88; --sage-deep:#5e8169; --sage-soft:#edf2ec;
+  --terra:#c97a6d; --terra-deep:#b3564a; --terra-soft:#f9ede9;
+  --gold:#8a6d1d; --gold-soft:#f6efdc;
+  --line:#e8e1d3;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);
+  background:var(--paper);min-height:100vh;padding:clamp(1rem,4vw,2.5rem)}
+main{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
+.eyebrow{font-size:.82rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+h1{font-family:'Lora',Georgia,serif;font-weight:700;font-size:clamp(1.7rem,4.5vw,2.4rem);line-height:1.15}
+h1 em{color:var(--sage-deep);font-style:normal}
+.rule{width:64px;height:4px;border-radius:99px;background:var(--sage)}
+p.lead{font-size:clamp(1rem,2vw,1.2rem);line-height:1.55;color:#57503f}
+p.lead strong{color:var(--sage-deep)}
+.stamp{display:block;margin-top:.35em;font-size:.76rem;color:var(--sub);letter-spacing:.04em}
+.hint{font-size:clamp(.85rem,1.6vw,.98rem);color:var(--sub);font-style:italic;line-height:1.5}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:clamp(1rem,3vw,1.5rem);animation:pop .35s both}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.rules{font-size:clamp(1rem,2vw,1.18rem);line-height:1.6}
+.icons{font-size:1.6rem;letter-spacing:.3em;margin:.3em 0}
+.meta{font-size:.85rem;font-weight:700;color:var(--sub);letter-spacing:.05em}
+.best{font-size:.95rem;font-weight:800;color:var(--sage-deep);margin:.5em 0 .2em;min-height:1.3em}
+.name-row{display:flex;flex-direction:column;gap:.4em;margin:1em 0}
+.name-row label{font-size:.85rem;font-weight:800;color:var(--sub);letter-spacing:.06em}
+#name-box{border:2px solid var(--line);border-radius:12px;background:#fff;
+  padding:.55em .8em;font-family:'Nunito',sans-serif;font-size:1.05rem;color:var(--ink)}
+#name-box:focus{outline:none;border-color:var(--sage)}
+.start-btn,.ok-btn,.again-btn{border:none;border-radius:99px;padding:.6em 1.5em;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1rem,2vw,1.15rem);
+  background:var(--sage);color:#fff;transition:transform .15s,filter .15s}
+.start-btn:hover,.ok-btn:hover,.again-btn:hover{transform:scale(1.04);filter:brightness(1.06)}
+.backline{margin-top:.7em}
+.backline a{color:var(--sage-deep);font-weight:800;text-decoration:none;border-bottom:2px solid var(--sage-soft)}
+.backline a:hover{border-bottom-color:var(--sage)}
+.hidden{display:none!important}
+.qcount{font-size:.9rem;font-weight:800;letter-spacing:.08em;color:var(--sage-deep);text-transform:uppercase}
+.prompt{font-size:clamp(1.15rem,2.6vw,1.45rem);font-weight:700;line-height:1.5;margin:.7em 0 .2em}
+.prompt .ru{color:var(--terra-deep)}
+.helper{font-size:.9rem;color:var(--sub);font-style:italic;margin-bottom:.9em}
+.answer-row{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em}
+.choice{border:2px solid var(--line);background:#fff;border-radius:14px;
+  padding:.55em 1em;cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;
+  font-size:clamp(1rem,2.2vw,1.2rem);color:var(--ink);transition:all .15s}
+.choice:hover{border-color:var(--sage);background:var(--sage-soft)}
+.timer-wrap{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:1em}
+.timer-wrap.off{opacity:.25}
+.timer-bar{height:100%;width:100%;background:var(--sage)}
+.timer-num{font-size:.85rem;font-weight:800;color:var(--sub);margin-top:.3em;min-height:1.2em}
+.timer-num.low{color:var(--terra-deep)}
+.flash{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;
+  background:rgba(246,242,234,.92);font-size:clamp(2.2rem,7vw,3.6rem);font-weight:800;
+  flex-direction:column;gap:.3em;text-align:center;padding:4vh 4vw}
+.flash .sub{font-size:clamp(1.1rem,3vw,1.6rem);color:var(--ink)}
+.flash.fix .sub{color:var(--terra-deep)}
+.stars{font-size:1.7rem;letter-spacing:.15em}
+.end-title{font-family:'Lora',Georgia,serif;font-size:clamp(1.5rem,3.5vw,2rem);font-weight:700;margin:.2em 0}
+.one-line{font-size:clamp(1.05rem,2.2vw,1.3rem);font-weight:800;color:var(--sage-deep)}
+.remember{margin-top:1em;background:var(--terra-soft);border:1px dashed var(--terra);
+  border-radius:14px;padding:.8em 1em;font-size:clamp(.95rem,2vw,1.1rem);line-height:1.7;text-align:left}
+.remember b{color:var(--terra-deep)}
+.sent{font-size:.95rem;font-weight:800;color:var(--sage-deep);margin-top:.6em;min-height:1.3em}
+#end-btns{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em;justify-content:center}
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Masha K. · English · the drill test</p>
+  <h1>The Ten <em>Boxes</em></h1>
+  <div class="rule"></div>
+
+  <div class="card" id="start-card">
+    <p class="rules">Two rounds · <b>seventeen cards</b> · a small clock on each card.<br>
+    Read the definition — tap the word. Wrong cards come back first next time.</p>
+    <div class="icons">🧰 📚</div>
+    <div class="meta">ROUND 1 · THE BOXES (10) · ROUND 2 · NEW WORDS (7) · ~4 minutes</div>
+    <div class="best" id="best-line"></div>
+    <div class="name-row">
+      <label for="name-box">Your name</label>
+      <input id="name-box" autocomplete="off" spellcheck="false">
+    </div>
+    <button class="start-btn" id="begin-btn">Start</button>
+    <p class="hint backline">← <a href="hw.html?v=8">back to my homework</a></p>
+    <span class="stamp">build 2026-10-07 · v1</span>
+  </div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div class="prompt" id="q-prompt"></div>
+    <div class="helper" id="q-helper"></div>
+    <div class="answer-row" id="q-choices"></div>
+    <div class="timer-wrap" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+  </div>
+
+  <div class="flash hidden" id="flash"></div>
+
+  <div class="card hidden" id="end-card">
+    <div class="stars" id="end-stars"></div>
+    <div class="end-title">Done!</div>
+    <div class="one-line" id="end-rows"></div>
+    <div class="remember hidden" id="end-remember"></div>
+    <div class="sent" id="report-sent"></div>
+    <div id="end-btns">
+      <button class="again-btn" id="again-btn">🔁 Play again</button>
+      <button class="ok-btn" id="back-btn">← Back to my homework</button>
+    </div>
+  </div>
+</main>
+
+<script>
+(function(){
+"use strict";
+
+/* ELENA: the report flies to HER OWN form «Mashulik» (wired 05.10, test-verified) */
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSes5aESy1eVaZIKQljbhK1XKlpXhqmpmN3hprsv7o1tGEeZiA/formResponse";
+var FORM_ENTRY="entry.1570749775";
+
+/* ---------- the pools ---------- */
+
+/* ROUND 1 · The boxes — slide 3 of the lesson (the three Vocabulary
+   boxes, checked 07.10, found difficult). Definitions are the
+   course's own. */
+var POOL_BOXES=[
+ {q:'The study of living things.',choices:["Biology","Geography","History"],key:["biology"],label:"Biology"},
+ {q:'The computers subject.',choices:["ICT","PE","Art"],key:["ict"],label:"ICT"},
+ {q:'Learn by heart — a poem, a part in a play.',choices:["memorise","revise","study"],key:["memorise"],label:"memorise"},
+ {q:'The general word — lessons, memory, revision.',choices:["study","memorise","revise"],key:["study"],label:"study"},
+ {q:'We act, sing or recite — this type of assessment.',choices:["a performance","a project","a practical exam"],key:["a performance","performance"],label:"performance"},
+ {q:'You produce something — a dish, a painting, an experiment.',choices:["a practical exam","a performance","a written exam"],key:["a practical exam","practical exam"],label:"practical exam"},
+ {q:'A piece of work made at home, then presented.',choices:["a project","a performance","a written exam"],key:["a project","project"],label:"project"},
+ {q:'You believe you can do things successfully.',choices:["confident","hard-working","talented"],key:["confident"],label:"confident"},
+ {q:'Working well with others.',choices:["teamwork","critical thinking","general knowledge"],key:["teamwork"],label:"teamwork"},
+ {q:'You always put in a lot of effort.',choices:["hard-working","confident","creative"],key:["hard-working","hard working"],label:"hard-working"}
+];
+
+/* ROUND 2 · New words — the seven she asked about in the lesson
+   (d: 07.10, first contact): RU → EN, recognition only. */
+var POOL_NEW=[
+ {q:'рубашка',choices:["a shirt","a skirt","a tie"],key:["a shirt","shirt"],label:"shirt"},
+ {q:'скрепка — то, чем скрепляют бумаги',choices:["a paper clip","a highlighter","a push pin"],key:["a paper clip","paper clip"],label:"a paper clip"},
+ {q:'георгиевская ленточка',choices:["the St George ribbon","a shoelace","a belt"],key:["the st george ribbon","st george ribbon"],label:"the St George ribbon"},
+ {q:'цель (то, чего хочешь достичь)',choices:["a goal, an aim","a mark","a prize"],key:["a goal, an aim","a goal","an aim","goal"],label:"a goal / an aim"},
+ {q:'пупок',choices:["a belly button","a thumb","a heel"],key:["a belly button","belly button"],label:"a belly button"},
+ {q:'детский сад',choices:["kindergarten","a gym","a boarding school"],key:["kindergarten"],label:"kindergarten"},
+ {q:'знание',choices:["knowledge","a grade","a skill"],key:["knowledge"],label:"knowledge"}
+];
+
+var ROUNDS=[
+ {id:"boxes",icon:"🧰",name:"The boxes",helper:"read — tap the word",pool:POOL_BOXES,sec:10},
+ {id:"new",icon:"📚",name:"New words",helper:"you met these on the page — tap the word",pool:POOL_NEW,sec:10}
+];
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function norm(s){return (s||"").toString().trim().toLowerCase().replace(/\s+/g," ").replace(/[.!?]+$/,"");}
+function isOk(t,given){given=norm(given);if(!given)return false;
+  var keys=Array.isArray(t.key)?t.key:[t.key];
+  return keys.some(function(k){return norm(k)===given;});}
+
+/* ---------- a fresh deal — but the misses lead it (03.10 rule) ---------- */
+function storedMisses(){
+  try{return JSON.parse(localStorage.getItem("mashak-boxes-remiss")||"{}");}catch(e){return {};}}
+function deal(pool,rid){
+  var st=storedMisses()[rid]||[];
+  var first=pool.filter(function(t){return st.indexOf(t.label)>=0;});
+  var rest=shuffle(pool.filter(function(t){return st.indexOf(t.label)<0;}));
+  return shuffle(first.concat(rest)).map(function(t){
+    return Object.assign({},t,{choices:shuffle(t.choices)});});}
+function buildRounds(){
+  return ROUNDS.map(function(r){return {meta:r,tasks:deal(r.pool,r.id)};});}
+
+/* ---------- state ---------- */
+var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false;
+var RUNNER="";
+try{RUNNER=localStorage.getItem("mashak-boxes-name")||"";}catch(e){}
+$("name-box").value=RUNNER;
+(function(){var best=+localStorage.getItem("mashak-boxes-best")||0;
+  if(best)$("best-line").textContent="best: "+best+"%";})();
+
+$("begin-btn").addEventListener("click",function(){
+  var v=$("name-box").value.trim();
+  if(!v){$("name-box").style.borderColor="var(--terra-deep)";
+    $("name-box").placeholder="write your name first";return;}
+  RUNNER=v;
+  try{localStorage.setItem("mashak-boxes-name",v);}catch(e){}
+  ri=0;log=[];roundFlash();});
+$("again-btn").addEventListener("click",function(){
+  rounds=buildRounds();ri=0;log=[];show("start-card");roundFlash();});
+$("back-btn").addEventListener("click",function(){
+  location.href="hw.html?v=8";});
+
+function show(id){["start-card","q-card","end-card","flash"].forEach(function(c){
+  $(c).classList.add("hidden");});
+  if(id)$(id).classList.remove("hidden");
+  if(id)$(id).scrollIntoView({behavior:"smooth",block:id==="flash"?"center":"start"});}
+
+function roundFlash(){
+  show("flash");
+  var m=rounds[ri].meta;
+  $("flash").className="flash";
+  $("flash").innerHTML=m.icon+" "+m.name+'<span class="sub">'+m.helper+"</span>";
+  setTimeout(function(){qi=0;ask();},1300);}
+
+function ask(){
+  answered=false;
+  var r=rounds[ri],t=r.tasks[qi];
+  $("q-count").textContent=r.meta.icon+" "+r.meta.name+" · "+(qi+1)+"/"+r.tasks.length;
+  $("q-prompt").innerHTML=esc(t.q);
+  $("q-helper").textContent=r.meta.helper;
+  $("q-choices").innerHTML=t.choices.map(function(c){
+    return '<button class="choice" data-v="'+esc(c)+'">'+esc(c)+"</button>";}).join("");
+  show("q-card");
+  Array.prototype.forEach.call(document.querySelectorAll(".choice"),function(b){
+    b.addEventListener("click",function(){if(answered)return;answered=true;stopTimer();
+      var ok=isOk(t,b.getAttribute("data-v"));record(t,b.getAttribute("data-v"),false,ok);
+      move(ok);});});
+  startTimer(r.sec,function(){
+    if(answered)return;answered=true;
+    record(t,null,true,false);move(false);});
+  $("q-card").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function startTimer(sec,onOut){
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  bar.style.background="var(--sage)";
+  num.textContent=sec+" s";num.className="timer-num";
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 s";
+      clearInterval(timer);timer=null;onOut();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" s";
+    num.className="timer-num"+(s<=3?" low":"");
+    if(s<=3)bar.style.background="var(--terra-deep)";
+  },100);}
+function stopTimer(){if(timer){clearInterval(timer);timer=null;}}
+
+function record(t,given,late,ok){
+  log.push({rid:rounds[ri].meta.id,label:t.label,
+    given:late?"TIME UP":given,
+    key:Array.isArray(t.key)?t.key[0]:t.key,ok:ok});}
+
+function move(ok){
+  var r=rounds[ri];
+  var lastOfRound=qi>=r.tasks.length-1;
+  if(ok){show("flash");$("flash").className="flash";
+    $("flash").innerHTML="✅";setTimeout(advanceRound,700);}
+  else{show("flash");$("flash").className="flash fix";
+    var k=Array.isArray(r.tasks[qi].key)?r.tasks[qi].key[0]:r.tasks[qi].key;
+    $("flash").innerHTML="✗"+(k?(' <span class="sub">→ '+esc(k)+"</span>"):"");
+    setTimeout(advanceRound,1500);}
+  function advanceRound(){
+    if(!lastOfRound){qi++;ask();}
+    else if(ri<rounds.length-1){ri++;roundFlash();}
+    else{finish();}
+  }
+}
+
+/* ---------- end ---------- */
+function drillScore(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  return {total:total,ok:ok};}
+function reportText(){
+  var s=drillScore();
+  var lines=["MASHA K. · HW · The Ten Boxes · "+new Date().toLocaleString(),
+    "Score: "+s.ok+" / "+s.total];
+  ROUNDS.forEach(function(r){
+    var rows=log.filter(function(l){return l.rid===r.id;});
+    if(rows.length)lines.push(r.icon+" "+r.name+": "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
+  });
+  var missed=log.filter(function(l){return !l.ok;});
+  if(missed.length){
+    lines.push("","Missed ("+missed.length+"):");
+    missed.forEach(function(l){lines.push("  · "+l.label+" — key: "+l.key);});
+  }else{lines.push("","Missed: none! 🎉");}
+  return lines.join("\n");}
+
+function finish(){
+  stopTimer();
+  var s=drillScore();
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(s.ok/Math.max(1,s.total)*5)));
+  var bits=[];
+  ROUNDS.forEach(function(r){
+    var rows=log.filter(function(l){return l.rid===r.id;});
+    if(rows.length)bits.push(r.icon+" "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
+  });
+  $("end-rows").textContent=bits.join("  ·  ");
+  var missed=log.filter(function(l){return !l.ok;}).slice(0,6);
+  var rem=$("end-remember");
+  if(missed.length){
+    rem.className="remember";
+    rem.innerHTML="<b>To remember:</b><br>"+missed.map(function(l){
+      return "· "+esc(l.label)+" → <b>"+esc(l.key)+"</b>";}).join("<br>");
+  }else{rem.className="remember hidden";}
+  /* the 03.10 rule's store: this run's misses lead the next deal */
+  try{var om={};ROUNDS.forEach(function(r){
+    om[r.id]=log.filter(function(l){return !l.ok&&l.rid===r.id;}).map(function(l){return l.label;});});
+    localStorage.setItem("mashak-boxes-remiss",JSON.stringify(om));}catch(e){}
+  try{localStorage.setItem("mashak-boxes-last",reportText());}catch(e){}
+  try{localStorage.setItem("mashak-boxes-runs",String((+localStorage.getItem("mashak-boxes-runs")||0)+1));}catch(e){}
+  try{
+    var best=+localStorage.getItem("mashak-boxes-best")||0;
+    var pct=Math.round(s.ok/Math.max(1,s.total)*100);
+    if(pct>best){try{localStorage.setItem("mashak-boxes-best",String(pct));}catch(e){}}
+  }catch(e){}
+  try{
+    var q=JSON.parse(localStorage.getItem("mashak-boxes-queue")||"[]");
+    q.push(reportText());if(q.length>10)q=q.slice(-10);
+    localStorage.setItem("mashak-boxes-queue",JSON.stringify(q));
+  }catch(e){}
+  flushQueue();
+  $("report-sent").textContent=FORM_ACTION?("sent to Elena ✅"):"";
+  show("end-card");}
+
+function sendViaForm(txt){
+  if(!FORM_ACTION)return;
+  var frame=document.createElement("iframe");
+  frame.name="tb-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);
+  /* no input name="submit" — it shadows f.submit and kills the flush
+     (the v9 lesson) */
+  document.body.appendChild(f);
+  try{f.submit();}catch(e){}
+  setTimeout(function(){document.body.removeChild(f);document.body.removeChild(frame);},4000);}
+
+function flushQueue(){
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("mashak-boxes-queue")||"[]");}catch(e){}
+  if(!q.length||!FORM_ACTION)return;
+  var item=q[0];
+  try{
+    var frame=document.createElement("iframe");
+    frame.name="tb-flush-"+Date.now();
+    frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+    document.body.appendChild(frame);
+    var f=document.createElement("form");
+    f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+    var inp=document.createElement("input");
+    inp.type="hidden";inp.name=FORM_ENTRY;inp.value=item;
+    f.appendChild(inp);
+    document.body.appendChild(f);
+    try{f.submit();}catch(e){}
+    setTimeout(function(){document.body.removeChild(f);document.body.removeChild(frame);},4000);
+    q.shift();
+    localStorage.setItem("mashak-boxes-queue",JSON.stringify(q));
+  }catch(e){}
+}
+
+/* the load-time flush goes LAST — after all listeners attach (the v9 lesson) */
+flushQueue();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masha K. · Word formation — the FIPI text of the week</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Masha K. — WORD FORMATION, the weekly FIPI page (born 07.10 on
+   Elena's order, approved in her click-test the same evening).
+   The texts are VERBATIM from the FIPI ОГЭ open bank — never
+   invented (Elena: «Take exactly what they offer»).
+   THE RULE (Elena, 14.10, her word): a NEW text — WITHOUT a timer;
+   the OLD one — WITH a timer. (The same law as the drill's week
+   ramp: an activity appears untimed, it returns timed.)
+   v6 (Elena: «with a timer» = hwdt — cards, seconds each, never
+   one long block): the page keeps the weekly NEW text (untimed);
+   the OLD one drills on grand-national.html.
+   v7 (07.11, Elena: «she need word formation practice» + her runs
+   pasted): Ballroom dancing in (its week now — her chronic COMPETE
+   rides gap 3); Piranhas retired on her 6/6 ✓ (04.11).
+   Per-text Send; Send grades silently and flies to HER OWN
+   form «Mashulik».
+   ============================================================ */
+:root{
+  --paper:#f6f2ea; --card:#fff; --ink:#37322a; --sub:#8b8578;
+  --sage:#7f9c88; --sage-deep:#5e8169; --sage-soft:#edf2ec;
+  --terra-deep:#b3564a; --terra-soft:#f9ede9;
+  --gold-soft:#f6efdc;
+  --line:#e8e1d3;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);
+  background:var(--paper);min-height:100vh;padding:clamp(1rem,4vw,2.5rem)}
+main{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
+.eyebrow{font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+h1{font-family:'Lora',Georgia,serif;font-weight:700;font-size:clamp(1.6rem,4vw,2.2rem)}
+h1 em{color:var(--sage-deep);font-style:normal}
+.week-chip{display:inline-block;background:var(--gold-soft);border:1.5px solid var(--sage-deep);
+  color:var(--sage-deep);font-weight:800;font-size:.85rem;border-radius:99px;
+  padding:.3em 1em;margin:.4em 0}
+.week-chip.new{background:var(--sage-soft)}
+.rule{width:64px;height:4px;border-radius:99px;background:var(--sage)}
+p.lead{font-size:clamp(1rem,2vw,1.15rem);line-height:1.55;color:#57503f}
+p.lead strong{color:var(--sage-deep)}
+.hint{font-size:clamp(.9rem,1.8vw,1rem);color:var(--sub);font-style:italic;line-height:1.5}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:clamp(1rem,3vw,1.5rem)}
+.task{font-size:clamp(1rem,2vw,1.15rem);line-height:1.6}
+.text{font-size:clamp(1.05rem,2.2vw,1.22rem);line-height:1.85}
+.text .gap{font-weight:800;white-space:nowrap}
+.text .gap input{border:none;border-bottom:2px solid var(--sage-deep);background:var(--sage-soft);
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:1em;color:var(--ink);
+  width:13ch;padding:.05em .3em;text-align:center;outline:none;border-radius:6px 6px 0 0}
+.text .gap input:focus{background:#fff;border-bottom-color:var(--terra-deep)}
+.text .gap input.right{border-bottom-color:var(--sage-deep);background:var(--sage-soft)}
+.text .gap input.wrong{border-bottom-color:var(--terra-deep);background:var(--terra-soft)}
+.fb{font-weight:800;font-size:.85em;margin-left:.25em}
+.fb.ok{color:var(--sage-deep)}
+.fb.no{color:var(--terra-deep)}
+.gapline{margin-top:.25em;font-weight:800;letter-spacing:.06em;color:var(--terra-deep)}
+.btnrow{display:flex;gap:.8em;align-items:center;margin-top:.9em;flex-wrap:wrap}
+button.act{border:none;border-radius:99px;padding:.55em 1.4em;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:1.02rem;
+  background:var(--sage);color:#fff}
+button.act:hover{filter:brightness(1.06)}
+.score{font-weight:800;color:var(--sage-deep);font-size:1.05rem;min-height:1.4em}
+.sent{font-weight:800;color:var(--sage-deep);font-size:.95rem}
+.src{font-size:.82rem;color:var(--sub);font-style:italic}
+.backline{margin-top:.2em}
+.backline a{color:var(--sage-deep);font-weight:800;text-decoration:none;border-bottom:2px solid var(--sage-soft)}
+.backline a:hover{border-bottom-color:var(--sage)}
+.stamp{display:block;margin-top:.35em;font-size:.76rem;color:var(--sub);letter-spacing:.04em}
+/* the timer (the OLD text only) — loyal: it never blocks, it just counts */
+.timerrow{display:flex;gap:.6em;align-items:center;margin-top:.7em;flex-wrap:wrap}
+.timer{font-weight:800;font-size:1.15rem;color:var(--sage-deep);background:var(--sage-soft);
+  border:1.5px solid var(--sage);border-radius:99px;padding:.25em .9em;font-variant-numeric:tabular-nums}
+.timer.amber{color:var(--terra-deep);background:var(--terra-soft);border-color:var(--terra-deep)}
+button.tbtn{border:1.5px solid var(--sage);background:#fff;color:var(--sage-deep);
+  border-radius:99px;padding:.3em 1em;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-weight:800;font-size:.9rem}
+button.tbtn:hover{background:var(--sage-soft)}
+.tnote{font-size:.85rem;color:var(--sub);font-style:italic}
+@media print{ .btnrow,.timerrow{display:none} body{background:#fff} }
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Masha K. · English · word formation · every week</p>
+  <h1>Word <em>formation</em> — the week's text</h1>
+  <div class="rule"></div>
+  <p class="lead"><strong>Read the text. Type the word in CAPITALS in a new form</strong> in each gap —
+  one word per gap, exactly as in the FIPI bank and on the exam.
+  <strong>The new text has no timer</strong> — take your time.
+  Type your six words, Send — it shows the right answers and gives your result to Elena.
+  <strong>The old friend drills against the clock</strong> on its own page:
+  <a href="grand-national.html" style="color:var(--sage-deep);font-weight:800">🐴 The Grand National — against the clock</a> — six cards, 15 seconds each.</p>
+
+  <!-- TEXT №1 — NEW, untimed -->
+  <div class="card" id="card1">
+    <span class="week-chip new">Text №1 · NEW · Ballroom dancing (FIPI) — no timer, take your time</span>
+    <p class="task">Прочитайте текст. Преобразуйте слова, напечатанные заглавными буквами, так, чтобы они грамматически и лексически соответствовали содержанию текста. Заполните пропуски полученными словами.</p>
+    <div class="text">
+      <p>Ballroom dancing in the UK is making a comeback. For the past five years the popularity of
+      ballroom dancing has grown thanks to the TV show 'Strictly Come Dancing'. In the show a professional
+      ballroom <span class="gap">(1) <input id="a1g1" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">DANCE</span></span>
+      has a celebrity for a partner. They learn
+      <span class="gap">(2) <input id="a1g2" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">DIFFER</span></span>
+      ballroom dances and perform them live on TV. Four judges and the public decide who stays in the
+      <span class="gap">(3) <input id="a1g3" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">COMPETE</span></span>
+      and who leaves. The show demonstrates how glamorous ballroom dancing is. The celebrities wear
+      <span class="gap">(4) <input id="a1g4" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">COLOUR</span></span>
+      dresses and suits and the show looks very
+      <span class="gap">(5) <input id="a1g5" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">IMPRESS</span></span>.
+      According to the ratings, the
+      <span class="gap">(6) <input id="a1g6" autocomplete="off" spellcheck="false"> <span class="fb"></span><br><span class="gapline">PERFORM</span></span>
+      is becoming more and more popular with TV audiences.</p>
+      <div class="btnrow">
+        <button class="act" id="send-btn-1" style="background:var(--sage-deep)">📤 Send the result to Elena</button>
+        <span class="score" id="score1"></span>
+        <span class="sent" id="sent-line-1"></span>
+      </div>
+    </div>
+    <p class="src">Источник: открытый банк заданий ФИПИ, ОГЭ английский язык (oge.fipi.ru) — текст и задания без изменений.</p>
+  </div>
+
+  <p class="backline">← <a href="hw.html?v=11">back to my homework</a></p>
+  <span class="stamp">build 07.11 · v7 · the new text — Ballroom dancing (no timer) · Piranhas retired on her 6/6 ✓ (04.11) · the old friend drills against the clock on its own page</span>
+</main>
+<script>
+(function(){
+"use strict";
+/* ELENA: the results fly to HER OWN form «Mashulik» (wired 05.10, test-verified) */
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSes5aESy1eVaZIKQljbhK1XKlpXhqmpmN3hprsv7o1tGEeZiA/formResponse";
+var FORM_ENTRY="entry.1570749775";
+function norm(s){return (s||"").trim().toLowerCase().replace(/\s+/g," ").replace(/[.!?,]+$/,"");}
+function $(id){return document.getElementById(id);}
+
+/* ---------- the text (FIPI verbatim; keys derived, never invented).
+   Piranhas retired 04.11 on her 6/6 — its second life as the hwdt
+   never needed: beaten untimed. Week-1 Grand National lives on its
+   own drill page. Ballroom dancing = the 14.10 bank pick, back from
+   the bank for its week (her chronic COMPETE rides gap 3). ---------- */
+var TEXTS={
+  1:{label:"Word formation (FIPI: Ballroom dancing)",
+     keys:["dancer","different","competition","colourful","impressive","performance"],
+     stems:["DANCE","DIFFER","COMPETE","COLOUR","IMPRESS","PERFORM"]}
+};
+
+/* ---------- the send plumbing (the proven shape: queue + hidden-iframe POST) ---------- */
+function sendViaForm(txt){
+  if(!FORM_ACTION)return;
+  var frame=document.createElement("iframe");
+  frame.name="wf-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);
+  document.body.appendChild(f);
+  try{f.submit();}catch(e){}
+  setTimeout(function(){document.body.removeChild(f);document.body.removeChild(frame);},4000);
+}
+function flushQueue(){
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("mashak-wf-queue")||"[]");}catch(e){}
+  if(!q.length||!FORM_ACTION)return;
+  var item=q[0];
+  try{
+    sendViaForm(item);
+    q.shift();
+    localStorage.setItem("mashak-wf-queue",JSON.stringify(q));
+  }catch(e){}
+}
+
+/* ---------- per-text grade + send ---------- */
+function makeText(n){
+  var cfg=TEXTS[n];
+  function grade(){
+    var ok=0,misses=[];
+    var lines=["MASHA K. · HW · "+cfg.label+" · "+new Date().toLocaleString()];
+    for(var i=1;i<=6;i++){
+      var inp=$("a"+n+"g"+i),fb=inp.parentNode.querySelector(".fb");
+      inp.classList.remove("right","wrong");
+      fb.className="fb";fb.textContent="";
+      if(norm(inp.value)===norm(cfg.keys[i-1])){
+        ok++;inp.classList.add("right");fb.className="fb ok";fb.textContent="✓";
+      }else{
+        inp.classList.add("wrong");fb.className="fb no";
+        fb.textContent=inp.value.trim()?("✗ → "+cfg.keys[i-1]):("→ "+cfg.keys[i-1]);
+        misses.push("  · "+cfg.stems[i-1]+" — her: "+(inp.value.trim()||"—")+" · key: "+cfg.keys[i-1]);
+      }
+    }
+    lines.push("Score: "+ok+" / 6");
+    if(misses.length){lines.push("Missed ("+misses.length+"):");lines=lines.concat(misses);}
+    $("score"+n).textContent=(ok+" of 6 right"+(ok===6?" — beautiful! 🌟":""));
+    return lines.join("\n");
+  }
+  function sendFlow(){
+    var txt=grade();
+    try{
+      var q=JSON.parse(localStorage.getItem("mashak-wf-queue")||"[]");
+      q.push(txt);if(q.length>10)q=q.slice(-10);
+      localStorage.setItem("mashak-wf-queue",JSON.stringify(q));
+    }catch(e){}
+    flushQueue();
+    $("sent-line-"+n).textContent=FORM_ACTION?("sent to Elena ✅"):"";
+  }
+  $("send-btn-"+n).addEventListener("click",sendFlow);
+  for(var i=1;i<=6;i++){
+    (function(inp){inp.addEventListener("keydown",function(e){
+      if(e.key==="Enter")sendFlow();});})($("a"+n+"g"+i));
+  }
+}
+makeText(1);
+
+/* the load-time flush goes LAST — after all listeners attach (the v9 lesson) */
+flushQueue();
+})();
+</script>
+</body>
+</html>

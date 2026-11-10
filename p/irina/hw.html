@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ирина · Домашка 🗓⏰</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sea:#2EC4B6; --sea-deep:#1B7A8C; --ink:#123B44; --ink-soft:#5b7a80;
+  --coral:#FF6B6B; --sun:#FFD166; --card:#ffffff; --bg:#EAF7F5;
+  --shadow:0 10px 30px rgba(18,59,68,.14); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--bg);
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:4vh 5vw 8vh;-webkit-font-smoothing:antialiased}
+header{max-width:640px;width:100%;text-align:center;margin-bottom:1em}
+.eyebrow{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;font-size:.72rem;color:var(--sea-deep)}
+h1{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.6rem,7vw,2.4rem);line-height:1.15;margin-top:.15em}
+main{max-width:640px;width:100%}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(1.3rem,4.5vw,2.2rem);text-align:center;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none}
+.rules{margin-top:1em;color:var(--ink-soft);font-weight:700;font-size:clamp(1rem,3.6vw,1.15rem);line-height:1.7}
+.icons{font-size:1.6rem;letter-spacing:.3em;margin-top:.9em}
+.meta{margin-top:.4em;color:var(--ink-soft);font-weight:700;font-size:.9rem}
+button{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;border:none;cursor:pointer;
+  border-radius:99px;transition:transform .12s ease,box-shadow .12s ease}
+button:active{transform:scale(.96)}
+.start-btn{background:var(--sea);color:#fff;font-size:clamp(1.2rem,4.6vw,1.5rem);
+  padding:.65em 2.6em;margin-top:1.3em;box-shadow:0 6px 0 #239d92}
+.start-btn:active{box-shadow:0 2px 0 #239d92;transform:translateY(4px)}
+.qcount{font-size:.85rem;font-weight:800;color:var(--sea-deep);letter-spacing:.06em;text-transform:uppercase}
+.timer-wrap{height:12px;background:#d8efec;border-radius:99px;overflow:hidden;margin:1em 0 .3em}
+.timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--sea),var(--sun));border-radius:99px}
+.timer-num{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;color:var(--sea-deep);font-size:.9rem}
+.timer-num.low{color:var(--coral)}
+.mini-text{background:#f2fbf9;border-radius:16px;padding:1em 1.1em;margin:.9em 0 .3em;
+  font-size:clamp(1.1rem,4.2vw,1.3rem);font-weight:700;line-height:1.5;text-align:left}
+.prompt{font-size:clamp(1.4rem,6vw,2rem);font-weight:800;line-height:1.35;margin-top:.4em}
+.prompt .gap{color:var(--coral);letter-spacing:.05em}
+.prompt .base{color:var(--sea-deep);font-family:'Fredoka','Nunito',sans-serif;font-weight:600}
+.helper{margin-top:.7em;font-size:.9rem;font-weight:700;color:var(--ink-soft)}
+.answer-row{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;margin-top:1em}
+.choice{background:#f0fafa;color:var(--ink);font-size:clamp(1.05rem,4.2vw,1.3rem);
+  padding:.5em 1.4em;box-shadow:0 4px 0 #cfe9e6;line-height:1.15}
+.choice:active{box-shadow:0 1px 0 #cfe9e6;transform:translateY(3px)}
+.choice .ru{display:block;font-family:'Nunito',sans-serif;font-weight:700;font-size:.62em;color:var(--ink-soft)}
+input.type-box{font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1.2rem,5vw,1.6rem);
+  color:var(--ink);text-align:center;border:3px solid #cfe9e6;border-radius:16px;
+  padding:.45em .6em;width:min(300px,76vw);outline:none;background:#fbffff}
+input.type-box:focus{border-color:var(--sea)}
+.ok-btn{background:var(--sea-deep);color:#fff;font-size:clamp(1rem,4vw,1.2rem);
+  padding:.6em 1.8em;box-shadow:0 4px 0 #145a67;align-self:center}
+.flash{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6.5vw,2.2rem);
+  color:var(--coral);text-align:center;padding:2.6em 0;animation:pop .2s ease}
+.flash .sub{display:block;font-size:.55em;color:var(--ink-soft);margin-top:.6em}
+.stars{font-size:clamp(2rem,9vw,3rem);margin:.2em 0}
+.end-title{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw,2.2rem)}
+.one-line{margin:1em 0 .2em;font-weight:800;font-size:clamp(1.05rem,4vw,1.25rem)}
+.sent{margin-top:.6em;font-weight:700;color:var(--sea-deep)}
+.copy-btn{background:var(--sea);color:#fff;font-size:clamp(1rem,4vw,1.2rem);
+  padding:.7em 1.8em;margin-top:.9em;box-shadow:0 6px 0 #239d92}
+.again-btn{background:transparent;color:var(--sea-deep);font-size:1rem;
+  padding:.6em 1.4em;margin-top:.7em;border:2px solid #bfe3df}
+footer{max-width:640px;width:100%;text-align:center;margin-top:1.6em;
+  color:var(--ink-soft);font-size:.78rem;font-weight:600}
+/* ---------- the front door: one link, two ways ---------- */
+#door{position:fixed;inset:0;background:var(--bg);z-index:50;display:flex;
+  flex-direction:column;align-items:center;justify-content:center;padding:5vw;text-align:center}
+#door.hidden{display:none}
+.door-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(1.6rem,5.5vw,2.6rem);max-width:480px;width:100%;animation:pop .25s ease}
+.door-btn{display:block;width:100%;font-family:'Fredoka','Nunito',sans-serif;font-weight:600;
+  font-size:clamp(1.15rem,4.6vw,1.45rem);padding:.65em 1em;border-radius:99px;
+  text-decoration:none;transition:transform .12s ease}
+.door-btn:active{transform:scale(.97)}
+.door-primary{background:var(--sea);color:#fff;box-shadow:0 6px 0 #239d92}
+.door-primary:active{box-shadow:0 2px 0 #239d92;transform:translateY(4px)}
+.door-plain{background:transparent;color:var(--sea-deep);border:2px solid #bfe3df}
+.door-sub{display:block;font-family:'Nunito',sans-serif;font-size:.58em;font-weight:700;margin-top:.3em}
+.door-primary .door-sub{color:#d7f5f1}
+.door-plain .door-sub{color:var(--ink-soft)}
+</style>
+</head>
+<body>
+<div id="door">
+  <div class="door-card">
+    <div class="eyebrow">Ирина · домашка</div>
+    <h1 style="margin-bottom:.7em">Что делаем сегодня?</h1>
+    <a class="door-btn door-primary" href="week.html">🗓 Задание на сегодня
+      <span class="door-sub">неделя на время — закончи день, откроется следующий</span></a>
+    <button class="door-btn door-plain" onclick="document.getElementById('door').classList.add('hidden')">⏰ Спринт
+      <span class="door-sub">5 игр на время — как всегда</span></button>
+    <a class="door-btn door-plain" href="gram.html">🏋️ Большая тренировка
+      <span class="door-sub">4 игры: модальные · сравнения · present simple / continuous · неправильные глаголы</span></a>
+  </div>
+</div>
+
+<header>
+  <div class="eyebrow">Ирина · домашка ⏰</div>
+  <h1>Успей до звонка!</h1>
+</header>
+
+<main>
+  <div class="card" id="start-card">
+    <p class="rules">Отвечай, пока бежит полоска.<br>
+    Время вышло — вопрос улетел 🪁<br>
+    Назад нельзя!</p>
+    <div class="icons">🟢 ⚙️ ⚖️ 🐻 🐘</div>
+    <div class="meta">5 игр · ~12 минут</div>
+    <div class="name-row" style="margin-top:1.1em"><input class="type-box" id="who-box" placeholder="Кто делает тест?" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+    <p class="helper" style="margin-top:.5em">подпиши тест — учитель увидит, чьи это ответы</p>
+    <button class="start-btn" id="begin-btn">Начать</button>
+  </div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div class="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="flash hidden" id="flash"></div>
+
+  <div class="card hidden" id="end-card">
+    <div class="stars" id="end-stars"></div>
+    <div class="end-title">Молодец!</div>
+    <div class="one-line" id="end-rows"></div>
+    <div class="sent" id="sent-line"></div>
+    <div><button class="again-btn" id="again-btn">🔁 Новая попытка</button></div>
+  </div>
+</main>
+
+<footer>Успей до звонка · домашка Иры по английскому · build 2026-10-16 · v5 (front door: 🗓 week + ⏰ sprint — one link for the family; v4 2026-10-08 +make — Elena's rr: five meetings, every run deals it)</footer>
+
+<script>
+(function(){
+"use strict";
+/* DRAFT: auto-send OFF on purpose (Elena's test runs must not reach the form) */
+var HW_FORM={action:"https://docs.google.com/forms/d/e/1FAIpQLScYuudgy8Zza0OF09fpnu43OsOehkkNQT5BtnF7QH7uVne9SA/formResponse",entryReport:"entry.1898990974"};
+
+/* ================= POOLS ================= */
+var POOL_SOME_ANY=[
+  {q:'Is there <span class="gap">______</span> milk in the fridge?',label:"milk",key:"any"},
+  {q:'There is <span class="gap">______</span> juice in the cup.',label:"juice",key:"some"},
+  {q:'I have got <span class="gap">______</span> banana.',label:"banana",key:"a"},
+  {q:"We haven't got <span class=\"gap\">______</span> bread.",label:"bread",key:"any"},
+  {q:'There are <span class="gap">______</span> apples on the table.',label:"apples",key:"some"},
+  {q:'I want <span class="gap">______</span> orange.',label:"orange",key:"an"},
+  {q:'Is there <span class="gap">______</span> cake for tea?',label:"cake",key:"any"},
+  {q:'There is <span class="gap">______</span> big pizza in the box.',label:"pizza",key:"a"},
+  {q:'She has got <span class="gap">______</span> mango.',label:"mango",key:"an"}
+];
+
+var POOL_MACHINE=[
+  {q:'two <span class="gap">______</span> <span class="base">(CHILD)</span>',label:"CHILD → two",key:"children"},
+  {q:'I love football. Yesterday I <span class="gap">______</span> it too. <span class="base">(LOVE)</span>',label:"LOVE",key:"loved"},
+  {q:'This is she. → This is <span class="gap">______</span> book. <span class="base">(SHE)</span>',label:"SHE",key:"her"},
+  {q:'I play every day. Yesterday I <span class="gap">______</span> too. <span class="base">(PLAY)</span>',label:"PLAY",key:"played"},
+  {q:'The dog is big. The dogs <span class="gap">______</span> big. <span class="base">(BE)</span>',label:"BE dogs",key:"are"},
+  {q:'I am happy. Yesterday I <span class="gap">______</span> happy too. <span class="base">(BE)</span>',label:"BE yesterday",key:"was"},
+  {q:'one box → two <span class="gap">______</span> <span class="base">(BOX)</span>',label:"BOX",key:"boxes"},
+  {q:'She likes ice cream. I <span class="gap">______</span> ice cream too. <span class="base">(LIKE)</span>',label:"LIKE",key:"like"},
+  {q:'one man → two <span class="gap">______</span> <span class="base">(MAN)</span>',label:"MAN",key:"men"}
+];
+
+/* Судья: считай! (Elena's computation format) + Not stated */
+var POOL_COMPUTE=[
+  {text:"Tom and Mary have got 12 children.",
+   q:'<b>There are 12 members of the family.</b>',label:"Tom&Mary: 12 members",key:"False"},
+  {text:"Sue and Noel have got 19 children.",
+   q:'<b>There are 21 members in the family.</b>',label:"Radford: 21 members",key:"True"},
+  {text:"Ira has got 5 apples and 3 bananas.",
+   q:'<b>Ira has got 8 apples.</b>',label:"5+3: 8 apples",key:"False"},
+  {text:"Ira's team scored 3 goals. The other team scored 2 goals more.",
+   q:'<b>The other team scored 5 goals.</b>',label:"goals: 5",key:"True"},
+  {text:"Sue makes 12 packed lunches. Noel eats one lunch.",
+   q:'<b>There are 10 lunches now.</b>',label:"lunches: 10",key:"False"},
+  {text:"The shop has got 10 balls. Ira buys 2 balls.",
+   q:'<b>The shop has got 7 balls.</b>',label:"balls: 7",key:"False"},
+  {text:"Ira trains 2 hours on Monday and 1 hour on Wednesday.",
+   q:'<b>Ira trains 3 hours a week.</b>',label:"training: 3 h",key:"True"},
+  {text:"The B-Team has got 12 players. The coach plays too.",
+   q:'<b>There are 13 people in the game.</b>',label:"B-Team: 13",key:"True"}
+];
+var POOL_NS=[
+  {text:"Tom and Mary have got 12 children.",
+   q:'<b>Tom and Mary love their children.</b>',label:"Tom&Mary: love",key:"Not stated"},
+  {text:"Ira has got 5 apples and 3 bananas.",
+   q:'<b>Ira likes apples.</b>',label:"Ira likes apples",key:"Not stated"}
+];
+
+/* Степени сравнения: regular + the three exceptions (good, bad, much/many) */
+var POOL_COMP=[
+  {q:'This cake is <span class="gap">______</span> than that cake. <span class="base">(GOOD)</span>',label:"good → -er",key:"better"},
+  {q:'This is <span class="gap">______</span> pizza in the shop. <span class="base">(GOOD)</span>',label:"good → the -est",key:["the best","best"]},
+  {q:'The weather today is <span class="gap">______</span> than yesterday. <span class="base">(BAD)</span>',label:"bad → -er",key:"worse"},
+  {q:'It is <span class="gap">______</span> film of the year. <span class="base">(BAD)</span>',label:"bad → the -est",key:["the worst","worst"]},
+  {q:'Ira has got <span class="gap">______</span> friends than Tom. <span class="base">(MANY)</span>',label:"many → more",key:"more"},
+  {q:'This shop has got <span class="gap">______</span> milk of all. <span class="base">(MUCH)</span>',label:"much → the most",key:["the most","most"]},
+  {q:'An elephant is <span class="gap">______</span> than a dog. <span class="base">(BIG)</span>',label:"big → -er",key:"bigger"},
+  {q:'Ira is <span class="gap">______</span> today than yesterday. <span class="base">(HAPPY)</span>',label:"happy → -er",key:"happier"}
+];
+
+var VERBS=[
+  {b:"be",    s:"was/were", t:"been",    fix3:true},
+  {b:"bear",  s:"bore",     t:"born",    a3:["borne"]},
+  {b:"beat",  s:"beat",     t:"beaten"},
+  {b:"become",s:"became",   t:"become"},
+  {b:"begin", s:"began",    t:"begun"},
+  {b:"bite",  s:"bit",      t:"bitten"},
+  {b:"blow",  s:"blew",     t:"blown"},
+  {b:"break", s:"broke",    t:"broken"},
+  {b:"bring", s:"brought",  t:"brought"},
+  {b:"build", s:"built",    t:"built"},
+  {b:"burn",  s:"burnt",    t:"burnt",   a2:["burned"], a3:["burned"]},
+  {b:"burst", s:"burst",    t:"burst"},
+  {b:"cost",  s:"cost",     t:"cost"},
+  {b:"cut",   s:"cut",      t:"cut"},
+  {b:"deal",  s:"dealt",    t:"dealt"},
+  {b:"dig",   s:"dug",      t:"dug"},
+  {b:"do",    s:"did",      t:"done"},
+  {b:"draw",  s:"drew",     t:"drawn"},
+  {b:"dream", s:"dreamt",   t:"dreamt",  a2:["dreamed"], a3:["dreamed"]},
+  {b:"drink", s:"drank",    t:"drunk"},
+  {b:"make",  s:"made",     t:"made"}
+];
+
+var ROUNDS_META=[
+  {id:"R1",icon:"🟢",name:"Разминка",helper:"выбери слово"},
+  {id:"R2",icon:"⚙️",name:"Машинка слов",helper:"слово из скобок меняет одежду — подгони его"},
+  {id:"R3",icon:"⚖️",name:"Судья и комментатор",helper:"читай и считай!"},
+  {id:"R4",icon:"🐻",name:"Спринт по глаголам",helper:"впиши пропущенную форму"},
+  {id:"R5",icon:"🐘",name:"Степени сравнения",helper:"прилагательное меняет форму — сравнивай!"}
+];
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function pick(arr,n){return shuffle(arr).slice(0,n);}
+function norm(s){return (s||"").toString().trim().toLowerCase().replace(/[.!?]+$/,"");}
+function isOk(t,given){given=norm(given);if(!given)return false;
+  var keys=Array.isArray(t.key)?t.key:[t.key];
+  return keys.some(function(k){return norm(k)===given;});}
+function show(id){["start-card","q-card","flash","end-card"].forEach(function(c){
+  $(c).classList.add("hidden");});
+  if(id)$(id).classList.remove("hidden");}
+
+/* ---------- a fresh set per run ---------- */
+function buildRounds(){
+  var someAny=pick(POOL_SOME_ANY,3).map(function(t){
+    return {q:t.q,label:t.label,key:t.key,choices:["some","any","a","an"]};});
+  var machine=pick(POOL_MACHINE,3);
+  var judge=pick(POOL_COMPUTE,2).concat(pick(POOL_NS,1));
+  judge=shuffle(judge).map(function(t){
+    return {text:t.text,q:t.q,label:t.label,choices:["True","False","Not stated"],key:t.key};});
+  var verbs=shuffle(VERBS).map(function(v){
+    var ask3=v.fix3||Math.random()<0.5;
+    var extra=ask3?(v.a3||[]):(v.a2||[]);
+    var key=ask3?(v.fix3?[v.t]:[v.t].concat(extra)):[v.s].concat(extra);
+    return {q:'<span class="base">'+v.b+'</span> → '+(ask3?(v.s+' - <span class="gap">______</span>'):('<span class="gap">______</span> - '+v.t)),
+      label:v.b+" → "+(ask3?"3rd":"2nd"),key:key};
+  });
+  var comp=pick(POOL_COMP,6);
+  return [
+    {meta:ROUNDS_META[0],sec:10,tasks:someAny},
+    {meta:ROUNDS_META[1],sec:30,tasks:machine},
+    {meta:ROUNDS_META[2],sec:30,tasks:judge},
+    {meta:ROUNDS_META[3],sec:32,tasks:verbs},
+    {meta:ROUNDS_META[4],sec:30,tasks:comp}
+  ];
+}
+
+/* ---------- state ---------- */
+var rounds=buildRounds(),log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false,WHO="";
+
+/* ---------- whose run is it? (the name heads every report) ---------- */
+try{$("who-box").value=(localStorage.getItem("irina-hw-who")||"").trim();}catch(e){}
+function saveWho(){
+  var v=$("who-box").value.trim();
+  if(!v)return false;
+  WHO=v;
+  try{localStorage.setItem("irina-hw-who",v);}catch(e){}
+  return true;
+}
+
+/* ---------- flow: no intro pages — the flash names the round ---------- */
+$("begin-btn").addEventListener("click",function(){
+  if(!saveWho()){
+    show("flash");
+    $("flash").innerHTML="✏️ Подпиши тест!<span class=\"sub\">напиши имя — и жми «Начать»</span>";
+    setTimeout(function(){show("start-card");},1500);
+    return;
+  }
+  ri=0;log=[];roundFlash();});
+$("again-btn").addEventListener("click",function(){rounds=buildRounds();ri=0;log=[];roundFlash();});
+
+function roundFlash(){
+  show("flash");
+  var m=rounds[ri].meta;
+  $("flash").innerHTML=m.icon+" "+m.name+'<span class="sub">'+(ri+1)+"-я из 5 игр</span>";
+  setTimeout(function(){qi=0;ask();},1400);
+}
+
+function ask(){
+  answered=false;
+  var r=rounds[ri],t=r.tasks[qi];
+  $("q-count").textContent=r.meta.icon+" "+r.meta.name+" · "+(qi+1)+"/"+r.tasks.length;
+  var body="";
+  if(t.text)body+='<div class="mini-text">'+t.text+"</div>";
+  body+='<div class="prompt">'+t.q+"</div>";
+  body+='<div class="helper">'+r.meta.helper+"</div>";
+  if(t.choices){
+    var RU={True:"верно","False":"неверно","Not stated":"в тексте нет"};
+    body+='<div class="answer-row">'+t.choices.map(function(c){
+      var ru=RU[c]?'<span class="ru">'+RU[c]+"</span>":"";
+      return '<button class="choice" data-v="'+c+'">'+c+ru+"</button>";}).join("")+"</div>";
+  }else{
+    body+='<div class="answer-row"><input class="type-box" id="type-box" autocomplete="off" autocapitalize="off" spellcheck="false">'+
+      '<button class="ok-btn" id="ok-btn">OK</button></div>';
+  }
+  $("q-body").innerHTML=body;
+  show("q-card");
+  if(t.choices){
+    Array.prototype.forEach.call(document.querySelectorAll(".choice"),function(b){
+      b.addEventListener("click",function(){if(answered)return;answered=true;stop();
+        advance(record(t,b.getAttribute("data-v"),false,r.meta.id));});});
+  }else{
+    var box=$("type-box");
+    var submit=function(){if(answered)return;answered=true;stop();
+      advance(record(t,box.value,false,r.meta.id));};
+    $("ok-btn").addEventListener("click",submit);
+    box.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
+    setTimeout(function(){box.focus();},60);
+  }
+  start(r.sec,function(){
+    if(answered)return;answered=true;
+    var typed=(!t.choices&&$("type-box"))?$("type-box").value:null;
+    record(t,typed,true,r.meta.id);nextLate();
+  });
+}
+
+function start(sec,onOut){
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  num.textContent=sec+" с";num.className="timer-num";
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 с";
+      stop();onOut();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" с";
+    num.className="timer-num"+(s<=5?" low":"");
+  },100);
+}
+function stop(){if(timer){clearInterval(timer);timer=null;}}
+
+function record(t,given,late,rid){
+  var ok=!late&&given!=null&&isOk(t,given);
+  log.push({rid:rid,label:t.label,
+    given:late?(given?("не успела, написала: "+given):"ВРЕМЯ ВЫШЛО"):given,
+    key:Array.isArray(t.key)?t.key.join(" / "):t.key,ok:ok});
+  return ok;
+}
+
+function advance(wasOk){move(false,wasOk);}
+function nextLate(){move(true,false);}
+function move(late,wasOk){
+  var r=rounds[ri];
+  var lastOfRound=qi>=r.tasks.length-1;
+  var go=function(){
+    if(!lastOfRound){qi++;ask();}
+    else if(ri<rounds.length-1){ri++;roundFlash();}
+    else{finish();}
+  };
+  if(late){show("flash");$("flash").innerHTML="⏰ Время!";setTimeout(go,950);}
+  else if(wasOk){show("flash");$("flash").innerHTML="✅";setTimeout(go,750);}
+  else if(lastOfRound&&ri<rounds.length-1){show("flash");
+    $("flash").innerHTML="✨";setTimeout(go,700);}
+  else go();
+}
+
+/* ---------- end ---------- */
+var ICONS={R1:"🟢",R2:"⚙️",R3:"⚖️",R4:"🐻",R5:"🐘"};
+function reportText(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  var lines=[(WHO||"IRINA")+" · HW · "+new Date().toLocaleString(),
+    "Beat the clock: "+ok+" / "+total];
+  ["R1","R2","R3","R4","R5"].forEach(function(rid){
+    var rows=log.filter(function(l){return l.rid===rid;});
+    if(rows.length)lines.push(ICONS[rid]+" "+rid+": "+rows.filter(function(l){return l.ok;}).length+"/"+rows.length);
+  });
+  var missed=log.filter(function(l){return !l.ok;});
+  if(missed.length){
+    lines.push("","Missed or too late ("+missed.length+"):");
+    missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+(l.given||"—")+" · key: "+l.key);});
+  }else{lines.push("","Missed or too late: none! 🎉");}
+  return lines.join("\n");
+}
+
+function finish(){
+  var total=log.length,ok=log.filter(function(l){return l.ok;}).length;
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/total*5)));
+  var bits=[];
+  ["R1","R2","R3","R4","R5"].forEach(function(rid){
+    var r=log.filter(function(l){return l.rid===rid;});
+    if(r.length)bits.push(ICONS[rid]+" "+r.filter(function(l){return l.ok;}).length+"/"+r.length);
+  });
+  $("end-rows").textContent=bits.join("  ·  ");
+  $("sent-line").textContent="";
+  var txt=reportText();
+  try{localStorage.setItem("irina-hw-last",txt);}catch(e){}
+  try{
+    var q=JSON.parse(localStorage.getItem("irina-hw-queue")||"[]");
+    q.push(txt);if(q.length>10)q=q.slice(-10);
+    localStorage.setItem("irina-hw-queue",JSON.stringify(q));
+  }catch(e){}
+  flushQueue();
+  $("sent-line").textContent="Отправляем результат…";
+  setTimeout(function(){
+    $("sent-line").textContent="✅ Результат уже у твоего учителя!";
+  },2500);
+  show("end-card");
+  window.scrollTo(0,0);
+}
+
+function sendViaForm(txt){
+  /* primary: direct background POST (no third-party frame for Safari to block) */
+  try{
+    var body=new URLSearchParams();
+    body.append(HW_FORM.entryReport,txt);
+    body.append("submit","Submit");
+    fetch(HW_FORM.action,{method:"POST",mode:"no-cors",body:body})
+      .catch(function(){iframePost(txt);});
+  }catch(e){iframePost(txt);}
+}
+function iframePost(txt){ /* fallback for old browsers without fetch */
+  var frame=document.createElement("iframe");
+  frame.name="hw-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=HW_FORM.action;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=HW_FORM.entryReport;inp.value=txt;
+  f.appendChild(inp);
+  var sub=document.createElement("input");
+  sub.type="hidden";sub.name="submit";sub.value="Submit";
+  f.appendChild(sub);
+  document.body.appendChild(f);
+  f.submit();
+  setTimeout(function(){f.remove();frame.remove();},15000);
+}
+function flushQueue(){
+  var q=[];
+  try{q=JSON.parse(localStorage.getItem("irina-hw-queue")||"[]");}catch(e){}
+  if(!q.length)return;
+  q.forEach(sendViaForm);
+  try{localStorage.setItem("irina-hw-queue","[]");}catch(e){}
+}
+flushQueue(); /* anything that failed to send last time goes now */
+})();
+</script>
+</body>
+</html>

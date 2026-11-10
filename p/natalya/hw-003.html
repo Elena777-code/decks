@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natalya's homework · lesson 3 · the chips, the article, the passive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --blue:#1F5FA8; --blue-soft:#E8F0FA;
+  --rust:#A2402F; --rust-soft:#F7EAE6;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#EFECE5;
+  padding:4vh 4vw;display:flex;justify-content:center}
+.page{background:var(--paper);border-radius:18px;max-width:780px;width:100%;
+  padding:clamp(1.4rem,4vw,3rem);display:flex;flex-direction:column;gap:1.4rem}
+h1{font-size:clamp(1.5rem,3.6vw,2.3rem);line-height:1.15;letter-spacing:-.01em}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.9rem,2vw,1.4rem)}
+.step .no{display:inline-flex;width:2em;height:2em;border-radius:50%;
+  background:var(--accent);color:#fff;font-weight:800;align-items:center;
+  justify-content:center;margin-bottom:.5em}
+.step.rust .no{background:var(--rust)} .step.blue .no{background:var(--blue)}
+.step p{font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55;margin:.25em 0}
+.step p.how{color:var(--ink-soft);font-style:italic;font-size:clamp(.9rem,1.8vw,1.05rem)}
+.dchip{float:right;border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.3em .85em;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:clamp(.75rem,1.5vw,.92rem);color:var(--ink-soft);cursor:pointer;
+  transition:all .15s;margin:0 0 .4em .6em}
+.dchip:hover{border-color:var(--accent);color:var(--accent)}
+.dchip.done{background:var(--accent);border-color:var(--accent);color:#fff}
+#send-btn{border:none;border-radius:14px;padding:.7em 1.6em;background:var(--accent);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(1rem,2vw,1.25rem);
+  cursor:pointer;margin-top:.5em}
+#send-btn:hover{transform:scale(1.03)}
+#send-btn[disabled]{opacity:.75;cursor:default;transform:none}
+details{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);
+  margin-top:.7em;overflow:hidden}
+details summary{cursor:pointer;padding:.5em .9em;font-weight:700;color:var(--ink-soft);
+  font-size:clamp(.9rem,1.8vw,1.05rem);list-style:none}
+details summary::before{content:"▸ ";color:var(--accent)}
+details[open] summary::before{content:"▾ "}
+details summary:hover{color:var(--ink)}
+details .body{padding:.4em .95em .8em;border-top:1px dashed var(--line);
+  font-size:clamp(1rem,2vw,1.22rem);line-height:1.55}
+details .body b{color:var(--accent)}
+details .body .ru{color:var(--rust);font-weight:700}
+.sent{padding:.5em 0;border-bottom:1px dashed var(--line);font-size:clamp(1.02rem,2.1vw,1.3rem)}
+.sent:last-child{border-bottom:none}
+.word{padding:.5em 0;border-bottom:1px dashed var(--line)}
+.word:last-child{border-bottom:none}
+.word .w{font-weight:800;color:var(--accent);font-size:clamp(1.08rem,2.2vw,1.35rem)}
+.chips{display:flex;flex-wrap:wrap;gap:.5em;margin:.4em 0}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:.25em .75em;
+  font-size:clamp(.92rem,1.7vw,1.15rem);font-weight:600;background:#fff}
+.model{background:var(--blue-soft);border:1px solid #cfdff0;border-radius:12px;
+  padding:.7em .9em;font-size:clamp(1.02rem,2vw,1.25rem);line-height:1.7;margin:.5em 0}
+.model b{color:var(--rust)}
+.model .mk{border:2px solid var(--ink);border-radius:.45em;padding:0 .15em;white-space:nowrap}
+.art{font-size:clamp(1rem,1.9vw,1.22rem);line-height:1.7;color:#33302a}
+.art p{margin:.55em 0}
+.art blockquote{border-left:3px solid var(--rust);padding:.2em 0 .2em .9em;margin:.6em 0;
+  color:var(--rust);font-weight:600}
+.closing{background:var(--gold-soft);border:1px solid #e8dcb8;border-radius:var(--radius);
+  padding:1em 1.4em;font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55}
+a{color:var(--blue);font-weight:600}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div>
+  <h1>Four small <em>jobs</em></h1>
+  <div class="rule"></div>
+  <p style="margin-top:.6em;color:var(--ink-soft);font-weight:600">Homework after today’s lesson · the chips · the article · the reporting passive · one new word</p>
+</div>
+
+<div class="step">
+  <button class="dchip" data-k="job1" type="button">done</button>
+  <span class="no">1</span>
+  <p><strong>🎰 The Sixteen Chips — our words, back on the table.</strong></p>
+  <p>Sixteen cards from today. The four that got away last time come first —
+  take them back. One chip per card, a very loyal clock (25 seconds).
+  At the end — one button sends me your results.</p>
+  <p><a href="sixteen-chips.html">▶ play The Sixteen Chips</a>
+  <span class="how">— the same drill works for the teacher, she plays too</span></p>
+</div>
+
+<div class="step blue">
+  <button class="dchip" data-k="job2" type="button">done</button>
+  <span class="no">2</span>
+  <p><strong>📖 Your reading: <em>Don't use technology as a bargaining chip with your kids</em>.</strong></p>
+  <p class="how">Joanne Orlando, Western Sydney University (The Conversation). The ten words
+  from today are waiting inside — old friends now.</p>
+  <p><strong>The mission:</strong></p>
+  <div class="sent">① Read it — the whole piece, at your level.</div>
+  <div class="sent">② Your four predictions were: <b>true, true, true, true</b>. While you read — which came true?</div>
+  <div class="sent">③ Bring <b>one reaction</b>: interesting · surprising · irritating — or “written about me”.</div>
+  <div class="sent">④ The ten words → <b>a Russian equivalent each</b>, in your notebook, your own wording:
+    <div class="chips">
+      <span class="chip">a bargaining chip</span><span class="chip">to confiscate</span><span class="chip">adverse effects</span><span class="chip">to fixate on</span><span class="chip">to withdraw (from)</span><span class="chip">a role model</span><span class="chip">the punishment needs to fit the crime</span><span class="chip">to characterise (as)</span><span class="chip">a backlash</span><span class="chip">gratification</span>
+    </div></div>
+  <details><summary>📖 open the whole article right here</summary><div class="body art">
+    <p>Do you take away your teenager's phone to manage their behaviour? Maybe when they arrive home
+    late from a party or receive a bad report card?</p>
+    <p>Confiscating, time-limiting or permitting additional access to technology has become a popular
+    parenting strategy. Surveys show that 65% of American parents with teenagers confiscate phones
+    or remove internet privileges as a form of punishment.</p>
+    <p>It's no longer simply a tool of distraction – technology access has become a means of behavioural
+    control. But my recent research suggests that this approach might not be the best idea.</p>
+    <p>I've spoken with 50 Australian families with 118 children aged 1-18 about this issue. Among my
+    sample, a family with two children owns on average six to eight devices. Some children also had
+    devices from a very young age – the youngest was a one-year-old who received a tablet for her
+    first birthday. The youngest mobile phone owner was six years old.</p>
+    <p>My qualitative investigation suggests that using technology as a bargaining chip can have
+    <strong>adverse effects</strong>. It may impact the trust you build with your child and how they
+    use technology.</p>
+    <p><b>The effect on younger children.</b> For children 12 years and younger, I saw that parents often
+    use technology as a reward for good behaviour. For example, allowing a two-year-old time on a tablet
+    for using the potty “successfully”.</p>
+    <p>While it's important to recognise a child's achievements, kids can begin to associate technology
+    with being “good” and making their parents proud. As one eight-year-old explained while sitting on
+    the couch with an iPad either side of him,</p>
+    <blockquote>“I'm a really good boy, that's why I have two iPads!”</blockquote>
+    <p>This strategy also places emphasis on “use” as opposed to “quality use”. Quality technology use
+    is commonly understood as use that emphasises creativity and problem-solving. It's important not to
+    encourage kids to think about screen time in terms of gratification alone. Instead, it should
+    enhance learning, help develop one's sense of self, or facilitate positive connections.</p>
+    <p><b>The effect on teenagers.</b> In my study, parents with teens often removed or limited technology
+    use as a punishment. For example, taking a phone from a 13-year-old because he was rude.</p>
+    <p>In separate discussions, parents and teens talked about the backlash to such actions. While
+    parents often interpreted their protests as the punishment “working”, teenagers in my study
+    explained it differently.</p>
+    <p>If their phone is taken away, they often withdrew from their parents. Instead of focusing on
+    what they'd done wrong, they fixated on not having a phone and finding someone else's to use in
+    the mean time.</p>
+    <p>On top of this, teenagers characterised it as a privacy issue. One girl explained,</p>
+    <blockquote>“I don't know what my mum does with my phone when she has it. She probably searches
+    through it!”</blockquote>
+    <p>Worryingly, some teens interpreted their punishment in ways that could compromise the important
+    messages that parents give children about safety on the internet. Research shows that healthy
+    family communication is crucial in reducing risky online behaviours such as cyberbullying, contact
+    with a potential predator, or exposure to sexually explicit material.</p>
+    <p>In response to her phone being confiscated, for example, one 15-year-old girl expressed what
+    many teenagers told me:</p>
+    <blockquote>“I don't tell my parents much now about what happens to me because I don't want my
+    phone taken off me.”</blockquote>
+    <p><b>Three key points for parents.</b> Our relationship with technology is complicated, so how
+    should it be treated by parents?</p>
+    <p><strong>Technology shouldn't be used to fix all problems.</strong> Children told me that
+    “the punishment needs to fit the crime!” Using technology to encourage appropriate behaviour is
+    not the answer unless it is in response to a technology-related incident. Say, a teenager bullying
+    someone online. If the incident has nothing to do with internet use, use a strategy that will help
+    them understand and improve on the actual behaviour of concern.</p>
+    <p><strong>Be a positive technology role model.</strong> Being a positive technology role model
+    for children means encouraging quality technology use. For example, setting aside some phone-free
+    time each day so you can be “in the moment” with your child. If you watch online videos with them,
+    make the clips useful, like learning how to design a new garden. Positive interactions can also be
+    demonstrated, such as playing online chess with a friend.</p>
+    <p><strong>When the punishment doesn't work.</strong> My research suggests that there's a point
+    when using technology to manage behaviour simply doesn't work anymore. It can get too difficult
+    to remove the smartphone each time your child needs to do their homework, for example. It could
+    even cause animosity or unnecessary aggravation.</p>
+    <p>It's important to develop a range of strategies that guide child behaviour. These do not always
+    have to be in response to bad behaviour and they do not always need to be extreme. Instead, they
+    could be used to nudge and guide your child towards comprehending their own actions.</p>
+    <p>We need to shift the focus away from parenting that relies on threats and rewards, to one that
+    nurtures meaningful parent-child and child-technology relationships.</p>
+    <p class="how" style="margin-top:.6em">Joanne Orlando · The Conversation · CC BY · also online:
+    <a href="https://theconversation.com/dont-use-technology-as-a-bargaining-chip-with-your-kids-85599" target="_blank" rel="noopener">theconversation.com</a> — opens without a VPN</p>
+  </div></details>
+</div>
+
+<div class="step rust">
+  <button class="dchip" data-k="job3" type="button">done</button>
+  <span class="no">3</span>
+  <p><strong>🪞 The reporting passive — present only, eight rebuilds.</strong></p>
+  <div class="model">They are in Las Vegas. → It <b>is believed</b> that they are in Las Vegas.<br>
+  → They <b>are believed <span class="mk">to be</span></b> in Las Vegas.</div>
+  <p class="how">The verb is in brackets. Say the whole sentence aloud — then open the check.
+  Everything today is present: <i>is / are</i> + the 3rd form + <i>to</i> + infinitive.</p>
+  <div class="sent">1. (say) Cats sleep sixteen hours a day.
+    <details><summary>check yourself</summary><div class="body">→ Cats <b>are said to sleep</b> sixteen hours a day.</div></details></div>
+  <div class="sent">2. (believe) Breakfast is the most important meal of the day.
+    <details><summary>check yourself</summary><div class="body">→ Breakfast <b>is believed to be</b> the most important meal of the day.</div></details></div>
+  <div class="sent">3. (think) The younger generation reads less.
+    <details><summary>check yourself</summary><div class="body">→ The younger generation <b>is thought to read</b> less.</div></details></div>
+  <div class="sent">4. (know) This café makes the best coffee in the district.
+    <details><summary>check yourself</summary><div class="body">→ This café <b>is known to make</b> the best coffee in the district.</div></details></div>
+  <div class="sent">5. (report) The bank closes two branches in the city.
+    <details><summary>check yourself</summary><div class="body">→ The bank <b>is reported to close</b> two branches in the city.</div></details></div>
+  <div class="sent">6. (expect) The new bridge opens in spring.
+    <details><summary>check yourself</summary><div class="body">→ The new bridge <b>is expected to open</b> in spring.</div></details></div>
+  <div class="sent">7. (claim) This tea helps you sleep.
+    <details><summary>check yourself</summary><div class="body">→ This tea <b>is claimed to help</b> you sleep.</div></details></div>
+  <div class="sent">8. (consider) The flat is too expensive.
+    <details><summary>check yourself</summary><div class="body">→ The flat <b>is considered to be</b> too expensive.</div></details></div>
+</div>
+
+<div class="step">
+  <button class="dchip" data-k="job4" type="button">done</button>
+  <span class="no">4</span>
+  <p><strong>🔑 Your new word from today — meet it properly.</strong></p>
+  <div class="word">
+    <span class="w">a contract</span> <span class="how">(also: an agreement)</span>
+    <p>a written agreement between people or companies — it says what each side must do</p>
+    <p><i>She signed a two-year contract with the phone company.</i><br>
+    <i>The builders broke the contract, so the family went to court.</i></p>
+    <details><summary>the Russian</summary><div class="body"><span class="ru">договор · соглашение</span> — that's the word you were reaching for today.</div></details>
+  </div>
+</div>
+
+<div class="step" style="border-top:4px solid var(--accent)">
+  <p><strong>📮 Your progress — one button for Miss Elena.</strong></p>
+  <p class="how">Tick <em>done</em> on each job as you finish it. Then press the button —
+  Miss Elena sees what is done and what is still waiting, before the lesson.</p>
+  <p id="rep-line" style="font-weight:700;color:var(--accent)"></p>
+  <button id="send-btn" type="button">📤 Send my progress</button>
+</div>
+
+<div class="closing">
+  Fourteen chips became sixteen, the article is yours to read, and the passive has both faces now.
+  See you on Tuesday. 💬
+</div>
+
+</div>
+
+<iframe name="hw-form-target" style="display:none"></iframe>
+<script>
+/* ── the done chips + the progress send (the standing shape, 09.10). */
+(function(){
+"use strict";
+var NAMES={job1:'1 · The Sixteen Chips drill',job2:'2 · the reading (the article)',
+  job3:'3 · the reporting passive (eight rebuilds)',job4:'4 · the new word (a contract)'};
+var DONE={};
+try{DONE=JSON.parse(localStorage.getItem('natalya-hw-003-done')||'{}')}catch(e){}
+function save(){try{localStorage.setItem('natalya-hw-003-done',JSON.stringify(DONE))}catch(e){}report()}
+document.querySelectorAll('.dchip').forEach(function(ch){
+  var k=ch.dataset.k;
+  if(DONE[k]){ch.classList.add('done');ch.textContent='✓ done'}
+  ch.addEventListener('click',function(){
+    DONE[k]=!DONE[k];
+    ch.classList.toggle('done',!!DONE[k]);
+    ch.textContent=DONE[k]?'✓ done':'done';
+    save();
+  });
+});
+function state(){
+  return Object.keys(NAMES).reduce(function(acc,k){
+    (DONE[k]?acc.done:acc.yet).push(k);return acc;
+  },{done:[],yet:[]});
+}
+function report(){
+  var s=state();
+  document.getElementById('rep-line').textContent=s.done.length
+    ?'Ticked '+s.done.length+' of 4 — '+s.done.map(function(k){return NAMES[k]}).join(' · ')
+    :'Tick «done» on each job as you finish it!';
+}
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSd7B6GMpuy9fSRl7clE7BGHL43qyxEE2baPO725kN6QlJatjw/formResponse";
+var FORM_ENTRY="entry.1917651123";
+document.getElementById('send-btn').addEventListener('click',function(){
+  var s=state();
+  var txt='Natalya · homework L3 · '+new Date().toLocaleDateString('en-GB')+'\n'
+    +(s.done.length
+      ?'Done ('+s.done.length+'/4):\n• '+s.done.map(function(k){return NAMES[k]}).join('\n• ')+'\n'
+      :'Nothing ticked yet\n')
+    +(s.yet.length
+      ?'Not yet: '+s.yet.map(function(k){return NAMES[k]}).join(' · ')
+      :'All four ticked — clean sweep!');
+  var f=document.createElement('form');
+  f.method='POST';f.action=FORM_ACTION;f.target='hw-form-target';
+  var inp=document.createElement('input');inp.type='hidden';inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);document.body.appendChild(f);f.submit();f.remove();
+  this.textContent='sent to Elena ✓';this.disabled=true;
+  document.getElementById('rep-line').textContent='Sent to Miss Elena ✓ — see you at the lesson!';
+});
+report();
+})();
+</script>
+</body>
+</html>

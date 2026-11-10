@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natalya's homework · the video, your brag, your four hard words</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --blue:#1F5FA8; --blue-soft:#E8F0FA;
+  --rust:#A2402F; --rust-soft:#F7EAE6;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#EFECE5;
+  padding:4vh 4vw;display:flex;justify-content:center}
+.page{background:var(--paper);border-radius:18px;max-width:780px;width:100%;
+  padding:clamp(1.4rem,4vw,3rem);display:flex;flex-direction:column;gap:1.4rem}
+h1{font-size:clamp(1.5rem,3.6vw,2.3rem);line-height:1.15;letter-spacing:-.01em}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.9rem,2vw,1.4rem)}
+.step .no{display:inline-flex;width:2em;height:2em;border-radius:50%;
+  background:var(--accent);color:#fff;font-weight:800;align-items:center;
+  justify-content:center;margin-bottom:.5em}
+.step.rust .no{background:var(--rust)} .step.blue .no{background:var(--blue)}
+.step.gold .no{background:var(--gold)}
+.step p{font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55;margin:.25em 0}
+.step p.how{color:var(--ink-soft);font-style:italic;font-size:clamp(.9rem,1.8vw,1.05rem)}
+.dchip{float:right;border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.3em .85em;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:clamp(.75rem,1.5vw,.92rem);color:var(--ink-soft);cursor:pointer;
+  transition:all .15s;margin:0 0 .4em .6em}
+.dchip:hover{border-color:var(--accent);color:var(--accent)}
+.dchip.done{background:var(--accent);border-color:var(--accent);color:#fff}
+#send-btn{border:none;border-radius:14px;padding:.7em 1.6em;background:var(--accent);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(1rem,2vw,1.25rem);
+  cursor:pointer;margin-top:.5em}
+#send-btn:hover{transform:scale(1.03)}
+#send-btn[disabled]{opacity:.75;cursor:default;transform:none}
+details{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);
+  margin-top:.7em;overflow:hidden}
+details summary{cursor:pointer;padding:.5em .9em;font-weight:700;color:var(--ink-soft);
+  font-size:clamp(.9rem,1.8vw,1.05rem);list-style:none}
+details summary::before{content:"▸ ";color:var(--accent)}
+details[open] summary::before{content:"▾ "}
+details summary:hover{color:var(--ink)}
+details .body{padding:.4em .95em .8em;border-top:1px dashed var(--line);
+  font-size:clamp(1rem,2vw,1.22rem);line-height:1.55}
+details .body b{color:var(--accent)}
+details .body .ru{color:var(--rust);font-weight:700}
+.sent{padding:.5em 0;border-bottom:1px dashed var(--line);font-size:clamp(1.02rem,2.1vw,1.3rem)}
+.sent:last-child{border-bottom:none}
+.word{padding:.6em 0;border-bottom:1px dashed var(--line)}
+.word:last-child{border-bottom:none}
+.word .w{font-weight:800;color:var(--accent);font-size:clamp(1.08rem,2.2vw,1.35rem)}
+.model{background:var(--blue-soft);border:1px solid #cfdff0;border-radius:12px;
+  padding:.7em .9em;font-size:clamp(1.02rem,2vw,1.25rem);line-height:1.7;margin:.5em 0}
+.model b{color:var(--rust)}
+.closing{background:var(--gold-soft);border:1px solid #e8dcb8;border-radius:var(--radius);
+  padding:1em 1.4em;font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55}
+a{color:var(--blue);font-weight:600}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div>
+  <h1>Six small <em>jobs</em></h1>
+  <div class="rule"></div>
+  <p style="margin-top:.6em;color:var(--ink-soft);font-weight:600">Homework after today's lesson ·
+  one video · your first brag · your four hard words · four dictionary words · one fix · the chips</p>
+</div>
+
+<div class="step blue">
+  <button class="dchip" data-k="job1" type="button">done</button>
+  <span class="no">1</span>
+  <p><strong>🎬 The video — «How to brag with purpose».</strong></p>
+  <p>Lisa Bragg on a talk show — real talk-show English, about ten minutes.
+  Her whole message in one line: bragging is a skill, not a sin.</p>
+  <p><a href="https://www.youtube.com/watch?v=MShzgsexr-A" target="_blank" rel="noopener">▶ watch on YouTube</a>
+  <span class="how">— opens without a VPN</span></p>
+  <p><strong>Three words to meet before you watch</strong> — say your guess, then open:</p>
+  <div class="word">
+    <span class="w">a humblebrag</span>
+    <p>a boast dressed up as a complaint — <i>“I'm so exhausted from my weekend in Paris.”</i></p>
+    <details><summary>the Russian</summary><div class="body"><span class="ru">хвастовство под видом скромности</span> — жалоба, за которой прячется похвальба</div></details>
+  </div>
+  <div class="word">
+    <span class="w">bragging rights</span>
+    <p>the right to be proud — and to say it out loud; the winner's prize</p>
+    <details><summary>the Russian</summary><div class="body"><span class="ru">право хвастаться · право на гордость</span> — also the title of Lisa's book</div></details>
+  </div>
+  <div class="word">
+    <span class="w">to deflect praise</span>
+    <p>to hand a compliment back instead of taking it — <i>“Oh, the team did most of the work.”</i></p>
+    <details><summary>the Russian</summary><div class="body"><span class="ru">отводить похвалу · не принимать комплимент</span></div></details>
+  </div>
+  <p><strong>While you watch:</strong> catch <strong>one brag softened with
+  <em>because</em></strong> — Lisa's own trick. Bring it with you.</p>
+</div>
+
+<div class="step gold">
+  <button class="dchip" data-k="job2" type="button">done</button>
+  <span class="no">2</span>
+  <p><strong>💛 Your brag — prepare it, say it to Miss Elena next lesson.</strong></p>
+  <p>One thing you are good at <strong>+ because</strong>. That's the whole trick —
+  the <em>because</em> makes the brag easy to say and easy to hear.</p>
+  <div class="model">“I make very good <b>preserves</b> — <b>because</b> I learned from my mother.”</div>
+  <p class="how">One thing, one because. Say it standing in it — no shrinking.</p>
+</div>
+
+<div class="step rust">
+  <button class="dchip" data-k="job3" type="button">done</button>
+  <span class="no">3</span>
+  <p><strong>🎯 Your four hard words — you marked them yourself.</strong></p>
+  <p class="how">In the lesson you tapped <em>hard</em> on these four. Write <strong>one sentence each</strong> —
+  the whole phrase, articles included. Then open the model.</p>
+  <div class="sent">1. a bargaining chip
+    <details><summary>a model</summary><div class="body">→ In our house, the Wi-Fi password is <b>a bargaining chip</b>. <i>— the phrase carries its article.</i></div></details></div>
+  <div class="sent">2. to withdraw
+    <details><summary>a model</summary><div class="body">→ After the scandal, she had to <b>withdraw</b> from the project. <i>— after <em>had to</em> / <em>to</em>: the infinitive, never “withdrew”.</i></div></details></div>
+  <div class="sent">3. a gynaecologist
+    <details><summary>a model</summary><div class="body">→ During the pregnancy she saw <b>a gynaecologist</b> once a month. <i>— alone it keeps its “a”; with her/his: “her gynaecologist”.</i></div></details></div>
+  <div class="sent">4. an assumption
+    <details><summary>a model</summary><div class="body">→ You're working <b>on the assumption that</b> everyone texts back in a minute. <i>— often “on the assumption that…”.</i></div></details></div>
+</div>
+
+<div class="step">
+  <button class="dchip" data-k="job4" type="button">done</button>
+  <span class="no">4</span>
+  <p><strong>🔑 Four words from the lesson — into your dictionary.</strong></p>
+  <p class="how">Write each into your notebook — the translation in Russian, or the meaning in English,
+  or one example (your choice). Write first, then open the check. Open it again to hide.</p>
+  <div class="word">
+    <span class="w">addicted</span>
+    <p><i>He was addicted to computer games.</i></p>
+    <details><summary>check yourself</summary><div class="body"><span class="ru">зависимый</span> — addicted <b>to</b> something. The word from your own story today.</div></details>
+  </div>
+  <div class="word">
+    <span class="w">to protect</span>
+    <p><i>We have to explain children how to use phones — to protect them.</i></p>
+    <details><summary>check yourself</summary><div class="body"><span class="ru">защищать</span> — protect somebody/something <b>from</b> something.</div></details>
+  </div>
+  <div class="word">
+    <span class="w">middle</span>
+    <p><i>My middle son is 21.</i></p>
+    <details><summary>check yourself</summary><div class="body"><span class="ru">средний</span> — the middle child, the middle son.</div></details>
+  </div>
+  <div class="word">
+    <span class="w">an agreement</span>
+    <p><i>We wrote this agreement on paper — and it worked.</i></p>
+    <details><summary>check yourself</summary><div class="body"><span class="ru">соглашение · договор</span> — the word from last time. It's still learning to stay — meet it once more.</div></details>
+  </div>
+</div>
+
+<div class="step">
+  <button class="dchip" data-k="job5" type="button">done</button>
+  <span class="no">5</span>
+  <p><strong>🪞 One fix from today.</strong></p>
+  <div class="sent">“I think it's very actual problem.”
+    <details><summary>say your fix, then check</summary><div class="body">→ I think it's <b>a real problem</b>. <i>— the false friend: Russian «актуальный» is <b>topical / pressing</b>; “actual” in English means «фактический». The word you were reaching for is <b>real</b>.</i></div></details></div>
+</div>
+
+<div class="step">
+  <button class="dchip" data-k="job6" type="button">done</button>
+  <span class="no">6</span>
+  <p><strong>🎰 The Sixteen Chips — one run.</strong></p>
+  <p>The four that got away last time come first — take them back.
+  At the end — one button sends me your results.</p>
+  <p><a href="sixteen-chips.html">▶ play The Sixteen Chips</a>
+  <span class="how">— the drill asks for your name, and it remembers it</span></p>
+</div>
+
+<div class="step" style="border-top:4px solid var(--accent)">
+  <p><strong>📮 Your progress — one button for Miss Elena.</strong></p>
+  <p class="how">Tick <em>done</em> on each job as you finish it. Then press the button —
+  Miss Elena sees what is done and what is still waiting, before the lesson.</p>
+  <p id="rep-line" style="font-weight:700;color:var(--accent)"></p>
+  <button id="send-btn" type="button">📤 Send my progress</button>
+</div>
+
+<div class="closing">
+  Your brag is waiting to be said out loud — one <em>because</em> and it's ready.
+  See you at our next lesson. 💬
+</div>
+
+</div>
+
+<iframe name="hw-form-target" style="display:none"></iframe>
+<script>
+/* ── the done chips + the progress send (the standing shape, 09.10). */
+(function(){
+"use strict";
+var NAMES={job1:'1 · the video (How to brag with purpose)',
+  job2:'2 · your brag (+ because)',
+  job3:'3 · the four hard words (sentences)',
+  job4:'4 · the dictionary (addicted · protect · middle · agreement)',
+  job5:'5 · the fix (actual → real)',
+  job6:'6 · The Sixteen Chips drill'};
+var DONE={};
+try{DONE=JSON.parse(localStorage.getItem('natalya-hw-004-done')||'{}')}catch(e){}
+function save(){try{localStorage.setItem('natalya-hw-004-done',JSON.stringify(DONE))}catch(e){}report()}
+document.querySelectorAll('.dchip').forEach(function(ch){
+  var k=ch.dataset.k;
+  if(DONE[k]){ch.classList.add('done');ch.textContent='✓ done'}
+  ch.addEventListener('click',function(){
+    DONE[k]=!DONE[k];
+    ch.classList.toggle('done',!!DONE[k]);
+    ch.textContent=DONE[k]?'✓ done':'done';
+    save();
+  });
+});
+function state(){
+  return Object.keys(NAMES).reduce(function(acc,k){
+    (DONE[k]?acc.done:acc.yet).push(k);return acc;
+  },{done:[],yet:[]});
+}
+function report(){
+  var s=state();
+  document.getElementById('rep-line').textContent=s.done.length
+    ?'Ticked '+s.done.length+' of 6 — '+s.done.map(function(k){return NAMES[k]}).join(' · ')
+    :'Tick «done» on each job as you finish it!';
+}
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSd7B6GMpuy9fSRl7clE7BGHL43qyxEE2baPO725kN6QlJatjw/formResponse";
+var FORM_ENTRY="entry.1917651123";
+document.getElementById('send-btn').addEventListener('click',function(){
+  var s=state();
+  var txt='Natalya · homework L4 · '+new Date().toLocaleDateString('en-GB')+'\n'
+    +(s.done.length
+      ?'Done ('+s.done.length+'/6):\n• '+s.done.map(function(k){return NAMES[k]}).join('\n• ')+'\n'
+      :'Nothing ticked yet\n')
+    +(s.yet.length
+      ?'Not yet: '+s.yet.map(function(k){return NAMES[k]}).join(' · ')
+      :'All six ticked — clean sweep!');
+  var f=document.createElement('form');
+  f.method='POST';f.action=FORM_ACTION;f.target='hw-form-target';
+  var inp=document.createElement('input');inp.type='hidden';inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);document.body.appendChild(f);f.submit();f.remove();
+  this.textContent='sent to Elena ✓';this.disabled=true;
+  document.getElementById('rep-line').textContent='Sent to Miss Elena ✓ — see you at the lesson!';
+});
+report();
+})();
+</script>
+</body>
+</html>

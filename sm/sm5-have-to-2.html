@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SM 5.1 · Have to 2 — questions & practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   SM 5.1 — HAVE TO SERIES · deck 1 of 3 · THE SONG
+   «All my have-tos» (Elena's own shelf — the song card:
+   Library/Books/Helbling/all-my-have-tos.md). Elena's ask
+   (20.10): «a series of 3 decks for teaching online have to
+   based on Grammar Songs and Raps» — the song-first arc:
+   deck 1 = the song lesson, deck 2 = questions & practice,
+   deck 3 = production (the show).
+   Structure (whisper-verified 20.10, the real sung order —
+   the recording is the truth, the lyrics docx order differs):
+   rubric → intro → V-homework + chorus → V-dishes + chorus →
+   bridge (a million things) → V-football → V-homework →
+   V-dishes + outro «Or do you have to?». The audio runs
+   ~1:57 (the «4:46» on the old card was the VBR estimate
+   lie). Parts cut CBR 192k, each whisper-verified.
+   Engine = the U2-L1 engine (13.10 → cloned via deck 005):
+   ✍️ V2 window, corners V2, the universal Pardon six, the
+   hotkey guard, flex-shrink, stamp, chime. English only.
+   Answers behind clicks. The tense colour code: have to /
+   has to = BLUE (present), had to = RED (the past).
+   NO SOURCE NAMES on any visible slide (the standing rule).
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --shadow-lg:0 20px 50px rgba(34,48,63,.18);
+  --radius:22px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ---------- fixed chrome ---------- */
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(169,204,239,.35)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.1rem);color:#fff}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--cheese)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;inset:0;padding:5vh 6vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.4vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+/* flex-shrink guard: nothing on a slide may collapse — the slide scrolls */
+.slide>*{flex-shrink:0}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* ---------- text & blocks ---------- */
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy);margin-bottom:.2em}
+h1.title{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin-bottom:.3em;
+  font-size:clamp(1.9rem,4.2vw,3.6rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp))}
+h2{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem)}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(.9rem,1.6vw,1.35rem)}
+.card.sky{background:#E8F1FA}
+.card.cheese{background:var(--cheese-soft)}
+.card.stampc{background:var(--stamp-soft)}
+.row{display:flex;gap:1.2em;align-items:center;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:.4em}
+.center{text-align:center}
+.mt{margin-top:.65em}
+.muted{color:var(--ink-soft)}
+.task{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink);background:var(--cheese-soft);
+  border-radius:14px;padding:.5em 1em;display:inline-block;font-size:clamp(1rem,1.55vw,1.3rem);align-self:flex-start}
+.task::before{content:"🎯 "}
+.hintline{font-size:clamp(.92rem,1.35vw,1.12rem);color:var(--ink-soft);font-style:italic}
+.stamp-box{font-family:'Fredoka',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.06em;
+  border:3px dashed var(--stamp);border-radius:16px;padding:.5em 1em;color:var(--stamp);
+  background:var(--white);box-shadow:var(--shadow);display:inline-block;font-size:clamp(1rem,1.7vw,1.4rem)}
+.bigq{font-family:'Fredoka',sans-serif;font-weight:600;color:#fff;background:var(--navy);
+  border-radius:99px;padding:.3em 1.1em;display:inline-block;font-size:clamp(1rem,1.6vw,1.3rem);align-self:flex-start}
+.bigq::before{content:"❓ "}
+.bookchip{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy-deep);
+  background:#E8F1FA;border:2px solid var(--sky);border-radius:99px;
+  padding:.35em 1em;display:inline-block;font-size:clamp(.95rem,1.5vw,1.22rem);align-self:flex-start}
+.bookchip::before{content:"🖥 "}
+.stamp-box.big{font-size:clamp(1.3rem,2.6vw,2.2rem);padding:.6em 1.4em}
+
+/* the Wi-Fi attention signal (the class switch, taught 22.09) */
+.wifi-slide{justify-content:center;align-items:center;text-align:center}
+.wifi-ico{font-size:clamp(6rem,16vw,13rem);line-height:1;filter:drop-shadow(0 12px 24px rgba(34,48,63,.18))}
+.wifi-word{font-family:'Fredoka',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  font-size:clamp(2rem,5vw,3.6rem);color:var(--navy);margin-top:.2em}
+
+/* teacher-facing prepare-ahead list (slide 1, EN — standing rules) */
+.prep{display:flex;gap:.7em;align-items:flex-start;padding:.6em .9em;border-radius:14px;
+  background:var(--white);box-shadow:0 4px 12px rgba(34,48,63,.07);margin-bottom:.55em}
+.prep .ico{flex-shrink:0;font-size:clamp(1.3rem,2.2vw,1.8rem);line-height:1.3}
+.prep p{font-size:clamp(.98rem,1.55vw,1.25rem);line-height:1.45}
+.prep b{color:var(--navy)}
+
+/* teacher's notes — muted, small, click to unfold */
+button.tn{align-self:flex-start;border:1.5px solid #C9D8EA;background:var(--white);
+  color:var(--ink-soft);font-family:'Fredoka',sans-serif;font-weight:500;
+  font-size:clamp(.78rem,1.2vw,.95rem);padding:.3em 1em;border-radius:99px;
+  cursor:pointer;transition:all .18s}
+button.tn:hover{border-color:var(--ink-soft);color:var(--ink)}
+button.tn.on{background:var(--ink-soft);color:#fff;border-color:var(--ink-soft)}
+.tnotes{display:none;font-size:clamp(.86rem,1.35vw,1.06rem);color:var(--ink-soft);
+  line-height:1.5;border-left:3px solid var(--sky);padding:.15em 0 .15em 1em}
+.tnotes.open{display:block}
+.tnotes b{color:var(--navy)}
+
+/* numbered reveal items */
+.item{display:flex;gap:.7em;align-items:baseline;padding:.38em .2em;
+  border-bottom:2px dashed rgba(169,204,239,.7);cursor:pointer;border-radius:10px;
+  font-size:clamp(1.18rem,1.95vw,1.55rem);line-height:1.42;transition:background .2s ease;user-select:none}
+.item:last-child{border-bottom:none}
+.item:hover{background:#E8F1FA}
+.item .no{font-family:'Fredoka',sans-serif;font-weight:700;flex:none;color:var(--stamp);font-size:.85em}
+.item .agree{color:#fff;background:var(--navy);border-radius:99px;padding:.05em .55em;
+  font-weight:700;font-style:normal;opacity:0;transition:opacity .2s;white-space:nowrap}
+.item .agree.wrap{white-space:normal}
+.item.shown .agree{opacity:1}
+.item.shown{cursor:default}
+.item.shown:hover{background:transparent}
+.item s{color:var(--ink-soft)}
+
+/* the tense colour code (standing rule): present = blue · past = red */
+.ftag{font-weight:800}
+.ftag.pre{color:var(--navy)}
+.ftag.past{color:#D62828}
+
+/* song line cards — the verse rounds */
+.songline{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--ink);
+  font-size:clamp(1.15rem,2.1vw,1.7rem);line-height:1.5}
+.chorus-tag{display:inline-block;font-family:'Fredoka',sans-serif;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--stamp);font-size:clamp(.8rem,1.3vw,1.05rem);margin-bottom:.2em}
+
+/* word bank strip */
+.bank{display:flex;flex-wrap:wrap;gap:.4em;justify-content:center}
+.bank span{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.35rem);
+  padding:.15em .7em;border-radius:99px;background:var(--cheese-soft);color:var(--navy)}
+
+/* homework */
+.hw-step{display:flex;gap:.8em;align-items:flex-start;padding:.7em 1em;border-radius:14px;
+  background:var(--white);box-shadow:0 6px 16px rgba(34,48,63,.08);margin-bottom:.7em}
+.hw-step .n{flex-shrink:0;width:1.8em;height:1.8em;border-radius:50%;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));display:grid;place-items:center;
+  font-family:'Fredoka',sans-serif;font-weight:700;color:#fff}
+.hw-step p{font-size:clamp(1.02rem,1.62vw,1.32rem);line-height:1.5}
+.hw-step .en{font-family:'Fredoka',sans-serif;color:var(--navy);font-weight:600}
+
+/* the jump chip — skip forward to the goodbye */
+button.jump{align-self:center;border:2px dashed var(--navy);background:var(--white);color:var(--navy);
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.95rem,1.5vw,1.2rem);
+  padding:.35em 1.2em;border-radius:99px;cursor:pointer;transition:all .18s}
+button.jump:hover{background:var(--navy);color:#fff}
+
+/* the board card — the TB's "write X on the board" becomes a slide (Elena's standing rule, 13.10) */
+.board-card{background:var(--navy-deep);border:10px solid var(--white);outline:4px solid var(--sky);
+  border-radius:18px;padding:clamp(1em,4vh,2em) clamp(1.4em,4vw,2.4em);box-shadow:var(--shadow-lg)}
+.board-word{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2.6rem,8vw,6.2rem);
+  color:#FDFDF8;letter-spacing:.02em}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#1E3A66;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav,body.presenter #annoBtn,body.presenter #pardonBtn{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:clamp(1rem,1.6vw,1.3rem)}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:'Fredoka',sans-serif;font-size:.9em;cursor:pointer}
+#pv .head button:hover{background:rgba(255,255,255,.15)}
+#pv .head .cnt{margin-left:auto;background:rgba(255,255,255,.12);border-radius:99px;padding:.2em .9em}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(30,58,102,.85);color:#fff;
+  font-family:'Fredoka',sans-serif;font-size:.8rem;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F5F3EE;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--cheese)}
+body.embed #nav,body.embed #bar,body.embed #annoBtn,body.embed #pardonBtn{display:none!important}
+
+/* ---------- 🙋 Pardon? — fullscreen overlay, pill top-LEFT (corners V2) ---------- */
+#pardonBtn{position:fixed;top:calc(10px + .8vh);left:max(10px,1.6vw);z-index:100;
+  width:2.5em;height:2.5em;border-radius:50%;border:1px solid rgba(255,255,255,.35);
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);color:#fff;font-size:1.1rem;
+  cursor:pointer;transition:transform .15s ease}
+#pardonBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#pardon{position:fixed;inset:0;z-index:220;background:rgba(246,248,251,.985);display:none;
+  flex-direction:column;align-items:center;justify-content:center;padding:4vh 6vw;overflow:auto}
+#pardon.open{display:flex}
+#pardon .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka',sans-serif;
+  font-weight:700;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
+#pardon .closer:hover{color:var(--ink)}
+#pardon .phead{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(1.4rem,2.6vw,2.1rem);margin-bottom:2vh}
+#pardon .pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:.8em;max-width:920px}
+#pardon .pcard{background:var(--white);border:2px solid var(--sky);border-radius:16px;
+  padding:.9em 1.1em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.1rem,2vw,1.55rem);line-height:1.4;box-shadow:0 6px 16px rgba(34,48,63,.08)}
+#pardon .pcard .ico{font-size:1.15em;margin-right:.35em}
+
+/* ---------- ✍️ V2 lesson-log — the window top-RIGHT (corners V2):
+   the d: · //: rows + the 3-line free space + fix:, ⌘S = save + close.
+   Auto-sends over http (POST /report); on the iPad 📋 copy is the way. ---------- */
+#annoBtn{position:fixed;top:calc(10px + .8vh);right:max(10px,1.6vw);z-index:100;
+  width:2.5em;height:2.5em;border-radius:50%;border:1px solid rgba(255,255,255,.35);
+  background:rgba(30,58,102,.85);backdrop-filter:blur(10px);color:#fff;font-size:1.1rem;
+  cursor:pointer;transition:transform .15s ease}
+#annoBtn:hover{transform:scale(1.08);border-color:var(--cheese)}
+#anno{position:fixed;right:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(430px,92vw);
+  background:var(--white);border-radius:16px;box-shadow:var(--shadow-lg);padding:.8em .9em;
+  display:none;flex-direction:column;gap:.5em}
+#anno.on{display:flex;animation:rise .25s both}
+#anno .a-head{display:flex;align-items:center;gap:.45em;font-family:'Fredoka',sans-serif;
+  font-size:.92rem;color:var(--navy-deep)}
+#anno .a-sp{flex:1}
+#anno .a-head button{border:1.5px solid #C9D8EA;background:var(--white);border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:'Fredoka',sans-serif;font-size:.85rem;color:var(--ink-soft)}
+#anno .a-head button:hover{border-color:var(--ink-soft);color:var(--ink)}
+#anno #annoTick{border:none;border-radius:99px;padding:.3em 1em;cursor:pointer;
+  font-family:'Fredoka',sans-serif;font-size:.9rem;font-weight:700;background:#eef1f5;color:var(--ink)}
+#anno #annoTick.on{background:var(--mint);color:#fff}
+#annoRows{display:flex;flex-direction:column;gap:.45em}
+.arow{display:flex;gap:.5em;align-items:center}
+.arow label{flex:0 0 3.1em;text-align:right;font-weight:800;font-size:.9rem;
+  color:var(--ink-soft);font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+.arow input{flex:1;min-width:0;border:2px solid #E1E9F4;border-radius:10px;
+  padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;color:var(--ink);background:var(--white)}
+.arow input:focus{outline:none;border-color:var(--sky)}
+.arow.free{margin-top:.2em}
+.arow.free textarea,.arow.fix textarea{flex:1;min-width:0;border:2px dashed #D8DEE6;border-radius:10px;
+  padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;color:var(--ink);
+  background:var(--white);resize:vertical;min-height:3.4em}
+.arow.free textarea:focus,.arow.fix textarea:focus{outline:none;border-color:var(--sky)}
+.arow.free textarea::placeholder,.arow.fix textarea::placeholder{color:#9AA7B3;font-style:italic}
+#anno .a-foot{display:flex;align-items:center;gap:.6em}
+#anno .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;
+  font-family:'Fredoka',sans-serif;font-size:.85rem;font-weight:600;background:#eef1f5;color:var(--ink)}
+#anno .a-foot button:hover{background:var(--navy);color:#fff}
+#anno .a-foot .a-hint{font-size:.74rem;color:var(--ink-soft);font-style:italic}
+#annoDone{font-weight:700}
+#annoRep{position:fixed;inset:0;z-index:260;background:rgba(34,48,63,.45);display:none;
+  align-items:center;justify-content:center;padding:4vh 4vw}
+#annoRep.on{display:flex;animation:rise .25s both}
+#annoRep .a-rep-card{background:var(--white);border-radius:18px;box-shadow:var(--shadow-lg);
+  padding:1em 1.1em;width:min(560px,92vw);display:flex;flex-direction:column;gap:.6em}
+#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid #E1E9F4;border-radius:12px;
+  padding:.6em .7em;font-family:ui-monospace,Menlo,monospace;font-size:.88rem;color:var(--ink)}
+#annoRep .a-head b{font-family:'Fredoka',sans-serif;color:var(--navy-deep)}
+#annoRep .a-foot{display:flex;gap:.6em;align-items:center}
+#annoRep .a-foot button{border:none;border-radius:99px;padding:.28em 1em;cursor:pointer;
+  font-family:'Fredoka',sans-serif;font-size:.85rem;font-weight:600;background:#eef1f5;color:var(--ink)}
+#annoRep .a-foot button:hover{background:var(--navy);color:#fff}
+#annoRepCopy{background:var(--navy)!important;color:#fff!important}
+
+@media (max-width:900px){
+  .slide{padding:4.5vh 5vw calc(74px + 2.4vh)}
+  #pv .panes{grid-template-columns:1fr}
+}
+/* THE CORNERS V2 (Elena, 04.10): Pardon top-left · ✍️ top-right ·
+   emoji-only pills (names in tooltips). The SM5 inline notes buttons
+   stay — the rule governs the fixed corner pills. */
+.slide{padding-top:8.5vh}
+</style>
+</head>
+<body>
+
+<div id="bar"><i></i></div>
+<!-- sm5-have-to-2 · build 20.10 · v1 · full → screen copy (stamp-less; notes, the ✍️ pill, the presenter shell and the film cue stripped) -->
+
+<main id="deck">
+
+  <style>/* the photo cards (chores) + the matching game — deck-local, own classes */
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:.6em;max-width:1080px;margin:0 auto;width:100%}
+.pcard{margin:0;background:var(--white);border-radius:16px;box-shadow:0 6px 16px rgba(34,48,63,.10);
+  overflow:hidden;cursor:pointer;text-align:center;transition:transform .15s ease;position:relative}
+.pcard:hover{transform:translateY(-2px)}
+.pcard img{display:block;width:100%;height:clamp(96px,15vh,140px);object-fit:cover}
+.pcard figcaption{padding:.35em .4em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(.92rem,1.5vw,1.18rem);min-height:2.1em;display:grid;place-items:center}
+.pcard .agree{opacity:0;transition:opacity .2s;color:#fff;background:var(--navy);
+  border-radius:99px;padding:.08em .6em;display:inline-block;white-space:nowrap}
+.pcard.shown .agree{opacity:1}
+.pcard.shown{cursor:default}
+.pcard.small{flex:1;min-width:200px;max-width:260px}
+.pcard.small img{height:clamp(80px,12vh,110px)}
+.pcard.small figcaption{font-size:clamp(.8rem,1.3vw,1rem);min-height:3em}
+/* the matching game */
+.mg-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1em;max-width:1020px;margin:0 auto;width:100%}
+.mg-col{display:grid;gap:.55em;align-content:start}
+.mg-tile{position:relative;border:none;padding:0;background:var(--white);border-radius:16px;
+  box-shadow:0 6px 16px rgba(34,48,63,.10);overflow:hidden;cursor:pointer;height:clamp(72px,11vh,96px)}
+.mg-tile img{width:100%;height:100%;object-fit:cover;display:block}
+.mg-card{border:2px solid var(--sky);background:var(--white);border-radius:14px;
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1rem,1.7vw,1.3rem);color:var(--ink);
+  padding:.5em .8em;cursor:pointer;box-shadow:0 4px 12px rgba(34,48,63,.08);text-align:center}
+.mg-sel{outline:4px solid var(--cheese);outline-offset:2px}
+.mg-lock{opacity:.45;cursor:default;pointer-events:none}
+.mg-tile.mg-lock,.mg-card.mg-lock{outline:4px solid var(--mint);opacity:.8}
+@keyframes mgshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.mg-shake{animation:mgshake .3s ease 2}
+@media (max-width:760px){.mg-wrap{grid-template-columns:1fr 1fr}.mg-tile{height:64px}}
+</style>
+
+  <!-- SLIDE 1 · PREPARE-AHEAD -->
+  <section class="slide">
+    <div class="eyebrow reveal">SM 5.1 · have-to series · deck 2 of 3 · questions &amp; practice</div>
+    <h1 class="title reveal">Prepare ahead 🧰</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:920px">
+      <div class="prep"><span class="ico">🎧</span><p><b>Test the sound:</b> the jazz chant (slide 4) — it is the only audio today; the rest is photos and talk.</p></div>
+      <div class="prep"><span class="ico">🖼</span><p><b>The chore photos load on slides 5–6</b> (11 pictures). If a photo is slow to appear, it arrives from the media folder — one reload fixes it.</p></div>
+      <div class="prep"><span class="ico">🧩</span><p><b>The matching game (slide 6) is NEW to the lessons.</b> It runs only after the joint test — the demo file <b>matching-game-demo.html</b> sits next to this deck; your OK = it stays, otherwise the slide swaps to a proven picture-round (the plan keeps both).</p></div>
+      <div class="prep"><span class="ico">☑️</span><p><b>The check (slide 3) = deck 1's homework:</b> the top-5 have-to lists + who sang the chorus at home.</p></div>
+      <div class="prep"><span class="ico">✍️</span><p><b>Teach from THIS full copy</b> — the ✍️ notes auto-send only from here (the server running).</p></div>
+      <div class="prep"><span class="ico">⏱</span><p><b>Cut order:</b> had-to (9) → the chant rounds 3–4. <b>Never cut:</b> the matching game (6) · the survey (7) · the homework (11).</p></div>
+    </div>
+    <p class="hintline reveal mt">This slide is yours only — start the class from slide 2.</p>
+  </section>
+
+  <!-- SLIDE 2 · WI-FI SWITCH -->
+  <section class="slide wifi-slide">
+    <div class="wifi-ico reveal">📶</div>
+    <div class="wifi-word reveal">Wi-Fi!</div>
+  </section>
+
+  <!-- SLIDE 3 · HW CHECK — DECK 1'S HOMEWORK -->
+  <section class="slide" style="gap:1vh">
+    <div class="eyebrow reveal">Homework check · deck 1</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">Your million things 📝</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">Read your top-5 list — the class listens for the verbs!</p>
+    <div class="col reveal" style="max-width:900px;width:100%;gap:.5em">
+      <div class="frame small">— <b class="slot">I have to make my bed.</b> · — <b class="slot">I have to feed the cat.</b> · — <b class="slot">I don't have to wash the car.</b></div>
+    </div>
+    <div class="card reveal" style="max-width:900px;width:100%;padding:clamp(.6rem,1.1vw,.95rem)">
+      <div class="item" data-k><span class="no">🎤</span><span>Who sang the chorus at home? <span class="agree wrap">hands up — one chorus together, from memory!</span></span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 · THE JAZZ CHANT (🎬 the filming moment) -->
+  <section class="slide" style="gap:1vh">
+    <div class="eyebrow reveal">Warm-up · a have-to chant</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">When do we have to be back? 🎵</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center reveal" style="display:flex;justify-content:center">
+      <audio controls preload="none" src="../media/have-to-chant.mp3" style="width:min(480px,90%)"></audio>
+    </div>
+    <div class="row reveal" style="align-items:stretch">
+      <div class="card" style="flex:1;min-width:320px">
+        <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">The questions — the class asks 👧👦</p>
+        <p class="songline" style="font-size:clamp(1rem,1.75vw,1.4rem)">When do we <b class="ftag pre">have to</b> be back, Jack?<br>
+        How long do we <b class="ftag pre">have to</b> wait, Kate?<br>
+        How soon do we <b class="ftag pre">have to</b> pay, Ray?</p>
+      </div>
+      <div class="card sky" style="flex:1;min-width:320px">
+        <p style="font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);margin-bottom:.2em">The answers — the teacher sings 🎤</p>
+        <p class="songline" style="font-size:clamp(1rem,1.75vw,1.4rem)">You <b class="ftag pre">have to</b> be back at two, Lou.<br>
+        You <b class="ftag pre">have to</b> wait until ten, Ken.<br>
+        Pay as soon as you can, Anne.</p>
+      </div>
+    </div>
+    <div class="row reveal" style="justify-content:center;gap:.6em">
+      <span class="bookchip">1st — listen 🎧</span>
+      <span class="bookchip">2nd — chant with it 👏</span>
+      <span class="bookchip">3rd — SWAP the parts! 🔁</span>
+    </div>
+</section>
+
+  <!-- SLIDE 5 · THE CHORES — THE PHOTOS -->
+  <section class="slide" style="gap:1vh">
+    <div class="eyebrow reveal">New words · the chores</div>
+    <h1 class="title reveal" style="font-size:clamp(1.6rem,3.3vw,2.7rem)">What do you have to do at home? 🏠</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">Look and say — then click the photo to check the words!</p>
+    <div class="photo-grid reveal">
+      <figure class="pcard" data-k><img src="../media/cook_dinner.jpg" alt="cook dinner"><figcaption><span class="agree">cook dinner</span></figcaption></figure>
+      <figure class="pcard" data-k><img src="../media/do_the_dishes.jpg" alt="do the dishes"><figcaption><span class="agree">do the dishes</span></figcaption></figure>
+      <figure class="pcard" data-k><img src="../media/load_the_dishwasher.jpg" alt="load the dishwasher"><figcaption><span class="agree">load the dishwasher</span></figcaption></figure>
+      <figure class="pcard" data-k><img src="../media/do_the_washing.jpg" alt="do the washing"><figcaption><span class="agree">do the washing</span></figcaption></figure>
+      <figure class="pcard" data-k><img src="../media/do_the_ironing.jpg" alt="do the ironing"><figcaption><span class="agree">do the ironing</span></figcaption></figure>
+      <figure class="pcard" data-k><img src="../media/clean_the_house.jpg" alt="clean the house"><figcaption><span class="agree">clean the house</span></figcaption></figure>
+      <figure class="pcard" data-k><img src="../media/tidy_my_bedroom.jpg" alt="tidy my bedroom"><figcaption><span class="agree">tidy my bedroom</span></figcaption></figure>
+      <figure class="pcard" data-k><img src="../media/set_the_table.jpg" alt="set the table"><figcaption><span class="agree">set the table</span></figcaption></figure>
+      <figure class="pcard" data-k><img src="../media/feed_the_cat.jpg" alt="feed the cat"><figcaption><span class="agree">feed the cat</span></figcaption></figure>
+      <figure class="pcard" data-k><img src="../media/go_to_the_supermarket.jpg" alt="go to the supermarket"><figcaption><span class="agree">go to the supermarket</span></figcaption></figure>
+      <figure class="pcard" data-k><img src="../media/do_your_homework.jpg" alt="do your homework"><figcaption><span class="agree">do your homework</span></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- SLIDE 6 · THE MATCHING GAME (the new activity — the joint test gate) -->
+  <section class="slide" style="gap:1vh">
+    <div class="eyebrow reveal">The matching game · picture ↔ words</div>
+    <h1 class="title reveal" style="font-size:clamp(1.6rem,3.3vw,2.7rem)">Find the pair! 🧩</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">Tap a picture — tap the words. A correct pair locks green!</p>
+    <div class="mg-wrap reveal">
+      <div class="mg-col" id="mg-left"></div>
+      <div class="mg-col" id="mg-right"></div>
+    </div>
+    <div class="row reveal" style="justify-content:center;gap:.8em">
+      <span class="bookchip" id="mg-count">matched 0 / 6</span>
+      <button class="jump" id="mg-again" style="display:none">🔁 play again</button>
+    </div>
+    <div class="center reveal"><div class="stamp-box big" id="mg-banner" style="display:none">⭐ six out of six — brilliant!</div></div>
+  </section>
+
+  <!-- SLIDE 7 · THE SURVEY — DO YOU HAVE TO…? -->
+  <section class="slide" style="gap:1vh">
+    <div class="eyebrow reveal">Speaking · ask and answer</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">The home survey 🎤</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">Write yes or no for you — then ask your partner!</p>
+    <div class="row reveal" style="align-items:stretch">
+      <div class="card" style="flex:1;min-width:300px">
+        <div class="item"><span class="no">1</span><span>make your bed</span></div>
+        <div class="item"><span class="no">2</span><span>wash the dishes</span></div>
+        <div class="item"><span class="no">3</span><span>tidy your room</span></div>
+      </div>
+      <div class="card" style="flex:1;min-width:300px">
+        <div class="item"><span class="no">4</span><span>feed the cat</span></div>
+        <div class="item"><span class="no">5</span><span>do the ironing</span></div>
+        <div class="item"><span class="no">6</span><span>help with the cooking</span></div>
+      </div>
+    </div>
+    <div class="col reveal" style="max-width:900px;margin:0 auto;width:100%;gap:.5em">
+      <div class="frame small">— <b class="slot">Do you have to make your bed every day?</b><br>— Yes, I do. / No, I don't.</div>
+      <div class="frame small">💬 Then tell the class: <b class="slot">Masha has to feed the cat. She doesn't have to do the ironing.</b></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 8 · DON'T HAVE TO -->
+  <section class="slide" style="gap:1vh">
+    <div class="eyebrow reveal">Grammar · don't have to</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">Don't have to = it's OK! 🎈</h1>
+    <div class="accent-line reveal"></div>
+    <div class="row reveal" style="align-items:stretch">
+      <div class="card" style="flex:1;min-width:300px">
+        <p style="font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);margin-bottom:.3em"><span class="ftag pre">HAVE TO</span> — it is necessary ✅</p>
+        <p style="font-size:clamp(1rem,1.6vw,1.28rem);line-height:1.5">You <b class="ftag pre">have to</b> do the dishes.<br><span class="muted">nobody else will!</span></p>
+      </div>
+      <div class="card cheese" style="flex:1;min-width:300px">
+        <p style="font-family:'Fredoka',sans-serif;font-weight:700;color:var(--ink);margin-bottom:.3em"><b>DON'T HAVE TO</b> — it's OK not to 🎈</p>
+        <p style="font-size:clamp(1rem,1.6vw,1.28rem);line-height:1.5">You <b>don't have to</b> love it!<br><span class="muted">the song's own words — nobody must love their chores</span></p>
+      </div>
+    </div>
+    <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">Say it with don't have to — then check!</p>
+    <div class="card reveal" style="max-width:960px;margin:0 auto;width:100%;padding:clamp(.6rem,1.1vw,.95rem)">
+      <div class="row" style="gap:.2em 1.4em;align-items:stretch">
+        <div class="col" style="flex:1;min-width:280px">
+          <div class="item" data-k><span class="no">1</span><span>It's Sunday tomorrow. (get up early) <span class="agree">I don't have to get up early!</span></span></div>
+          <div class="item" data-k><span class="no">2</span><span>The dishwasher is full. (wash the dishes) <span class="agree">I don't have to wash the dishes!</span></span></div>
+          <div class="item" data-k><span class="no">3</span><span>School's closed today. (go to school) <span class="agree">I don't have to go to school!</span></span></div>
+        </div>
+        <div class="col" style="flex:1;min-width:280px">
+          <div class="item" data-k><span class="no">4</span><span>Dad is driving us. (take the bus) <span class="agree">We don't have to take the bus!</span></span></div>
+          <div class="item" data-k><span class="no">5</span><span>It's the holidays! (do homework) <span class="agree">I don't have to do homework!</span></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 9 · HAD TO — YESTERDAY -->
+  <section class="slide" style="gap:1vh">
+    <div class="eyebrow reveal">Grammar · the past</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">Yesterday I had to… ⏪</h1>
+    <div class="accent-line reveal"></div>
+    <p class="task reveal" style="font-size:clamp(.95rem,1.45vw,1.2rem)">Look at the photos — say YOUR true sentence with had to!</p>
+    <div class="row reveal" style="justify-content:center;gap:.7em;flex-wrap:wrap">
+      <figure class="pcard small" data-k><img src="../media/load_the_dishwasher.jpg" alt="load the dishwasher"><figcaption><span class="agree">I had to load the dishwasher.</span></figcaption></figure>
+      <figure class="pcard small" data-k><img src="../media/feed_the_cat.jpg" alt="feed the cat"><figcaption><span class="agree">I had to feed the cat.</span></figcaption></figure>
+      <figure class="pcard small" data-k><img src="../media/cook_dinner.jpg" alt="cook dinner"><figcaption><span class="agree">I had to cook dinner.</span></figcaption></figure>
+      <figure class="pcard small" data-k><img src="../media/do_the_washing.jpg" alt="do the washing"><figcaption><span class="agree">I had to do the washing.</span></figcaption></figure>
+    </div>
+    <div class="col reveal" style="max-width:900px;margin:0 auto;width:100%;gap:.5em">
+      <div class="frame small">⏱ time words: <b class="slot">yesterday · last weekend · this morning</b></div>
+      <div class="frame small">💬 And the free day: <b class="slot">I didn't have to tidy my bedroom — hooray!</b></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 10 · THE TREASURE TASK -->
+  <section class="slide" style="gap:1.2vh">
+    <div class="eyebrow reveal">Think! · the treasure task</div>
+    <h1 class="title reveal" style="font-size:clamp(1.7rem,3.6vw,3rem)">The cat and the clock 💎</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:900px;width:100%;gap:.5em">
+      <div class="frame small">1️⃣ You <b class="slot">have to feed the cat BEFORE school.</b></div>
+      <div class="frame small">2️⃣ You <b class="slot">have to be at school at 8:30.</b></div>
+      <div class="frame small">3️⃣ It is 8:25. The bowl is empty. 🐱</div>
+      <div class="frame small">❓ <b class="slot">How many minutes do you have to feed the cat?</b></div>
+    </div>
+    <div class="card reveal" style="max-width:900px;width:100%;padding:clamp(.6rem,1.1vw,.95rem)">
+      <div class="item" data-k style="border-bottom:none"><span class="no">🔑</span><span><b>Five minutes!</b> 8:25 → 8:30 — run, feed the cat, GO! 🐱💨</span></div>
+    </div>
+  </section>
+
+  <!-- SLIDE 11 · HOMEWORK -->
+  <section class="slide">
+    <div class="eyebrow reveal">Homework · light</div>
+    <h1 class="title reveal">Homework 📌</h1>
+    <div class="accent-line reveal"></div>
+    <div class="col reveal" style="max-width:900px;width:100%">
+      <div class="hw-step"><span class="n">1</span><p>🎤 <b>Ask TWO people at home:</b> <span class="en">«Do you have to…?»</span> — two chores each. Write their answers! <span class="en">Mum has to cook. Dad doesn't have to iron.</span></p></div>
+      <div class="hw-step"><span class="n">2</span><p>🎵 <b>Teach the chant</b> to someone at home — questions and answers!</p></div>
+    </div>
+    <div class="center reveal"><div class="stamp-box big">survey takers — see you at the show! 🎬</div></div>
+  </section>
+
+  <!-- SLIDE 12 · THE GOODBYE -->
+  <section class="slide">
+    <div class="eyebrow reveal">The lesson is done</div>
+    <h1 class="title reveal">Well done! 💪</h1>
+    <div class="accent-line reveal"></div>
+    <div class="center reveal" style="margin-top:2vh"><div class="stamp-box big">a million chores — and you named them ALL! 🏆</div></div>
+  </section>
+
+</main>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 12</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- 🙋 Pardon? pill — top LEFT (corners V2), emoji-only -->
+<button id="pardonBtn" title="Pardon? — class phrases (P)">🙋</button>
+<div id="pardon">
+  <span class="closer" onclick="togglePardon(false)">✕ close</span>
+  <p class="phead">🙋 Say it in English!</p>
+  <div class="pgrid">
+<div class="pcard"><span class="ico">🙋</span>Pardon?</div>
+<div class="pcard"><span class="ico">❓</span>What does <b>___</b> mean?</div>
+<div class="pcard"><span class="ico">🆘</span>Can you help me?</div>
+<div class="pcard"><span class="ico">🔁</span>Can you repeat, please?</div>
+<div class="pcard"><span class="ico">🇬🇧</span>How do you say <b>___</b> in English?</div>
+<div class="pcard"><span class="ico">🤷</span>I don't understand.</div>
+    </div>
+</div>
+
+
+
+<script>
+/* ============ core deck engine (the U2-L1 engine, 13.10 → cloned via deck 005) ============ */
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.querySelector('#bar i'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+
+/* every sync element gets a stable key; class to switch = data-on */
+const syncs=[...document.querySelectorAll('[data-k]')];
+syncs.forEach((el,k)=>{el.dataset.k=k;if(!el.dataset.on)el.dataset.on='shown'});
+function setSync(k,on){const el=syncs[k];if(!el)return;
+  if(el.classList.contains('yn')){el.classList.toggle('shown-yes',on&&el.dataset.on==='shown-yes');
+    el.classList.toggle('shown-no',on&&el.dataset.on==='shown-no');}
+  else el.classList.toggle(el.dataset.on,on);}
+
+const CH='sm5-have-to-2';
+const bc=('BroadcastChannel'in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get('embed')?'embed':(qs.get('presenter')?'presenter':'main');
+const open=new Set();
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==='hello'&&MODE==='main'){post({t:'state',i,open:[...open]});return}
+  if(m.t==='state'){if(MODE==='embed'){showEmbed(m.i)}applyOpen(m.open);if(MODE==='presenter')pvShow(m.i);return}
+  if(m.t==='go'){if(MODE==='embed')showEmbed(m.i);else{go(m.i,true)}applyOpen(m.open||[]);return}
+  if(m.t==='tap'){setSync(m.k,m.on);if(m.on)open.add(m.k);else open.delete(m.k);
+    if(MODE==='embed')post({t:'tap',k:m.k,on:m.on});}
+};
+function applyOpen(list){open.clear();(list||[]).forEach(k=>{open.add(k);setSync(k,true)})}
+function broadcastState(){post({t:'state',i,open:[...open]})}
+
+/* clicks on reveal elements — child answers first, click confirms */
+document.getElementById('deck').addEventListener('click',e=>{
+  const el=e.target.closest('[data-k]');if(!el)return;
+  const k=+el.dataset.k;
+  const nowOn=!el.classList.contains(el.dataset.on);
+  setSync(k,nowOn);if(nowOn)open.add(k);else open.delete(k);
+  post({t:'tap',k,on:nowOn});
+});
+
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,'','#'+(i+1));
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  if(annoPanel&&annoPanel.classList.contains('on')){annoIdx=n;annoFill()}
+  if(!silent)post({t:'go',i,open:[...open]});
+  if(MODE==='presenter')pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+const fsBtn=document.getElementById('fs');
+if(fsBtn)fsBtn.onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* teacher's notes toggle (muted, small — click to unfold) */
+function tn(b){const n=b.nextElementSibling;n.classList.toggle('open');b.classList.toggle('on');b.blur();}
+
+/* 🙋 Pardon? overlay */
+function togglePardon(on){const p=document.getElementById('pardon');if(p)p.classList.toggle('open',on)}
+const pardonBtnEl=document.getElementById('pardonBtn');
+if(pardonBtnEl)pardonBtnEl.onclick=()=>togglePardon(!document.getElementById('pardon').classList.contains('open'));
+const pardonEl=document.getElementById('pardon');
+if(pardonEl)pardonEl.addEventListener('click',e=>{if(e.target.id==='pardon')togglePardon(false)});
+
+document.addEventListener('keydown',e=>{
+  /* ⌘S / Ctrl+S = save + close the ✍️ window — the ONE modifier combo the deck
+     owns, and only while the window is open; the browser save dialog never appears */
+  if((e.metaKey||e.ctrlKey)&&(e.key==='s'||e.key==='S')&&annoPanel&&annoPanel.classList.contains('on')){
+    e.preventDefault();annoDoneClose();return}
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){
+    const rep=document.getElementById('annoRep');
+    if(rep&&rep.classList.contains('on')){rep.classList.remove('on');return}
+    if(annoPanel&&annoPanel.classList.contains('on')){annoPanel.classList.remove('on');return}
+    togglePardon(false);return}
+  if(MODE==='embed')return;
+  /* AUDIO key-guard: SPACE pauses a playing track instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'){if(fsBtn)fsBtn.click();}
+  if(e.key==='t'||e.key==='T')togglePresenter();
+  if(e.key==='p'||e.key==='P'){togglePardon(!document.getElementById('pardon').classList.contains('open'));return}
+  if((e.key==='n'||e.key==='N'||e.key==='т'||e.key==='Т'||e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С')&&MODE==='main'&&annoPanel){
+    if(annoPanel.classList.contains('on'))annoDoneClose();
+    else annoToggle(true);
+    return}
+});
+/* the wheel never flips a scrolled slide — it scrolls it */
+let wt=0;document.addEventListener('wheel',e=>{if(MODE!=='main')return;
+  const sl=e.target.closest('.slide');if(sl&&sl.classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{if(MODE!=='main')return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ presenter view (T / 🖥) ============ */
+const pv=document.getElementById('pv');
+function togglePresenter(){
+  if(MODE==='embed')return;
+  if(!pv)return; /* the screen-only copy carries no presenter view */
+  if(MODE==='presenter'){window.close();return}
+  window.open(location.pathname+'?presenter=1','sm5-pv-have-to-2','width=1180,height=820');
+}
+const pvtBtn=document.getElementById('pvt');
+if(pvtBtn)pvtBtn.onclick=togglePresenter;
+const pvCloseBtn=document.getElementById('pv-close');
+if(pvCloseBtn)pvCloseBtn.onclick=()=>window.close();
+const pvCur=document.getElementById('pv-cur'),pvNext=document.getElementById('pv-next'),
+pvNotes=document.getElementById('pv-notes'),pvCnt=document.getElementById('pv-cnt');
+if(MODE==='presenter'&&pv){
+  document.body.classList.add('presenter');
+  pvCur.src=location.pathname+'?embed=cur';pvNext.src=location.pathname+'?embed=next';
+}
+function pvShow(n){
+  if(MODE!=='presenter'||!pv)return;
+  pvCnt.textContent=(n+1)+' / '+slides.length;
+  pvNotes.innerHTML='';
+  const tnEl=slides[n].querySelector('.tnotes');
+  const note=tnEl?tnEl.textContent:slides[n].dataset.notes;
+  if(note){const p=document.createElement('p');p.textContent=note;pvNotes.appendChild(p)}
+  const nx=slides[n+1];
+  const nxTn=nx&&nx.querySelector('.tnotes');
+  const nxt=nx?(nxTn?nxTn.textContent:nx.dataset.notes):null;
+  if(nxt){const h=document.createElement('p');h.innerHTML='<b>next →</b> ';h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+/* embed panes: mirror the authoritative index, no chrome, no wheel-nav */
+let embedSlot=qs.get('embed');
+function showEmbed(n){
+  const target=embedSlot==='next'?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==='next')document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle('active',k===target);s.classList.remove('prev')});
+}
+
+/* ============ ✍️ V2 lesson log — the d: · //: column + the 3-line free
+   space + fix:, ⌘S = save + close; the live report AUTO-SENDS to the Mac
+   inbox over http (POST /report); on the iPad 📋 copy is the way ============ */
+const annoPanel=document.getElementById('anno'),annoSlideEl=document.getElementById('annoSlide'),
+annoFields=annoPanel?{
+  d:document.getElementById('annoD'),sl:document.getElementById('annoSL'),
+  free:document.getElementById('annoF'),fx:document.getElementById('annoFX')}:null,
+annoTick=document.getElementById('annoTick'),
+annoHint=document.getElementById('annoHint'),annoSent=document.getElementById('annoSent');
+const CAN_SEND=(location.protocol==='http:'&&MODE==='main');
+let annoIdx=i,annoData={};
+try{annoData=JSON.parse(localStorage.getItem(CH+'-anno-v2')||'{}')}catch(e){annoData={}}
+function annoSave(){try{localStorage.setItem(CH+'-anno-v2',JSON.stringify(annoData))}catch(e){}
+  annoSend()}
+function annoFill(){if(!annoPanel)return;const a=annoData[annoIdx+1]||{};
+  annoSlideEl.textContent='slide '+(annoIdx+1)+' / '+slides.length;
+  annoFields.d.value=a.d||'';annoFields.sl.value=a.sl||'';annoFields.free.value=a.free||'';annoFields.fx.value=a.fx||'';
+  annoTick.classList.toggle('on',!!a.t)}
+function annoToggle(open){if(!annoPanel)return;annoPanel.classList.toggle('on',open);
+  if(open){annoIdx=i;annoFill();
+    const firstEmpty=Object.values(annoFields).find(f=>!f.value)||annoFields.d;
+    firstEmpty.focus()}
+  else document.activeElement&&document.activeElement.blur()}
+function annoSet(k,f){const a=annoData[k]||{};f(a);
+  if(!a.t&&!a.d&&!a.sl&&!a.free&&!a.fx)delete annoData[k];else annoData[k]=a;annoSave()}
+function annoDoneClose(){annoSave();
+  if(annoHint){annoHint.textContent='saved ✓';
+    setTimeout(()=>annoHint.textContent=CAN_SEND
+      ?'auto-sends to the Mac · they see the screen while you type'
+      :'saves on this device · they see the screen while you type',1400)}
+  annoToggle(false)}
+function annoReportText(){let out=CH+' · lesson notes · '+new Date().toLocaleString('en-GB')+'\n';
+  let any=false;
+  slides.forEach((s,k)=>{const a=annoData[k+1];if(!a)return;
+    const rows=[];
+    if(a.d)rows.push('d: '+a.d);
+    if(a.sl)rows.push('//: '+a.sl);
+    if(a.free)rows.push(a.free);
+    if(a.fx)rows.push(('fix: '+a.fx).replace(/\n/g,'\n   '));
+    if(!a.t&&!rows.length)return;any=true;
+    out+=(k+1)+(a.t?' ✓':'')+'\n'+rows.map(r=>'   '+r).join('\n')+'\n'});
+  if(!any)out+='(nothing ticked or noted yet)';
+  return out}
+let annoTimer=null;
+function annoSend(){if(!CAN_SEND)return;
+  clearTimeout(annoTimer);
+  annoTimer=setTimeout(()=>{
+    fetch('/report?deck='+encodeURIComponent(CH),{method:'POST',body:annoReportText()})
+      .then(()=>{if(annoSent)annoSent.textContent='auto-sent to the Mac ✓'})
+      .catch(()=>{if(annoSent)annoSent.textContent='not sent — use 📋 copy'})
+  },1200)}
+if(annoHint)annoHint.textContent=CAN_SEND
+  ?'auto-sends to the Mac · they see the screen while you type'
+  :'saves on this device · they see the screen while you type';
+if(MODE==='main'&&annoPanel){
+  document.getElementById('annoBtn').onclick=()=>annoToggle(!annoPanel.classList.contains('on'));
+  document.getElementById('annoPrev').onclick=()=>{annoIdx=Math.max(0,annoIdx-1);annoFill()};
+  document.getElementById('annoNext').onclick=()=>{annoIdx=Math.min(slides.length-1,annoIdx+1);annoFill()};
+  document.getElementById('annoX').onclick=()=>annoToggle(false);
+  annoTick.onclick=()=>{annoSet(annoIdx+1,a=>a.t=a.t?0:1);annoFill()};
+  Object.entries(annoFields).forEach(([key,f])=>
+    f.addEventListener('input',()=>annoSet(annoIdx+1,a=>a[key]=f.value)));
+  document.getElementById('annoDone').onclick=annoDoneClose;
+  const rep=document.getElementById('annoRep'),repText=document.getElementById('annoRepText');
+  document.getElementById('annoCopy').onclick=()=>{
+    repText.value=annoReportText();rep.classList.add('on')};
+  document.getElementById('annoRepClose').onclick=()=>rep.classList.remove('on');
+  rep.addEventListener('click',e=>{if(e.target===rep)rep.classList.remove('on')});
+  document.getElementById('annoRepCopy').onclick=()=>{
+    repText.select();
+    try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(repText.value);
+    else document.execCommand('copy')}catch(e){}
+    const b=document.getElementById('annoRepCopy');b.textContent='copied ✓';
+    setTimeout(()=>b.textContent='copy',1200)};
+  document.getElementById('annoRepClear').onclick=()=>{
+    if(confirm('Delete all ticks and comments?')){annoData={};
+      try{localStorage.removeItem(CH+'-anno-v2')}catch(e){}
+      annoSave();annoFill();rep.classList.remove('on')}};
+}
+
+/* boot: hash → slide; main announces state, others say hello and catch up.
+   Only main may broadcast state — an embed/presenter never overrides it. */
+const h=parseInt(location.hash.slice(1));
+if(MODE==='main'){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true);broadcastState()}
+else post({t:'hello'});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=='main')return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();}catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+
+<script>
+/* ============ the matching game — deck-local machinery (own block, own classes;
+   the engine's data-k handler never touches it: no .mg-* element carries data-k) ============ */
+(function(){
+  const PAIRS=[
+    {img:'../media/do_the_dishes.jpg',      t:'do the dishes'},
+    {img:'../media/feed_the_cat.jpg',       t:'feed the cat'},
+    {img:'../media/cook_dinner.jpg',        t:'cook dinner'},
+    {img:'../media/set_the_table.jpg',      t:'set the table'},
+    {img:'../media/load_the_dishwasher.jpg',t:'load the dishwasher'},
+    {img:'../media/do_your_homework.jpg',   t:'do your homework'}
+  ];
+  const left=document.getElementById('mg-left'),
+        right=document.getElementById('mg-right'),
+        cnt=document.getElementById('mg-count'),
+        again=document.getElementById('mg-again'),
+        banner=document.getElementById('mg-banner');
+  if(!left||!right)return;
+  let selImg=null, selCard=null, matched=0, busy=false;
+
+  function shuffle(a){const r=a.slice();for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]];}return r}
+  function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e}
+
+  function build(){
+    left.innerHTML='';right.innerHTML='';
+    selImg=null;selCard=null;matched=0;busy=false;
+    cnt.textContent='matched 0 / 6';
+    again.style.display='none';banner.style.display='none';
+    PAIRS.forEach(p=>{
+      const t=el('button','mg-tile');t.type='button';
+      const im=el('img');im.src=p.img;im.alt=p.t;t.appendChild(im);
+      t.dataset.mg=p.t;t.addEventListener('click',()=>pickImg(t,p));
+      left.appendChild(t);
+    });
+    shuffle(PAIRS).forEach(p=>{
+      const c=el('button','mg-card',p.t);c.type='button';
+      c.dataset.mg=p.t;c.addEventListener('click',()=>pickCard(c,p));
+      right.appendChild(c);
+    });
+  }
+  function deselect(){if(selImg){selImg.classList.remove('mg-sel');selImg=null}
+    if(selCard){selCard.classList.remove('mg-sel');selCard=null}}
+  function pickImg(tile,p){
+    if(busy||tile.classList.contains('mg-lock'))return;
+    if(selImg===tile){deselect();return}
+    if(selCard){const card=selCard;selImg=tile;tile.classList.add('mg-sel');judge(tile,card);return}
+    deselect();selImg=tile;tile.classList.add('mg-sel');
+  }
+  function pickCard(card,p){
+    if(busy||card.classList.contains('mg-lock'))return;
+    if(selCard===card){deselect();return}
+    if(selImg){const tile=selImg;selCard=card;card.classList.add('mg-sel');judge(tile,card);return}
+    deselect();selCard=card;card.classList.add('mg-sel');
+  }
+  function judge(tile,card){
+    busy=true;
+    if(tile.dataset.mg===card.dataset.mg){
+      tile.classList.remove('mg-sel');card.classList.remove('mg-sel');
+      tile.classList.add('mg-lock');card.classList.add('mg-lock');
+      selImg=null;selCard=null;matched++;busy=false;
+      cnt.textContent='matched '+matched+' / 6';
+      if(matched===6){cnt.textContent='matched 6 / 6';again.style.display='';banner.style.display=''}
+    }else{
+      tile.classList.add('mg-shake');card.classList.add('mg-shake');
+      setTimeout(()=>{tile.classList.remove('mg-shake','mg-sel');card.classList.remove('mg-shake','mg-sel');
+        selImg=null;selCard=null;busy=false;},620);
+    }
+  }
+  again.addEventListener('click',build);
+  build();
+})();
+</script>
+</body>
+</html>

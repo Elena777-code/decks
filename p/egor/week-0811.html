@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EGOR — the November week · one hour a day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wall:#F6F4EF; --card:#FFFFFF; --ink:#33312B; --ink-soft:#8B8678;
+  --teal:#3E8E7E; --amber:#C99A3C; --amber-soft:rgba(201,154,60,.10);
+  --terra:#C4744D; --line:#E5E0D5; --radius:18px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--wall);color:var(--ink);font-family:'Inter',system-ui,sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:4vh 5vw 8vh;-webkit-font-smoothing:antialiased}
+header{max-width:680px;width:100%;text-align:center;margin-bottom:1.2em}
+.eyebrow{color:var(--amber);letter-spacing:.18em;text-transform:uppercase;font-weight:600;font-size:.78rem}
+h1{font-weight:800;font-size:clamp(1.6rem,6vw,2.4rem);line-height:1.12;margin-top:.15em}
+h1 .calm{color:var(--teal)}
+.rules{margin-top:.7em;color:var(--ink-soft);font-weight:500;font-size:clamp(.95rem,3.4vw,1.1rem);line-height:1.65}
+main{max-width:680px;width:100%}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:0 10px 30px rgba(51,49,43,.10);padding:clamp(1.4rem,5vw,2.2rem);margin-bottom:1em;
+  animation:pop .25s ease;scroll-margin-top:14px}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none!important}
+.day-grid{display:flex;flex-wrap:wrap;gap:.6em;justify-content:center;margin-top:1.1em}
+.day-chip{background:#eef5f2;color:var(--ink);border-radius:18px;padding:.6em .5em .55em;
+  width:calc(33% - .5em);min-width:96px;box-shadow:0 4px 0 #d8e5df;line-height:1.25;
+  font-family:'Inter',sans-serif;font-weight:600;border:none;cursor:pointer}
+.day-chip .dnum{font-size:clamp(1.05rem,4.2vw,1.3rem);font-weight:800}
+.day-chip .dicons{display:block;font-size:.78rem;margin-top:.2em;letter-spacing:.06em}
+.day-chip.today{background:#FFF3D6;box-shadow:0 4px 0 #f0d998;outline:3px solid var(--amber)}
+.day-chip.locked{opacity:.45;filter:grayscale(.4)}
+@keyframes wiggle{50%{transform:translateX(-4px)}}
+.day-chip.wiggle{animation:wiggle .3s ease}
+.qrow{display:flex;justify-content:space-between;align-items:center;gap:.5em}
+.skip-btn{background:transparent;color:var(--ink-soft);font-size:.78rem;font-weight:600;
+  padding:.25em .8em;border:1px dashed #d6d2c6;border-radius:99px;white-space:nowrap}
+.qcount{font-size:.82rem;font-weight:800;color:var(--teal);letter-spacing:.08em;text-transform:uppercase}
+.prompt{font-size:clamp(1.25rem,5vw,1.8rem);font-weight:700;line-height:1.5;margin-top:.5em}
+.prompt .gap{color:var(--terra);letter-spacing:.04em}
+.prompt .base{color:var(--teal);font-weight:800}
+.teach{background:rgba(62,142,126,.06);border-radius:14px;padding:1em 1.2em;margin:.8em 0;
+  font-size:clamp(.95rem,3.4vw,1.05rem);font-weight:500;line-height:1.65;text-align:left}
+.teach b{color:var(--teal)}
+.examtext{background:var(--wall);border:1px solid var(--line);border-radius:14px;padding:1em 1.2em;margin:.8em 0;
+  font-size:clamp(.92rem,3.3vw,1rem);line-height:1.7;text-align:left}
+.examtext b{color:var(--teal)}
+.examtext .gnum{color:var(--terra);font-weight:800}
+.helper{margin-top:.6em;color:var(--ink-soft);font-size:clamp(.85rem,3vw,1rem);font-weight:500}
+.answer-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:1.3em}
+.type-box{font:600 1.15rem 'Inter',sans-serif;color:var(--ink);background:var(--wall);
+  border:2px solid var(--line);border-radius:14px;padding:.65em 1em;width:min(230px,60vw);
+  text-align:center;outline:none;transition:.2s}
+.type-box:focus{border-color:var(--teal)}
+button{font-family:'Inter',sans-serif;font-weight:600;border:none;cursor:pointer;border-radius:99px;
+  transition:transform .12s ease,filter .12s ease}
+button:active{transform:scale(.96)}
+.ok-btn{background:var(--teal);color:#fff;font-size:1.05rem;padding:.7em 1.9em}
+.choice{background:var(--wall);border:2px solid var(--line);color:var(--ink);
+  font-size:clamp(.95rem,3.6vw,1.1rem);padding:.55em 1.2em}
+.choice:hover{border-color:var(--teal);color:var(--teal)}
+.pulse{animation:pulse .4s ease}
+@keyframes pulse{from{opacity:.3}to{opacity:1}}
+button.big{background:var(--teal);color:#fff;font-size:clamp(1.1rem,4.2vw,1.35rem);padding:.7em 2.4em;margin-top:1.2em}
+a.big{background:var(--ink-soft);color:#fff;font:600 clamp(1.1rem,4.2vw,1.35rem) 'Inter',sans-serif;
+  padding:.7em 2.4em;margin-top:1.2em;text-decoration:none;display:inline-block}
+.blockcard{text-align:left}
+.blockcard h2{font-size:clamp(1.15rem,4.5vw,1.5rem);font-weight:800;margin:.2em 0 .4em}
+.blockcard .btag{font-size:.75rem;font-weight:800;color:var(--amber);letter-spacing:.1em;text-transform:uppercase}
+.rt{background:var(--wall);border:1px solid var(--line);border-radius:12px;padding:.7em .9em;margin:.5em 0;
+  font-size:clamp(.92rem,3.3vw,1rem);line-height:1.6;text-align:left;display:flex;gap:.8em;align-items:flex-start}
+.rt .rtext{flex:1}
+.rt input{font:600 1.05rem 'Inter',sans-serif;width:64px;text-align:center;border:2px solid var(--line);
+  border-radius:10px;padding:.3em;outline:none;background:#fff}
+.rt input:focus{border-color:var(--teal)}
+.rt input.wide{width:150px}
+.stem{display:inline-block;background:var(--amber-soft);color:var(--ink);font-weight:800;
+  border-radius:8px;padding:.1em .5em;font-size:.9em;letter-spacing:.04em;white-space:nowrap}
+.opts{color:var(--ink-soft);font-size:.95em;margin-top:.35em;line-height:1.55}
+.revline{border-bottom:1px dotted var(--line);padding:.5em 0;font-size:clamp(.9rem,3.3vw,1rem);
+  text-align:left;font-weight:500;line-height:1.55}
+.revline .mark{font-weight:800}
+.revline .mk-ok{color:var(--teal)} .revline .mk-bad{color:var(--terra)}
+.revline .key{color:var(--teal);font-weight:800}
+.revline .why{color:var(--ink-soft);font-size:.92em}
+.score-line{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dotted var(--line);
+  padding:.55em 0;font-size:clamp(1rem,3.8vw,1.2rem);font-weight:600}
+.score-line b{color:var(--teal)}
+audio{width:100%;margin:.8em 0}
+.mono{width:100%;min-height:120px;font:500 1rem 'Inter',sans-serif;color:var(--ink);background:var(--wall);
+  border:2px solid var(--line);border-radius:14px;padding:.8em 1em;outline:none;resize:vertical;line-height:1.6}
+.mono:focus{border-color:var(--teal)}
+.copyline{display:flex;gap:.6em;align-items:stretch;margin:.6em 0;flex-wrap:wrap}
+.copybox{flex:1;min-width:220px;background:var(--wall);border:1px dashed var(--line);border-radius:12px;
+  padding:.7em .9em;font-size:clamp(.85rem,3vw,.95rem);line-height:1.6;color:var(--ink-soft);text-align:left}
+.copybtn{background:var(--amber);color:#fff;border-radius:12px;padding:.5em 1.1em;font-size:.9rem}
+.dchip{float:right;background:var(--wall);border:2px solid var(--line);color:var(--ink-soft);
+  border-radius:99px;padding:.25em .9em;font-size:.85rem;font-weight:700}
+.dchip.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.clearfix{clear:both}
+footer{max-width:680px;width:100%;text-align:center;margin-top:1.4em;color:var(--ink-soft);font-size:.78rem;font-weight:500}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">EGOR · the November week · one hour a day</div>
+  <h1>Seven days — <span class="calm">seven rounds</span></h1>
+</header>
+<main>
+  <div class="card" id="writing-card">
+    <div class="eyebrow" style="margin-bottom:.5em">Before the next lesson · the writing pair</div>
+    <h2 style="font-size:clamp(1.1rem,4.2vw,1.4rem)">Variant 26 — the email and the essay</h2>
+    <p class="rules" style="text-align:left">Write both pieces before your next lesson with Elena — on paper, no devices.
+    Tap <b>done</b> when a piece is written — its task card folds away; tap the tick again to look at it once more.</p>
+    <button class="dchip" data-k="v26email" id="chip-email" type="button">done</button>
+    <div class="teach clearfix" id="email-task"><b>Task 37 — the email to Mathew</b> (Environment · 100–140 words).
+    Answer all his questions: which environmental organisation he should join (advise him) · how old volunteers need to be · whether he should get any special qualifications.
+    Then ask him <b>3 questions</b> about his new hobby (bird-watching).</div>
+    <button class="dchip" data-k="v26essay" id="chip-essay" type="button">done</button>
+    <div class="teach clearfix" id="essay-task"><b>Task 38.2 — the essay</b> (time online in Netland · 200–250 words · numbers as digits).
+    The survey question to quote: <b>«How much time do you usually spend online?»</b> Several hours a day 49 · All free time 23 · An hour a day 15 · Several hours a week 10 · An hour a month 3.
+    Walk the plan: opening → 2–3 facts → 1–2 comparisons → a problem one can face using the Internet + a way of solving it → your opinion on the importance of the Internet in daily life.</div>
+  </div>
+
+  <div class="card" id="start-card">
+    <p class="rules">Finish a day — the next one opens.<br>
+    Every answer is <b>recorded silently</b> and stays hidden until you press
+    <b>Send to Elena</b> 📤 at the end of the day. Then you see every line: right or wrong.<br>
+    Exam tasks are <b>full and untimed</b> — no hints. The weak-spot blocks run the ladder:
+    explain → practice → drill → drill on the clock ⏰.</p>
+    <div class="answer-row" style="margin-top:1em">
+      <input class="type-box" id="name-box" autocomplete="off" autocapitalize="on" spellcheck="false" placeholder="your name">
+    </div>
+    <div class="day-grid" id="day-grid"></div>
+    <p class="helper" id="day-msg">Tap today's day</p>
+    <p class="helper">build 2026-11-07 · v4 (a ticked writing piece folds its task card away — Elena: «once he has clicked done, you can hide it») · v3 (each new card pins its block header + the question to the top of the screen — Elena's demo verdict) · v2 (the writing pair is now Variant 26 — Elena: V27 written 07.11) · v1 · 7 days · Nov 8–14 · grammar &amp; word formation from Muzlanova В1–В7 · tasks 30–36 (FIPI demos + the bank) · FIPI demo listening · the weak-spot ladder · the AI-coach talk · Orlova/Manukova Unit 9 · results hidden until Send</p>
+  </div>
+
+  <div class="card hidden" id="run-card">
+    <div class="qrow"><div class="qcount" id="q-count"></div><button class="skip-btn" id="skip-btn" type="button">⤼ Пропустить →</button></div>
+    <div class="timer-wrap hidden" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="card hidden" id="end-card">
+    <div class="eyebrow" style="margin-bottom:.6em" id="end-eyebrow">the day's results</div>
+    <div id="end-body"></div>
+    <div class="answer-row" style="margin-top:1.2em">
+      <a class="big" href="hw.html" style="margin-top:0;background:var(--ink-soft)">← Back to my homework</a>
+      <button class="big" id="home-btn" style="margin-top:0">To the days</button>
+    </div>
+  </div>
+</main>
+<footer>one hour a day · grammar · word formation · tasks 30–36 · listening · the weak-spot ladder · the AI talk · Orlova · Svetlana speaking</footer>
+
+<script>
+(function(){
+"use strict";
+/* Egor's own form (the week/edu-week wiring) */
+var HW_FORM={action:"https://docs.google.com/forms/d/e/1FAIpQLSeHQqLTCwsgpvG4T1T_bHHDVj8VyvB4BomKyjV7zmeIBEH6yA/formResponse",entry:"entry.892008789"};
+/* the FIPI demo listening cuts (decks/media/week/, two levels up from p/egor/) */
+var AUDIO={
+ 1:"../../media/week/fi27-t1.mp3",
+ 2:"../../media/week/fi26-t2.mp3",
+ 3:"../../media/week/fi27-t3.mp3",
+ 4:"../../media/week/fi26-t1.mp3",
+ 5:"../../media/week/fi26-t3.mp3",
+ 6:"../../media/week/fi27-t2.mp3",
+ 7:"../../media/week/fi25-t12.mp3"};
+
+/* ============ DATA ============ */
+/* Sheet item shapes:
+   {t:"type", q:"…______…", stem:"WORD", a:["key"]} — grammar / word formation
+   {t:"mc",   q:"…", ch:["1) …","2) …"], a:["3"]} — multiple choice (digit answer)
+   {t:"fill", q:"…______…", ch:["opt1","opt2"], a:["opt1"]} — choose-the-word (word options, no digits) */
+
+/* ---- Day 1 ---- */
+var G1={name:"Grammar · Muzlanova В1 · 19–24",icon:"①",kind:"sheet",
+ head:"<b>What Can Computers Do?</b> · <b>The Greatest Invention</b> — transform the word in CAPITALS so it fits the gap. Type the word only.",
+ items:[
+  {t:"type",q:"Nowadays computers and microchips ______ part of our everyday lives.",stem:"BECOME",a:["have become","havebecome"]},
+  {t:"type",q:"We read magazines ______ on computers, we buy things and pay bills with the help of computers.",stem:"PRODUCE",a:["produced"]},
+  {t:"type",q:"In the past nobody ______ stories about robots and space travel, but now computers are able to do almost all difficult jobs.",stem:"BELIEVE",a:["believed"]},
+  {t:"type",q:"Interestingly enough, the wheel is not that old. The ______ known wheel is from Mesopotamia, around 3500 B.C.",stem:"OLD",a:["oldest"]},
+  {t:"type",q:"However, by the time people started using the wheel, they already ______ sailboats, as well as complicated musical instruments.",stem:"CONSTRUCT",a:["had constructed","hadconstructed"]},
+  {t:"type",q:"The main problem that caused this delay was not the wheel ______ but the connection of the wheel to a stable platform.",stem:"IT",a:["itself"]}]};
+var W1={name:"Word formation · Muzlanova В1 · 25–29",icon:"②",kind:"sheet",
+ head:"<b>A Challenge for Europe</b> — form a word from the CAPITALS that fits both the grammar and the meaning.",
+ items:[
+  {t:"type",q:"Recently there has been a small ______ in the number of people out of work in Europe.",stem:"REDUCE",a:["reduction"]},
+  {t:"type",q:"However, ______ is still the number one social problem facing the 15 member states of the European Union.",stem:"EMPLOY",a:["unemployment"]},
+  {t:"type",q:"Moreover, ______ of opportunity between men and women is still an issue that politicians in many countries have not come to grips with.",stem:"EQUAL",a:["equality","inequality"]},
+  {t:"type",q:"In professions such as law and engineering women are still ______ by their absence.",stem:"NOTICE",a:["noticeable"]},
+  {t:"type",q:"______ still discriminate against women in a number of ways even if their qualifications are the same as those of men.",stem:"EMPLOY",a:["employers"]}]};
+var V1={name:"Tasks 30–36 · FIPI demo 2027 · «Sunday»",icon:"③",kind:"sheet",
+ head:"Read the text with gaps 30–36. For each gap choose the answer 1, 2, 3 or 4 and type the DIGIT.",
+ text:"Gloria Wald sat back in her chair with a small sigh. She was trying to relax listening to her favourite classical music. She had to <span class='gnum'>30</span> ______ that she was tired today. Sundays always tired her. Sometimes she thought she did more work at home than she did at the office. She always spent Sundays answering her personal correspondence, looking over the books kept by the cook and the housekeeper. She made lists of what she had noticed needed to be <span class='gnum'>31</span> ______ around the apartment and of items needed to complete her wardrobe. <span class='gnum'>32</span> ______, she had to plan menus for the week. It was tedious work, but she had done it for years, even before she’d begun to run the business. Once she’d taken over from her husband, she had still spent her Sundays <span class='gnum'>33</span> ______ to the household. She was also <span class='gnum'>34</span> ______ care of her grandson on the nurse’s day off. Those Sundays had been precious, a few hours with her grandson without anyone interfering, anyone taking him away. She <span class='gnum'>35</span> ______ those days. A tiny bright tear crept into her lashes. How she loved that child. She would have done anything for him. And she had. She <span class='gnum'>36</span> ______ to maintain the family business empire for him, carried the legacy from one generation to the next. It was her most valuable gift for him. And she had come to love the business almost as much as she loved her grandson.",
+ items:[
+  {t:"mc",q:"30 — She had to ______ that she was tired today.",ch:["1) approach","2) allow","3) admit","4) approve"],a:["3"]},
+  {t:"mc",q:"31 — needed to be ______ around the apartment",ch:["1) received","2) repaired","3) remained","4) repeated"],a:["2"]},
+  {t:"mc",q:"32 — ______, she had to plan menus for the week.",ch:["1) Although","2) However","3) Nevertheless","4) Moreover"],a:["4"]},
+  {t:"mc",q:"33 — she had still spent her Sundays ______ to the household.",ch:["1) visiting","2) concentrating","3) attending","4) focusing"],a:["3"]},
+  {t:"mc",q:"34 — She was also ______ care of her grandson on the nurse’s day off.",ch:["1) taking","2) keeping","3) holding","4) making"],a:["1"]},
+  {t:"mc",q:"35 — She ______ those days.",ch:["1) recorded","2) reminded","3) recognized","4) remembered"],a:["4"]},
+  {t:"mc",q:"36 — She ______ to maintain the family business empire for him.",ch:["1) managed","2) accomplished","3) succeeded","4) achieved"],a:["1"]}]};
+var L1={name:"Listening · FIPI demo 2027 · Task 1",icon:"④",kind:"sheet",audio:AUDIO[1],
+ head:"<b>You hear six speakers.</b> Match the speakers A–F with the statements 1–7. Use each digit once; one statement is extra. You hear the recording twice — play the file, listen, type the DIGITS.",
+ optslist:["1. Classroom projects can cause some conflicts in a group.","2. Classroom projects have several advantages.","3. It’s bad when people don’t do their share for a project.","4. Teachers enjoy classroom projects more than students.","5. Classroom projects can be inconvenient for students.","6. Classroom projects should not be the same all the time.","7. Classroom projects encourage collaboration."],
+ items:[
+  {t:"mc",q:"Speaker A",a:["7"]},{t:"mc",q:"Speaker B",a:["6"]},{t:"mc",q:"Speaker C",a:["3"]},
+  {t:"mc",q:"Speaker D",a:["1"]},{t:"mc",q:"Speaker E",a:["5"]},{t:"mc",q:"Speaker F",a:["2"]}]};
+var WS1={name:"Weak spot · a big plus of …-ing",icon:"⑤",kind:"cycle",sec:15,
+ explain:"From your Task-2 runs (04.11): after <b>of · for · about · by · instead of</b> the verb takes <b>-ing</b>: «A big plus of <b>fighting</b> stress at home is…» · «You can hurt your eyes by <b>sitting</b> too close».<br>"+
+ "And the three fixes from the same tape: «you can improve your <b>health</b>» (not <i>your body</i>) · «you can get <b>more stressed</b>» (not <i>get more stress</i>) · «technology provides <b>opportunities</b>» (not <i>abilities</i>).",
+ practice:[
+  {t:"fill",q:"A big plus of ______ stress at home is that it is comfortable.",ch:["fight","fighting","fought"],a:["fighting"]},
+  {t:"fill",q:"A big advantage of VR is that you can avoid ______ your eyes.",ch:["injure","injuring","injured"],a:["injuring"]},
+  {t:"fill",q:"Smartwatches can improve your ______ while you do sports.",ch:["body","health"],a:["health"]},
+  {t:"fill",q:"After a difficult match players often get ______ .",ch:["more stress","more stressed"],a:["more stressed"]},
+  {t:"fill",q:"Technology provides different ______ for a comfortable life.",ch:["abilities","opportunities"],a:["opportunities"]}],
+ drill:[
+  {t:"fill",q:"Instead of ______ about programmes, our family watches together.",ch:["argue","arguing"],a:["arguing"]},
+  {t:"fill",q:"A big plus of ______ is that it is quick and easy.",ch:["text","texting"],a:["texting"]},
+  {t:"fill",q:"He is afraid of ______ glasses one day.",ch:["wear","wearing"],a:["wearing"]},
+  {t:"fill",q:"You can hurt your eyes by ______ too close to the screen.",ch:["sit","sitting"],a:["sitting"]},
+  {t:"fill",q:"Sport helps people get ______ after a stressful day.",ch:["relaxed","relaxing"],a:["relaxed"]}],
+ timed:[
+  {t:"fill",q:"A big plus of ______ is that it is good for health.",ch:["swim","swimming"],a:["swimming"]},
+  {t:"fill",q:"Technology gives us more ______ to study from anywhere.",ch:["abilities","opportunities"],a:["opportunities"]},
+  {t:"fill",q:"She was tired — the trip was ______ .",ch:["tiring","tired"],a:["tiring"]},
+  {t:"fill",q:"Try ______ breaks when you play computer games.",ch:["take","taking"],a:["taking"]},
+  {t:"fill",q:"After the exam he felt ______ .",ch:["stress","stressed"],a:["stressed"]}]};
+var AI1={name:"Talk to your AI coach · gadgets",icon:"⑥",kind:"ai",
+ topic:"Gadgets in your life",
+ prompt:"Hi! I'm preparing for my English exam. Let's practise speaking about gadgets. Ask me questions ONE at a time. After each of my answers: tell me which of my sentences had mistakes, show me the corrected sentence, then ask the next question. At the end, give me three words or phrases I should remember from this talk.",
+ mono:"Then speak for ONE minute without any support — no notes, no hints: «The gadget I cannot live without» — what it does, why it matters, one downside. Type the monologue here for Elena.",
+ o:1,day:1};
+var O1={name:"Orlova/Manukova · Unit 9 · television",icon:"⑦",kind:"sheet",
+ head:"The Unit 9 words in place — type the whole word form or choose.",
+ items:[
+  {t:"fill",q:"Documentaries and news programmes ______ our knowledge about the world and current events.",ch:["broad","broaden"],a:["broaden"]},
+  {t:"fill",q:"TV can be a potential source of ______ information.",ch:["value","valuable"],a:["valuable"]},
+  {t:"fill",q:"Don't sit on the couch all day — you may ______ the obesity problem.",ch:["contribute to","contribute"],a:["contribute to"]},
+  {t:"fill",q:"It is important to be ______ of the risks of too much screen time.",ch:["aware","awake"],a:["aware"]},
+  {t:"fill",q:"Regular family ______ are a good tradition in our house.",ch:["gatherings","gathering"],a:["gatherings"]},
+  {t:"fill",q:"Young people often watch soap operas to ______ time.",ch:["kill","spend"],a:["kill"]},
+  {t:"fill",q:"May I ______ you for a moment?",ch:["trouble","bother","annoy","worry"],a:["trouble"],why:"Set 1 — the formal one"}]};
+
+/* ---- Day 2 ---- */
+var G2={name:"Grammar · Muzlanova В2 · 19–24",icon:"①",kind:"sheet",
+ head:"<b>Choosing a Career</b> — transform the word in CAPITALS so it fits the gap.",
+ items:[
+  {t:"type",q:"Jane had always wanted to be a nurse and help ______ in need. Her father, however, thought that nursing was not a suitable profession for her.",stem:"PERSON",a:["people"]},
+  {t:"type",q:"When she left school, she ______ a job as a doctor's receptionist.",stem:"OFFER",a:["was offered","wasoffered"]},
+  {t:"type",q:"Jane ______ to take the job. So she decided to visit her friend Ann and discussed with her what she should do.",stem:"NOT WANT",a:["did not want","didn't want","didnotwant"]},
+  {t:"type",q:"While Jane ______ her problem, Ann's mother shouted to the girls to come over.",stem:"EXPLAIN",a:["was explaining","wasexplaining"]},
+  {t:"type",q:"She said that Jane's father ______ an accident and he was in hospital.",stem:"HAVE",a:["had had","hadhad"]},
+  {t:"type",q:"When they arrived at the hospital, Jane was amazed to see her father ______ on the bed in a very good mood.",stem:"SIT",a:["sitting"]}]};
+var W2={name:"Word formation · Muzlanova В2 · 25–29",icon:"②",kind:"sheet",
+ head:"<b>Edinburgh</b> — form a word from the CAPITALS.",
+ items:[
+  {t:"type",q:"______ everyone who comes to Scotland today spends some time in this city.",stem:"PRACTICAL",a:["practically"]},
+  {t:"type",q:"Edinburgh is the second most popular tourist destination in Great Britain and it's not hard to see why. Its midsummer ______ festival is one of the biggest in the world.",stem:"NATION",a:["international"]},
+  {t:"type",q:"Edinburgh is a delight to explore on foot: most of its ______ are contained within a compact central area.",stem:"ATTRACT",a:["attractions"]},
+  {t:"type",q:"With streets steeped in history and a thriving ______ scene, Edinburgh offers the perfect balance between traditional and contemporary things.",stem:"CULTURE",a:["cultural"]},
+  {t:"type",q:"The area around the city has many ______ towns and scenic villages, which are also great for exploring.",stem:"HISTORY",a:["historic","historical"]}]};
+var V2={name:"Tasks 30–36 · FIPI demo 2026 · «Sandy»",icon:"③",kind:"sheet",
+ head:"Read the text with gaps 30–36. For each gap type the DIGIT of the answer.",
+ text:"Sandy called Dan Atkins the following week, to give Berta Canning, her literary agent, plenty of time to get in touch with him and send him the manuscript he could read. She hoped he would <span class='gnum'>30</span> ______ to help her to edit her first book. And when Dan Atkins answered, he seemed as though she’d woken him out of a sound sleep. She <span class='gnum'>31</span> ______ profusely, and he didn’t sound happy to hear from her. There was a long silence and then he told Sandy to come on Saturday. He explained that he lived near the university campus where he <span class='gnum'>32</span> ______ to teach. She wasn’t looking forward to meeting him, but she didn’t want Berta to be angry with her either. So, she bicycled over to his address on Saturday. When Sandy got there, he took forever to answer the bell. She was <span class='gnum'>33</span> ______ about to leave when he opened the door. She followed him upstairs to a large living room that would have been lovely if he tidied it once in a while. There were stacks of books everywhere, a pile of papers, a mountain of manuscripts on the desk and half eaten food on the coffee table. He obviously lived alone and needed a housekeeper desperately. He was as untidy as his living room. He had a long, unkempt beard, a mane of wild white hair that <span class='gnum'>34</span> ______ Sally of Albert Einstein. He was wearing jeans, a sweater with holes in it, and tennis shoes. Sandy could <span class='gnum'>35</span> ______ figure out his age. He seemed to be about seventy, <span class='gnum'>36</span> ______ Berta told her later that he was only sixty. He said that he liked her book.",
+ items:[
+  {t:"mc",q:"30 — She hoped he would ______ to help her to edit her first book.",ch:["1) assume","2) admit","3) approve","4) agree"],a:["4"]},
+  {t:"mc",q:"31 — She ______ profusely.",ch:["1) apologized","2) appeared","3) applied","4) approached"],a:["1"]},
+  {t:"mc",q:"32 — he lived near the university campus where he ______ to teach.",ch:["1) held","2) took","3) kept","4) used"],a:["4"]},
+  {t:"mc",q:"33 — She was ______ about to leave when he opened the door.",ch:["1) yet","2) just","3) still","4) only"],a:["2"]},
+  {t:"mc",q:"34 — a mane of wild white hair that ______ Sally of Albert Einstein",ch:["1) reminded","2) regarded","3) recognized","4) remembered"],a:["1"]},
+  {t:"mc",q:"35 — Sandy could ______ figure out his age.",ch:["1) really","2) rarely","3) hardly","4) nearly"],a:["3"]},
+  {t:"mc",q:"36 — He seemed to be about seventy, ______ Berta told her later that he was only sixty.",ch:["1) nevertheless","2) therefore","3) although","4) moreover"],a:["3"]}]};
+var L2={name:"Listening · FIPI demo 2026 · Task 2",icon:"④",kind:"sheet",audio:AUDIO[2],
+ head:"<b>You hear a dialogue (Jane and Peter).</b> Decide which statements A–G are true (1), false (2), or not stated (3). You hear the recording twice.",
+ optslist:["A. Jane spent a month in Italy.","B. Jane and her parents had a lazy vacation in Italy.","C. Jane knows some facts about the history of Pompeii.","D. Jane got to Pompeii by bus.","E. Jane thinks the ticket to Pompeii wasn’t expensive.","F. Jane is always lucky to have good guides.","G. Peter is going to Italy next summer."],
+ items:[
+  {t:"mc",q:"A — Jane spent a month in Italy.",a:["2"]},
+  {t:"mc",q:"B — Jane and her parents had a lazy vacation in Italy.",a:["2"]},
+  {t:"mc",q:"C — Jane knows some facts about the history of Pompeii.",a:["1"]},
+  {t:"mc",q:"D — Jane got to Pompeii by bus.",a:["2"]},
+  {t:"mc",q:"E — Jane thinks the ticket to Pompeii wasn’t expensive.",a:["1"]},
+  {t:"mc",q:"F — Jane is always lucky to have good guides.",a:["3"]},
+  {t:"mc",q:"G — Peter is going to Italy next summer.",a:["3"]}]};
+var WS2={name:"Weak spot · -ing or -ed?",icon:"⑤",kind:"cycle",sec:15,
+ explain:"Your question from the 04.11 log: <b>judging and judged — he confuses ing/ed</b>. The rule: <b>-ing</b> = it causes the feeling («the film is <b>boring</b>») · <b>-ed</b> = you feel it («he is <b>bored</b>»). The court judges you → you feel <b>judged</b>.",
+ practice:[
+  {t:"fill",q:"The documentary was so ______ that I fell asleep.",ch:["boring","bored"],a:["boring"]},
+  {t:"fill",q:"I was ______ with the results of the test.",ch:["disappointing","disappointed"],a:["disappointed"]},
+  {t:"fill",q:"VR games are ______ — time flies.",ch:["exciting","excited"],a:["exciting"]},
+  {t:"fill",q:"She felt ______ when her video got a million views.",ch:["exciting","excited"],a:["excited"]},
+  {t:"fill",q:"The ten-hour flight was ______ .",ch:["tiring","tired"],a:["tiring"]}],
+ drill:[
+  {t:"fill",q:"What ______ you most about technology?",ch:["interest","interests","interesting"],a:["interests"]},
+  {t:"fill",q:"The news was ______ — the mission failed.",ch:["depressing","depressed"],a:["depressing"]},
+  {t:"fill",q:"He was ______ after judging the contest all day.",ch:["tiring","tired"],a:["tired"]},
+  {t:"fill",q:"It is ______ to see how fast phones change.",ch:["amazing","amazed"],a:["amazing"]},
+  {t:"fill",q:"We were ______ by the two-headed dog story.",ch:["amazing","amazed"],a:["amazed"]}],
+ timed:[
+  {t:"fill",q:"The film about Demikhov was ______ .",ch:["surprising","surprised"],a:["surprising"]},
+  {t:"fill",q:"I am ______ in artificial intelligence.",ch:["interesting","interested"],a:["interested"]},
+  {t:"fill",q:"The match was so ______ that fans shouted for hours.",ch:["exciting","excited"],a:["exciting"]},
+  {t:"fill",q:"Don't look ______ — the quiz is easy.",ch:["worrying","worried"],a:["worried"]},
+  {t:"fill",q:"His answer was ______ — nobody expected it.",ch:["shocking","shocked"],a:["shocking"]}]};
+var AI2={name:"Talk to your AI coach · TV and YouTube",icon:"⑥",kind:"ai",
+ topic:"TV, YouTube and free time",
+ prompt:"Hi! I'm preparing for my English exam. Let's practise speaking about TV and YouTube. Ask me questions ONE at a time. After each of my answers: tell me which of my sentences had mistakes, show me the corrected sentence, then ask the next question. At the end, give me three words or phrases I should remember from this talk.",
+ mono:"Then speak for ONE minute without any support: «Is TV dying because of YouTube?» — take a side and give two reasons. Type the monologue here for Elena.",
+ o:2,day:2};
+var O2={name:"Orlova/Manukova · Unit 9 · texting",icon:"⑦",kind:"sheet",
+ head:"The texting block — type the whole word or choose.",
+ items:[
+  {t:"fill",q:"Text messages lack tone of voice and facial expressions, which are important in ______ meaning.",ch:["convey","conveying"],a:["conveying"]},
+  {t:"fill",q:"Autocorrect can change the ______ message — embarrassing situations follow.",ch:["intended","intending"],a:["intended"]},
+  {t:"fill",q:"Texting can be ______ — you constantly check your phone.",ch:["addictive","addicted"],a:["addictive"]},
+  {t:"fill",q:"Too much texting can lead to social ______ .",ch:["isolate","isolation"],a:["isolation"]},
+  {t:"fill",q:"A smartphone helps you stay ______ with people who are far away.",ch:["connected","connecting"],a:["connected"]},
+  {t:"fill",q:"Face-to-face communication is ______ for building relationships.",ch:["essential","essentially"],a:["essential"]},
+  {t:"fill",q:"This game is popular ______ teenagers.",ch:["among","between"],a:["among"],why:"your fix-three word — the tracker round"}]};
+
+/* ---- Day 3 ---- */
+var G3={name:"Grammar · Muzlanova В3 · 19–24",icon:"①",kind:"sheet",
+ head:"<b>Swimming Pools</b> · <b>History of Swimming Pools</b> — transform the word in CAPITALS.",
+ items:[
+  {t:"type",q:"Most ______ enjoy swimming. Swimming pools with their wave-making machines, water slides and tropical vegetation are something unique for them.",stem:"CHILD",a:["children"]},
+  {t:"type",q:"If they could, kids ______ to spend their entire summer in the swimming pool.",stem:"CHOOSE",a:["would choose","wouldchoose"]},
+  {t:"type",q:"However, not everyone ______ their own backyard pool.",stem:"HAVE",a:["has"]},
+  {t:"type",q:"The first heated swimming pool ______ by Gaius Maecenas of Rome in the first century BC.",stem:"CONSTRUCT",a:["was constructed","wasconstructed"]},
+  {t:"type",q:"The ______ surviving swimming club in the world is the Arlington Baths Club in Glasgow. It is still an active club and continues to own its original Victorian building.",stem:"OLD",a:["oldest"]},
+  {t:"type",q:"After the start of modern Olympic Games in 1896, the popularity of swimming pools ______ off. Nowadays there are lots of different swimming pools, both public and private.",stem:"TAKE",a:["took"]}]};
+var W3={name:"Word formation · Muzlanova В3 · 25–29",icon:"②",kind:"sheet",
+ head:"<b>Waste Management</b> — form a word from the CAPITALS.",
+ items:[
+  {t:"type",q:"Waste affects our environment — everything that surrounds us including the air, water, land, plants, and man-made things. We need a healthy environment for our own health and ______.",stem:"HAPPY",a:["happiness"]},
+  {t:"type",q:"The waste we create has to be ______ controlled to be sure that it does not harm our environment and our health.",stem:"CAREFUL",a:["carefully"]},
+  {t:"type",q:"So ______ waste management is very important.",stem:"EFFECT",a:["effective"]},
+  {t:"type",q:"Waste reduction and recycling have a wide range of environmental benefits and promote public awareness and personal ______ for the waste we create.",stem:"RESPONSIBLE",a:["responsibility"]},
+  {t:"type",q:"The best place to start making a ______ is our home. Learn how you can reduce, reuse, and recycle materials to decrease household waste.",stem:"DIFFER",a:["difference"]}]};
+var V3={name:"Tasks 30–36 · FIPI demo 2025 · «Going on a hike»",icon:"③",kind:"sheet",
+ head:"Read the text with gaps 30–36. For each gap type the DIGIT of the answer.",
+ text:"Simon and I were in a school football team. Occasionally, the team took field trips to places outside of our neighbourhood on the weekends. Last week, our coach Mr Brown <span class='gnum'>30</span> ______ we were going on a hike through a forest in a state park. Simon is my best friend, and the two of us had both liked the trips to the museums, plays, and basketball games. We weren’t all that <span class='gnum'>31</span> ______ in the outdoors, <span class='gnum'>32</span> ______. Mr Brown claimed that we’d really enjoy discovering how amazing nature can be — especially for the big city kids. Simon and I were sure we’d rather be back home playing video games. Now we were in a state park, marching through woods as <span class='gnum'>33</span> ______ as a grizzly bear’s fur. Our group of 12 kids had been hiking for a good 30 minutes when Simon and I grew bored and stepped away from the group to take some pictures. I looked around, shouting, “Check out that tree — it’s kinda cool. Doesn’t its shape <span class='gnum'>34</span> ______ you of an elephant?” “Ha! It does,” Simon replied. “And look at how those rocks are formed over there. You don’t see stuff like that in the city, now do you?” For the next few minutes, we got caught up <span class='gnum'>35</span> ______ flowers, leaves, animals, and little caves we hadn’t seen before. The more we opened up to the forest, the more it opened up to us. We were beginning to see the amazing things around us. Out here, away from the city, I was starting to get what Mr Brown had <span class='gnum'>36</span> ______ us about how wonderful nature could be.",
+ items:[
+  {t:"mc",q:"30 — our coach Mr Brown ______ we were going on a hike",ch:["1) promoted","2) presented","3) announced","4) extended"],a:["3"]},
+  {t:"mc",q:"31 — We weren’t all that ______ in the outdoors",ch:["1) interested","2) excited","3) delighted","4) inspired"],a:["1"]},
+  {t:"mc",q:"32 — We weren’t all that interested in the outdoors, ______.",ch:["1) Although","2) Otherwise","3) Moreover","4) However"],a:["4"]},
+  {t:"mc",q:"33 — marching through woods as ______ as a grizzly bear’s fur",ch:["1) strong","2) heavy","3) thick","4) rich"],a:["3"]},
+  {t:"mc",q:"34 — Doesn’t its shape ______ you of an elephant?",ch:["1) reflect","2) review","3) remember","4) remind"],a:["4"]},
+  {t:"mc",q:"35 — we got caught up ______ flowers, leaves, animals",ch:["1) offending","2) obtaining","3) objecting","4) observing"],a:["4"]},
+  {t:"mc",q:"36 — I was starting to get what Mr Brown had ______ us about how wonderful nature could be.",ch:["1) told","2) spoke","3) talked","4) said"],a:["1"]}]};
+var L3={name:"Listening · FIPI demo 2027 · Tasks 3–9",icon:"④",kind:"sheet",audio:AUDIO[3],
+ head:"<b>You hear an interview with Mike Watson, a film director.</b> For questions 3–9 type the DIGIT 1, 2 or 3. You hear the recording twice.",
+ items:[
+  {t:"mc",q:"3 — What do we learn about Mike Watson at the beginning of the interview?",ch:["1) He’s worked in several spheres.","2) He is internationally famous.","3) He has never won any awards."],a:["1"]},
+  {t:"mc",q:"4 — Mike is worried that the film industry has become too …",ch:["1) boring.","2) powerful.","3) commercialized."],a:["3"]},
+  {t:"mc",q:"5 — Mike uses Chaplin to stress the fact that …",ch:["1) people understand films without knowing the words.","2) films are made for people to have a good laugh.","3) the best films of the past were black and white."],a:["1"]},
+  {t:"mc",q:"6 — After Mike went to Stanford, he wanted to …",ch:["1) get famous worldwide.","2) attend a film school.","3) become a film director."],a:["2"]},
+  {t:"mc",q:"7 — Mike thinks one needs to be very … to become a film director.",ch:["1) self-confident.","2) talented.","3) hard-working."],a:["3"]},
+  {t:"mc",q:"8 — Mike Watson finds his education to be beneficial for his career because he …",ch:["1) was motivated by literature.","2) managed to become a good novelist.","3) learnt how to tell stories well."],a:["3"]},
+  {t:"mc",q:"9 — What surprises Mike about life today?",ch:["1) Quality of film equipment.","2) Availability of equipment.","3) Prices for film equipment."],a:["2"]}]};
+var WS3={name:"Weak spot · dependent prepositions",icon:"⑤",kind:"cycle",sec:15,
+ explain:"The chart that failed to show at the lesson (your «to hwdt» order) + your own RR words: <b>anxious ABOUT</b> · <b>different FROM</b> (never «different with») · <b>helpful IN (+ -ing)</b> · <b>an increase IN</b> · <b>depend ON</b> · <b>proud OF</b> · <b>FOR a long time</b> (never «during»).",
+ practice:[
+  {t:"fill",q:"She was anxious ______ the exam results.",ch:["about","of"],a:["about"]},
+  {t:"fill",q:"Life in the country is different ______ life in the city.",ch:["with","from"],a:["from"]},
+  {t:"fill",q:"VR is especially helpful ______ learning new skills.",ch:["in","with"],a:["in"]},
+  {t:"fill",q:"There was an increase ______ the number of subscribers.",ch:["in","of"],a:["in"]},
+  {t:"fill",q:"Science depends ______ experiments.",ch:["on","from"],a:["on"]}],
+ drill:[
+  {t:"fill",q:"I am proud ______ my sister's videos.",ch:["of","for"],a:["of"]},
+  {t:"fill",q:"I have been doing sports ______ a long time.",ch:["during","for"],a:["for"]},
+  {t:"fill",q:"The design is helpful ______ everyday life.",ch:["in","at"],a:["in"]},
+  {t:"fill",q:"Your gadget is different ______ mine.",ch:["from","with"],a:["from"]},
+  {t:"fill",q:"The interview increases your confidence ______ speaking.",ch:["in","of"],a:["in"]}],
+ timed:[
+  {t:"fill",q:"He was anxious ______ his speech.",ch:["about","for"],a:["about"]},
+  {t:"fill",q:"A smartwatch is different ______ a usual watch.",ch:["from","than"],a:["from"]},
+  {t:"fill",q:"Reading increases your knowledge ______ the world.",ch:["of","about"],a:["of","about"]},
+  {t:"fill",q:"We watched the match ______ a long time.",ch:["during","for"],a:["for"]},
+  {t:"fill",q:"This app is helpful ______ planning your day.",ch:["in","for"],a:["in"]}]};
+var AI3={name:"Talk to your AI coach · science",icon:"⑥",kind:"ai",
+ topic:"Science and inventions",
+ prompt:"Hi! I'm preparing for my English exam. Let's practise speaking about science and inventions. Ask me questions ONE at a time. After each of my answers: tell me which of my sentences had mistakes, show me the corrected sentence, then ask the next question. At the end, give me three words or phrases I should remember from this talk.",
+ mono:"Then speak for ONE minute without any support: «The invention of the 21st century I find the most useful, and why» — you answered it in the email to your friend; now say it alone. Type the monologue here for Elena.",
+ o:3,day:3};
+var O3={name:"Orlova/Manukova · Unit 9 · genres and TV problems",icon:"⑦",kind:"sheet",
+ head:"The Unit 9 adv/disadv bank in place — type the whole word or choose.",
+ items:[
+  {t:"fill",q:"Reality shows can promote unrealistic ______ and values.",ch:["standards","standard"],a:["standards"]},
+  {t:"fill",q:"Documentaries ______ our knowledge about the world and current events.",ch:["broad","broaden"],a:["broaden"]},
+  {t:"fill",q:"Dramas are less popular than documentaries, which can be ______ by the fact that documentaries enable people to gain new knowledge.",ch:["explained","explaining"],a:["explained"]},
+  {t:"fill",q:"Too much TV is associated with sleep ______ .",ch:["disturb","disturbances"],a:["disturbances"]},
+  {t:"fill",q:"Moderation is the ______ — limit your watching time.",ch:["key","lock"],a:["key"]},
+  {t:"fill",q:"TV helps families ______ with each other.",ch:["bond","bound"],a:["bond"]},
+  {t:"fill",q:"This documentary is well ______ watching.",ch:["worth","worthy"],a:["worth"],why:"the tracker word"}]};
+
+/* ---- Day 4 ---- */
+var G4={name:"Grammar · Muzlanova В4 · 19–24",icon:"①",kind:"sheet",
+ head:"<b>A Practical Joke</b> — transform the word in CAPITALS.",
+ items:[
+  {t:"type",q:"Mr. and Mrs. Parker were having a quiet day at home. ______ 18-year-old daughter was away in Wales.",stem:"THEY",a:["their"]},
+  {t:"type",q:"Suddenly the phone ______. A hoarse voice told Mr. Parker that his daughter had been kidnapped and that he had to pay a ransom of $2,000.",stem:"RING",a:["rang"]},
+  {t:"type",q:"He was also warned that if he ______, he would never see his daughter again. The voice then gave him instructions.",stem:"NOT PAY",a:["did not pay","didn't pay","didnotpay"]},
+  {t:"type",q:"Mr. Parker took the ______ train to Wales. He went to the hotel and gave the briefcase with the money to a woman in a scarf and a raincoat.",stem:"ONE",a:["first"]},
+  {t:"type",q:"At 11 p.m. the same evening, to his great relief, his daughter came back home. She looked ______ than ever and could hardly stop herself from laughing when she handed him his briefcase with $2,000.",stem:"HAPPY",a:["happier"]},
+  {t:"type",q:"It turned out that she and her friend ______ to play a practical joke.",stem:"DECIDE",a:["had decided","haddecided"]}]};
+var W4={name:"Word formation · Muzlanova В4 · 25–29",icon:"②",kind:"sheet",
+ head:"<b>Distance Learning</b> — form a word from the CAPITALS.",
+ items:[
+  {t:"type",q:"Many professors want to improve the system of distance learning. One concern is that people cheat in tests. Scientists are now developing ways to keep distance learning courses from being ______.",stem:"MEANING",a:["meaningless"]},
+  {t:"type",q:"One way to improve them is to ______ change the way they are taught.",stem:"CONTINUAL",a:["continually"]},
+  {t:"type",q:"Teachers are beginning to require ______ classwork for the same course that they teach.",stem:"DIFFER",a:["different"]},
+  {t:"type",q:"They also ask students to become more ______ with their homework and the projects they have to complete.",stem:"ACTIVE",a:["interactive"]},
+  {t:"type",q:"Moreover, students are given tests from a test bank. The test is made up when they log into the test website. These ______ are the same for students taking distant classes at school or at special courses.",stem:"REQUIRE",a:["requirements"]}]};
+var V4={name:"Tasks 30–36 · the bank · В1 «Charity»",icon:"③",kind:"sheet",
+ head:"Read the text with gaps 30–36. For each gap type the DIGIT of the answer.",
+ text:"A lot of people in our world have little or no money at all. Many of them are homeless and can’t enjoy what most of us take for <span class='gnum'>30</span> ______. They need our help and there are a lot of charity organizations to help poor people. Because of charities many homeless people have shelters, hungry children have been fed, a lot of diseases have already been <span class='gnum'>31</span> ______ and many animals are safe. Around the world there are a lot of children who suffer from different diseases, running <span class='gnum'>32</span> ______ time and hope. The biggest charity project in Russia is ‘Contribution to the Future’ whose goal is to help any child in need. Its programmes help poor, homeless and disabled children. There are a lot of people in the world who have chosen charity as their main mission in life. One of the most famous missionaries was Mother Teresa. She lived the hard life of the poor alongside them; she knew how it felt sleeping on hard floors and living on dirty streets. And because she was experiencing <span class='gnum'>33</span> ______ what the people she was helping were going through, she so effectively knew how to give. Besides meeting people’s basic physical needs by giving them food and medicine, she met people’s emotional needs as well. A lot of rich people also feel the necessity to help the poor. For example, Bill Gates is a famous billionaire, but he is also a noted philanthropist who donated the proceeds of his successful books to <span class='gnum'>34</span> ______ educational organizations. He has also given millions to initiatives in global health and learning, hoping to <span class='gnum'>35</span> ______ more and more people to have access to <span class='gnum'>36</span> ______ facilities in these areas. A good example is the opening of ‘The School of the Future’ in Philadelphia, sponsored by his company ‘Microsoft’. The spirit of philanthropy is not about what or how much you give but rather about the feeling that you are helping others in need.",
+ items:[
+  {t:"mc",q:"30 — can’t enjoy what most of us take for ______",ch:["1) common","2) granted","3) usual","4) life"],a:["2"]},
+  {t:"mc",q:"31 — a lot of diseases have already been ______",ch:["1) recovered","2) healed","3) cared","4) cured"],a:["4"]},
+  {t:"mc",q:"32 — running ______ time and hope",ch:["1) with","2) out","3) of","4) out of"],a:["4"]},
+  {t:"mc",q:"33 — because she was experiencing ______ what the people she was helping were going through",ch:["1) first-hand","2) first-rate","3) first-time","4) first-ever"],a:["1"]},
+  {t:"mc",q:"34 — donated the proceeds of his successful books to ______ educational organizations",ch:["1) unprofit","2) unprofitable","3) non-profit","4) non-profitable"],a:["3"]},
+  {t:"mc",q:"35 — hoping to ______ more and more people to have access",ch:["1) unable","2) enable","3) let","4) make"],a:["2"]},
+  {t:"mc",q:"36 — to have access to ______ facilities in these areas",ch:["1) visible","2) vigorous","3) vivid","4) vital"],a:["4"]}]};
+var L4={name:"Listening · FIPI demo 2026 · Task 1",icon:"④",kind:"sheet",audio:AUDIO[4],
+ head:"<b>You hear six speakers.</b> Match the speakers A–F with the statements 1–7. One statement is extra. You hear the recording twice.",
+ optslist:["1. Snacks may help you handle your negative emotions.","2. Having snacks can have a lot of advantages.","3. Snacks are a way out when you’re under pressure.","4. All snacks are unhealthy and lead to weight problems.","5. A snack may be a reward for some achievements.","6. It’s possible to have a healthy snack.","7. Some people have snacks because they’re bored."],
+ items:[
+  {t:"mc",q:"Speaker A",a:["3"]},{t:"mc",q:"Speaker B",a:["1"]},{t:"mc",q:"Speaker C",a:["7"]},
+  {t:"mc",q:"Speaker D",a:["5"]},{t:"mc",q:"Speaker E",a:["6"]},{t:"mc",q:"Speaker F",a:["2"]}]};
+var WS4={name:"Weak spot · to do / not to do · is or are",icon:"⑤",kind:"cycle",sec:15,
+ explain:"From your 04.11 tape and the lesson log: after <b>to</b> the verb stays bare, and the negative is <b>NOT to</b>: «Try <b>not to</b> forget» · «I told him <b>not to</b> worry» (never «to don't forget»). Your own question: <b>one of them IS</b> · <b>some of them ARE</b>. And the -s: «this app incorporate<b>s</b> all my workouts».",
+ practice:[
+  {t:"fill",q:"Try ______ to forget your charger.",ch:["not","don't"],a:["not"]},
+  {t:"fill",q:"I told him ______ about the battery.",ch:["not to worry","to not worry","don't worry"],a:["not to worry"]},
+  {t:"fill",q:"One of them ______ a fitness tracker.",ch:["is","are"],a:["is"]},
+  {t:"fill",q:"Some of them ______ expensive.",ch:["is","are"],a:["are"]},
+  {t:"fill",q:"This app ______ all my workouts.",ch:["incorporate","incorporates"],a:["incorporates"]}],
+ drill:[
+  {t:"fill",q:"She asked me ______ the notifications off at night.",ch:["not to turn","to not turn","don't turn"],a:["not to turn"]},
+  {t:"fill",q:"______ to take breaks every thirty minutes.",ch:["Remember","Remembering"],a:["Remember"]},
+  {t:"fill",q:"Each of the gadgets ______ a battery.",ch:["have","has"],a:["has"]},
+  {t:"fill",q:"Both of the watches ______ heart-rate monitors.",ch:["has","have"],a:["have"]},
+  {t:"fill",q:"My phone needs ______ every night.",ch:["charging","to charge"],a:["charging"]}],
+ timed:[
+  {t:"fill",q:"Try ______ your screen time.",ch:["to limit","limiting"],a:["to limit"]},
+  {t:"fill",q:"One of my friends ______ a smartwatch.",ch:["have","has"],a:["has"]},
+  {t:"fill",q:"He told me ______ about the exam.",ch:["don't worry","not to worry"],a:["not to worry"]},
+  {t:"fill",q:"Some of the apps ______ free.",ch:["is","are"],a:["are"]},
+  {t:"fill",q:"The watch shows how long you ______ .",ch:["exercise","exercises"],a:["exercise"]}]};
+var AI4={name:"Talk to your AI coach · screens and health",icon:"⑥",kind:"ai",
+ topic:"Screens and health",
+ prompt:"Hi! I'm preparing for my English exam. Let's practise speaking about screen time and health. Ask me questions ONE at a time. After each of my answers: tell me which of my sentences had mistakes, show me the corrected sentence, then ask the next question. At the end, give me three words or phrases I should remember from this talk.",
+ mono:"Then speak for ONE minute without any support: «How much screen time is healthy for a teenager — and how do you strike a balance?» Type the monologue here for Elena.",
+ o:4,day:4};
+var O4={name:"Orlova/Manukova · Unit 9 · appliances and apps",icon:"⑦",kind:"sheet",
+ head:"The domestic-appliance and app blocks — type the whole word or choose.",
+ items:[
+  {t:"fill",q:"Major appliances — dishwashers, freezers, washing machines — are also called ______ goods.",ch:["white","brown"],a:["white"]},
+  {t:"fill",q:"TV sets and CD players belong to ______ goods.",ch:["white","brown"],a:["brown"]},
+  {t:"fill",q:"A good app has an intuitive ______ .",ch:["navigate","navigation"],a:["navigation"]},
+  {t:"fill",q:"The messenger uses secure data ______ to protect your messages.",ch:["encrypt","encryption"],a:["encryption"]},
+  {t:"fill",q:"Telegram lets me chat in ______ time.",ch:["real","realistic"],a:["real"]},
+  {t:"fill",q:"The service is ______ — it never crashes.",ch:["rely","reliable"],a:["reliable"]}]};
+
+/* ---- Day 5 ---- */
+var G5={name:"Grammar · Muzlanova В5 · 19–24",icon:"①",kind:"sheet",
+ head:"<b>September Mood in England</b> · <b>Challenger Deep</b> — transform the word in CAPITALS.",
+ items:[
+  {t:"type",q:"Today Mr. Wetridge looks a bit worried because he ______ about the coming winter.",stem:"THINK",a:["is thinking","isthinking"]},
+  {t:"type",q:"Central heating ______ in his house five years ago and now it's time to have it repaired.",stem:"INSTALL",a:["was installed","wasinstalled"]},
+  {t:"type",q:"Besides, his wife wants him to put in double glazing. But she ______ that to double-glaze all the windows will cost quite a lot of money.",stem:"NOT UNDERSTAND",a:["does not understand","doesn't understand","doesnotunderstand"]},
+  {t:"type",q:"Challenger Deep is the ______ point of the world's oceans. It lies at the southern end of the Mariana Trench in the Pacific Ocean.",stem:"DEEP",a:["deepest"]},
+  {t:"type",q:"It was named after the British ship HMS Challenger, whose expedition of 1872–1876 made the ______ recordings of its depth.",stem:"ONE",a:["first"]},
+  {t:"type",q:"Since then, twenty-two people ______ to the bottom of the depression.",stem:"DESCEND",a:["have descended","havedescended"]}]};
+var W5={name:"Word formation · Muzlanova В5 · 25–29",icon:"②",kind:"sheet",
+ head:"<b>Junk Food</b> — form a word from the CAPITALS.",
+ items:[
+  {t:"type",q:"In today's world, many people are ______ looking for a quick snack, meal or boost of energy. They choose processed food bars, thinking that they're a healthy choice.",stem:"INCREASE",a:["increasingly"]},
+  {t:"type",q:"However, most bars contain ______ processed foods which are called 'junk foods'.",stem:"DESIRE",a:["undesirable"]},
+  {t:"type",q:"One problem with junk foods is that they're low in satiation value. Another problem is that junk food tends to ______ other, more nutritious foods.",stem:"PLACE",a:["replace"]},
+  {t:"type",q:"It's the 21st century now and 'junk food' has gone ______. We see it everywhere: in grocery and convenience stores, in fast-food restaurants and on television.",stem:"GLOBE",a:["global"]},
+  {t:"type",q:"Although junk food is now ______ all over the world, people should be aware of its disadvantages and choose healthier alternatives.",stem:"AVAIL",a:["available"]}]};
+var V5={name:"Tasks 30–36 · the bank · В2 «The Archipelago»",icon:"③",kind:"sheet",
+ head:"Read the text with gaps 30–36. For each gap type the DIGIT of the answer.",
+ text:"In the remote southern seas there is a cluster of islands. Each island is inhabited by a different race of people. Although physically they look alike, you can tell them <span class='gnum'>30</span> ______ by their styles of dress and their distinctive dialects. Each island has its own unique form of architecture. The only similarity between them is that each race builds in a manner that is <span class='gnum'>31</span> ______ odds with the environment. On rocky hillsides there are wooden huts and in wooded valleys you can see towns of brick. Arid uplands are irrigated and planted with leafy gardens, whereas, on fertile plains, the parks are paved with stone. <span class='gnum'>32</span> ______ their differences, the islanders coexist peacefully. There is rivalry over certain fishing waters but it rarely <span class='gnum'>33</span> ______ to more than a few heated exchanges. At the centre of the archipelago, perhaps in the most favoured spot of all, lies an island that has been deserted for many generations. It looks very different from the rest: darker, taller, silent. There is no obvious reason <span class='gnum'>34</span> ______ its abandonment as it has good soil and plenty of freshwater. Long ago, it was inhabited by farmers and fishermen much like everywhere else in the archipelago, but everything changed when they started building the first wall. As soon as it was finished, a second circle of battlements began to rise from the centre, slightly narrower than the one before, so that from faraway the island <span class='gnum'>35</span> ______ an enormous wedding cake. Nobody can explain why the wall was started but there are many theories as to why it was never finished. Some say that so many had perished during its construction, that no one dared halt the work and thereby admit that it had all been in vain. Others claim that the builders simply <span class='gnum'>36</span> ______ out of materials. But one thing is certain, the predicted threat never arrived and the people at the centre of the archipelago had, quite simply, bricked themselves in.",
+ items:[
+  {t:"mc",q:"30 — you can tell them ______ by their styles of dress",ch:["1) out","2) off","3) apart","4) aside"],a:["3"]},
+  {t:"mc",q:"31 — each race builds in a manner that is ______ odds with the environment",ch:["1) over","2) at","3) against","4) on"],a:["2"]},
+  {t:"mc",q:"32 — ______ their differences, the islanders coexist peacefully",ch:["1) Despite","2) In spite","3) Besides","4) Although"],a:["1"]},
+  {t:"mc",q:"33 — it rarely ______ to more than a few heated exchanges",ch:["1) raises","2) attains","3) amounts","4) achieves"],a:["3"]},
+  {t:"mc",q:"34 — There is no obvious reason ______ its abandonment",ch:["1) with","2) to","3) of","4) for"],a:["4"]},
+  {t:"mc",q:"35 — from faraway the island ______ an enormous wedding cake",ch:["1) recollected","2) reminded","3) resembled","4) remembered"],a:["3"]},
+  {t:"mc",q:"36 — the builders simply ______ out of materials",ch:["1) went","2) ran","3) grew","4) came"],a:["2"]}]};
+var L5={name:"Listening · FIPI demo 2026 · Tasks 3–9",icon:"④",kind:"sheet",audio:AUDIO[5],
+ head:"<b>You hear an interview with Eva James, a singer.</b> For questions 3–9 type the DIGIT 1, 2 or 3. You hear the recording twice.",
+ items:[
+  {t:"mc",q:"3 — What do we learn about Eva James at the beginning of the interview?",ch:["1) She’s been a singer for 15 years.","2) She never got a formal musical education.","3) She is internationally famous."],a:["3"]},
+  {t:"mc",q:"4 — For Eva, starting a career as a teenager was …",ch:["1) quite easy.","2) challenging.","3) pleasant."],a:["2"]},
+  {t:"mc",q:"5 — Eva thinks other people’s critical remarks are …",ch:["1) natural.","2) destructive.","3) helpful."],a:["1"]},
+  {t:"mc",q:"6 — Eva’s new album is NOT about …",ch:["1) finding your place in the world.","2) shaping adequate self-esteem.","3) difficulties of the modern world."],a:["3"]},
+  {t:"mc",q:"7 — Eva started to write songs because it was …",ch:["1) a form of self-therapy.","2) a topic to discuss with her friends.","3) her homework at school."],a:["1"]},
+  {t:"mc",q:"8 — Eva thinks strong people NEVER …",ch:["1) cry in the presence of others.","2) talk about their problems.","3) hide their real feelings."],a:["3"]},
+  {t:"mc",q:"9 — Speaking about the entertainment industry today, Eva says that …",ch:["1) there’s more gender inequality there than ever before.","2) it is still not very easy for a woman to work in.","3) women occupy most powerful positions there."],a:["2"]}]};
+var WS5={name:"Weak spot · speak it precisely",icon:"⑤",kind:"cycle",sec:15,
+ explain:"Your 04.11 teach, now yours alone: кординально → <b>dramatically</b> («Technology will <b>dramatically</b> change the way we live» — your killed re-answer, now the model) · <b>devised</b> = created a system («Mendeleev <b>devised</b> the periodic table») · the battery can <b>go flat</b> («…at the very necessary time» — your own collocation, you named where you took it).",
+ practice:[
+  {t:"fill",q:"AI will ______ change the way we live.",ch:["dramatic","dramatically"],a:["dramatically"]},
+  {t:"fill",q:"Mendeleev ______ the periodic table.",ch:["devised","divided"],a:["devised"]},
+  {t:"fill",q:"The watch stopped — the battery went ______ .",ch:["flat","round"],a:["flat"]},
+  {t:"fill",q:"The internet has changed our lives ______ .",ch:["drama","dramatically"],a:["dramatically"]},
+  {t:"fill",q:"A telephone battery usually ______ flat at the worst moment.",ch:["go","goes"],a:["goes"]}],
+ drill:[
+  {t:"fill",q:"The way we shop has changed ______ since the 1990s.",ch:["dramatic","dramatically"],a:["dramatically"]},
+  {t:"fill",q:"The scientist ______ a new method of teaching.",ch:["device","devised"],a:["devised"]},
+  {t:"fill",q:"My phone died — the battery went ______ during the call.",ch:["flat","bad"],a:["flat"]},
+  {t:"fill",q:"Technology develops ______ .",ch:["rapid","rapidly"],a:["rapidly"]},
+  {t:"fill",q:"Popov ______ a device for receiving radio signals.",ch:["devised","divided"],a:["devised"]}],
+ timed:[
+  {t:"fill",q:"Cities will change ______ in the next decade.",ch:["dramatic","dramatically"],a:["dramatically"]},
+  {t:"fill",q:"The battery can go ______ when you need it most.",ch:["flat","low"],a:["flat","low"]},
+  {t:"fill",q:"Mendeleev ______ the periodic table of elements.",ch:["devised","devided"],a:["devised"]},
+  {t:"fill",q:"Smartphones ______ the way we communicate.",ch:["devised","revolutionised","revolutionized"],a:["revolutionised","revolutionized"]},
+  {t:"fill",q:"The new battery lasts longer — it goes flat less ______ .",ch:["often","oftens"],a:["often"]}]};
+var AI5={name:"Talk to your AI coach · the future",icon:"⑥",kind:"ai",
+ topic:"The future of technology",
+ prompt:"Hi! I'm preparing for my English exam. Let's practise speaking about the future of technology. Ask me questions ONE at a time. After each of my answers: tell me which of my sentences had mistakes, show me the corrected sentence, then ask the next question. At the end, give me three words or phrases I should remember from this talk.",
+ mono:"Then speak for ONE minute without any support: «Technology and inventions will dramatically change the way we live in the future» — agree or disagree, two reasons. Type the monologue here for Elena.",
+ o:5,day:5};
+var O5={name:"Orlova/Manukova · Unit 9 · YouTube",icon:"⑦",kind:"sheet",
+ head:"The YouTube block — type the whole word or choose.",
+ items:[
+  {t:"fill",q:"YouTube is a powerful ______ for creative people.",ch:["platform","plan"],a:["platform"]},
+  {t:"fill",q:"Some channels have a million ______ .",ch:["subscribe","subscribers"],a:["subscribers"]},
+  {t:"fill",q:"I watch videos to catch ______ on new technology.",ch:["up","on"],a:["up"]},
+  {t:"fill",q:"People ______ their creativity by making videos.",ch:["show off","show up"],a:["show off"]},
+  {t:"fill",q:"You can ______ your videos and earn money from ads.",ch:["monetize","money"],a:["monetize"]},
+  {t:"fill",q:"He spends hours ______ time watching gaming streams.",ch:["killing","kill"],a:["killing"]},
+  {t:"fill",q:"Sorry to ______ you, but may I ask a question?",ch:["bother","worry"],a:["bother"],why:"Set 1 — the second word of the family"}]};
+
+/* ---- Day 6 ---- */
+var G6={name:"Grammar · Muzlanova В6 · 19–24",icon:"①",kind:"sheet",
+ head:"<b>The Pymatuning Story</b> — transform the word in CAPITALS.",
+ items:[
+  {t:"type",q:"The name Pymatuning is of Indian origin and means “Crooked-mouthed man’s dwelling place,” ______ to an ancient Red Man who was not famous for truth telling.",stem:"REFER",a:["referring"]},
+  {t:"type",q:"Before the glaciers ______ across northwestern Pennsylvania, the Pymatuning was what it is today — a lake.",stem:"SWEEP",a:["swept"]},
+  {t:"type",q:"However, later the lake ______ to a swamp by the great ice movements which gouged out the hills of the area and filled in the valleys.",stem:"REDUCE",a:["was reduced","wasreduced"]},
+  {t:"type",q:"Paradoxically, man ______ the works of the Ice Age to the joy of today's hunters, sportsmen and naturalists, creating a lake from this once great bog.",stem:"REVERSE",a:["has reversed","hasreversed"]},
+  {t:"type",q:"Nowadays the Pymatuning is a major nesting site for Canada ______ and other migratory birds.",stem:"GOOSE",a:["geese"]},
+  {t:"type",q:"The lake is 16 miles long with 70 miles of shoreline. It is the ______ body of water in the state.",stem:"LARGE",a:["largest"]}]};
+var W6={name:"Word formation · Muzlanova В6 · 25–29",icon:"②",kind:"sheet",
+ head:"<b>Computer Addiction</b> — form a word from the CAPITALS.",
+ items:[
+  {t:"type",q:"Excessive computer use can become really ______. And it doesn't only mean playing computer games.",stem:"ADDICT",a:["addictive"]},
+  {t:"type",q:"Wireless connection to the Internet has brought the world closer to people making them to ______ withdraw into an artificial world of communication.",stem:"GRADUAL",a:["gradually"]},
+  {t:"type",q:"Due to the Internet, teenagers become irresponsible in their everyday lives. Computer ______ makes them neglect school work and everyday duties.",stem:"ADDICT",a:["addiction"]},
+  {t:"type",q:"Computer addicts become isolated, anti-social and ______ of dealing with each other directly.",stem:"CAPABLE",a:["incapable"]},
+  {t:"type",q:"Their lives become ______ without going online to check their email or to chat, and they become totally dependent on their computers.",stem:"AIM",a:["aimless"]}]};
+var V6={name:"Tasks 30–36 · the bank · В3 «Globalization»",icon:"③",kind:"sheet",
+ head:"Read the text with gaps 30–36. For each gap type the DIGIT of the answer.",
+ text:"The 21st century has <span class='gnum'>30</span> ______ in a new era in man’s ongoing quest for a better life and a better world. For the first time in history, we can now claim to live in ‘One World.’ Globalization has removed many of the gaps that have existed between and among nations. While the physical divide is still present, the <span class='gnum'>31</span> ______ of the Information Highway on how we communicate and live in the present day is simply staggering. Rapid improvements in information technology have allowed us to exchange information and communicate almost everywhere, anywhere, and anytime. Globalization, as a general term, is best understood as the spread of ideas about the environment, democracy, human rights, and less complicated issues like fashion and fads. Global exchange is now taking place as the market of ideas, culture, and beliefs expand through the use of technology. The nature of business and how it is done has also improved by <span class='gnum'>32</span> ______ and bounds because of globalization. An example of the remarkable effects of globalization is the invention of the telephone and the television. Television has enabled young people and adults to have the ability to share cultural and ethnic experiences with others. Telephones have also greatly improved communication. Gone are the weeks and even months of waiting for a letter. Anybody can talk to anyone who has another phone <span class='gnum'>33</span> ______ of distance or location on the planet. With the aid of satellites, 3rd generation phones allow us to make a phone call, send a video, or even receive an e-mail. These <span class='gnum'>34</span> ______ in communication have revolutionized business, commerce, and even the personal lives and relationships of millions of people. Because of the electronic media, vast amounts of important information can reach any parts of the globe in <span class='gnum'>35</span> ______ time. Business establishments, whether big or small, are using the Internet in many ways to build or expand their company’s growth. With the ever improving technology come new markets, high <span class='gnum'>36</span> ______ for products, and also greater competition. Making investments in information and communication technology is now a must for any business enterprise.",
+ items:[
+  {t:"mc",q:"30 — The 21st century has ______ in a new era",ch:["1) started","2) began","3) ushered","4) launched"],a:["3"]},
+  {t:"mc",q:"31 — the ______ of the Information Highway on how we communicate",ch:["1) cause","2) impact","3) consequences","4) result"],a:["2"]},
+  {t:"mc",q:"32 — improved by ______ and bounds because of globalization",ch:["1) bonds","2) gaps","3) jumps","4) leaps"],a:["4"]},
+  {t:"mc",q:"33 — talk to anyone who has another phone ______ of distance or location",ch:["1) regardless","2) despite","3) notwithstanding","4) because"],a:["1"]},
+  {t:"mc",q:"34 — These ______ in communication have revolutionized business",ch:["1) breakbeats","2) breakdowns","3) breakouts","4) breakthroughs"],a:["4"]},
+  {t:"mc",q:"35 — information can reach any parts of the globe in ______ time",ch:["1) any","2) no","3) none of","4) some"],a:["2"]},
+  {t:"mc",q:"36 — come new markets, high ______ for products",ch:["1) access","2) claim","3) demand","4) rise"],a:["3"]}]};
+var L6={name:"Listening · FIPI demo 2027 · Task 2",icon:"④",kind:"sheet",audio:AUDIO[6],
+ head:"<b>You hear a dialogue (Ben and Sophie).</b> Decide which statements A–G are true (1), false (2), or not stated (3). You hear the recording twice.",
+ optslist:["A. Ben worked hard during the academic year.","B. Ben and Sophie study at the same school.","C. Sophie wants to be a school teacher.","D. Sophie has already found a summer job.","E. Ben is thinking of a career in medicine.","F. Ben disapproves of Sophie’s summer plans.","G. Sophie hasn’t had a rest by the sea for some time."],
+ items:[
+  {t:"mc",q:"A — Ben worked hard during the academic year.",a:["3"]},
+  {t:"mc",q:"B — Ben and Sophie study at the same school.",a:["3"]},
+  {t:"mc",q:"C — Sophie wants to be a school teacher.",a:["3"]},
+  {t:"mc",q:"D — Sophie has already found a summer job.",a:["2"]},
+  {t:"mc",q:"E — Ben is thinking of a career in medicine.",a:["1"]},
+  {t:"mc",q:"F — Ben disapproves of Sophie’s summer plans.",a:["2"]},
+  {t:"mc",q:"G — Sophie hasn’t had a rest by the sea for some time.",a:["1"]}]};
+var WS6={name:"Weak spot · the week mixed",icon:"⑤",kind:"cycle",sec:15,
+ explain:"Everything from the ladder in one deal: <b>a big plus of + -ing</b> · <b>-ing/-ed</b> · <b>anxious ABOUT · different FROM · helpful IN · increase IN · FOR a long time</b> · <b>not to do · one of them IS</b> · <b>dramatically · devised · go flat</b>.",
+ practice:[
+  {t:"fill",q:"A big plus of ______ at home is the quiet.",ch:["study","studying"],a:["studying"]},
+  {t:"fill",q:"The documentary about Popov was ______ .",ch:["fascinating","fascinated"],a:["fascinating"]},
+  {t:"fill",q:"My results are different ______ yours.",ch:["from","with"],a:["from"]},
+  {t:"fill",q:"She told me ______ the app at night.",ch:["not to use","don't use"],a:["not to use"]},
+  {t:"fill",q:"The battery went ______ again.",ch:["flat","fill"],a:["flat"]}],
+ drill:[
+  {t:"fill",q:"One of the scientists ______ a new battery.",ch:["have","has","devised","devise"],a:["has"]},
+  {t:"fill",q:"Instead of ______ videos all evening, read a book.",ch:["watch","watching"],a:["watching"]},
+  {t:"fill",q:"There was an increase ______ screen time last year.",ch:["in","of"],a:["in"]},
+  {t:"fill",q:"I was ______ by the film about Tsiolkovsky.",ch:["impressing","impressed"],a:["impressed"]},
+  {t:"fill",q:"Technology improves our lives ______ .",ch:["dramatic","dramatically"],a:["dramatically"]}],
+ timed:[
+  {t:"fill",q:"A big plus of ______ online is the price.",ch:["study","studying"],a:["studying"]},
+  {t:"fill",q:"He is anxious ______ the test.",ch:["about","of"],a:["about"]},
+  {t:"fill",q:"Some of us ______ a smartwatch.",ch:["has","have"],a:["have"]},
+  {t:"fill",q:"They asked me ______ so many games.",ch:["not to play","don't play"],a:["not to play"]},
+  {t:"fill",q:"Kutuzov ______ a plan that saved the army.",ch:["devised","device"],a:["devised"]}]};
+var AI6={name:"Talk to your AI coach · technology at school",icon:"⑥",kind:"ai",
+ topic:"Technology at school",
+ prompt:"Hi! I'm preparing for my English exam. Let's practise speaking about technology at school. Ask me questions ONE at a time. After each of my answers: tell me which of my sentences had mistakes, show me the corrected sentence, then ask the next question. At the end, give me three words or phrases I should remember from this talk.",
+ mono:"Then speak for ONE minute without any support: «Can AI replace teachers?» — two arguments and your opinion (you once said: «in the distant future AI will replace teachers» — build it properly now). Type the monologue here for Elena.",
+ o:6,day:6};
+var O6={name:"Orlova/Manukova · Unit 9 · smartphones",icon:"⑦",kind:"sheet",
+ head:"The smartphone problems &amp; solutions block — type the whole word or choose.",
+ items:[
+  {t:"fill",q:"The blue light emitted by phones can ______ the natural sleep cycle.",ch:["disrupt","disrupted"],a:["disrupt"]},
+  {t:"fill",q:"Phones can ______ children from focusing on schoolwork.",ch:["distract","distracted"],a:["distract"]},
+  {t:"fill",q:"Set a screen-free period ______ bedtime.",ch:["before","under"],a:["before"]},
+  {t:"fill",q:"Team sports help children avoid social ______ .",ch:["isolated","isolation"],a:["isolation"]},
+  {t:"fill",q:"Reading before bed is a relaxing ______ .",ch:["active","activity"],a:["activity"]},
+  {t:"fill",q:"Technology-free zones help families ______ face-to-face conversations.",ch:["have","having"],a:["have"]},
+  {t:"fill",q:"Don't ______ about the result — the work is done.",ch:["worry","bother"],a:["worry"],why:"Set 1 — no object after worry"}]};
+
+/* ---- Day 7 (the star day) ---- */
+var G7={name:"Grammar · Muzlanova В7 · 19–24",icon:"①",kind:"sheet",
+ head:"<b>Street Styles</b> · <b>Street Fashion</b> — transform the word in CAPITALS.",
+ items:[
+  {t:"type",q:"Many people, especially young people, wear things that express their ideas about life. If a boy ______ very short, almost shaven hair, people expect him to have right-wing politics.",stem:"HAVE",a:["has"]},
+  {t:"type",q:"A boy who wears a leather jacket ______ in bits of metal will probably ride a motorbike.",stem:"COVER",a:["covered"]},
+  {t:"type",q:"The rules of fashion are not as rigid as they once were and today's teenagers ______ any particular trend at all.",stem:"NOT FOLLOW",a:["do not follow","don't follow","donotfollow"]},
+  {t:"type",q:"Teenagers are greatly influenced by ______ and they have a desire to buy fashionable items.",stem:"CELEBRITY",a:["celebrities"]},
+  {t:"type",q:"Street fashion ______ by the big fashion designers. In fact, the fashion designers often use ideas from street fashions.",stem:"NOT CREATE",a:["is not created","isn't created","isnotcreated"]},
+  {t:"type",q:"However, some leaders of British fashion have enough ideas of their own. One of them is Jean Muir, whose designs made her one of the ______ designers.",stem:"GOOD",a:["best"]}]};
+var W7={name:"Word formation · Muzlanova В7 · 25–29",icon:"②",kind:"sheet",
+ head:"<b>The Effects of Mass Media</b> — form a word from the CAPITALS.",
+ items:[
+  {t:"type",q:"The present effects of mass media are both exciting and ______. On the plus side, mass media make our lives easier and more interesting. Along with Information and Communication Technologies, they produce a breakthrough and innovative standard of living for the people to embrace.",stem:"DREAD",a:["dreadful"]},
+  {t:"type",q:"Yet for young people, and especially for teens, the influence of the media is rather ______.",stem:"DESTROY",a:["destructive"]},
+  {t:"type",q:"Teenagers ______ accept what is shown in the media as a truthful image of the outside world, although in most cases this is not true at all.",stem:"GENERAL",a:["generally"]},
+  {t:"type",q:"Moreover, teens of today are exposed to countless advertising messages, which often contain ______ or unnecessary information.",stem:"LEAD",a:["misleading"]},
+  {t:"type",q:"A life without the presence of mass media would seem ______ to most of us! However, a line has to be drawn between the positive and the negative media in the interests of the younger generation.",stem:"PROBABLE",a:["improbable"]}]};
+var V7={name:"Tasks 30–36 · the bank · В4 «Machu Picchu»",icon:"③",kind:"sheet",
+ head:"Read the text with gaps 30–36. For each gap type the DIGIT of the answer.",
+ text:"In a way, it’s wonderful that Machu Picchu can nowadays be visited on a day <span class='gnum'>30</span> ______ from Cuzco. Everyone probably should have a chance to see this remarkable place. Like many travellers, I hoped to get a taste of Machu Picchu’s ‘lost in the clouds’ atmosphere by approaching the ruins on foot <span class='gnum'>31</span> ______ the Inca trail. I joined the obligatory tour group in Cuzco, then spent the next four days surrounded by others making the classic pilgrimage. Along the way, we crossed several breathtaking Andean passes, treading on original Inca paving stones, and passing several other fine ruins. Our last <span class='gnum'>32</span> ______ stop was at an exquisitely beautiful site called Huinay Huayna, where dozens of impossibly steep terraces cascade into a deep green gorge backed by a high waterfall. My new-found travelling companions included five Argentines who <span class='gnum'>33</span> ______ my interest in exploring Huinay Huayna by moonlight. The only problem was a slight difference in styles. Mine was more along the lines of silent and meditative contemplation; theirs involved a ritualistic circle chant, led by the charismatic lone male in the group, whom I thereafter nicknamed the Warlock. Absenting myself from the circle that night, I made a mental note to <span class='gnum'>34</span> ______ my distance from them the next day at Machu Picchu. Before dawn the following morning we climbed to the mountaintop Gateway of the Sun, hoping for the classic panoramic view of Machu Picchu before the tour buses arrived. Unfortunately, the weather did not cooperate. With dozens of other disappointed trekkers, I shivered on the hilltop in chilly fog for two hours, waiting for a sunrise that never came, then trudged down the hill to Machu Picchu itself. As I <span class='gnum'>35</span> ______, the clouds started lifting, revealing the place to be every bit as spectacular as I could have hoped. By day’s end, my tour group had dispersed, apparently preferring a hot bath. I, however, felt I was just <span class='gnum'>36</span> ______ the surface.",
+ items:[
+  {t:"mc",q:"30 — visited on a day ______ from Cuzco",ch:["1) travel","2) voyage","3) journey","4) trip"],a:["4"]},
+  {t:"mc",q:"31 — approaching the ruins on foot ______ the Inca trail",ch:["1) with","2) via","3) across","4) over"],a:["2"]},
+  {t:"mc",q:"32 — Our last ______ stop was at an exquisitely beautiful site",ch:["1) overall","2) overhead","3) overnight","4) overday"],a:["3"]},
+  {t:"mc",q:"33 — five Argentines who ______ my interest in exploring",ch:["1) captured","2) shared","3) kept","4) held"],a:["2"]},
+  {t:"mc",q:"34 — I made a mental note to ______ my distance from them",ch:["1) keep","2) hold","3) take","4) use"],a:["1"]},
+  {t:"mc",q:"35 — As I ______, the clouds started lifting",ch:["1) descended","2) ascended","3) attended","4) pretended"],a:["1"]},
+  {t:"mc",q:"36 — I, however, felt I was just ______ the surface.",ch:["1) reaching","2) touching","3) scratching","4) patching"],a:["3"]}]};
+var L7={name:"Listening · FIPI demo 2025 · Tasks 1–2 (the star double)",icon:"④",kind:"sheet",audio:AUDIO[7],
+ head:"<b>Two tasks in one recording.</b> First: six speakers about New Year — match A–F with statements 1–7. Then: a dialogue (Julie and Adam) — true (1) / false (2) / not stated (3) for A–G. You hear everything twice.",
+ optslist:["1. Celebrating New Year has a long history.","2. Good food is the most important thing for New Year.","3. New Year is the best time for new beginnings.","4. There are extravagant ways to celebrate New Year.","5. New Year is a great time to be with your relatives.","6. You don’t need a special time to start something.","7. Properly preparing before New Year is important.","—","A. Julie has wanted to learn to draw for some time already.","B. Julie often works in summer.","C. Adam supports Julie’s intention.","D. Julie thinks it’s not necessary to learn the basics of drawing.","E. Adam dislikes abstract watercolour paintings.","F. Adam is going to accompany Julie to an art school.","G. Julie and Adam have been friends for a long time."],
+ items:[
+  {t:"mc",q:"Task 1 — Speaker A",a:["3"]},
+  {t:"mc",q:"Task 1 — Speaker B",a:["6"]},
+  {t:"mc",q:"Task 1 — Speaker C",a:["1"]},
+  {t:"mc",q:"Task 1 — Speaker D",a:["5"]},
+  {t:"mc",q:"Task 1 — Speaker E",a:["4"]},
+  {t:"mc",q:"Task 1 — Speaker F",a:["7"]},
+  {t:"mc",q:"Task 2 — A — Julie has wanted to learn to draw for some time already.",a:["1"]},
+  {t:"mc",q:"Task 2 — B — Julie often works in summer.",a:["3"]},
+  {t:"mc",q:"Task 2 — C — Adam supports Julie’s intention.",a:["1"]},
+  {t:"mc",q:"Task 2 — D — Julie thinks it’s not necessary to learn the basics of drawing.",a:["2"]},
+  {t:"mc",q:"Task 2 — E — Adam dislikes abstract watercolour paintings.",a:["2"]},
+  {t:"mc",q:"Task 2 — F — Adam is going to accompany Julie to an art school.",a:["1"]},
+  {t:"mc",q:"Task 2 — G — Julie and Adam have been friends for a long time.",a:["3"]}]};
+var WS7={name:"Weak spot · the star round ⭐",icon:"⑤",kind:"cycle",sec:12,
+ explain:"The last day — the whole ladder, on a short clock, no hints. Read, decide, type. Trust the forms you own now.",
+ practice:[
+  {t:"fill",q:"A big plus of ______ photos is the memory.",ch:["take","taking"],a:["taking"]},
+  {t:"fill",q:"The 25-minute video was ______ .",ch:["boring","bored"],a:["boring"]},
+  {t:"fill",q:"My playlist is different ______ yours.",ch:["from","with"],a:["from"]},
+  {t:"fill",q:"Mum told me ______ the volume down.",ch:["not to turn","don't turn"],a:["not to turn"]},
+  {t:"fill",q:"VR will change gaming ______ .",ch:["dramatic","dramatically"],a:["dramatically"]}],
+ drill:[
+  {t:"fill",q:"Each of the apps ______ offline mode.",ch:["have","has"],a:["has"]},
+  {t:"fill",q:"He is afraid of ______ his files.",ch:["lose","losing"],a:["losing"]},
+  {t:"fill",q:"I have been watching this channel ______ a long time.",ch:["during","for"],a:["for"]},
+  {t:"fill",q:"Mendeleev ______ the periodic table — a system nothing like it before.",ch:["devised","divided"],a:["devised"]},
+  {t:"fill",q:"We were ______ by the finale of the series.",ch:["surprising","surprised"],a:["surprised"]}],
+ timed:[
+  {t:"fill",q:"Stop ______ your phone while you eat.",ch:["check","checking"],a:["checking"]},
+  {t:"fill",q:"The film was ______ — we left the cinema.",ch:["disappointing","disappointed"],a:["disappointing"]},
+  {t:"fill",q:"An increase ______ temperature breaks the battery.",ch:["in","of"],a:["in"]},
+  {t:"fill",q:"One of my classmates ______ a popular channel.",ch:["run","runs"],a:["runs"]},
+  {t:"fill",q:"Try ______ your answers before you send them.",ch:["to check","checking"],a:["to check"]}]};
+var AI7={name:"Talk to your AI coach · the grand final ⭐",icon:"⑥",kind:"ai",
+ topic:"Modern technologies (the whole week)",
+ prompt:"Hi! I'm preparing for my English exam. This is my final speaking practice of the week about modern technologies. Ask me questions ONE at a time. After each of my answers: tell me which of my sentences had mistakes, show me the corrected sentence, then ask the next question. At the end, give me three words or phrases I should remember from this talk.",
+ mono:"Then speak for ONE minute without any support — the clear, confident speech Elena asked for: «Modern technologies — three changes they brought into your life, one risk, and one rule you follow». Type the monologue here for Elena.",
+ o:7,day:7};
+var O7={name:"Orlova/Manukova · Unit 9 · the mixed round ⭐",icon:"⑦",kind:"sheet",
+ head:"The whole unit in one deal — type the whole word or choose.",
+ items:[
+  {t:"fill",q:"Excessive screen time is associated with sleep ______ and decreased physical activity.",ch:["disturb","disturbances"],a:["disturbances"]},
+  {t:"fill",q:"My sister and I still ______ about what programmes to watch.",ch:["argue","arguing"],a:["argue"]},
+  {t:"fill",q:"A microwave helps us ______ time in the kitchen.",ch:["save","killing"],a:["save"]},
+  {t:"fill",q:"This ______ show follows real people in unscripted situations.",ch:["reality","really"],a:["reality"]},
+  {t:"fill",q:"I use messengers to stay in ______ with my family.",ch:["touch","contact"],a:["touch"]},
+  {t:"fill",q:"Stop ______ your brother while he studies.",ch:["annoying","annoyed"],a:["annoying"],why:"Set 1 — annoy + -ing"}]};
+
+var SV={name:"Svetlana English · the speaking variant",icon:"🗣",kind:"sv",
+ head:"Do one full speaking variant on the Svetlana trainer. When you finish, copy your RESULT LINK and paste it here — Elena sees your attempt through it.",
+ link:"https://speaking.svetlanaenglishonline.ru"};
+
+var POOLS={G1:G1,W1:W1,V1:V1,L1:L1,WS1:WS1,AI1:AI1,O1:O1,
+ G2:G2,W2:W2,V2:V2,L2:L2,WS2:WS2,AI2:AI2,O2:O2,
+ G3:G3,W3:W3,V3:V3,L3:L3,WS3:WS3,AI3:AI3,O3:O3,
+ G4:G4,W4:W4,V4:V4,L4:L4,WS4:WS4,AI4:AI4,O4:O4,
+ G5:G5,W5:W5,V5:V5,L5:L5,WS5:WS5,AI5:AI5,O5:O5,
+ G6:G6,W6:W6,V6:V6,L6:L6,WS6:WS6,AI6:AI6,O6:O6,
+ G7:G7,W7:W7,V7:V7,L7:L7,WS7:WS7,AI7:AI7,O7:O7};
+var DAYLIST=[
+ {n:1,tasks:["G1","W1","V1","L1","WS1","AI1","O1","SV"]},
+ {n:2,tasks:["G2","W2","V2","L2","WS2","AI2","O2","SV"]},
+ {n:3,tasks:["G3","W3","V3","L3","WS3","AI3","O3","SV"]},
+ {n:4,tasks:["G4","W4","V4","L4","WS4","AI4","O4","SV"]},
+ {n:5,tasks:["G5","W5","V5","L5","WS5","AI5","O5","SV"]},
+ {n:6,tasks:["G6","W6","V6","L6","WS6","AI6","O6","SV"]},
+ {n:7,tasks:["G7","W7","V7","L7","WS7","AI7","O7","SV"]}];
+var SVAT={1:"SV",2:"SV",3:"SV",4:"SV",5:"SV",6:"SV",7:"SV"};
+function dayTasks(n){return DAYLIST[n-1].tasks;}
+
+/* ---------- progress: the completion chain ---------- */
+function getDone(){try{return parseInt(localStorage.getItem("egor-week2-done")||"0",10)||0;}catch(e){return 0;}}
+function markDone(n){if(n>getDone()){try{localStorage.setItem("egor-week2-done",String(n));}catch(e){}}}
+function unlockedCount(){
+  if(location.search.indexOf("all=1")!==-1)return DAYLIST.length;
+  return Math.max(1,Math.min(DAYLIST.length,getDone()+1));
+}
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function show(id){["start-card","run-card","end-card"].forEach(function(c){$(c).classList.add("hidden");});
+  if(id){$(id).classList.remove("hidden");
+    if(id==="start-card"){window.scrollTo(0,0);}
+    else{try{$(id).scrollIntoView({block:"start"});}catch(e){window.scrollTo(0,0);}}}}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function norm(s){return String(s||"").trim().toLowerCase().replace(/[.,!?;:'’"()]/g,"").replace(/\s+/g," ");}
+
+var ICONS={G:"①",W:"②",V:"③",L:"④",WS:"⑤",AI:"⑥",O:"⑦"};
+function dayIcon(pid){var k=String(pid);if(ICONS[k])return ICONS[k];return ICONS[k.replace(/\d/g,"")]||"·";}
+
+function buildDayPicker(){
+  var un=unlockedCount(),done=getDone(),grid=$("day-grid");
+  var allOpen=location.search.indexOf("all=1")!==-1;
+  var frontier=allOpen?Math.min(done+1,DAYLIST.length):un;
+  grid.innerHTML="";
+  DAYLIST.forEach(function(d,i){
+    var b=document.createElement("button");
+    b.className="day-chip";
+    var todayChip=(i+1)===frontier;
+    if(todayChip)b.classList.add("today");
+    if(i+1>un)b.classList.add("locked");
+    var icons=d.tasks.map(function(t){var p=POOLS[t]||{icon:"🗣"};return p.icon;}).join(" ");
+    b.innerHTML='<span class="dnum">'+(d.n===7?"⭐ Day 7":"Day "+d.n)+(i+1<=done?" ✓":"")+(todayChip?" · today":"")+(i+1>un?" 🔒":"")+"</span>"+
+      '<span class="dicons">'+icons+"</span>";
+    b.addEventListener("click",function(){
+      if(i+1>un){b.classList.remove("wiggle");void b.offsetWidth;b.classList.add("wiggle");
+        $("day-msg").textContent="Day "+d.n+" opens when Day "+(i)+" is sent 🔒";return;}
+      if(!WHO){needName();return;}
+      startDay(i);
+    });
+    grid.appendChild(b);
+  });
+}
+function needName(){
+  var w=$("name-box");w.style.borderColor="var(--terra)";
+  setTimeout(function(){w.style.borderColor="";},900);w.focus();
+  $("day-msg").textContent="Write your name first";
+}
+
+/* ---------- state ---------- */
+var WHO="",day=null,dayIdx=0,lines=[],bi=0,timer=null,t0=0,DUR=0,answered=false;
+var phase="",queue=[],queuePos=0,curPool=null;
+try{$("name-box").value=(localStorage.getItem("egor-week2-name")||"").trim();WHO=$("name-box").value;}catch(e){}
+buildDayPicker();
+$("name-box").addEventListener("input",function(){
+  var v=$("name-box").value.trim();
+  if(v){try{localStorage.setItem("egor-week2-name",v);}catch(e){}WHO=v;}
+});
+
+function startDay(i){day=DAYLIST[i];dayIdx=i;lines=[];bi=0;runBlock();}
+$("home-btn").addEventListener("click",function(){buildDayPicker();show("start-card");});
+
+/* ---------- judging ---------- */
+function judge(it,given){
+  if(it.t==="mc"||it.ch){return (it.a||[]).some(function(k){return norm(k)===norm(given);});}
+  return !!String(given||"").trim()&&(it.a||[]).some(function(k){return norm(k)===norm(given);});
+}
+function itemKey(it){return (it.a||[]).join(" / ");}
+
+/* ---------- THE SKIP CONTROL (Elena's quick-check route) ---------- */
+function skipLine(p,it,phaseTag){
+  var label=(phaseTag?phaseTag+" — ":"")+String(it&&it.q||"").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+  lines.push({block:p.name,icon:p.icon,label:label.slice(0,170),given:"⤼ skipped",
+    key:it?itemKey(it):"—",why:(it&&it.why)||"",ok:false,slow:false,skipped:true,phase:"· skipped"});
+}
+function skipSheetAll(p){
+  (p.items||[]).forEach(function(it){skipLine(p,it);});
+  nextBlock();
+}
+function skipCycleItem(p,it,stepName){
+  lines.push({block:p.name,icon:p.icon,label:("· "+stepName+" — "+String(it.q||"").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim()).slice(0,170),
+    given:"⤼ skipped",key:itemKey(it),why:it.why||"",ok:false,slow:false,skipped:true,phase:"· skipped"});
+  pulsePhase(p);
+}
+$("skip-btn").addEventListener("click",function(){
+  if(typeof window.__skipNext==="function"){var f=window.__skipNext;window.__skipNext=null;f();}
+});
+function recordLine(pool,it,given,phaseTag,forcedOk,forcedKey,forcedWhy){
+  var ok=(typeof forcedOk==="boolean")?forcedOk:judge(it,given);
+  var key=(typeof forcedKey==="string")?forcedKey:itemKey(it);
+  var label=(typeof phaseTag==="string"&&phaseTag)?phaseTag+" — ":"";
+  label+=String(it.q||"").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim();
+  lines.push({block:pool.name,icon:pool.icon,label:label.slice(0,170),
+    given:(given===null||given===undefined||String(given).trim()==="")?"—":String(given),
+    key:key,why:it.why||"",ok:ok,slow:false,phase:phaseTag||""});
+}
+
+/* ---------- sheet renderer (exam blocks + Orlova) ---------- */
+function runSheet(p){
+  var kind=p.kind;
+  var h='<div class="blockcard"><div class="btag">'+p.icon+" "+esc(p.name)+'</div>';
+  h+='<div class="teach">'+p.head+'</div>';
+  if(p.text)h+='<div class="examtext">'+p.text+'</div>';
+  if(p.audio)h+='<audio controls src="'+p.audio+'"></audio>';
+  if(p.optslist){h+='<div class="examtext"><b>The statements:</b><br>'+p.optslist.map(esc).join("<br>")+'</div>';}
+  (p.items||[]).forEach(function(it,idx){
+    var open=(it.t==="type"&&it.stem)?'<span class="stem">'+esc(it.stem)+'</span>':'';
+    var opts="";
+    if(it.t==="mc"&&it.ch){opts='<div class="opts">'+it.ch.map(esc).join(" &nbsp;·&nbsp; ")+'</div>';}
+    else if(it.ch){opts='<div class="opts">'+it.ch.map(esc).join(" / ")+'</div>';}
+    h+='<div class="rt"><b>'+(idx+1)+'</b><div class="rtext">'+(it.t==="mc"?esc(it.q):it.q)+' '+open+opts+
+      '<br><input class="'+(kind==="sheet"&&it.t==="type"?"wide":"")+'" data-si="'+idx+'" autocomplete="off" spellcheck="false" placeholder="'+(it.t==="mc"?"digit":"answer")+'"></div></div>';
+  });
+  h+='<div class="answer-row"><button class="big" id="sheet-btn" style="margin-top:.6em">Record &amp; continue →</button></div></div>';
+  $("q-count").textContent=p.icon+" "+p.name;
+  $("timer-wrap").classList.add("hidden");$("timer-num").textContent="";
+  $("q-body").innerHTML=h;
+  show("run-card");
+  window.__skipNext=function(){skipSheetAll(p);};
+  $("sheet-btn").addEventListener("click",function(){
+    (p.items||[]).forEach(function(it,idx){
+      var el=document.querySelector('[data-si="'+idx+'"]');
+      var given=el?el.value:"";
+      var tagged=(String(given).trim()==="")?"left unanswered":null;
+      recordLine(p,it,given,tagged);
+    });
+    nextBlock();
+  });
+}
+
+/* ---------- cycle renderer (explain → practice → drill → timed) ---------- */
+function runCycle(p){
+  phase="explain";
+  renderPhase(p);
+}
+function renderPhase(p){
+  var h="";
+  if(phase==="explain"){
+    h='<div class="blockcard"><div class="btag">'+p.icon+" "+esc(p.name)+'</div>'+
+      '<div class="teach"><b>Explain.</b><br>'+p.explain+'</div>'+
+      '<div class="answer-row"><button class="big" id="ph-btn" style="margin-top:.6em">Got it — practice →</button></div></div>';
+    $("q-count").textContent=p.icon+" "+p.name+" · explain";
+    $("timer-wrap").classList.add("hidden");$("timer-num").textContent="";
+    $("q-body").innerHTML=h;show("run-card");
+    window.__skipNext=function(){nextBlock();};
+    $("ph-btn").addEventListener("click",function(){phase="practice";cycleQueue=shuffle(p.practice);cyclePos=0;renderPhase(p);});
+    return;
+  }
+  var timed=(phase==="timed");
+  var deck=(phase==="practice")?p.practice:(phase==="drill")?p.drill:p.timed;
+  if(cyclePos>=cycleQueue.length){
+    if(phase==="practice"){phase="drill";cycleQueue=shuffle(p.drill);cyclePos=0;renderPhase(p);return;}
+    if(phase==="drill"){phase="timed";cycleQueue=shuffle(p.timed);cyclePos=0;renderPhase(p);return;}
+    nextBlock();return;
+  }
+  answered=false;
+  var it=cycleQueue[cyclePos];
+  var stepName=(phase==="practice")?"practice":(phase==="drill")?"drill":"drill ⏰";
+  $("q-count").textContent=p.icon+" "+p.name+" · "+stepName+" · "+(cyclePos+1)+" / "+cycleQueue.length;
+  var opts="";
+  if(it.ch){opts='<div class="helper">'+it.ch.map(esc).join(" / ")+'</div>';}
+  var body='<div class="prompt">'+it.q+'</div>'+opts+
+    '<div class="helper">'+(timed?"on the clock — the result is recorded silently":"untimed — the result is recorded silently")+'</div>';
+  if(it.ch){
+    body+='<div class="answer-row" id="arow"></div>';
+    $("q-body").innerHTML=body;
+    var row=$("arow");
+    shuffle(it.ch).forEach(function(c){
+      var b=document.createElement("button");b.className="choice";b.textContent=c;
+      b.addEventListener("click",function(){
+        if(answered)return;answered=true;stopTimer();
+        recordLine(p,it,c,"· "+stepName);pulsePhase(p);
+      });
+      row.appendChild(b);
+    });
+  }else{
+    body+='<div class="answer-row"><input class="type-box" id="type-box" autocomplete="off" autocapitalize="off" spellcheck="false"><button class="ok-btn" id="ok-btn">OK</button></div>';
+    $("q-body").innerHTML=body;
+    var box=$("type-box");
+    var submit=function(){if(answered)return;answered=true;stopTimer();
+      recordLine(p,it,box.value,"· "+stepName);pulsePhase(p);};
+    $("ok-btn").addEventListener("click",submit);
+    box.addEventListener("keydown",function(e){if(e.key==="Enter")submit();});
+    setTimeout(function(){try{box.focus();}catch(e){}},60);
+  }
+  window.__skipNext=function(){if(answered)return;answered=true;stopTimer();skipCycleItem(p,it,stepName);};
+  show("run-card");
+  if(timed){$("timer-wrap").classList.remove("hidden");startTimer(p.sec||15,function(){if(answered)return;answered=true;recordLine(p,it,null,"· timed out");pulsePhase(p);});}
+  else{$("timer-wrap").classList.add("hidden");$("timer-num").textContent="";}
+  cyclePos++;
+}
+function pulsePhase(p){
+  $("q-body").classList.add("pulse");
+  setTimeout(function(){$("q-body").classList.remove("pulse");renderPhase(p);},350);
+}
+
+/* ---------- AI renderer ---------- */
+function runAI(p){
+  var h='<div class="blockcard"><div class="btag">'+p.icon+" "+esc(p.name)+'</div>';
+  h+='<div class="teach"><b>Today\'s topic: '+esc(p.topic)+'.</b><br>Step 1 — copy the starter prompt and give it to your AI coach (ИИшка). Talk with it in speaking mode.</div>';
+  h+='<div class="copyline"><div class="copybox" id="ai-prompt">'+esc(p.prompt)+'</div>'+
+     '<button class="copybtn" id="ai-copy" type="button">📋 Copy</button></div>';
+  h+='<div class="teach">'+esc(p.mono)+'</div>';
+  h+='<textarea class="mono" id="ai-mono" placeholder="Your one-minute monologue goes here…"></textarea>';
+  h+='<div class="answer-row"><button class="big" id="ai-btn" style="margin-top:.6em">Record &amp; continue →</button></div></div>';
+  $("q-count").textContent=p.icon+" "+p.name;
+  $("timer-wrap").classList.add("hidden");$("timer-num").textContent="";
+  $("q-body").innerHTML=h;show("run-card");
+  window.__skipNext=function(){
+    lines.push({block:curPool.name,icon:curPool.icon,label:"the one-minute monologue (no support)",
+      given:"⤼ skipped",key:"—",why:"",ok:false,slow:false,free:true,skipped:true,phase:"monologue"});
+    nextBlock();
+  };
+}
+/* the AI bindings (copy + monologue refusal) attach here, once per render */
+function bindAI(){
+  var b=$("ai-copy");
+  if(!b)return;
+  b.addEventListener("click",function(){
+    var txt=$("ai-prompt").textContent||"";
+    var done=function(){b.textContent="Copied ✓ — paste it to the AI!";
+      setTimeout(function(){b.textContent="📋 Copy";},2600);};
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,done);}
+      else{
+        var ta=document.createElement("textarea");ta.value=txt;document.body.appendChild(ta);
+        ta.select();document.execCommand("copy");document.body.removeChild(ta);done();
+      }
+    }catch(e){done();}
+  });
+  $("ai-btn").addEventListener("click",function(){
+    var v=$("ai-mono").value.trim();
+    if(!v){
+      var t=$("ai-mono");t.style.borderColor="var(--terra)";
+      setTimeout(function(){t.style.borderColor="";},900);t.focus();
+      return;
+    }
+    lines.push({block:curPool.name,icon:curPool.icon,label:"the one-minute monologue (no support)",given:v,key:"(Elena reads it)",why:"",ok:true,slow:false,free:true,phase:"monologue"});
+    nextBlock();
+  });
+}
+
+/* ---------- Svetlana renderer ---------- */
+function runSV(p){
+  var h='<div class="blockcard"><div class="btag">'+p.icon+" "+esc(p.name)+'</div>'+
+    '<div class="teach">'+p.head+'</div>'+
+    '<div class="answer-row" style="margin-top:.6em"><a class="big" href="'+p.link+'" target="_blank" rel="noopener" style="margin-top:0">Open the Svetlana trainer ↗</a></div>'+
+    '<p class="helper" style="margin-top:.8em">Paste your result link here (the platform gives it after the variant):</p>'+
+    '<div class="answer-row"><input class="type-box" id="sv-link" style="width:min(420px,86vw);text-align:left" placeholder="https://speaking.svetlanaenglishonline.ru/result/…"></div>'+
+    '<div class="answer-row"><button class="big" id="sv-btn" style="margin-top:.6em">Record &amp; continue →</button></div></div>';
+  $("q-count").textContent=p.icon+" "+p.name;
+  $("timer-wrap").classList.add("hidden");$("timer-num").textContent="";
+  $("q-body").innerHTML=h;show("run-card");
+  try{var saved=localStorage.getItem("egor-week2-sv"+day.n);var sv=$("sv-link");if(saved&&sv)sv.value=saved;}catch(e){}
+  window.__skipNext=function(){
+    lines.push({block:p.name,icon:p.icon,label:"Svetlana variant · result link",given:"⤼ skipped",key:"—",why:"",ok:false,slow:true,skipped:true,link:""});
+    nextBlock();
+  };
+  $("sv-btn").addEventListener("click",function(){
+    var link="";try{link=($("sv-link")||{}).value||"";}catch(e){}
+    try{localStorage.setItem("egor-week2-sv"+day.n,link||"");}catch(e){}
+    lines.push({block:p.name,icon:p.icon,label:"Svetlana variant · result link",given:link||"no link pasted",key:"—",why:"",ok:!!link,slow:true,link:link});
+    nextBlock();
+  });
+}
+
+/* ---------- the block state machine ---------- */
+var cycleQueue=[],cyclePos=0;
+function runBlock(){
+  var pid=day.tasks[bi];
+  if(SVAT[day.n]===pid){runSV(SV);return;}
+  var p=POOLS[pid];curPool=p;
+  if(p.kind==="sheet"){runSheet(p);}
+  else if(p.kind==="cycle"){phase="explain";cycleQueue=[];cyclePos=0;renderPhase(p);}
+  else if(p.kind==="ai"){runAI(p);bindAI();}
+}
+function nextBlock(){
+  bi++;
+  if(bi<day.tasks.length){runBlock();return;}
+  dayEnd();
+}
+
+/* ---------- day end + the review + the send ---------- */
+function dayEnd(){
+  markDone(day.n);
+  var scored=lines.filter(function(l){return !l.slow&&!l.free&&!l.skipped;}),
+      info=lines.filter(function(l){return l.slow||l.free;});
+  var skipN=lines.filter(function(l){return l.skipped&&!l.free;}).length;
+  var dOk=scored.filter(function(l){return l.ok;}).length;
+  var html='<div class="score-line"><span><b>'+dOk+'</b> / '+scored.length+' answer lines'+(skipN?" · ⤼ "+skipN+" skipped":"")+'</span><span>'+(scored.length&&dOk===scored.length?"clean 🏆":scored.length&&dOk>=scored.length*0.7?"strong 💪":scored.length?"the misses are listed below →":"everything skipped ⤼")+'</span></div>';
+  var byBlock={};
+  lines.forEach(function(l){byBlock[l.block]=byBlock[l.block]||{n:0,ok:0,sk:0};
+    if(!l.free&&!l.skipped){byBlock[l.block].n++;if(l.ok)byBlock[l.block].ok++;}
+    else if(l.skipped&&!l.free){byBlock[l.block].sk++;}});
+  Object.keys(byBlock).forEach(function(k){
+    var b=byBlock[k];if(b.n||b.sk)html+='<div class="score-line"><span>'+k+'</span><span><b>'+b.ok+'</b> / '+b.n+(b.sk?" (⤼ "+b.sk+" skipped)":"")+'</span></div>';
+  });
+  html+='<p class="helper" style="text-align:left;margin-top:1em;font-weight:700">Every line:</p>';
+  lines.forEach(function(l){
+    if(l.skipped){html+='<div class="revline"><span class="mark">⤼</span> '+esc(l.label)+'<br>skipped by <b>'+esc(WHO||"EGOR")+'</b></div>';return;}
+    if(l.free){html+='<div class="revline"><span class="mark">✍️</span> <b>'+esc(l.label)+'</b><br>your monologue: '+esc(l.given).slice(0,400)+'</div>';return;}
+    html+='<div class="revline"><span class="mark '+(l.ok?"mk-ok":"mk-bad")+'">'+(l.ok?"✓":"✗")+'</span> '+esc(l.label)+
+      '<br>you: <b>'+esc(l.given)+'</b>'+(l.key&&l.key!=="—"?' → <span class="key">'+esc(l.key)+'</span>':'')+
+      (l.why?'<div class="why">💡 '+esc(l.why)+'</div>':'')+'</div>';
+  });
+  $("end-body").innerHTML=html;
+  $("end-eyebrow").textContent="Day "+day.n+" · the results (they went to Elena just now)";
+  show("end-card");
+  try{localStorage.setItem("egor-week2-last",reportText());}catch(e){}
+  sendReport(reportText());
+}
+
+/* ---------- the report: every line ---------- */
+function reportText(){
+  var out=["EGOR WEEK NOV 8-14 · Day "+day.n+" · "+(WHO||"EGOR")+" · "+new Date().toLocaleString('en-GB')];
+  var byBlock={};
+  lines.forEach(function(l){byBlock[l.block]=byBlock[l.block]||{n:0,ok:0,sk:0};
+    if(!l.free&&!l.skipped){byBlock[l.block].n++;if(l.ok)byBlock[l.block].ok++;}
+    else if(l.skipped&&!l.free){byBlock[l.block].sk++;}});
+  Object.keys(byBlock).forEach(function(k){var b=byBlock[k];
+    if(b.n||b.sk)out.push(k+": "+b.ok+"/"+b.n+(b.sk?" (⤼ "+b.sk+" skipped)":""));});
+  out.push("--- every line ---");
+  lines.forEach(function(l){
+    if(l.skipped){out.push("⤼ ["+l.block+"] "+l.label+" — skipped by "+(WHO||"EGOR"));return;}
+    if(l.free){out.push("✍️ "+l.label+": "+l.given);return;}
+    out.push((l.ok?"✓":"✗")+" ["+l.block+(l.phase?" · "+l.phase:"")+"] "+l.label+" — you: "+l.given+(l.key&&l.key!=="—"?" · key: "+l.key:"")+(l.link?" · "+l.link:""));
+  });
+  return out.join("\n");
+}
+
+/* ---------- send machinery (fetch → iframe fallback → queue) ---------- */
+var QKEY="egor-week2-form-queue";
+function queueGet(){try{return JSON.parse(localStorage.getItem(QKEY)||"[]");}catch(e){return[];}}
+function queueAdd(txt){var q=queueGet();q.push(txt);if(q.length>30)q=q.slice(-30);try{localStorage.setItem(QKEY,JSON.stringify(q));}catch(e){}}
+function queueClear(){try{localStorage.setItem(QKEY,"[]");}catch(e){}}
+function postOne(txt,done){
+  var okFn=function(){done(true);},badFn=function(){done(false);};
+  try{
+    var body=new FormData();
+    body.append(HW_FORM.entry,txt);
+    fetch(HW_FORM.action,{method:"POST",mode:"no-cors",body:body})
+      .then(function(){okFn();}).catch(function(){iframePost(txt,okFn,badFn);});
+  }catch(e){iframePost(txt,okFn,badFn);}
+}
+function iframePost(txt,okFn,badFn){
+  try{
+    var frame=document.createElement("iframe");
+    frame.name="hf-"+Date.now();frame.style.display="none";
+    document.body.appendChild(frame);
+    var f=document.createElement("form");
+    f.method="POST";f.action=HW_FORM.action;f.target=frame.name;
+    var inp=document.createElement("input");
+    inp.type="hidden";inp.name=HW_FORM.entry;inp.value=txt;
+    f.appendChild(inp);
+    document.body.appendChild(f);f.submit();
+    setTimeout(function(){okFn();},1200);
+  }catch(e){badFn();}
+}
+function sendReport(txt){
+  postOne(txt,function(ok){
+    if(!ok){queueAdd(txt);return;}
+    var q=queueGet();
+    if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}
+  });
+}
+(function(){var q=queueGet();if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}})();
+
+/* ---------- the V27 writing chips (per-tap reports) ---------- */
+function paintWChip(k){
+  var map={v26email:"chip-email",v26essay:"chip-essay"};
+  var tasks={v26email:"email-task",v26essay:"essay-task"};
+  var el=$(map[k]);if(!el)return;
+  var on=false;try{on=localStorage.getItem("egor-week2-"+k)==="1";}catch(e){}
+  el.classList.toggle("on",on);
+  el.textContent=on?"✓ done":"done";
+  var t=$(tasks[k]);if(t)t.classList.toggle("hidden",on);
+}
+function wChipHandler(k,label){
+  return function(){
+    var on=false;try{on=localStorage.getItem("egor-week2-"+k)==="1";}catch(e){}
+    var next=!on;
+    try{localStorage.setItem("egor-week2-"+k,next?"1":"0");}catch(e){}
+    paintWChip(k);
+    if(next){
+      var txt="EGOR WEEK NOV 8-14 · writing · "+label+" · "+(WHO||"EGOR")+" · done ✓ · "+new Date().toLocaleString('en-GB');
+      sendReport(txt);
+    }
+  };
+}
+try{
+  $("chip-email").addEventListener("click",wChipHandler("v26email","V26 Task 37 (the email to Mathew)"));
+  $("chip-essay").addEventListener("click",wChipHandler("v26essay","V26 Task 38.2 (the essay: time online in Netland)"));
+  paintWChip("v26email");paintWChip("v26essay");
+}catch(e){}
+
+/* ---------- the wall-clock timer ---------- */
+function startTimer(sec,onOut){
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  num.textContent=sec+" s";num.className="timer-num";
+  if(timer){clearInterval(timer);timer=null;}
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 s";
+      if(timer){clearInterval(timer);timer=null;}onOut();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" s";
+    num.className="timer-num"+(s<=3?" low":"");
+  },100);
+}
+function stopTimer(){if(timer){clearInterval(timer);timer=null;}}
+
+/* drive handle (test drives + future QA) */
+window.__W={startDay:startDay,dayEnd:dayEnd,lines:function(){return lines;},
+  state:function(){return {day:day?day.n:null,bi:bi,phase:phase,queuePos:cyclePos};}};
+})();
+</script>
+</body>
+</html>

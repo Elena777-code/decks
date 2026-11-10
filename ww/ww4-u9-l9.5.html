@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WW4 · Unit 9 · 9.5 Listening &amp; Vocabulary — Awkward moments</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WW4 (8th-grade group, Tue 15.45 Elena / Fri 15.30 Farida) —
+   Wider World 3, Unit 9 "Think outside the box", section 9.5
+   Listening & Vocabulary — "Awkward moments" (SB p. 111,
+   TB p. 208). Engine: the group's familiar 9.1 sheets, current
+   standard: THE CORNERS V2 (🙋 Pardon top-left · ✍️ top-right ·
+   🗒 bottom-centre — emoji-only pills), the ✍️ V2 window (d: ·
+   //: · free · fix:, ⌘S = save+close, auto-send over http), the
+   hotkey guard, flex-shrink guard, answers behind clicks, build
+   stamp. Opening: the homework checks — the Word Friends
+   dictation Friday forgot (the 15 shkola-pack words), WB p. 105
+   + WB p. 106, the Bright sparks re-read facts — plus the Varya
+   board (she missed 9.2 and 9.3). Then 9.5 straight from the TB
+   — lead-in, ex. 1–7, Vox Pops 9.3, the TB extra role play,
+   nothing omitted. English only.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --radius:14px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* flex-shrink guard: nothing on a slide may collapse — the slide scrolls */
+.slide>*{flex-shrink:0}
+.slide{position:absolute;inset:0;padding:8vh 5vw 12vh;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.6vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.8rem,1.25vw,1rem);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.3rem,2.5vw,2.05rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.stamp{display:inline-block;font-size:clamp(.72rem,1.05vw,.85rem);font-weight:700;
+  color:var(--ink-soft);border:1.5px solid var(--line);border-radius:99px;
+  padding:.14em .7em;background:#fff;letter-spacing:.04em}
+.task{font-size:clamp(1.02rem,1.65vw,1.3rem);line-height:1.5;font-weight:500}
+.task strong{color:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.78rem,1.2vw,.95rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.16em .7em;
+  background:#fff;margin-bottom:.1em;white-space:nowrap}
+.note{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);font-style:italic;line-height:1.48}
+audio{width:min(460px,92%);height:42px;vertical-align:middle}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.8rem,1.5vw,1.2rem)}
+.card.tint{background:var(--accent-soft);border-color:#d5e2dd}
+.card.gold{background:var(--gold-soft);border-color:#e8dcb8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.5vw,1.1rem)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.5vw,1.1rem)}
+.chips{display:flex;flex-wrap:wrap;gap:.5em}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:.26em .8em;
+  font-size:clamp(.92rem,1.5vw,1.2rem);font-weight:600;background:#fff;user-select:none}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.42em 0;
+  border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.7vw,1.32rem);line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .no{font-weight:800;color:var(--accent);min-width:1.4em}
+/* click-to-reveal answers — ANSWERS HIDE, ALWAYS */
+.flip{cursor:pointer;border-radius:8px;transition:background .2s}
+.flip:hover{background:var(--accent-soft)}
+.flip .back{color:var(--accent);opacity:0;transition:opacity .2s;font-weight:700;font-size:.94em;
+  display:inline-block;max-width:0;max-height:1.1em;overflow:hidden;white-space:nowrap;vertical-align:baseline}
+.flip.shown .back{opacity:1;max-width:none;max-height:none;white-space:normal}
+.vb{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.vb .vbh{background:var(--accent-soft);color:var(--accent);font-weight:800;
+  font-size:clamp(.85rem,1.4vw,1.05rem);letter-spacing:.06em;text-transform:uppercase;
+  padding:.35em .9em;border-bottom:1px solid var(--line)}
+.vb .vbb{padding:.5em .9em}
+.lead-sm{font-size:clamp(.95rem,1.5vw,1.18rem);line-height:1.5;color:#4a463d}
+.lead-sm strong{color:var(--accent)}
+.dlg{padding:.42em 0;border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.7vw,1.3rem);line-height:1.5}
+.dlg:last-child{border-bottom:none}
+.dlg b{color:var(--accent)}
+
+/* ---------- THE CORNERS V2 — pinned emoji pills ---------- */
+.pill{position:fixed;z-index:150;border:2px solid var(--line);background:rgba(255,255,255,.95);
+  backdrop-filter:blur(8px);color:var(--ink);font-family:'Inter',sans-serif;
+  font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1;
+  padding:.42em .6em;border-radius:99px;cursor:pointer;
+  box-shadow:0 3px 10px rgba(35,39,46,.10);transition:transform .12s,border-color .12s}
+.pill:hover{transform:scale(1.08);border-color:var(--accent)}
+#pardonBtn{top:max(10px,1.6vh);left:max(10px,1.6vw)}
+#annoBtn{top:max(10px,1.6vh);right:max(10px,1.6vw)}
+
+/* ---------- 🙋 Pardon? — the one universal list (top-left popup) ---------- */
+#pq{position:fixed;left:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(420px,92vw);
+  background:#fff;border:2px solid var(--line);border-radius:16px;padding:.75em .9em .9em;
+  display:none;flex-direction:column;gap:.35em;box-shadow:0 16px 40px rgba(35,39,46,.22)}
+#pq.on{display:flex}
+#pq .pq-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft);padding:0 .2em .2em}
+#pq .a-sp{flex:1}
+#pq .pq-head button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#pq .pq-head button:hover{border-color:var(--ink-soft)}
+#pq .pqRow{display:flex;align-items:center;gap:.6em;font-size:clamp(1rem,1.9vw,1.2rem);
+  font-weight:600;color:var(--ink);padding:.3em .5em;border-radius:10px;line-height:1.35}
+#pq .pqRow:hover{background:var(--accent-soft)}
+#pq .pqRow .pqE{flex:0 0 1.6em;text-align:center;font-weight:400}
+
+
+
+
+
+/* ⛶ read big — fullscreen reading text */
+#fso{position:fixed;inset:0;z-index:190;background:var(--paper);display:none;
+  overflow:auto;padding:6vh 7vw 10vh}
+#fso.open{display:block}
+#fso .fsoinner{max-width:78ch;margin:0 auto;font-size:clamp(1.25rem,2.4vw,1.95rem);
+  line-height:1.65;color:var(--ink)}
+#fso .fsoinner .gp{display:inline-block;min-width:5.5ch;border-bottom:2px solid var(--accent);
+  text-align:center;padding:0 .3em}
+#fso .fsoinner .ex{color:var(--accent);font-weight:700}
+
+@media (max-width:900px){
+  .slide{padding:8vh 5vw 12vh}
+  .grid2,.grid3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER + HOMEWORK CHECK ORDER + PREPARE AHEAD -->
+<section class="slide">
+  <div class="eyebrow reveal">Wider World 3 · Unit 9 “Think outside the box” · WW4 (8th grade) — Tue 15.45 Elena / Fri 15.30 Farida</div>
+  <h1 class="reveal">9.5 Listening &amp; Vocabulary — <em>Awkward moments</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Today:</strong> “I can identify specific information in a dialogue and talk about awkward moments.” <span class="stamp">13.10 · v1</span></p>
+  <p class="tag reveal">HOMEWORK CHECK — today’s order</p>
+  <div class="chips reveal">
+    <span class="chip">1 · the Word Friends dictation</span>
+    <span class="chip">2 · WB p. 105 + WB p. 106</span>
+    <span class="chip">3 · Bright sparks — three facts</span>
+  </div>
+  <div class="card tint reveal">
+    <p class="lead-sm"><strong>Prepare ahead</strong> — 🎧 <strong>test the three tracks</strong> (right here) · 📄 <strong>one sheet of paper per group of three</strong> (the lead-in game writes on it) · <strong>notebooks out</strong> (the dictation + ex. 7 writes a paragraph) · nothing else.</p>
+    <div style="display:grid;gap:.4vh;margin-top:.6vh">
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1vw;align-items:center"><span class="tag">3.26 · the four dialogues</span><audio controls preload="none" src="../media/ww3-cd3-3_26.mp3"></audio></div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1vw;align-items:center"><span class="tag">3.27 · the phrasal verbs</span><audio controls preload="none" src="../media/ww3-cd3-3_27.mp3"></audio></div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1vw;align-items:center"><span class="tag">3.28 · the short dialogues</span><audio controls preload="none" src="../media/ww3-cd3-3_28.mp3"></audio></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · THE WORD FRIENDS DICTATION (promised 06.10, forgotten on 09.10) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Homework check · the Word Friends dictation · the shkola pack WW4_9.3</div>
+  <h1 class="reveal">First — the <em>dictation</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Friday ran out of time — the dictation is <strong>now</strong>.
+  Write the <strong>word or phrase</strong> for each clue. Spelling counts.</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>be logical and easy to understand <span class="back">→ make sense</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>the food a person usually eats <span class="back">→ diet</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>sit a test at the end of a course <span class="back">→ take an exam</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>how well a brain learns and solves problems <span class="back">→ intelligence</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>write words down quickly while you listen <span class="back">→ make notes</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>to change how someone thinks or acts, without forcing <span class="back">→ to influence</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">7</span><span>get better at something, step by step <span class="back">→ make progress</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">8</span><span>the usual level — not high, not low <span class="back">→ average</span></span></div>
+    </div>
+    <div class="card">
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">9</span><span>check something with your eyes, just for a moment <span class="back">→ take a look</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">10</span><span>all the people who live in a place <span class="back">→ population</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">11</span><span>do it better than before <span class="back">→ make an improvement</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">12</span><span>the number of points you get in a test or game <span class="back">→ score</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">13</span><span>get something wrong <span class="back">→ make a mistake</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">14</span><span>to find the size, amount or level of something <span class="back">→ to measure</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">15</span><span>do things differently from before <span class="back">→ make changes</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · WB p. 105 QUICK CHECK (set 06.10 — Friday's report doesn't say it was checked) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Homework check · WB p. 105 (9.3 “Homeschooling”) · at speed</div>
+  <h1 class="reveal">WB p. 105 — <em>fast</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Round-robin — <strong>one answer each</strong>. <em>Ex. 1 was the dictation you just wrote.</em> Click to confirm:</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 2</strong> — match headings a–d with paragraphs 1–4:</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>→ <span class="back">b — facts and figures: 36,000 homeschooled in Britain, and growing</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>→ <span class="back">c — better results in national tests, places at top universities</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>→ <span class="back">a — Fran’s freedom: her own programme, a tutor just for her</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>→ <span class="back">d — the loneliness assumption — “In fact, this isn’t the case”</span></span></div>
+    </div>
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 3</strong> — true or false?</p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Homeschooling is possible in every country. <span class="back">→ F — compulsory in many countries, not every</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>A study in Britain showed homeschoolers are more successful. <span class="back">→ F — the studies were in the USA</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Fran likes being in control of her studies. <span class="back">→ T — “I don’t have to take instructions from teachers”</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Adam gets more attention now. <span class="back">→ T — “a tutor just for me”</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Homeschoolers are always lonely. <span class="back">→ F — networks of friends, interesting social lives</span></span></div>
+    </div>
+  </div>
+  <div class="card reveal">
+    <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 4</strong> — the highlighted phrases, correct form:</p>
+    <div class="chips">
+      <span class="chip flip" onclick="this.classList.toggle('shown')">1 <span class="back">make a real effort</span></span>
+      <span class="chip flip" onclick="this.classList.toggle('shown')">2 <span class="back">make a big difference</span></span>
+      <span class="chip flip" onclick="this.classList.toggle('shown')">3 <span class="back">taking instructions</span></span>
+      <span class="chip flip" onclick="this.classList.toggle('shown')">4 <span class="back">make comparisons</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · WB p. 106 CHECK 1/2 — ex. 1 + ex. 2 + ex. 4 -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Homework check · WB p. 106 (9.4 Grammar — mixed tenses) · 1/2</div>
+  <h1 class="reveal">WB p. 106 — <em>your answers</em> (1/2)</h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 1</strong> — complete with the verbs below (two extra):</p>
+      <div class="chips" style="margin-bottom:.4em">
+        <span class="chip">didn’t have</span><span class="chip">haven’t had</span><span class="chip">left</span><span class="chip">’m going to go</span><span class="chip">’m seeing</span><span class="chip">plays</span><span class="chip">’s playing</span><span class="chip">were living</span>
+      </div>
+      <div class="item"><span class="no">1</span><span>My parents <b style="color:var(--accent)">were living</b> in London when I was born. <span class="note">(the example)</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>I ____ Tom tomorrow evening, so I can ask him about the project. <span class="back">→ ’m seeing — a fixed arrangement</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>We ____ our exam results yet. <span class="back">→ haven’t had — “yet”</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Jack’s upstairs at the moment — I think he ____ computer games. <span class="back">→ ’s playing — right now</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>My brother ____ school last year. <span class="back">→ left — “last year”</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>I ____ online tonight, to find some information. <span class="back">→ ’m going to go — a plan</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">+</span><span>The two extra verbs? <span class="back">→ didn’t have · plays</span></span></div>
+    </div>
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 2</strong> — Present Simple · Present Continuous · Present Perfect:</p>
+      <div class="item"><span class="no">1</span><span>What <b style="color:var(--accent)">are you studying</b> in Biology at the moment? <span class="note">(the example)</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>A lot of things ____ at our school in the last two years. <span class="back">→ have changed</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Dan never ____ to the teacher. <span class="back">→ listens — “never” = habit</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Be quiet — I ____ to revise! <span class="back">→ ’m trying — right now</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Amy isn’t at school today because she ____ her leg. <span class="back">→ has broken — the result now</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>I ____ Maths — it’s my favourite subject! <span class="back">→ love — a state, no continuous</span></span></div>
+      <p class="lead-sm" style="margin:.4em 0 .2em"><strong>Ex. 4</strong> — choose the correct option:</p>
+      <div class="item"><span class="no">1</span><span>I’m sure you <b style="color:var(--accent)">will get</b> good marks next week. <span class="note">(the example)</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>How many people ____ to the party next month? <span class="back">→ are you going to invite — intention</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Hurry up — the train ____ in five minutes! <span class="back">→ leaves — a timetable</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>We ____ outside the cinema at 6.30. <span class="back">→ are meeting — an arrangement</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>I think in the future students ____ at home more. <span class="back">→ will study — a prediction</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>What ____ to celebrate the end of exams? <span class="back">→ are you going to do — intention</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · WB p. 106 CHECK 2/2 — ex. 3 (excuses) + ex. 5 (the article) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Homework check · WB p. 106 · 2/2 — the excuses + the article</div>
+  <h1 class="reveal">Excuses — and the <em>world’s biggest school</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 3</strong> — the excuses. Past Simple or Past Continuous?</p>
+      <p class="dlg">I <span class="flip" onclick="this.classList.toggle('shown')"><b>1</b> <span class="back">fell</span></span> (fall) asleep while I <span class="flip" onclick="this.classList.toggle('shown')"><b>2</b> <span class="back">was watching</span></span> (watch) TV. While I <span class="flip" onclick="this.classList.toggle('shown')"><b>3</b> <span class="back">was sleeping</span></span> (sleep), my dog <span class="flip" onclick="this.classList.toggle('shown')"><b>4</b> <span class="back">took</span></span> (take) my homework outside and <span class="flip" onclick="this.classList.toggle('shown')"><b>5</b> <span class="back">buried</span></span> (bury) it in the garden.</p>
+      <p class="dlg">I <span class="flip" onclick="this.classList.toggle('shown')"><b>6</b> <span class="back">spilled / spilt</span></span> (spill) water on my school bag while I <span class="flip" onclick="this.classList.toggle('shown')"><b>7</b> <span class="back">was helping</span></span> (help) my mum in the kitchen. Unfortunately, all my books <span class="flip" onclick="this.classList.toggle('shown')"><b>8</b> <span class="back">got</span></span> (get) wet!</p>
+      <p class="dlg">The school bus <span class="flip" onclick="this.classList.toggle('shown')"><b>9</b> <span class="back">arrived</span></span> (arrive) early this morning, while I <span class="flip" onclick="this.classList.toggle('shown')"><b>10</b> <span class="back">was having</span></span> (have) breakfast. I <span class="flip" onclick="this.classList.toggle('shown')"><b>11</b> <span class="back">left</span></span> (leave) the house quickly and I <span class="flip" onclick="this.classList.toggle('shown')"><b>12</b> <span class="back">forgot</span></span> (forget) my homework. Sorry!</p>
+    </div>
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Ex. 5</strong> — “The world’s biggest school”, the correct form:</p>
+      <p class="lead-sm">The City of Montessori School in Lucknow, India, <b style="color:var(--accent)">1 holds</b> (hold) the world record for the world’s largest school, with over 50,000 students! The school first <span class="flip" onclick="this.classList.toggle('shown')"><b>2</b> <span class="back">opened</span></span> (open) in 1959, with only five students. Dr Jagdish Gandhi, the founder of the school, says it was difficult to get students at first. He and his wife <span class="flip" onclick="this.classList.toggle('shown')"><b>3</b> <span class="back">worked</span></span> (work) very hard in the first few years while they <span class="flip" onclick="this.classList.toggle('shown')"><b>4</b> <span class="back">were trying</span></span> (try) to achieve their dream of a good school for their city. The school <span class="flip" onclick="this.classList.toggle('shown')"><b>5</b> <span class="back">has grown</span></span> (grow) a lot since those early days. It now <span class="flip" onclick="this.classList.toggle('shown')"><b>6</b> <span class="back">employs</span></span> (employ) 3,800 teachers, and lessons <span class="flip" onclick="this.classList.toggle('shown')"><b>7</b> <span class="back">take</span></span> (take) place at twenty different sites across the city. And it <span class="flip" onclick="this.classList.toggle('shown')"><b>8</b> <span class="back">is still growing</span></span> (still / grow)! The next school year <span class="flip" onclick="this.classList.toggle('shown')"><b>9</b> <span class="back">will start</span></span> (start) in June, and who knows how many students there <span class="flip" onclick="this.classList.toggle('shown')"><b>10</b> <span class="back">will be</span></span> (be) by that time!</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · THE VARYA BOARD — 9.2 four shapes + Bright sparks three facts -->
+<section class="slide">
+  <div class="eyebrow reveal">Grammar · SB p. 108 · questions — the four shapes · + Bright sparks in three facts</div>
+  <h1 class="reveal">Questions — the four <em>shapes</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card"><p class="lead-sm"><strong>1 · Yes/No — inversion</strong><br>
+      <span class="dlg">You are hungry. → <b>Are you</b> hungry?</span>
+      <span class="dlg">I enjoyed it. → <b>Did you</b> enjoy it?</span></p></div>
+    <div class="card"><p class="lead-sm"><strong>2 · Wh- — question word + inversion</strong><br>
+      <span class="dlg"><b>Why are</b> you hungry?</span>
+      <span class="dlg"><b>When does</b> she cycle?</span></p></div>
+    <div class="card"><p class="lead-sm"><strong>3 · Subject questions</strong> — <em>who/what</em> IS the subject: no <em>do</em><br>
+      <span class="dlg"><b>Who taught</b> you?</span>
+      <span class="dlg"><b>What happened</b>?</span></p></div>
+    <div class="card"><p class="lead-sm"><strong>4 · Object questions</strong> — <em>who/what</em> is the object: <em>do</em> + subject<br>
+      <span class="dlg"><b>Who did</b> they see? — They saw Tommo.</span>
+      <span class="dlg"><b>What did</b> you buy?</span></p></div>
+  </div>
+  <div class="card gold reveal">
+    <p class="lead-sm" style="margin-bottom:.2em"><strong>Bright sparks</strong> — three facts, thirty seconds (you did re-read it… didn’t you?):</p>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>What did the Scottish report find? <span class="back">→ today’s teenagers are more intelligent than their great-grandparents</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>What is an average IQ score? <span class="back">→ 100</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Why are people getting cleverer? <span class="back">→ better diet and health + the fast-paced digital world</span></span></div>
+  </div>
+</section>
+
+<!-- 7 · 9.5 LEAD-IN — REVIEW OF MIXED TENSES (TB p. 208) -->
+<section class="slide">
+  <div class="eyebrow reveal">Lead-in · TB p. 208 · review of mixed tenses</div>
+  <h1 class="reveal">Four tenses, four <em>true sentences</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>Groups of three. <strong>Think of a verb phrase</strong> — write it at the top of your paper. <span class="note">(study English · play football · cook dinner…)</span></span></div>
+    <div class="item"><span class="no">2</span><span><strong>Swap papers</strong> with another group. With the <strong>new</strong> phrase, write <strong>four true sentences — four different tenses</strong>.</span></div>
+    <div class="item"><span class="no">3</span><span><strong>Swap back</strong>. Check and correct — then share with the class.</span></div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm"><strong>Example</strong> — <em>study English</em>: I <strong>study</strong> English every day. · I<strong>’m studying</strong> for the test at the moment. · I <strong>started studying</strong> English three years ago. · I <strong>have studied</strong> English for three years.</p></div>
+</section>
+
+<!-- 8 · SB EX. 1 — CLASS VOTE -->
+<section class="slide">
+  <div class="eyebrow reveal">Speaking · SB ex. 1 (p. 111) · CLASS VOTE</div>
+  <h1 class="reveal">Have any of these happened <em>to you</em>?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">First — the two key words. <strong>Click to check</strong> your ideas:</p>
+  <div class="grid2 reveal">
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">🤔</span><span><strong>awkward</strong> means… <span class="back">→ uncomfortable — you don’t know what to say or do</span></span></div></div>
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">😳</span><span><strong>embarrassing</strong> means… <span class="back">→ you feel silly in front of people</span></span></div></div>
+  </div>
+  <p class="task reveal">In pairs — <strong>what would you say or do</strong> in each situation?</p>
+  <div class="chips reveal">
+    <span class="chip">📞 you call your teacher ‘mum’ — by accident</span>
+    <span class="chip">🖊 you’re playing with your pen — and it flies across the classroom</span>
+    <span class="chip">👕 you realise your T-shirt is dirty</span>
+  </div>
+  <div class="card gold reveal"><p class="task" style="font-size:clamp(1rem,1.7vw,1.3rem)"><strong>CLASS VOTE</strong> — which is the most embarrassing? And have <strong>you</strong> ever been in an awkward or embarrassing situation?</p></div>
+</section>
+
+<!-- 9 · SB EX. 2 — FOUR DIALOGUES (audio 3.26) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Listening · SB ex. 2 (p. 111) · audio 3.26</div>
+  <h1 class="reveal">Four <em>dialogues</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Books open — <strong>SB p. 111, ex. 2</strong>. Describe the pictures first —
+  <strong>then listen and choose A, B or C</strong>.</p>
+  <p><span class="tag">🎧 AUDIO 3.26</span> <audio controls preload="none" src="../media/ww3-cd3-3_26.mp3"></audio></p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>What does the teacher want the girl to do before the test? <span class="back">→ B — she dropped some papers</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Where are all the other students now? <span class="back">→ A — the boy forgot the class map</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>What happened to the boy’s form? <span class="back">→ A — he washed his trousers with the form in the pocket</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>What were the students doing? <span class="back">→ C — the girls were doing their homework during the lesson</span></span></div>
+  </div>
+</section>
+
+<!-- 10 · SB EX. 3 — LISTEN AGAIN, SECOND CONDITIONAL (audio 3.26) -->
+<section class="slide">
+  <div class="eyebrow reveal">Speaking · SB ex. 3 (p. 111) · audio 3.26 — again</div>
+  <h1 class="reveal">The most <em>embarrassing</em> — and you?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Listen again.</strong> Which situation is the most embarrassing?
+  <strong>How would you behave?</strong></p>
+  <p><span class="tag">🎧 AUDIO 3.26</span> <audio controls preload="none" src="../media/ww3-cd3-3_26.mp3"></audio></p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">?</span><span>hint — the grammar of <em>would you…?</em> <span class="back">→ the Second Conditional: If + past simple, … would + verb</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">★</span><span>a model to beat <span class="back">→ If I dropped all the exam papers on the floor, I would pick them up as quickly as possible and ask my friends to help me.</span></span></div>
+  </div>
+</section>
+
+<!-- 11 · SB EX. 4 — PHRASAL VERBS (audio 3.27) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Vocabulary · SB ex. 4 (p. 111) · audio 3.27 · phrasal verbs</div>
+  <h1 class="reveal">The phrasal-verb <em>box</em></h1>
+  <div class="rule reveal"></div>
+  <div class="vb reveal">
+    <div class="vbh">Vocabulary · Phrasal verbs</div>
+    <div class="vbb"><div class="chips">
+      <span class="chip">calm down</span><span class="chip">fill in (a form)</span><span class="chip">get on</span><span class="chip">hand in / out</span><span class="chip">look over</span><span class="chip">look up</span><span class="chip">mess about / around</span>
+    </div></div>
+  </div>
+  <p class="task reveal">Choose the correct option — <strong>then listen and check</strong>:</p>
+  <p><span class="tag">🎧 AUDIO 3.27</span> <audio controls preload="none" src="../media/ww3-cd3-3_27.mp3"></audio></p>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>The teacher asked us all to <b style="color:var(--accent)">hand in</b> / look up our homework on time. <span class="note">(the example)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Pupils who finish early should get on / look up with some extra reading. <span class="back">→ get on</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Please don’t mess about / hand out in the art lesson. <span class="back">→ mess about</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Make sure you get on / look over all your answers before you finish. <span class="back">→ look over</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>You can look up / look over any words you don’t know in a dictionary. <span class="back">→ look up</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>We have to fill in / calm down this form with our name and number. <span class="back">→ fill in</span></span></div>
+  </div>
+  <div class="card gold reveal"><p class="lead-sm">Pairs: <strong>one</strong> phrasal verb never appears in the exercise. Find it —
+  <span class="flip" onclick="this.classList.toggle('shown')">??? <span class="back">→ calm down</span></span>
+  — then write one or two sentences that show what it means.</p></div>
+</section>
+
+<!-- 12 · SB EX. 5 — CHOOSE THE CORRECT ANSWERS (audio 3.28) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Listening · SB ex. 5 (p. 111) · audio 3.28</div>
+  <h1 class="reveal">Choose the correct <em>answers</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Before the audio</strong> — pick your answers and say
+  <strong>why the other two are wrong</strong>:</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Who’s ready to hand in their essay? — a · Yes, I will. &nbsp; b · I’ve just finished it. &nbsp; c · No, it wasn’t difficult. <span class="back">→ b — a has the wrong auxiliary, c doesn’t answer the question</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Are we going to look over the test papers now? — a · Yes, I will. &nbsp; b · No, it isn’t. &nbsp; c · Yes, we are. <span class="back">→ c — the subject is we</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Did the teachers see you when you were messing about? — a · No, they didn’t. &nbsp; b · No, I wasn’t. &nbsp; c · Where were they? <span class="back">→ a — the subject is they</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Could you all calm down, please? — a · Yes, Miss. &nbsp; b · No, I couldn’t. &nbsp; c · Thank you, Miss. <span class="back">→ a — a request, not a real question</span></span></div>
+  </div>
+  <p><span class="tag">🎧 AUDIO 3.28</span> <audio controls preload="none" src="../media/ww3-cd3-3_28.mp3"></audio></p>
+</section>
+
+<!-- 13 · SB EX. 6 — LISTEN AGAIN: THE AWKWARD MOMENT (audio 3.28) -->
+<section class="slide">
+  <div class="eyebrow reveal">Listening · SB ex. 6 (p. 111) · audio 3.28 — again</div>
+  <h1 class="reveal">What was the <em>awkward moment</em>?</h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">In pairs — <strong>what can you remember</strong> about each dialogue?
+  Then <strong>listen again</strong> and check:</p>
+  <p><span class="tag">🎧 AUDIO 3.28</span> <audio controls preload="none" src="../media/ww3-cd3-3_28.mp3"></audio></p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Dialogue 1 — the awkward moment <span class="back">→ the essay was too short</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Dialogue 2 <span class="back">→ a poor test mark</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Dialogue 3 <span class="back">→ falling off a chair — while the teachers were watching</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Dialogue 4 <span class="back">→ a student has fallen asleep</span></span></div>
+  </div>
+</section>
+
+<!-- 14 · SB EX. 7 + AND YOU — THE PARAGRAPH -->
+<section class="slide">
+  <div class="eyebrow reveal">Writing · SB ex. 7 (p. 111) · And you?</div>
+  <h1 class="reveal">Your <em>awkward moment</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Write a <strong>short paragraph</strong> about an ‘awkward moment’
+  that has happened <strong>to you</strong>.</p>
+  <p class="tag reveal">set the scene — the five things</p>
+  <div class="chips reveal">
+    <span class="chip">⏰ when &amp; where</span>
+    <span class="chip">🎬 what else was happening</span>
+    <span class="chip">🔍 the details</span>
+    <span class="chip">💭 how you felt</span>
+    <span class="chip">🏃 what you did afterwards</span>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm">Then <strong>read it out</strong> — the class votes for the moment nobody saw coming.</p></div>
+</section>
+
+<!-- 15 · VOX POPS 9.3 -->
+<section class="slide">
+  <div class="eyebrow reveal">Video · Vox Pops 9.3 · real teenagers, real awkward moments</div>
+  <h1 class="reveal">Real teens, real <em>moments</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">First — <strong>four words</strong> from the video. Click to check:</p>
+  <div class="grid2 reveal">
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>prominent <span class="back">→ famous, easy to notice</span></span></div></div>
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>to slate something <span class="back">→ to criticise it strongly</span></span></div></div>
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>to mumble <span class="back">→ to speak quietly and unclearly</span></span></div></div>
+    <div class="card"><div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>to skulk off <span class="back">→ to leave quietly, trying not to be noticed</span></span></div></div>
+  </div>
+  <div class="card gold reveal"><p class="lead-sm"><strong>Watch</strong> — then in pairs: which situation is the <strong>most embarrassing</strong>? Give <strong>reasons</strong>.</p></div>
+  <p class="note reveal">The video isn’t downloaded — it plays from the course’s online app.</p>
+</section>
+
+<!-- 16 · TB EXTRA ACTIVITY — THE PARTY ROLE PLAY -->
+<section class="slide">
+  <div class="eyebrow reveal">Extra activity · TB p. 208 · role play</div>
+  <h1 class="reveal">The party <em>problem</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <p class="lead-sm"><strong>The situation</strong> — three people: <strong>A · B · C</strong>.</p>
+    <div class="item"><span class="no">A</span><span>is going to C’s party. Knows some people there.</span></div>
+    <div class="item"><span class="no">B</span><span>is going too. Knows <strong>nobody</strong>.</span></div>
+    <div class="item"><span class="no">C</span><span>opens the door, welcomes them… says hello to A — <strong>and waits</strong>.</span></div>
+  </div>
+  <p class="task reveal">A wants to introduce B and C — but <strong>can’t remember C’s name</strong>!
+  Act it out — <strong>resolve the embarrassment</strong>.</p>
+  <div class="card gold reveal"><p class="lead-sm">Groups of three. A <strong>time limit</strong> to practise — then <strong>perform</strong> for the class.</p></div>
+</section>
+
+<!-- 17 · ONE LAST RIDDLE — THE TREASURE SLOT -->
+<section class="slide">
+  <div class="eyebrow reveal">One last riddle · think in three steps</div>
+  <h1 class="reveal">The essay <em>timeline</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card tint reveal">
+    <div class="item"><span class="no">1</span><span>Anna <strong>handed in</strong> her essay on <strong>Friday</strong>.</span></div>
+    <div class="item"><span class="no">2</span><span>The teacher <strong>looks the essays over</strong> at the <strong>weekend</strong>.</span></div>
+    <div class="item"><span class="no">3</span><span>Today is <strong>Monday</strong>.</span></div>
+  </div>
+  <p class="task reveal">So — <strong>has the teacher already looked over Anna’s essay?</strong></p>
+  <div class="card gold reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">?</span><span>the answer <span class="back">→ YES — Friday came before the weekend, the weekend before Monday: the looking-over already happened</span></span></div>
+  </div>
+</section>
+
+<!-- 18 · HOMEWORK -->
+<section class="slide">
+  <div class="eyebrow reveal">Homework</div>
+  <h1 class="reveal">Phrasal verbs <em>travel home</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span>📘 <b>Workbook p. 107</b> (9.5): <b>ex. 1</b> — the phrasal verbs (8 sentences) · <b>ex. 2</b> — listen to <b>🎧 29</b> and choose · <b>ex. 3</b> — listen to <b>🎧 30</b> and choose. Today’s box is the key — you know all eight.</span></div>
+    <div class="item"><span class="no">2</span><span>🎧 The two tracks, right here:
+      <span style="display:block;margin-top:.4em"><audio controls preload="none" src="../media/ww3-wb-29.mp3"></audio></span>
+      <span style="display:block;margin-top:.3em"><audio controls preload="none" src="../media/ww3-wb-30.mp3"></audio></span>
+    </span></div>
+  </div>
+  <p class="note reveal">Next: <strong>9.6 BBC Culture</strong>.</p>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 18</span>
+  <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<!-- pinned pills — THE CORNERS V2: 🙋 top-left · ✍️ top-right · 🗒 bottom-centre -->
+<button id="pardonBtn" class="pill" title="Pardon? — class phrases (P)">🙋</button>
+<button id="annoBtn" class="pill" title="lesson notes (N)">✍️</button>
+
+
+
+
+<!-- 🙋 Pardon? — the one universal list -->
+<div id="pq">
+  <div class="pq-head"><span>say it in class</span><span class="a-sp"></span>
+    <button id="pqX" title="close (Esc / P)">✕</button></div>
+  <div class="pqRow"><span class="pqE">🙋</span>Pardon?</div>
+  <div class="pqRow"><span class="pqE">❓</span>What does <b>___</b> mean?</div>
+  <div class="pqRow"><span class="pqE">🆘</span>Can you help me?</div>
+  <div class="pqRow"><span class="pqE">🔁</span>Can you repeat, please?</div>
+  <div class="pqRow"><span class="pqE">🇬🇧</span>How do you say <b>___</b> in English?</div>
+  <div class="pqRow"><span class="pqE">🤷</span>I don't understand.</div>
+</div>
+
+
+
+<!-- ⛶ read big -->
+<div id="fso" onclick="this.classList.remove('open')"><div class="fsoinner" id="fsoinner"></div></div>
+
+<script>
+const CH='ww4-u9-l9.5';
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  document.querySelectorAll('audio').forEach(a=>{try{a.pause()}catch(e){}});
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  history.replaceState(null,'','#'+(i+1));
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  if(typeof annoFill==='function'&&document.getElementById('anno').classList.contains('on')){annoIdx=n;annoFill()}
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* ---------- ⛶ read big ---------- */
+function openFs(id){document.getElementById('fsoinner').innerHTML=document.getElementById(id).innerHTML;
+  document.getElementById('fso').classList.add('open');}
+
+/* ---------- 🙋 Pardon? (top-left pill, key P) — the one universal list ---------- */
+const pqPanel=document.getElementById('pq');
+function pqToggle(open){pqPanel.classList.toggle('on',open);
+  if(open){const a=document.getElementById('anno');if(a)a.classList.remove('on')}}
+function pqEsc(){if(pqPanel.classList.contains('on')){pqPanel.classList.remove('on');return true}return false}
+document.getElementById('pardonBtn').onclick=()=>pqToggle(!pqPanel.classList.contains('on'));
+document.getElementById('pqX').onclick=()=>pqToggle(false);
+
+/* ---------- keys (the guard first: ⌘/Ctrl/Alt never triggers deck keys) ---------- */
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){
+    if(typeof annoEsc==='function'&&annoEsc())return;
+    if(pqEsc())return;
+    if(typeof notesEsc==='function'&&notesEsc())return;
+    document.getElementById('fso').classList.remove('open');return}
+  if(document.getElementById('fso').classList.contains('open')){
+    if(e.key==='Escape')document.getElementById('fso').classList.remove('open');
+    return}
+  if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&typeof toggleNotes==='function'){e.preventDefault();toggleNotes();return}
+  if((e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З')){e.preventDefault();pqToggle(!pqPanel.classList.contains('on'));return}
+  if(pqPanel.classList.contains('on'))return; /* the list is open — other keys sleep */
+  /* AUDIO key-guard: SPACE pauses a playing track instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+
+
+
+
+
+/* ---------- wheel/touch: a .scroll slide scrolls, never flips ---------- */
+let wt=0;document.addEventListener('wheel',e=>{
+  if(document.getElementById('fso').classList.contains('open'))return;
+  if(e.target.closest('.slide')&&e.target.closest('.slide').classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ---------- boot: deep link #n ---------- */
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+
+/* ---------- ready-chime (http/https: chime + reload on save) ---------- */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
