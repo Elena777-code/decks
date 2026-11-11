@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kid's Box 1 · Unit 3 · Lesson 15 — Prepositions revision, the exam listening and the Maskman story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============ "Minty Fresh" — ONE deck for the whole lesson ============
+   KB1 · Unit 3 · Lesson 15 (конспект, strictly + Elena's overlay):
+   REVISION of the prepositions on/in/under/next to (the TPR + the
+   flashcards + the Wordwall 85718443 + the prepositions BINGO) · the
+   EXAM PREPARATION (PB p. 22 ex. 2 the pairs game · AB p. 21 the
+   Starters listening — draw lines, track 11 · PB p. 23 the Maskman
+   story: watch the video, order the cards, listen and say yes/no
+   (track 36), the role play with the masks) · the READING: the posters
+   1–13 · the feedback + the goodbye song. Elena's overlay: the lesson
+   OPENS with the GE weather song (her standing rule), the hw-check
+   slide SHOWS THE LINK to the hw page (her rule), the tasks from the
+   previous lesson (the Урок 16 card check), ONE slide of GE reading
+   (the Picture Book — the GE reading deck is not ready yet). Riding
+   from deck-014 on her order: the Monty song, the worksheets Write+
+   Order, the Cat on the mat book reading. NO pencil song (her order:
+   do not include for a while). The ⏱ budgets: the stages sum to
+   36, her overlay +12, the moved pieces +5, the wifi +1 — the honest
+   total 52, the homework slide = flex. Same engine as KB 1 U3 L14
+   (THE DECK STAYS FAMILIAR): the ✍️ V2 window with the per-slide
+   💬/📌 boxes, the corners v2, the three-group log, the tap-to-open
+   photo overlay. Every note: WHAT THIS IS first, then HOW TO RUN IT. */
+:root{
+  --mint:#95E1D3;         /* soft mint */
+  --mint-deep:#5ecbb8;    /* mint accent */
+  --peach:#FCE38A;        /* warm yellow */
+  --lavender:#C8B6FF;     /* lavender */
+  --lavender-deep:#9a7fff;/* lavender accent */
+  --cream:#FFF8F0;        /* page background */
+  --pink:#FF8FAB;         /* pink accent */
+  --ink:#2D3436;          /* main text */
+  --ink-soft:#636e72;     /* secondary text */
+  --white:#ffffff;
+  --radius:22px;
+  --shadow:0 10px 30px rgba(45,52,54,.12);
+  --shadow-lg:0 20px 50px rgba(45,52,54,.18);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);overflow:hidden}
+.slide>*{flex-shrink:0}   /* THE FLEX-SHRINK RULE — nothing collapses; slides scroll */
+/* ============ chrome ============ */
+#progress-track{position:fixed;top:0;left:0;width:100vw;height:7px;background:rgba(200,182,255,.35);z-index:100}
+#progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--mint),var(--lavender),var(--pink));transition:width .4s cubic-bezier(.22,1,.36,1)}
+#nav{
+  position:fixed;bottom:14px;right:max(10px,1.6vw);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border-radius:99px;padding:8px 14px;box-shadow:var(--shadow);
+}
+#nav button{
+  width:44px;height:44px;border-radius:50%;border:none;
+  background:var(--white);color:var(--mint-deep);font-size:1.35rem;cursor:pointer;
+  box-shadow:0 2px 10px rgba(45,52,54,.10);
+  transition:transform .15s ease,opacity .15s ease;font-family:inherit;
+}
+#nav button:hover{transform:scale(1.08)}
+#nav button:disabled{opacity:.3;cursor:default;transform:none}
+#nav button.fs{width:auto;border-radius:99px;padding:0 16px;font-size:1.05rem}
+#counter{font-weight:800;color:var(--ink-soft);font-size:1rem;min-width:3.6em;text-align:center}
+#stamp{
+  position:fixed;top:12px;z-index:100;
+  font-size:clamp(.7rem,1vw,.9rem);font-weight:800;color:var(--ink-soft);
+  background:rgba(255,255,255,.85);border-radius:99px;padding:.3em .9em;box-shadow:var(--shadow);
+}
+/* ============ the pills (emoji-only row — the V2 standard, 04.10) ============ */
+.pill{
+  position:fixed;z-index:110;
+  font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(.95rem,1.4vw,1.2rem);border:none;cursor:pointer;
+  border-radius:99px;padding:.45em .95em;background:rgba(255,255,255,.9);
+  box-shadow:0 4px 12px rgba(45,52,54,.12);color:var(--ink-soft);
+  transition:transform .15s ease,color .15s ease;
+}
+.pill:hover{transform:scale(1.05);color:var(--ink)}
+/* THE CORNERS v2 (Elena, 04.10): Pardon → top-left · ✍️ log → top-right · 🗒 notes → bottom centre */
+#pardonbtn{top:2.4vh;left:max(10px,1.6vw);right:auto;bottom:auto}
+#stamp{top:12px;right:calc(max(10px,1.6vw) + 5.6em)}
+.overlay{position:fixed;inset:0;z-index:200;background:rgba(255,248,240,.985);display:none;flex-direction:column;padding:4vh 6vw;overflow:auto}
+.overlay.open{display:flex}
+.overlay .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-family:'Fredoka',sans-serif;font-size:clamp(.9rem,1.4vw,1.15rem);color:var(--ink-soft);cursor:pointer}
+.overlay .closer:hover{color:var(--ink)}
+/* ============ slides ============ */
+.slide{
+  position:absolute;inset:0;
+  padding:8vh 5vw calc(74px + 2.4vh);
+  display:flex;flex-direction:column;gap:1.8vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1),visibility .5s;
+  overflow:auto;
+}
+.slide.active{opacity:1;visibility:visible;transform:translateX(0) scale(1)}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal-el{animation:rise .6s cubic-bezier(.22,1,.36,1) forwards}
+.slide.active .reveal-el:nth-child(2){animation-delay:.08s}
+.slide.active .reveal-el:nth-child(3){animation-delay:.16s}
+.slide.active .reveal-el:nth-child(4){animation-delay:.24s}
+.slide.active .reveal-el:nth-child(5){animation-delay:.32s}
+.slide.active .reveal-el:nth-child(6){animation-delay:.4s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+/* ============ the Wi-Fi interstitial ============ */
+.slide.wifi{justify-content:center;align-items:center;background:#fff}
+.wifi-ic{width:clamp(180px,32vw,380px);height:auto;animation:wifipulse 2.2s ease-in-out infinite}
+@keyframes wifipulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.045);opacity:1}}
+/* ============ content components ============ */
+.eyebrow{
+  font-size:clamp(1rem,1.8vw,1.4rem);font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--lavender-deep);
+}
+h1.title{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.9rem,4.2vw,3.6rem);line-height:1.1;color:var(--ink);
+}
+.accent-line{width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--mint),var(--lavender))}
+.card{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(14px,2.2vh,24px) clamp(16px,2vw,28px);
+}
+.card.mint{background:#eafbf6}
+.card.peach{background:#fff8db}
+.card.lavender{background:#f1ecff}
+.card.pink{background:#ffe9f0}
+.card p,.card li{font-size:clamp(1.3rem,2.3vw,2rem);line-height:1.4}
+.task{
+  background:var(--peach);border-radius:99px;align-self:flex-start;
+  padding:.45em 1.2em;font-size:clamp(1.2rem,2.1vw,1.7rem);font-weight:800;color:var(--ink);
+}
+.reveal-btn{
+  font-family:'Fredoka',sans-serif;font-size:clamp(1.15rem,2vw,1.6rem);font-weight:700;
+  color:var(--ink);background:var(--mint);border:none;border-radius:99px;
+  padding:.55em 1.5em;cursor:pointer;transition:transform .15s ease;align-self:flex-start;
+  box-shadow:var(--shadow);
+}
+.reveal-btn:hover{transform:scale(1.06)}
+.answer{
+  display:none;font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.7rem,3.4vw,3rem);color:var(--ink);
+  background:var(--mint);border-radius:var(--radius);padding:.4em 1em;align-self:flex-start;
+}
+.answer.show{display:inline-block;animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+.answer b{color:var(--pink)}
+@keyframes pop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+/* flashcard grids */
+.fc-grid{display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,20px);align-items:stretch;justify-content:center}
+.fc{
+  background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(8px,1.2vh,14px);cursor:pointer;user-select:none;
+  display:flex;flex-direction:column;align-items:center;gap:.4vh;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1),box-shadow .18s ease;
+  flex:0 1 auto;min-width:0;
+}
+.fc img{height:clamp(90px,16vh,150px);border-radius:12px}
+.fc .fc-emoji{font-size:clamp(3.2rem,8vh,5.6rem);line-height:1.15;display:block}
+.fc .fc-name{
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.5rem);
+  color:var(--ink);min-height:1.3em;
+}
+.fc:hover{transform:translateY(-4px) scale(1.03)}
+.fc.picked{transform:scale(1.07);box-shadow:0 0 0 6px var(--mint),var(--shadow-lg)}
+.fc.gone{visibility:hidden}
+/* big left/right arrows (the goodbye song) */
+.lr-row{display:flex;gap:clamp(20px,4vw,60px);justify-content:center;align-items:center}
+.lr{display:flex;flex-direction:column;align-items:center;gap:1vh;cursor:pointer;user-select:none}
+.lr .arrow{font-size:clamp(4rem,11vh,8rem);line-height:1;animation:wifipulse 2s ease-in-out infinite}
+.lr .lr-word{
+  font-family:'Fredoka',sans-serif;font-weight:700;
+  font-size:clamp(1.8rem,4vw,3.2rem);background:var(--white);border-radius:18px;
+  padding:.15em .6em;box-shadow:var(--shadow);
+}
+.lr.left .arrow{color:#5ecbb8}
+.lr.right .arrow{color:#FF8FAB}
+audio{width:min(560px,100%);margin-top:.4vh}
+.videohold{align-self:center;width:100%;display:flex;justify-content:center}
+.pinstr{font-size:clamp(.95rem,2.4vw,1.1rem);line-height:1.5}
+.pinstr b{color:var(--lavender-deep)}
+video{width:min(560px,92%);border-radius:18px;display:block;box-shadow:var(--shadow-lg)}
+img.sheet{width:min(640px,92%);border-radius:16px;display:block;box-shadow:var(--shadow-lg);background:#fff}
+img.sheet.small{width:min(430px,90%)}
+.linkcard{
+  display:inline-block;background:var(--lavender);color:var(--ink);text-decoration:none;
+  font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2.2vw,1.8rem);
+  border-radius:99px;padding:.6em 1.6em;box-shadow:var(--shadow);cursor:pointer;
+  transition:transform .15s ease;align-self:flex-start;
+}
+.linkcard:hover{transform:scale(1.05)}
+/* THE SIGHT-READING REVEAL — tap a picture → the word FULL SCREEN, huge */
+#bigword{z-index:300;cursor:pointer;align-items:center;justify-content:center;gap:0}
+#bigword .bw{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.05;text-align:center;color:var(--ink);animation:pop .45s cubic-bezier(.34,1.56,.64,1)}
+#bigword .bw .art{display:block;font-size:clamp(1.6rem,4vw,3.4rem);color:var(--mint-deep);margin-bottom:1.5vh}
+#bigword .bw .noun{display:block;font-size:clamp(4.5rem,17vh,11rem);letter-spacing:.02em}
+#bigword .bwimg{display:none;max-width:92vw;max-height:84vh;border-radius:18px;box-shadow:var(--shadow-lg);background:#fff}
+#bigword .tap-hint{position:absolute;bottom:6vh;left:0;right:0;text-align:center;font-size:clamp(.9rem,1.5vw,1.2rem);color:var(--ink-soft)}
+ (standing, 2026-10-13): Elena films the group for the parents at this slide — placement taught gradually */
+.filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}</style>
+<style>/* the give-me stepper (the picture-by-picture lyric walk, 19.10) */
+.giveverse{display:none;align-items:center;gap:clamp(.8em,1.6vw,1.6em);flex-wrap:wrap}
+.giveverse.open{display:flex;animation:rise .5s cubic-bezier(.22,1,.36,1)}
+.giveverse img{height:min(14vh,130px);width:auto;border-radius:14px;box-shadow:var(--shadow);background:#fff}
+.giveverse .glyric{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.15rem,2.2vw,1.9rem)}</style>
+<style>/* the 27.10 round: the ⏱ pacing timer · the .duo side-by-side rows · the clickable PW pictures · the matching-pairs game */
+#timerchip{
+  position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:105;
+  font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(.85rem,1.4vw,1.15rem);
+  background:rgba(255,255,255,.9);border-radius:99px;padding:.3em .95em;box-shadow:var(--shadow);
+  color:var(--ink-soft);white-space:nowrap;user-select:none;
+}
+#timerchip.over{background:#ffe1e8;color:#d64545}
+#timerchip .tmr-left{font-size:.78em;margin-left:.45em}
+.duo{display:flex;gap:clamp(12px,2vw,28px);align-items:flex-start;flex-wrap:wrap;justify-content:center;width:100%}
+.duo img.sheet{flex:0 1 auto}
+.duo video{flex:1 1 320px;width:auto;max-width:560px}
+.picwrap{position:relative;display:inline-block;align-self:flex-start;border-radius:16px}
+.picwrap img{cursor:pointer}
+.pbadge{
+  position:absolute;right:10px;bottom:10px;width:46px;height:46px;border-radius:50%;
+  background:var(--mint);color:var(--ink);display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;box-shadow:var(--shadow);pointer-events:none;
+}
+.mp-wrap{display:flex;flex-direction:column;gap:1vh;align-items:center;width:100%}
+.mp-grid{display:flex;flex-wrap:wrap;gap:clamp(8px,1.4vw,18px);justify-content:center}
+.mp-card{
+  width:clamp(84px,13vh,130px);height:clamp(84px,13vh,130px);border:none;border-radius:18px;cursor:pointer;
+  background:var(--mint);box-shadow:var(--shadow);padding:0;
+  font-family:'Fredoka',sans-serif;font-weight:700;color:var(--ink);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.12em;
+  font-size:clamp(2.1rem,6vh,3.8rem);line-height:1;
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1),background .18s ease,box-shadow .18s ease;
+}
+.mp-card:hover{transform:translateY(-3px) scale(1.03)}
+.mp-card .mp-back{font-size:1.15em}
+.mp-card .mp-word{font-size:clamp(.85rem,1.6vw,1.15rem)}
+.mp-card.up{background:var(--white)}
+.mp-card.ok{background:var(--white);box-shadow:0 0 0 6px var(--mint),var(--shadow-lg);cursor:default}
+.mp-card.ok:hover{transform:none}
+.mp-card.no{background:#ffe1e8}
+.mp-status{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.1rem,2vw,1.6rem);color:var(--ink-soft);text-align:center;min-height:1.4em}
+</style>
+<style>/* the 09:04 round: the pictures go FULL SCREEN + the clickable coursebook pictures */
+.picbox{position:relative;display:inline-block;font-size:0;max-width:100%}
+.picbox img{max-width:100%}
+.picwrap:fullscreen{display:flex;align-items:center;justify-content:center;background:#fff;width:100%;height:100%}
+.picwrap:fullscreen .picbox{width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.picwrap:fullscreen .picbox img{width:min(100vw,calc(100vh * var(--ar,1.33)));height:auto;max-width:none}
+.fsbtn{
+  position:absolute;top:10px;right:10px;width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(255,255,255,.95);color:var(--ink);font-size:1.25rem;box-shadow:var(--shadow);
+  display:flex;align-items:center;justify-content:center;z-index:6;padding:0;
+}
+.fsbtn:hover{transform:scale(1.08)}
+.spot{
+  position:absolute;transform:translate(-50%,-50%);aspect-ratio:1/1;border-radius:50%;
+  border:none;background:transparent;padding:0;cursor:pointer;z-index:5;
+}
+.spot:focus{outline:none}
+.spot.sel{box-shadow:0 0 0 5px #fff,0 0 0 9px var(--lavender-deep);background:rgba(255,255,255,.28)}
+.spot.ok{background:#fff;border:.5vmin solid #9aa7b3;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;cursor:default}
+.spot.ok span{font-family:'Fredoka',sans-serif;font-weight:800;font-size:clamp(1.2rem,4.2vmin,3.2rem)}
+.spot.no{animation:spotno .65s ease}
+@keyframes spotno{0%,100%{box-shadow:none;background:transparent}30%{box-shadow:0 0 0 6px #e01212;background:rgba(224,18,18,.3)}}
+.boatnum{
+  position:absolute;transform:translate(-50%,-50%);width:8.5%;aspect-ratio:1/1;border-radius:50%;
+  background:#fff;border:.4vmin solid #1e6fd6;color:#1e6fd6;pointer-events:none;z-index:4;
+  font-family:'Fredoka',sans-serif;font-weight:800;font-size:clamp(1rem,3.6vmin,2.8rem);
+  display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(45,52,54,.3);
+  transition:background .2s ease,color .2s ease,border-color .2s ease;
+}
+.cl-row{display:flex;gap:1em;align-items:center;justify-content:center;width:100%;flex-wrap:wrap}
+.cl-row .mp-status{width:auto}
+.thumbrow{display:flex;gap:clamp(10px,1.6vw,22px);justify-content:center;flex-wrap:wrap}
+.thumb{position:relative;display:flex;flex-direction:column;align-items:center;gap:.35em;cursor:pointer}
+.thumb img{height:min(19vh,15vw);width:auto;border-radius:10px;box-shadow:var(--shadow);background:#fff}
+.thumb i{font-style:normal;font-weight:800;font-size:clamp(.78rem,1.35vw,1.05rem);color:var(--ink-soft)}
+.thumb.new img{box-shadow:0 0 0 5px var(--mint),var(--shadow)}
+.thumb:fullscreen{display:flex;align-items:center;justify-content:center;background:#fff;width:100%;height:100%}
+.thumb:fullscreen img{width:min(100vw,75vh);height:auto}
+.thumb:fullscreen i{display:none}
+</style>
+<style>/* the L11 block: the board columns · the word cards · the test slides */
+.cols{display:flex;gap:clamp(12px,2.4vw,34px);justify-content:center;width:100%;flex-wrap:wrap}
+.colbox{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(10px,1.8vh,20px) clamp(14px,1.8vw,26px);display:flex;flex-direction:column;gap:1vh;align-items:center;min-width:min(280px,40vw)}
+.colbox h3{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.1rem,2vw,1.6rem);color:var(--ink-soft)}
+.chiprow{display:flex;gap:clamp(8px,1.2vw,16px);flex-wrap:wrap;justify-content:center}
+.chip{font-family:'Fredoka',sans-serif;font-weight:700;color:#fff;border-radius:99px;padding:.35em .9em;font-size:clamp(1.15rem,2.2vw,1.9rem);box-shadow:var(--shadow)}
+.chip.blue{background:#056fe3}.chip.red{background:#d64545}.chip.yellow{background:#d9a400}
+.chip.green{background:#0eb512}.chip.orange{background:#e07800}.chip.purple{background:#7a4fd6}
+.testwrap{display:flex;gap:clamp(12px,2vw,28px);align-items:flex-start;flex-wrap:wrap;justify-content:center;width:100%}
+.testwrap img.sheet{flex:0 1 auto;width:min(560px,86%)}
+.testkey li{font-size:clamp(1.1rem,2vw,1.6rem);line-height:1.5;margin-left:1.2em}
+</style>
+<style>/* THE FILM CUE</style>
+</head>
+<body>
+
+<div id="progress-track"><div id="progress-fill"></div></div>
+<!-- build 11.11 · v1 — deck-015: конспект L15 strictly + Elena's overlay (the GE weather opener · the hw link + the Урок 16 tasks check · the revision: TPR + flashcards + Wordwall 85718443 + the prepositions bingo · the exam prep: PB p. 22 ex. 2 (t34 = the d/t chant, NOT wired — the конспект uses ex. 2 only) · AB p. 21 Starters listening (t11, whisper-verified: Hugo on the chair, Eva in the toy box, Mark under the table, Mary next to the doll) · PB p. 23 the Maskman story (the video from the kit, 2:05; t35 whisper-verified: the car hunt — next to/in/under/on + the BAG) · the yes/no (t36, whisper-verified key: YES·NO·NO·NO·NO·YES) · order the cards · the role play) · the posters 1–13 · the feedback + the goodbye · HER overlay: the GE weather opener (track from the sfd, whisper-verified) · the hw link (her rule) · ONE GE reading slide (the Picture Book, pulled via her Firefox cookies). Riding from deck-014: the Monty song (t32) + the Write/Order worksheets + the Cat book reading. NO pencil song. ⏱ 19 budgets: honest total 52, hw flex. -->
+
+
+<!-- 1 · WARM UP — HELLO SONG + PREP CARD -->
+<!-- 1 · HELLO + PREPARE AHEAD -->
+<!-- 1 · HELLO + PREPARE AHEAD -->
+<!-- 1 · HELLO + PREPARE AHEAD -->
+<!-- 1 · HELLO + THE WEATHER SONG + PREPARE AHEAD (Elena: the lesson opens with the GE weather song) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">🎵 Утренняя песенка — Genki English</div>
+  <h1 class="title reveal-el">What's the weather like? ☀️🌧</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Sing — sunny, rainy, cloudy, windy, snowy!</div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u3-ge-weather.mp3"></audio>
+  <div class="card mint reveal-el"><p>💬 Look out the window! — <b style="color:var(--mint-deep)">What's the weather like TODAY?</b> ☀️🌧 ❄️</p></div>
+  <div class="card peach reveal-el" style="max-width:760px">
+    <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,1.7vw,1.35rem);color:var(--lavender-deep)">🧺 Prepare ahead</p>
+    <p style="font-size:clamp(.85rem,1.35vw,1.1rem);line-height:1.55">
+      🃏 the prepositions FLASHCARDS (cut!) &nbsp;·&nbsp; 🎲 the BINGO cards — one per child &nbsp;·&nbsp; 🎭 the masks or puppets &nbsp;·&nbsp; 📄 the STORY cards (one set per student) &nbsp;·&nbsp; 📖 'A cat on the mat' books &nbsp;·&nbsp; 🖍 pencils · 🌟 stickers
+    </p>
+  </div>
+</section>
+
+<!-- 2 · HOMEWORK CHECK — THE LINK TO THE HW PAGE + THE TASKS (Elena's rule: show the link) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Homework check ✋</div>
+  <h1 class="title reveal-el">Who did the homework? Hands up!</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 The hw page is RIGHT HERE — let's check it!</div>
+  <a class="linkcard reveal-el" href="https://elena777-code.github.io/decks/p/kb1/hw.html" target="_blank">📲 Открыть страницу с домашкой — «Урок 16 · in on under next to ✊»</a>
+  <div class="card mint reveal-el"><p>🎬 <b style="color:var(--mint-deep)">The VIDEO for Miss Alyona</b> — who recorded all the parts? ✋</p></div>
+  <div class="card lavender reveal-el"><p>🗣 <b style="color:var(--lavender-deep)">/θ/ — the tongue warm-up</b> ✋ &nbsp; 🐷 <b style="color:var(--lavender-deep)">Three Spotty Monsters — mime</b> ✋ &nbsp; 📖 <b style="color:var(--lavender-deep)">the reading picture</b> ✋</p></div>
+  <div class="card pink reveal-el"><p>✏️ <b style="color:var(--pink)">Rule + Circle — glued in?</b> ✋ &nbsp; 🎵 <b style="color:var(--pink)">the song</b> 🎤 ✋ &nbsp; 📱 <b style="color:var(--pink)">shkola — two packs</b> ✋ &nbsp; 🌟 <b style="color:var(--mint-deep)">STICKERS!</b></p></div>
+</section>
+
+<!-- 3 · THE MONTY SONG (moved from the previous deck — they learned it at home) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">🎵 Песенка — мы её выучили дома!</div>
+  <h1 class="title reveal-el">Toys in the toy box… SING! 🎤</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Sing LOUD — all together!</div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u3-pb21-t32.mp3"></audio>
+  <div class="card mint reveal-el"><p>🎵 «<b style="color:var(--mint-deep)">Toys in the toy box, come alive. Walk and talk on the count of five!</b>» ⭕</p></div>
+  <div class="card peach reveal-el"><p>🙋 Each group sings a line — <b style="color:var(--lavender-deep)">the LOUDEST group wins!</b> 🏆</p></div>
+</section>
+
+<!-- 4 · WARM UP — 'A CAT ON THE MAT' (the конспект's homework check: open, read, the colours) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Warm up · the book 📖</div>
+  <h1 class="title reveal-el">A cat on the mat — READ! 🐱</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Open your books — read — say the COLOURS!</div>
+  <span class="picwrap reveal-el" style="--ar:1.7"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-catmat-cover.png" style="max-height:40vh;width:auto" alt="The book cover — Cat on the Mat: a fat cat sits on a mat"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+  <div class="card lavender reveal-el"><p>💬 «<b style="color:var(--lavender-deep)">What colour is the cat?</b>» — «<b style="color:var(--pink)">The cat is grey!</b>» 🐱 &nbsp; «<b style="color:var(--lavender-deep)">What colour is the mat?</b>» 🧶</p></div>
+  <div class="card mint reveal-el"><p>📖 A page each — <b style="color:var(--mint-deep)">read LOUD and PROUD!</b> ⭕</p></div>
+</section>
+
+<!-- 5 · THE BOOK — THE STORY WALK (the eight pages big) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Reading · the story 📖</div>
+  <h1 class="title reveal-el">The story — page by page! 🙋</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 A page each — read — what COLOUR is it? (tap = big)</div>
+  <div class="thumbrow reveal-el">
+    <span class="thumb"><span class="picbox"><img style="height:min(13vh,15vw);width:auto" src="../media/kb1-u3-catmat-s1.png" alt="The cat."><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>1 · The cat.</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-catmat-s2.png" alt="The fat rat."><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>2 · The fat rat.</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-catmat-s3.png" alt="The fat bat."><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>3 · The fat bat.</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-catmat-s4.png" alt="The fat rat sat on a mat."><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>4 · sat on a mat.</i></span>
+  </div>
+  <div class="thumbrow reveal-el">
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-catmat-s5.png" alt="The bat and a rat sat on a mat."><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>5 · The bat and a rat…</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-catmat-s6.png" alt="The cat sat on a mat."><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>6 · The cat sat…</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-catmat-s7.png" alt="The bat and a fat rat sat on a cat."><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>7 · …sat on a cat.</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-catmat-s8.png" alt="The fat cat sat on a mat."><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>8 · The fat cat…</i></span>
+  </div>
+  <div class="card mint reveal-el"><p>🎨 After every page: «<b style="color:var(--mint-deep)">What colour is it?</b>» — the FULL sentence! ⭕</p></div>
+</section>
+
+<!-- 6 · WI-FI (the attention signal — ONCE per deck) -->
+<section class="slide wifi">
+  <svg class="wifi-ic reveal-el" viewBox="0 0 100 72" aria-label="Wi-Fi">
+    <g fill="none" stroke="#5ecbb8" stroke-width="9" stroke-linecap="round">
+      <path d="M13.2 24.2 A52 52 0 0 1 86.8 24.2"/>
+      <path d="M24.5 35.5 A36 36 0 0 1 75.5 35.5"/>
+      <path d="M35.9 46.9 A20 20 0 0 1 64.1 46.9"/>
+    </g>
+    <circle cx="50" cy="60" r="8.5" fill="#5ecbb8"/>
+  </svg>
+</section>
+
+<!-- 7 · REVISION OF PREPOSITIONS — TPR + THE FLASHCARDS (the конспект's stage) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Revision · TPR 🙌</div>
+  <h1 class="title reveal-el">Where is it? Show and SAY! 🙌</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Watch the hands — say the word — the WHOLE sentence!</div>
+  <div class="fc-grid reveal-el">
+    <div class="fc"><span class="fc-emoji">👊</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">on</span></div></div>
+    <div class="fc"><span class="fc-emoji">✊</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">under</span></div></div>
+    <div class="fc"><span class="fc-emoji">🤛</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">in</span></div></div>
+    <div class="fc"><span class="fc-emoji">🤜</span><div class="fc-name"><button class="reveal-btn" style="font-size:.72em;padding:.15em .8em" onclick="reveal(this)">show</button> <span class="answer" style="font-size:.9em;padding:.1em .5em">next to</span></div></div>
+  </div>
+  <div class="duo reveal-el">
+    <span class="picwrap" style="--ar:0.707;flex:1 1 280px"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-flash-1.png" alt="The prepositions flashcards — 8 cards: the pen under the table, the book on the table, the pencil case in the chair, the girl in the box, the car in the box, the bike next to the table…" style="max-height:46vh;width:auto;"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+    <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:1.2vh;min-width:0">
+      <div class="card lavender" style="margin:0"><p>🎴 The flashcards: «<b style="color:var(--lavender-deep)">Where is the book?</b>» — «<b style="color:var(--pink)">The book is ON the table!</b>» 📖</p></div>
+      <div class="card peach" style="margin:0"><p>🔥 ×3 — <b style="color:var(--lavender-deep)">quiet… LOUD… SUPERFAST!</b> ⭕</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · THE WORDWALL GAME (the конспект's alternative practice) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Game time 🧩</div>
+  <h1 class="title reveal-el">The Wordwall game! 🧩</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Read — choose — say the WHOLE sentence!</div>
+  <a class="linkcard reveal-el" href="https://wordwall.net/resource/85718443" target="_blank">▶ Open the game</a>
+  <div class="card lavender reveal-el"><p>👀 YOU drive — the KIDS <b style="color:var(--lavender-deep)">say the answers!</b> ⭕</p></div>
+</section>
+
+<!-- 9 · PREPOSITIONS BINGO (the конспект's game) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Game time 🎲</div>
+  <h1 class="title reveal-el">Prepositions BINGO! 🎲</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Listen — find — CROSS IT OUT! The first grid wins!</div>
+  <div class="duo reveal-el">
+    <span class="picwrap" style="--ar:0.707;flex:1 1 280px"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-bingo-1.png" alt="Prepositions bingo — grid 1" style="max-height:44vh;width:auto;"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+    <span class="picwrap" style="--ar:0.707;flex:1 1 280px"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-bingo-2.png" alt="Prepositions bingo — grid 2" style="max-height:44vh;width:auto;"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+    <div style="flex:1 1 240px;display:flex;flex-direction:column;gap:1.2vh;min-width:0">
+      <div class="card lavender" style="margin:0"><p>🎴 «<b style="color:var(--lavender-deep)">The pencil is UNDER the table!</b>» — find it — <b style="color:var(--pink)">CROSS IT OUT!</b> ❌</p></div>
+      <div class="card peach" style="margin:0"><p>⚡ Faster and faster! &nbsp; 🏆 The FIRST full grid = <b style="color:var(--lavender-deep)">THE WINNER!</b> 🙌</p></div>
+    </div>
+  </div>
+  <div class="card mint reveal-el"><p>📖 THE CHECK: read your crossed pictures back — <b style="color:var(--mint-deep)">the FULL sentences!</b> ⭕</p></div>
+</section>
+
+<!-- 10 · THE WORKSHEETS 'WRITE' + 'ORDER' (moved from the previous deck — classwork) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Worksheet · Write ✏️ (+ Order)</div>
+  <h1 class="title reveal-el">Write the word! 🖊️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Into the copybook — write on · in · under · next to!</div>
+  <div class="duo reveal-el">
+    <span class="picwrap" style="--ar:0.685;flex:1 1 280px"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-ws-write.png" alt="Worksheet Write — six pictures: the ball next to the chair, the book under the table, the doll on the table, the train next to the box, the car in the box, the eraser under the chair"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+    <span class="picwrap" style="--ar:0.707;flex:1 1 280px"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-ws-order.png" alt="Worksheet Order the words — six scrambled sentences in word tiles"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+    <div style="flex:1 1 240px;display:flex;flex-direction:column;gap:1.2vh;min-width:0">
+      <div class="card peach" style="margin:0"><p>🔑 The key! <button class="reveal-btn" style="font-size:.7em;padding:.15em .8em;vertical-align:middle" onclick="reveal(this)">show ▾</button> <span class="answer" style="font-size:.62em;padding:.1em .5em">ball → <b>next to</b> the chair · book → <b>under</b> · doll → <b>on</b> · train → <b>next to</b> · car → <b>in</b> · eraser → <b>under</b></span></p></div>
+      <div class="card lavender" style="margin:0"><p>💧 GLUE first! &nbsp; 💪 <b style="color:var(--lavender-deep)">Stronger:</b> YOUR OWN sentence!</p></div>
+    </div>
+  </div>
+  <div class="card mint reveal-el"><p>👫 Then <b style="color:var(--mint-deep)">CHECK IN PAIRS</b> — show your partner! ⭕</p></div>
+</section>
+
+<!-- 11 · PB p. 22 ex. 2 — THE PAIRS GAME (the конспект's exam preparation, part 1) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Pupil's book · p. 22 · ex. 2 🎯</div>
+  <h1 class="title reveal-el">The pairs game — 5 minutes! ⏱</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Say the sentence — your partner finds the NUMBER!</div>
+  <span class="picwrap reveal-el" style="--ar:0.793"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-pb22.png" alt="PB p. 22 — Monty's sounds and spelling: ex. 2 Look and say — three numbered rows of pictures; the speech bubble: A train on the table. — Number one. Write it with me: __able, __um" onclick="picPlay('pb22aud')" title="Click the picture — the audio plays!" style="max-height:46vh;width:auto;"><span class="pbadge" id="pb22badge">▶</span><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+  <audio id="pb22aud" controls preload="none" class="reveal-el" src="../media/kb1-u3-pb22-t34.mp3"></audio>
+  <div class="card mint reveal-el"><p>👥 IN PAIRS: «<b style="color:var(--mint-deep)">A train on the table.</b>» — «<b style="color:var(--pink)">Number one!</b>» ⭕</p></div>
+  <div class="card peach reveal-el"><p>⏱ «<b style="color:var(--lavender-deep)">You have 5 minutes!</b>» &nbsp; ❓ ICQ: <b style="color:var(--lavender-deep)">How many minutes do you have?</b> 🙌</p></div>
+</section>
+
+<!-- 12 · AB p. 21 — THE EXAM LISTENING (draw lines, 🎧11) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Activity book · p. 21 · Starters listening 🎧11</div>
+  <h1 class="title reveal-el">Listen and DRAW THE LINES! ✏️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Exam skills — listen — who is WHERE? Draw the lines!</div>
+  <div class="duo reveal-el">
+    <span class="picwrap" style="--ar:0.793;flex:1 1 300px"><span class="picbox"><img class="sheet small" id="ab21pic" src="../media/kb1-u3-ab21.png" alt="AB p. 21 — Starters Listening: the room scene; the names Matt, Alice, Hugo (top), Eva, Mark, Mary (bottom); the example line: Matt — the bike" onclick="picPlay('ab21aud')" title="Click the picture — the audio plays!" style="max-height:46vh;width:auto;"><span class="pbadge" id="ab21badge">▶</span><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+    <div style="flex:1 1 240px;display:flex;flex-direction:column;gap:1.2vh;min-width:0">
+      <div class="card mint" style="margin:0"><p>✅ The EXAMPLE: <b style="color:var(--mint-deep)">Matt is ON the bike!</b> 🚲 — the printed line ✓</p></div>
+      <div class="card peach" style="margin:0"><p>🔑 The key! <button class="reveal-btn" style="font-size:.7em;padding:.15em .8em;vertical-align:middle" onclick="reveal(this)">show ▾</button> <span class="answer" style="font-size:.62em;padding:.1em .5em">1 <b>Hugo</b> — on the chair 🪑 · 2 <b>Eva</b> — in the toy box 📦 · 3 <b>Mark</b> — under the table 🛋 · 4 <b>Mary</b> — next to the doll 👧</span></p></div>
+    </div>
+  </div>
+  <audio id="ab21aud" controls preload="none" class="reveal-el" src="../media/kb1-u3-ab21-t11.mp3"></audio>
+  <div class="card lavender reveal-el"><p>⏸ The track pauses after every line — <b style="color:var(--lavender-deep)">you draw, then we listen on!</b> 🎧</p></div>
+</section>
+
+<!-- 13 · PB p. 23 — THE MASKMAN STORY (watch the video, the конспект's part 3) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Pupil's book · p. 23 · the story 🎬</div>
+  <h1 class="title reveal-el">Where is Maskman's CAR? 🚗</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Watch the story — where is the car?!</div>
+  <div class="duo reveal-el">
+    <span class="picwrap" style="--ar:0.793;flex:1 1 280px"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-pb23.png" alt="PB p. 23 — the Maskman story: Watch the video — six frames: the toy shop, the toy box, where is the car?, Maskman running, the bag" style="max-height:40vh;width:auto;"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+    <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:1.2vh;min-width:0">
+      <div class="card lavender" style="margin:0"><p>🔍 «<b style="color:var(--lavender-deep)">I'm looking for my phone!</b>» 📱 — TPR: the hand over the eyes! ⭕</p></div>
+      <div class="card mint" style="margin:0"><p>❓ Predict: «<b style="color:var(--mint-deep)">What is Maskman looking for?</b>» 🚗 ⭕</p></div>
+      <div class="videohold" style="margin:0"><video controls preload="metadata" src="../media/kb1-u3-pb23-story.mp4" style="max-height:26vh;width:100%"></video></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 · PB p. 23 — LISTEN AGAIN + ORDER THE CARDS + YES/NO (🎧36) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Pupil's book · p. 23 · listen 👂</div>
+  <h1 class="title reveal-el">Order the cards — YES or NO? 👂</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Order the story — then shout YES or NO!</div>
+  <div class="duo reveal-el">
+    <span class="picwrap" style="--ar:0.707;flex:1 1 280px"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-story-1.png" alt="Listen and order the pictures — the Maskman story cards" style="max-height:44vh;width:auto;"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+    <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:1.2vh;min-width:0">
+      <div class="card lavender" style="margin:0"><p>📄 The STORY CARDS: put them <b style="color:var(--lavender-deep)">in the story's order!</b> — the bag is LAST! 🎒</p></div>
+      <div class="card peach" style="margin:0"><p>📖 Then <b style="color:var(--lavender-deep)">open the PB</b> — check! ✓</p></div>
+    </div>
+  </div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u3-pb23-t36.mp3"></audio>
+  <div class="card mint reveal-el"><p>🔑 YES or NO! <button class="reveal-btn" style="font-size:.7em;padding:.15em .8em;vertical-align:middle" onclick="reveal(this)">show ▾</button> <span class="answer" style="font-size:.62em;padding:.1em .5em">1 <b>YES</b> 👍 · 2 <b>NO</b> 👎 (blue and black!) · 3 <b>NO</b> · 4 <b>NO</b> · 5 <b>NO</b> · 6 <b>YES</b> 👍 — in the BAG!</span></p></div>
+</section>
+
+<!-- 15 · POST-LISTENING — THE ROLE PLAY (the masks and puppets) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">The role play 🎭</div>
+  <h1 class="title reveal-el">Play the STORY! 🎭</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 The masks on — listen and repeat — SWITCH ROLES!</div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u3-pb23-t35.mp3"></audio>
+  <div class="card mint reveal-el"><p>🎭 <b style="color:var(--mint-deep)">Monty</b> 🐭 · <b style="color:var(--mint-deep)">Maskman</b> 🦸 · <b style="color:var(--mint-deep)">Marie</b> 👧 — listen and REPEAT your lines!</p></div>
+  <div class="card peach reveal-el"><p>🔁 Then <b style="color:var(--lavender-deep)">SWITCH ROLES!</b> — everybody plays everybody! ⭕</p></div>
+<div class="filmchip" style="position:static;align-self:flex-end" title="Lights, camera, action — today: film THE ROLE PLAY with the masks, 30–60 s for the parents; the clip goes to Miss Alyona. (Alternative moment: the bingo finish — one edit moves the chip.)">🎬 Lights, camera, action!</div>
+</section>
+
+<!-- 16 · READING — POSTERS 1-13 (the конспект's reading stage) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Reading · the posters 🪜</div>
+  <h1 class="title reveal-el">Read the ladders — 1 to 13! 🪜</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Your copybooks — every ladder — slow, normal, FAST!</div>
+  <div class="thumbrow reveal-el">
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u2-poster2.png" alt="poster 2"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>2</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u2-poster3.png" alt="poster 3"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>3</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u2-poster4.png" alt="poster 4"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>4</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u2-poster5.png" alt="poster 5"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>5</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u2-poster6.png" alt="poster 6"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>6</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u2-poster7.png" alt="poster 7"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>7</i></span>
+  </div>
+  <div class="thumbrow reveal-el">
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u2-poster8.png" alt="poster 8"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>8</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u2-poster9.png" alt="poster 9"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>9</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u2-poster10.png" alt="poster 10"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>10</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u2-poster11.png" alt="poster 11"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>11</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u2-poster12.png" alt="poster 12"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>12</i></span>
+    <span class="thumb"><span class="picbox"><img src="../media/kb1-u3-poster13.png" alt="poster 13 — a fat cat"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span><i>13 · a fat cat!</i></span>
+  </div>
+  <div class="card mint reveal-el"><p>🪜 Every ladder ×3 — <b style="color:var(--mint-deep)">slow… normal… FAST!</b> &nbsp; 🌟 A sticker for every ladder! ⭕</p></div>
+</section>
+
+<!-- 17 · GE READING — THE PICTURE BOOK (one slide, the deck is not ready yet) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">GE Reading 📖</div>
+  <h1 class="title reveal-el">The Picture Book — READ! ☀️</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Watch — read along — say the weather words!</div>
+  <div class="videohold reveal-el"><video controls preload="metadata" src="../media/kb1-u3-ge-picturebook.mp4"></video></div>
+  <div class="card mint reveal-el"><p>📖 Every page: «<b style="color:var(--mint-deep)">What's the weather like?</b>» — «<b style="color:var(--pink)">It's sunny!</b>» ☀️ ⭕</p></div>
+</section>
+
+<!-- 18 · FEEDBACK + THE GOODBYE SONG (the конспект's closing stage) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Feedback + goodbye 🎵</div>
+  <h1 class="title reveal-el">What was DIFFICULT? The class vote! 🗳</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Vote — then the goodbye song!</div>
+  <div class="card mint reveal-el" style="text-align:center;align-self:stretch">
+    <p style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5.6vh,3.8rem);line-height:1.3">🥇 THE BINGO? &nbsp; 👂 THE LISTENING? &nbsp; 🎭 THE ROLE PLAY?</p>
+  </div>
+  <div class="card lavender reveal-el"><p>🙌 The class vote — <b style="color:var(--lavender-deep)">hands up for the hardest task!</b> — and PRAISE the winners! ⭐</p></div>
+  <div class="card peach reveal-el"><p>🎵 The goodbye song — <b style="color:var(--lavender-deep)">sing and do the actions!</b> 👋</p></div>
+  <audio controls preload="none" class="reveal-el" src="../media/kb1-u2-ge-left-right.mp3"></audio>
+</section>
+
+<!-- 19 · HOMEWORK (the конспект's homework: Read and draw + Unscramble) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Homework</div>
+  <h1 class="title reveal-el">At home! 🏠</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="duo reveal-el">
+    <img class="sheet small" src="../media/kb1-u3-readdraw-1.png" alt="Read and draw — six sentences: the pen is on the table, the eraser is in the bag, the ball is under the chair, the doll is next to the pen, the eraser is under the train, the computer is on the bike" style="max-height:44vh;width:auto;">
+    <img class="sheet small" src="../media/kb1-u3-unscramble-1.png" alt="Unscramble — the scrambled letters with pictures: the ball, the truck, the doll, the computer, the bike, the car, the drum" style="max-height:44vh;width:auto;">
+  </div>
+  <div class="card mint reveal-el"><p>📖 <b style="color:var(--mint-deep)">Read and DRAW!</b> ✏️ — the pen is ON the table! &nbsp; 🧩 <b style="color:var(--mint-deep)">UNSCRAMBLE the words!</b></p></div>
+  <div class="card reveal-el"><p style="font-size:clamp(1rem,1.7vw,1.4rem)">ДЗ: листик «Read and draw» — читаем и рисуем · листик «Unscramble» — расшифруй слова и напиши</p></div>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <div id="counter">1 / 19</div>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" class="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<button id="pardonbtn" class="pill" title="Pardon? — class phrases (P)">🙋</button>
+<div id="timerchip" title="The pacing timer — each slide's budget counts down; red = overtime. The конспект's stages = 36; her overlay +12, the moved pieces +3, the wifi +1 — the honest total 52; the homework slide = flex."><span id="tmr-cur">⏱ ready</span><span class="tmr-left" id="tmr-left"></span></div>
+
+<div id="bigword" class="overlay" onclick="this.classList.remove('open')">
+  <div class="bw"><span class="art"></span><span class="noun"></span></div>
+  <img class="bwimg" alt="">
+  <div class="tap-hint">tap anywhere to close</div>
+</div>
+
+<div id="pardon" class="overlay">
+  <span class="closer" onclick="togglePardon(false)">✕ close</span>
+  <div class="eyebrow">🙋 Say it in English!</div>
+  <div id="tnbody-p"></div>
+  <div class="card mint" style="margin-top:2vh;max-width:640px"><p style="font-size:clamp(1.6rem,3vw,2.6rem);font-family:'Fredoka',sans-serif;font-weight:700">
+    🙋 Pardon?<br>
+    ❓ What does <b>___</b> mean?<br>
+    🆘 Can you help me?<br>
+    🔁 Can you repeat, please?<br>
+    🇬🇧 How do you say <b>___</b> in English?<br>
+    🤷 I don't understand.
+  </p></div>
+</div>
+
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const fill=document.getElementById('progress-fill'),
+      cnt=document.getElementById('counter'),
+      prev=document.getElementById('prev'),
+      next=document.getElementById('next');
+let showWatch;
+function show(n){
+  if(n<0||n>=slides.length)return;
+  slides.forEach((s,i)=>{s.classList.toggle('active',i===n);s.classList.toggle('prev',i<n);});
+  cur=n;
+  fill.style.width=((n+1)/slides.length*100)+'%';
+  cnt.textContent=(n+1)+' / '+slides.length;
+  prev.disabled=n===0;next.disabled=n===slides.length-1;
+  clearTimeout(showWatch);
+  showWatch=setTimeout(()=>{const a=slides[n];if(a)a.querySelectorAll('.reveal-el').forEach(el=>{el.style.animation='none';});},1500);
+}
+function go(n){
+  if(n<0||n>=slides.length)return;
+  if(document.querySelector('.overlay.open'))return;
+  show(n);
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  history.replaceState(null,'','#'+(n+1));
+}
+prev.onclick=()=>go(cur-1);next.onclick=()=>go(cur+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+function togglePardon(force){
+  const ov=document.getElementById('pardon');
+  const open=force===undefined?!ov.classList.contains('open'):force;
+  ov.classList.toggle('open',open);
+}
+document.getElementById('pardonbtn').onclick=()=>togglePardon();
+/* ============ WHAT'S MISSING ============ */
+function missOne(btn){
+  const cards=[...document.querySelectorAll('#wmiss .fc')];
+  const hidden=cards.filter(c=>c.classList.contains('gone'));
+  if(hidden.length){ hidden.forEach(c=>c.classList.remove('gone')); btn.textContent='👀 Close your eyes!'; return; }
+  const vis=cards.filter(c=>!c.classList.contains('gone'));
+  if(!vis.length) return;
+  vis[Math.floor(Math.random()*vis.length)].classList.add('gone');
+  btn.textContent='↺ Show it back';
+}
+/* ============ keys & gestures ============ */
+document.addEventListener('keydown',e=>{
+  /* ⌘S / Ctrl+S = save + close while the log window is open — the one combo we own */
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){togglePardon(false);document.getElementById('bigword').classList.remove('open');}
+  if((e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З')){e.preventDefault();togglePardon();}
+  if(document.querySelector('.overlay.open'))return;
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(cur+1);}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(cur-1);}
+  if(e.key==='Home')go(0);
+  if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F'||e.key==='а'||e.key==='А')document.getElementById('fs').click();
+});
+let wl=0;
+document.addEventListener('wheel',e=>{
+  const now=Date.now();if(now-wl<650||Math.abs(e.deltaY)<25)return;wl=now;
+  go(cur+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0;
+document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
+},{passive:true});
+function reveal(btn){
+  const a=btn.nextElementSibling;
+  if(a){a.classList.add('show');}
+  btn.style.display='none';
+}
+/* THE SIGHT-READING REVEAL: tap a picture → the word full screen (kept from the L6 engine) */
+function bigWord(art,noun,img){
+  const ov=document.getElementById('bigword');
+  const bw=ov.querySelector('.bw'), im=ov.querySelector('.bwimg');
+  if(img){ im.src=img; im.style.display='inline-block'; bw.style.display='none'; }
+  else { im.style.display='none'; bw.style.display='block'; }
+  ov.querySelector('.art').textContent=art;
+  ov.querySelector('.noun').textContent=noun;
+  ov.classList.add('open');
+}
+
+/* THE GIVE-ME STEPPER — one click, one verse (the picture + its lyric line) */
+const GVV=[...document.querySelectorAll('.giveverse')];let gvI=0;
+function giveStep(){
+  const b=document.getElementById('givebtn');if(!b)return;
+  if(gvI>=GVV.length){GVV.forEach(v=>v.classList.remove('open'));gvI=0;b.textContent='▶ verse 1 of 6';return;}
+  GVV[gvI].classList.add('open');gvI++;
+  b.textContent=gvI<GVV.length?('▶ verse '+(gvI+1)+' of 6'):'↺ from the top';
+}
+const h=parseInt(location.hash.slice(1));
+show(isNaN(h)?0:h-1);
+</script>
+
+<script>
+/* READY-CHIME: the open window chimes and reloads when a new version is saved. */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.pathname,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+
+<script>
+/* THE 27.10 ROUND — own block, own scope (the engine law): the ⏱ pacing timer ·
+   the clickable PW pictures · the matching-pairs game. */
+/* ---- the timer: 60 minutes over the deck, per-slide budgets; typing (the last slide) = flex ---- */
+const PBUD=[2,3,2,3,2,1,2,2,3,3,2,3,3,3,3,7,5,3,0];
+let tmrArmed=false,tmrT0=Date.now();
+const tmrFmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
+function tmrTick(){
+  const c=document.getElementById('tmr-cur'),l=document.getElementById('tmr-left');
+  if(!c)return;
+  if(!tmrArmed){c.textContent='⏱ ready';l.textContent='';return;}
+  const b=(PBUD[cur]||0)*60,el=(Date.now()-tmrT0)/1000,left=b-el;
+  const tail=PBUD.slice(cur+1).reduce((a,x)=>a+x,0)*60;
+  const tot=tail+Math.max(0,left);
+  if(b===0){c.textContent='⏱ flex';c.parentElement.classList.remove('over');}
+  else if(left>=0){c.textContent='⏱ '+tmrFmt(left);c.parentElement.classList.remove('over');}
+  else{c.textContent='⏱ +'+tmrFmt(-left);c.parentElement.classList.add('over');}
+  l.textContent='· '+tmrFmt(tot)+' left';
+}
+function tmrSlide(){tmrT0=Date.now();}
+(function(){
+  const arm=()=>{if(!tmrArmed){tmrArmed=true;tmrSlide();}};
+  addEventListener('pointerdown',arm);addEventListener('keydown',arm);
+  const _tmrShow=show;
+  show=function(n){_tmrShow(n);tmrSlide();};
+  setInterval(tmrTick,500);tmrTick();
+})();
+/* ---- the PW pictures are buttons: click = play/pause; the badge mirrors the state ---- */
+function picPlay(aid){
+  const a=document.getElementById(aid);
+  if(!a)return;
+  if(a.paused){document.querySelectorAll('audio,video').forEach(x=>{try{x.pause()}catch(e){}});a.play();}
+  else a.pause();
+}
+(function(){
+  [['pb22aud','pb22badge'],['ab21aud','ab21badge']].forEach(([aid,bid])=>{
+    const a=document.getElementById(aid),b=document.getElementById(bid);
+    if(!a||!b)return;
+    a.addEventListener('play',()=>{b.textContent='⏸'});
+    a.addEventListener('pause',()=>{b.textContent='▶'});
+    a.addEventListener('ended',()=>{b.textContent='▶'});
+  });
+})();
+</script>
+
+<script>
+/* THE 09:04 ROUND (Elena, 27.10) — own block: ⛶ full screen for the pictures ·
+   the splotch order game (track 9's key) · the boat-and-pot check game (track 13's key). */
+/* ---- full screen: the ⛶ button toggles its picture's fullscreen ---- */
+function fsPic(el){
+  const w = el.closest('.picwrap') || el.closest('.thumb') || el;
+  try{
+    if(document.fullscreenElement){ document.exitFullscreen(); return; }
+    if(w.requestFullscreen) w.requestFullscreen();
+    else if(w.webkitRequestFullscreen) w.webkitRequestFullscreen();
+    else document.documentElement.requestFullscreen();
+  }catch(e){}
+}
+</script>
+</body>
+</html>
