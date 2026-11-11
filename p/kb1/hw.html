@@ -142,7 +142,76 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
     <div class="sub">Новое задание всегда сверху. Ссылка постоянная — сохраните её.</div>
   </header>
 <details class="hw-row" open>
-<summary><span class="txt"><span class="nm">Урок 15 · Читаем, играем, поём! 🐱🎤 <span class="new">✨ новое!</span></span><br><span class="dt">читаем лесенку The Fat Cat · листики · карточки Ff · история Three Spotty Monsters · лапки F и J · shkola «11 colours» · чант наизусть</span></span></summary>
+<summary><span class="txt"><span class="nm">Урок 16 · in <img class="tmoji" src="../../media/kb1-u16-dia-in.png" alt="in"> on <img class="tmoji" src="../../media/kb1-u16-dia-on.png" alt="on"> under <img class="tmoji" src="../../media/kb1-u16-dia-under.png" alt="under"> next to <img class="tmoji" src="../../media/kb1-u16-dia-nextto.png" alt="next to"><span class="new">✨ новое!</span></span><br><span class="dt">языковая зарядка /θ/ · Three Spotty Monsters · чтение по картинке · листики Rule и Circle · песенка What's the weather like · shkola — два набора</span></span></summary>
+<div class="card hw-body u16-ovals">
+<div class="expl">Сними <b>одно видео — части 1–3</b> — и отправь его Мисс Алёне 📲 Отмечай <b>все</b> задания галочкой, а в конце нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁 👆</div>
+
+<div class="item task ov1 tap"><span class="ic">🎬</span><span class="tt"><span class="n">1 ·</span> <b>Языковая зарядка — звук /θ/</b><small>улыбка · язык между зубами · подуем!</small></span><button class="chip" id="pupp-chip-1" data-k="u16-th" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u16-panel-1">
+<p class="pinstr">Часть 1 — языковая зарядка:<br>
+1 · Улыбнись широко — <b>голливудская улыбка!</b> 😄<br>
+2 · Положи кончик языка <b>между зубами</b>.<br>
+3 · Подуй тихонько — получится звук <b>/θ/</b> (как «th»).<br>
+4 · <b>Слов пока не говорим!</b><br>
+— снимай эту часть на видео! 🎬</p>
+</div>
+
+<div class="item task ov2 tap"><span class="ic">🐷</span><span class="tt"><span class="n">2 ·</span> <b>Слушай историю — Three Spotty Monsters</b><small>и показывай жестами!</small></span><button class="chip" id="pupp-chip-2" data-k="u16-mime" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u16-panel-2">
+<p class="pinstr">Часть 2 — слушай историю <b>«Three Spotty Monsters»</b> и <b>показывай жестами</b> (mime)! 🐷🐷🐷<br>
+— снимай эту часть на видео! 🎬</p>
+<audio controls preload="none" src="../../media/kb1-u16-spotty-story.mp3"></audio>
+</div>
+
+<div class="item task ov3 tap"><span class="ic">📖</span><span class="tt"><span class="n">3 ·</span> <b>Чтение — картинка у тебя есть!</b><small>A cat in a cap…</small></span><button class="chip" id="pupp-chip-3" data-k="u16-reading" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u16-panel-3">
+<p class="pinstr">Часть 3 — чтение. Читай вслух по своей картинке:<br>
+<b>A cat. · A cat in a cap. · A cat in a cot. · A cat in a cab.</b> 🐱<br>
+— снимай эту часть на видео! 🎬</p>
+<button class="pbtn" onclick="var im=document.getElementById('u16-read');var off=im.style.display==='none';im.style.display=off?'block':'none';this.textContent=off?'📕 Спрятать картинку':'🖼️ Покажи картинку';this.classList.toggle('on',off)">🖼️ Покажи картинку</button>
+<img id="u16-read" src="../../media/kb1-u16-reading.jpg" alt="Cat's Cap, Cot and Taxi — A cat. A cat in a cap. A cat in a cot. A cat in a cab. A cat can nap in a cab. A cat in a cap can nap in a cot. A cat in a cap can nap in a cab." style="display:none;width:min(560px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:10px auto 0">
+</div>
+
+<div class="item task ov4 tap"><span class="ic">✏️</span><span class="tt"><span class="n">4 ·</span> <b>Листики — Rule и Circle</b><small>письмо — и в тетрадь!</small></span><button class="chip" id="pupp-chip-4" data-k="u16-ws" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u16-panel-4">
+<p class="pinstr">— сделай задания на двух листиках <b>Rule</b> и <b>Circle</b> и <b>вклей в тетрадь</b>! ✏️</p>
+<button class="pbtn" onclick="var s=document.getElementById('u16-wspic');var off=s.style.display==='none';s.style.display=off?'block':'none';this.textContent=off?'📕 Спрятать листики':'🖼️ Покажи листики';this.classList.toggle('on',off)">🖼️ Покажи листики</button>
+<div id="u16-wspic" style="display:none;margin:10px 0">
+<img src="../../media/kb1-u16-ws-rule.png" alt="листик Rule — Monty is in the box, on the chair, under the table, next to the chair" style="width:min(360px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u16-ws-circle.png" alt="листик Circle — обведи правильный предлог" style="width:min(360px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+</div>
+</div>
+
+<div class="item task ov5 tap"><span class="ic">🎵</span><span class="tt"><span class="n">5 ·</span> <b>Песенка — What's the weather like today?</b><small>слушай и пой!</small></span><button class="chip" id="pupp-chip-5" data-k="u16-song" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u16-panel-5">
+<p class="pinstr">— слушай и пой! ☀️🌧 <b>What's the weather like today?</b></p>
+<audio controls preload="none" src="../../media/kb1-u16-ge-weather.mp3"></audio>
+</div>
+
+<div class="item task ov6 tap"><span class="ic">📱</span><span class="tt"><span class="n">6 ·</span> <b>Shkola.app — два набора!</b><small>открой и выполни</small></span><button class="chip" id="pupp-chip-6" data-k="u16-shkola" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u16-panel-6">
+<p class="pinstr">— открой <b>shkola.app</b> и выполни <b>два набора</b>! 📱</p></div>
+
+<div class="progress" id="pupp-prog">Отмечено: 0 из 6</div>
+<div class="who">
+<input id="pupp-name" placeholder="Имя" autocomplete="off">
+<input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
+<span class="kprefix">KB 1.</span><input id="pupp-group" placeholder="?" maxlength="1" autocomplete="off" title="Твоя группа: 1, 2 или 3">
+</div>
+<button class="send" id="pupp-send" onclick="pupSend()">📤 Отправить Мисс Елене</button>
+<div class="hint" id="pupp-hint"></div>
+<div class="boxwrap" id="pupp-boxwrap">
+<div class="box" onclick="document.getElementById('pupp-cartoon').classList.add('show')">🎁</div>
+<div class="boxlabel">Твой подарок! Нажми!</div>
+<div class="cartoon" id="pupp-cartoon">
+<div class="pig">🐷</div>
+<video controls preload="metadata" src="../../media/kb1-u16-peppa-weather-station.mp4"></video>
+</div>
+</div>
+</div>
+</details>
+<details class="hw-row">
+<summary><span class="txt"><span class="nm">Урок 15 · Читаем, играем, поём! 🐱🎤</span><br><span class="dt">читаем лесенку The Fat Cat · листики · карточки Ff · история Three Spotty Monsters · лапки F и J · shkola «11 colours» · чант наизусть</span></span></summary>
 <div class="card hw-body u15-ovals">
 <div class="expl">Сделай все задания и отметь их галочкой — за каждое ты получишь слово! Собери вопрос, ответь на него и нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁 <b>Нажми на овал — откроются страницы!</b> 👆</div>
 
@@ -1783,5 +1852,110 @@ pupPaint();
 try{ if(window.unscrFlushQueue) unscrFlushQueue(); }catch(e){}
 </script>
 <!-- PASTE-script END -->
+<script>
+/* Урок 16 · Домашнее видео — the DRAFT card's own pup* machinery.
+   THE TITLE LIVES HERE TOO (the rename map): pupSend quotes the card title. */
+var PUPP_KEY='kb1-u16-', PUPP_N=6;
+var pupT0=null;
+function pupDate(){
+  var d=new Date(),p=function(x){return (x<10?'0':'')+x};
+  return p(d.getDate())+'.'+p(d.getMonth()+1)+'.'+d.getFullYear()+' '+p(d.getHours())+':'+p(d.getMinutes());
+}
+function pupQueue(text){
+  try{var q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');q.push(text);localStorage.setItem(UQUEUE_KEY,JSON.stringify(q));}catch(e){}
+}
+function pupFlushQueue(){
+  try{
+    var q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');
+    q.forEach(function(t){try{fetch(FORM_ACTION,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:FORM_ENTRY+'='+encodeURIComponent(t)});}catch(e){}});
+    localStorage.setItem(UQUEUE_KEY,'[]');
+  }catch(e){}
+}
+function unscrSend(text){
+  if(!FORM_ACTION||!FORM_ENTRY){ pupQueue(text); return false; }
+  try{
+    /* the LOSS-PROOF send: the fetch rejection is ASYNC — a sync try/catch never
+       sees it (the u14 lesson). Handle the promise: any failure → the queue. */
+    fetch(FORM_ACTION,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:FORM_ENTRY+'='+encodeURIComponent(text)})
+      .then(function(){}, function(){ pupQueue(text); });
+    return true;
+  }catch(e){
+    pupQueue(text);
+    return false;
+  }
+}
+function pupTog(el){
+  var k=PUPP_KEY+el.getAttribute('data-k');
+  var on=localStorage.getItem(k)==='1';
+  if(on){ localStorage.removeItem(k); el.classList.remove('on'); el.textContent='done'; }
+  else{ localStorage.setItem(k,'1'); el.classList.add('on'); el.textContent='✓ done'; }
+  localStorage.removeItem(PUPP_KEY+'sent');
+  pupPaint(); autoSend();
+}
+function pupAll(){
+  var n=0;
+  document.querySelectorAll('.chip').forEach(function(el){ if(localStorage.getItem(PUPP_KEY+el.getAttribute('data-k'))==='1') n++; });
+  return n;
+}
+function pupPaint(){
+  document.querySelectorAll('.chip').forEach(function(el){
+    var on=localStorage.getItem(PUPP_KEY+el.getAttribute('data-k'))==='1';
+    el.classList.toggle('on',on); el.textContent=on?'✓ done':'done';
+  });
+  var p=document.getElementById('pupp-prog'); if(p) p.textContent='Отмечено: '+pupAll()+' из '+PUPP_N;
+  var s=document.getElementById('pupp-send');
+  if(s) s.classList.toggle('sent', localStorage.getItem(PUPP_KEY+'sent')==='1');
+  var bw=document.getElementById('pupp-boxwrap');
+  if(bw) bw.classList.toggle('show', pupAll()===PUPP_N && localStorage.getItem(PUPP_KEY+'sent')==='1');
+}
+function autoSend(){
+  clearTimeout(pupT0);
+  pupT0=setTimeout(function(){ var n=document.getElementById('pupp-name'),s=document.getElementById('pupp-surn'),g=document.getElementById('pupp-group');
+    if(!(n&&s&&g&&n.value.trim()&&s.value.trim()&&'123'.indexOf(g.value.trim())>=0)) return;
+    var txt='KB 1.'+g.value.trim()+' · Урок 16 · Домашнее видео · '+n.value.trim()+' '+s.value.trim().toUpperCase()+'.: '+pupAll()+' из '+PUPP_N+' · '+pupDate();
+    var ok=unscrSend(txt); var h=document.getElementById('pupp-hint');
+    if(h) h.textContent = ok?'✉️ отправлено':'✨ сохранено — уйдёт позже';
+  }, 900);
+}
+function pupSend(){
+  var n=document.getElementById('pupp-name'),
+      s=document.getElementById('pupp-surn'),
+      g=document.getElementById('pupp-group'),
+      hint=document.getElementById('pupp-hint');
+  var name=n.value.trim(), surn=s.value.trim().toUpperCase(), grp=g.value.trim();
+  if(!name){hint.textContent='Сначала напиши имя!';n.focus();return;}
+  if(!surn){hint.textContent='Напиши первую букву фамилии!';s.focus();return;}
+  if('123'.indexOf(grp)<0){hint.textContent='Ты из группы 1, 2 или 3?';g.focus();return;}
+  s.value=surn; hint.textContent='';
+  try{
+    localStorage.setItem('kb1-hw-name',name);
+    localStorage.setItem('kb1-hw-surn',surn);
+    localStorage.setItem('kb1-hw-group',grp);
+  }catch(e){}
+  var txt='KB 1.'+grp+' · Урок 16 · in on under next to ✊ · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+' · '+pupDate();
+  var ok=unscrSend(txt);
+  localStorage.setItem(PUPP_KEY+'sent','1');
+  pupPaint();
+  var h=document.getElementById('pupp-hint');
+  if(h) h.textContent = ok?'✉️ отправлено Мисс Елене! Не забудь видео → Мисс Алёне 📲':'✨ сохранено — уйдёт позже';
+}
+(function(){
+  try{
+    var n=localStorage.getItem(UNAME_KEY),s=localStorage.getItem(USURN_KEY),g=localStorage.getItem(UGROUP_KEY);
+    if(n)document.getElementById('pupp-name').value=n;
+    if(s)document.getElementById('pupp-surn').value=s;
+    if(g)document.getElementById('pupp-group').value=g;
+  }catch(e){}
+  pupFlushQueue();
+  pupPaint();
+})();
+document.querySelectorAll('.u16-ovals .item.task.tap').forEach(function(it){
+  it.addEventListener('click',function(e){
+    if(e.target.closest('.chip')||e.target.closest('a')||e.target.closest('button')||e.target.closest('audio')) return;
+    var pn=it.nextElementSibling;
+    if(pn&&pn.classList.contains('panel')) pn.classList.toggle('open');
+  });
+});
+</script>
 </body>
 </html>
