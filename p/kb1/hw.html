@@ -156,6 +156,30 @@ footer{color:var(--ink-soft);font-size:.9rem;text-align:center;margin-top:1vh}
 .pinstr b{color:var(--lavender-deep)}
 summary .nm .tmoji{height:1.25em;width:auto;vertical-align:-0.32em;border-radius:8px;box-shadow:0 1px 3px rgba(45,52,54,.2);background:#fff;padding:0 2px}
 </style>
+<style>
+.u17-ovals .item.task{display:flex;align-items:center;gap:.8em;flex-wrap:wrap;border-radius:999px;padding:.9em 1.1em;margin-top:.7em;box-shadow:var(--shadow)}
+.u17-ovals .item.task .ic{font-size:clamp(1.6rem,5vw,2.1rem);flex:0 0 auto}
+.u17-ovals .item.task .tt{flex:1;min-width:12em}
+.u17-ovals .item.task .tt .n{color:var(--ink-soft);font-weight:800;margin-right:.25em}
+.u17-ovals .item.task .tt small{display:block;font-size:.8em;color:var(--ink-soft);font-weight:400;margin-top:.15em}
+.u17-ovals .item.task.ov1{background:#E5DBFF}
+.u17-ovals .item.task.ov2{background:#96E0CF}
+.u17-ovals .item.task.ov3{background:#F7DE8A}
+.u17-ovals .item.task.ov4{background:#F19EB4}
+.u17-ovals .item.task.ov5{background:#FFD9B5}
+.u17-ovals .item.task.ov6{background:#BFE0F5}
+.u17-ovals .item.task.ov7{background:#DCC9F0}
+.u17-ovals .item.task.ov8{background:#D6EFC9}
+.u17-ovals .chip{border:none;background:#fff;color:var(--ink-soft);font-family:'Fredoka',sans-serif;font-weight:700;box-shadow:0 1px 3px rgba(45,52,54,.12)}
+.u17-ovals .chip.on{color:var(--mint-deep)}
+.u17-ovals .item.task.tap{cursor:pointer}
+.u17-ovals .panel{display:none;width:100%;margin:-4px 0 10px;padding:12px 14px;background:#fff;border-radius:18px;box-shadow:var(--shadow)}
+.u17-ovals .panel.open{display:block;animation:pop .3s ease}
+.u17-ovals .pbtn{border:2px solid var(--mint-deep);background:#fff;border-radius:99px;padding:.3em 1em;font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,2.9vw,1.2rem);cursor:pointer}
+.u17-ovals .pbtn.on{background:var(--mint)}
+.pinstr{font-size:clamp(.95rem,2.4vw,1.1rem);line-height:1.5}
+.pinstr b{color:var(--lavender-deep)}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -165,7 +189,113 @@ summary .nm .tmoji{height:1.25em;width:auto;vertical-align:-0.32em;border-radius
     <div class="sub">Новое задание всегда сверху. Ссылка постоянная — сохраните её.</div>
   </header>
 <details class="hw-row" open>
-<summary><span class="txt"><span class="nm">Урок 16 · in <img class="tmoji" src="../../media/kb1-u16-dia-in.png" alt="in"> on <img class="tmoji" src="../../media/kb1-u16-dia-on.png" alt="on"> under <img class="tmoji" src="../../media/kb1-u16-dia-under.png" alt="under"> next to <img class="tmoji" src="../../media/kb1-u16-dia-nextto.png" alt="next to"><span class="new">✨ новое!</span></span><br><span class="dt">языковая зарядка /θ/ · Three Spotty Monsters · чтение по картинке · листики Rule и Circle · песенка What's the weather like · shkola — два набора</span></span></summary>
+<summary><span class="txt"><span class="nm">Урок 17 · Cat on the Mat 📖<span class="new">✨ новое!</span></span><br><span class="dt">видео: зарядка · книжка · thumb · Three Spotty Monsters · печатаем S и L · shkola · yes/no-картинка · Wordwall</span></span></summary>
+<div class="card hw-body u17-ovals">
+<div class="expl">Сними <b>одно видео — части 1–3</b> — и отправь его Мисс Алёне 📲 Отмечай <b>все</b> задания галочкой, а в конце нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁 <b>Нажми на овал — откроется задание!</b> 👆</div>
+
+<div class="item task ov1 tap"><span class="ic">🎬</span><span class="tt"><span class="n">1 ·</span> <b>Языковая зарядка — видео!</b><small>on the bed · under the tree · in the box · next to me</small></span><button class="chip" id="pupp-chip-1" data-k="u17-video1" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u17-panel-1">
+<p class="pinstr">Часть 1 — языковая зарядка. Покажи и скажи на видео:<br>
+1 · <b>On the bed!</b> — на кровать! 🛏<br>
+2 · <b>Under the tree!</b> — под дерево! 🌳<br>
+3 · <b>In the box!</b> — в коробку! 📦<br>
+4 · <b>Next to me!</b> — рядом со мной! 🙋<br>
+— снимай эту часть на видео! 🎬</p>
+</div>
+
+<div class="item task ov2 tap"><span class="ic">📖</span><span class="tt"><span class="n">2 ·</span> <b>Книжка-малышка — читаем!</b><small>Cat on the Mat — вырежи, склей и читай!</small></span><button class="chip" id="pupp-chip-2" data-k="u17-book" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u17-panel-2">
+<p class="pinstr">Часть 2 — сделай книжку и читай её:<br>
+1 · Распечатай странички (кнопка ниже) и <b>вырежи</b> их ✂️<br>
+2 · <b>Склей книжку</b> — «Cat on the Mat» 🐱<br>
+3 · Читай её <b>сестрёнке или братишке, коту или собаке, любимой игрушке</b>! 🧸<br>
+— снимай эту часть на видео! 🎬</p>
+<button class="pbtn" onclick="var s=document.getElementById('u17-bookpages');var off=s.style.display==='none';s.style.display=off?'block':'none';this.textContent=off?'📕 Спрятать странички':'🖼️ Покажи странички';this.classList.toggle('on',off)">🖼️ Покажи странички</button>
+<div id="u17-bookpages" style="display:none;margin:10px 0">
+<img src="../../media/kb1-u3-catmat-cover.png" alt="Cat on the Mat — обложка (Early Reader No. 1)" style="width:min(420px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-catmat-s1.png" alt="Страничка 1 — The cat." style="width:min(340px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-catmat-s2.png" alt="Страничка 2 — The fat rat." style="width:min(340px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-catmat-s3.png" alt="Страничка 3 — The fat bat." style="width:min(340px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-catmat-s4.png" alt="Страничка 4 — The fat rat sat on a mat." style="width:min(340px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-catmat-s5.png" alt="Страничка 5 — The bat and a rat sat on a mat." style="width:min(340px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-catmat-s6.png" alt="Страничка 6 — The cat sat on a mat." style="width:min(340px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-catmat-s7.png" alt="Страничка 7 — The bat and a fat rat sat on a cat." style="width:min(340px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-catmat-s8.png" alt="Страничка 8 — The fat cat sat on a mat." style="width:min(340px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+</div>
+</div>
+
+<div class="item task ov3 tap"><span class="ic">🗣</span><span class="tt"><span class="n">3 ·</span> <b>Скажи «thumb» 3 раза!</b><small>улыбка · подуем · прохладный язычок</small></span><button class="chip" id="pupp-chip-3" data-k="u17-thumb" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u17-panel-3">
+<p class="pinstr">Часть 3 — скажи слово <b>thumb</b> (большой палец 👍) 3 раза:<br>
+1 · Улыбнись широко — <b>голливудская улыбка!</b> 😄<br>
+2 · Подуй на язычок! 💨<br>
+3 · Язык между зубами — <b>охлади язычок!</b> 🥶<br>
+4 · Скажи: <b>thumb! thumb! THUMB!</b> 🗣<br>
+— снимай эту часть на видео! 🎬</p>
+</div>
+
+<div class="item task ov4 tap"><span class="ic">🐷</span><span class="tt"><span class="n">4 ·</span> <b>Слушай историю — Three Spotty Monsters</b><small>и говори вместе с героем!</small></span><button class="chip" id="pupp-chip-4" data-k="u17-spotty" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u17-panel-4">
+<p class="pinstr">— слушай историю <b>«Three Spotty Monsters»</b> и <b>говори вместе</b>! Повторяй слова за рассказчиком 🐷🐷🐷</p>
+<audio controls preload="none" src="../../media/kb1-u16-spotty-story.mp3"></audio>
+</div>
+
+<div class="item task ov5 tap"><span class="ic">⌨️</span><span class="tt"><span class="n">5 ·</span> <b>Печатаем — S и L!</b><small>новые клавиши — новая игра!</small></span><button class="chip" id="pupp-chip-5" data-k="u17-typing" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u17-panel-5">
+<p class="pinstr">— читай слово и нажимай его первую букву! Руки на «домашние» — новые клавиши <b>S и L</b>! ⌨️</p>
+<a class="btn" href="https://elena777-code.github.io/decks/typing/home-row-04-sl.html" target="_blank">▶ Открыть игру — S и L</a>
+</div>
+
+<div class="item task ov6 tap"><span class="ic">📱</span><span class="tt"><span class="n">6 ·</span> <b>Shkola.app</b><small>открой и выполни наборы!</small></span><button class="chip" id="pupp-chip-6" data-k="u17-shkola" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u17-panel-6">
+<p class="pinstr">— открой <b>shkola.app</b> и выполни наборы! 📱</p></div>
+
+<div class="item task ov7 tap"><span class="ic">❓</span><span class="tt"><span class="n">7 ·</span> <b>Yes или No?</b><small>новая картинка-загадка</small></span><button class="chip" id="pupp-chip-7" data-k="u17-yesno" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u17-panel-7">
+<p class="pinstr">— посмотри на картинку и ответь: <b>Yes 👍</b> или <b>No 👎</b>? Считай внимательно! 🧐</p>
+<div style="background:#eafbf6;border-radius:14px;padding:12px;margin:6px 0">
+<div id="cg-count17" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 10</div>
+<div id="cg-caption17" style="text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.45rem;color:#2D3436;min-height:2em;margin:8px 0"></div>
+<img id="cg-scene17" src="../../media/kb1-u17-yesno.jpg" alt="аэропорт — посмотри и посчитай: Yes или No?" style="width:min(400px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:8px auto;display:block">
+<div style="display:flex;gap:12px;justify-content:center;margin-top:10px">
+<button id="cg-yes17" onclick="cgAns17(true)" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;border:none;border-radius:99px;padding:.5em 1.6em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">Yes 👍</button>
+<button id="cg-no17" onclick="cgAns17(false)" style="font-family:Fredoka,sans-serif;font-weight:700;font-size:1.3rem;border:none;border-radius:99px;padding:.5em 1.6em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">No 👎</button>
+</div>
+<button id="cg-again17" onclick="cgStart17()" style="display:none;margin:8px auto 0;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.2rem;border:none;border-radius:99px;padding:.5em 1.5em;background:#95E1D3;color:#2D3436;cursor:pointer">▶ Играть ещё раз — новые задания!</button>
+<div id="cg-end17" style="display:none;text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:1.4rem;color:#2D3436;margin-top:6px"></div>
+</div>
+</div>
+
+<div class="item task ov8 tap"><span class="ic">🧩</span><span class="tt"><span class="n">8 ·</span> <b>Wordwall — in, on, under, next to!</b><small>поиграй в игру из урока!</small></span><button class="chip" id="pupp-chip-8" data-k="u17-wordwall" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u17-panel-8">
+<p class="pinstr">— поиграй в игру из урока: <b>in · on · under · next to</b>! 🧩</p>
+<a class="btn" href="https://wordwall.net/ru/resource/11259932/in-on-under-next-to" target="_blank">▶ Играть — Wordwall</a>
+</div>
+
+<div class="progress" id="pupp-prog">Отмечено: 0 из 8</div>
+<div class="who">
+<input id="pupp-name" placeholder="Имя" autocomplete="off">
+<input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
+<span class="kprefix">KB 1.</span><input id="pupp-group" placeholder="?" maxlength="1" autocomplete="off" title="Твоя группа: 1, 2 или 3">
+</div>
+<button class="send" id="pupp-send" onclick="pupSend()">📤 Отправить Мисс Елене</button>
+<div class="hint" id="pupp-hint"></div>
+<div class="boxwrap" id="pupp-boxwrap">
+<div class="box" onclick="document.getElementById('pupp-cartoon').classList.add('show')">🎁</div>
+<div class="boxlabel">Твой подарок! Нажми!</div>
+<div class="cartoon" id="pupp-cartoon">
+<div class="pig">🐷✨</div>
+<h3>Peppa Pig — Weather Station! ☀️</h3>
+<p>Ты молодец! Все задания сделаны. Смотри мультик про погоду!</p>
+<video controls preload="none" playsinline src="../../media/kb1-u16-peppa-weather-station.mp4" style="width:100%;border-radius:12px"></video>
+</div>
+</div>
+<div class="note">Если что-то не получается — напишите администратору Мисс Алёны, поможем.</div>
+</div>
+</details>
+
+<details class="hw-row">
+<summary><span class="txt"><span class="nm">Урок 16 · in <img class="tmoji" src="../../media/kb1-u16-dia-in.png" alt="in"> on <img class="tmoji" src="../../media/kb1-u16-dia-on.png" alt="on"> under <img class="tmoji" src="../../media/kb1-u16-dia-under.png" alt="under"> next to <img class="tmoji" src="../../media/kb1-u16-dia-nextto.png" alt="next to"></span><br><span class="dt">языковая зарядка /θ/ · Three Spotty Monsters · чтение по картинке · листики Rule и Circle · песенка What's the weather like · shkola — два набора</span></span></summary>
 <div class="card hw-body u16-ovals">
 <div class="expl">Сними <b>одно видео — части 1–3</b> — и отправь его Мисс Алёне 📲 Отмечай <b>все</b> задания галочкой, а в конце нажми «Отправить Мисс Елене» — и появится подарок: мультфильм! 🎁 👆</div>
 
@@ -1979,6 +2109,215 @@ document.querySelectorAll('.u16-ovals .item.task.tap').forEach(function(it){
     if(pn&&pn.classList.contains('panel')) pn.classList.toggle('open');
   });
 });
+</script>
+<script>
+/* Урок 17 · Cat on the Mat 📖 — the card's own pup* machinery (the u16 shape:
+   per-tap autoSend + the loss-proof send + untick resets the sent state).
+   THE TITLE LIVES HERE TOO (the rename map): pupSend AND autoSend quote the
+   card title — change all THREE together (summary · pupSend · autoSend). */
+var PUPP_KEY='kb1-u17-', PUPP_N=8;
+var pupT0=null;
+function pupDate(){
+  var d=new Date(),p=function(x){return (x<10?'0':'')+x};
+  return p(d.getDate())+'.'+p(d.getMonth()+1)+'.'+d.getFullYear()+' '+p(d.getHours())+':'+p(d.getMinutes());
+}
+function pupQueue(text){
+  try{var q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');q.push(text);localStorage.setItem(UQUEUE_KEY,JSON.stringify(q));}catch(e){}
+}
+function pupFlushQueue(){
+  try{
+    var q=JSON.parse(localStorage.getItem(UQUEUE_KEY)||'[]');
+    if(!q.length) return;
+    /* clear FIRST, re-queue on failure — the u16 shape wiped the queue
+       unconditionally, so a boot-open while offline killed the rows it
+       tried to deliver (the async rejection lands after the wipe) */
+    localStorage.setItem(UQUEUE_KEY,'[]');
+    q.forEach(function(t){try{
+      fetch(FORM_ACTION,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:FORM_ENTRY+'='+encodeURIComponent(t)})
+        .then(function(){}, function(){ pupQueue(t); });
+    }catch(e){ pupQueue(t); }});
+  }catch(e){}
+}
+function unscrSend(text){
+  if(!FORM_ACTION||!FORM_ENTRY){ pupQueue(text); return false; }
+  try{
+    /* the LOSS-PROOF send: the fetch rejection is ASYNC — a sync try/catch never
+       sees it (the u14 lesson). Handle the promise: any failure → the queue. */
+    fetch(FORM_ACTION,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:FORM_ENTRY+'='+encodeURIComponent(text)})
+      .then(function(){}, function(){ pupQueue(text); });
+    return true;
+  }catch(e){
+    pupQueue(text);
+    return false;
+  }
+}
+function pupTog(el){
+  var k=PUPP_KEY+el.getAttribute('data-k');
+  var on=localStorage.getItem(k)==='1';
+  if(on){ localStorage.removeItem(k); el.classList.remove('on'); el.textContent='done'; }
+  else{ localStorage.setItem(k,'1'); el.classList.add('on'); el.textContent='✓ done'; }
+  localStorage.removeItem(PUPP_KEY+'sent');
+  pupPaint(); autoSend();
+}
+function pupAll(){
+  var n=0;
+  document.querySelectorAll('.chip').forEach(function(el){ if(localStorage.getItem(PUPP_KEY+el.getAttribute('data-k'))==='1') n++; });
+  return n;
+}
+function pupPaint(){
+  document.querySelectorAll('.chip').forEach(function(el){
+    var on=localStorage.getItem(PUPP_KEY+el.getAttribute('data-k'))==='1';
+    el.classList.toggle('on',on); el.textContent=on?'✓ done':'done';
+  });
+  var p=document.getElementById('pupp-prog'); if(p) p.textContent='Отмечено: '+pupAll()+' из '+PUPP_N;
+  var s=document.getElementById('pupp-send');
+  if(s) s.classList.toggle('sent', localStorage.getItem(PUPP_KEY+'sent')==='1');
+  var bw=document.getElementById('pupp-boxwrap');
+  if(bw) bw.classList.toggle('show', pupAll()===PUPP_N && localStorage.getItem(PUPP_KEY+'sent')==='1');
+}
+function autoSend(){
+  clearTimeout(pupT0);
+  pupT0=setTimeout(function(){ var n=document.getElementById('pupp-name'),s=document.getElementById('pupp-surn'),g=document.getElementById('pupp-group');
+    if(!(n&&s&&g&&n.value.trim()&&s.value.trim()&&['1','2','3'].indexOf(g.value.trim())>=0)) return;
+    var gc=null;try{gc=localStorage.getItem('kb1-u17-game')}catch(e){}
+    var txt='KB 1.'+g.value.trim()+' · Урок 17 · Cat on the Mat 📖 · '+n.value.trim()+' '+s.value.trim().toUpperCase()+'.: '+pupAll()+' из '+PUPP_N+(gc?' · Yes-No: '+gc+' из 10':'')+' · '+pupDate();
+    var ok=unscrSend(txt); var h=document.getElementById('pupp-hint');
+    if(h) h.textContent = ok?'✉️ отправлено':'✨ сохранено — уйдёт позже';
+  }, 900);
+}
+function pupSend(){
+  var n=document.getElementById('pupp-name'),
+      s=document.getElementById('pupp-surn'),
+      g=document.getElementById('pupp-group'),
+      hint=document.getElementById('pupp-hint');
+  var name=n.value.trim(), surn=s.value.trim().toUpperCase(), grp=g.value.trim();
+  if(!name){hint.textContent='Сначала напиши имя!';n.focus();return;}
+  if(!surn){hint.textContent='Напиши первую букву фамилии!';s.focus();return;}
+  /* the EMPTY-INCLUDES TRAP guard (the identity-row law): only the array form
+     gates — '123'.indexOf('') is 0, so the string form passes an empty digit */
+  if(['1','2','3'].indexOf(grp)<0){hint.textContent='Ты из группы 1, 2 или 3?';g.focus();return;}
+  s.value=surn; hint.textContent='';
+  try{
+    localStorage.setItem(UNAME_KEY,name);
+    localStorage.setItem(USURN_KEY,surn);
+    localStorage.setItem(UGROUP_KEY,grp);
+  }catch(e){}
+  var gc=null;try{gc=localStorage.getItem('kb1-u17-game')}catch(e){}
+  var txt='KB 1.'+grp+' · Урок 17 · Cat on the Mat 📖 · '+name+' '+surn+'.: '+pupAll()+' из '+PUPP_N+(gc?' · Yes-No: '+gc+' из 10':'')+' · '+pupDate();
+  var ok=unscrSend(txt);
+  localStorage.setItem(PUPP_KEY+'sent','1');
+  pupPaint();
+  var h=document.getElementById('pupp-hint');
+  if(h) h.textContent = ok?'✉️ отправлено Мисс Елене! Не забудь видео → Мисс Алёне 📲':'✨ сохранено — уйдёт позже';
+}
+(function(){
+  try{
+    var n=localStorage.getItem(UNAME_KEY),s=localStorage.getItem(USURN_KEY),g=localStorage.getItem(UGROUP_KEY);
+    if(n)document.getElementById('pupp-name').value=n;
+    if(s)document.getElementById('pupp-surn').value=s;
+    if(g)document.getElementById('pupp-group').value=g;
+  }catch(e){}
+  pupFlushQueue();
+  pupPaint();
+})();
+document.querySelectorAll('.u17-ovals .item.task.tap').forEach(function(it){
+  it.addEventListener('click',function(e){
+    if(e.target.closest('.chip')||e.target.closest('a')||e.target.closest('button')||e.target.closest('audio')) return;
+    var pn=it.nextElementSibling;
+    if(pn&&pn.classList.contains('panel')) pn.classList.toggle('open');
+  });
+});
+
+/* THE YES/NO GAME (Elena, 13.11: «similar to the Урок-12 colour game, with
+   the picture provided») — HER airport picture (kb1-u17-yesno.jpg) inside the
+   Урок-12 dealt-game shape: 10 rounds, a speech frame, Yes/No pills, shake on
+   wrong, first-try rights = the score, which rides the report («Yes-No: X
+   из 10»). THE TRUTH TABLE = the banded eye-count of HER picture (the KB
+   scene law: the generator's promise is never trusted). EVERY lie the engine
+   can deal is audited FALSE against the full tally — the per-group cl/il
+   pools below ARE that audit (e.g. «2 white monsters» would be TRUE — white
+   is not in any lie pool; «1 yellow car» would be TRUE — the taxi — yellow is
+   not in the car's colour pool; n=2 rows lie only to taxi/plane/monster:
+   «2 trains», «2 balloons», «2 bicycles» and «2 cars» are all TRUE).
+   Elena's nine sentences are all dealable: «two blue cars» = a lie dealt on
+   the blue-car/blue-monster rows; «three balloons» / «three monsters in the
+   boat» = count lies; the rest are table truths. */
+var CGT17=[
+  {n:3,c:'red',i:'monster',iPl:'monsters',cl:['blue','purple','green','yellow'],il:['car','taxi','balloon','train','bicycle','plane']},
+  {n:2,c:'blue',i:'monster',iPl:'monsters',cl:['red','purple','green','yellow'],il:['car','taxi','balloon','train','bicycle','plane']},
+  {n:6,c:'purple',i:'monster',iPl:'monsters',cl:['red','blue','green','yellow'],il:['car','taxi','balloon','train','bicycle','plane']},
+  {n:8,c:'green',i:'monster',iPl:'monsters',cl:['red','blue','purple','yellow'],il:['car','taxi','balloon','train','bicycle','plane']},
+  {n:1,c:'blue',i:'car',iPl:'cars',cl:['red','purple','green'],il:['monster','taxi','balloon','train','plane']},
+  {n:1,c:'yellow',i:'taxi',iPl:'taxis',cl:['red','blue','green','purple'],il:['train','bicycle','plane']},
+  {n:2,c:'',i:'balloon',iPl:'balloons',cl:[],il:['taxi','plane','monster']},
+  {n:2,c:'',i:'train',iPl:'trains',cl:[],il:['taxi','plane','monster']},
+  {n:2,c:'',i:'bicycle',iPl:'bicycles',cl:[],il:['taxi','plane','monster']},
+  {n:1,c:'',i:'plane',iPl:'planes',cl:[],il:['balloon','train','car','bicycle','monster']},
+  {n:2,c:'',i:'monster in the boat',iPl:'monsters in the boat',cl:[],il:['taxi','plane','monster']}
+];
+var CGF17=['Look!','Count!','And now!','One more!',''];
+var cgI17=0,cgScore17=0,cgYes17=false,cgTried17=false,cgPlan17=[];
+function capReset17(){var c=document.getElementById('cg-caption17');c.style.color='';c.classList.remove('cgwrong');}
+function cgR17(n){return Math.floor(Math.random()*n);}
+function cgDeal17(){
+  for(;;){
+    var t=4+cgR17(3),p=[],k,i,j,tmp,bad=false,sw=0,run=1;
+    for(k=0;k<10;k++)p.push(k<t);
+    for(i=p.length-1;i>0;i--){j=cgR17(i+1);tmp=p[i];p[i]=p[j];p[j]=tmp;}
+    for(k=1;k<10;k++){
+      if(p[k]===p[k-1]){run++;if(run>2){bad=true;break;}}
+      else{run=1;sw++;}
+    }
+    if(!bad&&sw<8)return p;
+  }
+}
+function cgRound17(){
+  cgTried17=false;capReset17();
+  cgYes17=cgPlan17[cgI17];
+  var g=CGT17[cgR17(CGT17.length)],n=g.n,c=g.c,it=g.i,itP=g.iPl;
+  if(!cgYes17){
+    var lie=cgR17(3);
+    if(lie===0){do{n=1+cgR17(7);}while(n===g.n);}
+    else if(lie===1&&g.cl.length){c=g.cl[cgR17(g.cl.length)];}
+    else{var s=g.il[cgR17(g.il.length)],t=CGT17.filter(function(x){return x.i===s;})[0];it=t.i;itP=t.iPl;}
+  }
+  var f=CGF17[cgR17(CGF17.length)];
+  document.getElementById('cg-caption17').textContent=(f?f+' ':'')+n+' '+(c?c+' ':'')+(n===1?it:itP)+' — Yes or No?';
+  document.getElementById('cg-count17').textContent=(cgI17+1)+' / 10';
+}
+function cgStart17(){
+  cgI17=0;cgScore17=0;
+  cgPlan17=cgDeal17();
+  document.getElementById('cg-end17').style.display='none';
+  document.getElementById('cg-again17').style.display='none';
+  document.getElementById('cg-yes17').style.display='';document.getElementById('cg-no17').style.display='';
+  cgRound17();
+}
+function cgAns17(ans){
+  if(cgI17>=10)return;
+  var cap=document.getElementById('cg-caption17');
+  if(ans===cgYes17){
+    if(!cgTried17)cgScore17++;
+    cap.textContent='Правильно! 🌟';cap.style.color='#27ae60';
+    cgI17++;
+    if(cgI17<10){setTimeout(function(){capReset17();cgRound17();},800);}
+    else{
+      setTimeout(function(){
+        capReset17();cap.textContent='Ready? Look and count!';
+        try{localStorage.setItem('kb1-u17-game',String(cgScore17))}catch(e){}
+        document.getElementById('cg-end17').style.display='block';
+        document.getElementById('cg-end17').textContent=cgScore17+' из 10 с первого раза! 🌟 Great job!';
+        document.getElementById('cg-yes17').style.display='none';document.getElementById('cg-no17').style.display='none';
+        document.getElementById('cg-again17').style.display='block';
+      },800);
+    }
+  }else{
+    cgTried17=true;
+    cap.textContent='Попробуй ещё! 👀';cap.style.color='#e74c3c';
+    cap.classList.remove('cgwrong');void cap.offsetWidth;cap.classList.add('cgwrong');
+  }
+}
+cgStart17();
 </script>
 </body>
 </html>
