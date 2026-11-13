@@ -50,7 +50,6 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.7rem,6vw,2
 .pagebtn{border:2px solid var(--mint-deep);background:#fff;border-radius:99px;padding:.3em 1em;
   font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1rem,2.9vw,1.2rem);cursor:pointer}
 .pagebtn.on{background:var(--mint)}
-#wbOval{cursor:pointer}
 .nrow{display:flex;align-items:center;gap:.5em;margin:.2em 0 .7em;font-weight:800;font-size:clamp(1rem,3vw,1.25rem)}
 .nrow input{flex:1;min-width:0;border:2px solid #e3ddd2;border-radius:14px;padding:.45em .8em;font:inherit;font-weight:700;background:#fff;color:var(--ink)}
 .nrow input.err{border-color:#e05a4e}
@@ -84,37 +83,24 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
 </div>
 
 <div class="card now">
-  <h2>Homework · 5 November</h2>
+  <h2>Homework · 12 November</h2>
   <div class="nrow"><span>✏️ Your name:</span><input id="hwName" maxlength="30" autocomplete="off"></div>
-  <div class="bigbtn lav" id="wbOval" role="button" tabindex="0" style="margin-top:.4em">
+  <div class="bigbtn lav" style="margin-top:.4em">
     <span class="ic">📖</span>
-    <span><span class="tt">1 · WB p. 73, ex. 1–6</span></span>
-    <button class="donechip" id="doneWb73" type="button">done</button>
-  </div>
-  <div class="panel" id="wbPanel">
-    <p style="font-weight:800;margin:.2em 0">🎧 Audio 20</p>
-    <audio controls preload="none" src="../media/gg1-wb-tk20.mp3" style="width:100%"></audio>
-    <button class="pagebtn" id="pageToggle" type="button" style="margin-top:.5em">show the page</button>
-    <img id="wbPage" src="../media/gg1-wb73.jpg" alt="WB p. 73" hidden style="width:100%;border-radius:14px;margin-top:.5em">
+    <span style="flex:1"><span class="tt">1 · SB p. 102, ex. 6</span></span>
+    <button class="donechip" id="doneSb102" type="button">done</button>
   </div>
   <div class="bigbtn" style="margin-top:.6em">
     <span class="ic">📱</span>
-    <span style="flex:1"><span class="tt">2 · shkola.app — for the dictation</span></span>
+    <span style="flex:1"><span class="tt">2 · shkola.app — get ready for the dictation</span></span>
     <button class="donechip" id="doneShkola" type="button">done</button>
   </div>
-  <a class="bigbtn gold" href="gg2-1-ex4-match.html" target="_blank" rel="noopener">
-    <span class="ic">🧩</span>
-    <span><span class="tt">3 · Ex. 4 — match it!</span></span>
-  </a>
-  <a class="bigbtn pink" href="gg2-1-questions-82.html" target="_blank" rel="noopener">
-    <span class="ic">🧪</span>
-    <span><span class="tt">4 · Getting ready for the test</span></span>
-  </a>
 </div>
 
 <details class="pasthw">
   <summary>📚 Past homework</summary>
   <div class="arch">
+    <a href="gg2-1-ex4-match.html"><span>5 November —</span> WB p. 73 ex. 1–6 + shkola.app + the match + test practice</a>
     <a href="gg2-1-test-drill.html"><span>15 October —</span> test trainer + the Verb + s rule + words + SB ex. 4</a>
     <a href="gg2-1-hw-003.html"><span>8 October —</span> trainer + the Verb + s rule + words + the project</a>
     <a href="gg2-1-hw-002.html"><span>8 October —</span> test + words on shkola.app + Verb + s</a>
@@ -124,13 +110,13 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
 
 <script>
 /* the name row + the per-tap reports — the ticks reach Elena (her order:
-   «they click 'done' for WB and shkola.app… don't forget to ask their name»).
+   «they click 'done'… don't forget to ask their name»).
    THE LOSS-PROOF SEND: a failed POST queues the row; the queue flushes on
    the next page open. */
 (function(){
   var FORM='https://docs.google.com/forms/d/e/1FAIpQLScFp8Gy4bW2_WNxSfX7yrR1nSg3agXexUAn4owNWzqRF00wgg/formResponse';
   var ENTRY='entry.10697757';
-  var QKEY='gg-hw-queue-0511';
+  var QKEY='gg-hw-queue';
   var nameInput=document.getElementById('hwName');
   if(nameInput){
     try{nameInput.value=localStorage.getItem('gg-drill-name')||'';}catch(e){}
@@ -140,16 +126,16 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
     });
   }
   function hwName(){try{return (localStorage.getItem('gg-drill-name')||'').trim();}catch(e){return '';}}
-  function flushQueue(){
-    var raw=null;try{raw=localStorage.getItem(QKEY);}catch(e){}
+  function flushQueue(key){
+    var raw=null;try{raw=localStorage.getItem(key);}catch(e){}
     if(!raw)return;
     var q;try{q=JSON.parse(raw);}catch(e){q=[];}
     if(!q.length)return;
     var fd=new FormData();fd.append(ENTRY,q[0]);
     fetch(FORM,{method:'POST',mode:'no-cors',body:fd}).then(function(){
       q.shift();
-      try{localStorage.setItem(QKEY,JSON.stringify(q));}catch(e){}
-      if(q.length)setTimeout(flushQueue,1500);
+      try{localStorage.setItem(key,JSON.stringify(q));}catch(e){}
+      if(q.length)setTimeout(function(){flushQueue(key);},1500);
     }).catch(function(){});
   }
   function send(row){
@@ -180,7 +166,7 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
         var d=new Date();
         var pad=function(n){return (n<10?'0':'')+n;};
         var stamp=pad(d.getDate())+'.'+pad(d.getMonth()+1)+' '+pad(d.getHours())+':'+pad(d.getMinutes());
-        send('GG2.1 · homework 8.4 · '+label+' · '+name+' · done ✓ · '+stamp);
+        send('GG2.1 · homework 8.6 · '+label+' · '+name+' · done ✓ · '+stamp);
         on=true;
         try{localStorage.setItem(key,'1');}catch(e){}
         chip.textContent='sent ✓';chip.classList.add('on');
@@ -193,24 +179,10 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
     });
     paint();
   }
-  wireChip('doneWb73','gg-hw-done-0511-wb73','WB p. 73');
-  wireChip('doneShkola','gg-hw-done-0511-shkola','shkola.app — dictation');
-  flushQueue();
-})();
-/* oval 1: tap opens the panel (audio + show the page) */
-(function(){
-  var oval=document.getElementById('wbOval'),panel=document.getElementById('wbPanel');
-  if(!oval||!panel)return;
-  function flip(){panel.classList.toggle('open');}
-  oval.addEventListener('click',flip);
-  oval.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();flip();}});
-  var pt=document.getElementById('pageToggle'),img=document.getElementById('wbPage');
-  if(pt&&img)pt.addEventListener('click',function(){
-    var show=img.hidden;
-    img.hidden=!show;
-    pt.textContent=show?'hide the page':'show the page';
-    pt.classList.toggle('on',show);
-  });
+  wireChip('doneSb102','gg-hw-done-1211-sb102','SB p. 102 ex. 6');
+  wireChip('doneShkola','gg-hw-done-1211-shkola','shkola.app — dictation prep');
+  flushQueue('gg-hw-queue-0511');
+  flushQueue(QKEY);
 })();
 </script>
 
