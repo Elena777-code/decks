@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natalya's homework · have something done · the brag, written · the video · 4.3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --blue:#1F5FA8; --blue-soft:#E8F0FA;
+  --rust:#A2402F; --rust-soft:#F7EAE6;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#EFECE5;
+  padding:4vh 4vw;display:flex;justify-content:center}
+.page{background:var(--paper);border-radius:18px;max-width:780px;width:100%;
+  padding:clamp(1.4rem,4vw,3rem);display:flex;flex-direction:column;gap:1.4rem}
+h1{font-size:clamp(1.5rem,3.6vw,2.3rem);line-height:1.15;letter-spacing:-.01em}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.9rem,2vw,1.4rem)}
+.step .no{display:inline-flex;width:2em;height:2em;border-radius:50%;
+  background:var(--accent);color:#fff;font-weight:800;align-items:center;
+  justify-content:center;margin-bottom:.5em}
+.step.rust .no{background:var(--rust)} .step.blue .no{background:var(--blue)}
+.step.gold .no{background:var(--gold)}
+.step p{font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55;margin:.25em 0}
+.step p.how{color:var(--ink-soft);font-style:italic;font-size:clamp(.9rem,1.8vw,1.05rem)}
+.dchip{float:right;border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.3em .85em;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:clamp(.75rem,1.5vw,.92rem);color:var(--ink-soft);cursor:pointer;
+  transition:all .15s;margin:0 0 .4em .6em}
+.dchip:hover{border-color:var(--accent);color:var(--accent)}
+.dchip.done{background:var(--accent);border-color:var(--accent);color:#fff}
+#send-btn{border:none;border-radius:14px;padding:.7em 1.6em;background:var(--accent);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(1rem,2vw,1.25rem);
+  cursor:pointer;margin-top:.5em}
+#send-btn:hover{transform:scale(1.03)}
+#send-btn[disabled]{opacity:.75;cursor:default;transform:none}
+details{border:1.5px solid var(--line);border-radius:12px;background:var(--paper);
+  margin-top:.7em;overflow:hidden}
+details summary{cursor:pointer;padding:.5em .9em;font-weight:700;color:var(--ink-soft);
+  font-size:clamp(.9rem,1.8vw,1.05rem);list-style:none}
+details summary::before{content:"▸ ";color:var(--accent)}
+details[open] summary::before{content:"▾ "}
+details summary:hover{color:var(--ink)}
+details .body{padding:.4em .95em .8em;border-top:1px dashed var(--line);
+  font-size:clamp(1rem,2vw,1.22rem);line-height:1.55}
+details .body b{color:var(--accent)}
+details .body .ru{color:var(--rust);font-weight:700}
+.wrow{padding:.5em 0;border-bottom:1px dashed var(--line);font-size:clamp(1rem,2vw,1.25rem)}
+.wrow:last-child{border-bottom:none}
+.wrow .ru{font-weight:700}
+.model{background:var(--blue-soft);border:1px solid #cfdff0;border-radius:12px;
+  padding:.7em .9em;font-size:clamp(1.02rem,2vw,1.25rem);line-height:1.7;margin:.5em 0}
+.model b{color:var(--rust)}
+.closing{background:var(--gold-soft);border:1px solid #e8dcb8;border-radius:var(--radius);
+  padding:1em 1.4em;font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55}
+a{color:var(--blue);font-weight:600}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div>
+  <h1>Have it <em>done</em></h1>
+  <div class="rule"></div>
+  <p style="margin-top:.6em;color:var(--ink-soft);font-weight:600">Homework for our next lesson ·
+  the new grammar, five sentences of yours · the brag, written down · the autumn video · Unit 4, exercise 4.3</p>
+</div>
+
+<div class="step blue">
+  <button class="dchip" data-k="job1" type="button">done</button>
+  <span class="no">1</span>
+  <p><strong>🔧 The new grammar — <b>have something done</b>.</strong></p>
+  <p class="how">From our lesson: you don't do it yourself — a specialist does it FOR you.
+  have (in any form) + the thing + the 3rd form:</p>
+  <div class="model">
+    I <b>had</b> my face <b>done</b> at the Institute of Beauty.<br>
+    I <b>am having</b> my house <b>decorated</b> right now.<br>
+    Natalya <b>has</b> her face <b>done</b> every two years.
+  </div>
+  <p>Write <strong>five sentences of your own</strong> — five things people do for you:</p>
+  <div class="wrow"><span class="ru">я подстриглась (в салоне)</span>
+    <details><summary>the pattern</summary><div class="body">→ I <b>had</b> my hair <b>cut</b> (at the salon). — cut · cut · cut!</div></details></div>
+  <div class="wrow"><span class="ru">нам починили машину</span>
+    <details><summary>the pattern</summary><div class="body">→ We <b>had</b> our car <b>repaired</b>.</div></details></div>
+  <div class="wrow"><span class="ru">нам доставляют еду</span>
+    <details><summary>the pattern</summary><div class="body">→ We <b>have</b> our food <b>delivered</b>. — the video's own example!</div></details></div>
+  <div class="wrow"><span class="ru">мне сделали маникюр</span>
+    <details><summary>the pattern</summary><div class="body">→ I <b>have</b> my nails <b>done</b>.</div></details></div>
+  <div class="wrow"><span class="ru">квартиру убирают за нас</span>
+    <details><summary>the pattern</summary><div class="body">→ We <b>have</b> the flat <b>cleaned</b>.</div></details></div>
+  <p><strong>✍️ Write YOUR five</strong> — your face, your car, your flat, your meals, your nails —
+  anything real. Bring them to the lesson.</p>
+</div>
+
+<div class="step gold">
+  <button class="dchip" data-k="job2" type="button">done</button>
+  <span class="no">2</span>
+  <p><strong>💛 The brag, written down.</strong> You delivered it beautifully —
+  now write it exactly as you said it:</p>
+  <div class="model">“As far as my garden is concerned, I would say that my gooseberry gives an excellent
+  harvest year after year, and my gorgeous roses delight me with their lush blooming.”</div>
+  <p><strong>+ one more</strong> — the difficult one: your work, your achievements this year
+  (you are an awesome boss — brag about one thing, all four ways: stand in it · because ·
+  one thing · send the shine).</p>
+  <p><strong>✍️ Write both and send them to Miss Elena</strong> (any messenger).</p>
+</div>
+
+<div class="step rust">
+  <button class="dchip" data-k="job3" type="button">done</button>
+  <span class="no">3</span>
+  <p><strong>🎬 The autumn video — watch it</strong> (ten and a half minutes, real spoken English):
+  <a href="https://www.youtube.com/watch?v=AtC-Q8Pu1kw">youtube.com/watch?v=AtC-Q8Pu1kw</a></p>
+  <p class="how">“Why autumn is my favourite season” — Immy Lucas. She wraps up in cozy jumpers,
+  the weather is temperamental, and she prepares for winter — like you.</p>
+  <p><strong>✍️ Take three of her words</strong> (cozy · wrap up in · temperamental · a bit of a
+  struggle · pure magic · hearty and wholesome · abundance · canning · preserving · harvesting ·
+  root vegetables · eating with the seasons · unwind · a rough patch) and write
+  <strong>three sentences of your own</strong> with them.</p>
+</div>
+
+<div class="step">
+  <button class="dchip" data-k="job4" type="button">done</button>
+  <span class="no">4</span>
+  <p><strong>📗 The book, Unit 4, exercise <b>4.3</b> — the last one.</strong></p>
+  <p class="how">Your book, page 9. The email about the shoplifting — 16 gaps, the verbs in brackets.</p>
+  <div class="sent"><strong>4.3</strong> Complete this email with either the past simple or the past continuous
+  form of the verbs in brackets. Where alternatives are possible, think about any difference in meaning.</div>
+  <details><summary>check yourself — the key (p. 250–251)</summary><div class="body">
+    1 <b>was buying</b> · 2 <b>saw</b> · 3 <b>turned</b> (the continuous also possible) ·
+    4 <b>was slowly putting</b> (the simple also possible) · 5 <b>was carrying</b> · 6 <b>walked</b> ·
+    7 <b>picked up</b> · 8 <b>thought</b> · 9 <b>was looking</b> · 10 <b>dropped</b> · 11 <b>had</b> ·
+    12 <b>noticed</b> · 13 <b>was watching</b> · 14 <b>hurried</b> · 15 <b>were walking / walked</b> ·
+    16 <b>ran</b>
+  </div></details>
+</div>
+
+<div class="step" style="border-top:4px solid var(--accent)">
+  <p><strong>📮 Your progress — one button for Miss Elena.</strong></p>
+  <p class="how">Tick <em>done</em> on each job as you finish it. Then press the button —
+  Miss Elena sees what is done and what is still waiting, before the lesson.</p>
+  <p id="rep-line" style="font-weight:700;color:var(--accent)"></p>
+  <button id="send-btn" type="button">📤 Send my progress</button>
+</div>
+
+<div class="closing">📚 The revise links at the bottom of your page still work:
+<a href="hw-005.html">the old homework</a> · <a href="sixteen-chips.html">the Sixteen Chips</a>.
+And: <i>I had my homework checked — and it felt great.</i></div>
+
+</div>
+
+<script>
+/* ── the done chips + the progress send (the standing shape, 09.10). */
+(function(){
+"use strict";
+var NAMES={job1:'1 · have something done — five sentences of your own',
+ job2:'2 · the brag, written down — garden + work, sent to Miss Elena',
+ job3:'3 · the autumn video — watched, three words in your sentences',
+ job4:'4 · the book — Unit 4, exercise 4.3, the key checked'};
+var DONE={};
+try{DONE=JSON.parse(localStorage.getItem('natalya-hw-007-done')||'{}')}catch(e){}
+function save(){try{localStorage.setItem('natalya-hw-007-done',JSON.stringify(DONE))}catch(e){}report()}
+document.querySelectorAll('.dchip').forEach(function(ch){
+  var k=ch.dataset.k;
+  if(DONE[k]){ch.classList.add('done');ch.textContent='✓ done'}
+  ch.addEventListener('click',function(){
+    DONE[k]=!DONE[k];
+    ch.classList.toggle('done',!!DONE[k]);
+    ch.textContent=DONE[k]?'✓ done':'done';
+    save();
+  });
+});
+function state(){
+  return Object.keys(NAMES).reduce(function(acc,k){
+    (DONE[k]?acc.done:acc.yet).push(k);return acc;
+  },{done:[],yet:[]});
+}
+function report(){
+  var s=state();
+  document.getElementById('rep-line').textContent=s.done.length
+    ?'Ticked '+s.done.length+' of 4 — '+s.done.map(function(k){return NAMES[k]}).join(' · ')
+    :'Tick «done» on each job as you finish it!';
+}
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSd7B6GMpuy9fSRl7clE7BGHL43qyxEE2baPO725kN6QlJatjw/formResponse";
+var FORM_ENTRY="entry.1917651123";
+document.getElementById('send-btn').addEventListener('click',function(){
+  var s=state();
+  var txt='Natalya · homework L7 · '+new Date().toLocaleDateString('en-GB')
+    +' Done ('+s.done.length+'/4):';
+  s.done.forEach(function(k){txt+='\n• '+NAMES[k]});
+  if(s.yet.length){txt+='\nNot yet:';s.yet.forEach(function(k){txt+='\n• '+NAMES[k]})}
+  var body=new FormData();
+  body.append(FORM_ENTRY,txt);
+  var btn=document.getElementById('send-btn');
+  btn.disabled=true;btn.textContent='Sending…';
+  fetch(FORM_ACTION,{method:'POST',mode:'no-cors',body:body})
+    .then(function(){btn.textContent='Sent to Elena ✓';report()})
+    .catch(function(){btn.disabled=false;btn.textContent='📤 Send my progress'});
+});
+report();
+})();
+</script>
+</body>
+</html>
