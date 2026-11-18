@@ -37,6 +37,9 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
 .mp-card:hover{transform:translateY(-3px) scale(1.03)}
 .mp-card .mp-back{font-size:1.1em}
 .mp-card .mp-word{font-size:clamp(.85rem,1.6vw,1.15rem)}
+.mp-card img.mp-img{width:74%;height:auto;max-height:66%;object-fit:contain}
+.fs-face img.fs-img{max-width:min(58vw,58vh);max-height:50vh;object-fit:contain;background:#fff;border-radius:22px;padding:14px;box-sizing:border-box}
+.fs-face-inner{display:flex;flex-direction:column;align-items:center;gap:1.5vh}
 .mp-card.up{background:var(--white)}
 .mp-card.ok{background:var(--white);box-shadow:0 0 0 6px var(--mint),var(--shadow-lg);cursor:default}
 .mp-card.ok:hover{transform:none}
@@ -104,19 +107,49 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
    board covers the cards, so EVERY flip opens the face FULL SCREEN —
    tap anywhere to close. The pair resolves only after the second big
    look, so the class sees both faces before SAME/DIFFERENT. The secret
-   card opens fullscreen too — 🔑 shows the word (the teacher's key). */
+   card opens fullscreen too — 🔑 shows the word (the teacher's key).
+   THE TOYS SET (Elena's ask 18.11, KB 1 Unit 3 — SOLO): the four U3 toys
+   as Cambridge flashcard crops (media/toys-*.png, lessons 013/014 media),
+   the kids play WITHOUT her — so: one easy way (no mode row), every flip
+   SPEAKS the word (mpSay, offline browser voice), the verdicts speak too,
+   and the finish is a simple «You did it!» — no secret-word race. Other
+   sets keep the teacher game. Deep link: ?set=toys. */
 const SETS=[
   {name:'Animals 🐾', pairs:[['🐱','a cat'],['🐶','a dog'],['🐭','a mouse'],['🐰','a rabbit']]},
   {name:'School ✏️', pairs:[['✏️','a pencil'],['📚','a book'],['🎒','a bag'],['✂️','scissors']]},
-  {name:'Food 🍎', pairs:[['🍎','an apple'],['🍌','a banana'],['🥕','a carrot'],['🍇','grapes']]}
+  {name:'Food 🍎', pairs:[['🍎','an apple'],['🍌','a banana'],['🥕','a carrot'],['🍇','grapes']]},
+  {name:'Toys 🧸', solo:true, pairs:[['media/toys-ball.png','a ball'],['media/toys-bike.png','a bike'],['media/toys-car.png','a car'],['media/toys-doll.png','a doll']]}
 ];
 const MODES=[
   {name:'🖼️+🔤 on the card',apart:false},
   {name:'🖼️ ↔ 🔤 apart',apart:true}
 ];
+/* art helper: a pair face is either an emoji or an image path (holds '/') */
+function mpArt(art,big){
+  if(art.indexOf('/')>-1)return '<img src="'+art+'" alt="" class="'+(big?'fs-img':'mp-img')+'">';
+  return '<span class="'+(big?'fs-pic':'mp-back')+'">'+art+'</span>';
+}
+/* the self-play voice (Elena: kids play WITHOUT her — easy): the word is
+   spoken on every flip, the verdicts and the praise are spoken too.
+   LIVE TTS STAYS SILENT IN THIS PANE — the drive proves the CALLS only. */
+function mpSay(text){
+  try{
+    if(!window.speechSynthesis)return;
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='en-GB';u.rate=.85;
+    const v=speechSynthesis.getVoices().find(function(v){return v.lang&&v.lang.indexOf('en-GB')>-1;});
+    if(v)u.voice=v;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
 let curSet=0,curMode=0,mpA=null,mpLock=false,mpFound=0,mpTries=0,mpSecret=null,mpPending=null;
 function renderModes(){
-  const row=document.getElementById('moderow');if(!row)return;row.innerHTML='';
+  const row=document.getElementById('moderow');if(!row)return;
+  /* solo sets play ONE easy way — no mode choice (Elena: easy, without her) */
+  if(SETS[curSet].solo){row.innerHTML='';row.style.display='none';return;}
+  row.style.display='';
+  row.innerHTML='';
   MODES.forEach(function(m,i){
     const b=document.createElement('button');b.className='setchip modechip'+(i===curMode?' on':'');b.type='button';
     b.textContent=m.name;b.onclick=function(){curMode=i;renderModes();mpDeal();};
@@ -127,7 +160,7 @@ function renderSets(){
   const row=document.getElementById('setrow');row.innerHTML='';
   SETS.forEach(function(s,i){
     const b=document.createElement('button');b.className='setchip'+(i===curSet?' on':'');b.type='button';
-    b.textContent=s.name;b.onclick=function(){curSet=i;renderSets();mpDeal();};
+    b.textContent=s.name;b.onclick=function(){curSet=i;if(SETS[i].solo)curMode=0;renderSets();renderModes();mpDeal();};
     row.appendChild(b);
   });
 }
@@ -164,16 +197,18 @@ function mpFlip(card){
   if(mpLock||card.classList.contains('up')||card.classList.contains('ok'))return;
   card.classList.add('up');
   card.innerHTML=MODES[curMode].apart
-    ?(card.dataset.n?'<span class="mp-word">'+card.dataset.n+'</span>':'<span class="mp-back">'+card.dataset.w+'</span>')
-    :card.dataset.w+'<span class="mp-word">'+card.dataset.n+'</span>';
+    ?(card.dataset.n?'<span class="mp-word">'+card.dataset.n+'</span>':mpArt(card.dataset.w,false))
+    :mpArt(card.dataset.w,false)+'<span class="mp-word">'+card.dataset.n+'</span>';
   if(!mpA){
     mpA=card;
+    if(SETS[curSet].solo&&card.dataset.n)mpSay(card.dataset.n);
     mpShowFs(card);
     return;
   }
   mpLock=true;
   mpPending={first:mpA,second:card};
   mpA=null;
+  if(SETS[curSet].solo&&card.dataset.n)mpSay(card.dataset.n);
   mpShowFs(card);
 }
 function mpResolve(){
@@ -187,6 +222,12 @@ function mpResolve(){
     card.classList.remove('up');card.classList.add('ok');
     mpFound++;
     if(mpFound===4){
+      if(SETS[curSet].solo){
+        /* self-play finish: NO secret, NO teacher — just the celebration */
+        if(s)s.textContent='You did it! 🎉 4 / 4 — '+mpTries+' tries! Play again?';
+        mpSay('Well done!');
+        const ag=document.getElementById('mpagain');if(ag)ag.style.display='';
+      }else{
       mpSecret=SETS[curSet].pairs[Math.floor(Math.random()*SETS[curSet].pairs.length)];
       if(s)s.textContent='SAME! 🙂 4 / 4 — '+mpTries+' tries! You solved the puzzle! 🎉';
       /* the board transforms into the secret — the grid steps aside so the
@@ -201,11 +242,14 @@ function mpResolve(){
         setTimeout(function(){sec.scrollIntoView({behavior:'smooth',block:'center'});},550);
       }
       const ag=document.getElementById('mpagain');if(ag)ag.style.display='';
+      }
     }else{
       if(s)s.textContent='SAME! 🙂 '+mpFound+' / 4';
+      if(SETS[curSet].solo)mpSay('Same!');
     }
   }else{
     if(s)s.textContent='DIFFERENT! 🙃 — look and remember!';
+    if(SETS[curSet].solo)mpSay('Different!');
     setTimeout(function(){
       first.classList.remove('up');first.innerHTML='<span class="mp-back">❓</span>';
       card.classList.remove('up');card.innerHTML='<span class="mp-back">❓</span>';
@@ -220,14 +264,14 @@ function mpShowFs(card){
   face.innerHTML=MODES[curMode].apart
     ?(card.dataset.n
        ?'<span class="fs-word">'+card.dataset.n+'</span>'
-       :'<span class="fs-pic">'+card.dataset.w+'</span>')
-    :'<span class="fs-pic duo">'+card.dataset.w+'</span><span class="fs-word">'+card.dataset.n+'</span>';
+       :mpArt(card.dataset.w,true))
+    :mpArt(card.dataset.w,true)+'<span class="fs-word">'+card.dataset.n+'</span>';
   box.style.display='';
 }
 function mpShowSecretFs(){
   const box=document.getElementById('fsbox'),face=document.getElementById('fsface'),key=document.getElementById('fskey');
   if(!box||!face||!mpSecret)return;
-  face.innerHTML='<span class="fs-pic">'+mpSecret[0]+'</span><span class="fs-word" id="fssecretword" style="display:none">'+mpSecret[1]+'</span>';
+  face.innerHTML='<span class="fs-face-inner">'+mpArt(mpSecret[0],true)+'<span class="fs-word" id="fssecretword" style="display:none">'+mpSecret[1]+'</span></span>';
   if(key){key.style.display='';key.textContent='🔑 show the word';}
   box.style.display='';
 }
@@ -249,6 +293,15 @@ if(fskey)fskey.onclick=function(e){
   w.style.display=show?'':'none';
   this.textContent=show?'🙈 hide the word':'🔑 show the word';
 };
+/* ?set=toys — the deep link for the lesson (Elena sends it, kids land right) */
+try{
+  const q=new URLSearchParams(location.search);
+  const want=q.get('set');
+  if(want){
+    const si=SETS.findIndex(function(s){return s.name.toLowerCase().indexOf(want.toLowerCase())>-1;});
+    if(si>-1){curSet=si;if(SETS[si].solo)curMode=0;}
+  }
+}catch(e){}
 renderSets();
 renderModes();
 mpDeal();
