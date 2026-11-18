@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masha K. · The Question Machine — and the famous fix</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Masha K. — THE QUESTION MACHINE + THE FAMOUS FIX · born
+   18.11 on Elena's order (the 13.11 drill regressed: RQ 1/4 —
+   the auxiliary collapsed, the object-question lure bit again;
+   famous = *famouse* #6). FOUR fixes in one page:
+   ① the question machine RE-TAUGHT (the doer trap, named) →
+   ② six questions to build (fresh sentences, the same traps,
+      never her own wrong sentence back) →
+   ③ the e-drop drill — five bare stems, NO sentence to help
+      (the new surface: fame lives here) →
+   ④ the BrE smile card (colourful keeps its U).
+   Both drills: the name gate, misses lead the next deal,
+   reports → her OWN form «Mashulik». NO clock anywhere.
+   Paper & sage, LIGHT ONLY. Engine: the words-0411 clone ×2.
+   ============================================================ */
+:root{
+  --paper:#f6f2ea; --card:#fff; --ink:#37322a; --sub:#8b8578;
+  --sage:#7f9c88; --sage-deep:#5e8169; --sage-soft:#edf2ec;
+  --terra:#c97a6d; --terra-deep:#b3564a; --terra-soft:#f9ede9;
+  --gold:#8a6d1d; --gold-soft:#f6efdc;
+  --line:#e8e1d3;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);
+  background:var(--paper);min-height:100vh;padding:clamp(1rem,4vw,2.5rem)}
+main{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
+.eyebrow{font-size:.82rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sub)}
+h1{font-family:'Lora',Georgia,serif;font-weight:700;font-size:clamp(1.7rem,4.5vw,2.4rem);line-height:1.15}
+h1 em{color:var(--sage-deep);font-style:normal}
+h2{font-family:'Lora',Georgia,serif;font-weight:700;font-size:clamp(1.25rem,3vw,1.6rem);margin:.1em 0 .4em}
+.rule{width:64px;height:4px;border-radius:99px;background:var(--sage)}
+p.lead{font-size:clamp(1rem,2vw,1.2rem);line-height:1.55;color:#57503f}
+p.lead strong{color:var(--sage-deep)}
+.stamp{display:block;margin-top:.35em;font-size:.76rem;color:var(--sub);letter-spacing:.04em}
+.hint{font-size:clamp(.85rem,1.6vw,.98rem);color:var(--sub);font-style:italic;line-height:1.5}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;
+  padding:clamp(1rem,3vw,1.5rem);animation:pop .35s both;text-align:left}
+@keyframes pop{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.no{font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--sage-deep);margin-bottom:.3em}
+.card.tint{background:var(--sage-soft);border-color:#d5e2dd}
+.card.gold{background:var(--gold-soft);border-color:#e8dcb8}
+.qcard{background:var(--gold-soft);border:1.5px solid var(--gold);border-radius:14px;
+  padding:.7em 1em;margin:.5em 0;line-height:1.6;font-size:clamp(.95rem,2vw,1.08rem)}
+.qcard b{color:var(--gold)}
+.rules{font-size:clamp(1rem,2vw,1.18rem);line-height:1.6}
+.icons{font-size:1.6rem;letter-spacing:.3em;margin:.3em 0}
+.meta{font-size:.85rem;font-weight:700;color:var(--sub);letter-spacing:.05em}
+.best{font-size:.95rem;font-weight:800;color:var(--sage-deep);margin:.5em 0 .2em;min-height:1.3em}
+.name-row{display:flex;flex-direction:column;gap:.4em;margin:1em 0}
+.name-row label{font-size:.85rem;font-weight:800;color:var(--sub);letter-spacing:.06em}
+#name-box{border:2px solid var(--line);border-radius:12px;background:#fff;
+  padding:.55em .8em;font-family:'Nunito',sans-serif;font-size:1.05rem;color:var(--ink)}
+#name-box:focus{outline:none;border-color:var(--sage)}
+.start-btn,.ok-btn,.again-btn{border:none;border-radius:99px;padding:.6em 1.5em;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1rem,2vw,1.15rem);
+  background:var(--sage);color:#fff;transition:transform .15s,filter .15s}
+.start-btn:hover,.ok-btn:hover,.again-btn:hover{transform:scale(1.04);filter:brightness(1.06)}
+.backline{margin-top:.7em}
+.backline a{color:var(--sage-deep);font-weight:800;text-decoration:none;border-bottom:2px solid var(--sage-soft)}
+.backline a:hover{border-bottom-color:var(--sage)}
+.hidden{display:none!important}
+.qcount{font-size:.9rem;font-weight:800;letter-spacing:.08em;color:var(--sage-deep);text-transform:uppercase}
+.prompt{font-size:clamp(1.15rem,2.6vw,1.45rem);font-weight:700;line-height:1.6;margin:.7em 0 .2em}
+.prompt .gap{color:var(--terra-deep)}
+.stem-chip{display:inline-block;background:var(--gold-soft);border:1.5px solid var(--gold);
+  color:var(--gold);font-weight:800;font-size:1rem;border-radius:99px;padding:.2em .9em;
+  letter-spacing:.12em;margin:.4em 0}
+.answer-row{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em;align-items:center}
+.ansbox{border:2px solid var(--line);border-radius:12px;background:#fff;
+  padding:.55em .8em;font-family:'Nunito',sans-serif;font-weight:700;font-size:1.05rem;
+  color:var(--ink);width:min(320px,72vw)}
+.ansbox:focus{outline:none;border-color:var(--sage)}
+.flash{position:fixed;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;
+  background:rgba(246,242,234,.92);font-size:clamp(2.2rem,7vw,3.6rem);font-weight:800;
+  flex-direction:column;gap:.3em;text-align:center;padding:4vh 4vw}
+.flash .sub{font-size:clamp(1.1rem,3vw,1.6rem);color:var(--ink)}
+.flash.fix .sub{color:var(--terra-deep)}
+.stars{font-size:1.7rem;letter-spacing:.15em}
+.end-title{font-family:'Lora',Georgia,serif;font-size:clamp(1.5rem,3.5vw,2rem);font-weight:700;margin:.2em 0}
+.one-line{font-size:clamp(1.05rem,2.2vw,1.3rem);font-weight:800;color:var(--sage-deep)}
+.remember{margin-top:1em;background:var(--terra-soft);border:1px dashed var(--terra);
+  border-radius:14px;padding:.8em 1em;font-size:clamp(.95rem,2vw,1.1rem);line-height:1.7;text-align:left}
+.remember b{color:var(--terra-deep)}
+.sent{font-size:.95rem;font-weight:800;color:var(--sage-deep);margin-top:.6em;min-height:1.3em}
+#end-btns,#end2-btns{display:flex;flex-wrap:wrap;gap:.6em;margin-top:1em;justify-content:center}
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Masha K. · English · the fix-it deck · 18 November</p>
+  <h1>The Question Machine — <em>and the famous fix</em></h1>
+  <div class="rule"></div>
+  <p class="lead">Last week's drill caught two things worth fixing: the <strong>question machine</strong> jammed (1 of 4 — it happens after a month off!), and one word keeps spelling itself wrong. <strong>Both get fixed here.</strong> Two short drills — teach yourself first, then type.</p>
+
+  <!-- THE TEACH · always visible -->
+  <div class="card tint">
+    <div class="no">The teach · read me twice</div>
+    <h2>❓ The Question Machine</h2>
+    <div class="qcard"><b>1 · The machine.</b> Question = <b>WH + do/does/did + subject + base verb</b>.
+    <i>Where <b>do</b> we <b>get</b> the bus?</i> · <i><b>Does</b> he <b>play</b> chess?</i> · <i><b>Did</b> she <b>like</b> the film?</i>
+    The answer tells you the auxiliary: <i>yes, she did</i> → <b>Did</b>…? · <i>yes, he does</i> → <b>Does</b>…?</div>
+    <div class="qcard"><b>2 · The doer trap.</b> When <b>WHO</b> (or WHAT) is the <em>doer</em> of the action — it IS the subject, so <b>NO auxiliary</b>:
+    <i>Mia invited Tom. → <b>Who invited</b> Tom?</i> (never ~~Who did invite~~)</div>
+    <div class="qcard"><b>3 · The receiver returns it.</b> When you ask about the <em>receiver</em> — the auxiliary <b>comes back</b>:
+    <i>Mia invited Tom. Ask about Tom → <b>Who did</b> Mia <b>invite</b>?</i></div>
+    <p class="hint">The trap from your drill: "Who invited Sam…" was offered when the question was about the RECEIVER. Ask yourself first: am I asking about the DOER or the RECEIVER?</p>
+  </div>
+
+  <!-- DRILL 1 · the questions -->
+  <div class="card" id="1-start">
+    <p class="rules">Six questions to build. <b>The answer is given</b> — build the question that fits it.
+    Type the whole question, press Enter. Missed ones come back first next time. 🔧</p>
+    <div class="icons">❓ 🔧 ✅</div>
+    <div class="meta" id="1-deal">6 QUESTIONS · ONE ROUND · NO CLOCK</div>
+    <div class="best" id="1-best"></div>
+    <div class="name-row">
+      <label for="name-box">Your name</label>
+      <input id="name-box" autocomplete="off" spellcheck="false">
+    </div>
+    <button class="start-btn" id="1-begin">Start the questions</button>
+    <p class="hint backline">← <a href="hw.html?v=12">back to my homework</a></p>
+    <span class="stamp">the question drill · fresh sentences — the same traps, never your old ones back</span>
+  </div>
+  <div class="card hidden" id="1-card">
+    <div class="qcount" id="1-count"></div>
+    <div class="prompt" id="1-prompt"></div>
+    <div style="text-align:center"><span class="stem-chip" id="1-stem"></span></div>
+    <div class="answer-row" style="justify-content:center">
+      <input id="1-box" class="ansbox" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type the whole question">
+      <button class="ok-btn" id="1-ok">✓</button>
+    </div>
+  </div>
+  <div class="flash hidden" id="1-flash"></div>
+  <div class="card hidden" id="1-end">
+    <div class="stars" id="1-stars"></div>
+    <div class="end-title">Done!</div>
+    <div class="one-line" id="1-rows"></div>
+    <div class="remember hidden" id="1-remember"></div>
+    <div class="sent" id="1-sent"></div>
+    <div id="end-btns">
+      <button class="again-btn" id="1-again">🔁 Play again</button>
+      <button class="ok-btn" onclick="document.getElementById('start1').scrollIntoView({behavior:'smooth'})">↑ once more, later</button>
+    </div>
+  </div>
+
+  <!-- DRILL 2 · the e-drop fix -->
+  <div class="card" id="2-start">
+    <div class="no">The famous fix · round two of this page</div>
+    <h2>✨ Five words — <em>no sentences this time</em></h2>
+    <p class="rules">You know the secret: <b>noun + -ous / -able, and the E never survives</b>
+    (<i>fame → famous</i>). This time there is <b>no sentence to help you</b> — just the stem and your spelling. Type the whole word.</p>
+    <div class="icons">✨ 📛 ✅</div>
+    <div class="meta" id="2-deal">5 WORDS · ONE ROUND · NO CLOCK</div>
+    <div class="best" id="2-best"></div>
+    <button class="start-btn" id="2-begin">Start the spellings</button>
+    <span class="stamp">the bare-stem drill · the new surface, so the card can't be recognised by its place</span>
+  </div>
+  <div class="card hidden" id="2-card">
+    <div class="qcount" id="2-count"></div>
+    <div class="prompt" id="2-prompt"></div>
+    <div style="text-align:center"><span class="stem-chip" id="2-stem"></span></div>
+    <div class="answer-row" style="justify-content:center">
+      <input id="2-box" class="ansbox" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="your word" style="width:16ch;text-align:center;font-weight:800">
+      <button class="ok-btn" id="2-ok">✓</button>
+    </div>
+  </div>
+  <div class="flash hidden" id="2-flash"></div>
+  <div class="card hidden" id="2-end">
+    <div class="stars" id="2-stars"></div>
+    <div class="end-title">Done!</div>
+    <div class="one-line" id="2-rows"></div>
+    <div class="remember hidden" id="2-remember"></div>
+    <div class="sent" id="2-sent"></div>
+    <div id="end2-btns">
+      <button class="again-btn" id="2-again">🔁 Play again</button>
+      <button class="ok-btn" onclick="document.getElementById('start1').scrollIntoView({behavior:'smooth'})">↑ to the top</button>
+    </div>
+  </div>
+
+  <!-- THE BrE SMILE CARD · static -->
+  <div class="card gold">
+    <div class="no">The British corner · just a smile, not a mark</div>
+    <h2>🇬🇧 Keep the <em>U</em>!</h2>
+    <p class="lead" style="font-size:clamp(.98rem,1.6vw,1.2rem)">Your <b>colourful</b> lost its U last week — that's the American spelling whispering.
+    British keeps it: col<b>ou</b>r → col<b>ou</b>rful · fav<b>ou</b>rite · flav<b>ou</b>r · harb<b>ou</b>r.
+    When the keyboard suggests the American one — thank it politely, and type the British one anyway. 😉</p>
+  </div>
+
+  <p class="hint backline" style="text-align:center">← <a href="hw.html?v=12">back to my homework</a></p>
+  <span class="stamp" style="text-align:center">build 18.11 · v1 · the question machine re-taught · 6 questions · 5 bare spellings · no clock anywhere</span>
+</main>
+
+<footer style="color:var(--sub);font-size:.78rem;font-weight:600;margin-top:4vh;text-align:center">Masha K. · English · the fix-it deck</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ELENA: both reports fly to HER OWN form «Mashulik» (wired 05.10, test-verified) */
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSes5aESy1eVaZIKQljbhK1XKlpXhqmpmN3hprsv7o1tGEeZiA/formResponse";
+var FORM_ENTRY="entry.1570749775";
+
+/* ---------- ONE name for both drills (asks once, rides both reports) ---------- */
+var RUNNER="";
+try{RUNNER=localStorage.getItem("mashak-qm-name")||"";}catch(e){}
+var nameBox=document.getElementById("name-box");
+nameBox.value=RUNNER;
+function lockName(){
+  var v=nameBox.value.trim();
+  if(!v){nameBox.style.borderColor="var(--terra-deep)";nameBox.placeholder="write your name first";return false;}
+  RUNNER=v;
+  try{localStorage.setItem("mashak-qm-name",v);}catch(e){}
+  return true;
+}
+
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function norm(s){return (s||"").toString().trim().toLowerCase().replace(/\s+/g," ").replace(/[.!?]+$/,"").replace(/[’']/g,"'");}
+function isOk(t,given){given=norm(given);if(!given)return false;
+  var keys=Array.isArray(t.key)?t.key:[t.key];
+  return keys.some(function(k){return norm(k)===given;});}
+function firstKey(t){return Array.isArray(t.key)?t.key[0]:t.key;}
+
+/* ================= DRILL 1 · THE QUESTIONS =================
+   Fresh sentences — the same trap types (the doer vs the receiver,
+   the auxiliary from the answer), never her own wrong ones back. */
+var POOL1=[
+ {q:"she / like / the film — yes, she did. Build the question.",
+  hint:"the answer says DID",
+  key:["did she like the film"],
+  why:"the answer “yes, she did” hands you the auxiliary: DID she like the film?",
+  label:"yes/no — did"},
+ {q:"where / you / go / last summer — to the mountains. Build the question.",
+  hint:"WH + did",
+  key:["where did you go last summer"],
+  why:"WH + did + you + go — the machine, word for word.",
+  label:"wh- — where did"},
+ {q:"Mia invited Tom to the party. Ask about TOM.",
+  hint:"Tom is the RECEIVER",
+  key:["who did mia invite to the party","who did mia invite"],
+  why:"Tom receives the invitation — the auxiliary RETURNS: Who DID Mia invite?",
+  label:"object question — the auxiliary returns"},
+ {q:"Tom invited Mia to the party. Ask about TOM.",
+  hint:"Tom is the DOER",
+  key:["who invited mia to the party","who invited mia"],
+  why:"Tom DOES the inviting — WHO is the subject itself: no auxiliary. Who invited Mia?",
+  label:"subject question — no auxiliary"},
+ {q:"he / play / chess — yes, he does. Build the question.",
+  hint:"the answer says DOES",
+  key:["does he play chess"],
+  why:"“yes, he does” → DOES he play chess? — third person, present.",
+  label:"yes/no — does"},
+ {q:"what / you / do / every weekend — I swim. Build the question.",
+  hint:"every weekend → do",
+  key:["what do you do every weekend"],
+  why:"a routine action in the answer → WHAT DO you DO every weekend?",
+  label:"wh- — what do you do"}
+];
+var ROUND1={icon:"🔧",name:"The questions",sec:"1"};
+
+/* ================= DRILL 2 · THE E-DROP FIX =================
+   Bare stems — the new surface: no sentence, no card shape to
+   recognise. fame meets her here for the first time naked. */
+var POOL2=[
+ {stem:"FAME",key:["famous"],label:"FAME → famous"},
+ {stem:"NERVE",key:["nervous"],label:"NERVE → nervous"},
+ {stem:"DANGER",key:["dangerous"],label:"DANGER → dangerous"},
+ {stem:"ADVENTURE",key:["adventurous"],label:"ADVENTURE → adventurous"},
+ {stem:"VALUE",key:["valuable"],label:"VALUE → valuable"}
+];
+var ROUND2={icon:"✨",name:"The famous fix",sec:"2"};
+
+/* ---------- the engine, twice (the words-0411 clone) ---------- */
+function storedMisses(k){
+  try{return JSON.parse(localStorage.getItem(k)||"[]");}catch(e){return [];}}
+function makeDrill(R){
+  var poolKey="mashak-qm-"+R.sec+"remiss",bestKey="mashak-qm-"+R.sec+"best",
+      qKey="mashak-qm-"+R.sec+"queue",runsKey="mashak-qm-"+R.sec+"runs";
+  function deal(){
+    var st=storedMisses(poolKey);
+    var first=shuffle(R.pool.filter(function(t){return st.indexOf(t.label)>=0;}));
+    var rest=shuffle(R.pool.filter(function(t){return st.indexOf(t.label)<0;}));
+    return first.concat(rest);}
+  var tasks=deal(),log=[],qi=0,answered=false;
+  (function(){var best=+localStorage.getItem(bestKey)||0;
+    if(best)$(R.sec+"-best").textContent="best: "+best+"%";})();
+  $(R.sec+"-deal").textContent=R.pool.length+" "+(R.sec==="1"?"QUESTIONS":"WORDS")+" · ONE ROUND · NO CLOCK";
+  function show(id){
+    [R.sec+"-start",R.sec+"-card",R.sec+"-end",R.sec+"-flash"].forEach(function(c){
+      $(c).classList.add("hidden");});
+    if(id)$(id).classList.remove("hidden");
+    if(id)$(id).scrollIntoView({behavior:"smooth",block:id.indexOf("flash")>=0?"center":"start"});}
+  function ask(){
+    answered=false;
+    var t=tasks[qi];
+    $(R.sec+"-count").textContent=R.icon+" "+R.name+" · "+(qi+1)+"/"+tasks.length;
+    if(R.sec==="1"){
+      $("q1-prompt").innerHTML=esc(t.q);
+      $("q1-stem").textContent=t.hint;
+    }else{
+      $("q2-prompt").innerHTML=esc(t.stem);
+      $("q2-stem").textContent="the E never survives…";
+    }
+    var box=$(R.sec+"-box");
+    box.value="";show(R.sec+"-card");box.focus();
+  }
+  function submit(){
+    if(answered)return;
+    var t=tasks[qi],given=$(R.sec+"-box").value;
+    if(!given.trim())return;
+    answered=true;
+    var ok=isOk(t,given);
+    log.push({label:t.label,given:given,key:firstKey(t),ok:ok});
+    move(ok);
+  }
+  function move(ok){
+    var last=qi>=tasks.length-1,t=tasks[qi];
+    if(ok){show(R.sec+"-flash");$(R.sec+"-flash").className="flash";
+      $(R.sec+"-flash").innerHTML="✅";setTimeout(next,700);}
+    else{show(R.sec+"-flash");$(R.sec+"-flash").className="flash fix";
+      $(R.sec+"-flash").innerHTML="✗"+' <span class="sub">→ '+esc(firstKey(t))+(t.why?' <span style="font-size:.7em">— '+esc(t.why)+"</span>":"")+"</span>";
+      setTimeout(next,2600);}
+    function next(){if(!last){qi++;ask();}else{finish();}}
+  }
+  function reportText(){
+    var ok=log.filter(function(l){return l.ok;}).length;
+    var lines=["MASHA K. · HW · "+R.title+" · "+new Date().toLocaleString(),
+      "Name: "+(RUNNER||"—"),
+      "Score: "+ok+" / "+log.length];
+    var missed=log.filter(function(l){return !l.ok;});
+    if(missed.length){lines.push("","Missed ("+missed.length+"):");
+      missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+l.given+" · key: "+l.key);});}
+    else lines.push("","Missed: none! 🎉");
+    return lines.join("\n");}
+  function finish(){
+    var ok=log.filter(function(l){return l.ok;}).length,total=log.length;
+    $(R.sec+"-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/Math.max(1,total)*5)));
+    $(R.sec+"-rows").textContent=R.icon+" "+ok+"/"+total;
+    var missed=log.filter(function(l){return !l.ok;});
+    var rem=$(R.sec+"-remember");
+    if(missed.length){rem.className="remember";
+      rem.innerHTML="<b>To remember:</b><br>"+missed.map(function(l){
+        return "· "+esc(l.label)+" — you wrote: <b>"+esc(l.given)+"</b>";}).join("<br>");
+    }else{rem.className="remember hidden";}
+    try{localStorage.setItem(poolKey,JSON.stringify(missed.map(function(l){return l.label;})));}catch(e){}
+    try{localStorage.setItem(qKey,(function(){var q=[];
+      try{q=JSON.parse(localStorage.getItem(qKey)||"[]");}catch(e){}
+      q.push(reportText());return q.slice(-10);})());}catch(e){}
+    try{localStorage.setItem(runsKey,String((+localStorage.getItem(runsKey)||0)+1));}catch(e){}
+    try{var best=+localStorage.getItem(bestKey)||0,pct=Math.round(ok/Math.max(1,total)*100);
+      if(pct>best)localStorage.setItem(bestKey,String(pct));}catch(e){}
+    flush();
+    $(R.sec+"-sent").textContent=FORM_ACTION?"sent to Elena ✅":"";
+    show(R.sec+"-end");}
+  $(R.sec+"-begin").addEventListener("click",function(){
+    if(!lockName())return;
+    tasks=deal();log=[];qi=0;ask();});
+  $(R.sec+"-again").addEventListener("click",function(){
+    tasks=deal();log=[];qi=0;ask();});
+  $(R.sec+"-ok").addEventListener("click",submit);
+  $(R.sec+"-box").addEventListener("keydown",function(e){
+    if(e.key==="Enter")submit();});
+}
+makeDrill({sec:"1",pool:POOL1,title:"The Question Machine",icon:"🔧",name:"The questions"});
+makeDrill({sec:"2",pool:POOL2,title:"The famous fix (bare spellings)",icon:"✨",name:"The spellings"});
+
+/* ---------- the queue flush (the proven shape) ---------- */
+function sendViaForm(txt){
+  if(!FORM_ACTION)return;
+  var frame=document.createElement("iframe");
+  frame.name="qm-post-"+Date.now();
+  frame.style.cssText="position:absolute;width:0;height:0;border:0;left:-999px";
+  document.body.appendChild(frame);
+  var f=document.createElement("form");
+  f.method="POST";f.action=FORM_ACTION;f.target=frame.name;
+  var inp=document.createElement("input");
+  inp.type="hidden";inp.name=FORM_ENTRY;inp.value=txt;
+  f.appendChild(inp);document.body.appendChild(f);
+  try{f.submit();}catch(e){}
+  setTimeout(function(){document.body.removeChild(f);document.body.removeChild(frame);},4000);}
+function flush(){
+  ["1","2"].forEach(function(sec){
+    var k="mashak-qm-"+sec+"queue",q=[];
+    try{q=JSON.parse(localStorage.getItem(k)||"[]");}catch(e){}
+    if(!q.length||!FORM_ACTION)return;
+    var item=q[0];
+    try{sendViaForm(item);q.shift();localStorage.setItem(k,JSON.stringify(q));}catch(e){}
+  });
+}
+/* the load-time flush goes LAST */
+flush();
+})();
+</script>
+</body>
+</html>
