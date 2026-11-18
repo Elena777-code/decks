@@ -170,6 +170,7 @@ summary .nm .tmoji{height:1.25em;width:auto;vertical-align:-0.32em;border-radius
 .u17-ovals .item.task.ov6{background:#BFE0F5}
 .u17-ovals .item.task.ov7{background:#DCC9F0}
 .u17-ovals .item.task.ov8{background:#D6EFC9}
+.u17-ovals .item.task.ov9{background:#F5C9E0}
 .u17-ovals .chip{border:none;background:#fff;color:var(--ink-soft);font-family:'Fredoka',sans-serif;font-weight:700;box-shadow:0 1px 3px rgba(45,52,54,.12)}
 .u17-ovals .chip.on{color:var(--mint-deep)}
 .u17-ovals .item.task.tap{cursor:pointer}
@@ -222,6 +223,8 @@ summary .nm .tmoji{height:1.25em;width:auto;vertical-align:-0.32em;border-radius
 <img src="../../media/kb1-u3-catmat-s7.png" alt="Страничка 7 — The bat and a fat rat sat on a cat." style="width:min(340px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
 <img src="../../media/kb1-u3-catmat-s8.png" alt="Страничка 8 — The fat cat sat on a mat." style="width:min(340px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
 </div>
+<p class="pinstr" style="margin-top:8px">+ прочитай историю <b>g и o</b> — «5 dogs spin a top!» — видео Мисс Алёне 📲</p>
+<a class="btn" href="https://elena777-code.github.io/decks/phonics/brand-phonics-go.html#8" target="_blank">📖 Открыть историю — g и o</a>
 </div>
 
 <div class="item task ov3 tap"><span class="ic">🗣</span><span class="tt"><span class="n">3 ·</span> <b>Скажи «thumb» 3 раза!</b><small>улыбка · подуем · прохладный язычок</small></span><button class="chip" id="pupp-chip-3" data-k="u17-thumb" onclick="pupTog(this)">done</button></div>
@@ -238,6 +241,8 @@ summary .nm .tmoji{height:1.25em;width:auto;vertical-align:-0.32em;border-radius
 <div class="panel" id="u17-panel-4">
 <p class="pinstr">— слушай историю <b>«Three Spotty Monsters»</b> и <b>говори вместе</b>! Повторяй слова за рассказчиком 🐷🐷🐷</p>
 <audio controls preload="none" src="../../media/kb1-u16-spotty-story.mp3"></audio>
+<p class="pinstr" style="margin-top:8px">+ посмотри историю <b>Maskman</b> ещё раз — вы просили! 🎬</p>
+<video controls preload="none" playsinline src="../../media/kb1-u3-pb23-story.mp4" style="width:min(400px,100%);border-radius:12px;display:block;margin:8px auto"></video>
 </div>
 
 <div class="item task ov5 tap"><span class="ic">⌨️</span><span class="tt"><span class="n">5 ·</span> <b>Печатаем — S и L!</b><small>новые клавиши — новая игра!</small></span><button class="chip" id="pupp-chip-5" data-k="u17-typing" onclick="pupTog(this)">done</button></div>
@@ -272,7 +277,18 @@ summary .nm .tmoji{height:1.25em;width:auto;vertical-align:-0.32em;border-radius
 <a class="btn" href="https://wordwall.net/ru/resource/11259932/in-on-under-next-to" target="_blank">▶ Играть — Wordwall</a>
 </div>
 
-<div class="progress" id="pupp-prog">Отмечено: 0 из 8</div>
+<div class="item task ov9 tap"><span class="ic">📄</span><span class="tt"><span class="n">9 ·</span> <b>Листики — допиши и вклей!</b><small>Order the words · Read and draw · Unscramble</small></span><button class="chip" id="pupp-chip-9" data-k="u17-ws" onclick="pupTog(this)">done</button></div>
+<div class="panel" id="u17-panel-9">
+<p class="pinstr">— допиши <b>Order the words</b> и напиши предложения · сделай <b>Read и draw</b> и <b>Unscramble</b> — вклей листики в тетрадь! ✏️</p>
+<button class="pbtn" onclick="var s=document.getElementById('u17-wspages');var off=s.style.display==='none';s.style.display=off?'block':'none';this.textContent=off?'📕 Спрятать листики':'🖼️ Покажи листики';this.classList.toggle('on',off)">🖼️ Покажи листики</button>
+<div id="u17-wspages" style="display:none;margin:10px 0">
+<img src="../../media/kb1-u3-ws-order.png" alt="листик Order the words — допиши и напиши предложения" style="width:min(360px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-readdraw-1.png" alt="листик Read and draw" style="width:min(360px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+<img src="../../media/kb1-u3-unscramble-1.png" alt="листик Unscramble — расшифруй слова" style="width:min(360px,100%);border-radius:12px;box-shadow:0 2px 8px rgba(45,52,54,.15);margin:6px auto;display:block">
+</div>
+</div>
+
+<div class="progress" id="pupp-prog">Отмечено: 0 из 9</div>
 <div class="who">
 <input id="pupp-name" placeholder="Имя" autocomplete="off">
 <input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
@@ -2115,7 +2131,7 @@ document.querySelectorAll('.u16-ovals .item.task.tap').forEach(function(it){
    per-tap autoSend + the loss-proof send + untick resets the sent state).
    THE TITLE LIVES HERE TOO (the rename map): pupSend AND autoSend quote the
    card title — change all THREE together (summary · pupSend · autoSend). */
-var PUPP_KEY='kb1-u17-', PUPP_N=8;
+var PUPP_KEY='kb1-u17-', PUPP_N=9;
 var pupT0=null;
 function pupDate(){
   var d=new Date(),p=function(x){return (x<10?'0':'')+x};
@@ -2253,7 +2269,10 @@ var CGT17=[
   {n:2,c:'',i:'train',iPl:'trains',cl:[],il:['taxi','plane','monster']},
   {n:2,c:'',i:'bicycle',iPl:'bicycles',cl:[],il:['taxi','plane','monster']},
   {n:1,c:'',i:'plane',iPl:'planes',cl:[],il:['balloon','train','car','bicycle','monster']},
-  {n:2,c:'',i:'monster in the boat',iPl:'monsters in the boat',cl:[],il:['taxi','plane','monster']}
+  {n:2,c:'',i:'monster in the boat',iPl:'monsters in the boat',cl:[],il:['taxi','plane','monster']},
+{n:1,c:'yellow',i:'monster',iPl:'monsters',cl:['red','blue','purple','green'],il:['balloon','train','bicycle','plane']},
+{n:2,c:'white',i:'ghost',iPl:'ghosts',cl:['red','blue','purple','green'],il:['car','taxi','balloon','train','bicycle','plane']},
+{n:2,c:'orange',i:'monster',iPl:'monsters',cl:['red','purple','green','yellow'],il:['car','taxi','balloon','train','bicycle','plane']}
 ];
 var CGF17=['Look!','Count!','And now!','One more!',''];
 var cgI17=0,cgScore17=0,cgYes17=false,cgTried17=false,cgPlan17=[];
