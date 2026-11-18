@@ -479,13 +479,9 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
   <div class="thebig reveal">the</div>
   <div class="task reveal">🎯 the tin · the top — the little word!</div>
 </section>
-<!-- 7 · SAID -->
+<!-- 7 · SAID — ONE WORD ONLY (Elena, 18.11: «there one word only 'said' … don't write anything else») -->
 <section class="slide">
-  <div class="eyebrow reveal">Revise! An old friend</div>
-  <h1 class="reveal">Remember <span class="spray">said</span>!</h1>
-  <div class="rule reveal"></div>
   <div class="thebig-wall reveal">said</div>
-  <div class="task reveal">🎯 “said Sam” · “said Pat” — the old friend!</div>
 </section>
 <!-- 7 · ARE -->
 <section class="slide">
@@ -877,7 +873,7 @@ window.addEventListener('hashchange',()=>{
     const o=logStore(),row=document.getElementById('logrow');
     if(!row) return;
     const rec2=o[n]||{};
-    const t=slides[n]?(slides[n].querySelector('h1')||{}).textContent:null;
+    const t=slides[n]?((slides[n].querySelector('h1')||slides[n].querySelector('.thebig-wall')||{}).textContent:null;
     row.innerHTML='<b>Slide '+(n+1)+' / '+slides.length+'</b> — '+(t?t.trim():'the letter');
     const dEl=document.getElementById('annoD'),slEl=document.getElementById('annoSL'),fEl=document.getElementById('annoF'),fxEl=document.getElementById('annoFX');
     if(dEl)dEl.value=rec2.d||''; if(slEl)slEl.value=rec2.sl||''; if(fEl)fEl.value=rec2.free||''; if(fxEl)fxEl.value=rec2.fx||'';
