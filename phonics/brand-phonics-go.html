@@ -314,6 +314,41 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
 
 /* THE FLEX-SHRINK ENGINE RULE (2026-09-29): a flex-column slide never shrinks its children — it scrolls */
 .slide>*{flex-shrink:0}
+
+/* --- the ✍️ lesson log — the fleet V2 window (ported from l013, 18.11) --- */
+.mini-btn{font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(.78rem,1.2vw,1rem);border:none;cursor:pointer;border-radius:99px;padding:.4em 1em;background:#fff;box-shadow:0 4px 12px rgba(10,6,20,.14);color:#5b6470;transition:transform .15s ease}
+.mini-btn:hover{transform:scale(1.05)}
+.mini-btn.on{background:#3ec98e;color:#fff}
+.hintline{font-size:clamp(.9rem,1.3vw,1.1rem);color:#5b6470;font-style:italic}
+#log-btn{position:fixed;right:max(10px,1.6vw);top:calc(10px + .8vh);z-index:110;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(.85rem,1.3vw,1.05rem);
+  border:none;cursor:pointer;border-radius:99px;padding:.5em 1.1em;background:rgba(255,255,255,.85);
+  backdrop-filter:blur(10px);box-shadow:0 8px 22px rgba(10,6,20,.2);transition:transform .15s ease}
+#log-btn:hover{transform:scale(1.05)}
+#logpanel{position:fixed;right:max(10px,1.6vw);top:calc(60px + 1.2vh);z-index:210;width:min(440px,92vw);
+  background:#fff;border-radius:18px;box-shadow:0 18px 44px rgba(20,20,35,.3);padding:.9em 1em;
+  display:none;flex-direction:column;gap:.5em;color:#2b2f36}
+#logpanel.open{display:flex}
+#logpanel .closer{position:absolute;right:.6em;top:.5em;border:none;background:none;cursor:pointer;font-size:1rem;color:#5b6470}
+#logpanel .a-head{display:flex;align-items:center;gap:.45em;font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(.9rem,1.5vw,1.1rem);padding-right:1.7em}
+#logpanel .a-sp{flex:1}
+#logpanel #logrow{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#logpanel #logtick2.on{background:#3ec98e;color:#fff}
+#logpanel .arow{display:flex;gap:.5em;align-items:center}
+#logpanel .arow label{flex:0 0 3.1em;text-align:right;font-family:ui-monospace,Menlo,monospace;font-weight:800;font-size:.9rem;color:#5b6470}
+#logpanel .arow input{flex:1;min-width:0;border:2px solid #d8dee6;border-radius:10px;padding:.34em .55em;font-family:'Inter',sans-serif;font-size:.95rem;background:#fff}
+#logpanel .arow input:focus{outline:none;border-color:#a78bfa}
+#logpanel .arow.free{margin-top:.2em}
+#logpanel .arow.free textarea,#logpanel .arow.fix textarea{width:100%;border:2px dashed #d8dee6;border-radius:10px;padding:.34em .55em;font-family:'Inter',sans-serif;font-size:.95rem;background:#fff;resize:vertical;min-height:3.4em}
+#logpanel .arow.free textarea:focus,#logpanel .arow.fix textarea:focus{outline:none;border-color:#a78bfa}
+#logpanel .arow.free textarea::placeholder,#logpanel .arow.fix textarea::placeholder{color:#9aa7b3;font-style:italic}
+#logpanel .a-foot{display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
+#logpanel .a-foot .hintline{flex:1;min-width:4em;font-size:.72rem}
+#logrep{position:fixed;inset:0;z-index:220;background:rgba(18,12,26,.72);display:none;align-items:center;justify-content:center}
+#logrep.open{display:flex}
+#logrep .rep-card{background:#fff;border-radius:18px;padding:1.1em 1.2em;display:flex;flex-direction:column;gap:.7em;width:min(560px,92vw);box-shadow:0 18px 44px rgba(20,20,35,.3);color:#2b2f36}
+#logrep .closer{position:absolute;top:2.2vh;right:max(10px,1.6vw);font-size:clamp(.9rem,1.4vw,1.15rem);color:#fff;cursor:pointer}
+#logrep textarea{width:100%;min-height:220px;border:2px solid #d8dee6;border-radius:12px;padding:.5em .65em;font-family:ui-monospace,Menlo,monospace;font-size:.85rem;background:#fff;resize:vertical}
 </style>
 </head>
 <body>
@@ -325,7 +360,7 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
       <img class="glyph" src="genki-letters/g.png" alt="letter g">
     </div>
     <div class="pres-side">
-      <div class="sound-chip f-yellow"><span class="snd">g-g-g…</span><span class="hint">like</span><img class="chiplogo" src="logos/gummi-bears-chip.png" alt="Gummi Bears"></div>
+      <div class="sound-chip f-yellow"><span class="snd">g-g-g…</span><span class="hint">like</span><img class="chiplogo" src="logos/google-logo.png" alt="Google"></div>
       <div class="task" style="margin-top:0">🖐 Tap the letter — trace it in the air!</div>
       <div class="brand-col">
         <div class="logo-card" role="button" tabindex="0"><div class="imgbox big"><img src="logos/gummi-bears-logo.png" alt="Gummi Bears logo"></div><div class="namebox"><span class="q">?</span><span class="nm"><span class="hl">G</span>ummi Bears</span></div></div>
@@ -365,7 +400,7 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
     <button class="know-pill" data-snd="n" aria-label="n — Nike"><span class="pn2">n</span><img src="logos/nike.png" alt="n — Nike logo"></button>
     <button class="know-pill" data-snd="m" aria-label="m — Moscow metro"><span class="pc">m</span><img src="logos/metro.png" alt="m — Moscow metro logo"></button>
     <button class="know-pill" data-snd="d" aria-label="d — Disney"><span class="pn2">d</span><img src="logos/disney.svg" alt="d — Disney logo" style="max-width:1.9em"></button>
-    <button class="know-pill" data-snd="g" aria-label="g — Gummi Bears"><span class="pn2">g</span><img src="logos/gummi-bears-chip.png" alt="g — Gummi Bears logo"></button>
+    <button class="know-pill" data-snd="g" aria-label="g — Google"><span class="pn2">g</span><img src="logos/google-logo.png" alt="g — Google logo"></button>
     <button class="know-pill" data-snd="o" aria-label="o — Oreo"><span class="pv">o</span><img src="logos/oreo.svg" alt="o — Oreo logo"></button>
   </div>
   </div>
@@ -416,7 +451,7 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
     <button class="know-pill" data-snd="n" aria-label="n — Nike"><span class="pn2">n</span><img src="logos/nike.png" alt="n — Nike logo"></button>
     <button class="know-pill" data-snd="m" aria-label="m — Moscow metro"><span class="pc">m</span><img src="logos/metro.png" alt="m — Moscow metro logo"></button>
     <button class="know-pill" data-snd="d" aria-label="d — Disney"><span class="pn2">d</span><img src="logos/disney.svg" alt="d — Disney logo" style="max-width:1.9em"></button>
-    <button class="know-pill" data-snd="g" aria-label="g — Gummi Bears"><span class="pn2">g</span><img src="logos/gummi-bears-chip.png" alt="g — Gummi Bears logo"></button>
+    <button class="know-pill" data-snd="g" aria-label="g — Google"><span class="pn2">g</span><img src="logos/google-logo.png" alt="g — Google logo"></button>
     <button class="know-pill" data-snd="o" aria-label="o — Oreo"><span class="pv">o</span><img src="logos/oreo.svg" alt="o — Oreo logo"></button>
   </div>
   </div>
@@ -488,7 +523,7 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
     <button class="know-pill" data-snd="n" aria-label="n — Nike"><span class="pn2">n</span><img src="logos/nike.png" alt="n — Nike logo"></button>
     <button class="know-pill" data-snd="m" aria-label="m — Moscow metro"><span class="pc">m</span><img src="logos/metro.png" alt="m — Moscow metro logo"></button>
     <button class="know-pill" data-snd="d" aria-label="d — Disney"><span class="pn2">d</span><img src="logos/disney.svg" alt="d — Disney logo" style="max-width:1.9em"></button>
-    <button class="know-pill" data-snd="g" aria-label="g — Gummi Bears"><span class="pn2">g</span><img src="logos/gummi-bears-chip.png" alt="g — Gummi Bears logo"></button>
+    <button class="know-pill" data-snd="g" aria-label="g — Google"><span class="pn2">g</span><img src="logos/google-logo.png" alt="g — Google logo"></button>
     <button class="know-pill" data-snd="o" aria-label="o — Oreo"><span class="pv">o</span><img src="logos/oreo.svg" alt="o — Oreo logo"></button>
   </div>
   </div>
@@ -528,7 +563,7 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
     <button class="know-pill" data-snd="n" aria-label="n — Nike"><span class="pn2">n</span><img src="logos/nike.png" alt="n — Nike logo"></button>
     <button class="know-pill" data-snd="m" aria-label="m — Moscow metro"><span class="pc">m</span><img src="logos/metro.png" alt="m — Moscow metro logo"></button>
     <button class="know-pill" data-snd="d" aria-label="d — Disney"><span class="pn2">d</span><img src="logos/disney.svg" alt="d — Disney logo" style="max-width:1.9em"></button>
-    <button class="know-pill" data-snd="g" aria-label="g — Gummi Bears"><span class="pn2">g</span><img src="logos/gummi-bears-chip.png" alt="g — Gummi Bears logo"></button>
+    <button class="know-pill" data-snd="g" aria-label="g — Google"><span class="pn2">g</span><img src="logos/google-logo.png" alt="g — Google logo"></button>
     <button class="know-pill" data-snd="o" aria-label="o — Oreo"><span class="pv">o</span><img src="logos/oreo.svg" alt="o — Oreo logo"></button>
   </div>
   </div>
@@ -561,7 +596,7 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
     <button class="know-pill" data-snd="n" aria-label="n — Nike"><span class="pn2">n</span><img src="logos/nike.png" alt="n — Nike logo"></button>
     <button class="know-pill" data-snd="m" aria-label="m — Moscow metro"><span class="pc">m</span><img src="logos/metro.png" alt="m — Moscow metro logo"></button>
     <button class="know-pill" data-snd="d" aria-label="d — Disney"><span class="pn2">d</span><img src="logos/disney.svg" alt="d — Disney logo" style="max-width:1.9em"></button>
-    <button class="know-pill" data-snd="g" aria-label="g — Gummi Bears"><span class="pn2">g</span><img src="logos/gummi-bears-chip.png" alt="g — Gummi Bears logo"></button>
+    <button class="know-pill" data-snd="g" aria-label="g — Google"><span class="pn2">g</span><img src="logos/google-logo.png" alt="g — Google logo"></button>
     <button class="know-pill" data-snd="o" aria-label="o — Oreo"><span class="pv">o</span><img src="logos/oreo.svg" alt="o — Oreo logo"></button>
   </div>
   </div>
@@ -573,6 +608,39 @@ to{outline:4px solid rgba(255,201,60,0);outline-offset:12px}}
   <button id="next" aria-label="next">›</button>
   <button id="fs" aria-label="fullscreen">⛶</button>
 </nav>
+
+
+<div id="log-btn" title="lesson log (N / C)">✍️</div>
+<div id="logpanel">
+  <span class="closer" data-close="logpanel">✕</span>
+  <div class="a-head"><span id="logrow"></span><span class="a-sp"></span>
+    <button class="mini-btn" id="logprev" title="annotate the previous slide (the deck stays where it is)">‹</button>
+    <button class="mini-btn" id="lognext" title="annotate the next slide (the deck stays where it is)">›</button>
+    <button class="mini-btn" id="logtick2" title="tick = this slide was done">✓ done</button>
+  </div>
+  <div class="arow"><label>d:</label><input id="annoD" type="text" autocomplete="off" spellcheck="false"></div>
+  <div class="arow"><label>//:</label><input id="annoSL" type="text" autocomplete="off" spellcheck="false"></div>
+  <div class="arow free"><textarea id="annoF" rows="3" autocomplete="off" spellcheck="false" placeholder="anything else…"></textarea></div>
+  <div class="arow fix"><label>fix:</label><textarea id="annoFX" rows="3" autocomplete="off" spellcheck="false" placeholder="her sentences to fix…"></textarea></div>
+  <div class="a-foot">
+    <button class="mini-btn" id="logcopy">📋 report</button>
+    <span class="hintline" id="loghint"></span>
+    <button class="mini-btn" id="logdone">Done ⌘S</button>
+  </div>
+</div>
+<!-- the report card -->
+<div id="logrep">
+  <span class="closer" data-close="logrep">✕ close</span>
+  <div class="rep-card">
+    <b style="font-family:'Inter',sans-serif">lesson report</b>
+    <textarea id="logrep-text" readonly></textarea>
+    <div style="display:flex;gap:.6em;align-items:center">
+      <button class="mini-btn" id="logrep-copy">copy</button>
+      <button class="mini-btn" id="logrep-clear" title="delete all ticks and comments">🧹 clear</button>
+      <span class="hintline" id="logsent" style="margin-left:auto"></span>
+    </div>
+  </div>
+</div>
 
 <script>
 const SND = {
@@ -778,5 +846,112 @@ window.addEventListener('hashchange',()=>{
   poll();setInterval(poll,1500);
 })();
 </script>
+
+<script>
+/* --- the ✍️ lesson log v2 — ported from l013 (the fleet reference), 18.11.
+   Own script block (the own-block law). Reads slides/cur from the engine's
+   global lexical scope; DECK_ID brand-phonics-go. --- */
+(function(){
+  const DECK_ID = 'brand-phonics-go';
+  const logStore=()=>{ try{return JSON.parse(localStorage.getItem('log-'+DECK_ID)||'{}')}catch(e){return {}} };
+  const logSave=o=>{ try{localStorage.setItem('log-'+DECK_ID,JSON.stringify(o))}catch(e){} };
+  const logpanel=document.getElementById('logpanel');
+  const logrepEl=document.getElementById('logrep');
+  let logCur=0;
+  function logGoto(n,openPanel){
+    logCur=n;
+    const o=logStore(),row=document.getElementById('logrow');
+    if(!row) return;
+    const rec2=o[n]||{};
+    const t=slides[n]?(slides[n].querySelector('h1')||{}).textContent:null;
+    row.innerHTML='<b>Slide '+(n+1)+' / '+slides.length+'</b> — '+(t?t.trim():'the letter');
+    const dEl=document.getElementById('annoD'),slEl=document.getElementById('annoSL'),fEl=document.getElementById('annoF'),fxEl=document.getElementById('annoFX');
+    if(dEl)dEl.value=rec2.d||''; if(slEl)slEl.value=rec2.sl||''; if(fEl)fEl.value=rec2.free||''; if(fxEl)fxEl.value=rec2.fx||'';
+    const tk=document.getElementById('logtick2'); if(tk)tk.classList.toggle('on',!!rec2.done);
+    if(openPanel) logpanel.classList.add('open');
+  }
+  function toggleLog(){
+    if(!logpanel) return;
+    if(logpanel.classList.contains('open')){ logpanel.classList.remove('open'); return; }
+    logGoto(cur,true);
+  }
+  const logBtn=document.getElementById('log-btn');
+  if(logBtn) logBtn.addEventListener('click', toggleLog);
+  const logPrev=document.getElementById('logprev'), logNext=document.getElementById('lognext');
+  if(logPrev) logPrev.addEventListener('click', ()=>logGoto(Math.max(0,logCur-1),false));
+  if(logNext) logNext.addEventListener('click', ()=>logGoto(Math.min(slides.length-1,logCur+1),false));
+  ['d','sl','free','fx'].forEach(k=>{
+    const el=document.getElementById(k==='d'?'annoD':(k==='sl'?'annoSL':(k==='fx'?'annoFX':'annoF')));
+    if(el) el.addEventListener('input',()=>{ const s=logStore(); s[logCur]=s[logCur]||{}; s[logCur][k]=el.value; logSave(s); logAutoSend(); });
+  });
+  const logtick2=document.getElementById('logtick2');
+  if(logtick2) logtick2.onclick=()=>{ const s=logStore(); s[logCur]=s[logCur]||{}; s[logCur].done=!s[logCur].done; logSave(s); logAutoSend(); logGoto(logCur,false); };
+  function logDoneClose(){
+    logSave(logStore());
+    const h=document.getElementById('loghint');
+    if(h){h.textContent='saved ✓'; setTimeout(()=>{h.textContent=/^https?:$/.test(location.protocol)?'auto-sends to the Mac · she sees the screen while you type':'saves on this device · she sees the screen while you type'},1400)}
+    logpanel.classList.remove('open');
+  }
+  const logdoneBtn=document.getElementById('logdone');
+  if(logdoneBtn) logdoneBtn.addEventListener('click', logDoneClose);
+  const loghintEl=document.getElementById('loghint');
+  if(loghintEl) loghintEl.textContent=/^https?:$/.test(location.protocol)?'auto-sends to the Mac · she sees the screen while you type':'saves on this device · she sees the screen while you type';
+  function buildReport(){
+    const o=logStore();
+    let out='✍️ '+DECK_ID+' · lesson log · '+new Date().toLocaleString('en-GB')+'\n';
+    let any=false;
+    slides.forEach((s,i)=>{ const r=o[i]; if(!r) return;
+      const free=r.free||''; const rows=[];
+      if(r.d)rows.push('d: '+r.d); if(r.sl)rows.push('//: '+r.sl); if(free)rows.push(free); if(r.fx)rows.push(('fix: '+r.fx).replace(/\n/g,'\n   '));
+      if(!r.done&&!rows.length) return;
+      out+='· s'+(i+1)+(r.done?' ✓':'')+'\n'+rows.map(x=>'   '+x).join('\n')+'\n'; any=true; });
+    if(!any) out+='(nothing ticked or noted yet)\n';
+    return out;
+  }
+  function copyText(t){
+    try{ navigator.clipboard.writeText(t).catch(()=>{}); }catch(e){}
+    try{ const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }catch(e){}
+  }
+  const logCopy=document.getElementById('logcopy');
+  if(logCopy) logCopy.addEventListener('click', ()=>{
+    document.getElementById('logrep-text').value=buildReport();
+    logrepEl.classList.add('open');
+  });
+  const logrepCopy=document.getElementById('logrep-copy');
+  if(logrepCopy) logrepCopy.addEventListener('click', ()=>{ copyText(document.getElementById('logrep-text').value); logrepCopy.textContent='✓ copied'; setTimeout(()=>logrepCopy.textContent='copy',1200); });
+  const logrepClear=document.getElementById('logrep-clear');
+  if(logrepClear) logrepClear.addEventListener('click', ()=>{ try{localStorage.removeItem('log-'+DECK_ID)}catch(e){} logGoto(logCur,false); logrepEl.classList.remove('open'); });
+  let logT=null;
+  function logAutoSend(){
+    if(!/^https?:$/.test(location.protocol)) return;
+    clearTimeout(logT);
+    logT=setTimeout(()=>{ try{
+      fetch('/report?deck='+DECK_ID,{method:'POST',body:buildReport()});
+    }catch(e){} },800);
+  }
+  document.querySelectorAll('[data-close]').forEach(el=>el.addEventListener('click',()=>{
+    const t=document.getElementById(el.getAttribute('data-close'));
+    if(t) t.classList.remove('open');
+  }));
+  document.addEventListener('keydown', e=>{
+    /* ⌘S / Ctrl+S = save + close while the log is open — checked BEFORE the input guard */
+    if((e.metaKey||e.ctrlKey)&&(e.key==='s'||e.key==='S')&&logpanel.classList.contains('open')){ e.preventDefault(); logDoneClose(); return }
+    if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C copy must work */
+    if(e.target && (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')) return;
+    if(e.key==='Escape'){
+      if(logpanel.classList.contains('open')){ logpanel.classList.remove('open'); return }
+      if(logrepEl.classList.contains('open')){ logrepEl.classList.remove('open'); return }
+      return;
+    }
+    const anyOpen = logpanel.classList.contains('open')||logrepEl.classList.contains('open');
+    if(anyOpen) return;
+    switch(e.key){
+      case 'c': case 'C': case 'с': case 'С': toggleLog(); break;
+      case 'n': case 'N': case 'т': case 'Т': toggleLog(); break;
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
