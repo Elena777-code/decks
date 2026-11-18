@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ирина · Present Simple vs Continuous · неделя</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sea:#2EC4B6; --sea-deep:#1B7A8C; --ink:#123B44; --ink-soft:#5b7a80;
+  --coral:#FF6B6B; --sun:#FFD166; --card:#ffffff; --bg:#EAF7F5;
+  --shadow:0 10px 30px rgba(18,59,68,.14); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--bg);
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:4vh 5vw 8vh;-webkit-font-smoothing:antialiased}
+header{max-width:680px;width:100%;text-align:center;margin-bottom:1em}
+.eyebrow{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;font-size:.72rem;color:var(--sea-deep)}
+h1{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.6rem,7vw,2.4rem);line-height:1.15;margin-top:.15em}
+main{max-width:680px;width:100%}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(1.3rem,4.5vw,2.2rem);text-align:center;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none}
+.rules{margin-top:1em;color:var(--ink-soft);font-weight:700;font-size:clamp(1rem,3.6vw,1.15rem);line-height:1.7}
+.meta{margin-top:.6em;color:var(--ink-soft);font-weight:700;font-size:.85rem}
+button{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;border:none;cursor:pointer;
+  border-radius:99px;transition:transform .12s ease,box-shadow .12s ease}
+button:active{transform:scale(.96)}
+.name-row{margin-bottom:.4em}
+input.type-box{font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1.2rem,5vw,1.6rem);
+  color:var(--ink);text-align:center;border:3px solid #cfe9e6;border-radius:16px;
+  padding:.45em .6em;width:min(300px,76vw);outline:none;background:#fbffff}
+input.type-box:focus{border-color:var(--sea)}
+input.type-box.need{border-color:var(--coral);animation:need .3s ease}
+@keyframes need{50%{transform:translateX(-4px)}}
+.ladder{margin-top:.9em;background:#f2fbf9;border-radius:16px;padding:.8em 1em;
+  font-size:.88rem;font-weight:700;color:var(--sea-deep);line-height:1.6}
+/* --- the day picker --- */
+.day-grid{display:flex;flex-wrap:wrap;gap:.6em;justify-content:center;margin-top:1.1em}
+.day-chip{background:#f0fafa;color:var(--ink);border-radius:18px;padding:.6em .5em .55em;
+  width:calc(33% - .5em);min-width:96px;box-shadow:0 4px 0 #cfe9e6;line-height:1.25}
+.day-chip .dnum{font-size:clamp(1.05rem,4.2vw,1.3rem);font-weight:700}
+.day-chip .dicons{display:block;font-size:.78rem;margin-top:.2em;letter-spacing:.06em}
+.day-chip.today{background:#FFF3D6;box-shadow:0 4px 0 #f0d998;outline:3px solid var(--sun)}
+.day-chip.locked{opacity:.45;filter:grayscale(.4)}
+.day-chip.wiggle{animation:need .3s ease}
+/* --- question card --- */
+.qcount{font-size:.85rem;font-weight:800;color:var(--sea-deep);letter-spacing:.06em;text-transform:uppercase}
+.qrow{display:flex;justify-content:space-between;align-items:center;gap:.5em}
+.skip-btn{background:transparent;color:var(--ink-soft);font-size:.78rem;font-weight:600;
+  padding:.25em .8em;border:1px dashed #bfe3df;border-radius:99px;white-space:nowrap}
+.timer-wrap{height:12px;background:#d8efec;border-radius:99px;overflow:hidden;margin:1em 0 .3em}
+.timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--sea),var(--sun));border-radius:99px}
+.timer-num{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;color:var(--sea-deep);font-size:.9rem}
+.timer-num.low{color:var(--coral)}
+.prompt{font-size:clamp(1.25rem,5vw,1.75rem);font-weight:800;line-height:1.5;margin-top:.4em}
+.prompt .gap{color:var(--coral);letter-spacing:.05em}
+.prompt .base{color:var(--sea-deep);font-family:'Fredoka','Nunito',sans-serif;font-weight:600}
+.prompt .pair{display:block;font-size:1.6em;margin-top:.15em;letter-spacing:.15em}
+.helper{margin-top:.7em;font-size:.9rem;font-weight:700;color:var(--ink-soft)}
+.helper .hint{color:var(--sea)}
+.answer-row{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;margin-top:1em}
+.choice{background:#f0fafa;color:var(--ink);font-size:clamp(1.05rem,4.2vw,1.3rem);
+  padding:.5em 1.4em;box-shadow:0 4px 0 #cfe9e6;line-height:1.15}
+.choice:active{box-shadow:0 1px 0 #cfe9e6;transform:translateY(3px)}
+.flash{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6.5vw,2.2rem);
+  color:var(--coral);text-align:center;padding:2.6em 0;animation:pop .2s ease}
+.flash .sub{display:block;font-size:.55em;color:var(--ink-soft);margin-top:.6em}
+.flash.good{color:var(--sea)}
+/* --- typed production cards --- */
+.type-row{margin-top:1em}
+/* --- end card --- */
+.stars{font-size:clamp(2rem,9vw,3rem);margin:.2em 0}
+.end-title{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw,2.2rem)}
+.one-line{margin:1em 0 .2em;font-weight:800;font-size:clamp(1.05rem,4vw,1.25rem);line-height:1.7}
+.miss-list{margin-top:.8em;text-align:left;background:#f2fbf9;border-radius:16px;padding:.9em 1.1em;
+  font-size:clamp(.95rem,3.6vw,1.1rem);font-weight:700;line-height:1.6;display:none}
+.miss-list .k{color:var(--sea-deep)}
+/* --- per-round review card --- */
+.rmiss{margin-top:.7em}
+.rmiss .rline{font-weight:800;font-size:clamp(.95rem,3.6vw,1.1rem)}
+.rmiss .ryou{color:var(--coral);font-weight:800}
+.rmiss .rkey{color:var(--sea-deep);font-weight:800}
+.rmiss .rwhy{color:var(--ink-soft);font-weight:700;font-size:.9em;margin-top:.2em;line-height:1.5}
+.next-btn{background:var(--sun);color:var(--ink);font-size:clamp(1rem,4vw,1.2rem);
+  padding:.7em 1.8em;margin-top:1em;box-shadow:0 6px 0 #e3b95f}
+.again-btn{background:var(--sea);color:#fff;font-size:clamp(1rem,4vw,1.2rem);
+  padding:.7em 1.8em;margin-top:.9em;box-shadow:0 6px 0 #239d92}
+.home-btn{background:transparent;color:var(--sea-deep);font-size:1rem;
+  padding:.6em 1.4em;margin-top:.7em;border:2px solid #bfe3df;margin-left:.5em}
+.sent{margin-top:.6em;font-weight:700;color:var(--sea-deep)}
+footer{max-width:680px;width:100%;text-align:center;margin-top:1.6em;
+  color:var(--ink-soft);font-size:.78rem;font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Ирина · домашка ⏰ · Present Simple / Continuous</div>
+  <h1>Simple или Continuous? 🤔</h1>
+</header>
+
+<main>
+  <div class="card" id="start-card">
+    <div class="name-row"><input class="type-box" id="who-box" placeholder="Кто играет?" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+    <p class="rules">Неделя одной темы: <b>7 коротких тренировок</b> (10–15 минут).<br>
+    День 1 — <b>сегодня, 8 ноября</b>. Одни и те же предложения будут возвращаться — так и надо!<br>
+    День 1 — можно подглядывать в правила 📚 · со 2-го дня — по памяти.<br>
+    Часть заданий — с часами ⏰: время комфортное, успеешь.<br>
+    Закончи день — откроется следующий. После каждой части — разбор 💡</p>
+    <div class="ladder">🪜 Лесенка недели: <b>узнаю → помню → понимаю → использую → помню позже</b></div>
+    <div class="day-grid" id="day-grid"></div>
+    <div class="meta">build 2026-11-10 · v3 · День 1 = 08.11.2026 (Elena's word) · предложения из презентации DVIZH PS/PC (слайды 1–16) · 7 дней · закончи день — откроется следующий</div>
+  </div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qrow"><div class="qcount" id="q-count"></div><button class="skip-btn" id="skip-btn" type="button">⤼ Пропустить →</button></div>
+    <div class="timer-wrap" id="timer-wrap"><div class="timer-bar" id="timer-bar"></div></div>
+    <div class="timer-num" id="timer-num"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="flash hidden" id="flash"></div>
+
+  <div class="card hidden" id="round-card">
+    <div class="qcount" id="round-count"></div>
+    <div class="one-line" id="round-line"></div>
+    <div class="miss-list" id="round-miss"></div>
+    <div><button class="next-btn" id="next-btn">Дальше →</button></div>
+  </div>
+
+  <div class="card hidden" id="end-card">
+    <div class="stars" id="end-stars"></div>
+    <div class="end-title" id="end-title">Молодец!</div>
+    <div class="one-line" id="end-rows"></div>
+    <div class="miss-list" id="miss-list"></div>
+    <div class="sent" id="sent-line">…</div>
+    <div><button class="again-btn" id="again-btn">🔁 Этот день ещё раз</button>
+         <button class="home-btn" id="home-btn">🏠 К дням</button></div>
+  </div>
+</main>
+
+<footer>одна тема — неделя повторения: узнаю → помню → понимаю → использую → помню позже</footer>
+
+<script>
+(function(){
+"use strict";
+/* auto-send → Elena's Google Form «Irina» (same form as week.html / hw.html) */
+var HW_FORM={action:"https://docs.google.com/forms/d/e/1FAIpQLScYuudgy8Zza0OF09fpnu43OsOehkkNQT5BtnF7QH7uVne9SA/formResponse",entryReport:"entry.1898990974"};
+
+/* ---------- THE FOUR EXERCISE TYPES (Elena's spec, 07.11) ----------
+   E1 sort markers · E2 complete the verb · E3 Q/A forms · E4 often/now.
+   X = exact sentences from the presentation (slides 1–16)
+   S = similar (new) sentences · M = mixed · U = unfamiliar (Day 7).
+   Every card decidable on form + time markers alone (the meaning wall).
+   why-lines teach the MEANING contrast, not the signal-word habit. */
+var PS="Present Simple",PC="Present Continuous";
+var PSB=PS+" (обычно)",PCB=PC+" (сейчас)";
+
+var E1X=[
+ {q:"every day",c:[PSB,PCB],k:PSB,label:"every day",why:"каждый день = обычно, привычка → Present Simple"},
+ {q:"nearly always",c:[PSB,PCB],k:PSB,label:"nearly always",why:"почти всегда = обычно → Present Simple"},
+ {q:"on Fridays",c:[PSB,PCB],k:PSB,label:"on Fridays",why:"по пятницам = каждую неделю, обычно → Present Simple"},
+ {q:"very often",c:[PSB,PCB],k:PSB,label:"very often",why:"очень часто = обычно → Present Simple"},
+ {q:"when I'm tired",c:[PSB,PCB],k:PSB,label:"when I'm tired",why:"каждый раз, когда устаю = обычно → Present Simple"},
+ {q:"just now",c:[PSB,PCB],k:PCB,label:"just now",why:"только что / прямо сейчас → Present Continuous"},
+ {q:"now",c:[PSB,PCB],k:PCB,label:"now",why:"сейчас, в этот момент → Present Continuous"},
+ {q:"these days",c:[PSB,PCB],k:PCB,label:"these days",why:"в эти дни = период, который идёт вокруг сейчас → Present Continuous"},
+ {q:"this afternoon",c:[PSB,PCB],k:PCB,label:"this afternoon",why:"сегодня после обеда — этот период уже идёт → Present Continuous"},
+ {q:"today",c:[PSB,PCB],k:PCB,label:"today",why:"сегодня — этот день идёт сейчас (сравни: every day!) → Present Continuous"}
+];
+var E1S=[
+ {q:"on Mondays",c:[PSB,PCB],k:PSB,label:"on Mondays",why:"по понедельникам = каждую неделю → Present Simple"},
+ {q:"at weekends",c:[PSB,PCB],k:PSB,label:"at weekends",why:"по выходным = обычно → Present Simple"},
+ {q:"usually",c:[PSB,PCB],k:PSB,label:"usually",why:"обычно — само слово говорит → Present Simple"},
+ {q:"hardly ever",c:[PSB,PCB],k:PSB,label:"hardly ever",why:"почти никогда = про обычную жизнь → Present Simple"},
+ {q:"when it rains",c:[PSB,PCB],k:PSB,label:"when it rains",why:"каждый раз, когда идёт дождь = обычно → Present Simple"},
+ {q:"once a week",c:[PSB,PCB],k:PSB,label:"once a week",why:"раз в неделю = обычно → Present Simple"},
+ {q:"at the moment",c:[PSB,PCB],k:PCB,label:"at the moment",why:"в данный момент = сейчас → Present Continuous"},
+ {q:"right now",c:[PSB,PCB],k:PCB,label:"right now",why:"прямо сейчас → Present Continuous"},
+ {q:"this week",c:[PSB,PCB],k:PCB,label:"this week",why:"на этой неделе = период вокруг сейчас → Present Continuous"},
+ {q:"Look!",c:[PSB,PCB],k:PCB,label:"Look!",why:"Смотри! = происходит прямо у тебя на глазах → Present Continuous"}
+];
+
+var E2X=[ /* slides 5–8: the verb box (chase eat fly play rain sell speak work write) */
+ {q:'Cats <span class="gap">______</span> mice. 🐭',c:["chase","chases","are chasing"],k:"chase",label:"Cats … mice",why:"cats = много, базовая форма без -s: Cats chase mice (обычно)"},
+ {q:'Cows <span class="gap">______</span> grass. 🐄',c:["eat","eats","eating"],k:"eat",label:"Cows … grass",why:"cows = много → eat (обычно). grass = трава"},
+ {q:'It often <span class="gap">______</span>. 🌧',c:["rain","rains","is raining"],k:"rains",label:"It often …",why:"often = обычно; it = he/she → rains"},
+ {q:'John <span class="gap">______</span> every day. 🧑‍💼',c:["work","works","is working"],k:"works",label:"John … every day",why:"every day = обычно; John = he → works"},
+ {q:'This shop <span class="gap">______</span> books. 🏪',c:["sell","sells","is selling"],k:"sells",label:"This shop … books",why:"this shop = it (один магазин) → sells"},
+ {q:'Simon <span class="gap">______</span> poetry. ✍️',c:["write","writes","is writing"],k:"writes",label:"Simon … poetry",why:"Simon = he → writes. poetry = стихи"},
+ {q:'But this cat <span class="gap">______</span> chasing mice. 🐱',c:["isn't","doesn't","aren't"],k:"isn't",label:"this cat … chasing",why:"видишь -ing? → to be: isn't chasing"},
+ {q:'But this cow <span class="gap">______</span> grass now. 🐄',c:["isn't eating","doesn't eating","not eating"],k:"isn't eating",label:"this cow … grass now",why:"сейчас не ест = isn't + eating (to be + -ing)"},
+ {q:'But it <span class="gap">______</span> now. 🌧',c:["isn't raining","doesn't rain","not raining"],k:"isn't raining",label:"it … now",why:"now = сейчас → isn't raining (doesn't rain = «вообще не бывает»)"},
+ {q:'But John <span class="gap">______</span> today. 🧑‍💼',c:["isn't working","doesn't works","not working"],k:"isn't working",label:"John … today",why:"today = сегодня, вокруг сейчас → isn't working"},
+ {q:'But Carol <span class="gap">______</span> the piano now. 🎹',c:["isn't playing","doesn't plays","not playing"],k:"isn't playing",label:"Carol … now",why:"now = сейчас → isn't playing"},
+ {q:'But this plane <span class="gap">______</span> now. ✈️',c:["isn't flying","doesn't flying","not flying"],k:"isn't flying",label:"this plane … now",why:"сейчас не летит = isn't flying"}
+];
+var E2S=[
+ {q:'My cat <span class="gap">______</span> fish. 🐟',c:["eat","eats","is eating"],k:"eats",label:"my cat … fish",why:"my cat = it (одна кошка) → eats"},
+ {q:'Birds <span class="gap">______</span>. 🐦',c:["fly","flies","is flying"],k:"fly",label:"Birds …",why:"birds = много → fly (обычно, всегда)"},
+ {q:'Teachers <span class="gap">______</span> at school. 🏫',c:["works","work","are working"],k:"work",label:"Teachers … at school",why:"teachers = много → work"},
+ {q:'This shop <span class="gap">______</span> bread. 🍞',c:["sell","sells","is selling"],k:"sells",label:"This shop … bread",why:"this shop = it → sells. bread = хлеб"},
+ {q:'My sister <span class="gap">______</span> letters. 💌',c:["write","writes","is writing"],k:"writes",label:"my sister … letters",why:"my sister = she → writes"},
+ {q:'It <span class="gap">______</span> a lot here. 🌧',c:["rain","rains","is raining"],k:"rains",label:"It … a lot here",why:"здесь часто идёт дождь = обычно → rains"},
+ {q:'But my cat <span class="gap">______</span> fish now. 🐟',c:["isn't eating","doesn't eating","not eats"],k:"isn't eating",label:"my cat … now",why:"сейчас не ест → isn't eating"},
+ {q:'But this bird <span class="gap">______</span> now. 🐦',c:["isn't flying","doesn't flying","not flying"],k:"isn't flying",label:"this bird … now",why:"сейчас не летит → isn't flying"},
+ {q:'But this teacher <span class="gap">______</span> now. 🏫',c:["isn't working","doesn't working","not working"],k:"isn't working",label:"this teacher … now",why:"сейчас не работает → isn't working"},
+ {q:'But my sister <span class="gap">______</span> letters now. 💌',c:["isn't writing","doesn't writes","not writing"],k:"isn't writing",label:"my sister … now",why:"сейчас не пишет → isn't writing"},
+ {q:'But my brother <span class="gap">______</span> a bus now. 🚌',c:["isn't driving","doesn't drives","not driving"],k:"isn't driving",label:"my brother … now",why:"сейчас не ведёт → isn't driving. drive = вести машину"},
+ {q:'But we <span class="gap">______</span> Russian now. 🇷🇺',c:["aren't speaking","isn't speaking","not speaking"],k:"aren't speaking",label:"we … Russian now",why:"we → are! aren't speaking (сейчас не говорим)"}
+];
+var E2U=[
+ {q:'Polar bears <span class="gap">______</span> fish. 🐻‍❄️',c:["eat","eats","is eating"],k:"eat",label:"Polar bears … fish",why:"polar bears = много → eat (обычно). Это правда про них всегда"},
+ {q:'But this polar bear <span class="gap">______</span> now. 🐻‍❄️',c:["isn't eating","doesn't eats","not eating"],k:"isn't eating",label:"this polar bear … now",why:"сейчас не ест → isn't eating"}
+];
+
+var E3X=[ /* slides 9–14 */
+ {q:"<span class='base'>'______?'</span> — 'No, never.' <span class='base'>(you / smoke)</span>",c:["Do you smoke","Does you smoke","Are you smoke"],k:"Do you smoke",label:"… you / smoke",why:"you → всегда Do: Do you smoke? (never = никогда)"},
+ {q:"<span class='base'>'What ______?'</span> — 'A cheese sandwich.' <span class='base'>(you / eat)</span>",c:["do you eat","are you eating","you are eating"],k:"are you eating",label:"What … ?",why:"происходит сейчас (он ест это прямо сейчас) → are you eating"},
+ {q:"<span class='base'>'Where ______ these days?'</span> — 'In a garage.' <span class='base'>(he / work)</span>",c:["does he work","is he working","he is working"],k:"is he working",label:"Where … these days?",why:"these days = период вокруг сейчас → is he working"},
+ {q:"<span class='base'>'______ here in summer?'</span> — 'Not very often.' <span class='base'>(it / rain)</span>",c:["Does it rain","Is it raining","Does it rains"],k:"Does it rain",label:"… it / rain (summer)",why:"summer = каждое лето, обычно → Does it rain?"},
+ {q:"<span class='base'>'Sorry, I ______ French.'</span> <span class='base'>(not / speak)</span>",c:["don't speak","am not speaking","not speak"],k:"don't speak",label:"I … French",why:"я вообще не говорю по-французски = всегда → don't speak"},
+ {q:"<span class='base'>'Your English ______ better!'</span> <span class='base'>(get)</span>",c:["is getting","gets","are getting"],k:"is getting",label:"Your English … better",why:"улучшается вокруг сейчас, день за днём → is getting"},
+ {q:"<span class='base'>'______ golf?'</span> — 'Yes, but not very well.' <span class='base'>(you / play)</span>",c:["Do you play","Are you play","Does you play"],k:"Do you play",label:"… you / play golf",why:"умение вообще = Present Simple → Do you play?"},
+ {q:"<span class='base'>'Who ______ to?'</span> — 'My boyfriend.' <span class='base'>(you / write)</span>",c:["do you write","are you writing","you are writing"],k:"are you writing",label:"Who … to?",why:"пишет прямо сейчас → are you writing? Не забудь TO: write TO somebody"},
+ {q:"<span class='base'>'Where's Jack?' — 'He ______ now.'</span> <span class='base'>(he / come)</span>",c:["is coming","comes","come"],k:"is coming",label:"He … now",why:"идёт сюда сейчас → is coming"},
+ {q:"<span class='base'>Well, goodnight. I ______ to bed.</span> <span class='base'>(I / go)</span>",c:["am going","go","goes"],k:"am going",label:"I … to bed",why:"после I → am: I am going (сейчас иду спать)"},
+ {q:"<span class='base'>Water ______ at 100°C.</span> <span class='base'>(boil)</span>",c:["boils","is boiling","boil"],k:"boils",label:"Water … at 100°C",why:"закон физики: вчера кипела, сегодня кипит, завтра будет → boils"},
+ {q:"<span class='base'>'______ ?'</span> — 'Not yet.' <span class='base'>(that water / boil)</span>",c:["Is that water boiling","Does that water boil","Boils that water"],k:"Is that water boiling",label:"… that water / boil",why:"кипит ли ПРЯМО СЕЙЧАС → Is that water boiling?"}
+];
+var E3S=[
+ {q:"<span class='base'>'______?'</span> — 'No, I don't.' <span class='base'>(you / drive)</span>",c:["Do you drive","Does you drive","Are you drive"],k:"Do you drive",label:"… you / drive",why:"you → Do: Do you drive?"},
+ {q:"<span class='base'>'What ______?'</span> — 'A letter.' <span class='base'>(you / write)</span>",c:["do you write","are you writing","you are writing"],k:"are you writing",label:"What … ?",why:"пишет сейчас → are you writing?"},
+ {q:"<span class='base'>'______ English?'</span> — 'Yes, a little.' <span class='base'>(he / speak)</span>",c:["Does he speak","Is he speaking","Do he speak"],k:"Does he speak",label:"… he / speak English",why:"умеет ли вообще → Does he speak?"},
+ {q:"<span class='base'>'Where ______?'</span> — 'In a school.' <span class='base'>(you / work)</span>",c:["do you work","are you working","you work"],k:"do you work",label:"Where … ?",why:"где работаешь ВООБЩЕ → do you work?"},
+ {q:"<span class='base'>'Where's Ann?' — 'She ______ tennis now.'</span> <span class='base'>(play)</span>",c:["is playing","plays","play"],k:"is playing",label:"She … now",why:"сейчас играет → is playing"},
+ {q:"<span class='base'>Bye! I ______ home.</span> <span class='base'>(I / go)</span>",c:["am going","go","goes"],k:"am going",label:"I … home",why:"после I → am: I am going (сейчас иду)"}
+];
+var E3U=[
+ {q:"<span class='base'>'______ chess?'</span> — 'Every day.' <span class='base'>(you / play)</span>",c:["Do you play","Does you play","Are you play"],k:"Do you play",label:"… you / play chess",why:"every day = обычно → Do you play?"}
+];
+
+var E4X=[ /* slides 15–16 style: the often/now pairs (picture → sentence) */
+ {q:'<span class="pair">📰 → 📖</span> She often <span class="gap">______</span> newspapers, but now she <span class="gap">______</span> a short story.',c:["reads / is reading","read / reads","is reading / are reading"],k:"reads / is reading",label:"newspapers → short story",why:"often = обычно → reads (she); now = сейчас → is reading. a short story = рассказ"},
+ {q:'<span class="pair">📔 → 📕</span> She often <span class="gap">______</span> magazines, but now she <span class="gap">______</span> a biography.',c:["reads / is reading","reads / are reading","is reading / reads"],k:"reads / is reading",label:"magazines → biography",why:"often → reads; now → is reading. a biography = биография"},
+ {q:'<span class="pair">📜 → 📖</span> He often <span class="gap">______</span> poems, but now he <span class="gap">______</span> an autobiography.',c:["reads / is reading","read / read","is reading / reads"],k:"reads / is reading",label:"poems → autobiography",why:"poems = стихи; an autobiography = автобиография"},
+ {q:'<span class="pair">🦸 → 📗</span> She often <span class="gap">______</span> comics, but now she <span class="gap">______</span> a grammar.',c:["reads / is reading","is reading / reads","read / are reading"],k:"reads / is reading",label:"comics → grammar",why:"comics = комиксы; a grammar = учебник грамматики"},
+ {q:'<span class="pair">📚 → 🍰</span> He often <span class="gap">______</span> short stories, but now he <span class="gap">______</span> a cookery book.',c:["reads / is reading","reads / are reading","is reading / read"],k:"reads / is reading",label:"short stories → cookery book",why:"a cookery book = поваренная книга"},
+ {q:'<span class="pair">📕 → 📰</span> I often <span class="gap">______</span> biographies, but now I <span class="gap">______</span> a newspaper.',c:["read / am reading","reads / is reading","am reading / read"],k:"read / am reading",label:"biographies → newspaper",why:"после I → read и am reading (без -s!)"},
+ {q:'<span class="pair">📰 → 📋</span> They often <span class="gap">______</span> newspapers, but now they <span class="gap">______</span> a notice.',c:["read / are reading","reads / is reading","are reading / read"],k:"read / are reading",label:"newspapers → notice",why:"they → read и are reading. a notice = объявление"},
+ {q:'<span class="pair">📔 → 📄</span> He often <span class="gap">______</span> magazines, but now he <span class="gap">______</span> a poem.',c:["reads / is reading","read / reads","is reading / are reading"],k:"reads / is reading",label:"magazines → poem",why:"a poem = стихотворение"}
+];
+
+var MEAN=[
+ {q:"Present Simple — это…",c:["привычки и то, что обычно правда","то, что происходит прямо сейчас","только про вчера"],k:"привычки и то, что обычно правда",label:"Present Simple — это…",why:"PS: вообще, всегда, обычно. Как закон: water boils at 100°C"},
+ {q:"Present Continuous — это…",c:["то, что происходит (вокруг) сейчас","привычки каждый день","закон физики"],k:"то, что происходит (вокруг) сейчас",label:"Present Continuous — это…",why:"PC: сейчас или период вокруг сейчас (these days, this week)"},
+ {q:"She's reading a short story <b>now</b>. Почему <b>-ing</b>?",c:["действие идёт прямо сейчас","это её привычка","так красивее"],k:"действие идёт прямо сейчас",label:"reading now — почему?",why:"now = действие идёт в этот момент → to be + -ing"}
+];
+
+var PRODUCE=[ /* typed — her own sentences, Elena reads them in the report */
+ {q:'Составь предложение с <b>often</b> 🖊<br><span class="base">she / play tennis</span>',c:null,k:null,label:"often: she / play tennis",typed:true,why:"например: She often plays tennis. (после she → playS!)"},
+ {q:'Составь предложение с <b>now</b> 🖊<br><span class="base">they / swim</span>',c:null,k:null,label:"now: they / swim",typed:true,why:"например: They are swimming now. (they → are)"}
+];
+
+var SELF=[ /* Day 7 self-assessment — Elena's spec: what is easy / confusing */
+ {q:'Что было <b>легко</b> на этой неделе? 🙂',c:null,k:null,label:"Легко:",typed:true,why:null},
+ {q:'Что пока <b>путается</b>? 🤔',c:null,k:null,label:"Путается:",typed:true,why:null}
+];
+
+var POOLS={
+ E1X:{icon:"🗂",name:"Рассортируй",helper:"Это «обычно» или «сейчас»?",cards:E1X},
+ E1S:{icon:"🗂",name:"Рассортируй — новые слова",helper:"Это «обычно» или «сейчас»?",cards:E1S},
+ E2X:{icon:"✏️",name:"Вставь глагол",helper:"Выбери форму",cards:E2X},
+ E2S:{icon:"✏️",name:"Вставь глагол — новые предложения",helper:"Выбери форму",cards:E2S},
+ E2U:{icon:"✏️",name:"Вставь глагол — новенькое",helper:"Выбери форму",cards:E2U},
+ E3X:{icon:"❓",name:"Вопрос и ответ",helper:"Собери вопрос или ответ",cards:E3X},
+ E3S:{icon:"❓",name:"Вопрос и ответ — новые",helper:"Собери вопрос или ответ",cards:E3S},
+ E3U:{icon:"❓",name:"Вопрос и ответ — новенькое",helper:"Собери вопрос или ответ",cards:E3U},
+ E4X:{icon:"📖",name:"often и now",helper:"often = обычно · now = сейчас",cards:E4X},
+ MEAN:{icon:"💡",name:"Смысл времён",helper:"Выбери, что это значит",cards:MEAN},
+ PRODUCE:{icon:"🖊",name:"Свои предложения",helper:"Напиши своё — Елена посмотрит",cards:PRODUCE},
+ SELF:{icon:"🪞",name:"Само-проверка",helper:"Честно и своими словами",cards:SELF}
+};
+
+/* mix = exact + similar, shuffled (Days 4–6: material from the whole week) */
+POOLS.E1M={icon:"🗂",name:"Рассортируй — микс",helper:"Это «обычно» или «сейчас»?",cards:E1X.concat(E1S)};
+POOLS.E2M={icon:"✏️",name:"Вставь глагол — микс",helper:"Выбери форму",cards:E2X.concat(E2S)};
+POOLS.E3M={icon:"❓",name:"Вопрос и ответ — микс",helper:"Собери вопрос или ответ",cards:E3X.concat(E3S)};
+
+/* ---------- THE WEEK (Elena's 7-day progression, 07.11) ----------
+   [poolId, sec] — sec:0 = без часов; иначе секунд на карточку (комфортные).
+   Д1 точные+правила · Д2 те же+Ex1 с часами · Д3 похожие · Д4 микс ·
+   Д5 микс+свои предложения · Д6 вся неделя+often/now · Д7 тест+само-проверка */
+var DAYS=[
+ {n:1,tasks:[["E1X",0,10],["E2X",0,6],["E3X",0,6]],hint:true,fixed:true},
+ {n:2,tasks:[["E1X",15,10],["E2X",0,6],["E3X",0,6]],fixed:true},
+ {n:3,tasks:[["E1S",15,10],["E2S",25,8]]},
+ {n:4,tasks:[["E1M",0,10],["E2M",25,8],["E3M",25,6]]},
+ {n:5,tasks:[["E1M",15,8],["E3M",25,6],["E4X",0,4],["MEAN",0,3],["PRODUCE",0,2]]},
+ {n:6,tasks:[["E2M",25,6],["E3M",25,6],["E4X",35,4]]},
+ {n:7,tasks:[["E1M",20,10],["E2M",30,6],["E3M",30,6],["E4X",40,4],["SELF",0,2]],final:true}
+];
+DAYS[6].tasks[0][2]=8;  /* Day 7 sort deal: 8 of the 20-card mixed pool */
+POOLS.E2M.cards=E2X.concat(E2S).concat(E2U);
+POOLS.E3M.cards=E3X.concat(E3S).concat(E3U);
+
+/* ---------- progress: сколько дней пройдено (на устройстве Иры) ---------- */
+function getDone(){try{return parseInt(localStorage.getItem("irina-pspc-done")||"0",10)||0;}catch(e){return 0;}}
+function markDone(n){if(n>getDone()){try{localStorage.setItem("irina-pspc-done",String(n));}catch(e){}}}
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){
+  var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function show(id){["start-card","q-card","flash","end-card","round-card"].forEach(function(c){
+    $(c).classList.add("hidden");});
+  if(id)$(id).classList.remove("hidden");}
+
+function unlockedCount(){
+  if(location.search.indexOf("all=1")!==-1)return DAYS.length;
+  return Math.max(1,Math.min(DAYS.length,getDone()+1));
+}
+function buildDayPicker(){
+  var un=unlockedCount(),done=getDone(),grid=$("day-grid");
+  var allOpen=location.search.indexOf("all=1")!==-1;
+  var frontier=allOpen?Math.min(done+1,DAYS.length):un;
+  var WD=["вс","пн","вт","ср","чт","пт","сб"];
+  var START=new Date(2026,10,8);   /* День 1 = вс 08.11.2026 — Elena's word 08.11 */
+  grid.innerHTML="";
+  DAYS.forEach(function(d,i){
+    var b=document.createElement("button");
+    b.className="day-chip";
+    var todayChip=(i+1)===frontier;
+    if(todayChip)b.classList.add("today");
+    if(i+1>un){b.classList.add("locked");}
+    var dd=new Date(START.getTime());dd.setDate(dd.getDate()+i);
+    var dlabel=WD[dd.getDay()]+" "+("0"+dd.getDate()).slice(-2)+"."+("0"+(dd.getMonth()+1)).slice(-2);
+    var cards=0;d.tasks.forEach(function(t){cards+=t[2];});
+    var icons=d.tasks.slice(0,5).map(function(t){return POOLS[t[0]].icon;}).join("");
+    b.innerHTML='<span class="dnum">День '+d.n+" · "+dlabel+(i+1<=done?" ✓":"")+(todayChip?" · сегодня":"")+(i+1>un?" 🔒":"")+"</span>"+
+      '<span class="dicons">'+icons+" · "+cards+" карточек</span>";
+    b.addEventListener("click",function(){
+      if(i+1>un){b.classList.remove("wiggle");void b.offsetWidth;b.classList.add("wiggle");
+        $("day-msg").textContent="День "+d.n+" откроется, когда закончишь День "+(i)+" 🔒";return;}
+      if(!WHO){needName();return;}
+      startDay(i);
+    });
+    grid.appendChild(b);
+  });
+  var msg=document.createElement("div");
+  msg.className="meta";msg.id="day-msg";msg.textContent="Нажми сегодняшний день";
+  grid.appendChild(msg);
+}
+function needName(){
+  var w=$("who-box");w.classList.add("need");
+  setTimeout(function(){w.classList.remove("need");},900);
+  w.focus();
+  $("day-msg").textContent="Сначала напиши своё имя 🙂";
+}
+
+/* ---------- state ---------- */
+var WHO="",day=null,dayIdx=0,rounds=[],log=[],ri=0,qi=0,timer=null,t0=0,DUR=0,answered=false;
+try{$("who-box").value=(localStorage.getItem("irina-hw-who")||"").trim();WHO=$("who-box").value;}catch(e){}
+buildDayPicker();
+
+$("who-box").addEventListener("input",function(){
+  var v=$("who-box").value.trim();
+  if(v){try{localStorage.setItem("irina-hw-who",v);}catch(e){}WHO=v;}
+});
+
+function startDay(i){
+  day=DAYS[i];dayIdx=i;
+  rounds=day.tasks.map(function(t){
+    var p=POOLS[t[0]],sec=t[1]||0,deal=t[2];
+    var pick=day.fixed?p.cards.slice(0,deal):shuffle(p.cards).slice(0,deal);
+    return {pid:t[0],meta:p,sec:sec,deal:deal,tasks:pick};
+  });
+  /* guarantee the unfamiliar cards on Day 7: splice E2U/E3U back in */
+  if(day.final){
+    var u2=shuffle(E2U).slice(0,2),u3=shuffle(E3U).slice(0,1);
+    var r2=rounds[1],r3=rounds[2];
+    r2.tasks=r2.tasks.slice(0,r2.deal-u2.length).concat(u2);r2.tasks=shuffle(r2.tasks);
+    r3.tasks=r3.tasks.slice(0,r3.deal-u3.length).concat(u3);r3.tasks=shuffle(r3.tasks);
+  }
+  ri=0;log=[];
+  roundFlash();
+}
+$("again-btn").addEventListener("click",function(){
+  startDay(dayIdx);
+});
+$("home-btn").addEventListener("click",function(){
+  buildDayPicker();show("start-card");window.scrollTo(0,0);
+});
+
+function roundFlash(){
+  show("flash");
+  var r=rounds[ri];
+  var rules=day.hint?" · 📚 можно подглядеть в правила":"";
+  $("flash").className="flash";
+  $("flash").innerHTML=r.meta.icon+" "+r.meta.name+
+    '<span class="sub">'+(ri+1)+"-я из "+rounds.length+" игр · "+r.deal+" карточек · "+
+    (r.sec?("часы ⏰ "+r.sec+" с"):"без часов")+rules+"</span>";
+  setTimeout(function(){qi=0;ask();},1500);
+}
+
+function ask(){
+  answered=false;
+  var r=rounds[ri],t=r.tasks[qi];
+  $("q-count").textContent=r.meta.icon+" "+r.meta.name+" · "+(qi+1)+"/"+r.tasks.length+(r.sec?" ⏰":"");
+  var body='<div class="prompt">'+t.q+"</div>";
+  var hint=day.hint?' <span class="hint">📚 PS = обычно · PC = сейчас</span>':"";
+  body+='<div class="helper">'+r.meta.helper+hint+"</div>";
+  if(t.typed){
+    body+='<div class="type-row"><input class="type-box" id="ans-box" placeholder="Пиши здесь…" autocomplete="off" autocapitalize="off" spellcheck="false"></div>';
+    body+='<div class="answer-row"><button class="choice" id="ans-btn">Готово ✔</button></div>';
+    $("q-body").innerHTML=body;
+    show("q-card");
+    var box=$("ans-box");
+    setTimeout(function(){box.focus();},300);
+    var submit=function(){
+      var v=(box.value||"").trim();
+      if(v.length<3){box.classList.add("need");setTimeout(function(){box.classList.remove("need");},900);box.focus();return;}
+      stop();record(t,v,false);advance(true);
+    };
+    $("ans-btn").addEventListener("click",submit);
+    box.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();submit();}});
+  }else{
+    body+='<div class="answer-row" id="answer-row"></div>';
+    $("q-body").innerHTML=body;
+    var row=$("answer-row");
+    shuffle(t.c).forEach(function(c){
+      var b=document.createElement("button");
+      b.className="choice";b.textContent=c;
+      b.addEventListener("click",function(){
+        if(answered)return;answered=true;stop();
+        advance(record(t,c,false));
+      });
+      row.appendChild(b);
+    });
+    show("q-card");
+    start(r.sec,function(){
+      if(answered)return;answered=true;
+      record(t,null,true);nextLate();
+    });
+  }
+}
+
+/* ---------- wall-clock timer ---------- */
+function start(sec,onOut){
+  if(!sec){$("timer-wrap").style.visibility="hidden";$("timer-num").textContent="";return;}
+  $("timer-wrap").style.visibility="visible";
+  DUR=sec*1000;t0=Date.now();
+  var bar=$("timer-bar"),num=$("timer-num");
+  bar.style.transition="none";bar.style.width="100%";
+  num.textContent=sec+" с";num.className="timer-num";
+  timer=setInterval(function(){
+    var left=DUR-(Date.now()-t0);
+    if(left<=0){left=0;bar.style.width="0%";num.textContent="0 с";
+      stop();onOut();return;}
+    bar.style.transition="width .15s linear";
+    bar.style.width=(left/DUR*100)+"%";
+    var s=Math.ceil(left/1000);
+    num.textContent=s+" с";
+    num.className="timer-num"+(s<=5?" low":"");
+  },100);
+}
+function stop(){if(timer){clearInterval(timer);timer=null;}}
+
+/* ---------- THE SKIP CONTROL (Elena's quick-check route) ---------- */
+$("skip-btn").addEventListener("click",function(){
+  if(answered)return;answered=true;stop();
+  var r=rounds[ri],t=r.tasks[qi];
+  log.push({pid:r.pid,label:t.label,given:"⤼",key:t.k||"",why:t.why||"",ok:false,skipped:true});
+  moveSkip();
+});
+function moveSkip(){
+  var r=rounds[ri];
+  var lastOfRound=qi>=r.tasks.length-1;
+  var go=function(){
+    if(!lastOfRound){qi++;ask();}
+    else{showRoundReview();}
+  };
+  show("flash");$("flash").className="flash";$("flash").innerHTML="⤼";
+  setTimeout(go,350);
+}
+
+function record(t,given,late){
+  if(t.typed){
+    log.push({pid:rounds[ri].pid,label:t.label,given:given,typed:true,ok:true});
+    return true;
+  }
+  var ok=!late&&given!=null&&norm(given)===norm(t.k);
+  log.push({pid:rounds[ri].pid,label:t.label,
+    given:late?"ВРЕМЯ ВЫШЛО":given,key:t.k,why:t.why,ok:ok});
+  return ok;
+}
+function norm(s){return (s||"").toString().trim().toLowerCase();}
+function advance(wasOk){move(false,wasOk);}
+function nextLate(){move(true,false);}
+function move(late,wasOk){
+  var r=rounds[ri];
+  var lastOfRound=qi>=r.tasks.length-1;
+  var go=function(){
+    if(!lastOfRound){qi++;ask();}
+    else{showRoundReview();}
+  };
+  if(late){show("flash");$("flash").innerHTML="⏰ Время!";setTimeout(go,950);}
+  else if(wasOk){show("flash");$("flash").className="flash good";$("flash").innerHTML="✅";setTimeout(go,700);}
+  else{show("flash");$("flash").className="flash";$("flash").innerHTML="❌";setTimeout(go,900);}
+}
+
+/* ---------- разбор части ---------- */
+function showRoundReview(){
+  var r=rounds[ri];
+  var rows=log.filter(function(l){return l.pid===r.pid;});
+  var scored=rows.filter(function(l){return !l.typed&&!l.skipped;});
+  var skipped=rows.filter(function(l){return l.skipped;});
+  var okN=scored.filter(function(l){return l.ok;}).length;
+  var typed=rows.filter(function(l){return l.typed;});
+  $("round-count").textContent=r.meta.icon+" "+r.meta.name+" · итог"+(r.sec?" ⏰":"");
+  var line=scored.length?(okN+" / "+scored.length+(okN===scored.length?" — всё верно! 🎉":"")):(typed.length?"Свои ответы ✍️":"всё пропущено ⤼");
+  $("round-line").textContent=line;
+  var missed=scored.filter(function(l){return !l.ok;});
+  var html="";
+  if(missed.length){
+    html+="<b>Разберём, что было не так:</b>"+missed.map(function(l){
+      return '<div class="rmiss"><div class="rline">❌ '+l.label+"</div>"+
+        '<div>ты: <span class="ryou">'+(l.given||"—")+'</span> → верно: <span class="rkey">'+l.key+"</span></div>"+
+        (l.why?'<div class="rwhy">💡 '+l.why+"</div>":"")+"</div>";
+    }).join("");
+  }
+  if(typed.length){
+    html+='<div style="margin-top:.6em"><b>Свои ответы — Елена посмотрит 👀</b>'+typed.map(function(l){
+      return '<div class="rmiss"><div class="rline">🖊 '+l.label+": "+(l.given||"—")+"</div></div>";
+    }).join("")+"</div>";
+  }
+  if(skipped.length){
+    html+='<div style="margin-top:.6em"><b>⤼ Пропущено ('+skipped.length+'):</b>'+skipped.map(function(l){
+      return '<div class="rmiss">⤼ '+l.label+"</div>";
+    }).join("")+"</div>";
+  }
+  if(html){$("round-miss").style.display="block";$("round-miss").innerHTML=html;}
+  else{$("round-miss").style.display="none";}
+  $("next-btn").textContent=(ri<rounds.length-1)?"Дальше →":(day.final?"К итогам недели 🏁":"К итогам дня 🏁");
+  show("round-card");window.scrollTo(0,0);
+}
+$("next-btn").addEventListener("click",function(){
+  if(ri<rounds.length-1){ri++;roundFlash();}
+  else{finish();}
+});
+
+/* ---------- end + report ---------- */
+function reportText(){
+  var scoredAll=log.filter(function(l){return !l.typed&&!l.skipped;});
+  var total=scoredAll.length,ok=scoredAll.filter(function(l){return l.ok;}).length;
+  var skippedAll=log.filter(function(l){return l.skipped;});
+  var lines=[(WHO||"IRINA")+" · IRINA PSPC · День "+day.n+" · "+new Date().toLocaleString(),
+    "Итог дня: "+ok+" / "+total+(skippedAll.length?" · ⤼ пропущено: "+skippedAll.length:"")+" (scored; typed answers counted separately)"];
+  day.tasks.forEach(function(t){
+    var p=POOLS[t[0]];
+    var rows=log.filter(function(l){return l.pid===t[0];});
+    if(rows.length){
+      var scored=rows.filter(function(l){return !l.typed&&!l.skipped;});
+      var sk=rows.filter(function(l){return l.skipped;}).length;
+      var typed=rows.filter(function(l){return l.typed;});
+      var s=scored.length?(": "+scored.filter(function(l){return l.ok;}).length+"/"+scored.length):"";
+      lines.push(p.icon+" "+p.name+(t[1]?" (⏰ "+t[1]+" с)":"")+s+(sk?" (⤼ "+sk+" skipped)":""));
+      typed.forEach(function(l){lines.push("   🖊 "+l.label+" — her: "+(l.given||"—"));});
+    }
+  });
+  if(skippedAll.length){
+    lines.push("","Skipped ("+skippedAll.length+"):");
+    skippedAll.forEach(function(l){lines.push("  · ⤼ skipped by "+(WHO||"IRINA")+": "+l.label+(l.key?" · key: "+l.key:""));});
+  }
+  var missed=scoredAll.filter(function(l){return !l.ok;});
+  if(missed.length){
+    lines.push("","Missed or too late ("+missed.length+"):");
+    missed.forEach(function(l){lines.push("  · "+l.label+" — her: "+(l.given||"—")+" · key: "+l.key);});
+  }else{lines.push("","Missed or too late: none! 🎉");}
+  return lines.join("\n");
+}
+function finish(){
+  var scoredAll=log.filter(function(l){return !l.typed&&!l.skipped;});
+  var total=scoredAll.length,ok=scoredAll.filter(function(l){return l.ok;}).length;
+  markDone(day.n);
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/Math.max(1,total)*5)));
+  $("end-title").textContent=day.final?"Неделя пройдена! 🏆":"Молодец!";
+  var bits=[];
+  day.tasks.forEach(function(t){
+    var p=POOLS[t[0]];
+    var rows=log.filter(function(l){return l.pid===t[0];});
+    if(rows.length){
+      var scored=rows.filter(function(l){return !l.typed&&!l.skipped;});
+      var sk=rows.filter(function(l){return l.skipped;}).length;
+      var typed=rows.filter(function(l){return l.typed;});
+      if(scored.length)bits.push(p.icon+" "+scored.filter(function(l){return l.ok;}).length+"/"+scored.length+(t[1]?"⏰":"")+(sk?"⤼×"+sk:""));
+      else if(sk)bits.push(p.icon+" ⤼"+(t[1]?"⏰":"")+"⤼×"+sk);
+      if(typed.length)bits.push(p.icon+" 🖊×"+typed.length);
+    }
+  });
+  $("end-rows").textContent=bits.join("  ·  ");
+  var missed=scoredAll.filter(function(l){return !l.ok;});
+  if(missed.length){
+    $("miss-list").style.display="block";
+    $("miss-list").innerHTML="<b>Для словарика:</b><br>"+missed.map(function(l){
+      return "· "+l.label+" → <span class='k'>"+l.key+"</span>";}).join("<br>");
+  }
+  var txt=reportText();
+  try{localStorage.setItem("irina-pspc-last",txt);}catch(e){}
+  sendReport(txt);
+  $("sent-line").textContent="…";
+  setTimeout(function(){
+    $("sent-line").textContent="✅ Результат уже у твоего учителя!";
+  },1400);
+  show("end-card");
+  window.scrollTo(0,0);
+}
+
+/* ---------- auto-send (fetch → iframe fallback → localStorage queue) ---------- */
+var QKEY="irina-hw-form-queue";
+function queueGet(){try{return JSON.parse(localStorage.getItem(QKEY)||"[]");}catch(e){return[];}}
+function queueAdd(txt){var q=queueGet();q.push(txt);try{localStorage.setItem(QKEY,JSON.stringify(q));}catch(e){}}
+function queueClear(){try{localStorage.setItem("irina-hw-form-queue","[]");}catch(e){}}
+function postOne(txt,done){
+  var okFn=function(){done(true);},badFn=function(){done(false);};
+  try{
+    var body=new FormData();
+    body.append(HW_FORM.entryReport,txt);
+    fetch(HW_FORM.action,{method:"POST",mode:"no-cors",body:body})
+      .then(function(){okFn();}).catch(function(){iframePost(txt,okFn,badFn);});
+  }catch(e){iframePost(txt,okFn,badFn);}
+}
+function iframePost(txt,okFn,badFn){
+  try{
+    var frame=document.createElement("iframe");
+    frame.name="hf-"+Date.now();frame.style.display="none";
+    document.body.appendChild(frame);
+    var f=document.createElement("form");
+    f.method="POST";f.action=HW_FORM.action;f.target=frame.name;
+    var inp=document.createElement("input");
+    inp.type="hidden";inp.name=HW_FORM.entryReport;inp.value=txt;
+    f.appendChild(inp);
+    document.body.appendChild(f);f.submit();
+    setTimeout(function(){okFn();},1200);
+  }catch(e){badFn();}
+}
+function sendReport(txt){
+  postOne(txt,function(ok){
+    if(!ok){queueAdd(txt);return;}
+    var q=queueGet();
+    if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}
+  });
+}
+/* flush old queue on load — at the tail, after all listeners attach */
+(function(){var q=queueGet();if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}})();
+})();
+</script>
+</body>
+</html>

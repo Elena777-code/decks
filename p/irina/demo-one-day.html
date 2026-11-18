@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ирина · демо домашки · один день</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sea:#2EC4B6; --sea-deep:#1B7A8C; --ink:#123B44; --ink-soft:#5b7a80;
+  --coral:#FF6B6B; --sun:#FFD166; --card:#ffffff; --bg:#EAF7F5;
+  --shadow:0 10px 30px rgba(18,59,68,.14); --radius:22px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--bg);
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  padding:4vh 5vw 8vh;-webkit-font-smoothing:antialiased}
+header{max-width:680px;width:100%;text-align:center;margin-bottom:1em}
+.eyebrow{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;font-size:.72rem;color:var(--sea-deep)}
+h1{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.6rem,7vw,2.4rem);line-height:1.15;margin-top:.15em}
+main{max-width:680px;width:100%}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:clamp(1.3rem,4.5vw,2.2rem);text-align:center;animation:pop .25s ease}
+@keyframes pop{from{transform:scale(.97);opacity:0}to{transform:scale(1);opacity:1}}
+.hidden{display:none}
+.rules{margin-top:1em;color:var(--ink-soft);font-weight:700;font-size:clamp(1rem,3.6vw,1.15rem);line-height:1.7}
+.meta{margin-top:.6em;color:var(--ink-soft);font-weight:700;font-size:.85rem}
+button{font-family:'Fredoka','Nunito',sans-serif;font-weight:600;border:none;cursor:pointer;
+  border-radius:99px;transition:transform .12s ease,box-shadow .12s ease}
+button:active{transform:scale(.96)}
+.name-row{margin-bottom:.4em}
+input.type-box{font-family:'Nunito',sans-serif;font-weight:800;font-size:clamp(1.2rem,5vw,1.6rem);
+  color:var(--ink);text-align:center;border:3px solid #cfe9e6;border-radius:16px;
+  padding:.45em .6em;width:min(340px,84vw);outline:none;background:#fbffff}
+input.type-box:focus{border-color:var(--sea)}
+input.type-box.need{border-color:var(--coral);animation:need .3s ease}
+@keyframes need{50%{transform:translateX(-4px)}}
+/* --- round flash --- */
+.flash{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6.5vw,2.2rem);
+  color:var(--coral);text-align:center;padding:2.6em 0;animation:pop .2s ease}
+.flash .sub{display:block;font-size:.55em;color:var(--ink-soft);margin-top:.6em}
+.flash.good{color:var(--sea)}
+/* --- question card --- */
+.qrow{display:flex;justify-content:space-between;align-items:center;gap:.5em}
+.qcount{font-size:.85rem;font-weight:800;color:var(--sea-deep);letter-spacing:.06em;text-transform:uppercase}
+.skip-btn{background:transparent;color:var(--ink-soft);font-size:.78rem;font-weight:600;
+  padding:.25em .8em;border:1px dashed #bfe3df;border-radius:99px;white-space:nowrap}
+.prompt{font-size:clamp(1.2rem,4.8vw,1.65rem);font-weight:800;line-height:1.6;margin-top:.4em}
+.prompt .gap{display:inline-block;min-width:4.2em;border-bottom:3px solid var(--coral);color:var(--coral)}
+.prompt .base{color:var(--sea-deep);font-family:'Fredoka','Nunito',sans-serif;font-weight:600}
+.helper{margin-top:.8em;font-size:.9rem;font-weight:700;color:var(--ink-soft);line-height:1.7}
+.wbox{display:inline-block;background:#f0fafa;border-radius:14px;padding:.45em .9em;
+  color:var(--sea-deep);font-weight:800;letter-spacing:.02em}
+.type-row{margin-top:1em}
+.answer-row{margin-top:.9em}
+.go-btn{background:var(--sun);color:var(--ink);font-size:clamp(1rem,4vw,1.2rem);
+  padding:.6em 1.9em;box-shadow:0 6px 0 #e3b95f}
+.answer-row{display:flex;gap:.6em;justify-content:center;flex-wrap:wrap;margin-top:1em}
+.choice{background:#f0fafa;color:var(--ink);font-size:clamp(1.05rem,4.2vw,1.3rem);
+  padding:.5em 1.4em;box-shadow:0 4px 0 #cfe9e6;line-height:1.15}
+.choice:active{box-shadow:0 1px 0 #cfe9e6;transform:translateY(3px)}
+/* --- review cards --- */
+.one-line{margin:1em 0 .2em;font-weight:800;font-size:clamp(1.05rem,4vw,1.25rem);line-height:1.7}
+.miss-list{margin-top:.8em;text-align:left;background:#f2fbf9;border-radius:16px;padding:.9em 1.1em;
+  font-size:clamp(.95rem,3.6vw,1.1rem);font-weight:700;line-height:1.6;display:none}
+.miss-list .k{color:var(--sea-deep)}
+.rmiss{margin-top:.7em}
+.rmiss .rline{font-weight:800;font-size:clamp(.95rem,3.6vw,1.1rem)}
+.rmiss .ryou{color:var(--coral);font-weight:800}
+.rmiss .rkey{color:var(--sea-deep);font-weight:800}
+.next-btn{background:var(--sun);color:var(--ink);font-size:clamp(1rem,4vw,1.2rem);
+  padding:.7em 1.8em;margin-top:1em;box-shadow:0 6px 0 #e3b95f}
+.again-btn{background:var(--sea);color:#fff;font-size:clamp(1rem,4vw,1.2rem);
+  padding:.7em 1.8em;margin-top:.9em;box-shadow:0 6px 0 #239d92}
+.home-btn{background:transparent;color:var(--sea-deep);font-size:1rem;
+  padding:.6em 1.4em;margin-top:.7em;border:2px solid #bfe3df;margin-left:.5em}
+.stars{font-size:clamp(2rem,9vw,3rem);margin:.2em 0}
+.end-title{font-family:'Fredoka','Nunito',sans-serif;font-weight:700;font-size:clamp(1.5rem,6vw,2.2rem)}
+.sent{margin-top:.6em;font-weight:700;color:var(--sea-deep)}
+footer{max-width:680px;width:100%;text-align:center;margin-top:1.6em;
+  color:var(--ink-soft);font-size:.78rem;font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Ирина · демо домашки · один день ✍️</div>
+  <h1>Напиши, а не нажми!</h1>
+</header>
+
+<main>
+  <div class="card" id="start-card">
+    <div class="name-row"><input class="type-box" id="who-box" placeholder="Кто играет?" autocomplete="off" autocapitalize="off" spellcheck="false"></div>
+    <p class="rules">Демо одного дня: <b>слова — из коробки по кнопке</b>,<br>
+    а формы и вопросы — <b>печатаем буквами</b> ✍️.<br>
+    Часов нет ⏳ — спокойно и аккуратно.<br>
+    После каждой части — разбор 💡. Три части: слова · пары · вопросы.</p>
+    <div><button class="next-btn" id="begin-btn">Начать ▶</button></div>
+    <div class="meta">демо · build 2026-11-10 · v3 · слова — кнопкой из коробки · формы и вопросы — печатью · задания как в источниках: Test Booklet Ex.A · DVIZH PS/PC Ex.2–Ex.3</div>
+  </div>
+
+  <div class="flash hidden" id="flash"></div>
+
+  <div class="card hidden" id="q-card">
+    <div class="qcount" id="q-count"></div>
+    <div id="q-body"></div>
+  </div>
+
+  <div class="card hidden" id="round-card">
+    <div class="qcount" id="round-count"></div>
+    <div class="one-line" id="round-line"></div>
+    <div class="miss-list" id="round-miss"></div>
+    <div><button class="next-btn" id="next-btn">Дальше →</button></div>
+  </div>
+
+  <div class="card hidden" id="end-card">
+    <div class="stars" id="end-stars"></div>
+    <div class="end-title">Готово!</div>
+    <div class="one-line" id="end-rows"></div>
+    <div class="miss-list" id="miss-list"></div>
+    <div class="sent" id="sent-line">…</div>
+    <div><button class="again-btn" id="again-btn">🔁 Ещё раз</button>
+         <button class="home-btn" id="home-btn">🏠 В начало</button></div>
+  </div>
+</main>
+
+<footer>демо одного дня · печать буквами · задания — как в источниках</footer>
+
+<script>
+(function(){
+"use strict";
+/* auto-send → Elena's Google Form «Irina» (same form as week.html / hw.html) */
+var HW_FORM={action:"https://docs.google.com/forms/d/e/1FAIpQLScYuudgy8Zza0OF09fpnu43OsOehkkNQT5BtnF7QH7uVne9SA/formResponse",entryReport:"entry.1898990974"};
+
+/* ---------- THE DAY: three rounds, every item typed ----------
+   Sources, sentences untouched:
+   R1 = Test Booklet Ex.A (the word box stays visible — copy the word right)
+   R2 = DVIZH PS/PC Ex.2 (6 of the 12 pairs, the box as printed)
+   R3 = DVIZH PS/PC Ex.3 (6 items) */
+
+var BOXA=["fry","slice","dessert","aisle","run","attracts","order","tub","spicy","serves"];
+var BOXA_TXT="fry · slice · dessert · aisle · run · attracts · order · tub · spicy · serves";
+var BOX2="chase · chase · drive · eat · fly · play · play · rain · sell · speak · work · write";
+
+var RA=[
+ {q:'London <span class="gap">___</span> millions of tourists every year.',a:"attracts",v:["attracts"]},
+ {q:'Mexican food is hot and <span class="gap">___</span>.',a:"spicy",v:["spicy"]},
+ {q:"Ed's café <span class=\"gap\">___</span> breakfast and lunch daily.",a:"serves",v:["serves"]},
+ {q:'Joe can eat a big <span class="gap">___</span> of ice cream all by himself.',a:"tub",v:["tub"]},
+ {q:'What would you like to <span class="gap">___</span>, madam?',a:"order",v:["order"]},
+ {q:'Andy is creative because he lets his imagination <span class="gap">___</span> wild.',a:"run",v:["run"]},
+ {q:'Her favourite <span class="gap">___</span> is apple pie.',a:"dessert",v:["dessert"]},
+ {q:'Can I have a <span class="gap">___</span> of bread, please?',a:"slice",v:["slice"]},
+ {q:'Heat the oil and <span class="gap">___</span> the mushrooms for 10 minutes.',a:"fry",v:["fry"]},
+ {q:'Can you get a carton of juice from the drinks <span class="gap">___</span>?',a:"aisle",v:["aisle"]}
+];
+var R2=[
+ {q:'Cats <span class="gap">___</span> mice.',a:"chase",v:["chase"]},
+ {q:'But this cat <span class="gap">___</span> mice.',a:"is not chasing",v:["is not chasing","isn't chasing"]},
+ {q:'Cows <span class="gap">___</span> grass.',a:"eat",v:["eat"]},
+ {q:'But this cow <span class="gap">___</span> grass.',a:"is not eating",v:["is not eating","isn't eating"]},
+ {q:'It often <span class="gap">___</span>.',a:"rains",v:["rains"]},
+ {q:'But it <span class="gap">___</span> now.',a:"is not raining",v:["is not raining","isn't raining"]},
+ {q:'John <span class="gap">___</span> every day.',a:"works",v:["works"]},
+ {q:'But he <span class="gap">___</span> today.',a:"is not working",v:["is not working","isn't working"]},
+ {q:'This shop <span class="gap">___</span> books.',a:"sells",v:["sells"]},
+ {q:'But it <span class="gap">___</span> books now.',a:"is not selling",v:["is not selling","isn't selling"]},
+ {q:'Simon <span class="gap">___</span> poetry.',a:"writes",v:["writes"]},
+ {q:'But he <span class="gap">___</span> poetry now.',a:"is not writing",v:["is not writing","isn't writing"]}
+];
+var R3=[
+ {q:"<span class=\"base\">'___?'</span> — 'No, never.' <span class=\"base\">(you / smoke)</span>",a:"Do you smoke",v:["do you smoke"]},
+ {q:"<span class=\"base\">'What ___?'</span> — 'A cheese sandwich.' <span class=\"base\">(you / eat)</span>",a:"are you eating",v:["are you eating"]},
+ {q:"<span class=\"base\">'Where ___ these days?'</span> — 'In a garage.' <span class=\"base\">(he / work)</span>",a:"is he working",v:["is he working"]},
+ {q:"<span class=\"base\">'___ here in summer?'</span> — 'Not very often.' <span class=\"base\">(it / rain)</span>",a:"Does it rain",v:["does it rain"]},
+ {q:"<span class=\"base\">'Bonjour.'</span> — 'Sorry, I ___ French.' <span class=\"base\">(not / speak)</span>",a:"don't speak",v:["don't speak","do not speak"]},
+ {q:"<span class=\"base\">Well, goodnight. '___ to bed.'</span> <span class=\"base\">(I / go)</span>",a:"I'm going",v:["i'm going","i am going","im going"]}
+];
+
+var ROUNDS=[
+ {id:"A",icon:"📖",name:"Слова из текста",tap:true,box:BOXA,boxTxt:BOXA_TXT,helper:"Выбери слово из коробки — нажми на него",cards:RA},
+ {id:"2",icon:"✏️",name:"Пары: обычно и сейчас",box:BOX2,helper:"Вставь глагол из коробки: обычно — без -ing; «But… now» — с is not и -ing",cards:R2},
+ {id:"3",icon:"❓",name:"Вопросы и ответы",box:null,helper:"Напиши весь вопрос или ответ целиком (подсказка в скобках)",cards:R3}
+];
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function show(id){["start-card","q-card","flash","end-card","round-card"].forEach(function(c){
+    $(c).classList.add("hidden");});
+  if(id)$(id).classList.remove("hidden");}
+function norm(s){return (s||"").toString().toLowerCase()
+  .replace(/[\u2019\u2018']/g,"'")
+  .replace(/[.?!,;:]/g,"")
+  .replace(/\s+/g," ").trim();}
+function isRight(t,given){return t.v.some(function(v){return norm(v)===norm(given);});}
+
+/* ---------- state ---------- */
+var WHO="",rounds=[],log=[],ri=0,qi=0;
+try{$("who-box").value=(localStorage.getItem("irina-hw-who")||"").trim();WHO=$("who-box").value;}catch(e){}
+
+$("who-box").addEventListener("input",function(){
+  var v=$("who-box").value.trim();
+  if(v){try{localStorage.setItem("irina-hw-who",v);}catch(e){}WHO=v;}
+});
+
+function needName(){
+  var w=$("who-box");if(!w)return;
+  w.classList.add("need");setTimeout(function(){w.classList.remove("need");},900);w.focus();
+  $("day-msg")&&($("day-msg").textContent="Сначала напиши своё имя 🙂");
+}
+
+$("begin-btn").addEventListener("click",function(){
+  if(!WHO){needName();return;}
+  rounds=ROUNDS.map(function(r){return {meta:r,log0:[]};});
+  ri=0;qi=0;log=[];
+  roundFlash();
+});
+$("again-btn").addEventListener("click",function(){ri=0;qi=0;log=[];roundFlash();});
+$("home-btn").addEventListener("click",function(){show("start-card");window.scrollTo(0,0);});
+
+function roundFlash(){
+  show("flash");
+  var r=rounds[ri].meta;
+  $("flash").className="flash";
+  $("flash").innerHTML=r.icon+" "+r.name+
+    '<span class="sub">'+(ri+1)+"-я из "+rounds.length+" частей · "+r.cards.length+" предложений · "+
+    (r.tap?"выбери слово 👆":"печать ✍️")+
+    ((r.boxTxt||r.box)?' · коробка: '+(r.boxTxt||r.box):"")+"</span>"+
+    '<div style="margin-top:1.2em"><button class="choice" id="go-round">▶ Начать часть</button> '+
+    '<button class="choice" id="skip-round" style="background:#fff4f4;box-shadow:0 4px 0 #f0c9c9">⤼ Skip the task</button></div>';
+  qi=0;
+  $("go-round").addEventListener("click",function(){ask();});
+  $("skip-round").addEventListener("click",skipRound);
+}
+function skipRound(){
+  var r=rounds[ri].meta;
+  r.cards.forEach(function(t){
+    log.push({rid:r.id,label:(t.q||"").replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim().slice(0,60),
+      given:null,key:t.a,ok:null,skipped:true});
+  });
+  if(ri<rounds.length-1){ri++;roundFlash();}
+  else{finish();}
+}
+
+function ask(){
+  var r=rounds[ri].meta,t=r.cards[qi];
+  var body='<div class="qrow"><span class="qcount" id="q-count">'+r.icon+" "+r.name+" · "+(qi+1)+"/"+r.cards.length+'</span>'+
+    '<button class="skip-btn" id="skip-btn">⤼ Skip the question</button></div>';
+  body+='<div class="prompt">'+t.q+"</div>";
+  body+='<div class="helper">'+((r.boxTxt||r.box)?'📦 <span class="wbox">'+(r.boxTxt||r.box)+"</span><br>":"")+r.helper+"</div>";
+  if(r.tap){
+    body+='<div class="answer-row" id="answer-row"></div>';
+    $("q-body").innerHTML=body;
+    show("q-card");
+    wireSkip(t);
+    var row=$("answer-row");
+    r.box.forEach(function(w){
+      var b=document.createElement("button");
+      b.className="choice";b.textContent=w;
+      b.addEventListener("click",function(){
+        record(t,w);
+        var ok=isRight(t,w);
+        show("flash");
+        $("flash").className="flash"+(ok?" good":"");
+        $("flash").innerHTML=ok?"✅":"❌"+'<span class="sub">верно: '+t.a+"</span>";
+        setTimeout(function(){
+          if(qi<r.cards.length-1){qi++;ask();}
+          else{showRoundReview();}
+        },ok?750:1250);
+      });
+      row.appendChild(b);
+    });
+    return;
+  }
+  body+='<div class="type-row"><input class="type-box" id="ans-box" placeholder="Пиши здесь…" autocomplete="off" autocapitalize="off" spellcheck="false"></div>';
+  body+='<div class="answer-row"><button class="go-btn" id="ans-btn">Готово ✔</button></div>';
+  $("q-body").innerHTML=body;
+  show("q-card");
+  wireSkip(t);
+  var box=$("ans-box");
+  setTimeout(function(){box.focus();},250);
+  var submit=function(){
+    var v=(box.value||"").trim();
+    if(!v){box.classList.add("need");setTimeout(function(){box.classList.remove("need");},900);box.focus();return;}
+    record(t,v);
+    var ok=isRight(t,v);
+    show("flash");
+    $("flash").className="flash"+(ok?" good":"");
+    $("flash").innerHTML=ok?"✅":"❌"+'<span class="sub">верно: '+t.a+"</span>";
+    setTimeout(function(){
+      if(qi<r.cards.length-1){qi++;ask();}
+      else{showRoundReview();}
+    },ok?750:1250);
+  };
+  $("ans-btn").addEventListener("click",submit);
+  box.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();submit();}});
+}
+
+function wireSkip(t){
+  var b=$("skip-btn");
+  if(!b)return;
+  b.addEventListener("click",function(){
+    record(t,null,true);
+    show("flash");
+    $("flash").className="flash";
+    $("flash").innerHTML="⤼"+'<span class="sub">пропущено</span>';
+    setTimeout(function(){
+      if(qi<rounds[ri].meta.cards.length-1){qi++;ask();}
+      else{showRoundReview();}
+    },700);
+  });
+}
+
+function record(t,given,skipped){
+  var ok=skipped?null:isRight(t,given);
+  log.push({rid:rounds[ri].meta.id,label:(t.q||"").replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim().slice(0,60),
+    given:given,key:t.a,ok:ok,skipped:!!skipped});
+}
+
+function showRoundReview(){
+  var r=rounds[ri].meta;
+  var rows=log.filter(function(l){return l.rid===r.id;});
+  var scored=rows.filter(function(l){return !l.skipped;});
+  var skipped=rows.filter(function(l){return l.skipped;});
+  var okN=scored.filter(function(l){return l.ok;}).length;
+  $("round-count").textContent=r.icon+" "+r.name+" · итог";
+  $("round-line").textContent=scored.length?(okN+" / "+scored.length+(okN===scored.length?" — всё верно! 🎉":"")):"всё пропущено ⤼";
+  var missed=scored.filter(function(l){return !l.ok;});
+  var html="";
+  if(missed.length){
+    html+="<b>Разберём, что было не так:</b>"+missed.map(function(l){
+      return '<div class="rmiss"><div class="rline">❌ …'+l.label.slice(-38)+"</div>"+
+        '<div>ты: <span class="ryou">'+(l.given||"—")+'</span> → верно: <span class="rkey">'+l.key+"</span></div></div>";
+    }).join("");
+  }
+  if(skipped.length){
+    html+='<div style="margin-top:.6em"><b>⤼ Пропущено ('+skipped.length+'):</b>'+skipped.map(function(l){
+      return '<div class="rmiss">⤼ …'+l.label.slice(-38)+' → верно: <span class="rkey">'+l.key+"</span></div>";
+    }).join("")+"</div>";
+  }
+  if(html){$("round-miss").style.display="block";$("round-miss").innerHTML=html;}
+  else{$("round-miss").style.display="none";}
+  $("next-btn").textContent=(ri<rounds.length-1)?"Дальше →":"К итогам дня 🏁";
+  show("round-card");window.scrollTo(0,0);
+}
+$("next-btn").addEventListener("click",function(){
+  if(ri<rounds.length-1){ri++;roundFlash();}
+  else{finish();}
+});
+
+/* ---------- end + report ---------- */
+function reportText(){
+  var scored=log.filter(function(l){return !l.skipped;});
+  var total=scored.length,ok=scored.filter(function(l){return l.ok;}).length;
+  var skippedN=log.length-scored.length;
+  var lines=[(WHO||"IRINA")+" · IRINA DEMO · один день · "+new Date().toLocaleString(),
+    "Итог: "+ok+" / "+total+" (scored)"+(skippedN?" · ⤼ пропущено: "+skippedN:"")+" (слова — из коробки кнопкой; формы и вопросы — печатью)"];
+  ROUNDS.forEach(function(r){
+    var rows=log.filter(function(l){return l.rid===r.id;});
+    if(rows.length){
+      var sc=rows.filter(function(l){return !l.skipped;});
+      var sk=rows.length-sc.length;
+      lines.push(r.icon+" "+r.name+": "+(sc.length?sc.filter(function(l){return l.ok;}).length+"/"+sc.length:"—")+(sk?" (⤼ "+sk+" skipped)":""));
+    }
+  });
+  var skipped=log.filter(function(l){return l.skipped;});
+  if(skipped.length){
+    lines.push("","Skipped ("+skipped.length+"):");
+    skipped.forEach(function(l){lines.push("  · ⤼ skipped by "+(WHO||"IRINA")+": …"+l.label.slice(-40)+" · key: "+l.key);});
+  }
+  var missed=scored.filter(function(l){return !l.ok;});
+  if(missed.length){
+    lines.push("","Wrong typing ("+missed.length+"):");
+    missed.forEach(function(l){lines.push("  · …"+l.label.slice(-40)+" — her: "+(l.given||"—")+" · key: "+l.key);});
+  }else{lines.push("","Wrong typing: none! 🎉");}
+  return lines.join("\n");
+}
+function finish(){
+  var scored=log.filter(function(l){return !l.skipped;});
+  var total=scored.length,ok=scored.filter(function(l){return l.ok;}).length;
+  $("end-stars").textContent="⭐".repeat(Math.max(1,Math.round(ok/Math.max(1,total)*5)));
+  var bits=ROUNDS.map(function(r){
+    var rows=log.filter(function(l){return l.rid===r.id;});
+    var sc=rows.filter(function(l){return !l.skipped;});
+    var sk=rows.length-sc.length;
+    if(!rows.length)return null;
+    return r.icon+" "+(sc.length?sc.filter(function(l){return l.ok;}).length+"/"+sc.length:"⤼")+(sk?"⤼×"+sk:"");
+  }).filter(Boolean);
+  $("end-rows").textContent=bits.join("  ·  ");
+  var missed=scored.filter(function(l){return !l.ok;});
+  if(missed.length){
+    $("miss-list").style.display="block";
+    $("miss-list").innerHTML="<b>Для словарика:</b><br>"+missed.map(function(l){
+      return "· …"+l.label.slice(-34)+" → <span class='k'>"+l.key+"</span>";}).join("<br>");
+  }
+  var txt=reportText();
+  try{localStorage.setItem("irina-demo-last",txt);}catch(e){}
+  sendReport(txt);
+  $("sent-line").textContent="…";
+  setTimeout(function(){$("sent-line").textContent="✅ Результат уже у твоего учителя!";},1400);
+  show("end-card");
+  window.scrollTo(0,0);
+}
+
+/* ---------- auto-send (fetch → iframe fallback → localStorage queue) ---------- */
+var QKEY="irina-hw-form-queue";
+function queueGet(){try{return JSON.parse(localStorage.getItem(QKEY)||"[]");}catch(e){return[];}}
+function queueAdd(txt){var q=queueGet();q.push(txt);try{localStorage.setItem(QKEY,JSON.stringify(q));}catch(e){}}
+function queueClear(){try{localStorage.setItem("irina-hw-form-queue","[]");}catch(e){}}
+function postOne(txt,done){
+  var okFn=function(){done(true);},badFn=function(){done(false);};
+  try{
+    var body=new FormData();
+    body.append(HW_FORM.entryReport,txt);
+    fetch(HW_FORM.action,{method:"POST",mode:"no-cors",body:body})
+      .then(function(){okFn();}).catch(function(){iframePost(txt,okFn,badFn);});
+  }catch(e){iframePost(txt,okFn,badFn);}
+}
+function iframePost(txt,okFn,badFn){
+  try{
+    var frame=document.createElement("iframe");
+    frame.name="hf-"+Date.now();frame.style.display="none";
+    document.body.appendChild(frame);
+    var f=document.createElement("form");
+    f.method="POST";f.action=HW_FORM.action;f.target=frame.name;
+    var inp=document.createElement("input");
+    inp.type="hidden";inp.name=HW_FORM.entryReport;inp.value=txt;
+    f.appendChild(inp);
+    document.body.appendChild(f);f.submit();
+    setTimeout(function(){okFn();},1200);
+  }catch(e){badFn();}
+}
+function sendReport(txt){
+  postOne(txt,function(ok){
+    if(!ok){queueAdd(txt);return;}
+    var q=queueGet();
+    if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}
+  });
+}
+(function(){var q=queueGet();if(q.length){queueClear();q.forEach(function(t){postOne(t,function(){});});}})();
+})();
+</script>
+</body>
+</html>
