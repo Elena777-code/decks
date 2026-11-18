@@ -295,6 +295,12 @@ img.sheet.small{width:min(430px,90%)}
 .testwrap img.sheet{flex:0 1 auto;width:min(560px,86%)}
 .testkey li{font-size:clamp(1.1rem,2vw,1.6rem);line-height:1.5;margin-left:1.2em}
 </style>
+<style>
+/* THE FULLSCREEN BIGNESS (Elena, 19.11: «worksheets are not big when I tap them») */
+.picwrap:fullscreen{background:#fff;display:flex;align-items:center;justify-content:center}
+.picwrap:fullscreen img,.picwrap:-webkit-full-screen img{max-height:100vh !important;max-width:100vw !important;width:auto;height:auto}
+.picwrap:fullscreen .fsbtn,.picwrap:-webkit-full-screen .fsbtn{display:none}
+</style>
 <style>/* THE FILM CUE</style>
 </head>
 <body>
@@ -410,38 +416,56 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>📖 dad 👍 → bad 👎 → <b style="color:var(--mint-deep)">stick the poster into the copybook!</b></p></div>
 </section>
 
-<!-- 9 · PB p. 22 ex. 1 — T/D LISTEN AND POINT (the конспект's stage — 🎧34) -->
+<!-- 9 · PB p. 22 ex. 1 — T/D LISTEN AND POINT — THE INTERACTIVE TAP GAME (Elena: «turn the PB exercises into interactive activities») -->
 <section class="slide">
-  <div class="eyebrow reveal-el">Monty's sounds and spelling 🔊 · PB p. 22</div>
-  <h1 class="title reveal-el">t or d? — Listen and point! 🎧</h1>
+  <div class="eyebrow reveal-el">Monty's sounds and spelling · PB p. 22 · the game</div>
+  <h1 class="title reveal-el">t or d? — Say the word, TAP the letter!</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 train — t! doll — d! Circle the letter!</div>
+  <div class="task reveal-el">🎯 Say it loud — then tap t or d!</div>
   <div class="duo reveal-el">
-    <span class="picwrap" style="--ar:0.707;flex:1 1 280px"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-pb22.png" alt="PB p. 22 — the t/d sounds and spelling" style="max-height:44vh;width:auto;"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
-    <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:1.2vh;min-width:0">
+    <span class="picwrap" style="--ar:0.707;flex:1 1 250px"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-pb22.png" alt="PB p. 22 - the t/d sounds and spelling" style="max-height:30vh;width:auto;cursor:pointer" onclick="fsPic(this)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+    <div style="flex:1 1 240px;display:flex;flex-direction:column;gap:1vh;min-width:0">
       <audio controls preload="none" src="../media/kb1-u3-pb22-t34.mp3"></audio>
-      <div class="card mint" style="margin:0"><p>🎧 <b style="color:var(--mint-deep)">«A doll, a drum and a teddy on a train. Drive under two tables!»</b></p></div>
-      <div class="card peach" style="margin:0"><p>board: <b style="color:var(--pink)">t</b> · <b style="color:var(--lavender-deep)">d</b> — circle for train, doll, dance, two, table!</p></div>
+      <div class="card mint" style="margin:0"><p>🎧 «<b style="color:var(--mint-deep)">A doll, a drum and a teddy on a train!</b>»</p></div>
     </div>
   </div>
+  <div id="td9" style="background:#eafbf6;border-radius:14px;padding:12px;margin:6px 0">
+    <div id="td9-count" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 7</div>
+    <div id="td9-word" style="text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.8rem);color:#2D3436;min-height:1.4em;margin:8px 0"></div>
+    <div style="display:flex;gap:14px;justify-content:center;margin-top:6px">
+      <button id="td9-t" onclick="tdAns('td9','t')" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.5rem;border:none;border-radius:99px;padding:.4em 1.4em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">t</button>
+      <button id="td9-d" onclick="tdAns('td9','d')" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.5rem;border:none;border-radius:99px;padding:.4em 1.4em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">d</button>
+    </div>
+    <button id="td9-again" onclick="tdStart('td9')" style="display:none;margin:8px auto 0;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.15rem;border:none;border-radius:99px;padding:.5em 1.5em;background:#95E1D3;color:#2D3436;cursor:pointer">▶ Играть ещё раз!</button>
+    <div id="td9-end" style="display:none;text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.3rem;color:#2D3436;margin-top:6px"></div>
+  </div>
+  <style>#td9-word.wrong{animation:tdshake .35s}#td9-word.ok{color:#27ae60}@keyframes tdshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}</style>
 </section>
-
-<!-- 10 · AB p. 22 ex. 1–2 — CIRCLE T/D + LOOK AND WRITE (the конспект's stage — 🎧12) -->
+<!-- 10 · AB p. 22 ex. 1 — THE INTERACTIVE TAP GAME (Elena: «turn the PB exercises into interactive activities») + ex. 2 stays the pencil task -->
 <section class="slide">
-  <div class="eyebrow reveal-el">Pencil time ✏️ · AB p. 22</div>
-  <h1 class="title reveal-el">Circle t / d — then write the missing letter!</h1>
+  <div class="eyebrow reveal-el">Pencil time · AB p. 22 · the game + the writing</div>
+  <h1 class="title reveal-el">Circle t / d — the game, then the writing!</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Ex. 1: listen and circle · Ex. 2: look and write!</div>
+  <div class="task reveal-el">🎯 Say the word — tap the letter! Then Ex. 2 — pencils!</div>
   <div class="duo reveal-el">
-    <span class="picwrap" style="--ar:0.707;flex:1 1 280px"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-ab22.png" alt="AB p. 22 — circle t or d + look and write" style="max-height:44vh;width:auto;"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
-    <div style="flex:1 1 260px;display:flex;flex-direction:column;gap:1.2vh;min-width:0">
+    <span class="picwrap" style="--ar:0.707;flex:1 1 250px"><span class="picbox"><img class="sheet small" src="../media/kb1-u3-ab22.png" alt="AB p. 22 - circle t or d + look and write" style="max-height:30vh;width:auto;cursor:pointer" onclick="fsPic(this)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+    <div style="flex:1 1 240px;display:flex;flex-direction:column;gap:1vh;min-width:0">
       <audio controls preload="none" src="../media/kb1-u3-ab22-t12.mp3"></audio>
-      <div class="card mint" style="margin:0"><p>1 · <b style="color:var(--mint-deep)">Listen and circle</b> 't' or 'd' — 8 pictures! #1 = t ✓ (the example)</p></div>
-      <div class="card peach" style="margin:0"><p>2 · <b style="color:var(--pink)">Look and write</b>: __rum · __oll · __able · __rain · __wo __eddie!</p></div>
+      <div class="card peach" style="margin:0"><p>Ex. 2 — <b style="color:var(--pink)">pencils!</b> __rum · __oll · __able · __rain · __wo __eddie</p></div>
     </div>
   </div>
+  <div id="td10" style="background:#eafbf6;border-radius:14px;padding:12px;margin:6px 0">
+    <div id="td10-count" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 7</div>
+    <div id="td10-word" style="text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.8rem,4vw,2.8rem);color:#2D3436;min-height:1.4em;margin:8px 0"></div>
+    <div style="display:flex;gap:14px;justify-content:center;margin-top:6px">
+      <button id="td10-t" onclick="tdAns('td10','t')" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.5rem;border:none;border-radius:99px;padding:.4em 1.4em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">t</button>
+      <button id="td10-d" onclick="tdAns('td10','d')" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.5rem;border:none;border-radius:99px;padding:.4em 1.4em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">d</button>
+    </div>
+    <button id="td10-again" onclick="tdStart('td10')" style="display:none;margin:8px auto 0;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.15rem;border:none;border-radius:99px;padding:.5em 1.5em;background:#95E1D3;color:#2D3436;cursor:pointer">▶ Играть ещё раз!</button>
+    <div id="td10-end" style="display:none;text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.3rem;color:#2D3436;margin-top:6px"></div>
+  </div>
+  <style>#td10-word.wrong{animation:tdshake .35s}#td10-word.ok{color:#27ae60}@keyframes tdshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}</style>
 </section>
-
 <!-- 11 · REVISION — «ANSWER THE QUESTIONS» WORKSHEETS (the конспект's stage — speak, the stronger write) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Speak! 🗣 · The worksheets</div>
@@ -799,6 +823,55 @@ function fsPic(el){
     else document.documentElement.requestFullscreen();
   }catch(e){}
 }
+</script>
+<script>
+/* THE T/D TAP GAME — the PB/AB exercises interactive (Elena, 19.11). One word at
+   a time: say it - tap t or d - right first try = the score, wrong = shake and
+   stay. The item lists = the drill words (PB22) + the AB22 art (the printed
+   example toys-t skipped). */
+var TD9=[{w:'train',l:'t'},{w:'doll',l:'d'},{w:'dance',l:'d'},{w:'two',l:'t'},{w:'table',l:'t'},{w:'drum',l:'d'},{w:'teddy',l:'t'}];
+var TD10=[{w:'table',l:'t'},{w:'doll',l:'d'},{w:'two',l:'t'},{w:'train',l:'t'},{w:'drum',l:'d'},{w:'ten',l:'t'},{w:'dad',l:'d'}];
+var TDST={};
+function items(id){ return id==='td9'?TD9:TD10; }
+function tdStart(id){
+  TDST[id]={i:0,score:0,tried:false};
+  document.getElementById(id+'-count').textContent='1 / '+items(id).length;
+  document.getElementById(id+'-end').style.display='none';
+  document.getElementById(id+'-again').style.display='none';
+  tdRound(id);
+}
+function tdRound(id){
+  var st=TDST[id],it=items(id)[st.i];
+  st.tried=false;
+  document.getElementById(id+'-count').textContent=(st.i+1)+' / '+items(id).length;
+  var w=document.getElementById(id+'-word');
+  w.classList.remove('ok','wrong');
+  w.innerHTML='<u style="text-decoration-color:#95E1D3;text-decoration-thickness:4px;text-underline-offset:6px">'+it.w.charAt(0)+'</u>'+it.w.slice(1);
+  ['t','d'].forEach(function(x){var b=document.getElementById(id+'-'+x);b.style.background='#fff';b.disabled=false;});
+}
+function tdAns(id,l){
+  var st=TDST[id],it=items(id)[st.i];
+  var w=document.getElementById(id+'-word');
+  if(l===it.l){
+    if(!st.tried)st.score++;
+    w.classList.remove('wrong');w.classList.add('ok');
+    w.innerHTML='<u style="text-decoration-color:#27ae60;text-decoration-thickness:5px;text-underline-offset:6px">'+it.w.charAt(0)+'</u>'+it.w.slice(1)+' ✓';
+    ['t','d'].forEach(function(x){document.getElementById(id+'-'+x).disabled=true;});
+    setTimeout(function(){
+      st.i++;
+      if(st.i>=items(id).length){
+        document.getElementById(id+'-end').style.display='block';
+        document.getElementById(id+'-end').textContent='🎉 '+st.score+' из '+items(id).length+' с первого раза! Great job!';
+        document.getElementById(id+'-again').style.display='block';
+      } else { tdRound(id); }
+    },750);
+  } else {
+    st.tried=true;
+    w.classList.remove('ok');w.classList.add('wrong');
+    void w.offsetWidth;
+  }
+}
+tdStart('td9'); tdStart('td10');
 </script>
 </body>
 </html>
