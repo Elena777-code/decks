@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natalya · Unit 4 · exercise 4.3 — the email</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --blue:#1F5FA8; --blue-soft:#E8F0FA;
+  --rust:#A2402F; --rust-soft:#F7EAE6;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#EFECE5;
+  padding:4vh 4vw;display:flex;justify-content:center}
+.page{background:var(--paper);border-radius:18px;max-width:780px;width:100%;
+  padding:clamp(1.4rem,4vw,3rem);display:flex;flex-direction:column;gap:1.3rem}
+h1{font-size:clamp(1.5rem,3.6vw,2.3rem);line-height:1.15;letter-spacing:-.01em}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+p.task{font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55;margin:.25em 0}
+p.how{color:var(--ink-soft);font-style:italic;font-size:clamp(.9rem,1.8vw,1.05rem)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(1rem,2.4vw,1.6rem)}
+.emailtext{font-size:clamp(1.02rem,2vw,1.28rem);line-height:2.4;color:#33302a}
+.hb{color:var(--ink-soft);font-style:italic;font-size:.82em;white-space:nowrap}
+.gin{border:none;border-bottom:2px solid var(--line);background:var(--gold-soft);
+  font-family:'Inter',sans-serif;font-weight:600;font-size:1em;color:var(--ink);
+  padding:.05em .45em;width:11.5em;border-radius:.4em .4em 0 0;transition:all .15s}
+.gin:focus{outline:none;border-bottom-color:var(--accent);background:#fff}
+.gin.ok{background:var(--accent-soft);border-bottom-color:var(--accent);color:var(--accent);font-weight:700}
+.gin.no{background:var(--rust-soft);border-bottom-color:var(--rust);color:var(--rust);text-decoration:line-through}
+#send-btn{border:none;border-radius:14px;padding:.7em 1.6em;background:var(--accent);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(1rem,2vw,1.25rem);
+  cursor:pointer;margin-top:.5em}
+#send-btn:hover{transform:scale(1.03)}
+#send-btn[disabled]{opacity:.55;cursor:default;transform:none}
+#send-note{font-size:clamp(.85rem,1.6vw,1rem);color:var(--ink-soft);font-style:italic;margin-top:.4em}
+.namebox{display:flex;gap:.6em;align-items:center;flex-wrap:wrap}
+.namebox label{font-weight:700;color:var(--ink-soft);font-size:clamp(.95rem,1.8vw,1.15rem)}
+#pname{border:2px solid var(--line);border-radius:10px;padding:.4em .7em;
+  font-family:'Inter',sans-serif;font-size:clamp(1rem,2vw,1.2rem);color:var(--ink);background:#fff}
+#pname:focus{outline:none;border-color:var(--accent)}
+#pname.missing{border-color:var(--rust)}
+.verdict{display:none;border:2px solid var(--accent);border-radius:var(--radius);
+  padding:clamp(1rem,2.4vw,1.6rem);background:var(--accent-soft)}
+.verdict.on{display:block}
+.verdict h2{font-size:clamp(1.2rem,2.4vw,1.6rem);color:var(--accent);margin-bottom:.4em}
+.verdict .score{font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:800;color:var(--accent)}
+.vrow{padding:.4em 0;border-bottom:1px dashed #cfe0da;font-size:clamp(1rem,2vw,1.22rem);line-height:1.5}
+.vrow:last-child{border-bottom:none}
+.vrow .n{font-weight:800;color:var(--accent)}
+.vrow.miss .ans{color:var(--rust);font-weight:700}
+.vrow .yours{text-decoration:line-through;color:var(--rust)}
+.note{font-size:clamp(.95rem,1.9vw,1.18rem);line-height:1.6;color:#3a3f47;margin-top:.8em}
+.note b{color:var(--accent)}
+.closing{background:var(--gold-soft);border:1px solid #e8dcb8;border-radius:var(--radius);
+  padding:1em 1.4em;font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55}
+a{color:var(--blue);font-weight:600}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div>
+  <h1>Unit 4 · exercise 4.3 — <em>the email</em></h1>
+  <div class="rule"></div>
+  <p class="task">Complete this email with either the <strong>past simple</strong> or the
+  <strong>past continuous</strong> form of the verbs in brackets. Where alternatives are possible,
+  think about any difference in meaning.</p>
+  <p class="how">Type all sixteen. The answers open only after you tap
+  <strong>«Send to Elena»</strong> — she sees your every word before you do.</p>
+</div>
+
+<div class="card">
+  <div class="namebox">
+    <label for="pname">Your name:</label>
+    <input id="pname" autocomplete="off" spellcheck="false" placeholder="type your name…">
+  </div>
+</div>
+
+<div class="card">
+  <p class="emailtext">I <span class="hb">(1 buy)</span><input class="gin" data-n="1" data-a="was buying" autocomplete="off" spellcheck="false" placeholder="…">
+  some new earrings the other day in Taylor’s the jewellers, when I actually
+  <span class="hb">(2 see)</span><input class="gin" data-n="2" data-a="saw" autocomplete="off" spellcheck="false" placeholder="…">
+  somebody shoplifting. I’d just finished paying for my earrings and as I
+  <span class="hb">(3 turn)</span><input class="gin" data-n="3" data-a="turned|was turning" autocomplete="off" spellcheck="false" placeholder="…">
+  round, a woman <span class="hb">(4 slowly put)</span><input class="gin" data-n="4" data-a="was slowly putting|slowly put" autocomplete="off" spellcheck="false" placeholder="…">
+  a silver plate into a bag that she <span class="hb">(5 carry)</span><input class="gin" data-n="5" data-a="was carrying" autocomplete="off" spellcheck="false" placeholder="…">.
+  Then she <span class="hb">(6 walk)</span><input class="gin" data-n="6" data-a="walked" autocomplete="off" spellcheck="false" placeholder="…">
+  over to another part of the shop and <span class="hb">(7 pick up)</span><input class="gin" data-n="7" data-a="picked up" autocomplete="off" spellcheck="false" placeholder="…">
+  an expensive-looking watch a number of times. When she <span class="hb">(8 think)</span><input class="gin" data-n="8" data-a="thought" autocomplete="off" spellcheck="false" placeholder="…">
+  that nobody <span class="hb">(9 look)</span><input class="gin" data-n="9" data-a="was looking" autocomplete="off" spellcheck="false" placeholder="…">,
+  she <span class="hb">(10 drop)</span><input class="gin" data-n="10" data-a="dropped" autocomplete="off" spellcheck="false" placeholder="…">
+  it into the bag. Before I <span class="hb">(11 have)</span><input class="gin" data-n="11" data-a="had" autocomplete="off" spellcheck="false" placeholder="…">
+  a chance to tell the staff in the shop, she <span class="hb">(12 notice)</span><input class="gin" data-n="12" data-a="noticed" autocomplete="off" spellcheck="false" placeholder="…">
+  that I <span class="hb">(13 watch)</span><input class="gin" data-n="13" data-a="was watching" autocomplete="off" spellcheck="false" placeholder="…">
+  her and <span class="hb">(14 hurry)</span><input class="gin" data-n="14" data-a="hurried" autocomplete="off" spellcheck="false" placeholder="…"> out.
+  Fortunately, two police officers <span class="hb">(15 walk)</span><input class="gin" data-n="15" data-a="were walking|walked" autocomplete="off" spellcheck="false" placeholder="…">
+  past just at that moment and she <span class="hb">(16 run)</span><input class="gin" data-n="16" data-a="ran" autocomplete="off" spellcheck="false" placeholder="…">
+  straight into them.</p>
+</div>
+
+<div class="card">
+  <button id="send-btn" type="button" disabled>📤 Send to Elena</button>
+  <p id="send-note">Fill all sixteen gaps — the button opens.</p>
+</div>
+
+<div class="verdict" id="verdict">
+  <h2>Your email — checked</h2>
+  <div class="score" id="vscore">—</div>
+  <div id="vrows"></div>
+  <div class="note">
+    <b>The key's notes:</b> both are possible in <b>3 · 4 · 15</b> — the key takes either
+    (turned / was turning · was slowly putting / slowly put · were walking / walked).
+    The story's spine: <i>was buying … saw · was slowly putting … turned · was watching … hurried ·
+    were walking … ran</i> — the frame and the interrupter, eight times.
+  </div>
+</div>
+
+<div class="closing">When you finish — read the whole email aloud once more,
+with <strong>your verbs</strong> in place. Does the story run? 📖</div>
+
+</div>
+
+<script>
+/* ── Unit 4 · exercise 4.3 — the email, typed and sent.
+   THE ANSWERS OPEN ONLY AFTER «Send to Elena» (Elena's order, 18.11):
+   the tap sends every answer to her form first, then the page checks
+   and reveals. The multi-key gaps (3 · 4 · 15) take either form —
+   the book's own key says so. The name is stored in this browser. */
+(function(){
+"use strict";
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSd7B6GMpuy9fSRl7clE7BGHL43qyxEE2baPO725kN6QlJatjw/formResponse";
+var FORM_ENTRY="entry.1917651123";
+var inputs=[].slice.call(document.querySelectorAll('.gin'));
+var pname=document.getElementById('pname');
+var btn=document.getElementById('send-btn');
+var note=document.getElementById('send-note');
+try{pname.value=localStorage.getItem('natalya-name')||''}catch(e){}
+pname.addEventListener('input',function(){
+  try{localStorage.setItem('natalya-name',pname.value)}catch(e){}
+  pname.classList.remove('missing');
+});
+function norm(v){
+  return (v||'').toLowerCase().replace(/[\u2019]/g,"'").replace(/[.,!?;:]/g,'')
+    .replace(/\s+/g,' ').trim();
+}
+function filled(){return inputs.every(function(i){return norm(i.value).length>0})}
+function named(){return pname.value.trim().length>0}
+function refresh(){
+  var ok=filled()&&named();
+  btn.disabled=!ok;
+  note.textContent=(!named())?'Write your name first — Miss Elena must know whose email it is.'
+    :(!filled())?'Fill all sixteen gaps — the button opens.'
+    :'All sixteen filled — the button is yours. The answers open after you send.';
+}
+pname.addEventListener('input',refresh);
+inputs.forEach(function(i){i.addEventListener('input',refresh)});
+btn.addEventListener('click',function(){
+  if(btn.disabled)return;
+  var who=pname.value.trim();
+  var answered=0,right=0;
+  var lines=[];
+  inputs.forEach(function(i){
+    var mine=norm(i.value);
+    var keys=norm(i.dataset.a).split('|');
+    var good=keys.indexOf(mine)>=0;
+    if(good)right++;
+    answered++;
+    lines.push((i.dataset.n)+': '+(good?'\u2713 ':'\u2717 ')+mine+(good?'':' (the answer: '+keys[0]+(keys.length>1?' / '+keys[1]:'')+')'));
+    i.classList.add(good?'ok':'no');
+    if(good){i.value=keys[0]}
+  });
+  var txt=who+' \u00b7 Unit 4, ex 4.3 \u00b7 the email \u00b7 '+new Date().toLocaleDateString('en-GB')+'\n'
+    +'answers: '+lines.join('\n')+'\nscore: '+right+'/'+answered;
+  var body=new FormData();
+  body.append(FORM_ENTRY,txt);
+  btn.disabled=true;btn.textContent='Sending\u2026';
+  fetch(FORM_ACTION,{method:'POST',mode:'no-cors',body:body})
+    .then(function(){btn.textContent='Sent to Elena \u2713'})
+    .catch(function(){btn.textContent='Sent (check your connection)'});
+  // the reveal — gated on the tap itself
+  var v=document.getElementById('verdict');
+  document.getElementById('vscore').textContent=right+'/'+answered+' right';
+  var rows=document.getElementById('vrows');
+  rows.innerHTML=lines.map(function(l){
+    var miss=l.indexOf('\u2717')>=0;
+    return '<div class="vrow'+(miss?' miss':'')+'"><span class="n">'+l.split(':')[0]+'</span> — '
+      +(miss?('<span class="yours">'+l.split(': ')[1].split(' (the answer')[0]+'</span> <span class="ans">'+l.split(' (the answer')[1].replace(')','')+'</span>'):l.split(': ')[1])+'</div>';
+  }).join('');
+  v.classList.add('on');
+  v.scrollIntoView({behavior:'smooth'});
+});
+refresh();
+})();
+</script>
+</body>
+</html>
