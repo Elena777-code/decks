@@ -324,7 +324,30 @@ img.sheet.small{width:min(430px,90%)}
   </div>
 </section>
 
-<!-- 2 · HOMEWORK CHECK — THE LINK TO THE HW PAGE + THE TASKS (she checks on Thursdays) -->
+<!-- 2 · THE SAME OR DIFFERENT GAME — ALWAYS ON THURSDAY (they play while the hw is checked; Elena, 19.11) -->
+<section class="slide">
+  <div class="eyebrow reveal-el">Game time 🎲 · every Thursday — you play, I check the homework!</div>
+  <h1 class="title reveal-el">SAME or DIFFERENT? 🟰</h1>
+  <div class="accent-line reveal-el"></div>
+  <div class="task reveal-el">🎯 Look at the two pictures — tap SAME or DIFFERENT!</div>
+  <div id="sod" style="background:#eafbf6;border-radius:14px;padding:12px;margin:6px 0">
+    <div id="sod-count" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 8</div>
+    <div id="sod-pics" style="display:flex;gap:4vw;justify-content:center;align-items:center;margin:10px 0">
+      <span id="sod-a" style="font-size:clamp(3.4rem,9vw,6rem);line-height:1"></span>
+      <span style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2.6vw,1.8rem);color:#636e72">vs</span>
+      <span id="sod-b" style="font-size:clamp(3.4rem,9vw,6rem);line-height:1"></span>
+    </div>
+    <div style="display:flex;gap:14px;justify-content:center;margin-top:6px">
+      <button id="sod-same" onclick="sodAns(true)" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.4rem;border:none;border-radius:99px;padding:.45em 1.5em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">SAME 🟰</button>
+      <button id="sod-diff" onclick="sodAns(false)" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.4rem;border:none;border-radius:99px;padding:.45em 1.5em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">DIFFERENT 🎭</button>
+    </div>
+    <div id="sod-verdict" style="text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2rem;min-height:1.5em;margin-top:8px;color:#2D3436"></div>
+    <button id="sod-again" onclick="sodDeal()" style="display:none;margin:8px auto 0;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.15rem;border:none;border-radius:99px;padding:.5em 1.5em;background:#95E1D3;color:#2D3436;cursor:pointer">▶ Играть ещё раз — новые пары!</button>
+    <div id="sod-end" style="display:none;text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.3rem;color:#2D3436;margin-top:6px"></div>
+  </div>
+  <style>#sod-pics.wrong{animation:tdshake .35s}</style>
+</section>
+<!-- 3 · HOMEWORK CHECK — THE LINK TO THE HW PAGE + THE TASKS (she checks on Thursdays) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Homework check ✋</div>
   <h1 class="title reveal-el">Who did the homework? Hands up!</h1>
@@ -336,7 +359,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card lavender reveal-el"><p>⭐ THE STICKERS for every hand!</p></div>
 </section>
 
-<!-- 3 · THE MONTY SONG — NOW CALLED «WHERE IS MONTY» — THE SONG OF THE FORTNIGHT (her ✍️ s3) -->
+<!-- 4 · THE MONTY SONG — NOW CALLED «WHERE IS MONTY» — THE SONG OF THE FORTNIGHT (her ✍️ s3) -->
 <section class="slide">
   <div class="eyebrow reveal-el">🎵 Песенка недели — 'Where is Monty'!</div>
   <h1 class="title reveal-el">Toys in the toy box… SING again! 🎤</h1>
@@ -347,7 +370,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>🙋 Each group sings its line — <b style="color:var(--pink)">walk and talk on the count of five!</b></p></div>
 </section>
 
-<!-- 4 · WARM UP — TRUE/FALSE «I LIKE…» (the конспект's stage — the standing game) -->
+<!-- 5 · WARM UP — TRUE/FALSE «I LIKE…» (the конспект's stage — the standing game) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Warm up 🖐</div>
   <h1 class="title reveal-el">True or False? — I like…! 👍👎</h1>
@@ -366,7 +389,7 @@ img.sheet.small{width:min(430px,90%)}
   </div>
 </section>
 
-<!-- 5 · READING — PHONICS DD (the конспект's stage: dog / dad / dot / dig) -->
+<!-- 6 · READING — PHONICS DD (the конспект's stage: dog / dad / dot / dig) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Reading · Letter Dd 🐶</div>
   <h1 class="title reveal-el">D says d — dog, dad, dot, dig!</h1>
@@ -376,7 +399,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>🗣 <b style="color:var(--mint-deep)">a dog · a dad · a dot · dig!</b> — ×3, louder! Then the letter maze: D → d → D → …</p></div>
 </section>
 
-<!-- 6 · THE GAME — FLY SWAT (the конспект's stage — the hammers!) -->
+<!-- 7 · THE GAME — FLY SWAT (the конспект's stage — the hammers!) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Game time 🔨</div>
   <h1 class="title reveal-el">FLY SWAT! — listen and hit! 🔨</h1>
@@ -396,7 +419,7 @@ img.sheet.small{width:min(430px,90%)}
   </div>
 </section>
 
-<!-- 7 · THE DD WORKSHEET (the конспект's stage — pencil + glue) -->
+<!-- 8 · THE DD WORKSHEET (the конспект's stage — pencil + glue) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Pencil time ✏️</div>
   <h1 class="title reveal-el">The Dd worksheet — trace and glue!</h1>
@@ -406,7 +429,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>✂️ Cut the mini-cards — <b style="color:var(--pink)">glue them into the copybooks!</b> 📖</p></div>
 </section>
 
-<!-- 8 · READING — POSTER 14 (dad / bad — read + into the copybooks) -->
+<!-- 9 · READING — POSTER 14 (dad / bad — read + into the copybooks) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Reading 📖 · Poster 14</div>
   <h1 class="title reveal-el">dad 👍 — bad 👎 — read the poster!</h1>
@@ -416,7 +439,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>📖 dad 👍 → bad 👎 → <b style="color:var(--mint-deep)">stick the poster into the copybook!</b></p></div>
 </section>
 
-<!-- 9 · PB p. 22 ex. 1 — T/D LISTEN AND POINT — THE INTERACTIVE TAP GAME (Elena: «turn the PB exercises into interactive activities») -->
+<!-- 10 · PB p. 22 ex. 1 — T/D LISTEN AND POINT — THE INTERACTIVE TAP GAME (Elena: «turn the PB exercises into interactive activities») -->
 <section class="slide">
   <div class="eyebrow reveal-el">Monty's sounds and spelling · PB p. 22 · the game</div>
   <h1 class="title reveal-el">t or d? — Say the word, TAP the letter!</h1>
@@ -441,7 +464,7 @@ img.sheet.small{width:min(430px,90%)}
   </div>
   <style>#td9-word.wrong{animation:tdshake .35s}#td9-word.ok{color:#27ae60}@keyframes tdshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}</style>
 </section>
-<!-- 10 · AB p. 22 ex. 1 — THE INTERACTIVE TAP GAME (Elena: «turn the PB exercises into interactive activities») + ex. 2 stays the pencil task -->
+<!-- 11 · AB p. 22 ex. 1 — THE INTERACTIVE TAP GAME (Elena: «turn the PB exercises into interactive activities») + ex. 2 stays the pencil task -->
 <section class="slide">
   <div class="eyebrow reveal-el">Pencil time · AB p. 22 · the game + the writing</div>
   <h1 class="title reveal-el">Circle t / d — the game, then the writing!</h1>
@@ -466,7 +489,7 @@ img.sheet.small{width:min(430px,90%)}
   </div>
   <style>#td10-word.wrong{animation:tdshake .35s}#td10-word.ok{color:#27ae60}@keyframes tdshake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}</style>
 </section>
-<!-- 11 · REVISION — «ANSWER THE QUESTIONS» WORKSHEETS (the конспект's stage — speak, the stronger write) -->
+<!-- 12 · REVISION — «ANSWER THE QUESTIONS» WORKSHEETS (the конспект's stage — speak, the stronger write) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Speak! 🗣 · The worksheets</div>
   <h1 class="title reveal-el">Answer the questions — where is it?</h1>
@@ -479,7 +502,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>🗣 «<b style="color:var(--mint-deep)">The pencil is on the bed!</b>» — full sentences! The stronger learners <b style="color:var(--pink)">write</b>.</p></div>
 </section>
 
-<!-- 12 · REVISION — DESCRIBE THE ROOM (the конспект's stage — make up sentences) -->
+<!-- 13 · REVISION — DESCRIBE THE ROOM (the конспект's stage — make up sentences) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Speak! 🗣 · Describe the room</div>
   <h1 class="title reveal-el">My room — I can see…!</h1>
@@ -489,7 +512,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>🗣 «The computer is <b style="color:var(--mint-deep)">on</b> the table!» «The ball is <b style="color:var(--pink)">in</b> the box!» «The bike is <b style="color:var(--lavender-deep)">next to</b> the chair!»</p></div>
 </section>
 
-<!-- 13 · THE CLICKABLE FLASHCARDS — HER GAME (the ✍️ s7: «Cut out the pictures from the worksheet. Make them clickable. I want it to be a game») -->
+<!-- 14 · THE CLICKABLE FLASHCARDS — HER GAME (the ✍️ s7: «Cut out the pictures from the worksheet. Make them clickable. I want it to be a game») -->
 <section class="slide">
   <div class="eyebrow reveal-el">Her game 🎯 · tap = full screen!</div>
   <h1 class="title reveal-el">The flashcard game — TAP and SAY!</h1>
@@ -505,7 +528,7 @@ img.sheet.small{width:min(430px,90%)}
   </div>
 </section>
 
-<!-- 14 · THE BINGO — THE REPLAY, FULL SCREEN ON TAP (her ✍️ s9: «I want to play them again next lesson. Make the picture square full screen when I tap it») -->
+<!-- 15 · THE BINGO — THE REPLAY, FULL SCREEN ON TAP (her ✍️ s9: «I want to play them again next lesson. Make the picture square full screen when I tap it») -->
 <section class="slide">
   <div class="eyebrow reveal-el">Game time 🎲 · the replay!</div>
   <h1 class="title reveal-el">BINGO again — TAP the card — full screen! 🎲</h1>
@@ -519,7 +542,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>👆 TAP a grid — <b style="color:var(--pink)">FULL SCREEN</b> for everyone! «The pencil is UNDER the table!» — cross it out! ❌ 🏆</p></div>
 </section>
 
-<!-- 15 · AB p. 21 — TASK TWO (her ✍️ s11: «Task two important. Add it to the next lesson deck, please») -->
+<!-- 16 · AB p. 21 — TASK TWO (her ✍️ s11: «Task two important. Add it to the next lesson deck, please») -->
 <section class="slide">
   <div class="eyebrow reveal-el">Pencil time ✏️ · AB p. 21 · task two</div>
   <h1 class="title reveal-el">Task TWO — the important one! ✏️</h1>
@@ -529,7 +552,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>✏️ Read together — <b style="color:var(--mint-deep)">follow the letters</b> — read it back: 'd - a - d!'</p></div>
 </section>
 
-<!-- 16 · THE SKIPPED STAGE CARRIED — PB p. 23 — LISTEN AGAIN + ORDER THE CARDS + YES/NO (🎧36) — her ✍️ s14: «For the next lesson» -->
+<!-- 17 · THE SKIPPED STAGE CARRIED — PB p. 23 — LISTEN AGAIN + ORDER THE CARDS + YES/NO (🎧36) — her ✍️ s14: «For the next lesson» -->
 <section class="slide">
   <div class="eyebrow reveal-el">Pupil's book · p. 23 · listen 👂</div>
   <h1 class="title reveal-el">Order the cards — YES or NO? 👂</h1>
@@ -546,7 +569,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card mint reveal-el"><p>🔑 YES or NO! <button class="reveal-btn" style="font-size:.7em;padding:.15em .8em;vertical-align:middle" onclick="reveal(this)">show ▾</button> <span class="answer" style="font-size:.62em;padding:.1em .5em">1 <b>YES</b> 👍 · 2 <b>NO</b> 👎 (blue and black!) · 3 <b>NO</b> · 4 <b>NO</b> · 5 <b>NO</b> · 6 <b>YES</b> 👍 — in the BAG!</span></p></div>
 </section>
 
-<!-- 17 · THE GAME — WHERE IS MONTY? (the конспект's stage) + THE FILM MOMENT 🎬 -->
+<!-- 18 · THE GAME — WHERE IS MONTY? (the конспект's stage) + THE FILM MOMENT 🎬 -->
 <section class="slide">
   <div class="eyebrow reveal-el">The big game 🐭 · 🎬 Lights, camera, action!</div>
   <h1 class="title reveal-el">WHERE IS MONTY? — find him! 🐭</h1>
@@ -556,7 +579,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>🎬 <b style="color:var(--pink)">LIGHTS, CAMERA, ACTION!</b> — the hunt on camera — 30–60 s for mum and dad! ⭐</p></div>
 </section>
 
-<!-- 18 · PLAYWAY U1 L5 — LISTEN AND COLOUR (PB p. 8 ex. 7 CD1 11/12 + AB p. 8 ex. 7 CD1 14) + the crayons -->
+<!-- 19 · PLAYWAY U1 L5 — LISTEN AND COLOUR (PB p. 8 ex. 7 CD1 11/12 + AB p. 8 ex. 7 CD1 14) + the crayons -->
 <section class="slide">
   <div class="eyebrow reveal-el">Playway 🎨 · Listen and colour</div>
   <h1 class="title reveal-el">A yellow bike for Benny! 🚲 — listen and colour</h1>
@@ -574,7 +597,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>🖍 «A <b style="color:#e0a800">yellow</b> bike for Benny!» — colour, then <b style="color:var(--pink)">TICK</b> on AB p. 8!</p></div>
 </section>
 
-<!-- 19 · FEEDBACK + THE GOODBYE — THE FAVOURITE ACTIVITY + «WHERE IS MONTY» (the конспект's closing) -->
+<!-- 20 · FEEDBACK + THE GOODBYE — THE FAVOURITE ACTIVITY + «WHERE IS MONTY» (the конспект's closing) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Feedback 🗳 · the goodbye</div>
   <h1 class="title reveal-el">Our favourite activity today is…! 🗳</h1>
@@ -590,7 +613,7 @@ img.sheet.small{width:min(430px,90%)}
   <div class="card peach reveal-el"><p>🎵 «Toys in the toy box, come alive…» — <b style="color:var(--pink)">the goodbye!</b> See you Thursday! 👋</p></div>
 </section>
 
-<!-- 20 · HOMEWORK — THE CARD «УРОК 17 · 5 DOGS SPIN A TOP! 🐶» (the mirror of the live card) -->
+<!-- 21 · HOMEWORK — THE CARD «УРОК 17 · 5 DOGS SPIN A TOP! 🐶» (the mirror of the live card) -->
 <section class="slide">
   <div class="eyebrow reveal-el">At home 🏠</div>
   <h1 class="title reveal-el">Homework — the card «Урок 17»! 📱</h1>
@@ -769,7 +792,7 @@ show(isNaN(h)?0:h-1);
 /* THE 27.10 ROUND — own block, own scope (the engine law): the ⏱ pacing timer ·
    the clickable PW pictures · the matching-pairs game. */
 /* ---- the timer: 60 minutes over the deck, per-slide budgets; typing (the last slide) = flex ---- */
-const PBUD=[2,4,2,5,3,3,2,2,4,5,6,4,5,5,4,6,7,7,3,0];
+const PBUD=[2,3,4,2,5,3,3,2,2,4,5,6,4,5,5,4,6,7,7,3,0];
 let tmrArmed=false,tmrT0=Date.now();
 const tmrFmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')};
 function tmrTick(){
@@ -872,6 +895,58 @@ function tdAns(id,l){
   }
 }
 tdStart('td9'); tdStart('td10');
+</script>
+<script>
+/* THE SAME OR DIFFERENT GAME - the Thursday standing opener (Elena, 19.11: «always
+   on Thursday (they play while I check their hw)»). THE BALANCED BAG: 8 pairs,
+   always 4 same + 4 different, shuffled; one pair at a time (her quiz standard);
+   the first-try score; the wrong tap shakes and stays. The pool = the words they
+   own (the toys, the Dd family, the classroom). */
+var SODPOOL=['🐶','👨','⚫','⛏️','🧸','📦','✏️','🚂','⚽','🚲','💻','🪑'];
+var SODST={};
+function sodShuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=a[i];a[i]=a[j];a[j]=x;}return a;}
+function sodDeal(){
+  var yes=sodShuffle([1,1,1,1,0,0,0,0]),bag=[],guard=0;
+  do{ bag=sodShuffle(yes.slice());
+      guard++;
+  } while(guard<60 && (function(){for(var i=0;i<bag.length-2;i++){if(bag[i]===bag[i+1]&&bag[i]===bag[i+2])return true;}return false;})());
+  SODST={i:0,score:0,tried:false,pairs:bag.map(function(t){ var a=SODPOOL[Math.floor(Math.random()*SODPOOL.length)]; var b=(t===1)?a:SODPOOL.filter(function(x){return x!==a;})[Math.floor(Math.random()*(SODPOOL.length-1))]; return {a:a,b:b,same:t===1}; })};
+  document.getElementById('sod-end').style.display='none';
+  document.getElementById('sod-again').style.display='none';
+  sodRound();
+}
+function sodRound(){
+  var st=SODST,p=st.pairs[st.i];
+  st.tried=false;
+  document.getElementById('sod-count').textContent=(st.i+1)+' / '+st.pairs.length;
+  document.getElementById('sod-a').textContent=p.a;
+  document.getElementById('sod-b').textContent=p.b;
+  document.getElementById('sod-verdict').textContent='';
+  document.getElementById('sod-pics').classList.remove('wrong');
+  ['same','diff'].forEach(function(x){document.getElementById('sod-'+x).disabled=false;});
+}
+function sodAns(same){
+  var st=SODST,p=st.pairs[st.i],v=document.getElementById('sod-verdict');
+  if(same===p.same){
+    if(!st.tried)st.score++;
+    v.textContent=(p.same?'SAME! ✓':'DIFFERENT! ✓')+' 🌟';v.style.color='#27ae60';
+    ['same','diff'].forEach(function(x){document.getElementById('sod-'+x).disabled=true;});
+    setTimeout(function(){
+      st.i++;
+      if(st.i>=st.pairs.length){
+        document.getElementById('sod-end').style.display='block';
+        document.getElementById('sod-end').textContent='🎉 '+st.score+' из 8 с первого раза! Great job!';
+        document.getElementById('sod-again').style.display='block';
+      } else { sodRound(); }
+    },750);
+  } else {
+    st.tried=true;
+    v.textContent='Try again! 👀';v.style.color='#e74c3c';
+    var pics=document.getElementById('sod-pics');
+    pics.classList.remove('wrong');void pics.offsetWidth;pics.classList.add('wrong');
+  }
+}
+sodDeal();
 </script>
 </body>
 </html>
