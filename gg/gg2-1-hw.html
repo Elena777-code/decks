@@ -83,16 +83,16 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
 </div>
 
 <div class="card now">
-  <h2>Homework · 12 November</h2>
+  <h2>Homework · 19 November</h2>
   <div class="nrow"><span>✏️ Your name:</span><input id="hwName" maxlength="30" autocomplete="off"></div>
   <div class="bigbtn lav" style="margin-top:.4em">
-    <span class="ic">📖</span>
-    <span style="flex:1"><span class="tt">1 · SB p. 102, ex. 6</span></span>
-    <button class="donechip" id="doneSb102" type="button">done</button>
+    <span class="ic">✍️</span>
+    <span style="flex:1"><span class="tt">1 · Finish your writing — SB p. 104, ex. 5</span></span>
+    <button class="donechip" id="doneWr5" type="button">done</button>
   </div>
   <div class="bigbtn" style="margin-top:.6em">
     <span class="ic">📱</span>
-    <span style="flex:1"><span class="tt">2 · shkola.app — get ready for the dictation</span></span>
+    <span style="flex:1"><span class="tt">2 · Learn the words + get ready for the dictation (shkola.app)</span></span>
     <button class="donechip" id="doneShkola" type="button">done</button>
   </div>
 </div>
@@ -166,7 +166,7 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
         var d=new Date();
         var pad=function(n){return (n<10?'0':'')+n;};
         var stamp=pad(d.getDate())+'.'+pad(d.getMonth()+1)+' '+pad(d.getHours())+':'+pad(d.getMinutes());
-        send('GG2.1 · homework 8.6 · '+label+' · '+name+' · done ✓ · '+stamp);
+        send('GG2.1 · homework 19.11 · '+label+' · '+name+' · done ✓ · '+stamp);
         on=true;
         try{localStorage.setItem(key,'1');}catch(e){}
         chip.textContent='sent ✓';chip.classList.add('on');
@@ -179,8 +179,8 @@ h2{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,4.2vw
     });
     paint();
   }
-  wireChip('doneSb102','gg-hw-done-1211-sb102','SB p. 102 ex. 6');
-  wireChip('doneShkola','gg-hw-done-1211-shkola','shkola.app — dictation prep');
+  wireChip('doneWr5','gg-hw-done-1911-wr5','SB p. 104 ex. 5 (the writing)');
+  wireChip('doneShkola','gg-hw-done-1911-shkola','shkola.app — dictation prep');
   flushQueue('gg-hw-queue-0511');
   flushQueue(QKEY);
 })();
