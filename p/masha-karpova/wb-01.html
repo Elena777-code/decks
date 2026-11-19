@@ -62,7 +62,13 @@ h2{font-family:'Lora',Georgia,serif;font-weight:700;font-size:clamp(1.2rem,2.8vw
 .sent{font-weight:800;color:var(--sage-deep)}
 .opts{display:flex;gap:.5em;flex-wrap:wrap;margin:.2em 0}
 .opt{border:1.5px solid var(--gold);background:var(--gold-soft);color:var(--gold);
-  border-radius:99px;padding:.15em .9em;font-weight:800;font-size:.95em}
+  border-radius:99px;padding:.15em .9em;font-weight:800;font-size:.95em;cursor:pointer;
+  transition:all .15s;user-select:none}
+.opt:hover{transform:scale(1.05)}
+.blank{color:var(--terra-deep);letter-spacing:.03em}
+.opt.picked{background:var(--gold);color:#fff}
+.opt.right{background:var(--sage-deep);border-color:var(--sage-deep);color:#fff}
+.opt.wrongpick{background:var(--terra-deep);border-color:var(--terra-deep);color:#fff;text-decoration:line-through}
 .backline a{color:var(--sage-deep);font-weight:800;text-decoration:none;border-bottom:2px solid var(--sage-soft)}
 .backline a:hover{border-bottom-color:var(--sage)}
 </style>
@@ -124,18 +130,18 @@ h2{font-family:'Lora',Georgia,serif;font-weight:700;font-size:clamp(1.2rem,2.8vw
   <div class="card">
     <div class="no">Exercise 3 · Choose</div>
     <h2>✍️ Choose the correct option</h2>
-    <p class="hint">Type the correct word from the two.</p>
+    <p class="hint">No typing here — <b>click the word you choose</b>, then Send.</p>
     <div class="ex">
-      <p>1 — <span class="opts"><span class="opt">Physics</span><span class="opt">History</span></span><br>
-      <input id="g15" autocomplete="off" spellcheck="false" size="9"> is my favourite subject at school. I like all the science subjects. <span class="fb" data-f="g15"></span></p>
-      <p>2 — Do you think we can work on our <span class="opts"><span class="opt">practical exam</span><span class="opt">project</span></span> together?<br>
-      <input id="g16" autocomplete="off" spellcheck="false" size="9"> <span class="fb" data-f="g16"></span></p>
-      <p>3 — We need to <span class="opts"><span class="opt">revise</span><span class="opt">learn</span></span> for the test tomorrow.<br>
-      <input id="g17" autocomplete="off" spellcheck="false" size="9"> <span class="fb" data-f="g17"></span></p>
-      <p>4 — It's lunchtime! Let's go to the <span class="opts"><span class="opt">canteen</span><span class="opt">library</span></span>.<br>
-      <input id="g18" autocomplete="off" spellcheck="false" size="9"> <span class="fb" data-f="g18"></span></p>
-      <p>5 — What did you <span class="opts"><span class="opt">revise</span><span class="opt">learn</span></span> at school today?<br>
-      <input id="g19" autocomplete="off" spellcheck="false" size="9"> <span class="fb" data-f="g19"></span></p>
+      <p>1 — <b class="blank" data-b="g15">______</b> is my favourite subject at school. I like all the science subjects. <span class="fb" data-f="g15"></span><br>
+      <span class="opts"><span class="opt" data-g="g15" data-val="Physics">Physics</span><span class="opt" data-g="g15" data-val="History">History</span></span></p>
+      <p>2 — Do you think we can work on our <b class="blank" data-b="g16">______</b> together? <span class="fb" data-f="g16"></span><br>
+      <span class="opts"><span class="opt" data-g="g16" data-val="practical exam">practical exam</span><span class="opt" data-g="g16" data-val="project">project</span></span></p>
+      <p>3 — We need to <b class="blank" data-b="g17">______</b> for the test tomorrow. <span class="fb" data-f="g17"></span><br>
+      <span class="opts"><span class="opt" data-g="g17" data-val="revise">revise</span><span class="opt" data-g="g17" data-val="learn">learn</span></span></p>
+      <p>4 — It's lunchtime! Let's go to the <b class="blank" data-b="g18">______</b>. <span class="fb" data-f="g18"></span><br>
+      <span class="opts"><span class="opt" data-g="g18" data-val="canteen">canteen</span><span class="opt" data-g="g18" data-val="library">library</span></span></p>
+      <p>5 — What did you <b class="blank" data-b="g19">______</b> at school today? <span class="fb" data-f="g19"></span><br>
+      <span class="opts"><span class="opt" data-g="g19" data-val="revise">revise</span><span class="opt" data-g="g19" data-val="learn">learn</span></span></p>
     </div>
     <div class="btnrow">
       <button class="act" id="send3">📤 Send exercise 3</button>
@@ -187,10 +193,6 @@ var EX={
     ids:["g7","g8","g9","g10","g11","g12","g13","g14"],
     keys:[["love"],["studies"],["doesn't always walk","does not always walk"],["do you live"],["usually walk"],["sometimes ride"],["do you hang out with","do you hang out"],["always arrive"]],
     stems:["LOVE","STUDY","NOT ALWAYS/WALK","YOU/LIVE","USUALLY/WALK","SOMETIMES/RIDE","YOU/HANG OUT","ALWAYS/ARRIVE"]},
- 3:{label:"WB 0.1 ex 3 (choose)",
-    ids:["g15","g16","g17","g18","g19"],
-    keys:[["physics"],["project"],["revise"],["canteen"],["learn"]],
-    stems:["Physics/History","practical exam/project","revise/learn","canteen/library","revise/learn"]},
  4:{label:"WB 0.1 ex 4 (comparatives)",
     ids:["g20","g21","g22","g23"],
     keys:[["the most difficult","most difficult"],["bigger"],["the latest"],["more exciting"]],
@@ -247,6 +249,50 @@ Object.keys(EX).forEach(function(n){
     queue(txt);flushQueue();
     $("sent"+n).textContent=FORM_ACTION?"sent to Elena ✅":"";});
 });
+
+/* ---------- exercise 3 · CLICK TO CHOOSE (no typing) ---------- */
+var Q3=[
+ {g:"g15",key:"physics",ask:"1 — Physics/History"},
+ {g:"g16",key:"project",ask:"2 — practical exam/project"},
+ {g:"g17",key:"revise",ask:"3 — revise/learn"},
+ {g:"g18",key:"canteen",ask:"4 — canteen/library"},
+ {g:"g19",key:"revise",ask:"5 — revise/learn"}
+];
+var chosen={};
+document.querySelectorAll('.opt[data-g]').forEach(function(o){
+  o.addEventListener('click',function(){
+    var g=o.getAttribute('data-g'),v=o.getAttribute('data-val');
+    chosen[g]=v;
+    document.querySelector('.blank[data-b="'+g+'"]').textContent=v;
+    document.querySelectorAll('.opt[data-g="'+g+'"]').forEach(function(x){x.classList.remove('picked');});
+    o.classList.add('picked');
+  });
+});
+function grade3(){
+  var ok=0,misses=[],lines=["MASHA K. · HW · WB 0.1 ex 3 (choose) · "+new Date().toLocaleString(),
+    "Name: "+((function(){try{return localStorage.getItem("mashak-qm-name")||"";}catch(e){return "";}})()||"—")];
+  Q3.forEach(function(q){
+    var c=chosen[q.g],fb=document.querySelector('.fb[data-f="'+q.g+'"]');
+    fb.className="fb";fb.textContent="";
+    document.querySelectorAll('.opt[data-g="'+q.g+'"]').forEach(function(x){x.classList.remove('right','wrongpick');});
+    var good=c&&norm(c)===q.key;
+    if(good){ok++;fb.className="fb ok";fb.textContent="✓";
+      document.querySelector('.opt[data-g="'+q.g+'"][data-val="'+c+'"]').classList.add('right');}
+    else{fb.className="fb no";
+      var shown=c?("✗ → "+q.key):("→ "+q.key);
+      fb.textContent=shown;
+      if(c)document.querySelector('.opt[data-g="'+q.g+'"][data-val="'+c+'"]').classList.add('wrongpick');
+      document.querySelector('.opt[data-g="'+q.g+'"][data-val="'+q.key+'"]').classList.add('right');
+      misses.push("  · "+q.ask+" — her: "+(c||"—")+" · key: "+q.key);}
+  });
+  lines.push("Score: "+ok+" / "+Q3.length);
+  if(misses.length){lines.push("Missed ("+misses.length+"):");lines=lines.concat(misses);}
+  $("score3").textContent=(ok+" of "+Q3.length+" right"+(ok===Q3.length?" — beautiful! 🌟":""));
+  return lines.join("\n");}
+$("send3").addEventListener("click",function(){
+  var txt=grade3();
+  queue(txt);flushQueue();
+  $("sent3").textContent=FORM_ACTION?"sent to Elena ✅":"";});
 /* the load-time flush goes LAST */
 flushQueue();
 })();
