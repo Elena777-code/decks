@@ -14,6 +14,8 @@
   --shadow:0 10px 30px rgba(45,52,54,.12);--shadow-lg:0 20px 50px rgba(45,52,54,.18);
 }
 *{margin:0;padding:0;box-sizing:border-box}
+.sndbtn{position:fixed;top:2vh;right:2vw;z-index:50;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1;background:var(--white);border:none;border-radius:99px;box-shadow:var(--shadow);padding:.28em .4em;cursor:pointer;transition:transform .15s ease}
+.sndbtn:hover{transform:scale(1.08)}
 body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;align-items:center;gap:2vh;padding:5vh 4vw 8vh}
 .eyebrow{font-size:clamp(1rem,1.8vw,1.4rem);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--lavender-deep)}
 h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6rem);line-height:1.1}
@@ -67,6 +69,7 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
 </style>
 </head>
 <body>
+<button class="sndbtn" id="sndbtn" type="button" title="Sound on / off">🔊</button>
 <div class="eyebrow">Game time 🃏</div>
 <h1>Matching pairs!</h1>
 <div class="accent-line"></div>
@@ -141,10 +144,28 @@ function mpArt(art,big){
   if(art.indexOf('/')>-1)return '<img src="'+art+'" alt="" class="'+(big?'fs-img':'mp-img')+'">';
   return '<span class="'+(big?'fs-pic':'mp-back')+'">'+art+'</span>';
 }
-/* the self-play voice (Elena: kids play WITHOUT her — easy): the word is
-   spoken on every flip, the verdicts and the praise are spoken too.
+/* THE VOICE + THE SOUND TOGGLE (Elena's ask 19.11: «sometimes I want it
+   to be silent, sometimes I want it to speak»): the 🔊/🔇 button governs
+   EVERY set — when on, the word is spoken on every flip and the verdicts
+   speak too; when off, the game is silent. The choice is remembered.
    LIVE TTS STAYS SILENT IN THIS PANE — the drive proves the CALLS only. */
+let mpSound=true;
+try{mpSound=localStorage.getItem('matching-pairs-sound')!=='off';}catch(e){}
+function mpApplySound(){
+  const b=document.getElementById('sndbtn');
+  if(b){b.textContent=mpSound?'🔊':'🔇';b.title=mpSound?'Sound on — tap to mute':'Sound off — tap to unmute';}
+}
+function mpSetSound(on){
+  mpSound=on;
+  try{localStorage.setItem('matching-pairs-sound',on?'on':'off');}catch(e){}
+  mpApplySound();
+}
+function mpToggleSound(){
+  mpSetSound(!mpSound);
+  if(mpSound)mpSay('Sound on!');
+}
 function mpSay(text){
+  if(!mpSound)return;
   try{
     if(!window.speechSynthesis)return;
     speechSynthesis.cancel();
@@ -215,14 +236,14 @@ function mpFlip(card){
     :mpArt(card.dataset.w,false)+'<span class="mp-word">'+card.dataset.n+'</span>';
   if(!mpA){
     mpA=card;
-    if(SETS[curSet].solo&&card.dataset.n)mpSay(card.dataset.n);
+    if(card.dataset.n)mpSay(card.dataset.n);
     mpShowFs(card);
     return;
   }
   mpLock=true;
   mpPending={first:mpA,second:card};
   mpA=null;
-  if(SETS[curSet].solo&&card.dataset.n)mpSay(card.dataset.n);
+  if(card.dataset.n)mpSay(card.dataset.n);
   mpShowFs(card);
 }
 function mpResolve(){
@@ -261,11 +282,11 @@ function mpResolve(){
       }
     }else{
       if(s)s.textContent='SAME! 🙂 '+mpFound+' / '+total;
-      if(SETS[curSet].solo)mpSay('Same!');
+      mpSay('Same!');
     }
   }else{
     if(s)s.textContent='DIFFERENT! 🙃 — look and remember!';
-    if(SETS[curSet].solo)mpSay('Different!');
+    mpSay('Different!');
     setTimeout(function(){
       first.classList.remove('up');first.innerHTML='<span class="mp-back">❓</span>';
       card.classList.remove('up');card.innerHTML='<span class="mp-back">❓</span>';
@@ -309,6 +330,9 @@ if(fskey)fskey.onclick=function(e){
   w.style.display=show?'':'none';
   this.textContent=show?'🙈 hide the word':'🔑 show the word';
 };
+const sndbtn=document.getElementById('sndbtn');
+if(sndbtn)sndbtn.onclick=mpToggleSound;
+mpApplySound();
 /* ?set=toys — the deep link for the lesson (Elena sends it, kids land right) */
 try{
   const q=new URLSearchParams(location.search);
