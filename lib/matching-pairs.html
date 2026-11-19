@@ -111,14 +111,14 @@ h1{font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(2rem,5vw,3.6
    tap anywhere to close. The pair resolves only after the second big
    look, so the class sees both faces before SAME/DIFFERENT. The secret
    card opens fullscreen too — 🔑 shows the word (the teacher's key).
-   THE TOYS SET (Elena's ask 18.11, KB 1 Unit 3 — SOLO): the six U3 toys
-   as Cambridge flashcard crops (media/toys-*.png, lessons 013/014 media;
-   her «there must be more cards» the same day → 6 pairs = 12 cards,
-   the counts computed from the set), the kids play WITHOUT her — so: one
-   easy way (no mode row), every flip SPEAKS the word (mpSay, offline
-   browser voice), the verdicts speak too, and the finish is a simple
-   «You did it!» — no secret-word race. Other sets keep the teacher game.
-   Deep link: ?set=toys.
+   THE TOYS SET (Elena's ask 18.11, KB 1 Unit 3 — the kids play WITHOUT
+   her): the six U3 toys as Cambridge flashcard crops (media/toys-*.png,
+   lessons 013/014 media; her «there must be more cards» the same day →
+   6 pairs = 12 cards, the counts computed from the set). 19.11 — her ask:
+   the APART OPTION for Toys too, so the set plays BOTH ways now; the
+   finish stays the easy «You did it!» (noSecret — no secret-word race),
+   the voice rides the 🔊 toggle.
+   Deep links: ?set=toys · ?set=toys&mode=apart.
    THE SM3 SET (Elena's ask 19.11, Super Minds 3 U1 «Meet The Explorers»):
    the cellar · find · a lot of books · upstairs · downstairs · courage —
    six pairs, 12 cards, the TEACHER game (two options + the secret race).
@@ -132,7 +132,7 @@ const SETS=[
   {name:'Animals 🐾', pairs:[['🐱','a cat'],['🐶','a dog'],['🐭','a mouse'],['🐰','a rabbit']]},
   {name:'School ✏️', pairs:[['✏️','a pencil'],['📚','a book'],['🎒','a bag'],['✂️','scissors']]},
   {name:'Food 🍎', pairs:[['🍎','an apple'],['🍌','a banana'],['🥕','a carrot'],['🍇','grapes']]},
-  {name:'Toys 🧸', solo:true, pairs:[['media/toys-ball.png','a ball'],['media/toys-bike.png','a bike'],['media/toys-car.png','a car'],['media/toys-doll.png','a doll'],['media/toys-train.png','a train'],['media/toys-computer.png','a computer']]},
+  {name:'Toys 🧸', noSecret:true, pairs:[['media/toys-ball.png','a ball'],['media/toys-bike.png','a bike'],['media/toys-car.png','a car'],['media/toys-doll.png','a doll'],['media/toys-train.png','a train'],['media/toys-computer.png','a computer']]},
   {name:'SM3 🏠', pairs:[['media/sm3-cellar.png','the cellar'],['🔍','find'],['📚','a lot of books'],['media/sm3-upstairs.png','upstairs'],['media/sm3-downstairs.png','downstairs'],['🦁','courage']]}
 ];
 const MODES=[
@@ -179,8 +179,6 @@ function mpSay(text){
 let curSet=0,curMode=0,mpA=null,mpLock=false,mpFound=0,mpTries=0,mpSecret=null,mpPending=null;
 function renderModes(){
   const row=document.getElementById('moderow');if(!row)return;
-  /* solo sets play ONE easy way — no mode choice (Elena: easy, without her) */
-  if(SETS[curSet].solo){row.innerHTML='';row.style.display='none';return;}
   row.style.display='';
   row.innerHTML='';
   MODES.forEach(function(m,i){
@@ -193,7 +191,7 @@ function renderSets(){
   const row=document.getElementById('setrow');row.innerHTML='';
   SETS.forEach(function(s,i){
     const b=document.createElement('button');b.className='setchip'+(i===curSet?' on':'');b.type='button';
-    b.textContent=s.name;b.onclick=function(){curSet=i;if(SETS[i].solo)curMode=0;renderSets();renderModes();mpDeal();};
+    b.textContent=s.name;b.onclick=function(){curSet=i;renderSets();renderModes();mpDeal();};
     row.appendChild(b);
   });
 }
@@ -259,8 +257,8 @@ function mpResolve(){
     card.classList.remove('up');card.classList.add('ok');
     mpFound++;
     if(mpFound===total){
-      if(SETS[curSet].solo){
-        /* self-play finish: NO secret, NO teacher — just the celebration */
+      if(SETS[curSet].noSecret){
+        /* the easy finish: NO secret, NO teacher — just the celebration */
         if(s)s.textContent='You did it! 🎉 '+total+' / '+total+' — '+mpTries+' tries! Play again?';
         mpSay('Well done!');
         const ag=document.getElementById('mpagain');if(ag)ag.style.display='';
@@ -339,7 +337,9 @@ try{
   const want=q.get('set');
   if(want){
     const si=SETS.findIndex(function(s){return s.name.toLowerCase().indexOf(want.toLowerCase())>-1;});
-    if(si>-1){curSet=si;if(SETS[si].solo)curMode=0;}
+    if(si>-1){curSet=si;}
+    const m=q.get('mode');
+    if(m&&m.toLowerCase().indexOf('ap')===0)curMode=1;
   }
 }catch(e){}
 renderSets();
