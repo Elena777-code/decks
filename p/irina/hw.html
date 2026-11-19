@@ -135,11 +135,14 @@ footer{max-width:640px;width:100%;text-align:center;margin-top:1.6em;
     <div class="end-title">Молодец!</div>
     <div class="one-line" id="end-rows"></div>
     <div class="sent" id="sent-line"></div>
-    <div><button class="again-btn" id="again-btn">🔁 Новая попытка</button></div>
+    <div><button class="again-btn" id="again-btn">🔁 Новая попытка</button>
+      <button class="again-btn" id="step2-btn" style="background:var(--sun);color:var(--ink);box-shadow:0 6px 0 #e3b95f">Step 2 ▶</button></div>
+    <div style="margin-top:.8em"><a class="door-btn door-plain" href="demo-one-day.html" style="display:inline-block;text-decoration:none">✍️ Напиши, а не нажми
+      <span class="door-sub">следующее задание — печатью, можно пропустить</span></a></div>
   </div>
 </main>
 
-<footer>Успей до звонка · домашка Иры по английскому · build 2026-10-16 · v5 (front door: 🗓 week + ⏰ sprint — one link for the family; v4 2026-10-08 +make — Elena's rr: five meetings, every run deals it)</footer>
+<footer>Успей до звонка · домашка Иры по английскому · build 2026-11-19 · v6 (front door: 🗓 week + ⏰ sprint + ✍️ demo — one link for the family · the sprint end card carries Step 2 ▶ back to the doors; v5 2026-10-16 +make — Elena's rr: five meetings, every run deals it)</footer>
 
 <script>
 (function(){
@@ -303,6 +306,11 @@ $("begin-btn").addEventListener("click",function(){
   }
   ri=0;log=[];roundFlash();});
 $("again-btn").addEventListener("click",function(){rounds=buildRounds();ri=0;log=[];roundFlash();});
+$("step2-btn").addEventListener("click",function(){
+  document.getElementById("end-card").classList.add("hidden");
+  document.getElementById("door").classList.remove("hidden");
+  window.scrollTo(0,0);
+});
 
 function roundFlash(){
   show("flash");
