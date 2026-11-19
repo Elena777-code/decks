@@ -324,29 +324,17 @@ img.sheet.small{width:min(430px,90%)}
   </div>
 </section>
 
-<!-- 2 · THE SAME OR DIFFERENT GAME — ALWAYS ON THURSDAY (they play while the hw is checked; Elena, 19.11) -->
+<!-- 2 · THE SAME OR DIFFERENT GAME — ALWAYS ON THURSDAY (the Toys set — they play while the hw is checked; the game built in the other lane, untouched on her word) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Game time 🎲 · every Thursday — you play, I check the homework!</div>
   <h1 class="title reveal-el">SAME or DIFFERENT? 🟰</h1>
   <div class="accent-line reveal-el"></div>
-  <div class="task reveal-el">🎯 Look at the two pictures — tap SAME or DIFFERENT!</div>
-  <div id="sod" style="background:#eafbf6;border-radius:14px;padding:12px;margin:6px 0">
-    <div id="sod-count" style="font-weight:800;color:#636e72;font-size:.85rem;text-align:center">1 / 8</div>
-    <div id="sod-pics" style="display:flex;gap:4vw;justify-content:center;align-items:center;margin:10px 0">
-      <span id="sod-a" style="font-size:clamp(3.4rem,9vw,6rem);line-height:1"></span>
-      <span style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(1.2rem,2.6vw,1.8rem);color:#636e72">vs</span>
-      <span id="sod-b" style="font-size:clamp(3.4rem,9vw,6rem);line-height:1"></span>
-    </div>
-    <div style="display:flex;gap:14px;justify-content:center;margin-top:6px">
-      <button id="sod-same" onclick="sodAns(true)" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.4rem;border:none;border-radius:99px;padding:.45em 1.5em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">SAME 🟰</button>
-      <button id="sod-diff" onclick="sodAns(false)" style="font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.4rem;border:none;border-radius:99px;padding:.45em 1.5em;background:#fff;box-shadow:0 4px 12px rgba(45,52,54,.15);cursor:pointer">DIFFERENT 🎭</button>
-    </div>
-    <div id="sod-verdict" style="text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2rem;min-height:1.5em;margin-top:8px;color:#2D3436"></div>
-    <button id="sod-again" onclick="sodDeal()" style="display:none;margin:8px auto 0;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.15rem;border:none;border-radius:99px;padding:.5em 1.5em;background:#95E1D3;color:#2D3436;cursor:pointer">▶ Играть ещё раз — новые пары!</button>
-    <div id="sod-end" style="display:none;text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.3rem;color:#2D3436;margin-top:6px"></div>
-  </div>
-  <style>#sod-pics.wrong{animation:tdshake .35s}</style>
+  <div class="task reveal-el">🎯 The Toys pack — flip two cards: SAME or DIFFERENT?</div>
+  <a class="linkcard reveal-el" href="https://elena777-code.github.io/decks/lib/matching-pairs.html?set=toys&amp;mode=apart" target="_blank">▶ Открыть игру — Same or Different (Toys) 🃏</a>
+  <div class="card mint reveal-el"><p>🃏 Flip two — the picture and the word — <b style="color:var(--mint-deep)">SAME or DIFFERENT?</b> Say it loud!</p></div>
+  <div class="card peach reveal-el"><p>🔊 The sound button is inside the game &nbsp;·&nbsp; 🎮 More sets: Animals · School · Food · SM3</p></div>
 </section>
+
 <!-- 3 · HOMEWORK CHECK — THE LINK TO THE HW PAGE + THE TASKS (she checks on Thursdays) -->
 <section class="slide">
   <div class="eyebrow reveal-el">Homework check ✋</div>
@@ -896,57 +884,6 @@ function tdAns(id,l){
 }
 tdStart('td9'); tdStart('td10');
 </script>
-<script>
-/* THE SAME OR DIFFERENT GAME - the Thursday standing opener (Elena, 19.11: «always
-   on Thursday (they play while I check their hw)»). THE BALANCED BAG: 8 pairs,
-   always 4 same + 4 different, shuffled; one pair at a time (her quiz standard);
-   the first-try score; the wrong tap shakes and stays. The pool = the words they
-   own (the toys, the Dd family, the classroom). */
-var SODPOOL=['🐶','👨','⚫','⛏️','🧸','📦','✏️','🚂','⚽','🚲','💻','🪑'];
-var SODST={};
-function sodShuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=a[i];a[i]=a[j];a[j]=x;}return a;}
-function sodDeal(){
-  var yes=sodShuffle([1,1,1,1,0,0,0,0]),bag=[],guard=0;
-  do{ bag=sodShuffle(yes.slice());
-      guard++;
-  } while(guard<60 && (function(){for(var i=0;i<bag.length-2;i++){if(bag[i]===bag[i+1]&&bag[i]===bag[i+2])return true;}return false;})());
-  SODST={i:0,score:0,tried:false,pairs:bag.map(function(t){ var a=SODPOOL[Math.floor(Math.random()*SODPOOL.length)]; var b=(t===1)?a:SODPOOL.filter(function(x){return x!==a;})[Math.floor(Math.random()*(SODPOOL.length-1))]; return {a:a,b:b,same:t===1}; })};
-  document.getElementById('sod-end').style.display='none';
-  document.getElementById('sod-again').style.display='none';
-  sodRound();
-}
-function sodRound(){
-  var st=SODST,p=st.pairs[st.i];
-  st.tried=false;
-  document.getElementById('sod-count').textContent=(st.i+1)+' / '+st.pairs.length;
-  document.getElementById('sod-a').textContent=p.a;
-  document.getElementById('sod-b').textContent=p.b;
-  document.getElementById('sod-verdict').textContent='';
-  document.getElementById('sod-pics').classList.remove('wrong');
-  ['same','diff'].forEach(function(x){document.getElementById('sod-'+x).disabled=false;});
-}
-function sodAns(same){
-  var st=SODST,p=st.pairs[st.i],v=document.getElementById('sod-verdict');
-  if(same===p.same){
-    if(!st.tried)st.score++;
-    v.textContent=(p.same?'SAME! ✓':'DIFFERENT! ✓')+' 🌟';v.style.color='#27ae60';
-    ['same','diff'].forEach(function(x){document.getElementById('sod-'+x).disabled=true;});
-    setTimeout(function(){
-      st.i++;
-      if(st.i>=st.pairs.length){
-        document.getElementById('sod-end').style.display='block';
-        document.getElementById('sod-end').textContent='🎉 '+st.score+' из 8 с первого раза! Great job!';
-        document.getElementById('sod-again').style.display='block';
-      } else { sodRound(); }
-    },750);
-  } else {
-    st.tried=true;
-    v.textContent='Try again! 👀';v.style.color='#e74c3c';
-    var pics=document.getElementById('sod-pics');
-    pics.classList.remove('wrong');void pics.offsetWidth;pics.classList.add('wrong');
-  }
-}
-sodDeal();
-</script>
+</body>
 </body>
 </html>
