@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WW4 · Unit 1 · Starter 1.1 Vocabulary (part 2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fredoka:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WW4 (8th-grade group, Tue 15.45 Elena / Fri 15.30 Farida) —
+   WIDER WORLD 4, SECOND EDITION — Unit 1 «You can do it!»,
+   1.1 «Vocabulary — Success, failure and goals» (SB pp. 12–13),
+   SECOND SITTING — ACCORDING TO THE КОНСПЕКТ (Planning Unit 1,
+   LESSON 6). Friday (20.11) took 1.1 exercises 1–9; today =
+   the written dictation (the boxed words from ex. 3/6/8/10 —
+   34 items, shkola.app set) + the WB pp. 6–7 check → the
+   конспект's stages: the phrasal verbs presentation (the board
+   + the Wordwall context + the CCQs) → the text hunt (green) →
+   ex. 9 (ping-pong) → the Wordwall discussion + 'Complete' →
+   the Glossary (the goal phrases) → ex. 10 (🎧1.4) → ex. 11
+   (🎧1.5 Advice from Aidan) → the sticker notes → the small-talk
+   podcast (recorded!) → 'Difficult words' → homework (a story
+   with 10 new words).
+   THE конспект's «worksheets» ('Achieving goals', 'Complete',
+   'Glossary', 'Difficult words', the speaking cards) are NOT on
+   disk (Unit 1 Materials live on the Yandex disk, unpulled) —
+   the deck carries their content (derived where the конспект
+   gives no text; flagged in the notes).
+   Keys: the TB Unit 1 key spread (TB pdf 26–27 — ex. 9 printed
+   verbatim) + track 1.5 (it READS the ex. 11 answers — the
+   track is the key) + the TB's WB answer key (1.1 Vocabulary =
+   TB pdf 266, verbatim). Derived keys flagged.
+   Engine: the group's deck-009 clone (the WW4 2e standard) —
+   THE CORNERS V2, the ✍️ V2 window (auto-send over http), the
+   hotkey guard, flex-shrink guard, answers behind clicks, stamp.
+   The tense colour code stays; the mood-palette chips serve the
+   dictation grids.
+   ============================================================ */
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --radius:14px;
+  --grad:linear-gradient(90deg,#9a7fff,#F03CB0 45%,#FF7A29 75%,#FFC93C);
+  --tblue:#1450C8; --tgreen:#0E7A3D; --tred:#C0262E; --tyellow:#B8860B; --tpurple:#7D3C98;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);
+  overflow:hidden;background:#EFECE5}
+
+#bar{position:fixed;top:0;left:0;height:7px;width:0;z-index:100;
+  background:var(--grad);transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(10px);
+  border:1px solid rgba(0,0,0,.08);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.1rem);color:var(--ink)}
+#nav button{border:1px solid var(--line);background:#fff;color:var(--ink);
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease, opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--accent)}
+#nav button:disabled{opacity:.3;cursor:default}
+
+/* flex-shrink guard: nothing on a slide may collapse — the slide scrolls */
+.slide>*{flex-shrink:0}
+.slide{position:absolute;inset:0;padding:8vh 5vw 12vh;
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.6vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto;background:var(--paper)}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide.active .reveal{animation:rise .6s both}
+.slide.active .reveal:nth-child(2){animation-delay:.08s}
+.slide.active .reveal:nth-child(3){animation-delay:.16s}
+.slide.active .reveal:nth-child(4){animation-delay:.24s}
+.slide.active .reveal:nth-child(5){animation-delay:.32s}
+.slide.active .reveal:nth-child(6){animation-delay:.4s}
+.slide.active .reveal:nth-child(7){animation-delay:.48s}
+.slide.active .reveal:nth-child(8){animation-delay:.56s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:clamp(.8rem,1.25vw,1rem);font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+h1{font-weight:800;font-size:clamp(1.3rem,2.5vw,2.05rem);line-height:1.18;
+  letter-spacing:-.01em;color:var(--ink)}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+.stamp{display:inline-block;font-size:clamp(.72rem,1.05vw,.85rem);font-weight:700;
+  color:var(--ink-soft);border:1.5px solid var(--line);border-radius:99px;
+  padding:.14em .7em;background:#fff;letter-spacing:.04em}
+.task{font-size:clamp(1.02rem,1.65vw,1.3rem);line-height:1.5;font-weight:500}
+.task strong{color:var(--accent)}
+.tag{display:inline-block;font-size:clamp(.78rem,1.2vw,.95rem);font-weight:800;
+  letter-spacing:.05em;color:var(--ink-soft);
+  border:1.5px solid var(--line);border-radius:99px;padding:.16em .7em;
+  background:#fff;margin-bottom:.1em;white-space:nowrap}
+.note{font-size:clamp(.88rem,1.3vw,1.02rem);color:var(--ink-soft);font-style:italic;line-height:1.48}
+audio{width:min(460px,92%);height:42px;vertical-align:middle}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(.8rem,1.5vw,1.2rem)}
+.card.tint{background:var(--accent-soft);border-color:#d5e2dd}
+.card.gold{background:var(--gold-soft);border-color:#e8dcb8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(.7rem,1.5vw,1.1rem)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.5vw,1.1rem)}
+.chips{display:flex;flex-wrap:wrap;gap:.5em}
+.chip{border:1.5px solid var(--line);border-radius:99px;padding:.26em .8em;
+  font-size:clamp(.92rem,1.5vw,1.2rem);font-weight:600;background:#fff;user-select:none}
+.item{display:flex;gap:.7em;align-items:baseline;padding:.42em 0;
+  border-bottom:1px dashed var(--line);
+  font-size:clamp(1rem,1.7vw,1.32rem);line-height:1.5}
+.item:last-child{border-bottom:none}
+.item .no{font-weight:800;color:var(--accent);min-width:1.4em}
+/* click-to-reveal answers — ANSWERS HIDE, ALWAYS */
+.flip{cursor:pointer;border-radius:8px;transition:background .2s}
+.flip:hover{background:var(--accent-soft)}
+.flip .back{color:var(--accent);opacity:0;transition:opacity .2s;font-weight:700;font-size:.94em;
+  display:inline-block;max-width:0;max-height:1.1em;overflow:hidden;white-space:nowrap;vertical-align:baseline}
+.flip.shown .back{opacity:1;max-width:none;max-height:none;white-space:normal}
+/* a key chip never breaks across a line wrap — it moves whole */
+.back .tq{white-space:nowrap}
+/* the tense colour chips (the standing code) */
+.tq{border-radius:8px;padding:.1em .45em;font-weight:700}
+.tq.pres{background:#E1EAF7;border:1.5px solid var(--tblue);color:var(--tblue)}
+.tq.cont{background:#E3F2E5;border:1.5px solid var(--tgreen);color:var(--tgreen)}
+.tq.past{background:#F9E4E1;border:1.5px solid var(--tred);color:var(--tred)}
+.tq.fut{background:#FCF3D5;border:1.5px solid var(--tyellow);color:var(--tyellow)}
+.tq.pp{background:#F1E3F5;border:1.5px solid var(--tpurple);color:var(--tpurple)}
+/* the book's own grammar-focus highlight */
+.hl{background:#E1EAF7;border-radius:4px;padding:0 .18em;font-weight:700;color:#123a7a}
+.hlp{background:#F1E3F5;border-radius:4px;padding:0 .18em;font-weight:700;color:#5b2470}
+/* the phrasal-verb green (the text hunt colours the verbs GREEN per the конспект) */
+.hlv{background:#E3F2E5;border-radius:4px;padding:0 .18em;font-weight:700;color:#0E7A3D}
+.lead-sm{font-size:clamp(.95rem,1.5vw,1.18rem);line-height:1.5;color:#4a463d}
+.lead-sm strong{color:var(--accent)}
+.bigbtn{align-self:flex-start;border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.28em .9em;font-family:'Inter',sans-serif;font-weight:700;
+  font-size:clamp(.85rem,1.3vw,1rem);color:var(--ink-soft);cursor:pointer}
+.bigbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- the chalkboard (the конспект's board moments) ---------- */
+.board-card{background:#1E3A66;border:10px solid #fff;outline:4px solid #A9CCEF;
+  border-radius:18px;padding:clamp(1.2em,4vh,2em) clamp(1.4em,4vw,2.4em);
+  box-shadow:0 20px 50px rgba(30,58,102,.35)}
+.board-line{font-family:'Fredoka',sans-serif;font-weight:500;
+  font-size:clamp(1.25rem,3vw,2.2rem);color:#FDFDF8;line-height:1.5;margin-bottom:.55em}
+.board-line u{text-decoration:none;border-bottom:5px solid #FDFDF8;padding-bottom:.06em}
+.board-line u.tblue{border-bottom-color:#7EB3FF}
+.board-line .tblue{color:#7EB3FF}
+.board-line u.tpurple{border-bottom-color:#D8A8E8}
+.board-line .tpurple{color:#D8A8E8}
+.board-line u.tgreen{border-bottom-color:#8FD8A8}
+.board-line .tgreen{color:#8FD8A8}
+.board-cols{display:grid;grid-template-columns:1fr 1fr;gap:0 2em;
+  font-family:'Fredoka',sans-serif;font-weight:500;color:#FDFDF8}
+.board-cols .bcol{border-top:4px solid rgba(253,253,248,.55);padding-top:.35em}
+.board-cols .bcol h4{font-size:clamp(1.05rem,2.2vw,1.6rem);letter-spacing:.03em;margin-bottom:.3em}
+
+/* ---------- THE CORNERS V2 — pinned emoji pills ---------- */
+.pill{position:fixed;z-index:150;border:2px solid var(--line);background:rgba(255,255,255,.95);
+  backdrop-filter:blur(8px);color:var(--ink);font-family:'Inter',sans-serif;
+  font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1;
+  padding:.42em .6em;border-radius:99px;cursor:pointer;
+  box-shadow:0 3px 10px rgba(35,39,46,.10);transition:transform .12s,border-color .12s}
+.pill:hover{transform:scale(1.08);border-color:var(--accent)}
+#pardonBtn{top:max(10px,1.6vh);left:max(10px,1.6vw)}
+#annoBtn{top:max(10px,1.6vh);right:max(10px,1.6vw)}
+
+/* ---------- 🙋 Pardon? — the one universal list (top-left popup) ---------- */
+#pq{position:fixed;left:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:150;width:min(420px,92vw);
+  background:#fff;border:2px solid var(--line);border-radius:16px;padding:.75em .9em .9em;
+  display:none;flex-direction:column;gap:.35em;box-shadow:0 16px 40px rgba(35,39,46,.22)}
+#pq.on{display:flex}
+#pq .pq-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft);padding:0 .2em .2em}
+#pq .a-sp{flex:1}
+#pq .pq-head button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:inherit;font-size:.85rem}
+#pq .pq-head button:hover{border-color:var(--ink-soft)}
+#pq .pqRow{display:flex;align-items:center;gap:.6em;font-size:clamp(1rem,1.9vw,1.2rem);
+  font-weight:600;color:var(--ink);padding:.3em .5em;border-radius:10px;line-height:1.35}
+#pq .pqRow:hover{background:var(--accent-soft)}
+#pq .pqRow .pqE{flex:0 0 1.6em;text-align:center;font-weight:400}
+
+/*ANNO*//*STRIPANNO*//*/ANNO*/
+
+/*TNOTES*//*STRIPTNOTES*//*/TNOTES*/
+
+/* ⛶ read big — fullscreen reading text */
+#fso{position:fixed;inset:0;z-index:190;background:var(--paper);display:none;
+  overflow:auto;padding:6vh 7vw 10vh}
+#fso.open{display:block}
+#fso .fsoinner{max-width:78ch;margin:0 auto;font-size:clamp(1.25rem,2.4vw,1.95rem);
+  line-height:1.65;color:var(--ink)}
+
+@media (max-width:900px){
+  .slide{padding:8vh 5vw 12vh}
+  .grid2,.grid3{grid-template-columns:1fr}
+}
+</style>
+<style>/* THE FILM CUE (standing): Elena films the group for the parents at this slide */
+.filmchip{position:absolute;left:max(12px,1.4vw);bottom:10px;z-index:60;display:inline-flex;align-items:center;gap:.4em;font-weight:700;font-size:clamp(.62rem,.95vw,.8rem);color:#fff;background:#E4572E;padding:.32em .85em;border-radius:99px;box-shadow:0 2px 8px rgba(30,58,102,.25);white-space:nowrap}</style>
+</head>
+<body>
+
+<div id="bar"></div>
+
+<!-- 1 · COVER + THE PLAN + PREPARE AHEAD -->
+<section class="slide">
+  <div class="eyebrow reveal">Wider World 4 · Second Edition · Unit 1 “You can do it!” · 1.1 Vocabulary (part 2) · WW4 (8th grade) — Tue 15.45 Elena / Fri 15.30 Farida</div>
+  <h1 class="reveal">1.1 Success, failure and goals — <em>the phrasal verbs</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal"><strong>Today:</strong> the dictation, the phrasal verbs — and your first podcast. <!-- ww4-deck-010 · build 24.11 · v1 · master: groups/ww4/lessons/010/ww4-deck-010.html --></p>
+  <p class="tag reveal">BEFORE WE START — today’s order</p>
+  <div class="chips reveal">
+    <span class="chip">1 · the written dictation — 34 words</span>
+    <span class="chip">2 · homework check — WB pp. 6–7</span>
+    <span class="chip">3 · phrasal verbs + the podcast 🎙</span>
+  </div>
+  <div class="card tint reveal">
+    <p class="lead-sm"><strong>Prepare ahead</strong> — 📖 <strong>SB open at pp. 12–13</strong> · 📓 <strong>notebooks out</strong> · 🔊 <strong>sound check</strong>: two tracks play from the slides (slides 13 and 14) · 🌐 <strong>two Wordwall games</strong> open from the slides (slides 7 and 11) · 🎙 <strong>a phone ready</strong> — the podcast is recorded and sent · the printed worksheets are optional (the deck carries them).</p>
+  </div>
+</section>
+
+<!-- 2 · THE WRITTEN DICTATION — BOXES A + B -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">The written dictation · part 1 of 2 · boxes A + B</div>
+  <h1 class="reveal">Dictation — <em>write, then we check</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Listen and <strong>write the words</strong> (English!). Then check yourself — every word reveals on a click.</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Box A · adjectives of emotion</strong></p>
+      <div class="grid2">
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>______________ <span class="back">worried → <span class="tq">anxious</span></span></span></div>
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>______________ <span class="back">relaxed → <span class="tq">calm</span></span></span></div>
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>______________ <span class="back">happy and smiling → <span class="tq">cheerful</span></span></span></div>
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>______________ <span class="back"> puzzled, not understanding → <span class="tq">confused</span></span></span></div>
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>______________ <span class="back">very happy → <span class="tq">delighted</span></span></span></div>
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>______________ <span class="back">sad because it didn’t work → <span class="tq">disappointed</span></span></span></div>
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">7</span><span>______________ <span class="back">very, very tired → <span class="tq">exhausted</span></span></span></div>
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">8</span><span>______________ <span class="back">satisfied, glad → <span class="tq">pleased</span></span></span></div>
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">9</span><span>______________ <span class="back">too much pressure → <span class="tq">stressed</span></span></span></div>
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">10</span><span>______________ <span class="back">wow, unexpected → <span class="tq">surprised</span></span></span></div>
+        <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">11</span><span>______________ <span class="back">sad, hurt → <span class="tq">upset</span></span></span></div>
+      </div>
+    </div>
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Box B · verbs of success and failure</strong></p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">12</span><span>______________ <span class="back">to reach a goal → <span class="tq">achieve</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">13</span><span>______________ <span class="back">to aim at, plan to reach → <span class="tq">aim</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">14</span><span>______________ <span class="back">not succeed → <span class="tq">fail</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">15</span><span>______________ <span class="back">make better → <span class="tq">improve</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">16</span><span>______________ <span class="back">be able to do → <span class="tq">manage</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">17</span><span>______________ <span class="back">arrive at, get to → <span class="tq">reach</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">18</span><span>______________ <span class="back">do well, triumph → <span class="tq">succeed</span></span></span></div>
+    </div>
+  </div>
+  <p class="note reveal">The back hints are the meanings for the check — say the Russian, they write the English.</p>
+</section>
+
+<!-- 3 · THE WRITTEN DICTATION — BOX C + WORD FRIENDS -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">The written dictation · part 2 of 2 · box C + word friends</div>
+  <h1 class="reveal">Dictation — <em>the phrasal verbs and the phrases</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>Box C · achieving goals</strong></p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">19</span><span>______________ <span class="back">stop working (a car) → <span class="tq">break down</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">20</span><span>______________ <span class="back">start doing; be friendly with → <span class="tq">get on with</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">21</span><span>______________ <span class="back">stop trying → <span class="tq">give up</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">22</span><span>______________ <span class="back">continue → <span class="tq">keep on</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">23</span><span>______________ <span class="back">delay, postpone → <span class="tq">put off</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">24</span><span>______________ <span class="back">find the solution; turn out fine → <span class="tq">work out</span></span></span></div>
+    </div>
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>WORD FRIENDS · the phrases</strong></p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">25</span><span>______________ <span class="back">try as hard as you can → <span class="tq">do your best</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">26</span><span>______________ <span class="back">the answer correct or incorrect → <span class="tq">get something right/wrong</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">27</span><span>______________ <span class="back">finish your tasks → <span class="tq">get things done</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">28</span><span>______________ <span class="back">try something → <span class="tq">give something a go</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">29</span><span>______________ <span class="back">decide after thinking → <span class="tq">make decisions</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">30</span><span>______________ <span class="back">do something wrong → <span class="tq">make mistakes</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">31</span><span>______________ <span class="back">move forward, get better → <span class="tq">make progress</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">32</span><span>______________ <span class="back">use it fully → <span class="tq">make the most of something</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">33</span><span>______________ <span class="back">relax, don’t worry → <span class="tq">take it easy</span></span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">34</span><span>______________ <span class="back">treat as important → <span class="tq">take something seriously</span></span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · CHECK — WB pp. 6–7 -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Before we start · the homework check</div>
+  <h1 class="reveal">WB pp. 6–7 — <em>swap and check</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Swap workbooks with your partner. Check <strong>ex. by ex.</strong> — the keys appear on a click.</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>WB p. 6 · 1.1 Vocabulary</strong></p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>Match the adjectives with pictures A–F <span class="back">→ 1 confused · 2 upset · 3 cheerful · 4 calm · 5 exhausted · 6 delighted</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Complete the adjectives of emotion <span class="back">→ 1 confused · 2 delighted · 3 calm · 4 anxious · 5 stressed · 6 surprised · 7 pleased · 8 exhausted</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Choose the correct answer <span class="back">→ 1a · 2c · 3a · 4b · 5c · 6b</span></span></div>
+    </div>
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>WB p. 7 · word friends + more</strong></p>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>Complete the verb in each phrase <span class="back">→ 1 take · 2 make · 3 do · 4 get · 5 give · 6 make · 7 make · 8 take · 9 make · 10 get</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Complete the sentences <span class="back">→ 1 achieve … take · 2 mistakes … improve · 3 succeed … go · 4 made … managed · 5 making … reach · 6 aims … take</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>Match the two halves <span class="back">→ 1b · 2e · 3a · 4d · 5c · 6f</span></span></div>
+      <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">7</span><span>Complete the sentences <span class="back">→ 1 aiming · 2 upset · 3 take · 4 give · 5 anxious · 6 fail · 7 do · 8 decision · 9 got · 10 pleased</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · WARM-UP — THE DIFFICULT TASKS -->
+<section class="slide">
+  <div class="eyebrow reveal">Warm-up · 5 minutes</div>
+  <h1 class="reveal">What was <em>difficult</em> in your homework?</h1>
+  <div class="rule reveal"></div>
+  <div class="card tint reveal"><p class="task">Which <strong>words</strong> were the hardest to remember? Which <strong>exercises</strong> went wrong? Let’s discuss.</p></div>
+</section>
+
+<!-- 6 · LEAD-IN — 3 STEPS TO SUCCEED -->
+<section class="slide">
+  <div class="eyebrow reveal">Lead-in · 4 minutes</div>
+  <h1 class="reveal">3 steps to <em>succeed</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card tint reveal">
+    <p class="task">💬 <strong>Name 3 important steps to succeed.</strong></p>
+    <p class="task" style="margin-top:.4em">💬 And what helps you <strong>keep trying</strong> again if you <strong>fail</strong>?</p>
+  </div>
+</section>
+
+<!-- 7 · PRESENTATION — THE BOARD + THE WORDWALL CONTEXT -->
+<section class="slide">
+  <div class="eyebrow reveal">Presentation · on the board · the phrasal verbs</div>
+  <h1 class="reveal">break → <em>break down?</em> — what’s different?</h1>
+  <div class="rule reveal"></div>
+  <div class="board-card reveal">
+    <div class="board-cols">
+      <div class="bcol"><h4>THE VERBS</h4><p class="board-line" style="font-size:clamp(.95rem,1.7vw,1.35rem)">break · get · give · keep · put · work</p></div>
+      <div class="bcol"><h4>THE PHRASAL VERBS</h4><p class="board-line" style="font-size:clamp(.95rem,1.7vw,1.35rem)">break <span class="tgreen">down</span> · get <span class="tgreen">on with</span> · give <span class="tgreen">up</span> · keep <span class="tgreen">on</span> · put <span class="tgreen">off</span> · work <span class="tgreen">out</span></p></div>
+    </div>
+    <p class="board-line" style="margin-top:.4em">Are they the <span class="tpurple">same</span>? What’s <span class="tpurple">different</span>?</p>
+  </div>
+  <div class="card tint reveal">
+    <p class="task">🌐 <strong><a href="https://wordwall.net/resource/110335605" target="_blank">wordwall.net/resource/110335605</a></strong> — the meaning lives in the context sentences!</p>
+  </div>
+</section>
+
+<!-- 8 · THE ‘ACHIEVING GOALS’ TABLE -->
+<section class="slide">
+  <div class="eyebrow reveal">Worksheet ‘Achieving goals’ · the table · 4 minutes</div>
+  <h1 class="reveal">The phrasal verbs — <em>complete the table</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span><span class="hlv">break down</span> — stop working <em>(a car, a machine)</em>; divide into smaller parts</span></div>
+    <div class="item"><span class="no">2</span><span><span class="hlv">get on with</span> — start doing (a task); have a good relationship <em>(with)</em></span></div>
+    <div class="item"><span class="no">3</span><span><span class="hlv">give up</span> — stop trying, quit</span></div>
+    <div class="item"><span class="no">4</span><span><span class="hlv">keep on</span> — continue doing something</span></div>
+    <div class="item"><span class="no">5</span><span><span class="hlv">put off</span> — delay, postpone to later</span></div>
+    <div class="item"><span class="no">6</span><span><span class="hlv">work out</span> — find the solution; turn out well</span></div>
+  </div>
+  <div class="card tint reveal">
+    <p class="lead-sm"><strong>In pairs — complete the table (4 minutes):</strong> 🔍 find <strong>2–3 synonyms</strong> for each verb (online dictionaries) · 📖 find <strong>collocations in the text</strong> (SB p. 12) · ✍️ add one <strong>example</strong> of your own.</p>
+  </div>
+</section>
+
+<!-- 9 · PRACTICE — THE TEXT HUNT (green) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Practice · the text · find them in green · 2 minutes</div>
+  <h1 class="reveal">The blog — <em>find the phrasal verbs</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Find and <strong>underline the phrasal verbs in green</strong> in the text (SB p. 12). <strong>2 minutes</strong> — how many have you found?</p>
+  <div class="card reveal" style="font-size:clamp(.88rem,1.45vw,1.1rem);line-height:1.55">
+    <p><strong>Get things done.</strong> It’s a new school year with new challenges. Read these tips to help you work out how to make progress and improve your results.</p>
+    <p style="margin-top:.45em"><strong>1 · Give it a go.</strong> Just do it! When you have to do something, get on with it! Don’t put things off until tomorrow if you can do them today.</p>
+    <p style="margin-top:.45em"><strong>2 · Step by step.</strong> You can’t jump to the top of a building; you have to climb the stairs. So make a plan and break it down into smaller steps. Small regular targets are easier to reach.</p>
+    <p style="margin-top:.45em"><strong>3 · Friends help.</strong> When you work in a team, you don’t feel so anxious or stressed. Share ideas and help each other achieve your goals.</p>
+    <p style="margin-top:.45em"><strong>4 · Do your best.</strong> Always aim to do your best, but don’t be upset if the end result isn’t perfect. Be pleased that you managed to do something, not disappointed that you failed to do everything.</p>
+    <p style="margin-top:.45em"><strong>5 · Try, try again.</strong> We all make mistakes. Things go wrong. You can’t always get everything right. But don’t give up. Remember: if at first you don’t succeed, keep on trying.</p>
+  </div>
+  <button class="bigbtn reveal" onclick="openFs('fs-text')">⛶ Read big — the whole text</button>
+  <div class="card tint reveal"><p class="task"><strong>In the text:</strong> <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ get on with (it) · put (things) off · work out · break (it) down · give up · keep on trying <span class="note">(+ do your best — the phrase!)</span></span></span></p></div>
+</section>
+<div id="fs-text" style="display:none">
+  <h3>Get things done — by Emma Witcot</h3>
+  <div style="font-size:1em;line-height:1.75">
+    <p>It’s a new school year with new challenges. Read these tips to help you work out how to make progress and improve your results.</p>
+    <p><b>1 · Give it a go.</b> Just do it! When you have to do something, get on with it! Don’t put things off until tomorrow if you can do them today.</p>
+    <p><b>2 · Step by step.</b> You can’t jump to the top of a building; you have to climb the stairs. So make a plan and break it down into smaller steps. Small regular targets are easier to reach.</p>
+    <p><b>3 · Friends help.</strong> When you work in a team, you don’t feel so anxious or stressed. Share ideas and help each other achieve your goals.</p>
+    <p><b>4 · Do your best.</b> Always aim to do your best, but don’t be upset if the end result isn’t perfect. Be pleased that you managed to do something, not disappointed that you failed to do everything.</p>
+    <p><b>5 · Try, try again.</b> We all make mistakes. Things go wrong. You can’t always get everything right. But don’t give up. Remember: if at first you don’t succeed, keep on trying.</p>
+  </div>
+</div>
+
+<!-- 10 · EX. 9 — REPLACE WITH THE PHRASAL VERBS -->
+<section class="slide">
+  <div class="eyebrow reveal">SB p. 13 · ex. 9 · replace · 4 minutes</div>
+  <h1 class="reveal">Say it with a <em>phrasal verb</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Replace the <strong>underlined</strong> words and phrases with phrasal verbs from <strong>Vocabulary box C</strong>. Write the sentences in your copybook — <strong>4 minutes</strong>. Then add the synonyms to your table.</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>To <u>find the solution to</u> a difficult Maths problem, it’s a good idea to <u>divide it into</u> easy steps. <span class="back">→ <span class="tq">To work out</span> a difficult Maths problem, it’s a good idea to <span class="tq">break it down</span> into easy steps.</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>It’s time to <u>start doing</u> it. If you keep <u>delaying</u> it, you’ll never finish it. <span class="back">→ It’s time to <span class="tq">get on with</span> it. If you keep <span class="tq">putting it off</span>, you’ll never finish it.</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>If you <u>continue</u> working like this, you will succeed. If you <u>stop trying</u>, you won’t. <span class="back">→ If you <span class="tq">keep on</span> working like this, you will succeed. If you <span class="tq">give up</span>, you won’t.</span></span></div>
+  </div>
+</section>
+
+<!-- 11 · THE WORDWALL DISCUSSION + 'COMPLETE' -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Wordwall discussion + worksheet ‘Complete’ · 3 minutes</div>
+  <h1 class="reveal">Discuss — <em>then fill the gaps</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card tint reveal">
+    <p class="task">🌐 <strong><a href="https://wordwall.net/resource/107499514" target="_blank">wordwall.net/resource/107499514</a></strong> — the class discussion, question by question.</p>
+  </div>
+  <p class="task reveal">Now — <strong>‘Complete’</strong>: fill in the gaps with the phrasal verbs. Alone — <strong>3 minutes</strong>. The lollipop stick picks who checks each one! 🍭</p>
+  <div class="card reveal">
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">1</span><span>My car __________ __________ yesterday, so I was late for school. <span class="back">→ <span class="tq">broke down</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>Do you __________ __________ your classmates? <span class="back">→ <span class="tq">get on with</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>Never __________ __________ learning a language — it gets easier! <span class="back">→ <span class="tq">give up</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>If you __________ __________ practising, you will improve. <span class="back">→ <span class="tq">keep on</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">5</span><span>Don’t __________ __________ doing your homework until tomorrow. <span class="back">→ <span class="tq">put off</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>I’m sure this plan will __________ __________. <span class="back">→ <span class="tq">work out</span></span></span></div>
+  </div>
+</section>
+
+<!-- 12 · THE GLOSSARY — THE GOAL PHRASES -->
+<section class="slide">
+  <div class="eyebrow reveal">Worksheet ‘Glossary’ · the goal phrases</div>
+  <h1 class="reveal">Your glossary — <em>phrases for achieving goals</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="item"><span class="no">1</span><span><strong>do your best</strong> — try as hard as you can</span></div>
+      <div class="item"><span class="no">2</span><span><strong>get something right / wrong</strong> — the answer correct / incorrect</span></div>
+      <div class="item"><span class="no">3</span><span><strong>get things done</strong> — complete your tasks</span></div>
+      <div class="item"><span class="no">4</span><span><strong>give something a go</strong> — try it</span></div>
+      <div class="item"><span class="no">5</span><span><strong>make decisions</strong> — decide (after thinking!)</span></div>
+      <div class="item"><span class="no">6</span><span><strong>make mistakes</strong> — do something wrong</span></div>
+    </div>
+    <div class="card">
+      <div class="item"><span class="no">7</span><span><strong>make progress</strong> — move forward, get better</span></div>
+      <div class="item"><span class="no">8</span><span><strong>make the most of something</strong> — use it fully</span></div>
+      <div class="item"><span class="no">9</span><span><strong>take it easy</strong> — relax, don’t worry</span></div>
+      <div class="item"><span class="no">10</span><span><strong>take something seriously</strong> — treat it as important</span></div>
+    </div>
+  </div>
+  <div class="card gold reveal"><p class="lead-sm">If you have time — write <strong>one sentence</strong> with each phrase that was difficult for you.</p></div>
+</section>
+
+<!-- 13 · EX. 10 — WORD FRIENDS COMPLETE (track 1.4) -->
+<section class="slide">
+  <div class="eyebrow reveal">SB p. 13 · ex. 10 · track 1.4 · WORD FRIENDS</div>
+  <h1 class="reveal">Complete the verbs — <em>listen and check</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">🎧 <strong>1.4</strong> <strong>WORD FRIENDS</strong> Complete the verbs in the phrases. Listen and check.</p>
+  <audio class="deck reveal" controls preload="none" src="../media/ww4-2e-track-1-4.mp3"></audio>
+  <div class="card reveal">
+    <div class="item"><span class="no">1</span><span><span class="hl">do</span> your best <span class="note">(the example)</span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">2</span><span>g__________ something right / wrong <span class="back">→ <span class="tq">get</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">3</span><span>g__________ things done <span class="back">→ <span class="tq">get</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">4</span><span>g__________ something a go <span class="back">→ <span class="tq">give</span></span></span></div>
+    <div class="item"><span class="no">5</span><span><span class="hl">make</span> decisions</span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">6</span><span>m__________ mistakes <span class="back">→ <span class="tq">make</span></span></span></div>
+    <div class="item flip" onclick="this.classList.toggle('shown')"><span class="no">7</span><span>m__________ progress <span class="back">→ <span class="tq">make</span></span></span></div>
+    <div class="item"><span class="no">8</span><span><span class="hl">make</span> the most of something</span></div>
+    <div class="item"><span class="no">9</span><span><span class="hl">take</span> it easy</span></div>
+    <div class="item"><span class="no">10</span><span><span class="hl">take</span> something seriously</span></div>
+  </div>
+</section>
+
+<!-- 14 · EX. 11 — ADVICE FROM AIDAN (track 1.5) -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">SB p. 13 · ex. 11 · track 1.5 · circle the option · 3 minutes</div>
+  <h1 class="reveal">Advice from Aidan — <em>fear of failure</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">Circle the correct options alone — <strong>3 minutes</strong>. Then <strong>listen and check</strong>.</p>
+  <audio class="deck reveal" controls preload="none" src="../media/ww4-2e-track-1-5.mp3"></audio>
+  <div class="grid2 reveal">
+    <div class="card" style="font-size:clamp(.88rem,1.45vw,1.1rem);line-height:1.6">
+      <p><strong>Fear of failure</strong></p>
+      <p style="margin-top:.4em">I feel anxious about <em>¹doing / making</em> mistakes because I always feel so upset when things go wrong. I want to <em>²do / make</em> my best, but it’s really hard for me to <em>³give / make</em> decisions. I just keep <em>⁴getting / putting</em> them off. I need to learn to <em>⁵get / make</em> things done and start enjoying life. <em>Lyle, Glasgow</em></p>
+    </div>
+    <div class="card" style="font-size:clamp(.88rem,1.45vw,1.1rem);line-height:1.6">
+      <p>Lyle, you’re suffering from a fear of failure. You’ve got to learn to <em>⁶have / take</em> it easy. It’s not the end of the world if you <em>⁷get / make</em> something wrong. Nobody succeeds all the time. If you want to <em>⁸do / make</em> the most of your life, you need to change the way you think. You should <em>⁹keep / work</em> out what you really want to do and just <em>¹⁰get / give</em> it a go! Contact a friend and start making plans together now! Go on, <em>¹¹get / give</em> on with it! Be brave! <em>Aidan</em></p>
+    </div>
+  </div>
+  <div class="card tint reveal"><p class="task"><strong>The chain:</strong> <span class="flip" onclick="this.classList.toggle('shown')"><span class="back">→ <span class="tq">¹making · ²do · ³make · ⁴putting · ⁵get · ⁶take · ⁷make · ⁸do · ⁹work out · ¹⁰give · ¹¹get</span></span></span></p></div>
+</section>
+
+<!-- 15 · THE STICKER NOTES — FINISH THE SENTENCES -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Sticker notes · finish the sentences · 4 + 4 minutes</div>
+  <h1 class="reveal">Finish the sentence — <em>your ideas</em></h1>
+  <div class="rule reveal"></div>
+  <div class="grid2 reveal">
+    <div class="card">
+      <div class="item"><span class="no">1</span><span>If I don’t take my studies seriously this year, …</span></div>
+      <div class="item"><span class="no">2</span><span>If I keep practising, I …</span></div>
+      <div class="item"><span class="no">3</span><span>If I were more confident, I …</span></div>
+      <div class="item"><span class="no">4</span><span>If people didn’t worry about making mistakes, they …</span></div>
+    </div>
+    <div class="card">
+      <div class="item"><span class="no">5</span><span>I have already … this year.</span></div>
+      <div class="item"><span class="no">6</span><span>I have never … , but I would like to.</span></div>
+      <div class="item"><span class="no">7</span><span>I have … since … .</span></div>
+      <div class="item"><span class="no">8</span><span>I have … for two months.</span></div>
+    </div>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm"><strong>Then:</strong> swap with your partner — <strong>complete THEIR sentences</strong> with your ideas (4 minutes). Compare — and read your best ones aloud!</p></div>
+</section>
+
+<!-- 16 · PRODUCTION — THE SMALL-TALK PODCAST + THE FILM CUE -->
+<section class="slide scroll">
+  <div class="eyebrow reveal">Production · the small-talk podcast · 6 minutes</div>
+  <h1 class="reveal">Your podcast — <em>talk and record!</em></h1>
+  <div class="rule reveal"></div>
+  <p class="task reveal">First: <strong>Do you listen to podcasts?</strong> How often? What about? How long are they?</p>
+  <p class="task reveal">In pairs: pick a <strong>card</strong>, talk on the topic — your partner listens, then asks <strong>3 more questions</strong>. Swap! Use at least <strong>5 target words</strong> (the table + the glossary). <strong>Record</strong> your podcast as a voice message and send it!</p>
+  <div class="grid2 reveal">
+    <div class="card">
+      <p class="lead-sm" style="margin-bottom:.2em"><strong>The speaking cards</strong></p>
+      <div class="item"><span class="no">1</span><span>My biggest <strong>achievement</strong> this year</span></div>
+      <div class="item"><span class="no">2</span><span>A <strong>failure</strong> I remember — and what it taught me</span></div>
+      <div class="item"><span class="no">3</span><span>How I <strong>motivate myself</strong> to study</span></div>
+    </div>
+    <div class="card">
+      <div class="item"><span class="no">4</span><span>My dream <strong>goal</strong> — and the steps to it</span></div>
+      <div class="item"><span class="no">5</span><span>What I do when things <strong>go wrong</strong></span></div>
+      <div class="item"><span class="no">6</span><span>The best <strong>advice</strong> about success I’ve heard</span></div>
+    </div>
+  </div>
+  <div class="card gold reveal"><p class="lead-sm"><strong>Then:</strong> how many target words did you use? Did you ask your 3 questions? What constructions came out?</p></div>
+  <div class="filmchip" title="Lights, camera, action — film 30–60 s of the group for the parents; the clip goes to Miss Alyona">🎬 Lights, camera, action!</div>
+</section>
+
+<!-- 17 · WRAP-UP + HOMEWORK -->
+<section class="slide">
+  <div class="eyebrow reveal">Wrap-up · 3 minutes + homework</div>
+  <h1 class="reveal">The difficult words — <em>then your story</em></h1>
+  <div class="rule reveal"></div>
+  <div class="card tint reveal">
+    <p class="task">📖 <strong>‘Difficult words’</strong>: which of today’s words and expressions were <strong>difficult to remember or use</strong>? Why? Write them into your table.</p>
+  </div>
+  <div class="card reveal">
+    <p class="task">✍️ <strong>Homework — a story!</strong> Write a <strong>story using 10 new words and collocations</strong> from today’s lesson (the phrasal verbs + the goal phrases) — in your copybook.</p>
+    <p class="note" style="margin-top:.4em">Underline the 10 target words so they are easy to see!</p>
+  </div>
+  <div class="card tint reveal"><p class="lead-sm">Next time — <strong>1.2</strong> (SB p. 14): the early-bird listening, the podcast and the Present Simple. 🌅</p></div>
+</section>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button><span id="counter">1 / 17</span>
+  <button id="next" aria-label="next">›</button><button id="fs" aria-label="fullscreen">⛶</button>
+</div>
+
+<!-- pinned pills — THE CORNERS V2: 🙋 top-left · ✍️ top-right · 🗒 bottom-centre -->
+<button id="pardonBtn" class="pill" title="Pardon? — class phrases (P)">🙋</button>
+<!--TNOTES--><!--/TNOTES-->
+
+<!--TNOTES--><!--/TNOTES-->
+
+<!-- 🙋 Pardon? — the one universal list -->
+<div id="pq">
+  <div class="pq-head"><span>say it in class</span><span class="a-sp"></span>
+    <button id="pqX" title="close (Esc / P)">✕</button></div>
+  <div class="pqRow"><span class="pqE">🙋</span>Pardon?</div>
+  <div class="pqRow"><span class="pqE">❓</span>What does <b>___</b> mean?</div>
+  <div class="pqRow"><span class="pqE">🆘</span>Can you help me?</div>
+  <div class="pqRow"><span class="pqE">🔁</span>Can you repeat, please?</div>
+  <div class="pqRow"><span class="pqE">🇬🇧</span>How do you say <b>___</b> in English?</div>
+  <div class="pqRow"><span class="pqE">🤷</span>I don't understand.</div>
+</div>
+
+<!--ANNO--><!--/ANNO-->
+
+<!-- ⛶ read big -->
+<div id="fso" onclick="this.classList.remove('open')"><div class="fsoinner" id="fsoinner"></div></div>
+
+<script>
+const CH='ww4-u1-l1b';
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+const bar=document.getElementById('bar'),cnt=document.getElementById('counter'),
+prev=document.getElementById('prev'),next=document.getElementById('next');
+function go(n){
+  if(n<0||n>=slides.length)return;
+  document.querySelectorAll('audio,video').forEach(a=>{try{a.pause()}catch(e){}});
+  slides[i].classList.remove('active');
+  if(n>i)slides[i].classList.add('prev');
+  i=n;const s=slides[i];s.classList.remove('prev');s.classList.add('active');
+  bar.style.width=((i+1)/slides.length*100)+'%';
+  cnt.textContent=(i+1)+' / '+slides.length;
+  history.replaceState(null,'','#'+(i+1));
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  if(typeof annoFill==='function'&&document.getElementById('anno').classList.contains('on')){annoIdx=n;annoFill()}
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById('fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+/* ---------- ⛶ read big ---------- */
+function openFs(id){document.getElementById('fsoinner').innerHTML=document.getElementById(id).innerHTML;
+  document.getElementById('fso').classList.add('open');}
+
+/* ---------- 🙋 Pardon? (top-left pill, key P) — the one universal list ---------- */
+const pqPanel=document.getElementById('pq');
+function pqToggle(open){pqPanel.classList.toggle('on',open);
+  if(open){const a=document.getElementById('anno');if(a)a.classList.remove('on')}}
+function pqEsc(){if(pqPanel.classList.contains('on')){pqPanel.classList.remove('on');return true}return false}
+document.getElementById('pardonBtn').onclick=()=>pqToggle(!pqPanel.classList.contains('on'));
+document.getElementById('pqX').onclick=()=>pqToggle(false);
+
+/* ---------- keys (the guard first: ⌘/Ctrl/Alt never triggers deck keys) ---------- */
+document.addEventListener('keydown',e=>{
+  if(/INPUT|TEXTAREA/.test(e.target.tagName))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(e.key==='Escape'){
+    if(typeof annoEsc==='function'&&annoEsc())return;
+    if(pqEsc())return;
+    if(typeof notesEsc==='function'&&notesEsc())return;
+    document.getElementById('fso').classList.remove('open');return}
+  if(document.getElementById('fso').classList.contains('open')){
+    if(e.key==='Escape')document.getElementById('fso').classList.remove('open');
+    return}
+  if((e.key==='t'||e.key==='T'||e.key==='е'||e.key==='Е')&&typeof toggleNotes==='function'){e.preventDefault();toggleNotes();return}
+  if((e.key==='p'||e.key==='P'||e.key==='з'||e.key==='З')){e.preventDefault();pqToggle(!pqPanel.classList.contains('on'));return}
+  if(pqPanel.classList.contains('on'))return; /* the list is open — other keys sleep */
+  /* MEDIA key-guard: SPACE pauses a playing track or video instead of flipping */
+  if(e.key===' '){
+    const playing=[...document.querySelectorAll('audio,video')].find(a=>!a.paused);
+    if(playing){playing.pause();return;}
+  }
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))go(i+1);
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))go(i-1);
+  if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);
+  if(e.key==='f'||e.key==='F')document.getElementById('fs').click();
+});
+
+/*TNOTES*//*STRIPTNOTES*//*/TNOTES*/
+
+/*ANNO*//*STRIPANNO*//*/ANNO*/
+
+/* ---------- wheel/touch: a .scroll slide scrolls, never flips ---------- */
+let wt=0;document.addEventListener('wheel',e=>{
+  if(document.getElementById('fso').classList.contains('open'))return;
+  if(e.target.closest('.slide')&&e.target.closest('.slide').classList.contains('scroll'))return;
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;go(i+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0,ty=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ---------- boot: deep link #n ---------- */
+const h=parseInt(location.hash.slice(1));
+go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0);
+
+/* ---------- ready-chime (http/https: chime + reload on save) ---------- */
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{
+    ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==='suspended')ctx.resume();
+  }catch(e){}};
+  addEventListener('pointerdown',unlock);addEventListener('keydown',unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type='sine';o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:'HEAD',cache:'no-store'}).then(r=>{
+      const m=r.headers.get('last-modified');
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
