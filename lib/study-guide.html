@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Guide — English Grammar in Use</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   STUDY GUIDE — the book's own where-to-start test from
+   English Grammar in Use (5th ed, Murphy — the Study guide,
+   pp. 326–335, key p. 372), as a deck.
+   THE MECHANIC (the book's, verbatim): complete each sentence
+   with one or more of the alternatives; IN SOME SENTENCES MORE
+   THAN ONE ALTERNATIVE IS POSSIBLE; not sure = study the
+   UNIT(S) in the list — the STUDY UNIT column rides every
+   miss here, and the deck is the key (clicks check at once).
+   The last slide collects this run's misses into the route
+   through the book.
+   Home: Library/Books/English Grammar in Use/
+   Engine: the lib family (cloned from the AGU study-planner —
+   nav bottom-right, progress bar, presenter view T / 🖥,
+   ready-chime, #n hash) + the click-quiz layer.
+   ============================================================ */
+:root{
+  --paper:#F6F5EF; --card:#FFFFFF; --ink:#24312A; --ink-soft:#5D6B62;
+  --green:#1C6B43; --green-deep:#0F4A2C; --leaf:#6FA97E; --leaf-soft:#E3EFE6;
+  --gold:#F2D94E; --gold-soft:#FBF3C9;
+  --teal:#2E8B74; --teal-soft:#E7F4EE;
+  --wrong:#8A8F8C; --wrong-soft:#F2F0EB;
+  --line:#D5DFD7;
+  --shadow:0 8px 24px rgba(36,49,42,.10); --shadow-lg:0 16px 40px rgba(36,49,42,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(111,169,126,.3)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green-deep),var(--leaf),var(--gold));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(15,74,44,.88);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.05rem);color:#fff;font-weight:700}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--gold)}
+#nav button:disabled{opacity:.3;cursor:default}
+.slide{position:absolute;inset:0;padding:4.6vh 5vw calc(74px + 2.2vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.1vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide>*{flex-shrink:0}
+.slide.active .reveal{animation:rise .55s both}
+.slide.active .reveal:nth-child(2){animation-delay:.07s}
+.slide.active .reveal:nth-child(3){animation-delay:.14s}
+.slide.active .reveal:nth-child(4){animation-delay:.21s}
+.slide.active .reveal:nth-child(5){animation-delay:.28s}
+.slide.active .reveal:nth-child(6){animation-delay:.35s}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  font-size:clamp(.72rem,1.1vw,.92rem);color:var(--green)}
+h1.title{font-weight:900;line-height:1.05;margin-bottom:.2em;
+  font-size:clamp(1.9rem,4.2vw,3.4rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--green),var(--gold))}
+.lead{font-size:clamp(1.02rem,1.7vw,1.32rem);line-height:1.5;max-width:60ch}
+.lead b{color:var(--green-deep)}
+.stamp-line{font-weight:700;color:var(--ink-soft);font-size:clamp(.78rem,1.05vw,.92rem);
+  letter-spacing:.05em;margin-top:auto;opacity:.85}
+
+/* the section bar — the book's own green pill */
+.secbar{display:flex;align-items:center;gap:.8em;background:linear-gradient(180deg,#1E7A4C,var(--green-deep));
+  color:#fff;border-radius:16px;padding:.5em 1.1em;box-shadow:var(--shadow);
+  font-weight:800;font-size:clamp(1rem,1.9vw,1.5rem)}
+.secbar .range{margin-left:auto;font-weight:700;font-size:.62em;opacity:.85;
+  background:rgba(255,255,255,.14);border-radius:99px;padding:.25em .9em;white-space:nowrap}
+.secbar .hint{font-weight:600;font-size:.58em;opacity:.75;white-space:nowrap}
+
+/* question cards */
+.qlist{display:flex;flex-direction:column;gap:clamp(.5rem,1vh,.8rem);width:100%}
+.q{display:grid;grid-template-columns:auto 1fr;gap:.7em;background:var(--card);
+  border-radius:14px;box-shadow:0 4px 14px rgba(36,49,42,.07);
+  padding:.55em .8em .6em .7em;align-items:start}
+.qn{font-weight:900;color:var(--green);font-size:clamp(.95rem,1.5vw,1.2rem);
+  padding-top:.1em;min-width:2.6em;text-align:right}
+.qs{font-weight:700;font-size:clamp(.98rem,1.55vw,1.22rem);line-height:1.42}
+.qs .gap{display:inline-block;min-width:4.5em;border-bottom:2.5px dotted var(--leaf);
+  height:.95em;vertical-align:baseline;margin:0 .12em}
+.opts{display:flex;flex-wrap:wrap;gap:.38em .45em;margin-top:.45em}
+.opt{font-family:inherit;font-size:clamp(.86rem,1.32vw,1.04rem);font-weight:600;color:var(--ink);
+  background:#fff;border:1.5px solid var(--line);border-radius:12px;
+  padding:.32em .7em;cursor:pointer;text-align:left;line-height:1.3;
+  transition:transform .13s ease,border-color .13s ease,background .13s ease,opacity .13s ease}
+.opt b{color:var(--green);font-weight:900;margin-right:.38em}
+.opt:hover{transform:translateY(-2px);border-color:var(--leaf)}
+.q.done .opt{cursor:default}
+.q.done .opt:hover{transform:none}
+.opt.correct{background:var(--teal-soft);border:2px solid var(--teal);padding:.29em .66em}
+.opt.correct::after{content:" ✓";color:var(--teal);font-weight:900}
+.opt.wrong{background:var(--wrong-soft);border-color:#DDD9D1;color:var(--wrong);
+  text-decoration:line-through;opacity:.72;padding:.29em .66em;
+  animation:shake .4s cubic-bezier(.36,.07,.19,.97)}
+@keyframes shake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(2px)}
+  30%,50%,70%{transform:translateX(-3px)}40%,60%{transform:translateX(3px)}}
+.verdict{display:none;margin-top:.5em;font-weight:700;font-size:clamp(.84rem,1.3vw,1.02rem);
+  color:var(--ink-soft);align-items:center;flex-wrap:wrap;gap:.4em}
+.q.missed .verdict{display:flex}
+.verdict .ans{color:var(--green-deep)}
+.verdict .go{background:var(--gold-soft);border:1.5px solid var(--gold);border-radius:99px;
+  padding:.12em .75em;color:#6b5a12;font-weight:800;white-space:nowrap}
+.verdict .knote{font-style:italic;font-weight:600}
+
+/* intro slide */
+.howrow{display:flex;flex-wrap:wrap;gap:.6em;margin-top:.4em}
+.how{background:var(--card);border:1.5px solid var(--line);border-radius:14px;
+  padding:.5em 1em;font-weight:700;font-size:clamp(.9rem,1.4vw,1.1rem);box-shadow:0 3px 10px rgba(36,49,42,.06)}
+.how b{color:var(--green);font-weight:900}
+.prep{background:var(--gold-soft);border:1.5px solid var(--gold);border-radius:14px;
+  padding:.55em 1em;font-weight:700;font-size:clamp(.9rem,1.4vw,1.08rem);max-width:64ch}
+.facts{display:flex;gap:.6em;flex-wrap:wrap;font-weight:800;color:var(--green-deep);
+  font-size:clamp(.82rem,1.25vw,1rem)}
+.facts span{background:var(--leaf-soft);border-radius:99px;padding:.2em .85em}
+
+/* route slide (the last) */
+.route{display:flex;flex-direction:column;gap:.55em;width:100%;max-width:900px}
+.rsec{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5em;background:var(--card);
+  border-radius:14px;box-shadow:0 4px 14px rgba(36,49,42,.07);padding:.55em 1em}
+.rsec .rname{font-weight:900;color:var(--green);min-width:9em}
+.rsec .units{font-weight:800;color:var(--green-deep)}
+.rsec .cnt{margin-left:auto;font-weight:700;color:var(--ink-soft);font-size:.85em}
+.route-ok{background:var(--teal-soft);border:2px solid var(--teal);border-radius:16px;
+  padding:.7em 1.2em;font-weight:800;font-size:clamp(1rem,1.7vw,1.3rem);color:var(--green-deep)}
+.bigbtn{font-family:inherit;border:none;border-radius:99px;cursor:pointer;
+  background:linear-gradient(180deg,#1E7A4C,var(--green-deep));color:#fff;
+  font-weight:900;font-size:clamp(1rem,1.6vw,1.25rem);padding:.6em 1.5em;
+  box-shadow:var(--shadow);transition:transform .15s ease}
+.bigbtn:hover{transform:translateY(-2px) scale(1.02)}
+
+/* ---------- THE CORNERS V2 — the ✍️ log pill (top right) ---------- */
+.pill{position:fixed;z-index:150;border:2px solid var(--line);background:rgba(255,255,255,.95);
+  backdrop-filter:blur(8px);color:var(--ink);font-family:'Nunito',sans-serif;
+  font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1;
+  padding:.42em .6em;border-radius:99px;cursor:pointer;
+  box-shadow:0 3px 10px rgba(36,49,42,.10);transition:transform .12s,border-color .12s}
+.pill:hover{transform:scale(1.08);border-color:var(--leaf)}
+#annoBtn{top:max(10px,1.6vh);right:max(10px,1.6vw)}
+/* ---------- ✍️ V2 lesson-log window (top right, under the pill) ---------- */
+#anno{position:fixed;right:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:160;width:min(430px,92vw);
+  background:#fff;border:2px solid var(--line);border-radius:16px;padding:.8em .9em;
+  display:none;flex-direction:column;gap:.5em;box-shadow:0 16px 40px rgba(36,49,42,.22)}
+#anno.on{display:flex;animation:rise .25s both}
+#anno .a-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft)}
+#anno .a-sp{flex:1}
+#anno .a-head button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.85rem;color:var(--ink-soft)}
+#anno .a-head button:hover{border-color:var(--ink-soft);color:var(--ink)}
+#anno #annoTick{border:none;border-radius:99px;padding:.3em 1em;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:.85rem;font-weight:700;background:#eef1ec;color:var(--ink)}
+#anno #annoTick.on{background:var(--teal);color:#fff}
+#anno #annoCross{border:none;border-radius:99px;padding:.3em 1em;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:.85rem;font-weight:700;background:#eef1ec;color:var(--ink)}
+#anno #annoCross.on{background:#B3552F;color:#fff}
+#annoRows{display:flex;flex-direction:column;gap:.45em}
+.arow{display:flex;gap:.5em;align-items:center}
+.arow label{flex:0 0 3.1em;text-align:right;font-weight:800;font-size:.9rem;
+  color:var(--ink-soft);font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+.arow input{flex:1;min-width:0;border:2px solid var(--line);border-radius:10px;
+  padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;color:var(--ink);background:#fff}
+.arow input:focus{outline:none;border-color:var(--leaf)}
+.arow.free{margin-top:.2em}
+.arow.free textarea,.arow.fix textarea{flex:1;min-width:0;border:2px dashed var(--line);
+  border-radius:10px;padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;background:#fff;
+  resize:vertical;min-height:3.4em;color:var(--ink)}
+.arow.free textarea:focus,.arow.fix textarea:focus{outline:none;border-color:var(--leaf)}
+.arow.free textarea::placeholder,.arow.fix textarea::placeholder{color:#9a958a;font-style:italic}
+#anno .a-foot{display:flex;align-items:center;gap:.6em}
+#anno .a-foot button,#annoRep .a-rep-card button{border:none;border-radius:99px;padding:.28em 1em;
+  cursor:pointer;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:600;background:#eef1ec;color:var(--ink)}
+#anno .a-foot button:hover,#annoRep .a-rep-card button:hover{background:var(--ink);color:#fff}
+#anno .a-foot .a-hint{font-size:.74rem;color:var(--ink-soft);font-style:italic}
+#annoDone{font-weight:700}
+#annoRep{position:fixed;inset:0;z-index:220;background:rgba(36,49,42,.35);
+  display:none;align-items:center;justify-content:center;padding:4vh}
+#annoRep.on{display:flex;animation:rise .25s both}
+#annoRep .a-rep-card{background:#fff;border-radius:18px;box-shadow:0 14px 40px rgba(36,49,42,.3);
+  padding:1em 1.1em;width:min(560px,92vw);display:flex;flex-direction:column;gap:.6em}
+#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid var(--line);border-radius:12px;
+  padding:.6em .7em;font-family:ui-monospace,Menlo,monospace;font-size:.88rem;color:var(--ink)}
+
+@media (max-width:900px){
+  .slide{padding:4vh 4.5vw calc(74px + 2vh)}
+  .q{grid-template-columns:auto 1fr;gap:.5em}
+  .secbar .hint{display:none}
+}
+@media (max-height:760px){
+  .qlist{gap:.45rem}
+  .q{padding:.4em .7em .45em .6em}
+}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#0F4A2C;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-size:clamp(1rem,1.6vw,1.3rem);font-weight:800}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:inherit;font-weight:700;font-size:.9em;cursor:pointer}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(15,74,44,.88);color:#fff;
+  font-size:.8rem;font-weight:700;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F2F1EA;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--gold)}
+body.embed #nav,body.embed #bar{display:none!important}
+</style>
+</head>
+<body>
+<!-- build 24.11 · v1 -->
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · THE TASK -->
+  <section class="slide" data-notes="The book's own where-to-start test: the Study guide, pp. 326–335, its key p. 372 — BUILT INTO the clicks here, no page-flipping; the STUDY UNIT column rides every miss. Best run: ONE section block per sitting, then open the units the route slide names. Options reshuffle on every load — the letters are on-screen positions, not the book's. Restart (last slide) reshuffles and clears everything.">
+    <div class="eyebrow reveal">where to start · the book's own test</div>
+    <h1 class="title reveal">Study Guide 🧭</h1>
+    <div class="accent-line reveal"></div>
+    <p class="lead reveal">This guide is to help you decide <b>which units you need to study</b>. Each sentence can be completed using one or more of the alternatives. <b>In some sentences more than one alternative is possible.</b> If you don’t know or are not sure — you probably need to study the unit(s) it names.</p>
+    <div class="howrow reveal">
+      <span class="how"><b>1</b> · choose an answer</span>
+      <span class="how"><b>2</b> · click — the deck checks at once</span>
+      <span class="how"><b>3</b> · a miss shows its units to study</span>
+    </div>
+    <div class="facts reveal"><span>16 sections</span><span>161 questions</span><span>pp. 326–335</span><span>the deck is the key (p. 372)</span></div>
+    <div class="prep reveal">📘 Prepare ahead: <b>English Grammar in Use</b> at hand — the units a miss names are the ones to open. <b>Two or three units listed?</b> The correct sentence lives in the FIRST one — the book’s own rule.</div>
+    <div class="stamp-line reveal">the Study guide · English Grammar in Use (5th ed, Murphy)</div>
+  </section>
+
+</main>
+
+<!-- pinned pill — THE CORNERS V2: ✍️ top-right -->
+<button id="annoBtn" class="pill" title="lesson notes (N)">✍️</button>
+
+<!-- ✍️ V2 lesson log -->
+<div id="anno">
+  <div class="a-head">
+    <span id="annoSlide">slide 1</span><span class="a-sp"></span>
+    <button id="annoPrev" title="annotate the previous slide (the deck stays where it is)">‹</button>
+    <button id="annoNext" title="annotate the next slide (the deck stays where it is)">›</button>
+    <button id="annoTick" title="tick the slide the lesson ENDED on — everything before counts as done">✓ done</button>
+    <button id="annoCross" title="mark the slide that failed, wasn't reached, or didn't land">✗ cross</button>
+    <button id="annoX" title="close (Esc / N)">✕</button>
+  </div>
+  <div id="annoRows">
+    <div class="arow"><label>d:</label><input id="annoD" type="text" autocomplete="off" spellcheck="false" placeholder="doesn't know the word…"></div>
+    <div class="arow"><label>//:</label><input id="annoSL" type="text" autocomplete="off" spellcheck="false" placeholder="can't pronounce it…"></div>
+    <div class="arow free"><textarea id="annoF" rows="3" autocomplete="off" spellcheck="false" placeholder="anything else…"></textarea></div>
+    <div class="arow fix"><label>fix:</label><textarea id="annoFX" rows="3" autocomplete="off" spellcheck="false" placeholder="her sentences to fix…"></textarea></div>
+  </div>
+  <div class="a-foot">
+    <button id="annoCopy">📋 report</button>
+    <span class="a-hint" id="annoHint">saves in this browser</span>
+    <span class="a-sp"></span>
+    <button id="annoDone" title="save and close (⌘S)">Done ⌘S</button>
+  </div>
+</div>
+<div id="annoRep">
+  <div class="a-rep-card">
+    <div class="a-head"><b style="color:var(--ink)">lesson report</b><span class="a-sp"></span><button id="annoRepClose">✕</button></div>
+    <textarea id="annoRepText" readonly></textarea>
+    <div class="a-foot" style="display:flex;gap:.6em;align-items:center">
+      <button id="annoRepCopy">copy</button>
+      <button id="annoRepClear" title="delete all ticks, comments and the answers">🧹 clear</button>
+      <span id="annoSent" style="margin-left:auto;font-size:.78rem;color:var(--ink-soft);font-style:italic"></span>
+    </div>
+  </div>
+</div>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 2</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- presenter view shell (T / 🖥) -->
+<div id="pv">
+  <div class="head">
+    <b>Study Guide — presenter</b>
+    <button id="pv-close">✕ close (T)</button>
+    <span class="cnt" id="pv-cnt">1 / 2</span>
+  </div>
+  <div class="panes">
+    <div class="pane"><span class="lbl">NOW — what they see</span><iframe id="pv-cur"></iframe></div>
+    <div class="pane"><span class="lbl">NEXT</span><iframe id="pv-next"></iframe></div>
+  </div>
+  <div class="notes" id="pv-notes">—</div>
+</div>
+
+<script>
+/* ============ THE TEST — the book's Study guide, verbatim ============
+   Each item: n = the book's number · q = the sentence (____ = the gap)
+   o = the options in the BOOK'S order (A–E) · k = the key (indices)
+   units = the STUDY UNIT column printed beside the question in the book. */
+const SECTIONS=[
+{no:1,name:"Present and past",pages:"p. 326",items:[
+ {n:"1.1",q:`At first I didn’t like my job, but ____ to enjoy it now.`,o:[`I’m starting`,`I start`],k:[0],units:"1, 3"},
+ {n:"1.2",q:`I don’t understand this sentence. What ____?`,o:[`does mean this word`,`does this word mean`,`means this word`],k:[1],units:"2, 49"},
+ {n:"1.3",q:`Robert ____ away two or three times a year.`,o:[`is going usually`,`is usually going`,`usually goes`,`goes usually`],k:[2],units:"2, 3, 110"},
+ {n:"1.4",q:`How ____ now? Better than before?`,o:[`you are feeling`,`do you feel`,`are you feeling`],k:[1,2],units:"4"},
+ {n:"1.5",q:`It was a boring weekend. ____ anything.`,o:[`I didn’t`,`I don’t do`,`I didn’t do`],k:[2],units:"5"},
+ {n:"1.6",q:`Matt ____ while we were having dinner.`,o:[`phoned`,`was phoning`,`has phoned`],k:[0],units:"6, 14"}
+]},
+{no:2,name:"Present perfect and past",pages:"pp. 326–327",items:[
+ {n:"2.1",q:`James is on holiday. He ____ to Italy.`,o:[`is gone`,`has gone`,`has been`],k:[1],units:"7"},
+ {n:"2.2",q:`Everything is going well. There ____ any problems so far.`,o:[`weren’t`,`have been`,`haven’t been`],k:[2],units:"8"},
+ {n:"2.3",q:`Sarah has lost her passport again. This is the second time this ____.`,o:[`has happened`,`happens`,`happened`,`is happening`],k:[0],units:"8"},
+ {n:"2.4",q:`Why are you out of breath? ____?`,o:[`Are you running`,`Have you run`,`Have you been running`],k:[2],units:"9"},
+ {n:"2.5",q:`Where’s the book I gave you? What ____ with it?`,o:[`have you done`,`have you been doing`,`are you doing`],k:[0],units:"10"},
+ {n:"2.6",q:`‘How long ____ Jane?’ ‘A long time. Since we were at school.’`,o:[`do you know`,`have you known`,`have you been knowing`],k:[1],units:"11, 10"},
+ {n:"2.7",q:`Sally has been working here ____.`,o:[`for six months`,`since six months`,`six months ago`,`six months`],k:[0,3],units:"12"},
+ {n:"2.8",q:`It’s two years ____ Joe.`,o:[`that I don’t see`,`that I haven’t seen`,`since I didn’t see`,`since I last saw`],k:[3],units:"12"},
+ {n:"2.9",q:`It ____ raining for a while, but now it’s raining again.`,o:[`stopped`,`has stopped`,`was stopped`],k:[0],units:"13"},
+ {n:"2.10",q:`My mother ____ in Italy.`,o:[`grew up`,`has grown up`,`had grown up`],k:[0],units:"13"},
+ {n:"2.11",q:`____ a lot of sweets when you were a child?`,o:[`Have you eaten`,`Had you eaten`,`Did you eat`],k:[2],units:"14"},
+ {n:"2.12",q:`Jack ____ in New York for ten years. Now he lives in Los Angeles.`,o:[`lived`,`has lived`,`has been living`],k:[0],units:"14, 11"},
+ {n:"2.13",q:`The people sitting next to me on the plane were nervous. ____ before.`,o:[`They haven’t flown`,`They didn’t fly`,`They hadn’t flown`,`They’d never flown`,`They weren’t flying`],k:[2,3],units:"15"},
+ {n:"2.14",q:`Katherine was lying on the sofa. She was tired because ____ very hard.`,o:[`she was working`,`she’s been working`,`she’d been working`],k:[2],units:"16"},
+ {n:"2.15",q:`____ a car when you were living in Paris?`,o:[`Had you`,`Were you having`,`Have you had`,`Did you have`],k:[3],units:"17, 14"},
+ {n:"2.16",q:`I ____ tennis a lot, but I don’t play very much now.`,o:[`was playing`,`was used to play`,`used to play`],k:[2],units:"18"}
+]},
+{no:3,name:"Future",pages:"p. 327",items:[
+ {n:"3.1",q:`I’m tired. ____ to bed now. Goodnight.`,o:[`I go`,`I’m going`],k:[1],units:"19"},
+ {n:"3.2",q:`____ tomorrow, so we can go out somewhere.`,o:[`I’m not working`,`I don’t work`,`I won’t work`],k:[0],units:"19, 21"},
+ {n:"3.3",q:`That bag looks heavy. ____ you with it.`,o:[`I’m helping`,`I help`,`I’ll help`],k:[2],units:"21"},
+ {n:"3.4",q:`I think the weather ____ nice later.`,o:[`will be`,`is`,`is going to be`,`shall be`],k:[0,2],units:"23, 22"},
+ {n:"3.5",q:`‘Anna is in hospital.’ ‘Yes, I know. ____ her this evening.’`,o:[`I visit`,`I’m going to visit`,`I’ll visit`],k:[1],units:"23, 20"},
+ {n:"3.6",q:`We’re late. The film ____ by the time we get to the cinema.`,o:[`will already start`,`will be already started`,`will already have started`],k:[2],units:"24"},
+ {n:"3.7",q:`Don’t worry ____ late tonight.`,o:[`if I’m`,`when I’m`,`when I’ll be`,`if I’ll be`],k:[0],units:"25"}
+]},
+{no:4,name:"Modals",pages:"p. 328",items:[
+ {n:"4.1",q:`The fire spread quickly, but everybody ____ from the building.`,o:[`was able to escape`,`managed to escape`,`could escape`],k:[0,1],units:"26"},
+ {n:"4.2",q:`I’m so tired I ____ for a week.`,o:[`can sleep`,`could sleep`,`could have slept`],k:[1],units:"27"},
+ {n:"4.3",q:`The story ____ be true, but I don’t think it is.`,o:[`might`,`can`,`could`,`may`],k:[0,2,3],units:"27, 29"},
+ {n:"4.4",q:`Why did you stay at a hotel? You ____ with me.`,o:[`can stay`,`could stay`,`could have stayed`],k:[2],units:"27"},
+ {n:"4.5",q:`I lost one of my gloves. I ____ it somewhere.`,o:[`must drop`,`must have dropped`,`must be dropping`,`must have been dropping`],k:[1],units:"28"},
+ {n:"4.6",q:`‘Why wasn’t Amy at the meeting yesterday?’ ‘She ____ about it.’`,o:[`might not know`,`may not know`,`might not have known`,`may not have known`],k:[2,3],units:"29"},
+ {n:"4.7",q:`What ____ to get a new driving licence?`,o:[`have I to do`,`do I have to do`,`I must do`,`I have to`],k:[1],units:"31"},
+ {n:"4.8",q:`We have plenty of time. We ____ hurry.`,o:[`don’t need to`,`mustn’t`,`needn’t`],k:[0,2],units:"32"},
+ {n:"4.9",q:`You missed a great party last night. You ____. Why didn’t you?`,o:[`must have come`,`should have come`,`ought to have come`,`had to come`],k:[1,2],units:"33"},
+ {n:"4.10",q:`Jane won the lottery. I suggested ____ a car with the money she won.`,o:[`that she buy`,`that she should buy`,`her to buy`,`that she bought`],k:[0,1,3],units:"34"},
+ {n:"4.11",q:`You’re always at home. You ____ out more often.`,o:[`should go`,`had better go`,`had better to go`],k:[0],units:"35"},
+ {n:"4.12",q:`It’s late. It’s time ____ home.`,o:[`we go`,`we must go`,`we should go`,`we went`,`to go`],k:[3,4],units:"35"},
+ {n:"4.13",q:`____ a little longer, but I really have to go now.`,o:[`I’d stay`,`I’ll stay`,`I can stay`,`I’d have stayed`],k:[0],units:"36"}
+]},
+{no:5,name:"if and wish",pages:"pp. 328–329",items:[
+ {n:"5.1",q:`I’m not tired enough to go to bed. If I ____ to bed now, I wouldn’t sleep.`,o:[`go`,`went`,`had gone`,`would go`],k:[1],units:"38, 39"},
+ {n:"5.2",q:`If I were rich, ____ a lot.`,o:[`I’ll travel`,`I can travel`,`I would travel`,`I travelled`],k:[2],units:"39"},
+ {n:"5.3",q:`I wish I ____ have to work tomorrow, but unfortunately I do.`,o:[`don’t`,`didn’t`,`wouldn’t`,`won’t`],k:[1],units:"39, 41"},
+ {n:"5.4",q:`The view was wonderful. I would have taken some pictures if ____ a camera with me.`,o:[`I had`,`I would have`,`I would have had`,`I’d had`],k:[3],units:"40"},
+ {n:"5.5",q:`The weather is horrible. I wish it ____ raining.`,o:[`would stop`,`stopped`,`stops`,`will stop`],k:[0],units:"41"}
+]},
+{no:6,name:"Passive",pages:"p. 329",items:[
+ {n:"6.1",q:`We ____ by a loud noise during the night.`,o:[`woke up`,`are woken up`,`were woken up`,`were waking up`],k:[2],units:"42"},
+ {n:"6.2",q:`A new supermarket is going to ____ next year.`,o:[`build`,`be built`,`be building`,`building`],k:[1],units:"43"},
+ {n:"6.3",q:`There’s somebody walking behind us. I think ____.`,o:[`we are following`,`we are being following`,`we are followed`,`we are being followed`],k:[3],units:"43"},
+ {n:"6.4",q:`‘Where ____?’ ‘In Chicago.’`,o:[`were you born`,`are you born`,`have you been born`,`did you born`],k:[0],units:"44"},
+ {n:"6.5",q:`There was a fight, but nobody ____.`,o:[`was hurt`,`got hurt`,`hurt`],k:[0,1],units:"44"},
+ {n:"6.6",q:`Jane ____ to phone me last night, but she didn’t.`,o:[`supposed`,`is supposed`,`was supposed`],k:[2],units:"45"},
+ {n:"6.7",q:`Where ____? Which hairdresser did you go to?`,o:[`did you cut your hair`,`have you cut your hair`,`did you have cut your hair`,`did you have your hair cut`],k:[3],units:"46"}
+]},
+{no:7,name:"Reported speech",pages:"p. 329",items:[
+ {n:"7.1",q:`Paul left the room suddenly. He said he ____ to go.`,o:[`had`,`has`,`have`],k:[0],units:"48, 47"},
+ {n:"7.2",q:`(You meet Joe in the street.) Joe, this is a surprise. Rachel said you ____ in hospital.`,o:[`are`,`were`,`was`],k:[1],units:"48, 47"},
+ {n:"7.3",q:`Anna ____ and left.`,o:[`said goodbye to me`,`said me goodbye`,`told me goodbye`],k:[0],units:"48"}
+]},
+{no:8,name:"Questions and auxiliary verbs",pages:"pp. 329–330",items:[
+ {n:"8.1",q:`‘What time ____?’ ‘At 8.30.’`,o:[`starts the film`,`does start the film`,`does the film start`],k:[2],units:"49"},
+ {n:"8.2",q:`‘Do you know where ____?’ ‘No, he didn’t say.’`,o:[`Tom has gone`,`has Tom gone`,`has gone Tom`],k:[0],units:"50"},
+ {n:"8.3",q:`The police officer stopped us and asked us where ____.`,o:[`were we going`,`are we going`,`we are going`,`we were going`],k:[3],units:"50"},
+ {n:"8.4",q:`‘Do you think it will rain?’ ‘____.’`,o:[`I hope not`,`I don’t hope`,`I don’t hope so`],k:[0],units:"51"},
+ {n:"8.5",q:`‘You don’t know where Karen is, ____?’ ‘Sorry, I have no idea.’`,o:[`don’t you`,`do you`,`is she`,`are you`],k:[1],units:"52"}
+]},
+{no:9,name:"-ing and to ...",pages:"pp. 330–331",items:[
+ {n:"9.1",q:`You can’t stop people ____ what they want.`,o:[`doing`,`do`,`to do`,`from doing`],k:[0,3],units:"53, 62"},
+ {n:"9.2",q:`I’d better go now. I promised ____ late.`,o:[`not being`,`not to be`,`to not be`,`I wouldn’t be`],k:[1,3],units:"54, 36"},
+ {n:"9.3",q:`Do you want ____ with you or do you want to go alone?`,o:[`me coming`,`me to come`,`that I come`,`that I will come`],k:[1],units:"55"},
+ {n:"9.4",q:`I know I locked the door. I clearly remember ____ it.`,o:[`locking`,`to lock`,`to have locked`],k:[0],units:"56"},
+ {n:"9.5",q:`She tried to be serious, but she couldn’t help ____.`,o:[`laughing`,`to laugh`,`that she laughed`,`laugh`],k:[0],units:"57"},
+ {n:"9.6",q:`Paul lives in Berlin now. He likes ____ there.`,o:[`living`,`to live`],k:[0],units:"58"},
+ {n:"9.7",q:`It’s not my favourite job, but I like ____ the kitchen as often as possible.`,o:[`cleaning`,`clean`,`to clean`,`that I clean`],k:[2],units:"58"},
+ {n:"9.8",q:`I’m tired. I’d rather ____ out this evening, if you don’t mind.`,o:[`not going`,`not to go`,`don’t go`,`not go`],k:[3],units:"59"},
+ {n:"9.9",q:`I’d rather ____ anyone what I said.`,o:[`you don’t tell`,`not you tell`,`you didn’t tell`,`you wouldn’t tell`],k:[2],units:"59"},
+ {n:"9.10",q:`Are you looking forward ____ on holiday?`,o:[`going`,`to go`,`to going`,`that you go`],k:[2],units:"60, 62"},
+ {n:"9.11",q:`When Lisa first came to Britain, she wasn’t used ____ on the left.`,o:[`driving`,`to driving`,`to drive`,`drive`],k:[1],units:"61"},
+ {n:"9.12",q:`I’m thinking ____ a house. Do you think that’s a good idea?`,o:[`to buy`,`of to buy`,`of buying`,`about buying`],k:[2,3],units:"62, 66"},
+ {n:"9.13",q:`I had no trouble ____ a place to stay. In fact it was surprisingly easy.`,o:[`find`,`found`,`to find`,`finding`],k:[3],units:"63"},
+ {n:"9.14",q:`I called the restaurant ____ a table.`,o:[`for reserve`,`to reserve`,`for reserving`,`for to reserve`],k:[1],units:"64"},
+ {n:"9.15",q:`James doesn’t speak clearly. ____.`,o:[`It is hard to understand him`,`He is hard to understand`,`He is hard to understand him`],k:[0,1],units:"65"},
+ {n:"9.16",q:`The path was icy, so we walked very carefully. We were afraid ____.`,o:[`of falling`,`from falling`,`to fall`,`to falling`],k:[0],units:"66"},
+ {n:"9.17",q:`I didn’t hear you ____ in. You must have been very quiet.`,o:[`come`,`to come`,`came`],k:[0],units:"67"},
+ {n:"9.18",q:`____ a hotel, we looked for somewhere to eat.`,o:[`Finding`,`After finding`,`Having found`,`We found`],k:[1,2],units:"68"}
+]},
+{no:10,name:"Articles and nouns",pages:"p. 331",items:[
+ {n:"10.1",q:`It wasn’t your fault. It was ____.`,o:[`accident`,`an accident`,`some accident`],k:[1],units:"69"},
+ {n:"10.2",q:`Where are you going to put all your ____?`,o:[`furniture`,`furnitures`],k:[0],units:"70"},
+ {n:"10.3",q:`‘Where are you going?’ ‘I’m going to buy ____.’`,o:[`a bread`,`some bread`,`a loaf of bread`],k:[1,2],units:"70"},
+ {n:"10.4",q:`Sandra is ____. She works at a large hospital.`,o:[`nurse`,`a nurse`,`the nurse`],k:[1],units:"71, 72"},
+ {n:"10.5",q:`Helen works six days ____ week.`,o:[`in`,`for`,`a`,`the`],k:[2],units:"72"},
+ {n:"10.6",q:`There are millions of stars in ____.`,o:[`space`,`a space`,`the space`],k:[0],units:"73"},
+ {n:"10.7",q:`Every day ____ starts at 9 and finishes at 3.`,o:[`school`,`a school`,`the school`],k:[0],units:"74"},
+ {n:"10.8",q:`____ changed a lot in the last thirty years.`,o:[`Life has`,`The life has`,`The lives have`],k:[0],units:"75"},
+ {n:"10.9",q:`When ____ invented?`,o:[`was camera`,`were cameras`,`were the cameras`,`was the camera`],k:[3],units:"76"},
+ {n:"10.10",q:`Have you been to ____?`,o:[`Canada or United States`,`the Canada or the United States`,`Canada or the United States`,`the Canada or United States`],k:[2],units:"77"},
+ {n:"10.11",q:`On our first day in Moscow, we visited ____.`,o:[`Kremlin`,`a Kremlin`,`the Kremlin`],k:[2],units:"78"},
+ {n:"10.12",q:`I have some news for you. ____.`,o:[`It’s good news`,`They are good news`,`It’s a good news`],k:[0],units:"79, 70"},
+ {n:"10.13",q:`It took us quite a long time to get here. It was ____ journey.`,o:[`three hour`,`a three-hours`,`a three-hour`],k:[2],units:"80"},
+ {n:"10.14",q:`This isn’t my book. It’s ____.`,o:[`my sister`,`my sister’s`,`from my sister`,`of my sister`,`of my sister’s`],k:[1],units:"81"}
+]},
+{no:11,name:"Pronouns and determiners",pages:"p. 332",items:[
+ {n:"11.1",q:`What time shall we ____ tomorrow?`,o:[`meet`,`meet us`,`meet ourselves`],k:[0],units:"82"},
+ {n:"11.2",q:`I’m going to a wedding on Saturday. ____ is getting married.`,o:[`A friend of me`,`A friend of mine`,`One my friends`],k:[1],units:"83"},
+ {n:"11.3",q:`They live on a busy road. ____ a lot of noise from the traffic.`,o:[`It must be`,`It must have`,`There must have`,`There must be`],k:[3],units:"84"},
+ {n:"11.4",q:`He’s lazy. He never does ____ work.`,o:[`some`,`any`,`no`],k:[1],units:"85"},
+ {n:"11.5",q:`‘What would you like to eat?’ ‘I don’t mind. ____ – whatever you have.’`,o:[`Something`,`Anything`,`Nothing`],k:[1],units:"85"},
+ {n:"11.6",q:`The course didn’t go well. ____ of the students were happy.`,o:[`All`,`No-one`,`None`,`Nobody`],k:[2],units:"86"},
+ {n:"11.7",q:`We went shopping and spent ____ money.`,o:[`a lot of`,`much`,`lots of`,`many`],k:[0,2],units:"87"},
+ {n:"11.8",q:`I was ill yesterday. I spent ____ in bed.`,o:[`the most of day`,`most of day`,`the most of the day`,`most of the day`],k:[3],units:"88"},
+ {n:"11.9",q:`I asked two people how to get to the station, but ____ of them knew.`,o:[`none`,`either`,`both`,`neither`],k:[3],units:"89"},
+ {n:"11.10",q:`Our holiday was a disaster. ____ went wrong.`,o:[`Everything`,`All`,`All things`,`All of things`],k:[0],units:"90"},
+ {n:"11.11",q:`The bus service is excellent. There’s a bus ____ ten minutes.`,o:[`each`,`every`,`all`],k:[1],units:"90, 91"},
+ {n:"11.12",q:`There were four books on the table. ____ a different colour.`,o:[`Each of books was`,`Each of the books was`,`Each book was`],k:[1,2],units:"91"}
+]},
+{no:12,name:"Relative clauses",pages:"p. 332",items:[
+ {n:"12.1",q:`I don’t like stories ____ have unhappy endings.`,o:[`that`,`they`,`which`,`who`],k:[0,2],units:"92"},
+ {n:"12.2",q:`I didn’t believe them at first, but in fact everything ____ was true.`,o:[`they said`,`that they said`,`what they said`],k:[0,1],units:"93"},
+ {n:"12.3",q:`We helped some people ____.`,o:[`their car had broken down`,`which car had broken down`,`whose car had broken down`,`that their car had broken down`],k:[2],units:"94"},
+ {n:"12.4",q:`Anna told me about her new job, ____ a lot.`,o:[`that she’s enjoying`,`which she’s enjoying`,`she’s enjoying`,`she’s enjoying it`],k:[1],units:"95"},
+ {n:"12.5",q:`Sarah couldn’t meet us, ____ was a shame.`,o:[`that`,`it`,`what`,`which`],k:[3],units:"96"},
+ {n:"12.6",q:`George showed me some pictures ____ by his father.`,o:[`painting`,`painted`,`that were painted`,`they were painted`],k:[1,2],units:"97, 92"}
+]},
+{no:13,name:"Adjectives and adverbs",pages:"p. 333",items:[
+ {n:"13.1",q:`Jane doesn’t enjoy her job any more. She’s ____ because every day she does exactly the same thing.`,o:[`boring`,`bored`],k:[1],units:"98"},
+ {n:"13.2",q:`Lisa was carrying a ____ bag.`,o:[`black small plastic`,`small and black plastic`,`small black plastic`,`plastic small black`],k:[2],units:"99"},
+ {n:"13.3",q:`Maria’s English is excellent. She speaks ____.`,o:[`perfectly English`,`English perfectly`,`perfect English`,`English perfect`],k:[1,2],units:"100"},
+ {n:"13.4",q:`He ____ to find a job, but he had no luck.`,o:[`tried hard`,`tried hardly`,`hardly tried`],k:[0],units:"101"},
+ {n:"13.5",q:`I haven’t seen her for ____, I’ve forgotten what she looks like.`,o:[`so long`,`so long time`,`a such long time`,`such a long time`],k:[0,3],units:"102"},
+ {n:"13.6",q:`Don’t stand on that chair. It isn’t ____.`,o:[`enough strong to stand on`,`strong enough to stand on it`,`strong enough to stand on`,`strong enough for stand on`],k:[2],units:"103"},
+ {n:"13.7",q:`Sarah is doing OK at the moment. She has ____.`,o:[`a quite good job`,`quite a good job`,`a pretty good job`],k:[1,2],units:"104"},
+ {n:"13.8",q:`The exam was quite easy – ____ I expected.`,o:[`more easy that`,`more easy than`,`easier than`,`easier as`],k:[2],units:"105"},
+ {n:"13.9",q:`The more expensive the hotel, ____.`,o:[`the service will be better`,`will be better the service`,`the better the service`,`better the service will be`],k:[2],units:"106"},
+ {n:"13.10",q:`Patrick is a fast runner. I can’t run as fast as ____.`,o:[`he`,`him`,`he can`],k:[1,2],units:"107"},
+ {n:"13.11",q:`What’s ____ you’ve ever made?`,o:[`most important decision`,`the more important decision`,`the decision more important`,`the most important decision`],k:[3],units:"108"},
+ {n:"13.12",q:`Ben likes walking. ____.`,o:[`Every morning he walks to work`,`He walks to work every morning`,`He walks every morning to work`,`He every morning walks to work`],k:[0,1],units:"109"},
+ {n:"13.13",q:`Joe never phones me. ____.`,o:[`Always I have to phone him`,`I always have to phone him`,`I have always to phone him`,`I have to phone always him`],k:[1],units:"110"},
+ {n:"13.14",q:`Lucy ____. She left last month.`,o:[`still doesn’t work here`,`doesn’t still work here`,`no more works here`,`doesn’t work here any more`,`no longer works here`],k:[3,4],units:"111"},
+ {n:"13.15",q:`____ she can’t drive, she has a car.`,o:[`Even`,`Even when`,`Even if`,`Even though`],k:[3],units:"112, 113"}
+]},
+{no:14,name:"Conjunctions and prepositions",pages:"p. 334",items:[
+ {n:"14.1",q:`I couldn’t sleep ____ very tired.`,o:[`although I was`,`despite I was`,`despite of being`,`in spite of being`],k:[0,3],units:"113"},
+ {n:"14.2",q:`You should insure your bike ____ stolen.`,o:[`in case it will be`,`if it will be`,`in case it is`,`if it is`],k:[2],units:"114"},
+ {n:"14.3",q:`The club is for members only. You ____ you’re a member.`,o:[`can’t go in if`,`can go in only if`,`can’t go in unless`,`can go in unless`],k:[1,2],units:"115"},
+ {n:"14.4",q:`Yesterday we watched TV all evening ____ we didn’t have anything better to do.`,o:[`when`,`as`,`while`,`since`],k:[1,3],units:"116"},
+ {n:"14.5",q:`‘What’s that noise?’ ‘It sounds ____ a baby crying.’`,o:[`as`,`like`,`as if`,`as though`],k:[1],units:"117, 118"},
+ {n:"14.6",q:`They are very kind to me. They treat me ____ their own son.`,o:[`like I’m`,`as if I’m`,`as if I was`,`as if I were`],k:[2,3],units:"118"},
+ {n:"14.7",q:`I’m going to be in Moscow next week. I hope the weather will be good ____.`,o:[`while I’ll be there`,`while I’m there`,`during my visit`,`during I’m there`],k:[1,2],units:"119"},
+ {n:"14.8",q:`Joe is away at the moment. I don’t know exactly when he’s coming back, but I’m sure he’ll be back ____ Monday.`,o:[`by`,`until`],k:[0],units:"120"}
+]},
+{no:15,name:"Prepositions",pages:"pp. 334–335",items:[
+ {n:"15.1",q:`Bye! I’ll see you ____.`,o:[`at Friday morning`,`on Friday morning`,`in Friday morning`,`Friday morning`],k:[1,3],units:"121"},
+ {n:"15.2",q:`I’m going away ____ the end of January.`,o:[`at`,`on`,`in`],k:[0],units:"122"},
+ {n:"15.3",q:`When we were in Italy, we spent a few days ____ Venice.`,o:[`at`,`to`,`in`],k:[2],units:"123, 125"},
+ {n:"15.4",q:`Our apartment is ____ the second floor of the building.`,o:[`at`,`on`,`in`,`to`],k:[1],units:"124"},
+ {n:"15.5",q:`I saw Steve ____ a conference on Saturday.`,o:[`at`,`on`,`in`,`to`],k:[0],units:"125"},
+ {n:"15.6",q:`What time did you ____ the hotel?`,o:[`arrive to`,`arrive at`,`arrive in`,`get to`,`get in`],k:[1,3],units:"126"},
+ {n:"15.7",q:`I’m going ____ holiday next week. I’ll be away for two weeks.`,o:[`at`,`on`,`in`,`for`],k:[1],units:"127"},
+ {n:"15.8",q:`We travelled ____ 6.45 train, which arrived at 8.30.`,o:[`in the`,`on the`,`by the`,`by`],k:[1],units:"128"},
+ {n:"15.9",q:`‘Who is this painting ____? Picasso?’ ‘I have no idea.’`,o:[`of`,`from`,`by`],k:[2],units:"128"},
+ {n:"15.10",q:`The accident was my fault, so I had to pay for the damage ____ the other car.`,o:[`of`,`for`,`to`,`on`,`at`],k:[2],units:"129"},
+ {n:"15.11",q:`I like them very much. They have always been very nice ____ me.`,o:[`of`,`for`,`to`,`with`],k:[2],units:"130"},
+ {n:"15.12",q:`I’m not very good ____ repairing things.`,o:[`at`,`for`,`in`,`about`],k:[0],units:"131"},
+ {n:"15.13",q:`I don’t understand this sentence. Can you ____?`,o:[`explain to me this word`,`explain me this word`,`explain this word to me`],k:[2],units:"132"},
+ {n:"15.14",q:`If you’re worried about the problem, you should do something ____ it.`,o:[`for`,`about`,`against`,`with`],k:[1],units:"133"},
+ {n:"15.15",q:`‘Who is Tom Hart?’ ‘I have no idea. I’ve never heard ____ him.’`,o:[`about`,`from`,`after`,`of`],k:[3],units:"134"},
+ {n:"15.16",q:`I don’t know what time we’ll arrive. It depends ____ the traffic.`,o:[`of`,`for`,`from`,`on`],k:[3],units:"135"},
+ {n:"15.17",q:`I prefer tea ____ coffee.`,o:[`to`,`than`,`against`,`over`],k:[0],units:"136, 59"}
+]},
+{no:16,name:"Phrasal verbs",pages:"p. 335",items:[
+ {n:"16.1",q:`These shoes are uncomfortable. I’m going to ____.`,o:[`take off`,`take them off`,`take off them`],k:[1],units:"137"},
+ {n:"16.2",q:`They were playing cards, so I ____.`,o:[`joined in`,`came in`,`got in`,`broke in`],k:[0],units:"138"},
+ {n:"16.3",q:`Nobody believed Paul at first, but he ____ to be right.`,o:[`worked out`,`came out`,`found out`,`turned out`],k:[3],units:"139"},
+ {n:"16.4",q:`We can’t ____ making a decision. We have to decide now.`,o:[`put away`,`put over`,`put off`,`put out`],k:[2],units:"140"},
+ {n:"16.5",q:`‘Have you finished painting the kitchen?’ ‘Nearly. I’ll ____ tomorrow.’`,o:[`finish it up`,`finish it over`,`finish it off`],k:[2],units:"141"},
+ {n:"16.6",q:`You can always rely on Paul. He’ll never ____.`,o:[`put you up`,`let you down`,`take you over`,`see you off`],k:[1],units:"142"},
+ {n:"16.7",q:`Children under 16 ____ half the population of the city.`,o:[`make up`,`put up`,`take up`,`bring up`],k:[0],units:"143"},
+ {n:"16.8",q:`I’m surprised to hear that Kate and Paul have ____. They seemed very happy together.`,o:[`broken up`,`ended up`,`finished up`,`split up`],k:[0,3],units:"144"},
+ {n:"16.9",q:`I parked in a no-parking zone, but I ____ it.`,o:[`came up with`,`got away with`,`made off with`,`got on with`],k:[1],units:"145"}
+]}
+];
+const TOTAL=SECTIONS.reduce((a,s)=>a+s.items.length,0);
+const SLIDE_CHUNKS=[[6],[6,5,5],[7],[7,6],[5],[7],[3],[5],[6,6,6],[5,5,4],[6,6],[6],[5,5,5],[4,4],[6,6,5],[5,4]];
+
+/* ============ build the test slides from the data ============ */
+const LETTERS=["A","B","C","D","E"];
+const deck=document.getElementById("deck");
+const state={};              /* "1.1" -> {pick, ok} */
+let orderMap={};             /* "1.1" -> [displayed indices] */
+const CH="egu-study-guide";
+/* the answers persist across reloads — the run survives a chime-update;
+   the report carries them, so 🧹 clear is the only thing that wipes them */
+let answersLS={};
+try{answersLS=JSON.parse(localStorage.getItem(CH+"-answers")||"{}")}catch(e){answersLS={}}
+function shuffled(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]}return r}
+function gapify(s){return s.replace(/____/g,'<span class="gap"></span>')}
+const MECH="One attempt per item — click an answer. A miss reveals the answer + its units; the last slide collects them into the route. Options reshuffle on every load.";
+let si=0;
+SECTIONS.forEach((sec,sIdx)=>{
+  const chunks=SLIDE_CHUNKS[sIdx];let start=0;
+  chunks.forEach((cnt,cIdx)=>{
+    si++;
+    const items=sec.items.slice(start,start+cnt);start+=cnt;
+    const sec2=document.createElement("section");
+    sec2.className="slide";
+    sec2.dataset.notes=`Section ${sec.no} of 16 — ${sec.name} (${sec.pages}). `+MECH;
+    sec2.innerHTML=`<div class="secbar reveal"><span>${sec.no} · ${sec.name}</span>`+
+      `<span class="hint">choose · click · see your units</span>`+
+      `<span class="range">${items[0].n}–${items[items.length-1].n}</span></div>`+
+      `<div class="qlist">`+items.map(it=>{
+        const stored=answersLS[it.n];
+        const order=(stored&&Array.isArray(stored.order)&&stored.order.length===it.o.length)
+          ?stored.order:shuffled([..."ABCDE"].slice(0,it.o.length).map((_,x)=>x));
+        orderMap[it.n]=order;
+        return `<div class="q" id="q-${it.n.replace(".","-")}"><div class="qn">${it.n}</div><div class="qbody">`+
+          `<div class="qs">${gapify(it.q)}</div>`+
+          `<div class="opts">`+order.map((oi,di)=>
+            `<button class="opt" data-q="${it.n}" data-oi="${oi}"><b>${LETTERS[di]}</b>${it.o[oi]}</button>`).join("")+
+          `</div>`+
+          `<div class="verdict"></div>`+
+        `</div></div>`}).join("")+
+      `</div>`;
+    deck.appendChild(sec2);
+  });
+});
+/* the route slide (last) */
+si++;
+const routeSlide=document.createElement("section");
+routeSlide.className="slide";routeSlide.id="route";
+routeSlide.dataset.notes="The route: the units from THIS run's misses, section by section. The book's own rule: two or three units listed — the FIRST one holds the correct sentence, so start there. ↺ reshuffles every question and clears the run.";
+routeSlide.innerHTML=`<div class="eyebrow reveal">after the test</div>
+  <h1 class="title reveal">Your route through the book 🗺</h1>
+  <div class="accent-line reveal"></div>
+  <div class="route reveal" id="route-list"></div>
+  <p class="lead reveal" id="route-note"></p>
+  <div class="reveal mt"><button class="bigbtn" id="restart">↺ Reshuffle &amp; start again</button></div>
+  <div class="stamp-line reveal">the Study guide · English Grammar in Use (5th ed) · key built in</div>`;
+deck.appendChild(routeSlide);
+
+/* ============ the quiz layer ============ */
+function applyAnswer(q,it,oi){
+  q.classList.add("done");
+  const ok=it.k.includes(oi);
+  state[it.n]={pick:oi,ok};
+  if(ok){q.querySelector(`.opt[data-oi="${oi}"]`).classList.add("correct");return}
+  q.querySelector(`.opt[data-oi="${oi}"]`).classList.add("wrong");
+  it.k.forEach(ki=>{
+    q.querySelector(`.opt[data-oi="${ki}"]`).classList.add("correct");
+  });
+  q.classList.add("missed");
+  const v=q.querySelector(".verdict");
+  const letters=it.k.map(ki=>LETTERS[orderMap[it.n].indexOf(ki)]).join(", ");
+  let html=`<span class="ans">Answer: ${letters}</span>`;
+  if(it.units)html+=` <span class="go">→ Study units ${it.units}</span>`;
+  v.innerHTML=html;
+}
+function answersLines(){/* the per-item record, book order — the report's answers block */
+  const out=[];
+  SECTIONS.forEach(sec=>sec.items.forEach(it=>{
+    const s=state[it.n];if(!s)return;
+    if(s.ok)out.push(`✓ ${it.n} — picked: ${it.o[s.pick]}`);
+    else out.push(`✗ ${it.n} — picked: ${it.o[s.pick]} — key: ${it.k.map(ki=>it.o[ki]).join(" / ")}`+
+      (it.units?` → units ${it.units}`:""));
+  }));
+  return out;
+}
+let runsArchive=[];/* restarts fold the finished run here — nothing is ever lost silently */
+try{runsArchive=JSON.parse(localStorage.getItem(CH+"-runs")||"[]")}catch(e){runsArchive=[]}
+function answersSave(){try{localStorage.setItem(CH+"-answers",JSON.stringify(answersLS))}catch(e){}
+  if(typeof annoSend==="function")annoSend()}
+function restoreAnswers(){/* the remembered run re-applies after a reload */
+  SECTIONS.forEach(sec=>sec.items.forEach(it=>{
+    const rec=answersLS[it.n];if(!rec||rec.pick==null)return;
+    const q=document.getElementById("q-"+it.n.replace(".","-"));
+    if(q)applyAnswer(q,it,rec.pick);
+  }));
+}
+restoreAnswers();
+deck.addEventListener("click",e=>{
+  const opt=e.target.closest(".opt");if(!opt)return;
+  const q=opt.closest(".q");if(!q||q.classList.contains("done"))return;
+  const n=opt.dataset.q,oi=+opt.dataset.oi;
+  const sec=SECTIONS.find(s=>s.items.some(it=>it.n===n));
+  const it=sec.items.find(x=>x.n===n);
+  applyAnswer(q,it,oi);
+  answersLS[n]={order:orderMap[n],pick:oi};
+  answersSave();
+});
+
+function wipeSlate(){/* clear the answered state on every card, keep the archive */
+  Object.keys(state).forEach(k=>delete state[k]);
+  document.querySelectorAll(".q").forEach(q=>{
+    q.classList.remove("done","missed");
+    q.querySelectorAll(".opt").forEach(o=>o.classList.remove("correct","wrong"));
+    q.querySelector(".verdict").innerHTML="";
+  });
+}
+document.getElementById("restart").addEventListener("click",()=>{
+  const lines=answersLines();
+  if(lines.length)runsArchive.push({at:new Date().toLocaleString("en-GB"),lines});
+  try{localStorage.setItem(CH+"-runs",JSON.stringify(runsArchive))}catch(e){}
+  wipeSlate();
+  answersLS={};answersSave();
+  orderMap={};
+  reshuffleAll();
+  go(0);
+});
+function fillRoute(){
+  const list=document.getElementById("route-list");list.innerHTML="";
+  const missedBySec=SECTIONS.map(sec=>{
+    const rows=sec.items.filter(it=>state[it.n]&&!state[it.n].ok);
+    return {sec,rows};
+  }).filter(r=>r.rows.length);
+  const answered=Object.keys(state).length;
+  const missed=Object.values(state).filter(s=>!s.ok).length;
+  const note=document.getElementById("route-note");
+  if(!missedBySec.length){
+    list.innerHTML=`<div class="route-ok">✓ No misses in this run — the book is yours: start at Unit 1 and work through.</div>`;
+    note.textContent=`Answered ${answered} of ${TOTAL} questions.`;
+    return;
+  }
+  list.innerHTML=missedBySec.map(({sec,rows})=>{
+    const units=[...new Set(rows.map(r=>r.units).filter(Boolean))].join(" · ");
+    return `<div class="rsec"><span class="rname">${sec.no} · ${sec.name}</span>`+
+      (units?`<span class="units">units ${units}</span>`:`<span class="units">see the unit lines on the slide</span>`)+
+      `<span class="cnt">${rows.length} miss${rows.length>1?"es":""}</span></div>`;
+  }).join("");
+  note.textContent=`Answered ${answered} of ${TOTAL} questions · ${missed} miss${missed>1?"es":""}. Start with the first section named above — two or three units listed, the first one holds the correct sentence.`;
+}
+function reshuffleAll(){
+  SECTIONS.forEach(sec=>sec.items.forEach(it=>{
+    const q=document.getElementById("q-"+it.n.replace(".","-"));
+    const opts=[...q.querySelectorAll(".opt")];
+    const order=shuffled([..."ABCDE"].slice(0,it.o.length).map((_,x)=>x));
+    orderMap[it.n]=order;
+    order.forEach((oi,di)=>{
+      const o=opts[di];o.dataset.oi=oi;
+      o.innerHTML=`<b>${LETTERS[di]}</b>`+it.o[oi];
+    });
+  }));
+}
+
+/* ============ ✍️ V2 lesson log (the fleet standard) ============ */
+const annoPanel=document.getElementById("anno"),annoSlideEl=document.getElementById("annoSlide"),
+annoFields={d:document.getElementById("annoD"),sl:document.getElementById("annoSL"),free:document.getElementById("annoF"),fx:document.getElementById("annoFX")},
+annoTick=document.getElementById("annoTick"),annoCross=document.getElementById("annoCross"),
+annoHint=document.getElementById("annoHint"),annoSent=document.getElementById("annoSent");
+const rep=document.getElementById("annoRep"),repText=document.getElementById("annoRepText");
+const CAN_SEND=(location.protocol==="http:");
+let annoIdx=0,annoData={};
+try{annoData=JSON.parse(localStorage.getItem(CH+"-anno")||"{}")}catch(e){annoData={}}
+function annoSave(){try{localStorage.setItem(CH+"-anno",JSON.stringify(annoData))}catch(e){}
+  annoSend()}
+function annoFill(){const a=annoData[annoIdx+1]||{};
+  annoSlideEl.textContent="slide "+(annoIdx+1)+" / "+slides.length;
+  annoFields.d.value=a.d||"";annoFields.sl.value=a.sl||"";annoFields.free.value=a.free||"";annoFields.fx.value=a.fx||"";
+  annoTick.classList.toggle("on",!!a.t);annoCross.classList.toggle("on",!!a.x)}
+function annoToggle(open){annoPanel.classList.toggle("on",open);
+  if(open){annoIdx=i;annoFill();
+    const firstEmpty=Object.values(annoFields).find(f=>!f.value)||annoFields.d;
+    setTimeout(()=>firstEmpty.focus(),50)}}
+function annoSet(k,f){const a=annoData[k]||{};f(a);
+  if(!a.t&&!a.x&&!a.d&&!a.sl&&!a.free&&!a.fx)delete annoData[k];else annoData[k]=a;annoSave()}
+function annoDoneClose(){annoSave();
+  if(annoHint){annoHint.textContent="saved ✓";
+    setTimeout(()=>annoHint.textContent=CAN_SEND
+      ?"auto-sends to the Mac · she sees the screen while you type"
+      :"saves on this device · she sees the screen while you type",1400)}
+  annoToggle(false)}
+function annoReportText(){let out=CH+" · lesson notes · "+new Date().toLocaleString("en-GB")+"\n";
+  let any=false;
+  slides.forEach((s,k)=>{const a=annoData[k+1];if(!a)return;
+    const rows=[];
+    if(a.d)rows.push("d: "+a.d);
+    if(a.sl)rows.push("//: "+a.sl);
+    if(a.free)rows.push(a.free);
+    if(a.fx)rows.push(("fix: "+a.fx).replace(/\n/g,"\n   "));
+    if(!a.t&&!a.x&&!rows.length)return;any=true;
+    out+=(k+1)+(a.t?" ✓":"")+(a.x?" ✗":"")+"\n"+rows.map(r=>"   "+r).join("\n")+"\n"});
+  if(!any)out+="(nothing ticked or noted yet)"+"\n";
+  const lines=answersLines();
+  if(lines.length){
+    const okN=lines.filter(l=>l.startsWith("✓")).length;
+    out+="\nanswers ("+lines.length+"/"+TOTAL+" answered · "+(lines.length-okN)+" miss):\n"
+      +lines.map(l=>"  "+l).join("\n")+"\n";
+  }
+  if(runsArchive.length){
+    out+="\nearlier runs ("+runsArchive.length+"):\n";
+    runsArchive.forEach(r=>{
+      const ok=r.lines.filter(l=>l.startsWith("✓")).length;
+      out+="run "+r.at+" — "+r.lines.length+" answered · "+(r.lines.length-ok)+" miss\n"
+        +r.lines.map(l=>"  "+l).join("\n")+"\n";
+    });
+  }
+  return out}
+let annoTimer=null;
+function annoSend(){if(!CAN_SEND)return;
+  clearTimeout(annoTimer);
+  annoTimer=setTimeout(()=>{
+    fetch("/report?deck="+encodeURIComponent(CH),{method:"POST",body:annoReportText()})
+      .then(()=>{if(annoSent)annoSent.textContent="auto-sent to the Mac ✓"})
+      .catch(()=>{if(annoSent)annoSent.textContent="not sent — use 📋 copy"})
+  },1200)}
+if(annoHint)annoHint.textContent=CAN_SEND
+  ?"auto-sends to the Mac · she sees the screen while you type"
+  :"saves on this device · she sees the screen while you type";
+document.getElementById("annoBtn").onclick=()=>annoToggle(!annoPanel.classList.contains("on"));
+document.getElementById("annoPrev").onclick=()=>{annoIdx=Math.max(0,annoIdx-1);annoFill()};
+document.getElementById("annoNext").onclick=()=>{annoIdx=Math.min(slides.length-1,annoIdx+1);annoFill()};
+document.getElementById("annoX").onclick=()=>annoToggle(false);
+annoTick.onclick=()=>{annoSet(annoIdx+1,a=>{a.t=a.t?0:1;if(a.t)a.x=0});annoFill()};
+annoCross.onclick=()=>{annoSet(annoIdx+1,a=>{a.x=a.x?0:1;if(a.x)a.t=0});annoFill()};
+Object.entries(annoFields).forEach(([key,f])=>
+  f.addEventListener("input",()=>annoSet(annoIdx+1,a=>a[key]=f.value)));
+document.getElementById("annoDone").onclick=annoDoneClose;
+document.getElementById("annoCopy").onclick=()=>{repText.value=annoReportText();rep.classList.add("on")};
+document.getElementById("annoRepClose").onclick=()=>rep.classList.remove("on");
+rep.addEventListener("click",e=>{if(e.target===rep)rep.classList.remove("on")});
+document.getElementById("annoRepCopy").onclick=()=>{
+  repText.select();
+  try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(repText.value);
+  else document.execCommand("copy")}catch(e){}
+  const b=document.getElementById("annoRepCopy");b.textContent="copied ✓";
+  setTimeout(()=>b.textContent="copy",1200)};
+document.getElementById("annoRepClear").onclick=()=>{
+  if(confirm("Delete all ticks, comments and the answers (this run + earlier runs)?")){
+    wipeSlate();annoData={};answersLS={};runsArchive=[];
+    try{localStorage.removeItem(CH+"-runs")}catch(e){}
+    answersSave();annoSave();annoFill();rep.classList.remove("on")}};
+
+/* ============ core deck engine (the lib family) ============ */
+const slides=[...document.querySelectorAll(".slide")];let i=0;
+const bar=document.querySelector("#bar i"),cnt=document.getElementById("counter"),
+prev=document.getElementById("prev"),next=document.getElementById("next");
+
+const bc=("BroadcastChannel"in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get("embed")?"embed":(qs.get("presenter")?"presenter":"main");
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==="go"&&MODE==="embed")showEmbed(m.i);
+};
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove("active");
+  if(n>i)slides[i].classList.add("prev");
+  i=n;const s=slides[i];s.classList.remove("prev");s.classList.add("active");
+  bar.style.width=((i+1)/slides.length*100)+"%";
+  cnt.textContent=(i+1)+" / "+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,"","#"+(i+1));
+  if(typeof annoPanel!=="undefined"&&annoPanel.classList.contains("on")){annoIdx=n;annoFill()}
+  if(i===slides.length-1)fillRoute();
+  if(!silent)post({t:"go",i});
+  if(MODE==="presenter")pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById("fs").onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+document.addEventListener("keydown",e=>{
+  /* ⌘S / Ctrl+S = save + close the log — the one modifier combo we own */
+  if((e.metaKey||e.ctrlKey)&&(e.key==="s"||e.key==="S")&&document.getElementById("anno").classList.contains("on")){
+    e.preventDefault();annoDoneClose();return}
+  if(e.target instanceof Element&&e.target.matches("INPUT,TEXTAREA"))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(MODE==="embed")return;
+  if(e.key==="Escape"){
+    if(document.getElementById("annoRep").classList.contains("on")){document.getElementById("annoRep").classList.remove("on");return}
+    if(annoPanel.classList.contains("on")){annoToggle(false);return}
+  }
+  if(e.key==='n'||e.key==='N'||e.key==='т'||e.key==='Т'){
+    if(annoPanel.classList.contains("on"))annoDoneClose();
+    else annoToggle(true);
+    return}
+  if(e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С'){
+    if(!annoPanel.classList.contains("on"))annoToggle(true);
+    return}
+  if(["ArrowRight","ArrowDown"," ","PageDown"].includes(e.key))go(i+1);
+  if(["ArrowLeft","ArrowUp","PageUp"].includes(e.key))go(i-1);
+  if(e.key==="Home")go(0);if(e.key==="End")go(slides.length-1);
+  if(e.key==="f"||e.key==="F")document.getElementById("fs").click();
+  if(e.key==="t"||e.key==="T")togglePresenter();
+});
+/* wheel navigates only at the slide's scroll edge — the slides scroll */
+let wt=0;
+document.addEventListener("wheel",e=>{
+  if(MODE!=="main")return;
+  const s=slides[i];
+  if(s.scrollHeight>s.clientHeight+4){
+    const atTop=s.scrollTop<=2,atBottom=s.scrollTop+s.clientHeight>=s.scrollHeight-3;
+    if((e.deltaY>0&&!atBottom)||(e.deltaY<0&&!atTop))return;
+  }
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;
+  go(i+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0,ty=0;document.addEventListener("touchstart",e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener("touchend",e=>{if(MODE!=="main")return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ presenter view (spec §7) ============ */
+const pv=document.getElementById("pv");
+function togglePresenter(){
+  if(MODE==="embed")return;
+  if(MODE==="presenter"){window.close();return}
+  window.open(location.pathname+"?presenter=1","egu-pv","width=1180,height=820");
+}
+document.getElementById("pvt").onclick=togglePresenter;
+document.getElementById("pv-close").onclick=()=>window.close();
+const pvCur=document.getElementById("pv-cur"),pvNext=document.getElementById("pv-next"),
+pvNotes=document.getElementById("pv-notes"),pvCnt=document.getElementById("pv-cnt");
+if(MODE==="presenter"){
+  document.body.classList.add("presenter");
+  pvCur.src=location.pathname+"?embed=cur";pvNext.src=location.pathname+"?embed=next";
+}
+function pvShow(n){
+  if(MODE!=="presenter")return;
+  pvCnt.textContent=(n+1)+" / "+slides.length;
+  pvNotes.innerHTML="";
+  const note=slides[n].dataset.notes;
+  if(note){const p=document.createElement("p");p.textContent=note;pvNotes.appendChild(p)}
+  const nxt=slides[n+1]&&slides[n+1].dataset.notes;
+  if(nxt){const h=document.createElement("p");h.innerHTML="<b>next →</b> ";h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+let embedSlot=qs.get("embed");
+function showEmbed(n){
+  const target=embedSlot==="next"?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==="next")document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle("active",k===target);s.classList.remove("prev")});
+}
+const h=parseInt(location.hash.slice(1));
+if(MODE==="main"){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true)}
+else post({t:"go",i:parseInt(location.hash.slice(1))||0});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=="main")return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==="suspended")ctx.resume();}catch(e){}};
+  addEventListener("pointerdown",unlock);addEventListener("keydown",unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type="sine";o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:"HEAD",cache:"no-store"}).then(r=>{
+      const m=r.headers.get("last-modified");
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>

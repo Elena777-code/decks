@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Planner — Advanced Grammar in Use</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   STUDY PLANNER — the full placement test from Advanced
+   Grammar in Use (4th ed, Hewings — the book's own Study
+   planner, pp. xii–xxiii, key p. 249), as a deck.
+   THE MECHANIC (the book's, verbatim): choose the best option;
+   sometimes more than one is possible; a wrong answer shows
+   the UNITS to study (the deck is the key — clicks check at
+   once). The last slide collects this run's misses into the
+   route through the book.
+   Home: Library/Books/Advanced Grammar in Use/
+   Engine: the lib family (cloned from place-prepositions —
+   nav bottom-right, progress bar, presenter view T / 🖥,
+   ready-chime, #n hash) + the click-quiz layer.
+   ============================================================ */
+:root{
+  --paper:#F6F5EF; --card:#FFFFFF; --ink:#24312A; --ink-soft:#5D6B62;
+  --green:#1C6B43; --green-deep:#0F4A2C; --leaf:#6FA97E; --leaf-soft:#E3EFE6;
+  --gold:#F2D94E; --gold-soft:#FBF3C9;
+  --teal:#2E8B74; --teal-soft:#E7F4EE;
+  --wrong:#8A8F8C; --wrong-soft:#F2F0EB;
+  --line:#D5DFD7;
+  --shadow:0 8px 24px rgba(36,49,42,.10); --shadow-lg:0 16px 40px rgba(36,49,42,.16);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  overflow:hidden;-webkit-font-smoothing:antialiased}
+#bar{position:fixed;top:0;left:0;right:0;height:7px;z-index:100;background:rgba(111,169,126,.3)}
+#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green-deep),var(--leaf),var(--gold));
+  transition:width .45s cubic-bezier(.22,1,.36,1)}
+#nav{position:fixed;right:max(10px,1.6vw);bottom:calc(10px + .8vh);z-index:100;
+  display:flex;gap:8px;align-items:center;
+  background:rgba(15,74,44,.88);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 14px;
+  font-size:clamp(.9rem,1.4vw,1.05rem);color:#fff;font-weight:700}
+#nav button{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;
+  width:2.1em;height:2.1em;border-radius:50%;font-size:1em;cursor:pointer;
+  transition:transform .15s ease,opacity .15s ease}
+#nav button:hover:not(:disabled){transform:scale(1.08);border-color:var(--gold)}
+#nav button:disabled{opacity:.3;cursor:default}
+.slide{position:absolute;inset:0;padding:4.6vh 5vw calc(74px + 2.2vh);
+  display:flex;flex-direction:column;justify-content:flex-start;gap:1.1vh;
+  opacity:0;visibility:hidden;transform:translateX(60px) scale(.985);
+  transition:all .5s cubic-bezier(.22,1,.36,1);overflow:auto}
+.slide.active{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-60px) scale(.985)}
+.slide>*{flex-shrink:0}
+.slide.active .reveal{animation:rise .55s both}
+.slide.active .reveal:nth-child(2){animation-delay:.07s}
+.slide.active .reveal:nth-child(3){animation-delay:.14s}
+.slide.active .reveal:nth-child(4){animation-delay:.21s}
+.slide.active .reveal:nth-child(5){animation-delay:.28s}
+.slide.active .reveal:nth-child(6){animation-delay:.35s}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  font-size:clamp(.72rem,1.1vw,.92rem);color:var(--green)}
+h1.title{font-weight:900;line-height:1.05;margin-bottom:.2em;
+  font-size:clamp(1.9rem,4.2vw,3.4rem)}
+.accent-line{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--green),var(--gold))}
+.lead{font-size:clamp(1.02rem,1.7vw,1.32rem);line-height:1.5;max-width:60ch}
+.lead b{color:var(--green-deep)}
+.stamp-line{font-weight:700;color:var(--ink-soft);font-size:clamp(.78rem,1.05vw,.92rem);
+  letter-spacing:.05em;margin-top:auto;opacity:.85}
+
+/* the section bar — the book's own green pill */
+.secbar{display:flex;align-items:center;gap:.8em;background:linear-gradient(180deg,#1E7A4C,var(--green-deep));
+  color:#fff;border-radius:16px;padding:.5em 1.1em;box-shadow:var(--shadow);
+  font-weight:800;font-size:clamp(1rem,1.9vw,1.5rem)}
+.secbar .range{margin-left:auto;font-weight:700;font-size:.62em;opacity:.85;
+  background:rgba(255,255,255,.14);border-radius:99px;padding:.25em .9em;white-space:nowrap}
+.secbar .hint{font-weight:600;font-size:.58em;opacity:.75;white-space:nowrap}
+
+/* question cards */
+.qlist{display:flex;flex-direction:column;gap:clamp(.5rem,1vh,.8rem);width:100%}
+.q{display:grid;grid-template-columns:auto 1fr;gap:.7em;background:var(--card);
+  border-radius:14px;box-shadow:0 4px 14px rgba(36,49,42,.07);
+  padding:.55em .8em .6em .7em;align-items:start}
+.qn{font-weight:900;color:var(--green);font-size:clamp(.95rem,1.5vw,1.2rem);
+  padding-top:.1em;min-width:2.6em;text-align:right}
+.qs{font-weight:700;font-size:clamp(.98rem,1.55vw,1.22rem);line-height:1.42}
+.qs .gap{display:inline-block;min-width:4.5em;border-bottom:2.5px dotted var(--leaf);
+  height:.95em;vertical-align:baseline;margin:0 .12em}
+.opts{display:flex;flex-wrap:wrap;gap:.38em .45em;margin-top:.45em}
+.opt{font-family:inherit;font-size:clamp(.86rem,1.32vw,1.04rem);font-weight:600;color:var(--ink);
+  background:#fff;border:1.5px solid var(--line);border-radius:12px;
+  padding:.32em .7em;cursor:pointer;text-align:left;line-height:1.3;
+  transition:transform .13s ease,border-color .13s ease,background .13s ease,opacity .13s ease}
+.opt b{color:var(--green);font-weight:900;margin-right:.38em}
+.opt:hover{transform:translateY(-2px);border-color:var(--leaf)}
+.q.done .opt{cursor:default}
+.q.done .opt:hover{transform:none}
+.opt.correct{background:var(--teal-soft);border:2px solid var(--teal);padding:.29em .66em}
+.opt.correct::after{content:" ✓";color:var(--teal);font-weight:900}
+.opt.wrong{background:var(--wrong-soft);border-color:#DDD9D1;color:var(--wrong);
+  text-decoration:line-through;opacity:.72;padding:.29em .66em;
+  animation:shake .4s cubic-bezier(.36,.07,.19,.97)}
+@keyframes shake{10%,90%{transform:translateX(-1px)}20%,80%{transform:translateX(2px)}
+  30%,50%,70%{transform:translateX(-3px)}40%,60%{transform:translateX(3px)}}
+.verdict{display:none;margin-top:.5em;font-weight:700;font-size:clamp(.84rem,1.3vw,1.02rem);
+  color:var(--ink-soft);align-items:center;flex-wrap:wrap;gap:.4em}
+.q.missed .verdict{display:flex}
+.verdict .ans{color:var(--green-deep)}
+.verdict .go{background:var(--gold-soft);border:1.5px solid var(--gold);border-radius:99px;
+  padding:.12em .75em;color:#6b5a12;font-weight:800;white-space:nowrap}
+.verdict .rem{background:var(--leaf-soft);border:1.5px solid var(--leaf);border-radius:99px;
+  padding:.12em .75em;color:var(--green-deep);font-weight:700;white-space:nowrap}
+.verdict .knote{font-style:italic;font-weight:600}
+
+/* intro slide */
+.howrow{display:flex;flex-wrap:wrap;gap:.6em;margin-top:.4em}
+.how{background:var(--card);border:1.5px solid var(--line);border-radius:14px;
+  padding:.5em 1em;font-weight:700;font-size:clamp(.9rem,1.4vw,1.1rem);box-shadow:0 3px 10px rgba(36,49,42,.06)}
+.how b{color:var(--green);font-weight:900}
+.prep{background:var(--gold-soft);border:1.5px solid var(--gold);border-radius:14px;
+  padding:.55em 1em;font-weight:700;font-size:clamp(.9rem,1.4vw,1.08rem);max-width:64ch}
+.facts{display:flex;gap:.6em;flex-wrap:wrap;font-weight:800;color:var(--green-deep);
+  font-size:clamp(.82rem,1.25vw,1rem)}
+.facts span{background:var(--leaf-soft);border-radius:99px;padding:.2em .85em}
+
+/* route slide (the last) */
+.route{display:flex;flex-direction:column;gap:.55em;width:100%;max-width:900px}
+.rsec{display:flex;flex-wrap:wrap;align-items:baseline;gap:.5em;background:var(--card);
+  border-radius:14px;box-shadow:0 4px 14px rgba(36,49,42,.07);padding:.55em 1em}
+.rsec .rname{font-weight:900;color:var(--green);min-width:9em}
+.rsec .units{font-weight:800;color:var(--green-deep)}
+.rsec .cnt{margin-left:auto;font-weight:700;color:var(--ink-soft);font-size:.85em}
+.route-ok{background:var(--teal-soft);border:2px solid var(--teal);border-radius:16px;
+  padding:.7em 1.2em;font-weight:800;font-size:clamp(1rem,1.7vw,1.3rem);color:var(--green-deep)}
+.bigbtn{font-family:inherit;border:none;border-radius:99px;cursor:pointer;
+  background:linear-gradient(180deg,#1E7A4C,var(--green-deep));color:#fff;
+  font-weight:900;font-size:clamp(1rem,1.6vw,1.25rem);padding:.6em 1.5em;
+  box-shadow:var(--shadow);transition:transform .15s ease}
+.bigbtn:hover{transform:translateY(-2px) scale(1.02)}
+
+/* ---------- THE CORNERS V2 — the ✍️ log pill (top right) ---------- */
+.pill{position:fixed;z-index:150;border:2px solid var(--line);background:rgba(255,255,255,.95);
+  backdrop-filter:blur(8px);color:var(--ink);font-family:'Nunito',sans-serif;
+  font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1;
+  padding:.42em .6em;border-radius:99px;cursor:pointer;
+  box-shadow:0 3px 10px rgba(36,49,42,.10);transition:transform .12s,border-color .12s}
+.pill:hover{transform:scale(1.08);border-color:var(--leaf)}
+#annoBtn{top:max(10px,1.6vh);right:max(10px,1.6vw)}
+/* ---------- ✍️ V2 lesson-log window (top right, under the pill) ---------- */
+#anno{position:fixed;right:max(10px,1.6vw);top:calc(58px + 1.2vh);z-index:160;width:min(430px,92vw);
+  background:#fff;border:2px solid var(--line);border-radius:16px;padding:.8em .9em;
+  display:none;flex-direction:column;gap:.5em;box-shadow:0 16px 40px rgba(36,49,42,.22)}
+#anno.on{display:flex;animation:rise .25s both}
+#anno .a-head{display:flex;align-items:center;gap:.45em;font-size:.92rem;color:var(--ink-soft)}
+#anno .a-sp{flex:1}
+#anno .a-head button{border:1.5px solid var(--line);background:#fff;border-radius:99px;
+  padding:.12em .6em;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.85rem;color:var(--ink-soft)}
+#anno .a-head button:hover{border-color:var(--ink-soft);color:var(--ink)}
+#anno #annoTick{border:none;border-radius:99px;padding:.3em 1em;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:.85rem;font-weight:700;background:#eef1ec;color:var(--ink)}
+#anno #annoTick.on{background:var(--teal);color:#fff}
+#anno #annoCross{border:none;border-radius:99px;padding:.3em 1em;cursor:pointer;font-family:'Nunito',sans-serif;
+  font-size:.85rem;font-weight:700;background:#eef1ec;color:var(--ink)}
+#anno #annoCross.on{background:#B3552F;color:#fff}
+#annoRows{display:flex;flex-direction:column;gap:.45em}
+.arow{display:flex;gap:.5em;align-items:center}
+.arow label{flex:0 0 3.1em;text-align:right;font-weight:800;font-size:.9rem;
+  color:var(--ink-soft);font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+.arow input{flex:1;min-width:0;border:2px solid var(--line);border-radius:10px;
+  padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;color:var(--ink);background:#fff}
+.arow input:focus{outline:none;border-color:var(--leaf)}
+.arow.free{margin-top:.2em}
+.arow.free textarea,.arow.fix textarea{flex:1;min-width:0;border:2px dashed var(--line);
+  border-radius:10px;padding:.34em .55em;font-family:'Nunito',sans-serif;font-size:.95rem;background:#fff;
+  resize:vertical;min-height:3.4em;color:var(--ink)}
+.arow.free textarea:focus,.arow.fix textarea:focus{outline:none;border-color:var(--leaf)}
+.arow.free textarea::placeholder,.arow.fix textarea::placeholder{color:#9a958a;font-style:italic}
+#anno .a-foot{display:flex;align-items:center;gap:.6em}
+#anno .a-foot button,#annoRep .a-rep-card button{border:none;border-radius:99px;padding:.28em 1em;
+  cursor:pointer;font-family:'Nunito',sans-serif;font-size:.85rem;font-weight:600;background:#eef1ec;color:var(--ink)}
+#anno .a-foot button:hover,#annoRep .a-rep-card button:hover{background:var(--ink);color:#fff}
+#anno .a-foot .a-hint{font-size:.74rem;color:var(--ink-soft);font-style:italic}
+#annoDone{font-weight:700}
+#annoRep{position:fixed;inset:0;z-index:220;background:rgba(36,49,42,.35);
+  display:none;align-items:center;justify-content:center;padding:4vh}
+#annoRep.on{display:flex;animation:rise .25s both}
+#annoRep .a-rep-card{background:#fff;border-radius:18px;box-shadow:0 14px 40px rgba(36,49,42,.3);
+  padding:1em 1.1em;width:min(560px,92vw);display:flex;flex-direction:column;gap:.6em}
+#annoRepText{width:100%;min-height:220px;resize:vertical;border:2px solid var(--line);border-radius:12px;
+  padding:.6em .7em;font-family:ui-monospace,Menlo,monospace;font-size:.88rem;color:var(--ink)}
+
+@media (max-width:900px){
+  .slide{padding:4vh 4.5vw calc(74px + 2vh)}
+  .q{grid-template-columns:auto 1fr;gap:.5em}
+  .secbar .hint{display:none}
+}
+@media (max-height:760px){
+  .qlist{gap:.45rem}
+  .q{padding:.4em .7em .45em .6em}
+}
+
+/* presenter view (T / 🖥) */
+#pv{position:fixed;inset:0;z-index:300;background:#0F4A2C;display:none;
+  grid-template-rows:auto 1fr auto;gap:1vh;padding:2vh 2vw}
+body.presenter #pv{display:grid}
+body.presenter .slide,body.presenter #bar,body.presenter #nav{display:none!important}
+#pv .head{display:flex;align-items:center;gap:1em;color:#fff;
+  font-size:clamp(1rem,1.6vw,1.3rem);font-weight:800}
+#pv .head button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;
+  border-radius:99px;padding:.3em 1em;font-family:inherit;font-weight:700;font-size:.9em;cursor:pointer}
+#pv .panes{display:grid;grid-template-columns:1fr 1fr;gap:1.2vw;min-height:0}
+#pv .pane{position:relative;border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-lg)}
+#pv .pane iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+#pv .pane .lbl{position:absolute;top:8px;left:10px;z-index:2;background:rgba(15,74,44,.88);color:#fff;
+  font-size:.8rem;font-weight:700;border-radius:99px;padding:.15em .8em;letter-spacing:.08em}
+#pv .notes{background:rgba(255,255,255,.08);border-radius:14px;padding:1em 1.2em;color:#F2F1EA;
+  font-size:clamp(.95rem,1.5vw,1.2rem);line-height:1.5;overflow:auto}
+#pv .notes b{color:var(--gold)}
+body.embed #nav,body.embed #bar{display:none!important}
+</style>
+</head>
+<body>
+<!-- build 29.10 · v2 -->
+<div id="bar"><i></i></div>
+
+<main id="deck">
+
+  <!-- SLIDE 1 · THE TASK -->
+  <section class="slide" data-notes="The book's own placement: pp. xii–xxiii, the key is p. 249 — BUILT INTO the clicks here, no page-flipping. Best run: ONE section block per sitting, then open the units the route slide names. Options reshuffle on every load — the letters are on-screen positions, not the book's. Restart (last slide) reshuffles and clears everything.">
+    <div class="eyebrow reveal">placement · the book's own test</div>
+    <h1 class="title reveal">Study Planner 🧭</h1>
+    <div class="accent-line reveal"></div>
+    <p class="lead reveal">Use this study planner to decide <b>which units you should study</b>, and which section of the <i>Grammar reminder</i> you should read. Choose the best option in each question. <b>Sometimes more than one option is possible.</b></p>
+    <div class="howrow reveal">
+      <span class="how"><b>1</b> · choose an answer</span>
+      <span class="how"><b>2</b> · click — the deck checks at once</span>
+      <span class="how"><b>3</b> · a miss shows its units to study</span>
+    </div>
+    <div class="facts reveal"><span>14 sections</span><span>159 questions</span><span>pp. xii–xxiii</span><span>the deck is the key</span></div>
+    <div class="prep reveal mt">📘 Prepare ahead: <b>Advanced Grammar in Use</b> at hand — the units it names open right after the test.</div>
+    <div class="stamp-line reveal">the Study planner · Advanced Grammar in Use (4th ed)</div>
+  </section>
+
+</main>
+
+<!-- pinned pill — THE CORNERS V2: ✍️ top-right -->
+<button id="annoBtn" class="pill" title="lesson notes (N)">✍️</button>
+
+<!-- ✍️ V2 lesson log -->
+<div id="anno">
+  <div class="a-head">
+    <span id="annoSlide">slide 1</span><span class="a-sp"></span>
+    <button id="annoPrev" title="annotate the previous slide (the deck stays where it is)">‹</button>
+    <button id="annoNext" title="annotate the next slide (the deck stays where it is)">›</button>
+    <button id="annoTick" title="tick the slide the lesson ENDED on — everything before counts as done">✓ done</button>
+    <button id="annoCross" title="mark the slide that failed, wasn't reached, or didn't land">✗ cross</button>
+    <button id="annoX" title="close (Esc / N)">✕</button>
+  </div>
+  <div id="annoRows">
+    <div class="arow"><label>d:</label><input id="annoD" type="text" autocomplete="off" spellcheck="false" placeholder="doesn't know the word…"></div>
+    <div class="arow"><label>//:</label><input id="annoSL" type="text" autocomplete="off" spellcheck="false" placeholder="can't pronounce it…"></div>
+    <div class="arow free"><textarea id="annoF" rows="3" autocomplete="off" spellcheck="false" placeholder="anything else…"></textarea></div>
+    <div class="arow fix"><label>fix:</label><textarea id="annoFX" rows="3" autocomplete="off" spellcheck="false" placeholder="her sentences to fix…"></textarea></div>
+  </div>
+  <div class="a-foot">
+    <button id="annoCopy">📋 report</button>
+    <span class="a-hint" id="annoHint">saves in this browser</span>
+    <span class="a-sp"></span>
+    <button id="annoDone" title="save and close (⌘S)">Done ⌘S</button>
+  </div>
+</div>
+<div id="annoRep">
+  <div class="a-rep-card">
+    <div class="a-head"><b style="color:var(--ink)">lesson report</b><span class="a-sp"></span><button id="annoRepClose">✕</button></div>
+    <textarea id="annoRepText" readonly></textarea>
+    <div class="a-foot" style="display:flex;gap:.6em;align-items:center">
+      <button id="annoRepCopy">copy</button>
+      <button id="annoRepClear" title="delete all ticks, comments and the answers">🧹 clear</button>
+      <span id="annoSent" style="margin-left:auto;font-size:.78rem;color:var(--ink-soft);font-style:italic"></span>
+    </div>
+  </div>
+</div>
+
+<div id="nav">
+  <button id="prev" aria-label="previous">‹</button>
+  <span id="counter">1 / 2</span>
+  <button id="next" aria-label="next">›</button>
+  <button id="fs" aria-label="fullscreen">⛶</button>
+  <button id="pvt" aria-label="presenter view" title="presenter view (T)">🖥</button>
+</div>
+
+<!-- presenter view shell (T / 🖥) -->
+<div id="pv">
+  <div class="head">
+    <b>Study Planner — presenter</b>
+    <button id="pv-close">✕ close (T)</button>
+    <span class="cnt" id="pv-cnt">1 / 2</span>
+  </div>
+  <div class="panes">
+    <div class="pane"><span class="lbl">NOW — what they see</span><iframe id="pv-cur"></iframe></div>
+    <div class="pane"><span class="lbl">NEXT</span><iframe id="pv-next"></iframe></div>
+  </div>
+  <div class="notes" id="pv-notes">—</div>
+</div>
+
+<script>
+/* ============ THE TEST — the book's Study planner, verbatim ============
+   Each item: n = the book's number · q = the sentence (____ = the gap)
+   o = the options in the BOOK'S order (A–D) · k = the key (indices)
+   rem = the Grammar reminder section · units = the units to study if wrong
+   ("" units = blank in the book too). knote = the key's own note.        */
+const SECTIONS=[
+{no:1,name:"Tenses",pages:"pp. xii–xiii",items:[
+ {n:"1.1",q:`‘Who ____?’ ‘____ to get through to Misaki.’`,o:[`do you phone … I’m trying`,`are you phoning … I’m trying`,`are you phoning … I try`,`do you phone … I try`],k:[1],rem:"A1",units:"1, 2"},
+ {n:"1.2",q:`____ to Turkey every year for your holidays?`,o:[`Are you going`,`Were you going`,`Have you gone`,`Do you go`],k:[3],rem:"A5",units:"1, 2"},
+ {n:"1.3",q:`I ____ you park outside the city and get the bus to the centre.`,o:[`am suggesting`,`suggests`,`suggest`,`was suggesting`],k:[2],rem:"",units:"1, 2"},
+ {n:"1.4",q:`Sophia ____ me that you’re thinking of emigrating.`,o:[`told`,`tells`,`is telling`,`tell`],k:[0,1],rem:"",units:"2, 1"},
+ {n:"1.5",q:`Aisha ____ a few minutes ago.`,o:[`has left`,`leaves`,`left`,`had left`],k:[2],rem:"A6",units:"3, 4, 5"},
+ {n:"1.6",q:`We ____ to the tennis club since we moved here.`,o:[`have belonged`,`belong`,`belonged`,`are belonging`],k:[0],rem:"A11",units:"3, 6"},
+ {n:"1.7",q:`After she ____ hospital, she had a long holiday.`,o:[`leaves`,`is leaving`,`has left`,`left`],k:[3],rem:"",units:"3, 4, 5"},
+ {n:"1.8",q:`When he realised I ____ at him, he ____ away.`,o:[`looked … was turning`,`was looking … turned`,`was looking … was turning`,`looked … turned`],k:[1],rem:"A13",units:"4, 7"},
+ {n:"1.9",q:`When the builders were here I ____ them cups of tea all the time.`,o:[`was making`,`am making`,`made`,`make`],k:[0,2],rem:"",units:"4, 7"},
+ {n:"1.10",q:`When I went into the bathroom, I found that the bath ____.`,o:[`overflows`,`overflowed`,`had overflowed`,`is overflowing`],k:[2],rem:"A14",units:"5, 7"},
+ {n:"1.11",q:`I was sure that I ____ him before.`,o:[`had met`,`am meeting`,`meet`,`met`],k:[0],rem:"",units:"5, 7"},
+ {n:"1.12",q:`Your eyes are red — ____?`,o:[`did you cry`,`have you been crying`,`have you cried`,`do you cry`],k:[1],rem:"A17",units:"6"},
+ {n:"1.13",q:`____ this holiday for ages.`,o:[`We’re looking forward to`,`We’ve been looking forward to`,`We look forward to`,`We’ve looked forward to`],k:[1,3],rem:"",units:"6, 3"},
+ {n:"1.14",q:`When I saw the vase on the website, I knew it was exactly what I ____.`,o:[`looked for`,`look for`,`had been looking for`,`have looked for`],k:[2],rem:"A18",units:"7"},
+ {n:"1.15",q:`____ hard all year, so I felt that I deserved a holiday.`,o:[`I work`,`I’d been working`,`I’d worked`,`I’m working`],k:[1,2],rem:"",units:"7, 4, 5"}
+]},
+{no:2,name:"The future",pages:"p. xiii",items:[
+ {n:"2.1",q:`I ____ one of my special desserts for dinner, if you like.`,o:[`make`,`’m going to make`,`’ll make`,`’m making`],k:[2],rem:"B3",units:"9"},
+ {n:"2.2",q:`If Erik phones I ____ you know.`,o:[`’m going to let`,`let`,`’m letting`,`’ll let`],k:[3],rem:"",units:"9"},
+ {n:"2.3",q:`‘Has anybody offered to look after the children?’ ‘Sophia ____ it.’`,o:[`is to do`,`’s going to do`,`does`,`will do`],k:[1,3],rem:"B5",units:"9"},
+ {n:"2.4",q:`The next train to Dublin ____ at 3:45. (station announcement)`,o:[`will leave`,`is leaving`,`is going to leave`,`leaves`],k:[0,3],rem:"B6",units:"10"},
+ {n:"2.5",q:`When you ____ Ben, tell him he still owes me some money.`,o:[`are going to see`,`are seeing`,`see`,`will see`],k:[2],rem:"",units:"10"},
+ {n:"2.6",q:`We ____ a party next Saturday. Can you come?`,o:[`’re to have`,`’re having`,`have`,`’ll have`],k:[1],rem:"B7",units:"10"},
+ {n:"2.7",q:`After the operation you ____ any sport for a while.`,o:[`won’t be doing`,`aren’t doing`,`don’t do`,`won’t to do`],k:[0],rem:"B8",units:"11"},
+ {n:"2.8",q:`When the race starts later this afternoon the drivers ____ for drier weather than last year.`,o:[`were hoping`,`are hoping`,`hope`,`will be hoping`],k:[3],rem:"",units:"11"},
+ {n:"2.9",q:`In the next few years, thousands of speed cameras ____ on major roads.`,o:[`are appear`,`will appear`,`are to appear`,`are appearing`],k:[1,2],rem:"",units:"12"},
+ {n:"2.10",q:`____ to Bangkok by the end of June.`,o:[`I aim getting`,`I’m aiming getting`,`I aim to get`,`I’m aiming to get`],k:[2,3],rem:"",units:"13"},
+ {n:"2.11",q:`We ____ each other later that day, but I had to phone and cancel.`,o:[`see`,`are seeing`,`were seeing`,`saw`],k:[2],rem:"",units:"14"}
+]},
+{no:3,name:"Modals and semi-modals",pages:"p. xiv",items:[
+ {n:"3.1",q:`Despite yesterday’s snowfalls, we ____ home in less than an hour.`,o:[`could drive`,`can drive`,`were able to drive`,`are able to drive`],k:[2],rem:"C5",units:"15"},
+ {n:"3.2",q:`She swam strongly and ____ cross the river easily, even though it was swollen by the heavy rain.`,o:[`can`,`was able to`,`could`,`is able to`],k:[1],rem:"",units:"15"},
+ {n:"3.3",q:`____ me to get you some water?`,o:[`Would you like`,`Should you like`,`Shall you like`,`Will you like`],k:[0],rem:"C12",units:"16"},
+ {n:"3.4",q:`We ____ Switzerland four times during the 2010s.`,o:[`would visit`,`used to visit`,`visit`,`visited`],k:[3],rem:"",units:"16"},
+ {n:"3.5",q:`‘While we’re in Moscow shall we go and see Dariya?’ ‘But it’s been nearly 20 years since we last saw her. She ____ remember us.’`,o:[`can’t`,`couldn’t`,`may not`,`might not`],k:[2,3],rem:"C17",units:"17"},
+ {n:"3.6",q:`During the war, the police ____ arrest you for criticising the government.`,o:[`may`,`might`,`should`,`could`],k:[1,3],rem:"",units:"17"},
+ {n:"3.7",q:`‘I’m seeing Dr Evans next week.’ ‘That ____ be right. He’s on holiday then.’`,o:[`mustn’t`,`can’t`,`hasn’t to`,`hasn’t got to`],k:[1],rem:"C23",units:"18"},
+ {n:"3.8",q:`I can’t access the database. You ____ a password.`,o:[`must have got to put in`,`must’ve to put in`,`must have to put in`,`must put in`],k:[2],rem:"",units:"18"},
+ {n:"3.9",q:`I ____ an interview because I’d worked there before.`,o:[`didn’t have to have`,`needn’t have had`,`didn’t need to have`,`needn’t have`],k:[0,2],rem:"C27",units:"19"},
+ {n:"3.10",q:`Nowadays it ____ cost a fortune to own an eBook reader.`,o:[`hasn’t to`,`needn’t`,`doesn’t have to`,`mustn’t`],k:[1,2],rem:"",units:"19"},
+ {n:"3.11",q:`Walking under a ladder ____ be unlucky.`,o:[`is suppose to`,`should`,`ought to`,`is supposed to`],k:[3],rem:"C32",units:"20"},
+ {n:"3.12",q:`It’s the third time she’s been skating this week. She ____ really enjoy it.`,o:[`must`,`should`,`ought to`,`had better`],k:[0],rem:"",units:"20"}
+]},
+{no:4,name:"Linking verbs, passives, questions",pages:"pp. xiv–xv",items:[
+ {n:"4.1",q:`The traffic lights ____ green and I pulled away.`,o:[`got`,`became`,`turned`,`went`],k:[2,3],rem:"",units:"21"},
+ {n:"4.2",q:`The building ____ the earthquake but then ____ by a fire.`,o:[`was survived … destroyed`,`survived … was destroyed`,`survived … destroyed`,`was survived … was destroyed`],k:[1],rem:"D1",units:"23, 24, 22"},
+ {n:"4.3",q:`I’m really disappointed. I ____ for the team again.`,o:[`wasn’t picked`,`didn’t pick`,`didn’t get picked`,`wasn’t got picked`],k:[0,2],rem:"D2",units:"23, 24, 22"},
+ {n:"4.4",q:`When I asked what was wrong, ____.`,o:[`I was explained the problem`,`he explained the problem to me`,`the problem was explained to me`,`he explained me the problem`],k:[1,2],rem:"",units:"23"},
+ {n:"4.5",q:`The children ____ to the zoo.`,o:[`were enjoyed taken`,`enjoyed being taken`,`were enjoyed taking`,`enjoyed taking`],k:[1],rem:"",units:"24, App.2"},
+ {n:"4.6",q:`The new computer system ____ next month.`,o:[`is being installed by people`,`is be installed`,`is being installed`,`is been installed`],k:[2],rem:"",units:"22, App.2"},
+ {n:"4.7",q:`____ that we have to leave.`,o:[`They have informed us`,`It has been informed`,`It has been informed us`,`We have been informed`],k:[0,3],rem:"",units:"25"},
+ {n:"4.8",q:`He just turned away when I asked him. ____ he meant?`,o:[`Which do you think`,`How do you think`,`What you think`,`What do you think`],k:[3],rem:"E4, E1",units:"26"},
+ {n:"4.9",q:`____ to see in the town?`,o:[`What there are`,`What is there`,`What are there`,`What there is`],k:[1],rem:"",units:"26"},
+ {n:"4.10",q:`____ was in the box?`,o:[`What did you think that`,`What you thought`,`What did you think`,`What you did think`],k:[2],rem:"",units:"27"}
+]},
+{no:5,name:"Verb complementation: what follows verbs",pages:"pp. xv–xvi",items:[
+ {n:"5.1",q:`I always associate ____.`,o:[`pizza`,`pizza by Italy`,`Italian pizza`,`pizza with Italy`],k:[3],rem:"",units:"28"},
+ {n:"5.2",q:`She described ____.`,o:[`the situation`,`the situation to me`,`me the situation`,`the situation me`],k:[0,1],rem:"",units:"29"},
+ {n:"5.3",q:`Stevens ____ the wallet.`,o:[`admitted to steal`,`admitted steal`,`admitted stealing`,`admitted him stealing`],k:[2],rem:"F5",units:"30, 31"},
+ {n:"5.4",q:`My parents wouldn’t ____ to the party.`,o:[`allow me go`,`allow me to go`,`allow me going`,`allow to go`],k:[1],rem:"F9",units:"30, 31"},
+ {n:"5.5",q:`She felt the mosquito ____ her.`,o:[`bites`,`to bite`,`bite`,`biting`],k:[2,3],rem:"F13",units:"30, 31"},
+ {n:"5.6",q:`You don’t object ____ late tonight, do you?`,o:[`to working`,`to work`,`work`,`working`],k:[0],rem:"",units:"30"},
+ {n:"5.7",q:`They arranged ____ in London.`,o:[`for Rania to stay`,`Rania to stay`,`by Rania to stay`,`for Rania staying`],k:[0],rem:"",units:"31"}
+]},
+{no:6,name:"Reporting",pages:"p. xvi",items:[
+ {n:"6.1",q:`Georgia ____ she would be late for the meeting. She ____ she was feeling ill.`,o:[`told that … said that`,`told that … said me that`,`told me that … said that`,`told me that … said me that`],k:[2],rem:"G4/5",units:"32"},
+ {n:"6.2",q:`She ____ her holiday in Finland.`,o:[`told me about`,`said about`,`said me about`,`told about`],k:[0],rem:"G7",units:"32"},
+ {n:"6.3",q:`‘I suppose you’ve heard the latest ____ to me.`,o:[`news,’ said she`,`news.’ she said`,`news’, she said`,`news,’ she said`],k:[3],rem:"",units:"32"},
+ {n:"6.4",q:`I notified ____ I had changed my address.`,o:[`with the bank that`,`the bank that`,`that`,`to the bank that`],k:[1],rem:"",units:"33"},
+ {n:"6.5",q:`She reminded ____.`,o:[`what to do`,`me what I had to do`,`what I had to do`,`me what to do`],k:[1,3],rem:"",units:"34"},
+ {n:"6.6",q:`Police said that they ____ the missing girl.`,o:[`had found`,`have found`,`find`,`were finding`],k:[0],rem:"",units:"35"},
+ {n:"6.7",q:`She encouraged ____ the job.`,o:[`to take the job`,`that Fran should take`,`Fran to take`,`to Fran to take`],k:[2],rem:"",units:"36"},
+ {n:"6.8",q:`He asked where he ____ put the box.`,o:[`shall`,`ought to`,`will`,`should`],k:[1,3],rem:"",units:"37"},
+ {n:"6.9",q:`She asked my advice ____ subject she should study at university.`,o:[`on to what`,`as to what`,`on what`,`to what`],k:[1,2],rem:"",units:"38"},
+ {n:"6.10",q:`They directed that the building ____.`,o:[`be pulled down`,`to be pulled down`,`should be pulled down`,`should pull down`],k:[0,2],rem:"",units:"39"}
+]},
+{no:7,name:"Nouns",pages:"pp. xvi–xvii",items:[
+ {n:"7.1",q:`The ____ faulty.`,o:[`equipments are`,`equipment was`,`equipments were`,`equipment were`],k:[1],rem:"H1",units:""},
+ {n:"7.2",q:`The company ____ doing a lot of ____ in South America.`,o:[`is … businesses`,`are … business`,`are … businesses`,`is … business`],k:[1,3],rem:"H2",units:"40"},
+ {n:"7.3",q:`The ____ shoes were covered in mud, so I asked them to take them off before they got into ____ car.`,o:[`girl’s … Leon’s`,`girls’ … Leons’`,`girls’ … Leon’s`,`girl’s … Leons’`],k:[2],rem:"H7",units:"43"},
+ {n:"7.4",q:`The council ____ postponed a decision on the new road, and many leading members of the opposition party ____ criticised the delay.`,o:[`has … have`,`has … has`,`have … has`,`have … have`],k:[0,3],rem:"",units:"40"},
+ {n:"7.5",q:`____ thinks that Phil should be given the job.`,o:[`Neither of us`,`The majority of my colleagues`,`Practically everyone`,`A number of people`],k:[0,2],rem:"",units:"41"},
+ {n:"7.6",q:`Police ____ that Thomas is in Brazil, although his exact whereabouts ____ unknown.`,o:[`believes … are`,`believe … are`,`believes … is`,`believe … is`],k:[1,3],rem:"",units:"42"},
+ {n:"7.7",q:`A new ____ is being built outside the town.`,o:[`golf course`,`golfcourse`,`golf’s course`,`golf-course`],k:[0,3],rem:"H5",units:"40"},
+ {n:"7.8",q:`The government has introduced ____.`,o:[`a children’s clothes tax`,`a tax on children clothes`,`a children clothes tax`,`a tax on children’s clothes`],k:[3],rem:"",units:"43"},
+ {n:"7.9",q:`____ has improved enormously.`,o:[`David’s guitar playing`,`David guitar playing`,`Davids’ guitar playing`,`The guitar playing of David`],k:[0],rem:"H11",units:"40"}
+]},
+{no:8,name:"Articles, determiners and quantifiers",pages:"pp. xvii–xviii",items:[
+ {n:"8.1",q:`I’ll be with you in ____.`,o:[`one quarter of an hour`,`a quarter of an hour`,`a quarter of one hour`,`a quarter of hour`],k:[1],rem:"",units:"44"},
+ {n:"8.2",q:`Look at ____. It’s very bright tonight.`,o:[`the moons`,`moon`,`the moon`,`a moon`],k:[2],rem:"I5",units:"45–47"},
+ {n:"8.3",q:`Sydney is ____.`,o:[`a beautiful city`,`beautiful city`,`the beautiful city`,`the beautiful cities`],k:[0],rem:"I7",units:"45–47"},
+ {n:"8.4",q:`____ of the present continuous tense on page 32.`,o:[`There are example`,`There are examples`,`There are the examples`,`There is example`],k:[1],rem:"I9",units:"45–47"},
+ {n:"8.5",q:`____ is one of the many factors involved in changing farming methods.`,o:[`Climate`,`A climate`,`Climates`,`The climate`],k:[0,3],rem:"",units:"45"},
+ {n:"8.6",q:`Against her parents’ wishes, she wants to be ____.`,o:[`the journalist`,`journalist`,`a journalist`,`journalists`],k:[2],rem:"",units:"46"},
+ {n:"8.7",q:`‘You look upset.’ ‘Yes, I’ve had ____.’`,o:[`the terrible morning`,`terrible morning`,`some terrible morning`,`a terrible morning`],k:[3],rem:"",units:"47"},
+ {n:"8.8",q:`I haven’t been here for ____.`,o:[`some years`,`any years`,`years`,`the years`],k:[0,2],rem:"I14",units:"48"},
+ {n:"8.9",q:`We haven’t got ____ left.`,o:[`a butter`,`any butter`,`the butter`,`some butter`],k:[1],rem:"I15",units:"48"},
+ {n:"8.10",q:`‘Where were you last week?’ ‘I was visiting ____.’`,o:[`any friends`,`friends`,`the friends`,`some friends`],k:[1,3],rem:"",units:"48, 49–51"},
+ {n:"8.11",q:`____ my jewellery is missing.`,o:[`Some of`,`Any of`,`Some`,`Any`],k:[0],rem:"I23",units:"49"},
+ {n:"8.12",q:`____ the furniture ____ arrived yet.`,o:[`None … has`,`None … have`,`None of … has`,`None of … have`],k:[2],rem:"I34, I22–28",units:"49"},
+ {n:"8.13",q:`I phoned Sarah at home, but ____.`,o:[`there were no answers`,`there were no answer`,`there was no answers`,`there was no answer`],k:[3],rem:"",units:"49"},
+ {n:"8.14",q:`There isn’t ____ traffic along the street where I live.`,o:[`many`,`much`,`much of`,`many of`],k:[1],rem:"I38, I22–28",units:"50"},
+ {n:"8.15",q:`____ the food was inedible.`,o:[`A large amount of`,`Many of`,`Much of`,`A large number of`],k:[0,2],rem:"",units:"50"},
+ {n:"8.16",q:`____ waiting to hear the results.`,o:[`Everyone was`,`All was`,`Everyone were`,`All were`],k:[0],rem:"I44",units:"51"},
+ {n:"8.17",q:`Following the flood, ____ in the area ____ major repair work.`,o:[`each of building … need`,`every building … needs`,`every building … need`,`each buildings … need`],k:[1],rem:"I46, I22–28",units:"51"},
+ {n:"8.18",q:`____ to Athens during the vacation.`,o:[`All they are going`,`They are all going`,`They all are going`,`They are going all`],k:[1],rem:"",units:"51"},
+ {n:"8.19",q:`There is ____ evidence to support his claim.`,o:[`little of`,`few`,`a few`,`little`],k:[3],rem:"I48, I22–28",units:"52"},
+ {n:"8.20",q:`We should use ____ time we have available to discuss Jon’s proposal.`,o:[`the little of`,`the little`,`the few`,`little`],k:[1],rem:"",units:"52"}
+]},
+{no:9,name:"Relative clauses and other types of clause",pages:"p. xix",items:[
+ {n:"9.1",q:`My mother ____ enjoys hill walking.`,o:[`who is in her seventies`,`, that is in her seventies,`,`, which is in her seventies,`,`, who is in her seventies,`],k:[3],rem:"J2",units:"53"},
+ {n:"9.2",q:`She’s one of the kindest people ____.`,o:[`that I know`,`I know`,`who I know`,`which I know`],k:[0,1],rem:"",units:"53"},
+ {n:"9.3",q:`Do you know the date ____ we have to hand in the essay?`,o:[`which`,`on which`,`by which`,`when`],k:[1,2,3],rem:"",units:"54"},
+ {n:"9.4",q:`The valley ____ the town lies is heavily polluted.`,o:[`in that`,`in which`,`in`,`which`],k:[1],rem:"",units:"55"},
+ {n:"9.5",q:`The prisoners ____ are all women.`,o:[`who being released`,`are being released`,`being released`,`who are being released`],k:[2,3],rem:"",units:"56"},
+ {n:"9.6",q:`She lives in the house ____.`,o:[`which has the red door`,`has the red door`,`with the red door`,`which with the red door`],k:[0,2],rem:"",units:"57"},
+ {n:"9.7",q:`‘Wait a minute,’ said Amy, ____.`,o:[`running through the door`,`run through the door`,`ran through the door`,`runs through the door`],k:[0],rem:"J8",units:"58, 59"},
+ {n:"9.8",q:`____ by the boys’ behaviour, she complained to the head teacher.`,o:[`She annoyed`,`Annoyed`,`She was annoyed`,`Annoying`],k:[1],rem:"J10",units:"58, 59"},
+ {n:"9.9",q:`____ at the party, we saw Ruth standing alone.`,o:[`Arrived`,`We arrived`,`Arriving`,`We were arriving`],k:[2],rem:"",units:"58"},
+ {n:"9.10",q:`Josh was the first person I saw ____ hospital.`,o:[`by leaving`,`on leaving`,`in leaving`,`on to leave`],k:[1],rem:"",units:"59"}
+]},
+{no:10,name:"Pronouns, substitution and leaving out words",pages:"pp. xix–xx",items:[
+ {n:"10.1",q:`‘What did you do to your hand?’ ‘I ____ when I was chopping vegetables.’`,o:[`cut me`,`cut`,`myself cut`,`cut myself`],k:[3],rem:"K1",units:"60"},
+ {n:"10.2",q:`The scheme allows students from many countries to communicate ____.`,o:[`each other`,`with each other`,`themselves`,`with one another`],k:[1,3],rem:"K7",units:""},
+ {n:"10.3",q:`We are confident that both sets of fans will ____ at the match.`,o:[`behave itself`,`behave them`,`behave themselves`,`behave`],k:[2,3],rem:"",units:"60"},
+ {n:"10.4",q:`‘We need new curtains.’ ‘Okay, let’s buy ____.’`,o:[`ones with flowers on`,`some`,`ones`,`one`],k:[0,1],rem:"",units:"61"},
+ {n:"10.5",q:`The two children ____ for breaking the window.`,o:[`each blamed other`,`blamed other`,`blamed each other`,`each blamed the other`],k:[2,3],rem:"K9",units:""},
+ {n:"10.6",q:`I had a racing bike when I was young, and ____.`,o:[`my brother did so`,`so did my brother`,`so my brother`,`did my brother`],k:[1],rem:"K10",units:"62"},
+ {n:"10.7",q:`‘I don’t suppose there’ll be any seats left.’ ‘No, I ____.’`,o:[`don’t suppose`,`suppose`,`don’t suppose so`,`suppose not`],k:[2,3],rem:"",units:"62"},
+ {n:"10.8",q:`They needed someone who was both an excellent administrator and manager. ____ was not easy to find.`,o:[`Such person`,`A such person`,`Such`,`Such a person`],k:[3],rem:"",units:"63"},
+ {n:"10.9",q:`‘They could have been delayed by the snow.’ ‘Yes, they ____.’`,o:[`could have`,`could`,`could been`,`could have been`],k:[0,1,3],rem:"",units:"64"},
+ {n:"10.10",q:`Leon was frightened – or maybe he just ____.`,o:[`pretended to be`,`pretended to`,`pretended`,`pretend to be`],k:[0],rem:"",units:"65"}
+]},
+{no:11,name:"Adjectives and adverbs",pages:"pp. xx–xxi",items:[
+ {n:"11.1",q:`He is a ____.`,o:[`capable of making difficult decisions manager`,`manager capable of making difficult decisions`,`capable manager of making difficult decisions`,`manager capable to make difficult decisions`],k:[1],rem:"",units:"66"},
+ {n:"11.2",q:`Our teacher gave us ____ problem to solve.`,o:[`a very impossible`,`a completely impossible`,`an absolutely impossible`,`an extremely impossible`],k:[1,2],rem:"L2",units:"67, 68"},
+ {n:"11.3",q:`Experience is ____ for the job.`,o:[`really essential`,`fairly essential`,`pretty essential`,`very essential`],k:[0,2],rem:"",units:"67"},
+ {n:"11.4",q:`I met my ____ professor the other day. She is now advising on the government’s ____.`,o:[`old politics … very foreign policy`,`very old politics … foreign policy`,`very old politics … very foreign policy`,`old politics … foreign policy`],k:[3],rem:"",units:"68"},
+ {n:"11.5",q:`I drank some ____ coffee.`,o:[`good very Brazilian`,`Brazilian very good`,`very good Brazilian`,`very Brazilian good`],k:[2],rem:"L3",units:""},
+ {n:"11.6",q:`I was ____ to find that the film was quite ____.`,o:[`surprised … frightening`,`surprised … frightened`,`surprising … frightening`,`surprising … frightened`],k:[0],rem:"L4",units:""},
+ {n:"11.7",q:`My watch was among the ____.`,o:[`things taken`,`taken things`,`things stolen`,`stolen things`],k:[0,2,3],rem:"",units:"69"},
+ {n:"11.8",q:`He was busy ____ his homework.`,o:[`to do`,`doing`,`that he was doing`,`he was doing`],k:[1],rem:"",units:"70"},
+ {n:"11.9",q:`It was ____ as we went into the room.`,o:[`strange quiet`,`strange quietly`,`strangely quiet`,`strangely quietly`],k:[2],rem:"L6",units:"71"},
+ {n:"11.10",q:`She ____ towards the door.`,o:[`quick ran`,`ran quick`,`ran quickly`,`quickly ran`],k:[1,2,3],knote:"B works in informal speech only",rem:"",units:"71"},
+ {n:"11.11",q:`It was the ____ thing to say.`,o:[`most ridiculous`,`ridiculous`,`ridiculousest`,`most ridiculousest`],k:[0],rem:"L8",units:"72"},
+ {n:"11.12",q:`‘Why did you buy these oranges?’ ‘They were ____.’`,o:[`cheapest`,`the cheapest`,`the cheapest ones I could find`,`cheapest ones I could find`],k:[0,1,2],knote:"A works in informal speech only",rem:"",units:"72"},
+ {n:"11.13",q:`Despite his heavy injuries he tried to lead ____ as possible.`,o:[`as normal life`,`a normal a life`,`as normal as life`,`as normal a life`],k:[3],rem:"",units:"73"},
+ {n:"11.14",q:`Have you heard the good news? ____.`,o:[`In May, Eva had a baby.`,`Eva had a baby in May.`,`Eva in May had a baby.`,`Eva had in May a baby.`],k:[0,1],rem:"",units:"74, 75"},
+ {n:"11.15",q:`____ Kaspar nowadays, he’s so busy at the office.`,o:[`We see hardly ever`,`We hardly see ever`,`We hardly ever see`,`Hardly we ever see`],k:[2],rem:"",units:"75"},
+ {n:"11.16",q:`Only later ____ how much damage had been caused.`,o:[`she realised`,`she did realised`,`did she realise`,`realised she`],k:[2],rem:"",units:"76, 99, 100"},
+ {n:"11.17",q:`We ____ with the decision.`,o:[`agree very much`,`much agree`,`agree much`,`very much agree`],k:[0,3],rem:"",units:"77"},
+ {n:"11.18",q:`____, this summer is a crucial time for the government.`,o:[`Politics speaking`,`Politically`,`In political terms`,`In a political point of view`],k:[1,2],rem:"",units:"78"}
+]},
+{no:12,name:"Adverbial clauses and conjunctions",pages:"pp. xxi–xxii",items:[
+ {n:"12.1",q:`I ____ unwell when I ____ this morning.`,o:[`felt … get up`,`felt … got up`,`feel … get up`,`feel … got`],k:[1],rem:"M2",units:""},
+ {n:"12.2",q:`Have something to eat before you ____.`,o:[`leave`,`left`,`will leave`,`had left`],k:[0],rem:"M3",units:""},
+ {n:"12.3",q:`I still feel tired ____ in the morning.`,o:[`when I wake up`,`as I wake up`,`when I will wake up`,`while I wake up`],k:[0],rem:"",units:"79"},
+ {n:"12.4",q:`We were delayed ____ an accident.`,o:[`because`,`because of there was`,`because there was`,`because of`],k:[2,3],rem:"",units:"80"},
+ {n:"12.5",q:`I wrote down her name ____ forget it.`,o:[`so as not to`,`so not to`,`not to`,`in order not to`],k:[0,3],rem:"",units:"81"},
+ {n:"12.6",q:`____ they slept soundly.`,o:[`Hot though was the night air`,`Hot though the night air was`,`Hot as the night air was`,`Hot although the night air was`],k:[1,2],rem:"",units:"82"},
+ {n:"12.7",q:`I’ll give you a lift if it ____.`,o:[`is raining`,`will rain`,`rained`,`rains`],k:[0,3],rem:"M9",units:"83, 84"},
+ {n:"12.8",q:`If I had known how difficult the job was, I ____ it.`,o:[`won’t have taken`,`wouldn’t have taken`,`won’t take`,`mightn’t have taken`],k:[1,3],rem:"M14",units:"83, 84"},
+ {n:"12.9",q:`If I ____ a more reliable car, I ____ to Spain rather than fly.`,o:[`would have … would drive`,`had … had driven`,`had … would drive`,`would have had … would drive`],k:[2],rem:"M17",units:"83, 84"},
+ {n:"12.10",q:`If the technology ____ available, we would be able to expand the business.`,o:[`would become`,`were become`,`were to become`,`became`],k:[2,3],rem:"",units:"83"},
+ {n:"12.11",q:`If the North Sea ____ in winter, you could walk from London to Oslo.`,o:[`happened to freeze`,`froze`,`should freeze`,`should happen to freeze`],k:[1],rem:"",units:"84"},
+ {n:"12.12",q:`____ very busy and rather unfit, I might consider taking up squash.`,o:[`Were I not`,`Was I not`,`Weren’t I`,`If I wasn’t`],k:[0,3],rem:"",units:"85"},
+ {n:"12.13",q:`They couldn’t decide ____ it was worth re-sitting the exam.`,o:[`if`,`whether or not`,`whether`,`if or not`],k:[0,1,2],rem:"",units:"86"},
+ {n:"12.14",q:`It was midday. ____, I put on the light.`,o:[`Even so`,`Although`,`Even`,`Even though`],k:[0],rem:"",units:"87"}
+]},
+{no:13,name:"Prepositions",pages:"pp. xxii–xxiii",items:[
+ {n:"13.1",q:`He suddenly saw Eva ____ the room. He pushed his way ____ the crowd of people to get to her.`,o:[`across … through`,`over … through`,`across … across`,`over … along`],k:[0],rem:"",units:"88"},
+ {n:"13.2",q:`The concert features, ____ others, Karl Frisk and the Johnsons. Their music is still very popular ____ teenagers.`,o:[`between … among`,`between … between`,`among … between`,`among … among`],k:[3],rem:"",units:"89"},
+ {n:"13.3",q:`____ a pause in the conversation, she left the room.`,o:[`In`,`During`,`Over`,`By`],k:[0,1],rem:"",units:"90"},
+ {n:"13.4",q:`____ cricket, I enjoy watching football and basketball.`,o:[`Apart from`,`Except`,`Except for`,`Besides`],k:[0,3],rem:"",units:"91"},
+ {n:"13.5",q:`Jo ____ her disabled mother until her death last year.`,o:[`cared after`,`cared for`,`took care of`,`cared about`],k:[1,2],rem:"",units:"92"},
+ {n:"13.6",q:`What’s the chance ____ five heads when you toss a coin five times?`,o:[`of getting`,`to get`,`of get`,`get`],k:[0],rem:"",units:"93"},
+ {n:"13.7",q:`She tried to ____.`,o:[`talk me the plan out of`,`talk out of me the plan`,`talk me out of the plan`,`talk out me of the plan`],k:[2],rem:"",units:"94"}
+]},
+{no:14,name:"Organising information",pages:"p. xxiii",items:[
+ {n:"14.1",q:`____ people trying to get into the football stadium.`,o:[`There were too much`,`There were too many`,`It was too many`,`There was too many`],k:[1],rem:"",units:"95, 96"},
+ {n:"14.2",q:`____ Sara wanted to borrow money.`,o:[`Suddenly hit me that`,`It suddenly hit`,`It suddenly hit me that`,`Suddenly hit me`],k:[2],rem:"",units:"96"},
+ {n:"14.3",q:`I ____ you can swim so well and I can’t.`,o:[`hate`,`hate it that`,`hate that`,`hate it`],k:[1],rem:"",units:"97"},
+ {n:"14.4",q:`Luis lost his job and was short of money, so ____ his flat and move in with his brother.`,o:[`that he did was to sell`,`what he did was to sell`,`what he did sold`,`what he did was sell`],k:[1,3],rem:"",units:"98"},
+ {n:"14.5",q:`____ been diverted, they would have arrived early.`,o:[`Had the plane not`,`Hadn’t the plane`,`The plane had not`,`The plane not had`],k:[0],rem:"",units:"99"},
+ {n:"14.6",q:`____ that Lana was able to retire at the age of 50.`,o:[`So successful her business was,`,`So successful was her business,`,`Her business was so successful`,`So was her successful business`],k:[1,2],rem:"",units:"100"}
+]}
+];
+const SLIDE_CHUNKS=[[5,5,5],[6,5],[6,6],[5,5],[7],[5,5],[5,4],[5,5,5,5],[5,5],[5,5],[6,6,6],[7,7],[7],[6]];
+
+/* ============ build the test slides from the data ============ */
+const LETTERS=["A","B","C","D"];
+const deck=document.getElementById("deck");
+const state={};              /* "1.1" -> {pick, ok} */
+let orderMap={};             /* "1.1" -> [displayed indices] */
+const CH="agu-study-planner";
+/* the answers persist across reloads — the run survives a chime-update;
+   the report carries them, so 🧹 clear is the only thing that wipes them */
+let answersLS={};
+try{answersLS=JSON.parse(localStorage.getItem(CH+"-answers")||"{}")}catch(e){answersLS={}}
+function shuffled(a){const r=[...a];for(let i=r.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[r[i],r[j]]=[r[j],r[i]]}return r}
+function gapify(s){return s.replace(/____/g,'<span class="gap"></span>')}
+const MECH="One attempt per item — click an answer. A miss reveals the answer + its units; the last slide collects them into the route. Options reshuffle on every load.";
+let si=0;
+SECTIONS.forEach((sec,sIdx)=>{
+  const chunks=SLIDE_CHUNKS[sIdx];let start=0;
+  chunks.forEach((cnt,cIdx)=>{
+    si++;
+    const items=sec.items.slice(start,start+cnt);start+=cnt;
+    const sec2=document.createElement("section");
+    sec2.className="slide";
+    sec2.dataset.notes=`Section ${sec.no} of 14 — ${sec.name} (${sec.pages}). `+MECH;
+    sec2.innerHTML=`<div class="secbar reveal"><span>${sec.no} · ${sec.name}</span>`+
+      `<span class="hint">choose · click · see your units</span>`+
+      `<span class="range">${items[0].n}–${items[items.length-1].n}</span></div>`+
+      `<div class="qlist">`+items.map(it=>{
+        const stored=answersLS[it.n];
+        const order=(stored&&Array.isArray(stored.order)&&stored.order.length===it.o.length)
+          ?stored.order:shuffled([0,1,2,3].slice(0,it.o.length));
+        orderMap[it.n]=order;
+        return `<div class="q" id="q-${it.n.replace(".","-")}"><div class="qn">${it.n}</div><div class="qbody">`+
+          `<div class="qs">${gapify(it.q)}</div>`+
+          `<div class="opts">`+order.map((oi,di)=>
+            `<button class="opt" data-q="${it.n}" data-oi="${oi}"><b>${LETTERS[di]}</b>${it.o[oi]}</button>`).join("")+
+          `</div>`+
+          `<div class="verdict"></div>`+
+        `</div></div>`}).join("")+
+      `</div>`;
+    deck.appendChild(sec2);
+  });
+});
+/* the route slide (last) */
+si++;
+const routeSlide=document.createElement("section");
+routeSlide.className="slide";routeSlide.id="route";
+routeSlide.dataset.notes="The route: the units from THIS run's misses, section by section — a unit a sitting follows. No misses = the book is yours from Unit 1. ↺ reshuffles every question and clears the run.";
+routeSlide.innerHTML=`<div class="eyebrow reveal">after the test</div>
+  <h1 class="title reveal">Your route through the book 🗺</h1>
+  <div class="accent-line reveal"></div>
+  <div class="route reveal" id="route-list"></div>
+  <p class="lead reveal" id="route-note"></p>
+  <div class="reveal mt"><button class="bigbtn" id="restart">↺ Reshuffle &amp; start again</button></div>
+  <div class="stamp-line reveal">the Study planner · Advanced Grammar in Use (4th ed) · key built in</div>`;
+deck.appendChild(routeSlide);
+
+/* ============ the quiz layer ============ */
+function applyAnswer(q,it,oi){
+  q.classList.add("done");
+  const ok=it.k.includes(oi);
+  state[it.n]={pick:oi,ok};
+  if(ok){q.querySelector(`.opt[data-oi="${oi}"]`).classList.add("correct");return}
+  q.querySelector(`.opt[data-oi="${oi}"]`).classList.add("wrong");
+  it.k.forEach(ki=>{
+    q.querySelector(`.opt[data-oi="${ki}"]`).classList.add("correct");
+  });
+  q.classList.add("missed");
+  const v=q.querySelector(".verdict");
+  const letters=it.k.map(ki=>LETTERS[orderMap[it.n].indexOf(ki)]).join(", ");
+  let html=`<span class="ans">Answer: ${letters}</span>`;
+  if(it.units)html+=` <span class="go">→ Study units ${it.units}</span>`;
+  if(it.rem)html+=` <span class="rem">Reminder ${it.rem}</span>`;
+  if(it.knote)html+=` <span class="knote">${it.knote}</span>`;
+  v.innerHTML=html;
+}
+function answersLines(){/* the per-item record, book order — the report's answers block */
+  const out=[];
+  SECTIONS.forEach(sec=>sec.items.forEach(it=>{
+    const s=state[it.n];if(!s)return;
+    if(s.ok)out.push(`✓ ${it.n} — picked: ${it.o[s.pick]}`);
+    else out.push(`✗ ${it.n} — picked: ${it.o[s.pick]} — key: ${it.k.map(ki=>it.o[ki]).join(" / ")}`+
+      (it.units?` → units ${it.units}`:"")+(it.rem?` · Reminder ${it.rem}`:"")+(it.knote?` (${it.knote})`:""));
+  }));
+  return out;
+}
+let runsArchive=[];/* restarts fold the finished run here — nothing is ever lost silently */
+try{runsArchive=JSON.parse(localStorage.getItem(CH+"-runs")||"[]")}catch(e){runsArchive=[]}
+function answersSave(){try{localStorage.setItem(CH+"-answers",JSON.stringify(answersLS))}catch(e){}
+  if(typeof annoSend==="function")annoSend()}
+function restoreAnswers(){/* the remembered run re-applies after a reload */
+  SECTIONS.forEach(sec=>sec.items.forEach(it=>{
+    const rec=answersLS[it.n];if(!rec||rec.pick==null)return;
+    const q=document.getElementById("q-"+it.n.replace(".","-"));
+    if(q)applyAnswer(q,it,rec.pick);
+  }));
+}
+restoreAnswers();
+deck.addEventListener("click",e=>{
+  const opt=e.target.closest(".opt");if(!opt)return;
+  const q=opt.closest(".q");if(!q||q.classList.contains("done"))return;
+  const n=opt.dataset.q,oi=+opt.dataset.oi;
+  const sec=SECTIONS.find(s=>s.items.some(it=>it.n===n));
+  const it=sec.items.find(x=>x.n===n);
+  applyAnswer(q,it,oi);
+  answersLS[n]={order:orderMap[n],pick:oi};
+  answersSave();
+});
+
+function wipeSlate(){/* clear the answered state on every card, keep the archive */
+  Object.keys(state).forEach(k=>delete state[k]);
+  document.querySelectorAll(".q").forEach(q=>{
+    q.classList.remove("done","missed");
+    q.querySelectorAll(".opt").forEach(o=>o.classList.remove("correct","wrong"));
+    q.querySelector(".verdict").innerHTML="";
+  });
+}
+document.getElementById("restart").addEventListener("click",()=>{
+  const lines=answersLines();
+  if(lines.length)runsArchive.push({at:new Date().toLocaleString("en-GB"),lines});
+  try{localStorage.setItem(CH+"-runs",JSON.stringify(runsArchive))}catch(e){}
+  wipeSlate();
+  answersLS={};answersSave();
+  orderMap={};
+  reshuffleAll();
+  go(0);
+});
+function fillRoute(){
+  const list=document.getElementById("route-list");list.innerHTML="";
+  const missedBySec=SECTIONS.map(sec=>{
+    const rows=sec.items.filter(it=>state[it.n]&&!state[it.n].ok);
+    return {sec,rows};
+  }).filter(r=>r.rows.length);
+  const answered=Object.keys(state).length;
+  const missed=Object.values(state).filter(s=>!s.ok).length;
+  const note=document.getElementById("route-note");
+  if(!missedBySec.length){
+    list.innerHTML=`<div class="route-ok">✓ No misses in this run — the book is yours: start at Unit 1 and work through.</div>`;
+    note.textContent=`Answered ${answered} of 159 questions.`;
+    return;
+  }
+  list.innerHTML=missedBySec.map(({sec,rows})=>{
+    const units=[...new Set(rows.map(r=>r.units).filter(Boolean))].join(" · ");
+    return `<div class="rsec"><span class="rname">${sec.no} · ${sec.name}</span>`+
+      (units?`<span class="units">units ${units}</span>`:`<span class="units">see the Reminder lines on the slide</span>`)+
+      `<span class="cnt">${rows.length} miss${rows.length>1?"es":""}</span></div>`;
+  }).join("");
+  note.textContent=`Answered ${answered} of 159 questions · ${missed} miss${missed>1?"es":""}. A unit a sitting — start with the first section named above.`;
+}
+function reshuffleAll(){
+  let k=0;
+  SECTIONS.forEach(sec=>sec.items.forEach(it=>{
+    const q=document.getElementById("q-"+it.n.replace(".","-"));
+    const opts=[...q.querySelectorAll(".opt")];
+    const order=shuffled([0,1,2,3].slice(0,it.o.length));
+    orderMap[it.n]=order;
+    order.forEach((oi,di)=>{
+      const o=opts[di];o.dataset.oi=oi;
+      o.innerHTML=`<b>${LETTERS[di]}</b>`+it.o[oi];
+    });
+  }));
+}
+
+/* ============ ✍️ V2 lesson log (the fleet standard) ============ */
+const annoPanel=document.getElementById("anno"),annoSlideEl=document.getElementById("annoSlide"),
+annoFields={d:document.getElementById("annoD"),sl:document.getElementById("annoSL"),free:document.getElementById("annoF"),fx:document.getElementById("annoFX")},
+annoTick=document.getElementById("annoTick"),annoCross=document.getElementById("annoCross"),
+annoHint=document.getElementById("annoHint"),annoSent=document.getElementById("annoSent");
+const rep=document.getElementById("annoRep"),repText=document.getElementById("annoRepText");
+const CAN_SEND=(location.protocol==="http:");
+let annoIdx=0,annoData={};
+try{annoData=JSON.parse(localStorage.getItem(CH+"-anno")||"{}")}catch(e){annoData={}}
+function annoSave(){try{localStorage.setItem(CH+"-anno",JSON.stringify(annoData))}catch(e){}
+  annoSend()}
+function annoFill(){const a=annoData[annoIdx+1]||{};
+  annoSlideEl.textContent="slide "+(annoIdx+1)+" / "+slides.length;
+  annoFields.d.value=a.d||"";annoFields.sl.value=a.sl||"";annoFields.free.value=a.free||"";annoFields.fx.value=a.fx||"";
+  annoTick.classList.toggle("on",!!a.t);annoCross.classList.toggle("on",!!a.x)}
+function annoToggle(open){annoPanel.classList.toggle("on",open);
+  if(open){annoIdx=i;annoFill();
+    const firstEmpty=Object.values(annoFields).find(f=>!f.value)||annoFields.d;
+    setTimeout(()=>firstEmpty.focus(),50)}}
+function annoSet(k,f){const a=annoData[k]||{};f(a);
+  if(!a.t&&!a.x&&!a.d&&!a.sl&&!a.free&&!a.fx)delete annoData[k];else annoData[k]=a;annoSave()}
+function annoDoneClose(){annoSave();
+  if(annoHint){annoHint.textContent="saved ✓";
+    setTimeout(()=>annoHint.textContent=CAN_SEND
+      ?"auto-sends to the Mac · she sees the screen while you type"
+      :"saves on this device · she sees the screen while you type",1400)}
+  annoToggle(false)}
+function annoReportText(){let out=CH+" · lesson notes · "+new Date().toLocaleString("en-GB")+"\n";
+  let any=false;
+  slides.forEach((s,k)=>{const a=annoData[k+1];if(!a)return;
+    const rows=[];
+    if(a.d)rows.push("d: "+a.d);
+    if(a.sl)rows.push("//: "+a.sl);
+    if(a.free)rows.push(a.free);
+    if(a.fx)rows.push(("fix: "+a.fx).replace(/\n/g,"\n   "));
+    if(!a.t&&!a.x&&!rows.length)return;any=true;
+    out+=(k+1)+(a.t?" ✓":"")+(a.x?" ✗":"")+"\n"+rows.map(r=>"   "+r).join("\n")+"\n"});
+  if(!any)out+="(nothing ticked or noted yet)"+"\n";
+  const lines=answersLines();
+  if(lines.length){
+    const okN=lines.filter(l=>l.startsWith("✓")).length;
+    out+="\nanswers ("+lines.length+"/159 answered · "+(lines.length-okN)+" miss):\n"
+      +lines.map(l=>"  "+l).join("\n")+"\n";
+  }
+  if(runsArchive.length){
+    out+="\nearlier runs ("+runsArchive.length+"):\n";
+    runsArchive.forEach(r=>{
+      const ok=r.lines.filter(l=>l.startsWith("✓")).length;
+      out+="run "+r.at+" — "+r.lines.length+" answered · "+(r.lines.length-ok)+" miss\n"
+        +r.lines.map(l=>"  "+l).join("\n")+"\n";
+    });
+  }
+  return out}
+let annoTimer=null;
+function annoSend(){if(!CAN_SEND)return;
+  clearTimeout(annoTimer);
+  annoTimer=setTimeout(()=>{
+    fetch("/report?deck="+encodeURIComponent(CH),{method:"POST",body:annoReportText()})
+      .then(()=>{if(annoSent)annoSent.textContent="auto-sent to the Mac ✓"})
+      .catch(()=>{if(annoSent)annoSent.textContent="not sent — use 📋 copy"})
+  },1200)}
+if(annoHint)annoHint.textContent=CAN_SEND
+  ?"auto-sends to the Mac · she sees the screen while you type"
+  :"saves on this device · she sees the screen while you type";
+document.getElementById("annoBtn").onclick=()=>annoToggle(!annoPanel.classList.contains("on"));
+document.getElementById("annoPrev").onclick=()=>{annoIdx=Math.max(0,annoIdx-1);annoFill()};
+document.getElementById("annoNext").onclick=()=>{annoIdx=Math.min(slides.length-1,annoIdx+1);annoFill()};
+document.getElementById("annoX").onclick=()=>annoToggle(false);
+annoTick.onclick=()=>{annoSet(annoIdx+1,a=>{a.t=a.t?0:1;if(a.t)a.x=0});annoFill()};
+annoCross.onclick=()=>{annoSet(annoIdx+1,a=>{a.x=a.x?0:1;if(a.x)a.t=0});annoFill()};
+Object.entries(annoFields).forEach(([key,f])=>
+  f.addEventListener("input",()=>annoSet(annoIdx+1,a=>a[key]=f.value)));
+document.getElementById("annoDone").onclick=annoDoneClose;
+document.getElementById("annoCopy").onclick=()=>{repText.value=annoReportText();rep.classList.add("on")};
+document.getElementById("annoRepClose").onclick=()=>rep.classList.remove("on");
+rep.addEventListener("click",e=>{if(e.target===rep)rep.classList.remove("on")});
+document.getElementById("annoRepCopy").onclick=()=>{
+  repText.select();
+  try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(repText.value);
+  else document.execCommand("copy")}catch(e){}
+  const b=document.getElementById("annoRepCopy");b.textContent="copied ✓";
+  setTimeout(()=>b.textContent="copy",1200)};
+document.getElementById("annoRepClear").onclick=()=>{
+  if(confirm("Delete all ticks, comments and the answers (this run + earlier runs)?")){
+    wipeSlate();annoData={};answersLS={};runsArchive=[];
+    try{localStorage.removeItem(CH+"-runs")}catch(e){}
+    answersSave();annoSave();annoFill();rep.classList.remove("on")}};
+
+/* ============ core deck engine (the lib family) ============ */
+const slides=[...document.querySelectorAll(".slide")];let i=0;
+const bar=document.querySelector("#bar i"),cnt=document.getElementById("counter"),
+prev=document.getElementById("prev"),next=document.getElementById("next");
+
+const bc=("BroadcastChannel"in window)?new BroadcastChannel(CH):null;
+const qs=new URLSearchParams(location.search);
+const MODE=qs.get("embed")?"embed":(qs.get("presenter")?"presenter":"main");
+
+function post(m){if(bc)try{bc.postMessage(m)}catch(e){}}
+if(bc)bc.onmessage=e=>{
+  const m=e.data;
+  if(m.t==="go"&&MODE==="embed")showEmbed(m.i);
+};
+function go(n,silent){
+  if(n<0||n>=slides.length)return;
+  slides[i].classList.remove("active");
+  if(n>i)slides[i].classList.add("prev");
+  i=n;const s=slides[i];s.classList.remove("prev");s.classList.add("active");
+  bar.style.width=((i+1)/slides.length*100)+"%";
+  cnt.textContent=(i+1)+" / "+slides.length;
+  prev.disabled=i===0;next.disabled=i===slides.length-1;
+  history.replaceState(null,"","#"+(i+1));
+  if(typeof annoPanel!=="undefined"&&annoPanel.classList.contains("on")){annoIdx=n;annoFill()}
+  if(i===slides.length-1)fillRoute();
+  if(!silent)post({t:"go",i});
+  if(MODE==="presenter")pvShow(i);
+}
+prev.onclick=()=>go(i-1);next.onclick=()=>go(i+1);
+document.getElementById("fs").onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+document.addEventListener("keydown",e=>{
+  /* ⌘S / Ctrl+S = save + close the log — the one modifier combo we own */
+  if((e.metaKey||e.ctrlKey)&&(e.key==="s"||e.key==="S")&&document.getElementById("anno").classList.contains("on")){
+    e.preventDefault();annoDoneClose();return}
+  if(e.target instanceof Element&&e.target.matches("INPUT,TEXTAREA"))return;
+  if(e.metaKey||e.ctrlKey||e.altKey) return; /* ⌘C / Ctrl+C copy must work */
+  if(MODE==="embed")return;
+  if(e.key==="Escape"){
+    if(document.getElementById("annoRep").classList.contains("on")){document.getElementById("annoRep").classList.remove("on");return}
+    if(annoPanel.classList.contains("on")){annoToggle(false);return}
+  }
+  if(e.key==='n'||e.key==='N'||e.key==='т'||e.key==='Т'){
+    if(annoPanel.classList.contains("on"))annoDoneClose();
+    else annoToggle(true);
+    return}
+  if(e.key==='c'||e.key==='C'||e.key==='с'||e.key==='С'){
+    if(!annoPanel.classList.contains("on"))annoToggle(true);
+    return}
+  if(["ArrowRight","ArrowDown"," ","PageDown"].includes(e.key))go(i+1);
+  if(["ArrowLeft","ArrowUp","PageUp"].includes(e.key))go(i-1);
+  if(e.key==="Home")go(0);if(e.key==="End")go(slides.length-1);
+  if(e.key==="f"||e.key==="F")document.getElementById("fs").click();
+  if(e.key==="t"||e.key==="T")togglePresenter();
+});
+/* wheel navigates only at the slide's scroll edge — the slides scroll */
+let wt=0;
+document.addEventListener("wheel",e=>{
+  if(MODE!=="main")return;
+  const s=slides[i];
+  if(s.scrollHeight>s.clientHeight+4){
+    const atTop=s.scrollTop<=2,atBottom=s.scrollTop+s.clientHeight>=s.scrollHeight-3;
+    if((e.deltaY>0&&!atBottom)||(e.deltaY<0&&!atTop))return;
+  }
+  const t=Date.now();if(t-wt<650||Math.abs(e.deltaY)<25)return;wt=t;
+  go(i+(e.deltaY>0?1:-1));
+},{passive:true});
+let tx=0,ty=0;document.addEventListener("touchstart",e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+document.addEventListener("touchend",e=>{if(MODE!=="main")return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy))go(i+(dx<0?1:-1));},{passive:true});
+
+/* ============ presenter view (spec §7) ============ */
+const pv=document.getElementById("pv");
+function togglePresenter(){
+  if(MODE==="embed")return;
+  if(MODE==="presenter"){window.close();return}
+  window.open(location.pathname+"?presenter=1","agu-pv","width=1180,height=820");
+}
+document.getElementById("pvt").onclick=togglePresenter;
+document.getElementById("pv-close").onclick=()=>window.close();
+const pvCur=document.getElementById("pv-cur"),pvNext=document.getElementById("pv-next"),
+pvNotes=document.getElementById("pv-notes"),pvCnt=document.getElementById("pv-cnt");
+if(MODE==="presenter"){
+  document.body.classList.add("presenter");
+  pvCur.src=location.pathname+"?embed=cur";pvNext.src=location.pathname+"?embed=next";
+}
+function pvShow(n){
+  if(MODE!=="presenter")return;
+  pvCnt.textContent=(n+1)+" / "+slides.length;
+  pvNotes.innerHTML="";
+  const note=slides[n].dataset.notes;
+  if(note){const p=document.createElement("p");p.textContent=note;pvNotes.appendChild(p)}
+  const nxt=slides[n+1]&&slides[n+1].dataset.notes;
+  if(nxt){const h=document.createElement("p");h.innerHTML="<b>next →</b> ";h.appendChild(document.createTextNode(nxt));pvNotes.appendChild(h)}
+}
+let embedSlot=qs.get("embed");
+function showEmbed(n){
+  const target=embedSlot==="next"?(n+1<slides.length?n+1:null):n;
+  if(target===null){if(embedSlot==="next")document.body.style.opacity=.25;return}
+  document.body.style.opacity=1;
+  slides.forEach((s,k)=>{s.classList.toggle("active",k===target);s.classList.remove("prev")});
+}
+const h=parseInt(location.hash.slice(1));
+if(MODE==="main"){go(!isNaN(h)&&h>=1&&h<=slides.length?h-1:0,true)}
+else post({t:"go",i:parseInt(location.hash.slice(1))||0});
+
+/* ============ ready-chime (standing rule 2026-09-04 — http only) ============ */
+(function(){
+  if(!/^https?:$/.test(location.protocol)||MODE!=="main")return;
+  let last=null,ctx=null;
+  const unlock=()=>{try{ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();
+    if(ctx.state==="suspended")ctx.resume();}catch(e){}};
+  addEventListener("pointerdown",unlock);addEventListener("keydown",unlock);
+  function chime(){try{unlock();if(!ctx)return;const t=ctx.currentTime;
+    [880,1174.7].forEach((f,n)=>{
+      const o=ctx.createOscillator(),g=ctx.createGain();
+      o.type="sine";o.frequency.value=f;
+      g.gain.setValueAtTime(0,t+n*.18);
+      g.gain.linearRampToValueAtTime(.4,t+n*.18+.02);
+      g.gain.exponentialRampToValueAtTime(.001,t+n*.18+.9);
+      o.connect(g);g.connect(ctx.destination);
+      o.start(t+n*.18);o.stop(t+n*.18+1);
+    });
+  }catch(e){}}
+  function poll(){
+    fetch(location.href,{method:"HEAD",cache:"no-store"}).then(r=>{
+      const m=r.headers.get("last-modified");
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;chime();setTimeout(()=>location.reload(),700)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+</script>
+</body>
+</html>
