@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Word order — Infinitives of purpose</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   WORD ORDER — infinitives of purpose · the offline word-order
+   game: tap the words in order, the to + verb part says WHY.
+   ============================================================ */
+:root{
+  --paper:#F6F8FB; --navy:#2C4E80; --navy-deep:#1E3A66; --sky:#A9CCEF;
+  --cheese:#FFC53D; --cheese-soft:#FFF3D6; --stamp:#E4572E;
+  --stamp-soft:#FDEAE3; --mint:#5FBFA0; --mint-soft:#E4F4EE; --ink:#22303F; --ink-soft:#5D6B7A;
+  --white:#ffffff;
+  --shadow:0 10px 30px rgba(34,48,63,.12); --radius:22px;
+  --grad:linear-gradient(90deg,var(--navy),var(--cheese),var(--stamp));
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',system-ui,sans-serif;color:var(--ink);background:var(--paper);
+  min-height:100vh;-webkit-font-smoothing:antialiased;
+  padding:calc(2.5vh + 8px) 5vw calc(2vh + env(safe-area-inset-bottom))}
+#bar{position:fixed;top:0;left:0;height:6px;width:0;z-index:100;
+  background:var(--grad);transition:width .4s cubic-bezier(.22,1,.36,1)}
+
+.eyebrow{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.12em;
+  text-transform:uppercase;font-size:clamp(.72rem,1.15vw,.98rem);color:var(--navy)}
+.hrow{display:flex;align-items:baseline;gap:1em;flex-wrap:wrap}
+h1{font-family:'Fredoka',sans-serif;font-weight:700;line-height:1.06;margin:.1em 0 .25em;
+  font-size:clamp(1.6rem,3.6vw,2.7rem)}
+#counter{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  font-size:clamp(1rem,1.7vw,1.35rem);margin-left:auto;white-space:nowrap}
+.accent{height:8px;width:120px;border-radius:99px;background:linear-gradient(90deg,var(--navy),var(--stamp));margin-bottom:.9em}
+.why{font-family:'Fredoka',sans-serif;font-weight:500;background:var(--cheese-soft);
+  border-radius:14px;padding:.45em 1em;display:inline-block;font-size:clamp(.98rem,1.5vw,1.25rem)}
+.why::before{content:"🎯 "}
+.why b{color:var(--stamp)}
+
+
+#stage{background:var(--white);border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.1);
+  padding:1em 1.2em;margin-top:1em;border:3px solid transparent}
+#stage.open{border-color:var(--cheese)}
+#stage.done{border-color:var(--mint)}
+#badge{font-size:clamp(1.7rem,3vw,2.5rem);line-height:1;margin-bottom:.35em}
+#slots{display:flex;flex-wrap:wrap;gap:.5em .45em;align-items:center;min-height:2.6em}
+.slot{background:var(--paper);border:2.5px dashed var(--sky);border-radius:12px;
+  padding:.12em .55em;font-size:clamp(1.1rem,1.85vw,1.5rem);min-height:1.9em;
+  display:inline-flex;align-items:center;cursor:pointer;transition:border-color .2s}
+.slot .ghost{visibility:hidden;font-family:'Fredoka',sans-serif;font-weight:600;white-space:nowrap}
+.slot .w{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);white-space:nowrap;
+  animation:pop .25s both}
+.slot.filled{border-style:solid;border-color:var(--navy);cursor:pointer}
+.slot.filled.lockok{background:var(--mint);border-color:var(--mint)}
+.slot.filled.lockok .w{color:#fff}
+.slot.filled.purpose{background:var(--cheese);border-color:var(--cheese)}
+.slot.filled.purpose .w{color:var(--navy-deep)}
+#slots .dot{visibility:hidden}
+#slots.period .dot{visibility:visible;font-family:'Fredoka',sans-serif;font-weight:700;
+  color:var(--navy);font-size:clamp(1.3rem,2.2vw,1.8rem);animation:pop .25s both}
+.slot.badslot{border-color:var(--stamp);background:var(--stamp-soft)}
+.shake{animation:shake .45s both}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
+
+@keyframes pop{from{transform:translateY(10px) scale(.92)}to{transform:none}}
+#flash{min-height:1.7em;margin-top:.5em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(1.15rem,2vw,1.55rem);color:var(--mint)}
+#flash.bad{color:var(--stamp)}
+
+
+#traylabel{font-family:'Fredoka',sans-serif;font-weight:500;color:var(--ink-soft);
+  font-size:clamp(.9rem,1.3vw,1.1rem);margin:1em 0 .45em}
+#tray{display:flex;flex-wrap:wrap;gap:.5em}
+.chip{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);
+  background:var(--cheese-soft);border:2px solid var(--sky);border-radius:12px;
+  padding:.14em .6em;font-size:clamp(1.15rem,1.9vw,1.55rem);cursor:pointer;
+  transition:transform .15s ease,border-color .15s ease;animation:pop .3s both;min-height:1.9em}
+.chip:hover{transform:scale(1.06);border-color:var(--navy)}
+.chip.gone{display:none}
+#clear{margin-top:1em;font-family:'Fredoka',sans-serif;font-weight:600;
+  font-size:clamp(.95rem,1.5vw,1.2rem);color:var(--ink-soft);background:var(--white);
+  border:2px solid var(--sky);border-radius:99px;padding:.35em 1em;cursor:pointer;
+  transition:all .15s}
+#clear:hover{border-color:var(--navy);color:var(--navy);transform:scale(1.04)}
+
+
+#endwrap{display:none}
+#endwrap.on{display:block;animation:pop .4s both}
+#game{display:none}
+#game.on{display:block}
+#endcard{background:var(--white);border-radius:18px;box-shadow:0 8px 20px rgba(34,48,63,.1);
+  border:3px solid var(--mint);padding:1.1em 1.3em;margin-top:1.2em}
+#endcard h2{font-family:'Fredoka',sans-serif;font-weight:700;color:var(--navy);
+  font-size:clamp(1.5rem,3vw,2.3rem);margin-bottom:.2em}
+#stats{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--stamp);
+  font-size:clamp(1.1rem,1.9vw,1.5rem);margin-bottom:.7em}
+#readlist{display:flex;flex-direction:column;gap:.35em}
+.readrow{font-size:clamp(1.02rem,1.7vw,1.35rem);line-height:1.45;border-bottom:1px dashed #E3EAF2;
+  padding:.3em 0;display:flex;gap:.5em;align-items:baseline}
+.readrow:last-child{border-bottom:none}
+.readrow .no{font-family:'Fredoka',sans-serif;font-weight:600;color:var(--navy);min-width:1.3em}
+.readrow .pu{background:var(--cheese);border-radius:8px;padding:0 .3em;font-weight:700}
+.btn{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(1.05rem,1.8vw,1.4rem);
+  padding:.5em 1.3em;border:none;border-radius:99px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,var(--navy),var(--cheese));box-shadow:0 10px 30px rgba(34,48,63,.18);
+  transition:transform .15s ease;margin-top:1em}
+.btn:hover{transform:scale(1.05)}
+.hint{color:var(--ink-soft);font-style:italic;font-size:clamp(.92rem,1.35vw,1.12rem);margin-top:.9em}
+@media (max-width:700px){body{padding-left:4vw;padding-right:4vw}
+  .chip,.slot{min-height:44px}}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<div id="game" class="on">
+  <div class="eyebrow">Word order · infinitives of purpose</div>
+  <div class="hrow">
+    <h1>Put the words in order 🔧</h1>
+    <span id="counter">1 / 10</span>
+  </div>
+  <div class="accent"></div>
+  <p class="why">Tap the words in the RIGHT order — <b>to + verb</b> says WHY!</p>
+
+  <div id="stage">
+    <div id="badge">✈️</div>
+    <div id="slots"></div>
+    <div id="flash"></div>
+  </div>
+
+  <p id="traylabel">the words — tap them in order:</p>
+  <div id="tray"></div>
+  <button id="clear">↩ back to the start</button>
+</div>
+
+<div id="endwrap">
+  <div class="eyebrow">Word order · infinitives of purpose</div>
+  <h1>All ten sentences! 🏆</h1>
+  <div class="accent"></div>
+  <div id="endcard">
+    <h2>You did it!</h2>
+    <p id="stats"></p>
+    <div id="readlist"></div>
+    <button class="btn" id="again">↻ Play again</button>
+    <p class="hint">The yellow part is the purpose — <b>to + verb</b> answers «Why?». Play again — the sentences and the words shuffle fresh!</p>
+  </div>
+</div>
+
+<script>
+
+const SENTENCES=[
+  {emoji:"✈️",words:["I","went","to","Japan","to","learn","Japanese"],purpose:4},
+  {emoji:"🎂",words:["She","made","a","cake","to","please","her","friend"],purpose:4},
+  {emoji:"📝",words:["They","study","a","lot","to","get","good","marks"],purpose:4},
+  {emoji:"🎉",words:["Amanda","is","going","to","the","party","to","meet","new","people"],purpose:6},
+  {emoji:"⚽",words:["The","children","went","to","the","park","to","play","football"],purpose:6},
+  {emoji:"💼",words:["Jorge","studied","German","to","get","a","new","job"],purpose:3},
+  {emoji:"🥐",words:["We","went","to","France","to","eat","lots","of","nice","food"],purpose:4},
+  {emoji:"💻",words:["She","got","a","new","computer","to","write","a","book"],purpose:5},
+  {emoji:"🏃",words:["He","has","been","running","to","lose","weight"],purpose:4},
+  {emoji:"📚",words:["We","must","study","every","day","to","improve","our","English"],purpose:5}
+];
+
+const PRAISE=["Good!","Well done!","Good job!","Awesome!","Amazing!","Brilliant!"];
+
+
+const MUTE=/[?&]mute=1/.test(location.search);
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function el(id){return document.getElementById(id);}
+function anim(node,cls){node.classList.remove(cls);void node.getBoundingClientRect();node.classList.add(cls);}
+function praiseWord(){return PRAISE[Math.floor(Math.random()*PRAISE.length)];}
+
+var VOICE=null;
+(function(){ if(MUTE)return; try{
+  if(!window.speechSynthesis)return;
+  function pick(){ var vs=speechSynthesis.getVoices(); if(!vs.length)return;
+    VOICE=vs.filter(function(v){return /en[-_]GB/i.test(v.voiceURI)&&v.localService;})[0]
+        ||vs.filter(function(v){return /en[-_]GB/i.test(v.voiceURI);})[0]
+        ||vs.filter(function(v){return /^en/i.test(v.lang);})[0]||null; }
+  pick();
+  speechSynthesis.onvoiceschanged=pick;
+}catch(e){} })();
+
+function speakPraise(){
+  if(MUTE)return;
+  try{
+    if(!window.speechSynthesis)return;
+    speechSynthesis.cancel();
+    var p=new SpeechSynthesisUtterance(praiseWord());
+    p.rate=1.05;p.pitch=1.25;if(VOICE)p.voice=VOICE;
+    speechSynthesis.speak(p);
+  }catch(e){}
+}
+
+var AC=null;
+function tone(freq,when,dur,vol){
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    if(AC.state==="suspended")AC.resume();
+    var t=AC.currentTime+when;
+    var o=AC.createOscillator(),g=AC.createGain();
+    o.type="sine";o.frequency.value=freq;
+    g.gain.setValueAtTime(0,t);
+    g.gain.linearRampToValueAtTime(vol,t+.02);
+    g.gain.exponentialRampToValueAtTime(.001,t+dur);
+    o.connect(g);g.connect(AC.destination);
+    o.start(t);o.stop(t+dur+.05);
+  }catch(e){}
+}
+function chimeOk(){ if(MUTE)return; tone(880,0,.5,.25);tone(1174.7,.12,.6,.22); }
+function chimeNo(){ if(MUTE)return; tone(196,0,.25,.18); }
+
+
+var order=[],idx=0,busy=false;
+var chips=[],slots=[];
+var mistakes=0,roundMistakes=0,firstTry=0;
+
+function startGame(){
+  order=shuffle(SENTENCES.map(function(s,i){return i;}));
+  idx=0;busy=false;mistakes=0;firstTry=0;
+  el("game").classList.add("on");
+  el("endwrap").classList.remove("on");
+  window.scrollTo(0,0);
+  showRound();
+}
+
+function showRound(){
+  busy=false;roundMistakes=0;chips=[];slots=[];
+  var s=SENTENCES[order[idx]];
+  el("counter").textContent=(idx+1)+" / "+SENTENCES.length;
+  el("bar").style.width=(idx/SENTENCES.length*100)+"%";
+  el("badge").textContent=s.emoji;
+  el("flash").textContent="";
+  el("flash").classList.remove("bad");
+  el("stage").classList.add("open");
+  el("stage").classList.remove("done");
+  
+  var sl=el("slots");sl.innerHTML="";sl.classList.remove("period");
+  s.words.forEach(function(w){
+    var d=document.createElement("span");d.className="slot";
+    var g=document.createElement("span");g.className="ghost";g.textContent=w;
+    d.appendChild(g);
+    d.addEventListener("click",function(){unplace(chips.indexOf(d.chip));});
+    sl.appendChild(d);
+    slots.push({word:w,el:d,chip:null});
+  });
+  var dot=document.createElement("span");dot.className="dot";dot.textContent=".";sl.appendChild(dot);
+  
+  var dealOrder=shuffle(s.words.map(function(w,i){return i;}));
+  var text=dealOrder.map(function(i){return s.words[i];}).join("\u0001");
+  if(text===s.words.join("\u0001"))dealOrder=shuffle(dealOrder);
+  var tr=el("tray");tr.innerHTML="";
+  dealOrder.forEach(function(wi,k){
+    var c=document.createElement("button");c.className="chip";c.type="button";
+    c.textContent=s.words[wi];
+    c.style.animationDelay=(k*.04)+"s";
+    var chip={word:s.words[wi],el:c,slot:-1};
+    c.addEventListener("click",function(){place(chip);});
+    tr.appendChild(c);
+    chips.push(chip);
+  });
+}
+
+function place(chip){
+  if(busy||chip.slot>=0)return;
+  var free=slots.findIndex(function(sl){return !sl.chip;});
+  if(free<0)return;
+  chip.slot=free;
+  slots[free].chip=chip;
+  chip.el.classList.add("gone");
+  var host=slots[free].el;
+  host.classList.add("filled");
+  host.chip=chip;
+  var w=document.createElement("span");w.className="w";w.textContent=chip.word;
+  host.appendChild(w);
+  chimeTick();
+  if(slots.every(function(sl){return sl.chip;}))check();
+}
+
+function unplace(ci,force){
+  if(!force&&(busy||ci<0))return;
+  var chip=chips[ci];
+  if(chip.slot<0)return;
+  var host=slots[chip.slot].el;
+  var w=host.querySelector(".w");if(w)w.remove();
+  host.classList.remove("filled","lockok","purpose");
+  host.chip=null;
+  slots[chip.slot].chip=null;
+  chip.slot=-1;
+  chip.el.classList.remove("gone");
+}
+
+function clearAll(){
+  if(busy)return;
+  chips.forEach(function(c,i){unplace(i);});
+}
+
+function check(){
+  var s=SENTENCES[order[idx]];
+  var placed=slots.map(function(sl){return sl.chip.word;});
+  var firstBad=-1;
+  for(var i=0;i<placed.length;i++){ if(placed[i]!==s.words[i]){firstBad=i;break;} }
+  if(firstBad<0){
+    
+    busy=true;
+    slots.forEach(function(sl,i){
+      sl.el.classList.add("lockok");
+      if(i>=s.purpose)sl.el.classList.add("purpose");
+    });
+    el("slots").classList.add("period");
+    el("stage").classList.remove("open");
+    el("stage").classList.add("done");
+    if(roundMistakes===0)firstTry++;
+    el("flash").textContent=praiseWord()+"  to + verb = WHY 💡";
+    chimeOk();speakPraise();
+    setTimeout(function(){
+      idx++;
+      if(idx>=SENTENCES.length)finish();
+      else showRound();
+    },1600);
+  }else{
+    
+    busy=true;mistakes++;roundMistakes++;
+    chimeNo();
+    var tail=[];
+    for(var j=firstBad;j<slots.length;j++){ if(slots[j].chip)tail.push(slots[j]); }
+    tail.forEach(function(sl){anim(sl.el,"shake");sl.el.classList.add("badslot");});
+    setTimeout(function(){
+      tail.forEach(function(sl){
+        sl.el.classList.remove("badslot");
+        var ci=chips.indexOf(sl.chip);
+        unplace(ci,true);
+      });
+      busy=false;
+    },650);
+  }
+}
+
+function finish(){
+  el("bar").style.width="100%";
+  el("game").classList.remove("on");
+  el("endwrap").classList.add("on");
+  el("stats").textContent="⭐ first try: "+firstTry+" / "+SENTENCES.length+
+    (mistakes?"   ·   💪 fixed after a shake: "+mistakes:"   ·   no shakes at all!");
+  var rl=el("readlist");rl.innerHTML="";
+  SENTENCES.forEach(function(s,k){
+    var row=document.createElement("div");row.className="readrow";
+    var no=document.createElement("span");no.className="no";no.textContent=(k+1)+".";
+    var txt=document.createElement("span");
+    
+    var pre=s.words.slice(0,s.purpose).join(" ");
+    var pu2=s.words.slice(s.purpose).join(" ");
+    txt.appendChild(document.createTextNode(pre+" "));
+    var puEl=document.createElement("span");puEl.className="pu";puEl.textContent=pu2+".";
+    txt.appendChild(puEl);
+    row.appendChild(no);row.appendChild(txt);
+    rl.appendChild(row);
+  });
+  window.scrollTo(0,0);
+}
+
+
+function chimeTick(){ if(MUTE)return; tone(520,0,.12,.08); }
+
+el("clear").addEventListener("click",clearAll);
+el("again").addEventListener("click",startGame);
+
+
+(function(){
+  if(!/^https?:$/.test(location.protocol))return;
+  let last=null;
+  const unlock=()=>{try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    if(AC.state==="suspended")AC.resume();
+  }catch(e){}};
+  addEventListener("pointerdown",unlock);
+  function poll(){
+    fetch(location.href,{method:"HEAD",cache:"no-store"}).then(r=>{
+      const m=r.headers.get("last-modified");
+      if(!m)return;
+      if(last===null){last=m;return}
+      if(m!==last){last=m;setTimeout(()=>location.reload(),400)}
+    }).catch(()=>{});
+  }
+  poll();setInterval(poll,1500);
+})();
+
+startGame();
+</script>
+</body>
+</html>
