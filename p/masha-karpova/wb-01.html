@@ -86,17 +86,17 @@ h2{font-family:'Lora',Georgia,serif;font-weight:700;font-size:clamp(1.2rem,2.8vw
     <h2>✍️ Write the correct word for each definition</h2>
     <div class="ex">
       <div class="defrow"><span class="d">1 — someone who studies with you in the same class</span>
-        <span class="a">c<span style="opacity:.4">·</span><input id="g1" autocomplete="off" spellcheck="false" size="9"> <span class="fb" data-f="g1"></span></span></div>
+        <span class="a"><input id="g1" autocomplete="off" spellcheck="false" size="9" value="c"> <span class="fb" data-f="g1"></span></span></div>
       <div class="defrow"><span class="d">2 — a member of your family</span>
-        <span class="a">r<input id="g2" autocomplete="off" spellcheck="false" size="8"> <span class="fb" data-f="g2"></span></span></div>
+        <span class="a"><input id="g2" autocomplete="off" spellcheck="false" size="8" value="r"> <span class="fb" data-f="g2"></span></span></div>
       <div class="defrow"><span class="d">3 — your mother's mother</span>
-        <span class="a">g<input id="g3" autocomplete="off" spellcheck="false" size="11"> <span class="fb" data-f="g3"></span></span></div>
+        <span class="a"><input id="g3" autocomplete="off" spellcheck="false" size="11" value="g"> <span class="fb" data-f="g3"></span></span></div>
       <div class="defrow"><span class="d">4 — your father's or mother's sister</span>
-        <span class="a">a<input id="g4" autocomplete="off" spellcheck="false" size="4"> <span class="fb" data-f="g4"></span></span></div>
+        <span class="a"><input id="g4" autocomplete="off" spellcheck="false" size="4" value="a"> <span class="fb" data-f="g4"></span></span></div>
       <div class="defrow"><span class="d">5 — someone who lives near you</span>
-        <span class="a">n<input id="g5" autocomplete="off" spellcheck="false" size="9"> <span class="fb" data-f="g5"></span></span></div>
+        <span class="a"><input id="g5" autocomplete="off" spellcheck="false" size="9" value="n"> <span class="fb" data-f="g5"></span></span></div>
       <div class="defrow"><span class="d">6 — a girl with only one parent the same as yours</span>
-        <span class="a">h<input id="g6" autocomplete="off" spellcheck="false" size="11"> <span class="fb" data-f="g6"></span></span></div>
+        <span class="a"><input id="g6" autocomplete="off" spellcheck="false" size="11" value="h"> <span class="fb" data-f="g6"></span></span></div>
     </div>
     <div class="btnrow">
       <button class="act" id="send1" style="background:var(--sage-deep)">📤 Send exercise 1</button>
@@ -224,28 +224,38 @@ function queue(txt){
   q.push(txt);if(q.length>12)q=q.slice(-12);
   localStorage.setItem("mashak-wb01-queue",JSON.stringify(q));}
 
+var PRE={"g1":"c","g2":"r","g3":"g","g4":"a","g5":"n","g6":"h"};
 Object.keys(EX).forEach(function(n){
   var cfg=EX[n];
   function grade(){
     var ok=0,misses=[];
+    var empty=cfg.ids.filter(function(id){var pre=(PRE[id]||"").toLowerCase(),v=$(id).value.trim().toLowerCase();return !v||v===pre;}).length;
+    if(empty===cfg.ids.length){
+      $("score"+n).textContent="the gaps are waiting for you — type your answers first 💛";
+      return null;}
     var lines=["MASHA K. · HW · "+cfg.label+" · "+new Date().toLocaleString()];
+    if(empty)lines.push("(filled "+(cfg.ids.length-empty)+" of "+cfg.ids.length+" — the rest blank)");
     for(var i=0;i<cfg.ids.length;i++){
       var inp=$(cfg.ids[i]),fb=document.querySelector('.fb[data-f="'+cfg.ids[i]+'"]');
       inp.classList.remove("right","wrong");
       if(fb){fb.className="fb";fb.textContent="";}
-      var good=cfg.keys[i].some(function(k){return norm(k)===norm(inp.value);});
+      var pre=(PRE[cfg.ids[i]]||"").toLowerCase(),v=norm(inp.value);
+      if(pre&&!v){inp.value=pre;v=pre;}
+      var good=cfg.keys[i].some(function(k){return norm(k)===v||norm(k)===norm(pre+inp.value);});
+      var untouched=pre&&norm(inp.value)===pre;
       if(good){ok++;inp.classList.add("right");
         if(fb){fb.className="fb ok";fb.textContent="✓";}}
       else{inp.classList.add("wrong");
         if(fb){fb.className="fb no";fb.textContent=inp.value.trim()?("✗ → "+cfg.keys[i][0]):("→ "+cfg.keys[i][0]);}
-        misses.push("  · "+cfg.stems[i]+" — her: "+(inp.value.trim()||"—")+" · key: "+cfg.keys[i][0]);}
+        misses.push("  · "+cfg.stems[i]+" — her: "+((inp.value.trim()&&!untouched)?inp.value.trim():"—")+" · key: "+cfg.keys[i][0]);}
     }
     lines.push("Score: "+ok+" / "+cfg.ids.length);
     if(misses.length){lines.push("Missed ("+misses.length+"):");lines=lines.concat(misses);}
-    $("score"+n).textContent=(ok+" of "+cfg.ids.length+" right"+(ok===cfg.ids.length?" — beautiful! 🌟":""));
+    $("score"+n).textContent=(ok+" of "+cfg.ids.length+" right"+(ok===cfg.ids.length?" — beautiful! 🌟":(empty?" · "+empty+" left blank — finish and Send again 💛":"")));
     return lines.join("\n");}
   $("send"+n).addEventListener("click",function(){
     var txt=grade();
+    if(txt===null)return;
     queue(txt);flushQueue();
     $("sent"+n).textContent=FORM_ACTION?"sent to Elena ✅":"";});
 });
