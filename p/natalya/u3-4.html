@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natalya · Units 3–4 — the two presents, together</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF7; --ink:#23272E; --ink-soft:#8B8578; --line:#E4E0D6;
+  --accent:#14655A; --accent-soft:#EDF3F0;
+  --gold:#8a6d1d; --gold-soft:#F6EFDC;
+  --blue:#1F5FA8; --blue-soft:#E8F0FA;
+  --rust:#A2402F; --rust-soft:#F7EAE6;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:#EFECE5;
+  padding:4vh 4vw;display:flex;justify-content:center}
+.page{background:var(--paper);border-radius:18px;max-width:780px;width:100%;
+  padding:clamp(1.4rem,4vw,3rem);display:flex;flex-direction:column;gap:1.3rem}
+h1{font-size:clamp(1.5rem,3.6vw,2.3rem);line-height:1.15;letter-spacing:-.01em}
+h1 em{color:var(--accent);font-style:normal}
+.rule{width:70px;height:4px;border-radius:99px;background:var(--accent)}
+p.task{font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55;margin:.25em 0}
+p.how{color:var(--ink-soft);font-style:italic;font-size:clamp(.9rem,1.8vw,1.05rem)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(1rem,2.4vw,1.6rem)}
+.card h2{font-size:clamp(1.15rem,2.4vw,1.5rem);color:var(--accent);margin-bottom:.5em}
+.card h2 .ex{color:var(--ink-soft);font-weight:600;font-size:.75em}
+.emailtext{font-size:clamp(1.02rem,2vw,1.28rem);line-height:2.6;color:#33302a}
+.hb{color:var(--ink-soft);font-style:italic;font-size:.82em;white-space:nowrap}
+.gin{border:none;border-bottom:2px solid var(--line);background:var(--gold-soft);
+  font-family:'Inter',sans-serif;font-weight:600;font-size:1em;color:var(--ink);
+  padding:.05em .45em;width:14em;border-radius:.4em .4em 0 0;transition:all .15s}
+.gin:focus{outline:none;border-bottom-color:var(--accent);background:#fff}
+.gin.ok{background:var(--accent-soft);border-bottom-color:var(--accent);color:var(--accent);font-weight:700}
+.gin.no{background:var(--rust-soft);border-bottom-color:var(--rust);color:var(--rust);text-decoration:line-through}
+.namebox{display:flex;gap:.6em;align-items:center;flex-wrap:wrap}
+.namebox label{font-weight:700;color:var(--ink-soft);font-size:clamp(.95rem,1.8vw,1.15rem)}
+#pname{border:2px solid var(--line);border-radius:10px;padding:.4em .7em;
+  font-family:'Inter',sans-serif;font-size:clamp(1rem,2vw,1.2rem);color:var(--ink);background:#fff}
+#pname:focus{outline:none;border-color:var(--accent)}
+#pname.missing{border-color:var(--rust)}
+#send-btn{border:none;border-radius:14px;padding:.7em 1.6em;background:var(--accent);color:#fff;
+  font-family:'Inter',sans-serif;font-weight:800;font-size:clamp(1rem,2vw,1.25rem);
+  cursor:pointer;margin-top:.5em}
+#send-btn:hover{transform:scale(1.03)}
+#send-btn[disabled]{opacity:.55;cursor:default;transform:none}
+#send-note{font-size:clamp(.85rem,1.6vw,1rem);color:var(--ink-soft);font-style:italic;margin-top:.4em}
+.verdict{display:none;border:2px solid var(--accent);border-radius:var(--radius);
+  padding:clamp(1rem,2.4vw,1.6rem);background:var(--accent-soft)}
+.verdict.on{display:block}
+.verdict h2{font-size:clamp(1.2rem,2.4vw,1.6rem);color:var(--accent);margin-bottom:.4em}
+.verdict .score{font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:800;color:var(--accent)}
+.vrow{padding:.4em 0;border-bottom:1px dashed #cfe0da;font-size:clamp(1rem,2vw,1.22rem);line-height:1.5}
+.vrow:last-child{border-bottom:none}
+.vrow .n{font-weight:800;color:var(--accent)}
+.vrow.miss .ans{color:var(--rust);font-weight:700}
+.vrow .yours{text-decoration:line-through;color:var(--rust)}
+.note{font-size:clamp(.95rem,1.9vw,1.18rem);line-height:1.6;color:#3a3f47;margin-top:.8em}
+.note b{color:var(--accent)}
+.closing{background:var(--gold-soft);border:1px solid #e8dcb8;border-radius:var(--radius);
+  padding:1em 1.4em;font-size:clamp(1.02rem,2.1vw,1.3rem);line-height:1.55}
+a{color:var(--blue);font-weight:600}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div>
+  <h1>Units 3–4 — <em>the two presents, together</em></h1>
+  <div class="rule"></div>
+  <p class="task">The present <strong>continuous</strong> (I am doing — in the middle of it) and the
+  present <strong>simple</strong> (I do — all the time, in general). Choose the right one for every gap.</p>
+  <p class="how">Type all twenty-one. The answers open only after you tap
+  <strong>«Send to Elena»</strong> — she sees your every word before you do.</p>
+</div>
+
+<div class="card">
+  <div class="namebox">
+    <label for="pname">Your name:</label>
+    <input id="pname" autocomplete="off" spellcheck="false" placeholder="type your name…">
+  </div>
+</div>
+
+<div class="card">
+  <h2>Exercise 3.3 <span class="ex">· put the verb into the correct form</span></h2>
+  <p class="emailtext">
+  2 · Julia is good at languages. <span class="hb">(She / speak)</span><input class="gin" data-n="33-2" data-a="she speaks|she speak" autocomplete="off" spellcheck="false" placeholder="…"> four languages very well.<br>
+  3 · Are you ready yet? <span class="hb">(Everybody / wait)</span><input class="gin" data-n="33-3" data-a="everybody's waiting|everybody is waiting" autocomplete="off" spellcheck="false" placeholder="…"> for you.<br>
+  4 · I’ve never heard this word. How <span class="hb">(you / pronounce)</span><input class="gin" data-n="33-4" data-a="do you pronounce" autocomplete="off" spellcheck="false" placeholder="…"> it?<br>
+  5 · Kate <span class="hb">(not / work)</span><input class="gin" data-n="33-5" data-a="isn't working|is not working|'s not working" autocomplete="off" spellcheck="false" placeholder="…"> this week. She’s on holiday.<br>
+  6 · I think my English <span class="hb">(improve)</span><input class="gin" data-n="33-6" data-a="is improving" autocomplete="off" spellcheck="false" placeholder="…"> slowly. It’s better than it was.<br>
+  7 · Nicola <span class="hb">(live)</span><input class="gin" data-n="33-7" data-a="lives" autocomplete="off" spellcheck="false" placeholder="…"> in Manchester. She has never lived anywhere else.<br>
+  8 · Can we stop walking soon? <span class="hb">(I / start)</span><input class="gin" data-n="33-8" data-a="i'm starting|i am starting" autocomplete="off" spellcheck="false" placeholder="…"> to get tired.<br>
+  9 · Sam and Tina are in Madrid right now. <span class="hb">(They / visit)</span><input class="gin" data-n="33-9" data-a="they're visiting|they are visiting" autocomplete="off" spellcheck="false" placeholder="…"> a friend of theirs.<br>
+  10 · ‘What <span class="hb">(your father / do)</span><input class="gin" data-n="33-10" data-a="does your father do" autocomplete="off" spellcheck="false" placeholder="…">?’ ‘He’s an architect.’<br>
+  11 · It took me an hour to get to work this morning. Most days <span class="hb">(it / not / take)</span><input class="gin" data-n="33-11" data-a="it doesn't take|it does not take" autocomplete="off" spellcheck="false" placeholder="…"> so long.
+  </p>
+</div>
+
+<div class="card">
+  <h2>Exercise 4.1 <span class="ex">· the state verbs — believe, remember, consist, recognise…</span></h2>
+  <p class="emailtext">
+  2 · Alan says he’s 90 years old, but nobody <span class="hb">(believe)</span><input class="gin" data-n="41-2" data-a="believes" autocomplete="off" spellcheck="false" placeholder="…"> him.<br>
+  3 · She told me her name, but <span class="hb">(I / not / remember)</span><input class="gin" data-n="41-3" data-a="i don't remember|i can't remember|i do not remember" autocomplete="off" spellcheck="false" placeholder="…"> it now.<br>
+  4 · Don’t put the dictionary away. <span class="hb">(I / use)</span><input class="gin" data-n="41-4" data-a="i'm using|i am using" autocomplete="off" spellcheck="false" placeholder="…"> it.<br>
+  5 · Don’t put the dictionary away. <span class="hb">(I / need)</span><input class="gin" data-n="41-5" data-a="i need" autocomplete="off" spellcheck="false" placeholder="…"> it.<br>
+  6 · Air <span class="hb">(consist)</span><input class="gin" data-n="41-6" data-a="consists" autocomplete="off" spellcheck="false" placeholder="…"> mainly of nitrogen and oxygen.<br>
+  7 · Who is that man? What <span class="hb">(he / want)</span><input class="gin" data-n="41-7" data-a="does he want" autocomplete="off" spellcheck="false" placeholder="…">?<br>
+  8 · Who is that man? Why <span class="hb">(he / look)</span><input class="gin" data-n="41-8" data-a="is he looking" autocomplete="off" spellcheck="false" placeholder="…"> at us?<br>
+  9 · Who is that man? <span class="hb">(you / recognise)</span><input class="gin" data-n="41-9" data-a="do you recognise|do you recognize" autocomplete="off" spellcheck="false" placeholder="…"> him?<br>
+  10 · <span class="hb">(I / think)</span><input class="gin" data-n="41-10" data-a="i'm thinking|i am thinking" autocomplete="off" spellcheck="false" placeholder="…"> of selling my car. Would you be interested in buying it?<br>
+  11 · I can’t make up my mind. What <span class="hb">(you / think)</span><input class="gin" data-n="41-11" data-a="do you think" autocomplete="off" spellcheck="false" placeholder="…"> I should do?<br>
+  12 · Gary wasn’t well earlier, but <span class="hb">(he / seem)</span><input class="gin" data-n="41-12" data-a="he seems" autocomplete="off" spellcheck="false" placeholder="…"> OK now.
+  </p>
+</div>
+
+<div class="card">
+  <button id="send-btn" type="button" disabled>📤 Send to Elena</button>
+  <p id="send-note">Write your name and fill all twenty-one gaps — the button opens.</p>
+</div>
+
+<div class="verdict" id="verdict">
+  <h2>Your exercises — checked</h2>
+  <div class="score" id="vscore">—</div>
+  <div id="vrows"></div>
+  <div class="note">
+    <b>The key's notes:</b> both forms are possible nowhere in these two — every gap has
+    <b>one</b> best answer here. The spine: <i>She speaks</i> (true in general) ·
+    <i>Everybody's waiting</i> (right now) · <i>I don't remember</i> (the state) ·
+    <i>I'm using it</i> (the around-now period) · <i>does your father do</i> (the question).
+    The -s rule: he/she/it takes it — Ben and Jack don't.
+  </div>
+</div>
+
+<div class="closing">The two presents, in one line:
+<strong>I am doing</strong> = in the middle of it · <strong>I do</strong> = all the time, in general.</div>
+
+</div>
+
+<script>
+/* ── Units 3–4 — the two presents, typed and sent.
+   THE ANSWERS OPEN ONLY AFTER «Send to Elena» (Elena's order — the
+   u4-ex43 pattern): the tap sends every answer to her form first,
+   then the page checks and reveals. The multi-key gaps accept the
+   book's alternatives. The name is stored in this browser. */
+(function(){
+"use strict";
+var FORM_ACTION="https://docs.google.com/forms/d/e/1FAIpQLSd7B6GMpuy9fSRl7clE7BGHL43qyxEE2baPO725kN6QlJatjw/formResponse";
+var FORM_ENTRY="entry.1917651123";
+var inputs=[].slice.call(document.querySelectorAll('.gin'));
+var pname=document.getElementById('pname');
+var btn=document.getElementById('send-btn');
+var note=document.getElementById('send-note');
+try{pname.value=localStorage.getItem('natalya-name')||''}catch(e){}
+pname.addEventListener('input',function(){
+  try{localStorage.setItem('natalya-name',pname.value)}catch(e){}
+  pname.classList.remove('missing');
+});
+function norm(v){
+  return (v||'').toLowerCase().replace(/[\u2019]/g,"'").replace(/[.,!?;:]/g,'')
+    .replace(/\s+/g,' ').trim();
+}
+function filled(){return inputs.every(function(i){return norm(i.value).length>0})}
+function named(){return pname.value.trim().length>0}
+function refresh(){
+  var ok=filled()&&named();
+  btn.disabled=!ok;
+  note.textContent=(!named())?'Write your name first — Miss Elena must know whose work it is.'
+    :(!filled())?'Fill all twenty-one gaps — the button opens.'
+    :'All twenty-one filled — the button is yours. The answers open after you send.';
+}
+pname.addEventListener('input',refresh);
+inputs.forEach(function(i){i.addEventListener('input',refresh)});
+btn.addEventListener('click',function(){
+  if(btn.disabled)return;
+  var who=pname.value.trim();
+  var answered=0,right=0;
+  var lines=[];
+  inputs.forEach(function(i){
+    var mine=norm(i.value);
+    var keys=norm(i.dataset.a).split('|');
+    var good=keys.indexOf(mine)>=0;
+    if(good)right++;
+    answered++;
+    lines.push((i.dataset.n)+': '+(good?'\u2713 ':'\u2717 ')+mine+(good?'':' (the answer: '+keys[0]+(keys.length>1?' / '+keys[1]:'')+')'));
+    i.classList.add(good?'ok':'no');
+    if(good){i.value=keys[0]}
+  });
+  var txt=who+' \u00b7 Units 3\u20134, the two presents \u00b7 '+new Date().toLocaleDateString('en-GB')+'\n'
+    +'answers: '+lines.join('\n')+'\nscore: '+right+'/'+answered;
+  var body=new FormData();
+  body.append(FORM_ENTRY,txt);
+  btn.disabled=true;btn.textContent='Sending\u2026';
+  fetch(FORM_ACTION,{method:'POST',mode:'no-cors',body:body})
+    .then(function(){btn.textContent='Sent to Elena \u2713'})
+    .catch(function(){btn.textContent='Sent (check your connection)'});
+  // the reveal — gated on the tap itself
+  var v=document.getElementById('verdict');
+  document.getElementById('vscore').textContent=right+'/'+answered+' right';
+  var rows=document.getElementById('vrows');
+  rows.innerHTML=lines.map(function(l){
+    var miss=l.indexOf('\u2717')>=0;
+    return '<div class="vrow'+(miss?' miss':'')+'"><span class="n">'+l.split(':')[0]+'</span> \u2014 '
+      +(miss?('<span class="yours">'+l.split(': ')[1].split(' (the answer')[0]+'</span> <span class="ans">'+l.split(' (the answer')[1].replace(')','')+'</span>'):l.split(': ')[1])+'</div>';
+  }).join('');
+  v.classList.add('on');
+  v.scrollIntoView({behavior:'smooth'});
+});
+refresh();
+})();
+</script>
+</body>
+</html>
