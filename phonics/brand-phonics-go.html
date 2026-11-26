@@ -887,7 +887,7 @@ window.addEventListener('hashchange',()=>{
     const o=logStore(),row=document.getElementById('logrow');
     if(!row) return;
     const rec2=o[n]||{};
-    const t=slides[n]?((slides[n].querySelector('h1')||slides[n].querySelector('.thebig-wall')||{}).textContent:null;
+    const t=slides[n]?(slides[n].querySelector('h1')||slides[n].querySelector('.thebig-wall')||{}).textContent:null;
     row.innerHTML='<b>Slide '+(n+1)+' / '+slides.length+'</b> — '+(t?t.trim():'the letter');
     const dEl=document.getElementById('annoD'),slEl=document.getElementById('annoSL'),fEl=document.getElementById('annoF'),fxEl=document.getElementById('annoFX');
     if(dEl)dEl.value=rec2.d||''; if(slEl)slEl.value=rec2.sl||''; if(fEl)fEl.value=rec2.free||''; if(fxEl)fxEl.value=rec2.fx||'';
