@@ -190,7 +190,129 @@ summary .nm .tmoji{height:1.25em;width:auto;vertical-align:-0.32em;border-radius
     <div class="sub">Новое задание всегда сверху. Ссылка постоянная — сохраните её.</div>
   </header>
 <details class="hw-row" open>
-<summary><span class="txt"><span class="nm">Урок 19 · Maskman 🦸 + Where is the dot? ⚫<span class="new">✨ новое!</span></span><br><span class="dt">Maskman (видео, запомни!) · листики Dd + Yes/No · постер: sadly/happily · shkola: where is the dot!</span></span></summary>
+<summary><span class="txt"><span class="nm">Урок 20 · Mike and Sam 🚲 + The toy crossword 🧩<span class="new">✨ новое!</span></span><br><span class="dt">история Mike and Sam · кроссворд: игрушки! · Wordwall true/false · typing SDFJKL · shkola: where is the dot! · песенка про братьев и сестёр</span></span></summary>
+<div class="card hw-body u17-ovals" data-pkey="kb1-u20-" data-pn="6" data-ptitle="Урок 20 · Mike and Sam 🚲 + The toy crossword 🧩">
+<div class="expl">Сделай <b>все</b> задания и отметь их галочкой. Кроссворд — <b>прямо здесь</b>, печатать не надо! В конце нажми «Отправить Мисс Елене» — и выбери свой мультик! 🎁</div>
+
+<div class="item task ov1 tap"><span class="ic">📖</span><span class="tt"><span class="n">1 ·</span> <b>Читай историю — Mike and Sam's Park Day! 🚲</b><small>Mike has a bike. Sam has a kite…</small></span><button class="chip" id="pupp-chip-1" data-k="u20-story">done</button></div>
+<div class="panel" id="u20-panel-1">
+<p class="pinstr">— прочитай историю <b>Mike and Sam's Park Day</b> дома — вслух, по клеточкам! 🚲🪁 Mike has a bike. Sam has a kite. «The kite is fine!» TAP — big!</p>
+<span class="picwrap" style="--ar:1.9"><span class="picbox"><img class="sheet" src="../media/kb1-u20-park-day.png" alt="Mike and Sam's Park Day — Mike has a bike. Sam has a kite. Mike can ride. Sam can ride. Mike and Sam ride. The kite is fine, said Mike. The bike is fine, said Sam. At five, Mike and Sam stop. The kite is on a mat. Mike and Sam sit. Mike has a bite. Sam has a bite. Is it time, said Mike. Yes, said Sam. At nine, Mike and Sam ride. I am fine, said Mike. I am fine, said Sam." style="max-height:46vh;width:auto;cursor:pointer" onclick="fsPic(this)"><button class="fsbtn" title="Full screen" onclick="fsPic(this)">⛶</button></span></span>
+</div>
+
+<div class="item task ov2 tap"><span class="ic">🧩</span><span class="tt"><span class="n">2 ·</span> <b>Кроссворд — 6 слов-игрушек! 🧩</b><small>тапай буквы по порядку — прямо здесь!</small></span><button class="chip" id="pupp-chip-2" data-k="u20-xword">done</button></div>
+<div class="panel" id="u20-panel-2">
+<p class="pinstr">— слова из <b>урока 17</b>! Тапай буквы по порядку: правильно — слово зеленеет 🔒 и звенит! Ошибся — буквы вернутся. Собери все 6 — будет 🏆!</p>
+<style>
+.u20-word{display:flex;align-items:center;gap:8px;margin:10px 0;flex-wrap:wrap}
+.u20-emo{font-size:1.9em;width:1.3em;text-align:center}
+.u20-ru{font-size:.78em;color:#636e72;min-width:86px}
+.u20-slots{display:flex;gap:4px}
+.u20-slot{width:34px;height:40px;border:2px dashed #b2bec3;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.3em;background:#fff;cursor:pointer;text-transform:uppercase}
+.u20-slot.fill{border-style:solid;border-color:#0984e3;color:#0984e3}
+.u20-word.ok .u20-slot{border-color:#00b894;color:#00b894;background:#e6fff7;cursor:default}
+.u20-bank{display:flex;gap:4px;flex-wrap:wrap}
+.u20-chip{min-width:34px;height:34px;padding:0 6px;border:none;border-radius:8px;background:#ffeaa7;font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.2em;cursor:pointer;text-transform:uppercase;box-shadow:0 2px 0 #fdcb6e}
+.u20-chip:active{transform:translateY(1px)}
+.u20-word.ok .u20-bank{visibility:hidden}
+@keyframes u20shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.u20-word.shake .u20-slots{animation:u20shake .3s 2}
+#u20-xwmsg{font-family:'Fredoka',sans-serif;font-weight:700;font-size:1.15em;margin-top:8px;min-height:1.4em}
+</style>
+<div id="u20-xw"></div>
+<div id="u20-xwmsg"></div>
+<script>(function(){
+var W=[["BEAR","🐻","медведь"],["ROBOT","🤖","робот"],["KITE","🪁","воздушный змей"],["PLANE","✈️","самолёт"],["BLOCK","🧱","кубик"],["DINOSAUR","🦕","динозавр"]];
+var root=document.getElementById('u20-xw'),msg=document.getElementById('u20-xwmsg'),AC=null,done=0;
+function beep(f,d){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();var o=AC.createOscillator(),g=AC.createGain();o.connect(g);g.connect(AC.destination);o.frequency.value=f;g.gain.setValueAtTime(.12,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.start();o.stop(AC.currentTime+d);}catch(e){}}
+function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),x=a[i];a[i]=a[j];a[j]=x;}return a;}
+W.forEach(function(wv){
+  var word=wv[0],row=document.createElement('div');row.className='u20-word';
+  var emo=document.createElement('span');emo.className='u20-emo';emo.textContent=wv[1];emo.title=wv[2];
+  var ru=document.createElement('span');ru.className='u20-ru';ru.textContent=wv[2];
+  var slots=document.createElement('span');slots.className='u20-slots';
+  var bank=document.createElement('span');bank.className='u20-bank';
+  row.appendChild(emo);row.appendChild(ru);row.appendChild(slots);row.appendChild(bank);root.appendChild(row);
+  var sl=[];
+  for(var i=0;i<word.length;i++){var s=document.createElement('span');s.className='u20-slot';slots.appendChild(s);sl.push({el:s,ch:null});}
+  var chips=[];
+  shuf(word.split('')).forEach(function(c){
+    var b=document.createElement('button');b.className='u20-chip';b.textContent=c;
+    b.onclick=function(){if(row.classList.contains('ok'))return;
+      var t=null;for(var i=0;i<sl.length;i++){if(!sl[i].ch){t=sl[i];break;}}
+      if(!t)return;t.ch=c;t.el.textContent=c;t.el.classList.add('fill');b.style.display='none';beep(600,.08);
+      if(sl.every(function(x){return x.ch;})){
+        if(sl.map(function(x){return x.ch;}).join('')===word){
+          row.classList.add('ok');beep(880,.15);setTimeout(function(){beep(1175,.2);},150);
+          done++;msg.textContent=done===W.length?'🏆 Молодец! Все 6 слов — покажи Мисс Елене!':'✅ '+done+' из '+W.length+'! Ещё слова остались!';
+        }else{row.classList.add('shake');beep(200,.2);setTimeout(function(){row.classList.remove('shake');
+          sl.forEach(function(x){x.ch=null;x.el.textContent='';x.el.classList.remove('fill');});
+          Array.prototype.forEach.call(bank.children,function(c2){c2.style.display='';});},450);}
+      }
+    };
+    bank.appendChild(b);chips.push(b);
+  });
+  sl.forEach(function(x){x.el.onclick=function(){if(row.classList.contains('ok')||!x.ch)return;
+    x.ch=null;x.el.textContent='';x.el.classList.remove('fill');
+    Array.prototype.forEach.call(bank.children,function(c2){if(c2.textContent===x.el.textContent&&c2.style.display==='none'){}});};
+    x.el.onclick=function(){if(row.classList.contains('ok')||!this.classList.contains('fill'))return;
+      var c=this.textContent;this.textContent='';this.classList.remove('fill');x.ch=null;
+      for(var i=0;i<bank.children.length;i++){var b2=bank.children[i];if(b2.textContent===c&&b2.style.display==='none'){b2.style.display='';break;}}};
+  });
+});
+})();</script>
+</div>
+
+<div class="item task ov3 tap"><span class="ic">🧠</span><span class="tt"><span class="n">3 ·</span> <b>Wordwall — True or false! 🧠</b><small>игра из урока — сыграй дома!</small></span><button class="chip" id="pupp-chip-3" data-k="u20-wordwall">done</button></div>
+<div class="panel" id="u20-panel-3">
+<p class="pinstr">— та самая игра с урока! <b>True or false</b> про игрушки и where is… — сыграй и победи! 💪</p>
+<a class="pbtn" href="https://wordwall.net/resource/85729574" target="_blank" style="display:block;text-align:center;text-decoration:none;margin:8px auto;background:#95E1D3;color:#2D3436;border-radius:99px;padding:.5em 1.5em;font-family:'Fredoka',sans-serif;font-weight:700">🧩 Играть — True or false (Wordwall)</a>
+</div>
+
+<div class="item task ov4 tap"><span class="ic">⌨️</span><span class="tt"><span class="n">4 ·</span> <b>Typing — S D F J K L! ⌨️</b><small>урок 5 — все шесть клавиш!</small></span><button class="chip" id="pupp-chip-4" data-k="u20-typing">done</button></div>
+<div class="panel" id="u20-panel-4">
+<p class="pinstr">— уро́к 5 печатания: <b>все шесть клавиш</b> домашнего ряда — s, d, f, j, k, l! Пальчики возвращаются домой! 🏠</p>
+<a class="pbtn" href="https://elena777-code.github.io/decks/typing/home-row-05-sdfjkl.html" target="_blank" style="display:block;text-align:center;text-decoration:none;margin:8px auto;background:#74b9ff;color:#fff;border-radius:99px;padding:.5em 1.5em;font-family:'Fredoka',sans-serif;font-weight:700">⌨️ Играть — Touch typing · Lesson 5</a>
+</div>
+
+<div class="item task ov5 tap"><span class="ic">📱</span><span class="tt"><span class="n">5 ·</span> <b>Shkola.app — Where is the dot? ⚫</b><small>игра уже готова — играй!</small></span><button class="chip" id="pupp-chip-5" data-k="u20-shkola">done</button></div>
+<div class="panel" id="u20-panel-5">
+<p class="pinstr">— открой <b>shkola.app</b>: игра <b>«Where is the dot?»</b> уже готова — on / under / in / next to! Let's see what you can do! 💪</p></div>
+
+<div class="item task ov6 tap"><span class="ic">🎵</span><span class="tt"><span class="n">6 ·</span> <b>Песенка — Do you have any brothers or sisters? 🎵</b><small>спой и ответь: I have…!</small></span><button class="chip" id="pupp-chip-6" data-k="u20-song">done</button></div>
+<div class="panel" id="u20-panel-6">
+<p class="pinstr">— спой песенку Genki English и ответь на вопрос: <b>«Do you have any brothers or sisters?»</b> — «I have … brother(s) / sister(s)!» 👧👦</p>
+<a class="pbtn" href="https://www.youtube.com/watch?v=ktxv2oZUX8Q" target="_blank" style="display:block;text-align:center;text-decoration:none;margin:8px auto;background:#fd79a8;color:#fff;border-radius:99px;padding:.5em 1.5em;font-family:'Fredoka',sans-serif;font-weight:700">🎵 Смотреть песенку (YouTube)</a>
+</div>
+
+<div class="progress" id="pupp-prog">Отмечено: 0 из 6</div>
+<div class="who">
+<input id="pupp-name" placeholder="Имя" autocomplete="off">
+<input id="pupp-surn" placeholder="Ф" maxlength="1" autocomplete="off" title="Первая буква фамилии">
+<span class="kprefix">KB 1.</span><input id="pupp-group" placeholder="?" maxlength="1" autocomplete="off" title="Твоя группа: 1, 2 или 3">
+</div>
+<button class="send" id="pupp-send" onclick="pupSend(this)">📤 Отправить Мисс Елене</button>
+<div class="hint" id="pupp-hint"></div>
+<div class="boxwrap" id="pupp-boxwrap">
+<div class="box" onclick="document.getElementById('pupp-choice').classList.add('show');this.style.display='none'">🎁</div>
+<div class="boxlabel">Твой подарок! Выбери мультик!</div>
+<div id="pupp-choice" class="cartoon">
+<div class="pig">🐷 vs ⛰</div>
+<h3>Выбери мультик!</h3>
+<button class="pbtn" onclick="document.getElementById('pupp-ch-peppa').classList.add('show');this.style.display='none'">🐷 Peppa Pig — Lunch!</button>
+<div id="pupp-ch-peppa" style="display:none;margin-top:10px">
+<h3>Peppa Pig — Lunch! 🍽</h3>
+<p>Смотри мультик про обед!</p>
+<video controls preload="none" playsinline src="../media/kb1-u18-lunch.mp4" style="width:100%;border-radius:12px"></video>
+</div>
+<a class="pbtn" href="https://www.youtube.com/watch?v=NQJ89dUXcjs" target="_blank" style="display:block;text-align:center;text-decoration:none;margin-top:10px;background:#95E1D3;color:#2D3436;border-radius:99px;padding:.5em 1.5em;font-family:'Fredoka',sans-serif;font-weight:700">⛰ Moominvalley — смотреть на YouTube!</a>
+</div>
+</div>
+<div class="note">Если что-то не получается — напишите администратору Мисс Алёны, поможем.</div>
+</div>
+</details>
+
+<details class="hw-row">\n<summary><span class="txt"><span class="nm">Урок 19 · Maskman 🦸 + Where is the dot? ⚫</span><br><span class="dt">Maskman (видео, запомни!) · листики Dd + Yes/No · постер: sadly/happily · shkola: where is the dot!</span></span></summary>
 <div class="card hw-body u17-ovals" data-pkey="kb1-u19-" data-pn="5" data-ptitle="Урок 19 · Maskman 🦸 + Where is the dot? ⚫">
 <div class="expl">Сделай <b>все</b> задания и отметь их галочкой. История — смотри и <b>запомни</b> (на уроке будем играть по ней!). В конце нажми «Отправить Мисс Елене» — и выбери свой мультик: Peppa Pig или Moominvalley! 🎁</div>
 
